@@ -4,8 +4,35 @@ import sys
 import csv
 import time
 import argparse
+import ctypes
 
-# ================= 配置区域 =================
+def disable_quick_edit():
+    """
+    禁用 Windows 控制台的 '快速编辑模式'，防止鼠标点击导致进程挂起。
+    """
+    if os.name != 'nt':
+        return
+
+    # Windows API 常量
+    ENABLE_QUICK_EDIT_MODE = 0x0040
+    STD_INPUT_HANDLE = -10
+    
+    kernel32 = ctypes.windll.kernel32
+    
+    # 获取标准输入句柄
+    hInput = kernel32.GetStdHandle(STD_INPUT_HANDLE)
+    
+    # 获取当前控制台模式
+    mode = ctypes.c_ulong()
+    if not kernel32.GetConsoleMode(hInput, ctypes.byref(mode)):
+        return
+
+    # 移除快速编辑模式位
+    new_mode = mode.value & ~ENABLE_QUICK_EDIT_MODE
+    
+    # 设置新模式
+    kernel32.SetConsoleMode(hInput, new_mode)
+    print("  [系统] 已自动禁用控制台'快速编辑模式'，防止鼠标误触挂起。")
 
 # 1. 指定要扫描和替换的目标源码目录列表
 TARGET_SCAN_DIRS = [
@@ -164,6 +191,8 @@ def check_range(start, end):
             check_range(mid + 1, end) # 查后半部分
 
 def main():
+    disable_quick_edit()
+
     # 1. 解析参数
     parser = argparse.ArgumentParser(description="OCCT 重命名二分排查工具")
     parser.add_argument("--start_row", type=int, default=1, help="指定起始行号 (默认为 1)")
