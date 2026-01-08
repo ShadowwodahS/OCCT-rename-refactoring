@@ -25,14 +25,14 @@
 #include <Standard_Boolean.hxx>
 class TopOpeBRepDS_Interference;
 
-class TopOpeBRepDS_Association;
-DEFINE_STANDARD_HANDLE(TopOpeBRepDS_Association, RefObject)
+class InterferenceAssociation;
+DEFINE_STANDARD_HANDLE(InterferenceAssociation, RefObject)
 
-class TopOpeBRepDS_Association : public RefObject
+class InterferenceAssociation : public RefObject
 {
 
 public:
-  Standard_EXPORT TopOpeBRepDS_Association();
+  Standard_EXPORT InterferenceAssociation();
 
   Standard_EXPORT void Associate(const Handle(TopOpeBRepDS_Interference)& I,
                                  const Handle(TopOpeBRepDS_Interference)& K);
@@ -48,7 +48,7 @@ public:
   Standard_EXPORT Standard_Boolean AreAssociated(const Handle(TopOpeBRepDS_Interference)& I,
                                                  const Handle(TopOpeBRepDS_Interference)& K) const;
 
-  DEFINE_STANDARD_RTTIEXT(TopOpeBRepDS_Association, RefObject)
+  DEFINE_STANDARD_RTTIEXT(InterferenceAssociation, RefObject)
 
 protected:
 private:

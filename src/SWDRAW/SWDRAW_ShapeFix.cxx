@@ -969,8 +969,8 @@ static Standard_Integer connectedges(DrawInterpreter& di, Standard_Integer n, co
   if (n > 4)
     shared = (Draw1::Atoi(a[4]) == 1);
   ShapeExplorer                   aExpE(aSh1, TopAbs_EDGE);
-  Handle(TopTools_HSequenceOfShape) aSeqEdges = new TopTools_HSequenceOfShape;
-  Handle(TopTools_HSequenceOfShape) aSeqWires = new TopTools_HSequenceOfShape;
+  Handle(HSequenceOfShape) aSeqEdges = new HSequenceOfShape;
+  Handle(HSequenceOfShape) aSeqWires = new HSequenceOfShape;
   TopTools_IndexedMapOfShape        aMapEdges;
   for (; aExpE.More(); aExpE.Next())
   {

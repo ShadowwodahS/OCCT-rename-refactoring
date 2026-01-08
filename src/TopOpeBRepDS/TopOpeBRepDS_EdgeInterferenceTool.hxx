@@ -29,12 +29,12 @@ class TopOpeBRepDS_Interference;
 class Point1;
 
 //! a tool computing complex1 transition on Edge.
-class TopOpeBRepDS_EdgeInterferenceTool
+class EdgeInterferenceTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepDS_EdgeInterferenceTool();
+  Standard_EXPORT EdgeInterferenceTool();
 
   Standard_EXPORT void Init(const TopoShape& E, const Handle(TopOpeBRepDS_Interference)& I);
 

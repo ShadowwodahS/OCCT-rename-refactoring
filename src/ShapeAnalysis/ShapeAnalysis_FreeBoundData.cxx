@@ -28,7 +28,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeAnalysis_FreeBoundData, RefObject)
 //=======================================================================
 ShapeAnalysis_FreeBoundData::ShapeAnalysis_FreeBoundData()
 {
-  myNotches = new TopTools_HSequenceOfShape();
+  myNotches = new HSequenceOfShape();
   Clear();
 }
 
@@ -39,7 +39,7 @@ ShapeAnalysis_FreeBoundData::ShapeAnalysis_FreeBoundData()
 
 ShapeAnalysis_FreeBoundData::ShapeAnalysis_FreeBoundData(const TopoWire& freebound)
 {
-  myNotches = new TopTools_HSequenceOfShape();
+  myNotches = new HSequenceOfShape();
   Clear();
   SetFreeBound(freebound);
 }

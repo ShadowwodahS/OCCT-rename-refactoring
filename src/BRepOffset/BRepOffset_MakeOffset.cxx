@@ -4314,7 +4314,7 @@ Standard_Boolean BRepOffset_MakeOffset::CheckInputData(const Message_ProgressRan
   const Standard_Integer                 aPntPerDim = 20; // 21 points on each dimension.
   Standard_Real                          aUmin, aUmax, aVmin, aVmax;
   ShapeExplorer                        anExpSF(myFaceComp, TopAbs_FACE);
-  NCollection_Map<Handle(TopoDS_TShape)> aPresenceMap;
+  NCollection_Map<Handle(TopoShapeBase)> aPresenceMap;
   TopLoc_Location                        L;
   gp_Pnt2d                               aPnt2d;
   for (; anExpSF.More(); anExpSF.Next())

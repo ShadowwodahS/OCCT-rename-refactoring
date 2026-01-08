@@ -24,7 +24,7 @@
 // extras define
 #define MDSdmoiloi TopOpeBRepDS_DataMapOfIntegerListOfInterference
 #define MDSdmiodmoiloi TopOpeBRepDS_DataMapIteratorOfDataMapOfIntegerListOfInterference
-#define MDShaodmoiloi TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference
+#define MDShaodmoiloi HArray1OfIntfList
 
 //=================================================================================================
 

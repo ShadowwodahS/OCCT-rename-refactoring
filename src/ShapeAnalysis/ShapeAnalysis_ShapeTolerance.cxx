@@ -74,7 +74,7 @@ Standard_Real ShapeTolerance::Tolerance(const TopoShape&    shape,
 
 //=================================================================================================
 
-Handle(TopTools_HSequenceOfShape) ShapeTolerance::OverTolerance(
+Handle(HSequenceOfShape) ShapeTolerance::OverTolerance(
   const TopoShape&    shape,
   const Standard_Real    value,
   const TopAbs_ShapeEnum type) const
@@ -87,7 +87,7 @@ Handle(TopTools_HSequenceOfShape) ShapeTolerance::OverTolerance(
 
 //=================================================================================================
 
-Handle(TopTools_HSequenceOfShape) ShapeTolerance::InTolerance(
+Handle(HSequenceOfShape) ShapeTolerance::InTolerance(
   const TopoShape&    shape,
   const Standard_Real    valmin,
   const Standard_Real    valmax,
@@ -95,7 +95,7 @@ Handle(TopTools_HSequenceOfShape) ShapeTolerance::InTolerance(
 {
   Standard_Real                     tol;
   Standard_Boolean                  over = (valmax < valmin); // pas de liminite max
-  Handle(TopTools_HSequenceOfShape) sl   = new TopTools_HSequenceOfShape();
+  Handle(HSequenceOfShape) sl   = new HSequenceOfShape();
 
   ShapeExplorer myExp;
 
@@ -155,7 +155,7 @@ Handle(TopTools_HSequenceOfShape) ShapeTolerance::InTolerance(
       for (ShapeExplorer face(ash, TopAbs_FACE); face.More(); face.Next())
       {
         mapface.Add(face.Current());
-        Handle(TopTools_HSequenceOfShape) fc = InTolerance(face.Current(), valmin, valmax, type);
+        Handle(HSequenceOfShape) fc = InTolerance(face.Current(), valmin, valmax, type);
         if (fc->Length() > 0)
         {
           sl->Append(fc);
@@ -180,7 +180,7 @@ Handle(TopTools_HSequenceOfShape) ShapeTolerance::InTolerance(
       else
       {
         // les edges contenues ?
-        Handle(TopTools_HSequenceOfShape) fl =
+        Handle(HSequenceOfShape) fl =
           InTolerance(myExp.Current(), valmin, valmax, TopAbs_EDGE);
         if (fl->Length() > 0)
           iaface = Standard_True;

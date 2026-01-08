@@ -29,8 +29,8 @@ IntTools_SurfaceRangeSample::IntTools_SurfaceRangeSample(const Standard_Integer 
   myRangeV.SetDepth(theDepthV);
 }
 
-IntTools_SurfaceRangeSample::IntTools_SurfaceRangeSample(const IntTools_CurveRangeSample& theRangeU,
-                                                         const IntTools_CurveRangeSample& theRangeV)
+IntTools_SurfaceRangeSample::IntTools_SurfaceRangeSample(const CurveRangeSample& theRangeU,
+                                                         const CurveRangeSample& theRangeV)
 {
   myRangeU = theRangeU;
   myRangeV = theRangeV;

@@ -28,25 +28,25 @@
 class IntToolsRange;
 
 //! class for range index management of curve
-class IntTools_CurveRangeSample : public BaseRangeSample
+class CurveRangeSample : public BaseRangeSample
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntTools_CurveRangeSample();
+  Standard_EXPORT CurveRangeSample();
 
-  Standard_EXPORT IntTools_CurveRangeSample(const Standard_Integer theIndex);
+  Standard_EXPORT CurveRangeSample(const Standard_Integer theIndex);
 
   void SetRangeIndex(const Standard_Integer theIndex) { myIndex = theIndex; }
 
   Standard_Integer GetRangeIndex() const { return myIndex; }
 
-  Standard_Boolean IsEqual(const IntTools_CurveRangeSample& Other) const
+  Standard_Boolean IsEqual(const CurveRangeSample& Other) const
   {
     return ((myIndex == Other.myIndex) && (GetDepth() == Other.GetDepth()));
   }
 
-  bool operator==(const IntTools_CurveRangeSample& Other) const { return IsEqual(Other); }
+  bool operator==(const CurveRangeSample& Other) const { return IsEqual(Other); }
 
   Standard_EXPORT IntToolsRange GetRange(const Standard_Real    theFirst,
                                           const Standard_Real    theLast,
@@ -64,9 +64,9 @@ private:
 namespace std
 {
 template <>
-struct hash<IntTools_CurveRangeSample>
+struct hash<CurveRangeSample>
 {
-  size_t operator()(const IntTools_CurveRangeSample& theCurveRangeSample) const noexcept
+  size_t operator()(const CurveRangeSample& theCurveRangeSample) const noexcept
   {
     // Combine two int values into a single hash value.
     int aCombination[2]{theCurveRangeSample.GetDepth(), theCurveRangeSample.GetRangeIndex()};

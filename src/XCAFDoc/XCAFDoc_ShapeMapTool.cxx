@@ -119,7 +119,7 @@ void XCAFDoc_ShapeMapTool::DumpJson(Standard_OStream& theOStream, Standard_Integ
 
   for (TopTools_IndexedMapOfShape::Iterator aMapIt(myMap); aMapIt.More(); aMapIt.Next())
   {
-    const Handle(TopoDS_TShape)& aShape = aMapIt.Value().TShape();
+    const Handle(TopoShapeBase)& aShape = aMapIt.Value().TShape();
     OCCT_DUMP_FIELD_VALUE_POINTER(theOStream, aShape)
   }
 }

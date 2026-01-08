@@ -43,12 +43,12 @@
 
 ShapeAnalysis_ShapeContents::ShapeAnalysis_ShapeContents()
 {
-  myBigSplineSec     = new TopTools_HSequenceOfShape;
-  myIndirectSec      = new TopTools_HSequenceOfShape;
-  myOffsetSurfaceSec = new TopTools_HSequenceOfShape;
-  myTrimmed3dSec     = new TopTools_HSequenceOfShape;
-  myOffsetCurveSec   = new TopTools_HSequenceOfShape;
-  myTrimmed2dSec     = new TopTools_HSequenceOfShape;
+  myBigSplineSec     = new HSequenceOfShape;
+  myIndirectSec      = new HSequenceOfShape;
+  myOffsetSurfaceSec = new HSequenceOfShape;
+  myTrimmed3dSec     = new HSequenceOfShape;
+  myOffsetCurveSec   = new HSequenceOfShape;
+  myTrimmed2dSec     = new HSequenceOfShape;
   ClearFlags();
 }
 

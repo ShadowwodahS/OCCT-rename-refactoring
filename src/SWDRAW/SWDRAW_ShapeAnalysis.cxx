@@ -148,7 +148,7 @@ static Standard_Integer tolerance(DrawInterpreter& di, Standard_Integer argc, co
     if (nextarg < argc - 1)
       tol2 = Draw1::Atof(argv[nextarg + 1]);
     //    Standard_Real tol = Draw1::Atof (argv[2]);
-    Handle(TopTools_HSequenceOfShape) list = sat.InTolerance(Shape, tol1, tol2, type);
+    Handle(HSequenceOfShape) list = sat.InTolerance(Shape, tol1, tol2, type);
     Standard_Integer                  i, nb = list->Length();
     switch (type)
     {
@@ -776,7 +776,7 @@ static Standard_Integer XSHAPE_statshape(DrawInterpreter& di,
   if (arg3 == NULL)
     return 0;
 
-  Handle(TopTools_HSequenceOfShape) sec;
+  Handle(HSequenceOfShape) sec;
   if (analyzer.ModifyBigSplineMode())
   {
     sec = analyzer.BigSplineSec();

@@ -280,7 +280,7 @@ STEPControl_ActorWrite::STEPControl_ActorWrite()
 //=======================================================================
 
 Handle(StepShape_NonManifoldSurfaceShapeRepresentation) STEPControl_ActorWrite::getNMSSRForGroup(
-  const Handle(TopTools_HSequenceOfShape)& shapeGroup,
+  const Handle(HSequenceOfShape)& shapeGroup,
   const Handle(Transfer_FinderProcess)&    FP,
   Standard_Boolean&                        isNMSSRCreated) const
 {
@@ -708,7 +708,7 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferShape(
   const Handle(StepShape_ShapeDefinitionRepresentation)& SDR0,
   const Handle(Transfer_FinderProcess)&                  FP,
   const ConversionFactors&                                theLocalFactors,
-  const Handle(TopTools_HSequenceOfShape)&               shapeGroup,
+  const Handle(HSequenceOfShape)&               shapeGroup,
   const Standard_Boolean                                 isManifold,
   const Message_ProgressRange&                           theProgress)
 {
@@ -814,9 +814,9 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferShape(
     theShape = aManifoldCompound;
 
     // List of items to transfer
-    Handle(TopTools_HSequenceOfShape) RepItemSeq = new TopTools_HSequenceOfShape();
+    Handle(HSequenceOfShape) RepItemSeq = new HSequenceOfShape();
     // Non-manifold group to pass into TransferShape with each shape from RepItemSeq
-    Handle(TopTools_HSequenceOfShape) NonManifoldGroup = new TopTools_HSequenceOfShape();
+    Handle(HSequenceOfShape) NonManifoldGroup = new HSequenceOfShape();
 
     // Transfer Solids to closed Shells. Prepare RepItemSeq & NonManifoldGroup
     for (TopoDS_Iterator iter(aNMCompound); iter.More(); iter.Next())
@@ -894,7 +894,7 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferShape(
     return Handle(Transfer_Binder)();
 
   // create a list of items to translate
-  Handle(TopTools_HSequenceOfShape) RepItemSeq = new TopTools_HSequenceOfShape();
+  Handle(HSequenceOfShape) RepItemSeq = new HSequenceOfShape();
 
   Standard_Boolean isSeparateVertices =
     aStepModel->InternalParameters.WriteVertexMode == 0; // bug 23950
@@ -925,7 +925,7 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferShape(
       }
       theShape = aNewShape;
     }
-    for (TopTools_HSequenceOfShape::Iterator anIterV(aVertices); anIterV.More(); anIterV.Next())
+    for (HSequenceOfShape::Iterator anIterV(aVertices); anIterV.More(); anIterV.Next())
     {
       aBuilder.Add(aCompOfVrtx, anIterV.Value());
     }
@@ -1582,9 +1582,9 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferCompound(
     isManifold = Standard_True;
 
   // get a sequence of components (subshapes)
-  Handle(TopTools_HSequenceOfShape) RepItemSeq = new TopTools_HSequenceOfShape();
+  Handle(HSequenceOfShape) RepItemSeq = new HSequenceOfShape();
   // Prepare a collection for non-manifold group of shapes
-  Handle(TopTools_HSequenceOfShape) NonManifoldGroup = new TopTools_HSequenceOfShape();
+  Handle(HSequenceOfShape) NonManifoldGroup = new HSequenceOfShape();
   Standard_Boolean                  isSeparateVertices =
     (aStepModel->InternalParameters.WriteVertexMode == 0); // bug 23950
   // PTV OCC725 17.09.2002 -- begin --
@@ -1712,7 +1712,7 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferSubShape(
   Handle(StepGeom_Axis2Placement3d)&                     AX1,
   const Handle(Transfer_FinderProcess)&                  FP,
   const ConversionFactors&                                theLocalFactors,
-  const Handle(TopTools_HSequenceOfShape)&               shapeGroup,
+  const Handle(HSequenceOfShape)&               shapeGroup,
   const Standard_Boolean                                 isManifold,
   const Message_ProgressRange&                           theProgress)
 {

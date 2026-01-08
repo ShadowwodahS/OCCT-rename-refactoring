@@ -33,10 +33,10 @@ class BRepTest_DrawableHistory : public Draw_Drawable3D
 
 public:
   //! Creation of the Drawable history.
-  BRepTest_DrawableHistory(const Handle(BRepTools_History)& theHistory) { myHistory = theHistory; }
+  BRepTest_DrawableHistory(const Handle(ShapeHistory)& theHistory) { myHistory = theHistory; }
 
   //! Returns the history.
-  const Handle(BRepTools_History)& History() const { return myHistory; }
+  const Handle(ShapeHistory)& History() const { return myHistory; }
 
   //! Drawing is not available.
   Standard_EXPORT virtual void DrawOn(DrawDisplay&) const Standard_OVERRIDE;
@@ -48,7 +48,7 @@ public:
   Standard_EXPORT virtual void Whatis(DrawInterpreter& theDI) const Standard_OVERRIDE;
 
 private:
-  Handle(BRepTools_History) myHistory; //!< Tool for tracking History of shape's modification
+  Handle(ShapeHistory) myHistory; //!< Tool for tracking History of shape's modification
 };
 
 DEFINE_STANDARD_HANDLE(BRepTest_DrawableHistory, Draw_Drawable3D)

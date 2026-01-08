@@ -28,7 +28,7 @@ void ShapeCopier::CopyTool(const TopoShape&                         aShape,
                                  TopoShape&                               aResult)
 {
 
-  Handle(TNaming_TranslateTool) TrTool = new TNaming_TranslateTool();
+  Handle(TranslateTool) TrTool = new TranslateTool();
   ShapeCopier::Translate(aShape, aMap, aResult, TrTool);
 }
 
@@ -37,7 +37,7 @@ void ShapeCopier::CopyTool(const TopoShape&                         aShape,
 void ShapeCopier::Translate(const TopoShape&                         aShape,
                                   TColStd_IndexedDataMapOfTransientTransient& aMap,
                                   TopoShape&                               aResult,
-                                  const Handle(TNaming_TranslateTool)&        TrTool)
+                                  const Handle(TranslateTool)&        TrTool)
 {
   aResult.Nullify();
 
@@ -47,7 +47,7 @@ void ShapeCopier::Translate(const TopoShape&                         aShape,
   if (aMap.Contains(aShape.TShape()))
   {
     // get the translated TShape
-    Handle(TopoDS_TShape) TS = *((Handle(TopoDS_TShape)*)&aMap.FindFromKey(aShape.TShape()));
+    Handle(TopoShapeBase) TS = *((Handle(TopoShapeBase)*)&aMap.FindFromKey(aShape.TShape()));
     aResult.TShape(TS);
   }
   else

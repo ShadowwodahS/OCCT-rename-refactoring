@@ -17,7 +17,7 @@
 #include <TopoDS_TVertex.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopoDS_TVertex, TopoDS_TShape)
+IMPLEMENT_STANDARD_RTTIEXT(TopoDS_TVertex, TopoShapeBase)
 
 //=================================================================================================
 

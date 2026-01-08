@@ -542,7 +542,7 @@ Handle(RefObject) XSControl_TransferReader::EntityFromShapeResult(
 //=================================================================================================
 
 Handle(TColStd_HSequenceOfTransient) XSControl_TransferReader::EntitiesFromShapeList(
-  const Handle(TopTools_HSequenceOfShape)& res,
+  const Handle(HSequenceOfShape)& res,
   const Standard_Integer                   mode) const
 {
   Handle(TColStd_HSequenceOfTransient) lt = new TColStd_HSequenceOfTransient();
@@ -1078,7 +1078,7 @@ Handle(TColStd_HSequenceOfTransient) XSControl_TransferReader::LastTransferList(
 
 //=================================================================================================
 
-const Handle(TopTools_HSequenceOfShape)& XSControl_TransferReader::ShapeResultList(
+const Handle(HSequenceOfShape)& XSControl_TransferReader::ShapeResultList(
   const Standard_Boolean rec)
 {
   if (!rec)
@@ -1086,16 +1086,16 @@ const Handle(TopTools_HSequenceOfShape)& XSControl_TransferReader::ShapeResultLi
     if (myShapeResult.IsNull())
       myShapeResult = TransferBRep1::Shapes(myTP, Standard_True);
     if (myShapeResult.IsNull())
-      myShapeResult = new TopTools_HSequenceOfShape();
+      myShapeResult = new HSequenceOfShape();
   }
   else
   {
     if (myShapeResult.IsNull())
-      myShapeResult = new TopTools_HSequenceOfShape();
+      myShapeResult = new HSequenceOfShape();
     if (myModel.IsNull())
       return myShapeResult;
     Handle(TColStd_HSequenceOfTransient) li = RecordedList();
-    myShapeResult                           = new TopTools_HSequenceOfShape();
+    myShapeResult                           = new HSequenceOfShape();
     Standard_Integer i, nb = myModel->NbEntities();
     TopoShape     sh;
     for (i = 1; i <= nb; i++)

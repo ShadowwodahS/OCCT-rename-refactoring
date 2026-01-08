@@ -33,7 +33,7 @@
   #define TBOX TopOpeBRepTool_GettraceBOX()
 #endif
 
-#define MTOhbt Handle(TopOpeBRepTool_HBoxTool)
+#define MTOhbt Handle(HBoxTool1)
 #define MTClioloi TColStd_ListIteratorOfListOfInteger
 
 //=================================================================================================
@@ -90,7 +90,7 @@ void TopOpeBRepTool_BoxSort::AddBoxes(const TopoShape&    S,
                                       const TopAbs_ShapeEnum TA)
 {
   if (myHBT.IsNull())
-    myHBT = new TopOpeBRepTool_HBoxTool();
+    myHBT = new HBoxTool1();
   myHBT->AddBoxes(S, TS, TA);
 }
 
@@ -208,7 +208,7 @@ void TopOpeBRepTool_BoxSort::AddBoxesMakeCOB(const TopoShape&    S,
 const MTClioloi& TopOpeBRepTool_BoxSort::Compare(const TopoShape& S)
 {
   if (myHBT.IsNull())
-    myHBT = new TopOpeBRepTool_HBoxTool();
+    myHBT = new HBoxTool1();
 
   gp_Pln           P;
   Standard_Boolean isPlane = Standard_False;
@@ -303,7 +303,7 @@ const Box2& TopOpeBRepTool_BoxSort::Box1(const TopoShape& S) const
 {
   if (myHBT.IsNull())
   {
-    *((MTOhbt*)&myHBT) = new TopOpeBRepTool_HBoxTool();
+    *((MTOhbt*)&myHBT) = new HBoxTool1();
   }
 
   if (myHBT->HasBox(S))

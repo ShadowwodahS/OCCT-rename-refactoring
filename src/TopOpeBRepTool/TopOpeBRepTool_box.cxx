@@ -21,7 +21,7 @@
 
 Standard_EXPORT void FBOX_Prepare()
 {
-  Handle(TopOpeBRepTool_HBoxTool) hbt = FBOX_GetHBoxTool();
+  Handle(HBoxTool1) hbt = FBOX_GetHBoxTool();
   hbt->Clear();
 #ifdef OCCT_DEBUG
   if (TopOpeBRepTool_GettraceBOX())
@@ -31,19 +31,19 @@ Standard_EXPORT void FBOX_Prepare()
 #endif
 }
 
-Standard_EXPORT Handle(TopOpeBRepTool_HBoxTool) FBOX_GetHBoxTool()
+Standard_EXPORT Handle(HBoxTool1) FBOX_GetHBoxTool()
 {
-  static Handle(TopOpeBRepTool_HBoxTool) GLOBAL_TOOLBOX_hboxtool;
+  static Handle(HBoxTool1) GLOBAL_TOOLBOX_hboxtool;
   if (GLOBAL_TOOLBOX_hboxtool.IsNull())
   {
-    GLOBAL_TOOLBOX_hboxtool = new TopOpeBRepTool_HBoxTool();
+    GLOBAL_TOOLBOX_hboxtool = new HBoxTool1();
   }
   return GLOBAL_TOOLBOX_hboxtool;
 }
 
 Standard_EXPORT const Box2& FBOX_Box(const TopoShape& S)
 {
-  Handle(TopOpeBRepTool_HBoxTool) hbt = FBOX_GetHBoxTool();
+  Handle(HBoxTool1) hbt = FBOX_GetHBoxTool();
   const Box2&                  b   = hbt->Box1(S);
 #ifdef OCCT_DEBUG
   if (TopOpeBRepTool_GettraceBOX())

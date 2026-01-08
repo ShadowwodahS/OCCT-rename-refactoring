@@ -256,7 +256,7 @@ static Handle(GeomCurve2d) FC2D_make2d(const TopoEdge&     E,
       f = f3d;
       l = l3d;
     }
-    C2D = TopOpeBRepTool_CurveTool::MakePCurveOnFace(F, C2, tol, f, l);
+    C2D = CurveTool6::MakePCurveOnFace(F, C2, tol, f, l);
     f2d = f3d;
     l2d = l3d;
     return C2D;
@@ -457,7 +457,7 @@ static Handle(GeomCurve2d) FC2D_make2d(const TopoEdge&     E,
       f = f3d;
       l = l3d;
     }
-    C2D = TopOpeBRepTool_CurveTool::MakePCurveOnFace(F, C2, tol, f, l);
+    C2D = CurveTool6::MakePCurveOnFace(F, C2, tol, f, l);
     f2d = f3d;
     l2d = l3d;
     FC2D_translate(C2D, E, F, EF);

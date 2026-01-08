@@ -16,17 +16,17 @@
 
 #include <Standard_Type.hxx>
 
-class BinObjMgt_Position;
-DEFINE_STANDARD_HANDLE(BinObjMgt_Position, RefObject)
+class Position2;
+DEFINE_STANDARD_HANDLE(Position2, RefObject)
 
 //! Stores and manipulates position in the stream.
-class BinObjMgt_Position : public RefObject
+class Position2 : public RefObject
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates position using the current stream position.
-  Standard_EXPORT BinObjMgt_Position(Standard_OStream& theStream);
+  Standard_EXPORT Position2(Standard_OStream& theStream);
 
   //! Stores the difference between the current position and the stored one.
   Standard_EXPORT void StoreSize(Standard_OStream& theStream);
@@ -35,7 +35,7 @@ public:
   Standard_EXPORT void WriteSize(Standard_OStream&      theStream,
                                  const Standard_Boolean theDummy = Standard_False);
 
-  DEFINE_STANDARD_RTTIEXT(BinObjMgt_Position, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Position2, RefObject)
 
 private:
   std::streampos myPosition;

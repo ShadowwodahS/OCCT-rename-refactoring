@@ -32,7 +32,7 @@ class TopoShape;
 #endif
 
 class ShapeBuild_ReShape;
-DEFINE_STANDARD_HANDLE(ShapeBuild_ReShape, BRepTools_ReShape)
+DEFINE_STANDARD_HANDLE(ShapeBuild_ReShape, ShapeReShaper)
 
 //! Rebuilds a Shape by making pre-defined substitutions on some
 //! of its components
@@ -46,7 +46,7 @@ DEFINE_STANDARD_HANDLE(ShapeBuild_ReShape, BRepTools_ReShape)
 //!
 //! Then, these requests may be applied to any shape which may
 //! contain one or more of these individual shapes
-class ShapeBuild_ReShape : public BRepTools_ReShape
+class ShapeBuild_ReShape : public ShapeReShaper
 {
 
 public:
@@ -108,7 +108,7 @@ public:
   //! FAIL1: some replacements not done because of bad type of subshape
   Standard_EXPORT virtual Standard_Boolean Status(const ShapeExtend_Status status) const;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeBuild_ReShape, BRepTools_ReShape)
+  DEFINE_STANDARD_RTTIEXT(ShapeBuild_ReShape, ShapeReShaper)
 
 protected:
 private:

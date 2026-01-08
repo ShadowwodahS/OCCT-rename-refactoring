@@ -5683,7 +5683,7 @@ static Standard_Integer VState(DrawInterpreter& theDI,
 TopoShape ViewerTest1::PickShape(const TopAbs_ShapeEnum theShapeType,
                                    const Standard_Integer theMaxPick)
 {
-  Handle(TopTools_HArray1OfShape) aResArray = new TopTools_HArray1OfShape(1, 1);
+  Handle(HArray1OfShape) aResArray = new HArray1OfShape(1, 1);
   PickShapes(theShapeType, aResArray, theMaxPick);
   return aResArray->First();
 }
@@ -5691,7 +5691,7 @@ TopoShape ViewerTest1::PickShape(const TopAbs_ShapeEnum theShapeType,
 //=================================================================================================
 
 Standard_Boolean ViewerTest1::PickShapes(const TopAbs_ShapeEnum           theShapeType,
-                                        Handle(TopTools_HArray1OfShape)& theResArray,
+                                        Handle(HArray1OfShape)& theResArray,
                                         const Standard_Integer           theMaxPick)
 {
   const Standard_Integer aNbToReach = theResArray->Length();
@@ -5855,7 +5855,7 @@ static int VPickShape(DrawInterpreter& di, Standard_Integer argc, const char** a
     AsciiString1 aName(argv[2]);
     aName.LowerCase();
     const Standard_Boolean          isAutoNaming = aName == ".";
-    Handle(TopTools_HArray1OfShape) aPickedArray = new TopTools_HArray1OfShape(1, aNbToPick);
+    Handle(HArray1OfShape) aPickedArray = new HArray1OfShape(1, aNbToPick);
     if (ViewerTest1::PickShapes(aShapeType, aPickedArray))
     {
       for (Standard_Integer aPickedIter = aPickedArray->Lower();

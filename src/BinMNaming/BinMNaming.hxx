@@ -21,7 +21,7 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Integer.hxx>
-class BinMDF_ADriverTable;
+class AttributeDriverTable;
 class Message_Messenger;
 
 //! Storage1/Retrieval drivers for TNaming1 attributes
@@ -31,7 +31,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Adds the attribute drivers to <theDriverTable>.
-  Standard_EXPORT static void AddDrivers(const Handle(BinMDF_ADriverTable)& theDriverTable,
+  Standard_EXPORT static void AddDrivers(const Handle(AttributeDriverTable)& theDriverTable,
                                          const Handle(Message_Messenger)&   aMsgDrv);
 };
 

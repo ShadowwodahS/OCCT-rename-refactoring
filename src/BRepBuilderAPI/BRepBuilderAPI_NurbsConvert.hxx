@@ -81,7 +81,7 @@ private:
   Standard_EXPORT void CorrectVertexTol();
 
   TopTools_DataMapOfShapeShape myVtxToReplace;
-  BRepTools_ReShape            mySubs;
+  ShapeReShaper            mySubs;
 };
 
 #endif // _BRepBuilderAPI_NurbsConvert_HeaderFile

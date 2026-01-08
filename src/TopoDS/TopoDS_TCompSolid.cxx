@@ -18,7 +18,7 @@
 #include <TopoDS_TCompSolid.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopoDS_TCompSolid, TopoDS_TShape)
+IMPLEMENT_STANDARD_RTTIEXT(TopoDS_TCompSolid, TopoShapeBase)
 
 //=================================================================================================
 
@@ -29,7 +29,7 @@ TopAbs_ShapeEnum TopoDS_TCompSolid::ShapeType() const
 
 //=================================================================================================
 
-Handle(TopoDS_TShape) TopoDS_TCompSolid::EmptyCopy() const
+Handle(TopoShapeBase) TopoDS_TCompSolid::EmptyCopy() const
 {
   return Handle(TopoDS_TCompSolid)(new TopoDS_TCompSolid());
 }

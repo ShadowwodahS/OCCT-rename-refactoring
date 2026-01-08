@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-TopOpeBRepDS_PointIterator::TopOpeBRepDS_PointIterator(const TopOpeBRepDS_ListOfInterference& L)
+PointIterator::PointIterator(const TopOpeBRepDS_ListOfInterference& L)
     : InterferenceIterator(L)
 {
   Match();
@@ -29,7 +29,7 @@ TopOpeBRepDS_PointIterator::TopOpeBRepDS_PointIterator(const TopOpeBRepDS_ListOf
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_PointIterator::MatchInterference(
+Standard_Boolean PointIterator::MatchInterference(
   const Handle(TopOpeBRepDS_Interference)& I) const
 {
   TopOpeBRepDS_Kind GT = I->GeometryType();
@@ -39,14 +39,14 @@ Standard_Boolean TopOpeBRepDS_PointIterator::MatchInterference(
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepDS_PointIterator::Current() const
+Standard_Integer PointIterator::Current() const
 {
   return Value()->Geometry1();
 }
 
 //=================================================================================================
 
-TopAbs_Orientation TopOpeBRepDS_PointIterator::Orientation(const TopAbs_State S) const
+TopAbs_Orientation PointIterator::Orientation(const TopAbs_State S) const
 {
   Handle(TopOpeBRepDS_Interference) I = Value();
   const StateTransition&    T = I->Transition();
@@ -56,7 +56,7 @@ TopAbs_Orientation TopOpeBRepDS_PointIterator::Orientation(const TopAbs_State S)
 
 //=================================================================================================
 
-Standard_Real TopOpeBRepDS_PointIterator::Parameter() const
+Standard_Real PointIterator::Parameter() const
 {
   const Handle(TopOpeBRepDS_Interference)& I = Value();
   Handle(TypeInfo)                    T = I->DynamicType();
@@ -70,27 +70,27 @@ Standard_Real TopOpeBRepDS_PointIterator::Parameter() const
   }
   else
   {
-    throw Standard_ProgramError("TopOpeBRepDS_PointIterator::Parameter()");
+    throw Standard_ProgramError("PointIterator::Parameter()");
   }
 }
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_PointIterator::IsVertex() const
+Standard_Boolean PointIterator::IsVertex() const
 {
   return (Value()->GeometryType() == TopOpeBRepDS_VERTEX);
 }
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_PointIterator::IsPoint() const
+Standard_Boolean PointIterator::IsPoint() const
 {
   return (Value()->GeometryType() == TopOpeBRepDS_POINT);
 }
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_PointIterator::DiffOriented() const
+Standard_Boolean PointIterator::DiffOriented() const
 {
   const Handle(TopOpeBRepDS_Interference)& I = Value();
   if (I->DynamicType() == STANDARD_TYPE(TopOpeBRepDS_EdgeVertexInterference))
@@ -100,13 +100,13 @@ Standard_Boolean TopOpeBRepDS_PointIterator::DiffOriented() const
   }
   else
   {
-    throw Standard_ProgramError("TopOpeBRepDS_PointIterator::DiffOriented()");
+    throw Standard_ProgramError("PointIterator::DiffOriented()");
   }
 }
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_PointIterator::SameOriented() const
+Standard_Boolean PointIterator::SameOriented() const
 {
   const Handle(TopOpeBRepDS_Interference)& I = Value();
   if (I->DynamicType() == STANDARD_TYPE(TopOpeBRepDS_EdgeVertexInterference))
@@ -116,13 +116,13 @@ Standard_Boolean TopOpeBRepDS_PointIterator::SameOriented() const
   }
   else
   {
-    throw Standard_ProgramError("TopOpeBRepDS_PointIterator::SameOriented()");
+    throw Standard_ProgramError("PointIterator::SameOriented()");
   }
 }
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepDS_PointIterator::Support() const
+Standard_Integer PointIterator::Support() const
 {
   return (Value()->Support());
 }

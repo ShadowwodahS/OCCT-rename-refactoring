@@ -355,7 +355,7 @@ Standard_Boolean XSDRAW1::FileAndVar(const Standard_CString   file,
   return ShapeFunctions::FileAndVar(XSDRAW1::Session(), file, var, def, resfile, resvar);
 }
 
-Standard_Integer XSDRAW1::MoreShapes(Handle(TopTools_HSequenceOfShape)& list,
+Standard_Integer XSDRAW1::MoreShapes(Handle(HSequenceOfShape)& list,
                                     const Standard_CString             name)
 {
   return ShapeFunctions::MoreShapes(XSDRAW1::Session(), list, name);

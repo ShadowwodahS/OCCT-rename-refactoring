@@ -145,7 +145,7 @@ void BOPAlgo_Builder::PrepareHistory(const Message_ProgressRange& theRange)
     return;
 
   // Initializing history tool
-  myHistory = new BRepTools_History;
+  myHistory = new ShapeHistory;
 
   // Map the result shape
   myMapShape.Clear();
@@ -165,7 +165,7 @@ void BOPAlgo_Builder::PrepareHistory(const Message_ProgressRange& theRange)
     const TopoShape& aS = myDS->Shape(i);
 
     // Check if History information is available for this kind of shape.
-    if (!BRepTools_History::IsSupportedType(aS))
+    if (!ShapeHistory::IsSupportedType(aS))
       continue;
 
     if (UserBreak(aPS))

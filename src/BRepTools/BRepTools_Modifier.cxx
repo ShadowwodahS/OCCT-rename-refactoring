@@ -74,7 +74,7 @@ ShapeModifier::ShapeModifier(const TopoShape& S)
 //=================================================================================================
 
 ShapeModifier::ShapeModifier(const TopoShape&                   S,
-                                       const Handle(BRepTools_Modification)& M)
+                                       const Handle(ShapeModification)& M)
     : myShape(S),
       myDone(Standard_False),
       myMutableInput(Standard_False)
@@ -98,7 +98,7 @@ void ShapeModifier::Init(const TopoShape& S)
 static TopTools_IndexedMapOfShape MapE, MapF;
 #endif
 
-void ShapeModifier::Perform(const Handle(BRepTools_Modification)& M,
+void ShapeModifier::Perform(const Handle(ShapeModification)& M,
                                  const Message_ProgressRange&          theProgress)
 {
   if (myShape.IsNull())
@@ -226,7 +226,7 @@ void ShapeModifier::Put(const TopoShape& S)
 //=================================================================================================
 
 Standard_Boolean ShapeModifier::Rebuild(const TopoShape&                   S,
-                                             const Handle(BRepTools_Modification)& M,
+                                             const Handle(ShapeModification)& M,
                                              Standard_Boolean&                     theNewGeom,
                                              const Message_ProgressRange&          theProgress)
 {
@@ -615,7 +615,7 @@ Standard_Boolean ShapeModifier::Rebuild(const TopoShape&                   S,
 }
 
 void ShapeModifier::CreateNewVertices(const TopTools_IndexedDataMapOfShapeListOfShape& theMVE,
-                                           const Handle(BRepTools_Modification)&            M)
+                                           const Handle(ShapeModification)&            M)
 {
   double       aToler;
   ShapeBuilder aBB;
@@ -639,7 +639,7 @@ void ShapeModifier::CreateNewVertices(const TopTools_IndexedDataMapOfShapeListOf
 }
 
 void ShapeModifier::FillNewCurveInfo(const TopTools_IndexedDataMapOfShapeListOfShape& theMEF,
-                                          const Handle(BRepTools_Modification)&            M)
+                                          const Handle(ShapeModification)&            M)
 {
   Handle(GeomCurve3d)               aCurve;
   TopLoc_Location                  aLocation;
@@ -660,7 +660,7 @@ void ShapeModifier::FillNewCurveInfo(const TopTools_IndexedDataMapOfShapeListOfS
   }
 }
 
-void ShapeModifier::FillNewSurfaceInfo(const Handle(BRepTools_Modification)& M)
+void ShapeModifier::FillNewSurfaceInfo(const Handle(ShapeModification)& M)
 {
   TopTools_IndexedMapOfShape aMF;
   TopExp1::MapShapes(myShape, TopAbs_FACE, aMF);
@@ -722,7 +722,7 @@ void ShapeModifier::FillNewSurfaceInfo(const Handle(BRepTools_Modification)& M)
 void ShapeModifier::CreateOtherVertices(
   const TopTools_IndexedDataMapOfShapeListOfShape& theMVE,
   const TopTools_IndexedDataMapOfShapeListOfShape& theMEF,
-  const Handle(BRepTools_Modification)&            M)
+  const Handle(ShapeModification)&            M)
 {
   double aToler;
   // The following logic in some ways repeats the logic from the Rebuild() method.

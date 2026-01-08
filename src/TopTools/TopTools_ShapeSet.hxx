@@ -36,15 +36,15 @@ class AsciiString1;
 //! and read.
 //!
 //! Methods to handle the geometry can be redefined.
-class TopTools_ShapeSet
+class ShapeSet
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Builds an empty ShapeSet.
-  Standard_EXPORT TopTools_ShapeSet();
+  Standard_EXPORT ShapeSet();
 
-  Standard_EXPORT virtual ~TopTools_ShapeSet();
+  Standard_EXPORT virtual ~ShapeSet();
 
   //! Sets the TopTools_FormatVersion
   Standard_EXPORT void SetFormatNb(const Standard_Integer theFormatNb);

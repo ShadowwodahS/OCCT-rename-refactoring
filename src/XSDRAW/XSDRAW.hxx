@@ -214,7 +214,7 @@ public:
   //! <list>. If <list> is null, it is firstly created. Then it is
   //! completed (Append without Clear) by the Shapes found
   //! Returns 0 if no Shape could be found
-  Standard_EXPORT static Standard_Integer MoreShapes(Handle(TopTools_HSequenceOfShape)& list,
+  Standard_EXPORT static Standard_Integer MoreShapes(Handle(HSequenceOfShape)& list,
                                                      const Standard_CString             name);
 
   //! Extracts length unit from the static interface or document.

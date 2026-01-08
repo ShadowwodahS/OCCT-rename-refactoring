@@ -171,7 +171,7 @@ public: //! @name History Methods
   Standard_EXPORT virtual Standard_Boolean HasDeleted() const;
 
   //! Returns the History of shapes modifications
-  Handle(BRepTools_History) History() { return myFeatureRemovalTool.History(); }
+  Handle(ShapeHistory) History() { return myFeatureRemovalTool.History(); }
 
 protected: //! @name Setting the algorithm into default state
   virtual void Clear() Standard_OVERRIDE

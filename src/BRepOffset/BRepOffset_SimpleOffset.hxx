@@ -29,7 +29,7 @@
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 
 class BRepOffset_SimpleOffset;
-DEFINE_STANDARD_HANDLE(BRepOffset_SimpleOffset, BRepTools_Modification)
+DEFINE_STANDARD_HANDLE(BRepOffset_SimpleOffset, ShapeModification)
 
 //! This class represents mechanism of simple offset algorithm i. e.
 //! topology-preserve offset construction without intersection.
@@ -41,10 +41,10 @@ DEFINE_STANDARD_HANDLE(BRepOffset_SimpleOffset, BRepTools_Modification)
 //! - Position1 of each vertex in a result shell is computed as average point of all ends of edges
 //! shared by that vertex.
 //! - Tolerances are updated according to the resulting geometry.
-class BRepOffset_SimpleOffset : public BRepTools_Modification
+class BRepOffset_SimpleOffset : public ShapeModification
 {
 public:
-  DEFINE_STANDARD_RTTI_INLINE(BRepOffset_SimpleOffset, BRepTools_Modification)
+  DEFINE_STANDARD_RTTI_INLINE(BRepOffset_SimpleOffset, ShapeModification)
 
   //! Constructor.
   //! @param theInputShape shape to be offset

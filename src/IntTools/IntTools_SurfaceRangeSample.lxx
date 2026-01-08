@@ -15,15 +15,15 @@
 
 #include <Standard_HashUtils.hxx>
 
-inline void IntTools_SurfaceRangeSample::SetRanges(const IntTools_CurveRangeSample& theRangeU,
-                                                   const IntTools_CurveRangeSample& theRangeV)
+inline void IntTools_SurfaceRangeSample::SetRanges(const CurveRangeSample& theRangeU,
+                                                   const CurveRangeSample& theRangeV)
 {
   myRangeU = theRangeU;
   myRangeV = theRangeV;
 }
 
-inline void IntTools_SurfaceRangeSample::GetRanges(IntTools_CurveRangeSample& theRangeU,
-                                                   IntTools_CurveRangeSample& theRangeV) const
+inline void IntTools_SurfaceRangeSample::GetRanges(CurveRangeSample& theRangeU,
+                                                   CurveRangeSample& theRangeV) const
 {
   theRangeU = myRangeU;
   theRangeV = myRangeV;
@@ -51,23 +51,23 @@ inline void IntTools_SurfaceRangeSample::GetDepths(Standard_Integer& theDepthU,
 }
 
 inline void IntTools_SurfaceRangeSample::SetSampleRangeU(
-  const IntTools_CurveRangeSample& theRangeSampleU)
+  const CurveRangeSample& theRangeSampleU)
 {
   myRangeU = theRangeSampleU;
 }
 
-inline const IntTools_CurveRangeSample& IntTools_SurfaceRangeSample::GetSampleRangeU() const
+inline const CurveRangeSample& IntTools_SurfaceRangeSample::GetSampleRangeU() const
 {
   return myRangeU;
 }
 
 inline void IntTools_SurfaceRangeSample::SetSampleRangeV(
-  const IntTools_CurveRangeSample& theRangeSampleV)
+  const CurveRangeSample& theRangeSampleV)
 {
   myRangeV = theRangeSampleV;
 }
 
-inline const IntTools_CurveRangeSample& IntTools_SurfaceRangeSample::GetSampleRangeV() const
+inline const CurveRangeSample& IntTools_SurfaceRangeSample::GetSampleRangeV() const
 {
   return myRangeV;
 }
@@ -139,8 +139,8 @@ struct hash<IntTools_SurfaceRangeSample>
   {
     // Combine two int values into a single hash value.
     size_t aCombination[2]{
-      std::hash<IntTools_CurveRangeSample>{}(theSurfaceRangeSample.GetSampleRangeU()),
-      std::hash<IntTools_CurveRangeSample>{}(theSurfaceRangeSample.GetSampleRangeV())};
+      std::hash<CurveRangeSample>{}(theSurfaceRangeSample.GetSampleRangeU()),
+      std::hash<CurveRangeSample>{}(theSurfaceRangeSample.GetSampleRangeV())};
     return opencascade::hashBytes(aCombination, sizeof(aCombination));
   }
 };

@@ -122,7 +122,7 @@ protected:
 private:
   BRepSweep_Revol           myRevol;
   ShapeList      myDegenerated;
-  Handle(BRepTools_History) myHist;
+  Handle(ShapeHistory) myHist;
   Standard_Boolean          myIsBuild;
 };
 

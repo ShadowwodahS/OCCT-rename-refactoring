@@ -41,7 +41,7 @@
 
 #include <Message_ProgressRange.hxx>
 
-class BRepTools_ReShape;
+class ShapeReShaper;
 class TopoEdge;
 class TopoFace;
 class GeomSurface;
@@ -113,10 +113,10 @@ public:
   Standard_EXPORT const TopoShape& SewedShape() const;
 
   //! set context
-  Standard_EXPORT void SetContext(const Handle(BRepTools_ReShape)& theContext);
+  Standard_EXPORT void SetContext(const Handle(ShapeReShaper)& theContext);
 
   //! return context
-  Standard_EXPORT const Handle(BRepTools_ReShape)& GetContext() const;
+  Standard_EXPORT const Handle(ShapeReShaper)& GetContext() const;
 
   //! Gives the number of free edges (edge shared by one face)
   Standard_EXPORT Standard_Integer NbFreeEdges() const;
@@ -339,7 +339,7 @@ protected:
     const TopTools_SequenceOfShape&  seqEdges,
     const TColStd_SequenceOfBoolean& seqForward,
     TopTools_MapOfShape&             mapMerged,
-    const Handle(BRepTools_ReShape)& locReShape);
+    const Handle(ShapeReShaper)& locReShape);
 
   //! This method is called from Merging only
   Standard_EXPORT virtual TopoEdge SameParameterEdge(
@@ -410,7 +410,7 @@ protected:
   TopTools_DataMapOfShapeListOfShape        myCuttingNode;
   TopTools_IndexedMapOfShape                myLittleFace;
   TopoShape                              myShape;
-  Handle(BRepTools_ReShape)                 myReShape;
+  Handle(ShapeReShaper)                 myReShape;
 
 private:
   Standard_Boolean    myFaceMode;

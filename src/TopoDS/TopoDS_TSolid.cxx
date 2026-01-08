@@ -18,7 +18,7 @@
 #include <TopoDS_TSolid.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopoDS_TSolid, TopoDS_TShape)
+IMPLEMENT_STANDARD_RTTIEXT(TopoDS_TSolid, TopoShapeBase)
 
 //=================================================================================================
 
@@ -29,7 +29,7 @@ TopAbs_ShapeEnum TopoDS_TSolid::ShapeType() const
 
 //=================================================================================================
 
-Handle(TopoDS_TShape) TopoDS_TSolid::EmptyCopy() const
+Handle(TopoShapeBase) TopoDS_TSolid::EmptyCopy() const
 {
   return Handle(TopoDS_TSolid)(new TopoDS_TSolid());
 }

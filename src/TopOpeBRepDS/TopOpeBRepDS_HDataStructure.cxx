@@ -182,11 +182,11 @@ const TopOpeBRepDS_Surface& TopOpeBRepDS_HDataStructure::Surface(const Standard_
 
 //=================================================================================================
 
-TopOpeBRepDS_CurveIterator TopOpeBRepDS_HDataStructure::SurfaceCurves(
+CurveIterator TopOpeBRepDS_HDataStructure::SurfaceCurves(
   const Standard_Integer I) const
 {
   const TopOpeBRepDS_ListOfInterference& L = myDS.SurfaceInterferences(I);
-  return TopOpeBRepDS_CurveIterator(L);
+  return CurveIterator(L);
 }
 
 //=================================================================================================
@@ -205,10 +205,10 @@ TopOpeBRepDS_Curve& TopOpeBRepDS_HDataStructure::ChangeCurve(const Standard_Inte
 
 //=================================================================================================
 
-TopOpeBRepDS_PointIterator TopOpeBRepDS_HDataStructure::CurvePoints(const Standard_Integer I) const
+PointIterator TopOpeBRepDS_HDataStructure::CurvePoints(const Standard_Integer I) const
 {
   const TopOpeBRepDS_ListOfInterference& L = myDS.CurveInterferences(I);
-  return TopOpeBRepDS_PointIterator(L);
+  return PointIterator(L);
 }
 
 //=================================================================================================
@@ -299,43 +299,43 @@ Standard_Integer TopOpeBRepDS_HDataStructure::Shape(const TopoShape&    S,
 
 //=================================================================================================
 
-TopOpeBRepDS_SurfaceIterator TopOpeBRepDS_HDataStructure::SolidSurfaces(const TopoShape& S) const
+SurfaceIterator TopOpeBRepDS_HDataStructure::SolidSurfaces(const TopoShape& S) const
 {
   const TopOpeBRepDS_ListOfInterference& L = myDS.ShapeInterferences(S);
-  return TopOpeBRepDS_SurfaceIterator(L);
+  return SurfaceIterator(L);
 }
 
 //=================================================================================================
 
-TopOpeBRepDS_SurfaceIterator TopOpeBRepDS_HDataStructure::SolidSurfaces(
+SurfaceIterator TopOpeBRepDS_HDataStructure::SolidSurfaces(
   const Standard_Integer I) const
 {
   const TopOpeBRepDS_ListOfInterference& L = myDS.ShapeInterferences(I);
-  return TopOpeBRepDS_SurfaceIterator(L);
+  return SurfaceIterator(L);
 }
 
 //=================================================================================================
 
-TopOpeBRepDS_CurveIterator TopOpeBRepDS_HDataStructure::FaceCurves(const TopoShape& F) const
+CurveIterator TopOpeBRepDS_HDataStructure::FaceCurves(const TopoShape& F) const
 {
   const TopOpeBRepDS_ListOfInterference& L = myDS.ShapeInterferences(F);
-  return TopOpeBRepDS_CurveIterator(L);
+  return CurveIterator(L);
 }
 
 //=================================================================================================
 
-TopOpeBRepDS_CurveIterator TopOpeBRepDS_HDataStructure::FaceCurves(const Standard_Integer I) const
+CurveIterator TopOpeBRepDS_HDataStructure::FaceCurves(const Standard_Integer I) const
 {
   const TopOpeBRepDS_ListOfInterference& L = myDS.ShapeInterferences(I);
-  return TopOpeBRepDS_CurveIterator(L);
+  return CurveIterator(L);
 }
 
 //=================================================================================================
 
-TopOpeBRepDS_PointIterator TopOpeBRepDS_HDataStructure::EdgePoints(const TopoShape& E) const
+PointIterator TopOpeBRepDS_HDataStructure::EdgePoints(const TopoShape& E) const
 {
   const TopOpeBRepDS_ListOfInterference& L = myDS.ShapeInterferences(E);
-  return TopOpeBRepDS_PointIterator(L);
+  return PointIterator(L);
 }
 
 //=================================================================================================
@@ -483,7 +483,7 @@ Standard_EXPORT void FUN_TopOpeBRepDS_SortOnParameter(const TopOpeBRepDS_ListOfI
   for (Standard_Integer i = 1; i <= nIntf; i++)
   {
     Standard_Real              parmin = RealLast();
-    TopOpeBRepDS_PointIterator it(List);
+    PointIterator it(List);
     for (Standard_Integer itest = 1; it.More(); it.Next(), itest++)
     {
       if (!T(itest))
@@ -545,7 +545,7 @@ void TopOpeBRepDS_HDataStructure::SortOnParameter(const TopOpeBRepDS_ListOfInter
 
 void TopOpeBRepDS_HDataStructure::SortOnParameter(TopOpeBRepDS_ListOfInterference& List) const
 {
-  TopOpeBRepDS_PointIterator it(List);
+  PointIterator it(List);
   if (it.More())
   {
     TopOpeBRepDS_ListOfInterference SList;
@@ -565,7 +565,7 @@ void TopOpeBRepDS_HDataStructure::MinMaxOnParameter(const TopOpeBRepDS_ListOfInt
     Standard_Real parline;
     parmin = RealLast();
     parmax = RealFirst();
-    TopOpeBRepDS_PointIterator it(List);
+    PointIterator it(List);
     for (; it.More(); it.Next())
     {
       parline = it.Parameter();

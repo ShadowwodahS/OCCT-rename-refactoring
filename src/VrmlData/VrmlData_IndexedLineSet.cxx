@@ -48,7 +48,7 @@ Color1 VrmlData_IndexedLineSet::GetColor(const Standard_Integer /*iFace*/,
 //           if True it should rebuild the shape presentation.
 //=======================================================================
 
-const Handle(TopoDS_TShape)& VrmlData_IndexedLineSet::TShape()
+const Handle(TopoShapeBase)& VrmlData_IndexedLineSet::TShape()
 {
   if (myNbPolygons == 0)
     myTShape.Nullify();

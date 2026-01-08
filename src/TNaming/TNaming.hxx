@@ -158,7 +158,7 @@ public:
   //! single contexts
   Standard_EXPORT static TopoShape FindUniqueContextSet(const TopoShape&              S,
                                                            const TopoShape&              Context,
-                                                           Handle(TopTools_HArray1OfShape)& Arr);
+                                                           Handle(HArray1OfShape)& Arr);
 
   //! Substitutes shape in source structure
   Standard_EXPORT static Standard_Boolean SubstituteSShape(const DataLabel&    accesslabel,

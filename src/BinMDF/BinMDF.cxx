@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-void BinMDF1::AddDrivers(const Handle(BinMDF_ADriverTable)& aDriverTable,
+void BinMDF1::AddDrivers(const Handle(AttributeDriverTable)& aDriverTable,
                         const Handle(Message_Messenger)&   aMsgDrv)
 {
   aDriverTable->AddDriver(new BinMDF_ReferenceDriver(aMsgDrv));

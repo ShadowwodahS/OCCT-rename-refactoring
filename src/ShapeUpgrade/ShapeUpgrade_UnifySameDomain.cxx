@@ -2757,7 +2757,7 @@ ShapeUpgrade_UnifySameDomain::ShapeUpgrade_UnifySameDomain()
       myConcatBSplines(Standard_False),
       myAllowInternal(Standard_False),
       mySafeInputMode(Standard_True),
-      myHistory(new BRepTools_History)
+      myHistory(new ShapeHistory)
 {
   myContext = new ShapeBuild_ReShape;
 }
@@ -2777,7 +2777,7 @@ ShapeUpgrade_UnifySameDomain::ShapeUpgrade_UnifySameDomain(const TopoShape&    a
       myAllowInternal(Standard_False),
       mySafeInputMode(Standard_True),
       myShape(aShape),
-      myHistory(new BRepTools_History)
+      myHistory(new ShapeHistory)
 {
   myContext = new ShapeBuild_ReShape;
 }
@@ -4084,11 +4084,11 @@ void ShapeUpgrade_UnifySameDomain::FillHistory()
   // Get history from the context.
   // It contains all modifications of the operation. Some of these
   // modifications become not relevant and should be filtered.
-  Handle(BRepTools_History) aCtxHistory = myContext->History();
+  Handle(ShapeHistory) aCtxHistory = myContext->History();
 
   // Explore the history of the context and fill
   // the history of UnifySameDomain algorithm
-  Handle(BRepTools_History) aUSDHistory = new BRepTools_History();
+  Handle(ShapeHistory) aUSDHistory = new ShapeHistory();
 
   // Map all Vertices, Edges, Faces and Solids in the input shape
   TopTools_IndexedMapOfShape aMapInputShape;

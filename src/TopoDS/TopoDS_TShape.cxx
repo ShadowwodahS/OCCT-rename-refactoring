@@ -19,11 +19,11 @@
 
 #include <Standard_Dump.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopoDS_TShape, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(TopoShapeBase, RefObject)
 
 //=================================================================================================
 
-void TopoDS_TShape::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
+void TopoShapeBase::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 

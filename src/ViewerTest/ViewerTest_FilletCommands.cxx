@@ -69,7 +69,7 @@ static Standard_Integer VBLEND(DrawInterpreter& di, Standard_Integer narg, const
     return 1;
 
   Standard_Integer                NbToPick = (narg - 4) / 2;
-  Handle(TopTools_HArray1OfShape) arr      = new TopTools_HArray1OfShape(1, NbToPick);
+  Handle(HArray1OfShape) arr      = new HArray1OfShape(1, NbToPick);
   if (ViewerTest1::PickShapes(TopAbs_EDGE, arr))
   {
     for (Standard_Integer i = 1; i <= NbToPick; i++)

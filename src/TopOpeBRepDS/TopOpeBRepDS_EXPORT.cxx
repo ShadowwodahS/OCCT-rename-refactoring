@@ -552,7 +552,7 @@ Standard_EXPORT void FDS_getupperlower(const Handle(TopOpeBRepDS_HDataStructure)
 
   // get p1, p2, p1<paredge<p2 with pmin, pmax nearest parameters
   Standard_Real              par;
-  TopOpeBRepDS_PointIterator pIte = HDS->EdgePoints(E);
+  PointIterator pIte = HDS->EdgePoints(E);
   for (; pIte.More(); pIte.Next())
   {
     par                      = pIte.Parameter();

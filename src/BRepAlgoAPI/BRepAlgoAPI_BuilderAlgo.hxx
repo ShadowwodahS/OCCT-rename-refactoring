@@ -188,7 +188,7 @@ public: //! @name Getting tools performing the job
   const BOPAlgo_PBuilder& Builder() const { return myBuilder; }
 
   //! History tool
-  Handle(BRepTools_History) History() const { return myFillHistory ? myHistory : NULL; }
+  Handle(ShapeHistory) History() const { return myFillHistory ? myHistory : NULL; }
 
 protected: //! @name Setting options to the Intersection tool
   //! Sets options (available in child classes) for the intersection tool.
@@ -224,10 +224,10 @@ protected: //! @name Fields
                                            //! argument shapes.
   BOPAlgo_PBuilder myBuilder;              //!< Building tool performs construction of the result
                                            //! basing on the results of intersection
-  Handle(BRepTools_History) myHistory;     //!< General History tool, containing all History of
+  Handle(ShapeHistory) myHistory;     //!< General History tool, containing all History of
                                            //! shapes modifications during the operation
                                            //! (including result simplification)
-  Handle(BRepTools_History) mySimplifierHistory; //!< History of result shape simplification
+  Handle(ShapeHistory) mySimplifierHistory; //!< History of result shape simplification
 };
 
 #endif // _BRepAlgoAPI_BuilderAlgo_HeaderFile

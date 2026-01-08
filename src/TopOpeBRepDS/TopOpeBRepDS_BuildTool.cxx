@@ -1375,7 +1375,7 @@ void  TopOpeBRepDS_BuildTool::RecomputeCurveOnCone
 {
   // C1 Pcurves have not been computed because C1 Curve is not projectable
   // on one at least of the intersecting faces giving C1 Curve.
-  // (see TopOpeBRepTool_CurveTool::IsProjectable())
+  // (see CurveTool6::IsProjectable())
 
   TopoEdge& E = TopoDS::Edge(EE);
 

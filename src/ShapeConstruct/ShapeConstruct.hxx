@@ -81,7 +81,7 @@ public:
   //! try to use pcurves from originas edges <theEdges>
   //! Returns false if cannot join pcurves
   Standard_EXPORT static Standard_Boolean JoinPCurves(
-    const Handle(TopTools_HSequenceOfShape)& theEdges,
+    const Handle(HSequenceOfShape)& theEdges,
     const TopoFace&                       theFace,
     TopoEdge&                             theEdge);
 

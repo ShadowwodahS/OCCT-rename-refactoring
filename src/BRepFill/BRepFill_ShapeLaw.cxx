@@ -56,7 +56,7 @@ BRepFill_ShapeLaw::BRepFill_ShapeLaw(const TopoVertex& V, const Standard_Boolean
   TheLaw.Nullify();
   uclosed = Standard_False;
   vclosed = Standard_True; // constant law
-  myEdges = new (TopTools_HArray1OfShape)(1, 1);
+  myEdges = new (HArray1OfShape)(1, 1);
   myEdges->SetValue(1, V);
 
   if (Build)
@@ -130,7 +130,7 @@ void BRepFill_ShapeLaw::Init(const Standard_Boolean Build)
   }
 
   myLaws  = new GeomFill_HArray1OfSectionLaw(1, NbEdge);
-  myEdges = new TopTools_HArray1OfShape(1, NbEdge);
+  myEdges = new HArray1OfShape(1, NbEdge);
 
   ii = 1;
 

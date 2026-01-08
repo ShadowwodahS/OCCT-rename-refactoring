@@ -172,7 +172,7 @@ private:
   Handle(IntPatch_WLine)                  myILW;
   Handle(IntPatch_GLine)                  myILG;
   WPointIntersection                  myCurrentWP;
-  Handle(TopOpeBRep_HArray1OfVPointInter) myHAVP;
+  Handle(HArray1OfVPointInter) myHAVP;
   TopoFace                             myF1;
   TopoFace                             myF2;
   StateTransition                 myLineTonF1;

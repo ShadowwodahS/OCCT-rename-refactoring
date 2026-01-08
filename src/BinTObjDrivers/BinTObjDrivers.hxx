@@ -20,7 +20,7 @@
 
 #include <Standard_GUID.hxx>
 
-class BinMDF_ADriverTable;
+class AttributeDriverTable;
 class Message_Messenger;
 class AppManager;
 
@@ -38,7 +38,7 @@ public:
   //! in the specified application
   Standard_EXPORT static void DefineFormat(const Handle(AppManager)& theApp);
 
-  Standard_EXPORT static void AddDrivers(const Handle(BinMDF_ADriverTable)& aDriverTable,
+  Standard_EXPORT static void AddDrivers(const Handle(AttributeDriverTable)& aDriverTable,
                                          const Handle(Message_Messenger)&   aMsgDrv);
 };
 

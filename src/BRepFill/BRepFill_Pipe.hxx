@@ -126,9 +126,9 @@ private:
   TopoShape                          myShape;
   Transform3d                               myTrsf;
   Handle(BRepFill_LocationLaw)          myLoc;
-  Handle(TopTools_HArray2OfShape)       mySections;
-  Handle(TopTools_HArray2OfShape)       myFaces;
-  Handle(TopTools_HArray2OfShape)       myEdges;
+  Handle(HArray2OfShape)       mySections;
+  Handle(HArray2OfShape)       myFaces;
+  Handle(HArray2OfShape)       myEdges;
   TopTools_MapOfShape                   myReversedEdges;
   BRepFill_DataMapOfShapeHArray2OfShape myTapes;
   BRepFill_DataMapOfShapeHArray2OfShape myRails;

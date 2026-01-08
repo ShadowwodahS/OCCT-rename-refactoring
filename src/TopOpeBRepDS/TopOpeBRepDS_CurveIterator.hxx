@@ -29,14 +29,14 @@
 class TopOpeBRepDS_Interference;
 class GeomCurve2d;
 
-class TopOpeBRepDS_CurveIterator : public InterferenceIterator
+class CurveIterator : public InterferenceIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates an  iterator on the  curves on surface
   //! described by the interferences in <L>.
-  Standard_EXPORT TopOpeBRepDS_CurveIterator(const TopOpeBRepDS_ListOfInterference& L);
+  Standard_EXPORT CurveIterator(const TopOpeBRepDS_ListOfInterference& L);
 
   //! Returns  True if the Interference <I>  has a
   //! GeometryType() TopOpeBRepDS_CURVE

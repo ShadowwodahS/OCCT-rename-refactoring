@@ -305,7 +305,7 @@ public:
 
   friend class TopOpeBRepDS_SurfaceExplorer;
   friend class CurveExplorer;
-  friend class TopOpeBRepDS_PointExplorer;
+  friend class PointExplorer;
 
 protected:
 private:

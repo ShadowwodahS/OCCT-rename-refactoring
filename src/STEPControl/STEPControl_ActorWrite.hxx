@@ -58,7 +58,7 @@ public:
     Handle(StepGeom_Axis2Placement3d)&                     AX1,
     const Handle(Transfer_FinderProcess)&                  FP,
     const ConversionFactors&                                theLocalFactors = ConversionFactors(),
-    const Handle(TopTools_HSequenceOfShape)&               shapeGroup      = NULL,
+    const Handle(HSequenceOfShape)&               shapeGroup      = NULL,
     const Standard_Boolean                                 isManifold      = Standard_True,
     const Message_ProgressRange&                           theProgress = Message_ProgressRange());
 
@@ -67,7 +67,7 @@ public:
     const Handle(StepShape_ShapeDefinitionRepresentation)& SDR,
     const Handle(Transfer_FinderProcess)&                  FP,
     const ConversionFactors&                                theLocalFactors = ConversionFactors(),
-    const Handle(TopTools_HSequenceOfShape)&               shapeGroup      = NULL,
+    const Handle(HSequenceOfShape)&               shapeGroup      = NULL,
     const Standard_Boolean                                 isManifold      = Standard_True,
     const Message_ProgressRange&                           theProgress = Message_ProgressRange());
 
@@ -105,7 +105,7 @@ private:
   //! to create a new one if doesn't exist yet)
   //! (ssv; 13.11.2010)
   Standard_EXPORT Handle(StepShape_NonManifoldSurfaceShapeRepresentation) getNMSSRForGroup(
-    const Handle(TopTools_HSequenceOfShape)& shapeGroup,
+    const Handle(HSequenceOfShape)& shapeGroup,
     const Handle(Transfer_FinderProcess)&    FP,
     Standard_Boolean&                        isNMSSRCreated) const;
 

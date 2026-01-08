@@ -144,7 +144,7 @@ public:
 
   //! Converts a list of Shapes to a Compound (a kind of Shape)
   Standard_EXPORT TopoShape
-    CompoundFromSeq(const Handle(TopTools_HSequenceOfShape)& seqval) const;
+    CompoundFromSeq(const Handle(HSequenceOfShape)& seqval) const;
 
   //! Returns the type of a Shape : true type if <compound> is False
   //! If <compound> is True and <shape> is a Compound, iterates on
@@ -168,12 +168,12 @@ public:
                                               const Standard_Boolean explore,
                                               const Standard_Boolean compound) const;
 
-  Standard_EXPORT TopoShape ShapeValue(const Handle(TopTools_HSequenceOfShape)& seqv,
+  Standard_EXPORT TopoShape ShapeValue(const Handle(HSequenceOfShape)& seqv,
                                           const Standard_Integer                   num) const;
 
-  Standard_EXPORT Handle(TopTools_HSequenceOfShape) NewSeqShape() const;
+  Standard_EXPORT Handle(HSequenceOfShape) NewSeqShape() const;
 
-  Standard_EXPORT void AppendShape(const Handle(TopTools_HSequenceOfShape)& seqv,
+  Standard_EXPORT void AppendShape(const Handle(HSequenceOfShape)& seqv,
                                    const TopoShape&                      shape) const;
 
   //! Creates a Transient Object from a Shape : it is either a Binder

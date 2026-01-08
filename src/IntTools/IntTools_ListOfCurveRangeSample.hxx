@@ -19,8 +19,8 @@
 #include <IntTools_CurveRangeSample.hxx>
 #include <NCollection_List.hxx>
 
-typedef NCollection_List<IntTools_CurveRangeSample> IntTools_ListOfCurveRangeSample;
-typedef NCollection_List<IntTools_CurveRangeSample>::Iterator
+typedef NCollection_List<CurveRangeSample> IntTools_ListOfCurveRangeSample;
+typedef NCollection_List<CurveRangeSample>::Iterator
   IntTools_ListIteratorOfListOfCurveRangeSample;
 
 #endif

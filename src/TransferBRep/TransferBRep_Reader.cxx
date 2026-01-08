@@ -32,7 +32,7 @@ TransferBRep_Reader::TransferBRep_Reader()
       theFilest(0),
       theNewpr(Standard_False)
 {
-  theShapes = new TopTools_HSequenceOfShape();
+  theShapes = new HSequenceOfShape();
   theTransi = new TColStd_HSequenceOfTransient();
 }
 
@@ -230,7 +230,7 @@ Standard_Integer TransferBRep_Reader::NbShapes1() const
   return theShapes->Length();
 }
 
-Handle(TopTools_HSequenceOfShape) TransferBRep_Reader::Shapes() const
+Handle(HSequenceOfShape) TransferBRep_Reader::Shapes() const
 {
   return theShapes;
 }

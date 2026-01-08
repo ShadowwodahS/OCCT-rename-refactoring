@@ -33,7 +33,7 @@ class TopoSolid;
 class TopoDS_CompSolid;
 class TopoCompound;
 class TopoDS_HShape;
-class TopoDS_TShape;
+class TopoShapeBase;
 class TopoDS_TVertex;
 class TopoDS_TEdge;
 class TopoDS_TWire;

@@ -429,7 +429,7 @@ const TopOpeBRepDS_ListOfInterference& TopOpeBRepDS_DataStructure::PointInterfer
   {
     return myEmptyListOfInterference;
   }
-  const TopOpeBRepDS_PointData&          PD = myPoints.Find(I);
+  const PointData&          PD = myPoints.Find(I);
   const TopOpeBRepDS_ListOfInterference& LI = PD.Interferences();
   return LI;
 }
@@ -444,7 +444,7 @@ TopOpeBRepDS_ListOfInterference& TopOpeBRepDS_DataStructure::ChangePointInterfer
   {
     return myEmptyListOfInterference;
   }
-  TopOpeBRepDS_PointData&          PD = myPoints.ChangeFind(I);
+  PointData&          PD = myPoints.ChangeFind(I);
   TopOpeBRepDS_ListOfInterference& LI = PD.ChangeInterferences();
   return LI;
 }

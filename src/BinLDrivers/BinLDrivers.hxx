@@ -20,7 +20,7 @@
 
 class RefObject;
 class Standard_GUID;
-class BinMDF_ADriverTable;
+class AttributeDriverTable;
 class Message_Messenger;
 class AppManager;
 
@@ -34,7 +34,7 @@ public:
   Standard_EXPORT static void DefineFormat(const Handle(AppManager)& theApp);
 
   //! Creates a table of the supported drivers' types
-  Standard_EXPORT static Handle(BinMDF_ADriverTable) AttributeDrivers(
+  Standard_EXPORT static Handle(AttributeDriverTable) AttributeDrivers(
     const Handle(Message_Messenger)& MsgDrv);
 };
 

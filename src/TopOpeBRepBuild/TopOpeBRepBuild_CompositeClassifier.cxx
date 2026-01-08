@@ -41,7 +41,7 @@
 
 //=================================================================================================
 
-TopOpeBRepBuild_CompositeClassifier::TopOpeBRepBuild_CompositeClassifier(
+CompositeClassifier::CompositeClassifier(
   const BlockBuilder& BB)
     : myBlockBuilder((void*)&BB)
 {
@@ -49,7 +49,7 @@ TopOpeBRepBuild_CompositeClassifier::TopOpeBRepBuild_CompositeClassifier(
 
 //=================================================================================================
 
-TopAbs_State TopOpeBRepBuild_CompositeClassifier::Compare(const Handle(TopOpeBRepBuild_Loop)& L1,
+TopAbs_State CompositeClassifier::Compare(const Handle(TopOpeBRepBuild_Loop)& L1,
                                                           const Handle(TopOpeBRepBuild_Loop)& L2)
 {
   TopAbs_State state = TopAbs_UNKNOWN;

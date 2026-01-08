@@ -23,15 +23,15 @@
 #include <TopoDS_TShape.hxx>
 
 class TopoDS_TWire;
-DEFINE_STANDARD_HANDLE(TopoDS_TWire, TopoDS_TShape)
+DEFINE_STANDARD_HANDLE(TopoDS_TWire, TopoShapeBase)
 
 //! A set of edges connected by their vertices.
-class TopoDS_TWire : public TopoDS_TShape
+class TopoDS_TWire : public TopoShapeBase
 {
 public:
   //! Creates an empty TWire.
   TopoDS_TWire()
-      : TopoDS_TShape()
+      : TopoShapeBase()
   {
   }
 
@@ -39,9 +39,9 @@ public:
   Standard_EXPORT TopAbs_ShapeEnum ShapeType() const Standard_OVERRIDE;
 
   //! Returns an empty TWire.
-  Standard_EXPORT Handle(TopoDS_TShape) EmptyCopy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TopoShapeBase) EmptyCopy() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(TopoDS_TWire, TopoDS_TShape)
+  DEFINE_STANDARD_RTTIEXT(TopoDS_TWire, TopoShapeBase)
 };
 
 #endif // _TopoDS_TWire_HeaderFile

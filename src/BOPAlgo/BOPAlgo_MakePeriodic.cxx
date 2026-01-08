@@ -170,7 +170,7 @@ void BOPAlgo_MakePeriodic::Trim()
   // Get the trimmed shape
   myShape = aCommon.Shape();
   // Fill the History for the object only
-  mySplitHistory = new BRepTools_History();
+  mySplitHistory = new ShapeHistory();
   mySplitHistory->Merge(anObj, aCommon);
 }
 
@@ -185,7 +185,7 @@ void BOPAlgo_MakePeriodic::MakeIdentical()
     myShape = myInputShape;
 
   if (mySplitHistory.IsNull())
-    mySplitHistory = new BRepTools_History;
+    mySplitHistory = new ShapeHistory;
 
   // Split the negative side of the shape with the geometry
   // located on the positive side
@@ -199,7 +199,7 @@ void BOPAlgo_MakePeriodic::MakeIdentical()
   // Make associations between identical opposite shapes.
   SplitPositive();
 
-  myHistory = new BRepTools_History();
+  myHistory = new ShapeHistory();
   myHistory->Merge(mySplitHistory);
 }
 
@@ -295,7 +295,7 @@ void BOPAlgo_MakePeriodic::SplitPositive()
     for (Standard_Integer j = 1; j <= aNbS; ++j)
     {
       const TopoShape& aS = aSubShapesMap(j);
-      if (BRepTools_History::IsSupportedType(aS))
+      if (ShapeHistory::IsSupportedType(aS))
       {
         const ShapeList& aSM = aTranslator.Modified(aS);
         ShapeList*       pTS = aTranslationHistMap.ChangeSeek(aS);
@@ -308,8 +308,8 @@ void BOPAlgo_MakePeriodic::SplitPositive()
 
   // Keep the split shape history and history of tools modifications
   // during the split for making association of the opposite identical shapes
-  Handle(BRepTools_History) aSplitShapeHist = new BRepTools_History,
-                            aSplitToolsHist = new BRepTools_History;
+  Handle(ShapeHistory) aSplitShapeHist = new ShapeHistory,
+                            aSplitToolsHist = new ShapeHistory;
   // Split the positive side of the shape
   SplitShape(aTools, aSplitShapeHist, aSplitToolsHist);
   if (HasErrors())
@@ -354,8 +354,8 @@ void BOPAlgo_MakePeriodic::SplitPositive()
 // purpose  : Splits the shape by the given tools
 //=======================================================================
 void BOPAlgo_MakePeriodic::SplitShape(const ShapeList& theTools,
-                                      Handle(BRepTools_History)   theSplitShapeHistory,
-                                      Handle(BRepTools_History)   theSplitToolsHistory)
+                                      Handle(ShapeHistory)   theSplitShapeHistory,
+                                      Handle(ShapeHistory)   theSplitToolsHistory)
 {
   // Make sure that the geometry from the tools will be copied to the split
   // shape. For that, the tool shapes should be given to the Boolean Operations
@@ -454,7 +454,7 @@ const TopoShape& BOPAlgo_MakePeriodic::RepeatShape(const Standard_Integer theDir
 
   // Create the translation history - all translated shapes will be
   // created as Generated from the shape.
-  BRepTools_History          aTranslationHistory;
+  ShapeHistory          aTranslationHistory;
   TopTools_IndexedMapOfShape aSubShapesMap;
   TopExp1::MapShapes(myRepeatedShape, aSubShapesMap);
   const Standard_Integer aNbS = aSubShapesMap.Extent();
@@ -466,7 +466,7 @@ const TopoShape& BOPAlgo_MakePeriodic::RepeatShape(const Standard_Integer theDir
   for (Standard_Integer i = 1; i <= aNbS; ++i)
   {
     const TopoShape& aS = aSubShapesMap(i);
-    if (BRepTools_History::IsSupportedType(aS))
+    if (ShapeHistory::IsSupportedType(aS))
       aTranslationHistory.AddGenerated(aS, aS);
   }
 
@@ -482,7 +482,7 @@ const TopoShape& BOPAlgo_MakePeriodic::RepeatShape(const Standard_Integer theDir
     for (Standard_Integer j = 1; j <= aNbS; ++j)
     {
       const TopoShape& aS = aSubShapesMap(j);
-      if (BRepTools_History::IsSupportedType(aS))
+      if (ShapeHistory::IsSupportedType(aS))
       {
         const ShapeList& aLT = aTranslator.Modified(aS);
         aTranslationHistory.AddGenerated(aS, aLT.First());
@@ -518,7 +518,7 @@ const TopoShape& BOPAlgo_MakePeriodic::RepeatShape(const Standard_Integer theDir
   myRepeatPeriod[id] += Abs(theTimes) * myRepeatPeriod[id];
 
   // Update history with the Gluing history
-  BRepTools_History aGluingHistory(aShapes, aGluer);
+  ShapeHistory aGluingHistory(aShapes, aGluer);
   myHistory->Merge(aGluingHistory);
 
   // Update the map of twins after repetition
@@ -531,8 +531,8 @@ const TopoShape& BOPAlgo_MakePeriodic::RepeatShape(const Standard_Integer theDir
 // function : UpdateTwins
 // purpose  : Updates the map of twins after repetition
 //=======================================================================
-void BOPAlgo_MakePeriodic::UpdateTwins(const BRepTools_History& theTranslationHistory,
-                                       const BRepTools_History& theGluingHistory)
+void BOPAlgo_MakePeriodic::UpdateTwins(const ShapeHistory& theTranslationHistory,
+                                       const ShapeHistory& theGluingHistory)
 {
   if (myTwins.IsEmpty())
     return;

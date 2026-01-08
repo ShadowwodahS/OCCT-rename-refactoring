@@ -23,7 +23,7 @@
 #include <Standard_Integer.hxx>
 #include <BRep_ListOfCurveRepresentation.hxx>
 #include <TopoDS_TEdge.hxx>
-class TopoDS_TShape;
+class TopoShapeBase;
 
 class BRep_TEdge;
 DEFINE_STANDARD_HANDLE(BRep_TEdge, TopoDS_TEdge)
@@ -74,7 +74,7 @@ public:
   BRep_ListOfCurveRepresentation& ChangeCurves();
 
   //! Returns a copy  of the  TShape  with no sub-shapes.
-  Standard_EXPORT Handle(TopoDS_TShape) EmptyCopy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TopoShapeBase) EmptyCopy() const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

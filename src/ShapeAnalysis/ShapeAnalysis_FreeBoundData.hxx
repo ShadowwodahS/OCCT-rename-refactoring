@@ -96,7 +96,7 @@ public:
   Standard_Integer NbNotches() const;
 
   //! Returns sequence of notches on the contour
-  Handle(TopTools_HSequenceOfShape) Notches() const;
+  Handle(HSequenceOfShape) Notches() const;
 
   //! Returns notch on the contour
   TopoWire Notch(const Standard_Integer index) const;
@@ -118,7 +118,7 @@ private:
   Standard_Real                     myPerimeter;
   Standard_Real                     myRatio;
   Standard_Real                     myWidth;
-  Handle(TopTools_HSequenceOfShape) myNotches;
+  Handle(HSequenceOfShape) myNotches;
   TopTools_DataMapOfShapeReal       myNotchesParams;
 };
 

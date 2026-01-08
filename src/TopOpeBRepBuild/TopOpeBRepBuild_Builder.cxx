@@ -154,7 +154,7 @@ void TopOpeBRepBuild_Builder::AddIntersectionEdges(TopoShape&             aFace,
                                                    TopOpeBRepBuild_ShapeSet& WES) const
 {
   TopoShape               anEdge;
-  TopOpeBRepDS_CurveIterator FCurves = myDataStructure->FaceCurves(aFace);
+  CurveIterator FCurves = myDataStructure->FaceCurves(aFace);
   for (; FCurves.More(); FCurves.Next())
   {
     Standard_Integer            iC    = FCurves.Current();
@@ -896,7 +896,7 @@ void TopOpeBRepBuild_Builder::SplitEdge1(const TopoShape& Eoriented,
   TopOpeBRepBuild_PaveSet PVS(Eforward);
 
   // Add the points/vertices found on edge <Eforward> in <PVS>
-  TopOpeBRepDS_PointIterator EPIT(myDataStructure->EdgePoints(Eforward));
+  PointIterator EPIT(myDataStructure->EdgePoints(Eforward));
   FillVertexSet(EPIT, ToBuild1, PVS);
 
   TopOpeBRepBuild_PaveClassifier VCL(Eforward);
@@ -989,7 +989,7 @@ void TopOpeBRepBuild_Builder::SplitEdge2(const TopoShape& Eoriented,
   // Add the points/vertices found on edge <Eforward> in <PVS>
   TopOpeBRepBuild_PaveSet PVS(Eforward);
 
-  TopOpeBRepDS_PointIterator EPIT(myDataStructure->EdgePoints(Eforward));
+  PointIterator EPIT(myDataStructure->EdgePoints(Eforward));
   FillVertexSet(EPIT, ToBuild1, PVS);
 
   TopOpeBRepBuild_PaveClassifier VCL(Eforward);
@@ -1476,7 +1476,7 @@ void TopOpeBRepBuild_Builder::SplitSolid(const TopoShape& S1oriented,
   // -----------------------------
   if (myDataStructure->NbSurfaces() > 0)
   {
-    TopOpeBRepDS_SurfaceIterator SSurfaces = myDataStructure->SolidSurfaces(S1forward);
+    SurfaceIterator SSurfaces = myDataStructure->SolidSurfaces(S1forward);
     for (; SSurfaces.More(); SSurfaces.Next())
     {
       Standard_Integer            iS    = SSurfaces.Current();
@@ -1814,7 +1814,7 @@ void TopOpeBRepBuild_Builder::FillSolid(const TopoShape&         S1,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::FillVertexSet(TopOpeBRepDS_PointIterator& IT,
+void TopOpeBRepBuild_Builder::FillVertexSet(PointIterator& IT,
                                             const TopAbs_State          ToBuild,
                                             TopOpeBRepBuild_PaveSet&    PVS) const
 {
@@ -1826,7 +1826,7 @@ void TopOpeBRepBuild_Builder::FillVertexSet(TopOpeBRepDS_PointIterator& IT,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::FillVertexSetOnValue(const TopOpeBRepDS_PointIterator& IT,
+void TopOpeBRepBuild_Builder::FillVertexSetOnValue(const PointIterator& IT,
                                                    const TopAbs_State                ToBuild,
                                                    TopOpeBRepBuild_PaveSet&          PVS) const
 {

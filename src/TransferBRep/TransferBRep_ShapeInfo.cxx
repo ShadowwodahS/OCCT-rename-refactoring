@@ -17,7 +17,7 @@
 
 Handle(TypeInfo) ShapeInfo::Type(const TopoShape& /*ent*/)
 {
-  return STANDARD_TYPE(TopoDS_TShape);
+  return STANDARD_TYPE(TopoShapeBase);
 }
 
 Standard_CString ShapeInfo::TypeName(const TopoShape& ent)

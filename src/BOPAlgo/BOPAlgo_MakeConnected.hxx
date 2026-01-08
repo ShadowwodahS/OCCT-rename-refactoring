@@ -199,7 +199,7 @@ public: //! @name Material transitions
 
 public: //! @name History methods
   //! Returns the history of operations
-  const Handle(BRepTools_History)& History() const { return myHistory; }
+  const Handle(ShapeHistory)& History() const { return myHistory; }
 
   //! Returns the list of shapes modified from the given shape.
   //! @param[in] theS  The shape for which the modified shapes are necessary.
@@ -285,8 +285,8 @@ protected: //! @name Fields
   TopTools_DataMapOfShapeListOfShape myOrigins; //!< Map of origins
                                                 //! (allows tracking the shape's ancestors)
 
-  Handle(BRepTools_History) myGlueHistory; //!< Gluing History
-  Handle(BRepTools_History) myHistory;     //!< Final History of shapes modifications
+  Handle(ShapeHistory) myGlueHistory; //!< Gluing History
+  Handle(ShapeHistory) myHistory;     //!< Final History of shapes modifications
                                            //! (including making the shape periodic and repetitions)
 
   TopoShape myGlued; //!< The resulting connected (glued) shape

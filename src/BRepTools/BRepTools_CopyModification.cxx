@@ -17,7 +17,7 @@
 #include <TopLoc_Location.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepTools_CopyModification, BRepTools_Modification)
+IMPLEMENT_STANDARD_RTTIEXT(BRepTools_CopyModification, ShapeModification)
 
 //=================================================================================================
 

@@ -22,9 +22,9 @@
 #include <Standard_IStream.hxx>
 #include <Storage_Position.hxx>
 #include <Standard_Integer.hxx>
-class BinMDF_ADriverTable;
+class AttributeDriverTable;
 class Message_Messenger;
-class BinLDrivers_DocumentSection;
+class DocumentSection;
 
 class BinDrivers_DocumentRetrievalDriver;
 DEFINE_STANDARD_HANDLE(BinDrivers_DocumentRetrievalDriver, BinLDrivers_DocumentRetrievalDriver)
@@ -36,11 +36,11 @@ public:
   //! Constructor
   Standard_EXPORT BinDrivers_DocumentRetrievalDriver();
 
-  Standard_EXPORT virtual Handle(BinMDF_ADriverTable) AttributeDrivers(
+  Standard_EXPORT virtual Handle(AttributeDriverTable) AttributeDrivers(
     const Handle(Message_Messenger)& theMsgDriver) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void ReadShapeSection(
-    BinLDrivers_DocumentSection& theSection,
+    DocumentSection& theSection,
     Standard_IStream&            theIS,
     const Standard_Boolean       isMess   = Standard_False,
     const Message_ProgressRange& theRange = Message_ProgressRange()) Standard_OVERRIDE;

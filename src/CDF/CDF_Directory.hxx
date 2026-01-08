@@ -24,18 +24,18 @@
 #include <Standard_Integer.hxx>
 class CDM_Document;
 
-class CDF_Directory;
-DEFINE_STANDARD_HANDLE(CDF_Directory, RefObject)
+class Directory;
+DEFINE_STANDARD_HANDLE(Directory, RefObject)
 
 //! A directory is a collection of documents. There is only one instance
 //! of a given document in a directory.
 //! put.
-class CDF_Directory : public RefObject
+class Directory : public RefObject
 {
 
 public:
   //! Creates an empty directory.
-  Standard_EXPORT CDF_Directory();
+  Standard_EXPORT Directory();
 
   //! adds a document into the directory.
   Standard_EXPORT void Add(const Handle(CDM_Document)& aDocument);
@@ -58,7 +58,7 @@ public:
 
   friend class DirectoryIterator;
 
-  DEFINE_STANDARD_RTTIEXT(CDF_Directory, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Directory, RefObject)
 
 protected:
 private:

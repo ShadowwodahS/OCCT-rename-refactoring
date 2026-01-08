@@ -432,7 +432,7 @@ static Standard_Integer sameparameter(DrawInterpreter& di, Standard_Integer n, c
   if ((n == 4 && IsUseTol) || (n == 3 && !IsUseTol))
   {
     TopoShape      aResultSh;
-    BRepTools_ReShape aResh;
+    ShapeReShaper aResh;
     BRepLib1::SameParameter(anInpS, aResh, aTol, force);
     aResultSh = aResh.Apply(anInpS);
     DBRep1::Set(a[1], aResultSh);
@@ -468,7 +468,7 @@ static Standard_Integer updatetol(DrawInterpreter& di, Standard_Integer n, const
   if ((n == 4 && IsF) || (n == 3 && !IsF))
   {
     TopoShape      aResultSh;
-    BRepTools_ReShape aResh;
+    ShapeReShaper aResh;
     BRepLib1::UpdateTolerances(anInpS, aResh, IsF);
     aResultSh = aResh.Apply(anInpS);
     DBRep1::Set(a[1], aResultSh);

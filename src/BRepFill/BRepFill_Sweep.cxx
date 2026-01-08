@@ -179,9 +179,9 @@ static Standard_Boolean HasPCurves(const TopoEdge& E)
 // function : Translate
 // purpose  : Copy a column from one table to another.
 //=======================================================================
-static void Translate(const Handle(TopTools_HArray2OfShape)& ArrayIn,
+static void Translate(const Handle(HArray2OfShape)& ArrayIn,
                       const Standard_Integer                 In,
-                      Handle(TopTools_HArray2OfShape)&       ArrayOut,
+                      Handle(HArray2OfShape)&       ArrayOut,
                       const Standard_Integer                 Out)
 {
   Standard_Integer ii, Nb;
@@ -2048,9 +2048,9 @@ Standard_Boolean BRepFill_Sweep::BuildWire(const BRepFill_TransitionStyle /*Tran
   // (1) Construction of all curves
 
   // (1.1) Construction of Tables
-  myFaces  = new (TopTools_HArray2OfShape)(1, 1, 1, NbPath);
-  myUEdges = new (TopTools_HArray2OfShape)(1, 2, 1, NbPath);
-  myVEdges = new (TopTools_HArray2OfShape)(1, 1, 1, NbPath + 1);
+  myFaces  = new (HArray2OfShape)(1, 1, 1, NbPath);
+  myUEdges = new (HArray2OfShape)(1, 2, 1, NbPath);
+  myVEdges = new (HArray2OfShape)(1, 1, 1, NbPath + 1);
 
   // (1.2) Calculate curves / vertex / edge
   for (ipath = 1; ipath <= NbPath; ipath++)
@@ -2370,8 +2370,8 @@ Standard_Boolean BRepFill_Sweep::BuildShell(const BRepFill_TransitionStyle /*Tra
       }
       else
       {
-        Handle(TopTools_HArray2OfShape) EmptyArray =
-          new TopTools_HArray2OfShape(1, 6, 1, NbPath + 1);
+        Handle(HArray2OfShape) EmptyArray =
+          new HArray2OfShape(1, 6, 1, NbPath + 1);
         Tapes.Bind(E, EmptyArray);
         Standard_Integer j;
         if (Rails.IsBound(Vfirst))
@@ -3026,7 +3026,7 @@ Standard_Boolean BRepFill_Sweep::BuildShell(const BRepFill_TransitionStyle /*Tra
       // clang-format on
       if (!Rails.IsBound(Vfirst))
       {
-        Handle(TopTools_HArray2OfShape) anArray = new TopTools_HArray2OfShape(1, 2, 1, NbPath + 1);
+        Handle(HArray2OfShape) anArray = new HArray2OfShape(1, 2, 1, NbPath + 1);
         for (j = 1; j <= NbPath; j++)
           anArray->SetValue(1, j, myUEdges->Value(isec, j));
         for (j = 1; j <= NbPath + 1; j++)
@@ -3035,7 +3035,7 @@ Standard_Boolean BRepFill_Sweep::BuildShell(const BRepFill_TransitionStyle /*Tra
       }
       if (!Rails.IsBound(Vlast))
       {
-        Handle(TopTools_HArray2OfShape) anArray = new TopTools_HArray2OfShape(1, 2, 1, NbPath + 1);
+        Handle(HArray2OfShape) anArray = new HArray2OfShape(1, 2, 1, NbPath + 1);
         for (j = 1; j <= NbPath; j++)
           anArray->SetValue(1, j, myUEdges->Value(isec + 1, j));
         for (j = 1; j <= NbPath + 1; j++)
@@ -3078,10 +3078,10 @@ void BRepFill_Sweep::Build(TopTools_MapOfShape&                   ReversedEdges,
                      NbLaw = mySec->NbLaw(), ii, jj, NbPart = 1;
     Standard_Integer ipath, isec;
     ShapeBuilder     B;
-    myUEdges = new (TopTools_HArray2OfShape)(1, NbLaw + 1, 1, NbPath);
-    myVEdges = new (TopTools_HArray2OfShape)(1, NbLaw, 1, NbPath + 1);
-    myFaces  = new (TopTools_HArray2OfShape)(1, NbLaw, 1, NbPath);
-    myTapes  = new (TopTools_HArray1OfShape)(1, NbLaw);
+    myUEdges = new (HArray2OfShape)(1, NbLaw + 1, 1, NbPath);
+    myVEdges = new (HArray2OfShape)(1, NbLaw, 1, NbPath + 1);
+    myFaces  = new (HArray2OfShape)(1, NbLaw, 1, NbPath);
+    myTapes  = new (HArray1OfShape)(1, NbLaw);
     ShapeBuilder BB;
     for (Standard_Integer i = 1; i <= NbLaw; i++)
     {
@@ -3089,7 +3089,7 @@ void BRepFill_Sweep::Build(TopTools_MapOfShape&                   ReversedEdges,
       BB.MakeShell(aShell);
       myTapes->ChangeValue(i) = aShell;
     }
-    Handle(TopTools_HArray2OfShape) Bounds = new (TopTools_HArray2OfShape)(1, NbLaw, 1, 2);
+    Handle(HArray2OfShape) Bounds = new (HArray2OfShape)(1, NbLaw, 1, 2);
 
     Handle(TColStd_HArray1OfInteger) Trous;
 
@@ -3348,7 +3348,7 @@ Standard_Real BRepFill_Sweep::ErrorOnSurface() const
 // function : SubShape
 // purpose  : Faces obtained by sweeping
 //=======================================================================
-Handle(TopTools_HArray2OfShape) BRepFill_Sweep::SubShape() const
+Handle(HArray2OfShape) BRepFill_Sweep::SubShape() const
 {
   return myFaces;
 }
@@ -3357,7 +3357,7 @@ Handle(TopTools_HArray2OfShape) BRepFill_Sweep::SubShape() const
 // function : InterFaces
 // purpose  : Edges obtained by sweeping
 //=======================================================================
-Handle(TopTools_HArray2OfShape) BRepFill_Sweep::InterFaces() const
+Handle(HArray2OfShape) BRepFill_Sweep::InterFaces() const
 {
   return myUEdges;
 }
@@ -3366,7 +3366,7 @@ Handle(TopTools_HArray2OfShape) BRepFill_Sweep::InterFaces() const
 // function : Sections
 // purpose  : Edges or Face (or compound of 2) Transition between 2 sweepings
 //=======================================================================
-Handle(TopTools_HArray2OfShape) BRepFill_Sweep::Sections() const
+Handle(HArray2OfShape) BRepFill_Sweep::Sections() const
 {
   return myVEdges;
 }
@@ -3386,7 +3386,7 @@ TopoShape BRepFill_Sweep::Tape(const Standard_Integer Index) const
 //======================================================================
 Standard_Boolean BRepFill_Sweep::PerformCorner(const Standard_Integer                 Index,
                                                const BRepFill_TransitionStyle         Transition,
-                                               const Handle(TopTools_HArray2OfShape)& Bounds)
+                                               const Handle(HArray2OfShape)& Bounds)
 {
 
   if (Transition == BRepFill_Modified)
@@ -3401,8 +3401,8 @@ Standard_Boolean BRepFill_Sweep::PerformCorner(const Standard_Integer           
   Point3d                   P1, P2;
   Vector3d                   T1, T2, Tang, Sortant;
   //  gp_Mat M;
-  // Handle(TopTools_HArray1OfShape) TheShape =
-  // new TopTools_HArray1OfShape( 1, mySec->NbLaw() );
+  // Handle(HArray1OfShape) TheShape =
+  // new HArray1OfShape( 1, mySec->NbLaw() );
   //  TopTools_ListIteratorOfListOfShape Iterator;
 
   if (Index > 1)
@@ -3478,18 +3478,18 @@ Standard_Boolean BRepFill_Sweep::PerformCorner(const Standard_Integer           
   Frame3d AxeOfBisPlane(P1, NormalOfBisPlane);
 
   // Construct 2 intersecting Shells
-  Handle(TopTools_HArray2OfShape) UEdges =
-    new TopTools_HArray2OfShape(1, mySec->NbLaw() + 1, 1, myLoc->NbLaw());
+  Handle(HArray2OfShape) UEdges =
+    new HArray2OfShape(1, mySec->NbLaw() + 1, 1, myLoc->NbLaw());
   UEdges->ChangeArray2() = myUEdges->Array2();
 
   // modified by NIZHNY-MKK  Wed Oct 29 18:31:47 2003.BEGIN
-  Handle(TopTools_HArray2OfShape) aFaces =
-    new TopTools_HArray2OfShape(myFaces->LowerRow(), myFaces->UpperRow(), 1, 2);
+  Handle(HArray2OfShape) aFaces =
+    new HArray2OfShape(myFaces->LowerRow(), myFaces->UpperRow(), 1, 2);
   Translate(myFaces, I1, aFaces, 1);
   Translate(myFaces, I2, aFaces, 2);
 
-  Handle(TopTools_HArray2OfShape) aUEdges =
-    new TopTools_HArray2OfShape(myUEdges->LowerRow(), myUEdges->UpperRow(), 1, 2);
+  Handle(HArray2OfShape) aUEdges =
+    new HArray2OfShape(myUEdges->LowerRow(), myUEdges->UpperRow(), 1, 2);
   Translate(myUEdges, I1, aUEdges, 1);
   Translate(myUEdges, I2, aUEdges, 2);
 

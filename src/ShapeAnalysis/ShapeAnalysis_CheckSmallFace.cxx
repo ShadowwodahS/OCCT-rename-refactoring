@@ -947,7 +947,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinFace(const TopoFace&     
   Handle(ShapeExtend_WireData) sbwd = new ShapeExtend_WireData(theCurWire);
   sfw.Load(sbwd);
   sfw.CheckOrder(wi);
-  Handle(TopTools_HSequenceOfShape) newedges = new TopTools_HSequenceOfShape();
+  Handle(HSequenceOfShape) newedges = new HSequenceOfShape();
   Standard_Integer                  nb       = wi.NbEdges();
   Standard_Integer                  i        = 0;
   for (i = 1; i <= nb; i++)

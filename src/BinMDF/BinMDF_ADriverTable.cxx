@@ -23,18 +23,18 @@
 #include <TCollection_HAsciiString.hxx>
 #include <TDF_DerivedAttribute.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDF_ADriverTable, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(AttributeDriverTable, RefObject)
 
 //=================================================================================================
 
-BinMDF_ADriverTable::BinMDF_ADriverTable() {}
+AttributeDriverTable::AttributeDriverTable() {}
 
 //=======================================================================
 // function : AddDriver
 // purpose  : Adds a translation driver <theDriver>.
 //=======================================================================
 
-void BinMDF_ADriverTable::AddDriver(const Handle(BinMDF_ADriver)& theDriver)
+void AttributeDriverTable::AddDriver(const Handle(BinMDF_ADriver)& theDriver)
 {
   const Handle(TypeInfo)& aType = theDriver->SourceType();
   myMap.Bind(aType, theDriver);
@@ -42,7 +42,7 @@ void BinMDF_ADriverTable::AddDriver(const Handle(BinMDF_ADriver)& theDriver)
 
 //=================================================================================================
 
-void BinMDF_ADriverTable::AddDerivedDriver(const Handle(TDF_Attribute)& theInstance)
+void AttributeDriverTable::AddDerivedDriver(const Handle(TDF_Attribute)& theInstance)
 {
   const Handle(TypeInfo)& anInstanceType = theInstance->DynamicType();
   if (!myMap.IsBound(anInstanceType)) // no direct driver, use a derived one
@@ -62,7 +62,7 @@ void BinMDF_ADriverTable::AddDerivedDriver(const Handle(TDF_Attribute)& theInsta
 
 //=================================================================================================
 
-const Handle(TypeInfo)& BinMDF_ADriverTable::AddDerivedDriver(Standard_CString theDerivedType)
+const Handle(TypeInfo)& AttributeDriverTable::AddDerivedDriver(Standard_CString theDerivedType)
 {
   if (Handle(TDF_Attribute) anInstance = DerivedAttribute::Attribute(theDerivedType))
   {
@@ -80,7 +80,7 @@ const Handle(TypeInfo)& BinMDF_ADriverTable::AddDerivedDriver(Standard_CString t
 //           Useful in storage procedure.
 //=======================================================================
 
-void BinMDF_ADriverTable::AssignIds(const TColStd_IndexedMapOfTransient& theTypes)
+void AttributeDriverTable::AssignIds(const TColStd_IndexedMapOfTransient& theTypes)
 {
   myMapId.Clear();
   Standard_Integer i;
@@ -93,7 +93,7 @@ void BinMDF_ADriverTable::AssignIds(const TColStd_IndexedMapOfTransient& theType
     }
     else
     {
-      throw Standard_NoSuchObject((AsciiString1("BinMDF_ADriverTable::AssignIds : ")
+      throw Standard_NoSuchObject((AsciiString1("AttributeDriverTable::AssignIds : ")
                                    + "the type " + aType->Name() + " has not been registered")
                                     .ToCString());
     }
@@ -107,7 +107,7 @@ void BinMDF_ADriverTable::AssignIds(const TColStd_IndexedMapOfTransient& theType
 //           Useful in retrieval procedure.
 //=======================================================================
 
-void BinMDF_ADriverTable::AssignIds(const TColStd_SequenceOfAsciiString& theTypeNames)
+void AttributeDriverTable::AssignIds(const TColStd_SequenceOfAsciiString& theTypeNames)
 {
   myMapId.Clear();
   // first prepare the data map (TypeName => TypeID) for input types

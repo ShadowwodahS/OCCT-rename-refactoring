@@ -121,7 +121,7 @@ void BRepProj_Projection::BuildSection(const TopoShape& theShape, const TopoShap
     return;
 
   // get edges of the result
-  Handle(TopTools_HSequenceOfShape) anEdges = new TopTools_HSequenceOfShape;
+  Handle(HSequenceOfShape) anEdges = new HSequenceOfShape;
   ShapeExplorer                   exp(aSectionTool.Shape(), TopAbs_EDGE);
   for (; exp.More(); exp.Next())
     anEdges->Append(exp.Current());

@@ -34,7 +34,7 @@ class GeomSurface;
 class IntTools_Context;
 class TopoEdge;
 class TopoFace;
-class IntTools_CurveRangeSample;
+class CurveRangeSample;
 class Box2;
 class IntTools_SurfaceRangeSample;
 class CurveRangeLocalizeData;
@@ -178,7 +178,7 @@ private:
   Standard_EXPORT Standard_Real Distance(const Standard_Real theArg);
 
   Standard_EXPORT Standard_Boolean
-    LocalizeSolutions(const IntTools_CurveRangeSample&   theCurveRange,
+    LocalizeSolutions(const CurveRangeSample&   theCurveRange,
                       const Box2&                     theBoxCurve,
                       const IntTools_SurfaceRangeSample& theSurfaceRange,
                       const Box2&                     theBoxSurface,

@@ -27,20 +27,20 @@
 #include <TColStd_SequenceOfAsciiString.hxx>
 class BinMDF_ADriver;
 
-class BinMDF_ADriverTable;
-DEFINE_STANDARD_HANDLE(BinMDF_ADriverTable, RefObject)
+class AttributeDriverTable;
+DEFINE_STANDARD_HANDLE(AttributeDriverTable, RefObject)
 
 //! A driver table is an object building links between
 //! object types and object drivers. In the
 //! translation process, a driver table is asked to
 //! give a translation driver for each current object
 //! to be translated.
-class BinMDF_ADriverTable : public RefObject
+class AttributeDriverTable : public RefObject
 {
 
 public:
   //! Constructor
-  Standard_EXPORT BinMDF_ADriverTable();
+  Standard_EXPORT AttributeDriverTable();
 
   //! Adds a translation driver <theDriver>.
   Standard_EXPORT void AddDriver(const Handle(BinMDF_ADriver)& theDriver);
@@ -72,7 +72,7 @@ public:
   //! Returns null handle if a driver is not found
   Handle(BinMDF_ADriver) GetDriver(const Standard_Integer theTypeId);
 
-  DEFINE_STANDARD_RTTIEXT(BinMDF_ADriverTable, RefObject)
+  DEFINE_STANDARD_RTTIEXT(AttributeDriverTable, RefObject)
 
 protected:
 private:

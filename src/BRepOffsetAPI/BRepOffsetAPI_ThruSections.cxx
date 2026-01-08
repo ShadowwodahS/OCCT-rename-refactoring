@@ -1046,7 +1046,7 @@ void BRepOffsetAPI_ThruSections::CreateSmoothed()
 
   if (!myMutableInput)
   {
-    BRepTools_ReShape                            aReshaper;
+    ShapeReShaper                            aReshaper;
     TopTools_DataMapIteratorOfDataMapOfShapeReal aMapIterator(aVertexToleranceMap);
     for (; aMapIterator.More(); aMapIterator.Next())
     {

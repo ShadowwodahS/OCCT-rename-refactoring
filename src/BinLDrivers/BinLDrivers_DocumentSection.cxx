@@ -18,11 +18,11 @@
 #include <BinMDataStd.hxx>
 
 //=======================================================================
-// function : BinLDrivers_DocumentSection
+// function : DocumentSection
 // purpose  : Empty constructor
 //=======================================================================
 
-BinLDrivers_DocumentSection::BinLDrivers_DocumentSection()
+DocumentSection::DocumentSection()
     : myIsPostRead(Standard_False)
 {
   myValue[0] = 0;
@@ -31,7 +31,7 @@ BinLDrivers_DocumentSection::BinLDrivers_DocumentSection()
 
 //=================================================================================================
 
-BinLDrivers_DocumentSection::BinLDrivers_DocumentSection(const AsciiString1& theName,
+DocumentSection::DocumentSection(const AsciiString1& theName,
                                                          const Standard_Boolean         isPostRead)
     : myName(theName),
       myIsPostRead(isPostRead)
@@ -42,49 +42,49 @@ BinLDrivers_DocumentSection::BinLDrivers_DocumentSection(const AsciiString1& the
 
 //=================================================================================================
 
-const AsciiString1& BinLDrivers_DocumentSection::Name() const
+const AsciiString1& DocumentSection::Name() const
 {
   return myName;
 }
 
 //=================================================================================================
 
-uint64_t BinLDrivers_DocumentSection::Offset() const
+uint64_t DocumentSection::Offset() const
 {
   return myValue[0];
 }
 
 //=================================================================================================
 
-void BinLDrivers_DocumentSection::SetOffset(const uint64_t theOffset)
+void DocumentSection::SetOffset(const uint64_t theOffset)
 {
   myValue[0] = theOffset;
 }
 
 //=================================================================================================
 
-Standard_Boolean BinLDrivers_DocumentSection::IsPostRead() const
+Standard_Boolean DocumentSection::IsPostRead() const
 {
   return myIsPostRead;
 }
 
 //=================================================================================================
 
-uint64_t BinLDrivers_DocumentSection::Length() const
+uint64_t DocumentSection::Length() const
 {
   return myValue[1];
 }
 
 //=================================================================================================
 
-void BinLDrivers_DocumentSection::SetLength(const uint64_t theLength)
+void DocumentSection::SetLength(const uint64_t theLength)
 {
   myValue[1] = theLength;
 }
 
 //=================================================================================================
 
-void BinLDrivers_DocumentSection::WriteTOC(Standard_OStream&           theStream,
+void DocumentSection::WriteTOC(Standard_OStream&           theStream,
                                            const TDocStd_FormatVersion theDocFormatVersion)
 {
   char aBuf[512];
@@ -136,7 +136,7 @@ void BinLDrivers_DocumentSection::WriteTOC(Standard_OStream&           theStream
 
 //=================================================================================================
 
-void BinLDrivers_DocumentSection::Write(Standard_OStream&           theStream,
+void DocumentSection::Write(Standard_OStream&           theStream,
                                         const uint64_t              theOffset,
                                         const TDocStd_FormatVersion theDocFormatVersion)
 {
@@ -149,7 +149,7 @@ void BinLDrivers_DocumentSection::Write(Standard_OStream&           theStream,
     // Check the limits for a 4-bytes integer.
     if (myValue[0] > INT_MAX || myValue[1] > INT_MAX)
       throw Standard_OutOfRange(
-        "BinLDrivers_DocumentSection::Write : file size is too big, needs int64.");
+        "DocumentSection::Write : file size is too big, needs int64.");
 
     // Old documents stored file position as 4-bytes values.
     int32_t aValInt[3] = {int32_t(myValue[0]), int32_t(myValue[1]), int32_t(myIsPostRead ? 1 : 0)};
@@ -176,8 +176,8 @@ void BinLDrivers_DocumentSection::Write(Standard_OStream&           theStream,
 
 //=================================================================================================
 
-Standard_Boolean BinLDrivers_DocumentSection::ReadTOC(
-  BinLDrivers_DocumentSection& theSection,
+Standard_Boolean DocumentSection::ReadTOC(
+  DocumentSection& theSection,
   Standard_IStream&            theStream,
   const TDocStd_FormatVersion  theDocFormatVersion)
 {

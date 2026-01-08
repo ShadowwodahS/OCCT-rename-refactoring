@@ -118,8 +118,8 @@ void NamingTranslator::DumpMap(const Standard_Boolean isWrite) const
     {
       if (isWrite)
       {
-        Handle(TopoDS_TShape) key(Handle(TopoDS_TShape)::DownCast(myMap.FindKey(i)));
-        Handle(TopoDS_TShape) item(Handle(TopoDS_TShape)::DownCast(myMap.FindFromIndex(i)));
+        Handle(TopoShapeBase) key(Handle(TopoShapeBase)::DownCast(myMap.FindKey(i)));
+        Handle(TopoShapeBase) item(Handle(TopoShapeBase)::DownCast(myMap.FindFromIndex(i)));
         TopoShape          S1;
         S1.TShape(key);
         TopoShape S2;

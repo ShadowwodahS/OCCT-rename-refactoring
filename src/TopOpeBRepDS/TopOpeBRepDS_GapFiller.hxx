@@ -25,7 +25,7 @@
 #include <TColStd_MapOfInteger.hxx>
 class TopOpeBRepDS_HDataStructure;
 class TopOpeBRepDS_GapTool;
-class TopOpeBRepDS_Association;
+class InterferenceAssociation;
 class TopOpeBRepDS_Interference;
 class TopoShape;
 class TopoFace;
@@ -87,7 +87,7 @@ protected:
 private:
   Handle(TopOpeBRepDS_HDataStructure) myHDS;
   Handle(TopOpeBRepDS_GapTool)        myGapTool;
-  Handle(TopOpeBRepDS_Association)    myAsso;
+  Handle(InterferenceAssociation)    myAsso;
 };
 
 #endif // _TopOpeBRepDS_GapFiller_HeaderFile

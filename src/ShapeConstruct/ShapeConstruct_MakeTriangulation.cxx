@@ -162,7 +162,7 @@ Standard_Boolean ShapeConstruct_MakeTriangulation::IsDone() const
 void ShapeConstruct_MakeTriangulation::Triangulate(const TopoWire& wire)
 {
   // Fill sequence of edges
-  Handle(TopTools_HSequenceOfShape) theEdges = new TopTools_HSequenceOfShape;
+  Handle(HSequenceOfShape) theEdges = new HSequenceOfShape;
   for (TopoDS_Iterator ite(wire); ite.More(); ite.Next())
     theEdges->Append(ite.Value());
   Standard_Integer NbEdges = theEdges->Length();

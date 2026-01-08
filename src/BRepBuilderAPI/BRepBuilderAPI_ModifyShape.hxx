@@ -25,7 +25,7 @@
 #include <TopoDS_Shape.hxx>
 #include <BRepBuilderAPI_MakeShape.hxx>
 #include <TopTools_ListOfShape.hxx>
-class BRepTools_Modification;
+class ShapeModification;
 
 //! Implements   the  methods   of MakeShape for   the
 //! constant  topology modifications.  The methods are
@@ -71,14 +71,14 @@ protected:
   Standard_EXPORT BRepBuilderAPI_ModifyShape(const TopoShape& S);
 
   //! Set the field <myModification> with <M>.
-  Standard_EXPORT BRepBuilderAPI_ModifyShape(const Handle(BRepTools_Modification)& M);
+  Standard_EXPORT BRepBuilderAPI_ModifyShape(const Handle(ShapeModification)& M);
 
   //! Initializes the modifier with  the Shape  <S>, and
   //! set the field <myInitialShape> to <S>, and set the
   //! field <myModification> with  <M>, the performs the
   //! modification.
   Standard_EXPORT BRepBuilderAPI_ModifyShape(const TopoShape&                   S,
-                                             const Handle(BRepTools_Modification)& M);
+                                             const Handle(ShapeModification)& M);
 
   //! Performs the previously  given modification on the
   //! shape <S>.
@@ -86,14 +86,14 @@ protected:
 
   //! Performs the  modification   <M> on a   previously
   //! given shape.
-  Standard_EXPORT void DoModif(const Handle(BRepTools_Modification)& M);
+  Standard_EXPORT void DoModif(const Handle(ShapeModification)& M);
 
   //! Performs the  modification <M> on the shape <S>.
-  Standard_EXPORT void DoModif(const TopoShape& S, const Handle(BRepTools_Modification)& M);
+  Standard_EXPORT void DoModif(const TopoShape& S, const Handle(ShapeModification)& M);
 
   ShapeModifier             myModifier;
   TopoShape                   myInitialShape;
-  Handle(BRepTools_Modification) myModification;
+  Handle(ShapeModification) myModification;
 
 private:
   Standard_EXPORT void DoModif();

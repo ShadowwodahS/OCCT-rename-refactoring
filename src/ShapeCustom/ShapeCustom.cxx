@@ -102,7 +102,7 @@ void UpdateShapeBuild(const TopoShape&               theShape,
 //=================================================================================================
 
 TopoShape ShapeCustom1::ApplyModifier(const TopoShape&                   S,
-                                        const Handle(BRepTools_Modification)& M,
+                                        const Handle(ShapeModification)& M,
                                         TopTools_DataMapOfShapeShape&         context,
                                         ShapeModifier&                   MD,
                                         const Message_ProgressRange&          theProgress,

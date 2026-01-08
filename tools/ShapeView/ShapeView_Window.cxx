@@ -252,7 +252,7 @@ void ShapeView_Window::UpdateContent()
     NCollection_List<AsciiString1> aNames;
     myParameters->SetFileNames(aName, aNames);
   }
-  // make TopoDS_TShape selected if exist in select parameters
+  // make TopoShapeBase selected if exist in select parameters
   NCollection_List<Handle(RefObject)> anObjects;
   if (myParameters->GetSelectedObjects(aName, anObjects))
   {
@@ -264,7 +264,7 @@ void ShapeView_Window::UpdateContent()
          aParamsIt.Next())
     {
       Handle(RefObject) anObject      = aParamsIt.Value();
-      Handle(TopoDS_TShape)      aShapePointer = Handle(TopoDS_TShape)::DownCast(anObject);
+      Handle(TopoShapeBase)      aShapePointer = Handle(TopoShapeBase)::DownCast(anObject);
       if (aShapePointer.IsNull())
         continue;
 
@@ -301,7 +301,7 @@ void ShapeView_Window::Init(NCollection_List<Handle(RefObject)>& theParameters)
        anObjectsIt.Next())
   {
     Handle(RefObject) anObject      = anObjectsIt.Value();
-    Handle(TopoDS_TShape)      aShapePointer = Handle(TopoDS_TShape)::DownCast(anObject);
+    Handle(TopoShapeBase)      aShapePointer = Handle(TopoShapeBase)::DownCast(anObject);
     if (!aShapePointer.IsNull())
     {
       TopoShape aShape;

@@ -20,7 +20,7 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 #include <Standard_Integer.hxx>
-class BinMDF_ADriverTable;
+class AttributeDriverTable;
 class Message_Messenger;
 
 //! Storage1 and Retrieval drivers for modelling attributes.
@@ -30,7 +30,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Adds the attribute drivers to <theDriverTable>.
-  Standard_EXPORT static void AddDrivers(const Handle(BinMDF_ADriverTable)& theDriverTable,
+  Standard_EXPORT static void AddDrivers(const Handle(AttributeDriverTable)& theDriverTable,
                                          const Handle(Message_Messenger)&   aMsgDrv);
 
   Standard_EXPORT static void SetDocumentVersion(const Standard_Integer DocVersion);

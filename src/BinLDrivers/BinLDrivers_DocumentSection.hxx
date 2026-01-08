@@ -28,16 +28,16 @@
 //! More or less independent part of the saved/restored document
 //! that is distinct from OCAF data themselves but may be referred
 //! by them.
-class BinLDrivers_DocumentSection
+class DocumentSection
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor
-  Standard_EXPORT BinLDrivers_DocumentSection();
+  Standard_EXPORT DocumentSection();
 
   //! Constructor
-  Standard_EXPORT BinLDrivers_DocumentSection(const AsciiString1& theName,
+  Standard_EXPORT DocumentSection(const AsciiString1& theName,
                                               const Standard_Boolean         isPostRead);
 
   //! Query the name of the section.
@@ -72,7 +72,7 @@ public:
 
   //! Fill a DocumentSection instance from the data that are read
   //! from TOC. Returns false in case of the stream reading problem.
-  Standard_EXPORT static Standard_Boolean ReadTOC(BinLDrivers_DocumentSection& theSection,
+  Standard_EXPORT static Standard_Boolean ReadTOC(DocumentSection& theSection,
                                                   Standard_IStream&            theIS,
                                                   const TDocStd_FormatVersion  theDocFormatVersion);
 

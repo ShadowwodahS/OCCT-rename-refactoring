@@ -162,9 +162,9 @@ Standard_Integer ShapeFix_WireVertex::Fix()
 
   ShapeBuilder B;
 
-  Handle(TopTools_HArray1OfShape) VI = new TopTools_HArray1OfShape(1, nb);
-  Handle(TopTools_HArray1OfShape) VJ = new TopTools_HArray1OfShape(1, nb);
-  Handle(TopTools_HArray1OfShape) EF = new TopTools_HArray1OfShape(1, nb);
+  Handle(HArray1OfShape) VI = new HArray1OfShape(1, nb);
+  Handle(HArray1OfShape) VJ = new HArray1OfShape(1, nb);
+  Handle(HArray1OfShape) EF = new HArray1OfShape(1, nb);
   Handle(TColStd_HArray1OfReal)   UI = new TColStd_HArray1OfReal(1, nb);
   Handle(TColStd_HArray1OfReal)   UJ = new TColStd_HArray1OfReal(1, nb);
 

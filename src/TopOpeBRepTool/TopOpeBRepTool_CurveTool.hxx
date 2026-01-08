@@ -29,16 +29,16 @@ class GeomCurve3d;
 class GeomCurve2d;
 class TopoShape;
 
-class TopOpeBRepTool_CurveTool
+class CurveTool6
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepTool_CurveTool();
+  Standard_EXPORT CurveTool6();
 
-  Standard_EXPORT TopOpeBRepTool_CurveTool(const TopOpeBRepTool_OutCurveType OCT);
+  Standard_EXPORT CurveTool6(const TopOpeBRepTool_OutCurveType OCT);
 
-  Standard_EXPORT TopOpeBRepTool_CurveTool(const GeomTool1& GT);
+  Standard_EXPORT CurveTool6(const GeomTool1& GT);
 
   Standard_EXPORT GeomTool1& ChangeGeomTool();
 

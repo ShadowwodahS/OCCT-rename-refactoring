@@ -73,9 +73,9 @@ void BinDrivers1::DefineFormat(const Handle(AppManager)& theApp)
 
 //=================================================================================================
 
-Handle(BinMDF_ADriverTable) BinDrivers1::AttributeDrivers(const Handle(Message_Messenger)& aMsgDrv)
+Handle(AttributeDriverTable) BinDrivers1::AttributeDrivers(const Handle(Message_Messenger)& aMsgDrv)
 {
-  Handle(BinMDF_ADriverTable) aTable = new BinMDF_ADriverTable;
+  Handle(AttributeDriverTable) aTable = new AttributeDriverTable;
 
   BinMDF1 ::AddDrivers(aTable, aMsgDrv);
   BinMDataStd1 ::AddDrivers(aTable, aMsgDrv);

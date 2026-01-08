@@ -20,7 +20,7 @@
 #include <Standard_Type.hxx>
 
 #include <BinDrivers_DocumentStorageDriver.hxx>
-class BinMDF_ADriverTable;
+class AttributeDriverTable;
 class Message_Messenger;
 
 class BinXCAFDrivers_DocumentStorageDriver;
@@ -33,7 +33,7 @@ public:
   //! Constructor
   Standard_EXPORT BinXCAFDrivers_DocumentStorageDriver();
 
-  Standard_EXPORT virtual Handle(BinMDF_ADriverTable) AttributeDrivers(
+  Standard_EXPORT virtual Handle(AttributeDriverTable) AttributeDrivers(
     const Handle(Message_Messenger)& theMsgDriver) Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(BinXCAFDrivers_DocumentStorageDriver, BinDrivers_DocumentStorageDriver)

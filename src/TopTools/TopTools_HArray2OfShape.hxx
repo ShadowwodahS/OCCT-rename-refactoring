@@ -21,6 +21,6 @@
 #include <TopTools_Array2OfShape.hxx>
 #include <NCollection_DefineHArray2.hxx>
 
-DEFINE_HARRAY2(TopTools_HArray2OfShape, TopTools_Array2OfShape)
+DEFINE_HARRAY2(HArray2OfShape, TopTools_Array2OfShape)
 
 #endif

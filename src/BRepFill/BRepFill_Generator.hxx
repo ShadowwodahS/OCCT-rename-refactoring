@@ -76,7 +76,7 @@ private:
   TopoShell                       myShell;
   TopTools_DataMapOfShapeListOfShape myMap;
   TopTools_DataMapOfShapeShape       myOldNewShapes;
-  BRepTools_ReShape                  myReshaper;
+  ShapeReShaper                  myReshaper;
   Standard_Boolean                   myMutableInput;
   BRepFill_ThruSectionErrorStatus    myStatus;
 };

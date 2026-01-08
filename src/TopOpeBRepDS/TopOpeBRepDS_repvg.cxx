@@ -116,7 +116,7 @@ Standard_EXPORT void FDS_repvg2(const TopOpeBRepDS_DataStructure& BDS,
       continue;
     }
 
-    TopOpeBRepDS_EdgeInterferenceTool EITool;
+    EdgeInterferenceTool EITool;
     Standard_Boolean                  memeS = Standard_False;
     StateTransition           TrmemeS;
     Standard_Boolean                  isComplex = Standard_False;

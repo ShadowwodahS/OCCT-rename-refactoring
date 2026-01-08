@@ -63,7 +63,7 @@ public:
    * Query the primitive topology. This method returns a Null shape if there
    * is an internal error during the primitive creation (zero radius, etc.)
    */
-  Standard_EXPORT virtual const Handle(TopoDS_TShape)& TShape() Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(TopoShapeBase)& TShape() Standard_OVERRIDE;
 
   /**
    * Create a copy of this node.

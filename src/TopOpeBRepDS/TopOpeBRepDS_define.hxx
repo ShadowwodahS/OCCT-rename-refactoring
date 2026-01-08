@@ -47,8 +47,8 @@
 #define MDScux CurveExplorer
 #define MDScud TopOpeBRepDS_CurveData
 #define MDScu TopOpeBRepDS_Curve
-#define MDSpox TopOpeBRepDS_PointExplorer
-#define MDSpod TopOpeBRepDS_PointData
+#define MDSpox PointExplorer
+#define MDSpod PointData
 #define MDSpo Point1
 #define MDSii InterferenceIterator
 #define MDShds Handle(TopOpeBRepDS_HDataStructure)

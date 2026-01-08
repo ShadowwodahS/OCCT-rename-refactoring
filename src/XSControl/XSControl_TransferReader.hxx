@@ -222,7 +222,7 @@ public:
   //! produced : it corresponds to a loop on EntityFromShapeResult,
   //! but is optimised
   Standard_EXPORT Handle(TColStd_HSequenceOfTransient) EntitiesFromShapeList(
-    const Handle(TopTools_HSequenceOfShape)& theRes,
+    const Handle(HSequenceOfShape)& theRes,
     const Standard_Integer                   theMode = 0) const;
 
   //! Returns the CheckList resulting from transferring <ent>, i.e.
@@ -328,7 +328,7 @@ public:
   //! If <rec> is False, sees LastTransferList (last ROOT transfers)
   //! For each one, if it is a Shape, it is cumulated to the list
   //! If no Shape is found, returns an empty Sequence
-  Standard_EXPORT const Handle(TopTools_HSequenceOfShape)& ShapeResultList(
+  Standard_EXPORT const Handle(HSequenceOfShape)& ShapeResultList(
     const Standard_Boolean theRec);
 
   //! This routines prints statistics about a TransientProcess
@@ -383,7 +383,7 @@ private:
   Handle(Transfer_ActorOfTransientProcess)                                 myActor;
   Handle(Transfer_TransientProcess)                                        myTP;
   TColStd_DataMapOfIntegerTransient                                        myResults;
-  Handle(TopTools_HSequenceOfShape)                                        myShapeResult;
+  Handle(HSequenceOfShape)                                        myShapeResult;
 };
 
 #endif // _XSControl_TransferReader_HeaderFile

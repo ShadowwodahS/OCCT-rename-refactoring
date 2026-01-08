@@ -27,7 +27,7 @@
 #include <TopOpeBRep_EdgesIntersector.hxx>
 #include <Standard_Boolean.hxx>
 #include <Standard_Integer.hxx>
-class TopOpeBRepTool_HBoxTool;
+class HBoxTool1;
 
 //! Intersect two shapes.
 //!
@@ -107,7 +107,7 @@ private:
 
   TopoShape                    myShape1;
   TopoShape                    myShape2;
-  Handle(TopOpeBRepTool_HBoxTool) myHBoxTool;
+  Handle(HBoxTool1) myHBoxTool;
   TopOpeBRepTool_ShapeExplorer    myFaceExplorer;
   TopOpeBRep_ShapeScanner         myFaceScanner;
   TopOpeBRepTool_ShapeExplorer    myEdgeExplorer;

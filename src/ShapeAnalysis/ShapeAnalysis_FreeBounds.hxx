@@ -112,15 +112,15 @@ public:
   //! adjacent edges share the same vertex.
   //! If <shared> is False connection is performed only when
   //! ends of adjacent edges are at distance less than <toler>.
-  Standard_EXPORT static void ConnectEdgesToWires(Handle(TopTools_HSequenceOfShape)& edges,
+  Standard_EXPORT static void ConnectEdgesToWires(Handle(HSequenceOfShape)& edges,
                                                   const Standard_Real                toler,
                                                   const Standard_Boolean             shared,
-                                                  Handle(TopTools_HSequenceOfShape)& wires);
+                                                  Handle(HSequenceOfShape)& wires);
 
-  Standard_EXPORT static void ConnectWiresToWires(Handle(TopTools_HSequenceOfShape)& iwires,
+  Standard_EXPORT static void ConnectWiresToWires(Handle(HSequenceOfShape)& iwires,
                                                   const Standard_Real                toler,
                                                   const Standard_Boolean             shared,
-                                                  Handle(TopTools_HSequenceOfShape)& owires);
+                                                  Handle(HSequenceOfShape)& owires);
 
   //! Builds sequence of <owires> out of sequence of not sorted
   //! <iwires>.
@@ -135,10 +135,10 @@ public:
   //! ends of adjacent wires are at distance less than <toler>.
   //! Map <vertices> stores the correspondence between original
   //! end vertices of the wires and new connecting vertices.
-  Standard_EXPORT static void ConnectWiresToWires(Handle(TopTools_HSequenceOfShape)& iwires,
+  Standard_EXPORT static void ConnectWiresToWires(Handle(HSequenceOfShape)& iwires,
                                                   const Standard_Real                toler,
                                                   const Standard_Boolean             shared,
-                                                  Handle(TopTools_HSequenceOfShape)& owires,
+                                                  Handle(HSequenceOfShape)& owires,
                                                   TopTools_DataMapOfShapeShape&      vertices);
 
   //! Extracts closed sub-wires out of <wires> and adds them
@@ -148,16 +148,16 @@ public:
   //! edges share the same vertex.
   //! If <shared> is False connection is performed only when
   //! ends of the edges are at distance less than <toler>.
-  Standard_EXPORT static void SplitWires(const Handle(TopTools_HSequenceOfShape)& wires,
+  Standard_EXPORT static void SplitWires(const Handle(HSequenceOfShape)& wires,
                                          const Standard_Real                      toler,
                                          const Standard_Boolean                   shared,
-                                         Handle(TopTools_HSequenceOfShape)&       closed,
-                                         Handle(TopTools_HSequenceOfShape)&       open);
+                                         Handle(HSequenceOfShape)&       closed,
+                                         Handle(HSequenceOfShape)&       open);
 
   //! Dispatches sequence of <wires> into two compounds
   //! <closed> for closed wires and <open> for open wires.
   //! If a compound is not empty wires are added into it.
-  Standard_EXPORT static void DispatchWires(const Handle(TopTools_HSequenceOfShape)& wires,
+  Standard_EXPORT static void DispatchWires(const Handle(HSequenceOfShape)& wires,
                                             TopoCompound&                         closed,
                                             TopoCompound&                         open);
 

@@ -156,7 +156,7 @@ void BRepAlgoAPI_BuilderAlgo::BuildResult(const Message_ProgressRange& theRange)
   // Fill history
   if (myFillHistory)
   {
-    myHistory = new BRepTools_History;
+    myHistory = new ShapeHistory;
     myHistory->Merge(myBuilder->History());
   }
 }

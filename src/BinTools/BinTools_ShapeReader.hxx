@@ -29,15 +29,15 @@ class MeshTriangulation;
 
 //! Reads topology from IStream in binary format without grouping of objects by types
 //! and using relative positions in a file as references.
-class BinTools_ShapeReader : public ShapeSetBase
+class BinaryShapeReader : public ShapeSetBase
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Initializes a shape reader.
-  Standard_EXPORT BinTools_ShapeReader();
+  Standard_EXPORT BinaryShapeReader();
 
-  Standard_EXPORT virtual ~BinTools_ShapeReader();
+  Standard_EXPORT virtual ~BinaryShapeReader();
 
   //! Clears the content of the set.
   Standard_EXPORT virtual void Clear() Standard_OVERRIDE;

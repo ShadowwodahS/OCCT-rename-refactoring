@@ -75,11 +75,11 @@ static Standard_Integer NbCalls = 0;
 #endif
 //=================================================================================================
 
-TopOpeBRepTool_CurveTool::TopOpeBRepTool_CurveTool() {}
+CurveTool6::CurveTool6() {}
 
 //=================================================================================================
 
-TopOpeBRepTool_CurveTool::TopOpeBRepTool_CurveTool(const TopOpeBRepTool_OutCurveType O)
+CurveTool6::CurveTool6(const TopOpeBRepTool_OutCurveType O)
 {
   GeomTool1 GT(O);
   SetGeomTool(GT);
@@ -87,28 +87,28 @@ TopOpeBRepTool_CurveTool::TopOpeBRepTool_CurveTool(const TopOpeBRepTool_OutCurve
 
 //=================================================================================================
 
-TopOpeBRepTool_CurveTool::TopOpeBRepTool_CurveTool(const GeomTool1& GT)
+CurveTool6::CurveTool6(const GeomTool1& GT)
 {
   SetGeomTool(GT);
 }
 
 //=================================================================================================
 
-GeomTool1& TopOpeBRepTool_CurveTool::ChangeGeomTool()
+GeomTool1& CurveTool6::ChangeGeomTool()
 {
   return myGeomTool;
 }
 
 //=================================================================================================
 
-const GeomTool1& TopOpeBRepTool_CurveTool::GetGeomTool() const
+const GeomTool1& CurveTool6::GetGeomTool() const
 {
   return myGeomTool;
 }
 
 //=================================================================================================
 
-void TopOpeBRepTool_CurveTool::SetGeomTool(const GeomTool1& GT)
+void CurveTool6::SetGeomTool(const GeomTool1& GT)
 {
   myGeomTool.Define(GT);
 }
@@ -292,7 +292,7 @@ static Handle(GeomCurve2d) MakeCurve2DfromWLineApprox(const Approx1& Approx,
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_CurveTool::MakeCurves(const Standard_Real         parmin,
+Standard_Boolean CurveTool6::MakeCurves(const Standard_Real         parmin,
                                                       const Standard_Real         parmax,
                                                       const Handle(GeomCurve3d)&   C3D,
                                                       const Handle(GeomCurve2d)& PC1,
@@ -835,7 +835,7 @@ Standard_Boolean TopOpeBRepTool_CurveTool::MakeCurves(const Standard_Real       
 
 //=================================================================================================
 
-Handle(GeomCurve3d) TopOpeBRepTool_CurveTool::MakeBSpline1fromPnt(const TColgp_Array1OfPnt& Points)
+Handle(GeomCurve3d) CurveTool6::MakeBSpline1fromPnt(const TColgp_Array1OfPnt& Points)
 {
   Standard_Integer Degree = 1;
 
@@ -871,7 +871,7 @@ Handle(GeomCurve3d) TopOpeBRepTool_CurveTool::MakeBSpline1fromPnt(const TColgp_A
 
 //=================================================================================================
 
-Handle(GeomCurve2d) TopOpeBRepTool_CurveTool::MakeBSpline1fromPnt2d(
+Handle(GeomCurve2d) CurveTool6::MakeBSpline1fromPnt2d(
   const TColgp_Array1OfPnt2d& Points)
 {
   Standard_Integer Degree = 1;
@@ -908,7 +908,7 @@ Handle(GeomCurve2d) TopOpeBRepTool_CurveTool::MakeBSpline1fromPnt2d(
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_CurveTool::IsProjectable(const TopoShape&       S,
+Standard_Boolean CurveTool6::IsProjectable(const TopoShape&       S,
                                                          const Handle(GeomCurve3d)& C3D)
 {
   const TopoFace&  F            = TopoDS::Face(S);
@@ -972,7 +972,7 @@ Standard_Boolean TopOpeBRepTool_CurveTool::IsProjectable(const TopoShape&       
 
 //=================================================================================================
 
-Handle(GeomCurve2d) TopOpeBRepTool_CurveTool::MakePCurveOnFace(const TopoShape&       S,
+Handle(GeomCurve2d) CurveTool6::MakePCurveOnFace(const TopoShape&       S,
                                                                 const Handle(GeomCurve3d)& C3D,
                                                                 Standard_Real&      TolReached2d,
                                                                 const Standard_Real first,

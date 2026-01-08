@@ -598,7 +598,7 @@ Handle(BRep_CurveRepresentation) ShapePersistent_BRep::CurveOn2Surfaces::import(
 // function : createTShape
 // purpose  : Create transient TShape object
 //=======================================================================
-Handle(TopoDS_TShape) ShapePersistent_BRep::pTVertex::createTShape() const
+Handle(TopoShapeBase) ShapePersistent_BRep::pTVertex::createTShape() const
 {
   Handle(BRep_TVertex) aTVertex = new BRep_TVertex;
 
@@ -615,7 +615,7 @@ Handle(TopoDS_TShape) ShapePersistent_BRep::pTVertex::createTShape() const
 // function : createTShape
 // purpose  : Create transient TShape object
 //=======================================================================
-Handle(TopoDS_TShape) ShapePersistent_BRep::pTEdge::createTShape() const
+Handle(TopoShapeBase) ShapePersistent_BRep::pTEdge::createTShape() const
 {
   Handle(BRep_TEdge) aTEdge = new BRep_TEdge;
 
@@ -634,7 +634,7 @@ Handle(TopoDS_TShape) ShapePersistent_BRep::pTEdge::createTShape() const
 // function : createTShape
 // purpose  : Create transient TShape object
 //=======================================================================
-Handle(TopoDS_TShape) ShapePersistent_BRep::pTFace::createTShape() const
+Handle(TopoShapeBase) ShapePersistent_BRep::pTFace::createTShape() const
 {
   Handle(BRep_TFace) aTFace = new BRep_TFace;
 

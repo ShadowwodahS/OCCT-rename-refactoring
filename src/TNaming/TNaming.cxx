@@ -849,7 +849,7 @@ TopoShape TNaming1::FindUniqueContext(const TopoShape& Selection, const TopoShap
 //=======================================================================
 TopoShape TNaming1::FindUniqueContextSet(const TopoShape&              Selection,
                                            const TopoShape&              Context,
-                                           Handle(TopTools_HArray1OfShape)& Arr)
+                                           Handle(HArray1OfShape)& Arr)
 {
   if (Selection.ShapeType() == TopAbs_COMPOUND)
   {
@@ -865,7 +865,7 @@ TopoShape TNaming1::FindUniqueContextSet(const TopoShape&              Selection
       Up++;
     }
     if (Up > 0)
-      Arr = new TopTools_HArray1OfShape(1, Up);
+      Arr = new HArray1OfShape(1, Up);
     if (aStopType == TopAbs_SHAPE)
       aStopType = Selection.ShapeType();
     BuildMap(Context, aStopType, aMap);

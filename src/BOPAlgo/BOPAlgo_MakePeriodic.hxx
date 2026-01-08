@@ -439,7 +439,7 @@ public: //! @name Getting the identical shapes
 
 public: //! @name Getting the History of the algorithm
   //! Returns the History of the algorithm
-  const Handle(BRepTools_History)& History() const { return myHistory; }
+  const Handle(ShapeHistory)& History() const { return myHistory; }
 
 public: //! @name Clearing the algorithm from previous runs
   //! Clears the algorithm from previous runs
@@ -492,14 +492,14 @@ protected: //! @name Protected methods performing the operation
   //! @param[out] theSplitShapeHistory  The history of shape split
   //! @param[out] theSplitToolsHistory  The history of tools modifications during the split
   Standard_EXPORT void SplitShape(const ShapeList& theTools,
-                                  Handle(BRepTools_History)   theSplitShapeHistory = NULL,
-                                  Handle(BRepTools_History)   theSplitToolsHistory = NULL);
+                                  Handle(ShapeHistory)   theSplitShapeHistory = NULL,
+                                  Handle(ShapeHistory)   theSplitToolsHistory = NULL);
 
   //! Updates the map of twins after periodic shape repetition.
   //! @param[in] theTranslationHistory  The history of translation of the periodic shape.
   //! @param[in] theGluingHistory  The history of gluing of the repeated shapes.
-  Standard_EXPORT void UpdateTwins(const BRepTools_History& theTranslationHistory,
-                                   const BRepTools_History& theGluingHistory);
+  Standard_EXPORT void UpdateTwins(const ShapeHistory& theTranslationHistory,
+                                   const ShapeHistory& theGluingHistory);
 
 protected: //! @name Fields
   // Inputs
@@ -521,9 +521,9 @@ protected: //! @name Fields
                                               //! located on the opposite sides of the shape
 
   // History
-  Handle(BRepTools_History) mySplitHistory; //!< Split history - history of shapes modification
+  Handle(ShapeHistory) mySplitHistory; //!< Split history - history of shapes modification
                                             //! after the split for making the shape periodic
-  Handle(BRepTools_History) myHistory;      //!< Final history of shapes modifications
+  Handle(ShapeHistory) myHistory;      //!< Final history of shapes modifications
                                             //! (to include the history of shape repetition)
 };
 

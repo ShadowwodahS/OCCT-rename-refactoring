@@ -188,7 +188,7 @@ Standard_EXPORT void FTOL_FaceTolerances3d(const TopoFace& myFace1,
                                            const TopoFace& myFace2,
                                            Standard_Real&     Tol)
 {
-  const Handle(TopOpeBRepTool_HBoxTool)& hbt = FBOX_GetHBoxTool();
+  const Handle(HBoxTool1)& hbt = FBOX_GetHBoxTool();
   Box2                                B1, B2;
   if (hbt->HasBox(myFace1))
   {

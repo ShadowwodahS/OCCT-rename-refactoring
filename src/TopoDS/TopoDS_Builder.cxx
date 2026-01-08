@@ -27,7 +27,7 @@
 // function : MakeShape
 // purpose  : Make a Shape from a TShape
 //=======================================================================
-void TopoBuilder::MakeShape(TopoShape& S, const Handle(TopoDS_TShape)& T) const
+void TopoBuilder::MakeShape(TopoShape& S, const Handle(TopoShapeBase)& T) const
 {
   S.TShape(T);
   S.Location(TopLoc_Location());

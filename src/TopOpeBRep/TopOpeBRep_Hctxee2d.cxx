@@ -156,7 +156,7 @@ void TopOpeBRep_Hctxee2d::SetEdges(const TopoEdge&         E1,
       Handle(GeomCurve3d) C = BRepInspector::Curve(myEdge2, loc, first, last);
       NC                   = Handle(GeomCurve3d)::DownCast(C->Transformed(loc.Transformation()));
       Standard_Real tolreached2d;
-      PC2on1 = TopOpeBRepTool_CurveTool::MakePCurveOnFace(F1, NC, tolreached2d);
+      PC2on1 = CurveTool6::MakePCurveOnFace(F1, NC, tolreached2d);
     }
 
     if (!PC2on1.IsNull())

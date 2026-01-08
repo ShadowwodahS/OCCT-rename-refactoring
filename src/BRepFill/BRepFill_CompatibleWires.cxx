@@ -288,7 +288,7 @@ static void WireContinuity(const TopoWire& W, GeomAbs_Shape& contW)
 
   BRepTools_WireExplorer            anExp;
   Standard_Integer                  nbEdges = 0;
-  Handle(TopTools_HSequenceOfShape) Edges   = new TopTools_HSequenceOfShape();
+  Handle(HSequenceOfShape) Edges   = new HSequenceOfShape();
   for (anExp.Init(W); anExp.More(); anExp.Next())
   {
     nbEdges++;

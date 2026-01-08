@@ -71,7 +71,7 @@ public:
 
   Standard_EXPORT Standard_Integer Neighbours() const;
 
-  Standard_EXPORT Handle(TopTools_HSequenceOfShape) FacesOfEdge() const;
+  Standard_EXPORT Handle(HSequenceOfShape) FacesOfEdge() const;
 
   void InitVertex() { myVertex = 1; }
 

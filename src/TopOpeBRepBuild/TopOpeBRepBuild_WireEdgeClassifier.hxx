@@ -33,7 +33,7 @@ class TopOpeBRepBuild_Loop;
 
 //! Classify edges and wires.
 //! shapes are Wires, Element are Edge.
-class TopOpeBRepBuild_WireEdgeClassifier : public TopOpeBRepBuild_CompositeClassifier
+class TopOpeBRepBuild_WireEdgeClassifier : public CompositeClassifier
 {
 public:
   DEFINE_STANDARD_ALLOC

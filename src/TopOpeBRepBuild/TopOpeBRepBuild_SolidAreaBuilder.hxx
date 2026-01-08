@@ -32,7 +32,7 @@ class LoopClassifier;
 //! results from  an interference (block of edges).
 //! The result of the SolidAreaBuilder is an iteration on areas.
 //! An area is described by a set of Loops.
-class TopOpeBRepBuild_SolidAreaBuilder : public TopOpeBRepBuild_Area3dBuilder
+class TopOpeBRepBuild_SolidAreaBuilder : public Area3dBuilder
 {
 public:
   DEFINE_STANDARD_ALLOC

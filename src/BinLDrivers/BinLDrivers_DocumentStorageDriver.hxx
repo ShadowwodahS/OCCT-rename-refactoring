@@ -28,13 +28,13 @@
 #include <Standard_OStream.hxx>
 #include <Standard_Type.hxx>
 #include <TDocStd_FormatVersion.hxx>
-class BinMDF_ADriverTable;
+class AttributeDriverTable;
 class Message_Messenger;
 class CDM_Document;
 class DataLabel;
 class AsciiString1;
-class BinLDrivers_DocumentSection;
-class BinObjMgt_Position;
+class DocumentSection;
+class Position2;
 
 class BinLDrivers_DocumentStorageDriver;
 DEFINE_STANDARD_HANDLE(BinLDrivers_DocumentStorageDriver, PCDM_StorageDriver)
@@ -59,7 +59,7 @@ public:
     Standard_OStream&            theOStream,
     const Message_ProgressRange& theRange = Message_ProgressRange()) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(BinMDF_ADriverTable) AttributeDrivers(
+  Standard_EXPORT virtual Handle(AttributeDriverTable) AttributeDrivers(
     const Handle(Message_Messenger)& theMsgDriver);
 
   //! Create a section that should be written after the OCAF data
@@ -86,7 +86,7 @@ protected:
 
   //! defines the procedure of writing a shape  section to file
   Standard_EXPORT virtual void WriteShapeSection(
-    BinLDrivers_DocumentSection& theDocSection,
+    DocumentSection& theDocSection,
     Standard_OStream&            theOS,
     const TDocStd_FormatVersion  theDocVer,
     const Message_ProgressRange& theRange = Message_ProgressRange());
@@ -101,7 +101,7 @@ protected:
   //! clears the writing-cash data in drivers if any.
   Standard_EXPORT virtual void Clear();
 
-  Handle(BinMDF_ADriverTable) myDrivers;
+  Handle(AttributeDriverTable) myDrivers;
   BinObjMgt_SRelocationTable  myRelocTable;
   Handle(Message_Messenger)   myMsgDriver;
 
@@ -129,7 +129,7 @@ private:
   BinLDrivers_VectorOfDocumentSection mySections;
   UtfString          myFileName;
   //! Sizes of labels and some attributes that will be stored in the second pass
-  NCollection_List<Handle(BinObjMgt_Position)> mySizesToWrite;
+  NCollection_List<Handle(Position2)> mySizesToWrite;
 };
 
 #endif // _BinLDrivers_DocumentStorageDriver_HeaderFile

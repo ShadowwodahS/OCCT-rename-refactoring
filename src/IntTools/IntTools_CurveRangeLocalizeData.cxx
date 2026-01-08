@@ -25,19 +25,19 @@ CurveRangeLocalizeData::CurveRangeLocalizeData(const Standard_Integer theNbSampl
   myMinRangeC = theMinRange;
 }
 
-void CurveRangeLocalizeData::AddOutRange(const IntTools_CurveRangeSample& theRange)
+void CurveRangeLocalizeData::AddOutRange(const CurveRangeSample& theRange)
 {
   myMapRangeOut.Add(theRange);
   myMapBox.UnBind(theRange);
 }
 
-void CurveRangeLocalizeData::AddBox(const IntTools_CurveRangeSample& theRange,
+void CurveRangeLocalizeData::AddBox(const CurveRangeSample& theRange,
                                              const Box2&                   theBox)
 {
   myMapBox.Bind(theRange, theBox);
 }
 
-Standard_Boolean CurveRangeLocalizeData::FindBox(const IntTools_CurveRangeSample& theRange,
+Standard_Boolean CurveRangeLocalizeData::FindBox(const CurveRangeSample& theRange,
                                                           Box2& theBox) const
 {
   if (myMapBox.IsBound(theRange))
@@ -49,7 +49,7 @@ Standard_Boolean CurveRangeLocalizeData::FindBox(const IntTools_CurveRangeSample
 }
 
 Standard_Boolean CurveRangeLocalizeData::IsRangeOut(
-  const IntTools_CurveRangeSample& theRange) const
+  const CurveRangeSample& theRange) const
 {
   return myMapRangeOut.Contains(theRange);
 }

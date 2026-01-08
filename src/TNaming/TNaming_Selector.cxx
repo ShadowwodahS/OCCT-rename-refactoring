@@ -273,7 +273,7 @@ static void FindGenerated(const Handle(ShapeAttribute)& NS,
 
 //=================================================================================================
 
-Standard_Boolean TNaming_Selector::IsIdentified(const DataLabel&            L,
+Standard_Boolean NamingSelector::IsIdentified(const DataLabel&            L,
                                                 const TopoShape&         Selection,
                                                 Handle(ShapeAttribute)& NS,
                                                 const Standard_Boolean      Geometry1)
@@ -340,14 +340,14 @@ Standard_Boolean TNaming_Selector::IsIdentified(const DataLabel&            L,
 
 //=================================================================================================
 
-TNaming_Selector::TNaming_Selector(const DataLabel& L)
+NamingSelector::NamingSelector(const DataLabel& L)
 {
   myLabel = L;
 }
 
 //=================================================================================================
 
-Standard_Boolean TNaming_Selector::Select(const TopoShape&    Selection,
+Standard_Boolean NamingSelector::Select(const TopoShape&    Selection,
                                           const TopoShape&    Context,
                                           const Standard_Boolean Geometry1,
                                           const Standard_Boolean KeepOrientation) const
@@ -449,7 +449,7 @@ Standard_Boolean TNaming_Selector::Select(const TopoShape&    Selection,
 
 //=================================================================================================
 
-Standard_Boolean TNaming_Selector::Select(const TopoShape&    Selection,
+Standard_Boolean NamingSelector::Select(const TopoShape&    Selection,
                                           const Standard_Boolean Geometry1,
                                           const Standard_Boolean KeepOrientation) const
 {
@@ -462,11 +462,11 @@ Standard_Boolean TNaming_Selector::Select(const TopoShape&    Selection,
 
 //=================================================================================================
 
-Standard_Boolean TNaming_Selector::Solve(TDF_LabelMap& Valid) const
+Standard_Boolean NamingSelector::Solve(TDF_LabelMap& Valid) const
 {
   Handle(TNaming_Naming) name;
 #ifdef OCCT_DEBUG_SEL
-  std::cout << "TNaming_Selector::Solve==> ";
+  std::cout << "NamingSelector::Solve==> ";
   PrintEntry(myLabel, 0);
 #endif
   if (myLabel.FindAttribute(TNaming_Naming::GetID(), name))
@@ -478,14 +478,14 @@ Standard_Boolean TNaming_Selector::Solve(TDF_LabelMap& Valid) const
 
 //=================================================================================================
 
-void TNaming_Selector::Arguments(TDF_AttributeMap& args) const
+void NamingSelector::Arguments(TDF_AttributeMap& args) const
 {
   Tool3::OutReferences(myLabel, args);
 }
 
 //=================================================================================================
 
-Handle(ShapeAttribute) TNaming_Selector::NamedShape1() const
+Handle(ShapeAttribute) NamingSelector::NamedShape1() const
 {
   Handle(ShapeAttribute) NS;
   myLabel.FindAttribute(ShapeAttribute::GetID(), NS);

@@ -132,17 +132,17 @@ public:
 
   Standard_Integer NbSharedVertices() const { return myNbSharedVertices; }
 
-  const Handle(TopTools_HSequenceOfShape)& BigSplineSec() const { return myBigSplineSec; }
+  const Handle(HSequenceOfShape)& BigSplineSec() const { return myBigSplineSec; }
 
-  const Handle(TopTools_HSequenceOfShape)& IndirectSec() const { return myIndirectSec; }
+  const Handle(HSequenceOfShape)& IndirectSec() const { return myIndirectSec; }
 
-  const Handle(TopTools_HSequenceOfShape)& OffsetSurfaceSec() const { return myOffsetSurfaceSec; }
+  const Handle(HSequenceOfShape)& OffsetSurfaceSec() const { return myOffsetSurfaceSec; }
 
-  const Handle(TopTools_HSequenceOfShape)& Trimmed3dSec() const { return myTrimmed3dSec; }
+  const Handle(HSequenceOfShape)& Trimmed3dSec() const { return myTrimmed3dSec; }
 
-  const Handle(TopTools_HSequenceOfShape)& OffsetCurveSec() const { return myOffsetCurveSec; }
+  const Handle(HSequenceOfShape)& OffsetCurveSec() const { return myOffsetCurveSec; }
 
-  const Handle(TopTools_HSequenceOfShape)& Trimmed2dSec() const { return myTrimmed2dSec; }
+  const Handle(HSequenceOfShape)& Trimmed2dSec() const { return myTrimmed2dSec; }
 
 public:
   Standard_DEPRECATED("ModifyOffsetSurfaceMode() should be used instead")
@@ -189,12 +189,12 @@ private:
   Standard_Boolean                  myTrimmed3dMode;
   Standard_Boolean                  myOffsetCurveMode;
   Standard_Boolean                  myTrimmed2dMode;
-  Handle(TopTools_HSequenceOfShape) myBigSplineSec;
-  Handle(TopTools_HSequenceOfShape) myIndirectSec;
-  Handle(TopTools_HSequenceOfShape) myOffsetSurfaceSec;
-  Handle(TopTools_HSequenceOfShape) myTrimmed3dSec;
-  Handle(TopTools_HSequenceOfShape) myOffsetCurveSec;
-  Handle(TopTools_HSequenceOfShape) myTrimmed2dSec;
+  Handle(HSequenceOfShape) myBigSplineSec;
+  Handle(HSequenceOfShape) myIndirectSec;
+  Handle(HSequenceOfShape) myOffsetSurfaceSec;
+  Handle(HSequenceOfShape) myTrimmed3dSec;
+  Handle(HSequenceOfShape) myOffsetCurveSec;
+  Handle(HSequenceOfShape) myTrimmed2dSec;
 };
 
 #endif // _ShapeAnalysis_ShapeContents_HeaderFile

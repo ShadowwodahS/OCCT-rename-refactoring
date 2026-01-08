@@ -33,7 +33,7 @@
 #include <TopLoc_Location.hxx>
 #include <Message_ProgressRange.hxx>
 
-class BRepTools_Modification;
+class ShapeModification;
 class GeomCurve3d;
 class GeomSurface;
 
@@ -52,13 +52,13 @@ public:
   //! Creates a modifier on  the shape <S>, and performs
   //! the modifications described by <M>.
   Standard_EXPORT ShapeModifier(const TopoShape&                   S,
-                                     const Handle(BRepTools_Modification)& M);
+                                     const Handle(ShapeModification)& M);
 
   //! Initializes the modifier with the shape <S>.
   Standard_EXPORT void Init(const TopoShape& S);
 
   //! Performs the modifications described by <M>.
-  Standard_EXPORT void Perform(const Handle(BRepTools_Modification)& M,
+  Standard_EXPORT void Perform(const Handle(ShapeModification)& M,
                                const Message_ProgressRange& theProgress = Message_ProgressRange());
 
   //! Returns Standard_True if the modification has
@@ -98,21 +98,21 @@ private:
 
   Standard_EXPORT Standard_Boolean
     Rebuild(const TopoShape&                   S,
-            const Handle(BRepTools_Modification)& M,
+            const Handle(ShapeModification)& M,
             Standard_Boolean&                     theNewGeom,
             const Message_ProgressRange&          theProgress = Message_ProgressRange());
 
   Standard_EXPORT void CreateNewVertices(const TopTools_IndexedDataMapOfShapeListOfShape& theMVE,
-                                         const Handle(BRepTools_Modification)&            M);
+                                         const Handle(ShapeModification)&            M);
 
   Standard_EXPORT void FillNewCurveInfo(const TopTools_IndexedDataMapOfShapeListOfShape& theMEF,
-                                        const Handle(BRepTools_Modification)&            M);
+                                        const Handle(ShapeModification)&            M);
 
-  Standard_EXPORT void FillNewSurfaceInfo(const Handle(BRepTools_Modification)& M);
+  Standard_EXPORT void FillNewSurfaceInfo(const Handle(ShapeModification)& M);
 
   Standard_EXPORT void CreateOtherVertices(const TopTools_IndexedDataMapOfShapeListOfShape& theMVE,
                                            const TopTools_IndexedDataMapOfShapeListOfShape& theMEF,
-                                           const Handle(BRepTools_Modification)&            M);
+                                           const Handle(ShapeModification)&            M);
 
   TopTools_DataMapOfShapeShape                                              myMap;
   TopoShape                                                              myShape;

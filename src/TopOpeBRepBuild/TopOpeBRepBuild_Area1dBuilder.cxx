@@ -27,7 +27,7 @@ extern Standard_Boolean TopOpeBRepBuild_GettraceAREA();
 //=================================================================================================
 
 #ifdef OCCT_DEBUG
-void TopOpeBRepBuild_Area1dBuilder::DumpList(const TopOpeBRepBuild_ListOfLoop& LOL)
+void Area1dBuilder::DumpList(const TopOpeBRepBuild_ListOfLoop& LOL)
 {
   Standard_Integer                         iLOL;
   TopOpeBRepBuild_ListIteratorOfListOfLoop itLOL;
@@ -42,18 +42,18 @@ void TopOpeBRepBuild_Area1dBuilder::DumpList(const TopOpeBRepBuild_ListOfLoop& L
     std::cout << std::endl;
   }
 #else
-void TopOpeBRepBuild_Area1dBuilder::DumpList(const TopOpeBRepBuild_ListOfLoop&)
+void Area1dBuilder::DumpList(const TopOpeBRepBuild_ListOfLoop&)
 {
 #endif
 }
 
 //=================================================================================================
 
-TopOpeBRepBuild_Area1dBuilder::TopOpeBRepBuild_Area1dBuilder() {}
+Area1dBuilder::Area1dBuilder() {}
 
 //=================================================================================================
 
-TopOpeBRepBuild_Area1dBuilder::TopOpeBRepBuild_Area1dBuilder(TopOpeBRepBuild_PaveSet&        LS,
+Area1dBuilder::Area1dBuilder(TopOpeBRepBuild_PaveSet&        LS,
                                                              TopOpeBRepBuild_PaveClassifier& LC,
                                                              const Standard_Boolean ForceClass)
 {
@@ -62,7 +62,7 @@ TopOpeBRepBuild_Area1dBuilder::TopOpeBRepBuild_Area1dBuilder(TopOpeBRepBuild_Pav
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Area1dBuilder::InitAreaBuilder(LoopSet&        LS,
+void Area1dBuilder::InitAreaBuilder(LoopSet&        LS,
                                                     LoopClassifier& LC,
                                                     const Standard_Boolean          ForceClass)
 {
@@ -279,7 +279,7 @@ void TopOpeBRepBuild_Area1dBuilder::InitAreaBuilder(LoopSet&        LS,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Area1dBuilder::ADD_Loop_TO_LISTOFLoop(const Handle(TopOpeBRepBuild_Loop)& L,
+void Area1dBuilder::ADD_Loop_TO_LISTOFLoop(const Handle(TopOpeBRepBuild_Loop)& L,
                                                            TopOpeBRepBuild_ListOfLoop&         LOL,
                                                            const Standard_Address
 #ifdef OCCT_DEBUG
@@ -305,7 +305,7 @@ void TopOpeBRepBuild_Area1dBuilder::ADD_Loop_TO_LISTOFLoop(const Handle(TopOpeBR
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Area1dBuilder::REM_Loop_FROM_LISTOFLoop(
+void Area1dBuilder::REM_Loop_FROM_LISTOFLoop(
   TopOpeBRepBuild_ListIteratorOfListOfLoop& ITA,
   TopOpeBRepBuild_ListOfLoop&               A,
 #ifdef OCCT_DEBUG
@@ -344,7 +344,7 @@ void TopOpeBRepBuild_Area1dBuilder::REM_Loop_FROM_LISTOFLoop(
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Area1dBuilder::ADD_LISTOFLoop_TO_LISTOFLoop(TopOpeBRepBuild_ListOfLoop& A1,
+void Area1dBuilder::ADD_LISTOFLoop_TO_LISTOFLoop(TopOpeBRepBuild_ListOfLoop& A1,
                                                                  TopOpeBRepBuild_ListOfLoop& A2,
 #ifdef OCCT_DEBUG
                                                                  const Standard_Address ss,

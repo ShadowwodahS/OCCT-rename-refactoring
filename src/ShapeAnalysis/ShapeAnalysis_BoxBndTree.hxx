@@ -33,7 +33,7 @@ typedef NCollection_UBTree<Standard_Integer, Box2> ShapeAnalysis_BoxBndTree;
 class ShapeAnalysis_BoxBndTreeSelector : public ShapeAnalysis_BoxBndTree::Selector
 {
 public:
-  ShapeAnalysis_BoxBndTreeSelector(Handle(TopTools_HArray1OfShape) theSeq,
+  ShapeAnalysis_BoxBndTreeSelector(Handle(HArray1OfShape) theSeq,
                                    Standard_Boolean                theShared)
       : mySeq(theSeq),
         myShared(theShared),
@@ -95,7 +95,7 @@ public:
 private:
   Box2                         myFBox;
   Box2                         myLBox;
-  Handle(TopTools_HArray1OfShape) mySeq;
+  Handle(HArray1OfShape) mySeq;
   Standard_Boolean                myShared;
   Standard_Integer                myNb;
   TopoVertex                   myFVertex;

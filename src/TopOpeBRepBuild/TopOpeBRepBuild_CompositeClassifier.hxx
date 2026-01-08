@@ -29,7 +29,7 @@ class TopoShape;
 
 //! classify composite Loops, i.e, loops that can be either a Shape, or
 //! a block of Elements.
-class TopOpeBRepBuild_CompositeClassifier : public LoopClassifier
+class CompositeClassifier : public LoopClassifier
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -63,7 +63,7 @@ public:
   Standard_EXPORT virtual TopAbs_State State() = 0;
 
 protected:
-  Standard_EXPORT TopOpeBRepBuild_CompositeClassifier(const BlockBuilder& BB);
+  Standard_EXPORT CompositeClassifier(const BlockBuilder& BB);
 
   Standard_Address myBlockBuilder;
 

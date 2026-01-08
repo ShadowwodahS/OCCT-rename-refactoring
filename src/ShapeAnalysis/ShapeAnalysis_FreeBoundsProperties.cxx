@@ -208,7 +208,7 @@ Standard_Boolean ShapeAnalysis_FreeBoundsProperties::DispatchBounds()
   }
 
   Explorer              shexpl;
-  Handle(TopTools_HSequenceOfShape) tmpSeq =
+  Handle(HSequenceOfShape) tmpSeq =
     shexpl.SeqFromCompound(tmpClosedBounds, Standard_False);
   Standard_Integer i; // svv Jan11 2000 : porting on DEC
   for (i = 1; i <= tmpSeq->Length(); i++)
@@ -219,7 +219,7 @@ Standard_Boolean ShapeAnalysis_FreeBoundsProperties::DispatchBounds()
     myClosedFreeBounds->Append(fbData);
   }
 
-  Handle(TopTools_HSequenceOfShape) tmpSeq2 = shexpl.SeqFromCompound(tmpOpenBounds, Standard_False);
+  Handle(HSequenceOfShape) tmpSeq2 = shexpl.SeqFromCompound(tmpOpenBounds, Standard_False);
   for (i = 1; i <= tmpSeq2->Length(); i++)
   {
     TopoWire                         wire   = TopoDS::Wire(tmpSeq2->Value(i));

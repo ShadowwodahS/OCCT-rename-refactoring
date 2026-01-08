@@ -42,9 +42,9 @@ class Point3d;
 class GeomCurve2d;
 
 class Draft_Modification;
-DEFINE_STANDARD_HANDLE(Draft_Modification, BRepTools_Modification)
+DEFINE_STANDARD_HANDLE(Draft_Modification, ShapeModification)
 
-class Draft_Modification : public BRepTools_Modification
+class Draft_Modification : public ShapeModification
 {
 
 public:
@@ -179,7 +179,7 @@ public:
                                            const TopoFace& NewF1,
                                            const TopoFace& NewF2) Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Draft_Modification, BRepTools_Modification)
+  DEFINE_STANDARD_RTTIEXT(Draft_Modification, ShapeModification)
 
 protected:
 private:

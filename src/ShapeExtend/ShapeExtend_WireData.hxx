@@ -180,7 +180,7 @@ public:
   //! Returns sequence of non-manifold edges
   //! This sequence can be not empty if wire data set in manifold mode but
   //! initial wire has INTERNAL orientation or contains INTERNAL edges
-  Standard_EXPORT Handle(TopTools_HSequenceOfShape) NonmanifoldEdges() const;
+  Standard_EXPORT Handle(HSequenceOfShape) NonmanifoldEdges() const;
 
   //! Returns mode defining manifold wire data or not.
   //! If manifold that nonmanifold edges will not be not
@@ -222,8 +222,8 @@ public:
 
 protected:
 private:
-  Handle(TopTools_HSequenceOfShape)  myEdges;
-  Handle(TopTools_HSequenceOfShape)  myNonmanifoldEdges;
+  Handle(HSequenceOfShape)  myEdges;
+  Handle(HSequenceOfShape)  myNonmanifoldEdges;
   Handle(TColStd_HSequenceOfInteger) mySeams;
   Standard_Integer                   mySeamF;
   Standard_Integer                   mySeamR;

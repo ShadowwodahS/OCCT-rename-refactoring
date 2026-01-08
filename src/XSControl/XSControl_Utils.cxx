@@ -390,7 +390,7 @@ void XSControlUtils::AppendEStr(const Handle(TColStd_HSequenceOfHExtendedString)
 //  ##########################################################
 //  #######           SHAPES : Acces de base           #######
 
-TopoShape XSControlUtils::CompoundFromSeq(const Handle(TopTools_HSequenceOfShape)& seqval) const
+TopoShape XSControlUtils::CompoundFromSeq(const Handle(HSequenceOfShape)& seqval) const
 {
   ShapeBuilder    B;
   TopoCompound C;
@@ -551,7 +551,7 @@ TopoShape XSControlUtils::SortedCompound(const TopoShape&    shape,
 
 //  #######               SHAPES : Liste               #######
 
-TopoShape XSControlUtils::ShapeValue(const Handle(TopTools_HSequenceOfShape)& seqval,
+TopoShape XSControlUtils::ShapeValue(const Handle(HSequenceOfShape)& seqval,
                                          const Standard_Integer                   num) const
 {
   TopoShape shape;
@@ -562,12 +562,12 @@ TopoShape XSControlUtils::ShapeValue(const Handle(TopTools_HSequenceOfShape)& se
   return shape;
 }
 
-Handle(TopTools_HSequenceOfShape) XSControlUtils::NewSeqShape() const
+Handle(HSequenceOfShape) XSControlUtils::NewSeqShape() const
 {
-  return new TopTools_HSequenceOfShape();
+  return new HSequenceOfShape();
 }
 
-void XSControlUtils::AppendShape(const Handle(TopTools_HSequenceOfShape)& seqval,
+void XSControlUtils::AppendShape(const Handle(HSequenceOfShape)& seqval,
                                   const TopoShape&                      shape) const
 {
   seqval->Append(shape);
@@ -622,7 +622,7 @@ Standard_Integer XSControlUtils::SeqLength(const Handle(RefObject)& seqval) cons
   DeclareAndCast(TColStd_HSequenceOfTransient, seqt, seqval);
   if (!seqt.IsNull())
     return seqt->Length();
-  DeclareAndCast(TopTools_HSequenceOfShape, seqh, seqval);
+  DeclareAndCast(HSequenceOfShape, seqh, seqval);
   if (!seqh.IsNull())
     return seqh->Length();
   DeclareAndCast(TColStd_HSequenceOfInteger, seqi, seqval);

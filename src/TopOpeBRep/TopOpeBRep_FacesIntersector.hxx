@@ -70,7 +70,7 @@ public:
 
   Standard_EXPORT void PrepareLines();
 
-  Standard_EXPORT Handle(TopOpeBRep_HArray1OfLineInter) Lines();
+  Standard_EXPORT Handle(HArray1OfLineInter) Lines();
 
   Standard_EXPORT Standard_Integer NbLines() const;
 
@@ -118,7 +118,7 @@ private:
   Standard_Real                         myTol1;
   Standard_Real                         myTol2;
   Standard_Boolean                      myForceTolerances;
-  Handle(TopOpeBRep_HArray1OfLineInter) myHAL;
+  Handle(HArray1OfLineInter) myHAL;
   TopOpeBRep_LineInter                  myLine;
   Standard_Integer                      myLineIndex;
   Standard_Boolean                      myLineFound;

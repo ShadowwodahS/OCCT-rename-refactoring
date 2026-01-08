@@ -32,18 +32,18 @@
 
 //=================================================================================================
 
-BinTools_ShapeWriter::BinTools_ShapeWriter()
+BinaryShapeWriter::BinaryShapeWriter()
     : ShapeSetBase()
 {
 }
 
 //=================================================================================================
 
-BinTools_ShapeWriter::~BinTools_ShapeWriter() {}
+BinaryShapeWriter::~BinaryShapeWriter() {}
 
 //=================================================================================================
 
-void BinTools_ShapeWriter::Clear()
+void BinaryShapeWriter::Clear()
 {
   ShapeSetBase::Clear();
   myShapePos.Clear();
@@ -58,7 +58,7 @@ void BinTools_ShapeWriter::Clear()
 
 //=================================================================================================
 
-void BinTools_ShapeWriter::Write(const TopoShape& theShape, Standard_OStream& theStream)
+void BinaryShapeWriter::Write(const TopoShape& theShape, Standard_OStream& theStream)
 {
   BinaryOutputStream anOStream(theStream);
   WriteShape(anOStream, theShape);
@@ -66,7 +66,7 @@ void BinTools_ShapeWriter::Write(const TopoShape& theShape, Standard_OStream& th
 
 //=================================================================================================
 
-void BinTools_ShapeWriter::WriteShape(BinaryOutputStream& theStream, const TopoShape& theShape)
+void BinaryShapeWriter::WriteShape(BinaryOutputStream& theStream, const TopoShape& theShape)
 {
   if (theShape.IsNull())
   {
@@ -242,7 +242,7 @@ void BinTools_ShapeWriter::WriteShape(BinaryOutputStream& theStream, const TopoS
   catch (ExceptionBase const& anException)
   {
     Standard_SStream aMsg;
-    aMsg << "EXCEPTION in BinTools_ShapeWriter::WriteShape" << std::endl;
+    aMsg << "EXCEPTION in BinaryShapeWriter::WriteShape" << std::endl;
     aMsg << anException << std::endl;
     throw ExceptionBase(aMsg.str().c_str());
   }
@@ -262,7 +262,7 @@ void BinTools_ShapeWriter::WriteShape(BinaryOutputStream& theStream, const TopoS
 
 //=================================================================================================
 
-void BinTools_ShapeWriter::WriteLocation(BinaryOutputStream&      theStream,
+void BinaryShapeWriter::WriteLocation(BinaryOutputStream&      theStream,
                                          const TopLoc_Location& theLocation)
 {
   if (theLocation.IsIdentity())
@@ -309,7 +309,7 @@ void BinTools_ShapeWriter::WriteLocation(BinaryOutputStream&      theStream,
   catch (ExceptionBase const& anException)
   {
     Standard_SStream aMsg;
-    aMsg << "EXCEPTION in BinTools_ShapeWriter::WriteLocation" << std::endl;
+    aMsg << "EXCEPTION in BinaryShapeWriter::WriteLocation" << std::endl;
     aMsg << anException << std::endl;
     throw ExceptionBase(aMsg.str().c_str());
   }
@@ -317,7 +317,7 @@ void BinTools_ShapeWriter::WriteLocation(BinaryOutputStream&      theStream,
 
 //=================================================================================================
 
-void BinTools_ShapeWriter::WriteCurve(BinaryOutputStream&         theStream,
+void BinaryShapeWriter::WriteCurve(BinaryOutputStream&         theStream,
                                       const Handle(GeomCurve3d)& theCurve)
 {
   if (theCurve.IsNull())
@@ -338,7 +338,7 @@ void BinTools_ShapeWriter::WriteCurve(BinaryOutputStream&         theStream,
 
 //=================================================================================================
 
-void BinTools_ShapeWriter::WriteCurve(BinaryOutputStream&           theStream,
+void BinaryShapeWriter::WriteCurve(BinaryOutputStream&           theStream,
                                       const Handle(GeomCurve2d)& theCurve)
 {
   if (theCurve.IsNull())
@@ -359,7 +359,7 @@ void BinTools_ShapeWriter::WriteCurve(BinaryOutputStream&           theStream,
 
 //=================================================================================================
 
-void BinTools_ShapeWriter::WriteSurface(BinaryOutputStream&           theStream,
+void BinaryShapeWriter::WriteSurface(BinaryOutputStream&           theStream,
                                         const Handle(GeomSurface)& theSurface)
 {
   if (theSurface.IsNull())
@@ -380,7 +380,7 @@ void BinTools_ShapeWriter::WriteSurface(BinaryOutputStream&           theStream,
 
 //=================================================================================================
 
-void BinTools_ShapeWriter::WritePolygon(BinaryOutputStream&             theStream,
+void BinaryShapeWriter::WritePolygon(BinaryOutputStream&             theStream,
                                         const Handle(Poly_Polygon3D)& thePolygon)
 {
   if (thePolygon.IsNull())
@@ -412,7 +412,7 @@ void BinTools_ShapeWriter::WritePolygon(BinaryOutputStream&             theStrea
 
 //=================================================================================================
 
-void BinTools_ShapeWriter::WritePolygon(BinaryOutputStream&                          theStream,
+void BinaryShapeWriter::WritePolygon(BinaryOutputStream&                          theStream,
                                         const Handle(Poly_PolygonOnTriangulation)& thePolygon)
 {
   if (thePolygon.IsNull())
@@ -444,7 +444,7 @@ void BinTools_ShapeWriter::WritePolygon(BinaryOutputStream&                     
     theStream << Standard_False;
 }
 
-void BinTools_ShapeWriter::WriteTriangulation(BinaryOutputStream&                 theStream,
+void BinaryShapeWriter::WriteTriangulation(BinaryOutputStream&                 theStream,
                                               const Handle(MeshTriangulation)& theTriangulation,
                                               const Standard_Boolean theNeedToWriteNormals)
 {

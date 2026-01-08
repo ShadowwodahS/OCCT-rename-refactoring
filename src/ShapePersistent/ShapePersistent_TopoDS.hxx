@@ -51,9 +51,9 @@ protected:
   class pTBase : public pTShape
   {
   public:
-    inline Handle(TopoDS_TShape) Import() const
+    inline Handle(TopoShapeBase) Import() const
     {
-      Handle(TopoDS_TShape) aTShape = createTShape();
+      Handle(TopoShapeBase) aTShape = createTShape();
 
       TopoShape aWrapperShape;
       aWrapperShape.TShape(aTShape);
@@ -65,11 +65,11 @@ protected:
     }
 
   private:
-    virtual Handle(TopoDS_TShape) createTShape() const = 0;
+    virtual Handle(TopoShapeBase) createTShape() const = 0;
 
     virtual void addShapes(TopoShape& theParent) const = 0;
 
-    void setFlags(const Handle(TopoDS_TShape)& theTShape) const;
+    void setFlags(const Handle(TopoShapeBase)& theTShape) const;
 
   protected:
     template <class ShapesArray>
@@ -80,7 +80,7 @@ private:
   template <class Target>
   class pTSimple : public pTBase
   {
-    virtual Handle(TopoDS_TShape) createTShape() const;
+    virtual Handle(TopoShapeBase) createTShape() const;
 
   public:
     inline Standard_CString PName() const;
@@ -96,7 +96,7 @@ private:
   };
 
   template <class Persistent, class ShapesArray>
-  struct tObjectT : public Delayed<DelayedBase<TShape, TopoDS_TShape, pTBase>,
+  struct tObjectT : public Delayed<DelayedBase<TShape, TopoShapeBase, pTBase>,
                                    pTObject<Persistent, ShapesArray>>
   {
     typedef pTObject<Persistent, ShapesArray> pTObjectT;

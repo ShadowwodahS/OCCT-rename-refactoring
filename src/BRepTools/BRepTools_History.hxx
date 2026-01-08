@@ -21,8 +21,8 @@
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopTools_MapOfShape.hxx>
 
-class BRepTools_History;
-DEFINE_STANDARD_HANDLE(BRepTools_History, RefObject)
+class ShapeHistory;
+DEFINE_STANDARD_HANDLE(ShapeHistory, RefObject)
 
 //! The history keeps the following relations between the input shapes
 //! (S1, ..., Sm) and output shapes (T1, ..., Tn):
@@ -86,18 +86,18 @@ DEFINE_STANDARD_HANDLE(BRepTools_History, RefObject)
 //!   Tj then shape Qk is considered as a shape modified from shape Si among
 //!   shapes Q1, ..., Ql:
 //!   Tj <= M12(Si), Qk <= M23(Tj) ==> Qk <= M13(Si);
-class BRepTools_History : public RefObject
+class ShapeHistory : public RefObject
 {
 public: //! @name Constructors for History creation
   //! Empty constructor
-  BRepTools_History() {}
+  ShapeHistory() {}
 
   //! Template constructor for History creation from the algorithm having
   //! standard history methods such as IsDeleted(), Modified() and Generated().
   //! @param[in] theArguments  Arguments of the algorithm;
   //! @param[in] theAlgo  The algorithm.
   template <class TheAlgo>
-  BRepTools_History(const ShapeList& theArguments, TheAlgo& theAlgo)
+  ShapeHistory(const ShapeList& theArguments, TheAlgo& theAlgo)
   {
     // Map all argument shapes to save them in history
     TopTools_IndexedMapOfShape         anArgsMap;
@@ -197,10 +197,10 @@ public: //! Methods to read the history.
 
 public: //! A method to merge a next history to this history.
   //! Merges the next history to this history.
-  Standard_EXPORT void Merge(const Handle(BRepTools_History)& theHistory23);
+  Standard_EXPORT void Merge(const Handle(ShapeHistory)& theHistory23);
 
   //! Merges the next history to this history.
-  Standard_EXPORT void Merge(const BRepTools_History& theHistory23);
+  Standard_EXPORT void Merge(const ShapeHistory& theHistory23);
 
   //! Template method for merging history of the algorithm having standard
   //! history methods such as IsDeleted(), Modified() and Generated()
@@ -211,7 +211,7 @@ public: //! A method to merge a next history to this history.
   void Merge(const ShapeList& theArguments, TheAlgo& theAlgo)
   {
     // Create new history object from the given algorithm and merge it into this.
-    Merge(BRepTools_History(theArguments, theAlgo));
+    Merge(ShapeHistory(theArguments, theAlgo));
   }
 
 public: //! A method to dump a history
@@ -226,7 +226,7 @@ public: //! A method to dump a history
 
 public:
   //! Define the OCCT RTTI for the type.
-  DEFINE_STANDARD_RTTIEXT(BRepTools_History, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ShapeHistory, RefObject)
 
 private:
   //! Prepares the shapes generated from the first shape to set the second one

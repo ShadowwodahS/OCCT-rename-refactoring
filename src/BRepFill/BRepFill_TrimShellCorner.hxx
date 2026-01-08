@@ -41,16 +41,16 @@ public:
   //! theIntersectPointCrossDirection : prev path direction at the origin point of theAxeOfBisPlane
   //! cross next path direction at the origin point of theAxeOfBisPlane. used when EE has more than
   //! one vertices
-  Standard_EXPORT BRepFill_TrimShellCorner(const Handle(TopTools_HArray2OfShape)& theFaces,
+  Standard_EXPORT BRepFill_TrimShellCorner(const Handle(HArray2OfShape)& theFaces,
                                            const BRepFill_TransitionStyle         theTransition,
                                            const Frame3d&                          theAxeOfBisPlane,
                                            const Vector3d& theIntPointCrossDir);
 
-  Standard_EXPORT void AddBounds(const Handle(TopTools_HArray2OfShape)& Bounds);
+  Standard_EXPORT void AddBounds(const Handle(HArray2OfShape)& Bounds);
 
-  Standard_EXPORT void AddUEdges(const Handle(TopTools_HArray2OfShape)& theUEdges);
+  Standard_EXPORT void AddUEdges(const Handle(HArray2OfShape)& theUEdges);
 
-  Standard_EXPORT void AddVEdges(const Handle(TopTools_HArray2OfShape)& theVEdges,
+  Standard_EXPORT void AddVEdges(const Handle(HArray2OfShape)& theVEdges,
                                  const Standard_Integer                 theIndex);
 
   Standard_EXPORT void Perform();
@@ -86,10 +86,10 @@ private:
   Vector3d                             myIntPointCrossDir;
   TopoShape                       myShape1;
   TopoShape                       myShape2;
-  Handle(TopTools_HArray2OfShape)    myBounds;
-  Handle(TopTools_HArray2OfShape)    myUEdges;
-  Handle(TopTools_HArray1OfShape)    myVEdges;
-  Handle(TopTools_HArray2OfShape)    myFaces;
+  Handle(HArray2OfShape)    myBounds;
+  Handle(HArray2OfShape)    myUEdges;
+  Handle(HArray1OfShape)    myVEdges;
+  Handle(HArray2OfShape)    myFaces;
   Standard_Boolean                   myDone;
   Standard_Boolean                   myHasSection;
   TopTools_DataMapOfShapeListOfShape myHistMap;

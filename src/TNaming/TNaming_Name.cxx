@@ -1823,8 +1823,8 @@ static Standard_Boolean ORientation(const DataLabel&                  L,
     it.Next(); // skip first
 
     // temporary solution. To be optimized (+ has connection with Union name)
-    Handle(TopTools_HArray2OfShape) Arr; // Arr(1,1) - selection; Arr(1,2) - Context shape
-    Arr = new TopTools_HArray2OfShape(1, aSList.Extent(), 1, 2);
+    Handle(HArray2OfShape) Arr; // Arr(1,1) - selection; Arr(1,2) - Context shape
+    Arr = new HArray2OfShape(1, aSList.Extent(), 1, 2);
     TopTools_ListIteratorOfListOfShape it1(aSList);
     Standard_Integer                   i = 1;
     for (; it1.More(); it1.Next(), it.Next(), i++)

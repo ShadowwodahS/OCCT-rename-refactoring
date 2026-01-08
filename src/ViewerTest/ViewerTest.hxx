@@ -144,7 +144,7 @@ public:
   //! returns True if the array is filled.
   //! exit if number of unsuccessful picks =  <MaxPick>
   Standard_EXPORT static Standard_Boolean PickShapes(const TopAbs_ShapeEnum           aType,
-                                                     Handle(TopTools_HArray1OfShape)& thepicked,
+                                                     Handle(HArray1OfShape)& thepicked,
                                                      const Standard_Integer           MaxPick = 5);
 
   Standard_EXPORT static void Commands(DrawInterpreter& theCommands);

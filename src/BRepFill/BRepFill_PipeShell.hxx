@@ -241,7 +241,7 @@ private:
   Standard_Boolean                   myIsAutomaticLaw;
   Handle(BRepFill_LocationLaw)       myLocation;
   Handle(BRepFill_SectionLaw)        mySection;
-  Handle(TopTools_HArray2OfShape)    myFaces;
+  Handle(HArray2OfShape)    myFaces;
   GeomFill_Trihedron                 myTrihedron;
   BRepFill_TransitionStyle           myTransition;
   GeomFill_PipeError                 myStatus;

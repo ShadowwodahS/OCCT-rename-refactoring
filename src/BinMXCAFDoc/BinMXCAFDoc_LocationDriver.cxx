@@ -80,8 +80,8 @@ Standard_Boolean BinMXCAFDoc_LocationDriver::Translate(const BinObjMgt_Persisten
   if (!myNSDriver.IsNull() && myNSDriver->IsQuickPart())
   {
     BinaryInputStream aDirectStream(*(const_cast<BinObjMgt_Persistent*>(&theSource)->GetIStream()));
-    BinTools_ShapeReader* aReader =
-      static_cast<BinTools_ShapeReader*>(myNSDriver->ShapeSet(Standard_True));
+    BinaryShapeReader* aReader =
+      static_cast<BinaryShapeReader*>(myNSDriver->ShapeSet(Standard_True));
     theLoc = *(aReader->ReadLocation(aDirectStream));
     return Standard_True;
   }
@@ -183,8 +183,8 @@ void BinMXCAFDoc_LocationDriver::Translate(const TopLoc_Location&      theLoc,
   if (!myNSDriver.IsNull() && myNSDriver->IsQuickPart())
   { // write directly to the stream
     Standard_OStream*     aDirectStream = theTarget.GetOStream();
-    BinTools_ShapeWriter* aWriter =
-      static_cast<BinTools_ShapeWriter*>(myNSDriver->ShapeSet(Standard_False));
+    BinaryShapeWriter* aWriter =
+      static_cast<BinaryShapeWriter*>(myNSDriver->ShapeSet(Standard_False));
     BinaryOutputStream aStream(*aDirectStream);
     aWriter->WriteLocation(aStream, theLoc);
     return;

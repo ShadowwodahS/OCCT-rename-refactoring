@@ -19,7 +19,7 @@
 #include <NCollection_Vector.hxx>
 #include <BinLDrivers_DocumentSection.hxx>
 
-/// Collection of BinLDrivers_DocumentSection
-typedef NCollection_Vector<BinLDrivers_DocumentSection> BinLDrivers_VectorOfDocumentSection;
+/// Collection of DocumentSection
+typedef NCollection_Vector<DocumentSection> BinLDrivers_VectorOfDocumentSection;
 
 #endif // BinLDrivers_VectorOfDocumentSection_H

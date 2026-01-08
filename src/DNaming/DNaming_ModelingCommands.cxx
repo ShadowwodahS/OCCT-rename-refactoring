@@ -774,7 +774,7 @@ static Standard_Integer DNaming_AttachShape(DrawInterpreter& di,
           try
           {
             TopoShape     aCONTEXT = aCont->Get();
-            TNaming_Selector aSelector(aResultLabel);
+            NamingSelector aSelector(aResultLabel);
             if (!aSelector.Select(aShape, aCONTEXT, aGeometry, aKeepOrientation))
               return 1;
           }
@@ -864,7 +864,7 @@ static Standard_Integer DNaming_XAttachShape(DrawInterpreter& di,
             TopoShape aCONTEXT = aCont->Get();
             try
             {
-              TNaming_Selector aSelector(aResultLabel);
+              NamingSelector aSelector(aResultLabel);
               if (!aSelector.Select(aShape, aCONTEXT, aGeometry, aKeepOrientation))
                 return 1;
             }
@@ -1967,7 +1967,7 @@ static Standard_Boolean MakeSelection(const Handle(TDataStd_UAttribute)& Obj,
         try
         {
           const TopoShape& aContext = aNS->Get();
-          TNaming_Selector    aSelector(aResultLabel);
+          NamingSelector    aSelector(aResultLabel);
           if (!aSelector.Select(Selection, aContext, Geometry1, KeepOrientation))
             return Standard_False;
         }
@@ -2034,7 +2034,7 @@ static Standard_Boolean MakeXSelection(const Handle(TDataStd_UAttribute)& Obj,
         try
         {
           const TopoShape& aContext = aNS->Get();
-          TNaming_Selector    aSelector(aResultLabel);
+          NamingSelector    aSelector(aResultLabel);
           if (!aSelector.Select(Selection, aContext, Geometry1, KeepOrientation))
             return Standard_False;
         }

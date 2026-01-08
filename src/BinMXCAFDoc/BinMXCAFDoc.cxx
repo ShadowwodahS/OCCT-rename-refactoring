@@ -34,7 +34,7 @@
 
 //=================================================================================================
 
-void BinMXCAFDoc1::AddDrivers(const Handle(BinMDF_ADriverTable)& theDriverTable,
+void BinMXCAFDoc1::AddDrivers(const Handle(AttributeDriverTable)& theDriverTable,
                              const Handle(Message_Messenger)&   theMsgDrv)
 {
   theDriverTable->AddDriver(new BinMXCAFDoc_CentroidDriver(theMsgDrv));

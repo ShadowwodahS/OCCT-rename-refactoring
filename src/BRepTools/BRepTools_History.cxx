@@ -19,7 +19,7 @@
 #include <TopTools_IndexedMapOfShape.hxx>
 
 // Implement the OCCT RTTI for the type.
-IMPLEMENT_STANDARD_RTTIEXT(BRepTools_History, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeHistory, RefObject)
 
 namespace
 {
@@ -53,7 +53,7 @@ void add(ShapeList& theList, const TCollection1& theCollection)
 
 //=================================================================================================
 
-void BRepTools_History::AddGenerated(const TopoShape& theInitial,
+void ShapeHistory::AddGenerated(const TopoShape& theInitial,
                                      const TopoShape& theGenerated)
 {
   if (!prepareGenerated(theInitial, theGenerated))
@@ -75,7 +75,7 @@ void BRepTools_History::AddGenerated(const TopoShape& theInitial,
 
 //=================================================================================================
 
-void BRepTools_History::AddModified(const TopoShape& theInitial, const TopoShape& theModified)
+void ShapeHistory::AddModified(const TopoShape& theInitial, const TopoShape& theModified)
 {
   if (!prepareModified(theInitial, theModified))
   {
@@ -96,7 +96,7 @@ void BRepTools_History::AddModified(const TopoShape& theInitial, const TopoShape
 
 //=================================================================================================
 
-void BRepTools_History::Remove(const TopoShape& theRemoved)
+void ShapeHistory::Remove(const TopoShape& theRemoved)
 {
   // Apply the limitations.
   Standard_ASSERT_RETURN(IsSupportedType(theRemoved), myMsgUnsupportedType, );
@@ -111,7 +111,7 @@ void BRepTools_History::Remove(const TopoShape& theRemoved)
 
 //=================================================================================================
 
-void BRepTools_History::ReplaceGenerated(const TopoShape& theInitial,
+void ShapeHistory::ReplaceGenerated(const TopoShape& theInitial,
                                          const TopoShape& theGenerated)
 {
   if (!prepareGenerated(theInitial, theGenerated))
@@ -125,7 +125,7 @@ void BRepTools_History::ReplaceGenerated(const TopoShape& theInitial,
 
 //=================================================================================================
 
-void BRepTools_History::ReplaceModified(const TopoShape& theInitial,
+void ShapeHistory::ReplaceModified(const TopoShape& theInitial,
                                         const TopoShape& theModified)
 {
   if (!prepareModified(theInitial, theModified))
@@ -140,7 +140,7 @@ void BRepTools_History::ReplaceModified(const TopoShape& theInitial,
 
 //=================================================================================================
 
-const ShapeList& BRepTools_History::Generated(const TopoShape& theInitial) const
+const ShapeList& ShapeHistory::Generated(const TopoShape& theInitial) const
 {
   // Apply the limitations.
   Standard_ASSERT_RETURN(theInitial.IsNull() || IsSupportedType(theInitial),
@@ -154,7 +154,7 @@ const ShapeList& BRepTools_History::Generated(const TopoShape& theInitial) const
 
 //=================================================================================================
 
-const ShapeList& BRepTools_History::Modified(const TopoShape& theInitial) const
+const ShapeList& ShapeHistory::Modified(const TopoShape& theInitial) const
 {
   // Apply the limitations.
   Standard_ASSERT_RETURN(IsSupportedType(theInitial), myMsgUnsupportedType, emptyList());
@@ -166,7 +166,7 @@ const ShapeList& BRepTools_History::Modified(const TopoShape& theInitial) const
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_History::IsRemoved(const TopoShape& theInitial) const
+Standard_Boolean ShapeHistory::IsRemoved(const TopoShape& theInitial) const
 {
   // Apply the limitations.
   Standard_ASSERT_RETURN(IsSupportedType(theInitial), myMsgUnsupportedType, Standard_False);
@@ -177,7 +177,7 @@ Standard_Boolean BRepTools_History::IsRemoved(const TopoShape& theInitial) const
 
 //=================================================================================================
 
-void BRepTools_History::Merge(const Handle(BRepTools_History)& theHistory23)
+void ShapeHistory::Merge(const Handle(ShapeHistory)& theHistory23)
 {
   if (!theHistory23.IsNull())
     Merge(*theHistory23.get());
@@ -185,7 +185,7 @@ void BRepTools_History::Merge(const Handle(BRepTools_History)& theHistory23)
 
 //=================================================================================================
 
-void BRepTools_History::Merge(const BRepTools_History& theHistory23)
+void ShapeHistory::Merge(const ShapeHistory& theHistory23)
 {
   if (!(theHistory23.HasModified() || theHistory23.HasGenerated() || theHistory23.HasRemoved()))
     // nothing to merge
@@ -305,7 +305,7 @@ void BRepTools_History::Merge(const BRepTools_History& theHistory23)
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_History::prepareGenerated(const TopoShape& theInitial,
+Standard_Boolean ShapeHistory::prepareGenerated(const TopoShape& theInitial,
                                                      const TopoShape& theGenerated)
 {
   Standard_ASSERT_RETURN(theInitial.IsNull() || IsSupportedType(theInitial),
@@ -322,7 +322,7 @@ Standard_Boolean BRepTools_History::prepareGenerated(const TopoShape& theInitial
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_History::prepareModified(const TopoShape& theInitial,
+Standard_Boolean ShapeHistory::prepareModified(const TopoShape& theInitial,
                                                     const TopoShape& theModified)
 {
   Standard_ASSERT_RETURN(IsSupportedType(theInitial), myMsgUnsupportedType, Standard_False);
@@ -344,11 +344,11 @@ Standard_Boolean BRepTools_History::prepareModified(const TopoShape& theInitial,
 // data : myEmptyList
 // purpose  :
 //==============================================================================
-const ShapeList BRepTools_History::myEmptyList;
+const ShapeList ShapeHistory::myEmptyList;
 
 //=================================================================================================
 
-const ShapeList& BRepTools_History::emptyList()
+const ShapeList& ShapeHistory::emptyList()
 {
   return myEmptyList;
 }
@@ -357,26 +357,26 @@ const ShapeList& BRepTools_History::emptyList()
 // data : myMsgUnsupportedType
 // purpose  :
 //==============================================================================
-const char* BRepTools_History::myMsgUnsupportedType = "Error: unsupported shape type.";
+const char* ShapeHistory::myMsgUnsupportedType = "Error: unsupported shape type.";
 
 //==============================================================================
 // data : myMsgGeneratedAndRemoved
 // purpose  :
 //==============================================================================
-const char* BRepTools_History::myMsgGeneratedAndRemoved =
+const char* ShapeHistory::myMsgGeneratedAndRemoved =
   "Error: a shape is generated and removed simultaneously.";
 
 //==============================================================================
 // data : myMsgModifiedAndRemoved
 // purpose  :
 //==============================================================================
-const char* BRepTools_History::myMsgModifiedAndRemoved =
+const char* ShapeHistory::myMsgModifiedAndRemoved =
   "Error: a shape is modified and removed simultaneously.";
 
 //==============================================================================
 // data : myMsgGeneratedAndModified
 // purpose  :
 //==============================================================================
-const char* BRepTools_History::myMsgGeneratedAndModified =
+const char* ShapeHistory::myMsgGeneratedAndModified =
   "Error: a shape is generated and modified "
   "from the same shape simultaneously.";

@@ -68,14 +68,14 @@ public:
   //! Gets the Shapes recorded in a TransientProcess as result of a
   //! Transfer, considers roots only or all results according
   //! <rootsonly>, returns them as a HSequence
-  Standard_EXPORT static Handle(TopTools_HSequenceOfShape) Shapes(
+  Standard_EXPORT static Handle(HSequenceOfShape) Shapes(
     const Handle(Transfer_TransientProcess)& TP,
     const Standard_Boolean                   rootsonly = Standard_True);
 
   //! Gets the Shapes recorded in a TransientProcess as result of a
   //! Transfer, for a given list of starting entities, returns
   //! the shapes as a HSequence
-  Standard_EXPORT static Handle(TopTools_HSequenceOfShape) Shapes(
+  Standard_EXPORT static Handle(HSequenceOfShape) Shapes(
     const Handle(Transfer_TransientProcess)&    TP,
     const Handle(TColStd_HSequenceOfTransient)& list);
 
@@ -174,7 +174,7 @@ public:
 
   //! Returns the list of shapes to which a non-empty Check is bound
   //! in a check-list
-  Standard_EXPORT static Handle(TopTools_HSequenceOfShape) CheckedShapes(
+  Standard_EXPORT static Handle(HSequenceOfShape) CheckedShapes(
     const Interface_CheckIterator& chl);
 
   //! Returns the check-list bound to a given object, generally none

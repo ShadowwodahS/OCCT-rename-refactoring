@@ -147,7 +147,7 @@ void BRepPrimAPI_MakeRevol::Build(const Message_ProgressRange& /*theRange*/)
   }
   if (!myDegenerated.IsEmpty())
   {
-    BRepTools_ReShape                  aSubs;
+    ShapeReShaper                  aSubs;
     TopTools_DataMapOfShapeListOfShape aDegF;
     Standard_Boolean                   isReplaced = Standard_False;
     anExp.Init(myShape, TopAbs_FACE);
@@ -173,7 +173,7 @@ void BRepPrimAPI_MakeRevol::Build(const Message_ProgressRange& /*theRange*/)
     }
     //
     // Second, replace edges by copies using ReShape
-    BRepTools_ReShape                                   aSubsF;
+    ShapeReShaper                                   aSubsF;
     TopTools_DataMapIteratorOfDataMapOfShapeListOfShape aFIter(aDegF);
     for (; aFIter.More(); aFIter.Next())
     {
@@ -366,7 +366,7 @@ const ShapeList& BRepPrimAPI_MakeRevol::Generated(const TopoShape& S)
   TopoShape aGS = myRevol.Shape(S);
   if (!aGS.IsNull())
   {
-    if (BRepTools_History::IsSupportedType(aGS))
+    if (ShapeHistory::IsSupportedType(aGS))
     {
       if (aGS.ShapeType() == TopAbs_EDGE)
       {

@@ -28,7 +28,7 @@
 #include <Message_ProgressRange.hxx>
 
 class TopoShape;
-class BRepTools_Modification;
+class ShapeModification;
 class ShapeModifier;
 class ShapeBuild_ReShape;
 class ShapeCustom_RestrictionParameters;
@@ -54,7 +54,7 @@ public:
   //! Applies modifier to shape and checks sharing in the case assemblies.
   Standard_EXPORT static TopoShape ApplyModifier(
     const TopoShape&                   S,
-    const Handle(BRepTools_Modification)& M,
+    const Handle(ShapeModification)& M,
     TopTools_DataMapOfShapeShape&         context,
     ShapeModifier&                   MD,
     const Message_ProgressRange&          theProgress = Message_ProgressRange(),

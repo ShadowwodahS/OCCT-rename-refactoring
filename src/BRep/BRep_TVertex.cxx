@@ -31,7 +31,7 @@ BRep_TVertex::BRep_TVertex()
 
 //=================================================================================================
 
-Handle(TopoDS_TShape) BRep_TVertex::EmptyCopy() const
+Handle(TopoShapeBase) BRep_TVertex::EmptyCopy() const
 {
   Handle(BRep_TVertex) TV = new BRep_TVertex();
   TV->Pnt(myPnt);

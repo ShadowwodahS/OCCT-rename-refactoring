@@ -36,7 +36,7 @@ BinDrivers_DocumentRetrievalDriver::BinDrivers_DocumentRetrievalDriver() {}
 
 //=================================================================================================
 
-Handle(BinMDF_ADriverTable) BinDrivers_DocumentRetrievalDriver::AttributeDrivers(
+Handle(AttributeDriverTable) BinDrivers_DocumentRetrievalDriver::AttributeDrivers(
   const Handle(Message_Messenger)& theMessageDriver)
 {
   return BinDrivers1::AttributeDrivers(theMessageDriver);
@@ -45,7 +45,7 @@ Handle(BinMDF_ADriverTable) BinDrivers_DocumentRetrievalDriver::AttributeDrivers
 //=================================================================================================
 
 void BinDrivers_DocumentRetrievalDriver::ReadShapeSection(
-  BinLDrivers_DocumentSection& /*theSection*/,
+  DocumentSection& /*theSection*/,
   Standard_IStream& theIS,
   const Standard_Boolean /*isMess*/,
   const Message_ProgressRange& theRange)

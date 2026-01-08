@@ -87,7 +87,7 @@ Standard_Boolean BRepTools_PurgeLocations::Perform(const TopoShape& theShape)
 
   if (myReShape.IsNull())
   {
-    myReShape = new BRepTools_ReShape;
+    myReShape = new ShapeReShaper;
   }
   else
   {

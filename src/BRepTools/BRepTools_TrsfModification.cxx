@@ -36,7 +36,7 @@
 #include <TopoDS_Face.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepTools_TrsfModification, BRepTools_Modification)
+IMPLEMENT_STANDARD_RTTIEXT(BRepTools_TrsfModification, ShapeModification)
 
 //=================================================================================================
 

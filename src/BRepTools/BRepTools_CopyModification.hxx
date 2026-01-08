@@ -17,10 +17,10 @@
 #include <BRepTools_Modification.hxx>
 
 class BRepTools_CopyModification;
-DEFINE_STANDARD_HANDLE(BRepTools_CopyModification, BRepTools_Modification)
+DEFINE_STANDARD_HANDLE(BRepTools_CopyModification, ShapeModification)
 
 //! Tool class implementing necessary functionality for copying geometry and triangulation.
-class BRepTools_CopyModification : public BRepTools_Modification
+class BRepTools_CopyModification : public ShapeModification
 {
 public:
   //! Constructor.
@@ -121,7 +121,7 @@ public:
                               const TopoFace&                   theFace,
                               Handle(Poly_PolygonOnTriangulation)& thePoly) Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(BRepTools_CopyModification, BRepTools_Modification)
+  DEFINE_STANDARD_RTTIEXT(BRepTools_CopyModification, ShapeModification)
 
 private:
   Standard_Boolean myCopyGeom;

@@ -75,7 +75,7 @@ private:
   Standard_Boolean                  myIsDone;
   TopoShape                      myLsh;
   TopoCompound                   myShape;
-  Handle(TopTools_HSequenceOfShape) mySection;
+  Handle(HSequenceOfShape) mySection;
   Standard_Integer                  myItr;
 };
 

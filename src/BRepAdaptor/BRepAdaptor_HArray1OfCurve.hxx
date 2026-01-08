@@ -20,6 +20,6 @@
 #include <BRepAdaptor_Array1OfCurve.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(BRepAdaptor_HArray1OfCurve, BRepAdaptor_Array1OfCurve)
+DEFINE_HARRAY1(HArray1OfCurve, BRepAdaptor_Array1OfCurve)
 
 #endif

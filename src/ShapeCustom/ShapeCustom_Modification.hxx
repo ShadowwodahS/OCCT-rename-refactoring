@@ -24,11 +24,11 @@ class TopoShape;
 class Message_Msg;
 
 class ShapeCustom_Modification;
-DEFINE_STANDARD_HANDLE(ShapeCustom_Modification, BRepTools_Modification)
+DEFINE_STANDARD_HANDLE(ShapeCustom_Modification, ShapeModification)
 
 //! A base class of Modification's from ShapeCustom1.
 //! Implements message sending mechanism.
-class ShapeCustom_Modification : public BRepTools_Modification
+class ShapeCustom_Modification : public ShapeModification
 {
 
 public:
@@ -45,7 +45,7 @@ public:
                                const Message_Msg&    message,
                                const Message_Gravity gravity = Message_Info) const;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeCustom_Modification, BRepTools_Modification)
+  DEFINE_STANDARD_RTTIEXT(ShapeCustom_Modification, ShapeModification)
 
 protected:
 private:

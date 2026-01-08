@@ -54,7 +54,7 @@ private:
   //! This method should not be called (prohibited).
   TopTools_MutexForShapeProvider& operator=(const TopTools_MutexForShapeProvider&);
 
-  NCollection_DataMap<Handle(TopoDS_TShape), Standard_Mutex*> myMap;
+  NCollection_DataMap<Handle(TopoShapeBase), Standard_Mutex*> myMap;
 };
 
 #endif

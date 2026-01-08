@@ -28,13 +28,13 @@
 #include <Storage_Position.hxx>
 #include <Storage_Data.hxx>
 
-class BinMDF_ADriverTable;
+class AttributeDriverTable;
 class Message_Messenger;
 class UtfString;
 class CDM_Document;
 class CDM_Application;
 class DataLabel;
-class BinLDrivers_DocumentSection;
+class DocumentSection;
 
 class BinLDrivers_DocumentRetrievalDriver;
 DEFINE_STANDARD_HANDLE(BinLDrivers_DocumentRetrievalDriver, PCDM_RetrievalDriver)
@@ -62,7 +62,7 @@ public:
     const Handle(PCDM_ReaderFilter)& theFilter   = Handle(PCDM_ReaderFilter)(),
     const Message_ProgressRange&     theProgress = Message_ProgressRange()) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(BinMDF_ADriverTable) AttributeDrivers(
+  Standard_EXPORT virtual Handle(AttributeDriverTable) AttributeDrivers(
     const Handle(Message_Messenger)& theMsgDriver);
 
   DEFINE_STANDARD_RTTIEXT(BinLDrivers_DocumentRetrievalDriver, PCDM_RetrievalDriver)
@@ -78,13 +78,13 @@ protected:
     const Message_ProgressRange&     theRanges = Message_ProgressRange());
 
   //! define the procedure of reading a section to file.
-  Standard_EXPORT virtual void ReadSection(BinLDrivers_DocumentSection& theSection,
+  Standard_EXPORT virtual void ReadSection(DocumentSection& theSection,
                                            const Handle(CDM_Document)&  theDoc,
                                            Standard_IStream&            theIS);
 
   //! define the procedure of reading a shapes section to file.
   Standard_EXPORT virtual void ReadShapeSection(
-    BinLDrivers_DocumentSection& theSection,
+    DocumentSection& theSection,
     Standard_IStream&            theIS,
     const Standard_Boolean       isMess   = Standard_False,
     const Message_ProgressRange& theRange = Message_ProgressRange());
@@ -115,7 +115,7 @@ protected:
   {
   }
 
-  Handle(BinMDF_ADriverTable) myDrivers;
+  Handle(AttributeDriverTable) myDrivers;
   BinObjMgt_RRelocationTable  myRelocTable;
   Handle(Message_Messenger)   myMsgDriver;
 

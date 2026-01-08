@@ -23,7 +23,7 @@
 #include <TopTools_DataMapOfShapeShape.hxx>
 class TopoShape;
 class ShapeProcess_ShapeContext;
-class BRepTools_Modification;
+class ShapeModification;
 class ShapeExtend_MsgRegistrator;
 
 //! Provides a set of following operators
@@ -52,14 +52,14 @@ public:
   //! Registers all the operators
   Standard_EXPORT static void Init();
 
-  //! Applies BRepTools_Modification to a shape,
+  //! Applies ShapeModification to a shape,
   //! taking into account sharing of components of compounds.
   //! if theMutableInput vat is set to true then input shape S
   //! can be modified during the modification process.
   Standard_EXPORT static TopoShape ApplyModifier(
     const TopoShape&                       S,
     const Handle(ShapeProcess_ShapeContext)&  context,
-    const Handle(BRepTools_Modification)&     M,
+    const Handle(ShapeModification)&     M,
     TopTools_DataMapOfShapeShape&             map,
     const Handle(ShapeExtend_MsgRegistrator)& msg             = 0,
     Standard_Boolean                          theMutableInput = Standard_False);

@@ -33,7 +33,7 @@ BRepBuilderAPI_ModifyShape::BRepBuilderAPI_ModifyShape(const TopoShape& S)
 
 //=================================================================================================
 
-BRepBuilderAPI_ModifyShape::BRepBuilderAPI_ModifyShape(const Handle(BRepTools_Modification)& M)
+BRepBuilderAPI_ModifyShape::BRepBuilderAPI_ModifyShape(const Handle(ShapeModification)& M)
 {
   myModification = M;
 }
@@ -41,7 +41,7 @@ BRepBuilderAPI_ModifyShape::BRepBuilderAPI_ModifyShape(const Handle(BRepTools_Mo
 //=================================================================================================
 
 BRepBuilderAPI_ModifyShape::BRepBuilderAPI_ModifyShape(const TopoShape&                   S,
-                                                       const Handle(BRepTools_Modification)& M)
+                                                       const Handle(ShapeModification)& M)
     : myModifier(S),
       myInitialShape(S)
 {
@@ -83,7 +83,7 @@ void BRepBuilderAPI_ModifyShape::DoModif(const TopoShape& S)
 
 //=================================================================================================
 
-void BRepBuilderAPI_ModifyShape::DoModif(const Handle(BRepTools_Modification)& M)
+void BRepBuilderAPI_ModifyShape::DoModif(const Handle(ShapeModification)& M)
 {
   myModification = M;
   DoModif();
@@ -92,7 +92,7 @@ void BRepBuilderAPI_ModifyShape::DoModif(const Handle(BRepTools_Modification)& M
 //=================================================================================================
 
 void BRepBuilderAPI_ModifyShape::DoModif(const TopoShape&                   S,
-                                         const Handle(BRepTools_Modification)& M)
+                                         const Handle(ShapeModification)& M)
 {
   myInitialShape = S;
   myModifier.Init(S);

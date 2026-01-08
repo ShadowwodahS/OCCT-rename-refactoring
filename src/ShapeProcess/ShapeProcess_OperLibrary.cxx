@@ -49,13 +49,13 @@
 
 //=======================================================================
 // function : ApplyModifier
-// purpose  : Applies BRepTools_Modification to a shape,
+// purpose  : Applies ShapeModification to a shape,
 //           taking into account sharing of components of compounds
 //=======================================================================
 TopoShape OperLibrary::ApplyModifier(
   const TopoShape&                       S,
   const Handle(ShapeProcess_ShapeContext)&  context,
-  const Handle(BRepTools_Modification)&     M,
+  const Handle(ShapeModification)&     M,
   TopTools_DataMapOfShapeShape&             map,
   const Handle(ShapeExtend_MsgRegistrator)& msg,
   Standard_Boolean                          theMutableInput)

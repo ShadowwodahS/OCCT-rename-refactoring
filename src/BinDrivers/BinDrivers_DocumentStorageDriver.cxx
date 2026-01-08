@@ -33,7 +33,7 @@ BinDrivers_DocumentStorageDriver::BinDrivers_DocumentStorageDriver() {}
 
 //=================================================================================================
 
-Handle(BinMDF_ADriverTable) BinDrivers_DocumentStorageDriver::AttributeDrivers(
+Handle(AttributeDriverTable) BinDrivers_DocumentStorageDriver::AttributeDrivers(
   const Handle(Message_Messenger)& theMessageDriver)
 {
   return BinDrivers1::AttributeDrivers(theMessageDriver);
@@ -169,7 +169,7 @@ void BinDrivers_DocumentStorageDriver::SetWithNormals(
 // function : WriteShapeSection
 // purpose  : Implements WriteShapeSection
 //=======================================================================
-void BinDrivers_DocumentStorageDriver::WriteShapeSection(BinLDrivers_DocumentSection& theSection,
+void BinDrivers_DocumentStorageDriver::WriteShapeSection(DocumentSection& theSection,
                                                          Standard_OStream&            theOS,
                                                          const TDocStd_FormatVersion  theDocVer,
                                                          const Message_ProgressRange& theRange)

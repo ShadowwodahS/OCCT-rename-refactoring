@@ -23,7 +23,7 @@
 #include <Standard_Real.hxx>
 #include <BRep_ListOfPointRepresentation.hxx>
 #include <TopoDS_TVertex.hxx>
-class TopoDS_TShape;
+class TopoShapeBase;
 
 class BRep_TVertex;
 DEFINE_STANDARD_HANDLE(BRep_TVertex, TopoDS_TVertex)
@@ -55,7 +55,7 @@ public:
   BRep_ListOfPointRepresentation& ChangePoints();
 
   //! Returns a copy  of the  TShape  with no sub-shapes.
-  Standard_EXPORT Handle(TopoDS_TShape) EmptyCopy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TopoShapeBase) EmptyCopy() const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

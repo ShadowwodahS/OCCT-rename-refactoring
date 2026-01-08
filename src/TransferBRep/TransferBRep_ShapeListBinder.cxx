@@ -29,11 +29,11 @@ IMPLEMENT_STANDARD_RTTIEXT(TransferBRep_ShapeListBinder, Transfer_Binder)
 
 TransferBRep_ShapeListBinder::TransferBRep_ShapeListBinder()
 {
-  theres = new TopTools_HSequenceOfShape();
+  theres = new HSequenceOfShape();
 }
 
 TransferBRep_ShapeListBinder::TransferBRep_ShapeListBinder(
-  const Handle(TopTools_HSequenceOfShape)& list)
+  const Handle(HSequenceOfShape)& list)
 {
   theres = list;
 }
@@ -58,7 +58,7 @@ void TransferBRep_ShapeListBinder::AddResult(const TopoShape& shape)
   theres->Append(shape);
 }
 
-Handle(TopTools_HSequenceOfShape) TransferBRep_ShapeListBinder::Result() const
+Handle(HSequenceOfShape) TransferBRep_ShapeListBinder::Result() const
 {
   return theres;
 }

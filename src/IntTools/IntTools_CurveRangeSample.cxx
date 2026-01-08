@@ -16,17 +16,17 @@
 #include <IntTools_CurveRangeSample.hxx>
 #include <IntTools_Range.hxx>
 
-IntTools_CurveRangeSample::IntTools_CurveRangeSample()
+CurveRangeSample::CurveRangeSample()
 {
   myIndex = 0;
 }
 
-IntTools_CurveRangeSample::IntTools_CurveRangeSample(const Standard_Integer theIndex)
+CurveRangeSample::CurveRangeSample(const Standard_Integer theIndex)
 {
   myIndex = theIndex;
 }
 
-IntToolsRange IntTools_CurveRangeSample::GetRange(const Standard_Real    theFirst,
+IntToolsRange CurveRangeSample::GetRange(const Standard_Real    theFirst,
                                                    const Standard_Real    theLast,
                                                    const Standard_Integer theNbSample) const
 {

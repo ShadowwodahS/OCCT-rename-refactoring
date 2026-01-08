@@ -52,7 +52,7 @@ static AsciiString1 PRODINS("dins ");
 TopOpeBRepBuild_WireEdgeClassifier::TopOpeBRepBuild_WireEdgeClassifier(
   const TopoShape&                 F,
   const BlockBuilder& BB)
-    : TopOpeBRepBuild_CompositeClassifier(BB)
+    : CompositeClassifier(BB)
 {
   myBCEdge.Face() = TopoDS::Face(F);
 }

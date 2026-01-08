@@ -41,7 +41,7 @@
 
 //=================================================================================================
 
-void BinMDataStd1::AddDrivers(const Handle(BinMDF_ADriverTable)& theDriverTable,
+void BinMDataStd1::AddDrivers(const Handle(AttributeDriverTable)& theDriverTable,
                              const Handle(Message_Messenger)&   theMsgDriver)
 {
   theDriverTable->AddDriver(new BinMDataStd_ExpressionDriver(theMsgDriver));

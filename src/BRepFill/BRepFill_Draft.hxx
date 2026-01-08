@@ -89,8 +89,8 @@ private:
   Standard_Real                   myTol;
   Handle(BRepFill_DraftLaw)       myLoc;
   Handle(BRepFill_SectionLaw)     mySec;
-  Handle(TopTools_HArray2OfShape) mySections;
-  Handle(TopTools_HArray2OfShape) myFaces;
+  Handle(HArray2OfShape) mySections;
+  Handle(HArray2OfShape) myFaces;
   ShapeList            myGenerated;
   TopoShape                    myShape;
   TopoShape                    myTop;

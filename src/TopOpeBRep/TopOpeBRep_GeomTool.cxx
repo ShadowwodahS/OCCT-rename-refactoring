@@ -143,7 +143,7 @@ Handle(GeomCurve3d) GeometryTool::MakeBSpline1fromWALKING3d(const TopOpeBRep_Lin
   {
     points3d.SetValue(ip, itW.CurrentWP().Value());
   }
-  Handle(GeomCurve3d) C = TopOpeBRepTool_CurveTool::MakeBSpline1fromPnt(points3d);
+  Handle(GeomCurve3d) C = CurveTool6::MakeBSpline1fromPnt(points3d);
   return C;
 }
 
@@ -164,6 +164,6 @@ Handle(GeomCurve2d) GeometryTool::MakeBSpline1fromWALKING2d(const TopOpeBRep_Lin
     else if (SI == 2)
       points2d.SetValue(ip, itW.CurrentWP().ValueOnS2());
   }
-  Handle(GeomCurve2d) C = TopOpeBRepTool_CurveTool::MakeBSpline1fromPnt2d(points2d);
+  Handle(GeomCurve2d) C = CurveTool6::MakeBSpline1fromPnt2d(points2d);
   return C;
 }

@@ -22,7 +22,7 @@
 
 //=================================================================================================
 
-TopOpeBRepDS_PointExplorer::TopOpeBRepDS_PointExplorer()
+PointExplorer::PointExplorer()
     : myIndex(1),
       myMax(0),
       myDS(NULL),
@@ -33,7 +33,7 @@ TopOpeBRepDS_PointExplorer::TopOpeBRepDS_PointExplorer()
 
 //=================================================================================================
 
-TopOpeBRepDS_PointExplorer::TopOpeBRepDS_PointExplorer(const TopOpeBRepDS_DataStructure& DS,
+PointExplorer::PointExplorer(const TopOpeBRepDS_DataStructure& DS,
                                                        const Standard_Boolean            FindKeep)
 {
   Init(DS, FindKeep);
@@ -41,7 +41,7 @@ TopOpeBRepDS_PointExplorer::TopOpeBRepDS_PointExplorer(const TopOpeBRepDS_DataSt
 
 //=================================================================================================
 
-void TopOpeBRepDS_PointExplorer::Init(const TopOpeBRepDS_DataStructure& DS,
+void PointExplorer::Init(const TopOpeBRepDS_DataStructure& DS,
                                       const Standard_Boolean            FindKeep)
 {
   myIndex    = 1;
@@ -53,7 +53,7 @@ void TopOpeBRepDS_PointExplorer::Init(const TopOpeBRepDS_DataStructure& DS,
 
 //=================================================================================================
 
-void TopOpeBRepDS_PointExplorer::Find()
+void PointExplorer::Find()
 {
   myFound = Standard_False;
   while (myIndex <= myMax)
@@ -75,14 +75,14 @@ void TopOpeBRepDS_PointExplorer::Find()
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_PointExplorer::More() const
+Standard_Boolean PointExplorer::More() const
 {
   return myFound;
 }
 
 //=================================================================================================
 
-void TopOpeBRepDS_PointExplorer::Next()
+void PointExplorer::Next()
 {
   myIndex++;
   Find();
@@ -90,7 +90,7 @@ void TopOpeBRepDS_PointExplorer::Next()
 
 //=================================================================================================
 
-const Point1& TopOpeBRepDS_PointExplorer::Point() const
+const Point1& PointExplorer::Point() const
 {
   if (myFound)
   {
@@ -104,7 +104,7 @@ const Point1& TopOpeBRepDS_PointExplorer::Point() const
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_PointExplorer::IsPoint(const Standard_Integer I) const
+Standard_Boolean PointExplorer::IsPoint(const Standard_Integer I) const
 {
   Standard_Boolean b = MYDS.myPoints.IsBound(I);
   return b;
@@ -112,7 +112,7 @@ Standard_Boolean TopOpeBRepDS_PointExplorer::IsPoint(const Standard_Integer I) c
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_PointExplorer::IsPointKeep(const Standard_Integer I) const
+Standard_Boolean PointExplorer::IsPointKeep(const Standard_Integer I) const
 {
   Standard_Boolean b = MYDS.myPoints.IsBound(I);
   if (b)
@@ -122,7 +122,7 @@ Standard_Boolean TopOpeBRepDS_PointExplorer::IsPointKeep(const Standard_Integer 
 
 //=================================================================================================
 
-const Point1& TopOpeBRepDS_PointExplorer::Point(const Standard_Integer I) const
+const Point1& PointExplorer::Point(const Standard_Integer I) const
 {
   if (IsPoint(I))
   {
@@ -136,7 +136,7 @@ const Point1& TopOpeBRepDS_PointExplorer::Point(const Standard_Integer I) const
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepDS_PointExplorer::NbPoint()
+Standard_Integer PointExplorer::NbPoint()
 {
   myIndex = 1;
   myMax   = MYDS.NbPoints();
@@ -149,7 +149,7 @@ Standard_Integer TopOpeBRepDS_PointExplorer::NbPoint()
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepDS_PointExplorer::Index() const
+Standard_Integer PointExplorer::Index() const
 {
   return myIndex;
 }

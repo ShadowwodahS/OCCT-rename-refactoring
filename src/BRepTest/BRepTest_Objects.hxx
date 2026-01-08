@@ -23,27 +23,27 @@ class Objects1
 {
 public:
   //! Sets the given history into the session.
-  Standard_EXPORT static void SetHistory(const Handle(BRepTools_History)& theHistory);
+  Standard_EXPORT static void SetHistory(const Handle(ShapeHistory)& theHistory);
 
   //! Adds the given history to the history in the session.
-  Standard_EXPORT static void AddHistory(const Handle(BRepTools_History)& theHistory);
+  Standard_EXPORT static void AddHistory(const Handle(ShapeHistory)& theHistory);
 
   //! Sets the history of the given algorithm into the session.
   template <class TheAlgo>
   static void SetHistory(const ShapeList& theArguments, TheAlgo& theAlgo)
   {
-    SetHistory(new BRepTools_History(theArguments, theAlgo));
+    SetHistory(new ShapeHistory(theArguments, theAlgo));
   }
 
   //! Adds the history of the given algorithm into the session.
   template <class TheAlgo>
   static void AddHistory(const ShapeList& theArguments, TheAlgo& theAlgo)
   {
-    AddHistory(new BRepTools_History(theArguments, theAlgo));
+    AddHistory(new ShapeHistory(theArguments, theAlgo));
   }
 
   //! Returns the history from the session.
-  Standard_EXPORT static Handle(BRepTools_History) History();
+  Standard_EXPORT static Handle(ShapeHistory) History();
 
   //! Enables/Disables the history saving
   Standard_EXPORT static void SetToFillHistory(const Standard_Boolean theFillHist);

@@ -36,7 +36,7 @@ class GeomPlane;
 class TopoShape;
 class TopoSolid;
 class TopoFace;
-class BRepTools_ReShape;
+class ShapeReShaper;
 
 //! The BRepLib1 package provides general utilities for
 //! BRep.
@@ -194,7 +194,7 @@ public:
   //! Thus the input shape (and its subshapes) will not be modified, instead the reshaper will
   //! contain a modified empty-copies of original subshapes as substitutions.
   Standard_EXPORT static void SameParameter(const TopoShape&    S,
-                                            BRepTools_ReShape&     theReshaper,
+                                            ShapeReShaper&     theReshaper,
                                             const Standard_Real    Tolerance = 1.0e-5,
                                             const Standard_Boolean forced    = Standard_False);
 
@@ -216,7 +216,7 @@ public:
   //! contain a modified empty-copies of original subshapes as substitutions.
   Standard_EXPORT static void UpdateTolerances(
     const TopoShape&    S,
-    BRepTools_ReShape&     theReshaper,
+    ShapeReShaper&     theReshaper,
     const Standard_Boolean verifyFaceTolerance = Standard_False);
 
   //! Checks tolerances of edges (including inner points) and vertices

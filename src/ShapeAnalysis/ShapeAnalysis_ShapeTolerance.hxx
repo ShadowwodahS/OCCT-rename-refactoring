@@ -56,14 +56,14 @@ public:
 
   //! Determines which shapes have a tolerance over the given value
   //! <type> is interpreted as in the method Tolerance
-  Standard_EXPORT Handle(TopTools_HSequenceOfShape) OverTolerance(
+  Standard_EXPORT Handle(HSequenceOfShape) OverTolerance(
     const TopoShape&    shape,
     const Standard_Real    value,
     const TopAbs_ShapeEnum type = TopAbs_SHAPE) const;
 
   //! Determines which shapes have a tolerance within a given interval
   //! <type> is interpreted as in the method Tolerance
-  Standard_EXPORT Handle(TopTools_HSequenceOfShape) InTolerance(
+  Standard_EXPORT Handle(HSequenceOfShape) InTolerance(
     const TopoShape&    shape,
     const Standard_Real    valmin,
     const Standard_Real    valmax,

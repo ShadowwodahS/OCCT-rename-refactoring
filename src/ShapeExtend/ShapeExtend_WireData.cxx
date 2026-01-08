@@ -132,8 +132,8 @@ Standard_Boolean ShapeExtend_WireData::Init(const TopoWire&     wire,
 
 void ShapeExtend_WireData::Clear()
 {
-  myEdges            = new TopTools_HSequenceOfShape();
-  myNonmanifoldEdges = new TopTools_HSequenceOfShape;
+  myEdges            = new HSequenceOfShape();
+  myNonmanifoldEdges = new HSequenceOfShape;
   mySeamF = mySeamR = -1;
   mySeams.Nullify();
   myManifoldMode = Standard_True;
@@ -611,7 +611,7 @@ TopoWire ShapeExtend_WireData::WireAPIMake() const
 
 //=================================================================================================
 
-Handle(TopTools_HSequenceOfShape) ShapeExtend_WireData::NonmanifoldEdges() const
+Handle(HSequenceOfShape) ShapeExtend_WireData::NonmanifoldEdges() const
 {
   return myNonmanifoldEdges;
 }

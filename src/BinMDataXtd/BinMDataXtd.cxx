@@ -29,7 +29,7 @@ static Standard_Integer myDocumentVersion = -1;
 
 //=================================================================================================
 
-void BinMDataXtd1::AddDrivers(const Handle(BinMDF_ADriverTable)& theDriverTable,
+void BinMDataXtd1::AddDrivers(const Handle(AttributeDriverTable)& theDriverTable,
                              const Handle(Message_Messenger)&   theMsgDriver)
 {
   theDriverTable->AddDriver(new BinMDataXtd_ConstraintDriver(theMsgDriver));

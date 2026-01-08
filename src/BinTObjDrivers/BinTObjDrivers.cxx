@@ -66,7 +66,7 @@ void BinTObjDrivers1::DefineFormat(const Handle(AppManager)& theApp)
 
 //=================================================================================================
 
-void BinTObjDrivers1::AddDrivers(const Handle(BinMDF_ADriverTable)& aDriverTable,
+void BinTObjDrivers1::AddDrivers(const Handle(AttributeDriverTable)& aDriverTable,
                                 const Handle(Message_Messenger)&   aMsgDrv)
 {
   aDriverTable->AddDriver(new BinTObjDrivers_ModelDriver(aMsgDrv));

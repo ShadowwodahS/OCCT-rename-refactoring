@@ -23,17 +23,17 @@
 #include <TopoDS_TShape.hxx>
 
 class TopoDS_TFace;
-DEFINE_STANDARD_HANDLE(TopoDS_TFace, TopoDS_TShape)
+DEFINE_STANDARD_HANDLE(TopoDS_TFace, TopoShapeBase)
 
 //! A  topological part  of a surface   or  of the  2D
 //! space.  The  boundary  is  a   set of  wires   and
 //! vertices.
-class TopoDS_TFace : public TopoDS_TShape
+class TopoDS_TFace : public TopoShapeBase
 {
 public:
   //! Creates an empty TFace.
   TopoDS_TFace()
-      : TopoDS_TShape()
+      : TopoShapeBase()
   {
   }
 
@@ -41,9 +41,9 @@ public:
   Standard_EXPORT TopAbs_ShapeEnum ShapeType() const Standard_OVERRIDE;
 
   //! Returns an empty TFace.
-  Standard_EXPORT virtual Handle(TopoDS_TShape) EmptyCopy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(TopoShapeBase) EmptyCopy() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(TopoDS_TFace, TopoDS_TShape)
+  DEFINE_STANDARD_RTTIEXT(TopoDS_TFace, TopoShapeBase)
 };
 
 #endif // _TopoDS_TFace_HeaderFile

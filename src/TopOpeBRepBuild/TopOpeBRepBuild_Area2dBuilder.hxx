@@ -34,16 +34,16 @@ class LoopClassifier;
 //! results from  an interference (block of edges).
 //! The result of the Area2dBuilder is an iteration on areas.
 //! An area is described by a set of Loops.
-class TopOpeBRepBuild_Area2dBuilder : public AreaBuilder
+class Area2dBuilder : public AreaBuilder
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepBuild_Area2dBuilder();
+  Standard_EXPORT Area2dBuilder();
 
   //! Creates a Area2dBuilder to build faces on
   //! the (wires,blocks of edge) of <LS>, using the classifier <LC>.
-  Standard_EXPORT TopOpeBRepBuild_Area2dBuilder(LoopSet&        LS,
+  Standard_EXPORT Area2dBuilder(LoopSet&        LS,
                                                 LoopClassifier& LC,
                                                 const Standard_Boolean ForceClass = Standard_False);
 

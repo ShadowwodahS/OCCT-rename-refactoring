@@ -24,16 +24,16 @@
 #include <Standard_Integer.hxx>
 #include <TopOpeBRepDS_GeometryData.hxx>
 
-class TopOpeBRepDS_PointData : public GeometryData
+class PointData : public GeometryData
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepDS_PointData();
+  Standard_EXPORT PointData();
 
-  Standard_EXPORT TopOpeBRepDS_PointData(const Point1& P);
+  Standard_EXPORT PointData(const Point1& P);
 
-  Standard_EXPORT TopOpeBRepDS_PointData(const Point1& P,
+  Standard_EXPORT PointData(const Point1& P,
                                          const Standard_Integer    I1,
                                          const Standard_Integer    I2);
 

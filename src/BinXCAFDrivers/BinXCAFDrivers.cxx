@@ -66,11 +66,11 @@ void BinXCAFDrivers1::DefineFormat(const Handle(AppManager)& theApp)
 
 //=================================================================================================
 
-Handle(BinMDF_ADriverTable) BinXCAFDrivers1::AttributeDrivers(
+Handle(AttributeDriverTable) BinXCAFDrivers1::AttributeDrivers(
   const Handle(Message_Messenger)& aMsgDrv)
 {
   // Standard1 Drivers
-  Handle(BinMDF_ADriverTable) aTable = BinDrivers1::AttributeDrivers(aMsgDrv);
+  Handle(AttributeDriverTable) aTable = BinDrivers1::AttributeDrivers(aMsgDrv);
 
   // XCAF Drivers
   BinMXCAFDoc1::AddDrivers(aTable, aMsgDrv);

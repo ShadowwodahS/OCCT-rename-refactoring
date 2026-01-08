@@ -43,7 +43,7 @@ TNaming_DeltaOnModification::TNaming_DeltaOnModification(const Handle(ShapeAttri
 
   if (Evol == TNaming_PRIMITIVE)
   {
-    myNew = new TopTools_HArray1OfShape(1, NbShapes1);
+    myNew = new HArray1OfShape(1, NbShapes1);
     for (Iterator1 it2(NS); it2.More(); it2.Next(), i++)
     {
       myNew->SetValue(i, it2.NewShape());
@@ -51,7 +51,7 @@ TNaming_DeltaOnModification::TNaming_DeltaOnModification(const Handle(ShapeAttri
   }
   else if (Evol == TNaming_DELETE)
   {
-    myOld = new TopTools_HArray1OfShape(1, NbShapes1);
+    myOld = new HArray1OfShape(1, NbShapes1);
     for (Iterator1 it2(NS); it2.More(); it2.Next(), i++)
     {
       myOld->SetValue(i, it2.OldShape());
@@ -59,8 +59,8 @@ TNaming_DeltaOnModification::TNaming_DeltaOnModification(const Handle(ShapeAttri
   }
   else
   {
-    myOld = new TopTools_HArray1OfShape(1, NbShapes1);
-    myNew = new TopTools_HArray1OfShape(1, NbShapes1);
+    myOld = new HArray1OfShape(1, NbShapes1);
+    myNew = new HArray1OfShape(1, NbShapes1);
 
     for (Iterator1 it2(NS); it2.More(); it2.Next(), i++)
     {

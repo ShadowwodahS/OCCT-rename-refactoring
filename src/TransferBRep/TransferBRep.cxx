@@ -35,7 +35,7 @@
 
 // #include <TransferBRep_Analyzer.hxx>
 static void ShapeAppend(const Handle(Transfer_Binder)&           binder,
-                        const Handle(TopTools_HSequenceOfShape)& shapes)
+                        const Handle(HSequenceOfShape)& shapes)
 {
   if (binder.IsNull())
     return;
@@ -109,13 +109,13 @@ void TransferBRep1::SetShapeResult(const Handle(Transfer_TransientProcess)& TP,
   TP->Bind(ent, new TransferBRep_ShapeBinder(result));
 }
 
-Handle(TopTools_HSequenceOfShape) TransferBRep1::Shapes(const Handle(Transfer_TransientProcess)& TP,
+Handle(HSequenceOfShape) TransferBRep1::Shapes(const Handle(Transfer_TransientProcess)& TP,
                                                        const Standard_Boolean roots)
 {
-  Handle(TopTools_HSequenceOfShape) shapes;
+  Handle(HSequenceOfShape) shapes;
   if (TP.IsNull())
     return shapes;
-  shapes = new TopTools_HSequenceOfShape();
+  shapes = new HSequenceOfShape();
 
   Transfer_IteratorOfProcessForTransient list = (roots ? TP->RootResult() : TP->CompleteResult());
 
@@ -127,14 +127,14 @@ Handle(TopTools_HSequenceOfShape) TransferBRep1::Shapes(const Handle(Transfer_Tr
   return shapes;
 }
 
-Handle(TopTools_HSequenceOfShape) TransferBRep1::Shapes(
+Handle(HSequenceOfShape) TransferBRep1::Shapes(
   const Handle(Transfer_TransientProcess)&    TP,
   const Handle(TColStd_HSequenceOfTransient)& list)
 {
-  Handle(TopTools_HSequenceOfShape) shapes;
+  Handle(HSequenceOfShape) shapes;
   if (TP.IsNull() && list.IsNull())
     return shapes;
-  shapes = new TopTools_HSequenceOfShape();
+  shapes = new HSequenceOfShape();
 
   Standard_Integer ie, ne = list->Length();
   for (ie = 1; ie <= ne; ie++)
@@ -399,9 +399,9 @@ Handle(TColStd_HSequenceOfTransient) TransferBRep1::Checked(const Interface_Chec
   return ls;
 }
 
-Handle(TopTools_HSequenceOfShape) TransferBRep1::CheckedShapes(const Interface_CheckIterator& chl)
+Handle(HSequenceOfShape) TransferBRep1::CheckedShapes(const Interface_CheckIterator& chl)
 {
-  Handle(TopTools_HSequenceOfShape) ls = new TopTools_HSequenceOfShape();
+  Handle(HSequenceOfShape) ls = new HSequenceOfShape();
   for (chl.Start(); chl.More(); chl.Next())
   {
     const Handle(Interface_Check)& ach = chl.Value();

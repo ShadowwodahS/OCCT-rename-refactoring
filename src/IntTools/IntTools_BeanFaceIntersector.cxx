@@ -86,7 +86,7 @@ static void MergeSolutions(const IntTools_ListOfCurveRangeSample&   theListCurve
                            IntTools_ListOfCurveRangeSample&         theListCurveRangeSort,
                            IntTools_ListOfSurfaceRangeSample&       theListSurfaceRangeSort);
 
-static void CheckSampling(const IntTools_CurveRangeSample&         theCurveRange,
+static void CheckSampling(const CurveRangeSample&         theCurveRange,
                           const IntTools_SurfaceRangeSample&       theSurfaceRange,
                           const CurveRangeLocalizeData&   theCurveData,
                           const IntTools_SurfaceRangeLocalizeData& theSurfaceData,
@@ -1416,7 +1416,7 @@ static Standard_Boolean SetEmptyResultRange(const Standard_Real      theParamete
 //=================================================================================================
 
 Standard_Boolean IntTools_BeanFaceIntersector::LocalizeSolutions(
-  const IntTools_CurveRangeSample&   theCurveRange,
+  const CurveRangeSample&   theCurveRange,
   const Box2&                     theBoxCurve,
   const IntTools_SurfaceRangeSample& theSurfaceRange,
   const Box2&                     theBoxSurface,
@@ -1428,7 +1428,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::LocalizeSolutions(
   Standard_Integer tIt = 0, uIt = 0, vIt = 0;
 
   //
-  IntTools_CurveRangeSample aRootRangeC(0);
+  CurveRangeSample aRootRangeC(0);
   aRootRangeC.SetDepth(0);
   IntTools_SurfaceRangeSample aRootRangeS(0, 0, 0, 0);
 
@@ -1497,7 +1497,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::LocalizeSolutions(
   // ranges check.end
 
   // init template. begin
-  IntTools_CurveRangeSample aNewRangeCTemplate;
+  CurveRangeSample aNewRangeCTemplate;
 
   if (!bAllowSamplingC)
   {
@@ -1637,7 +1637,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::LocalizeSolutions(
       // ////////////////////////////
       aCurPar                              = aRangeC.First();
       aPrevPar                             = aRangeC.First();
-      IntTools_CurveRangeSample aCurRangeC = aNewRangeCTemplate;
+      CurveRangeSample aCurRangeC = aNewRangeCTemplate;
 
       for (tIt = 1; tIt <= nbC; tIt++, aCurIndex++, aPrevPar = aCurPar)
       {
@@ -1725,7 +1725,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::LocalizeSolutions(
       // //////////////
       //
 
-      IntTools_CurveRangeSample aNewRangeC = aNewRangeCTemplate;
+      CurveRangeSample aNewRangeC = aNewRangeCTemplate;
 
       aCurIndex = aCurIndexInit;
       TColStd_ListIteratorOfListOfInteger anItI(aListOfIndex);
@@ -1937,7 +1937,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::ComputeLocalized()
   IntTools_ListOfCurveRangeSample   aListCurveRange;
   IntTools_ListOfSurfaceRangeSample aListSurfaceRange;
 
-  IntTools_CurveRangeSample aCurveRange(0);
+  CurveRangeSample aCurveRange(0);
   aCurveRange.SetDepth(0);
   Standard_Integer                nbSampleC = 3;
   Standard_Integer                nbSampleU = aSurfaceData.GetNbSampleU();
@@ -2540,7 +2540,7 @@ static void MergeSolutions(const IntTools_ListOfCurveRangeSample&   theListCurve
   NCollection_IndexedMap<IntTools_SurfaceRangeSample> aMapToAvoid;
 
   NCollection_DataMap<Standard_Integer, TColStd_ListOfInteger> aCurveIdMap;
-  std::vector<IntTools_CurveRangeSample>                       aCurveRangeVector;
+  std::vector<CurveRangeSample>                       aCurveRangeVector;
   aCurveRangeVector.reserve(theListCurveRange.Size());
 
   IntTools_ListIteratorOfListOfCurveRangeSample   anItC(theListCurveRange);
@@ -2569,7 +2569,7 @@ static void MergeSolutions(const IntTools_ListOfCurveRangeSample&   theListCurve
     const TColStd_ListOfInteger&       aCurveRangeList = aCurveIdMap(i);
     for (TColStd_ListOfInteger::Iterator anIter(aCurveRangeList); anIter.More(); anIter.Next())
     {
-      const IntTools_CurveRangeSample& aCurveRange = aCurveRangeVector[anIter.Value()];
+      const CurveRangeSample& aCurveRange = aCurveRangeVector[anIter.Value()];
 
       theListSurfaceRangeSort.Append(aSurfRange);
       theListCurveRangeSort.Append(aCurveRange);
@@ -2581,7 +2581,7 @@ static void MergeSolutions(const IntTools_ListOfCurveRangeSample&   theListCurve
 // static function: CheckSampling
 // purpose:
 // ---------------------------------------------------------------------------------
-static void CheckSampling(const IntTools_CurveRangeSample&         theCurveRange,
+static void CheckSampling(const CurveRangeSample&         theCurveRange,
                           const IntTools_SurfaceRangeSample&       theSurfaceRange,
                           const CurveRangeLocalizeData&   theCurveData,
                           const IntTools_SurfaceRangeLocalizeData& theSurfaceData,

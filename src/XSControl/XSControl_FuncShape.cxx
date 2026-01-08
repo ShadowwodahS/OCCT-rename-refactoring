@@ -340,7 +340,7 @@ static IFSelect_ReturnStatus XSControl_tpcompound(const Handle(IFSelect_SessionP
     sout << "Give a NAME for the Compound  + optional givelist, else roots are taken" << std::endl;
     return IFSelect_RetError;
   }
-  Handle(TopTools_HSequenceOfShape) list;
+  Handle(HSequenceOfShape) list;
   if (argc == 2)
     list = TransferBRep1::Shapes(TP);
   else
@@ -414,7 +414,7 @@ static IFSelect_ReturnStatus XSControl_traccess(const Handle(IFSelect_SessionPil
     ShapeBuilder    B;
     B.MakeCompound(C);
 
-    const Handle(TopTools_HSequenceOfShape)& list = TR->ShapeResultList(Standard_True);
+    const Handle(HSequenceOfShape)& list = TR->ShapeResultList(Standard_True);
     sout << " TOUS RESULTATS par ShapeResultList, soit " << list->Length() << std::endl;
     for (Standard_Integer i = 1, nb = list->Length(); i <= nb; ++i)
     {
@@ -1004,7 +1004,7 @@ void ShapeFunctions::Init()
 //=================================================================================================
 
 Standard_Integer ShapeFunctions::MoreShapes(const Handle(ExchangeSession)& session,
-                                                 Handle(TopTools_HSequenceOfShape)&   list,
+                                                 Handle(HSequenceOfShape)&   list,
                                                  const Standard_CString               name)
 {
   //  name = un nom -> Draw1
@@ -1014,7 +1014,7 @@ Standard_Integer ShapeFunctions::MoreShapes(const Handle(ExchangeSession)& sessi
   //  name = nom(n1-n2) avec n1,n2 entiers :  les variables de nom  nomn1 a nomn2
   Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   if (list.IsNull())
-    list = new TopTools_HSequenceOfShape();
+    list = new HSequenceOfShape();
   if (name[0] == '*' && (name[1] == '\0' || (name[1] == '*' && name[2] == '\0')))
   {
     const Handle(Transfer_TransientProcess)& TP = session->TransferReader()->TransientProcess();
@@ -1023,7 +1023,7 @@ Standard_Integer ShapeFunctions::MoreShapes(const Handle(ExchangeSession)& sessi
       sout << "last transfer : unknown" << std::endl;
       return 0;
     }
-    Handle(TopTools_HSequenceOfShape) li = TransferBRep1::Shapes(TP, (name[1] == '\0'));
+    Handle(HSequenceOfShape) li = TransferBRep1::Shapes(TP, (name[1] == '\0'));
     if (li.IsNull())
       return 0;
     list->Append(li);

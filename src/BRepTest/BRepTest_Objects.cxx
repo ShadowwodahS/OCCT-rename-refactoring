@@ -29,18 +29,18 @@ public:
   void SetDefaultValues() { myFillHistory = Standard_True; }
 
   //! Sets the History in the session
-  void SetHistory(const Handle(BRepTools_History)& theHistory) { myHistory = theHistory; }
+  void SetHistory(const Handle(ShapeHistory)& theHistory) { myHistory = theHistory; }
 
   //! Add the History to the history in the session
-  void AddHistory(const Handle(BRepTools_History)& theHistory)
+  void AddHistory(const Handle(ShapeHistory)& theHistory)
   {
     if (myHistory.IsNull())
-      myHistory = new BRepTools_History;
+      myHistory = new ShapeHistory;
     myHistory->Merge(theHistory);
   }
 
   //! Returns the history from the session
-  const Handle(BRepTools_History)& History() const { return myHistory; }
+  const Handle(ShapeHistory)& History() const { return myHistory; }
 
   //! Enables/Disables the history saving
   void SetToFillHistory(const Standard_Boolean theFillHist) { myFillHistory = theFillHist; }
@@ -49,7 +49,7 @@ public:
   Standard_Boolean IsHistoryNeeded() const { return myFillHistory; }
 
 private:
-  Handle(BRepTools_History) myHistory;
+  Handle(ShapeHistory) myHistory;
   Standard_Boolean          myFillHistory;
 };
 
@@ -63,21 +63,21 @@ static BRepTest_Session& GetSession()
 
 //=================================================================================================
 
-void Objects1::SetHistory(const Handle(BRepTools_History)& theHistory)
+void Objects1::SetHistory(const Handle(ShapeHistory)& theHistory)
 {
   GetSession().SetHistory(theHistory);
 }
 
 //=================================================================================================
 
-void Objects1::AddHistory(const Handle(BRepTools_History)& theHistory)
+void Objects1::AddHistory(const Handle(ShapeHistory)& theHistory)
 {
   GetSession().AddHistory(theHistory);
 }
 
 //=================================================================================================
 
-Handle(BRepTools_History) Objects1::History()
+Handle(ShapeHistory) Objects1::History()
 {
   return GetSession().History();
 }

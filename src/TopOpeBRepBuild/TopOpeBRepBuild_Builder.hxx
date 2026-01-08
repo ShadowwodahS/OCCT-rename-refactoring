@@ -53,12 +53,12 @@ class TopOpeBRepBuild_EdgeBuilder;
 class TopOpeBRepBuild_FaceBuilder;
 class TopOpeBRepBuild_SolidBuilder;
 class TopOpeBRepBuild_WireEdgeSet;
-class TopOpeBRepDS_PointIterator;
+class PointIterator;
 class TopOpeBRepBuild_PaveSet;
 class GTopologyClassifier;
 class TopOpeBRepBuild_ShellFaceSet;
-class TopOpeBRepDS_SurfaceIterator;
-class TopOpeBRepDS_CurveIterator;
+class SurfaceIterator;
+class CurveIterator;
 class TopoVertex;
 class Point3d;
 
@@ -413,7 +413,7 @@ public:
                                                const GTopologyClassifier&  G,
                                                TopOpeBRepBuild_ShellFaceSet& SFS);
 
-  Standard_EXPORT void GFillSurfaceTopologySFS(const TopOpeBRepDS_SurfaceIterator& IT,
+  Standard_EXPORT void GFillSurfaceTopologySFS(const SurfaceIterator& IT,
                                                const GTopologyClassifier&        G,
                                                TopOpeBRepBuild_ShellFaceSet&       SFS) const;
 
@@ -481,7 +481,7 @@ public:
                                              const GTopologyClassifier& G,
                                              TopOpeBRepBuild_WireEdgeSet& WES);
 
-  Standard_EXPORT void GFillCurveTopologyWES(const TopOpeBRepDS_CurveIterator& IT,
+  Standard_EXPORT void GFillCurveTopologyWES(const CurveIterator& IT,
                                              const GTopologyClassifier&      G,
                                              TopOpeBRepBuild_WireEdgeSet&      WES) const;
 
@@ -532,7 +532,7 @@ public:
                                              TopOpeBRepBuild_PaveSet&     PVS);
 
   Standard_EXPORT void GFillPointTopologyPVS(const TopoShape&               E,
-                                             const TopOpeBRepDS_PointIterator& IT,
+                                             const PointIterator& IT,
                                              const GTopologyClassifier&      G,
                                              TopOpeBRepBuild_PaveSet&          PVS) const;
 
@@ -810,14 +810,14 @@ protected:
   //! IT accesses a list of interferences which geometry is a point or a vertex.
   //! TB indicates the orientation to give to the geometries
   //! found in interference list accessed by IT.
-  Standard_EXPORT void FillVertexSet(TopOpeBRepDS_PointIterator& IT,
+  Standard_EXPORT void FillVertexSet(PointIterator& IT,
                                      const TopAbs_State          TB,
                                      TopOpeBRepBuild_PaveSet&    PVS) const;
 
   //! fills vertex set PVS with the current value of IT.
   //! I geometry is a point or a vertex.
   //! TB  indicates the orientation to give to geometries found I
-  Standard_EXPORT void FillVertexSetOnValue(const TopOpeBRepDS_PointIterator& IT,
+  Standard_EXPORT void FillVertexSetOnValue(const PointIterator& IT,
                                             const TopAbs_State                TB,
                                             TopOpeBRepBuild_PaveSet&          PVS) const;
 
@@ -859,9 +859,9 @@ protected:
   TopoShape                                   myShape2;
   Handle(TopOpeBRepDS_HDataStructure)            myDataStructure;
   TopOpeBRepDS_BuildTool                         myBuildTool;
-  Handle(TopTools_HArray1OfShape)                myNewVertices;
+  Handle(HArray1OfShape)                myNewVertices;
   TopTools_DataMapOfIntegerListOfShape           myNewEdges;
-  Handle(TopTools_HArray1OfListOfShape)          myNewFaces;
+  Handle(HArray1OfListOfShape)          myNewFaces;
   TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State mySplitIN;
   TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State mySplitON;
   TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State mySplitOUT;

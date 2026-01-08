@@ -445,7 +445,7 @@ void BRepFill_NSections::Init(const TColStd_SequenceOfReal& P, const Standard_Bo
     if (!BRepInspector::Degenerated(wexp.Current()))
       NbEdge++;
 
-  myEdges = new (TopTools_HArray2OfShape)(1, NbEdge, 1, NbSects);
+  myEdges = new (HArray2OfShape)(1, NbEdge, 1, NbSects);
 
   // Fill tables
   uclosed = Standard_True;

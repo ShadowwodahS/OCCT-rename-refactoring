@@ -22,7 +22,7 @@
 
 #include <TColStd_IndexedDataMapOfTransientTransient.hxx>
 class TopoShape;
-class TNaming_TranslateTool;
+class TranslateTool;
 class TopLoc_Location;
 
 class ShapeCopier
@@ -39,7 +39,7 @@ public:
   Standard_EXPORT static void Translate(const TopoShape&                         aShape,
                                         TColStd_IndexedDataMapOfTransientTransient& aMap,
                                         TopoShape&                               aResult,
-                                        const Handle(TNaming_TranslateTool)&        TrTool);
+                                        const Handle(TranslateTool)&        TrTool);
 
   //! Translates a Topological  Location  to an  other  Top.
   //! Location

@@ -21,6 +21,6 @@
 #include <TopTools_SequenceOfShape.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(TopTools_HSequenceOfShape, TopTools_SequenceOfShape)
+DEFINE_HSEQUENCE(HSequenceOfShape, TopTools_SequenceOfShape)
 
 #endif

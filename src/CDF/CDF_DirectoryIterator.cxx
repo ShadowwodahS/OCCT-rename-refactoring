@@ -18,7 +18,7 @@
 #include <CDF_DirectoryIterator.hxx>
 #include <CDM_Document.hxx>
 
-DirectoryIterator::DirectoryIterator(const Handle(CDF_Directory)& aDirectory)
+DirectoryIterator::DirectoryIterator(const Handle(Directory)& aDirectory)
     : myIterator(aDirectory->List())
 {
 }

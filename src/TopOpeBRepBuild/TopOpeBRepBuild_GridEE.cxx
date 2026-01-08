@@ -208,7 +208,7 @@ void TopOpeBRepBuild_Builder::GFillEdgePVS(const TopoShape& E,
 
 // --- iterer sur EPit jusqu'a la prochaine interference dont la
 // --- transition est definie sur un shape de type SHA Before et After
-static Standard_Boolean FUN_MoreSHAINT(TopOpeBRepDS_PointIterator& EPit, const TopAbs_ShapeEnum SHA)
+static Standard_Boolean FUN_MoreSHAINT(PointIterator& EPit, const TopAbs_ShapeEnum SHA)
 {
   Standard_Boolean more = Standard_False;
   while (EPit.More())
@@ -412,7 +412,7 @@ void TopOpeBRepBuild_Builder::GFillPointTopologyPVS(const TopoShape&          E,
     FDS_assign(lIE, loiSHAINT);
   else
   {
-    TopOpeBRepDS_PointIterator EPit(lIE);
+    PointIterator EPit(lIE);
     EPit.Init(BDS.ShapeInterferences(E));
     Standard_Boolean addi = FUN_MoreSHAINT(EPit, ShapeInterf);
     while (addi)
@@ -644,7 +644,7 @@ void TopOpeBRepBuild_Builder::GFillPointTopologyPVS(const TopoShape&          E,
 
       TopOpeBRepDS_ListOfInterference li;
       li.Append(newI);
-      TopOpeBRepDS_PointIterator itCur(li);
+      PointIterator itCur(li);
       GFillPointTopologyPVS(E, itCur, G, PVS);
       {
         tki.Next();
@@ -658,7 +658,7 @@ void TopOpeBRepBuild_Builder::GFillPointTopologyPVS(const TopoShape&          E,
     if (kp3)
       l2dFEcur.First()->Transition().Orientation(TopAbs_IN);
 
-    TopOpeBRepDS_PointIterator itCur(LICur);
+    PointIterator itCur(LICur);
     while (itCur.More())
     {
       const Handle(TopOpeBRepDS_Interference)& I1 = itCur.Value();
@@ -745,7 +745,7 @@ void TopOpeBRepBuild_Builder::GFillPointTopologyPVS(const TopoShape&          E,
 //=================================================================================================
 
 void TopOpeBRepBuild_Builder::GFillPointTopologyPVS(const TopoShape&               E,
-                                                    const TopOpeBRepDS_PointIterator& EPit,
+                                                    const PointIterator& EPit,
                                                     const GTopologyClassifier&      G1,
                                                     TopOpeBRepBuild_PaveSet&          PVS) const
 {

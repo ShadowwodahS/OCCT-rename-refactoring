@@ -510,7 +510,7 @@ void TopOpeBRepBuild_Builder::GFillSurfaceTopologySFS(const TopoShape&,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::GFillSurfaceTopologySFS(const TopOpeBRepDS_SurfaceIterator& SSit,
+void TopOpeBRepBuild_Builder::GFillSurfaceTopologySFS(const SurfaceIterator& SSit,
                                                       const GTopologyClassifier&        G1,
                                                       TopOpeBRepBuild_ShellFaceSet&       SFS) const
 {

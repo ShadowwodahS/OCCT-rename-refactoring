@@ -27,14 +27,14 @@
 class TopoShape;
 class Box2;
 
-class TopOpeBRepTool_HBoxTool;
-DEFINE_STANDARD_HANDLE(TopOpeBRepTool_HBoxTool, RefObject)
+class HBoxTool1;
+DEFINE_STANDARD_HANDLE(HBoxTool1, RefObject)
 
-class TopOpeBRepTool_HBoxTool : public RefObject
+class HBoxTool1 : public RefObject
 {
 
 public:
-  Standard_EXPORT TopOpeBRepTool_HBoxTool();
+  Standard_EXPORT HBoxTool1();
 
   Standard_EXPORT void Clear();
 
@@ -66,7 +66,7 @@ public:
 
   Standard_EXPORT const TopOpeBRepTool_IndexedDataMapOfShapeBox& IMS() const;
 
-  DEFINE_STANDARD_RTTIEXT(TopOpeBRepTool_HBoxTool, RefObject)
+  DEFINE_STANDARD_RTTIEXT(HBoxTool1, RefObject)
 
 protected:
 private:

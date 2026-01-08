@@ -56,7 +56,7 @@ public:
   //! completed (Append without Clear) by the Shapes found
   //! Returns 0 if no Shape could be found
   Standard_EXPORT static Standard_Integer MoreShapes(const Handle(ExchangeSession)& session,
-                                                     Handle(TopTools_HSequenceOfShape)&   list,
+                                                     Handle(HSequenceOfShape)&   list,
                                                      const Standard_CString               name);
 
   //! Analyses given file name and variable name, with a default

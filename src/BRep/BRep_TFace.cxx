@@ -34,7 +34,7 @@ BRep_TFace::BRep_TFace()
 
 //=================================================================================================
 
-Handle(TopoDS_TShape) BRep_TFace::EmptyCopy() const
+Handle(TopoShapeBase) BRep_TFace::EmptyCopy() const
 {
   Handle(BRep_TFace) TF = new BRep_TFace();
   TF->Surface(mySurface);

@@ -25,11 +25,11 @@ extern Standard_Boolean TopOpeBRepBuild_GettraceAREA();
 
 //=================================================================================================
 
-TopOpeBRepBuild_Area2dBuilder::TopOpeBRepBuild_Area2dBuilder() {}
+Area2dBuilder::Area2dBuilder() {}
 
 //=================================================================================================
 
-TopOpeBRepBuild_Area2dBuilder::TopOpeBRepBuild_Area2dBuilder(LoopSet&        LS,
+Area2dBuilder::Area2dBuilder(LoopSet&        LS,
                                                              LoopClassifier& LC,
                                                              const Standard_Boolean ForceClass)
 {
@@ -38,7 +38,7 @@ TopOpeBRepBuild_Area2dBuilder::TopOpeBRepBuild_Area2dBuilder(LoopSet&        LS,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Area2dBuilder::InitAreaBuilder(LoopSet&        LS,
+void Area2dBuilder::InitAreaBuilder(LoopSet&        LS,
                                                     LoopClassifier& LC,
                                                     const Standard_Boolean          ForceClass)
 {

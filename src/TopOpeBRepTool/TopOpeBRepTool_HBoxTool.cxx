@@ -27,7 +27,7 @@
 #include <TopOpeBRepTool_define.hxx>
 #include <TopOpeBRepTool_HBoxTool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepTool_HBoxTool, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(HBoxTool1, RefObject)
 
 #ifdef OCCT_DEBUG
   #define TBOX TopOpeBRepTool_GettraceBOX()
@@ -35,18 +35,18 @@ IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepTool_HBoxTool, RefObject)
 
 //=================================================================================================
 
-TopOpeBRepTool_HBoxTool::TopOpeBRepTool_HBoxTool() {}
+HBoxTool1::HBoxTool1() {}
 
 //=================================================================================================
 
-void TopOpeBRepTool_HBoxTool::Clear()
+void HBoxTool1::Clear()
 {
   myIMS.Clear();
 }
 
 //=================================================================================================
 
-void TopOpeBRepTool_HBoxTool::AddBoxes(const TopoShape&    S,
+void HBoxTool1::AddBoxes(const TopoShape&    S,
                                        const TopAbs_ShapeEnum TS,
                                        const TopAbs_ShapeEnum TA)
 {
@@ -61,7 +61,7 @@ void TopOpeBRepTool_HBoxTool::AddBoxes(const TopoShape&    S,
 
 //=================================================================================================
 
-void TopOpeBRepTool_HBoxTool::AddBox(const TopoShape& S)
+void HBoxTool1::AddBox(const TopoShape& S)
 {
 #ifdef OCCT_DEBUG
   TopAbs_ShapeEnum t =
@@ -88,7 +88,7 @@ void TopOpeBRepTool_HBoxTool::AddBox(const TopoShape& S)
 
 //=================================================================================================
 
-void TopOpeBRepTool_HBoxTool::ComputeBox(const TopoShape& S, Box2& B)
+void HBoxTool1::ComputeBox(const TopoShape& S, Box2& B)
 {
   TopAbs_ShapeEnum t = S.ShapeType();
   if (t == TopAbs_FACE)
@@ -111,7 +111,7 @@ void TopOpeBRepTool_HBoxTool::ComputeBox(const TopoShape& S, Box2& B)
 
 //=================================================================================================
 
-void TopOpeBRepTool_HBoxTool::ComputeBoxOnVertices(const TopoShape& S, Box2& B)
+void HBoxTool1::ComputeBoxOnVertices(const TopoShape& S, Box2& B)
 {
   ShapeExplorer ex(S, TopAbs_VERTEX);
   if (!ex.More())
@@ -132,7 +132,7 @@ void TopOpeBRepTool_HBoxTool::ComputeBoxOnVertices(const TopoShape& S, Box2& B)
 
 //=================================================================================================
 
-const Box2& TopOpeBRepTool_HBoxTool::Box1(const TopoShape& S)
+const Box2& HBoxTool1::Box1(const TopoShape& S)
 {
   Standard_Boolean hb = HasBox(S);
   if (!hb)
@@ -146,7 +146,7 @@ const Box2& TopOpeBRepTool_HBoxTool::Box1(const TopoShape& S)
 
 //=================================================================================================
 
-const Box2& TopOpeBRepTool_HBoxTool::Box1(const Standard_Integer I) const
+const Box2& HBoxTool1::Box1(const Standard_Integer I) const
 {
   Standard_Integer iu = Extent();
   Standard_Integer hb = (I >= 1 && I <= iu);
@@ -160,7 +160,7 @@ const Box2& TopOpeBRepTool_HBoxTool::Box1(const Standard_Integer I) const
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_HBoxTool::HasBox(const TopoShape& S) const
+Standard_Boolean HBoxTool1::HasBox(const TopoShape& S) const
 {
   Standard_Boolean hb = myIMS.Contains(S);
   return hb;
@@ -168,7 +168,7 @@ Standard_Boolean TopOpeBRepTool_HBoxTool::HasBox(const TopoShape& S) const
 
 //=================================================================================================
 
-const TopoShape& TopOpeBRepTool_HBoxTool::Shape(const Standard_Integer I) const
+const TopoShape& HBoxTool1::Shape(const Standard_Integer I) const
 {
   Standard_Integer iu = Extent();
   Standard_Integer hs = (I >= 1 && I <= iu);
@@ -182,7 +182,7 @@ const TopoShape& TopOpeBRepTool_HBoxTool::Shape(const Standard_Integer I) const
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepTool_HBoxTool::Index(const TopoShape& S) const
+Standard_Integer HBoxTool1::Index(const TopoShape& S) const
 {
   Standard_Integer i = myIMS.FindIndex(S);
   return i;
@@ -190,7 +190,7 @@ Standard_Integer TopOpeBRepTool_HBoxTool::Index(const TopoShape& S) const
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepTool_HBoxTool::Extent() const
+Standard_Integer HBoxTool1::Extent() const
 {
   Standard_Integer n = myIMS.Extent();
   return n;
@@ -198,21 +198,21 @@ Standard_Integer TopOpeBRepTool_HBoxTool::Extent() const
 
 //=================================================================================================
 
-TopOpeBRepTool_IndexedDataMapOfShapeBox& TopOpeBRepTool_HBoxTool::ChangeIMS()
+TopOpeBRepTool_IndexedDataMapOfShapeBox& HBoxTool1::ChangeIMS()
 {
   return myIMS;
 }
 
 //=================================================================================================
 
-const TopOpeBRepTool_IndexedDataMapOfShapeBox& TopOpeBRepTool_HBoxTool::IMS() const
+const TopOpeBRepTool_IndexedDataMapOfShapeBox& HBoxTool1::IMS() const
 {
   return myIMS;
 }
 
 //=================================================================================================
 
-void TopOpeBRepTool_HBoxTool::DumpB
+void HBoxTool1::DumpB
 #ifdef OCCT_DEBUG
   (const Box2& B)
 {

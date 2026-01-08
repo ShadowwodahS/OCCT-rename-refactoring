@@ -98,7 +98,7 @@ Standard_Integer DNaming_SelectionDriver::Execute(Handle(TFunction_Logbook)& the
     }
   }
 
-  TNaming_Selector aSelector(aRLabel);
+  NamingSelector aSelector(aRLabel);
 
   TDF_LabelMap aMap;
   theLog->GetValid(aMap);

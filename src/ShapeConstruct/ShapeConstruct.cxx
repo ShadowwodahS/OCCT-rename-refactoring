@@ -297,7 +297,7 @@ Handle(Geom_BSplineSurface) ShapeConstruct1::ConvertSurfaceToBSpline(
 
 //=================================================================================================
 
-Standard_Boolean ShapeConstruct1::JoinPCurves(const Handle(TopTools_HSequenceOfShape)& edges,
+Standard_Boolean ShapeConstruct1::JoinPCurves(const Handle(HSequenceOfShape)& edges,
                                              const TopoFace&                       theFace,
                                              TopoEdge&                             theEdge)
 {

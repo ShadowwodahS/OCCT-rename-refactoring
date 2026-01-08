@@ -34,16 +34,16 @@ class LoopClassifier;
 //! results from  an interference (block of edges).
 //! The result of the Area3dBuilder is an iteration on areas.
 //! An area is described by a set of Loops.
-class TopOpeBRepBuild_Area3dBuilder : public AreaBuilder
+class Area3dBuilder : public AreaBuilder
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepBuild_Area3dBuilder();
+  Standard_EXPORT Area3dBuilder();
 
   //! Creates a Area3dBuilder to build Solids on
   //! the (shells,blocks of face) of <LS>, using the classifier <LC>.
-  Standard_EXPORT TopOpeBRepBuild_Area3dBuilder(LoopSet&        LS,
+  Standard_EXPORT Area3dBuilder(LoopSet&        LS,
                                                 LoopClassifier& LC,
                                                 const Standard_Boolean ForceClass = Standard_False);
 

@@ -37,7 +37,7 @@ class TopoShape;
 //! and geometries.
 //!
 //! The topology is inherited from TopTools1.
-class BRepTools_ShapeSet : public TopTools_ShapeSet
+class BRepTools_ShapeSet : public ShapeSet
 {
 public:
   DEFINE_STANDARD_ALLOC

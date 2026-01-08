@@ -23,7 +23,7 @@
 #include <IntTools_DataMapOfCurveSampleBox.hxx>
 #include <IntTools_ListOfCurveRangeSample.hxx>
 
-class IntTools_CurveRangeSample;
+class CurveRangeSample;
 class Box2;
 
 class CurveRangeLocalizeData
@@ -38,14 +38,14 @@ public:
 
   Standard_Real GetMinRange() const { return myMinRangeC; }
 
-  Standard_EXPORT void AddOutRange(const IntTools_CurveRangeSample& theRange);
+  Standard_EXPORT void AddOutRange(const CurveRangeSample& theRange);
 
-  Standard_EXPORT void AddBox(const IntTools_CurveRangeSample& theRange, const Box2& theBox);
+  Standard_EXPORT void AddBox(const CurveRangeSample& theRange, const Box2& theBox);
 
-  Standard_EXPORT Standard_Boolean FindBox(const IntTools_CurveRangeSample& theRange,
+  Standard_EXPORT Standard_Boolean FindBox(const CurveRangeSample& theRange,
                                            Box2&                         theBox) const;
 
-  Standard_EXPORT Standard_Boolean IsRangeOut(const IntTools_CurveRangeSample& theRange) const;
+  Standard_EXPORT Standard_Boolean IsRangeOut(const CurveRangeSample& theRange) const;
 
   Standard_EXPORT void ListRangeOut(IntTools_ListOfCurveRangeSample& theList) const;
 

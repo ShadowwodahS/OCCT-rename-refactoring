@@ -125,9 +125,9 @@ Standard_Integer StdPrs_ShapeTool::Neighbours() const
 
 //=================================================================================================
 
-Handle(TopTools_HSequenceOfShape) StdPrs_ShapeTool::FacesOfEdge() const
+Handle(HSequenceOfShape) StdPrs_ShapeTool::FacesOfEdge() const
 {
-  Handle(TopTools_HSequenceOfShape) H = new TopTools_HSequenceOfShape();
+  Handle(HSequenceOfShape) H = new HSequenceOfShape();
   const ShapeList&       L = myEdgeMap.FindFromIndex(myEdge);
   for (TopTools_ListIteratorOfListOfShape LI(L); LI.More(); LI.Next())
   {

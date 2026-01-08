@@ -85,7 +85,7 @@ private:
   Standard_EXPORT void Init(const Standard_Boolean B);
 
   TopoShape                    myShape;
-  Handle(TopTools_HArray1OfShape) myEdges;
+  Handle(HArray1OfShape) myEdges;
   Handle(Law_Function)            TheLaw;
 };
 

@@ -20,6 +20,6 @@
 #include <TDataXtd_Array1OfTrsf.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(TDataXtd_HArray1OfTrsf, TDataXtd_Array1OfTrsf)
+DEFINE_HARRAY1(HArray1OfTransformation, TDataXtd_Array1OfTrsf)
 
 #endif

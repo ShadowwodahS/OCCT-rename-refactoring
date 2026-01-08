@@ -396,7 +396,7 @@ private:
     inline Standard_CString PName() const { return "PBRep_TVertex"; }
 
   private:
-    virtual Handle(TopoDS_TShape) createTShape() const;
+    virtual Handle(TopoShapeBase) createTShape() const;
 
   private:
     Standard_Real               myTolerance;
@@ -436,7 +436,7 @@ private:
     inline Standard_CString PName() const { return "PBRep_TEdge"; }
 
   private:
-    virtual Handle(TopoDS_TShape) createTShape() const;
+    virtual Handle(TopoShapeBase) createTShape() const;
 
   private:
     Standard_Real               myTolerance;
@@ -480,7 +480,7 @@ private:
     inline Standard_CString PName() const { return "PBRep_TFace"; }
 
   private:
-    virtual Handle(TopoDS_TShape) createTShape() const;
+    virtual Handle(TopoShapeBase) createTShape() const;
 
   private:
     Handle(ShapePersistent_Geom::Surface)       mySurface;

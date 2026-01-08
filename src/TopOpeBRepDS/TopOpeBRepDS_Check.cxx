@@ -344,7 +344,7 @@ Standard_Boolean TopOpeBRepDS_Check::OneVertexOnPnt()
         b = Standard_False;
       }
     }
-    TopOpeBRepDS_PointExplorer PE(myHDS->DS());
+    PointExplorer PE(myHDS->DS());
     for (; PE.More(); PE.Next())
     {
       const Point1& dsPnt = PE.Point();
@@ -361,7 +361,7 @@ Standard_Boolean TopOpeBRepDS_Check::OneVertexOnPnt()
   }
   for (i = 1; i <= NbPo; i++)
   {
-    TopOpeBRepDS_PointExplorer PE(myHDS->DS());
+    PointExplorer PE(myHDS->DS());
     if (PE.IsPoint(i))
     {
       const Point1& dsPnt1 = myHDS->Point(i);

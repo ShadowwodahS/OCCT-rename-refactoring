@@ -54,7 +54,7 @@ void TopOpeBRepBuild_Builder::BuildEdges(const Standard_Integer                 
   const TopOpeBRepDS_Curve& curC = HDS->Curve(iC);
   myBuildTool.MakeEdge(anEdge, curC, HDS->DS());
   TopOpeBRepBuild_PaveSet    PVS(anEdge);
-  TopOpeBRepDS_PointIterator CPIT(HDS->CurvePoints(iC));
+  PointIterator CPIT(HDS->CurvePoints(iC));
   FillVertexSet(CPIT, TopAbs_IN, PVS);
   TopOpeBRepBuild_PaveClassifier VCL(anEdge);
   Standard_Boolean               equalpar = PVS.HasEqualParameters();

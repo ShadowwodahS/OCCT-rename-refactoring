@@ -24,15 +24,15 @@
 
 //=================================================================================================
 
-BinTools_ShapeReader::BinTools_ShapeReader() {}
+BinaryShapeReader::BinaryShapeReader() {}
 
 //=================================================================================================
 
-BinTools_ShapeReader::~BinTools_ShapeReader() {}
+BinaryShapeReader::~BinaryShapeReader() {}
 
 //=================================================================================================
 
-void BinTools_ShapeReader::Clear()
+void BinaryShapeReader::Clear()
 {
   ShapeSetBase::Clear();
   myShapePos.Clear();
@@ -47,7 +47,7 @@ void BinTools_ShapeReader::Clear()
 
 //=================================================================================================
 
-void BinTools_ShapeReader::Read(Standard_IStream& theStream, TopoShape& theShape)
+void BinaryShapeReader::Read(Standard_IStream& theStream, TopoShape& theShape)
 {
   BinaryInputStream aStream(theStream);
   theShape = ReadShape(aStream);
@@ -55,7 +55,7 @@ void BinTools_ShapeReader::Read(Standard_IStream& theStream, TopoShape& theShape
 
 //=================================================================================================
 
-TopoShape BinTools_ShapeReader::ReadShape(BinaryInputStream& theStream)
+TopoShape BinaryShapeReader::ReadShape(BinaryInputStream& theStream)
 {
   TopoShape               aResult;
   uint64_t                   aPosition = theStream.Position1();
@@ -133,7 +133,7 @@ TopoShape BinTools_ShapeReader::ReadShape(BinaryInputStream& theStream)
             }
             default: {
               Standard_SStream aMsg;
-              aMsg << "BinTools_ShapeReader::Read: UnExpected BRep_PointRepresentation = "
+              aMsg << "BinaryShapeReader::Read: UnExpected BRep_PointRepresentation = "
                    << aPrsType << std::endl;
               throw ExceptionBase(aMsg.str().c_str());
             }
@@ -289,7 +289,7 @@ TopoShape BinTools_ShapeReader::ReadShape(BinaryInputStream& theStream)
   catch (ExceptionBase const& anException)
   {
     Standard_SStream aMsg;
-    aMsg << "EXCEPTION in BinTools_ShapeReader::Read" << std::endl;
+    aMsg << "EXCEPTION in BinaryShapeReader::Read" << std::endl;
     aMsg << anException << std::endl;
     throw ExceptionBase(aMsg.str().c_str());
   }
@@ -314,7 +314,7 @@ TopoShape BinTools_ShapeReader::ReadShape(BinaryInputStream& theStream)
 
 //=================================================================================================
 
-const TopLoc_Location* BinTools_ShapeReader::ReadLocation(BinaryInputStream& theStream)
+const TopLoc_Location* BinaryShapeReader::ReadLocation(BinaryInputStream& theStream)
 {
   static const TopLoc_Location* anEmptyLoc = new TopLoc_Location;
 
@@ -354,7 +354,7 @@ const TopLoc_Location* BinTools_ShapeReader::ReadLocation(BinaryInputStream& the
 
 //=================================================================================================
 
-Handle(GeomCurve3d) BinTools_ShapeReader::ReadCurve(BinaryInputStream& theStream)
+Handle(GeomCurve3d) BinaryShapeReader::ReadCurve(BinaryInputStream& theStream)
 {
   Handle(GeomCurve3d) aResult;
   uint64_t           aPosition = theStream.Position1();
@@ -381,7 +381,7 @@ Handle(GeomCurve3d) BinTools_ShapeReader::ReadCurve(BinaryInputStream& theStream
 
 //=================================================================================================
 
-Handle(GeomCurve2d) BinTools_ShapeReader::ReadCurve2d(BinaryInputStream& theStream)
+Handle(GeomCurve2d) BinaryShapeReader::ReadCurve2d(BinaryInputStream& theStream)
 {
   Handle(GeomCurve2d) aResult;
   uint64_t             aPosition = theStream.Position1();
@@ -408,7 +408,7 @@ Handle(GeomCurve2d) BinTools_ShapeReader::ReadCurve2d(BinaryInputStream& theStre
 
 //=================================================================================================
 
-Handle(GeomSurface) BinTools_ShapeReader::ReadSurface(BinaryInputStream& theStream)
+Handle(GeomSurface) BinaryShapeReader::ReadSurface(BinaryInputStream& theStream)
 {
   Handle(GeomSurface) aResult;
   uint64_t             aPosition = theStream.Position1();
@@ -435,7 +435,7 @@ Handle(GeomSurface) BinTools_ShapeReader::ReadSurface(BinaryInputStream& theStre
 
 //=================================================================================================
 
-Handle(Poly_Polygon3D) BinTools_ShapeReader::ReadPolygon3d(BinaryInputStream& theStream)
+Handle(Poly_Polygon3D) BinaryShapeReader::ReadPolygon3d(BinaryInputStream& theStream)
 {
   Handle(Poly_Polygon3D) aResult;
   uint64_t               aPosition = theStream.Position1();
@@ -473,7 +473,7 @@ Handle(Poly_Polygon3D) BinTools_ShapeReader::ReadPolygon3d(BinaryInputStream& th
 
 //=================================================================================================
 
-Handle(Poly_PolygonOnTriangulation) BinTools_ShapeReader::ReadPolygon(BinaryInputStream& theStream)
+Handle(Poly_PolygonOnTriangulation) BinaryShapeReader::ReadPolygon(BinaryInputStream& theStream)
 {
   Handle(Poly_PolygonOnTriangulation) aResult;
   uint64_t                            aPosition = theStream.Position1();
@@ -510,7 +510,7 @@ Handle(Poly_PolygonOnTriangulation) BinTools_ShapeReader::ReadPolygon(BinaryInpu
 
 //=================================================================================================
 
-Handle(MeshTriangulation) BinTools_ShapeReader::ReadTriangulation(BinaryInputStream& theStream)
+Handle(MeshTriangulation) BinaryShapeReader::ReadTriangulation(BinaryInputStream& theStream)
 {
   Handle(MeshTriangulation) aResult;
   uint64_t                   aPosition = theStream.Position1();

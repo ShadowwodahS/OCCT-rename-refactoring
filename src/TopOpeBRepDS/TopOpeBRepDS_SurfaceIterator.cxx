@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-TopOpeBRepDS_SurfaceIterator::TopOpeBRepDS_SurfaceIterator(const TopOpeBRepDS_ListOfInterference& L)
+SurfaceIterator::SurfaceIterator(const TopOpeBRepDS_ListOfInterference& L)
     : InterferenceIterator(L)
 {
   InterferenceIterator::GeometryKind(TopOpeBRepDS_SURFACE);
@@ -26,7 +26,7 @@ TopOpeBRepDS_SurfaceIterator::TopOpeBRepDS_SurfaceIterator(const TopOpeBRepDS_Li
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepDS_SurfaceIterator::Current() const
+Standard_Integer SurfaceIterator::Current() const
 {
   Handle(TopOpeBRepDS_Interference) i = Value();
   Standard_Integer                  g = i->Geometry1();
@@ -35,7 +35,7 @@ Standard_Integer TopOpeBRepDS_SurfaceIterator::Current() const
 
 //=================================================================================================
 
-TopAbs_Orientation TopOpeBRepDS_SurfaceIterator::Orientation(const TopAbs_State S) const
+TopAbs_Orientation SurfaceIterator::Orientation(const TopAbs_State S) const
 {
   Handle(TopOpeBRepDS_Interference) i = Value();
   const StateTransition&    t = i->Transition();

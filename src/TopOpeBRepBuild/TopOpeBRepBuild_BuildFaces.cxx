@@ -59,7 +59,7 @@ void TopOpeBRepBuild_Builder::BuildFaces(const Standard_Integer                 
   Standard_Boolean tSE = TopOpeBRepBuild_GettraceSPF();
 #endif
   //
-  TopOpeBRepDS_CurveIterator SCurves(HDS->SurfaceCurves(iS));
+  CurveIterator SCurves(HDS->SurfaceCurves(iS));
   for (; SCurves.More(); SCurves.Next())
   {
     Standard_Integer          iC  = SCurves.Current();
@@ -99,7 +99,7 @@ void TopOpeBRepBuild_Builder::BuildFaces(const Standard_Integer                 
 void TopOpeBRepBuild_Builder::BuildFaces(const Handle(TopOpeBRepDS_HDataStructure)& HDS)
 {
   Standard_Integer iS, n = HDS->NbSurfaces();
-  myNewFaces = new TopTools_HArray1OfListOfShape(0, n);
+  myNewFaces = new HArray1OfListOfShape(0, n);
   for (iS = 1; iS <= n; iS++)
     BuildFaces(iS, HDS);
 }

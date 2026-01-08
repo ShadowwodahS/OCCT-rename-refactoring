@@ -485,7 +485,7 @@ static void FillProblems(const BRepCheck_Status stat, Handle(TColStd_HArray1OfIn
 //=======================================================================
 static void GetProblemSub(const BRepCheck_Analyzer&          Ana,
                           const TopoShape&                Shape,
-                          Handle(TopTools_HSequenceOfShape)& sl,
+                          Handle(HSequenceOfShape)& sl,
                           Handle(TColStd_HArray1OfInteger)&  NbProblems,
                           const TopAbs_ShapeEnum             Subtype)
 {
@@ -537,7 +537,7 @@ static void GetProblemSub(const BRepCheck_Analyzer&          Ana,
 //=======================================================================
 static void GetProblemShapes(const BRepCheck_Analyzer&          Ana,
                              const TopoShape&                Shape,
-                             Handle(TopTools_HSequenceOfShape)& sl,
+                             Handle(HSequenceOfShape)& sl,
                              Handle(TColStd_HArray1OfInteger)&  NbProblems)
 {
   for (TopoDS_Iterator iter(Shape); iter.More(); iter.Next())
@@ -600,8 +600,8 @@ void StructuralDump(DrawInterpreter&         theCommands,
   Handle(TColStd_HArray1OfInteger) NbProblems = new TColStd_HArray1OfInteger(1, NumberOfStatus);
   for (i = 1; i <= NumberOfStatus; i++)
     NbProblems->SetValue(i, 0);
-  Handle(TopTools_HSequenceOfShape) sl, slv, sle, slw, slf, sls, slo;
-  sl = new TopTools_HSequenceOfShape();
+  Handle(HSequenceOfShape) sl, slv, sle, slw, slf, sls, slo;
+  sl = new HSequenceOfShape();
   theMap.Clear();
   GetProblemShapes(theAna, theShape, sl, NbProblems);
   theMap.Clear();
@@ -789,12 +789,12 @@ void StructuralDump(DrawInterpreter&         theCommands,
   theCommands << " ------------------------------------------------\n";
   theCommands << "*** Shapes with problems : " << sl->Length() << "\n";
 
-  slv = new TopTools_HSequenceOfShape();
-  sle = new TopTools_HSequenceOfShape();
-  slw = new TopTools_HSequenceOfShape();
-  slf = new TopTools_HSequenceOfShape();
-  sls = new TopTools_HSequenceOfShape();
-  slo = new TopTools_HSequenceOfShape();
+  slv = new HSequenceOfShape();
+  sle = new HSequenceOfShape();
+  slw = new HSequenceOfShape();
+  slf = new HSequenceOfShape();
+  sls = new HSequenceOfShape();
+  slo = new HSequenceOfShape();
 
   for (i = 1; i <= sl->Length(); i++)
   {

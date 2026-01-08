@@ -47,7 +47,7 @@ class TransferBRep_ShapeListBinder : public Transfer_Binder
 public:
   Standard_EXPORT TransferBRep_ShapeListBinder();
 
-  Standard_EXPORT TransferBRep_ShapeListBinder(const Handle(TopTools_HSequenceOfShape)& list);
+  Standard_EXPORT TransferBRep_ShapeListBinder(const Handle(HSequenceOfShape)& list);
 
   Standard_EXPORT virtual Standard_Boolean IsMultiple() const Standard_OVERRIDE;
 
@@ -58,7 +58,7 @@ public:
   //! Adds an item to the result list
   Standard_EXPORT void AddResult(const TopoShape& res);
 
-  Standard_EXPORT Handle(TopTools_HSequenceOfShape) Result() const;
+  Standard_EXPORT Handle(HSequenceOfShape) Result() const;
 
   //! Changes an already defined sub-result
   Standard_EXPORT void SetResult(const Standard_Integer num, const TopoShape& res);
@@ -89,7 +89,7 @@ public:
 
 protected:
 private:
-  Handle(TopTools_HSequenceOfShape) theres;
+  Handle(HSequenceOfShape) theres;
 };
 
 #endif // _TransferBRep_ShapeListBinder_HeaderFile

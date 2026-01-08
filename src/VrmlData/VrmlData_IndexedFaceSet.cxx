@@ -75,7 +75,7 @@ VrmlData_ErrorStatus VrmlData_Faceted::readData(InputBuffer& theBuffer)
 
 //=================================================================================================
 
-const Handle(TopoDS_TShape)& VrmlData_IndexedFaceSet::TShape()
+const Handle(TopoShapeBase)& VrmlData_IndexedFaceSet::TShape()
 {
   if (myNbPolygons == 0)
   {

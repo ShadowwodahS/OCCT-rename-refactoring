@@ -30,16 +30,16 @@ class LoopSet;
 class LoopClassifier;
 class TopOpeBRepBuild_Loop;
 
-class TopOpeBRepBuild_Area1dBuilder : public AreaBuilder
+class Area1dBuilder : public AreaBuilder
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepBuild_Area1dBuilder();
+  Standard_EXPORT Area1dBuilder();
 
   //! Creates a Area1dBuilder to find the areas of
   //! the shapes described by <LS> using the classifier <LC>.
-  Standard_EXPORT TopOpeBRepBuild_Area1dBuilder(TopOpeBRepBuild_PaveSet&        LS,
+  Standard_EXPORT Area1dBuilder(TopOpeBRepBuild_PaveSet&        LS,
                                                 TopOpeBRepBuild_PaveClassifier& LC,
                                                 const Standard_Boolean ForceClass = Standard_False);
 

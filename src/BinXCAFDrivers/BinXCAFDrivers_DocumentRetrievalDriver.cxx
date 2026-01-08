@@ -28,7 +28,7 @@ BinXCAFDrivers_DocumentRetrievalDriver::BinXCAFDrivers_DocumentRetrievalDriver()
 
 //=================================================================================================
 
-Handle(BinMDF_ADriverTable) BinXCAFDrivers_DocumentRetrievalDriver::AttributeDrivers(
+Handle(AttributeDriverTable) BinXCAFDrivers_DocumentRetrievalDriver::AttributeDrivers(
   const Handle(Message_Messenger)& theMsgDriver)
 {
   return BinXCAFDrivers1::AttributeDrivers(theMsgDriver);

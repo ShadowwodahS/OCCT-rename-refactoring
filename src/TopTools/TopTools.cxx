@@ -22,7 +22,7 @@
 
 void TopTools1::Dump(const TopoShape& Sh, Standard_OStream& S)
 {
-  TopTools_ShapeSet SSet;
+  ShapeSet SSet;
   SSet.Add(Sh);
   SSet.Dump(Sh, S);
   SSet.Dump(S);

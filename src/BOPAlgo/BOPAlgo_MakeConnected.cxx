@@ -37,7 +37,7 @@ void BOPAlgo_MakeConnected::Perform()
     return;
 
   if (myHistory.IsNull())
-    myHistory = new BRepTools_History;
+    myHistory = new ShapeHistory;
 
   // Glue the arguments
   MakeConnected();
@@ -104,7 +104,7 @@ void BOPAlgo_MakeConnected::MakeConnected()
 {
   // Initialize the history
   if (myGlueHistory.IsNull())
-    myGlueHistory = new BRepTools_History;
+    myGlueHistory = new ShapeHistory;
 
   if (myArguments.Extent() == 1)
   {
@@ -163,7 +163,7 @@ void BOPAlgo_MakeConnected::FillOrigins()
   for (Standard_Integer i = 1; i <= aNbS; ++i)
   {
     const TopoShape& aS = myAllInputsMap(i);
-    if (!BRepTools_History::IsSupportedType(aS))
+    if (!ShapeHistory::IsSupportedType(aS))
       continue;
 
     // Get Modified & Generated shapes

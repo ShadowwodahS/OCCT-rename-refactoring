@@ -142,7 +142,7 @@ protected:
   Standard_Real                         myTol;
   Handle(GeomFill_HArray1OfLocationLaw) myLaws;
   Handle(TColStd_HArray1OfReal)         myLength;
-  Handle(TopTools_HArray1OfShape)       myEdges;
+  Handle(HArray1OfShape)       myEdges;
   Handle(TColStd_HArray1OfInteger)      myDisc;
 
 private:

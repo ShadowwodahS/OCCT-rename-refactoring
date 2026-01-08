@@ -53,7 +53,7 @@ void ShapePersistent_TopoDS::HShape::PChildren(SequenceOfPersistent& theChildren
   StdObject_Shape::PChildren(theChildren);
 }
 
-void ShapePersistent_TopoDS::pTBase::setFlags(const Handle(TopoDS_TShape)& theTShape) const
+void ShapePersistent_TopoDS::pTBase::setFlags(const Handle(TopoShapeBase)& theTShape) const
 {
   theTShape->Free(Standard_False); // Always frozen when coming from DB
   theTShape->Modified((myFlags & ModifiedMask) != 0);
@@ -97,7 +97,7 @@ template void ShapePersistent_TopoDS::pTBase::addShapesT<StdPersistent_HArray1::
   TopoShape& theParent) const;
 
 template <class Target>
-Handle(TopoDS_TShape) ShapePersistent_TopoDS::pTSimple<Target>::createTShape() const
+Handle(TopoShapeBase) ShapePersistent_TopoDS::pTSimple<Target>::createTShape() const
 {
   return new Target;
 }

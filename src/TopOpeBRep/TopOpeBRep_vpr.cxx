@@ -677,7 +677,7 @@ static Standard_Boolean FUN_sameGsameS(const TopOpeBRepDS_ListOfInterference& lo
   loIfound.Clear();
   // Gets among the list <loI> the interferences of :
   //  geometry <G>, and support <S>
-  TopOpeBRepDS_PointIterator PI(loI);
+  PointIterator PI(loI);
   for (; PI.More(); PI.Next())
   {
     const Handle(TopOpeBRepDS_Interference)& EPI  = PI.Value();
@@ -1455,7 +1455,7 @@ void TopOpeBRep_FacesFiller::ProcessVPonR(const TopOpeBRep_VPointInter&  VP,
     Standard_Boolean                       ok   = FUN_sameGsameS(EPIL, PVIndex, iOOFace, loIfound);
     if (ok)
     {
-      TopOpeBRepDS_PointIterator PI(loIfound);
+      PointIterator PI(loIfound);
       // on cree une EPI orientee <transEdge> ssi :
       // - il en existe deja une d'orientation opposee a TransEdge
       // - il n'en existe pas deja une d'orientation identique a TransEdge

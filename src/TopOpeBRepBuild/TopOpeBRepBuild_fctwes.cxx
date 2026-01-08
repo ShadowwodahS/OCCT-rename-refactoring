@@ -84,7 +84,7 @@ void TopOpeBRepBuild_Builder::GFillCurveTopologyWES(const TopoShape&          F1
   }
 #endif
 
-  TopOpeBRepDS_CurveIterator FCit(myDataStructure->FaceCurves(F1));
+  CurveIterator FCit(myDataStructure->FaceCurves(F1));
   myFaceReference = TopoDS::Face(F1);
   myFaceToFill    = TopoDS::Face(F1);
   // modified by NIZHNY-MZV  Thu Feb 24 09:15:33 2000
@@ -132,7 +132,7 @@ void TopOpeBRepBuild_Builder::GFillCurveTopologyWES(const TopoShape&          F1
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::GFillCurveTopologyWES(const TopOpeBRepDS_CurveIterator& FCit,
+void TopOpeBRepBuild_Builder::GFillCurveTopologyWES(const CurveIterator& FCit,
                                                     const GTopologyClassifier&      G1,
                                                     TopOpeBRepBuild_WireEdgeSet&      WES) const
 {

@@ -1242,7 +1242,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_pcurveonF(const TopoFace& F, TopoEdge&
   if (C3d.IsNull())
     return Standard_False;
   Standard_Real        tolReached2d;
-  Handle(GeomCurve2d) C2d = TopOpeBRepTool_CurveTool::MakePCurveOnFace(F, C3d, tolReached2d, f, l);
+  Handle(GeomCurve2d) C2d = CurveTool6::MakePCurveOnFace(F, C3d, tolReached2d, f, l);
   if (C2d.IsNull())
     return Standard_False;
 

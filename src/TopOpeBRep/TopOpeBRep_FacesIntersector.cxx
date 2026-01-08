@@ -372,7 +372,7 @@ void TopOpeBRep_FacesIntersector::PrepareLines()
 {
   myLineNb                = 0;
   Standard_Integer n      = myIntersector.NbLines();
-  myHAL                   = new TopOpeBRep_HArray1OfLineInter(0, n);
+  myHAL                   = new HArray1OfLineInter(0, n);
   BRepAdaptor_Surface& S1 = *mySurface1;
   BRepAdaptor_Surface& S2 = *mySurface2;
 
@@ -433,7 +433,7 @@ void TopOpeBRep_FacesIntersector::PrepareLines()
     }
 
     // modified by NIZHNY-MKK  Mon Apr  2 12:17:22 2001.BEGIN
-    //     myHAL = new TopOpeBRep_HArray1OfLineInter(0,nbl);
+    //     myHAL = new HArray1OfLineInter(0,nbl);
     myLineNb = aSeqOfResultLines.Length();
 
     // Fun_ConvertWLinesToRLine(aSeqOfResultLines,mySurface1, myDomain1, mySurface2, myDomain2,
@@ -448,7 +448,7 @@ void TopOpeBRep_FacesIntersector::PrepareLines()
 
     if (myLineNb > 0)
     {
-      myHAL = new TopOpeBRep_HArray1OfLineInter(1, myLineNb);
+      myHAL = new HArray1OfLineInter(1, myLineNb);
       for (Standard_Integer index = 1; index <= myLineNb; index++)
       {
         TopOpeBRep_LineInter&        LI = myHAL->ChangeValue(index);
@@ -477,7 +477,7 @@ void TopOpeBRep_FacesIntersector::PrepareLines()
 
 //=================================================================================================
 
-Handle(TopOpeBRep_HArray1OfLineInter) TopOpeBRep_FacesIntersector::Lines()
+Handle(HArray1OfLineInter) TopOpeBRep_FacesIntersector::Lines()
 {
   return myHAL;
 }

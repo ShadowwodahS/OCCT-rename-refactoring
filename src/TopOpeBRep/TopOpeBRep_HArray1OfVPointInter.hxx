@@ -20,6 +20,6 @@
 #include <TopOpeBRep_Array1OfVPointInter.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(TopOpeBRep_HArray1OfVPointInter, TopOpeBRep_Array1OfVPointInter)
+DEFINE_HARRAY1(HArray1OfVPointInter, TopOpeBRep_Array1OfVPointInter)
 
 #endif

@@ -124,7 +124,7 @@ static void CompleteDS(TopOpeBRepDS_DataStructure& DStr, const TopoShape& S)
   {
     Standard_Real                          parmin = RealLast(), parmax = RealFirst();
     const TopOpeBRepDS_ListOfInterference& LI = DStr.CurveInterferences(ic);
-    for (TopOpeBRepDS_PointIterator it(LI); it.More(); it.Next())
+    for (PointIterator it(LI); it.More(); it.Next())
     {
       Standard_Real par = it.Parameter();
       parmin            = Min(parmin, par);
@@ -388,7 +388,7 @@ void ChFi3d_Builder::Compute()
         if (!degen)
           tolc = c.Tolerance();
         Standard_Integer           ic = cex.Index();
-        TopOpeBRepDS_PointIterator It(myDS->CurvePoints(ic));
+        PointIterator It(myDS->CurvePoints(ic));
         for (; It.More(); It.Next())
         {
           Handle(TopOpeBRepDS_CurvePointInterference) II;

@@ -20,7 +20,7 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class BinMDF_ADriverTable;
+class AttributeDriverTable;
 class Message_Messenger;
 
 class BinMXCAFDoc1
@@ -29,7 +29,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Adds the attribute drivers to <theDriverTable>.
-  Standard_EXPORT static void AddDrivers(const Handle(BinMDF_ADriverTable)& theDriverTable,
+  Standard_EXPORT static void AddDrivers(const Handle(AttributeDriverTable)& theDriverTable,
                                          const Handle(Message_Messenger)&   theMsgDrv);
 };
 

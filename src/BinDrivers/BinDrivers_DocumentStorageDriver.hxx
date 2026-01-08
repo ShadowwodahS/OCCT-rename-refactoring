@@ -20,9 +20,9 @@
 #include <Standard_OStream.hxx>
 #include <BinLDrivers_DocumentStorageDriver.hxx>
 
-class BinMDF_ADriverTable;
+class AttributeDriverTable;
 class Message_Messenger;
-class BinLDrivers_DocumentSection;
+class DocumentSection;
 
 class BinDrivers_DocumentStorageDriver;
 DEFINE_STANDARD_HANDLE(BinDrivers_DocumentStorageDriver, BinLDrivers_DocumentStorageDriver)
@@ -35,12 +35,12 @@ public:
   //! Constructor
   Standard_EXPORT BinDrivers_DocumentStorageDriver();
 
-  Standard_EXPORT virtual Handle(BinMDF_ADriverTable) AttributeDrivers(
+  Standard_EXPORT virtual Handle(AttributeDriverTable) AttributeDrivers(
     const Handle(Message_Messenger)& theMsgDriver) Standard_OVERRIDE;
 
   //! implements the procedure of writing a shape section to file
   Standard_EXPORT virtual void WriteShapeSection(
-    BinLDrivers_DocumentSection& theDocSection,
+    DocumentSection& theDocSection,
     Standard_OStream&            theOS,
     const TDocStd_FormatVersion  theDocVer,
     const Message_ProgressRange& theRange = Message_ProgressRange()) Standard_OVERRIDE;

@@ -51,7 +51,7 @@
 //! Users have no direct access to the classes derived
 //! from TShape.  They  handle them with   the classes
 //! derived from Shape.
-class TopoDS_TShape : public RefObject
+class TopoShapeBase : public RefObject
 {
 
 public:
@@ -126,7 +126,7 @@ public:
   Standard_EXPORT virtual TopAbs_ShapeEnum ShapeType() const = 0;
 
   //! Returns a copy  of the  TShape  with no sub-shapes.
-  Standard_EXPORT virtual Handle(TopoDS_TShape) EmptyCopy() const = 0;
+  Standard_EXPORT virtual Handle(TopoShapeBase) EmptyCopy() const = 0;
 
   //! Returns the number of direct sub-shapes (children).
   //! @sa TopoDS_Iterator for accessing sub-shapes
@@ -139,7 +139,7 @@ public:
   friend class TopoDS_Iterator;
   friend class TopoBuilder;
 
-  DEFINE_STANDARD_RTTIEXT(TopoDS_TShape, RefObject)
+  DEFINE_STANDARD_RTTIEXT(TopoShapeBase, RefObject)
 
 protected:
   //! Constructs an empty TShape.
@@ -150,7 +150,7 @@ protected:
   //! Closed     : False
   //! Infinite   : False
   //! Convex     : False
-  TopoDS_TShape()
+  TopoShapeBase()
       : myFlags(TopoDS_TShape_Flags_Free | TopoDS_TShape_Flags_Modified
                 | TopoDS_TShape_Flags_Orientable)
   {
@@ -184,6 +184,6 @@ private:
   Standard_Integer   myFlags;
 };
 
-DEFINE_STANDARD_HANDLE(TopoDS_TShape, RefObject)
+DEFINE_STANDARD_HANDLE(TopoShapeBase, RefObject)
 
 #endif // _TopoDS_TShape_HeaderFile

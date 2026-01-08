@@ -50,7 +50,7 @@ public:
    * Query the shape. This method checks the flag myIsModified; if True it
    * should rebuild the shape presentation.
    */
-  Standard_EXPORT virtual const Handle(TopoDS_TShape)& TShape() = 0;
+  Standard_EXPORT virtual const Handle(TopoShapeBase)& TShape() = 0;
 
 protected:
   // ---------- PROTECTED METHODS ----------
@@ -58,7 +58,7 @@ protected:
   /**
    * Set the TShape.
    */
-  inline void SetTShape(const Handle(TopoDS_TShape)& theTShape) { myTShape = theTShape; }
+  inline void SetTShape(const Handle(TopoShapeBase)& theTShape) { myTShape = theTShape; }
 
   /**
    * Mark modification
@@ -68,7 +68,7 @@ protected:
 protected:
   // ---------- PROTECTED FIELDS ----------
 
-  Handle(TopoDS_TShape) myTShape;
+  Handle(TopoShapeBase) myTShape;
   Standard_Boolean      myIsModified;
 
 public:

@@ -330,7 +330,7 @@ public:
   Standard_EXPORT Standard_Boolean IsDirect() { return myDirectWritingIsEnabled; }
 
   //! Returns the start position of the direct writing in the stream
-  Standard_EXPORT Handle(BinObjMgt_Position) StreamStart() { return myStreamStart; }
+  Standard_EXPORT Handle(Position2) StreamStart() { return myStreamStart; }
 
 private:
   //! Aligns myOffset to the given size;
@@ -387,7 +387,7 @@ private:
   Standard_IStream*         myIStream; ///< stream to write in case direct reading is enabled
   Standard_Boolean          myDirectWritingIsEnabled;
   // clang-format off
-  Handle(BinObjMgt_Position) myStreamStart; ///< position where the direct writing to the script is started
+  Handle(Position2) myStreamStart; ///< position where the direct writing to the script is started
   // clang-format on
 };
 

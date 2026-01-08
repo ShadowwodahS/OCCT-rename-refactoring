@@ -391,9 +391,9 @@ ShapeSetBase* BinMNaming_NamedShapeDriver::ShapeSet(const Standard_Boolean theRe
     if (myIsQuickPart)
     {
       if (theReading)
-        myShapeSet = new BinTools_ShapeReader();
+        myShapeSet = new BinaryShapeReader();
       else
-        myShapeSet = new BinTools_ShapeWriter();
+        myShapeSet = new BinaryShapeWriter();
     }
     else
       myShapeSet = new BinTools_ShapeSet();

@@ -29,7 +29,7 @@
 #include <TColStd_HArray1OfInteger.hxx>
 #include <TopAbs_ShapeEnum.hxx>
 #include <Standard_Integer.hxx>
-class TopOpeBRepTool_HBoxTool;
+class HBoxTool1;
 
 class TopOpeBRepTool_BoxSort
 {
@@ -38,11 +38,11 @@ public:
 
   Standard_EXPORT TopOpeBRepTool_BoxSort();
 
-  Standard_EXPORT TopOpeBRepTool_BoxSort(const Handle(TopOpeBRepTool_HBoxTool)& T);
+  Standard_EXPORT TopOpeBRepTool_BoxSort(const Handle(HBoxTool1)& T);
 
-  Standard_EXPORT void SetHBoxTool(const Handle(TopOpeBRepTool_HBoxTool)& T);
+  Standard_EXPORT void SetHBoxTool(const Handle(HBoxTool1)& T);
 
-  Standard_EXPORT const Handle(TopOpeBRepTool_HBoxTool)& HBoxTool() const;
+  Standard_EXPORT const Handle(HBoxTool1)& HBoxTool() const;
 
   Standard_EXPORT void Clear();
 
@@ -83,7 +83,7 @@ private:
   TColStd_ListIteratorOfListOfInteger myIterator;
   TopoShape                        myLastCompareShape;
   Box2                             myLastCompareShapeBox;
-  Handle(TopOpeBRepTool_HBoxTool)     myHBT;
+  Handle(HBoxTool1)     myHBT;
   Handle(Bnd_HArray1OfBox)            myHAB;
   Handle(TColStd_HArray1OfInteger)    myHAI;
 };

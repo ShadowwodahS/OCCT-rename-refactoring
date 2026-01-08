@@ -134,10 +134,10 @@ public:
   const TopoShape& Shape() const { return myShape; }
 
   //! Returns the history of the processed shapes.
-  const Handle(BRepTools_History)& History() const { return myHistory; }
+  const Handle(ShapeHistory)& History() const { return myHistory; }
 
   //! Returns the history of the processed shapes.
-  Handle(BRepTools_History)& History() { return myHistory; }
+  Handle(ShapeHistory)& History() { return myHistory; }
 
   DEFINE_STANDARD_RTTIEXT(ShapeUpgrade_UnifySameDomain, RefObject)
 
@@ -208,7 +208,7 @@ private:
   TopTools_IndexedDataMapOfShapeListOfShape myEFmap;
   TopTools_DataMapOfShapeShape              myFaceNewFace;
 
-  Handle(BRepTools_History) myHistory; //!< The history.
+  Handle(ShapeHistory) myHistory; //!< The history.
 };
 
 #endif // _ShapeUpgrade_UnifySameDomain_HeaderFile

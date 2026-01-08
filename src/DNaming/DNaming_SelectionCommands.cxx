@@ -97,7 +97,7 @@ static Standard_Integer DNaming_Select(DrawInterpreter& di, Standard_Integer n, 
       return 1;
     DataLabel L;
     DDF1::AddLabel(DF, a[2], L);
-    TNaming_Selector SL(L);
+    NamingSelector SL(L);
     if (n == 4)
     {
       TopoShape S = DBRep1::Get(a[3], TopAbs_SHAPE);
@@ -205,7 +205,7 @@ static Standard_Integer DNaming_SolveSelection(DrawInterpreter& di,
     }
 #endif
 
-    TNaming_Selector SL(L);
+    NamingSelector SL(L);
     Standard_Boolean isSolved = SL.Solve(aValidMap);
     if (!isSolved)
       di << "!!! Solver is failed\n";
@@ -291,7 +291,7 @@ static Standard_Integer DNaming_ArgsSelection(DrawInterpreter& di,
       return 1;
     }
     AsciiString1 Entry;
-    TNaming_Selector        SL(L);
+    NamingSelector        SL(L);
     di << " Selection Arguments : ";
     TDF_AttributeMap args;
     SL.Arguments(args);

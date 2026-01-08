@@ -1610,7 +1610,7 @@ static Standard_Integer reshape(DrawInterpreter& /*theDI*/,
     return 1;
   }
 
-  Handle(BRepTools_ReShape) aReShaper = new BRepTools_ReShape;
+  Handle(ShapeReShaper) aReShaper = new ShapeReShaper;
 
   TopAbs_ShapeEnum aShapeLevel = TopAbs_SHAPE;
 

@@ -29,7 +29,7 @@
 
 //=================================================================================================
 
-TopOpeBRepDS_EdgeInterferenceTool::TopOpeBRepDS_EdgeInterferenceTool() {}
+EdgeInterferenceTool::EdgeInterferenceTool() {}
 
 static Standard_Real Parameter(const Handle(TopOpeBRepDS_Interference)& I)
 {
@@ -47,7 +47,7 @@ static Standard_Real Parameter(const Handle(TopOpeBRepDS_Interference)& I)
 
 //=================================================================================================
 
-void TopOpeBRepDS_EdgeInterferenceTool::Init(const TopoShape&                      E,
+void EdgeInterferenceTool::Init(const TopoShape&                      E,
                                              const Handle(TopOpeBRepDS_Interference)& I)
 {
   myEdgeOrientation = E.Orientation();
@@ -72,7 +72,7 @@ void TopOpeBRepDS_EdgeInterferenceTool::Init(const TopoShape&                   
 
 //=================================================================================================
 
-void TopOpeBRepDS_EdgeInterferenceTool::Add(const TopoShape&                      E,
+void EdgeInterferenceTool::Add(const TopoShape&                      E,
                                             const TopoShape&                      V,
                                             const Handle(TopOpeBRepDS_Interference)& I)
 {
@@ -121,7 +121,7 @@ void TopOpeBRepDS_EdgeInterferenceTool::Add(const TopoShape&                    
 
 //=================================================================================================
 
-void TopOpeBRepDS_EdgeInterferenceTool::Add(const TopoShape& E,
+void EdgeInterferenceTool::Add(const TopoShape& E,
                                             // const Point1& P,
                                             const Point1&,
                                             const Handle(TopOpeBRepDS_Interference)& I)
@@ -151,7 +151,7 @@ void TopOpeBRepDS_EdgeInterferenceTool::Add(const TopoShape& E,
 
 //=================================================================================================
 
-void TopOpeBRepDS_EdgeInterferenceTool::Transition(const Handle(TopOpeBRepDS_Interference)& I) const
+void EdgeInterferenceTool::Transition(const Handle(TopOpeBRepDS_Interference)& I) const
 {
   StateTransition& T = I->ChangeTransition();
 

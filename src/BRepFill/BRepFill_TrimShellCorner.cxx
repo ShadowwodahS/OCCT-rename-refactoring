@@ -81,12 +81,12 @@ static Standard_Boolean FindCommonVertex(const BOPDS_PDS&       theDS,
                                          Standard_Real&         theParamOnE1,
                                          Standard_Real&         theParamOnE2);
 
-static Standard_Boolean SplitUEdges(const Handle(TopTools_HArray2OfShape)& theUEdges,
+static Standard_Boolean SplitUEdges(const Handle(HArray2OfShape)& theUEdges,
                                     const BOPDS_PDS&                       theDS,
                                     const Vector3d&                          theCrossDirection,
                                     TopTools_DataMapOfShapeListOfShape&    theHistMap);
 
-static void StoreVedgeInHistMap(const Handle(TopTools_HArray1OfShape)& theVEdges,
+static void StoreVedgeInHistMap(const Handle(HArray1OfShape)& theVEdges,
                                 const Standard_Integer                 theIndex,
                                 const TopoShape&                    theNewVedge,
                                 TopTools_DataMapOfShapeListOfShape&    theHistMap);
@@ -174,7 +174,7 @@ static Standard_Boolean FilterSectionEdges(const BOPDS_VectorOfCurve& theBCurves
 
 static Standard_Boolean GetUEdges(const Standard_Integer                 theIndex,
                                   const Standard_Integer                 theRank,
-                                  const Handle(TopTools_HArray2OfShape)& theUEdges,
+                                  const Handle(HArray2OfShape)& theUEdges,
                                   const TopoEdge&                     theBoundEdge,
                                   const TopoFace&                     theFace,
                                   TopoEdge&                           theFirstUEdge,
@@ -191,7 +191,7 @@ static void UpdateSectionEdge(TopoEdge&         theEdge,
 
 //=================================================================================================
 
-BRepFill_TrimShellCorner::BRepFill_TrimShellCorner(const Handle(TopTools_HArray2OfShape)& theFaces,
+BRepFill_TrimShellCorner::BRepFill_TrimShellCorner(const Handle(HArray2OfShape)& theFaces,
                                                    const BRepFill_TransitionStyle theTransition,
                                                    const Frame3d&                  theAxeOfBisPlane,
                                                    const Vector3d& theIntPointCrossDir)
@@ -201,7 +201,7 @@ BRepFill_TrimShellCorner::BRepFill_TrimShellCorner(const Handle(TopTools_HArray2
       myDone(Standard_False),
       myHasSection(Standard_False)
 {
-  myFaces                 = new TopTools_HArray2OfShape(theFaces->LowerRow(),
+  myFaces                 = new HArray2OfShape(theFaces->LowerRow(),
                                         theFaces->UpperRow(),
                                         theFaces->LowerCol(),
                                         theFaces->UpperCol());
@@ -210,9 +210,9 @@ BRepFill_TrimShellCorner::BRepFill_TrimShellCorner(const Handle(TopTools_HArray2
 
 //=================================================================================================
 
-void BRepFill_TrimShellCorner::AddBounds(const Handle(TopTools_HArray2OfShape)& theBounds)
+void BRepFill_TrimShellCorner::AddBounds(const Handle(HArray2OfShape)& theBounds)
 {
-  myBounds                 = new TopTools_HArray2OfShape(theBounds->LowerRow(),
+  myBounds                 = new HArray2OfShape(theBounds->LowerRow(),
                                          theBounds->UpperRow(),
                                          theBounds->LowerCol(),
                                          theBounds->UpperCol());
@@ -221,9 +221,9 @@ void BRepFill_TrimShellCorner::AddBounds(const Handle(TopTools_HArray2OfShape)& 
 
 //=================================================================================================
 
-void BRepFill_TrimShellCorner::AddUEdges(const Handle(TopTools_HArray2OfShape)& theUEdges)
+void BRepFill_TrimShellCorner::AddUEdges(const Handle(HArray2OfShape)& theUEdges)
 {
-  myUEdges                 = new TopTools_HArray2OfShape(theUEdges->LowerRow(),
+  myUEdges                 = new HArray2OfShape(theUEdges->LowerRow(),
                                          theUEdges->UpperRow(),
                                          theUEdges->LowerCol(),
                                          theUEdges->UpperCol());
@@ -232,10 +232,10 @@ void BRepFill_TrimShellCorner::AddUEdges(const Handle(TopTools_HArray2OfShape)& 
 
 //=================================================================================================
 
-void BRepFill_TrimShellCorner::AddVEdges(const Handle(TopTools_HArray2OfShape)& theVEdges,
+void BRepFill_TrimShellCorner::AddVEdges(const Handle(HArray2OfShape)& theVEdges,
                                          const Standard_Integer                 theIndex)
 {
-  myVEdges = new TopTools_HArray1OfShape(theVEdges->LowerRow(), theVEdges->UpperRow());
+  myVEdges = new HArray1OfShape(theVEdges->LowerRow(), theVEdges->UpperRow());
 
   for (Standard_Integer i = theVEdges->LowerRow(); i <= theVEdges->UpperRow(); i++)
     myVEdges->SetValue(i, theVEdges->Value(i, theIndex));
@@ -438,7 +438,7 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesNonSec(const Standard_Intege
     FindCommonVertex(theDS, anIndex1, anIndex2, myIntPointCrossDir, aCommonVertex, apar1, apar2);
   // search common vertex between bounds. end
 
-  Handle(BRepTools_ReShape) aSubstitutor = new BRepTools_ReShape();
+  Handle(ShapeReShaper) aSubstitutor = new ShapeReShaper();
 
   // search common vertices between uedges. begin
   ShapeList aCommonVertices;
@@ -798,7 +798,7 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesSec(const Standard_Integer t
   ShapeList aCommonVertices;
   //  Standard_Integer acommonflag = 0; // 0 - no, 1 - first pair, 2 - second pair, 3 - both
   Standard_Integer          fit          = 0; //, ueit = 0, eindex = 0, i = 0;
-  Handle(BRepTools_ReShape) aSubstitutor = new BRepTools_ReShape();
+  Handle(ShapeReShaper) aSubstitutor = new ShapeReShaper();
 
   for (fit = 0; fit < 2; fit++)
   {
@@ -1180,7 +1180,7 @@ Standard_Boolean BRepFill_TrimShellCorner::ChooseSection(const TopoShape&  Comp,
 // static function: SplitUEdges
 // purpose:
 // ------------------------------------------------------------------------------------------
-Standard_Boolean SplitUEdges(const Handle(TopTools_HArray2OfShape)& theUEdges,
+Standard_Boolean SplitUEdges(const Handle(HArray2OfShape)& theUEdges,
                              const BOPDS_PDS&                       theDS,
                              const Vector3d&                          theCrossDirection,
                              TopTools_DataMapOfShapeListOfShape&    theHistMap)
@@ -1282,7 +1282,7 @@ Standard_Boolean SplitUEdges(const Handle(TopTools_HArray2OfShape)& theUEdges,
 // static function: StoreVedgeInHistMap
 // purpose:
 // ------------------------------------------------------------------------------------------
-void StoreVedgeInHistMap(const Handle(TopTools_HArray1OfShape)& theVEdges,
+void StoreVedgeInHistMap(const Handle(HArray1OfShape)& theVEdges,
                          const Standard_Integer                 theIndex,
                          const TopoShape&                    theNewVshape,
                          TopTools_DataMapOfShapeListOfShape&    theHistMap)
@@ -1396,7 +1396,7 @@ Standard_Boolean FindCommonVertex(const BOPDS_PDS&       theDS,
 // ----------------------------------------------------------------------------------------------------
 Standard_Boolean GetUEdges(const Standard_Integer                 theIndex,
                            const Standard_Integer                 theRank,
-                           const Handle(TopTools_HArray2OfShape)& theUEdges,
+                           const Handle(HArray2OfShape)& theUEdges,
                            const TopoEdge&                     theBoundEdge,
                            const TopoFace&                     theFace,
                            TopoEdge&                           theFirstUEdge,

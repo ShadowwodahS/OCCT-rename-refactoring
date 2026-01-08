@@ -33,7 +33,7 @@
 
 #include <string.h>
 
-const Standard_CString TopTools_ShapeSet::THE_ASCII_VERSIONS[TopTools_FormatVersion_UPPER + 1] = {
+const Standard_CString ShapeSet::THE_ASCII_VERSIONS[TopTools_FormatVersion_UPPER + 1] = {
   "",
   "CASCADE Topology V1, (c) Matra-Datavision",
   "CASCADE Topology V2, (c) Matra-Datavision",
@@ -41,16 +41,16 @@ const Standard_CString TopTools_ShapeSet::THE_ASCII_VERSIONS[TopTools_FormatVers
 
 //=================================================================================================
 
-TopTools_ShapeSet::TopTools_ShapeSet()
+ShapeSet::ShapeSet()
     : myFormatNb(TopTools_FormatVersion_CURRENT)
 {
 }
 
-TopTools_ShapeSet::~TopTools_ShapeSet() {}
+ShapeSet::~ShapeSet() {}
 
 //=================================================================================================
 
-void TopTools_ShapeSet::SetFormatNb(const Standard_Integer theFormatNb)
+void ShapeSet::SetFormatNb(const Standard_Integer theFormatNb)
 {
   Standard_ASSERT_RETURN(theFormatNb >= TopTools_FormatVersion_LOWER
                            && theFormatNb <= TopTools_FormatVersion_UPPER,
@@ -61,14 +61,14 @@ void TopTools_ShapeSet::SetFormatNb(const Standard_Integer theFormatNb)
 
 //=================================================================================================
 
-Standard_Integer TopTools_ShapeSet::FormatNb() const
+Standard_Integer ShapeSet::FormatNb() const
 {
   return myFormatNb;
 }
 
 //=================================================================================================
 
-void TopTools_ShapeSet::Clear()
+void ShapeSet::Clear()
 {
   myShapes.Clear();
   myLocations.Clear();
@@ -76,7 +76,7 @@ void TopTools_ShapeSet::Clear()
 
 //=================================================================================================
 
-Standard_Integer TopTools_ShapeSet::Add(const TopoShape& S)
+Standard_Integer ShapeSet::Add(const TopoShape& S)
 {
   if (S.IsNull())
     return 0;
@@ -97,28 +97,28 @@ Standard_Integer TopTools_ShapeSet::Add(const TopoShape& S)
 
 //=================================================================================================
 
-const TopoShape& TopTools_ShapeSet::Shape(const Standard_Integer I) const
+const TopoShape& ShapeSet::Shape(const Standard_Integer I) const
 {
   return myShapes(I);
 }
 
 //=================================================================================================
 
-Standard_Integer TopTools_ShapeSet::Index(const TopoShape& S) const
+Standard_Integer ShapeSet::Index(const TopoShape& S) const
 {
   return myShapes.FindIndex(S);
 }
 
 //=================================================================================================
 
-const LocationSet1& TopTools_ShapeSet::Locations() const
+const LocationSet1& ShapeSet::Locations() const
 {
   return myLocations;
 }
 
 //=================================================================================================
 
-LocationSet1& TopTools_ShapeSet::ChangeLocations()
+LocationSet1& ShapeSet::ChangeLocations()
 {
   return myLocations;
 }
@@ -237,7 +237,7 @@ static void PrintOrientation(const TopAbs_Orientation O, Standard_OStream& S, St
 // purpose  : Dump number of shapes.
 //=======================================================================
 
-Standard_OStream& TopTools_ShapeSet::DumpExtent(Standard_OStream& OS) const
+Standard_OStream& ShapeSet::DumpExtent(Standard_OStream& OS) const
 {
 
   Standard_Integer nbVERTEX    = 0;
@@ -311,7 +311,7 @@ Standard_OStream& TopTools_ShapeSet::DumpExtent(Standard_OStream& OS) const
 // purpose  : Dump number of shapes.
 //=======================================================================
 
-void TopTools_ShapeSet::DumpExtent(AsciiString1& S) const
+void ShapeSet::DumpExtent(AsciiString1& S) const
 {
 
   Standard_Integer nbVERTEX    = 0;
@@ -380,7 +380,7 @@ void TopTools_ShapeSet::DumpExtent(AsciiString1& S) const
 
 //=================================================================================================
 
-void TopTools_ShapeSet::Dump(Standard_OStream& OS) const
+void ShapeSet::Dump(Standard_OStream& OS) const
 {
   //-----------------------------------------
   // dump the shapes
@@ -451,7 +451,7 @@ void TopTools_ShapeSet::Dump(Standard_OStream& OS) const
 
 //=================================================================================================
 
-void TopTools_ShapeSet::Write(Standard_OStream& OS, const Message_ProgressRange& theProgress)
+void ShapeSet::Write(Standard_OStream& OS, const Message_ProgressRange& theProgress)
 {
   // always use C locale for writing shapes
   std::locale anOldLocale = OS.imbue(std::locale::classic());
@@ -588,7 +588,7 @@ static TopAbs_ShapeEnum ReadShapeEnum(Standard_IStream& IS)
 
 //=================================================================================================
 
-void TopTools_ShapeSet::Read(Standard_IStream& IS, const Message_ProgressRange& theProgress)
+void ShapeSet::Read(Standard_IStream& IS, const Message_ProgressRange& theProgress)
 {
   // always use C locale for reading shapes
   std::locale anOldLocale = IS.imbue(std::locale::classic());
@@ -731,7 +731,7 @@ void TopTools_ShapeSet::Read(Standard_IStream& IS, const Message_ProgressRange& 
 
 //=================================================================================================
 
-void TopTools_ShapeSet::Dump(const TopoShape& S, Standard_OStream& OS) const
+void ShapeSet::Dump(const TopoShape& S, Standard_OStream& OS) const
 {
   if (S.IsNull())
     OS << "Null shape\n";
@@ -745,7 +745,7 @@ void TopTools_ShapeSet::Dump(const TopoShape& S, Standard_OStream& OS) const
 
 //=================================================================================================
 
-void TopTools_ShapeSet::Write(const TopoShape& S, Standard_OStream& OS) const
+void ShapeSet::Write(const TopoShape& S, Standard_OStream& OS) const
 {
   if (S.IsNull())
     OS << "*";
@@ -759,14 +759,14 @@ void TopTools_ShapeSet::Write(const TopoShape& S, Standard_OStream& OS) const
 
 //=================================================================================================
 
-void TopTools_ShapeSet::Read(TopoShape& S, Standard_IStream& IS) const
+void ShapeSet::Read(TopoShape& S, Standard_IStream& IS) const
 {
   Read(S, IS, myShapes.Extent());
 }
 
 //=================================================================================================
 
-void TopTools_ShapeSet::Read(TopoShape&          S,
+void ShapeSet::Read(TopoShape&          S,
                              Standard_IStream&      IS,
                              const Standard_Integer nbshapes) const
 {
@@ -810,43 +810,43 @@ void TopTools_ShapeSet::Read(TopoShape&          S,
 
 //=================================================================================================
 
-void TopTools_ShapeSet::AddGeometry(const TopoShape&) {}
+void ShapeSet::AddGeometry(const TopoShape&) {}
 
 //=================================================================================================
 
-void TopTools_ShapeSet::DumpGeometry(Standard_OStream&) const {}
+void ShapeSet::DumpGeometry(Standard_OStream&) const {}
 
 //=================================================================================================
 
-void TopTools_ShapeSet::WriteGeometry(Standard_OStream&, const Message_ProgressRange&) {}
+void ShapeSet::WriteGeometry(Standard_OStream&, const Message_ProgressRange&) {}
 
 //=================================================================================================
 
-void TopTools_ShapeSet::ReadGeometry(Standard_IStream&, const Message_ProgressRange&) {}
+void ShapeSet::ReadGeometry(Standard_IStream&, const Message_ProgressRange&) {}
 
 //=================================================================================================
 
-void TopTools_ShapeSet::DumpGeometry(const TopoShape&, Standard_OStream&) const {}
+void ShapeSet::DumpGeometry(const TopoShape&, Standard_OStream&) const {}
 
 //=================================================================================================
 
-void TopTools_ShapeSet::WriteGeometry(const TopoShape&, Standard_OStream&) const {}
+void ShapeSet::WriteGeometry(const TopoShape&, Standard_OStream&) const {}
 
 //=================================================================================================
 
-void TopTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum, Standard_IStream&, TopoShape&) {}
+void ShapeSet::ReadGeometry(const TopAbs_ShapeEnum, Standard_IStream&, TopoShape&) {}
 
 //=================================================================================================
 
-void TopTools_ShapeSet::AddShapes(TopoShape&, const TopoShape&) {}
+void ShapeSet::AddShapes(TopoShape&, const TopoShape&) {}
 
 //=================================================================================================
 
-void TopTools_ShapeSet::Check(const TopAbs_ShapeEnum, TopoShape&) {}
+void ShapeSet::Check(const TopAbs_ShapeEnum, TopoShape&) {}
 
 //=================================================================================================
 
-Standard_Integer TopTools_ShapeSet::NbShapes1() const
+Standard_Integer ShapeSet::NbShapes1() const
 {
   return myShapes.Extent();
 }

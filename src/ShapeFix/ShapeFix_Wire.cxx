@@ -1172,7 +1172,7 @@ Standard_Boolean WireHealer::FixReorder(const ShapeAnalysis_WireOrder& wi)
     }
   }
 
-  Handle(TopTools_HSequenceOfShape) newedges = new TopTools_HSequenceOfShape();
+  Handle(HSequenceOfShape) newedges = new HSequenceOfShape();
   for (i = 1; i <= nb; i++)
     newedges->Append(sbwd->Edge(wi.Ordered(i)));
   for (i = 1; i <= nb; i++)
@@ -2466,7 +2466,7 @@ Standard_Boolean WireHealer::FixSelfIntersectingEdge(const Standard_Integer num)
     // after fixing will be nb+1 edges
     Standard_Boolean loopRemoved;
     // create a sequence of resulting edges
-    Handle(TopTools_HSequenceOfShape) TTSS = new TopTools_HSequenceOfShape;
+    Handle(HSequenceOfShape) TTSS = new HSequenceOfShape;
     TopoEdge                       E2;
 
     loopRemoved = Standard_False;

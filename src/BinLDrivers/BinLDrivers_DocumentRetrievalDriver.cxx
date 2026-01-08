@@ -233,10 +233,10 @@ void BinLDrivers_DocumentRetrievalDriver::Read(Standard_IStream&                
   // 2b. Read the TOC of Sections
   if (aFileVer >= TDocStd_FormatVersion_VERSION_3)
   {
-    BinLDrivers_DocumentSection aSection;
+    DocumentSection aSection;
     do
     {
-      if (!BinLDrivers_DocumentSection::ReadTOC(aSection, theIStream, aFileVer))
+      if (!DocumentSection::ReadTOC(aSection, theIStream, aFileVer))
         break;
       mySections.Append(aSection);
     } while (!aSection.Name().IsEqual(aQuickPart ? ENDSECTION_POS : SHAPESECTION_POS)
@@ -258,7 +258,7 @@ void BinLDrivers_DocumentRetrievalDriver::Read(Standard_IStream&                
       std::streampos aDocumentPos = theIStream.tellg(); // position of root label
       for (; anIterS.More(); anIterS.Next())
       {
-        BinLDrivers_DocumentSection& aCurSection = anIterS.ChangeValue();
+        DocumentSection& aCurSection = anIterS.ChangeValue();
         if (aCurSection.IsPostRead() == Standard_False)
         {
           theIStream.seekg((std::streampos)aCurSection.Offset());
@@ -315,7 +315,7 @@ void BinLDrivers_DocumentRetrievalDriver::Read(Standard_IStream&                
 
         CheckShapeSection(aShapeSectionPos, theIStream);
         // Read Shapes
-        BinLDrivers_DocumentSection aCurSection;
+        DocumentSection aCurSection;
         ReadShapeSection(aCurSection, theIStream, Standard_False, aPS.Next());
         if (!aPS.More())
         {
@@ -384,7 +384,7 @@ void BinLDrivers_DocumentRetrievalDriver::Read(Standard_IStream&                
     BinLDrivers_VectorOfDocumentSection::Iterator aSectIter(mySections);
     for (; aSectIter.More(); aSectIter.Next())
     {
-      BinLDrivers_DocumentSection& aCurSection = aSectIter.ChangeValue();
+      DocumentSection& aCurSection = aSectIter.ChangeValue();
       if (aCurSection.IsPostRead())
       {
         theIStream.seekg((std::streampos)aCurSection.Offset());
@@ -604,7 +604,7 @@ Standard_Integer BinLDrivers_DocumentRetrievalDriver::ReadSubTree(
 
 //=================================================================================================
 
-Handle(BinMDF_ADriverTable) BinLDrivers_DocumentRetrievalDriver::AttributeDrivers(
+Handle(AttributeDriverTable) BinLDrivers_DocumentRetrievalDriver::AttributeDrivers(
   const Handle(Message_Messenger)& theMessageDriver)
 {
   return BinLDrivers1::AttributeDrivers(theMessageDriver);
@@ -612,7 +612,7 @@ Handle(BinMDF_ADriverTable) BinLDrivers_DocumentRetrievalDriver::AttributeDriver
 
 //=================================================================================================
 
-void BinLDrivers_DocumentRetrievalDriver::ReadSection(BinLDrivers_DocumentSection& /*theSection*/,
+void BinLDrivers_DocumentRetrievalDriver::ReadSection(DocumentSection& /*theSection*/,
                                                       const Handle(CDM_Document)& /*theDocument*/,
                                                       Standard_IStream& /*theIS*/)
 {
@@ -622,7 +622,7 @@ void BinLDrivers_DocumentRetrievalDriver::ReadSection(BinLDrivers_DocumentSectio
 //=================================================================================================
 
 void BinLDrivers_DocumentRetrievalDriver::ReadShapeSection(
-  BinLDrivers_DocumentSection& theSection,
+  DocumentSection& theSection,
   Standard_IStream& /*theIS*/,
   const Standard_Boolean isMess,
   const Message_ProgressRange& /*theRange*/)

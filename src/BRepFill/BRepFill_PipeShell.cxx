@@ -1231,7 +1231,7 @@ void BRepFill_PipeShell::ResetLoc()
 void BRepFill_PipeShell::BuildHistory(const BRepFill_Sweep& theSweep)
 {
   // Filling of <myGenMap>
-  const Handle(TopTools_HArray2OfShape)& anUEdges = theSweep.InterFaces();
+  const Handle(HArray2OfShape)& anUEdges = theSweep.InterFaces();
   ShapeBuilder                           BB;
 
   TopTools_DataMapOfIntegerShape IndWireMap;
@@ -1440,8 +1440,8 @@ void BRepFill_PipeShell::BuildHistory(const BRepFill_Sweep& theSweep)
   }
 
   // For subshapes of spine
-  const Handle(TopTools_HArray2OfShape)& aFaces  = theSweep.SubShape();
-  const Handle(TopTools_HArray2OfShape)& aVEdges = theSweep.Sections();
+  const Handle(HArray2OfShape)& aFaces  = theSweep.SubShape();
+  const Handle(HArray2OfShape)& aVEdges = theSweep.Sections();
 
   BRepTools_WireExplorer wexp(mySpine);
   inde                    = 0;
@@ -1521,7 +1521,7 @@ Standard_Boolean BuildBoundaries(const BRepFill_Sweep&              theSweep,
   aB.MakeWire(aTopWire);
   Standard_Boolean                bfoundbottom = Standard_False;
   Standard_Boolean                bfoundtop    = Standard_False;
-  Handle(TopTools_HArray2OfShape) aVEdges      = theSweep.Sections();
+  Handle(HArray2OfShape) aVEdges      = theSweep.Sections();
   Standard_Integer                i            = 0;
   Standard_Boolean                bAllSame     = Standard_True;
 

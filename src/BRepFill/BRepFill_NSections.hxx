@@ -85,7 +85,7 @@ private:
   TopTools_SequenceOfShape        myShapes;
   GeomFill_SequenceOfTrsf         myTrsfs;
   TColStd_SequenceOfReal          myParams;
-  Handle(TopTools_HArray2OfShape) myEdges;
+  Handle(HArray2OfShape) myEdges;
   Handle(Geom_BSplineSurface)     mySurface;
 };
 

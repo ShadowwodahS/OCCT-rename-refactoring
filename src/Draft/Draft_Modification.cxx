@@ -49,7 +49,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Draft_Modification, BRepTools_Modification)
+IMPLEMENT_STANDARD_RTTIEXT(Draft_Modification, ShapeModification)
 
 //=================================================================================================
 

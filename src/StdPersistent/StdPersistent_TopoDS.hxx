@@ -55,7 +55,7 @@ protected:
   };
 
 public:
-  typedef IgnoreData<StdObjMgt_Persistent, pTShape, TopoDS_TShape> TShape;
+  typedef IgnoreData<StdObjMgt_Persistent, pTShape, TopoShapeBase> TShape;
 };
 
 #endif

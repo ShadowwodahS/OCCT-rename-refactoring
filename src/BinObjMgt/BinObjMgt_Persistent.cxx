@@ -1151,7 +1151,7 @@ void BinObjMgt_Persistent::inverseShortRealData(const Standard_Integer theIndex,
 Standard_OStream* BinObjMgt_Persistent::GetOStream()
 {
   Write(*myOStream, Standard_True); // finishes already stored data save
-  myStreamStart = new BinObjMgt_Position(*myOStream);
+  myStreamStart = new Position2(*myOStream);
   myStreamStart->WriteSize(*myOStream, Standard_True);
   myDirectWritingIsEnabled = Standard_True;
   return myOStream;

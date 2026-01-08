@@ -24,14 +24,14 @@
 #include <TopOpeBRepDS_Point.hxx>
 class TopOpeBRepDS_DataStructure;
 
-class TopOpeBRepDS_PointExplorer
+class PointExplorer
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepDS_PointExplorer();
+  Standard_EXPORT PointExplorer();
 
-  Standard_EXPORT TopOpeBRepDS_PointExplorer(const TopOpeBRepDS_DataStructure& DS,
+  Standard_EXPORT PointExplorer(const TopOpeBRepDS_DataStructure& DS,
                                              const Standard_Boolean FindOnlyKeep = Standard_True);
 
   Standard_EXPORT void Init(const TopOpeBRepDS_DataStructure& DS,

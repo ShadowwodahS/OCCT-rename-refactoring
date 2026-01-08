@@ -336,7 +336,7 @@ TopoEdge BRepBuilderAPI_Sewing::SameParameterEdge(const TopoShape&              
                                                      const TopTools_SequenceOfShape&  seqEdges,
                                                      const TColStd_SequenceOfBoolean& seqForward,
                                                      TopTools_MapOfShape&             mapMerged,
-                                                     const Handle(BRepTools_ReShape)& locReShape)
+                                                     const Handle(ShapeReShaper)& locReShape)
 {
   // Retrieve reference section
   TopoShape aTmpShape = myReShape->Apply(edge); // for porting
@@ -1879,7 +1879,7 @@ BRepBuilderAPI_Sewing::BRepBuilderAPI_Sewing(const Standard_Real    tolerance,
                                              const Standard_Boolean optionCutting,
                                              const Standard_Boolean optionNonmanifold)
 {
-  myReShape = new BRepTools_ReShape;
+  myReShape = new ShapeReShaper;
   Init(tolerance, optionSewing, optionAnalysis, optionCutting, optionNonmanifold);
 }
 
@@ -3240,7 +3240,7 @@ void BRepBuilderAPI_Sewing::VerticesAssembling(const Message_ProgressRange& theP
 static void replaceNMVertices(const TopoEdge&               theEdge,
                               const TopoVertex&             theV1,
                               const TopoVertex&             theV2,
-                              const Handle(BRepTools_ReShape)& theReShape)
+                              const Handle(ShapeReShaper)& theReShape)
 {
   // To keep NM vertices on edge
   TopTools_SequenceOfShape aSeqNMVert;
@@ -3332,7 +3332,7 @@ static void replaceNMVertices(const TopoEdge&               theEdge,
 
 static void ReplaceEdge(const TopoShape&              oldEdge,
                         const TopoShape&              theNewShape,
-                        const Handle(BRepTools_ReShape)& aReShape)
+                        const Handle(ShapeReShaper)& aReShape)
 {
   TopoShape oldShape = aReShape->Apply(oldEdge);
   TopoShape newShape = aReShape->Apply(theNewShape);
@@ -3566,7 +3566,7 @@ void BRepBuilderAPI_Sewing::Merging(const Standard_Boolean /* firstTime */,
     const Standard_Boolean isMerged = !MergedWithBound.IsEmpty();
 
     // Merge with cutting sections
-    Handle(BRepTools_ReShape)           SectionsReShape = new BRepTools_ReShape;
+    Handle(ShapeReShaper)           SectionsReShape = new ShapeReShaper;
     TopTools_IndexedDataMapOfShapeShape MergedWithSections;
     if (hasCuttingSections)
     {
@@ -5326,14 +5326,14 @@ NCollection_CellFilter_Action BRepBuilderAPI_VertexInspector::Inspect(
 
 //=================================================================================================
 
-const Handle(BRepTools_ReShape)& BRepBuilderAPI_Sewing::GetContext() const
+const Handle(ShapeReShaper)& BRepBuilderAPI_Sewing::GetContext() const
 {
   return myReShape;
 }
 
 //=================================================================================================
 
-void BRepBuilderAPI_Sewing::SetContext(const Handle(BRepTools_ReShape)& theContext)
+void BRepBuilderAPI_Sewing::SetContext(const Handle(ShapeReShaper)& theContext)
 {
   myReShape = theContext;
 }

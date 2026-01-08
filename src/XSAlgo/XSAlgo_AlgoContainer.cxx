@@ -179,7 +179,7 @@ void XSAlgo_AlgoContainer::MergeTransferInfo(const Handle(Transfer_TransientProc
     else
     {
       // Some of edges may be modified.
-      BRepTools_ReShape aReShape;
+      ShapeReShaper aReShape;
       Standard_Boolean  hasModifiedEdges = Standard_False;
       ShapeExplorer   anExpSE(orig, TopAbs_EDGE);
 

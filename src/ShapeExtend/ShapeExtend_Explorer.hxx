@@ -42,7 +42,7 @@ public:
 
   //! Converts a sequence of Shapes to a Compound
   Standard_EXPORT TopoShape
-    CompoundFromSeq(const Handle(TopTools_HSequenceOfShape)& seqval) const;
+    CompoundFromSeq(const Handle(HSequenceOfShape)& seqval) const;
 
   //! Converts a Compound to a list of Shapes
   //! if <comp> is not a compound, the list contains only <comp>
@@ -50,19 +50,19 @@ public:
   //! if <comp> is a Compound, its sub-shapes are put into the list
   //! then if <expcomp> is True, if a sub-shape is a Compound, it
   //! is not put to the list but its sub-shapes are (recursive)
-  Standard_EXPORT Handle(TopTools_HSequenceOfShape) SeqFromCompound(
+  Standard_EXPORT Handle(HSequenceOfShape) SeqFromCompound(
     const TopoShape&    comp,
     const Standard_Boolean expcomp) const;
 
   //! Converts a Sequence of Shapes to a List of Shapes
   //! <clear> if True (D), commands the list to start from scratch
   //! else, the list is cumulated
-  Standard_EXPORT void ListFromSeq(const Handle(TopTools_HSequenceOfShape)& seqval,
+  Standard_EXPORT void ListFromSeq(const Handle(HSequenceOfShape)& seqval,
                                    ShapeList&                    lisval,
                                    const Standard_Boolean clear = Standard_True) const;
 
   //! Converts a List of Shapes to a Sequence of Shapes
-  Standard_EXPORT Handle(TopTools_HSequenceOfShape) SeqFromList(
+  Standard_EXPORT Handle(HSequenceOfShape) SeqFromList(
     const ShapeList& lisval) const;
 
   //! Returns the type of a Shape: true type if <compound> is False
@@ -93,15 +93,15 @@ public:
   //! to the appropriate resulting lists
   //! For each of these lists, if it is null, it is firstly created
   //! else, new items are appended to the already existing ones
-  Standard_EXPORT void DispatchList(const Handle(TopTools_HSequenceOfShape)& list,
-                                    Handle(TopTools_HSequenceOfShape)&       vertices,
-                                    Handle(TopTools_HSequenceOfShape)&       edges,
-                                    Handle(TopTools_HSequenceOfShape)&       wires,
-                                    Handle(TopTools_HSequenceOfShape)&       faces,
-                                    Handle(TopTools_HSequenceOfShape)&       shells,
-                                    Handle(TopTools_HSequenceOfShape)&       solids,
-                                    Handle(TopTools_HSequenceOfShape)&       compsols,
-                                    Handle(TopTools_HSequenceOfShape)&       compounds) const;
+  Standard_EXPORT void DispatchList(const Handle(HSequenceOfShape)& list,
+                                    Handle(HSequenceOfShape)&       vertices,
+                                    Handle(HSequenceOfShape)&       edges,
+                                    Handle(HSequenceOfShape)&       wires,
+                                    Handle(HSequenceOfShape)&       faces,
+                                    Handle(HSequenceOfShape)&       shells,
+                                    Handle(HSequenceOfShape)&       solids,
+                                    Handle(HSequenceOfShape)&       compsols,
+                                    Handle(HSequenceOfShape)&       compounds) const;
 
 protected:
 private:

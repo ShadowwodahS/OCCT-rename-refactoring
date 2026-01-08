@@ -97,7 +97,7 @@ void BRepTools_ShapeSet::Clear()
   myPolygons2D.Clear();
   myNodes.Clear();
   myTriangulations.Clear();
-  TopTools_ShapeSet::Clear();
+  ShapeSet::Clear();
 }
 
 //=================================================================================================

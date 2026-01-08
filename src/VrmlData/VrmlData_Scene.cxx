@@ -645,7 +645,7 @@ void VrmlData_Scene::createShape(TopoShape&                      outShape,
       {
         if (aSingleShape.IsNull() == Standard_False)
           isSingleShape = Standard_False;
-        const Handle(TopoDS_TShape) aTShape = aNodeGeom->TShape();
+        const Handle(TopoShapeBase) aTShape = aNodeGeom->TShape();
         aSingleShape.TShape(aTShape);
         if (aSingleShape.IsNull() == Standard_False)
         {

@@ -48,7 +48,7 @@ private:
   TopTools_IndexedMapOfShape   myMapShapes;
   LocationSet1         myLocations;
   TopTools_DataMapOfShapeShape myMapNewShapes;
-  Handle(BRepTools_ReShape)    myReShape;
+  Handle(ShapeReShaper)    myReShape;
 };
 
 #endif // _BRepTools_PurgeLocations_HeaderFile

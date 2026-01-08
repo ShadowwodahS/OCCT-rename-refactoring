@@ -41,11 +41,11 @@
 #include <TopoDS.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TNaming_TranslateTool, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(TranslateTool, RefObject)
 
 //=================================================================================================
 
-// TNaming_TranslateTool::TNaming_TranslateTool
+// TranslateTool::TranslateTool
 //(const MgtBRep_TriangleMode aTriMode) :
 // myTriangleMode(aTriMode)
 //{
@@ -54,7 +54,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TNaming_TranslateTool, RefObject)
 // function : Add
 // purpose  : Adds S2 in S1
 //=======================================================================
-void TNaming_TranslateTool::Add(TopoShape& S1, const TopoShape& S2) const
+void TranslateTool::Add(TopoShape& S1, const TopoShape& S2) const
 {
   ShapeBuilder B;
   B.Add(S1, S2);
@@ -62,7 +62,7 @@ void TNaming_TranslateTool::Add(TopoShape& S1, const TopoShape& S2) const
 
 //=================================================================================================
 
-void TNaming_TranslateTool::MakeVertex(TopoShape& S) const
+void TranslateTool::MakeVertex(TopoShape& S) const
 {
   ShapeBuilder B;
   B.MakeVertex(TopoDS::Vertex(S));
@@ -70,7 +70,7 @@ void TNaming_TranslateTool::MakeVertex(TopoShape& S) const
 
 //=================================================================================================
 
-void TNaming_TranslateTool::MakeEdge(TopoShape& S) const
+void TranslateTool::MakeEdge(TopoShape& S) const
 {
   ShapeBuilder B;
   B.MakeEdge(TopoDS::Edge(S));
@@ -78,7 +78,7 @@ void TNaming_TranslateTool::MakeEdge(TopoShape& S) const
 
 //=================================================================================================
 
-void TNaming_TranslateTool::MakeWire(TopoShape& S) const
+void TranslateTool::MakeWire(TopoShape& S) const
 {
   ShapeBuilder B;
   B.MakeWire(TopoDS::Wire(S));
@@ -86,7 +86,7 @@ void TNaming_TranslateTool::MakeWire(TopoShape& S) const
 
 //=================================================================================================
 
-void TNaming_TranslateTool::MakeFace(TopoShape& S) const
+void TranslateTool::MakeFace(TopoShape& S) const
 {
   ShapeBuilder B;
   B.MakeFace(TopoDS::Face(S));
@@ -94,7 +94,7 @@ void TNaming_TranslateTool::MakeFace(TopoShape& S) const
 
 //=================================================================================================
 
-void TNaming_TranslateTool::MakeShell(TopoShape& S) const
+void TranslateTool::MakeShell(TopoShape& S) const
 {
   ShapeBuilder B;
   B.MakeShell(TopoDS::Shell(S));
@@ -102,7 +102,7 @@ void TNaming_TranslateTool::MakeShell(TopoShape& S) const
 
 //=================================================================================================
 
-void TNaming_TranslateTool::MakeSolid(TopoShape& S) const
+void TranslateTool::MakeSolid(TopoShape& S) const
 {
   ShapeBuilder B;
   B.MakeSolid(TopoDS::Solid(S));
@@ -110,7 +110,7 @@ void TNaming_TranslateTool::MakeSolid(TopoShape& S) const
 
 //=================================================================================================
 
-void TNaming_TranslateTool::MakeCompSolid(TopoShape& S) const
+void TranslateTool::MakeCompSolid(TopoShape& S) const
 {
   ShapeBuilder B;
   B.MakeCompSolid(TopoDS::CompSolid(S));
@@ -118,7 +118,7 @@ void TNaming_TranslateTool::MakeCompSolid(TopoShape& S) const
 
 //=================================================================================================
 
-void TNaming_TranslateTool::MakeCompound(TopoShape& S) const
+void TranslateTool::MakeCompound(TopoShape& S) const
 {
   ShapeBuilder B;
   B.MakeCompound(TopoDS::Compound(S));
@@ -128,7 +128,7 @@ void TNaming_TranslateTool::MakeCompound(TopoShape& S) const
 // Update methods
 //=================================================================================================
 
-void TNaming_TranslateTool::UpdateVertex(const TopoShape&                         S1,
+void TranslateTool::UpdateVertex(const TopoShape&                         S1,
                                          TopoShape&                               S2,
                                          TColStd_IndexedDataMapOfTransientTransient& aMap) const
 {
@@ -197,7 +197,7 @@ void TNaming_TranslateTool::UpdateVertex(const TopoShape&                       
 // purpose  : Transient->Transient
 //=======================================================================
 
-void TNaming_TranslateTool::UpdateEdge(const TopoShape&                         S1,
+void TranslateTool::UpdateEdge(const TopoShape&                         S1,
                                        TopoShape&                               S2,
                                        TColStd_IndexedDataMapOfTransientTransient& aMap) const
 {
@@ -342,7 +342,7 @@ void TNaming_TranslateTool::UpdateEdge(const TopoShape&                         
 // purpose  : Transient->Transient
 //=======================================================================
 
-void TNaming_TranslateTool::UpdateFace(const TopoShape&                         S1,
+void TranslateTool::UpdateFace(const TopoShape&                         S1,
                                        TopoShape&                               S2,
                                        TColStd_IndexedDataMapOfTransientTransient& aMap) const
 {
@@ -371,7 +371,7 @@ void TNaming_TranslateTool::UpdateFace(const TopoShape&                         
 
 //=================================================================================================
 
-void TNaming_TranslateTool::UpdateShape(const TopoShape& S1, TopoShape& S2) const
+void TranslateTool::UpdateShape(const TopoShape& S1, TopoShape& S2) const
 {
   // Transfer the flags
   S2.TShape()->Free(S1.TShape()->Free());

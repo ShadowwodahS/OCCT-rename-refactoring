@@ -44,7 +44,7 @@ TopOpeBRepDS_GapFiller::TopOpeBRepDS_GapFiller(const Handle(TopOpeBRepDS_HDataSt
     : myHDS(HDS)
 {
   myGapTool = new TopOpeBRepDS_GapTool(HDS);
-  myAsso    = new TopOpeBRepDS_Association();
+  myAsso    = new InterferenceAssociation();
 }
 
 //=================================================================================================

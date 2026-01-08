@@ -481,7 +481,7 @@ void TopOpeBRep_EdgesIntersector::Perform(const TopoShape&    E1,
       }
       else
       {
-        PC2on1 = TopOpeBRepTool_CurveTool::MakePCurveOnFace(myFace1, NC, tolreached2d);
+        PC2on1 = CurveTool6::MakePCurveOnFace(myFace1, NC, tolreached2d);
       }
       // modified by NIZNHY-PKV Thu Nov  4 14:52:25 1999 t
     }

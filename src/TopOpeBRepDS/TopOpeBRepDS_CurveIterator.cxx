@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-TopOpeBRepDS_CurveIterator::TopOpeBRepDS_CurveIterator(const TopOpeBRepDS_ListOfInterference& L)
+CurveIterator::CurveIterator(const TopOpeBRepDS_ListOfInterference& L)
     : InterferenceIterator(L)
 {
   Match();
@@ -29,7 +29,7 @@ TopOpeBRepDS_CurveIterator::TopOpeBRepDS_CurveIterator(const TopOpeBRepDS_ListOf
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_CurveIterator::MatchInterference(
+Standard_Boolean CurveIterator::MatchInterference(
   const Handle(TopOpeBRepDS_Interference)& I) const
 {
   TopOpeBRepDS_Kind GT = I->GeometryType();
@@ -39,7 +39,7 @@ Standard_Boolean TopOpeBRepDS_CurveIterator::MatchInterference(
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepDS_CurveIterator::Current() const
+Standard_Integer CurveIterator::Current() const
 {
   Handle(TopOpeBRepDS_Interference) I = Value();
   Standard_Integer                  G = I->Geometry1();
@@ -48,7 +48,7 @@ Standard_Integer TopOpeBRepDS_CurveIterator::Current() const
 
 //=================================================================================================
 
-TopAbs_Orientation TopOpeBRepDS_CurveIterator::Orientation(const TopAbs_State S) const
+TopAbs_Orientation CurveIterator::Orientation(const TopAbs_State S) const
 {
   Handle(TopOpeBRepDS_Interference) I = Value();
   const StateTransition&    T = I->Transition();
@@ -58,7 +58,7 @@ TopAbs_Orientation TopOpeBRepDS_CurveIterator::Orientation(const TopAbs_State S)
 
 //=================================================================================================
 
-const Handle(GeomCurve2d)& TopOpeBRepDS_CurveIterator::PCurve() const
+const Handle(GeomCurve2d)& CurveIterator::PCurve() const
 {
   return (*((Handle(TopOpeBRepDS_SurfaceCurveInterference)*)&Value()))->PCurve();
 }

@@ -76,8 +76,8 @@ ShapeAnalysis_FreeBounds::ShapeAnalysis_FreeBounds(const TopoShape&    shape,
   // Extract free edges.
   //
   Standard_Integer                  nbedge = Sew.NbFreeEdges();
-  Handle(TopTools_HSequenceOfShape) edges  = new TopTools_HSequenceOfShape;
-  Handle(TopTools_HSequenceOfShape) wires;
+  Handle(HSequenceOfShape) edges  = new HSequenceOfShape;
+  Handle(HSequenceOfShape) wires;
   TopoEdge                       anEdge;
   for (Standard_Integer iedge = 1; iedge <= nbedge; iedge++)
   {
@@ -118,9 +118,9 @@ ShapeAnalysis_FreeBounds::ShapeAnalysis_FreeBounds(const TopoShape&    shape,
   if (sas.HasFreeEdges())
   {
     Explorer              see;
-    Handle(TopTools_HSequenceOfShape) edges = see.SeqFromCompound(sas.FreeEdges(), Standard_False);
+    Handle(HSequenceOfShape) edges = see.SeqFromCompound(sas.FreeEdges(), Standard_False);
 
-    Handle(TopTools_HSequenceOfShape) wires;
+    Handle(HSequenceOfShape) wires;
     ConnectEdgesToWires(edges, Precision1::Confusion(), Standard_True, wires);
     DispatchWires(wires, myWires, myEdges);
     SplitWires();
@@ -129,12 +129,12 @@ ShapeAnalysis_FreeBounds::ShapeAnalysis_FreeBounds(const TopoShape&    shape,
 
 //=================================================================================================
 
-void ShapeAnalysis_FreeBounds::ConnectEdgesToWires(Handle(TopTools_HSequenceOfShape)& edges,
+void ShapeAnalysis_FreeBounds::ConnectEdgesToWires(Handle(HSequenceOfShape)& edges,
                                                    const Standard_Real                toler,
                                                    const Standard_Boolean             shared,
-                                                   Handle(TopTools_HSequenceOfShape)& wires)
+                                                   Handle(HSequenceOfShape)& wires)
 {
-  Handle(TopTools_HSequenceOfShape) iwires = new TopTools_HSequenceOfShape;
+  Handle(HSequenceOfShape) iwires = new HSequenceOfShape;
   ShapeBuilder                      B;
 
   Standard_Integer i; // svv #1
@@ -155,10 +155,10 @@ void ShapeAnalysis_FreeBounds::ConnectEdgesToWires(Handle(TopTools_HSequenceOfSh
 
 //=================================================================================================
 
-void ShapeAnalysis_FreeBounds::ConnectWiresToWires(Handle(TopTools_HSequenceOfShape)& iwires,
+void ShapeAnalysis_FreeBounds::ConnectWiresToWires(Handle(HSequenceOfShape)& iwires,
                                                    const Standard_Real                toler,
                                                    const Standard_Boolean             shared,
-                                                   Handle(TopTools_HSequenceOfShape)& owires)
+                                                   Handle(HSequenceOfShape)& owires)
 {
   TopTools_DataMapOfShapeShape map;
   ConnectWiresToWires(iwires, toler, shared, owires, map);
@@ -166,20 +166,20 @@ void ShapeAnalysis_FreeBounds::ConnectWiresToWires(Handle(TopTools_HSequenceOfSh
 
 //=================================================================================================
 
-void ShapeAnalysis_FreeBounds::ConnectWiresToWires(Handle(TopTools_HSequenceOfShape)& iwires,
+void ShapeAnalysis_FreeBounds::ConnectWiresToWires(Handle(HSequenceOfShape)& iwires,
                                                    const Standard_Real                toler,
                                                    const Standard_Boolean             shared,
-                                                   Handle(TopTools_HSequenceOfShape)& owires,
+                                                   Handle(HSequenceOfShape)& owires,
                                                    TopTools_DataMapOfShapeShape&      vertices)
 {
   if (iwires.IsNull() || !iwires->Length())
     return;
-  Handle(TopTools_HArray1OfShape) arrwires = new TopTools_HArray1OfShape(1, iwires->Length());
+  Handle(HArray1OfShape) arrwires = new HArray1OfShape(1, iwires->Length());
   // amv
   Standard_Integer i;
   for (i = 1; i <= arrwires->Length(); i++)
     arrwires->SetValue(i, iwires->Value(i));
-  owires                  = new TopTools_HSequenceOfShape;
+  owires                  = new HSequenceOfShape;
   Standard_Real tolerance = Max(toler, Precision1::Confusion());
 
   Handle(ShapeExtend_WireData) sewd = new ShapeExtend_WireData(TopoDS::Wire(arrwires->Value(1)));
@@ -385,11 +385,11 @@ void ShapeAnalysis_FreeBounds::ConnectWiresToWires(Handle(TopTools_HSequenceOfSh
 static void SplitWire(const TopoWire&                 wire,
                       const Standard_Real                toler,
                       const Standard_Boolean             shared,
-                      Handle(TopTools_HSequenceOfShape)& closed,
-                      Handle(TopTools_HSequenceOfShape)& open)
+                      Handle(HSequenceOfShape)& closed,
+                      Handle(HSequenceOfShape)& open)
 {
-  closed                  = new TopTools_HSequenceOfShape;
-  open                    = new TopTools_HSequenceOfShape;
+  closed                  = new HSequenceOfShape;
+  open                    = new HSequenceOfShape;
   Standard_Real tolerance = Max(toler, Precision1::Confusion());
 
   ShapeBuilder       B;
@@ -491,7 +491,7 @@ static void SplitWire(const TopoWire&                 wire,
     }
 
   // building open wires
-  Handle(TopTools_HSequenceOfShape) edges = new TopTools_HSequenceOfShape;
+  Handle(HSequenceOfShape) edges = new HSequenceOfShape;
   for (i = 1; i <= nbedges; i++)
     if (statuses.Value(i) != 2)
       edges->Append(sewd->Edge(i));
@@ -499,18 +499,18 @@ static void SplitWire(const TopoWire&                 wire,
   ShapeAnalysis_FreeBounds::ConnectEdgesToWires(edges, toler, shared, open);
 }
 
-void ShapeAnalysis_FreeBounds::SplitWires(const Handle(TopTools_HSequenceOfShape)& wires,
+void ShapeAnalysis_FreeBounds::SplitWires(const Handle(HSequenceOfShape)& wires,
                                           const Standard_Real                      toler,
                                           const Standard_Boolean                   shared,
-                                          Handle(TopTools_HSequenceOfShape)&       closed,
-                                          Handle(TopTools_HSequenceOfShape)&       open)
+                                          Handle(HSequenceOfShape)&       closed,
+                                          Handle(HSequenceOfShape)&       open)
 {
-  closed = new TopTools_HSequenceOfShape;
-  open   = new TopTools_HSequenceOfShape;
+  closed = new HSequenceOfShape;
+  open   = new HSequenceOfShape;
 
   for (Standard_Integer i = 1; i <= wires->Length(); i++)
   {
-    Handle(TopTools_HSequenceOfShape) tmpclosed, tmpopen;
+    Handle(HSequenceOfShape) tmpclosed, tmpopen;
     SplitWire(TopoDS::Wire(wires->Value(i)), toler, shared, tmpclosed, tmpopen);
     closed->Append(tmpclosed);
     open->Append(tmpopen);
@@ -519,7 +519,7 @@ void ShapeAnalysis_FreeBounds::SplitWires(const Handle(TopTools_HSequenceOfShape
 
 //=================================================================================================
 
-void ShapeAnalysis_FreeBounds::DispatchWires(const Handle(TopTools_HSequenceOfShape)& wires,
+void ShapeAnalysis_FreeBounds::DispatchWires(const Handle(HSequenceOfShape)& wires,
                                              TopoCompound&                         closed,
                                              TopoCompound&                         open)
 {
@@ -551,7 +551,7 @@ void ShapeAnalysis_FreeBounds::SplitWires()
     return; // nothing to do
 
   Explorer              see;
-  Handle(TopTools_HSequenceOfShape) closedwires, cw1, cw2, openwires, ow1, ow2;
+  Handle(HSequenceOfShape) closedwires, cw1, cw2, openwires, ow1, ow2;
   closedwires = see.SeqFromCompound(myWires, Standard_False);
   openwires   = see.SeqFromCompound(myEdges, Standard_False);
 
@@ -560,14 +560,14 @@ void ShapeAnalysis_FreeBounds::SplitWires()
   else
   {
     cw1 = closedwires;
-    ow1 = new TopTools_HSequenceOfShape;
+    ow1 = new HSequenceOfShape;
   }
 
   if (mySplitOpen)
     SplitWires(openwires, myTolerance, myShared, cw2, ow2);
   else
   {
-    cw2 = new TopTools_HSequenceOfShape;
+    cw2 = new HSequenceOfShape;
     ow2 = openwires;
   }
 

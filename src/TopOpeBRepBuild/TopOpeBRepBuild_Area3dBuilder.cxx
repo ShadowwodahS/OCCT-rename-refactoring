@@ -21,11 +21,11 @@
 
 //=================================================================================================
 
-TopOpeBRepBuild_Area3dBuilder::TopOpeBRepBuild_Area3dBuilder() {}
+Area3dBuilder::Area3dBuilder() {}
 
 //=================================================================================================
 
-TopOpeBRepBuild_Area3dBuilder::TopOpeBRepBuild_Area3dBuilder(LoopSet&        LS,
+Area3dBuilder::Area3dBuilder(LoopSet&        LS,
                                                              LoopClassifier& LC,
                                                              const Standard_Boolean ForceClass)
 {
@@ -34,7 +34,7 @@ TopOpeBRepBuild_Area3dBuilder::TopOpeBRepBuild_Area3dBuilder(LoopSet&        LS,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Area3dBuilder::InitAreaBuilder(LoopSet&        LS,
+void Area3dBuilder::InitAreaBuilder(LoopSet&        LS,
                                                     LoopClassifier& LC,
                                                     const Standard_Boolean          ForceClass)
 {

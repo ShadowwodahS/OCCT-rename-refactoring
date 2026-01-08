@@ -1425,7 +1425,7 @@ static Handle(ShapeAttribute) BuildNameWire(const DataLabel&                  F,
       {
         if (it.Value().IsEqual(Selection))
         {
-          if (TNaming_Selector::IsIdentified(F, Context, NS, Geom))
+          if (NamingSelector::IsIdentified(F, Context, NS, Geom))
           {
             theName.Append(NS);
             found = Standard_True;
@@ -1907,7 +1907,7 @@ Handle(ShapeAttribute) TNaming_Naming::Name(const DataLabel&       F,
     if (aNum > 1 || aBNproblem)
     {
       TopoShape                    UC = TNaming1::FindUniqueContext(S, Context);
-      Handle(TopTools_HArray1OfShape) Arr;
+      Handle(HArray1OfShape) Arr;
       if (UC.IsNull() && S.ShapeType() == TopAbs_COMPOUND)
       {
         UC = TNaming1::FindUniqueContextSet(S, Context, Arr);
@@ -1935,7 +1935,7 @@ Handle(ShapeAttribute) TNaming_Naming::Name(const DataLabel&       F,
         theName.Type(TNaming_ORIENTATION);
         theName.Orientation(S.Orientation());
 
-        if (!TNaming_Selector::IsIdentified(F, S, aNamedShape, Geom))
+        if (!NamingSelector::IsIdentified(F, S, aNamedShape, Geom))
           aNamedShape = TNaming_Naming::Name(Naming1->Label(), S, Context, Geom, 0);
         theName.Append(aNamedShape);
 #ifdef MDTV_OR
@@ -2013,7 +2013,7 @@ Handle(ShapeAttribute) TNaming_Naming::Name(const DataLabel&       F,
         return BuildNS(F, S, TNaming_UNKNOWN);
       }
     }
-    else if (TNaming_Selector::IsIdentified(F, S, aNamedShape, Geom))
+    else if (NamingSelector::IsIdentified(F, S, aNamedShape, Geom))
       return aNamedShape;
   }
 

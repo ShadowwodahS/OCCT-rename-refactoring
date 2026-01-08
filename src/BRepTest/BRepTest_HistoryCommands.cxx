@@ -122,7 +122,7 @@ Standard_Integer SaveHistory(DrawInterpreter& theDI,
   }
 
   // Get the history from the session
-  Handle(BRepTools_History) aHistory = Objects1::History();
+  Handle(ShapeHistory) aHistory = Objects1::History();
   if (aHistory.IsNull())
   {
     theDI << "No history has been prepared yet.";
@@ -138,7 +138,7 @@ Standard_Integer SaveHistory(DrawInterpreter& theDI,
 
 //=================================================================================================
 
-static Handle(BRepTools_History) GetHistory(DrawInterpreter& theDI, Standard_CString theName)
+static Handle(ShapeHistory) GetHistory(DrawInterpreter& theDI, Standard_CString theName)
 {
   Handle(BRepTest_DrawableHistory) aHistory =
     Handle(BRepTest_DrawableHistory)::DownCast(Draw1::Get(theName));
@@ -164,7 +164,7 @@ static TopoShape GetShape(DrawInterpreter& theDI, Standard_CString theName)
     return TopoShape();
   }
 
-  if (!BRepTools_History::IsSupportedType(aS))
+  if (!ShapeHistory::IsSupportedType(aS))
   {
     theDI << "History is not supported for this kind of shape.";
     return TopoShape();
@@ -199,7 +199,7 @@ Standard_Integer Modified(DrawInterpreter& theDI, Standard_Integer theArgc, cons
     return 1;
   }
 
-  Handle(BRepTools_History) aHistory = GetHistory(theDI, theArgv[2]);
+  Handle(ShapeHistory) aHistory = GetHistory(theDI, theArgv[2]);
   if (aHistory.IsNull())
     return 1;
 
@@ -230,7 +230,7 @@ Standard_Integer Generated(DrawInterpreter& theDI, Standard_Integer theArgc, con
     return 1;
   }
 
-  Handle(BRepTools_History) aHistory = GetHistory(theDI, theArgv[2]);
+  Handle(ShapeHistory) aHistory = GetHistory(theDI, theArgv[2]);
   if (aHistory.IsNull())
     return 1;
 
@@ -261,7 +261,7 @@ Standard_Integer IsDeleted(DrawInterpreter& theDI, Standard_Integer theArgc, con
     return 1;
   }
 
-  Handle(BRepTools_History) aHistory = GetHistory(theDI, theArgv[1]);
+  Handle(ShapeHistory) aHistory = GetHistory(theDI, theArgv[1]);
   if (aHistory.IsNull())
     return 1;
 

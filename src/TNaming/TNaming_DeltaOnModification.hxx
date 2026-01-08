@@ -46,8 +46,8 @@ public:
 
 protected:
 private:
-  Handle(TopTools_HArray1OfShape) myOld;
-  Handle(TopTools_HArray1OfShape) myNew;
+  Handle(HArray1OfShape) myOld;
+  Handle(HArray1OfShape) myNew;
 };
 
 #endif // _TNaming_DeltaOnModification_HeaderFile

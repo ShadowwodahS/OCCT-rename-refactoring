@@ -20,7 +20,7 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class BinMDF_ADriverTable;
+class AttributeDriverTable;
 class Message_Messenger;
 
 //! This package provides classes and methods to
@@ -45,7 +45,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Adds the attribute storage drivers to <aDriverTable>.
-  Standard_EXPORT static void AddDrivers(const Handle(BinMDF_ADriverTable)& aDriverTable,
+  Standard_EXPORT static void AddDrivers(const Handle(AttributeDriverTable)& aDriverTable,
                                          const Handle(Message_Messenger)&   aMsgDrv);
 };
 

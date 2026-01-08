@@ -58,7 +58,7 @@ Standard_Boolean VrmlData_ArrayVec3d::AllocateValues(const Standard_Size theLeng
 
 //=================================================================================================
 
-const Handle(TopoDS_TShape)& VrmlData_Box::TShape()
+const Handle(TopoShapeBase)& VrmlData_Box::TShape()
 {
   if (myIsModified)
   {
@@ -121,7 +121,7 @@ VrmlData_ErrorStatus VrmlData_Box::Write(const char* thePrefix) const
 
 //=================================================================================================
 
-const Handle(TopoDS_TShape)& VrmlData_Cone::TShape()
+const Handle(TopoShapeBase)& VrmlData_Cone::TShape()
 {
   if (myIsModified && (myHasBottom || myHasSide))
   {
@@ -235,7 +235,7 @@ VrmlData_ErrorStatus VrmlData_Cone::Write(const char* thePrefix) const
 
 //=================================================================================================
 
-const Handle(TopoDS_TShape)& VrmlData_Cylinder::TShape()
+const Handle(TopoShapeBase)& VrmlData_Cylinder::TShape()
 {
   if (myIsModified && (myHasBottom || myHasSide || myHasTop))
   {
@@ -362,7 +362,7 @@ VrmlData_ErrorStatus VrmlData_Cylinder::Write(const char* thePrefix) const
 
 //=================================================================================================
 
-const Handle(TopoDS_TShape)& VrmlData_Sphere::TShape()
+const Handle(TopoShapeBase)& VrmlData_Sphere::TShape()
 {
   if (myIsModified)
   {

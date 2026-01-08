@@ -24,14 +24,14 @@
 #include <TColStd_IndexedDataMapOfTransientTransient.hxx>
 class TopoShape;
 
-class TNaming_TranslateTool;
-DEFINE_STANDARD_HANDLE(TNaming_TranslateTool, RefObject)
+class TranslateTool;
+DEFINE_STANDARD_HANDLE(TranslateTool, RefObject)
 
 //! tool to copy underlying TShape of a Shape.
 //! The TranslateTool class is provided to support the
 //! translation of topological data structures  Transient
 //! to  Transient.
-class TNaming_TranslateTool : public RefObject
+class TranslateTool : public RefObject
 {
 
 public:
@@ -67,7 +67,7 @@ public:
 
   Standard_EXPORT void UpdateShape(const TopoShape& S1, TopoShape& S2) const;
 
-  DEFINE_STANDARD_RTTIEXT(TNaming_TranslateTool, RefObject)
+  DEFINE_STANDARD_RTTIEXT(TranslateTool, RefObject)
 
 protected:
 private:

@@ -32,7 +32,7 @@ class PCDM_Reader;
 class CDM_MetaData;
 class PCDM_RetrievalDriver;
 class PCDM_StorageDriver;
-class CDF_Directory;
+class Directory;
 class CDF_Application;
 DEFINE_STANDARD_HANDLE(CDF_Application, CDM_Application)
 
@@ -189,7 +189,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(CDF_Application, CDM_Application)
 
   Handle(CDF_MetaDataDriver) myMetaDataDriver;
-  Handle(CDF_Directory)      myDirectory;
+  Handle(Directory)      myDirectory;
 
 private:
   //! Informs the  application that aDocument has  been

@@ -91,7 +91,7 @@ void BRep_TEdge::Degenerated(const Standard_Boolean S)
 
 //=================================================================================================
 
-Handle(TopoDS_TShape) BRep_TEdge::EmptyCopy() const
+Handle(TopoShapeBase) BRep_TEdge::EmptyCopy() const
 {
   Handle(BRep_TEdge) TE = new BRep_TEdge();
   TE->Tolerance(myTolerance);

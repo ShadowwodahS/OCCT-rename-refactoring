@@ -107,11 +107,11 @@ public:
   //! Get the Approximation  error.
   Standard_EXPORT Standard_Real ErrorOnSurface() const;
 
-  Standard_EXPORT Handle(TopTools_HArray2OfShape) SubShape() const;
+  Standard_EXPORT Handle(HArray2OfShape) SubShape() const;
 
-  Standard_EXPORT Handle(TopTools_HArray2OfShape) InterFaces() const;
+  Standard_EXPORT Handle(HArray2OfShape) InterFaces() const;
 
-  Standard_EXPORT Handle(TopTools_HArray2OfShape) Sections() const;
+  Standard_EXPORT Handle(HArray2OfShape) Sections() const;
 
   //! returns the Tape corresponding to Index-th edge of section
   Standard_EXPORT TopoShape Tape(const Standard_Integer Index) const;
@@ -132,7 +132,7 @@ protected:
 
   Standard_EXPORT Standard_Boolean PerformCorner(const Standard_Integer                 Index,
                                                  const BRepFill_TransitionStyle         Transition,
-                                                 const Handle(TopTools_HArray2OfShape)& Bounds);
+                                                 const Handle(HArray2OfShape)& Bounds);
 
   Standard_EXPORT Standard_Real EvalExtrapol(const Standard_Integer         Index,
                                              const BRepFill_TransitionStyle Transition) const;
@@ -166,12 +166,12 @@ private:
   TopoShape                    myShape;
   Handle(BRepFill_LocationLaw)    myLoc;
   Handle(BRepFill_SectionLaw)     mySec;
-  Handle(TopTools_HArray2OfShape) myUEdges;
-  Handle(TopTools_HArray2OfShape) myVEdges;
+  Handle(HArray2OfShape) myUEdges;
+  Handle(HArray2OfShape) myVEdges;
   TopTools_DataMapOfShapeShape    myVEdgesModified;
-  Handle(TopTools_HArray2OfShape) myFaces;
+  Handle(HArray2OfShape) myFaces;
   ShapeList            myAuxShape;
-  Handle(TopTools_HArray1OfShape) myTapes;
+  Handle(HArray1OfShape) myTapes;
   Standard_Real                   Error;
   TopoWire                     FirstShape;
   TopoWire                     LastShape;

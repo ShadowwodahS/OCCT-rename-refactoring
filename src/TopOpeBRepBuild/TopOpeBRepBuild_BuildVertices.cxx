@@ -26,7 +26,7 @@ void TopOpeBRepBuild_Builder::BuildVertices(const Handle(TopOpeBRepDS_HDataStruc
 {
   Standard_Integer iP, n = HDS->NbPoints();
 
-  myNewVertices = new TopTools_HArray1OfShape(0, n);
+  myNewVertices = new HArray1OfShape(0, n);
 
   for (iP = 1; iP <= n; iP++)
   {

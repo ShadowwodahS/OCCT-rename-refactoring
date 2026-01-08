@@ -645,7 +645,7 @@ TopoShape BRepFill_Pipe::MakeShape(const TopoShape& S,
       UpdateMap(theOriginalS, result, myGenMap);
       myErrorOnSurf = MkSw.ErrorOnSurface();
 
-      Handle(TopTools_HArray2OfShape) aSections = MkSw.Sections();
+      Handle(HArray2OfShape) aSections = MkSw.Sections();
 
       if (aSections.IsNull() == Standard_False)
       {
@@ -684,13 +684,13 @@ TopoShape BRepFill_Pipe::MakeShape(const TopoShape& S,
       }
       else
       {
-        Handle(TopTools_HArray2OfShape) Aux, Somme;
+        Handle(HArray2OfShape) Aux, Somme;
         Standard_Integer                length;
         Standard_Integer                ii, jj, kk;
 
         Aux    = MkSw.SubShape();
         length = Aux->ColLength() + myFaces->ColLength();
-        Somme  = new (TopTools_HArray2OfShape)(1, length, 1, Aux->RowLength());
+        Somme  = new (HArray2OfShape)(1, length, 1, Aux->RowLength());
         for (jj = 1; jj <= myFaces->RowLength(); jj++)
         {
           for (ii = 1; ii <= myFaces->ColLength(); ii++)
@@ -703,7 +703,7 @@ TopoShape BRepFill_Pipe::MakeShape(const TopoShape& S,
 
         Aux    = MkSw.Sections();
         length = Aux->ColLength() + mySections->ColLength();
-        Somme  = new (TopTools_HArray2OfShape)(1, length, 1, Aux->RowLength());
+        Somme  = new (HArray2OfShape)(1, length, 1, Aux->RowLength());
         for (jj = 1; jj <= mySections->RowLength(); jj++)
         {
           for (ii = 1; ii <= mySections->ColLength(); ii++)
@@ -718,7 +718,7 @@ TopoShape BRepFill_Pipe::MakeShape(const TopoShape& S,
 
         Aux    = MkSw.InterFaces();
         length = Aux->ColLength() + myEdges->ColLength();
-        Somme  = new (TopTools_HArray2OfShape)(1, length, 1, Aux->RowLength());
+        Somme  = new (HArray2OfShape)(1, length, 1, Aux->RowLength());
         for (jj = 1; jj <= myEdges->RowLength(); jj++)
         {
           for (ii = 1; ii <= myEdges->ColLength(); ii++)
@@ -1022,7 +1022,7 @@ void BRepFill_Pipe::RebuildTopOrBottomFace(const TopoShape&    aFace,
 void BRepFill_Pipe::BuildHistory(const BRepFill_Sweep& theSweep, const TopoShape& theSection)
 {
   // Filling of <myGenMap>
-  const Handle(TopTools_HArray2OfShape)& anUEdges = theSweep.InterFaces();
+  const Handle(HArray2OfShape)& anUEdges = theSweep.InterFaces();
 
   Standard_Integer inde;
   TopoDS_Iterator  itw;
@@ -1086,8 +1086,8 @@ void BRepFill_Pipe::BuildHistory(const BRepFill_Sweep& theSweep, const TopoShape
   } // if (theSection.ShapeType() == TopAbs_WIRE)
 
   // For subshapes of spine
-  const Handle(TopTools_HArray2OfShape)& aFaces  = theSweep.SubShape();
-  const Handle(TopTools_HArray2OfShape)& aVEdges = theSweep.Sections();
+  const Handle(HArray2OfShape)& aFaces  = theSweep.SubShape();
+  const Handle(HArray2OfShape)& aVEdges = theSweep.Sections();
 
   BRepTools_WireExplorer wexp(mySpine);
   inde                    = 0;

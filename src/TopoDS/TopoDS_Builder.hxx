@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 class TopoShape;
-class TopoDS_TShape;
+class TopoShapeBase;
 class TopoWire;
 class TopoShell;
 class TopoSolid;
@@ -102,7 +102,7 @@ public:
 protected:
   //! The basic method to make  a Shape, used by all the
   //! Make methods.
-  Standard_EXPORT void MakeShape(TopoShape& S, const Handle(TopoDS_TShape)& T) const;
+  Standard_EXPORT void MakeShape(TopoShape& S, const Handle(TopoShapeBase)& T) const;
 
 private:
 };

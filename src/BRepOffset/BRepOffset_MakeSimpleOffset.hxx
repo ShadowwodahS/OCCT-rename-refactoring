@@ -42,7 +42,7 @@ enum BRepOffsetSimple_Status
 //! shell will be constructed.
 //!
 //! Algorithm:
-//! 1. Build source-image maps for vertices, edges and faces.BRepTools_Modification class will be
+//! 1. Build source-image maps for vertices, edges and faces.ShapeModification class will be
 //! used
 //!    to store this information. An image of a shared edge can be constructed from the
 //!    corresponding edge of the first iterated face.

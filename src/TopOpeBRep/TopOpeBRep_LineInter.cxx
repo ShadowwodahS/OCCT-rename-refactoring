@@ -174,7 +174,7 @@ void TopOpeBRep_LineInter::SetLine(const Handle(IntPatch_Line)& L,
   myNbVPoint = n;
 
   // prepare VPoints from intersection points
-  myHAVP = new TopOpeBRep_HArray1OfVPointInter(0, n);
+  myHAVP = new HArray1OfVPointInter(0, n);
   for (Standard_Integer i = 1; i <= n; i++)
   {
     TopOpeBRep_VPointInter& VP = myHAVP->ChangeValue(i);

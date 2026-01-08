@@ -34,7 +34,7 @@ class LoopClassifier;
 //! results from  an interference (block of edges).
 //! The result of the FaceAreaBuilder is an iteration on areas.
 //! An area is described by a set of Loops.
-class TopOpeBRepBuild_FaceAreaBuilder : public TopOpeBRepBuild_Area2dBuilder
+class TopOpeBRepBuild_FaceAreaBuilder : public Area2dBuilder
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -178,8 +178,8 @@ void BRepAlgo_NormalProjection::Build()
 #endif
   myIsDone = Standard_False;
 
-  Handle(TopTools_HSequenceOfShape) Edges = new TopTools_HSequenceOfShape();
-  Handle(TopTools_HSequenceOfShape) Faces = new TopTools_HSequenceOfShape();
+  Handle(HSequenceOfShape) Edges = new HSequenceOfShape();
+  Handle(HSequenceOfShape) Faces = new HSequenceOfShape();
   ShapeList              DescenList;
   Standard_Integer                  NbEdges = 0, NbFaces = 0, i, j, k;
   ShapeExplorer                   ExpOfWire, ExpOfShape;

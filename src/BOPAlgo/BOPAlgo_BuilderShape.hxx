@@ -35,7 +35,7 @@ class TopoShape;
 //!
 //! The class provides the History mechanism, which allows
 //! tracking the modification of the input shapes during
-//! the operation. It uses the *BRepTools_History* tool
+//! the operation. It uses the *ShapeHistory* tool
 //! as a storer for history objects.
 class BOPAlgo_BuilderShape : public BOPAlgo_Algo
 {
@@ -92,7 +92,7 @@ public: //! @name History methods
   }
 
   //! History Tool
-  Handle(BRepTools_History) History()
+  Handle(ShapeHistory) History()
   {
     if (myFillHistory)
     {
@@ -100,7 +100,7 @@ public: //! @name History methods
         // It seems the algorithm has exited with error before filling
         // the history. Initialize the History tool to return the empty
         // History instead of NULL.
-        myHistory = new BRepTools_History();
+        myHistory = new ShapeHistory();
 
       return myHistory;
     }
@@ -149,7 +149,7 @@ protected:              //! @name Fields
   TopTools_MapOfShape  myMapShape;   //!< cached map of all arguments shapes
 
   Standard_Boolean          myFillHistory; //!< Controls the history filling
-  Handle(BRepTools_History) myHistory;     //!< History tool
+  Handle(ShapeHistory) myHistory;     //!< History tool
 };
 
 #endif // _BOPAlgo_BuilderShape_HeaderFile

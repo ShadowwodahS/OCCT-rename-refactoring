@@ -31,11 +31,11 @@ BinTObjDrivers_DocumentRetrievalDriver::BinTObjDrivers_DocumentRetrievalDriver()
 
 //=================================================================================================
 
-Handle(BinMDF_ADriverTable) BinTObjDrivers_DocumentRetrievalDriver::AttributeDrivers(
+Handle(AttributeDriverTable) BinTObjDrivers_DocumentRetrievalDriver::AttributeDrivers(
   const Handle(Message_Messenger)& theMsgDrv)
 {
   // Standard1 drivers
-  Handle(BinMDF_ADriverTable) aTable = BinLDrivers1::AttributeDrivers(theMsgDrv);
+  Handle(AttributeDriverTable) aTable = BinLDrivers1::AttributeDrivers(theMsgDrv);
 
   // Native drivers
   BinTObjDrivers1::AddDrivers(aTable, theMsgDrv);

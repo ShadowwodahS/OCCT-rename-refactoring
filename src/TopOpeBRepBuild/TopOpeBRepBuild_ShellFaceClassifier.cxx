@@ -32,7 +32,7 @@ extern Standard_Boolean TopOpeBRepBuild_GettraceCHK();
 
 TopOpeBRepBuild_ShellFaceClassifier::TopOpeBRepBuild_ShellFaceClassifier(
   const BlockBuilder& BB)
-    : TopOpeBRepBuild_CompositeClassifier(BB)
+    : CompositeClassifier(BB)
 {
 }
 

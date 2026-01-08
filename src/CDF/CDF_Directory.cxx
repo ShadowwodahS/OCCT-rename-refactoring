@@ -21,17 +21,17 @@
 #include <Standard_NoSuchObject.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(CDF_Directory, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Directory, RefObject)
 
-CDF_Directory::CDF_Directory() {}
+Directory::Directory() {}
 
-void CDF_Directory::Add(const Handle(CDM_Document)& aDocument)
+void Directory::Add(const Handle(CDM_Document)& aDocument)
 {
   if (!Contains(aDocument))
     myDocuments.Append(aDocument);
 }
 
-void CDF_Directory::Remove(const Handle(CDM_Document)& aDocument)
+void Directory::Remove(const Handle(CDM_Document)& aDocument)
 {
   for (CDM_ListIteratorOfListOfDocument it(myDocuments); it.More(); it.Next())
   {
@@ -43,7 +43,7 @@ void CDF_Directory::Remove(const Handle(CDM_Document)& aDocument)
   }
 }
 
-Standard_Boolean CDF_Directory::Contains(const Handle(CDM_Document)& aDocument) const
+Standard_Boolean Directory::Contains(const Handle(CDM_Document)& aDocument) const
 {
   for (CDM_ListIteratorOfListOfDocument it(myDocuments); it.More(); it.Next())
   {
@@ -53,26 +53,26 @@ Standard_Boolean CDF_Directory::Contains(const Handle(CDM_Document)& aDocument) 
   return Standard_False;
 }
 
-Standard_Integer CDF_Directory::Length() const
+Standard_Integer Directory::Length() const
 {
   return myDocuments.Extent();
 }
 
-const CDM_ListOfDocument& CDF_Directory::List() const
+const CDM_ListOfDocument& Directory::List() const
 {
 
   return myDocuments;
 }
 
-Standard_Boolean CDF_Directory::IsEmpty() const
+Standard_Boolean Directory::IsEmpty() const
 {
   return myDocuments.IsEmpty();
 }
 
-Handle(CDM_Document) CDF_Directory::Last()
+Handle(CDM_Document) Directory::Last()
 {
   Standard_NoSuchObject_Raise_if(
     IsEmpty(),
-    "CDF_Directory::Last: the directory does not contain any document");
+    "Directory::Last: the directory does not contain any document");
   return myDocuments.Last();
 }

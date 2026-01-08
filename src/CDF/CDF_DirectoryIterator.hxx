@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <CDM_ListIteratorOfListOfDocument.hxx>
-class CDF_Directory;
+class Directory;
 class CDM_Document;
 
 class DirectoryIterator
@@ -34,7 +34,7 @@ public:
   //! of the current CDF.
   Standard_EXPORT DirectoryIterator();
 
-  Standard_EXPORT DirectoryIterator(const Handle(CDF_Directory)& aDirectory);
+  Standard_EXPORT DirectoryIterator(const Handle(Directory)& aDirectory);
 
   //! Returns True if there are more entries to return
   Standard_EXPORT Standard_Boolean MoreDocument();

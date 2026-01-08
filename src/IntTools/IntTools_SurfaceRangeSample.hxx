@@ -36,8 +36,8 @@ public:
                                               const Standard_Integer theIndexV,
                                               const Standard_Integer theDepthV);
 
-  Standard_EXPORT IntTools_SurfaceRangeSample(const IntTools_CurveRangeSample& theRangeU,
-                                              const IntTools_CurveRangeSample& theRangeV);
+  Standard_EXPORT IntTools_SurfaceRangeSample(const CurveRangeSample& theRangeU,
+                                              const CurveRangeSample& theRangeV);
 
   Standard_EXPORT IntTools_SurfaceRangeSample(const IntTools_SurfaceRangeSample& Other);
 
@@ -48,10 +48,10 @@ public:
     return Assign(Other);
   }
 
-  void SetRanges(const IntTools_CurveRangeSample& theRangeU,
-                 const IntTools_CurveRangeSample& theRangeV);
+  void SetRanges(const CurveRangeSample& theRangeU,
+                 const CurveRangeSample& theRangeV);
 
-  void GetRanges(IntTools_CurveRangeSample& theRangeU, IntTools_CurveRangeSample& theRangeV) const;
+  void GetRanges(CurveRangeSample& theRangeU, CurveRangeSample& theRangeV) const;
 
   void SetIndexes(const Standard_Integer theIndexU, const Standard_Integer theIndexV);
 
@@ -59,13 +59,13 @@ public:
 
   void GetDepths(Standard_Integer& theDepthU, Standard_Integer& theDepthV) const;
 
-  void SetSampleRangeU(const IntTools_CurveRangeSample& theRangeSampleU);
+  void SetSampleRangeU(const CurveRangeSample& theRangeSampleU);
 
-  const IntTools_CurveRangeSample& GetSampleRangeU() const;
+  const CurveRangeSample& GetSampleRangeU() const;
 
-  void SetSampleRangeV(const IntTools_CurveRangeSample& theRangeSampleV);
+  void SetSampleRangeV(const CurveRangeSample& theRangeSampleV);
 
-  const IntTools_CurveRangeSample& GetSampleRangeV() const;
+  const CurveRangeSample& GetSampleRangeV() const;
 
   void SetIndexU(const Standard_Integer theIndexU);
 
@@ -101,8 +101,8 @@ public:
 
 protected:
 private:
-  IntTools_CurveRangeSample myRangeU;
-  IntTools_CurveRangeSample myRangeV;
+  CurveRangeSample myRangeU;
+  CurveRangeSample myRangeV;
 };
 
 #include <IntTools_SurfaceRangeSample.lxx>

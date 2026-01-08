@@ -55,7 +55,7 @@
 
 static void MakeRemoved(
   const ShapeList&       theShapes,
-  BRepTools_History&                theHistory,
+  ShapeHistory&                theHistory,
   const TopTools_IndexedMapOfShape& theKeepShapes = TopTools_IndexedMapOfShape());
 
 static void FindInternals(const TopoShape& theS, ShapeList& theLInt);
@@ -67,7 +67,7 @@ static void GetOriginalFaces(const TopoShape&                              theSh
                              const TopTools_IndexedMapOfShape&                theSolids,
                              const TopTools_MapOfShape&                       theFeatureFacesMap,
                              const TopTools_IndexedDataMapOfShapeListOfShape& theAdjFaces,
-                             const Handle(BRepTools_History)&                 theHistory,
+                             const Handle(ShapeHistory)&                 theHistory,
                              TopTools_IndexedMapOfShape&                      theFacesToBeKept,
                              ShapeList&                            theInternalShapes,
                              TopTools_MapOfShape&                             theFacesToCheckOri,
@@ -102,7 +102,7 @@ static void FillSolidsHistory(const TopTools_IndexedMapOfShape&                t
                               ShapeList&                            theSolidsRes,
                               const TopTools_IndexedDataMapOfShapeListOfShape& theAdjFaces,
                               BOPAlgo_Builder&                                 theBuilder,
-                              BRepTools_History&                               theSolidsHistory);
+                              ShapeHistory&                               theSolidsHistory);
 
 static void TakeModified(const TopoShape&   theS,
                          BOPAlgo_Builder&      theBuilder,
@@ -157,7 +157,7 @@ void BOPAlgo_RemoveFeatures::Perform(const Message_ProgressRange& theRange)
     OCC_CATCH_SIGNALS
 
     if (HasHistory())
-      myHistory = new BRepTools_History();
+      myHistory = new ShapeHistory();
 
     // Check the input data
     CheckData();
@@ -370,7 +370,7 @@ public: //! @name Setters/Getters
   void SetRunParallel(const Standard_Boolean bRunParallel) { myRunParallel = bRunParallel; }
 
   //! Gets the History object
-  const Handle(BRepTools_History)& History() { return myHistory; }
+  const Handle(ShapeHistory)& History() { return myHistory; }
 
   void SetRange(const Message_ProgressRange& theRange) { myRange = theRange; }
 
@@ -385,7 +385,7 @@ public: //! @name Perform the operation
     {
       Message_ProgressScope aPS(myRange, NULL, 3);
 
-      myHistory = new BRepTools_History();
+      myHistory = new ShapeHistory();
 
       // Find the faces adjacent to the faces of the feature
       TopTools_IndexedMapOfShape aMFAdjacent;
@@ -753,7 +753,7 @@ private: //! @name Private methods performing the operation
     myHistory->Merge(aGFTrim.History());
 
     // Update history with all removed shapes
-    BRepTools_History aHistRem;
+    ShapeHistory aHistRem;
 
     // Map of the result splits
     TopTools_IndexedMapOfShape         aResMap;
@@ -783,7 +783,7 @@ private: //! @name Fields
   Standard_Boolean myHasAdjacentFaces;                //!< Flag to show whether the adjacent faces have been found or not
   TopTools_IndexedMapOfShape mySolids;                //!< Solids participating in the feature removal
   TopTools_IndexedDataMapOfShapeListOfShape myFaces;  //!< Reconstructed adjacent faces
-  Handle(BRepTools_History) myHistory;                //!< History of the adjacent faces reconstruction
+  Handle(ShapeHistory) myHistory;                //!< History of the adjacent faces reconstruction
   // clang-format on
 };
 
@@ -849,7 +849,7 @@ void BOPAlgo_RemoveFeatures::RemoveFeatures(const Message_ProgressRange& theRang
   // - The faces modification after each feature removal to find the
   //   splits of the adjacent and feature faces for the next steps.
   if (myHistory.IsNull())
-    myHistory = new BRepTools_History();
+    myHistory = new ShapeHistory();
 
   // Remove the features one by one.
   // It will allow removing the features even if there were
@@ -889,7 +889,7 @@ void BOPAlgo_RemoveFeatures::RemoveFeature(
   const TopTools_MapOfShape&                       theFeatureFacesMap,
   const Standard_Boolean                           theHasAdjacentFaces,
   const TopTools_IndexedDataMapOfShapeListOfShape& theAdjFaces,
-  const Handle(BRepTools_History)&                 theAdjFacesHistory,
+  const Handle(ShapeHistory)&                 theAdjFacesHistory,
   const Standard_Boolean                           theSolidsHistoryNeeded,
   const Message_ProgressRange&                     theRange)
 {
@@ -1115,7 +1115,7 @@ void BOPAlgo_RemoveFeatures::RemoveFeature(
       TopExp1::MapShapes(itLS.Value(), aMSRes);
 
     // Remove internal shapes and extra faces
-    BRepTools_History aRemHist;
+    ShapeHistory aRemHist;
     anInternalShapes.Append(aRemovedShapes);
     MakeRemoved(anInternalShapes, aRemHist, aMSRes);
     myHistory->Merge(aRemHist);
@@ -1124,7 +1124,7 @@ void BOPAlgo_RemoveFeatures::RemoveFeature(
   // Fill the history for the solids
   if (theSolidsHistoryNeeded)
   {
-    BRepTools_History aSolidsHistory;
+    ShapeHistory aSolidsHistory;
     FillSolidsHistory(aSolidsToRebuild, aLSRes, theAdjFaces, aMV, aSolidsHistory);
     myHistory->Merge(aSolidsHistory);
   }
@@ -1159,14 +1159,14 @@ void BOPAlgo_RemoveFeatures::UpdateHistory(const Message_ProgressRange& theRange
   TopExp1::MapShapes(myShape, myMapShape);
 
   // Update the history
-  BRepTools_History aHistory;
+  ShapeHistory aHistory;
 
   const Standard_Integer aNbS = myInputsMap.Extent();
   Message_ProgressScope  aPS(theRange, "Updating history", aNbS);
   for (Standard_Integer i = 1; i <= aNbS; ++i, aPS.Next())
   {
     const TopoShape& aS = myInputsMap(i);
-    if (!BRepTools_History::IsSupportedType(aS))
+    if (!ShapeHistory::IsSupportedType(aS))
       continue;
 
     if (myHistory->IsRemoved(aS))
@@ -1274,7 +1274,7 @@ void BOPAlgo_RemoveFeatures::PostTreat()
 //          Keeps the shapes contained in the map.
 //=======================================================================
 void MakeRemoved(const ShapeList&       theShapes,
-                 BRepTools_History&                theHistory,
+                 ShapeHistory&                theHistory,
                  const TopTools_IndexedMapOfShape& theKeepShapes)
 {
   TopTools_IndexedMapOfShape         aShapesMap;
@@ -1286,7 +1286,7 @@ void MakeRemoved(const ShapeList&       theShapes,
   for (Standard_Integer i = 1; i <= aNbS; ++i)
   {
     const TopoShape& aS = aShapesMap(i);
-    if (!theKeepShapes.Contains(aS) && BRepTools_History::IsSupportedType(aS))
+    if (!theKeepShapes.Contains(aS) && ShapeHistory::IsSupportedType(aS))
     {
       theHistory.Remove(aS);
     }
@@ -1360,7 +1360,7 @@ void GetOriginalFaces(const TopoShape&                              theShape,
                       const TopTools_IndexedMapOfShape&                theSolids,
                       const TopTools_MapOfShape&                       theFeatureFacesMap,
                       const TopTools_IndexedDataMapOfShapeListOfShape& theAdjFaces,
-                      const Handle(BRepTools_History)&                 theHistory,
+                      const Handle(ShapeHistory)&                 theHistory,
                       TopTools_IndexedMapOfShape&                      theFacesToBeKept,
                       ShapeList&                            theInternalShapes,
                       TopTools_MapOfShape&                             theFacesToCheckOri,
@@ -1659,7 +1659,7 @@ void FillSolidsHistory(const TopTools_IndexedMapOfShape&                theSolIn
                        ShapeList&                            theSolidsOut,
                        const TopTools_IndexedDataMapOfShapeListOfShape& theAdjFaces,
                        BOPAlgo_Builder&                                 theBuilder,
-                       BRepTools_History&                               theSolidsHistory)
+                       ShapeHistory&                               theSolidsHistory)
 {
   const Standard_Integer aNbS = theSolIn.Extent();
   for (Standard_Integer i = 1; i <= aNbS; ++i)

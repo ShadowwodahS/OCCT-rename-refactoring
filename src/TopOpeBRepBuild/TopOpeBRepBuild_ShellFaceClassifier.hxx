@@ -30,7 +30,7 @@ class BlockBuilder;
 
 //! Classify faces and shells.
 //! shapes are Shells, Elements are Faces.
-class TopOpeBRepBuild_ShellFaceClassifier : public TopOpeBRepBuild_CompositeClassifier
+class TopOpeBRepBuild_ShellFaceClassifier : public CompositeClassifier
 {
 public:
   DEFINE_STANDARD_ALLOC

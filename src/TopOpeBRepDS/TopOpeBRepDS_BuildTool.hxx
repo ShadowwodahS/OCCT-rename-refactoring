@@ -209,7 +209,7 @@ private:
                                            Handle(GeomCurve2d)& C) const;
 
   ShapeBuilder             myBuilder;
-  TopOpeBRepTool_CurveTool myCurveTool;
+  CurveTool6 myCurveTool;
   Standard_Boolean         myOverWrite;
   Standard_Boolean         myTranslate;
 };

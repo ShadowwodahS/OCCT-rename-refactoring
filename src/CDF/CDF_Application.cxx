@@ -40,7 +40,7 @@ IMPLEMENT_STANDARD_RTTIEXT(CDF_Application, CDM_Application)
 CDF_Application::CDF_Application()
     : myRetrievableStatus(PCDM_RS_OK)
 {
-  myDirectory      = new CDF_Directory();
+  myDirectory      = new Directory();
   myMetaDataDriver = new CDF_FWOSDriver(MetaDataLookUpTable());
 }
 

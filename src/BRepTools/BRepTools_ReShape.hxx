@@ -32,8 +32,8 @@ class TopoVertex;
   #undef Status
 #endif
 
-class BRepTools_ReShape;
-DEFINE_STANDARD_HANDLE(BRepTools_ReShape, RefObject)
+class ShapeReShaper;
+DEFINE_STANDARD_HANDLE(ShapeReShaper, RefObject)
 
 //! Rebuilds a Shape by making pre-defined substitutions on some
 //! of its components
@@ -48,12 +48,12 @@ DEFINE_STANDARD_HANDLE(BRepTools_ReShape, RefObject)
 //! Then, these requests may be applied to any shape which may
 //! contain one or more of these individual shapes
 //!
-//! Supports the 'BRepTools_History' history by method 'History'.
-class BRepTools_ReShape : public RefObject
+//! Supports the 'ShapeHistory' history by method 'History'.
+class ShapeReShaper : public RefObject
 {
 public:
   //! Returns an empty Reshape
-  Standard_EXPORT BRepTools_ReShape();
+  Standard_EXPORT ShapeReShaper();
 
   //! Clears all substitutions requests
   Standard_EXPORT virtual void Clear();
@@ -148,9 +148,9 @@ public:
   Standard_EXPORT Standard_Boolean IsNewShape(const TopoShape& theShape) const;
 
   //! Returns the history of the substituted shapes.
-  Standard_EXPORT Handle(BRepTools_History) History() const;
+  Standard_EXPORT Handle(ShapeHistory) History() const;
 
-  DEFINE_STANDARD_RTTIEXT(BRepTools_ReShape, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ShapeReShaper, RefObject)
 
 protected:
   //! The kinds of the replacements.
@@ -210,10 +210,10 @@ private:
 
     //! Returns the kind of the relation
     //! between an initial shape and the result of the replacement.
-    BRepTools_History::TRelationType RelationKind() const
+    ShapeHistory::TRelationType RelationKind() const
     {
-      return (myKind == TReplacementKind_Remove) ? BRepTools_History::TRelationType_Removed
-                                                 : BRepTools_History::TRelationType_Modified;
+      return (myKind == TReplacementKind_Remove) ? ShapeHistory::TRelationType_Removed
+                                                 : ShapeHistory::TRelationType_Modified;
     }
 
   private:

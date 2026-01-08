@@ -96,7 +96,7 @@ void BRepFill_LocationLaw::Init(const TopoWire& Path)
   myLength = new (TColStd_HArray1OfReal)(1, NbEdge + 1);
   myLength->Init(-1.);
   myLength->SetValue(1, 0.);
-  myEdges = new (TopTools_HArray1OfShape)(1, NbEdge);
+  myEdges = new (HArray1OfShape)(1, NbEdge);
   myDisc.Nullify();
   TangentIsMain();
 }

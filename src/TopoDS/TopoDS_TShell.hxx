@@ -23,15 +23,15 @@
 #include <TopoDS_TShape.hxx>
 
 class TopoDS_TShell;
-DEFINE_STANDARD_HANDLE(TopoDS_TShell, TopoDS_TShape)
+DEFINE_STANDARD_HANDLE(TopoDS_TShell, TopoShapeBase)
 
 //! A set of faces connected by their edges.
-class TopoDS_TShell : public TopoDS_TShape
+class TopoDS_TShell : public TopoShapeBase
 {
 public:
   //! Creates an empty TShell.
   TopoDS_TShell()
-      : TopoDS_TShape()
+      : TopoShapeBase()
   {
   }
 
@@ -39,9 +39,9 @@ public:
   Standard_EXPORT TopAbs_ShapeEnum ShapeType() const Standard_OVERRIDE;
 
   //! Returns an empty TShell.
-  Standard_EXPORT Handle(TopoDS_TShape) EmptyCopy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TopoShapeBase) EmptyCopy() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(TopoDS_TShell, TopoDS_TShape)
+  DEFINE_STANDARD_RTTIEXT(TopoDS_TShell, TopoShapeBase)
 };
 
 #endif // _TopoDS_TShell_HeaderFile

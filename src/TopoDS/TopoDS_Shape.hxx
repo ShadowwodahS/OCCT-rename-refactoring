@@ -131,7 +131,7 @@ public:
   }
 
   //! Returns a handle to the actual shape implementation.
-  const Handle(TopoDS_TShape)& TShape() const { return myTShape; }
+  const Handle(TopoShapeBase)& TShape() const { return myTShape; }
 
   //! Returns the value of the TopAbs_ShapeEnum
   //! enumeration that corresponds to this shape, for
@@ -306,7 +306,7 @@ public:
     return aShape;
   }
 
-  void TShape(const Handle(TopoDS_TShape)& theTShape) { myTShape = theTShape; }
+  void TShape(const Handle(TopoShapeBase)& theTShape) { myTShape = theTShape; }
 
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
@@ -325,7 +325,7 @@ protected:
   }
 
 private:
-  Handle(TopoDS_TShape) myTShape;
+  Handle(TopoShapeBase) myTShape;
   TopLoc_Location       myLocation;
   TopAbs_Orientation    myOrient;
 };

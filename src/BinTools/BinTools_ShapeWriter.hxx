@@ -28,16 +28,16 @@ class MeshTriangulation;
 
 //! Writes topology in OStream in binary format without grouping of objects by types
 //! and using relative positions in a file as references.
-class BinTools_ShapeWriter : public ShapeSetBase
+class BinaryShapeWriter : public ShapeSetBase
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Builds an empty ShapeSet.
   //! Parameter <theWithTriangles> is added for XML Persistence
-  Standard_EXPORT BinTools_ShapeWriter();
+  Standard_EXPORT BinaryShapeWriter();
 
-  Standard_EXPORT virtual ~BinTools_ShapeWriter();
+  Standard_EXPORT virtual ~BinaryShapeWriter();
 
   //! Clears the content of the set.
   Standard_EXPORT virtual void Clear() Standard_OVERRIDE;

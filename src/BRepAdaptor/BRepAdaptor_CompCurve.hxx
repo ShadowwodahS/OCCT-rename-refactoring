@@ -205,7 +205,7 @@ private:
   Standard_Real                      TFirst;
   Standard_Real                      TLast;
   Standard_Real                      PTol;
-  Handle(BRepAdaptor_HArray1OfCurve) myCurves;
+  Handle(HArray1OfCurve) myCurves;
   Handle(TColStd_HArray1OfReal)      myKnots;
   Standard_Integer                   CurIndex;
   Standard_Boolean                   Forward;

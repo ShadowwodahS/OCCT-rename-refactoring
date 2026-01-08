@@ -28,14 +28,14 @@
 #include <TopAbs_State.hxx>
 class TopOpeBRepDS_Interference;
 
-class TopOpeBRepDS_PointIterator : public InterferenceIterator
+class PointIterator : public InterferenceIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates an  iterator on the  points on curves
   //! described by the interferences in <L>.
-  Standard_EXPORT TopOpeBRepDS_PointIterator(const TopOpeBRepDS_ListOfInterference& L);
+  Standard_EXPORT PointIterator(const TopOpeBRepDS_ListOfInterference& L);
 
   //! Returns  True if the Interference <I>  has a
   //! GeometryType() TopOpeBRepDS_POINT or TopOpeBRepDS_VERTEX

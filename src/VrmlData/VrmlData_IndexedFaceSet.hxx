@@ -286,7 +286,7 @@ public:
    * Query the shape. This method checks the flag myIsModified; if True it
    * should rebuild the shape presentation.
    */
-  Standard_EXPORT virtual const Handle(TopoDS_TShape)& TShape() Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(TopoShapeBase)& TShape() Standard_OVERRIDE;
 
   /**
    * Create a copy of this node.

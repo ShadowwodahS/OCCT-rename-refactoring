@@ -143,7 +143,7 @@ public:
   Standard_EXPORT Standard_Integer NbShapes1() const;
 
   //! Returns the complete list of produced Shapes
-  Standard_EXPORT Handle(TopTools_HSequenceOfShape) Shapes() const;
+  Standard_EXPORT Handle(HSequenceOfShape) Shapes() const;
 
   //! Returns a Shape given its rank, by default the first one
   Standard_EXPORT const TopoShape& Shape(const Standard_Integer num = 1) const;
@@ -196,7 +196,7 @@ private:
   Handle(Interface_InterfaceModel)         theModel;
   Standard_Integer                         theFilest;
   Standard_Boolean                         theNewpr;
-  Handle(TopTools_HSequenceOfShape)        theShapes;
+  Handle(HSequenceOfShape)        theShapes;
   Handle(TColStd_HSequenceOfTransient)     theTransi;
 };
 

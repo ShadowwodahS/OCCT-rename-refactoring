@@ -168,7 +168,7 @@ void XSAlgo_ShapeProcessor::MergeShapeTransferInfo(
     else
     {
       // Some of edges may be modified.
-      BRepTools_ReShape aReShaper;
+      ShapeReShaper aReShaper;
       Standard_Boolean  aHasModifiedEdges = Standard_False;
       // Remember modifications.
       for (ShapeExplorer anExpSE(anOriginalShape, TopAbs_EDGE); anExpSE.More(); anExpSE.Next())

@@ -27,22 +27,22 @@
 #endif
 
 class TopoDS_TVertex;
-DEFINE_STANDARD_HANDLE(TopoDS_TVertex, TopoDS_TShape)
+DEFINE_STANDARD_HANDLE(TopoDS_TVertex, TopoShapeBase)
 
 //! A  Vertex is a topological  point in  two or three
 //! dimensions.
-class TopoDS_TVertex : public TopoDS_TShape
+class TopoDS_TVertex : public TopoShapeBase
 {
 public:
   //! Returns VERTEX.
   Standard_EXPORT TopAbs_ShapeEnum ShapeType() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(TopoDS_TVertex, TopoDS_TShape)
+  DEFINE_STANDARD_RTTIEXT(TopoDS_TVertex, TopoShapeBase)
 
 protected:
   //! Construct a vertex.
   TopoDS_TVertex()
-      : TopoDS_TShape()
+      : TopoShapeBase()
   {
     Closed(Standard_True);
     Convex(Standard_True);

@@ -60,7 +60,7 @@ class ShapeAttribute;
 //! value    of the selected    Named  Shape  use the
 //! Tool11::GetShape    method,    as  for  any
 //! NamedShape1 attribute.
-class TNaming_Selector
+class NamingSelector
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -85,7 +85,7 @@ public:
   //! Create a selector on this label
   //! to select a shape.
   //! ==================
-  Standard_EXPORT TNaming_Selector(const DataLabel& aLabel);
+  Standard_EXPORT NamingSelector(const DataLabel& aLabel);
 
   //! Creates a topological naming on the label
   //! aLabel given as an argument at construction time.

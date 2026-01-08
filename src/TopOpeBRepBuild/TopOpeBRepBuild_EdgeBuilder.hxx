@@ -29,7 +29,7 @@ class LoopSet;
 class LoopClassifier;
 class TopoShape;
 
-class TopOpeBRepBuild_EdgeBuilder : public TopOpeBRepBuild_Area1dBuilder
+class TopOpeBRepBuild_EdgeBuilder : public Area1dBuilder
 {
 public:
   DEFINE_STANDARD_ALLOC

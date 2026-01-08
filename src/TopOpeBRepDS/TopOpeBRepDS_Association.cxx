@@ -17,7 +17,7 @@
 #include <TopOpeBRepDS_Association.hxx>
 #include <TopOpeBRepDS_Interference.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepDS_Association, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(InterferenceAssociation, RefObject)
 
 //=================================================================================================
 
@@ -34,11 +34,11 @@ static Standard_Boolean Contains(const TopOpeBRepDS_ListOfInterference&   LI,
 
 //=================================================================================================
 
-TopOpeBRepDS_Association::TopOpeBRepDS_Association() {}
+InterferenceAssociation::InterferenceAssociation() {}
 
 //=================================================================================================
 
-void TopOpeBRepDS_Association::Associate(const Handle(TopOpeBRepDS_Interference)& I,
+void InterferenceAssociation::Associate(const Handle(TopOpeBRepDS_Interference)& I,
                                          const Handle(TopOpeBRepDS_Interference)& K)
 {
   if (!myMap.IsBound(I))
@@ -65,7 +65,7 @@ void TopOpeBRepDS_Association::Associate(const Handle(TopOpeBRepDS_Interference)
 
 //=================================================================================================
 
-void TopOpeBRepDS_Association::Associate(const Handle(TopOpeBRepDS_Interference)& I,
+void InterferenceAssociation::Associate(const Handle(TopOpeBRepDS_Interference)& I,
                                          const TopOpeBRepDS_ListOfInterference&   LI)
 {
   for (TopOpeBRepDS_ListIteratorOfListOfInterference it(LI); it.More(); it.Next())
@@ -76,7 +76,7 @@ void TopOpeBRepDS_Association::Associate(const Handle(TopOpeBRepDS_Interference)
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_Association::HasAssociation(
+Standard_Boolean InterferenceAssociation::HasAssociation(
   const Handle(TopOpeBRepDS_Interference)& I) const
 {
   return myMap.IsBound(I);
@@ -84,7 +84,7 @@ Standard_Boolean TopOpeBRepDS_Association::HasAssociation(
 
 //=================================================================================================
 
-TopOpeBRepDS_ListOfInterference& TopOpeBRepDS_Association::Associated(
+TopOpeBRepDS_ListOfInterference& InterferenceAssociation::Associated(
   const Handle(TopOpeBRepDS_Interference)& I)
 {
   if (myMap.IsBound(I))
@@ -97,7 +97,7 @@ TopOpeBRepDS_ListOfInterference& TopOpeBRepDS_Association::Associated(
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_Association::AreAssociated(
+Standard_Boolean InterferenceAssociation::AreAssociated(
   const Handle(TopOpeBRepDS_Interference)& I,
   const Handle(TopOpeBRepDS_Interference)& K) const
 {

@@ -30,7 +30,7 @@ Explorer::Explorer() {}
 //=================================================================================================
 
 TopoShape Explorer::CompoundFromSeq(
-  const Handle(TopTools_HSequenceOfShape)& seqval) const
+  const Handle(HSequenceOfShape)& seqval) const
 {
   ShapeBuilder    B;
   TopoCompound C;
@@ -43,7 +43,7 @@ TopoShape Explorer::CompoundFromSeq(
 
 //=================================================================================================
 
-static void FillList(const Handle(TopTools_HSequenceOfShape)& list,
+static void FillList(const Handle(HSequenceOfShape)& list,
                      const TopoShape&                      comp,
                      const Standard_Boolean                   expcomp)
 {
@@ -59,11 +59,11 @@ static void FillList(const Handle(TopTools_HSequenceOfShape)& list,
   }
 }
 
-Handle(TopTools_HSequenceOfShape) Explorer::SeqFromCompound(
+Handle(HSequenceOfShape) Explorer::SeqFromCompound(
   const TopoShape&    comp,
   const Standard_Boolean expcomp) const
 {
-  Handle(TopTools_HSequenceOfShape) list = new TopTools_HSequenceOfShape();
+  Handle(HSequenceOfShape) list = new HSequenceOfShape();
   if (comp.IsNull())
     return list;
   if (comp.ShapeType() != TopAbs_COMPOUND)
@@ -77,7 +77,7 @@ Handle(TopTools_HSequenceOfShape) Explorer::SeqFromCompound(
 
 //=================================================================================================
 
-void Explorer::ListFromSeq(const Handle(TopTools_HSequenceOfShape)& seqval,
+void Explorer::ListFromSeq(const Handle(HSequenceOfShape)& seqval,
                                        ShapeList&                    lisval,
                                        const Standard_Boolean                   clear) const
 {
@@ -92,10 +92,10 @@ void Explorer::ListFromSeq(const Handle(TopTools_HSequenceOfShape)& seqval,
 
 //=================================================================================================
 
-Handle(TopTools_HSequenceOfShape) Explorer::SeqFromList(
+Handle(HSequenceOfShape) Explorer::SeqFromList(
   const ShapeList& lisval) const
 {
-  Handle(TopTools_HSequenceOfShape)  seqval = new TopTools_HSequenceOfShape();
+  Handle(HSequenceOfShape)  seqval = new HSequenceOfShape();
   TopTools_ListIteratorOfListOfShape it;
   for (it.Initialize(lisval); it.More(); it.Next())
     seqval->Append(it.Value());
@@ -256,34 +256,34 @@ TopoShape Explorer::SortedCompound(const TopoShape&    shape,
 
 //=================================================================================================
 
-void Explorer::DispatchList(const Handle(TopTools_HSequenceOfShape)& list,
-                                        Handle(TopTools_HSequenceOfShape)&       vertices,
-                                        Handle(TopTools_HSequenceOfShape)&       edges,
-                                        Handle(TopTools_HSequenceOfShape)&       wires,
-                                        Handle(TopTools_HSequenceOfShape)&       faces,
-                                        Handle(TopTools_HSequenceOfShape)&       shells,
-                                        Handle(TopTools_HSequenceOfShape)&       solids,
-                                        Handle(TopTools_HSequenceOfShape)&       compsols,
-                                        Handle(TopTools_HSequenceOfShape)&       compounds) const
+void Explorer::DispatchList(const Handle(HSequenceOfShape)& list,
+                                        Handle(HSequenceOfShape)&       vertices,
+                                        Handle(HSequenceOfShape)&       edges,
+                                        Handle(HSequenceOfShape)&       wires,
+                                        Handle(HSequenceOfShape)&       faces,
+                                        Handle(HSequenceOfShape)&       shells,
+                                        Handle(HSequenceOfShape)&       solids,
+                                        Handle(HSequenceOfShape)&       compsols,
+                                        Handle(HSequenceOfShape)&       compounds) const
 {
   if (list.IsNull())
     return;
   if (vertices.IsNull())
-    vertices = new TopTools_HSequenceOfShape();
+    vertices = new HSequenceOfShape();
   if (edges.IsNull())
-    edges = new TopTools_HSequenceOfShape();
+    edges = new HSequenceOfShape();
   if (wires.IsNull())
-    wires = new TopTools_HSequenceOfShape();
+    wires = new HSequenceOfShape();
   if (faces.IsNull())
-    faces = new TopTools_HSequenceOfShape();
+    faces = new HSequenceOfShape();
   if (shells.IsNull())
-    shells = new TopTools_HSequenceOfShape();
+    shells = new HSequenceOfShape();
   if (solids.IsNull())
-    solids = new TopTools_HSequenceOfShape();
+    solids = new HSequenceOfShape();
   if (compsols.IsNull())
-    compsols = new TopTools_HSequenceOfShape();
+    compsols = new HSequenceOfShape();
   if (compounds.IsNull())
-    compounds = new TopTools_HSequenceOfShape();
+    compounds = new HSequenceOfShape();
 
   Standard_Integer i, nb = list->Length();
   for (i = 1; i <= nb; i++)

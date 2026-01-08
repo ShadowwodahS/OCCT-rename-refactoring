@@ -33,12 +33,12 @@ class Point3d;
 class GeomCurve2d;
 
 class BRepTools_TrsfModification;
-DEFINE_STANDARD_HANDLE(BRepTools_TrsfModification, BRepTools_Modification)
+DEFINE_STANDARD_HANDLE(BRepTools_TrsfModification, ShapeModification)
 
 //! Describes a modification that uses a Transform3d to
 //! change the geometry of a shape. All functions return
 //! true and transform the geometry of the shape.
-class BRepTools_TrsfModification : public BRepTools_Modification
+class BRepTools_TrsfModification : public ShapeModification
 {
 
 public:
@@ -146,7 +146,7 @@ public:
                                            const TopoFace& NewF1,
                                            const TopoFace& NewF2) Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(BRepTools_TrsfModification, BRepTools_Modification)
+  DEFINE_STANDARD_RTTIEXT(BRepTools_TrsfModification, ShapeModification)
 
 protected:
 private:

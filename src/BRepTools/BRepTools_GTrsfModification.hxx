@@ -33,12 +33,12 @@ class Point3d;
 class GeomCurve2d;
 
 class BRepTools_GTrsfModification;
-DEFINE_STANDARD_HANDLE(BRepTools_GTrsfModification, BRepTools_Modification)
+DEFINE_STANDARD_HANDLE(BRepTools_GTrsfModification, ShapeModification)
 
 //! Defines a modification of the  geometry by a  GTrsf
 //! from gp1. All methods return True and transform the
 //! geometry.
-class BRepTools_GTrsfModification : public BRepTools_Modification
+class BRepTools_GTrsfModification : public ShapeModification
 {
 
 public:
@@ -142,7 +142,7 @@ public:
                               const TopoFace&                   theFace,
                               Handle(Poly_PolygonOnTriangulation)& thePoly) Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(BRepTools_GTrsfModification, BRepTools_Modification)
+  DEFINE_STANDARD_RTTIEXT(BRepTools_GTrsfModification, ShapeModification)
 
 protected:
 private:

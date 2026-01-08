@@ -105,7 +105,7 @@ private:
                                              const Standard_Integer  G) const;
 
   Standard_Integer                                                 mydelta;
-  Handle(TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference) myT;
+  Handle(HArray1OfIntfList) myT;
   Standard_Integer                                                 myTI;
   Standard_Integer                                                 myG;
   TopOpeBRepDS_DataMapIteratorOfDataMapOfIntegerListOfInterference myITM;

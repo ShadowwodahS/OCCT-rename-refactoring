@@ -76,7 +76,7 @@
 //!
 //! <b>History support</b> allows tracking modification of the input shape
 //! in terms of Modified, IsDeleted and Generated. The history is
-//! available through the methods of the history tool *BRepTools_History*,
+//! available through the methods of the history tool *ShapeHistory*,
 //! which can be accessed here through the method *History()*.
 //! By default, the history is collected, but it is possible to disable it
 //! using the method *SetToFillHistory(false)*;
@@ -232,7 +232,7 @@ protected: //! @name Protected methods performing the removal
                                      const TopTools_MapOfShape&        theFeatureFacesMap,
                                      const Standard_Boolean            theHasAdjacentFaces,
                                      const TopTools_IndexedDataMapOfShapeListOfShape& theAdjFaces,
-                                     const Handle(BRepTools_History)& theAdjFacesHistory,
+                                     const Handle(ShapeHistory)& theAdjFacesHistory,
                                      const Standard_Boolean           theSolidsHistoryNeeded,
                                      const Message_ProgressRange&     theRange);
 

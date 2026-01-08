@@ -18,7 +18,7 @@
 #include <TopoDS_TWire.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopoDS_TWire, TopoDS_TShape)
+IMPLEMENT_STANDARD_RTTIEXT(TopoDS_TWire, TopoShapeBase)
 
 //=================================================================================================
 
@@ -29,7 +29,7 @@ TopAbs_ShapeEnum TopoDS_TWire::ShapeType() const
 
 //=================================================================================================
 
-Handle(TopoDS_TShape) TopoDS_TWire::EmptyCopy() const
+Handle(TopoShapeBase) TopoDS_TWire::EmptyCopy() const
 {
   return Handle(TopoDS_TWire)(new TopoDS_TWire());
 }

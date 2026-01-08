@@ -704,7 +704,7 @@ Standard_Boolean BRepFill_Draft::Fuse(const TopoShape&    StopShape,
     return Standard_False;
 
   TopoShape              result;
-  Handle(BRepTools_History) aHistory = new BRepTools_History;
+  Handle(ShapeHistory) aHistory = new ShapeHistory;
 
   Standard_Boolean isSingleOpNeeded = Standard_True;
   // To get rid of the unnecessary parts of first solid make the cutting first
