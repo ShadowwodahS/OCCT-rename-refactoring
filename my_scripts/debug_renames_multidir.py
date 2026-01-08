@@ -18,7 +18,7 @@ TARGET_SCAN_DIRS = [
     os.path.join(PROJECT_ROOT, "tools"),
 ]
 
-REFACTOR_SCRIPT_PATH = os.path.join(SCRIPT_DIR, "content_refactor.py")
+REFACTOR_SCRIPT_PATH = os.path.join(SCRIPT_DIR, "content_refactor_batch.py")
 CSV_PATH = os.path.join(DOC_DIR, "occt_renaming_map.csv")
 BAD_ROWS_LOG = os.path.join(DOC_DIR, "bad_renames.txt")
 GOOD_ROWS_LOG = os.path.join(DOC_DIR, "good_renames.txt")
