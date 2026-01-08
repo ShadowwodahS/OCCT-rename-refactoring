@@ -4769,7 +4769,7 @@ static TopoShape taper(const TopoShape& shape,
   // Use maximum face-to-taper z-offset.
   const gp_Pln neutral_plane(Ax3(Point3d(0.0, 0.0, 140.0), Dir3d(0.0, 0.0, 1.0)));
 
-  // Draft angle needs to be in radians, and flipped to adhere to our own (arbitrary) draft
+  // Draft1 angle needs to be in radians, and flipped to adhere to our own (arbitrary) draft
   // angle definition.
   const Standard_Real draft_angle = -(angle / 180.0) * M_PI;
 

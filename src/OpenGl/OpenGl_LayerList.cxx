@@ -165,7 +165,7 @@ struct OpenGl_GlobalLayerSettings
 
 //=================================================================================================
 
-OpenGl_LayerList::OpenGl_LayerList()
+LayerList1::LayerList1()
     : myBVHBuilder(new BVH_LinearBuilder<Standard_Real, 3>(BVH_Constants_LeafNodeSizeSingle,
                                                            BVH_Constants_MaxTreeDepth)),
       myNbStructures(0),
@@ -177,11 +177,11 @@ OpenGl_LayerList::OpenGl_LayerList()
 
 //=================================================================================================
 
-OpenGl_LayerList::~OpenGl_LayerList() {}
+LayerList1::~LayerList1() {}
 
 //=================================================================================================
 
-void OpenGl_LayerList::SetFrustumCullingBVHBuilder(const Handle(BVH_Builder3d)& theBuilder)
+void LayerList1::SetFrustumCullingBVHBuilder(const Handle(BVH_Builder3d)& theBuilder)
 {
   myBVHBuilder = theBuilder;
   for (NCollection_List<Handle(Graphic3d_Layer)>::Iterator aLayerIter(myLayers); aLayerIter.More();
@@ -193,7 +193,7 @@ void OpenGl_LayerList::SetFrustumCullingBVHBuilder(const Handle(BVH_Builder3d)& 
 
 //=================================================================================================
 
-void OpenGl_LayerList::InsertLayerBefore(const Graphic3d_ZLayerId        theNewLayerId,
+void LayerList1::InsertLayerBefore(const Graphic3d_ZLayerId        theNewLayerId,
                                          const Graphic3d_ZLayerSettings& theSettings,
                                          const Graphic3d_ZLayerId        theLayerAfter)
 {
@@ -230,7 +230,7 @@ void OpenGl_LayerList::InsertLayerBefore(const Graphic3d_ZLayerId        theNewL
 
 //=================================================================================================
 
-void OpenGl_LayerList::InsertLayerAfter(const Graphic3d_ZLayerId        theNewLayerId,
+void LayerList1::InsertLayerAfter(const Graphic3d_ZLayerId        theNewLayerId,
                                         const Graphic3d_ZLayerSettings& theSettings,
                                         const Graphic3d_ZLayerId        theLayerBefore)
 {
@@ -267,7 +267,7 @@ void OpenGl_LayerList::InsertLayerAfter(const Graphic3d_ZLayerId        theNewLa
 
 //=================================================================================================
 
-void OpenGl_LayerList::RemoveLayer(const Graphic3d_ZLayerId theLayerId)
+void LayerList1::RemoveLayer(const Graphic3d_ZLayerId theLayerId)
 {
   Handle(Graphic3d_Layer) aLayerToRemove;
   if (theLayerId <= 0 || !myLayerIds.Find(theLayerId, aLayerToRemove))
@@ -287,7 +287,7 @@ void OpenGl_LayerList::RemoveLayer(const Graphic3d_ZLayerId theLayerId)
 
 //=================================================================================================
 
-void OpenGl_LayerList::AddStructure(const OpenGl_Structure*         theStruct,
+void LayerList1::AddStructure(const OpenGl_Structure*         theStruct,
                                     const Graphic3d_ZLayerId        theLayerId,
                                     const Graphic3d_DisplayPriority thePriority,
                                     Standard_Boolean                isForChangePriority)
@@ -311,7 +311,7 @@ void OpenGl_LayerList::AddStructure(const OpenGl_Structure*         theStruct,
 
 //=================================================================================================
 
-void OpenGl_LayerList::RemoveStructure(const OpenGl_Structure* theStructure)
+void LayerList1::RemoveStructure(const OpenGl_Structure* theStructure)
 {
   const Graphic3d_ZLayerId       aLayerId  = theStructure->ZLayer();
   const Handle(Graphic3d_Layer)* aLayerPtr = myLayerIds.Seek(aLayerId);
@@ -368,7 +368,7 @@ void OpenGl_LayerList::RemoveStructure(const OpenGl_Structure* theStructure)
 
 //=================================================================================================
 
-void OpenGl_LayerList::InvalidateBVHData(const Graphic3d_ZLayerId theLayerId)
+void LayerList1::InvalidateBVHData(const Graphic3d_ZLayerId theLayerId)
 {
   const Handle(Graphic3d_Layer)* aLayerPtr = myLayerIds.Seek(theLayerId);
   const Handle(Graphic3d_Layer)& aLayer =
@@ -378,7 +378,7 @@ void OpenGl_LayerList::InvalidateBVHData(const Graphic3d_ZLayerId theLayerId)
 
 //=================================================================================================
 
-void OpenGl_LayerList::ChangeLayer(const OpenGl_Structure*  theStructure,
+void LayerList1::ChangeLayer(const OpenGl_Structure*  theStructure,
                                    const Graphic3d_ZLayerId theOldLayerId,
                                    const Graphic3d_ZLayerId theNewLayerId)
 {
@@ -445,7 +445,7 @@ void OpenGl_LayerList::ChangeLayer(const OpenGl_Structure*  theStructure,
 
 //=================================================================================================
 
-void OpenGl_LayerList::ChangePriority(const OpenGl_Structure*         theStructure,
+void LayerList1::ChangePriority(const OpenGl_Structure*         theStructure,
                                       const Graphic3d_ZLayerId        theLayerId,
                                       const Graphic3d_DisplayPriority theNewPriority)
 {
@@ -491,7 +491,7 @@ void OpenGl_LayerList::ChangePriority(const OpenGl_Structure*         theStructu
 
 //=================================================================================================
 
-void OpenGl_LayerList::SetLayerSettings(const Graphic3d_ZLayerId        theLayerId,
+void LayerList1::SetLayerSettings(const Graphic3d_ZLayerId        theLayerId,
                                         const Graphic3d_ZLayerSettings& theSettings)
 {
   Graphic3d_Layer& aLayer = Layer(theLayerId);
@@ -516,7 +516,7 @@ void OpenGl_LayerList::SetLayerSettings(const Graphic3d_ZLayerId        theLayer
 
 //=================================================================================================
 
-void OpenGl_LayerList::UpdateCulling(const Handle(OpenGl_Workspace)& theWorkspace,
+void LayerList1::UpdateCulling(const Handle(OpenGl_Workspace)& theWorkspace,
                                      const Standard_Boolean          theToDrawImmediate)
 {
   const Handle(OpenGl_FrameStats)& aStats = theWorkspace->GetGlContext()->FrameStats();
@@ -545,7 +545,7 @@ void OpenGl_LayerList::UpdateCulling(const Handle(OpenGl_Workspace)& theWorkspac
 
 //=================================================================================================
 
-void OpenGl_LayerList::renderLayer(const Handle(OpenGl_Workspace)&   theWorkspace,
+void LayerList1::renderLayer(const Handle(OpenGl_Workspace)&   theWorkspace,
                                    const OpenGl_GlobalLayerSettings& theDefaultSettings,
                                    const Graphic3d_Layer&            theLayer) const
 {
@@ -721,7 +721,7 @@ void OpenGl_LayerList::renderLayer(const Handle(OpenGl_Workspace)&   theWorkspac
 
 //=================================================================================================
 
-void OpenGl_LayerList::Render(const Handle(OpenGl_Workspace)& theWorkspace,
+void LayerList1::Render(const Handle(OpenGl_Workspace)& theWorkspace,
                               const Standard_Boolean          theToDrawImmediate,
                               const OpenGl_LayerFilter        theFilterMode,
                               const Graphic3d_ZLayerId        theLayersToProcess,
@@ -754,7 +754,7 @@ void OpenGl_LayerList::Render(const Handle(OpenGl_Workspace)& theWorkspace,
 
   myTransparentToProcess.Clear();
 
-  OpenGl_LayerStack::iterator aStackIter(myTransparentToProcess.Origin());
+  LayerStack::iterator aStackIter(myTransparentToProcess.Origin());
   Standard_Integer            aClearDepthLayerPrev = -1, aClearDepthLayer = -1;
   const bool toPerformDepthPrepass = theWorkspace->View()->RenderingParams().ToEnableDepthPrepass
                                      && aPrevSettings.DepthMask == GL_TRUE && !isShadowMapPass;
@@ -898,8 +898,8 @@ void OpenGl_LayerList::Render(const Handle(OpenGl_Workspace)& theWorkspace,
 // function : renderTransparent
 // purpose  : Render transparent objects using blending operator.
 //=======================================================================
-void OpenGl_LayerList::renderTransparent(const Handle(OpenGl_Workspace)&   theWorkspace,
-                                         OpenGl_LayerStack::iterator&      theLayerIter,
+void LayerList1::renderTransparent(const Handle(OpenGl_Workspace)&   theWorkspace,
+                                         LayerStack::iterator&      theLayerIter,
                                          const OpenGl_GlobalLayerSettings& theGlobalSettings,
                                          OpenGl_FrameBuffer*               theReadDrawFbo,
                                          OpenGl_FrameBuffer*               theOitAccumFbo) const
@@ -914,7 +914,7 @@ void OpenGl_LayerList::renderTransparent(const Handle(OpenGl_Workspace)&   theWo
 
   const Handle(OpenGl_Context)&       aCtx       = theWorkspace->GetGlContext();
   const Handle(OpenGl_ShaderManager)& aManager   = aCtx->ShaderManager();
-  const OpenGl_LayerStack::iterator   aLayerFrom = theLayerIter;
+  const LayerStack::iterator   aLayerFrom = theLayerIter;
   OpenGl_View*                        aView      = theWorkspace->View();
 
   Graphic3d_RenderTransparentMethod anOitMode =
@@ -1275,9 +1275,9 @@ void OpenGl_LayerList::renderTransparent(const Handle(OpenGl_Workspace)&   theWo
 
 //=================================================================================================
 
-void OpenGl_LayerList::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void LayerList1::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
-  OCCT_DUMP_CLASS_BEGIN(theOStream, OpenGl_LayerList)
+  OCCT_DUMP_CLASS_BEGIN(theOStream, LayerList1)
 
   for (NCollection_List<Handle(Graphic3d_Layer)>::Iterator aLayersIt(myLayers); aLayersIt.More();
        aLayersIt.Next())

@@ -22,93 +22,93 @@
 //! Notice that all functions within this structure are actually exported by system GL library.
 //! The main purpose for these hint - to control visibility of functions per GL version
 //! (global functions should not be used directly to achieve this effect!).
-struct OpenGl_GlCore11Fwd : protected OpenGl_GlFunctions
+struct OpenGl_GlCore11Fwd : protected GlFunctions
 {
 
 public: //! @name Miscellaneous
-  using OpenGl_GlFunctions::glBlendFunc;
-  using OpenGl_GlFunctions::glClear;
-  using OpenGl_GlFunctions::glClearColor;
-  using OpenGl_GlFunctions::glColorMask;
-  using OpenGl_GlFunctions::glCullFace;
-  using OpenGl_GlFunctions::glDisable;
-  using OpenGl_GlFunctions::glEnable;
-  using OpenGl_GlFunctions::glFinish;
-  using OpenGl_GlFunctions::glFlush;
-  using OpenGl_GlFunctions::glFrontFace;
-  using OpenGl_GlFunctions::glGetBooleanv;
-  using OpenGl_GlFunctions::glGetError;
-  using OpenGl_GlFunctions::glGetFloatv;
-  using OpenGl_GlFunctions::glGetIntegerv;
-  using OpenGl_GlFunctions::glGetString;
-  using OpenGl_GlFunctions::glHint;
-  using OpenGl_GlFunctions::glIsEnabled;
-  using OpenGl_GlFunctions::glLineWidth;
-  using OpenGl_GlFunctions::glPolygonOffset;
-  using OpenGl_GlFunctions::glScissor;
+  using GlFunctions::glBlendFunc;
+  using GlFunctions::glClear;
+  using GlFunctions::glClearColor;
+  using GlFunctions::glColorMask;
+  using GlFunctions::glCullFace;
+  using GlFunctions::glDisable;
+  using GlFunctions::glEnable;
+  using GlFunctions::glFinish;
+  using GlFunctions::glFlush;
+  using GlFunctions::glFrontFace;
+  using GlFunctions::glGetBooleanv;
+  using GlFunctions::glGetError;
+  using GlFunctions::glGetFloatv;
+  using GlFunctions::glGetIntegerv;
+  using GlFunctions::glGetString;
+  using GlFunctions::glHint;
+  using GlFunctions::glIsEnabled;
+  using GlFunctions::glLineWidth;
+  using GlFunctions::glPolygonOffset;
+  using GlFunctions::glScissor;
 
 public: //! @name Depth Buffer
-  using OpenGl_GlFunctions::glClearDepth;
-  using OpenGl_GlFunctions::glClearDepthf;
-  using OpenGl_GlFunctions::glDepthFunc;
-  using OpenGl_GlFunctions::glDepthMask;
-  using OpenGl_GlFunctions::glDepthRange;
-  using OpenGl_GlFunctions::glDepthRangef;
+  using GlFunctions::glClearDepth;
+  using GlFunctions::glClearDepthf;
+  using GlFunctions::glDepthFunc;
+  using GlFunctions::glDepthMask;
+  using GlFunctions::glDepthRange;
+  using GlFunctions::glDepthRangef;
 
 public: //! @name Transformation
-  using OpenGl_GlFunctions::glViewport;
+  using GlFunctions::glViewport;
 
 public: //! @name Vertex Arrays
-  using OpenGl_GlFunctions::glDrawArrays;
-  using OpenGl_GlFunctions::glDrawElements;
+  using GlFunctions::glDrawArrays;
+  using GlFunctions::glDrawElements;
 
 public: //! @name Raster functions
-  using OpenGl_GlFunctions::glPixelStorei;
-  using OpenGl_GlFunctions::glReadPixels;
+  using GlFunctions::glPixelStorei;
+  using GlFunctions::glReadPixels;
 
 public: //! @name Stenciling
-  using OpenGl_GlFunctions::glClearStencil;
-  using OpenGl_GlFunctions::glStencilFunc;
-  using OpenGl_GlFunctions::glStencilMask;
-  using OpenGl_GlFunctions::glStencilOp;
+  using GlFunctions::glClearStencil;
+  using GlFunctions::glStencilFunc;
+  using GlFunctions::glStencilMask;
+  using GlFunctions::glStencilOp;
 
 public: //! @name Texture mapping
-  using OpenGl_GlFunctions::glBindTexture;
-  using OpenGl_GlFunctions::glCopyTexImage2D;
-  using OpenGl_GlFunctions::glCopyTexSubImage2D;
-  using OpenGl_GlFunctions::glDeleteTextures;
-  using OpenGl_GlFunctions::glGenTextures;
-  using OpenGl_GlFunctions::glGetTexParameterfv;
-  using OpenGl_GlFunctions::glGetTexParameteriv;
-  using OpenGl_GlFunctions::glIsTexture;
-  using OpenGl_GlFunctions::glTexImage2D;
-  using OpenGl_GlFunctions::glTexParameterf;
-  using OpenGl_GlFunctions::glTexParameterfv;
-  using OpenGl_GlFunctions::glTexParameteri;
-  using OpenGl_GlFunctions::glTexParameteriv;
-  using OpenGl_GlFunctions::glTexSubImage2D;
+  using GlFunctions::glBindTexture;
+  using GlFunctions::glCopyTexImage2D;
+  using GlFunctions::glCopyTexSubImage2D;
+  using GlFunctions::glDeleteTextures;
+  using GlFunctions::glGenTextures;
+  using GlFunctions::glGetTexParameterfv;
+  using GlFunctions::glGetTexParameteriv;
+  using GlFunctions::glIsTexture;
+  using GlFunctions::glTexImage2D;
+  using GlFunctions::glTexParameterf;
+  using GlFunctions::glTexParameterfv;
+  using GlFunctions::glTexParameteri;
+  using GlFunctions::glTexParameteriv;
+  using GlFunctions::glTexSubImage2D;
 
 public: //! @name desktop extensions - not supported in OpenGL ES 2..0
-  using OpenGl_GlFunctions::glAlphaFunc;
-  using OpenGl_GlFunctions::glCopyTexImage1D;
-  using OpenGl_GlFunctions::glCopyTexSubImage1D;
-  using OpenGl_GlFunctions::glGetTexImage;
-  using OpenGl_GlFunctions::glPointSize;
-  using OpenGl_GlFunctions::glTexImage1D;
-  using OpenGl_GlFunctions::glTexSubImage1D;
+  using GlFunctions::glAlphaFunc;
+  using GlFunctions::glCopyTexImage1D;
+  using GlFunctions::glCopyTexSubImage1D;
+  using GlFunctions::glGetTexImage;
+  using GlFunctions::glPointSize;
+  using GlFunctions::glTexImage1D;
+  using GlFunctions::glTexSubImage1D;
 
   // added to OpenGL ES 3.0
-  using OpenGl_GlFunctions::glDrawBuffer;
-  using OpenGl_GlFunctions::glReadBuffer;
+  using GlFunctions::glDrawBuffer;
+  using GlFunctions::glReadBuffer;
 
   // added to OpenGL ES 3.1
-  using OpenGl_GlFunctions::glGetTexLevelParameteriv;
+  using GlFunctions::glGetTexLevelParameteriv;
 
   // added to OpenGL ES 3.2
-  using OpenGl_GlFunctions::glGetPointerv;
+  using GlFunctions::glGetPointerv;
 
-  using OpenGl_GlFunctions::glLogicOp;
-  using OpenGl_GlFunctions::glPolygonMode;
+  using GlFunctions::glLogicOp;
+  using GlFunctions::glPolygonMode;
 };
 
 #endif // _OpenGl_GlCore11Fwd_Header

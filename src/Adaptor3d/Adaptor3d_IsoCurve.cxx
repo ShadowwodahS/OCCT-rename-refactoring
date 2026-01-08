@@ -1022,7 +1022,7 @@ Handle(BezierCurve3d) Adaptor3d_IsoCurve::Bezier() const
   {
     C = Handle(BezierCurve3d)::DownCast(mySurface->Bezier()->VIso(myParameter));
   }
-  //  C->Segment(myFirst,myLast);
+  //  C->Segment1(myFirst,myLast);
   return C;
 }
 
@@ -1051,6 +1051,6 @@ Handle(BSplineCurve3d) Adaptor3d_IsoCurve::BSpline() const
   {
     C = Handle(BSplineCurve3d)::DownCast(mySurface->BSpline()->VIso(myParameter));
   }
-  //  C->Segment(myFirst,myLast);
+  //  C->Segment1(myFirst,myLast);
   return C;
 }

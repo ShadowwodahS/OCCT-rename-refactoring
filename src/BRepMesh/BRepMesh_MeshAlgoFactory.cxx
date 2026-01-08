@@ -59,15 +59,15 @@ BRepMesh_MeshAlgoFactory::~BRepMesh_MeshAlgoFactory() {}
 
 Handle(IMeshTools_MeshAlgo) BRepMesh_MeshAlgoFactory::GetAlgo(
   const GeomAbs_SurfaceType    theSurfaceType,
-  const IMeshTools_Parameters& theParameters) const
+  const Parameters3& theParameters) const
 {
   switch (theSurfaceType)
   {
     case GeomAbs_Plane:
       return theParameters.EnableControlSurfaceDeflectionAllSurfaces
-               ? new DeflectionControlMeshAlgo<BRepMesh_DefaultRangeSplitter>::Type
+               ? new DeflectionControlMeshAlgo<DefaultRangeSplitter>::Type
                : (theParameters.InternalVerticesMode
-                    ? new NodeInsertionMeshAlgo<BRepMesh_DefaultRangeSplitter>::Type
+                    ? new NodeInsertionMeshAlgo<DefaultRangeSplitter>::Type
                     : new BaseMeshAlgo::Type);
       break;
 

@@ -21,11 +21,11 @@
 //! This class represents a pair of integer indices to store
 //! element indices connected to link. It is restricted to
 //! store more than two indices in it.
-class BRepMesh_PairOfIndex
+class PairOfIndex
 {
 public:
   //! Default constructor
-  BRepMesh_PairOfIndex() { Clear(); }
+  PairOfIndex() { Clear(); }
 
   //! Clears indices.
   void Clear() { myIndex[0] = myIndex[1] = -1; }
@@ -38,7 +38,7 @@ public:
     else
     {
       if (myIndex[1] >= 0)
-        throw Standard_OutOfRange("BRepMesh_PairOfIndex::Append, more than two index to store");
+        throw Standard_OutOfRange("PairOfIndex::Append, more than two index to store");
 
       myIndex[1] = theIndex;
     }
@@ -48,7 +48,7 @@ public:
   void Prepend(const Standard_Integer theIndex)
   {
     if (myIndex[1] >= 0)
-      throw Standard_OutOfRange("BRepMesh_PairOfIndex::Prepend, more than two index to store");
+      throw Standard_OutOfRange("PairOfIndex::Prepend, more than two index to store");
 
     myIndex[1] = myIndex[0];
     myIndex[0] = theIndex;
@@ -76,7 +76,7 @@ public:
   Standard_Integer Index(const Standard_Integer thePairPos) const
   {
     if (thePairPos != 1 && thePairPos != 2)
-      throw Standard_OutOfRange("BRepMesh_PairOfIndex::Index, requested index is out of range");
+      throw Standard_OutOfRange("PairOfIndex::Index, requested index is out of range");
 
     return myIndex[thePairPos - 1];
   }
@@ -87,7 +87,7 @@ public:
   void SetIndex(const Standard_Integer thePairPos, const Standard_Integer theIndex)
   {
     if (thePairPos != 1 && thePairPos != 2)
-      throw Standard_OutOfRange("BRepMesh_PairOfIndex::SetIndex, requested index is out of range");
+      throw Standard_OutOfRange("PairOfIndex::SetIndex, requested index is out of range");
 
     myIndex[thePairPos - 1] = theIndex;
   }
@@ -98,7 +98,7 @@ public:
   {
     if (thePairPos != 1 && thePairPos != 2)
       throw Standard_OutOfRange(
-        "BRepMesh_PairOfIndex::RemoveIndex, requested index is out of range");
+        "PairOfIndex::RemoveIndex, requested index is out of range");
 
     if (thePairPos == 1)
       myIndex[0] = myIndex[1];

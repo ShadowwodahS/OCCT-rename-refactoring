@@ -88,7 +88,7 @@ static Standard_Integer incrementalmesh(DrawInterpreter& theDI,
   }
 
   TopoDS_ListOfShape    aListOfShapes;
-  IMeshTools_Parameters aMeshParams;
+  Parameters3 aMeshParams;
   bool                  hasDefl = false, hasAngDefl = false, isPrsDefl = false;
 
   Handle(IMeshTools_Context) aContext = new BRepMesh_Context();

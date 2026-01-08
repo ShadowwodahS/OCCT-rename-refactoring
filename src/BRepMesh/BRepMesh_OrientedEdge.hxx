@@ -19,20 +19,20 @@
 #include <Standard_DefineAlloc.hxx>
 
 //! Light weighted structure representing simple link.
-class BRepMesh_OrientedEdge
+class OrientedEdge
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Default constructor.
-  BRepMesh_OrientedEdge()
+  OrientedEdge()
       : myFirstNode(-1),
         myLastNode(-1)
   {
   }
 
   //! Constructs a link between two vertices.
-  BRepMesh_OrientedEdge(const Standard_Integer theFirstNode, const Standard_Integer theLastNode)
+  OrientedEdge(const Standard_Integer theFirstNode, const Standard_Integer theLastNode)
       : myFirstNode(theFirstNode),
         myLastNode(theLastNode)
   {
@@ -47,13 +47,13 @@ public:
   //! Checks this and other edge for equality.
   //! @param theOther edge to be checked against this one.
   //! @return TRUE if edges have the same orientation, FALSE if not.
-  Standard_Boolean IsEqual(const BRepMesh_OrientedEdge& theOther) const
+  Standard_Boolean IsEqual(const OrientedEdge& theOther) const
   {
     return (myFirstNode == theOther.myFirstNode && myLastNode == theOther.myLastNode);
   }
 
   //! Alias for IsEqual.
-  Standard_Boolean operator==(const BRepMesh_OrientedEdge& Other) const { return IsEqual(Other); }
+  Standard_Boolean operator==(const OrientedEdge& Other) const { return IsEqual(Other); }
 
 private:
   Standard_Integer myFirstNode;
@@ -63,9 +63,9 @@ private:
 namespace std
 {
 template <>
-struct hash<BRepMesh_OrientedEdge>
+struct hash<OrientedEdge>
 {
-  size_t operator()(const BRepMesh_OrientedEdge& theOrientedEdge) const noexcept
+  size_t operator()(const OrientedEdge& theOrientedEdge) const noexcept
   {
     union Combination {
       unsigned short Arr[2]; // Node can be represented as a short

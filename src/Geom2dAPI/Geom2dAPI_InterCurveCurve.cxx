@@ -108,7 +108,7 @@ Standard_Integer Geom2dAPI_InterCurveCurve::NbSegments() const
 }
 
 //=======================================================================
-// function : Segment
+// function : Segment1
 // purpose  :
 //  If aSeg.IsOpposite() == TRUE
 //
@@ -118,7 +118,7 @@ Standard_Integer Geom2dAPI_InterCurveCurve::NbSegments() const
 //                V2            V1
 //    Curve 2:    *<------------*
 //
-//    Segment:  FirstPoint--->LastPoint
+//    Segment1:  FirstPoint--->LastPoint
 //
 //
 //  If aSeg.IsOpposite() == FALSE
@@ -129,17 +129,17 @@ Standard_Integer Geom2dAPI_InterCurveCurve::NbSegments() const
 //                V1            V2
 //    Curve 2:    *------------>*
 //
-//    Segment:  FirstPoint--->LastPoint
+//    Segment1:  FirstPoint--->LastPoint
 //=======================================================================
 
-void Geom2dAPI_InterCurveCurve::Segment(const Standard_Integer theIndex,
+void Geom2dAPI_InterCurveCurve::Segment1(const Standard_Integer theIndex,
                                         Handle(GeomCurve2d)&  theCurve1,
                                         Handle(GeomCurve2d)&  theCurve2) const
 {
   Standard_OutOfRange_Raise_if(theIndex < 1 || theIndex > NbSegments(),
-                               "Geom2dAPI_InterCurveCurve::Segment");
+                               "Geom2dAPI_InterCurveCurve::Segment1");
 
-  Standard_NullObject_Raise_if(myCurve1.IsNull(), "Geom2dAPI_InterCurveCurve::Segment");
+  Standard_NullObject_Raise_if(myCurve1.IsNull(), "Geom2dAPI_InterCurveCurve::Segment1");
 
   Standard_Real aU1, aU2, aV1, aV2;
   aU1 = myCurve1->FirstParameter();
@@ -155,7 +155,7 @@ void Geom2dAPI_InterCurveCurve::Segment(const Standard_Integer theIndex,
     aV2 = myCurve2->LastParameter();
   }
 
-  const IntRes2d_IntersectionSegment& aSeg       = myIntersector.Segment(theIndex);
+  const IntRes2d_IntersectionSegment& aSeg       = myIntersector.Segment1(theIndex);
   const Standard_Boolean              isOpposite = aSeg.IsOpposite();
 
   if (aSeg.HasFirstPoint())

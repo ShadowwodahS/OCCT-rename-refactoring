@@ -24,14 +24,14 @@
 #include <Standard_Real.hxx>
 #include <ChFiDS_TypeOfConcavity.hxx>
 
-class BRepOffset_Interval
+class Interval3
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepOffset_Interval();
+  Standard_EXPORT Interval3();
 
-  Standard_EXPORT BRepOffset_Interval(const Standard_Real          U1,
+  Standard_EXPORT Interval3(const Standard_Real          U1,
                                       const Standard_Real          U2,
                                       const ChFiDS_TypeOfConcavity Type);
 

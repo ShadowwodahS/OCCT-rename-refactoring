@@ -1325,7 +1325,7 @@ void IntPatch_ImpPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
   {
     for (Standard_Integer i = 1; i <= NbSegm; i++)
     {
-      thesegm = solrst.Segment(i);
+      thesegm = solrst.Segment1(i);
       // Check if segment is degenerated
       if (thesegm.HasFirstPoint() && thesegm.HasLastPoint())
       {

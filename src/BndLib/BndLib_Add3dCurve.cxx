@@ -208,7 +208,7 @@ void Add3dCurve::Add(const Adaptor3d_Curve& C,
         {
           ////////////////////////////////////////////////
           //  modified by NIZHNY-EAP Fri Dec  3 14:29:14 1999 ___BEGIN___
-          // To avoid exception in Segment
+          // To avoid exception in Segment1
           if (Bsaux->FirstParameter() > U1)
             u1 = Bsaux->FirstParameter();
           if (Bsaux->LastParameter() < U2)
@@ -218,7 +218,7 @@ void Add3dCurve::Add(const Adaptor3d_Curve& C,
         Standard_Real aSegmentTol = 2. * Precision::PConfusion();
         if (Abs(u2 - u1) < aSegmentTol)
           aSegmentTol = Abs(u2 - u1) * 0.01;
-        Bsaux->Segment(u1, u2, aSegmentTol);
+        Bsaux->Segment1(u1, u2, aSegmentTol);
         Bs = Bsaux;
       }
       // OCC566(apo)->

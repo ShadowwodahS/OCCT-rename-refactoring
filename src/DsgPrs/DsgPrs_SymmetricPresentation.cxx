@@ -361,9 +361,9 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
   //|                                SYMBOL OF SYMMETRY                                 |
   //-------------------------------------------------------------------------------------
 
-  //           -------    : Superior Segment
+  //           -------    : Superior Segment1
   //         -----------  : Axis
-  //           -------    : Inferior Segment
+  //           -------    : Inferior Segment1
 
   Vector3d Vvar(P1, P2);
   Vector3d vec;
@@ -640,9 +640,9 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
   //|                                SYMBOL OF SYMMETRY                                 |
   //-------------------------------------------------------------------------------------
 
-  //           -------    : Superior Segment
+  //           -------    : Superior Segment1
   //         -----------  : Axis
-  //           -------    : Inferior Segment
+  //           -------    : Inferior Segment1
 
   Vector3d Vvar(P1, P2);
   Vector3d Vtmp = Vvar.Divided(Vvar.Magnitude()).Multiplied(2 * (aAxis.Distance(Center1)));
@@ -759,9 +759,9 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     //--------------------------------------------------------------------------------------
     //|                                SYMBOL OF SYMMETRY                                  |
     //--------------------------------------------------------------------------------------
-    //           -------    : Superior Segment
+    //           -------    : Superior Segment1
     //         -----------  : Axis
-    //           -------    : Inferior Segment
+    //           -------    : Inferior Segment1
 
     // Calculate extremas of the axis of the symbol
     Vector3d VAO(AttachmentPoint1, OffsetPoint);
@@ -891,9 +891,9 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     //|                                SYMBOL OF SYMMETRY                                 |
     //-------------------------------------------------------------------------------------
 
-    //           -------    : Superior Segment
+    //           -------    : Superior Segment1
     //         -----------  : Axis
-    //           -------    : Inferior Segment
+    //           -------    : Inferior Segment1
 
     Vector3d vec(P1, P2);
     Vector3d vecA = vec.Multiplied(.1);

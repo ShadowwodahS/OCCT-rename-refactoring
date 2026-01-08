@@ -1495,7 +1495,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
 
       else
       {
-        //-- Intersection AND Domain1  --------> Segment ---------------------
+        //-- Intersection AND Domain1  --------> Segment1 ---------------------
         Standard_Real U2inf, U2sup;
         Standard_Real Res2inf, Res2sup;
 
@@ -1710,8 +1710,8 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
                 Res2sup = ElCLib1::Parameter(L2, Ptfin);
               }
               PtSeg2.SetValues(Ptfin, Res1sup, Res2sup, T1b, T2b, Standard_False);
-              IntRes2d_IntersectionSegment Segment(PtSeg1, PtSeg2, isOpposite, Standard_False);
-              Append(Segment);
+              IntRes2d_IntersectionSegment Segment1(PtSeg1, PtSeg2, isOpposite, Standard_False);
+              Append(Segment1);
             }
             else
             { //-- Extremite(L1 ou L2)  ------>   Point Middle(L1 et L2)
@@ -1738,8 +1738,8 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
 
               if ((Abs(Res1inf - U1) > LongMiniSeg) && (Abs(Res2inf - U2) > LongMiniSeg))
               {
-                IntRes2d_IntersectionSegment Segment(PtSeg1, PtSeg2, isOpposite, Standard_False);
-                Append(Segment);
+                IntRes2d_IntersectionSegment Segment1(PtSeg1, PtSeg2, isOpposite, Standard_False);
+                Append(Segment1);
               }
               else
               {
@@ -1870,8 +1870,8 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
                 {
                   //-- Modif du 1er Octobre 92 (Pour Composites)
 
-                  IntRes2d_IntersectionSegment Segment(PtSeg1, PtSeg2, isOpposite, Standard_False);
-                  Append(Segment);
+                  IntRes2d_IntersectionSegment Segment1(PtSeg1, PtSeg2, isOpposite, Standard_False);
+                  Append(Segment1);
                 }
                 else
                 {
@@ -1884,7 +1884,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
               }
             }
           }
-        } //----- Fin Creation Segment ----(Res2sup-Res2inf>Tol)-------------
+        } //----- Fin Creation Segment1 ----(Res2sup-Res2inf>Tol)-------------
         else
         {
           //------ (Intersection And Domain1)  AND  Domain2  --> Point ------
@@ -1940,8 +1940,8 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
     //
     //     for (int i=1; i <= NbSegments(); i++)
     //       printf("point s1_%d_%03d %.15g %.15g; point s2_%d_%03d %.15g %.15g\n", i, cnt,
-    //       Segment(i).FirstPoint().Value().X(), Segment(i).FirstPoint().Value().Y(), i, cnt,
-    //       Segment(i).LastPoint().Value().X(), Segment(i).LastPoint().Value().Y());
+    //       Segment1(i).FirstPoint().Value().X(), Segment1(i).FirstPoint().Value().Y(), i, cnt,
+    //       Segment1(i).LastPoint().Value().X(), Segment1(i).LastPoint().Value().Y());
     //   }
     // #endif
   }
@@ -2025,7 +2025,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
               }
             }
             break;
-          default: //~~~ Segment Infini a gauche
+          default: //~~~ Segment1 Infini a gauche
             break;
         }
 
@@ -2068,7 +2068,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
                 ParamEnd2 = ParamEnd - Org2SurL1;
               }
             }
-          default: //~~~ Segment Infini a droite
+          default: //~~~ Segment1 Infini a droite
             break;
         }
 

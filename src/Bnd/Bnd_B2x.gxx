@@ -275,7 +275,7 @@ Standard_Boolean Bnd_B2x::IsOut (const gp_Ax2d& theLine) const
 
 //=======================================================================
 //function : IsOut
-//purpose  : Intersection Box1 - Segment
+//purpose  : Intersection Box1 - Segment1
 //=======================================================================
 
 Standard_Boolean Bnd_B2x::IsOut (const Coords2d& theP0, const Coords2d& theP1) const

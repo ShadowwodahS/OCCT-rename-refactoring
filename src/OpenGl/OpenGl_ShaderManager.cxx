@@ -474,7 +474,7 @@ void OpenGl_ShaderManager::pushLightSourceState(
     }
 
     Standard_Integer&             aLightType   = myLightTypeArray.ChangeValue(aLightsNb);
-    OpenGl_ShaderLightParameters& aLightParams = myLightParamsArray.ChangeValue(aLightsNb);
+    ShaderLightParameters& aLightParams = myLightParamsArray.ChangeValue(aLightsNb);
     if (!aLight
            .IsEnabled()) // has no affect with Graphic3d_LightSet::IterationFilter_ExcludeDisabled -
                          // here just for consistency
@@ -560,18 +560,18 @@ void OpenGl_ShaderManager::pushLightSourceState(
   {
     theProgram->SetUniform(myContext,
                            theProgram->GetStateLocation(OpenGl_OCC_LIGHT_SOURCE_PARAMS),
-                           aLightsNb * OpenGl_ShaderLightParameters::NbOfVec4(),
+                           aLightsNb * ShaderLightParameters::NbOfVec4(),
                            myLightParamsArray.First().Packed());
   }
 
-  if (const OpenGl_ShaderUniformLocation aLocation =
+  if (const ShaderUniformLocation aLocation =
         theProgram->GetStateLocation(OpenGl_OCCT_NB_SPEC_IBL_LEVELS))
   {
     theProgram->SetUniform(myContext, aLocation, myLightSourceState.SpecIBLMapLevels());
   }
 
   // update shadow map variables
-  if (const OpenGl_ShaderUniformLocation aShadowMatLoc =
+  if (const ShaderUniformLocation aShadowMatLoc =
         theProgram->GetStateLocation(OpenGl_OCC_LIGHT_SHADOWMAP_MATRICES))
   {
     if (myShadowMatArray.Size() < theProgram->NbShadowMaps())
@@ -941,7 +941,7 @@ void OpenGl_ShaderManager::pushClippingState(const Handle(OpenGl_ShaderProgram)&
 
 void OpenGl_ShaderManager::pushMaterialState(const Handle(OpenGl_ShaderProgram)& theProgram) const
 {
-  const OpenGl_Material& aMat = myMaterialState.Material();
+  const Material4& aMat = myMaterialState.Material();
   theProgram->UpdateState(OpenGl_MATERIAL_STATE, myMaterialState.Index());
   if (theProgram == myFfpProgram)
   {
@@ -961,8 +961,8 @@ void OpenGl_ShaderManager::pushMaterialState(const Handle(OpenGl_ShaderProgram)&
     }
 
     const GLenum aFrontFace = myMaterialState.ToDistinguish() ? GL_FRONT : GL_FRONT_AND_BACK;
-    const OpenGl_MaterialCommon& aFrontMat = aMat.Common[0];
-    const OpenGl_MaterialCommon& aBackMat  = aMat.Common[1];
+    const MaterialCommon& aFrontMat = aMat.Common[0];
+    const MaterialCommon& aBackMat  = aMat.Common[1];
     const Graphic3d_Vec4         aSpec4(aFrontMat.SpecularShininess.rgb(), 1.0f);
     myContext->core11ffp->glMaterialfv(aFrontFace, GL_AMBIENT, aFrontMat.Ambient.GetData());
     myContext->core11ffp->glMaterialfv(aFrontFace, GL_DIFFUSE, aFrontMat.Diffuse.GetData());
@@ -991,20 +991,20 @@ void OpenGl_ShaderManager::pushMaterialState(const Handle(OpenGl_ShaderProgram)&
                          theProgram->GetStateLocation(OpenGl_OCCT_DISTINGUISH_MODE),
                          myMaterialState.ToDistinguish() ? 1 : 0);
 
-  if (const OpenGl_ShaderUniformLocation& aLocPbrFront =
+  if (const ShaderUniformLocation& aLocPbrFront =
         theProgram->GetStateLocation(OpenGl_OCCT_PBR_MATERIAL))
   {
     theProgram->SetUniform(myContext,
                            aLocPbrFront,
-                           OpenGl_Material::NbOfVec4Pbr(),
+                           Material4::NbOfVec4Pbr(),
                            aMat.PackedPbr());
   }
-  if (const OpenGl_ShaderUniformLocation& aLocFront =
+  if (const ShaderUniformLocation& aLocFront =
         theProgram->GetStateLocation(OpenGl_OCCT_COMMON_MATERIAL))
   {
     theProgram->SetUniform(myContext,
                            aLocFront,
-                           OpenGl_Material::NbOfVec4Common(),
+                           Material4::NbOfVec4Common(),
                            aMat.PackedCommon());
   }
 }
@@ -1013,12 +1013,12 @@ void OpenGl_ShaderManager::pushMaterialState(const Handle(OpenGl_ShaderProgram)&
 
 void OpenGl_ShaderManager::pushOitState(const Handle(OpenGl_ShaderProgram)& theProgram) const
 {
-  if (const OpenGl_ShaderUniformLocation& aLocOutput =
+  if (const ShaderUniformLocation& aLocOutput =
         theProgram->GetStateLocation(OpenGl_OCCT_OIT_OUTPUT))
   {
     theProgram->SetUniform(myContext, aLocOutput, (GLint)myOitState.ActiveMode());
   }
-  if (const OpenGl_ShaderUniformLocation& aLocDepthFactor =
+  if (const ShaderUniformLocation& aLocDepthFactor =
         theProgram->GetStateLocation(OpenGl_OCCT_OIT_DEPTH_FACTOR))
   {
     theProgram->SetUniform(myContext, aLocDepthFactor, myOitState.DepthFactor());
@@ -1035,7 +1035,7 @@ void OpenGl_ShaderManager::PushInteriorState(const Handle(OpenGl_ShaderProgram)&
     return;
   }
 
-  if (const OpenGl_ShaderUniformLocation aLocLineWidth =
+  if (const ShaderUniformLocation aLocLineWidth =
         theProgram->GetStateLocation(OpenGl_OCCT_LINE_WIDTH))
   {
     theProgram->SetUniform(myContext,
@@ -1045,7 +1045,7 @@ void OpenGl_ShaderManager::PushInteriorState(const Handle(OpenGl_ShaderProgram)&
                            theProgram->GetStateLocation(OpenGl_OCCT_LINE_FEATHER),
                            myContext->LineFeather() * myContext->LineWidthScale());
   }
-  if (const OpenGl_ShaderUniformLocation aLocWireframeColor =
+  if (const ShaderUniformLocation aLocWireframeColor =
         theProgram->GetStateLocation(OpenGl_OCCT_WIREFRAME_COLOR))
   {
     if (theAspect->InteriorStyle() == Aspect_IS_HOLLOW)
@@ -1061,7 +1061,7 @@ void OpenGl_ShaderManager::PushInteriorState(const Handle(OpenGl_ShaderProgram)&
                              myContext->Vec4FromQuantityColor(theAspect->EdgeColorRGBA()));
     }
   }
-  if (const OpenGl_ShaderUniformLocation aLocQuadModeState =
+  if (const ShaderUniformLocation aLocQuadModeState =
         theProgram->GetStateLocation(OpenGl_OCCT_QUAD_MODE_STATE))
   {
     theProgram->SetUniform(myContext, aLocQuadModeState, theAspect->ToSkipFirstEdge() ? 1 : 0);
@@ -1086,7 +1086,7 @@ void OpenGl_ShaderManager::PushState(const Handle(OpenGl_ShaderProgram)& theProg
 
   if (!theProgram.IsNull())
   {
-    if (const OpenGl_ShaderUniformLocation& aLocViewPort =
+    if (const ShaderUniformLocation& aLocViewPort =
           theProgram->GetStateLocation(OpenGl_OCCT_VIEWPORT))
     {
       theProgram->SetUniform(myContext,

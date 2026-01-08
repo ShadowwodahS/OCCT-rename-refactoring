@@ -192,7 +192,7 @@ void IGESData_BasicEditor::ComputeStatus()
   //    (6 depuis IGES-5.2)
 
   //  Pour Subordinate : Drawing et 402 (sauf p-e dimensioned geometry ?) donnent
-  //   Logical, le reste implique Physical (sur descendants directs propres)
+  //   Logical, le reste implique Physical1 (sur descendants directs propres)
 
   //  Pour UseFlag, un peu plus complique :
   //  D une part, les UseFlag se propagent aux descendants directs ou non

@@ -17,7 +17,7 @@
 #include <Draw_Interpretor.hxx>
 
 //! This package defines a set of Draw1 commands for testing of TKOpenGl library.
-class OpenGlTest
+class OpenGlTest1
 {
 public:
   DEFINE_STANDARD_ALLOC

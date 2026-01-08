@@ -27,12 +27,12 @@
 #include <Standard_Boolean.hxx>
 class TopoEdge;
 
-class Draft_VertexInfo
+class VertexInfo
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Draft_VertexInfo();
+  Standard_EXPORT VertexInfo();
 
   Standard_EXPORT void Add(const TopoEdge& E);
 

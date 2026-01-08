@@ -95,7 +95,7 @@ static void ProcessFace(const TColStd_SequenceOfInteger&    theFaceNodes,
   {
     aPolyNodes.SetValue(0, aNbPolyNodes);
 
-    if (!MeshVS_Tool::GetAverageNormal(aPolyNodes, aNorm))
+    if (!Tool4::GetAverageNormal(aPolyNodes, aNorm))
     {
       aNorm.SetCoord(0.0, 0.0, 1.0);
     }
@@ -169,7 +169,7 @@ void MeshVS_MeshPrsBuilder::BuildNodes(const Handle(Prs3d_Presentation)& Prs,
 {
   Handle(MeshVS_DataSource)        aSource   = GetDataSource();
   Handle(MeshVS_Drawer)            aDrawer   = GetDrawer();
-  Handle(Graphic3d_AspectMarker3d) aNodeMark = MeshVS_Tool::CreateAspectMarker3d(GetDrawer());
+  Handle(Graphic3d_AspectMarker3d) aNodeMark = Tool4::CreateAspectMarker3d(GetDrawer());
   if (aSource.IsNull() || aDrawer.IsNull() || aNodeMark.IsNull())
     return;
 
@@ -281,8 +281,8 @@ void MeshVS_MeshPrsBuilder::BuildElements(const Handle(Prs3d_Presentation)& Prs,
     AMat.SetSpecularColor(Quantity_NOC_BLACK);
     AMat.SetEmissiveColor(Quantity_NOC_BLACK);
   }
-  Handle(Graphic3d_AspectFillArea3d) aFill = MeshVS_Tool::CreateAspectFillArea3d(GetDrawer(), AMat);
-  Handle(Graphic3d_AspectLine3d)     aBeam = MeshVS_Tool::CreateAspectLine3d(GetDrawer());
+  Handle(Graphic3d_AspectFillArea3d) aFill = Tool4::CreateAspectFillArea3d(GetDrawer(), AMat);
+  Handle(Graphic3d_AspectLine3d)     aBeam = Tool4::CreateAspectLine3d(GetDrawer());
   //-------------------------------------------------------------------
 
   Standard_Boolean IsOverlapControl =
@@ -404,13 +404,13 @@ void MeshVS_MeshPrsBuilder::BuildElements(const Handle(Prs3d_Presentation)& Prs,
 
         if (aSource->GetNodesByElement(it.Key(), aNodes, aNbNodes) && aNbNodes == 2)
         {
-          aLinkNodes.Add(MeshVS_TwoNodes(aNodes(1), aNodes(2)));
+          aLinkNodes.Add(TwoNodes(aNodes(1), aNodes(2)));
         }
       }
     }
   }
 
-  NCollection_Map<MeshVS_NodePair, MeshVS_SymmetricPairHasher> aSegmentMap;
+  NCollection_Map<MeshVS_NodePair, SymmetricPairHasher> aSegmentMap;
 
   for (it.Reset(); it.More(); it.Next())
   {
@@ -479,7 +479,7 @@ void MeshVS_MeshPrsBuilder::BuildElements(const Handle(Prs3d_Presentation)& Prs,
         {
           Standard_Integer Last = 0;
 
-          MeshVS_TwoNodes aTwoNodes(aNodes(1));
+          TwoNodes aTwoNodes(aNodes(1));
 
           for (Standard_Integer i = 1; i <= NbNodes; ++i)
           {
@@ -608,7 +608,7 @@ void MeshVS_MeshPrsBuilder::BuildHilightPrs(const Handle(Prs3d_Presentation)& Pr
   if (aDrawer.IsNull() || !aDrawer->GetInteger(MeshVS_DA_MaxFaceNodes, maxnodes) || maxnodes <= 0)
     return;
 
-  MeshVS_Buffer        aCoordsBuf(3 * maxnodes * sizeof(Standard_Real));
+  Buffer        aCoordsBuf(3 * maxnodes * sizeof(Standard_Real));
   TColStd_Array1OfReal aCoords(aCoordsBuf, 1, 3 * maxnodes);
 
   Graphic3d_MaterialAspect AMat;
@@ -618,9 +618,9 @@ void MeshVS_MeshPrsBuilder::BuildHilightPrs(const Handle(Prs3d_Presentation)& Pr
   AMat.SetSpecularColor(Quantity_NOC_BLACK);
   AMat.SetEmissiveColor(Quantity_NOC_BLACK);
 
-  Handle(Graphic3d_AspectFillArea3d) aFill = MeshVS_Tool::CreateAspectFillArea3d(GetDrawer(), AMat);
-  Handle(Graphic3d_AspectLine3d)     aBeam = MeshVS_Tool::CreateAspectLine3d(GetDrawer());
-  Handle(Graphic3d_AspectMarker3d)   aNodeMark = MeshVS_Tool::CreateAspectMarker3d(GetDrawer());
+  Handle(Graphic3d_AspectFillArea3d) aFill = Tool4::CreateAspectFillArea3d(GetDrawer(), AMat);
+  Handle(Graphic3d_AspectLine3d)     aBeam = Tool4::CreateAspectLine3d(GetDrawer());
+  Handle(Graphic3d_AspectMarker3d)   aNodeMark = Tool4::CreateAspectMarker3d(GetDrawer());
 
   // Hilight one element or node
   TColStd_MapIteratorOfPackedMapOfInteger it(IDs);
@@ -972,7 +972,7 @@ void MeshVS_MeshPrsBuilder::AddVolumePrs(const Handle(MeshVS_HArray1OfSequenceOf
   else
   {
     // Find all pairs of nodes (edges) to draw (will be drawn only once)
-    NCollection_Map<MeshVS_NodePair, MeshVS_SymmetricPairHasher> aEdgeMap;
+    NCollection_Map<MeshVS_NodePair, SymmetricPairHasher> aEdgeMap;
 
     for (Standard_Integer aFaceIdx = theTopo->Lower(), topoup = theTopo->Upper();
          aFaceIdx <= topoup;
@@ -991,7 +991,7 @@ void MeshVS_MeshPrsBuilder::AddVolumePrs(const Handle(MeshVS_HArray1OfSequenceOf
     }
 
     // Draw1 edges
-    for (NCollection_Map<MeshVS_NodePair, MeshVS_SymmetricPairHasher>::Iterator anIt(aEdgeMap);
+    for (NCollection_Map<MeshVS_NodePair, SymmetricPairHasher>::Iterator anIt(aEdgeMap);
          anIt.More();
          anIt.Next())
     {

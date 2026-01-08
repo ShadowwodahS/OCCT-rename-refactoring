@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Workspace, RefObject)
 
 //=================================================================================================
 
-void OpenGl_Material::Init(const OpenGl_Context&           theCtx,
+void Material4::Init(const OpenGl_Context&           theCtx,
                            const Graphic3d_MaterialAspect& theFront,
                            const Quantity_Color&           theFrontColor,
                            const Graphic3d_MaterialAspect& theBack,
@@ -47,13 +47,13 @@ void OpenGl_Material::Init(const OpenGl_Context&           theCtx,
 
 //=================================================================================================
 
-void OpenGl_Material::init(const OpenGl_Context&           theCtx,
+void Material4::init(const OpenGl_Context&           theCtx,
                            const Graphic3d_MaterialAspect& theMat,
                            const Quantity_Color&           theInteriorColor,
                            const Standard_Integer          theIndex)
 {
-  OpenGl_MaterialCommon& aCommon = Common[theIndex];
-  OpenGl_MaterialPBR&    aPbr    = Pbr[theIndex];
+  MaterialCommon& aCommon = Common[theIndex];
+  MaterialPBR&    aPbr    = Pbr[theIndex];
   aPbr.ChangeMetallic()          = theMat.PBRMaterial().Metallic();
   aPbr.ChangeRoughness()         = theMat.PBRMaterial().NormalizedRoughness();
   aPbr.EmissionIOR = Graphic3d_Vec4(theMat.PBRMaterial().Emission(), theMat.PBRMaterial().IOR());

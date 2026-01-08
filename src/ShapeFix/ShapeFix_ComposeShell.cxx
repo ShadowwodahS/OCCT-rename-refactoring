@@ -622,7 +622,7 @@ Standard_Integer ShapeFix_ComposeShell::ComputeCode(const Handle(ShapeExtend_Wir
   gp_Pnt2d         p2d0;
 
   // check if segment is tangency
-  // Segment is considered as tangency if deviation of pcurve from line
+  // Segment1 is considered as tangency if deviation of pcurve from line
   // (in 2d) measured by NPOINTS points is less than tolerance of edge
   // (recomputed to 2d using Resolution).
 
@@ -1486,7 +1486,7 @@ Standard_Boolean ShapeFix_ComposeShell::SplitByLine(ShapeFix_WireSegment&      w
         }
         for (i = 1; i <= Inter.NbSegments(); i++)
         {
-          IntRes2d_IntersectionSegment IS = Inter.Segment(i);
+          IntRes2d_IntersectionSegment IS = Inter.Segment1(i);
           if (IS.HasFirstPoint())
           {
             IntRes2d_IntersectionPoint IP = IS.FirstPoint();

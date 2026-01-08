@@ -30,14 +30,14 @@ class OpenGl_Workspace;
 struct OpenGl_GlobalLayerSettings;
 
 //! Class defining the list of layers.
-class OpenGl_LayerList
+class LayerList1
 {
 public:
   //! Constructor
-  Standard_EXPORT OpenGl_LayerList();
+  Standard_EXPORT LayerList1();
 
   //! Destructor
-  Standard_EXPORT virtual ~OpenGl_LayerList();
+  Standard_EXPORT virtual ~LayerList1();
 
   //! Method returns the number of available priorities
   Standard_Integer NbPriorities() const { return Graphic3d_DisplayPriority_NB; }
@@ -136,7 +136,7 @@ public:
 
 protected:
   //! Stack of references to existing layers of predefined maximum size.
-  class OpenGl_LayerStack
+  class LayerStack
   {
   public:
     typedef NCollection_Array1<const Graphic3d_Layer*>::const_iterator const_iterator;
@@ -200,7 +200,7 @@ protected:
   //! @param[in] theOitAccumFbo  the framebuffer for accumulating color and coverage for OIT
   //! process.
   Standard_EXPORT void renderTransparent(const Handle(OpenGl_Workspace)&   theWorkspace,
-                                         OpenGl_LayerStack::iterator&      theLayerIter,
+                                         LayerStack::iterator&      theLayerIter,
                                          const OpenGl_GlobalLayerSettings& theGlobalSettings,
                                          OpenGl_FrameBuffer*               theReadDrawFbo,
                                          OpenGl_FrameBuffer*               theOitAccumFbo) const;
@@ -223,7 +223,7 @@ protected:
   mutable Standard_Size myModifStateOfRaytraceable;
 
   //! Collection of references to layers with transparency gathered during rendering pass.
-  mutable OpenGl_LayerStack myTransparentToProcess;
+  mutable LayerStack myTransparentToProcess;
 
 public:
   DEFINE_STANDARD_ALLOC

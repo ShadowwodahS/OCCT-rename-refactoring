@@ -190,7 +190,7 @@ OpenGl_Context::OpenGl_Context(const Handle(OpenGl_Caps)& theCaps)
       myUnusedResources(new OpenGl_ResourcesStack()),
       myClippingState(),
       myGlLibHandle(NULL),
-      myFuncs(new OpenGl_GlFunctions()),
+      myFuncs(new GlFunctions()),
       myGapi(
 #if defined(OCC_USE_GLES2)
         Aspect_GraphicsLibrary_OpenGLES
@@ -289,7 +289,7 @@ OpenGl_Context::OpenGl_Context(const Handle(OpenGl_Caps)& theCaps)
   #endif
 #endif
 
-  memset(myFuncs.get(), 0, sizeof(OpenGl_GlFunctions));
+  memset(myFuncs.get(), 0, sizeof(GlFunctions));
   myShaderManager = new OpenGl_ShaderManager(this);
 }
 
@@ -1072,7 +1072,7 @@ bool OpenGl_Context::ResetErrors(const bool theToPrintErrors)
 
 void OpenGl_Context::ReadGlVersion(Standard_Integer& theGlVerMajor, Standard_Integer& theGlVerMinor)
 {
-  OpenGl_GlFunctions::readGlVersion(theGlVerMajor, theGlVerMinor);
+  GlFunctions::readGlVersion(theGlVerMajor, theGlVerMinor);
 }
 
 static Standard_CString THE_DBGMSG_UNKNOWN   = "UNKNOWN";
@@ -1244,7 +1244,7 @@ void OpenGl_Context::init(const Standard_Boolean theIsCoreProfile)
   myMaxDrawBuffers      = 1;
   myMaxColorAttachments = 1;
   myDefaultVao          = 0;
-  OpenGl_GlFunctions::readGlVersion(myGlVerMajor, myGlVerMinor);
+  GlFunctions::readGlVersion(myGlVerMajor, myGlVerMinor);
   mySupportedFormats->Clear();
 
   if (caps->contextMajorVersionUpper != -1)
@@ -1933,7 +1933,7 @@ void OpenGl_Context::DiagnosticInformation(TColStd_IndexedDataMapOfStringString&
   if ((theFlags & Graphic3d_DiagnosticInfo_Device) != 0)
   {
     Standard_Integer aDriverVer[2] = {};
-    OpenGl_GlFunctions::readGlVersion(aDriverVer[0], aDriverVer[1]);
+    GlFunctions::readGlVersion(aDriverVer[0], aDriverVer[1]);
     addInfo(theDict, "GLvendor", (const char*)core11fwd->glGetString(GL_VENDOR));
     addInfo(theDict, "GLdevice", (const char*)core11fwd->glGetString(GL_RENDERER));
 #ifdef __EMSCRIPTEN__
@@ -2140,7 +2140,7 @@ Handle(OpenGl_TextureSet) OpenGl_Context::BindTextures(
     Image_PixMap anImage;
     anImage.InitZero(Image_Format_RGBA, 2, 2, 0, (Standard_Byte)0);
     if (!myTextureRgbaBlack->Init(this,
-                                  OpenGl_TextureFormat::Create<GLubyte, 4>(),
+                                  TextureFormat::Create<GLubyte, 4>(),
                                   Graphic3d_Vec2i(2, 2),
                                   Graphic3d_TypeOfTexture_2D,
                                   &anImage))
@@ -2153,7 +2153,7 @@ Handle(OpenGl_TextureSet) OpenGl_Context::BindTextures(
     }
     anImage.InitZero(Image_Format_RGBA, 2, 2, 0, (Standard_Byte)255);
     if (!myTextureRgbaWhite->Init(this,
-                                  OpenGl_TextureFormat::Create<GLubyte, 4>(),
+                                  TextureFormat::Create<GLubyte, 4>(),
                                   Graphic3d_Vec2i(2, 2),
                                   Graphic3d_TypeOfTexture_2D,
                                   &anImage))
@@ -2433,7 +2433,7 @@ void OpenGl_Context::SetColor4fv(const OpenGl_Vec4& theColor)
 {
   if (!myActiveProgram.IsNull())
   {
-    if (const OpenGl_ShaderUniformLocation& aLoc =
+    if (const ShaderUniformLocation& aLoc =
           myActiveProgram->GetStateLocation(OpenGl_OCCT_COLOR))
     {
       myActiveProgram->SetUniform(this, aLoc, Vec4FromQuantityColor(theColor));
@@ -2459,7 +2459,7 @@ void OpenGl_Context::SetLineStipple(const Standard_ShortReal theFactor, const ui
 {
   if (!myActiveProgram.IsNull())
   {
-    if (const OpenGl_ShaderUniformLocation aPatternLoc =
+    if (const ShaderUniformLocation aPatternLoc =
           myActiveProgram->GetStateLocation(OpenGl_OCCT_LINE_STIPPLE_PATTERN))
     {
       if (hasGlslBitwiseOps != OpenGl_FeatureNotAvailable)

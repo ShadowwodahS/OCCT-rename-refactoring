@@ -1328,15 +1328,15 @@ void  TopOpeBRepDS_BuildTool::RecomputeBSpline1Curve
   if ( typec3d == TopOpeBRepTool_BSPLINE1 ) {
     if ( compc3d ) {
       C3Dnew = Handle(BSplineCurve3d)::DownCast(C3D->Copy());
-      (Handle(BSplineCurve3d)::DownCast(C3Dnew))->Segment(parmin,parmax);
+      (Handle(BSplineCurve3d)::DownCast(C3Dnew))->Segment1(parmin,parmax);
     }
     if ( comppc1 && (!PC1.IsNull()) ) {
       PC1new = Handle(Geom2d_BSplineCurve)::DownCast(PC1->Copy());
-      (Handle(Geom2d_BSplineCurve)::DownCast(PC1new))->Segment(parmin,parmax);
+      (Handle(Geom2d_BSplineCurve)::DownCast(PC1new))->Segment1(parmin,parmax);
     }
     if ( comppc2 && (!PC2.IsNull()) ) {
       PC2new = Handle(Geom2d_BSplineCurve)::DownCast(PC2->Copy());
-      (Handle(Geom2d_BSplineCurve)::DownCast(PC2new))->Segment(parmin,parmax);
+      (Handle(Geom2d_BSplineCurve)::DownCast(PC2new))->Segment1(parmin,parmax);
     }
   }
 

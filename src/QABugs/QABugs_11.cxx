@@ -1294,7 +1294,7 @@ static Standard_Integer OCC369(DrawInterpreter& di, Standard_Integer argc, const
     }
 
     // 3. Build mesh
-    IMeshTools_Parameters aMeshParams;
+    Parameters3 aMeshParams;
     aMeshParams.Relative   = Standard_True;
     aMeshParams.Deflection = 0.2;
     aMeshParams.Angle      = M_PI / 6.0;
@@ -2900,7 +2900,7 @@ static Standard_Integer OCC8169(DrawInterpreter& di, Standard_Integer argc, cons
 
   if (NbSegments > 0)
   {
-    IntRes2d_IntersectionSegment aSegment = anInter.Intersector().Segment(1);
+    IntRes2d_IntersectionSegment aSegment = anInter.Intersector().Segment1(1);
 
     gp_Pnt2d aP1 = aCurve2d1->Value(aSegment.FirstPoint().ParamOnFirst());
     gp_Pnt2d aP2 = aCurve2d2->Value(aSegment.FirstPoint().ParamOnSecond());

@@ -180,7 +180,7 @@ public:
   //! segmentation for example if U1 or U2 are out of the bounds
   //! of the curve <me> or if the curve makes loop.
   //! After the segmentation the length of a curve can be null.
-  Standard_EXPORT void Segment(const Standard_Real U1, const Standard_Real U2);
+  Standard_EXPORT void Segment1(const Standard_Real U1, const Standard_Real U2);
 
   //! Substitutes the pole of range index with P.
   //! If the curve <me> is rational the weight of range Index

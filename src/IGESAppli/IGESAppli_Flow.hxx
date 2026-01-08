@@ -89,7 +89,7 @@ public:
 
   //! returns Type of Flow = 0 : Not Specified (default)
   //! 1 : Logical
-  //! 2 : Physical
+  //! 2 : Physical1
   Standard_EXPORT Standard_Integer TypeOfFlow() const;
 
   //! returns Function Flag = 0 : Not Specified (default)

@@ -40,7 +40,7 @@ public:
   //! Performs processing of the given face.
   Standard_EXPORT virtual void Perform(
     const IMeshData::IFaceHandle& theDFace,
-    const IMeshTools_Parameters&  theParameters,
+    const Parameters3&  theParameters,
     const Message_ProgressRange&  theRange = Message_ProgressRange()) Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(BRepMesh_BaseMeshAlgo, IMeshTools_MeshAlgo)
@@ -50,7 +50,7 @@ protected:
   const IMeshData::IFaceHandle& getDFace() const { return myDFace; }
 
   //! Gets meshing parameters.
-  const IMeshTools_Parameters& getParameters() const { return myParameters; }
+  const Parameters3& getParameters() const { return myParameters; }
 
   //! Gets common allocator.
   const Handle(NCollection_IncAllocator)& getAllocator() const { return myAllocator; }
@@ -79,7 +79,7 @@ protected:
     const Standard_Boolean         isForceAdd);
 
   //! Returns 2d point associated to the given vertex.
-  Standard_EXPORT virtual gp_Pnt2d getNodePoint2d(const BRepMesh_Vertex& theVertex) const;
+  Standard_EXPORT virtual gp_Pnt2d getNodePoint2d(const Vertex& theVertex) const;
 
   //! Performs initialization of data structure using existing model data.
   Standard_EXPORT virtual Standard_Boolean initDataStructure();
@@ -113,7 +113,7 @@ private:
     DMapOfIntegerInteger;
 
   IMeshData::IFaceHandle                 myDFace;
-  IMeshTools_Parameters                  myParameters;
+  Parameters3                  myParameters;
   Handle(NCollection_IncAllocator)       myAllocator;
   Handle(BRepMesh_DataStructureOfDelaun) myStructure;
   Handle(VectorOfPnt)                    myNodesMap;

@@ -425,7 +425,7 @@ std::pair<Standard_Integer, Standard_Integer> BRepMesh_GeomTool::CellsCount(
   const Handle(Adaptor3d_Surface)&     theSurface,
   const Standard_Integer               theVerticesNb,
   const Standard_Real                  theDeflection,
-  const BRepMesh_DefaultRangeSplitter* theRangeSplitter)
+  const DefaultRangeSplitter* theRangeSplitter)
 {
   if (theRangeSplitter == NULL)
     return std::pair<Standard_Integer, Standard_Integer>(-1, -1);

@@ -107,7 +107,7 @@ IMPLEMENT_STANDARD_RTTIEXT(OpenGl_View, Graphic3d_CView)
 OpenGl_View::OpenGl_View(const Handle(Graphic3d_StructureManager)& theMgr,
                          const Handle(OpenGl_GraphicDriver)&       theDriver,
                          const Handle(OpenGl_Caps)&                theCaps,
-                         OpenGl_StateCounter*                      theCounter)
+                         StateCounter*                      theCounter)
     : Graphic3d_CView(theMgr),
       myDriver(theDriver.operator->()),
       myCaps(theCaps),
@@ -540,7 +540,7 @@ Standard_Boolean OpenGl_View::BufferDump(Image_PixMap&               theImage,
   aCtx->core11fwd->glBindTexture(GL_TEXTURE_RECTANGLE, myRaytraceOutputTexture[0]->TextureId());
   aCtx->core11fwd->glGetTexImage(GL_TEXTURE_RECTANGLE,
                                  0,
-                                 OpenGl_TextureFormat::Create<GLfloat, 1>().Format(),
+                                 TextureFormat::Create<GLfloat, 1>().Format(),
                                  GL_FLOAT,
                                  &aValues[0]);
   aCtx->core11fwd->glBindTexture(GL_TEXTURE_RECTANGLE, 0);
@@ -1026,11 +1026,11 @@ void OpenGl_View::DiagnosticInformation(TColStd_IndexedDataMapOfStringString& th
       AsciiString1 anFboInfo;
       if (const Handle(OpenGl_Texture)& aColorTex = myMainSceneFbos[0]->ColorTexture())
       {
-        anFboInfo += OpenGl_TextureFormat::FormatFormat(aColorTex->SizedFormat());
+        anFboInfo += TextureFormat::FormatFormat(aColorTex->SizedFormat());
       }
       if (const Handle(OpenGl_Texture)& aDepthTex = myMainSceneFbos[0]->DepthStencilTexture())
       {
-        anFboInfo = anFboInfo + " " + OpenGl_TextureFormat::FormatFormat(aDepthTex->SizedFormat());
+        anFboInfo = anFboInfo + " " + TextureFormat::FormatFormat(aDepthTex->SizedFormat());
       }
       theDict.ChangeFromIndex(theDict.Add("FBO buffer", anFboInfo)) = anFboInfo;
     }
@@ -1468,8 +1468,8 @@ bool OpenGl_View::prepareFrameBuffers(CameraOn3d::Projection& theProj)
             }
           }
 
-          OpenGl_TextureFormat aTexFormat =
-            OpenGl_TextureFormat::FindFormat(aCtx, aPixMap->Format(), false);
+          TextureFormat aTexFormat =
+            TextureFormat::FindFormat(aCtx, aPixMap->Format(), false);
           if (aCtx->GraphicsLibrary() == Aspect_GraphicsLibrary_OpenGLES && aTexFormat.IsValid()
               && hasHalfFloat)
           {

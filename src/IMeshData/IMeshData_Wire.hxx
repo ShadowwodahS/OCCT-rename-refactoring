@@ -25,7 +25,7 @@
 
 //! Interface class representing discrete model of a wire.
 //! Wire should represent an ordered set of edges.
-class IMeshData_Wire : public IMeshData_TessellatedShape, public IMeshData_StatusOwner
+class IMeshData_Wire : public IMeshData_TessellatedShape, public StatusOwner
 {
 public:
   //! Destructor.

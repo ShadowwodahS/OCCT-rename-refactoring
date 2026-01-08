@@ -1450,7 +1450,7 @@ void BRepOffset_MakeOffset::BuildOffsetByInter(const Message_ProgressRange& theR
     }
     const TopoFace& NEF          = TopoDS::Face(itLFE.Value());
     Standard_Real      aCurrFaceTol = BRepInspector::Tolerance(NEF);
-    BRepOffset_Inter2d::Compute(AsDes,
+    Inter2d::Compute(AsDes,
                                 NEF,
                                 NewEdges,
                                 aCurrFaceTol,
@@ -1472,7 +1472,7 @@ void BRepOffset_MakeOffset::BuildOffsetByInter(const Message_ProgressRange& theR
     }
     const TopoFace& Cork         = TopoDS::Face(myFaces(i));
     Standard_Real      aCurrFaceTol = BRepInspector::Tolerance(Cork);
-    BRepOffset_Inter2d::Compute(AsDes,
+    Inter2d::Compute(AsDes,
                                 Cork,
                                 NewEdges,
                                 aCurrFaceTol,
@@ -1481,7 +1481,7 @@ void BRepOffset_MakeOffset::BuildOffsetByInter(const Message_ProgressRange& theR
                                 aPS2dCaps.Next());
   }
   //
-  BRepOffset_Inter2d::FuseVertices(aDMVV, AsDes, myImageVV);
+  Inter2d::FuseVertices(aDMVV, AsDes, myImageVV);
   //-------------------------------
   // Unwinding of extended Faces.
   //-------------------------------
@@ -2257,7 +2257,7 @@ void BRepOffset_MakeOffset::ToContext(BRepOffset_DataMapOfShapeOffset& MapSF)
     BRepOffset_Offset   BOF;
     BOF = MapSF(S);
     F   = TopoDS::Face(BOF.Face());
-    BRepOffset_Tool::ExtentFace(F, Created, MEF, Side, myTol, NF);
+    Tool5::ExtentFace(F, Created, MEF, Side, myTol, NF);
     MapSF.UnBind(S);
     //--------------
     // MAJ SD.
@@ -2857,7 +2857,7 @@ void BRepOffset_MakeOffset::Intersection3D(BRepOffset_Inter3d&          Inter,
     TopTools_IndexedMapOfShape& NewEdges = Inter.NewEdges();
     if (myJoin == GeomAbs_Intersection)
     {
-      BRepOffset_Tool::CorrectOrientation(myFaceComp,
+      Tool5::CorrectOrientation(myFaceComp,
                                           NewEdges,
                                           myAsDes,
                                           myInitOffsetFace,
@@ -2915,10 +2915,10 @@ void BRepOffset_MakeOffset::Intersection2D(const TopTools_IndexedMapOfShape& Mod
       return;
     }
     const TopoFace& F = TopoDS::Face(Modif(i));
-    BRepOffset_Inter2d::Compute(myAsDes, F, NewEdges, myTol, myEdgeIntEdges, aDMVV, aPS.Next());
+    Inter2d::Compute(myAsDes, F, NewEdges, myTol, myEdgeIntEdges, aDMVV, aPS.Next());
   }
   //
-  BRepOffset_Inter2d::FuseVertices(aDMVV, myAsDes, myImageVV);
+  Inter2d::FuseVertices(aDMVV, myAsDes, myImageVV);
   //
 #ifdef OCCT_DEBUG
   if (AffichInt2d)
@@ -3822,7 +3822,7 @@ void BRepOffset_MakeOffset::SelectShells()
   if (!FreeEdges.IsEmpty() && myFaces.IsEmpty())
     return;
 
-  myOffsetShape = BRepOffset_Tool::Deboucle3D(myOffsetShape, FreeEdges);
+  myOffsetShape = Tool5::Deboucle3D(myOffsetShape, FreeEdges);
 }
 
 //=================================================================================================
@@ -4016,7 +4016,7 @@ void BRepOffset_MakeOffset::EncodeRegularity()
       //  if two root faces are tangent in
       //  the initial shape, they will be tangent in the offset shape
       ShapeList LE;
-      BRepOffset_Tool::FindCommonShapes(Root1, Root2, TopAbs_EDGE, LE);
+      Tool5::FindCommonShapes(Root1, Root2, TopAbs_EDGE, LE);
       if (LE.Extent() == 1)
       {
         const TopoEdge& Ed = TopoDS::Edge(LE.First());
@@ -4033,7 +4033,7 @@ void BRepOffset_MakeOffset::EncodeRegularity()
     else if (Type1 == TopAbs_EDGE && Type2 == TopAbs_EDGE)
     {
       ShapeList LV;
-      BRepOffset_Tool::FindCommonShapes(Root1, Root2, TopAbs_VERTEX, LV);
+      Tool5::FindCommonShapes(Root1, Root2, TopAbs_VERTEX, LV);
       if (LV.Extent() == 1)
       {
         ShapeList LEdTg;
@@ -4576,7 +4576,7 @@ void BRepOffset_MakeOffset::IntersectEdges(const ShapeList&      theFaces,
   {
     const TopoFace& aF = TopoDS::Face(it.Value());
     aTolF                 = BRepInspector::Tolerance(aF);
-    if (!BRepOffset_Inter2d::ConnexIntByInt(aF,
+    if (!Inter2d::ConnexIntByInt(aF,
                                             theMapSF(aF),
                                             theMES,
                                             theBuild,
@@ -4607,7 +4607,7 @@ void BRepOffset_MakeOffset::IntersectEdges(const ShapeList&      theFaces,
   {
     const TopoFace& aF = TopoDS::Face(aMFV(i));
     aTolF                 = BRepInspector::Tolerance(aF);
-    BRepOffset_Inter2d::ConnexIntByIntInVert(aF,
+    Inter2d::ConnexIntByIntInVert(aF,
                                              theMapSF(aF),
                                              theMES,
                                              theBuild,
@@ -4625,7 +4625,7 @@ void BRepOffset_MakeOffset::IntersectEdges(const ShapeList&      theFaces,
   }
   //
   // fuse vertices on edges
-  if (!BRepOffset_Inter2d::FuseVertices(aDMVV, theAsDes2d, myImageVV))
+  if (!Inter2d::FuseVertices(aDMVV, theAsDes2d, myImageVV))
   {
     myError = BRepOffset_CannotFuseVertices;
     return;
@@ -4779,7 +4779,7 @@ Standard_Boolean TrimEdges(const TopoShape&                 theShape,
           if (aBAC.GetType() == GeomAbs_Line)
           {
             TopoEdge aNewEdge;
-            BRepOffset_Inter2d::ExtentEdge(anEdge, aNewEdge, theOffset);
+            Inter2d::ExtentEdge(anEdge, aNewEdge, theOffset);
             theETrimEInf.Bind(anEdge, aNewEdge);
           }
         }
@@ -5068,7 +5068,7 @@ Standard_Boolean BuildShellsCompleteInter(const ShapeList&  theLF,
     for (; aItLOr.More(); aItLOr.Next())
     {
       const TopoFace& aFOr = TopoDS::Face(aItLOr.Value());
-      if (BRepOffset_Tool::CheckPlanesNormals(aF, aFOr))
+      if (Tool5::CheckPlanesNormals(aF, aFOr))
       {
         aLF.Append(aF);
         break;

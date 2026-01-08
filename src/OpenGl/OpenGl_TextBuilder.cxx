@@ -34,14 +34,14 @@ inline OpenGl_Vec2& floor(OpenGl_Vec2& theVec)
 
 //=================================================================================================
 
-OpenGl_TextBuilder::OpenGl_TextBuilder()
+TextBuilder::TextBuilder()
 {
   //
 }
 
 //=================================================================================================
 
-void OpenGl_TextBuilder::createGlyphs(
+void TextBuilder::createGlyphs(
   const Handle(Font_TextFormatter)&                                        theFormatter,
   const Handle(OpenGl_Context)&                                            theCtx,
   OpenGl_Font&                                                             theFont,
@@ -110,7 +110,7 @@ void OpenGl_TextBuilder::createGlyphs(
 
 //=================================================================================================
 
-void OpenGl_TextBuilder::Perform(
+void TextBuilder::Perform(
   const Handle(Font_TextFormatter)&                theFormatter,
   const Handle(OpenGl_Context)&                    theCtx,
   OpenGl_Font&                                     theFont,

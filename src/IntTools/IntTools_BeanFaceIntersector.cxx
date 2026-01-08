@@ -670,7 +670,7 @@ void IntTools_BeanFaceIntersector::ComputeAroundExactIntersection()
 
     for (i = 1; i <= anExactIntersector.NbSegments(); i++)
     {
-      const IntCurveSurface_IntersectionSegment& aSegment = anExactIntersector.Segment(i);
+      const IntCurveSurface_IntersectionSegment& aSegment = anExactIntersector.Segment1(i);
       IntersectionPoint1          aPoint1, aPoint2;
       aSegment.Values(aPoint1, aPoint2);
 

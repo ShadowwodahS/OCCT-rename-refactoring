@@ -98,7 +98,7 @@ enum OpenGl_StateVariable
 };
 
 //! Interface for generic setter of user-defined uniform variables.
-struct OpenGl_SetterInterface
+struct SetterInterface
 {
   //! Sets user-defined uniform variable to specified program.
   virtual void Set(const Handle(OpenGl_Context)&           theCtx,
@@ -106,24 +106,24 @@ struct OpenGl_SetterInterface
                    OpenGl_ShaderProgram*                   theProgram) = 0;
 
   //! Destructor
-  virtual ~OpenGl_SetterInterface() {}
+  virtual ~SetterInterface() {}
 };
 
 //! List of OpenGL shader objects.
 typedef NCollection_Sequence<Handle(OpenGl_ShaderObject)> OpenGl_ShaderList;
 
 //! List of shader variable setters.
-typedef NCollection_DataMap<size_t, OpenGl_SetterInterface*> OpenGl_SetterList;
+typedef NCollection_DataMap<size_t, SetterInterface*> OpenGl_SetterList;
 
 //! Support tool for setting user-defined uniform variables.
-class OpenGl_VariableSetterSelector
+class VariableSetterSelector
 {
 public:
   //! Creates new setter selector.
-  OpenGl_VariableSetterSelector();
+  VariableSetterSelector();
 
   //! Releases memory resources of setter selector.
-  ~OpenGl_VariableSetterSelector();
+  ~VariableSetterSelector();
 
   //! Sets user-defined uniform variable to specified program.
   void Set(const Handle(OpenGl_Context)&           theCtx,
@@ -150,7 +150,7 @@ enum OpenGl_UniformStateType
 };
 
 //! Simple class represents GLSL program variable location.
-class OpenGl_ShaderUniformLocation
+class ShaderUniformLocation
 {
 public:
   //! Invalid location of uniform/attribute variable.
@@ -158,13 +158,13 @@ public:
 
 public:
   //! Construct an invalid location.
-  OpenGl_ShaderUniformLocation()
+  ShaderUniformLocation()
       : myLocation(INVALID_LOCATION)
   {
   }
 
   //! Constructor with initialization.
-  explicit OpenGl_ShaderUniformLocation(GLint theLocation)
+  explicit ShaderUniformLocation(GLint theLocation)
       : myLocation(theLocation)
   {
   }
@@ -223,7 +223,7 @@ public:
                                        const AsciiString1&         theId    = "");
 
 protected:
-  static OpenGl_VariableSetterSelector mySetterSelector;
+  static VariableSetterSelector mySetterSelector;
 
 public:
   //! Releases resources of shader program.
@@ -319,7 +319,7 @@ private:
 
 public:
   //! Returns location of the specific uniform variable.
-  Standard_EXPORT OpenGl_ShaderUniformLocation
+  Standard_EXPORT ShaderUniformLocation
     GetUniformLocation(const Handle(OpenGl_Context)& theCtx, const GLchar* theName) const;
 
   //! Returns index of the generic vertex attribute by variable name.
@@ -327,7 +327,7 @@ public:
                                              const GLchar*                 theName) const;
 
   //! Returns location of the OCCT state uniform variable.
-  const OpenGl_ShaderUniformLocation& GetStateLocation(OpenGl_StateVariable theVariable) const
+  const ShaderUniformLocation& GetStateLocation(OpenGl_StateVariable theVariable) const
   {
     return myStateLocations[theVariable];
   }
@@ -645,11 +645,11 @@ protected:
                                                            // clang-format on
 
   //! Stores locations of OCCT state uniform variables.
-  OpenGl_ShaderUniformLocation myStateLocations[OpenGl_OCCT_NUMBER_OF_STATE_VARIABLES];
+  ShaderUniformLocation myStateLocations[OpenGl_OCCT_NUMBER_OF_STATE_VARIABLES];
 };
 
 template <class T>
-struct OpenGl_VariableSetter : public OpenGl_SetterInterface
+struct OpenGl_VariableSetter : public SetterInterface
 {
   virtual void Set(const Handle(OpenGl_Context)&           theCtx,
                    const Handle(Graphic3d_ShaderVariable)& theVariable,

@@ -1163,7 +1163,7 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferBSplineCurve(
   Standard_Real Ufin  = start->UMax();
   //%11 pdn 12.01.98 CTS22023
   // if ( (Udeb-First) > Precision::PConfusion() || (Last-Ufin) > Precision::PConfusion() )
-  //  BSplineRes->Segment(Udeb, Ufin);
+  //  BSplineRes->Segment1(Udeb, Ufin);
   // res = BSplineRes;
 
   //  IGESConvGeom1::IncreaseCurveContinuity (BSplineRes,Min(Precision::Confusion(),GetEpsGeom()),
@@ -1179,7 +1179,7 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferBSplineCurve(
     {
       OCC_CATCH_SIGNALS
       if (Abs(Ufin - Udeb) > Precision::PConfusion())
-        BSplineRes->Segment(Udeb, Ufin);
+        BSplineRes->Segment1(Udeb, Ufin);
       res = BSplineRes;
     }
     catch (ExceptionBase const&)

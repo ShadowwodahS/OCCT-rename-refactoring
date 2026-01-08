@@ -20,21 +20,21 @@
 
 //=================================================================================================
 
-BRepSweep_Tool::BRepSweep_Tool(const TopoShape& aShape)
+Tool6::Tool6(const TopoShape& aShape)
 {
   TopExp1::MapShapes(aShape, myMap);
 }
 
 //=================================================================================================
 
-Standard_Integer BRepSweep_Tool::NbShapes1() const
+Standard_Integer Tool6::NbShapes1() const
 {
   return myMap.Extent();
 }
 
 //=================================================================================================
 
-Standard_Integer BRepSweep_Tool::Index(const TopoShape& aShape) const
+Standard_Integer Tool6::Index(const TopoShape& aShape) const
 {
   if (!myMap.Contains(aShape))
     return 0;
@@ -43,28 +43,28 @@ Standard_Integer BRepSweep_Tool::Index(const TopoShape& aShape) const
 
 //=================================================================================================
 
-TopoShape BRepSweep_Tool::Shape(const Standard_Integer anIndex) const
+TopoShape Tool6::Shape(const Standard_Integer anIndex) const
 {
   return myMap.FindKey(anIndex);
 }
 
 //=================================================================================================
 
-TopAbs_ShapeEnum BRepSweep_Tool::Type(const TopoShape& aShape) const
+TopAbs_ShapeEnum Tool6::Type(const TopoShape& aShape) const
 {
   return aShape.ShapeType();
 }
 
 //=================================================================================================
 
-TopAbs_Orientation BRepSweep_Tool::Orientation(const TopoShape& aShape) const
+TopAbs_Orientation Tool6::Orientation(const TopoShape& aShape) const
 {
   return aShape.Orientation();
 }
 
 //=================================================================================================
 
-void BRepSweep_Tool::SetOrientation(TopoShape& aShape, const TopAbs_Orientation Or) const
+void Tool6::SetOrientation(TopoShape& aShape, const TopAbs_Orientation Or) const
 {
   aShape.Orientation(Or);
 }

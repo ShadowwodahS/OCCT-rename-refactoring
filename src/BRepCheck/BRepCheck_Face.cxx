@@ -217,7 +217,7 @@ BRepCheck_Status BRepCheck_Face::IntersectWires(const Standard_Boolean Update)
     {
       const TopoEdge& anEdge = TopoDS::Edge(exp2.Current());
       aC.Load(BRepInspector::CurveOnSurface(anEdge, TopoDS::Face(myShape), aFirst, aLast));
-      // To avoid exception in Segment if C1 is BSpline
+      // To avoid exception in Segment1 if C1 is BSpline
       if (aC.FirstParameter() > aFirst)
       {
         aFirst = aC.FirstParameter();
@@ -637,7 +637,7 @@ static Standard_Boolean Intersect(const TopoWire&         wir1,
     const TopoEdge& edg1 = TopoDS::Edge(exp1.Current());
     //    cur1.Initialize(edg1,F);
     C1.Load(BRepInspector::CurveOnSurface(edg1, F, first1, last1));
-    // To avoid exception in Segment if C1 is BSpline - IFV
+    // To avoid exception in Segment1 if C1 is BSpline - IFV
     if (C1.FirstParameter() > first1)
       first1 = C1.FirstParameter();
     if (C1.LastParameter() < last1)
@@ -659,7 +659,7 @@ static Standard_Boolean Intersect(const TopoWire&         wir1,
       {
         // cur2.Initialize(edg2,F);
         C2.Load(BRepInspector::CurveOnSurface(edg2, F, first2, last2));
-        // To avoid exception in Segment if C2 is BSpline - IFV
+        // To avoid exception in Segment1 if C2 is BSpline - IFV
         if (C2.FirstParameter() > first2)
           first2 = C2.FirstParameter();
         if (C2.LastParameter() < last2)
@@ -692,10 +692,10 @@ static Standard_Boolean Intersect(const TopoWire&         wir1,
               Standard_Integer NbCoinc = 0;
               for (i = 1; i <= Inter.NbSegments(); i++)
               {
-                if (!Inter.Segment(i).HasFirstPoint() || !Inter.Segment(i).HasLastPoint())
+                if (!Inter.Segment1(i).HasFirstPoint() || !Inter.Segment1(i).HasLastPoint())
                   return Standard_True;
-                gp_Pnt2d FirstP2d = Inter.Segment(i).FirstPoint().Value();
-                gp_Pnt2d LastP2d  = Inter.Segment(i).LastPoint().Value();
+                gp_Pnt2d FirstP2d = Inter.Segment1(i).FirstPoint().Value();
+                gp_Pnt2d LastP2d  = Inter.Segment1(i).LastPoint().Value();
                 Point3d   FirstP   = Surf.Value(FirstP2d.X(), FirstP2d.Y());
                 Point3d   LastP    = Surf.Value(LastP2d.X(), LastP2d.Y());
                 for (Standard_Integer j = 1; j <= PntSeq.Length(); j++)

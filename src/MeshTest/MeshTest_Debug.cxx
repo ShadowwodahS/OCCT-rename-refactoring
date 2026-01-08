@@ -49,8 +49,8 @@ Standard_EXPORT const char* MeshTest_DrawLinks(const char* theNameStr, void* the
         continue;
       Standard_Integer       n1   = aLink.FirstNode();
       Standard_Integer       n2   = aLink.LastNode();
-      const BRepMesh_Vertex& aV1  = aMeshData->GetNode(n1);
-      const BRepMesh_Vertex& aV2  = aMeshData->GetNode(n2);
+      const Vertex& aV1  = aMeshData->GetNode(n1);
+      const Vertex& aV2  = aMeshData->GetNode(n2);
       Handle(Draw_Segment3D) aSeg = new Draw_Segment3D(Point3d(aV1.Coord().X(), aV1.Coord().Y(), 0),
                                                        Point3d(aV2.Coord().X(), aV2.Coord().Y(), 0),
                                                        Draw_bleu);
@@ -86,14 +86,14 @@ Standard_EXPORT const char* MeshTest_DrawTriangles(const char* theNameStr, void*
     AsciiString1 aName(theNameStr);
     for (Standard_Integer i = 1; i <= nbElem; i++)
     {
-      const BRepMesh_Triangle& aTri = aMeshData->GetElement(i);
+      const Triangle3& aTri = aMeshData->GetElement(i);
       if (aTri.Movability() == BRepMesh_Deleted)
         continue;
       Standard_Integer n[3];
       aMeshData->ElementNodes(aTri, n);
-      const BRepMesh_Vertex&       aV1   = aMeshData->GetNode(n[0]);
-      const BRepMesh_Vertex&       aV2   = aMeshData->GetNode(n[1]);
-      const BRepMesh_Vertex&       aV3   = aMeshData->GetNode(n[2]);
+      const Vertex&       aV1   = aMeshData->GetNode(n[0]);
+      const Vertex&       aV2   = aMeshData->GetNode(n[1]);
+      const Vertex&       aV3   = aMeshData->GetNode(n[2]);
       Point3d                       aP[4] = {Point3d(aV1.Coord().X(), aV1.Coord().Y(), 0),
                                             Point3d(aV2.Coord().X(), aV2.Coord().Y(), 0),
                                             Point3d(aV3.Coord().X(), aV3.Coord().Y(), 0),

@@ -77,10 +77,10 @@ public:
   Standard_EXPORT Coords3d ScaleFactors() const;
 
   //! returns Type Flag which implements the distinction between Logical
-  //! design and Physical design data,and is required if both are present.
+  //! design and Physical1 design data,and is required if both are present.
   //! Type Flag = 0 : Not specified (default)
   //! = 1 : Logical
-  //! = 2 : Physical
+  //! = 2 : Physical1
   Standard_EXPORT Standard_Integer TypeFlag() const;
 
   //! returns the primary reference designator

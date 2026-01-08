@@ -277,7 +277,7 @@ static void EvalParameters(const TopoEdge&          Edge,
       IntRes2d_IntersectionSegment Seg;
       for (Standard_Integer i = 1; i <= NbSegments; i++)
       {
-        Seg = Intersector.Segment(i);
+        Seg = Intersector.Segment1(i);
         U1  = Seg.FirstPoint().ParamOnFirst();
         U1 += Seg.LastPoint().ParamOnFirst();
         U1 /= 2.;

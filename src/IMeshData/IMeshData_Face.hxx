@@ -29,7 +29,7 @@ class TopoWire;
 //! Interface class representing discrete model of a face.
 //! Face model contains one or several wires.
 //! First wire is always outer one.
-class IMeshData_Face : public IMeshData_TessellatedShape, public IMeshData_StatusOwner
+class IMeshData_Face : public IMeshData_TessellatedShape, public StatusOwner
 {
 public:
   //! Destructor.

@@ -258,7 +258,7 @@ Standard_Boolean AIS_RubberBand::fillTriangles()
   for (Standard_Integer aPtIdx = aPtsLower; aPtIdx <= aPtsUpper; ++aPtIdx)
   {
     Coords2d aP((Standard_Real)myPoints.Value(aPtIdx).x(), (Standard_Real)myPoints.Value(aPtIdx).y());
-    BRepMesh_Vertex aVertex(aP, aPtIdx, BRepMesh_Frontier);
+    Vertex aVertex(aP, aPtIdx, BRepMesh_Frontier);
     anIndexes.Append(aMeshStructure->AddNode(aVertex));
   }
 
@@ -296,7 +296,7 @@ Standard_Boolean AIS_RubberBand::fillTriangles()
   for (; aTriangleIt.More(); aTriangleIt.Next())
   {
     const Standard_Integer   aTriangleId      = aTriangleIt.Key();
-    const BRepMesh_Triangle& aCurrentTriangle = aMeshStructure->GetElement(aTriangleId);
+    const Triangle3& aCurrentTriangle = aMeshStructure->GetElement(aTriangleId);
 
     if (aCurrentTriangle.Movability() == BRepMesh_Deleted)
       continue;
@@ -307,7 +307,7 @@ Standard_Boolean AIS_RubberBand::fillTriangles()
     gp_Pnt2d aPts[3];
     for (Standard_Integer aVertIdx = 0; aVertIdx < 3; ++aVertIdx)
     {
-      const BRepMesh_Vertex& aVertex = aMeshStructure->GetNode(aTriangleVerts[aVertIdx]);
+      const Vertex& aVertex = aMeshStructure->GetNode(aTriangleVerts[aVertIdx]);
       aPts[aVertIdx]                 = aVertex.Coord();
     }
 

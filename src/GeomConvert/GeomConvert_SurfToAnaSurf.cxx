@@ -856,7 +856,7 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::ConvertToAnalytical(
     Handle(Geom_BSplineSurface) aBs = Handle(Geom_BSplineSurface)::DownCast(mySurf->Copy());
     if (aDoSegment)
     {
-      aBs->Segment(U1, U2, V1, V2);
+      aBs->Segment1(U1, U2, V1, V2);
     }
     aTempS = aBs;
   }
@@ -865,7 +865,7 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::ConvertToAnalytical(
     Handle(Geom_BezierSurface) aBz = Handle(Geom_BezierSurface)::DownCast(mySurf->Copy());
     if (aDoSegment)
     {
-      aBz->Segment(U1, U2, V1, V2);
+      aBz->Segment1(U1, U2, V1, V2);
     }
     aTempS = aBz;
   }

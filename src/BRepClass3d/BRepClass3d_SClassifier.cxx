@@ -251,7 +251,7 @@ void BRepClass3d_SClassifier::Perform(BRepClass3d_SolidExplorer& SolidExplorer,
   while (isFaultyLine)
   {
     if (anIndFace == 0)
-      iFlag = SolidExplorer.Segment(P, L, Par);
+      iFlag = SolidExplorer.Segment1(P, L, Par);
     else
       iFlag = SolidExplorer.OtherSegment(P, L, Par);
 

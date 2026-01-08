@@ -340,7 +340,7 @@ static void reparamBSpline(Handle(GeomCurve3d)& curve,
   else
   {
     bscurve = Handle(BSplineCurve3d)::DownCast(curve);
-    bscurve->Segment(First, Last);
+    bscurve->Segment1(First, Last);
   }
 
   if (bscurve.IsNull())
@@ -618,7 +618,7 @@ TopoShape IGESToBRep_TopoSurface::TransferRuledSurface(const Handle(IGESGeom_Rul
       else
       {
         bscurve = Handle(BSplineCurve3d)::DownCast(curve);
-        bscurve->Segment(First, Last);
+        bscurve->Segment1(First, Last);
       }
       TColStd_Array1OfReal Knots(1, bscurve->NbKnots());
       bscurve->Knots(Knots);

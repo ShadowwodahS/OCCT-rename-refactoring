@@ -47,7 +47,7 @@ namespace
 //! Sort two points in projection on vector (1,1)
 struct ComparatorOfVertexOfDelaun
 {
-  bool operator()(const BRepMesh_Vertex& theLeft, const BRepMesh_Vertex& theRight)
+  bool operator()(const Vertex& theLeft, const Vertex& theRight)
   {
     return theLeft.Coord().X() + theLeft.Coord().Y() < theRight.Coord().X() + theRight.Coord().Y();
   }
@@ -64,8 +64,8 @@ public:
 
   bool operator()(Standard_Integer theLeft, Standard_Integer theRight)
   {
-    const BRepMesh_Vertex& aLeft  = myStructure->GetNode(theLeft);
-    const BRepMesh_Vertex& aRight = myStructure->GetNode(theRight);
+    const Vertex& aLeft  = myStructure->GetNode(theLeft);
+    const Vertex& aRight = myStructure->GetNode(theRight);
     return ComparatorOfVertexOfDelaun()(aLeft, aRight);
   }
 
@@ -204,7 +204,7 @@ void BRepMesh_Delaun::InitCirclesTool(const Standard_Integer theCellsCountU,
   for (; aTriangleIt.More(); aTriangleIt.Next())
   {
     Standard_Integer         aNodesIndices[3];
-    const BRepMesh_Triangle& aTriangle = myMeshData->GetElement(aTriangleIt.Key());
+    const Triangle3& aTriangle = myMeshData->GetElement(aTriangleIt.Key());
     myMeshData->ElementNodes(aTriangle, aNodesIndices);
     myCircles.Bind(aTriangleIt.Key(),
                    GetVertex(aNodesIndices[0]).Coord(),
@@ -290,13 +290,13 @@ void BRepMesh_Delaun::superMesh(const Bnd_Box2d& theBox)
   Standard_Real aDelta    = aDeltaX + aDeltaY;
 
   mySupVert.Append(
-    myMeshData->AddNode(BRepMesh_Vertex((aMinX + aMaxX) / 2, aMaxY + aDeltaMax, BRepMesh_Free)));
+    myMeshData->AddNode(Vertex((aMinX + aMaxX) / 2, aMaxY + aDeltaMax, BRepMesh_Free)));
 
   mySupVert.Append(
-    myMeshData->AddNode(BRepMesh_Vertex(aMinX - aDelta, aMinY - aDeltaMin, BRepMesh_Free)));
+    myMeshData->AddNode(Vertex(aMinX - aDelta, aMinY - aDeltaMin, BRepMesh_Free)));
 
   mySupVert.Append(
-    myMeshData->AddNode(BRepMesh_Vertex(aMaxX + aDelta, aMinY - aDeltaMin, BRepMesh_Free)));
+    myMeshData->AddNode(Vertex(aMaxX + aDelta, aMinY - aDeltaMin, BRepMesh_Free)));
 
   Standard_Integer e[3];
   Standard_Boolean o[3];
@@ -311,7 +311,7 @@ void BRepMesh_Delaun::superMesh(const Bnd_Box2d& theBox)
     o[aNodeId] = (aLinkIndex > 0);
   }
 
-  mySupTrian = BRepMesh_Triangle(e, o, BRepMesh_Free);
+  mySupTrian = Triangle3(e, o, BRepMesh_Free);
 }
 
 //=======================================================================
@@ -328,7 +328,7 @@ void BRepMesh_Delaun::deleteTriangle(const Standard_Integer          theIndex,
     myCircles.Delete(theIndex);
   }
 
-  const BRepMesh_Triangle& aElement = GetTriangle(theIndex);
+  const Triangle3& aElement = GetTriangle(theIndex);
   const Standard_Integer(&e)[3]     = aElement.myEdges;
   const Standard_Boolean(&o)[3]     = aElement.myOrientations;
 
@@ -438,8 +438,8 @@ void BRepMesh_Delaun::createTriangles(const Standard_Integer          theVertexI
     }
     aNodes[1] = theVertexIndex;
 
-    const BRepMesh_Vertex& aFirstVertex = GetVertex(aNodes[0]);
-    const BRepMesh_Vertex& aLastVertex  = GetVertex(aNodes[2]);
+    const Vertex& aFirstVertex = GetVertex(aNodes[0]);
+    const Vertex& aLastVertex  = GetVertex(aNodes[2]);
 
     Coords2d         anEdgeDir(aLastVertex.Coord() - aFirstVertex.Coord());
     Standard_Real anEdgeLen = anEdgeDir.Modulus();
@@ -496,7 +496,7 @@ void BRepMesh_Delaun::createTriangles(const Standard_Integer          theVertexI
   thePoly.Clear();
   while (!anExternalEdges.IsEmpty())
   {
-    const BRepMesh_PairOfIndex& aPair =
+    const PairOfIndex& aPair =
       myMeshData->ElementsConnectedTo(Abs(anExternalEdges.First()));
 
     if (!aPair.IsEmpty())
@@ -554,7 +554,7 @@ void BRepMesh_Delaun::createTrianglesOnNewVertices(IMeshData::VectorOfInteger&  
     IMeshData::MapOfIntegerInteger aLoopEdges(10, aAllocator);
 
     Standard_Integer       aVertexIdx = theVertexIndexes(anIndex);
-    const BRepMesh_Vertex& aVertex    = GetVertex(aVertexIdx);
+    const Vertex& aVertex    = GetVertex(aVertexIdx);
 
     // Iterator in the list of indexes of circles containing the node
     IMeshData::ListOfInteger& aCirclesList = myCircles.Select(aVertex.Coord());
@@ -597,7 +597,7 @@ void BRepMesh_Delaun::createTrianglesOnNewVertices(IMeshData::VectorOfInteger&  
         IMeshData::ListOfInteger::Iterator aCircleIt1(aCirclesList);
         for (; aCircleIt1.More(); aCircleIt1.Next())
         {
-          const BRepMesh_Triangle& aElement = GetTriangle(aCircleIt1.Value());
+          const Triangle3& aElement = GetTriangle(aCircleIt1.Value());
           const Standard_Integer(&e)[3]     = aElement.myEdges;
 
           if (aLoopEdges.IsBound(e[0]) || aLoopEdges.IsBound(e[1]) || aLoopEdges.IsBound(e[2]))
@@ -631,13 +631,13 @@ void BRepMesh_Delaun::insertInternalEdges()
   for (; anInernalEdgesIt.More(); anInernalEdgesIt.Next())
   {
     const Standard_Integer      aLinkIndex = anInernalEdgesIt.Key();
-    const BRepMesh_PairOfIndex& aPair      = myMeshData->ElementsConnectedTo(aLinkIndex);
+    const PairOfIndex& aPair      = myMeshData->ElementsConnectedTo(aLinkIndex);
 
     // Check both sides of link for adjusted triangle.
     Standard_Boolean isGo[2] = {Standard_True, Standard_True};
     for (Standard_Integer aTriangleIt = 1; aTriangleIt <= aPair.Extent(); ++aTriangleIt)
     {
-      const BRepMesh_Triangle& aElement = GetTriangle(aPair.Index(aTriangleIt));
+      const Triangle3& aElement = GetTriangle(aPair.Index(aTriangleIt));
       const Standard_Integer(&e)[3]     = aElement.myEdges;
       const Standard_Boolean(&o)[3]     = aElement.myOrientations;
 
@@ -677,7 +677,7 @@ Standard_Boolean BRepMesh_Delaun::isBoundToFrontier(const Standard_Integer theRe
     const Standard_Integer aCurrentLinkId = aLinkStack.top();
     aLinkStack.pop();
 
-    const BRepMesh_PairOfIndex& aPair = myMeshData->ElementsConnectedTo(aCurrentLinkId);
+    const PairOfIndex& aPair = myMeshData->ElementsConnectedTo(aCurrentLinkId);
     if (aPair.IsEmpty())
       return Standard_False;
 
@@ -688,7 +688,7 @@ Standard_Boolean BRepMesh_Delaun::isBoundToFrontier(const Standard_Integer theRe
       if (aTriId < 0)
         continue;
 
-      const BRepMesh_Triangle& aElement   = GetTriangle(aTriId);
+      const Triangle3& aElement   = GetTriangle(aTriId);
       const Standard_Integer(&anEdges)[3] = aElement.myEdges;
 
       for (Standard_Integer anEdgeIt = 0; anEdgeIt < 3; ++anEdgeIt)
@@ -741,7 +741,7 @@ void BRepMesh_Delaun::cleanupMesh()
       if (anEdge.Movability() == BRepMesh_Frontier)
         continue;
 
-      const BRepMesh_PairOfIndex& aPair = myMeshData->ElementsConnectedTo(aFreeEdgeId);
+      const PairOfIndex& aPair = myMeshData->ElementsConnectedTo(aFreeEdgeId);
       if (aPair.IsEmpty())
       {
         aLoopEdges.Bind(aFreeEdgeId, Standard_True);
@@ -751,7 +751,7 @@ void BRepMesh_Delaun::cleanupMesh()
       Standard_Integer aTriId = aPair.FirstIndex();
 
       // Check that the connected triangle is not surrounded by another triangles
-      const BRepMesh_Triangle& aElement   = GetTriangle(aTriId);
+      const Triangle3& aElement   = GetTriangle(aTriId);
       const Standard_Integer(&anEdges)[3] = aElement.myEdges;
 
       Standard_Boolean isCanNotBeRemoved = Standard_True;
@@ -764,7 +764,7 @@ void BRepMesh_Delaun::cleanupMesh()
              ++anOtherEdgeIt)
         {
           Standard_Integer            anOtherEdgeId = (aCurEdgeIdx + anOtherEdgeIt) % 3;
-          const BRepMesh_PairOfIndex& anOtherEdgePair =
+          const PairOfIndex& anOtherEdgePair =
             myMeshData->ElementsConnectedTo(anEdges[anOtherEdgeId]);
 
           if (anOtherEdgePair.Extent() < 2)
@@ -780,7 +780,7 @@ void BRepMesh_Delaun::cleanupMesh()
                 continue;
 
               Standard_Integer         v[3];
-              const BRepMesh_Triangle& aCurTriangle = GetTriangle(anOtherEdgePair.Index(aTriIdx));
+              const Triangle3& aCurTriangle = GetTriangle(anOtherEdgePair.Index(aTriIdx));
               myMeshData->ElementNodes(aCurTriangle, v);
               for (int aNodeIdx = 0; aNodeIdx < 3 && isCanNotBeRemoved; ++aNodeIdx)
               {
@@ -858,7 +858,7 @@ void BRepMesh_Delaun::frontierAdjust()
     for (; aFrontierIt.More(); aFrontierIt.Next())
     {
       Standard_Integer            aFrontierId = aFrontierIt.Key();
-      const BRepMesh_PairOfIndex& aPair       = myMeshData->ElementsConnectedTo(aFrontierId);
+      const PairOfIndex& aPair       = myMeshData->ElementsConnectedTo(aFrontierId);
       Standard_Integer            aNbElem     = aPair.Extent();
       for (Standard_Integer aElemIt = 1; aElemIt <= aNbElem; ++aElemIt)
       {
@@ -866,7 +866,7 @@ void BRepMesh_Delaun::frontierAdjust()
         if (aPriorElemId < 0)
           continue;
 
-        const BRepMesh_Triangle& aElement = GetTriangle(aPriorElemId);
+        const Triangle3& aElement = GetTriangle(aPriorElemId);
         const Standard_Integer(&e)[3]     = aElement.myEdges;
         const Standard_Boolean(&o)[3]     = aElement.myOrientations;
 
@@ -935,8 +935,8 @@ void BRepMesh_Delaun::frontierAdjust()
 //           the given vector of bounding boxes for triangulation edges
 //=======================================================================
 void BRepMesh_Delaun::fillBndBox(IMeshData::SequenceOfBndB2d& theBoxes,
-                                 const BRepMesh_Vertex&       theV1,
-                                 const BRepMesh_Vertex&       theV2)
+                                 const Vertex&       theV1,
+                                 const Vertex&       theV2)
 {
   Bnd_B2d aBox;
   UpdateBndBox(theV1.Coord(), theV2.Coord(), aBox);
@@ -971,8 +971,8 @@ Standard_Boolean BRepMesh_Delaun::meshLeftPolygonOf(const Standard_Integer      
     aPivotNode = aRefEdge.FirstNode();
   }
 
-  const BRepMesh_Vertex& aStartEdgeVertexS = GetVertex(aStartNode);
-  BRepMesh_Vertex        aPivotVertex      = GetVertex(aPivotNode);
+  const Vertex& aStartEdgeVertexS = GetVertex(aStartNode);
+  Vertex        aPivotVertex      = GetVertex(aPivotNode);
 
   gp_Vec2d aRefLinkDir(aPivotVertex.Coord() - aStartEdgeVertexS.Coord());
 
@@ -1082,7 +1082,7 @@ Standard_Boolean BRepMesh_Delaun::meshLeftPolygonOf(const Standard_Integer      
 Standard_Integer BRepMesh_Delaun::findNextPolygonLink(
   const Standard_Integer&                theFirstNode,
   const Standard_Integer&                thePivotNode,
-  const BRepMesh_Vertex&                 thePivotVertex,
+  const Vertex&                 thePivotVertex,
   const gp_Vec2d&                        theRefLinkDir,
   const IMeshData::SequenceOfBndB2d&     theBoxes,
   const IMeshData::SequenceOfInteger&    thePolygon,
@@ -1243,7 +1243,7 @@ void BRepMesh_Delaun::addTriangle(const Standard_Integer (&theEdgesId)[3],
                                   const Standard_Integer (&theNodesId)[3])
 {
   Standard_Integer aNewTriangleId =
-    myMeshData->AddElement(BRepMesh_Triangle(theEdgesId, theEdgesOri, BRepMesh_Free));
+    myMeshData->AddElement(Triangle3(theEdgesId, theEdgesOri, BRepMesh_Free));
 
   Standard_Boolean isAdded = Standard_True;
   if (myInitCircles)
@@ -1284,7 +1284,7 @@ void BRepMesh_Delaun::cleanupPolygon(const IMeshData::SequenceOfInteger& thePoly
     anIgnoredEdges.Add(aPolyEdgeId);
 
     Standard_Boolean            isForward = (aPolyEdgeInfo > 0);
-    const BRepMesh_PairOfIndex& aPair     = myMeshData->ElementsConnectedTo(aPolyEdgeId);
+    const PairOfIndex& aPair     = myMeshData->ElementsConnectedTo(aPolyEdgeId);
 
     Standard_Integer anElemIt = 1;
     for (; anElemIt <= aPair.Extent(); ++anElemIt)
@@ -1293,7 +1293,7 @@ void BRepMesh_Delaun::cleanupPolygon(const IMeshData::SequenceOfInteger& thePoly
       if (anElemId < 0)
         continue;
 
-      const BRepMesh_Triangle& aElement      = GetTriangle(anElemId);
+      const Triangle3& aElement      = GetTriangle(anElemId);
       const Standard_Integer(&anEdges)[3]    = aElement.myEdges;
       const Standard_Boolean(&anEdgesOri)[3] = aElement.myOrientations;
 
@@ -1475,7 +1475,7 @@ Standard_Boolean BRepMesh_Delaun::isVertexInsidePolygon(
 
   const Coords2d aCenterPointXY = GetVertex(theVertexId).Coord();
 
-  const BRepMesh_Vertex& aFirstVertex = GetVertex(thePolygonVertices(0));
+  const Vertex& aFirstVertex = GetVertex(thePolygonVertices(0));
   gp_Vec2d               aPrevVertexDir(aFirstVertex.Coord() - aCenterPointXY);
   if (aPrevVertexDir.SquareMagnitude() < Precision2)
     return Standard_True;
@@ -1483,7 +1483,7 @@ Standard_Boolean BRepMesh_Delaun::isVertexInsidePolygon(
   Standard_Real aTotalAng = 0.0;
   for (Standard_Integer aPolyIt = 1; aPolyIt < aPolyLen; ++aPolyIt)
   {
-    const BRepMesh_Vertex& aPolyVertex = GetVertex(thePolygonVertices(aPolyIt));
+    const Vertex& aPolyVertex = GetVertex(thePolygonVertices(aPolyIt));
 
     gp_Vec2d aCurVertexDir(aPolyVertex.Coord() - aCenterPointXY);
     if (aCurVertexDir.SquareMagnitude() < Precision2)
@@ -1560,7 +1560,7 @@ void BRepMesh_Delaun::killTrianglesOnIntersectingLinks(
 void BRepMesh_Delaun::killLinkTriangles(const Standard_Integer&         theLinkId,
                                         IMeshData::MapOfIntegerInteger& theLoopEdges)
 {
-  const BRepMesh_PairOfIndex& aPair = myMeshData->ElementsConnectedTo(theLinkId);
+  const PairOfIndex& aPair = myMeshData->ElementsConnectedTo(theLinkId);
 
   Standard_Integer anElemNb = aPair.Extent();
   for (Standard_Integer aPairIt = 1; aPairIt <= anElemNb; ++aPairIt)
@@ -2133,7 +2133,7 @@ void BRepMesh_Delaun::decomposeSimplePolygon(IMeshData::SequenceOfInteger& thePo
 // function : RemoveVertex
 // purpose  : Removes a vertex from the triangulation
 //=======================================================================
-void BRepMesh_Delaun::RemoveVertex(const BRepMesh_Vertex& theVertex)
+void BRepMesh_Delaun::RemoveVertex(const Vertex& theVertex)
 {
   BRepMesh_SelectorOfDataStructureOfDelaun aSelector(myMeshData);
   aSelector.NeighboursOf(theVertex);
@@ -2234,7 +2234,7 @@ void BRepMesh_Delaun::AddVertices(IMeshData::VectorOfInteger&  theVertices,
 Standard_Boolean BRepMesh_Delaun::UseEdge(const Standard_Integer /*theIndex*/)
 {
   /*
-  const BRepMesh_PairOfIndex& aPair = myMeshData->ElemConnectedTo( theIndex );
+  const PairOfIndex& aPair = myMeshData->ElemConnectedTo( theIndex );
   if ( aPair.Extent() == 0 )
   {
     const BRepMesh_Edge& anEdge = GetEdge( theIndex );
@@ -2249,8 +2249,8 @@ Standard_Boolean BRepMesh_Delaun::UseEdge(const Standard_Integer /*theIndex*/)
     if ( aStartNodeNeighbors.Extent() > 0 &&
          aPivotNodeNeighbors.Extent() > 0 )
     {
-      const BRepMesh_Vertex& aStartVertex = GetVertex( aStartNode );
-      const BRepMesh_Vertex& aPivotVertex = GetVertex( aPivotNode );
+      const Vertex& aStartVertex = GetVertex( aStartNode );
+      const Vertex& aPivotVertex = GetVertex( aPivotNode );
 
       Coords2d aVEdge   ( aPivotVertex.Coord() );
       aVEdge.Subtract( aStartVertex.Coord() );
@@ -2347,7 +2347,7 @@ Handle(IMeshData::MapOfInteger) BRepMesh_Delaun::getEdgesByType(
 //=======================================================================
 Standard_Real BRepMesh_Delaun::calculateDist(const Coords2d            theVEdges[3],
                                              const Coords2d            thePoints[3],
-                                             const BRepMesh_Vertex& theVertex,
+                                             const Vertex& theVertex,
                                              Standard_Real          theDistance[3],
                                              Standard_Real          theSqModulus[3],
                                              Standard_Integer&      theEdgeOn) const
@@ -2381,7 +2381,7 @@ Standard_Real BRepMesh_Delaun::calculateDist(const Coords2d            theVEdges
 //           of  index <theEdgeOn>
 //=======================================================================
 Standard_Boolean BRepMesh_Delaun::Contains(const Standard_Integer theTriangleId,
-                                           const BRepMesh_Vertex& theVertex,
+                                           const Vertex& theVertex,
                                            const Standard_Real    theSqTolerance,
                                            Standard_Integer&      theEdgeOn) const
 {
@@ -2389,7 +2389,7 @@ Standard_Boolean BRepMesh_Delaun::Contains(const Standard_Integer theTriangleId,
 
   Standard_Integer p[3];
 
-  const BRepMesh_Triangle& aElement = GetTriangle(theTriangleId);
+  const Triangle3& aElement = GetTriangle(theTriangleId);
   const Standard_Integer(&e)[3]     = aElement.myEdges;
 
   const BRepMesh_Edge* anEdges[3] = {&GetEdge(e[0]), &GetEdge(e[1]), &GetEdge(e[2])};

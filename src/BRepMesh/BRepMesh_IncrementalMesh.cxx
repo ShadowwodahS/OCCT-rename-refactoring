@@ -60,7 +60,7 @@ MeshGenerator::MeshGenerator(const TopoShape&    theShape,
 //=================================================================================================
 
 MeshGenerator::MeshGenerator(const TopoShape&          theShape,
-                                                   const IMeshTools_Parameters& theParameters,
+                                                   const Parameters3& theParameters,
                                                    const Message_ProgressRange& theRange)
     : myParameters(theParameters)
 {

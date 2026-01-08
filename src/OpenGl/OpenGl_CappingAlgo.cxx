@@ -210,7 +210,7 @@ static void renderCappingForStructure(StencilTestSentry&                        
 
 //=================================================================================================
 
-void OpenGl_CappingAlgo::RenderCapping(const Handle(OpenGl_Workspace)& theWorkspace,
+void CappingAlgo::RenderCapping(const Handle(OpenGl_Workspace)& theWorkspace,
                                        const OpenGl_Structure&         theStructure)
 {
   const Handle(OpenGl_Context)& aContext = theWorkspace->GetGlContext();

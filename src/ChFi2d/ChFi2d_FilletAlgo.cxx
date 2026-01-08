@@ -188,7 +188,7 @@ static Standard_Boolean IsRadiusIntersected(const Handle(GeomCurve2d)& theCurve,
   const Handle(GeomCurve2d)& aCurve = theCurve;
   for (a = anInter.NbSegments(); a > 0; a--)
   {
-    // anInter.Segment(a, aCurve); //not implemented (bug in OCC)
+    // anInter.Segment1(a, aCurve); //not implemented (bug in OCC)
     aPoint = aCurve->Value(aCurve->FirstParameter());
 
     Geom2dAPI_ProjectPointOnCurve aProjInt(aPoint, theCurve, theCurveMin, theCurveMax);

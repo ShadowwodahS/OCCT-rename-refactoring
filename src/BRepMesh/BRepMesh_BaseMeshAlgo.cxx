@@ -35,7 +35,7 @@ BRepMesh_BaseMeshAlgo::~BRepMesh_BaseMeshAlgo() {}
 //=================================================================================================
 
 void BRepMesh_BaseMeshAlgo::Perform(const IMeshData::IFaceHandle& theDFace,
-                                    const IMeshTools_Parameters&  theParameters,
+                                    const Parameters3&  theParameters,
                                     const Message_ProgressRange&  theRange)
 {
   try
@@ -152,7 +152,7 @@ Standard_Integer BRepMesh_BaseMeshAlgo::addNodeToStructure(
   const BRepMesh_DegreeOfFreedom theMovability,
   const Standard_Boolean         isForceAdd)
 {
-  BRepMesh_Vertex aNode(thePoint.XY(), theLocation3d, theMovability);
+  Vertex aNode(thePoint.XY(), theLocation3d, theMovability);
   return myStructure->AddNode(aNode, isForceAdd);
 }
 
@@ -238,7 +238,7 @@ Handle(MeshTriangulation) BRepMesh_BaseMeshAlgo::collectTriangles()
   IMeshData::IteratorOfMapOfInteger aTriIt(aTriangles);
   for (Standard_Integer aTriangeId = 1; aTriIt.More(); aTriIt.Next(), ++aTriangeId)
   {
-    const BRepMesh_Triangle& aCurElem = myStructure->GetElement(aTriIt.Key());
+    const Triangle3& aCurElem = myStructure->GetElement(aTriIt.Key());
 
     Standard_Integer aNode[3];
     myStructure->ElementNodes(aCurElem, aNode);
@@ -268,7 +268,7 @@ void BRepMesh_BaseMeshAlgo::collectNodes(const Handle(MeshTriangulation)& theTri
   {
     if (myUsedNodes->IsBound(i))
     {
-      const BRepMesh_Vertex& aVertex = myStructure->GetNode(i);
+      const Vertex& aVertex = myStructure->GetNode(i);
 
       const Standard_Integer aNodeIndex = myUsedNodes->Find(i);
       theTriangulation->SetNode(aNodeIndex, myNodesMap->Value(aVertex.Location3d()));
@@ -279,7 +279,7 @@ void BRepMesh_BaseMeshAlgo::collectNodes(const Handle(MeshTriangulation)& theTri
 
 //=================================================================================================
 
-gp_Pnt2d BRepMesh_BaseMeshAlgo::getNodePoint2d(const BRepMesh_Vertex& theVertex) const
+gp_Pnt2d BRepMesh_BaseMeshAlgo::getNodePoint2d(const Vertex& theVertex) const
 {
   return theVertex.Coord();
 }

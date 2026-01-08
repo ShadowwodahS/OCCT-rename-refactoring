@@ -32,8 +32,8 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(OpenGl_ShaderProgram, OpenGl_NamedResource)
 
-OpenGl_VariableSetterSelector OpenGl_ShaderProgram::mySetterSelector =
-  OpenGl_VariableSetterSelector();
+VariableSetterSelector OpenGl_ShaderProgram::mySetterSelector =
+  VariableSetterSelector();
 
 // Declare OCCT-specific OpenGL/GLSL shader variables
 Standard_CString OpenGl_ShaderProgram::PredefinedKeywords[] = {
@@ -114,13 +114,13 @@ static GLenum shaderTypeToGl(Graphic3d_TypeOfShaderObject theType)
 } // namespace
 
 // =======================================================================
-// function : OpenGl_VariableSetterSelector
+// function : VariableSetterSelector
 // purpose  : Creates new variable setter selector
 // =======================================================================
-OpenGl_VariableSetterSelector::OpenGl_VariableSetterSelector()
+VariableSetterSelector::VariableSetterSelector()
 {
   // Note: Add new variable setters here
-  mySetterList = OpenGl_HashMapInitializer::CreateListOf<size_t, OpenGl_SetterInterface*>(
+  mySetterList = OpenGl_HashMapInitializer::CreateListOf<size_t, SetterInterface*>(
     Graphic3d_UniformValueTypeID<int>::ID,
     new OpenGl_VariableSetter<int>())(Graphic3d_UniformValueTypeID<float>::ID,
                                       new OpenGl_VariableSetter<float>())(
@@ -136,10 +136,10 @@ OpenGl_VariableSetterSelector::OpenGl_VariableSetterSelector()
 }
 
 // =======================================================================
-// function : ~OpenGl_VariableSetterSelector
+// function : ~VariableSetterSelector
 // purpose  : Releases memory resources of variable setter selector
 // =======================================================================
-OpenGl_VariableSetterSelector::~OpenGl_VariableSetterSelector()
+VariableSetterSelector::~VariableSetterSelector()
 {
   for (OpenGl_SetterList::Iterator anIt(mySetterList); anIt.More(); anIt.Next())
   {
@@ -153,7 +153,7 @@ OpenGl_VariableSetterSelector::~OpenGl_VariableSetterSelector()
 // function : Set
 // purpose  : Sets generic variable to specified shader program
 // =======================================================================
-void OpenGl_VariableSetterSelector::Set(const Handle(OpenGl_Context)&           theCtx,
+void VariableSetterSelector::Set(const Handle(OpenGl_Context)&           theCtx,
                                         const Handle(Graphic3d_ShaderVariable)& theVariable,
                                         OpenGl_ShaderProgram*                   theProgram) const
 {
@@ -583,67 +583,67 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize(const Handle(OpenGl_Context)& 
   // set uniform defaults
   const Handle(OpenGl_ShaderProgram)& anOldProgram = theCtx->ActiveProgram();
   theCtx->core20fwd->glUseProgram(myProgramID);
-  if (const OpenGl_ShaderUniformLocation aLocTexEnable =
+  if (const ShaderUniformLocation aLocTexEnable =
         GetStateLocation(OpenGl_OCCT_TEXTURE_ENABLE))
   {
     SetUniform(theCtx, aLocTexEnable, 0); // Off
   }
-  if (const OpenGl_ShaderUniformLocation aLocSampler =
+  if (const ShaderUniformLocation aLocSampler =
         GetUniformLocation(theCtx, "occActiveSampler"))
   {
     SetUniform(theCtx, aLocSampler, GLint(Graphic3d_TextureUnit_0));
   }
-  if (const OpenGl_ShaderUniformLocation aLocSampler =
+  if (const ShaderUniformLocation aLocSampler =
         GetUniformLocation(theCtx, "occSamplerBaseColor"))
   {
     myTextureSetBits |= Graphic3d_TextureSetBits_BaseColor;
     SetUniform(theCtx, aLocSampler, GLint(Graphic3d_TextureUnit_BaseColor));
   }
-  if (const OpenGl_ShaderUniformLocation aLocSampler =
+  if (const ShaderUniformLocation aLocSampler =
         GetUniformLocation(theCtx, "occSamplerPointSprite"))
   {
     // Graphic3d_TextureUnit_PointSprite
     // myTextureSetBits |= Graphic3d_TextureSetBits_PointSprite;
     SetUniform(theCtx, aLocSampler, GLint(theCtx->SpriteTextureUnit()));
   }
-  if (const OpenGl_ShaderUniformLocation aLocSampler =
+  if (const ShaderUniformLocation aLocSampler =
         GetUniformLocation(theCtx, "occSamplerMetallicRoughness"))
   {
     myTextureSetBits |= Graphic3d_TextureSetBits_MetallicRoughness;
     SetUniform(theCtx, aLocSampler, GLint(Graphic3d_TextureUnit_MetallicRoughness));
   }
-  if (const OpenGl_ShaderUniformLocation aLocSampler =
+  if (const ShaderUniformLocation aLocSampler =
         GetUniformLocation(theCtx, "occSamplerEmissive"))
   {
     myTextureSetBits |= Graphic3d_TextureSetBits_Emissive;
     SetUniform(theCtx, aLocSampler, GLint(Graphic3d_TextureUnit_Emissive));
   }
-  if (const OpenGl_ShaderUniformLocation aLocSampler =
+  if (const ShaderUniformLocation aLocSampler =
         GetUniformLocation(theCtx, "occSamplerOcclusion"))
   {
     myTextureSetBits |= Graphic3d_TextureSetBits_Occlusion;
     SetUniform(theCtx, aLocSampler, GLint(Graphic3d_TextureUnit_Occlusion));
   }
-  if (const OpenGl_ShaderUniformLocation aLocSampler =
+  if (const ShaderUniformLocation aLocSampler =
         GetUniformLocation(theCtx, "occSamplerNormal"))
   {
     myTextureSetBits |= Graphic3d_TextureSetBits_Normal;
     SetUniform(theCtx, aLocSampler, GLint(Graphic3d_TextureUnit_Normal));
   }
-  if (const OpenGl_ShaderUniformLocation aLocSampler =
+  if (const ShaderUniformLocation aLocSampler =
         GetUniformLocation(theCtx, "occDiffIBLMapSHCoeffs"))
   {
     SetUniform(theCtx, aLocSampler, GLint(theCtx->PBRDiffIBLMapSHTexUnit()));
   }
-  if (const OpenGl_ShaderUniformLocation aLocSampler = GetUniformLocation(theCtx, "occSpecIBLMap"))
+  if (const ShaderUniformLocation aLocSampler = GetUniformLocation(theCtx, "occSpecIBLMap"))
   {
     SetUniform(theCtx, aLocSampler, GLint(theCtx->PBRSpecIBLMapTexUnit()));
   }
-  if (const OpenGl_ShaderUniformLocation aLocSampler = GetUniformLocation(theCtx, "occEnvLUT"))
+  if (const ShaderUniformLocation aLocSampler = GetUniformLocation(theCtx, "occEnvLUT"))
   {
     SetUniform(theCtx, aLocSampler, GLint(theCtx->PBREnvLUTTexUnit()));
   }
-  if (const OpenGl_ShaderUniformLocation aLocSampler =
+  if (const ShaderUniformLocation aLocSampler =
         GetUniformLocation(theCtx, "occShadowMapSamplers"))
   {
     std::vector<GLint> aShadowSamplers(myNbShadowMaps);
@@ -655,12 +655,12 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize(const Handle(OpenGl_Context)& 
     SetUniform(theCtx, aLocSampler, myNbShadowMaps, &aShadowSamplers.front());
   }
 
-  if (const OpenGl_ShaderUniformLocation aLocSampler =
+  if (const ShaderUniformLocation aLocSampler =
         GetUniformLocation(theCtx, "occDepthPeelingDepth"))
   {
     SetUniform(theCtx, aLocSampler, GLint(theCtx->DepthPeelingDepthTexUnit()));
   }
-  if (const OpenGl_ShaderUniformLocation aLocSampler =
+  if (const ShaderUniformLocation aLocSampler =
         GetUniformLocation(theCtx, "occDepthPeelingFrontColor"))
   {
     SetUniform(theCtx, aLocSampler, GLint(theCtx->DepthPeelingFrontColorTexUnit()));
@@ -672,7 +672,7 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize(const Handle(OpenGl_Context)& 
   for (GLint aUnitIter = 0; aUnitIter < aNbUnitsMax; ++aUnitIter)
   {
     const AsciiString1 aName = aSamplerNamePrefix + aUnitIter;
-    if (const OpenGl_ShaderUniformLocation aLocSampler =
+    if (const ShaderUniformLocation aLocSampler =
           GetUniformLocation(theCtx, aName.ToCString()))
     {
       SetUniform(theCtx, aLocSampler, aUnitIter);
@@ -869,11 +869,11 @@ Standard_Boolean OpenGl_ShaderProgram::ApplyVariables(const Handle(OpenGl_Contex
 // function : GetUniformLocation
 // purpose  : Returns location (index) of the specific uniform variable
 // =======================================================================
-OpenGl_ShaderUniformLocation OpenGl_ShaderProgram::GetUniformLocation(
+ShaderUniformLocation OpenGl_ShaderProgram::GetUniformLocation(
   const Handle(OpenGl_Context)& theCtx,
   const GLchar*                 theName) const
 {
-  return OpenGl_ShaderUniformLocation(
+  return ShaderUniformLocation(
     myProgramID != NO_PROGRAM ? theCtx->core20fwd->glGetUniformLocation(myProgramID, theName)
                               : INVALID_LOCATION);
 }

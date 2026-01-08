@@ -613,7 +613,7 @@ void KnotTools::BuildKnots(const TColgp_Array1OfPnt&             thePntsXYZ,
   ComputeKnotInds(aCoords, aDim, thePars, aKnots);
 
 #if defined(APPROXINT_KNOTTOOLS_DEBUG)
-  std::cout << "Draft knot sequence: " << std::endl;
+  std::cout << "Draft1 knot sequence: " << std::endl;
   for (i = aKnots.Lower(); i <= aKnots.Upper(); ++i)
   {
     std::cout << i << " : " << aKnots(i) << std::endl;

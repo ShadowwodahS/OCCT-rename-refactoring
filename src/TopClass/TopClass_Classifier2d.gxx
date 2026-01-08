@@ -105,7 +105,7 @@ void TopClass_Classifier2d::Compare(const TheEdge& E,
   nbSegments = myIntersector.NbSegments();
   for (iSegment = 1; iSegment <= nbSegments;  iSegment++)  {
     const IntRes2d_IntersectionSegment& SegInter = 
-      myIntersector.Segment(iSegment);
+      myIntersector.Segment1(iSegment);
     const IntRes2d_IntersectionPoint& PInter = SegInter.FirstPoint();
     if (PInter.TransitionOfFirst().PositionOnCurve() == IntRes2d_Head) {
       myClosest = nbPoints + iSegment+  iSegment - 1;

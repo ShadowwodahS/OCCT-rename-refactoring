@@ -102,7 +102,7 @@ void Graphic3d_Texture1Dsegment::SetSegment(const Standard_ShortReal X1,
 
 //=================================================================================================
 
-void Graphic3d_Texture1Dsegment::Segment(Standard_ShortReal& X1,
+void Graphic3d_Texture1Dsegment::Segment1(Standard_ShortReal& X1,
                                          Standard_ShortReal& Y1,
                                          Standard_ShortReal& Z1,
                                          Standard_ShortReal& X2,

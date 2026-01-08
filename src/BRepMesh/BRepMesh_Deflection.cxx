@@ -67,7 +67,7 @@ Standard_Real BRepMesh_Deflection::ComputeAbsoluteDeflection(
 
 void BRepMesh_Deflection::ComputeDeflection(const IMeshData::IEdgeHandle& theDEdge,
                                             const Standard_Real           theMaxShapeSize,
-                                            const IMeshTools_Parameters&  theParameters)
+                                            const Parameters3&  theParameters)
 {
   const Standard_Real aAngDeflection = theParameters.Angle;
   Standard_Real       aLinDeflection =
@@ -102,7 +102,7 @@ void BRepMesh_Deflection::ComputeDeflection(const IMeshData::IEdgeHandle& theDEd
 //=================================================================================================
 
 void BRepMesh_Deflection::ComputeDeflection(const IMeshData::IWireHandle& theDWire,
-                                            const IMeshTools_Parameters&  theParameters)
+                                            const Parameters3&  theParameters)
 {
   Standard_Real aWireDeflection = 0.;
   if (theDWire->EdgesNb() > 0)
@@ -125,7 +125,7 @@ void BRepMesh_Deflection::ComputeDeflection(const IMeshData::IWireHandle& theDWi
 //=================================================================================================
 
 void BRepMesh_Deflection::ComputeDeflection(const IMeshData::IFaceHandle& theDFace,
-                                            const IMeshTools_Parameters&  theParameters)
+                                            const Parameters3&  theParameters)
 {
   Standard_Real aDeflection = theParameters.DeflectionInterior;
   if (theParameters.Relative)

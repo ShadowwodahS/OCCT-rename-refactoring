@@ -46,7 +46,7 @@ void BRepMesh_SelectorOfDataStructureOfDelaun::Initialize(
 
 //=================================================================================================
 
-void BRepMesh_SelectorOfDataStructureOfDelaun::NeighboursOf(const BRepMesh_Vertex& theNode)
+void BRepMesh_SelectorOfDataStructureOfDelaun::NeighboursOf(const Vertex& theNode)
 {
   NeighboursOfNode(myMesh->IndexOf(theNode));
 }
@@ -78,7 +78,7 @@ void BRepMesh_SelectorOfDataStructureOfDelaun::NeighboursOfLink(const Standard_I
 
 //=================================================================================================
 
-void BRepMesh_SelectorOfDataStructureOfDelaun::NeighboursOf(const BRepMesh_Triangle& theElement)
+void BRepMesh_SelectorOfDataStructureOfDelaun::NeighboursOf(const Triangle3& theElement)
 {
   Standard_Integer v[3];
   myMesh->ElementNodes(theElement, v);
@@ -98,7 +98,7 @@ void BRepMesh_SelectorOfDataStructureOfDelaun::NeighboursOfElement(
 //=================================================================================================
 
 void BRepMesh_SelectorOfDataStructureOfDelaun::NeighboursByEdgeOf(
-  const BRepMesh_Triangle& theElement)
+  const Triangle3& theElement)
 {
   const Standard_Integer(&e)[3] = theElement.myEdges;
   for (Standard_Integer i = 0; i < 3; ++i)
@@ -109,7 +109,7 @@ void BRepMesh_SelectorOfDataStructureOfDelaun::NeighboursByEdgeOf(
 
 void BRepMesh_SelectorOfDataStructureOfDelaun::elementsOfLink(const Standard_Integer theIndex)
 {
-  const BRepMesh_PairOfIndex& aPair = myMesh->ElementsConnectedTo(theIndex);
+  const PairOfIndex& aPair = myMesh->ElementsConnectedTo(theIndex);
   for (Standard_Integer j = 1, jn = aPair.Extent(); j <= jn; ++j)
     myElements.Add(aPair.Index(j));
 }

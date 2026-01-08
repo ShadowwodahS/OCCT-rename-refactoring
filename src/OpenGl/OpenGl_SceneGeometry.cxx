@@ -31,13 +31,13 @@ namespace
 static const BVH_Vec4f ZERO_VEC_4F;
 } // namespace
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_TriangleSet, OpenGl_BVHTriangulation3f)
+IMPLEMENT_STANDARD_RTTIEXT(TriangleSet2, OpenGl_BVHTriangulation3f)
 
 // =======================================================================
-// function : OpenGl_RaytraceMaterial
+// function : RaytraceMaterial
 // purpose  : Creates new default material
 // =======================================================================
-OpenGl_RaytraceMaterial::OpenGl_RaytraceMaterial()
+RaytraceMaterial::RaytraceMaterial()
     : Ambient(ZERO_VEC_4F),
       Diffuse(ZERO_VEC_4F),
       Specular(ZERO_VEC_4F),
@@ -49,10 +49,10 @@ OpenGl_RaytraceMaterial::OpenGl_RaytraceMaterial()
 }
 
 // =======================================================================
-// function : OpenGl_RaytraceLight
+// function : RaytraceLight
 // purpose  : Creates new light source
 // =======================================================================
-OpenGl_RaytraceLight::OpenGl_RaytraceLight(const BVH_Vec4f& theEmission,
+RaytraceLight::RaytraceLight(const BVH_Vec4f& theEmission,
                                            const BVH_Vec4f& thePosition)
     : Emission(theEmission),
       Position(thePosition)
@@ -64,7 +64,7 @@ OpenGl_RaytraceLight::OpenGl_RaytraceLight(const BVH_Vec4f& theEmission,
 // function : QuadBVH
 // purpose  : Returns quad BVH (QBVH) tree produced from binary BVH
 // =======================================================================
-const QuadBvhHandle& OpenGl_TriangleSet::QuadBVH()
+const QuadBvhHandle& TriangleSet2::QuadBVH()
 {
   if (!myIsDirty)
   {
@@ -84,7 +84,7 @@ const QuadBvhHandle& OpenGl_TriangleSet::QuadBVH()
 // function : Center
 // purpose  : Returns centroid position along the given axis
 // =======================================================================
-Standard_ShortReal OpenGl_TriangleSet::Center(const Standard_Integer theIndex,
+Standard_ShortReal TriangleSet2::Center(const Standard_Integer theIndex,
                                               const Standard_Integer theAxis) const
 {
   // Note: Experiments show that the use of the box centroid (instead
@@ -106,7 +106,7 @@ Standard_ShortReal OpenGl_TriangleSet::Center(const Standard_Integer theIndex,
 // function : Box1
 // purpose  : Returns AABB of primitive set
 // =======================================================================
-OpenGl_TriangleSet::BVH_BoxNt OpenGl_TriangleSet::Box1() const
+TriangleSet2::BVH_BoxNt TriangleSet2::Box1() const
 {
   BVH_BoxNt                                   aBox = BVH_PrimitiveSet<Standard_ShortReal, 3>::Box1();
   const BVH_Transform<Standard_ShortReal, 4>* aTransform =
@@ -137,10 +137,10 @@ OpenGl_TriangleSet::BVH_BoxNt OpenGl_TriangleSet::Box1() const
 }
 
 // =======================================================================
-// function : OpenGl_TriangleSet
+// function : TriangleSet2
 // purpose  : Creates new OpenGL element triangulation
 // =======================================================================
-OpenGl_TriangleSet::OpenGl_TriangleSet(
+TriangleSet2::TriangleSet2(
   const Standard_Size                                            theArrayID,
   const opencascade::handle<BVH_Builder<Standard_ShortReal, 3>>& theBuilder)
     : BVH_Triangulation<Standard_ShortReal, 3>(theBuilder),
@@ -157,11 +157,11 @@ void OpenGl_RaytraceGeometry::Clear()
 {
   BVH_Geometry<Standard_ShortReal, 3>::BVH_Geometry::Clear();
 
-  std::vector<OpenGl_RaytraceLight, NCollection_OccAllocator<OpenGl_RaytraceLight>> anEmptySources;
+  std::vector<RaytraceLight, NCollection_OccAllocator<RaytraceLight>> anEmptySources;
 
   Sources.swap(anEmptySources);
 
-  std::vector<OpenGl_RaytraceMaterial, NCollection_OccAllocator<OpenGl_RaytraceMaterial>>
+  std::vector<RaytraceMaterial, NCollection_OccAllocator<RaytraceMaterial>>
     anEmptyMaterials;
 
   Materials.swap(anEmptyMaterials);
@@ -179,7 +179,7 @@ struct OpenGL_BVHParallelBuilder
 
   void operator()(const Standard_Integer theObjectIdx) const
   {
-    OpenGl_TriangleSet* aTriangleSet = dynamic_cast<OpenGl_TriangleSet*>(
+    TriangleSet2* aTriangleSet = dynamic_cast<TriangleSet2*>(
       Set->Objects().ChangeValue(static_cast<Standard_Integer>(theObjectIdx)).operator->());
 
     if (aTriangleSet != NULL)
@@ -210,8 +210,8 @@ Standard_Boolean OpenGl_RaytraceGeometry::ProcessAcceleration()
 
   for (Standard_Integer anObjectIdx = 0; anObjectIdx < Size(); ++anObjectIdx)
   {
-    OpenGl_TriangleSet* aTriangleSet =
-      dynamic_cast<OpenGl_TriangleSet*>(myObjects.ChangeValue(anObjectIdx).operator->());
+    TriangleSet2* aTriangleSet =
+      dynamic_cast<TriangleSet2*>(myObjects.ChangeValue(anObjectIdx).operator->());
 
     Standard_ASSERT_RETURN(aTriangleSet != NULL,
                            "Error! Failed to get triangulation of OpenGL element",
@@ -281,8 +281,8 @@ Standard_Boolean OpenGl_RaytraceGeometry::ProcessAcceleration()
         "Error! Invalid leaf node in high-level BVH (contains out-of-range object)",
         Standard_False);
 
-      OpenGl_TriangleSet* aTriangleSet =
-        dynamic_cast<OpenGl_TriangleSet*>(myObjects(anObjectIdx).get());
+      TriangleSet2* aTriangleSet =
+        dynamic_cast<TriangleSet2*>(myObjects(anObjectIdx).get());
 
       // Note: We overwrite node info record to store parameters
       // of bottom-level BVH and triangulation of OpenGL element
@@ -368,7 +368,7 @@ Standard_Integer OpenGl_RaytraceGeometry::ElementsOffset(Standard_Integer theNod
 // function : TriangleSet
 // purpose  : Returns triangulation data for given leaf node
 // =======================================================================
-OpenGl_TriangleSet* OpenGl_RaytraceGeometry::TriangleSet(Standard_Integer theNodeIdx)
+TriangleSet2* OpenGl_RaytraceGeometry::TriangleSet(Standard_Integer theNodeIdx)
 {
   const QuadBvhHandle& aBVH = QuadBVH();
 
@@ -378,7 +378,7 @@ OpenGl_TriangleSet* OpenGl_RaytraceGeometry::TriangleSet(Standard_Integer theNod
   if (aBVH->NodeInfoBuffer().at(theNodeIdx).x() > myObjects.Size())
     return NULL;
 
-  return dynamic_cast<OpenGl_TriangleSet*>(
+  return dynamic_cast<TriangleSet2*>(
     myObjects(aBVH->NodeInfoBuffer().at(theNodeIdx).x() - 1).get());
 }
 

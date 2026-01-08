@@ -485,7 +485,7 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
       myOffset *= -1;
   }
 
-  Handle(GeomSurface) TheSurf = BRepOffset::Surface(S, myOffset, myStatus);
+  Handle(GeomSurface) TheSurf = BRepOffset1::Surface(S, myOffset, myStatus);
 
   // processing offsets of faces with possible degenerated edges
   Standard_Boolean UminDegen = Standard_False;
@@ -591,7 +591,7 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
         if (UminDegen)
         {
           Handle(GeomCurve3d) uiso = TheSurf->UIso(uf1);
-          if (BRepOffset_Tool::Gabarit(uiso) > TolApex)
+          if (Tool5::Gabarit(uiso) > TolApex)
           {
             Handle(GeomSurface) BasisSurf =
               Handle(Geom_OffsetSurface)::DownCast(TheSurf)->BasisSurface();
@@ -632,7 +632,7 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
         if (UmaxDegen)
         {
           Handle(GeomCurve3d) uiso = TheSurf->UIso(uf2);
-          if (BRepOffset_Tool::Gabarit(uiso) > TolApex)
+          if (Tool5::Gabarit(uiso) > TolApex)
           {
             Handle(GeomSurface) BasisSurf =
               Handle(Geom_OffsetSurface)::DownCast(TheSurf)->BasisSurface();
@@ -673,7 +673,7 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
         if (VminDegen)
         {
           Handle(GeomCurve3d) viso = TheSurf->VIso(vf1);
-          if (BRepOffset_Tool::Gabarit(viso) > TolApex)
+          if (Tool5::Gabarit(viso) > TolApex)
           {
             Handle(GeomSurface) BasisSurf =
               Handle(Geom_OffsetSurface)::DownCast(TheSurf)->BasisSurface();
@@ -716,7 +716,7 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
         if (VmaxDegen)
         {
           Handle(GeomCurve3d) viso = TheSurf->VIso(vf2);
-          if (BRepOffset_Tool::Gabarit(viso) > TolApex)
+          if (Tool5::Gabarit(viso) > TolApex)
           {
             Handle(GeomSurface) BasisSurf =
               Handle(Geom_OffsetSurface)::DownCast(TheSurf)->BasisSurface();

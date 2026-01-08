@@ -1131,7 +1131,7 @@ static Standard_Boolean ExtendPCurve(const Handle(GeomCurve2d)& aPCurve,
 
 //  Modified by skv - Fri Dec 26 17:00:55 2003 OCC4455 Begin
 // static void ExtentEdge(const TopoEdge& E,TopoEdge& NE)
-Standard_Boolean BRepOffset_Inter2d::ExtentEdge(const TopoEdge&  E,
+Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
                                                 TopoEdge&        NE,
                                                 const Standard_Real theOffset)
 {
@@ -1244,7 +1244,7 @@ Standard_Boolean BRepOffset_Inter2d::ExtentEdge(const TopoEdge&  E,
           }
           for (j = 1; j <= IntCC.NbSegments(); j++)
           {
-            const IntRes2d_IntersectionSegment& is = IntCC.Segment(j);
+            const IntRes2d_IntersectionSegment& is = IntCC.Segment1(j);
             if (is.HasFirstPoint())
             {
               const IntRes2d_IntersectionPoint& ip     = is.FirstPoint();
@@ -1615,7 +1615,7 @@ static Standard_Boolean UpdateVertex(const TopoVertex& V,
 
 //=================================================================================================
 
-void BRepOffset_Inter2d::Compute(const Handle(BRepAlgo_AsDes)&              AsDes,
+void Inter2d::Compute(const Handle(BRepAlgo_AsDes)&              AsDes,
                                  const TopoFace&                         F,
                                  const TopTools_IndexedMapOfShape&          NewEdges,
                                  const Standard_Real                        Tol,
@@ -1711,7 +1711,7 @@ void BRepOffset_Inter2d::Compute(const Handle(BRepAlgo_AsDes)&              AsDe
 
 //=================================================================================================
 
-Standard_Boolean BRepOffset_Inter2d::ConnexIntByInt(
+Standard_Boolean Inter2d::ConnexIntByInt(
   const TopoFace&                         FI,
   BRepOffset_Offset&                         OFI,
   TopTools_DataMapOfShapeShape&              MES,
@@ -1729,7 +1729,7 @@ Standard_Boolean BRepOffset_Inter2d::ConnexIntByInt(
 {
 
   TopTools_DataMapOfShapeListOfShape MVE;
-  BRepOffset_Tool::MapVertexEdges(FI, MVE);
+  Tool5::MapVertexEdges(FI, MVE);
   Message_ProgressScope aPS(theRange,
                             "Intersecting edges obtained as intersection of faces",
                             1,
@@ -1960,7 +1960,7 @@ Standard_Boolean BRepOffset_Inter2d::ConnexIntByInt(
 // function : ConnexIntByIntInVert
 // purpose  : Intersection of the edges generated out of vertices
 //=======================================================================
-void BRepOffset_Inter2d::ConnexIntByIntInVert(const TopoFace&                         FI,
+void Inter2d::ConnexIntByIntInVert(const TopoFace&                         FI,
                                               BRepOffset_Offset&                         OFI,
                                               TopTools_DataMapOfShapeShape&              MES,
                                               const TopTools_DataMapOfShapeShape&        Build,
@@ -2185,7 +2185,7 @@ static void MakeChain(const TopoShape&                              theV,
 
 //=================================================================================================
 
-Standard_Boolean BRepOffset_Inter2d::FuseVertices(
+Standard_Boolean Inter2d::FuseVertices(
   const TopTools_IndexedDataMapOfShapeListOfShape& theDMVV,
   const Handle(BRepAlgo_AsDes)&                    theAsDes,
   ShapeImage&                                  theImageVV)

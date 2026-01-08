@@ -40,31 +40,31 @@ public: //! @name API for accessing mesh nodes.
   //! @param isForceAdd adds the given node to structure without
   //! checking on coincidence with other nodes.
   //! @return index of the node in the structure.
-  Standard_EXPORT Standard_Integer AddNode(const BRepMesh_Vertex& theNode,
+  Standard_EXPORT Standard_Integer AddNode(const Vertex& theNode,
                                            const Standard_Boolean isForceAdd = Standard_False);
 
   //! Finds the index of the given node.
   //! @param theNode node to find.
   //! @return index of the given element of zero if node is not in the mesh.
-  Standard_Integer IndexOf(const BRepMesh_Vertex& theNode) { return myNodes->FindIndex(theNode); }
+  Standard_Integer IndexOf(const Vertex& theNode) { return myNodes->FindIndex(theNode); }
 
   //! Get node by the index.
   //! @param theIndex index of a node.
   //! @return node with the given index.
-  const BRepMesh_Vertex& GetNode(const Standard_Integer theIndex)
+  const Vertex& GetNode(const Standard_Integer theIndex)
   {
     return myNodes->FindKey(theIndex);
   }
 
   //! Alias for GetNode.
-  const BRepMesh_Vertex& operator()(const Standard_Integer theIndex) { return GetNode(theIndex); }
+  const Vertex& operator()(const Standard_Integer theIndex) { return GetNode(theIndex); }
 
   //! Substitutes the node with the given index by new one.
   //! @param theIndex index of node to be substituted.
   //! @param theNewNode substituting node.
   //! @return FALSE in case if new node is already in the structure, TRUE elsewhere.
   Standard_EXPORT Standard_Boolean SubstituteNode(const Standard_Integer theIndex,
-                                                  const BRepMesh_Vertex& theNewNode);
+                                                  const Vertex& theNewNode);
 
   //! Removes node from the mesh in case if it has no connected links
   //! and its type is Free.
@@ -134,7 +134,7 @@ public: //! @name API for accessing mesh links.
   //! Returns indices of elements connected to the link with the given index.
   //! @param theLinkIndex index of link whose data should be retrieved.
   //! @return indices of elements connected to the link.
-  const BRepMesh_PairOfIndex& ElementsConnectedTo(const Standard_Integer theLinkIndex) const
+  const PairOfIndex& ElementsConnectedTo(const Standard_Integer theLinkIndex) const
   {
     return myLinks.FindFromIndex(theLinkIndex);
   }
@@ -146,12 +146,12 @@ public: //! @name API for accessing mesh elements.
   //! Adds element to the mesh if it is not already in the mesh.
   //! @param theElement element to be added to the mesh.
   //! @return index of the element in the structure.
-  Standard_EXPORT Standard_Integer AddElement(const BRepMesh_Triangle& theElement);
+  Standard_EXPORT Standard_Integer AddElement(const Triangle3& theElement);
 
   //! Get element by the index.
   //! @param theIndex index of an element.
   //! @return element with the given index.
-  const BRepMesh_Triangle& GetElement(const Standard_Integer theIndex)
+  const Triangle3& GetElement(const Standard_Integer theIndex)
   {
     return myElements.ChangeValue(theIndex - 1);
   }
@@ -164,7 +164,7 @@ public: //! @name API for accessing mesh elements.
   //! @param theNewLink substituting element.
   //! @return FALSE in case if new element is already in the structure, TRUE elsewhere.
   Standard_EXPORT Standard_Boolean SubstituteElement(const Standard_Integer   theIndex,
-                                                     const BRepMesh_Triangle& theNewElement);
+                                                     const Triangle3& theNewElement);
 
   //! Removes element from the mesh.
   //! @param theIndex index of element to be removed.
@@ -173,7 +173,7 @@ public: //! @name API for accessing mesh elements.
   //! Returns indices of nodes forming the given element.
   //! @param theElement element which nodes should be retrieved.
   //! @param[out] theNodes nodes of the given element.
-  Standard_EXPORT void ElementNodes(const BRepMesh_Triangle& theElement,
+  Standard_EXPORT void ElementNodes(const Triangle3& theElement,
                                     Standard_Integer (&theNodes)[3]);
 
   Standard_EXPORT void Dump(Standard_CString theFileNameStr);
@@ -229,12 +229,12 @@ private:
   //! @param theIndex index of element in the data structure.
   //! @param theElement reference to the element to avoid double accessing
   //! to map of elements.
-  void cleanElement(const Standard_Integer theIndex, const BRepMesh_Triangle& theElement);
+  void cleanElement(const Standard_Integer theIndex, const Triangle3& theElement);
 
   //! Removes element index from the given pair. Used by cleanElement.
   //! @param theIndex index of element to be removed.
   //! @param thePair pair of elements to be cleaned.
-  void removeElementIndex(const Standard_Integer theIndex, BRepMesh_PairOfIndex& thePair);
+  void removeElementIndex(const Standard_Integer theIndex, PairOfIndex& thePair);
 
 private:
   Handle(NCollection_IncAllocator)      myAllocator;

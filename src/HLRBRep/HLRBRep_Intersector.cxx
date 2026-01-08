@@ -67,10 +67,10 @@ HLRBRep_Intersector::HLRBRep_Intersector()
     printf("\nNbAutoInters      : %6d\n", NbIntersAuto);
     printf("\nNbInters          : %6d", NbInters);
     printf("\n        Vides     : %6d", NbIntersVides);
-    printf("\n        1 Segment : %6d", NbInters1Segment);
+    printf("\n        1 Segment1 : %6d", NbInters1Segment);
     printf("\n        1 Point   : %6d", NbInters1Point);
     printf("\n       >1 Point   : %6d", NbIntersNPoints);
-    printf("\n       >1 Segment : %6d", NbIntersNSegments);
+    printf("\n       >1 Segment1 : %6d", NbIntersNSegments);
     printf("\n     >1 Pt et Seg : %6d", NbIntersPointEtSegment);
     printf("\n--------------------------------------\n");
   }
@@ -666,9 +666,9 @@ Standard_Integer HLRBRep_Intersector::NbSegments() const
 
 //=================================================================================================
 
-const IntRes2d_IntersectionSegment& HLRBRep_Intersector::Segment(const Standard_Integer N) const
+const IntRes2d_IntersectionSegment& HLRBRep_Intersector::Segment1(const Standard_Integer N) const
 {
-  return myIntersector.Segment(N);
+  return myIntersector.Segment1(N);
 }
 
 //=================================================================================================
@@ -676,7 +676,7 @@ const IntRes2d_IntersectionSegment& HLRBRep_Intersector::Segment(const Standard_
 const IntCurveSurface_IntersectionSegment& HLRBRep_Intersector::CSSegment(
   const Standard_Integer N) const
 {
-  return myCSIntersector.Segment(N);
+  return myCSIntersector.Segment1(N);
 }
 
 //=================================================================================================

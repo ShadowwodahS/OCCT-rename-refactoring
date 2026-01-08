@@ -580,7 +580,7 @@ void OpenGl_Structure::Render(const Handle(OpenGl_Workspace)& theWorkspace) cons
   // Render capping for structure groups
   if (hasClosedPrims && aCtx->Clipping().IsCappingOn())
   {
-    OpenGl_CappingAlgo::RenderCapping(theWorkspace, *this);
+    CappingAlgo::RenderCapping(theWorkspace, *this);
   }
 
   // Revert structure clippings

@@ -90,7 +90,7 @@ public:
   //! StdFail_NotDone if intersection algorithm fails or is not initialized.
   //! Standard_OutOfRange if Index is not in the range [ 1,NbSegments ],
   //! where NbSegments is the number of computed intersection segments.
-  Standard_EXPORT Handle(GeomCurve3d) Segment(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(GeomCurve3d) Segment1(const Standard_Integer Index) const;
 
   //! Returns the parameters of the first (U1,V1) and the last (U2,V2) points
   //! of curve's segment on the surface in case of tangential intersection.

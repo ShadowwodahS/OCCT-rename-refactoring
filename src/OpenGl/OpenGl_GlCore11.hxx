@@ -187,69 +187,69 @@
 //! Notice that all functions within this structure are actually exported by system GL library.
 //! The main purpose for these hint - to control visibility of functions per GL version
 //! (global functions should not be used directly to achieve this effect!).
-struct OpenGl_GlCore11 : protected OpenGl_GlFunctions
+struct OpenGl_GlCore11 : protected GlFunctions
 {
 
 public:
-  using OpenGl_GlFunctions::glGetTexEnviv;
-  using OpenGl_GlFunctions::glTexEnvi;
+  using GlFunctions::glGetTexEnviv;
+  using GlFunctions::glTexEnvi;
 
 public: //! @name Begin/End primitive specification (removed since 3.1)
-  using OpenGl_GlFunctions::glColor4fv;
+  using GlFunctions::glColor4fv;
 
 public: //! @name Matrix operations (removed since 3.1)
-  using OpenGl_GlFunctions::glLoadIdentity;
-  using OpenGl_GlFunctions::glLoadMatrixf;
-  using OpenGl_GlFunctions::glMatrixMode;
+  using GlFunctions::glLoadIdentity;
+  using GlFunctions::glLoadMatrixf;
+  using GlFunctions::glMatrixMode;
 
 public: //! @name Line and Polygon stipple (removed since 3.1)
-  using OpenGl_GlFunctions::glLineStipple;
-  using OpenGl_GlFunctions::glPolygonStipple;
+  using GlFunctions::glLineStipple;
+  using GlFunctions::glPolygonStipple;
 
 public: //! @name Fixed pipeline lighting (removed since 3.1)
-  using OpenGl_GlFunctions::glColorMaterial;
-  using OpenGl_GlFunctions::glLightf;
-  using OpenGl_GlFunctions::glLightfv;
-  using OpenGl_GlFunctions::glLightModelfv;
-  using OpenGl_GlFunctions::glLightModeli;
-  using OpenGl_GlFunctions::glMaterialf;
-  using OpenGl_GlFunctions::glMaterialfv;
-  using OpenGl_GlFunctions::glShadeModel;
+  using GlFunctions::glColorMaterial;
+  using GlFunctions::glLightf;
+  using GlFunctions::glLightfv;
+  using GlFunctions::glLightModelfv;
+  using GlFunctions::glLightModeli;
+  using GlFunctions::glMaterialf;
+  using GlFunctions::glMaterialfv;
+  using GlFunctions::glShadeModel;
 
 public: //! @name clipping plane (removed since 3.1)
-  using OpenGl_GlFunctions::glClipPlane;
+  using GlFunctions::glClipPlane;
 
 public: //! @name Display lists (removed since 3.1)
-  using OpenGl_GlFunctions::glCallList;
-  using OpenGl_GlFunctions::glCallLists;
-  using OpenGl_GlFunctions::glDeleteLists;
-  using OpenGl_GlFunctions::glEndList;
-  using OpenGl_GlFunctions::glGenLists;
-  using OpenGl_GlFunctions::glListBase;
-  using OpenGl_GlFunctions::glNewList;
+  using GlFunctions::glCallList;
+  using GlFunctions::glCallLists;
+  using GlFunctions::glDeleteLists;
+  using GlFunctions::glEndList;
+  using GlFunctions::glGenLists;
+  using GlFunctions::glListBase;
+  using GlFunctions::glNewList;
 
 public: //! @name Current raster position and Rectangles (removed since 3.1)
-  using OpenGl_GlFunctions::glRasterPos2i;
-  using OpenGl_GlFunctions::glRasterPos3fv;
+  using GlFunctions::glRasterPos2i;
+  using GlFunctions::glRasterPos3fv;
 
 public: //! @name Texture mapping (removed since 3.1)
-  using OpenGl_GlFunctions::glTexGenfv;
-  using OpenGl_GlFunctions::glTexGeni;
+  using GlFunctions::glTexGenfv;
+  using GlFunctions::glTexGeni;
 
 public: //! @name Pixel copying (removed since 3.1)
-  using OpenGl_GlFunctions::glBitmap;
-  using OpenGl_GlFunctions::glCopyPixels;
-  using OpenGl_GlFunctions::glDrawPixels;
+  using GlFunctions::glBitmap;
+  using GlFunctions::glCopyPixels;
+  using GlFunctions::glDrawPixels;
 
 public: //! @name Edge flags and fixed-function vertex processing (removed since 3.1)
-  using OpenGl_GlFunctions::glColorPointer;
-  using OpenGl_GlFunctions::glDisableClientState;
-  using OpenGl_GlFunctions::glEnableClientState;
-  using OpenGl_GlFunctions::glIndexPointer;
-  using OpenGl_GlFunctions::glNormalPointer;
-  using OpenGl_GlFunctions::glPixelTransferi;
-  using OpenGl_GlFunctions::glTexCoordPointer;
-  using OpenGl_GlFunctions::glVertexPointer;
+  using GlFunctions::glColorPointer;
+  using GlFunctions::glDisableClientState;
+  using GlFunctions::glEnableClientState;
+  using GlFunctions::glIndexPointer;
+  using GlFunctions::glNormalPointer;
+  using GlFunctions::glPixelTransferi;
+  using GlFunctions::glTexCoordPointer;
+  using GlFunctions::glVertexPointer;
 };
 
 #endif // _OpenGl_GlCore11_Header

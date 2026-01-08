@@ -148,7 +148,7 @@ inline Standard_Boolean IsInf(const Standard_Real theVal);
 
 //=================================================================================================
 
-void BRepOffset_Tool::EdgeVertices(const TopoEdge& E, TopoVertex& V1, TopoVertex& V2)
+void Tool5::EdgeVertices(const TopoEdge& E, TopoVertex& V1, TopoVertex& V2)
 {
   if (E.Orientation() == TopAbs_REVERSED)
   {
@@ -314,7 +314,7 @@ static void PutInBounds(const TopoFace& F, const TopoEdge& E, Handle(GeomCurve2d
 
 //=================================================================================================
 
-Standard_Real BRepOffset_Tool::Gabarit(const Handle(GeomCurve3d)& aCurve)
+Standard_Real Tool5::Gabarit(const Handle(GeomCurve3d)& aCurve)
 {
   GeomAdaptor_Curve GC(aCurve);
   Box2           aBox;
@@ -469,13 +469,13 @@ static void BuildPCurves(const TopoEdge& E, const TopoFace& F)
   }
   else
   {
-    throw Standard_ConstructionError("BRepOffset_Tool::BuildPCurves");
+    throw Standard_ConstructionError("Tool5::BuildPCurves");
   }
 }
 
 //=================================================================================================
 
-void BRepOffset_Tool::OrientSection(const TopoEdge&  E,
+void Tool5::OrientSection(const TopoEdge&  E,
                                     const TopoFace&  F1,
                                     const TopoFace&  F2,
                                     TopAbs_Orientation& O1,
@@ -549,7 +549,7 @@ void BRepOffset_Tool::OrientSection(const TopoEdge&  E,
 
 //=================================================================================================
 
-Standard_Boolean BRepOffset_Tool::FindCommonShapes(const TopoFace&    theF1,
+Standard_Boolean Tool5::FindCommonShapes(const TopoFace&    theF1,
                                                    const TopoFace&    theF2,
                                                    ShapeList& theLE,
                                                    ShapeList& theLV)
@@ -561,7 +561,7 @@ Standard_Boolean BRepOffset_Tool::FindCommonShapes(const TopoFace&    theF1,
 
 //=================================================================================================
 
-Standard_Boolean BRepOffset_Tool::FindCommonShapes(const TopoShape&    theS1,
+Standard_Boolean Tool5::FindCommonShapes(const TopoShape&    theS1,
                                                    const TopoShape&    theS2,
                                                    const TopAbs_ShapeEnum theType,
                                                    ShapeList&  theLSC)
@@ -710,7 +710,7 @@ static Standard_Boolean IsOnSurface(const Handle(GeomCurve3d)&   C,
 
 //=================================================================================================
 
-void BRepOffset_Tool::PipeInter(const TopoFace&    F1,
+void Tool5::PipeInter(const TopoFace&    F1,
                                 const TopoFace&    F2,
                                 ShapeList& L1,
                                 ShapeList& L2,
@@ -1381,7 +1381,7 @@ static TopoEdge AssembleEdge(const BOPDS_PDS&                pDS,
 
 //=================================================================================================
 
-void BRepOffset_Tool::Inter3D(const TopoFace&    F1,
+void Tool5::Inter3D(const TopoFace&    F1,
                               const TopoFace&    F2,
                               ShapeList& L1,
                               ShapeList& L2,
@@ -1860,7 +1860,7 @@ void BRepOffset_Tool::Inter3D(const TopoFace&    F1,
 
 //=================================================================================================
 
-Standard_Boolean BRepOffset_Tool::TryProject(const TopoFace&          F1,
+Standard_Boolean Tool5::TryProject(const TopoFace&          F1,
                                              const TopoFace&          F2,
                                              const ShapeList& Edges,
                                              ShapeList&       LInt1,
@@ -1939,7 +1939,7 @@ Standard_Boolean BRepOffset_Tool::TryProject(const TopoFace&          F1,
 
 //=================================================================================================
 
-void BRepOffset_Tool::InterOrExtent(const TopoFace&    F1,
+void Tool5::InterOrExtent(const TopoFace&    F1,
                                     const TopoFace&    F2,
                                     ShapeList& L1,
                                     ShapeList& L2,
@@ -2190,7 +2190,7 @@ static Standard_Boolean ProjectVertexOnEdge(TopoVertex&     V,
   }
   if (!found)
   {
-    std::cout << "BRepOffset_Tool::ProjectVertexOnEdge Parameter no found" << std::endl;
+    std::cout << "Tool5::ProjectVertexOnEdge Parameter no found" << std::endl;
     if (Abs(f) < Precision::Infinite() && Abs(l) < Precision::Infinite())
     {
   #ifdef DRAW
@@ -2212,7 +2212,7 @@ static Standard_Boolean ProjectVertexOnEdge(TopoVertex&     V,
 
 //=================================================================================================
 
-void BRepOffset_Tool::Inter2d(const TopoFace&    F,
+void Tool5::Inter2d(const TopoFace&    F,
                               const TopoEdge&    E1,
                               const TopoEdge&    E2,
                               ShapeList& LV,
@@ -2407,7 +2407,7 @@ void BRepOffset_Tool::Inter2d(const TopoFace&    F,
           {
             YaSol                              = Standard_True;
             aCurrentFind                       = Standard_True;
-            IntRes2d_IntersectionSegment Seg   = Inter.Segment(1);
+            IntRes2d_IntersectionSegment Seg   = Inter.Segment1(1);
             IntRes2d_IntersectionPoint   IntP1 = Seg.FirstPoint();
             IntRes2d_IntersectionPoint   IntP2 = Seg.LastPoint();
             Standard_Real                U1on1 = IntP1.ParamOnFirst();
@@ -2415,7 +2415,7 @@ void BRepOffset_Tool::Inter2d(const TopoFace&    F,
             Standard_Real                U2on1 = IntP1.ParamOnSecond();
             Standard_Real                U2on2 = IntP2.ParamOnSecond();
 #ifdef OCCT_DEBUG
-            std::cout << " BRepOffset_Tool::Inter2d SEGMENT d intersection" << std::endl;
+            std::cout << " Tool5::Inter2d SEGMENT d intersection" << std::endl;
             std::cout << "     ===> Parametres sur Curve1 : ";
             std::cout << U1on1 << " " << U1on2 << std::endl;
             std::cout << "     ===> Parametres sur Curve2 : ";
@@ -2642,13 +2642,13 @@ static void MakeFace(const Handle(GeomSurface)& S,
     if (!vmininf)
     {
       Cvmin = S->VIso(VMin);
-      if (BRepOffset_Tool::Gabarit(Cvmin) <= TolApex)
+      if (Tool5::Gabarit(Cvmin) <= TolApex)
         vmindegen = Standard_True;
     }
     if (!vmaxinf)
     {
       Cvmax = S->VIso(VMax);
-      if (BRepOffset_Tool::Gabarit(Cvmax) <= TolApex)
+      if (Tool5::Gabarit(Cvmax) <= TolApex)
         vmaxdegen = Standard_True;
     }
   }
@@ -2917,9 +2917,9 @@ static Standard_Boolean EnlargeGeometry(Handle(GeomSurface)&  S,
       du_last                      = (theLenAfterUlast == -1) ? du_default : theLenAfterUlast;
       uiso1                        = S->UIso(uf1);
       uiso2                        = S->UIso(uf2);
-      if (BRepOffset_Tool::Gabarit(uiso1) <= TolApex)
+      if (Tool5::Gabarit(uiso1) <= TolApex)
         enlargeUfirst = Standard_False;
-      if (BRepOffset_Tool::Gabarit(uiso2) <= TolApex)
+      if (Tool5::Gabarit(uiso2) <= TolApex)
         enlargeUlast = Standard_False;
     }
     if (Precision::IsInfinite(v1) || Precision::IsInfinite(v2))
@@ -2940,12 +2940,12 @@ static Standard_Boolean EnlargeGeometry(Handle(GeomSurface)&  S,
       dv_last                      = (theLenAfterVlast == -1) ? dv_default : theLenAfterVlast;
       viso1                        = S->VIso(vf1);
       viso2                        = S->VIso(vf2);
-      if (BRepOffset_Tool::Gabarit(viso1) <= TolApex)
+      if (Tool5::Gabarit(viso1) <= TolApex)
       {
         enlargeVfirst = Standard_False;
         IsV1degen     = Standard_True;
       }
-      if (BRepOffset_Tool::Gabarit(viso2) <= TolApex)
+      if (Tool5::Gabarit(viso2) <= TolApex)
       {
         enlargeVlast = Standard_False;
         IsV2degen    = Standard_True;
@@ -2993,10 +2993,10 @@ static Standard_Boolean EnlargeGeometry(Handle(GeomSurface)&  S,
     uiso2         = S->UIso(u2);
     viso1         = S->VIso(v1);
     viso2         = S->VIso(v2);
-    gabarit_uiso1 = BRepOffset_Tool::Gabarit(uiso1);
-    gabarit_uiso2 = BRepOffset_Tool::Gabarit(uiso2);
-    gabarit_viso1 = BRepOffset_Tool::Gabarit(viso1);
-    gabarit_viso2 = BRepOffset_Tool::Gabarit(viso2);
+    gabarit_uiso1 = Tool5::Gabarit(uiso1);
+    gabarit_uiso2 = Tool5::Gabarit(uiso2);
+    gabarit_viso1 = Tool5::Gabarit(viso1);
+    gabarit_viso2 = Tool5::Gabarit(viso2);
     if (gabarit_viso1 <= TolApex || gabarit_viso2 <= TolApex)
       enlargeU = Standard_False;
     if (gabarit_uiso1 <= TolApex || gabarit_uiso2 <= TolApex)
@@ -3146,7 +3146,7 @@ static void CompactUVBounds(const TopoFace& F,
 
 //=================================================================================================
 
-void BRepOffset_Tool::CheckBounds(const TopoFace&        F,
+void Tool5::CheckBounds(const TopoFace&        F,
                                   const BRepOffset_Analyse& Analyse,
                                   Standard_Boolean&         enlargeU,
                                   Standard_Boolean&         enlargeVfirst,
@@ -3254,7 +3254,7 @@ void BRepOffset_Tool::CheckBounds(const TopoFace&        F,
 
 //=================================================================================================
 
-Standard_Boolean BRepOffset_Tool::EnLargeFace(const TopoFace&     F,
+Standard_Boolean Tool5::EnLargeFace(const TopoFace&     F,
                                               TopoFace&           BF,
                                               const Standard_Boolean CanExtentSurface,
                                               const Standard_Boolean UpdatePCurve,
@@ -3488,7 +3488,7 @@ static Standard_Boolean TryParameter(const TopoEdge& OE,
 
 //=================================================================================================
 
-void BRepOffset_Tool::MapVertexEdges(const TopoShape& S, TopTools_DataMapOfShapeListOfShape& MEV)
+void Tool5::MapVertexEdges(const TopoShape& S, TopTools_DataMapOfShapeListOfShape& MEV)
 {
   ShapeExplorer exp;
   exp.Init(S.Oriented(TopAbs_FORWARD), TopAbs_EDGE);
@@ -3521,7 +3521,7 @@ void BRepOffset_Tool::MapVertexEdges(const TopoShape& S, TopTools_DataMapOfShape
 
 //=================================================================================================
 
-void BRepOffset_Tool::BuildNeighbour(const TopoWire&            W,
+void Tool5::BuildNeighbour(const TopoWire&            W,
                                      const TopoFace&            F,
                                      TopTools_DataMapOfShapeShape& NOnV1,
                                      TopTools_DataMapOfShapeShape& NOnV2)
@@ -3593,7 +3593,7 @@ void BRepOffset_Tool::BuildNeighbour(const TopoWire&            W,
 
 //=================================================================================================
 
-void BRepOffset_Tool::ExtentFace(const TopoFace&            F,
+void Tool5::ExtentFace(const TopoFace&            F,
                                  TopTools_DataMapOfShapeShape& ConstShapes,
                                  TopTools_DataMapOfShapeShape& ToBuild,
                                  const TopAbs_State            Side,
@@ -3704,7 +3704,7 @@ void BRepOffset_Tool::ExtentFace(const TopoFace&            F,
       {
         ShapeList LOE;
         LOE.Append(E);
-        if (BRepOffset_Tool::TryProject(TopoDS::Face(ToBuild(E)),
+        if (Tool5::TryProject(TopoDS::Face(ToBuild(E)),
                                         EF,
                                         LOE,
                                         LInt2,
@@ -3725,7 +3725,7 @@ void BRepOffset_Tool::ExtentFace(const TopoFace&            F,
       {
         EnLargeFace(TopoDS::Face(ToBuild(E)), StopFace, Standard_False);
         TopoFace NullFace;
-        BRepOffset_Tool::Inter3D(EF, StopFace, LInt1, LInt2, Side, E, NullFace, NullFace);
+        Tool5::Inter3D(EF, StopFace, LInt1, LInt2, Side, E, NullFace, NullFace);
         // No intersection, it may happen for example for a chosen (non-offsetted) planar face and
         // its neighbour offseted cylindrical face, if the offset is directed so that
         // the radius of the cylinder becomes smaller.
@@ -4110,7 +4110,7 @@ void BRepOffset_Tool::ExtentFace(const TopoFace&            F,
 
 //=================================================================================================
 
-TopoShape BRepOffset_Tool::Deboucle3D(const TopoShape& S, const TopTools_MapOfShape& Boundary)
+TopoShape Tool5::Deboucle3D(const TopoShape& S, const TopTools_MapOfShape& Boundary)
 {
   TopoShape SS;
   switch (S.ShapeType())
@@ -4206,7 +4206,7 @@ static Standard_Boolean IsInOut(BRepTopAdaptor_FClass2d&   FC,
 
 //=================================================================================================
 
-void BRepOffset_Tool::CorrectOrientation(const TopoShape&               SI,
+void Tool5::CorrectOrientation(const TopoShape&               SI,
                                          const TopTools_IndexedMapOfShape& NewEdges,
                                          Handle(BRepAlgo_AsDes)&           AsDes,
                                          ShapeImage&                   InitOffset,
@@ -4270,7 +4270,7 @@ void BRepOffset_Tool::CorrectOrientation(const TopoShape&               SI,
 
 //=================================================================================================
 
-Standard_Boolean BRepOffset_Tool::CheckPlanesNormals(const TopoFace&  theFace1,
+Standard_Boolean Tool5::CheckPlanesNormals(const TopoFace&  theFace1,
                                                      const TopoFace&  theFace2,
                                                      const Standard_Real theTolAng)
 {
@@ -4351,7 +4351,7 @@ void PerformPlanes(const TopoFace&    theFace1,
   //
   // Orient section
   TopAbs_Orientation O1, O2;
-  BRepOffset_Tool::OrientSection(aE, theFace1, theFace2, O1, O2);
+  Tool5::OrientSection(aE, theFace1, theFace2, O1, O2);
   if (theSide == TopAbs_OUT)
   {
     O1 = TopAbs1::Reverse(O1);

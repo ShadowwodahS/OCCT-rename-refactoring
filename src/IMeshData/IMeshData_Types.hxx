@@ -95,11 +95,11 @@ typedef NCollection_Shared<NCollection_Vector<IEdgePtr>>           VectorOfIEdge
 typedef NCollection_Shared<NCollection_Vector<Standard_Boolean>>   VectorOfBoolean;
 typedef NCollection_Shared<NCollection_Vector<Standard_Integer>>   VectorOfInteger;
 typedef NCollection_Shared<NCollection_Vector<TopAbs_Orientation>> VectorOfOrientation;
-typedef NCollection_Shared<NCollection_Vector<BRepMesh_Triangle>>  VectorOfElements;
+typedef NCollection_Shared<NCollection_Vector<Triangle3>>  VectorOfElements;
 typedef NCollection_Shared<NCollection_Vector<BRepMeshCircle>>    VectorOfCircle;
 
-typedef NCollection_Shared<NCollection_Array1<BRepMesh_Vertex>> Array1OfVertexOfDelaun;
-typedef NCollection_Shared<NCollection_Vector<BRepMesh_Vertex>> VectorOfVertex;
+typedef NCollection_Shared<NCollection_Array1<Vertex>> Array1OfVertexOfDelaun;
+typedef NCollection_Shared<NCollection_Vector<Vertex>> VectorOfVertex;
 
 // Sequences
 typedef NCollection_Shared<NCollection_Sequence<Bnd_B2d>>          SequenceOfBndB2d;
@@ -132,13 +132,13 @@ typedef NCollection_Shared<NCollection_DataMap<IFacePtr, ListOfInteger>>
                                                                    DMapOfIFacePtrsListOfInteger;
 typedef NCollection_Shared<NCollection_Map<IEdgePtr>>              MapOfIEdgePtr;
 typedef NCollection_Shared<NCollection_Map<IFacePtr>>              MapOfIFacePtr;
-typedef NCollection_Shared<NCollection_Map<BRepMesh_OrientedEdge>> MapOfOrientedEdges;
+typedef NCollection_Shared<NCollection_Map<OrientedEdge>> MapOfOrientedEdges;
 typedef NCollection_Shared<NCollection_Map<Standard_Real>>         MapOfReal;
 typedef NCollection_Shared<NCollection_IndexedDataMap<IFacePtr, ListOfIPCurves>>
   IDMapOfIFacePtrsListOfIPCurves;
 typedef NCollection_Shared<NCollection_DataMap<IFacePtr, Handle(MapOfIEdgePtr)>>
   DMapOfIFacePtrsMapOfIEdgePtrs;
-typedef NCollection_Shared<NCollection_IndexedDataMap<BRepMesh_Edge, BRepMesh_PairOfIndex>>
+typedef NCollection_Shared<NCollection_IndexedDataMap<BRepMesh_Edge, PairOfIndex>>
   IDMapOfLink;
 typedef NCollection_Shared<NCollection_DataMap<Standard_Integer, ListOfInteger>>
   DMapOfIntegerListOfInteger;

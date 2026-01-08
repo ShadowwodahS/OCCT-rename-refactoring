@@ -93,7 +93,7 @@ Standard_Boolean ShapeConstruct_Curve::AdjustCurveSegment(const Handle(GeomCurve
       return Standard_False;
     Standard_Real UU1 = Max(U1, BSPL->FirstParameter());
     Standard_Real UU2 = Min(U2, BSPL->LastParameter());
-    BSPL->Segment(UU1, UU2);
+    BSPL->Segment1(UU1, UU2);
     BSPL->SetPole(1, P1);
     BSPL->SetPole(BSPL->NbPoles(), P2);
     return Standard_True;
@@ -206,13 +206,13 @@ Handle(BSplineCurve3d) ShapeConstruct_Curve::ConvertToBSpline(const Handle(GeomC
     {
       OCC_CATCH_SIGNALS
       bspl = Handle(BSplineCurve3d)::DownCast(bspl->Copy());
-      bspl->Segment(fbsp, lbsp);
+      bspl->Segment1(fbsp, lbsp);
       return bspl;
     }
     catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
-      std::cout << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in Segment: ";
+      std::cout << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in Segment1: ";
       anException.Print(std::cout);
       std::cout << std::endl;
 #endif
@@ -300,13 +300,13 @@ Handle(Geom2d_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(
     {
       OCC_CATCH_SIGNALS
       bspl = Handle(Geom2d_BSplineCurve)::DownCast(bspl->Copy());
-      bspl->Segment(fbsp, lbsp);
+      bspl->Segment1(fbsp, lbsp);
       return bspl;
     }
     catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
-      std::cout << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in Segment: ";
+      std::cout << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in Segment1: ";
       anException.Print(std::cout);
       std::cout << std::endl;
 #endif

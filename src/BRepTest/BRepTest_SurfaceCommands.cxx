@@ -75,10 +75,10 @@ static Standard_Integer mkface(DrawInterpreter&, Standard_Integer n, const char*
   Standard_Boolean mkface = a[0][2] == 'f';
   TopoShape     res;
 
-  Standard_Boolean Segment = Standard_False;
+  Standard_Boolean Segment1 = Standard_False;
   if (!mkface && (n == 4 || n == 8))
   {
-    Segment = !strcmp(a[n - 1], "1");
+    Segment1 = !strcmp(a[n - 1], "1");
     n--;
   }
 
@@ -87,7 +87,7 @@ static Standard_Integer mkface(DrawInterpreter&, Standard_Integer n, const char*
     if (mkface)
       res = FaceMaker(S, Precision::Confusion());
     else
-      res = BRepBuilderAPI_MakeShell(S, Segment);
+      res = BRepBuilderAPI_MakeShell(S, Segment1);
   }
   else if (n <= 5)
   {
@@ -114,7 +114,7 @@ static Standard_Integer mkface(DrawInterpreter&, Standard_Integer n, const char*
                                      Draw1::Atof(a[4]),
                                      Draw1::Atof(a[5]),
                                      Draw1::Atof(a[6]),
-                                     Segment);
+                                     Segment1);
   }
 
   DBRep1::Set(a[1], res);

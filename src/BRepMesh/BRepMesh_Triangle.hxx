@@ -25,13 +25,13 @@
 
 //! Light weighted structure representing triangle
 //! of mesh consisting of oriented links.
-class BRepMesh_Triangle
+class Triangle3
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Default constructor.
-  BRepMesh_Triangle()
+  Triangle3()
       : myMovability(BRepMesh_Free)
   {
     myEdges[0]        = 0;
@@ -46,7 +46,7 @@ public:
   //! @param theEdges array of edges of triangle.
   //! @param theOrientations array of edge's orientations.
   //! @param theMovability movability of triangle.
-  BRepMesh_Triangle(const Standard_Integer (&theEdges)[3],
+  Triangle3(const Standard_Integer (&theEdges)[3],
                     const Standard_Boolean (&theOrientations)[3],
                     const BRepMesh_DegreeOfFreedom theMovability)
   {
@@ -84,7 +84,7 @@ public:
   //! Checks for equality with another triangle.
   //! @param theOther triangle to be checked against this one.
   //! @return TRUE if equal, FALSE if not.
-  Standard_Boolean IsEqual(const BRepMesh_Triangle& theOther) const
+  Standard_Boolean IsEqual(const Triangle3& theOther) const
   {
     if (myMovability == BRepMesh_Deleted || theOther.myMovability == BRepMesh_Deleted)
       return Standard_False;
@@ -111,7 +111,7 @@ public:
   }
 
   //! Alias for IsEqual.
-  Standard_Boolean operator==(const BRepMesh_Triangle& theOther) const { return IsEqual(theOther); }
+  Standard_Boolean operator==(const Triangle3& theOther) const { return IsEqual(theOther); }
 
   Standard_Integer         myEdges[3];
   Standard_Boolean         myOrientations[3];
@@ -121,9 +121,9 @@ public:
 namespace std
 {
 template <>
-struct hash<BRepMesh_Triangle>
+struct hash<Triangle3>
 {
-  size_t operator()(const BRepMesh_Triangle& theTriangle) const noexcept
+  size_t operator()(const Triangle3& theTriangle) const noexcept
   {
     int aCombination[3] = {theTriangle.myEdges[0], theTriangle.myEdges[1], theTriangle.myEdges[2]};
     std::sort(aCombination, aCombination + 3); // Sort the numbers in ascending order

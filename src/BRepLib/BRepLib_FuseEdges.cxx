@@ -197,7 +197,7 @@ static void MakeClosedCurve(Handle(GeomCurve3d)& C,
   aBC->SetOrigin(porig, Precision::PConfusion());
   f = aBC->FirstParameter();
   l = aBC->LastParameter();
-  aBC->Segment(f, l);
+  aBC->Segment1(f, l);
   if (aCont > GeomAbs_C0 && aBC->Continuity() == GeomAbs_C0)
   {
     BCSmoothing(aBC, 1, Precision::Confusion());

@@ -39,7 +39,7 @@ BRepMesh_EdgeDiscret::~BRepMesh_EdgeDiscret() {}
 
 Handle(IMeshTools_CurveTessellator) BRepMesh_EdgeDiscret::CreateEdgeTessellator(
   const IMeshData::IEdgeHandle& theDEdge,
-  const IMeshTools_Parameters&  theParameters,
+  const Parameters3&  theParameters,
   const Standard_Integer        theMinPointsNb)
 {
   return new BRepMesh_CurveTessellator(theDEdge, theParameters, theMinPointsNb);
@@ -51,7 +51,7 @@ Handle(IMeshTools_CurveTessellator) BRepMesh_EdgeDiscret::CreateEdgeTessellator(
   const IMeshData::IEdgeHandle& theDEdge,
   const TopAbs_Orientation      theOrientation,
   const IMeshData::IFaceHandle& theDFace,
-  const IMeshTools_Parameters&  theParameters,
+  const Parameters3&  theParameters,
   const Standard_Integer        theMinPointsNb)
 {
   return theDEdge->GetSameParam()
@@ -75,7 +75,7 @@ Handle(IMeshTools_CurveTessellator) BRepMesh_EdgeDiscret::CreateEdgeTessellation
 //=================================================================================================
 
 Standard_Boolean BRepMesh_EdgeDiscret::performInternal(const Handle(IMeshData_Model)& theModel,
-                                                       const IMeshTools_Parameters&   theParameters,
+                                                       const Parameters3&   theParameters,
                                                        const Message_ProgressRange&   theRange)
 {
   (void)theRange;

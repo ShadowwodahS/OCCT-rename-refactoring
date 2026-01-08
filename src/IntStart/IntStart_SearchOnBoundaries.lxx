@@ -61,7 +61,7 @@ inline Standard_Integer IntStart_SearchOnBoundaries::NbSegments() const
   return sseg.Length();
 }
 
-inline const IntStart_TheSegment& IntStart_SearchOnBoundaries::Segment(
+inline const IntStart_TheSegment& IntStart_SearchOnBoundaries::Segment1(
   const Standard_Integer Index) const
 {
 

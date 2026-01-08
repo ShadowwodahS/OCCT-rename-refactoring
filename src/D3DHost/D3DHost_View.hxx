@@ -34,7 +34,7 @@ public:
   Standard_EXPORT D3DHost_View(const Handle(Graphic3d_StructureManager)& theMgr,
                                const Handle(D3DHost_GraphicDriver)&      theDriver,
                                const Handle(OpenGl_Caps)&                theCaps,
-                               OpenGl_StateCounter*                      theCounter);
+                               StateCounter*                      theCounter);
 
   //! Default destructor.
   Standard_EXPORT virtual ~D3DHost_View();

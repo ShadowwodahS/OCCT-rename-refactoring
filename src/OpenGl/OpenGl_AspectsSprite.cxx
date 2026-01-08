@@ -280,9 +280,9 @@ void OpenGl_AspectsSprite::build(const Handle(OpenGl_Context)&        theCtx,
 
     Handle(Image_PixMap) anImage =
       aNewMarkerImage->IsColoredImage() ? aNewMarkerImage->GetImage() : Handle(Image_PixMap)();
-    const OpenGl_TextureFormat aFormat =
-      !anImage.IsNull() ? OpenGl_TextureFormat::FindFormat(theCtx, anImage->Format(), true)
-                        : OpenGl_TextureFormat();
+    const TextureFormat aFormat =
+      !anImage.IsNull() ? TextureFormat::FindFormat(theCtx, anImage->Format(), true)
+                        : TextureFormat();
     if (aFormat.IsValid())
     {
       if (anImage->IsTopDown())

@@ -34,7 +34,7 @@
 class OpenGl_BackgroundArray;
 class OpenGl_DepthPeeling;
 class OpenGl_PBREnvironment;
-struct OpenGl_RaytraceMaterial;
+struct RaytraceMaterial;
 class OpenGl_ShadowMap;
 class OpenGl_ShadowMapArray;
 class OpenGl_ShaderObject;
@@ -52,7 +52,7 @@ public:
   Standard_EXPORT OpenGl_View(const Handle(Graphic3d_StructureManager)& theMgr,
                               const Handle(OpenGl_GraphicDriver)&       theDriver,
                               const Handle(OpenGl_Caps)&                theCaps,
-                              OpenGl_StateCounter*                      theCounter);
+                              StateCounter*                      theCounter);
 
   //! Default destructor.
   Standard_EXPORT virtual ~OpenGl_View();
@@ -309,7 +309,7 @@ public:
   void SetBackgroundGradientType(const Aspect_GradientFillMethod AType);
 
   //! Returns list of OpenGL Z-layers.
-  const OpenGl_LayerList& LayerList() const { return myZLayers; }
+  const LayerList1& LayerList() const { return myZLayers; }
 
   //! Returns OpenGL window implementation.
   const Handle(OpenGl_Window)& GlWindow() const { return myWindow; }
@@ -497,11 +497,11 @@ protected:
   Handle(Graphic3d_LightSet) myNoShadingLight;
   Handle(Graphic3d_LightSet) myLights;
   // clang-format off
-  OpenGl_LayerList                myZLayers; //!< main list of displayed structure, sorted by layers
+  LayerList1                myZLayers; //!< main list of displayed structure, sorted by layers
   // clang-format on
 
   Graphic3d_WorldViewProjState myWorldViewProjState; //!< camera modification state
-  OpenGl_StateCounter*         myStateCounter;
+  StateCounter*         myStateCounter;
   Standard_Size                myCurrLightSourceState;
   Standard_Size                myLightsRevision;
 
@@ -717,7 +717,7 @@ protected: //! @name data types related to ray-tracing
   static const Standard_Integer THE_DEFAULT_STACK_SIZE = 10;
 
   //! Compile-time ray-tracing parameters.
-  struct RaytracingParams
+  struct RaytracingParams1
   {
     //! Actual size of traversal stack in shader program.
     Standard_Integer StackSize;
@@ -765,7 +765,7 @@ protected: //! @name data types related to ray-tracing
     Graphic3d_ToneMappingMethod ToneMappingMethod;
 
     //! Creates default compile-time ray-tracing parameters.
-    RaytracingParams()
+    RaytracingParams1()
         : StackSize(THE_DEFAULT_STACK_SIZE),
           NbBounces(THE_DEFAULT_NB_BOUNCES),
           IsZeroToOneDepth(Standard_False),
@@ -786,13 +786,13 @@ protected: //! @name data types related to ray-tracing
   };
 
   //! Describes state of OpenGL structure.
-  struct StructState
+  struct StructState1
   {
     Standard_Size StructureState;
     Standard_Size InstancedState;
 
     //! Creates new structure state.
-    StructState(const Standard_Size theStructureState = 0,
+    StructState1(const Standard_Size theStructureState = 0,
                 const Standard_Size theInstancedState = 0)
         : StructureState(theStructureState),
           InstancedState(theInstancedState)
@@ -801,7 +801,7 @@ protected: //! @name data types related to ray-tracing
     }
 
     //! Creates new structure state.
-    StructState(const OpenGl_Structure* theStructure)
+    StructState1(const OpenGl_Structure* theStructure)
     {
       StructureState = theStructure->ModificationState();
 
@@ -830,63 +830,63 @@ protected: //! @name methods related to ray-tracing
 
   //! Adds OpenGL groups to ray-traced scene geometry.
   Standard_Boolean addRaytraceGroups(const OpenGl_Structure*        theStructure,
-                                     const OpenGl_RaytraceMaterial& theStructMat,
+                                     const RaytraceMaterial& theStructMat,
                                      const Handle(TopLoc_Datum3D)&  theTrsf,
                                      const Handle(OpenGl_Context)&  theGlContext);
 
   //! Creates ray-tracing material properties.
-  OpenGl_RaytraceMaterial convertMaterial(const OpenGl_Aspects*         theAspect,
+  RaytraceMaterial convertMaterial(const OpenGl_Aspects*         theAspect,
                                           const Handle(OpenGl_Context)& theGlContext);
 
   //! Adds OpenGL primitive array to ray-traced scene geometry.
-  Handle(OpenGl_TriangleSet) addRaytracePrimitiveArray(const OpenGl_PrimitiveArray* theArray,
+  Handle(TriangleSet2) addRaytracePrimitiveArray(const OpenGl_PrimitiveArray* theArray,
                                                        const Standard_Integer       theMatID,
                                                        const OpenGl_Mat4*           theTrans);
 
   //! Adds vertex indices from OpenGL primitive array to ray-traced scene geometry.
-  Standard_Boolean addRaytraceVertexIndices(OpenGl_TriangleSet&          theSet,
+  Standard_Boolean addRaytraceVertexIndices(TriangleSet2&          theSet,
                                             const Standard_Integer       theMatID,
                                             const Standard_Integer       theCount,
                                             const Standard_Integer       theOffset,
                                             const OpenGl_PrimitiveArray& theArray);
 
   //! Adds OpenGL triangle array to ray-traced scene geometry.
-  Standard_Boolean addRaytraceTriangleArray(OpenGl_TriangleSet&                  theSet,
+  Standard_Boolean addRaytraceTriangleArray(TriangleSet2&                  theSet,
                                             const Standard_Integer               theMatID,
                                             const Standard_Integer               theCount,
                                             const Standard_Integer               theOffset,
                                             const Handle(Graphic3d_IndexBuffer)& theIndices);
 
   //! Adds OpenGL triangle fan array to ray-traced scene geometry.
-  Standard_Boolean addRaytraceTriangleFanArray(OpenGl_TriangleSet&                  theSet,
+  Standard_Boolean addRaytraceTriangleFanArray(TriangleSet2&                  theSet,
                                                const Standard_Integer               theMatID,
                                                const Standard_Integer               theCount,
                                                const Standard_Integer               theOffset,
                                                const Handle(Graphic3d_IndexBuffer)& theIndices);
 
   //! Adds OpenGL triangle strip array to ray-traced scene geometry.
-  Standard_Boolean addRaytraceTriangleStripArray(OpenGl_TriangleSet&                  theSet,
+  Standard_Boolean addRaytraceTriangleStripArray(TriangleSet2&                  theSet,
                                                  const Standard_Integer               theMatID,
                                                  const Standard_Integer               theCount,
                                                  const Standard_Integer               theOffset,
                                                  const Handle(Graphic3d_IndexBuffer)& theIndices);
 
   //! Adds OpenGL quadrangle array to ray-traced scene geometry.
-  Standard_Boolean addRaytraceQuadrangleArray(OpenGl_TriangleSet&                  theSet,
+  Standard_Boolean addRaytraceQuadrangleArray(TriangleSet2&                  theSet,
                                               const Standard_Integer               theMatID,
                                               const Standard_Integer               theCount,
                                               const Standard_Integer               theOffset,
                                               const Handle(Graphic3d_IndexBuffer)& theIndices);
 
   //! Adds OpenGL quadrangle strip array to ray-traced scene geometry.
-  Standard_Boolean addRaytraceQuadrangleStripArray(OpenGl_TriangleSet&                  theSet,
+  Standard_Boolean addRaytraceQuadrangleStripArray(TriangleSet2&                  theSet,
                                                    const Standard_Integer               theMatID,
                                                    const Standard_Integer               theCount,
                                                    const Standard_Integer               theOffset,
                                                    const Handle(Graphic3d_IndexBuffer)& theIndices);
 
   //! Adds OpenGL polygon array to ray-traced scene geometry.
-  Standard_Boolean addRaytracePolygonArray(OpenGl_TriangleSet&                  theSet,
+  Standard_Boolean addRaytracePolygonArray(TriangleSet2&                  theSet,
                                            const Standard_Integer               theMatID,
                                            const Standard_Integer               theCount,
                                            const Standard_Integer               theOffset,
@@ -1007,7 +1007,7 @@ protected: //! @name fields related to ray-tracing
   opencascade::handle<BVH_Builder<Standard_ShortReal, 3>> myRaytraceBVHBuilder;
 
   //! Compile-time ray-tracing parameters.
-  RaytracingParams myRaytraceParameters;
+  RaytracingParams1 myRaytraceParameters;
 
   //! Radius of bounding sphere of the scene.
   Standard_ShortReal myRaytraceSceneRadius;
@@ -1086,10 +1086,10 @@ protected: //! @name fields related to ray-tracing
   Standard_Integer myUniformLocations[2][OpenGl_RT_NbVariables];
 
   //! State of OpenGL structures reflected to ray-tracing.
-  std::map<const OpenGl_Structure*, StructState> myStructureStates;
+  std::map<const OpenGl_Structure*, StructState1> myStructureStates;
 
   //! PrimitiveArray to TriangleSet map for scene partial update.
-  std::map<Standard_Size, OpenGl_TriangleSet*> myArrayToTrianglesMap;
+  std::map<Standard_Size, TriangleSet2*> myArrayToTrianglesMap;
 
   //! Set of IDs of non-raytracable elements (to detect updates).
   std::set<Standard_Integer> myNonRaytraceStructureIDs;
@@ -1139,7 +1139,7 @@ public:
 
   friend class OpenGl_GraphicDriver;
   friend class OpenGl_Workspace;
-  friend class OpenGl_LayerList;
+  friend class LayerList1;
   friend class OpenGl_FrameStats;
 };
 

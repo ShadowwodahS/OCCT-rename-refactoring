@@ -77,7 +77,7 @@ public:
         aBox.Enlarge(Precision::Confusion());
 
         aBndBoxTreeFiller.Add(aSegments->Size(), aBox);
-        aSegments->Append(BRepMesh_FaceChecker::Segment(aDEdge, &aPnt1, &aPnt2));
+        aSegments->Append(BRepMesh_FaceChecker::Segment1(aDEdge, &aPnt1, &aPnt2));
       }
     }
 
@@ -116,7 +116,7 @@ public:
   }
 
   //! Resets current selector.
-  void Reset(const BRepMesh_FaceChecker::Segment* theSegment,
+  void Reset(const BRepMesh_FaceChecker::Segment1* theSegment,
              const Standard_Integer               theSelfSegmentIndex)
   {
     myIndices.Clear();
@@ -136,7 +136,7 @@ public:
   //! Accepts segment with the given index in case if it fits conditions.
   virtual Standard_Boolean Accept(const Standard_Integer& theSegmentIndex)
   {
-    const BRepMesh_FaceChecker::Segment& aSegment = mySegments->Value(theSegmentIndex);
+    const BRepMesh_FaceChecker::Segment1& aSegment = mySegments->Value(theSegmentIndex);
 
     gp_Pnt2d                         aIntPnt;
     const BRepMesh_GeomTool::IntFlag aIntStatus =
@@ -165,7 +165,7 @@ public:
         const Coords2d&  aRefPnt = aIntPnt.Coord();
         for (Standard_Integer i = mySelfSegmentIndex; i < theSegmentIndex; ++i)
         {
-          const BRepMesh_FaceChecker::Segment& aCurrSegment = mySegments->Value(i);
+          const BRepMesh_FaceChecker::Segment1& aCurrSegment = mySegments->Value(i);
           Coords2d                                aCurVec      = aCurrSegment.Point2->XY() - aRefPnt;
 
           if (aCurVec.SquareModulus() < gp1::Resolution())
@@ -197,7 +197,7 @@ private:
   Standard_Real                          myMaxLoopSize;
   Standard_Integer                       mySelfSegmentIndex;
   Handle(BRepMesh_FaceChecker::Segments) mySegments;
-  const BRepMesh_FaceChecker::Segment*   mySegment;
+  const BRepMesh_FaceChecker::Segment1*   mySegment;
   Bnd_Box2d                              myBox;
   IMeshData::VectorOfInteger             myIndices;
 };
@@ -206,7 +206,7 @@ private:
 //=================================================================================================
 
 BRepMesh_FaceChecker::BRepMesh_FaceChecker(const IMeshData::IFaceHandle& theFace,
-                                           const IMeshTools_Parameters&  theParameters)
+                                           const Parameters3&  theParameters)
     : myDFace(theFace),
       myParameters(theParameters)
 {
@@ -260,7 +260,7 @@ void BRepMesh_FaceChecker::perform(const Standard_Integer theWireIndex) const
     aSelector.SetSegments(aSegments2);
     for (Standard_Integer aSegmentIt = 0; aSegmentIt < aSegments1->Size(); ++aSegmentIt)
     {
-      const BRepMesh_FaceChecker::Segment& aSegment1 = aSegments1->Value(aSegmentIt);
+      const BRepMesh_FaceChecker::Segment1& aSegment1 = aSegments1->Value(aSegmentIt);
       aSelector.Reset(&aSegment1, (aWireIt == theWireIndex) ? aSegmentIt : -1);
       if (aBndBoxTree2->Select(aSelector) != 0)
       {
@@ -274,7 +274,7 @@ void BRepMesh_FaceChecker::perform(const Standard_Integer theWireIndex) const
         const IMeshData::VectorOfInteger& aSegments = aSelector.Indices();
         for (Standard_Integer aSelIt = 0; aSelIt < aSegments.Size(); ++aSelIt)
         {
-          const BRepMesh_FaceChecker::Segment& aSegment2 = aSegments2->Value(aSegments(aSelIt));
+          const BRepMesh_FaceChecker::Segment1& aSegment2 = aSegments2->Value(aSegments(aSelIt));
           aIntersections->Add(aSegment2.EdgePtr);
         }
       }

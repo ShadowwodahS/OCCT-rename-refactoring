@@ -179,11 +179,11 @@ public:
 
   //! Return the number of skipped transparent elements within active OpenGl_RenderFilter_OpaqueOnly
   //! filter.
-  //! @sa OpenGl_LayerList::Render()
+  //! @sa LayerList1::Render()
   Standard_Integer NbSkippedTransparentElements() { return myNbSkippedTranspElems; }
 
   //! Reset skipped transparent elements counter.
-  //! @sa OpenGl_LayerList::Render()
+  //! @sa LayerList1::Render()
   void ResetSkippedCounter() { myNbSkippedTranspElems = 0; }
 
   //! Returns face aspect for none culling mode.
@@ -215,7 +215,7 @@ protected: //! @name protected fields
 
 protected:                        //! @name fields related to status
                                   // clang-format off
-  Standard_Integer myNbSkippedTranspElems; //!< counter of skipped transparent elements for OpenGl_LayerList two rendering passes method
+  Standard_Integer myNbSkippedTranspElems; //!< counter of skipped transparent elements for LayerList1 two rendering passes method
   Standard_Integer myRenderFilter;         //!< active filter for skipping rendering of elements by some criteria (multiple render passes)
                                   // clang-format on
 

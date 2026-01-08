@@ -24,11 +24,11 @@
 class OpenGl_ShadowMapArray;
 
 //! Defines interface for OpenGL state.
-class OpenGl_StateInterface
+class StateInterface
 {
 public:
   //! Creates new state.
-  Standard_EXPORT OpenGl_StateInterface();
+  Standard_EXPORT StateInterface();
 
   //! Returns current state index.
   Standard_Size Index() const { return myIndex; }
@@ -41,7 +41,7 @@ protected:
 };
 
 //! Defines state of OCCT projection transformation.
-class OpenGl_ProjectionState : public OpenGl_StateInterface
+class OpenGl_ProjectionState : public StateInterface
 {
 public:
   //! Creates uninitialized projection state.
@@ -63,7 +63,7 @@ private:
 };
 
 //! Defines state of OCCT model-world transformation.
-class OpenGl_ModelWorldState : public OpenGl_StateInterface
+class OpenGl_ModelWorldState : public StateInterface
 {
 public:
   //! Creates uninitialized model-world state.
@@ -85,7 +85,7 @@ private:
 };
 
 //! Defines state of OCCT world-view transformation.
-class OpenGl_WorldViewState : public OpenGl_StateInterface
+class OpenGl_WorldViewState : public StateInterface
 {
 public:
   //! Creates uninitialized world-view state.
@@ -107,7 +107,7 @@ private:
 };
 
 //! Defines state of OCCT light sources.
-class OpenGl_LightSourceState : public OpenGl_StateInterface
+class OpenGl_LightSourceState : public StateInterface
 {
 public:
   //! Creates uninitialized state of light sources.
@@ -158,11 +158,11 @@ private:
 };
 
 //! Defines generic state of OCCT clipping state.
-class OpenGl_ClippingState
+class ClippingState
 {
 public:
   //! Creates new clipping state.
-  Standard_EXPORT OpenGl_ClippingState();
+  Standard_EXPORT ClippingState();
 
   //! Returns current state index.
   Standard_Size Index() const { return myIndex; }
@@ -180,7 +180,7 @@ protected:
 };
 
 //! Defines generic state of order-independent transparency rendering properties.
-class OpenGl_OitState : public OpenGl_StateInterface
+class OpenGl_OitState : public StateInterface
 {
 public:
   //! Creates new uniform state.

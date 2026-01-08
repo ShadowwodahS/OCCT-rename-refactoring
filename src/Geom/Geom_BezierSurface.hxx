@@ -289,7 +289,7 @@ public:
   //! parametric direction is inverted. The orientation of
   //! the surface is inverted if one (and only one)
   //! parametric direction is inverted.
-  Standard_EXPORT void Segment(const Standard_Real U1,
+  Standard_EXPORT void Segment1(const Standard_Real U1,
                                const Standard_Real U2,
                                const Standard_Real V1,
                                const Standard_Real V2);

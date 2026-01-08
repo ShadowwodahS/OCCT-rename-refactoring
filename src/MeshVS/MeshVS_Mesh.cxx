@@ -217,7 +217,7 @@ void MeshVS_Mesh::scanFacesForSharedNodes(const TColStd_PackedMapOfInteger& theA
   theSharedNodes.Clear();
   MeshVS_EntityType    aType;
   Standard_Integer     aNbNodes;
-  MeshVS_Buffer        aCoordsBuf(3 * theNbMaxFaceNodes * sizeof(Standard_Real));
+  Buffer        aCoordsBuf(3 * theNbMaxFaceNodes * sizeof(Standard_Real));
   TColStd_Array1OfReal aCoords(aCoordsBuf, 1, 3 * theNbMaxFaceNodes);
   for (TColStd_MapIteratorOfPackedMapOfInteger aFaceIter(theAllElements); aFaceIter.More();
        aFaceIter.Next())
@@ -231,12 +231,12 @@ void MeshVS_Mesh::scanFacesForSharedNodes(const TColStd_PackedMapOfInteger& theA
       if (aNbNodes == 0)
         continue;
 
-      MeshVS_Buffer           aNodesBuf(aNbNodes * sizeof(Standard_Integer));
+      Buffer           aNodesBuf(aNbNodes * sizeof(Standard_Integer));
       TColStd_Array1OfInteger aElemNodes(aNodesBuf, 1, aNbNodes);
       if (!myDataSource->GetNodesByElement(aFaceIdx, aElemNodes, aNbNodes))
         continue;
 
-      MeshVS_Buffer      aFacePntsBuf(aNbNodes * 3 * sizeof(Standard_Real));
+      Buffer      aFacePntsBuf(aNbNodes * 3 * sizeof(Standard_Real));
       TColgp_Array1OfPnt aFacePnts(aFacePntsBuf, 1, aNbNodes);
       for (Standard_Integer aNodeIdx = 1; aNodeIdx <= aNbNodes; ++aNodeIdx)
       {
@@ -277,7 +277,7 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelectio
   // Make two array aliases pointing to the same memory:
   // - TColStd_Array1OfReal for getting values from MeshVS_DataSource interface
   // - array of Point3d for convenient work with array of points
-  MeshVS_Buffer              aCoordsBuf(3 * aMaxFaceNodes * sizeof(Standard_Real));
+  Buffer              aCoordsBuf(3 * aMaxFaceNodes * sizeof(Standard_Real));
   NCollection_Array1<Point3d> aPntArray(aCoordsBuf, 1, aMaxFaceNodes);
   TColStd_Array1OfReal       aPntArrayAsCoordArray(aCoordsBuf, 1, 3 * aMaxFaceNodes);
 
@@ -399,14 +399,14 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelectio
                   continue;
                 }
 
-                MeshVS_Buffer           aNodesBuf(aNbNodes * sizeof(Standard_Integer));
+                Buffer           aNodesBuf(aNbNodes * sizeof(Standard_Integer));
                 TColStd_Array1OfInteger aElemNodes(aNodesBuf, 1, aNbNodes);
                 if (!myDataSource->GetNodesByElement(anElemIdx, aElemNodes, aNbNodes))
                 {
                   continue;
                 }
 
-                MeshVS_Buffer      aPntsBuf(aNbNodes * 3 * sizeof(Standard_Real));
+                Buffer      aPntsBuf(aNbNodes * 3 * sizeof(Standard_Real));
                 TColgp_Array1OfPnt aLinkPnts(aPntsBuf, 1, aNbNodes);
                 Standard_Boolean   isVertsShared = Standard_True;
                 for (Standard_Integer aPntIdx = 1; aPntIdx <= aNbNodes; ++aPntIdx)
@@ -1316,7 +1316,7 @@ void MeshVS_Mesh::UpdateSelectableNodes()
     if (IsHiddenElem(aKey))
       continue;
 
-    MeshVS_Buffer           aNodesBuf(aMaxFaceNodes * sizeof(Standard_Integer));
+    Buffer           aNodesBuf(aMaxFaceNodes * sizeof(Standard_Integer));
     TColStd_Array1OfInteger aNodes(aNodesBuf, 1, aMaxFaceNodes);
     Standard_Integer        NbNodes;
     if (!aSource->GetNodesByElement(aKey, aNodes, NbNodes))

@@ -84,7 +84,7 @@ public:
   //! False.
   //! The exception OutOfRange is raised if
   //! Index <= 0 or Index > NbPoints.
-  const Contap_TheSegmentOfTheSearch& Segment(const Standard_Integer Index) const;
+  const Contap_TheSegmentOfTheSearch& Segment1(const Standard_Integer Index) const;
 
 protected:
 private:

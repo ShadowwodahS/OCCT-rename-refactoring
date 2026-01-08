@@ -245,7 +245,7 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoEdge&                    aEdge,
             && dpar <= 0.1 * C->Period())
         {
           Handle(BSplineCurve3d) aBspl1 = Handle(BSplineCurve3d)::DownCast(C->Copy());
-          aBspl1->Segment(CA.FirstParameter(), CA.LastParameter());
+          aBspl1->Segment1(CA.FirstParameter(), CA.LastParameter());
           C = aBspl1;
         }
       }

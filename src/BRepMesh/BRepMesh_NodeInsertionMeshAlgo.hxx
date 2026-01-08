@@ -41,7 +41,7 @@ public:
 
   //! Performs processing of the given face.
   virtual void Perform(const IMeshData::IFaceHandle& theDFace,
-                       const IMeshTools_Parameters&  theParameters,
+                       const Parameters3&  theParameters,
                        const Message_ProgressRange&  theRange) Standard_OVERRIDE
   {
     myRangeSplitter.Reset(theDFace, theParameters);
@@ -126,7 +126,7 @@ protected:
   }
 
   //! Returns 2d point associated to the given vertex.
-  virtual gp_Pnt2d getNodePoint2d(const BRepMesh_Vertex& theVertex) const Standard_OVERRIDE
+  virtual gp_Pnt2d getNodePoint2d(const Vertex& theVertex) const Standard_OVERRIDE
   {
     return myRangeSplitter.Scale(theVertex.Coord(), Standard_False);
   }

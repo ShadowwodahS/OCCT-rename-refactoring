@@ -169,7 +169,7 @@ void Intersection2::SetValues(const Intersection2& Other)
 //--      && U1Last == U2First
 //--      && V1Last == V2First
 //--
-//--  merge the two Segment in :
+//--  merge the two Segment1 in :
 //--
 //--           U :      X------1----------2-------X     U
 //--           V :      X------1----------2-------X  <- V -> ?

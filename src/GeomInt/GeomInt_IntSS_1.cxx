@@ -220,7 +220,7 @@ static void IntersectCurveAndBoundary(const Handle(GeomCurve2d)&       theC2d,
 
     for (Standard_Integer aSegmID = 1; aSegmID <= anIntCC2d.NbSegments(); aSegmID++)
     {
-      GetSegmentBoundary(anIntCC2d.Segment(aSegmID), theC2d, theArrayOfParameters);
+      GetSegmentBoundary(anIntCC2d.Segment1(aSegmID), theC2d, theArrayOfParameters);
     }
   }
 }

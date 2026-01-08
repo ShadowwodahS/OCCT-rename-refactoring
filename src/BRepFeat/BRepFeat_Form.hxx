@@ -38,7 +38,7 @@ class BRepAlgoAPI_BooleanOperation;
 //! Provides general functions to build form features.
 //! Form features can be depressions or protrusions and include the following types:
 //! -          Cylinder
-//! -          Draft Prism
+//! -          Draft1 Prism
 //! -          Prism
 //! -          Revolved feature
 //! -          Pipe

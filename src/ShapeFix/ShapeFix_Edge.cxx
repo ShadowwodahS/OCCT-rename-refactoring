@@ -386,7 +386,7 @@ static void TempSameRange(const TopoEdge& AnEdge, const Standard_Real Tolerance)
               {
                 Handle(Geom2d_BezierCurve) bezier =
                   Handle(Geom2d_BezierCurve)::DownCast(Curve2dPtr->Copy());
-                bezier->Segment(oldFirst, oldLast);
+                bezier->Segment1(oldFirst, oldLast);
                 Curve2dPtr = bezier;
               }
               oldFirstCurve1 = 0;
@@ -415,7 +415,7 @@ static void TempSameRange(const TopoEdge& AnEdge, const Standard_Real Tolerance)
               {
                 Handle(Geom2d_BezierCurve) bezier =
                   Handle(Geom2d_BezierCurve)::DownCast(Curve2dPtr2->Copy());
-                bezier->Segment(oldFirst, oldLast);
+                bezier->Segment1(oldFirst, oldLast);
                 Curve2dPtr2 = bezier;
               }
               oldFirstCurve2 = 0;

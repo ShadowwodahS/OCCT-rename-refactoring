@@ -31,10 +31,10 @@ class OpenGl_Window;
 
 //! Tool class to implement consistent state counter
 //! for objects inside the same driver instance.
-class OpenGl_StateCounter
+class StateCounter
 {
 public:
-  OpenGl_StateCounter()
+  StateCounter()
       : myCounter(0)
   {
   }
@@ -188,7 +188,7 @@ public:
 
 public:
   //! State counter for OpenGl structures.
-  OpenGl_StateCounter* GetStateCounter() const { return &myStateCounter; }
+  StateCounter* GetStateCounter() const { return &myStateCounter; }
 
   //! Returns unique ID for primitive arrays.
   Standard_Size GetNextPrimitiveArrayUID() const { return myUIDGenerator.Increment(); }
@@ -210,8 +210,8 @@ protected:
   NCollection_Map<Handle(OpenGl_View)>                     myMapOfView;
   NCollection_DataMap<Standard_Integer, OpenGl_Structure*> myMapOfStructure;
 
-  mutable OpenGl_StateCounter myStateCounter; //!< State counter for OpenGl structures.
-  mutable OpenGl_StateCounter myUIDGenerator; //!< Unique ID counter for primitive arrays.
+  mutable StateCounter myStateCounter; //!< State counter for OpenGl structures.
+  mutable StateCounter myUIDGenerator; //!< Unique ID counter for primitive arrays.
 };
 
 DEFINE_STANDARD_HANDLE(OpenGl_GraphicDriver, Graphic3d_GraphicDriver)

@@ -928,7 +928,7 @@ static void AppendControlPoles(TColgp_SequenceOfPnt& seq, const Handle(GeomCurve
         OCC_CATCH_SIGNALS
         Handle(Geom_Geometry)     Ctmp = aBaseCrv->Copy();
         Handle(BSplineCurve3d) bslp = Handle(BSplineCurve3d)::DownCast(Ctmp);
-        bslp->Segment(curve->FirstParameter(), curve->LastParameter());
+        bslp->Segment1(curve->FirstParameter(), curve->LastParameter());
         AppendControlPoles(seq, bslp);
         done = Standard_True;
       }
@@ -943,7 +943,7 @@ static void AppendControlPoles(TColgp_SequenceOfPnt& seq, const Handle(GeomCurve
         OCC_CATCH_SIGNALS
         Handle(Geom_Geometry)    Ctmp = aBaseCrv->Copy();
         Handle(BezierCurve3d) bz   = Handle(BezierCurve3d)::DownCast(Ctmp);
-        bz->Segment(curve->FirstParameter(), curve->LastParameter());
+        bz->Segment1(curve->FirstParameter(), curve->LastParameter());
         AppendControlPoles(seq, bz);
         done = Standard_True;
       }

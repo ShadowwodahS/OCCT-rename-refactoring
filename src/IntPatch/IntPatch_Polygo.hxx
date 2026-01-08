@@ -42,7 +42,7 @@ public:
   virtual Standard_Integer NbSegments() const Standard_OVERRIDE;
 
   //! Returns the points of the segment <Index> in the Polygon.
-  virtual void Segment(const Standard_Integer theIndex,
+  virtual void Segment1(const Standard_Integer theIndex,
                        gp_Pnt2d&              theBegin,
                        gp_Pnt2d&              theEnd) const Standard_OVERRIDE;
 

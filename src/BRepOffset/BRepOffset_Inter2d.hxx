@@ -31,8 +31,8 @@ class TopoEdge;
 class TopoFace;
 
 //! Computes the intersections between edges on a face
-//! stores result is SD as AsDes from BRepOffset.
-class BRepOffset_Inter2d
+//! stores result is SD as AsDes from BRepOffset1.
+class Inter2d
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -431,7 +431,7 @@ static Standard_Integer OCC712(DrawInterpreter& di, Standard_Integer argc, const
   }
   catch (ExceptionBase const&) //--------------------> STEP:2
   {
-    di << " Error in Draft Slab \n";
+    di << " Error in Draft1 Slab \n";
     return 1;
   }
   return 0;
@@ -1116,7 +1116,7 @@ static Standard_Integer OCC828(DrawInterpreter& di, Standard_Integer argc, const
   }
   catch (ExceptionBase const&)
   {
-    di << " Error in Draft Slab \n";
+    di << " Error in Draft1 Slab \n";
     return 1;
   }
   return 0;

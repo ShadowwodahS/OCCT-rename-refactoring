@@ -28,7 +28,7 @@ class TopoFace;
 
 //! Auxiliary tools for offset algorithms
 
-class BRepOffset
+class BRepOffset1
 {
 public:
   //! returns   the  Offset  surface  computed from  the

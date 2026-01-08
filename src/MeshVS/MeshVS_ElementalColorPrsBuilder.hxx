@@ -79,7 +79,7 @@ public:
 
   //! Returns colors assigned with element number ID
   Standard_EXPORT Standard_Boolean GetColor2(const Standard_Integer ID,
-                                             MeshVS_TwoColors&      theColor) const;
+                                             TwoColors&      theColor) const;
 
   //! Returns colors assigned with element number ID
   //! theColor1 is the front element color
@@ -89,7 +89,7 @@ public:
                                              Quantity_Color&        theColor2) const;
 
   //! Sets colors assigned with element number ID
-  Standard_EXPORT void SetColor2(const Standard_Integer ID, const MeshVS_TwoColors& theTwoColors);
+  Standard_EXPORT void SetColor2(const Standard_Integer ID, const TwoColors& theTwoColors);
 
   //! Sets color assigned with element number ID
   //! theColor1 is the front element color

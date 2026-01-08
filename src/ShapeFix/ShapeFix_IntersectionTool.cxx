@@ -1144,7 +1144,7 @@ Standard_Boolean ShapeFix_IntersectionTool::FixSelfIntersectWire(Handle(ShapeExt
         // intersection is segment
         if (Inter.NbSegments() == 1)
         {
-          IntRes2d_IntersectionSegment IS = Inter.Segment(1);
+          IntRes2d_IntersectionSegment IS = Inter.Segment1(1);
           if (IS.HasFirstPoint() && IS.HasLastPoint())
           {
             Standard_Boolean           IsModified1 = Standard_False;
@@ -1829,7 +1829,7 @@ Standard_Boolean ShapeFix_IntersectionTool::FixIntersectingWires(TopoFace& face)
             // intersection is segment
             if (Inter.NbSegments() == 1)
             {
-              IntRes2d_IntersectionSegment IS = Inter.Segment(1);
+              IntRes2d_IntersectionSegment IS = Inter.Segment1(1);
               if (IS.HasFirstPoint() && IS.HasLastPoint())
               {
                 Standard_Boolean           IsModified1 = Standard_False;

@@ -56,7 +56,7 @@ struct NSOpenGLContext;
   #endif
 #endif
 
-struct OpenGl_GlFunctions;
+struct GlFunctions;
 struct OpenGl_ArbTBO;
 struct OpenGl_ArbIns;
 struct OpenGl_ArbDbg;
@@ -158,7 +158,7 @@ class OpenGl_Context : public RefObject
 {
   DEFINE_STANDARD_RTTIEXT(OpenGl_Context, RefObject)
   friend class OpenGl_Window;
-  friend struct OpenGl_GlFunctions;
+  friend struct GlFunctions;
 
 public:
   typedef NCollection_Shared<NCollection_DataMap<AsciiString1, Handle(OpenGl_Resource)>>
@@ -358,7 +358,7 @@ public:
   Standard_Integer VersionMinor() const { return myGlVerMinor; }
 
   //! Access entire map of loaded OpenGL functions.
-  const OpenGl_GlFunctions* Functions() const { return myFuncs.get(); }
+  const GlFunctions* Functions() const { return myFuncs.get(); }
 
   //! Clean up errors stack for this GL context (glGetError() in loop).
   //! @return true if some error has been cleared
@@ -1130,7 +1130,7 @@ private: // context info
   OpenGl_Clipping myClippingState; //!< state of clip planes
 
   void*                               myGlLibHandle;      //!< optional handle to GL library
-  std::unique_ptr<OpenGl_GlFunctions> myFuncs;            //!< mega structure for all GL functions
+  std::unique_ptr<GlFunctions> myFuncs;            //!< mega structure for all GL functions
   Aspect_GraphicsLibrary              myGapi;             //!< GAPI name
   Handle(Image_SupportedFormats)      mySupportedFormats; //!< map of supported texture formats
   Standard_Integer                    myAnisoMax; //!< maximum level of anisotropy texture filter
@@ -1217,7 +1217,7 @@ private:                                           //! @name fields tracking cur
   Standard_ShortReal            myLineFeather;     //!< line feater width in pixels
   Standard_ShortReal            myRenderScale;     //!< scaling factor for rendering resolution
   Standard_ShortReal            myRenderScaleInv;  //!< scaling factor for rendering resolution (inverted value)
-  OpenGl_Material               myMaterial;        //!< current front/back material state (cached to reduce GL context updates)
+  Material4               myMaterial;        //!< current front/back material state (cached to reduce GL context updates)
   // clang-format on
 
 private:

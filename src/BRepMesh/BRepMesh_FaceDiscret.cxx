@@ -67,7 +67,7 @@ private:
 //=================================================================================================
 
 Standard_Boolean BRepMesh_FaceDiscret::performInternal(const Handle(IMeshData_Model)& theModel,
-                                                       const IMeshTools_Parameters&   theParameters,
+                                                       const Parameters3&   theParameters,
                                                        const Message_ProgressRange&   theRange)
 {
   myModel      = theModel;

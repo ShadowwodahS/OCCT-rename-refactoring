@@ -51,7 +51,7 @@ public:
   //! Returns  in <L>, <Par>  a segment having at least
   //! one  intersection  with  the   face  boundary  to
   //! compute  intersections.
-  Standard_EXPORT Standard_Boolean Segment(const gp_Pnt2d& P, gp_Lin2d& L, Standard_Real& Par);
+  Standard_EXPORT Standard_Boolean Segment1(const gp_Pnt2d& P, gp_Lin2d& L, Standard_Real& Par);
 
   //! Returns  in <L>, <Par>  a segment having at least
   //! one  intersection  with  the   face  boundary  to

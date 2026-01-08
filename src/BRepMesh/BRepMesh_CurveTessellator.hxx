@@ -24,7 +24,7 @@
 
 class GeomSurface;
 class GeomCurve2d;
-struct IMeshTools_Parameters;
+struct Parameters3;
 
 //! Auxiliary class performing tessellation of passed edge according to specified parameters.
 class BRepMesh_CurveTessellator : public IMeshTools_CurveTessellator
@@ -32,14 +32,14 @@ class BRepMesh_CurveTessellator : public IMeshTools_CurveTessellator
 public:
   //! Constructor.
   Standard_EXPORT BRepMesh_CurveTessellator(const IMeshData::IEdgeHandle& theEdge,
-                                            const IMeshTools_Parameters&  theParameters,
+                                            const Parameters3&  theParameters,
                                             const Standard_Integer        theMinPointsNb = 2);
 
   //! Constructor.
   Standard_EXPORT BRepMesh_CurveTessellator(const IMeshData::IEdgeHandle& theEdge,
                                             const TopAbs_Orientation      theOrientation,
                                             const IMeshData::IFaceHandle& theFace,
-                                            const IMeshTools_Parameters&  theParameters,
+                                            const Parameters3&  theParameters,
                                             const Standard_Integer        theMinPointsNb = 2);
 
   //! Destructor.
@@ -87,7 +87,7 @@ private:
 
 private:
   const IMeshData::IEdgeHandle& myDEdge;
-  const IMeshTools_Parameters&  myParameters;
+  const Parameters3&  myParameters;
   TopoEdge                   myEdge;
   BRepAdaptor_Curve             myCurve;
   Standard_Integer              myMinPointsNb;

@@ -19,7 +19,7 @@
 #include <BRepMesh_Triangle.hxx>
 #include <IMeshData_Types.hxx>
 
-class BRepMesh_Vertex;
+class Vertex;
 class BRepMesh_Edge;
 
 //! Describes a selector and an iterator on a
@@ -39,7 +39,7 @@ public:
   Standard_EXPORT void Initialize(const Handle(BRepMesh_DataStructureOfDelaun)& theMesh);
 
   //! Selects all neighboring elements of the given node.
-  Standard_EXPORT void NeighboursOf(const BRepMesh_Vertex& theNode);
+  Standard_EXPORT void NeighboursOf(const Vertex& theNode);
 
   //! Selects all neighboring elements of node with the given index.
   Standard_EXPORT void NeighboursOfNode(const Standard_Integer theNodeIndex);
@@ -51,13 +51,13 @@ public:
   Standard_EXPORT void NeighboursOfLink(const Standard_Integer theLinkIndex);
 
   //! Selects all neighboring elements of the given element.
-  Standard_EXPORT void NeighboursOf(const BRepMesh_Triangle& theElement);
+  Standard_EXPORT void NeighboursOf(const Triangle3& theElement);
 
   //! Selects all neighboring elements by nodes of the given element.
   Standard_EXPORT void NeighboursOfElement(const Standard_Integer theElementIndex);
 
   //! Selects all neighboring elements by links of the given element.
-  Standard_EXPORT void NeighboursByEdgeOf(const BRepMesh_Triangle& theElement);
+  Standard_EXPORT void NeighboursByEdgeOf(const Triangle3& theElement);
 
   //! Adds a level of neighbours by edge to the selector.
   void NeighboursOf(const BRepMesh_SelectorOfDataStructureOfDelaun& /*theSelector*/) {}

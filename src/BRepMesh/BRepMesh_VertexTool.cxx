@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_VertexTool, RefObject)
 
 NCollection_CellFilter_Action BRepMesh_VertexInspector::Inspect(const Standard_Integer theTarget)
 {
-  const BRepMesh_Vertex& aVertex = myVertices->Value(theTarget - 1);
+  const Vertex& aVertex = myVertices->Value(theTarget - 1);
   if (aVertex.Movability() == BRepMesh_Deleted)
   {
     myDelNodes.Append(theTarget);
@@ -67,7 +67,7 @@ BRepMesh_VertexTool::BRepMesh_VertexTool(const Handle(NCollection_IncAllocator)&
 
 //=================================================================================================
 
-Standard_Integer BRepMesh_VertexTool::Add(const BRepMesh_Vertex& theVertex,
+Standard_Integer BRepMesh_VertexTool::Add(const Vertex& theVertex,
                                           const Standard_Boolean isForceAdd)
 {
   Standard_Integer aIndex = isForceAdd ? 0 : FindIndex(theVertex);
@@ -86,7 +86,7 @@ Standard_Integer BRepMesh_VertexTool::Add(const BRepMesh_Vertex& theVertex,
 
 void BRepMesh_VertexTool::DeleteVertex(const Standard_Integer theIndex)
 {
-  BRepMesh_Vertex& aV = mySelector.GetVertex(theIndex);
+  Vertex& aV = mySelector.GetVertex(theIndex);
 
   Coords2d aMinPnt, aMaxPnt;
   expandPoint(aV.Coord(), aMinPnt, aMaxPnt);
@@ -98,9 +98,9 @@ void BRepMesh_VertexTool::DeleteVertex(const Standard_Integer theIndex)
 //=================================================================================================
 
 void BRepMesh_VertexTool::Substitute(const Standard_Integer theIndex,
-                                     const BRepMesh_Vertex& theVertex)
+                                     const Vertex& theVertex)
 {
-  BRepMesh_Vertex& aV = mySelector.GetVertex(theIndex);
+  Vertex& aV = mySelector.GetVertex(theIndex);
 
   Coords2d aMinPnt, aMaxPnt;
   expandPoint(aV.Coord(), aMinPnt, aMaxPnt);

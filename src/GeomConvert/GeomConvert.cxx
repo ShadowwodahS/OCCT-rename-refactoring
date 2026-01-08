@@ -115,7 +115,7 @@ Handle(BSplineCurve3d) GeomConvert1::SplitBSplineCurve(const Handle(BSplineCurve
 
   Handle(BSplineCurve3d) C1 = Handle(BSplineCurve3d)::DownCast(C->Copy());
 
-  C1->Segment(C->Knot(FirstK), C->Knot(LastK));
+  C1->Segment1(C->Knot(FirstK), C->Knot(LastK));
 
   if (C->IsPeriodic())
   {
@@ -144,7 +144,7 @@ Handle(BSplineCurve3d) GeomConvert1::SplitBSplineCurve(
 
   Handle(BSplineCurve3d) C1 = Handle(BSplineCurve3d)::DownCast(C->Copy());
 
-  C1->Segment(FirstU, LastU);
+  C1->Segment1(FirstU, LastU);
 
   if (C->IsPeriodic())
   {
@@ -177,7 +177,7 @@ Handle(BSplineCurve3d) GeomConvert1::CurveToBSplineCurve(
     Standard_Real U2                = Ctrim->LastParameter();
 
     // Si la courbe n'est pas vraiment restreinte, on ne risque pas
-    // le Raise dans le BS->Segment.
+    // le Raise dans le BS->Segment1.
     if (!Curv->IsPeriodic())
     {
       if (U1 < Curv->FirstParameter())
@@ -299,7 +299,7 @@ Handle(BSplineCurve3d) GeomConvert1::CurveToBSplineCurve(
     {
 
       Handle(BezierCurve3d) CBez = Handle(BezierCurve3d)::DownCast(Curv->Copy());
-      CBez->Segment(U1, U2);
+      CBez->Segment1(U1, U2);
       Standard_Integer        NbPoles = CBez->NbPoles();
       Standard_Integer        Degree  = CBez->Degree();
       TColgp_Array1OfPnt      Poles(1, NbPoles);
@@ -334,7 +334,7 @@ Handle(BSplineCurve3d) GeomConvert1::CurveToBSplineCurve(
           TheCurve->SetNotPeriodic();
       }
       ///////////////////////////////////////////////
-      TheCurve->Segment(U1, U2);
+      TheCurve->Segment1(U1, U2);
     }
     else if (Curv->IsKind(STANDARD_TYPE(Geom_OffsetCurve)))
     {
@@ -1334,7 +1334,7 @@ void GeomConvert1::C0BSplineToArrayOfC1BSplineCurve(const Handle(BSplineCurve3d)
       U2 = BSKnots(j);
       j++;
       Handle(BSplineCurve3d) BSbis = Handle(BSplineCurve3d)::DownCast(BS->Copy());
-      BSbis->Segment(U1, U2);
+      BSbis->Segment1(U1, U2);
       ArrayOfCurves(i) = BSbis;
     }
 

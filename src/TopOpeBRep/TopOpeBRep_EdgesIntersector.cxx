@@ -564,7 +564,7 @@ void TopOpeBRep_EdgesIntersector::Perform(const TopoShape&    E1,
   for (p = 1; p <= nbp; p++)
     mylpnt.Append(myIntersector.Point(p));
   for (Standard_Integer s = 1; s <= nbs; s++)
-    mylseg.Append(myIntersector.Segment(s));
+    mylseg.Append(myIntersector.Segment1(s));
 
   Standard_Boolean filter = Standard_True;
 #ifdef OCCT_DEBUG

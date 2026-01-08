@@ -71,9 +71,9 @@ void ShapeUpgrade_FaceDivide::Init(const TopoFace& F)
 
 //=================================================================================================
 
-void ShapeUpgrade_FaceDivide::SetSurfaceSegmentMode(const Standard_Boolean Segment)
+void ShapeUpgrade_FaceDivide::SetSurfaceSegmentMode(const Standard_Boolean Segment1)
 {
-  mySegmentMode = Segment;
+  mySegmentMode = Segment1;
 }
 
 //=================================================================================================

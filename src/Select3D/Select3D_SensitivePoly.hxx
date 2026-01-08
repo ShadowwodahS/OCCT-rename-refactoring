@@ -146,7 +146,7 @@ protected:
 protected:
   Select3D_PointData               myPolyg;          //!< Points of the poly
   mutable Point3d                   myCOG;            //!< Center of the poly
-  Handle(TColStd_HArray1OfInteger) mySegmentIndexes; //!< Segment indexes for BVH tree build
+  Handle(TColStd_HArray1OfInteger) mySegmentIndexes; //!< Segment1 indexes for BVH tree build
   Select3D_BndBox3d                myBndBox;         //!< Bounding box of the poly
   // clang-format off
   Select3D_TypeOfSensitivity       mySensType;       //!< Type of sensitivity: boundary or interior

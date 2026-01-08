@@ -30,7 +30,7 @@ ShapeUpgrade_SplitSurfaceArea::ShapeUpgrade_SplitSurfaceArea()
 
 //=================================================================================================
 
-void ShapeUpgrade_SplitSurfaceArea::Compute(const Standard_Boolean /*Segment*/)
+void ShapeUpgrade_SplitSurfaceArea::Compute(const Standard_Boolean /*Segment1*/)
 {
   if (myNbParts <= 1)
     return;

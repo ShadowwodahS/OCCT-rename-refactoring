@@ -41,7 +41,7 @@ public:
 
   //! Registers the given vertex.
   //! @param theVertex vertex to be registered.
-  Standard_Integer Add(const BRepMesh_Vertex& theVertex)
+  Standard_Integer Add(const Vertex& theVertex)
   {
     if (myDelNodes.IsEmpty())
     {
@@ -92,7 +92,7 @@ public:
   Standard_Integer NbVertices() const { return myVertices->Length(); }
 
   //! Returns vertex with the given index.
-  BRepMesh_Vertex& GetVertex(Standard_Integer theIndex)
+  Vertex& GetVertex(Standard_Integer theIndex)
   {
     return myVertices->ChangeValue(theIndex - 1);
   }

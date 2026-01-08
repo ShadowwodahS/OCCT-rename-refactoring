@@ -3351,7 +3351,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
     }
     for (nb = 1; nb <= Intersector.NbSegments(); nb++)
     {
-      const IntRes2d_IntersectionSegment& is = Intersector.Segment(nb);
+      const IntRes2d_IntersectionSegment& is = Intersector.Segment1(nb);
       if (is.HasFirstPoint())
       {
         const IntRes2d_IntersectionPoint& ip   = is.FirstPoint();

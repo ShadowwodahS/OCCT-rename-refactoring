@@ -42,7 +42,7 @@ protected:
   //! Returns nullptr in case of failure.
   Standard_EXPORT virtual Handle(IMeshData_Model) performInternal(
     const TopoShape&          theShape,
-    const IMeshTools_Parameters& theParameters) Standard_OVERRIDE;
+    const Parameters3& theParameters) Standard_OVERRIDE;
 };
 
 #endif

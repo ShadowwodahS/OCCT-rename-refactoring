@@ -40,14 +40,14 @@ public:
   Standard_EXPORT BRepLib_MakeShell();
 
   Standard_EXPORT BRepLib_MakeShell(const Handle(GeomSurface)& S,
-                                    const Standard_Boolean      Segment = Standard_False);
+                                    const Standard_Boolean      Segment1 = Standard_False);
 
   Standard_EXPORT BRepLib_MakeShell(const Handle(GeomSurface)& S,
                                     const Standard_Real         UMin,
                                     const Standard_Real         UMax,
                                     const Standard_Real         VMin,
                                     const Standard_Real         VMax,
-                                    const Standard_Boolean      Segment = Standard_False);
+                                    const Standard_Boolean      Segment1 = Standard_False);
 
   //! Creates the shell from the surface  and the min-max
   //! values.
@@ -56,7 +56,7 @@ public:
                             const Standard_Real         UMax,
                             const Standard_Real         VMin,
                             const Standard_Real         VMax,
-                            const Standard_Boolean      Segment = Standard_False);
+                            const Standard_Boolean      Segment1 = Standard_False);
 
   Standard_EXPORT BRepLib_ShellError Error() const;
 

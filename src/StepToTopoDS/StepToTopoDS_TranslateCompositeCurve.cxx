@@ -121,7 +121,7 @@ Standard_Boolean StepToTopoDS_TranslateCompositeCurve::Init(
     Handle(StepGeom_Curve) crv = ccs->ParentCurve();
     if (crv.IsNull())
     {
-      TP->AddFail(CC, "Segment has null parent curve");
+      TP->AddFail(CC, "Segment1 has null parent curve");
       return Standard_False;
     }
     isClosed = (ccs->Transition() != StepGeom_tcDiscontinuous);
@@ -204,7 +204,7 @@ Standard_Boolean StepToTopoDS_TranslateCompositeCurve::Init(
                 || Precision::IsPositiveInfinite(c3d->LastParameter()))
             {
               myInfiniteSegment = Standard_True;
-              TP->AddWarning(CC, "Segment with infinite parameters");
+              TP->AddWarning(CC, "Segment1 with infinite parameters");
             }
             edge = MkEdge.Edge();
           }
@@ -240,7 +240,7 @@ Standard_Boolean StepToTopoDS_TranslateCompositeCurve::Init(
                   || Precision::IsPositiveInfinite(c2d->LastParameter()))
               {
                 myInfiniteSegment = Standard_True;
-                TP->AddWarning(CC, "Segment with infinite parameters");
+                TP->AddWarning(CC, "Segment1 with infinite parameters");
               }
               edge = MkEdge.Edge();
             }

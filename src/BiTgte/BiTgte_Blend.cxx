@@ -1487,7 +1487,7 @@ void BiTgte_Blend::ComputeCenters()
           const TopoFace& F = TopoDS::Face(myFaces(i));
           if (TouchedByCork.Contains(F))
           {
-            BRepOffset_Tool::EnLargeFace(F, BigF, Standard_True);
+            Tool5::EnLargeFace(F, BigF, Standard_True);
             OF1.Init(BigF, myRadius, EdgeTgt);
           }
           else
@@ -1725,7 +1725,7 @@ void BiTgte_Blend::ComputeCenters()
         }
       }
       TopTools_DataMapOfShapeListOfShape anEmptyMap;
-      BRepOffset_Inter2d::Compute(myAsDes,
+      Inter2d::Compute(myAsDes,
                                   CurOF,
                                   myEdges,
                                   myTol,
@@ -1765,7 +1765,7 @@ void BiTgte_Blend::ComputeCenters()
     }
 
     TopTools_DataMapOfShapeListOfShape anEmptyMap;
-    BRepOffset_Inter2d::Compute(myAsDes,
+    Inter2d::Compute(myAsDes,
                                 CurOF,
                                 myEdges,
                                 myTol,
@@ -1776,11 +1776,11 @@ void BiTgte_Blend::ComputeCenters()
   //
   // fuse vertices on edges stored in AsDes
   ShapeImage anEmptyImage;
-  BRepOffset_Inter2d::FuseVertices(aDMVV, myAsDes, anEmptyImage);
+  Inter2d::FuseVertices(aDMVV, myAsDes, anEmptyImage);
   // ------------
   // unwinding
   // ------------
-  BRepOffset_MakeLoops MakeLoops;
+  MakeLoops1 MakeLoops;
   MakeLoops.Build(LOF, myAsDes, myImageOffset, anEmptyImage, Message_ProgressRange());
 
   // ------------------------------------------------------------

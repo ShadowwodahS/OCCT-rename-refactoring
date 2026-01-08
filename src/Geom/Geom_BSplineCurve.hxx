@@ -312,7 +312,7 @@ public:
   //! raises if U2 < U1.
   //! Standard_DomainError if U2 - U1 exceeds the period for periodic curves.
   //! i.e. ((U2 - U1) - Period) > Precision::PConfusion().
-  Standard_EXPORT void Segment(const Standard_Real U1,
+  Standard_EXPORT void Segment1(const Standard_Real U1,
                                const Standard_Real U2,
                                const Standard_Real theTolerance = Precision::PConfusion());
 

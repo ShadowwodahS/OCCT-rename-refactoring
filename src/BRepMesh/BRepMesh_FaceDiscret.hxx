@@ -39,7 +39,7 @@ protected:
   //! Performs processing of faces of the given model.
   Standard_EXPORT virtual Standard_Boolean performInternal(
     const Handle(IMeshData_Model)& theModel,
-    const IMeshTools_Parameters&   theParameters,
+    const Parameters3&   theParameters,
     const Message_ProgressRange&   theRange) Standard_OVERRIDE;
 
 private:
@@ -52,7 +52,7 @@ private:
 private:
   Handle(IMeshTools_MeshAlgoFactory) myAlgoFactory;
   Handle(IMeshData_Model)            myModel;
-  IMeshTools_Parameters              myParameters;
+  Parameters3              myParameters;
 };
 
 #endif

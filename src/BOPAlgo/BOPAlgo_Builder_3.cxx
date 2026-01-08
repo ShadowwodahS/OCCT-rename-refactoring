@@ -74,7 +74,7 @@ void BOPAlgo_Builder::FillImagesSolids(const Message_ProgressRange& theRange)
   }
 
   Message_ProgressScope aPS(theRange, "Building splits of solids", 10);
-  // Draft solids
+  // Draft1 solids
   TopTools_DataMapOfShapeShape aDraftSolids;
   // Find all IN faces for all IN faces
   FillIn3DParts(aDraftSolids, aPS.Next(4));
@@ -150,7 +150,7 @@ void BOPAlgo_Builder::FillIn3DParts(TopTools_DataMapOfShapeShape& theDraftSolids
   ShapeList aLSolids(anAlloc);
   // Keep INTERNAL faces of the solids
   TopTools_DataMapOfShapeListOfShape aSolidsIF(1, anAlloc);
-  // Draft solids
+  // Draft1 solids
   TopTools_IndexedDataMapOfShapeShape aDraftSolid(1, anAlloc);
 
   for (i = 0; i < aNbS; ++i)
@@ -172,7 +172,7 @@ void BOPAlgo_Builder::FillIn3DParts(TopTools_DataMapOfShapeShape& theDraftSolids
     if (aBoxS.IsVoid())
       myDS->BuildBndBoxSolid(i, aBoxS, myCheckInverted);
 
-    // Build Draft Solid
+    // Build Draft1 Solid
     ShapeList aLIF;
     TopoSolid         aSD;
     aBB.MakeSolid(aSD);

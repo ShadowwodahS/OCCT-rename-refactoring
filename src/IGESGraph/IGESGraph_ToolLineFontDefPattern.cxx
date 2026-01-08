@@ -61,7 +61,7 @@ void LineFontDefPatternTool::ReadOwnParams(
     {
       Standard_Real tempReal;
       if (PR.ReadReal(PR.Current(),
-                      "Length of Segment",
+                      "Length of Segment1",
                       tempReal)) // szv#4:S4163:12Mar99 `st=` not needed
         tempSegmentLengths->SetValue(I, tempReal);
     }

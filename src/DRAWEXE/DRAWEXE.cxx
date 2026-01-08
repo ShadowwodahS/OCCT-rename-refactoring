@@ -190,12 +190,12 @@ static Standard_Integer Pload(DrawInterpreter& theDI,
     {"DCAF", DPrsStd1::Factory},
     {"AISV", ViewerTest::Factory},
   #if defined(HAVE_OPENGL)
-    {"GL", OpenGlTest::Factory},
-    {"OPENGL", OpenGlTest::Factory},
+    {"GL", OpenGlTest1::Factory},
+    {"OPENGL", OpenGlTest1::Factory},
   #endif
   #if defined(HAVE_GLES2)
-    {"GLES", OpenGlTest::Factory},
-    {"OPENGLES", OpenGlTest::Factory},
+    {"GLES", OpenGlTest1::Factory},
+    {"OPENGLES", OpenGlTest1::Factory},
   #endif
     {"XSDRAW", XSDRAW::Factory},
     {"XDEDRAW", XDEDRAW::Factory},

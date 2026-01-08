@@ -132,7 +132,7 @@ Handle(Geom2d_BSplineCurve) Geom2dConvert1::SplitBSplineCurve(
 
   Handle(Geom2d_BSplineCurve) NewCurve = Handle(Geom2d_BSplineCurve)::DownCast(C->Copy());
 
-  NewCurve->Segment(C->Knot(FirstK), C->Knot(LastK));
+  NewCurve->Segment1(C->Knot(FirstK), C->Knot(LastK));
 
   if (C->IsPeriodic())
   {
@@ -162,7 +162,7 @@ Handle(Geom2d_BSplineCurve) Geom2dConvert1::SplitBSplineCurve(
 
   Handle(Geom2d_BSplineCurve) C1 = Handle(Geom2d_BSplineCurve)::DownCast(C->Copy());
 
-  C1->Segment(FirstU, LastU);
+  C1->Segment1(FirstU, LastU);
 
   if (C->IsPeriodic())
   {
@@ -197,7 +197,7 @@ Handle(Geom2d_BSplineCurve) Geom2dConvert1::CurveToBSplineCurve(
     Standard_Real U2                  = Ctrim->LastParameter();
 
     // Si la courbe n'est pas vraiment restreinte, on ne risque pas
-    // le Raise dans le BS->Segment.
+    // le Raise dans le BS->Segment1.
     if (!Curv->IsPeriodic())
     {
       if (U1 < Curv->FirstParameter())
@@ -323,7 +323,7 @@ Handle(Geom2d_BSplineCurve) Geom2dConvert1::CurveToBSplineCurve(
 
       Handle(Geom2d_BezierCurve) CBez = Handle(Geom2d_BezierCurve)::DownCast(Curv->Copy());
 
-      CBez->Segment(U1, U2);
+      CBez->Segment1(U1, U2);
       Standard_Integer NbPoles = CBez->NbPoles();
       Standard_Integer Degree  = CBez->Degree();
       Array1OfPnt2d    Poles(1, NbPoles);
@@ -349,7 +349,7 @@ Handle(Geom2d_BSplineCurve) Geom2dConvert1::CurveToBSplineCurve(
     else if (Curv->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)))
     {
       TheCurve = Handle(Geom2d_BSplineCurve)::DownCast(Curv->Copy());
-      TheCurve->Segment(U1, U2);
+      TheCurve->Segment1(U1, U2);
     }
 
     else if (Curv->IsKind(STANDARD_TYPE(Geom2d_OffsetCurve)))
@@ -1451,7 +1451,7 @@ void Geom2dConvert1::C0BSplineToC1BSplineCurve(Handle(Geom2d_BSplineCurve)& BS,
       U2 = BSKnots(j);
       j++;
       Handle(Geom2d_BSplineCurve) BSbis = Handle(Geom2d_BSplineCurve)::DownCast(BS->Copy());
-      BSbis->Segment(U1, U2);
+      BSbis->Segment1(U1, U2);
       ArrayOfCurves(i) = BSbis;
     }
 
@@ -1544,7 +1544,7 @@ void Geom2dConvert1::C0BSplineToArrayOfC1BSplineCurve(
       U2 = BSKnots(j);
       j++;
       Handle(Geom2d_BSplineCurve) BSbis = Handle(Geom2d_BSplineCurve)::DownCast(BS->Copy());
-      BSbis->Segment(U1, U2);
+      BSbis->Segment1(U1, U2);
       ArrayOfCurves(i) = BSbis;
     }
 

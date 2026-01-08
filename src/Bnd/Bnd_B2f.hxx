@@ -105,7 +105,7 @@ public:
   //! Returns True if there is no intersection.
   Standard_EXPORT Standard_Boolean IsOut(const gp_Ax2d& theLine) const;
 
-  //! Check the Segment defined by the couple of input points
+  //! Check the Segment1 defined by the couple of input points
   //! for the intersection with the current box.
   //! Returns True if there is no intersection.
   Standard_EXPORT Standard_Boolean IsOut(const Coords2d& theP0, const Coords2d& theP1) const;

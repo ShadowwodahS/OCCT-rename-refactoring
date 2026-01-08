@@ -226,12 +226,12 @@ static Standard_Integer draft(DrawInterpreter& di, Standard_Integer n, const cha
   if (Internal)
   {
     MkDraft.SetDraft(Internal);
-    di << "Internal Draft : \n";
-    // std::cout << "Internal Draft : " << std::endl;
+    di << "Internal Draft1 : \n";
+    // std::cout << "Internal Draft1 : " << std::endl;
   }
   else
-    di << "External Draft : \n";
-  // std::cout << "External Draft : " << std::endl;
+    di << "External Draft1 : \n";
+  // std::cout << "External Draft1 : " << std::endl;
 
   TopoShape Stop = DBRep1::Get(a[7]); // shape d'arret
   if (!Stop.IsNull())
@@ -280,7 +280,7 @@ void BRepTest::DraftAngleCommands(DrawInterpreter& theCommands)
 
   DBRep1::BasicCommands(theCommands);
 
-  const char* g = "Draft angle modification commands";
+  const char* g = "Draft1 angle modification commands";
 
   theCommands.Add("depouille",
                   " Inclines faces of a shape, dep result shape dirx diry dirz face angle x y x dx "

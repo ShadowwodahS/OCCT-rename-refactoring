@@ -529,7 +529,7 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
   {
     Standard_Real aUPeriod = uknots->Last() - uknots->First();
     if (deltaU - aUPeriod > Precision::PConfusion())
-      throw Standard_DomainError("Geom_BSplineSurface::Segment");
+      throw Standard_DomainError("Geom_BSplineSurface::Segment1");
     if (deltaU > aUPeriod)
       deltaU = aUPeriod;
   }
@@ -539,7 +539,7 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
   {
     Standard_Real aVPeriod = vknots->Last() - vknots->First();
     if (deltaV - aVPeriod > Precision::PConfusion())
-      throw Standard_DomainError("Geom_BSplineSurface::Segment");
+      throw Standard_DomainError("Geom_BSplineSurface::Segment1");
     if (deltaV > aVPeriod)
       deltaV = aVPeriod;
   }
@@ -807,7 +807,7 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
 
 //=================================================================================================
 
-void Geom_BSplineSurface::Segment(const Standard_Real U1,
+void Geom_BSplineSurface::Segment1(const Standard_Real U1,
                                   const Standard_Real U2,
                                   const Standard_Real V1,
                                   const Standard_Real V2,
@@ -815,7 +815,7 @@ void Geom_BSplineSurface::Segment(const Standard_Real U1,
                                   const Standard_Real theVTolerance)
 {
   if ((U2 < U1) || (V2 < V1))
-    throw Standard_DomainError("Geom_BSplineSurface::Segment");
+    throw Standard_DomainError("Geom_BSplineSurface::Segment1");
 
   Standard_Real aMaxU = Max(Abs(U2), Abs(U1));
   Standard_Real EpsU  = Max(Epsilon(aMaxU), theUTolerance);

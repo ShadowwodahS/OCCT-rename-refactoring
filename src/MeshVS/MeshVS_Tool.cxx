@@ -27,7 +27,7 @@
 
 //=================================================================================================
 
-Handle(Graphic3d_AspectFillArea3d) MeshVS_Tool::CreateAspectFillArea3d(
+Handle(Graphic3d_AspectFillArea3d) Tool4::CreateAspectFillArea3d(
   const Handle(MeshVS_Drawer)&    theDr,
   const Graphic3d_MaterialAspect& Mat,
   const Standard_Boolean          UseDefaults)
@@ -90,7 +90,7 @@ Handle(Graphic3d_AspectFillArea3d) MeshVS_Tool::CreateAspectFillArea3d(
 
 //=================================================================================================
 
-Handle(Graphic3d_AspectFillArea3d) MeshVS_Tool::CreateAspectFillArea3d(
+Handle(Graphic3d_AspectFillArea3d) Tool4::CreateAspectFillArea3d(
   const Handle(MeshVS_Drawer)& theDr,
   const Standard_Boolean       UseDefaults)
 {
@@ -117,7 +117,7 @@ Handle(Graphic3d_AspectFillArea3d) MeshVS_Tool::CreateAspectFillArea3d(
 
 //=================================================================================================
 
-Handle(Graphic3d_AspectLine3d) MeshVS_Tool::CreateAspectLine3d(const Handle(MeshVS_Drawer)& theDr,
+Handle(Graphic3d_AspectLine3d) Tool4::CreateAspectLine3d(const Handle(MeshVS_Drawer)& theDr,
                                                                const Standard_Boolean UseDefaults)
 {
   Handle(Graphic3d_AspectLine3d) anAsp;
@@ -147,7 +147,7 @@ Handle(Graphic3d_AspectLine3d) MeshVS_Tool::CreateAspectLine3d(const Handle(Mesh
 
 //=================================================================================================
 
-Handle(Graphic3d_AspectMarker3d) MeshVS_Tool::CreateAspectMarker3d(
+Handle(Graphic3d_AspectMarker3d) Tool4::CreateAspectMarker3d(
   const Handle(MeshVS_Drawer)& theDr,
   const Standard_Boolean       UseDefaults)
 {
@@ -178,7 +178,7 @@ Handle(Graphic3d_AspectMarker3d) MeshVS_Tool::CreateAspectMarker3d(
 
 //=================================================================================================
 
-Handle(Graphic3d_AspectText3d) MeshVS_Tool::CreateAspectText3d(const Handle(MeshVS_Drawer)& theDr,
+Handle(Graphic3d_AspectText3d) Tool4::CreateAspectText3d(const Handle(MeshVS_Drawer)& theDr,
                                                                const Standard_Boolean UseDefaults)
 {
   Handle(Graphic3d_AspectText3d) anAsp;
@@ -233,7 +233,7 @@ Handle(Graphic3d_AspectText3d) MeshVS_Tool::CreateAspectText3d(const Handle(Mesh
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_Tool::GetNormal(const TColStd_Array1OfReal& Nodes, Vector3d& Norm)
+Standard_Boolean Tool4::GetNormal(const TColStd_Array1OfReal& Nodes, Vector3d& Norm)
 {
   Standard_Integer first = Nodes.Lower(), last = Nodes.Upper(), count = (last - first + 1) / 3, i,
                    j;
@@ -298,7 +298,7 @@ Standard_Boolean MeshVS_Tool::GetNormal(const TColStd_Array1OfReal& Nodes, Vecto
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_Tool::GetAverageNormal(const TColStd_Array1OfReal& Nodes, Vector3d& Norm)
+Standard_Boolean Tool4::GetAverageNormal(const TColStd_Array1OfReal& Nodes, Vector3d& Norm)
 {
   Standard_Integer first = Nodes.Lower(), last = Nodes.Upper(), count = (last - first + 1) / 3, i,
                    j;

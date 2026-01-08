@@ -3121,7 +3121,7 @@ static Standard_Boolean TryBendingPCurve(const TopoEdge&     E,
         bs->SetPole(bs->NbPoles(), p2d);
       else
       {
-        bs->Segment(first, last);
+        bs->Segment1(first, last);
         if (fabs(bs->FirstParameter() - par) < ::Precision::PConfusion()
             && bs->Multiplicity(1) > bs->Degree())
           bs->SetPole(1, p2d);
@@ -3139,7 +3139,7 @@ static Standard_Boolean TryBendingPCurve(const TopoEdge&     E,
     catch (ExceptionBase const&)
     {
 #ifdef OCCT_DEBUG
-      std::cout << "Warning: WireHealer::FixLacking: Exception in Geom2d_BSplineCurve::Segment()"
+      std::cout << "Warning: WireHealer::FixLacking: Exception in Geom2d_BSplineCurve::Segment1()"
                 << std::endl;
 #endif
       return Standard_False;

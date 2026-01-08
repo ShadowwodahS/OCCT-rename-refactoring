@@ -395,7 +395,7 @@ public:
   const OpenGl_MaterialState& MaterialState() const { return myMaterialState; }
 
   //! Updates state of material.
-  void UpdateMaterialStateTo(const OpenGl_Material& theMat,
+  void UpdateMaterialStateTo(const Material4& theMat,
                              const float            theAlphaCutoff,
                              const bool             theToDistinguish,
                              const bool             theToMapTexture)
@@ -728,7 +728,7 @@ protected:
 
 protected:
   //! Packed properties of light source
-  struct OpenGl_ShaderLightParameters
+  struct ShaderLightParameters
   {
     OpenGl_Vec4 Color;      //!< RGB color + Intensity (in .w)
     OpenGl_Vec4 Position;   //!< XYZ Direction or Position + IsHeadlight (in .w)
@@ -807,7 +807,7 @@ protected:
   OpenGl_ProjectionState             myProjectionState;    //!< State of OCCT projection  transformation
   OpenGl_ModelWorldState             myModelWorldState;    //!< State of OCCT model-world transformation
   OpenGl_WorldViewState              myWorldViewState;     //!< State of OCCT world-view  transformation
-  OpenGl_ClippingState               myClippingState;      //!< State of OCCT clipping planes
+  ClippingState               myClippingState;      //!< State of OCCT clipping planes
   OpenGl_LightSourceState            myLightSourceState;   //!< State of OCCT light sources
   OpenGl_MaterialState               myMaterialState;      //!< State of Front and Back materials
   OpenGl_OitState                    myOitState;           //!< State of OIT uniforms
@@ -817,7 +817,7 @@ protected:
                                                // clang-format on
 
   mutable NCollection_Array1<Standard_Integer>             myLightTypeArray;
-  mutable NCollection_Array1<OpenGl_ShaderLightParameters> myLightParamsArray;
+  mutable NCollection_Array1<ShaderLightParameters> myLightParamsArray;
   mutable NCollection_Array1<Graphic3d_Mat4>               myShadowMatArray;
   mutable NCollection_Array1<OpenGl_Vec4>                  myClipPlaneArray;
   mutable NCollection_Array1<OpenGl_Vec4d>                 myClipPlaneArrayFfp;

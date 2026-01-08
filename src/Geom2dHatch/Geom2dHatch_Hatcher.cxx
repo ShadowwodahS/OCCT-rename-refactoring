@@ -585,10 +585,10 @@ Standard_Boolean Geom2dHatch_Hatcher::Trim(const Standard_Integer IndH, const St
   for (Standard_Integer ISeg = 1; ISeg <= myIntersector.NbSegments(); ISeg++)
   {
 
-    const IntRes2d_IntersectionSegment& Seg = myIntersector.Segment(ISeg);
+    const IntRes2d_IntersectionSegment& Seg = myIntersector.Segment1(ISeg);
 
 #if TRACE_HATCHER
-    std::cout << "----- Segment # " << std::setw(3) << ISeg << " -------------" << std::endl;
+    std::cout << "----- Segment1 # " << std::setw(3) << ISeg << " -------------" << std::endl;
 #endif
 
     Standard_Boolean FirstPoint = Seg.HasFirstPoint();

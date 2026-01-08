@@ -80,7 +80,7 @@ public:
 
   //! Performs the draft up to the shape StopShape.
   //! If KeepOutSide is true, the part of StopShape which is
-  //! outside the Draft is kept in the result.
+  //! outside the Draft1 is kept in the result.
   Standard_EXPORT void Perform(const TopoShape&    StopShape,
                                const Standard_Boolean KeepOutSide = Standard_True);
 

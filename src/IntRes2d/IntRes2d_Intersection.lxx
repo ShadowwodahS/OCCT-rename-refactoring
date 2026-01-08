@@ -78,7 +78,7 @@ inline Standard_Integer Intersection2::NbSegments() const
 }
 
 //----------------------------------------------------------------------
-inline const IntRes2d_IntersectionSegment& Intersection2::Segment(
+inline const IntRes2d_IntersectionSegment& Intersection2::Segment1(
   const Standard_Integer N) const
 {
   if (!done)

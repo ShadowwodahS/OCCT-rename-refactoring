@@ -54,9 +54,9 @@ ShapeUpgrade_ConvertSurfaceToBezierBasis::ShapeUpgrade_ConvertSurfaceToBezierBas
 
 //=================================================================================================
 
-void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Segment)
+void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Segment1)
 {
-  if (!Segment)
+  if (!Segment1)
   {
     Standard_Real UF, UL, VF, VL;
     mySurface->Bounds(UF, UL, VF, VL);
@@ -157,7 +157,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
       Standard_Real u2 = ULast;
       Standard_Real v1 = VFirst;
       Standard_Real v2 = VLast;
-      besNew->Segment(u1, u2, v1, v2);
+      besNew->Segment1(u1, u2, v1, v2);
       surf->SetValue(1, 1, besNew);
       myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
     }
@@ -491,7 +491,7 @@ static Handle(GeomSurface) GetSegment(const Handle(GeomSurface)& surf,
     Standard_Real u2 = U2;
     Standard_Real v1 = V1;
     Standard_Real v2 = V2;
-    bezier->Segment(u1, u2, v1, v2);
+    bezier->Segment1(u1, u2, v1, v2);
     return bezier;
   }
 
@@ -519,7 +519,7 @@ static Handle(GeomSurface) GetSegment(const Handle(GeomSurface)& surf,
     if (basis->IsKind(STANDARD_TYPE(BezierCurve3d)))
     {
       Handle(BezierCurve3d) bezier = Handle(BezierCurve3d)::DownCast(basis);
-      bezier->Segment(V1, V2);
+      bezier->Segment1(V1, V2);
     }
     else
     {
@@ -551,7 +551,7 @@ static Handle(GeomSurface) GetSegment(const Handle(GeomSurface)& surf,
 
 //=================================================================================================
 
-void ShapeUpgrade_ConvertSurfaceToBezierBasis::Build(const Standard_Boolean /*Segment*/)
+void ShapeUpgrade_ConvertSurfaceToBezierBasis::Build(const Standard_Boolean /*Segment1*/)
 {
   Standard_Boolean     isOffset    = Standard_False;
   Standard_Real        offsetValue = 0;

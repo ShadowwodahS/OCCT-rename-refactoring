@@ -88,7 +88,7 @@ Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(GeomCurve3d)& 
     {
 #ifdef OCCT_DEBUG
       std::cout
-        << "Warning: ShapeUpgrade_FixSmallBezierCurve::Approx(): Exception in Segment      :";
+        << "Warning: ShapeUpgrade_FixSmallBezierCurve::Approx(): Exception in Segment1      :";
       anException.Print(std::cout);
       std::cout << std::endl;
 #endif
@@ -133,7 +133,7 @@ Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(GeomCurve3d)& 
     {
 #ifdef OCCT_DEBUG
       std::cout
-        << "Warning: ShapeUpgrade_FixSmallBezierCurve::Approx(): Exception in Segment      :";
+        << "Warning: ShapeUpgrade_FixSmallBezierCurve::Approx(): Exception in Segment1      :";
       anException.Print(std::cout);
       std::cout << std::endl;
 #endif
@@ -179,7 +179,7 @@ Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(GeomCurve3d)& 
       {
 #ifdef OCCT_DEBUG
         std::cout
-          << "Warning: ShapeUpgrade_FixSmallBezierCurve::Approx(): Exception in Segment      :";
+          << "Warning: ShapeUpgrade_FixSmallBezierCurve::Approx(): Exception in Segment1      :";
         anException.Print(std::cout);
         std::cout << std::endl;
 #endif

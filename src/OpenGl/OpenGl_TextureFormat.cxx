@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-AsciiString1 OpenGl_TextureFormat::FormatFormat(GLint theInternalFormat)
+AsciiString1 TextureFormat::FormatFormat(GLint theInternalFormat)
 {
   switch (theInternalFormat)
   {
@@ -154,7 +154,7 @@ AsciiString1 OpenGl_TextureFormat::FormatFormat(GLint theInternalFormat)
 
 //=================================================================================================
 
-AsciiString1 OpenGl_TextureFormat::FormatDataType(GLint theDataType)
+AsciiString1 TextureFormat::FormatDataType(GLint theDataType)
 {
   switch (theDataType)
   {
@@ -184,11 +184,11 @@ AsciiString1 OpenGl_TextureFormat::FormatDataType(GLint theDataType)
 
 //=================================================================================================
 
-OpenGl_TextureFormat OpenGl_TextureFormat::FindFormat(const Handle(OpenGl_Context)& theCtx,
+TextureFormat TextureFormat::FindFormat(const Handle(OpenGl_Context)& theCtx,
                                                       Image_Format                  theFormat,
                                                       bool                          theIsColorMap)
 {
-  OpenGl_TextureFormat aFormat;
+  TextureFormat aFormat;
   aFormat.SetImageFormat(theFormat);
   const bool useRedRedAlpha =
     theCtx->GraphicsLibrary() != Aspect_GraphicsLibrary_OpenGLES && theCtx->core11ffp == NULL;
@@ -230,7 +230,7 @@ OpenGl_TextureFormat OpenGl_TextureFormat::FindFormat(const Handle(OpenGl_Contex
     case Image_Format_RGF: {
       if (!theCtx->arbTexRG)
       {
-        return OpenGl_TextureFormat();
+        return TextureFormat();
       }
       aFormat.SetNbComponents(2);
       aFormat.SetInternalFormat(theCtx->arbTexFloat ? GL_RG32F : GL_RG8);
@@ -248,7 +248,7 @@ OpenGl_TextureFormat OpenGl_TextureFormat::FindFormat(const Handle(OpenGl_Contex
     case Image_Format_BGRAF: {
       if (!theCtx->IsGlGreaterEqual(1, 2) && !theCtx->extBgra)
       {
-        return OpenGl_TextureFormat();
+        return TextureFormat();
       }
       aFormat.SetNbComponents(4);
       aFormat.SetInternalFormat(theCtx->arbTexFloat ? GL_RGBA32F : GL_RGBA8);
@@ -266,7 +266,7 @@ OpenGl_TextureFormat OpenGl_TextureFormat::FindFormat(const Handle(OpenGl_Contex
     case Image_Format_BGRF: {
       if (theCtx->GraphicsLibrary() == Aspect_GraphicsLibrary_OpenGLES)
       {
-        return OpenGl_TextureFormat();
+        return TextureFormat();
       }
 
       aFormat.SetNbComponents(3);
@@ -332,7 +332,7 @@ OpenGl_TextureFormat OpenGl_TextureFormat::FindFormat(const Handle(OpenGl_Contex
       {
         if (!theCtx->IsGlGreaterEqual(1, 2) && !theCtx->extBgra)
         {
-          return OpenGl_TextureFormat();
+          return TextureFormat();
         }
         aFormat.SetNbComponents(4);
         aFormat.SetInternalFormat(GL_RGBA8);
@@ -349,7 +349,7 @@ OpenGl_TextureFormat OpenGl_TextureFormat::FindFormat(const Handle(OpenGl_Contex
         }
         if (!theCtx->extBgra)
         {
-          return OpenGl_TextureFormat();
+          return TextureFormat();
         }
         aFormat.SetNbComponents(4);
         aFormat.SetInternalFormat(GL_BGRA_EXT);
@@ -394,7 +394,7 @@ OpenGl_TextureFormat OpenGl_TextureFormat::FindFormat(const Handle(OpenGl_Contex
       {
         if (!theCtx->IsGlGreaterEqual(1, 2) && !theCtx->extBgra)
         {
-          return OpenGl_TextureFormat();
+          return TextureFormat();
         }
         aFormat.SetNbComponents(3);
         aFormat.SetInternalFormat(GL_RGB8);
@@ -411,7 +411,7 @@ OpenGl_TextureFormat OpenGl_TextureFormat::FindFormat(const Handle(OpenGl_Contex
         }
         if (!theCtx->extBgra)
         {
-          return OpenGl_TextureFormat();
+          return TextureFormat();
         }
         aFormat.SetNbComponents(4);
         aFormat.SetInternalFormat(GL_BGRA_EXT);
@@ -439,12 +439,12 @@ OpenGl_TextureFormat OpenGl_TextureFormat::FindFormat(const Handle(OpenGl_Contex
     case Image_Format_BGR: {
       if (theCtx->GraphicsLibrary() == Aspect_GraphicsLibrary_OpenGLES)
       {
-        return OpenGl_TextureFormat();
+        return TextureFormat();
       }
 
       if (!theCtx->IsGlGreaterEqual(1, 2) && !theCtx->extBgra)
       {
-        return OpenGl_TextureFormat();
+        return TextureFormat();
       }
       aFormat.SetNbComponents(3);
       aFormat.SetInternalFormat(GL_RGB8);
@@ -492,7 +492,7 @@ OpenGl_TextureFormat OpenGl_TextureFormat::FindFormat(const Handle(OpenGl_Contex
     case Image_Format_Gray16: {
       if (!theCtx->extTexR16)
       {
-        return OpenGl_TextureFormat();
+        return TextureFormat();
       }
 
       aFormat.SetNbComponents(1);
@@ -510,18 +510,18 @@ OpenGl_TextureFormat OpenGl_TextureFormat::FindFormat(const Handle(OpenGl_Contex
       return aFormat;
     }
     case Image_Format_UNKNOWN: {
-      return OpenGl_TextureFormat();
+      return TextureFormat();
     }
   }
-  return OpenGl_TextureFormat();
+  return TextureFormat();
 }
 
 //=================================================================================================
 
-OpenGl_TextureFormat OpenGl_TextureFormat::FindSizedFormat(const Handle(OpenGl_Context)& theCtx,
+TextureFormat TextureFormat::FindSizedFormat(const Handle(OpenGl_Context)& theCtx,
                                                            GLint theSizedFormat)
 {
-  OpenGl_TextureFormat aFormat;
+  TextureFormat aFormat;
   switch (theSizedFormat)
   {
     case GL_RGBA32F: {
@@ -707,12 +707,12 @@ OpenGl_TextureFormat OpenGl_TextureFormat::FindSizedFormat(const Handle(OpenGl_C
 
 //=================================================================================================
 
-OpenGl_TextureFormat OpenGl_TextureFormat::FindCompressedFormat(
+TextureFormat TextureFormat::FindCompressedFormat(
   const Handle(OpenGl_Context)& theCtx,
   Image_CompressedFormat        theFormat,
   bool                          theIsColorMap)
 {
-  OpenGl_TextureFormat aFormat;
+  TextureFormat aFormat;
   if (!theCtx->SupportedTextureFormats()->IsSupported(theFormat))
   {
     return aFormat;

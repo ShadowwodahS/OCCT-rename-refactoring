@@ -22,11 +22,11 @@
 
 //=================================================================================================
 
-Draft_VertexInfo::Draft_VertexInfo() {}
+VertexInfo::VertexInfo() {}
 
 //=================================================================================================
 
-void Draft_VertexInfo::Add(const TopoEdge& E)
+void VertexInfo::Add(const TopoEdge& E)
 {
   for (myItEd.Initialize(myEdges); myItEd.More(); myItEd.Next())
   {
@@ -44,21 +44,21 @@ void Draft_VertexInfo::Add(const TopoEdge& E)
 
 //=================================================================================================
 
-const Point3d& Draft_VertexInfo::Geometry() const
+const Point3d& VertexInfo::Geometry() const
 {
   return myGeom;
 }
 
 //=================================================================================================
 
-Point3d& Draft_VertexInfo::ChangeGeometry()
+Point3d& VertexInfo::ChangeGeometry()
 {
   return myGeom;
 }
 
 //=================================================================================================
 
-Standard_Real Draft_VertexInfo::Parameter(const TopoEdge& E)
+Standard_Real VertexInfo::Parameter(const TopoEdge& E)
 {
   TColStd_ListIteratorOfListOfReal itp(myParams);
   myItEd.Initialize(myEdges);
@@ -74,7 +74,7 @@ Standard_Real Draft_VertexInfo::Parameter(const TopoEdge& E)
 
 //=================================================================================================
 
-Standard_Real& Draft_VertexInfo::ChangeParameter(const TopoEdge& E)
+Standard_Real& VertexInfo::ChangeParameter(const TopoEdge& E)
 {
   TColStd_ListIteratorOfListOfReal itp(myParams);
   myItEd.Initialize(myEdges);
@@ -90,28 +90,28 @@ Standard_Real& Draft_VertexInfo::ChangeParameter(const TopoEdge& E)
 
 //=================================================================================================
 
-void Draft_VertexInfo::InitEdgeIterator()
+void VertexInfo::InitEdgeIterator()
 {
   myItEd.Initialize(myEdges);
 }
 
 //=================================================================================================
 
-const TopoEdge& Draft_VertexInfo::Edge() const
+const TopoEdge& VertexInfo::Edge() const
 {
   return TopoDS::Edge(myItEd.Value());
 }
 
 //=================================================================================================
 
-Standard_Boolean Draft_VertexInfo::MoreEdge() const
+Standard_Boolean VertexInfo::MoreEdge() const
 {
   return myItEd.More();
 }
 
 //=================================================================================================
 
-void Draft_VertexInfo::NextEdge()
+void VertexInfo::NextEdge()
 {
   myItEd.Next();
 }

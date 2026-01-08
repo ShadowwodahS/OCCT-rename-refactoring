@@ -41,7 +41,7 @@ class EdgeAmplifier
 {
 public:
   //! Constructor.
-  EdgeAmplifier(const IMeshTools_Parameters& theParameters)
+  EdgeAmplifier(const Parameters3& theParameters)
       : myParameters(theParameters)
   {
   }
@@ -89,7 +89,7 @@ private:
   void operator=(const EdgeAmplifier& theOther);
 
 private:
-  const IMeshTools_Parameters& myParameters;
+  const Parameters3& myParameters;
 };
 
 //! Returns True if some of two vertcies is same with reference one.
@@ -123,7 +123,7 @@ BRepMesh_ModelHealer::~BRepMesh_ModelHealer() {}
 //=================================================================================================
 
 Standard_Boolean BRepMesh_ModelHealer::performInternal(const Handle(IMeshData_Model)& theModel,
-                                                       const IMeshTools_Parameters&   theParameters,
+                                                       const Parameters3&   theParameters,
                                                        const Message_ProgressRange&   theRange)
 {
   (void)theRange;

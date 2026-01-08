@@ -83,7 +83,7 @@ static void EdgeAnalyse(const TopoEdge&         E,
 {
   Standard_Real f, l;
   BRepInspector::Range(E, F1, f, l);
-  BRepOffset_Interval I;
+  Interval3 I;
   I.First(f);
   I.Last(l);
   //
@@ -350,7 +350,7 @@ void BRepOffset_Analyse::Perform(const TopoShape&          S,
         Standard_Real      U1, U2;
         const TopoFace& F = TopoDS::Face(L.First());
         BRepInspector::Range(E, F, U1, U2);
-        BRepOffset_Interval Inter(U1, U2, ChFiDS_Other);
+        Interval3 Inter(U1, U2, ChFiDS_Other);
 
         if (!BRepTools1::IsReallyClosed(E, F))
         {
@@ -869,7 +869,7 @@ void BRepOffset_Analyse::Edges(const TopoVertex&         V,
     if (pIntervals && pIntervals->Extent() > 0)
     {
       TopoVertex V1, V2;
-      BRepOffset_Tool::EdgeVertices(E, V1, V2);
+      Tool5::EdgeVertices(E, V1, V2);
       if (V1.IsSame(V))
       {
         if (pIntervals->Last().Type() == T)

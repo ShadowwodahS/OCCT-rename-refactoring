@@ -97,7 +97,7 @@ Standard_Boolean BRepOffset_SimpleOffset::NewPoint(const TopoVertex& V,
   if (!myVertexInfo.IsBound(V))
     return Standard_False;
 
-  const NewVertexData& aNVD = myVertexInfo.Find(V);
+  const NewVertexData1& aNVD = myVertexInfo.Find(V);
 
   P   = aNVD.myP;
   Tol = aNVD.myTol;
@@ -205,15 +205,15 @@ void BRepOffset_SimpleOffset::FillFaceData(const TopoFace& theFace)
   // Any existing transformation is applied to the surface.
   // New face will have null transformation.
   Handle(GeomSurface) aS = BRepInspector::Surface(theFace);
-  aS                      = BRepOffset::CollapseSingularities(aS, theFace, myTolerance);
+  aS                      = BRepOffset1::CollapseSingularities(aS, theFace, myTolerance);
 
   // Take into account face orientation.
   Standard_Real aMult = 1.0;
   if (theFace.Orientation() == TopAbs_REVERSED)
     aMult = -1.0;
 
-  BRepOffset_Status aStatus; // set by BRepOffset::Surface(), could be used to check result...
-  aNFD.myOffsetS = BRepOffset::Surface(aS, aMult * myOffsetValue, aStatus, Standard_True);
+  BRepOffset_Status aStatus; // set by BRepOffset1::Surface(), could be used to check result...
+  aNFD.myOffsetS = BRepOffset1::Surface(aS, aMult * myOffsetValue, aStatus, Standard_True);
   aNFD.myL       = TopLoc_Location(); // Null transformation.
 
   // Save offset surface in map.
@@ -388,7 +388,7 @@ void BRepOffset_SimpleOffset::FillVertexData(
   const Standard_Real aResTol = Max(aMaxEdgeTol, Sqrt(aSqMaxDist));
 
   const Standard_Real aMultCoeff = 1.001; // Avoid tolernace problems.
-  NewVertexData       aNVD;
+  NewVertexData1       aNVD;
   aNVD.myP   = aCenter;
   aNVD.myTol = aResTol * aMultCoeff;
 

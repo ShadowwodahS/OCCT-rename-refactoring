@@ -708,7 +708,7 @@ static int VCaps(DrawInterpreter& theDI, Standard_Integer theArgNb, const char**
 
 //=================================================================================================
 
-void OpenGlTest::Commands(DrawInterpreter& theCommands)
+void OpenGlTest1::Commands(DrawInterpreter& theCommands)
 {
   const char* aGroup = "Commands for low-level TKOpenGl features";
 

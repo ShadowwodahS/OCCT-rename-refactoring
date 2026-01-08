@@ -257,7 +257,7 @@ protected:
   BRepSweep_Builder       myBuilder;
   TopoShape            myGenShape;
   Sweep_NumShape          myDirWire;
-  BRepSweep_Tool          myGenShapeTool;
+  Tool6          myGenShapeTool;
   Sweep_NumShapeTool      myDirShapeTool;
   TopTools_Array2OfShape  myShapes;
   TColStd_Array2OfBoolean myBuiltShapes;

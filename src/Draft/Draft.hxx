@@ -25,7 +25,7 @@
 class TopoFace;
 class Dir3d;
 
-class Draft
+class Draft1
 {
 public:
   DEFINE_STANDARD_ALLOC

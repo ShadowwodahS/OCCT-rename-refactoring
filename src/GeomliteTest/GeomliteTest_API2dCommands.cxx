@@ -429,8 +429,8 @@ static Standard_Integer intersect(DrawInterpreter& di, Standard_Integer n, const
   Standard_Integer           aNbSegments = Intersector.NbSegments();
   for (Standard_Integer i = 1; i <= aNbSegments; i++)
   {
-    di << "Segment #" << i << " found.\n";
-    Intersector.Segment(i, S1, S2);
+    di << "Segment1 #" << i << " found.\n";
+    Intersector.Segment1(i, S1, S2);
     CD = new DrawTrSurf_Curve2d(S1, Draw_bleu, 30);
     dout << CD;
     CD = new DrawTrSurf_Curve2d(S2, Draw_violet, 30);

@@ -39,7 +39,7 @@ public:
 
   //! Returns list of nodes generated using surface data and specified parameters.
   Standard_EXPORT virtual Handle(IMeshData::ListOfPnt2d) GenerateSurfaceNodes(
-    const IMeshTools_Parameters& theParameters) const Standard_OVERRIDE;
+    const Parameters3& theParameters) const Standard_OVERRIDE;
 
 protected:
   //! Initializes U and V parameters lists using CN continuity intervals.
@@ -66,7 +66,7 @@ private:
     const Standard_Real                     theTol2d,
     const Standard_Real                     theRangeDiff,
     const Standard_Real                     theDelta,
-    const IMeshTools_Parameters&            theParameters,
+    const Parameters3&            theParameters,
     const Handle(NCollection_IncAllocator)& theAllocator) const;
 
   //! Filters parameters in order to avoid too dence distribution.

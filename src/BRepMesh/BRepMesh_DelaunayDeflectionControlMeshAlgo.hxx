@@ -106,7 +106,7 @@ protected:
       IMeshData::IteratorOfMapOfInteger aTriangleIt(this->getStructure()->ElementsOfDomain());
       for (; aTriangleIt.More(); aTriangleIt.Next())
       {
-        const BRepMesh_Triangle& aTriangle = this->getStructure()->GetElement(aTriangleIt.Key());
+        const Triangle3& aTriangle = this->getStructure()->GetElement(aTriangleIt.Key());
         splitTriangleGeometry(aTriangle);
       }
 
@@ -188,14 +188,14 @@ private:
   };
 
   //! Returns nodes info of the given triangle.
-  void getTriangleInfo(const BRepMesh_Triangle& theTriangle,
+  void getTriangleInfo(const Triangle3& theTriangle,
                        const Standard_Integer (&theNodesIndices)[3],
                        TriangleNodeInfo (&theInfo)[3]) const
   {
     const Standard_Integer(&e)[3] = theTriangle.myEdges;
     for (Standard_Integer i = 0; i < 3; ++i)
     {
-      const BRepMesh_Vertex& aVertex = this->getStructure()->GetNode(theNodesIndices[i]);
+      const Vertex& aVertex = this->getStructure()->GetNode(theNodesIndices[i]);
       theInfo[i].Point2d = this->getRangeSplitter().Scale(aVertex.Coord(), Standard_False).XY();
       theInfo[i].Point   = this->getNodesMap()->Value(aVertex.Location3d()).XYZ();
       theInfo[i].isFrontierLink =
@@ -205,7 +205,7 @@ private:
 
   // Check geometry of the given triangle. If triangle does not suit specified deflection, inserts
   // new point.
-  void splitTriangleGeometry(const BRepMesh_Triangle& theTriangle)
+  void splitTriangleGeometry(const Triangle3& theTriangle)
   {
     if (theTriangle.Movability() != BRepMesh_Deleted)
     {
@@ -321,7 +321,7 @@ private:
         aLastVertex  = theNodesIndices[i];
       }
 
-      if (myCouplesMap->Add(BRepMesh_OrientedEdge(aFirstVertex, aLastVertex)))
+      if (myCouplesMap->Add(OrientedEdge(aFirstVertex, aLastVertex)))
       {
         const Coords2d aMidPnt2d = (theNodesInfo[i].Point2d + theNodesInfo[j].Point2d) / 2.;
 
@@ -443,7 +443,7 @@ private:
     IMeshData::ListOfInteger::Iterator aCircleIt(aCirclesList);
     for (; aCircleIt.More(); aCircleIt.Next())
     {
-      const BRepMesh_Triangle& aTriangle = this->getStructure()->GetElement(aCircleIt.Value());
+      const Triangle3& aTriangle = this->getStructure()->GetElement(aCircleIt.Value());
 
       Standard_Integer aNodes[3];
       this->getStructure()->ElementNodes(aTriangle, aNodes);
@@ -453,7 +453,7 @@ private:
         if (!aUsedNodes.Contains(aNodes[i]))
         {
           aUsedNodes.Add(aNodes[i]);
-          const BRepMesh_Vertex& aVertex = this->getStructure()->GetNode(aNodes[i]);
+          const Vertex& aVertex = this->getStructure()->GetNode(aNodes[i]);
           const Point3d&          aPoint  = this->getNodesMap()->Value(aVertex.Location3d());
 
           if (thePnt3d.SquareDistance(aPoint) < mySqMinSize)

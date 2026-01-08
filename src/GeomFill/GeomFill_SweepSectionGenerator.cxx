@@ -302,7 +302,7 @@ void GeomFill_SweepSectionGenerator::Perform(const Standard_Boolean Polynomial)
         myFirstSect = GeomConvert1::CurveToBSplineCurve(Circ);
         // le cercle est segmente car AppBlend_AppSurf ne gere
         // pas les courbes periodiques.
-        myFirstSect->Segment(0., 2.*M_PI);
+        myFirstSect->Segment1(0., 2.*M_PI);
     */
     Handle(Geom_TrimmedCurve) Circ =
       new Geom_TrimmedCurve(new GeomCircle(CircleAxis, myRadius), 0., 2. * M_PI);

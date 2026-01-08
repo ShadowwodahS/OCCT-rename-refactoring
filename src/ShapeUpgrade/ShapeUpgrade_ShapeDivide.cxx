@@ -101,9 +101,9 @@ void ShapeUpgrade_ShapeDivide::SetMinTolerance(const Standard_Real mintol)
 
 //=================================================================================================
 
-void ShapeUpgrade_ShapeDivide::SetSurfaceSegmentMode(const Standard_Boolean Segment)
+void ShapeUpgrade_ShapeDivide::SetSurfaceSegmentMode(const Standard_Boolean Segment1)
 {
-  mySegmentMode = Segment;
+  mySegmentMode = Segment1;
 }
 
 //=================================================================================================

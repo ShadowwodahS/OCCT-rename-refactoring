@@ -25,7 +25,7 @@
 //               debug periodic, IncreaseDegree
 //  21-Mar-95 : xab implemented cache
 //  14-Mar-96 : xab implemented MovePointAndTangent
-//  13-Oct-96 : pmn Bug dans SetPeriodic (PRO6088) et Segment (PRO6250)
+//  13-Oct-96 : pmn Bug dans SetPeriodic (PRO6088) et Segment1 (PRO6250)
 
 #define No_Standard_OutOfRange
 
@@ -462,12 +462,12 @@ Standard_Real BSplineCurve3d::ReversedParameter(const Standard_Real U) const
 
 //=================================================================================================
 
-void BSplineCurve3d::Segment(const Standard_Real U1,
+void BSplineCurve3d::Segment1(const Standard_Real U1,
                                 const Standard_Real U2,
                                 const Standard_Real theTolerance)
 {
   if (U2 < U1)
-    throw Standard_DomainError("BSplineCurve3d::Segment");
+    throw Standard_DomainError("BSplineCurve3d::Segment1");
 
   Standard_Real    NewU1, NewU2;
   Standard_Real    U, DU = 0, aDDU = 0;
@@ -483,7 +483,7 @@ void BSplineCurve3d::Segment(const Standard_Real U1,
     Standard_Real Period = LastParameter() - FirstParameter();
     DU                   = U2 - U1;
     if (DU - Period > Precision::PConfusion())
-      throw Standard_DomainError("BSplineCurve3d::Segment");
+      throw Standard_DomainError("BSplineCurve3d::Segment1");
     if (DU > Period)
       DU = Period;
     aDDU = DU;

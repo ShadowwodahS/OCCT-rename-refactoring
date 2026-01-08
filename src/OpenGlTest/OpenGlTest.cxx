@@ -18,15 +18,15 @@
 
 //=================================================================================================
 
-void OpenGlTest::Factory(DrawInterpreter& theDI)
+void OpenGlTest1::Factory(DrawInterpreter& theDI)
 {
   static const Handle(OpenGl_GraphicDriverFactory) aFactory = new OpenGl_GraphicDriverFactory();
   Graphic3d_GraphicDriverFactory::RegisterFactory(aFactory);
-  OpenGlTest::Commands(theDI);
+  OpenGlTest1::Commands(theDI);
 #ifdef DEB
   theDI << "Draw1 Plugin : OpenGL commands are loaded.\n";
 #endif
 }
 
 // Declare entry point PLUGINFACTORY
-DPLUGIN(OpenGlTest)
+DPLUGIN(OpenGlTest1)

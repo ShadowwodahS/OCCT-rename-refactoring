@@ -28,7 +28,7 @@ class TopoShape;
 
 //! Provides  the  indexation and type  analysis  services
 //! required by the TopoDS generating Shape of BRepSweep.
-class BRepSweep_Tool
+class Tool6
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -36,7 +36,7 @@ public:
   //! Initialize the tool  with <aShape>.  The IndexTool
   //! must prepare an indexation for  all  the subshapes
   //! of this shape.
-  Standard_EXPORT BRepSweep_Tool(const TopoShape& aShape);
+  Standard_EXPORT Tool6(const TopoShape& aShape);
 
   //! Returns the number of subshapes in the shape.
   Standard_EXPORT Standard_Integer NbShapes1() const;

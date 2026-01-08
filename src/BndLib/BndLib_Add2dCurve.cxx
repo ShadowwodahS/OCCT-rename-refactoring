@@ -423,7 +423,7 @@ void BndLib_Box2dCurve::PerformBezier()
     aG = aCBz->Copy();
     //
     aCBzSeg = Handle(Geom2d_BezierCurve)::DownCast(aG);
-    aCBzSeg->Segment(aTb[0], aTb[1]);
+    aCBzSeg->Segment1(aTb[0], aTb[1]);
     aCBz = aCBzSeg;
   }
   //
@@ -482,7 +482,7 @@ void BndLib_Box2dCurve::PerformBSpline()
     aG = aCBS->Copy();
     //
     aCBSs = Handle(Geom2d_BSplineCurve)::DownCast(aG);
-    aCBSs->Segment(aTb[0], aTb[1]);
+    aCBSs->Segment1(aTb[0], aTb[1]);
     aCBS = aCBSs;
   }
   //

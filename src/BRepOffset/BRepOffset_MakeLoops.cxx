@@ -37,11 +37,11 @@ Standard_Integer        NbF    = 1;
 static Standard_Boolean Affich = Standard_False;
 #endif
 
-BRepOffset_MakeLoops::BRepOffset_MakeLoops() {}
+MakeLoops1::MakeLoops1() {}
 
 //=================================================================================================
 
-void BRepOffset_MakeLoops::Build(const ShapeList&   LF,
+void MakeLoops1::Build(const ShapeList&   LF,
                                  const Handle(BRepAlgo_AsDes)& AsDes,
                                  ShapeImage&               Image,
                                  ShapeImage&               theImageVV,
@@ -206,7 +206,7 @@ static Standard_Boolean IsBetweenCorks(const TopoShape&           E,
 
 //=================================================================================================
 
-void BRepOffset_MakeLoops::BuildOnContext(const ShapeList&   LContext,
+void MakeLoops1::BuildOnContext(const ShapeList&   LContext,
                                           const BRepOffset_Analyse&     Analyse,
                                           const Handle(BRepAlgo_AsDes)& AsDes,
                                           ShapeImage&               Image,
@@ -419,7 +419,7 @@ void BRepOffset_MakeLoops::BuildOnContext(const ShapeList&   LContext,
 
 //=================================================================================================
 
-void BRepOffset_MakeLoops::BuildFaces(const ShapeList&   LF,
+void MakeLoops1::BuildFaces(const ShapeList&   LF,
                                       const Handle(BRepAlgo_AsDes)& AsDes,
                                       ShapeImage&               Image,
                                       const Message_ProgressRange&  theRange)

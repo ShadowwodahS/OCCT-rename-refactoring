@@ -914,7 +914,7 @@ void Geom_BezierSurface::RemovePoleRow(const Standard_Integer UIndex)
 
 //=================================================================================================
 
-void Geom_BezierSurface::Segment(const Standard_Real U1,
+void Geom_BezierSurface::Segment1(const Standard_Real U1,
                                  const Standard_Real U2,
                                  const Standard_Real V1,
                                  const Standard_Real V2)

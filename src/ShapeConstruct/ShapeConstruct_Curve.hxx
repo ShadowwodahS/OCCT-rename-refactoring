@@ -82,8 +82,8 @@ public:
   //! Converts a curve of any type (only part from first to last)
   //! to bspline. The method of conversion depends on the type
   //! of original curve:
-  //! BSpline -> C.Segment(first,last)
-  //! Bezier and Line -> GeomConvert1::CurveToBSplineCurve(C).Segment(first,last)
+  //! BSpline -> C.Segment1(first,last)
+  //! Bezier and Line -> GeomConvert1::CurveToBSplineCurve(C).Segment1(first,last)
   //! Conic and Other -> Approx_Curve3d(C[first,last],prec,C1,9,1000)
   Standard_EXPORT Handle(BSplineCurve3d) ConvertToBSpline(const Handle(GeomCurve3d)& C,
                                                              const Standard_Real       first,
@@ -93,8 +93,8 @@ public:
   //! Converts a curve of any type (only part from first to last)
   //! to bspline. The method of conversion depends on the type
   //! of original curve:
-  //! BSpline -> C.Segment(first,last)
-  //! Bezier and Line -> GeomConvert1::CurveToBSplineCurve(C).Segment(first,last)
+  //! BSpline -> C.Segment1(first,last)
+  //! Bezier and Line -> GeomConvert1::CurveToBSplineCurve(C).Segment1(first,last)
   //! Conic and Other -> Approx_Curve2d(C[first,last],prec,C1,9,1000)
   Standard_EXPORT Handle(Geom2d_BSplineCurve) ConvertToBSpline(const Handle(GeomCurve2d)& C,
                                                                const Standard_Real         first,

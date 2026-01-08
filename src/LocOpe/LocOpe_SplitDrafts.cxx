@@ -215,8 +215,8 @@ void LocOpe_SplitDrafts::Perform(const TopoFace&     F,
 
         if (intcs.NbSegments() == 1)
         {
-          const IntersectionPoint1& P1 = intcs.Segment(1).FirstPoint();
-          const IntersectionPoint1& P2 = intcs.Segment(1).SecondPoint();
+          const IntersectionPoint1& P1 = intcs.Segment1(1).FirstPoint();
+          const IntersectionPoint1& P2 = intcs.Segment1(1).SecondPoint();
           const Point3d&                            pf = P1.Pnt();
           const Point3d&                            pl = P2.Pnt();
           TopoVertex                            Vf, Vl;

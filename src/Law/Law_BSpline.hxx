@@ -230,7 +230,7 @@ public:
   //! of the curve <me> or if the curve makes loop.
   //! After the segmentation the length of a curve can be null.
   //! raises if U2 < U1.
-  Standard_EXPORT void Segment(const Standard_Real U1, const Standard_Real U2);
+  Standard_EXPORT void Segment1(const Standard_Real U1, const Standard_Real U2);
 
   //! Changes the knot of range Index.
   //! The multiplicity of the knot is not modified.

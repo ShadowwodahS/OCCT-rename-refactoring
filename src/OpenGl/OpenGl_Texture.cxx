@@ -216,7 +216,7 @@ bool OpenGl_Texture::InitSamplerObject(const Handle(OpenGl_Context)& theCtx)
 //=================================================================================================
 
 bool OpenGl_Texture::Init(const Handle(OpenGl_Context)& theCtx,
-                          const OpenGl_TextureFormat&   theFormat,
+                          const TextureFormat&   theFormat,
                           const Graphic3d_Vec3i&        theSizeXYZ,
                           const Graphic3d_TypeOfTexture theType,
                           const Image_PixMap*           theImage)
@@ -520,9 +520,9 @@ bool OpenGl_Texture::Init(const Handle(OpenGl_Context)& theCtx,
                             GL_DEBUG_SEVERITY_HIGH,
                             AsciiString1("Error: 2D texture ") + theSizeXYZ.x() + "x"
                               + theSizeXYZ.y()
-                              + " IF: " + OpenGl_TextureFormat::FormatFormat(anIntFormat) + " PF: "
-                              + OpenGl_TextureFormat::FormatFormat(theFormat.PixelFormat())
-                              + " DT: " + OpenGl_TextureFormat::FormatDataType(theFormat.DataType())
+                              + " IF: " + TextureFormat::FormatFormat(anIntFormat) + " PF: "
+                              + TextureFormat::FormatFormat(theFormat.PixelFormat())
+                              + " DT: " + TextureFormat::FormatDataType(theFormat.DataType())
                               + " can not be created with error "
                               + OpenGl_Context::FormatGlError(anErr) + " [" + myResourceId + "]");
         Unbind(theCtx);
@@ -605,9 +605,9 @@ bool OpenGl_Texture::Init(const Handle(OpenGl_Context)& theCtx,
                             GL_DEBUG_SEVERITY_HIGH,
                             AsciiString1("Error: 3D texture ") + theSizeXYZ.x() + "x"
                               + theSizeXYZ.y() + "x" + theSizeXYZ.z()
-                              + " IF: " + OpenGl_TextureFormat::FormatFormat(anIntFormat) + " PF: "
-                              + OpenGl_TextureFormat::FormatFormat(theFormat.PixelFormat())
-                              + " DT: " + OpenGl_TextureFormat::FormatDataType(theFormat.DataType())
+                              + " IF: " + TextureFormat::FormatFormat(anIntFormat) + " PF: "
+                              + TextureFormat::FormatFormat(theFormat.PixelFormat())
+                              + " DT: " + TextureFormat::FormatDataType(theFormat.DataType())
                               + " can not be created with error "
                               + OpenGl_Context::FormatGlError(anErr) + " [" + myResourceId + "]");
         Unbind(theCtx);
@@ -694,7 +694,7 @@ bool OpenGl_Texture::GenerateMipmaps(const Handle(OpenGl_Context)& theCtx)
         GL_DEBUG_SEVERITY_HIGH,
         AsciiString1(
           "Warning: generating mipmaps requires color-renderable format, while giving ")
-          + OpenGl_TextureFormat::FormatFormat(mySizedFormat) + " [" + myResourceId + "]");
+          + TextureFormat::FormatFormat(mySizedFormat) + " [" + myResourceId + "]");
     }
     else
     {
@@ -725,8 +725,8 @@ bool OpenGl_Texture::Init(const Handle(OpenGl_Context)& theCtx,
     return false;
   }
 
-  const OpenGl_TextureFormat aFormat =
-    OpenGl_TextureFormat::FindFormat(theCtx, theImage.Format(), theIsColorMap);
+  const TextureFormat aFormat =
+    TextureFormat::FindFormat(theCtx, theImage.Format(), theIsColorMap);
   if (!aFormat.IsValid())
   {
     theCtx->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
@@ -821,8 +821,8 @@ bool OpenGl_Texture::InitCompressed(const Handle(OpenGl_Context)& theCtx,
     return false;
   }
 
-  const OpenGl_TextureFormat aFormat =
-    OpenGl_TextureFormat::FindCompressedFormat(theCtx, theImage.CompressedFormat(), theIsColorMap);
+  const TextureFormat aFormat =
+    TextureFormat::FindCompressedFormat(theCtx, theImage.CompressedFormat(), theIsColorMap);
   if (!aFormat.IsValid())
   {
     theCtx->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
@@ -898,9 +898,9 @@ bool OpenGl_Texture::InitCompressed(const Handle(OpenGl_Context)& theCtx,
         0,
         GL_DEBUG_SEVERITY_HIGH,
         AsciiString1("Error: 2D compressed texture ") + aMipSizeXY.x() + "x"
-          + aMipSizeXY.y() + " IF: " + OpenGl_TextureFormat::FormatFormat(aFormat.Internal())
-          + " PF: " + OpenGl_TextureFormat::FormatFormat(aFormat.PixelFormat())
-          + " DT: " + OpenGl_TextureFormat::FormatDataType(aFormat.DataType())
+          + aMipSizeXY.y() + " IF: " + TextureFormat::FormatFormat(aFormat.Internal())
+          + " PF: " + TextureFormat::FormatFormat(aFormat.PixelFormat())
+          + " DT: " + TextureFormat::FormatDataType(aFormat.DataType())
           + " can not be created with error " + OpenGl_Context::FormatGlError(aTexImgErr) + ".");
       Unbind(theCtx);
       Release(theCtx.get());
@@ -997,7 +997,7 @@ bool OpenGl_Texture::Init2DMultisample(const Handle(OpenGl_Context)& theCtx,
       0,
       GL_DEBUG_SEVERITY_HIGH,
       AsciiString1("Error: MSAA texture ") + theSizeX + "x" + theSizeY + "@"
-        + myNbSamples + " IF: " + OpenGl_TextureFormat::FormatFormat(theTextFormat)
+        + myNbSamples + " IF: " + TextureFormat::FormatFormat(theTextFormat)
         + " cannot be created with error " + OpenGl_Context::FormatGlError(aTexImgErr) + ".");
     Unbind(theCtx);
     return false;
@@ -1014,7 +1014,7 @@ bool OpenGl_Texture::Init2DMultisample(const Handle(OpenGl_Context)& theCtx,
 bool OpenGl_Texture::InitRectangle(const Handle(OpenGl_Context)& theCtx,
                                    const Standard_Integer        theSizeX,
                                    const Standard_Integer        theSizeY,
-                                   const OpenGl_TextureFormat&   theFormat)
+                                   const TextureFormat&   theFormat)
 {
   if (!theCtx->IsGlGreaterEqual(3, 0) || !Create(theCtx)
       || theCtx->GraphicsLibrary() == Aspect_GraphicsLibrary_OpenGLES)
@@ -1083,7 +1083,7 @@ bool OpenGl_Texture::InitRectangle(const Handle(OpenGl_Context)& theCtx,
 //=================================================================================================
 
 bool OpenGl_Texture::Init3D(const Handle(OpenGl_Context)& theCtx,
-                            const OpenGl_TextureFormat&   theFormat,
+                            const TextureFormat&   theFormat,
                             const Graphic3d_Vec3i&        theSizeXYZ,
                             const void*                   thePixels)
 {
@@ -1217,7 +1217,7 @@ bool OpenGl_Texture::InitCubeMap(const Handle(OpenGl_Context)&    theCtx,
 
   Handle(Image_PixMap)           anImage;
   Handle(Image_CompressedPixMap) aCompImage;
-  OpenGl_TextureFormat           aFormat;
+  TextureFormat           aFormat;
   myMaxMipLevel = 0;
   if (!theCubeMap.IsNull())
   {
@@ -1229,7 +1229,7 @@ bool OpenGl_Texture::InitCubeMap(const Handle(OpenGl_Context)&    theCtx,
     }
     if (!aCompImage.IsNull())
     {
-      aFormat = OpenGl_TextureFormat::FindCompressedFormat(theCtx,
+      aFormat = TextureFormat::FindCompressedFormat(theCtx,
                                                            aCompImage->CompressedFormat(),
                                                            theIsColorMap);
       if (aFormat.IsValid())
@@ -1296,7 +1296,7 @@ bool OpenGl_Texture::InitCubeMap(const Handle(OpenGl_Context)&    theCtx,
 
   if (!aFormat.IsValid())
   {
-    aFormat = OpenGl_TextureFormat::FindFormat(theCtx, theFormat, theIsColorMap);
+    aFormat = TextureFormat::FindFormat(theCtx, theFormat, theIsColorMap);
   }
   if (!aFormat.IsValid())
   {
@@ -1384,9 +1384,9 @@ bool OpenGl_Texture::InitCubeMap(const Handle(OpenGl_Context)&    theCtx,
               0,
               GL_DEBUG_SEVERITY_HIGH,
               AsciiString1("Error: cubemap compressed texture ") + aMipSizeXY.x() + "x"
-                + aMipSizeXY.y() + " IF: " + OpenGl_TextureFormat::FormatFormat(aFormat.Internal())
-                + " PF: " + OpenGl_TextureFormat::FormatFormat(aFormat.PixelFormat())
-                + " DT: " + OpenGl_TextureFormat::FormatDataType(aFormat.DataType())
+                + aMipSizeXY.y() + " IF: " + TextureFormat::FormatFormat(aFormat.Internal())
+                + " PF: " + TextureFormat::FormatFormat(aFormat.PixelFormat())
+                + " DT: " + TextureFormat::FormatDataType(aFormat.DataType())
                 + " can not be created with error " + OpenGl_Context::FormatGlError(aTexImgErr)
                 + ".");
             Unbind(theCtx);
@@ -1482,9 +1482,9 @@ bool OpenGl_Texture::InitCubeMap(const Handle(OpenGl_Context)&    theCtx,
         0,
         GL_DEBUG_SEVERITY_HIGH,
         AsciiString1("Error: cubemap side  ") + (int)theSize + "x" + (int)theSize
-          + " IF: " + OpenGl_TextureFormat::FormatFormat(anIntFormat)
-          + " PF: " + OpenGl_TextureFormat::FormatFormat(aFormat.PixelFormat())
-          + " DT: " + OpenGl_TextureFormat::FormatDataType(aFormat.DataType())
+          + " IF: " + TextureFormat::FormatFormat(anIntFormat)
+          + " PF: " + TextureFormat::FormatFormat(aFormat.PixelFormat())
+          + " DT: " + TextureFormat::FormatDataType(aFormat.DataType())
           + " can not be created with error " + OpenGl_Context::FormatGlError(anErr) + ".");
       Unbind(theCtx);
       Release(theCtx.get());
@@ -1620,7 +1620,7 @@ bool OpenGl_Texture::ImageDump(Image_PixMap&                 theImage,
                                Standard_Integer              theLevel,
                                Standard_Integer              theCubeSide) const
 {
-  const OpenGl_TextureFormat aFormat = OpenGl_TextureFormat::FindSizedFormat(theCtx, mySizedFormat);
+  const TextureFormat aFormat = TextureFormat::FindSizedFormat(theCtx, mySizedFormat);
   if (theCtx.IsNull() || !IsValid()
       || theCtx->GraphicsLibrary()
            == Aspect_GraphicsLibrary_OpenGLES // glGetTexImage() is unavailable in OpenGL ES

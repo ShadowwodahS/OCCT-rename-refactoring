@@ -181,7 +181,7 @@ void Profiler::Perform(const Standard_Real PTol)
     if (!myIsPeriodic && C->IsPeriodic())
     {
       C->SetNotPeriodic();
-      C->Segment(U1, U2);
+      C->Segment1(U1, U2);
     }
 
     // evaluate the max degree

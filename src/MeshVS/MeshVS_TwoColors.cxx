@@ -17,9 +17,9 @@
 
 //=================================================================================================
 
-MeshVS_TwoColors BindTwoColors(const Quantity_Color& theCol1, const Quantity_Color& theCol2)
+TwoColors BindTwoColors(const Quantity_Color& theCol1, const Quantity_Color& theCol2)
 {
-  MeshVS_TwoColors                aRes;
+  TwoColors                aRes;
   NCollection_Vec3<Standard_Real> aColor_sRGB;
   theCol1.Values(aColor_sRGB.r(), aColor_sRGB.g(), aColor_sRGB.b(), Quantity_TOC_sRGB);
   aRes.r1 = unsigned(aColor_sRGB.r() * 255.0);
@@ -35,7 +35,7 @@ MeshVS_TwoColors BindTwoColors(const Quantity_Color& theCol1, const Quantity_Col
 
 //=================================================================================================
 
-Quantity_Color ExtractColor(MeshVS_TwoColors& theTwoColors, const Standard_Integer Index)
+Quantity_Color ExtractColor(TwoColors& theTwoColors, const Standard_Integer Index)
 {
   Quantity_Color aRes;
   Standard_Real  max = 255.0;
@@ -56,7 +56,7 @@ Quantity_Color ExtractColor(MeshVS_TwoColors& theTwoColors, const Standard_Integ
 
 //=================================================================================================
 
-void ExtractColors(MeshVS_TwoColors& theTwoColors, Quantity_Color& theCol1, Quantity_Color& theCol2)
+void ExtractColors(TwoColors& theTwoColors, Quantity_Color& theCol1, Quantity_Color& theCol2)
 {
   Standard_Real max = 255.0;
   theCol1.SetValues(Standard_Real(theTwoColors.r1) / max,

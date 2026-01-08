@@ -21,9 +21,9 @@
 //=================================================================================================
 
 void BRepMesh_CylinderRangeSplitter::Reset(const IMeshData::IFaceHandle& theDFace,
-                                           const IMeshTools_Parameters&  theParameters)
+                                           const Parameters3&  theParameters)
 {
-  BRepMesh_DefaultRangeSplitter::Reset(theDFace, theParameters);
+  DefaultRangeSplitter::Reset(theDFace, theParameters);
 
   const Standard_Real aRadius = GetDFace()->GetSurface()->Cylinder().Radius();
   myDu                        = TangentialDeflectionSampler::ArcAngularStep(aRadius,
@@ -35,7 +35,7 @@ void BRepMesh_CylinderRangeSplitter::Reset(const IMeshData::IFaceHandle& theDFac
 //=================================================================================================
 
 Handle(IMeshData::ListOfPnt2d) BRepMesh_CylinderRangeSplitter::GenerateSurfaceNodes(
-  const IMeshTools_Parameters& /*theParameters*/) const
+  const Parameters3& /*theParameters*/) const
 {
   const std::pair<Standard_Real, Standard_Real>& aRangeU = GetRangeU();
   const std::pair<Standard_Real, Standard_Real>& aRangeV = GetRangeV();

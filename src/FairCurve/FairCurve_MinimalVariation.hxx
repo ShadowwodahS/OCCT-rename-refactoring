@@ -45,7 +45,7 @@ public:
   //! energy PhysicalRatio. The kinds of energy include:
   //! -   Jerk (0)
   //! -   Sagging (1).
-  //! Note that the default setting for Physical Ration is in FairCurve_Batten
+  //! Note that the default setting for Physical1 Ration is in FairCurve_Batten
   //! Other parameters are initialized as follow :
   //! - FreeSliding = False
   //! - ConstraintOrder1 = 1

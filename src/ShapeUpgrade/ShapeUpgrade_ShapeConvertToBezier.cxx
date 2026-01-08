@@ -117,7 +117,7 @@ Standard_Boolean ShapeUpgrade_ShapeConvertToBezier::Perform(const Standard_Boole
   // In order to fix this bug all edges that are based on
   // bezier curves (2d or 3d) and have range not equal to [0,1]
   // are performed the following sequence:
-  //  1. Segment on bezier curve
+  //  1. Segment1 on bezier curve
   //  2. Changing rande of edge to [0,1]
   if (myLevel == 1)
   {
@@ -154,7 +154,7 @@ Standard_Boolean ShapeUpgrade_ShapeConvertToBezier::Perform(const Standard_Boole
               {
                 if (first > preci || last < 1 - preci)
                 {
-                  bezier->Segment(first, last);
+                  bezier->Segment1(first, last);
                   B.UpdateEdge(edge, bezier, 0.);
                 }
                 sbe.SetRange3d(edge, 0, 1);
@@ -203,7 +203,7 @@ Standard_Boolean ShapeUpgrade_ShapeConvertToBezier::Perform(const Standard_Boole
             {
               if (!bezier.IsNull())
               {
-                bezier->Segment(first, last);
+                bezier->Segment1(first, last);
                 newCurve = bezier;
               }
               else
@@ -212,7 +212,7 @@ Standard_Boolean ShapeUpgrade_ShapeConvertToBezier::Perform(const Standard_Boole
               {
                 if (!bezierR.IsNull())
                 {
-                  bezierR->Segment(first, last);
+                  bezierR->Segment1(first, last);
                   newRevCurve = bezierR;
                 }
                 else if (!c2drev.IsNull())
@@ -255,7 +255,7 @@ Standard_Boolean ShapeUpgrade_ShapeConvertToBezier::Perform(const Standard_Boole
             {
               if (!beziernext.IsNull())
               {
-                beziernext->Segment(first2, last2);
+                beziernext->Segment1(first2, last2);
                 newnextCurve = beziernext;
               }
               else
@@ -264,7 +264,7 @@ Standard_Boolean ShapeUpgrade_ShapeConvertToBezier::Perform(const Standard_Boole
               {
                 if (!bezierRnext.IsNull())
                 {
-                  bezierRnext->Segment(first2, last2);
+                  bezierRnext->Segment1(first2, last2);
                   newRevCurve = bezierRnext;
                 }
                 else if (!c2drevnext.IsNull())

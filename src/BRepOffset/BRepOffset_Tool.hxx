@@ -39,7 +39,7 @@ class BRepAlgo_AsDes;
 class ShapeImage;
 class GeomCurve3d;
 
-class BRepOffset_Tool
+class Tool5
 {
 public:
   DEFINE_STANDARD_ALLOC

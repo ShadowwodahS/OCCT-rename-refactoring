@@ -96,7 +96,7 @@ TopoEdge HLRBRep1::MakeEdge(const HLRBRep_Curve& ec,
       Handle(BSplineCurve3d) theCurve = Handle(BSplineCurve3d)::DownCast(BSplCurve->Copy());
       if (theCurve->IsPeriodic() && !GAcurve.IsClosed())
       {
-        theCurve->Segment(sta, end);
+        theCurve->Segment1(sta, end);
         TColgp_Array1OfPnt2d    Poles(1, theCurve->NbPoles());
         TColStd_Array1OfReal    knots(1, theCurve->NbKnots());
         TColStd_Array1OfInteger mults(1, theCurve->NbKnots());

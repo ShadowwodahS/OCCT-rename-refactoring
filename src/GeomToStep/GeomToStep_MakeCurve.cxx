@@ -71,13 +71,13 @@ GeomToStep_MakeCurve::GeomToStep_MakeCurve(const Handle(GeomCurve3d)& C,
     if (B->IsKind(STANDARD_TYPE(BSplineCurve3d)))
     {
       Handle(BSplineCurve3d) BS = Handle(BSplineCurve3d)::DownCast(B->Copy());
-      BS->Segment(T->FirstParameter(), T->LastParameter());
+      BS->Segment1(T->FirstParameter(), T->LastParameter());
       B = BS;
     }
     else if (B->IsKind(STANDARD_TYPE(BezierCurve3d)))
     {
       Handle(BezierCurve3d) BZ = Handle(BezierCurve3d)::DownCast(B->Copy());
-      BZ->Segment(T->FirstParameter(), T->LastParameter());
+      BZ->Segment1(T->FirstParameter(), T->LastParameter());
       B = BZ;
     }
     else

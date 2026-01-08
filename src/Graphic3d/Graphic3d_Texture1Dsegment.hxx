@@ -54,7 +54,7 @@ public:
                                   const Standard_ShortReal theZ2);
 
   //! Returns the values of the current segment X1, Y1, Z1 , X2, Y2, Z2.
-  Standard_EXPORT void Segment(Standard_ShortReal& theX1,
+  Standard_EXPORT void Segment1(Standard_ShortReal& theX1,
                                Standard_ShortReal& theY1,
                                Standard_ShortReal& theZ1,
                                Standard_ShortReal& theX2,

@@ -140,7 +140,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SplitBSplineSurface(
 
   Handle(Geom_BSplineSurface) S1 = Handle(Geom_BSplineSurface)::DownCast(S->Copy());
 
-  S1->Segment(S1->UKnot(FirstUK), S1->UKnot(LastUK), S1->VKnot(FirstVK), S1->VKnot(LastVK));
+  S1->Segment1(S1->UKnot(FirstUK), S1->UKnot(LastUK), S1->VKnot(FirstVK), S1->VKnot(LastVK));
 
   if (S->IsUPeriodic())
   {
@@ -188,7 +188,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SplitBSplineSurface(const Handle(Geom_
     if (FirstUK < FirstU || LastUK > LastU)
       throw Standard_DomainError();
 
-    S1->Segment(S1->UKnot(FirstUK),
+    S1->Segment1(S1->UKnot(FirstUK),
                 S1->UKnot(LastUK),
                 S1->VKnot(S1->FirstVKnotIndex()),
                 S1->VKnot(S1->LastVKnotIndex()));
@@ -214,7 +214,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SplitBSplineSurface(const Handle(Geom_
     if (FirstVK < FirstV || LastVK > LastV)
       throw Standard_DomainError();
 
-    S1->Segment(S1->UKnot(S1->FirstUKnotIndex()),
+    S1->Segment1(S1->UKnot(S1->FirstUKnotIndex()),
                 S1->UKnot(S1->LastUKnotIndex()),
                 S1->VKnot(FirstVK),
                 S1->VKnot(LastVK));
@@ -253,7 +253,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SplitBSplineSurface(
 
   Handle(Geom_BSplineSurface) NewSurface = Handle(Geom_BSplineSurface)::DownCast(S->Copy());
 
-  NewSurface->Segment(FirstU, LastU, FirstV, LastV);
+  NewSurface->Segment1(FirstU, LastU, FirstV, LastV);
 
   if (S->IsUPeriodic())
   {
@@ -301,7 +301,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SplitBSplineSurface(
     Standard_Real FirstV = S->VKnot(S->FirstVKnotIndex());
     Standard_Real LastV  = S->VKnot(S->LastVKnotIndex());
 
-    NewSurface->Segment(FirstU, LastU, FirstV, LastV);
+    NewSurface->Segment1(FirstU, LastU, FirstV, LastV);
 
     if (S->IsUPeriodic())
     {
@@ -321,7 +321,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SplitBSplineSurface(
     Standard_Real FirstV = Min(FromParam1, ToParam2);
     Standard_Real LastV  = Max(FromParam1, ToParam2);
 
-    NewSurface->Segment(FirstU, LastU, FirstV, LastV);
+    NewSurface->Segment1(FirstU, LastU, FirstV, LastV);
 
     if (S->IsUPeriodic())
     {
@@ -697,7 +697,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
 
       Handle(Geom_BezierSurface) SBez = Handle(Geom_BezierSurface)::DownCast(Surf->Copy());
 
-      SBez->Segment(U1, U2, V1, V2);
+      SBez->Segment1(U1, U2, V1, V2);
       Standard_Integer        NbUPoles = SBez->NbUPoles();
       Standard_Integer        NbVPoles = SBez->NbVPoles();
       Standard_Integer        UDegree  = SBez->UDegree();
@@ -753,7 +753,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
       if (BS->IsUPeriodic() || BS->IsVPeriodic())
         BS->CheckAndSegment(U1, U2, V1, V2);
       else
-        BS->Segment(U1, U2, V1, V2);
+        BS->Segment1(U1, U2, V1, V2);
       TheSurface = BS;
     }
 

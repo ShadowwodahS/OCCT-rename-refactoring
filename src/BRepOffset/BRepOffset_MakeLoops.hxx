@@ -29,12 +29,12 @@ class BRepAlgo_AsDes;
 class ShapeImage;
 class BRepOffset_Analyse;
 
-class BRepOffset_MakeLoops
+class MakeLoops1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepOffset_MakeLoops();
+  Standard_EXPORT MakeLoops1();
 
   Standard_EXPORT void Build(const ShapeList&   LF,
                              const Handle(BRepAlgo_AsDes)& AsDes,

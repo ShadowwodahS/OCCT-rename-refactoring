@@ -288,7 +288,7 @@ bool OpenGl_PBREnvironment::initTextures(const Handle(OpenGl_Context)& theCtx)
   // alpha channel has been added
   if (!myIBLMaps[OpenGl_TypeOfIBLMap_DiffuseSH].Init(
         theCtx,
-        OpenGl_TextureFormat::FindFormat(theCtx, Image_Format_RGBAF, false),
+        TextureFormat::FindFormat(theCtx, Image_Format_RGBAF, false),
         Graphic3d_Vec2i(9, 1),
         Graphic3d_TypeOfTexture_2D))
   {
@@ -309,7 +309,7 @@ bool OpenGl_PBREnvironment::initTextures(const Handle(OpenGl_Context)& theCtx)
 
   if (!myIBLMaps[OpenGl_TypeOfIBLMap_DiffuseFallback].Init(
         theCtx,
-        OpenGl_TextureFormat::FindFormat(theCtx, Image_Format_RGBA, false),
+        TextureFormat::FindFormat(theCtx, Image_Format_RGBA, false),
         Graphic3d_Vec2i(10, 4),
         Graphic3d_TypeOfTexture_2D))
   {
@@ -340,7 +340,7 @@ bool OpenGl_PBREnvironment::initFBO(const Handle(OpenGl_Context)& theCtx)
 //=================================================================================================
 
 bool OpenGl_PBREnvironment::processDiffIBLMap(const Handle(OpenGl_Context)& theCtx,
-                                              const BakingParams*           theDrawParams)
+                                              const BakingParams1*           theDrawParams)
 {
   const OpenGl_TypeOfIBLMap aRendMapId =
     myCanRenderFloat ? OpenGl_TypeOfIBLMap_DiffuseSH : OpenGl_TypeOfIBLMap_DiffuseFallback;
@@ -447,7 +447,7 @@ bool OpenGl_PBREnvironment::processDiffIBLMap(const Handle(OpenGl_Context)& theC
   {
     if (!myIBLMaps[OpenGl_TypeOfIBLMap_DiffuseSH].Init(
           theCtx,
-          OpenGl_TextureFormat::FindFormat(theCtx, Image_Format_RGBAF, false),
+          TextureFormat::FindFormat(theCtx, Image_Format_RGBAF, false),
           Graphic3d_Vec2i(9, 1),
           Graphic3d_TypeOfTexture_2D,
           &anImageF))
@@ -463,7 +463,7 @@ bool OpenGl_PBREnvironment::processDiffIBLMap(const Handle(OpenGl_Context)& theC
 //=================================================================================================
 
 bool OpenGl_PBREnvironment::processSpecIBLMap(const Handle(OpenGl_Context)& theCtx,
-                                              const BakingParams*           theDrawParams)
+                                              const BakingParams1*           theDrawParams)
 {
   if (theDrawParams != NULL)
   {
@@ -484,8 +484,8 @@ bool OpenGl_PBREnvironment::processSpecIBLMap(const Handle(OpenGl_Context)& theC
   }
 
   const bool                 canRenderMipmaps = theCtx->hasFboRenderMipmap;
-  const OpenGl_TextureFormat aTexFormat =
-    OpenGl_TextureFormat::FindSizedFormat(theCtx,
+  const TextureFormat aTexFormat =
+    TextureFormat::FindSizedFormat(theCtx,
                                           myIBLMaps[OpenGl_TypeOfIBLMap_Specular].SizedFormat());
   // ES 2.0 does not support sized formats and format conversions - them detected from data type
   const GLint anIntFormat =
@@ -639,7 +639,7 @@ void OpenGl_PBREnvironment::bake(const Handle(OpenGl_Context)& theCtx,
 
   OSD_Timer aTimer;
   aTimer.Start();
-  BakingParams aDrawParams;
+  BakingParams1 aDrawParams;
   aDrawParams.NbSpecSamples = theSpecNbSamples;
   aDrawParams.NbDiffSamples = theDiffNbSamples;
   aDrawParams.EnvMapSize    = theEnvMap->SizeX();

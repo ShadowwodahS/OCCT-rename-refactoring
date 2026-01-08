@@ -526,7 +526,7 @@ static void KeepInsidePoints(const TheSearchInside1&    solins,
     toproj = gp_Pnt2d(U, V);
     for (inda = 1; inda <= Nba; inda++)
     {
-      const Handle(Adaptor2d_Curve2d)& thearc = solrst.Segment(inda).Curve();
+      const Handle(Adaptor2d_Curve2d)& thearc = solrst.Segment1(inda).Curve();
       projok = HContTool::Project(thearc, toproj, paramproj, Ptproj);
       if (projok)
       {
@@ -590,7 +590,7 @@ static void ComputeTangency(const ContourSearch&            solrst,
            SurUneRestrictionSolution == Standard_False && restriction <= solrst.NbSegments();
            restriction++)
       {
-        const Handle(Adaptor2d_Curve2d)& thearcsol = solrst.Segment(restriction).Curve();
+        const Handle(Adaptor2d_Curve2d)& thearcsol = solrst.Segment1(restriction).Curve();
         Standard_Real                    paramproj;
         gp_Pnt2d                         pproj;
         Standard_Boolean projok = HContTool::Project(thearcsol, Ptoproj, paramproj, pproj);
@@ -978,7 +978,7 @@ void ProcessSegments(const ContourSearch&            solrst,
   for (i = 1; i <= nbedg; i++)
   {
 
-    const Contap_TheSegmentOfTheSearch& thesegsol = solrst.Segment(i);
+    const Contap_TheSegmentOfTheSearch& thesegsol = solrst.Segment1(i);
     theline.SetValue(thesegsol.Curve());
 
     // Traitement des points debut/fin du segment solution.

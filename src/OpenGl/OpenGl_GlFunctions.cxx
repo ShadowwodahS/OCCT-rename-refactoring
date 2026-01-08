@@ -48,7 +48,7 @@
 #ifdef TO_TRACE
   #define OpenGl_TRACE(theName)                                                                    \
     {                                                                                              \
-      OpenGl_GlFunctions::debugPrintError(#theName);                                               \
+      GlFunctions::debugPrintError(#theName);                                               \
     }
   #define WrapProxyDef(theFunc) this->theFunc = opencascade::theFunc
 #else
@@ -1608,7 +1608,7 @@ static void APIENTRY glPixelTransferi(GLenum pname, GLint param)
 
 //=================================================================================================
 
-bool OpenGl_GlFunctions::debugPrintError(const char* theName)
+bool GlFunctions::debugPrintError(const char* theName)
 {
   const int anErr = ::glGetError();
   if (anErr != GL_NO_ERROR)
@@ -1635,7 +1635,7 @@ bool OpenGl_GlFunctions::debugPrintError(const char* theName)
 
 //=================================================================================================
 
-void OpenGl_GlFunctions::readGlVersion(Standard_Integer& theGlVerMajor,
+void GlFunctions::readGlVersion(Standard_Integer& theGlVerMajor,
                                        Standard_Integer& theGlVerMinor)
 {
   // reset values
@@ -1762,7 +1762,7 @@ void OpenGl_GlFunctions::readGlVersion(Standard_Integer& theGlVerMajor,
 
 //=================================================================================================
 
-void OpenGl_GlFunctions::load(OpenGl_Context& theCtx, Standard_Boolean theIsCoreProfile)
+void GlFunctions::load(OpenGl_Context& theCtx, Standard_Boolean theIsCoreProfile)
 {
 #if !defined(GL_ES_VERSION_2_0)
   bool isCoreProfile = false;

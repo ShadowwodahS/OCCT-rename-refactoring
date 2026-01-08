@@ -164,7 +164,7 @@ class DeflectionEstimator
 public:
   //! Constructor
   DeflectionEstimator(const Handle(IMeshData_Model)& theModel,
-                      const IMeshTools_Parameters&   theParams)
+                      const Parameters3&   theParams)
       : myModel(theModel),
         myParams(new Poly_TriangulationParameters(theParams.Deflection,
                                                   theParams.Angle,
@@ -211,7 +211,7 @@ BRepMesh_ModelPostProcessor::~BRepMesh_ModelPostProcessor() {}
 
 Standard_Boolean BRepMesh_ModelPostProcessor::performInternal(
   const Handle(IMeshData_Model)& theModel,
-  const IMeshTools_Parameters&   theParameters,
+  const Parameters3&   theParameters,
   const Message_ProgressRange&   theRange)
 {
   (void)theRange;

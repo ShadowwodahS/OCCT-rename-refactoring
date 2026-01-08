@@ -48,7 +48,7 @@ inline Standard_Integer IntPatch_Polygo::NbSegments() const
 // purpose  :
 //=======================================================================
 
-inline void IntPatch_Polygo::Segment(const Standard_Integer theIndex,
+inline void IntPatch_Polygo::Segment1(const Standard_Integer theIndex,
                                      gp_Pnt2d&              theBegin,
                                      gp_Pnt2d&              theEnd) const
 {

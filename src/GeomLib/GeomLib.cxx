@@ -1522,7 +1522,7 @@ void GeomLib1::ExtendSurfByLength(Handle(Geom_BoundedSurface)& Surface,
   {
     Standard_Real U0, U1, V0, V1;
     BS->Bounds(U0, U1, V0, V1);
-    BS->Segment(U0, U1, V0, V1);
+    BS->Segment1(U0, U1, V0, V1);
   }
 
   // IFV Fix OCC bug 0022694 - wrong result extrapolating rational surfaces

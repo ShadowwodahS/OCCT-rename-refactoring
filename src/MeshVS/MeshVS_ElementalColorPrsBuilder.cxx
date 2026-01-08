@@ -79,7 +79,7 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
   MeshVS_DataMapOfColorMapOfInteger     aColorsOfElements;
   MeshVS_DataMapOfTwoColorsMapOfInteger aTwoColorsOfElements;
 
-  MeshVS_Buffer        aCoordsBuf(3 * aMaxFaceNodes * sizeof(Standard_Real));
+  Buffer        aCoordsBuf(3 * aMaxFaceNodes * sizeof(Standard_Real));
   TColStd_Array1OfReal aCoords(aCoordsBuf, 1, 3 * aMaxFaceNodes);
   Standard_Integer     NbNodes;
   MeshVS_EntityType    aType;
@@ -103,7 +103,7 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
        anIter.Next())
   {
     Standard_Integer aKey   = anIter.Key();
-    MeshVS_TwoColors aValue = anIter.Value();
+    TwoColors aValue = anIter.Value();
     Quantity_Color   aCol1, aCol2;
     ExtractColors(aValue, aCol1, aCol2);
     if (aCol1 == aCol2)
@@ -592,7 +592,7 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
     Handle(Graphic3d_ArrayOfSegments) anEdgeSegments =
       new Graphic3d_ArrayOfSegments(aNbEdgePrimitives * 2);
 
-    MeshVS_TwoColors aTC = aColIter2.Key();
+    TwoColors aTC = aColIter2.Key();
     Quantity_Color   aMyIntColor, aMyBackColor;
     ExtractColors(aTC, aMyIntColor, aMyBackColor);
 
@@ -754,7 +754,7 @@ Standard_Boolean MeshVS_ElementalColorPrsBuilder::HasColors2() const
 //=================================================================================================
 
 Standard_Boolean MeshVS_ElementalColorPrsBuilder::GetColor2(const Standard_Integer ID,
-                                                            MeshVS_TwoColors&      theColor) const
+                                                            TwoColors&      theColor) const
 {
   Standard_Boolean aRes = myElemColorMap2.IsBound(ID);
   if (aRes)
@@ -769,7 +769,7 @@ Standard_Boolean MeshVS_ElementalColorPrsBuilder::GetColor2(const Standard_Integ
                                                             Quantity_Color&        theColor1,
                                                             Quantity_Color&        theColor2) const
 {
-  MeshVS_TwoColors aTC;
+  TwoColors aTC;
   Standard_Boolean aRes = GetColor2(ID, aTC);
   if (aRes)
     ExtractColors(aTC, theColor1, theColor2);
@@ -788,7 +788,7 @@ void MeshVS_ElementalColorPrsBuilder::SetColor2(const Standard_Integer theID,
 //=================================================================================================
 
 void MeshVS_ElementalColorPrsBuilder::SetColor2(const Standard_Integer  theID,
-                                                const MeshVS_TwoColors& theCol)
+                                                const TwoColors& theCol)
 {
   Standard_Boolean aRes = myElemColorMap2.IsBound(theID);
   if (aRes)

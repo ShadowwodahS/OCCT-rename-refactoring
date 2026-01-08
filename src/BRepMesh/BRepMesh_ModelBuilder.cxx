@@ -36,7 +36,7 @@ BRepMesh_ModelBuilder::~BRepMesh_ModelBuilder() {}
 
 Handle(IMeshData_Model) BRepMesh_ModelBuilder::performInternal(
   const TopoShape&          theShape,
-  const IMeshTools_Parameters& theParameters)
+  const Parameters3& theParameters)
 {
   Handle(BRepMeshData_Model) aModel;
 

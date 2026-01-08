@@ -158,7 +158,7 @@ private:
     Standard_Real      myTol;
   };
 
-  struct NewVertexData
+  struct NewVertexData1
   {
     Point3d        myP;
     Standard_Real myTol;
@@ -178,7 +178,7 @@ private:
   NCollection_DataMap<TopoEdge, NewEdgeData> myEdgeInfo;
 
   //! Map of vertices to new vertices information.
-  NCollection_DataMap<TopoVertex, NewVertexData> myVertexInfo;
+  NCollection_DataMap<TopoVertex, NewVertexData1> myVertexInfo;
 
   //! Offset value.
   Standard_Real myOffsetValue;

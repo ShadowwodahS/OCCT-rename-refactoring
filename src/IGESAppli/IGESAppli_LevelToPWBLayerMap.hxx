@@ -45,7 +45,7 @@ public:
   //! - nbPropVal       : Number of property values
   //! - allExchLevels   : Exchange File Level Numbers
   //! - allNativeLevels : Native Level Identifications
-  //! - allPhysLevels   : Physical Layer Numbers
+  //! - allPhysLevels   : Physical1 Layer Numbers
   //! - allExchIdents   : Exchange File Level Identifications
   //! raises exception if allExchLevels, allNativeLevels, allPhysLevels
   //! and all ExchIdents are not of same dimensions
@@ -69,7 +69,7 @@ public:
   //! raises exception if Index <= 0 or Index > NbLevelToLayerDefs
   Standard_EXPORT Handle(TCollection_HAsciiString) NativeLevel(const Standard_Integer Index) const;
 
-  //! returns Physical Layer Number
+  //! returns Physical1 Layer Number
   //! raises exception if Index <= 0 or Index > NbLevelToLayerDefs
   Standard_EXPORT Standard_Integer PhysicalLayerNumber(const Standard_Integer Index) const;
 

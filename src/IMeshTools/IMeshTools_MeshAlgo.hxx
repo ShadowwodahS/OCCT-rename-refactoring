@@ -20,7 +20,7 @@
 #include <IMeshData_Types.hxx>
 #include <Message_ProgressRange.hxx>
 
-struct IMeshTools_Parameters;
+struct Parameters3;
 
 //! Interface class providing API for algorithms intended to create mesh for discrete face.
 class IMeshTools_MeshAlgo : public RefObject
@@ -31,7 +31,7 @@ public:
 
   //! Performs processing of the given face.
   Standard_EXPORT virtual void Perform(const IMeshData::IFaceHandle& theDFace,
-                                       const IMeshTools_Parameters&  theParameters,
+                                       const Parameters3&  theParameters,
                                        const Message_ProgressRange&  theRange) = 0;
 
   DEFINE_STANDARD_RTTIEXT(IMeshTools_MeshAlgo, RefObject)

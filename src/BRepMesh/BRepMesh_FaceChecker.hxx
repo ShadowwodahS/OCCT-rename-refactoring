@@ -30,20 +30,20 @@ class BRepMesh_FaceChecker : public RefObject
 {
 public: //! @name mesher API
   //! Identifies segment inside face.
-  struct Segment
+  struct Segment1
   {
     IMeshData::IEdgePtr EdgePtr;
     gp_Pnt2d*           Point1; // \ Use explicit pointers to points instead of accessing
     gp_Pnt2d*           Point2; // / using indices.
 
-    Segment()
+    Segment1()
         : EdgePtr(NULL),
           Point1(NULL),
           Point2(NULL)
     {
     }
 
-    Segment(const IMeshData::IEdgePtr& theEdgePtr, gp_Pnt2d* thePoint1, gp_Pnt2d* thePoint2)
+    Segment1(const IMeshData::IEdgePtr& theEdgePtr, gp_Pnt2d* thePoint1, gp_Pnt2d* thePoint2)
         : EdgePtr(theEdgePtr),
           Point1(thePoint1),
           Point2(thePoint2)
@@ -51,7 +51,7 @@ public: //! @name mesher API
     }
   };
 
-  typedef NCollection_Shared<NCollection_Vector<Segment>>                         Segments;
+  typedef NCollection_Shared<NCollection_Vector<Segment1>>                         Segments;
   typedef NCollection_Shared<NCollection_Array1<Handle(Segments)>>                ArrayOfSegments;
   typedef NCollection_Shared<NCollection_Array1<Handle(IMeshData::BndBox2dTree)>> ArrayOfBndBoxTree;
   typedef NCollection_Shared<NCollection_Array1<Handle(IMeshData::MapOfIEdgePtr)>>
@@ -59,7 +59,7 @@ public: //! @name mesher API
 
   //! Default constructor
   Standard_EXPORT BRepMesh_FaceChecker(const IMeshData::IFaceHandle& theFace,
-                                       const IMeshTools_Parameters&  theParameters);
+                                       const Parameters3&  theParameters);
 
   //! Destructor
   Standard_EXPORT virtual ~BRepMesh_FaceChecker();
@@ -102,7 +102,7 @@ private:
 
 private:
   IMeshData::IFaceHandle       myDFace;
-  const IMeshTools_Parameters& myParameters;
+  const Parameters3& myParameters;
 
   Handle(ArrayOfSegments)          myWiresSegments;
   Handle(ArrayOfBndBoxTree)        myWiresBndBoxTree;

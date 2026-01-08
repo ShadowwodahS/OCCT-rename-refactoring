@@ -94,7 +94,7 @@ void ShapeUpgrade_SplitCurve3d::Init(const Handle(GeomCurve3d)& C,
 
 //=================================================================================================
 
-void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment)
+void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment1)
 {
   //  if (ShapeUpgrade::Debug()) std::cout<<"ShapeUpgrade_SplitCurve3d::Build"<<std::endl;
   Standard_Real First = mySplitValues->Value(1);
@@ -109,7 +109,7 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment)
     ShapeUpgrade_SplitCurve3d spc;
     spc.Init(BasCurve, First, Last);
     spc.SetSplitValues(mySplitValues);
-    spc.Build(Segment);
+    spc.Build(Segment1);
     myNbCurves        = spc.GetCurves()->Length();
     myResultingCurves = new TColGeom_HArray1OfCurve(1, myNbCurves);
     if (myNbCurves == 1)
@@ -132,7 +132,7 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment)
     ShapeUpgrade_SplitCurve3d spc;
     spc.Init(BasCurve, First, Last);
     spc.SetSplitValues(mySplitValues);
-    spc.Build(Segment);
+    spc.Build(Segment1);
     myNbCurves        = spc.GetCurves()->Length();
     myResultingCurves = new TColGeom_HArray1OfCurve(1, myNbCurves);
     for (Standard_Integer i = 1; i <= myNbCurves; i++)
@@ -184,7 +184,7 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment)
         && Abs(myCurve->LastParameter() - Last) < Precision::PConfusion())
       myResultingCurves->SetValue(1, myCurve);
 
-    else if (!Segment
+    else if (!Segment1
              || (!myCurve->IsKind(STANDARD_TYPE(BSplineCurve3d))
                  && !myCurve->IsKind(STANDARD_TYPE(BezierCurve3d)))
              || !Status(ShapeExtend_DONE2))
@@ -195,13 +195,13 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment)
           try {
             OCC_CATCH_SIGNALS
             if (myCurve->IsKind (STANDARD_TYPE (BSplineCurve3d)))
-              Handle(BSplineCurve3d)::DownCast(theNewCurve)->Segment (First, Last);
+              Handle(BSplineCurve3d)::DownCast(theNewCurve)->Segment1 (First, Last);
             else if (myCurve->IsKind (STANDARD_TYPE (BezierCurve3d)))
-              Handle(BezierCurve3d)::DownCast(theNewCurve)->Segment (First, Last);
+              Handle(BezierCurve3d)::DownCast(theNewCurve)->Segment1 (First, Last);
           }
             catch (ExceptionBase) {
       #ifdef OCCT_DEBUG
-            std::cout << "Warning: ShapeUpgrade_Split3dCurve::Build(): Exception in Segment      :";
+            std::cout << "Warning: ShapeUpgrade_Split3dCurve::Build(): Exception in Segment1      :";
             ExceptionBase::Caught()->Print(std::cout); std::cout << std::endl;
       #endif
             theNewCurve = new
@@ -246,7 +246,7 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment)
     // skl : in the next block I change "First","Last" to "Firstt","Lastt"
     Standard_Real      Firstt = mySplitValues->Value(i), Lastt = mySplitValues->Value(i + 1);
     Handle(GeomCurve3d) theNewCurve;
-    if (Segment)
+    if (Segment1)
     {
       if (myCurve->IsKind(STANDARD_TYPE(BSplineCurve3d))
           || myCurve->IsKind(STANDARD_TYPE(BezierCurve3d)))
@@ -256,15 +256,15 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment)
         {
           OCC_CATCH_SIGNALS
           if (myCurve->IsKind(STANDARD_TYPE(BSplineCurve3d)))
-            Handle(BSplineCurve3d)::DownCast(theNewCurve)->Segment(Firstt, Lastt);
+            Handle(BSplineCurve3d)::DownCast(theNewCurve)->Segment1(Firstt, Lastt);
           else if (myCurve->IsKind(STANDARD_TYPE(BezierCurve3d)))
-            Handle(BezierCurve3d)::DownCast(theNewCurve)->Segment(Firstt, Lastt);
+            Handle(BezierCurve3d)::DownCast(theNewCurve)->Segment1(Firstt, Lastt);
           myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
         }
         catch (ExceptionBase const& anException)
         {
 #ifdef OCCT_DEBUG
-          std::cout << "Warning: ShapeUpgrade_Split3dCurve::Build(): Exception in Segment      :";
+          std::cout << "Warning: ShapeUpgrade_Split3dCurve::Build(): Exception in Segment1      :";
           anException.Print(std::cout);
           std::cout << std::endl;
 #endif

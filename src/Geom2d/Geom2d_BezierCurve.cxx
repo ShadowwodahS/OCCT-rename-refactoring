@@ -328,7 +328,7 @@ Standard_Real Geom2d_BezierCurve::ReversedParameter(const Standard_Real U) const
 
 //=================================================================================================
 
-void Geom2d_BezierCurve::Segment(const Standard_Real U1, const Standard_Real U2)
+void Geom2d_BezierCurve::Segment1(const Standard_Real U1, const Standard_Real U2)
 {
   closed = (Abs(Value(U1).Distance(Value(U2))) <= gp1::Resolution());
   //

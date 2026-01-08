@@ -349,7 +349,7 @@ const TColGeom_SequenceOfCurve& LocOpe_Pipe::Curves(const TColgp_SequenceOfPnt& 
       P1     = C->Value(p2);
       if (p1 != C->FirstParameter() || p2 != C->LastParameter())
       {
-        C->Segment(p1, p2);
+        C->Segment1(p1, p2);
       }
       Standard_Integer     Nbkn = C->NbKnots();
       TColStd_Array1OfReal Tkn(1, Nbkn);
@@ -478,7 +478,7 @@ Handle(GeomCurve3d) LocOpe_Pipe::BarycCurve()
     P1     = C->Value(p2);
     if (p1 != C->FirstParameter() || p2 != C->LastParameter())
     {
-      C->Segment(p1, p2);
+      C->Segment1(p1, p2);
     }
     Standard_Integer     Nbkn = C->NbKnots();
     TColStd_Array1OfReal Tkn(1, Nbkn);

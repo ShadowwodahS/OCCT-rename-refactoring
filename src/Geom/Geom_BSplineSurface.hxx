@@ -584,7 +584,7 @@ public:
   //! i.e. ((U2 - U1) - UPeriod) > Precision::PConfusion().
   //! Standard_DomainError if V2 - V1 exceeds the vperiod for vperiodic surfaces.
   //! i.e. ((V2 - V1) - VPeriod) > Precision::PConfusion()).
-  Standard_EXPORT void Segment(const Standard_Real U1,
+  Standard_EXPORT void Segment1(const Standard_Real U1,
                                const Standard_Real U2,
                                const Standard_Real V1,
                                const Standard_Real V2,
@@ -594,7 +594,7 @@ public:
   //! Segments the surface between U1 and U2 in the U-Direction.
   //! between V1 and V2 in the V-Direction.
   //!
-  //! same as Segment but do nothing if U1 and U2 (resp. V1 and V2) are
+  //! same as Segment1 but do nothing if U1 and U2 (resp. V1 and V2) are
   //! equal to the bounds in U (resp. in V) of <me>.
   //! For example, if <me> is periodic in V, it will be always periodic
   //! in V after the segmentation if the bounds in V are unchanged

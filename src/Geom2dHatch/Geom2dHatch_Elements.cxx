@@ -92,7 +92,7 @@ Standard_Boolean HatchElements::Reject(const gp_Pnt2d&) const
 
 //=================================================================================================
 
-Standard_Boolean HatchElements::Segment(const gp_Pnt2d& P, gp_Lin2d& L, Standard_Real& Par)
+Standard_Boolean HatchElements::Segment1(const gp_Pnt2d& P, gp_Lin2d& L, Standard_Real& Par)
 {
   myCurEdge    = 1;
   myCurEdgePar = Probing_Start;

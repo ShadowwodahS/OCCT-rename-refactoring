@@ -37,8 +37,8 @@ public:
                    const Handle(BRepMesh_DataStructureOfDelaun)& theStructure)
         : myStructure(theStructure)
     {
-      const BRepMesh_Vertex& aVertex1 = myStructure->GetNode(theConstraint.FirstNode());
-      const BRepMesh_Vertex& aVertex2 = myStructure->GetNode(theConstraint.LastNode());
+      const Vertex& aVertex1 = myStructure->GetNode(theConstraint.FirstNode());
+      const Vertex& aVertex2 = myStructure->GetNode(theConstraint.LastNode());
 
       myConstraint.SetLocation(aVertex1.Coord());
       myConstraint.SetDirection(gp_Vec2d(aVertex1.Coord(), aVertex2.Coord()));
@@ -47,7 +47,7 @@ public:
 
     Standard_Boolean IsAbove(const Standard_Integer theNodeIndex) const
     {
-      const BRepMesh_Vertex& aVertex = myStructure->GetNode(theNodeIndex);
+      const Vertex& aVertex = myStructure->GetNode(theNodeIndex);
       const gp_Vec2d         aNodeVec(myConstraint.Location(), aVertex.Coord());
       if (aNodeVec.SquareMagnitude() > gp1::Resolution())
       {
@@ -110,7 +110,7 @@ public:
     AddLink(thePoint2, thePoint3, theEdges[1], aOri[1]);
     AddLink(thePoint3, thePoint1, theEdges[2], aOri[2]);
 
-    myStructure->AddElement(BRepMesh_Triangle(theEdges, aOri, BRepMesh_Free));
+    myStructure->AddElement(Triangle3(theEdges, aOri, BRepMesh_Free));
   }
 
   //! Adds new link to mesh.
@@ -163,9 +163,9 @@ private:
   //! Returns True if the given point lies within circumcircle of the given triangle.
   Standard_Boolean checkCircle(const Standard_Integer (&aNodes)[3], const Standard_Integer thePoint)
   {
-    const BRepMesh_Vertex& aVertex0 = myStructure->GetNode(aNodes[0]);
-    const BRepMesh_Vertex& aVertex1 = myStructure->GetNode(aNodes[1]);
-    const BRepMesh_Vertex& aVertex2 = myStructure->GetNode(aNodes[2]);
+    const Vertex& aVertex0 = myStructure->GetNode(aNodes[0]);
+    const Vertex& aVertex1 = myStructure->GetNode(aNodes[1]);
+    const Vertex& aVertex2 = myStructure->GetNode(aNodes[2]);
 
     Coords2d                  aLocation;
     Standard_Real          aRadius;
@@ -177,7 +177,7 @@ private:
 
     if (isOk)
     {
-      const BRepMesh_Vertex& aVertex = myStructure->GetNode(thePoint);
+      const Vertex& aVertex = myStructure->GetNode(thePoint);
       const Standard_Real    aDist =
         (aVertex.Coord() - aLocation).SquareModulus() - (aRadius * aRadius);
       return (aDist < Precision::SquareConfusion());

@@ -91,7 +91,7 @@ public:
   //! Performs the re-computation of status on the whole model
   //! (Subordinate Status and Use Flag of each IGES Entity), which
   //! can have required values according the way they are referenced
-  //! (see definitions of Logical use, Physical use, etc...)
+  //! (see definitions of Logical use, Physical1 use, etc...)
   Standard_EXPORT void ComputeStatus();
 
   //! Performs auto-correction on an IGESEntity

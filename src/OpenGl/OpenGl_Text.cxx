@@ -711,7 +711,7 @@ void OpenGl_Text::render(const Handle(OpenGl_Context)& theCtx,
     aFormatter->Append(myText->Text(), *myFont->FTFont());
     aFormatter->Format();
 
-    OpenGl_TextBuilder aBuilder;
+    TextBuilder aBuilder;
     aBuilder.Perform(aFormatter, theCtx, *myFont.operator->(), myTextures, myVertsVbo, myTCrdsVbo);
 
     aFormatter->BndBox(myBndBox);

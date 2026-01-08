@@ -24,7 +24,7 @@
 #include <vector>
 
 //! Compute points of the Halton sequence with digit-permutations for different bases.
-class OpenGl_HaltonSampler
+class HaltonSampler
 {
 public:
   //! Return the number of supported dimensions.
@@ -32,7 +32,7 @@ public:
 
 public:
   //! Init the permutation arrays using Faure-permutations.
-  OpenGl_HaltonSampler() { initFaure(); }
+  HaltonSampler() { initFaure(); }
 
   //! Return the Halton sample for the given dimension (component) and index.
   //! The client must have called initFaure() at least once before.
@@ -117,7 +117,7 @@ private:
   unsigned short myPerm5[125];
 };
 
-inline void OpenGl_HaltonSampler::initFaure()
+inline void HaltonSampler::initFaure()
 {
   const unsigned                           THE_MAX_BASE = 5u;
   std::vector<std::vector<unsigned short>> aPerms(THE_MAX_BASE + 1);

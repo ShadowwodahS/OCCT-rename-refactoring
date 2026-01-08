@@ -151,7 +151,7 @@ public:
   //! Returns  in <L>, <Par>  a segment having at least
   //! one  intersection  with  the  shape  boundary  to
   //! compute  intersections.
-  Standard_EXPORT Standard_Integer Segment(const Point3d& P, gp_Lin& L, Standard_Real& Par);
+  Standard_EXPORT Standard_Integer Segment1(const Point3d& P, gp_Lin& L, Standard_Real& Par);
 
   //! Returns  in <L>, <Par>  a segment having at least
   //! one  intersection  with  the  shape  boundary  to

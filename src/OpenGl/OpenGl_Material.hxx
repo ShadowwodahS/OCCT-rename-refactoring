@@ -22,7 +22,7 @@
 class OpenGl_Context;
 
 //! OpenGL material definition
-struct OpenGl_MaterialCommon
+struct MaterialCommon
 {
 
   OpenGl_Vec4 Diffuse;           //!< diffuse RGB coefficients + alpha
@@ -35,7 +35,7 @@ struct OpenGl_MaterialCommon
   float& ChangeShine() { return SpecularShininess.a(); }
 
   //! Empty constructor.
-  OpenGl_MaterialCommon()
+  MaterialCommon()
       : Diffuse(1.0f),
         Emission(1.0f),
         SpecularShininess(1.0f, 1.0f, 1.0f, 0.0f),
@@ -53,7 +53,7 @@ struct OpenGl_MaterialCommon
 };
 
 //! OpenGL material definition
-struct OpenGl_MaterialPBR
+struct MaterialPBR
 {
 
   OpenGl_Vec4 BaseColor; //!< base color of PBR material with alpha component
@@ -71,7 +71,7 @@ struct OpenGl_MaterialPBR
   float& ChangeRoughness() { return Params.g(); }
 
   //! Empty constructor.
-  OpenGl_MaterialPBR()
+  MaterialPBR()
       : BaseColor(1.0f),
         EmissionIOR(1.0f),
         Params(1.0f, 1.0f, 1.0f, 1.0f)
@@ -83,10 +83,10 @@ struct OpenGl_MaterialPBR
 };
 
 //! OpenGL material definition
-struct OpenGl_Material
+struct Material4
 {
-  OpenGl_MaterialCommon Common[2];
-  OpenGl_MaterialPBR    Pbr[2];
+  MaterialCommon Common[2];
+  MaterialPBR    Pbr[2];
 
   //! Set material color.
   void SetColor(const OpenGl_Vec3& theColor)
@@ -105,20 +105,20 @@ struct OpenGl_Material
             const Quantity_Color&           theBackColor);
 
   //! Check this material for equality with another material (without tolerance!).
-  bool IsEqual(const OpenGl_Material& theOther) const
+  bool IsEqual(const Material4& theOther) const
   {
-    return std::memcmp(this, &theOther, sizeof(OpenGl_Material)) == 0;
+    return std::memcmp(this, &theOther, sizeof(Material4)) == 0;
   }
 
   //! Check this material for equality with another material (without tolerance!).
-  bool operator==(const OpenGl_Material& theOther) { return IsEqual(theOther); }
+  bool operator==(const Material4& theOther) { return IsEqual(theOther); }
 
-  bool operator==(const OpenGl_Material& theOther) const { return IsEqual(theOther); }
+  bool operator==(const Material4& theOther) const { return IsEqual(theOther); }
 
   //! Check this material for non-equality with another material (without tolerance!).
-  bool operator!=(const OpenGl_Material& theOther) { return !IsEqual(theOther); }
+  bool operator!=(const Material4& theOther) { return !IsEqual(theOther); }
 
-  bool operator!=(const OpenGl_Material& theOther) const { return !IsEqual(theOther); }
+  bool operator!=(const Material4& theOther) const { return !IsEqual(theOther); }
 
   //! Returns packed (serialized) representation of common material properties
   const OpenGl_Vec4* PackedCommon() const { return reinterpret_cast<const OpenGl_Vec4*>(Common); }

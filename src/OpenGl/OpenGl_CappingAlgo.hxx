@@ -22,7 +22,7 @@
 class OpenGl_Structure;
 
 //! Capping surface rendering algorithm.
-class OpenGl_CappingAlgo
+class CappingAlgo
 {
 public:
   //! Draw1 capping surfaces by OpenGl for the clipping planes enabled in current context state.

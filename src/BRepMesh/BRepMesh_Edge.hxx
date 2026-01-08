@@ -20,12 +20,12 @@
 #include <Standard_HashUtils.hxx>
 
 //! Light weighted structure representing link of the mesh.
-class BRepMesh_Edge : public BRepMesh_OrientedEdge
+class BRepMesh_Edge : public OrientedEdge
 {
 public:
   //! Default constructor.
   BRepMesh_Edge()
-      : BRepMesh_OrientedEdge(),
+      : OrientedEdge(),
         myMovability(BRepMesh_Deleted)
   {
   }
@@ -34,7 +34,7 @@ public:
   BRepMesh_Edge(const Standard_Integer         theFirstNode,
                 const Standard_Integer         theLastNode,
                 const BRepMesh_DegreeOfFreedom theMovability)
-      : BRepMesh_OrientedEdge(theFirstNode, theLastNode),
+      : OrientedEdge(theFirstNode, theLastNode),
         myMovability(theMovability)
   {
   }
@@ -51,7 +51,7 @@ public:
   //! \return TRUE if edges have the same orientation, FALSE if not.
   Standard_Boolean IsSameOrientation(const BRepMesh_Edge& theOther) const
   {
-    return BRepMesh_OrientedEdge::IsEqual(theOther);
+    return OrientedEdge::IsEqual(theOther);
   }
 
   //! Checks for equality with another edge.

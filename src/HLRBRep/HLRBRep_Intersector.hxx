@@ -76,7 +76,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbSegments() const;
 
-  Standard_EXPORT const IntRes2d_IntersectionSegment& Segment(const Standard_Integer N) const;
+  Standard_EXPORT const IntRes2d_IntersectionSegment& Segment1(const Standard_Integer N) const;
 
   Standard_EXPORT const IntCurveSurface_IntersectionSegment& CSSegment(
     const Standard_Integer N) const;

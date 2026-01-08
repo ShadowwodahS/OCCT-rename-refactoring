@@ -30,7 +30,7 @@ GeomConvert_BSplineSurfaceToBezierSurface::GeomConvert_BSplineSurfaceToBezierSur
   mySurface = Handle(Geom_BSplineSurface)::DownCast(BasisSurface->Copy());
   Standard_Real U1, U2, V1, V2;
   mySurface->Bounds(U1, U2, V1, V2);
-  mySurface->Segment(U1, U2, V1, V2);
+  mySurface->Segment1(U1, U2, V1, V2);
   mySurface->IncreaseUMultiplicity(mySurface->FirstUKnotIndex(),
                                    mySurface->LastUKnotIndex(),
                                    mySurface->UDegree());
@@ -85,7 +85,7 @@ GeomConvert_BSplineSurfaceToBezierSurface::GeomConvert_BSplineSurfaceToBezierSur
       Vl = mySurface->VKnot(I1);
   }
 
-  mySurface->Segment(Uf, Ul, Vf, Vl);
+  mySurface->Segment1(Uf, Ul, Vf, Vl);
   mySurface->IncreaseUMultiplicity(mySurface->FirstUKnotIndex(),
                                    mySurface->LastUKnotIndex(),
                                    mySurface->UDegree());

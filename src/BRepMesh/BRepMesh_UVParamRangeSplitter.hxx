@@ -20,7 +20,7 @@
 #include <IMeshData_Types.hxx>
 
 //! Intended to generate internal mesh nodes using UV parameters of boundary discrete points.
-class BRepMesh_UVParamRangeSplitter : public BRepMesh_DefaultRangeSplitter
+class BRepMesh_UVParamRangeSplitter : public DefaultRangeSplitter
 {
 public:
   //! Constructor.
@@ -36,9 +36,9 @@ public:
 
   //! Resets this splitter.
   virtual void Reset(const IMeshData::IFaceHandle& theDFace,
-                     const IMeshTools_Parameters&  theParameters) Standard_OVERRIDE
+                     const Parameters3&  theParameters) Standard_OVERRIDE
   {
-    BRepMesh_DefaultRangeSplitter::Reset(theDFace, theParameters);
+    DefaultRangeSplitter::Reset(theDFace, theParameters);
     myUParams.Clear();
     myVParams.Clear();
     myAllocator->Reset(Standard_False);

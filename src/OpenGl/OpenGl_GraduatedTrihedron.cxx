@@ -186,7 +186,7 @@ Standard_ShortReal OpenGl_GraduatedTrihedron::getDistanceToCorner(
 // purpose :
 // =======================================================================
 Standard_ExtCharacter OpenGl_GraduatedTrihedron::getGridAxes(const Standard_ShortReal theCorners[8],
-                                                             GridAxes& theGridAxes) const
+                                                             GridAxes1& theGridAxes) const
 {
   // Find the farthest corner
   Standard_Byte      aMaxIndex = 0;
@@ -332,7 +332,7 @@ void OpenGl_GraduatedTrihedron::renderLine(const OpenGl_PrimitiveArray&    theLi
 
 void OpenGl_GraduatedTrihedron::renderGridPlane(const Handle(OpenGl_Workspace)& theWorkspace,
                                                 const Standard_Integer&         theIndex,
-                                                const GridAxes&                 theGridAxes,
+                                                const GridAxes1&                 theGridAxes,
                                                 OpenGl_Mat4&                    theMat) const
 {
   const Graphic3d_GraduatedTrihedron::AxisAspect& aCurAspect = myData.AxisAspectAt(theIndex);
@@ -464,7 +464,7 @@ void OpenGl_GraduatedTrihedron::renderAxis(const Handle(OpenGl_Workspace)& theWo
 void OpenGl_GraduatedTrihedron::renderTickmarkLabels(const Handle(OpenGl_Workspace)& theWorkspace,
                                                      const OpenGl_Mat4&              theMat,
                                                      const Standard_Integer          theIndex,
-                                                     const GridAxes&                 theGridAxes,
+                                                     const GridAxes1&                 theGridAxes,
                                                      const Standard_ShortReal        theDpix) const
 {
   const Graphic3d_GraduatedTrihedron::AxisAspect& aCurAspect = myData.AxisAspectAt(theIndex);
@@ -607,7 +607,7 @@ void OpenGl_GraduatedTrihedron::Render(const Handle(OpenGl_Workspace)& theWorksp
   // if they overlap displayed model.
 
   // Write an axes state what axes of bounding box are to be drawn
-  GridAxes              aGridAxes;
+  GridAxes1              aGridAxes;
   Standard_ExtCharacter anAxesState = getGridAxes(aCorners, aGridAxes);
 
   // Remember current aspects

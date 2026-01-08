@@ -65,9 +65,9 @@ void LeaderArrowTool::ReadOwnParams(const Handle(IGESDimen_LeaderArrow)& ent,
     for (Standard_Integer i = 1; i <= nbval; i++)
     {
       Coords2d tempXY;
-      // st = PR.ReadXY(PR.CurrentList(1, 2), "Segment Co-ords.", tempXY); //szv#4:S4163:12Mar99
+      // st = PR.ReadXY(PR.CurrentList(1, 2), "Segment1 Co-ords.", tempXY); //szv#4:S4163:12Mar99
       // moved in if
-      if (PR.ReadXY(PR.CurrentList(1, 2), "Segment Co-ords.", tempXY))
+      if (PR.ReadXY(PR.CurrentList(1, 2), "Segment1 Co-ords.", tempXY))
         segmentTails->SetValue(i, tempXY);
     }
     DirChecker(ent).CheckTypeAndForm(PR.CCheck(), ent);

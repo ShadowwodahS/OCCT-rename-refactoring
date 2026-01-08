@@ -278,8 +278,8 @@ Standard_Boolean OpenGl_FrameBuffer::Init(const Handle(OpenGl_Context)& theGlCon
     {
       const Handle(OpenGl_Texture)& aColorTexture = myColorTextures(aColorBufferIdx);
       const GLint                   aColorFormat  = myColorFormats(aColorBufferIdx);
-      const OpenGl_TextureFormat    aFormat =
-        OpenGl_TextureFormat::FindSizedFormat(theGlContext, aColorFormat);
+      const TextureFormat    aFormat =
+        TextureFormat::FindSizedFormat(theGlContext, aColorFormat);
       if (!aFormat.IsValid()
           || !aColorTexture->Init(theGlContext,
                                   aFormat,
@@ -434,8 +434,8 @@ Standard_Boolean OpenGl_FrameBuffer::Init(const Handle(OpenGl_Context)& theGlCon
     {
       const Handle(OpenGl_Texture)& aColorTexture = myColorTextures(aColorBufferIdx);
       const GLint                   aColorFormat  = myColorFormats(aColorBufferIdx);
-      const OpenGl_TextureFormat    aFormat =
-        OpenGl_TextureFormat::FindSizedFormat(theGlContext, aColorFormat);
+      const TextureFormat    aFormat =
+        TextureFormat::FindSizedFormat(theGlContext, aColorFormat);
       if (!aFormat.IsValid()
           || !aColorTexture->Init(theGlContext,
                                   aFormat,
@@ -449,8 +449,8 @@ Standard_Boolean OpenGl_FrameBuffer::Init(const Handle(OpenGl_Context)& theGlCon
 
     // extensions (GL_OES_packed_depth_stencil, GL_OES_depth_texture) + GL version might be used to
     // determine supported formats instead of just trying to create such texture
-    const OpenGl_TextureFormat aDepthFormat =
-      OpenGl_TextureFormat::FindSizedFormat(theGlContext, myDepthFormat);
+    const TextureFormat aDepthFormat =
+      TextureFormat::FindSizedFormat(theGlContext, myDepthFormat);
     if (aDepthFormat.IsValid()
         && !myDepthStencilTexture->Init(theGlContext,
                                         aDepthFormat,
@@ -482,7 +482,7 @@ Standard_Boolean OpenGl_FrameBuffer::Init(const Handle(OpenGl_Context)& theGlCon
           0,
           GL_DEBUG_SEVERITY_HIGH,
           AsciiString1("Error: FBO depth render buffer ") + aSizeX + "x" + aSizeY
-            + " IF: " + OpenGl_TextureFormat::FormatFormat(aDepthStencilFormat)
+            + " IF: " + TextureFormat::FormatFormat(aDepthStencilFormat)
             + " can not be created with error " + OpenGl_Context::FormatGlError(aRendImgErr) + ".");
         Release(theGlContext.get());
         return Standard_False;
@@ -686,8 +686,8 @@ Standard_Boolean OpenGl_FrameBuffer::initRenderBuffer(const Handle(OpenGl_Contex
     }
 
     const GLint                aColorFormat = theColorFormats.First();
-    const OpenGl_TextureFormat aFormat =
-      OpenGl_TextureFormat::FindSizedFormat(theGlCtx, aColorFormat);
+    const TextureFormat aFormat =
+      TextureFormat::FindSizedFormat(theGlCtx, aColorFormat);
     if (!aFormat.IsValid())
     {
       Release(theGlCtx.operator->());
@@ -722,7 +722,7 @@ Standard_Boolean OpenGl_FrameBuffer::initRenderBuffer(const Handle(OpenGl_Contex
         0,
         GL_DEBUG_SEVERITY_HIGH,
         AsciiString1("Error: FBO color render buffer ") + aSizeX + "x" + aSizeY + "@"
-          + theNbSamples + " IF: " + OpenGl_TextureFormat::FormatFormat(aFormat.InternalFormat())
+          + theNbSamples + " IF: " + TextureFormat::FormatFormat(aFormat.InternalFormat())
           + " can not be created with error " + OpenGl_Context::FormatGlError(aRendImgErr) + ".");
       Release(theGlCtx.get());
       return Standard_False;
@@ -732,8 +732,8 @@ Standard_Boolean OpenGl_FrameBuffer::initRenderBuffer(const Handle(OpenGl_Contex
   bool hasStencilRB = false;
   if (myDepthFormat != 0)
   {
-    const OpenGl_TextureFormat aDepthFormat =
-      OpenGl_TextureFormat::FindSizedFormat(theGlCtx, myDepthFormat);
+    const TextureFormat aDepthFormat =
+      TextureFormat::FindSizedFormat(theGlCtx, myDepthFormat);
     hasStencilRB = aDepthFormat.PixelFormat() == GL_DEPTH_STENCIL;
 
     theGlCtx->arbFBO->glGenRenderbuffers(1, &myGlDepthRBufferId);
@@ -761,7 +761,7 @@ Standard_Boolean OpenGl_FrameBuffer::initRenderBuffer(const Handle(OpenGl_Contex
         0,
         GL_DEBUG_SEVERITY_HIGH,
         AsciiString1("Error: FBO depth render buffer ") + aSizeX + "x" + aSizeY + "@"
-          + theNbSamples + " IF: " + OpenGl_TextureFormat::FormatFormat(myDepthFormat)
+          + theNbSamples + " IF: " + TextureFormat::FormatFormat(myDepthFormat)
           + " can not be created with error " + OpenGl_Context::FormatGlError(aRendImgErr) + ".");
       Release(theGlCtx.get());
       return Standard_False;

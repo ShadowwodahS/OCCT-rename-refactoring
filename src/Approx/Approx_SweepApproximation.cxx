@@ -848,7 +848,7 @@ void Approx_SweepApproximation::Dump(Standard_OStream& o) const
       }
       std::cout << std::endl;
     }
-    o << tabVKnots->Length() - 1 << " Segment(s) of degree " << vdeg << std::endl;
+    o << tabVKnots->Length() - 1 << " Segment1(s) of degree " << vdeg << std::endl;
   }
   else
     std::cout << " Not Done " << std::endl;

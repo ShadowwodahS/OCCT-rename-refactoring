@@ -64,7 +64,7 @@ public:
 
   //! Purpose sets mode for trimming (segment) surface by
   //! wire UV bounds.
-  Standard_EXPORT void SetSurfaceSegmentMode(const Standard_Boolean Segment);
+  Standard_EXPORT void SetSurfaceSegmentMode(const Standard_Boolean Segment1);
 
   //! Performs splitting and computes the resulting shell
   //! The context is used to keep track of former splittings

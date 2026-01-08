@@ -1437,22 +1437,22 @@ Standard_Boolean HLRBRep_Data::RejectedInterference()
     if (firstPoint)
       nseg++;
     Standard_Real pf = ((HLRBRep_Curve*)myLEGeom)
-                         ->Parameter3d(myIntersector.Segment(nseg).FirstPoint().ParamOnFirst());
+                         ->Parameter3d(myIntersector.Segment1(nseg).FirstPoint().ParamOnFirst());
     Standard_Real pl = ((HLRBRep_Curve*)myLEGeom)
-                         ->Parameter3d(myIntersector.Segment(nseg).LastPoint().ParamOnFirst());
+                         ->Parameter3d(myIntersector.Segment1(nseg).LastPoint().ParamOnFirst());
     if (pf > pl)
       firstPoint = !firstPoint;
 
     if (firstPoint)
     {
       Standard_Boolean ret1 =
-        RejectedPoint(myIntersector.Segment(nseg).FirstPoint(), TopAbs_FORWARD, nseg);
+        RejectedPoint(myIntersector.Segment1(nseg).FirstPoint(), TopAbs_FORWARD, nseg);
       return (ret1);
     }
     else
     {
       Standard_Boolean ret2 =
-        RejectedPoint(myIntersector.Segment(nseg).LastPoint(), TopAbs_REVERSED, -nseg);
+        RejectedPoint(myIntersector.Segment1(nseg).LastPoint(), TopAbs_REVERSED, -nseg);
       return (ret2);
     }
   }

@@ -18,11 +18,11 @@
 
 //=================================================================================================
 
-BRepOffset_Interval::BRepOffset_Interval() {}
+Interval3::Interval3() {}
 
 //=================================================================================================
 
-BRepOffset_Interval::BRepOffset_Interval(const Standard_Real          U1,
+Interval3::Interval3(const Standard_Real          U1,
                                          const Standard_Real          U2,
                                          const ChFiDS_TypeOfConcavity Type)
     : f(U1),

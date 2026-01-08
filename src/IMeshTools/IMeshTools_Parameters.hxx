@@ -20,11 +20,11 @@
 #include <Precision.hxx>
 
 //! Structure storing meshing parameters
-struct IMeshTools_Parameters
+struct Parameters3
 {
 
   //! Default constructor
-  IMeshTools_Parameters()
+  Parameters3()
       : MeshAlgo(IMeshTools_MeshAlgoType_DEFAULT),
         Angle(0.5),
         Deflection(0.001),

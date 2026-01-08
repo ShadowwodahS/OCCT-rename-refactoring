@@ -52,7 +52,7 @@ void D3DHost_FrameBuffer::Release(OpenGl_Context* theCtx)
 {
   if (myGlD3dDevice != NULL)
   {
-    const OpenGl_GlFunctions* aFuncs =
+    const GlFunctions* aFuncs =
       (theCtx != NULL && theCtx->IsValid()) ? theCtx->Functions() : NULL;
     if (myGlD3dSurf != NULL)
     {
@@ -155,7 +155,7 @@ Standard_Boolean D3DHost_FrameBuffer::InitD3dInterop(const Handle(OpenGl_Context
   const Standard_Integer aSizeX = theSizeX > 0 ? theSizeX : 2;
   const Standard_Integer aSizeY = theSizeY > 0 ? theSizeY : 2;
 
-  const OpenGl_GlFunctions* aFuncs = theCtx->Functions();
+  const GlFunctions* aFuncs = theCtx->Functions();
   if (aFuncs->wglDXOpenDeviceNV == NULL)
   {
     Release(theCtx.operator->());
@@ -213,8 +213,8 @@ Standard_Boolean D3DHost_FrameBuffer::InitD3dInterop(const Handle(OpenGl_Context
   myIsOwnDepth  = true;
   theCtx->arbFBO->glGenFramebuffers(1, &myGlFBufferId);
 
-  const OpenGl_TextureFormat aDepthFormat =
-    OpenGl_TextureFormat::FindSizedFormat(theCtx, myDepthFormat);
+  const TextureFormat aDepthFormat =
+    TextureFormat::FindSizedFormat(theCtx, myDepthFormat);
   if (aDepthFormat.IsValid()
       && !myDepthStencilTexture->Init(theCtx,
                                       aDepthFormat,
@@ -240,7 +240,7 @@ Standard_Boolean D3DHost_FrameBuffer::InitD3dInterop(const Handle(OpenGl_Context
 
 Standard_Boolean D3DHost_FrameBuffer::registerD3dBuffer(const Handle(OpenGl_Context)& theCtx)
 {
-  const OpenGl_GlFunctions* aFuncs = theCtx->Functions();
+  const GlFunctions* aFuncs = theCtx->Functions();
   if (myGlD3dSurf != NULL)
   {
     if (!aFuncs->wglDXUnregisterObjectNV(myGlD3dDevice, myGlD3dSurf))
@@ -313,8 +313,8 @@ void D3DHost_FrameBuffer::BindBuffer(const Handle(OpenGl_Context)& theCtx)
                                          myColorTextures(0)->TextureId(),
                                          0);
 
-  const OpenGl_TextureFormat aDepthFormat =
-    OpenGl_TextureFormat::FindSizedFormat(theCtx, myDepthFormat);
+  const TextureFormat aDepthFormat =
+    TextureFormat::FindSizedFormat(theCtx, myDepthFormat);
   if (myDepthStencilTexture->IsValid())
   {
     theCtx->arbFBO->glFramebufferTexture2D(GL_FRAMEBUFFER,
@@ -373,7 +373,7 @@ void D3DHost_FrameBuffer::LockSurface(const Handle(OpenGl_Context)& theCtx)
     return;
   }
 
-  const OpenGl_GlFunctions* aFuncs = theCtx->Functions();
+  const GlFunctions* aFuncs = theCtx->Functions();
   if (!aFuncs->wglDXLockObjectsNV(myGlD3dDevice, 1, &myGlD3dSurf))
   {
     theCtx->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
@@ -446,6 +446,6 @@ void D3DHost_FrameBuffer::UnlockSurface(const Handle(OpenGl_Context)& theCtx)
     return;
   }
 
-  const OpenGl_GlFunctions* aFuncs = theCtx->Functions();
+  const GlFunctions* aFuncs = theCtx->Functions();
   aFuncs->wglDXUnlockObjectsNV(myGlD3dDevice, 1, &myGlD3dSurf);
 }

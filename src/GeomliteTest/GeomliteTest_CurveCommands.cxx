@@ -1124,13 +1124,13 @@ static Standard_Integer segment(DrawInterpreter&, Standard_Integer n, const char
     aTolerance = Draw1::Atof(a[4]);
 
   if (!GBz.IsNull())
-    GBz->Segment(f, l);
+    GBz->Segment1(f, l);
   else if (!GBs.IsNull())
-    GBs->Segment(f, l, aTolerance);
+    GBs->Segment1(f, l, aTolerance);
   else if (!GBz2d.IsNull())
-    GBz2d->Segment(f, l);
+    GBz2d->Segment1(f, l);
   else if (!GBs2d.IsNull())
-    GBs2d->Segment(f, l, aTolerance);
+    GBs2d->Segment1(f, l, aTolerance);
   else
     return 1;
 

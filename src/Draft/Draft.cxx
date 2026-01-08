@@ -31,7 +31,7 @@
 
 //=================================================================================================
 
-Standard_Real Draft::Angle(const TopoFace& F, const Dir3d& D)
+Standard_Real Draft1::Angle(const TopoFace& F, const Dir3d& D)
 {
 
   TopLoc_Location       Lo;

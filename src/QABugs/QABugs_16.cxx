@@ -519,14 +519,14 @@ static Standard_Integer OCC405(DrawInterpreter& di, Standard_Integer argc, const
       || bsplc1->LastParameter() > l1 + Precision::PConfusion())
   {
     Handle(BSplineCurve3d) aBstmp = Handle(BSplineCurve3d)::DownCast(bsplc1->Copy());
-    aBstmp->Segment(f1, l1);
+    aBstmp->Segment1(f1, l1);
     bsplc1 = aBstmp;
   }
   if (bsplc2->FirstParameter() < f2 - Precision::PConfusion()
       || bsplc2->LastParameter() > l2 + Precision::PConfusion())
   {
     Handle(BSplineCurve3d) aBstmp = Handle(BSplineCurve3d)::DownCast(bsplc2->Copy());
-    aBstmp->Segment(f2, l2);
+    aBstmp->Segment1(f2, l2);
     bsplc2 = aBstmp;
   }
   Point3d pmid = 0.5 * (bsplc1->Pole(bsplc1->NbPoles()).XYZ() + bsplc2->Pole(1).XYZ());

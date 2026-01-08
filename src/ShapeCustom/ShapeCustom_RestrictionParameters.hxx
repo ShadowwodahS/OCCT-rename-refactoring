@@ -76,7 +76,7 @@ public:
   //! surface.
   Standard_Boolean& ConvertSphericalSurf();
 
-  //! Sets Segment mode for surface. If Segment is True surface is
+  //! Sets Segment1 mode for surface. If Segment1 is True surface is
   //! approximated in the bondaries of face lying on this surface.
   Standard_Boolean& SegmentSurfaceMode();
 

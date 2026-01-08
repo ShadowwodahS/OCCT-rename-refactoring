@@ -19,7 +19,7 @@
 //=================================================================================================
 
 Handle(IMeshData::ListOfPnt2d) BRepMesh_TorusRangeSplitter::GenerateSurfaceNodes(
-  const IMeshTools_Parameters& theParameters) const
+  const Parameters3& theParameters) const
 {
   const std::pair<Standard_Real, Standard_Real>& aRangeU = GetRangeU();
   const std::pair<Standard_Real, Standard_Real>& aRangeV = GetRangeV();
@@ -122,7 +122,7 @@ Handle(IMeshData::ListOfPnt2d) BRepMesh_TorusRangeSplitter::GenerateSurfaceNodes
 
 void BRepMesh_TorusRangeSplitter::AddPoint(const gp_Pnt2d& thePoint)
 {
-  BRepMesh_DefaultRangeSplitter::AddPoint(thePoint);
+  DefaultRangeSplitter::AddPoint(thePoint);
   GetParametersU().Add(thePoint.X());
   GetParametersV().Add(thePoint.Y());
 }

@@ -22,7 +22,7 @@
 #include <Standard_Type.hxx>
 #include <IMeshData_Model.hxx>
 
-struct IMeshTools_Parameters;
+struct Parameters3;
 
 //! Interface class represents API for tool building discrete model.
 //!
@@ -39,7 +39,7 @@ public:
   //! Exceptions protected method to create discrete model for the given shape.
   //! Returns nullptr in case of failure.
   Handle(IMeshData_Model) Perform(const TopoShape&          theShape,
-                                  const IMeshTools_Parameters& theParameters)
+                                  const Parameters3& theParameters)
   {
     ClearStatus();
 
@@ -66,7 +66,7 @@ protected:
   //! Returns nullptr in case of failure.
   Standard_EXPORT virtual Handle(IMeshData_Model) performInternal(
     const TopoShape&          theShape,
-    const IMeshTools_Parameters& theParameters) = 0;
+    const Parameters3& theParameters) = 0;
 };
 
 #endif

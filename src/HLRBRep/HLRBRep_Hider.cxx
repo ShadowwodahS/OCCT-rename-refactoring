@@ -189,7 +189,7 @@ void HLRBRep_Hider::Hide(const Standard_Integer FI, BRepTopAdaptor_MapOfShapeToo
 
                       if (nind != -1)
                       {
-                        //-- printf("\n Segment Supprime\n"); fflush(stdout);
+                        //-- printf("\n Segment1 Supprime\n"); fflush(stdout);
                         Intersection3& inter = Int1.ChangeIntersection();
                         inter.SegIndex(nind);
                         Standard_Real p1 = Int1.Intersection().Parameter();

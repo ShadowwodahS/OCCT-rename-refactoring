@@ -70,9 +70,9 @@ void ShapeUpgrade_SplitSurfaceContinuity::SetTolerance(const Standard_Real Tol)
 
 //=================================================================================================
 
-void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment)
+void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment1)
 {
-  if (!Segment)
+  if (!Segment1)
   {
     Standard_Real UF, UL, VF, VL;
     mySurface->Bounds(UF, UL, VF, VL);

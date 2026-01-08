@@ -41,7 +41,7 @@
 
 //=================================================================================================
 
-Handle(GeomSurface) BRepOffset::Surface(const Handle(GeomSurface)& Surface,
+Handle(GeomSurface) BRepOffset1::Surface(const Handle(GeomSurface)& Surface,
                                          const Standard_Real         Offset,
                                          BRepOffset_Status&          theStatus,
                                          Standard_Boolean            allowC0)
@@ -173,7 +173,7 @@ Handle(GeomSurface) BRepOffset::Surface(const Handle(GeomSurface)& Surface,
       Handle(Geom_RectangularTrimmedSurface)::DownCast(Surface);
     Standard_Real U1, U2, V1, V2;
     S->Bounds(U1, U2, V1, V2);
-    Handle(GeomSurface) Off = BRepOffset::Surface(S->BasisSurface(), Offset, theStatus, allowC0);
+    Handle(GeomSurface) Off = BRepOffset1::Surface(S->BasisSurface(), Offset, theStatus, allowC0);
     Result                   = new Geom_RectangularTrimmedSurface(Off, U1, U2, V1, V2);
   }
   else if (TheType == STANDARD_TYPE(Geom_OffsetSurface))
@@ -190,7 +190,7 @@ Handle(GeomSurface) BRepOffset::Surface(const Handle(GeomSurface)& Surface,
 
 //=================================================================================================
 
-Handle(GeomSurface) BRepOffset::CollapseSingularities(const Handle(GeomSurface)& theSurface,
+Handle(GeomSurface) BRepOffset1::CollapseSingularities(const Handle(GeomSurface)& theSurface,
                                                        const TopoFace&          theFace,
                                                        Standard_Real               thePrecision)
 {

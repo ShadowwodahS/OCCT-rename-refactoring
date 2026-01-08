@@ -113,7 +113,7 @@ public:
   //! where NbSegments is the number of computed tangential intersections.
   //! Standard_NullObject if the algorithm is initialized for the
   //! computing of self-intersections on a curve.
-  Standard_EXPORT void Segment(const Standard_Integer Index,
+  Standard_EXPORT void Segment1(const Standard_Integer Index,
                                Handle(GeomCurve2d)&  Curve1,
                                Handle(GeomCurve2d)&  Curve2) const;
 

@@ -19,11 +19,11 @@
 #include <IMeshData_Status.hxx>
 
 //! Extension interface class providing status functionality.
-class IMeshData_StatusOwner
+class StatusOwner
 {
 public:
   //! Destructor.
-  virtual ~IMeshData_StatusOwner() {}
+  virtual ~StatusOwner() {}
 
   //! Returns true in case if status is strictly equal to the given value.
   Standard_Boolean IsEqual(const IMeshData_Status theValue) const { return (myStatus == theValue); }
@@ -45,7 +45,7 @@ public:
 
 protected:
   //! Constructor. Initializes default status.
-  IMeshData_StatusOwner()
+  StatusOwner()
       : myStatus(IMeshData_NoError)
   {
   }

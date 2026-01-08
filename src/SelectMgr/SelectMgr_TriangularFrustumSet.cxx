@@ -84,7 +84,7 @@ void SelectMgr_TriangularFrustumSet::Build()
 
   for (Standard_Integer aPtIdx = aPtsLower; aPtIdx <= aPtsUpper; ++aPtIdx)
   {
-    BRepMesh_Vertex aVertex(mySelPolyline.Points->Value(aPtIdx).XY(), aPtIdx, BRepMesh_Frontier);
+    Vertex aVertex(mySelPolyline.Points->Value(aPtIdx).XY(), aPtIdx, BRepMesh_Frontier);
     anIndexes.Append(aMeshStructure->AddNode(aVertex));
     const Point3d aNearPnt =
       myBuilder->ProjectPntOnViewPlane(aVertex.Coord().X(), aVertex.Coord().Y(), 0.0);
@@ -122,7 +122,7 @@ void SelectMgr_TriangularFrustumSet::Build()
   for (; aTriangleIt.More(); aTriangleIt.Next())
   {
     const Standard_Integer   aTriangleId      = aTriangleIt.Key();
-    const BRepMesh_Triangle& aCurrentTriangle = aMeshStructure->GetElement(aTriangleId);
+    const Triangle3& aCurrentTriangle = aMeshStructure->GetElement(aTriangleId);
 
     if (aCurrentTriangle.Movability() == BRepMesh_Deleted)
       continue;
@@ -133,7 +133,7 @@ void SelectMgr_TriangularFrustumSet::Build()
     gp_Pnt2d aPts[3];
     for (Standard_Integer aVertIdx = 0; aVertIdx < 3; ++aVertIdx)
     {
-      const BRepMesh_Vertex& aVertex = aMeshStructure->GetNode(aTriangleVerts[aVertIdx]);
+      const Vertex& aVertex = aMeshStructure->GetNode(aTriangleVerts[aVertIdx]);
       aPts[aVertIdx]                 = aVertex.Coord();
     }
 

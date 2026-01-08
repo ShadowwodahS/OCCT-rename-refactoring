@@ -790,7 +790,7 @@ void BRepOffsetAPI_ThruSections::CreateSmoothed()
     Ui2 = PreciseUpar(Ui2, surface);
     V0  = surface->VKnot(surface->FirstVKnotIndex());
     V1  = surface->VKnot(surface->LastVKnotIndex());
-    surface->Segment(Ui1, Ui2, V0, V1);
+    surface->Segment1(Ui1, Ui2, V0, V1);
 
     // return vertices
     edge = TopoDS::Edge(shapes(i));

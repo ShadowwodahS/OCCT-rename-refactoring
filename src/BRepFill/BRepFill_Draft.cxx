@@ -901,7 +901,7 @@ Standard_Boolean BRepFill_Draft::Sewing()
   }
 #ifdef OCCT_DEBUG
   else
-    std::cout << "Draft : No assembly !" << std::endl;
+    std::cout << "Draft1 : No assembly !" << std::endl;
 #endif
   return Ok;
 }

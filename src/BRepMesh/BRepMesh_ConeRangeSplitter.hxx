@@ -20,7 +20,7 @@
 
 //! Auxiliary class extending default range splitter in
 //! order to generate internal nodes for conical surface.
-class BRepMesh_ConeRangeSplitter : public BRepMesh_DefaultRangeSplitter
+class BRepMesh_ConeRangeSplitter : public DefaultRangeSplitter
 {
 public:
   //! Constructor.
@@ -33,12 +33,12 @@ public:
   //! @param theParameters meshing parameters.
   //! @param[out] theStepsNb number of steps along corresponding direction.
   std::pair<Standard_Real, Standard_Real> GetSplitSteps(
-    const IMeshTools_Parameters&                   theParameters,
+    const Parameters3&                   theParameters,
     std::pair<Standard_Integer, Standard_Integer>& theStepsNb) const;
 
   //! Returns list of nodes generated using surface data and specified parameters.
   Standard_EXPORT virtual Handle(IMeshData::ListOfPnt2d) GenerateSurfaceNodes(
-    const IMeshTools_Parameters& theParameters) const Standard_OVERRIDE;
+    const Parameters3& theParameters) const Standard_OVERRIDE;
 };
 
 #endif

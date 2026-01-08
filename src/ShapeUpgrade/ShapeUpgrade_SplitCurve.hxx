@@ -47,11 +47,11 @@ public:
   //! Sets the parameters where splitting has to be done.
   Standard_EXPORT void SetSplitValues(const Handle(TColStd_HSequenceOfReal)& SplitValues);
 
-  //! If Segment is True, the result is composed with
+  //! If Segment1 is True, the result is composed with
   //! segments of the curve bounded by the SplitValues.  If
-  //! Segment is False, the result is composed with trimmed
+  //! Segment1 is False, the result is composed with trimmed
   //! Curves all based on the same complete curve.
-  Standard_EXPORT virtual void Build(const Standard_Boolean Segment);
+  Standard_EXPORT virtual void Build(const Standard_Boolean Segment1);
 
   //! returns all the splitting values including the
   //! First and Last parameters of the input curve
@@ -63,7 +63,7 @@ public:
 
   //! Performs correction/splitting of the curve.
   //! First defines splitting values by method Compute(), then calls method Build().
-  Standard_EXPORT void Perform(const Standard_Boolean Segment = Standard_True);
+  Standard_EXPORT void Perform(const Standard_Boolean Segment1 = Standard_True);
 
   //! Returns the status
   //! OK    - no splitting is needed

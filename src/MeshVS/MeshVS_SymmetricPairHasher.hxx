@@ -20,7 +20,7 @@
 typedef std::pair<Standard_Integer, Standard_Integer> MeshVS_NodePair;
 
 //! Provides symmetric hash methods pair of integers.
-struct MeshVS_SymmetricPairHasher
+struct SymmetricPairHasher
 {
   //! Computes a hash code for the node pair
   //! @param theNodePair the node pair which hash code is to be computed

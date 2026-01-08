@@ -5239,12 +5239,12 @@ void BRepBuilderAPI_Sewing::CreateSections(const TopoShape&             section,
       // try {
       c2dNew = Handle(GeomCurve2d)::DownCast(c2d->Copy());
       // c2dNew = Handle(GeomCurve2d)::DownCast(c2dBSP->Copy());
-      // Handle(Geom2d_BSplineCurve)::DownCast(c2dNew)->Segment(Max(first2d,par1),Min(par2,last2d));
+      // Handle(Geom2d_BSplineCurve)::DownCast(c2dNew)->Segment1(Max(first2d,par1),Min(par2,last2d));
       if (!c2d1.IsNull())
       { // if(!c2dBSP1.IsNull()) {
         c2d1New = Handle(GeomCurve2d)::DownCast(c2d1->Copy());
         // c2d1New = Handle(GeomCurve2d)::DownCast(c2dBSP1->Copy());
-        // Handle(Geom2d_BSplineCurve)::DownCast(c2d1New)->Segment(Max(first2d1,par1),Min(par2,last2d1));
+        // Handle(Geom2d_BSplineCurve)::DownCast(c2d1New)->Segment1(Max(first2d1,par1),Min(par2,last2d1));
       }
       //}
       /*catch (ExceptionBase) {

@@ -18,7 +18,7 @@
 //%11 pdn 12.01.99 CTS22023: writing offset curves and detecting planar curves
 //%12 pdn 13.01.99: CTS22023: cutting bspline curves (for Euclid3)
 //: l7 abv 13.01.99: CTS22021: using QuasiAngular parametrisation for circles (more precise)
-//: l5 abv 14.01.99: CTS22022-1: protection against exceptions in Segment()
+//: l5 abv 14.01.99: CTS22022-1: protection against exceptions in Segment1()
 //: q3 abv 17.03.99: PRO17828: using GeomConvert_ApproxCurve for converting circle to bspline
 
 #include <BSplCLib.hxx>
@@ -310,7 +310,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
   //%12 pdn: cut curve for E3
   Standard_Real First = mycurve->FirstParameter();
   Standard_Real Last  = mycurve->LastParameter();
-  //: l5 abv 14 Jan 99: protect against exceptions in Segment()
+  //: l5 abv 14 Jan 99: protect against exceptions in Segment1()
   if (Umin - First < Precision::PConfusion())
     Umin = First;
   if (Last - Umax < Precision::PConfusion())
@@ -324,7 +324,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
       if (!bspl.IsNull())
       {
         if (Abs(Umax - Umin) > Precision::PConfusion())
-          bspl->Segment(Umin, Umax);
+          bspl->Segment1(Umin, Umax);
         mycurve = bspl;
       }
     }
@@ -332,7 +332,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
     {
 #ifdef OCCT_DEBUG
       std::cout << "Warning: GeomToIGES_GeomCurve: can't trim bspline" << std::endl;
-      std::cout << "Warning: Exception in Segment(): ";
+      std::cout << "Warning: Exception in Segment1(): ";
       anException.Print(std::cout);
 #endif
       (void)anException;

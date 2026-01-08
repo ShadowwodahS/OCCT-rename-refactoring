@@ -449,9 +449,9 @@ static inline void SegmentCurve(HCurve& curve, const Standard_Real first, const 
       || curve->LastParameter() > last + Precision::PConfusion())
   {
     if (curve->IsPeriodic())
-      curve->Segment(first, last);
+      curve->Segment1(first, last);
     else
-      curve->Segment(Max(curve->FirstParameter(), first), Min(curve->LastParameter(), last));
+      curve->Segment1(Max(curve->FirstParameter(), first), Min(curve->LastParameter(), last));
   }
 }
 

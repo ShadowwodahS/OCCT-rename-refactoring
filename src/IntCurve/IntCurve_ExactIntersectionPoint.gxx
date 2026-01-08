@@ -50,7 +50,7 @@ void IntCurve_ExactIntersectionPoint::Perform( const IntCurve_ThePolygon2d& Poly
   //----------------------------------------------------------------------
   //-- On prend comme bornes de recherches  : 
   //--
-  //--   Segment      :      i-1        i           i+1        i+2      
+  //--   Segment1      :      i-1        i           i+1        i+2      
   //--
   //--                  |---------|-----X-------|---------|----------|
   //--                Inf                                Sup

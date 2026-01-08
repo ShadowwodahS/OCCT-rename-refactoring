@@ -74,7 +74,7 @@ void LevelToPWBLayerMapTool::ReadOwnParams(
       if (PR.ReadText(PR.Current(), "Native Level Identification", tempNL))
         tempNativeLevel->SetValue(i, tempNL);
       Standard_Integer tempPLN;
-      if (PR.ReadInteger(PR.Current(), "Physical Layer Number", tempPLN))
+      if (PR.ReadInteger(PR.Current(), "Physical1 Layer Number", tempPLN))
         tempPhysicalLayerNumber->SetValue(i, tempPLN);
       Handle(TCollection_HAsciiString) tempEFLI;
       if (PR.ReadText(PR.Current(), "Exchange File Level Identification", tempEFLI))
@@ -171,7 +171,7 @@ void LevelToPWBLayerMapTool::OwnDump(const Handle(IGESAppli_LevelToPWBLayerMap)&
   S << "Number of property values : " << ent->NbPropertyValues() << "\n";
   S << "Exchange File Level Number :\n";
   S << "Native Level Identification :\n";
-  S << "Physical Layer Number :\n";
+  S << "Physical1 Layer Number :\n";
   S << "Exchange File Level Identification : ";
   IGESData_DumpStrings(S, -level, 1, ent->NbLevelToLayerDefs(), ent->ExchangeFileLevelIdent);
   S << "\n";
@@ -183,7 +183,7 @@ void LevelToPWBLayerMapTool::OwnDump(const Handle(IGESAppli_LevelToPWBLayerMap)&
       S << "Native Level Identification : ";
       IGESData_DumpString(S, ent->NativeLevel(i));
       S << "\n";
-      S << "Physical Layer Number : " << ent->PhysicalLayerNumber(i) << "\n";
+      S << "Physical1 Layer Number : " << ent->PhysicalLayerNumber(i) << "\n";
       S << "Exchange File Level Identification : ";
       IGESData_DumpString(S, ent->ExchangeFileLevelIdent(i));
       S << "\n";

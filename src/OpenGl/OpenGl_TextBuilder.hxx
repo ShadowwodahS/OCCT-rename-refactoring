@@ -28,11 +28,11 @@ class Font_TextFormatter;
 
 //! This class generates primitive array required for rendering textured text using OpenGl_Font
 //! instance.
-class OpenGl_TextBuilder
+class TextBuilder
 {
 public:
   //! Creates empty object.
-  Standard_EXPORT OpenGl_TextBuilder();
+  Standard_EXPORT TextBuilder();
 
   //! Creates texture quads for the given text.
   Standard_EXPORT void Perform(const Handle(Font_TextFormatter)&                theFormatter,

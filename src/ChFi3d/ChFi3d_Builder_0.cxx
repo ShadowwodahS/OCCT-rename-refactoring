@@ -1327,7 +1327,7 @@ void ChFi3d_ReparamPcurv(const Standard_Real   Uf,
   if (Abs(upcf - pc->FirstParameter()) > Precision::PConfusion()
       || Abs(upcl - pc->LastParameter()) > Precision::PConfusion())
   {
-    pc->Segment(upcf, upcl);
+    pc->Segment1(upcf, upcl);
   }
   if (Abs(Uf - pc->FirstParameter()) > Precision::PConfusion()
       || Abs(Ul - pc->LastParameter()) > Precision::PConfusion())
@@ -4861,7 +4861,7 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
   //
   if ((LocalWF < WF) || (LocalWL > WL))
   { // pour eviter des pb avec segment!
-    BSpline->Segment(WF, WL);
+    BSpline->Segment1(WF, WL);
     ES.FirstParameter(WF);
     ES.LastParameter(WL);
   }

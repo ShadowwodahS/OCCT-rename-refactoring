@@ -20,7 +20,7 @@
 #include <Message_ProgressRange.hxx>
 
 class IMeshData_Model;
-struct IMeshTools_Parameters;
+struct Parameters3;
 
 //! Interface class providing API for algorithms intended to update or modify discrete model.
 class IMeshTools_ModelAlgo : public RefObject
@@ -31,7 +31,7 @@ public:
 
   //! Exceptions protected processing of the given model.
   Standard_Boolean Perform(const Handle(IMeshData_Model)& theModel,
-                           const IMeshTools_Parameters&   theParameters,
+                           const Parameters3&   theParameters,
                            const Message_ProgressRange&   theRange)
   {
     try
@@ -55,7 +55,7 @@ protected:
   //! Performs processing of the given model.
   Standard_EXPORT virtual Standard_Boolean performInternal(
     const Handle(IMeshData_Model)& theModel,
-    const IMeshTools_Parameters&   theParameters,
+    const Parameters3&   theParameters,
     const Message_ProgressRange&   theRange) = 0;
 };
 

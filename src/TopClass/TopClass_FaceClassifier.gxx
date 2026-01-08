@@ -71,7 +71,7 @@ void TopClass_FaceClassifier::Perform(TheFaceExplorer& Fexp,
 
   gp_Lin2d                   aLine;
   Standard_Real              aParam;
-  Standard_Boolean           IsValidSegment = Fexp.Segment(aPoint, aLine, aParam);
+  Standard_Boolean           IsValidSegment = Fexp.Segment1(aPoint, aLine, aParam);
   TheEdge                    anEdge;
   TopAbs_Orientation         anEdgeOri;
   Standard_Integer           aClosestInd;
@@ -116,10 +116,10 @@ void TopClass_FaceClassifier::Perform(TheFaceExplorer& Fexp,
 
 		  if (aClosestInd&1) {
 		    aPInter =  anIntersector.
-		      Segment((aClosestInd + 1)/2).FirstPoint();
+		      Segment1((aClosestInd + 1)/2).FirstPoint();
 		  } else {
 		    aPInter =  anIntersector.
-		      Segment((aClosestInd + 1)/2).LastPoint();
+		      Segment1((aClosestInd + 1)/2).LastPoint();
 		  }
 		}
 

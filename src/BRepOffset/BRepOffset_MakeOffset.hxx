@@ -216,7 +216,7 @@ private:
 
   //! Building of the splits of the offset faces for mode Complete
   //! and joint type Intersection. This method is an advanced alternative
-  //! for BRepOffset_MakeLoops::Build method.
+  //! for MakeLoops1::Build method.
   //! Currently the Complete intersection mode is limited to work only on planar cases.
   Standard_EXPORT void BuildSplitsOfExtendedFaces(
     const ShapeList&         theLF,
@@ -261,7 +261,7 @@ private:
   TopTools_DataMapOfShapeListOfShape myEdgeIntEdges;
   Standard_Boolean                   myDone;
   BRepOffset_Error                   myError;
-  BRepOffset_MakeLoops               myMakeLoops;
+  MakeLoops1               myMakeLoops;
   Standard_Boolean                   myIsPerformSewing; // Handle bad walls in thicksolid mode.
   Standard_Boolean                   myIsPlanar;
   TopoShape                       myBadShape;

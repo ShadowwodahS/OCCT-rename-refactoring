@@ -61,7 +61,7 @@ public:
 
   Standard_EXPORT Standard_Boolean Reject(const gp_Pnt2d& P) const;
 
-  Standard_EXPORT Standard_Boolean Segment(const gp_Pnt2d& P, gp_Lin2d& L, Standard_Real& Par);
+  Standard_EXPORT Standard_Boolean Segment1(const gp_Pnt2d& P, gp_Lin2d& L, Standard_Real& Par);
 
   Standard_EXPORT Standard_Boolean OtherSegment(const gp_Pnt2d& P, gp_Lin2d& L, Standard_Real& Par);
 

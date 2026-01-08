@@ -558,8 +558,8 @@ void DBRep_IsoBuilder::FillGaps(const TopoFace& theFace, DataMapOfEdgePCurve& th
           Standard_Integer iP, aNbInt = anInter.NbSegments();
           for (iP = 1; iP <= aNbInt; ++iP)
           {
-            aLPInt.Append(anInter.Segment(iP).FirstPoint());
-            aLPInt.Append(anInter.Segment(iP).LastPoint());
+            aLPInt.Append(anInter.Segment1(iP).FirstPoint());
+            aLPInt.Append(anInter.Segment1(iP).LastPoint());
           }
           // Get intersection points
           aNbInt = anInter.NbPoints();

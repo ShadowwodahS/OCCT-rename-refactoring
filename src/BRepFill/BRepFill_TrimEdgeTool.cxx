@@ -202,7 +202,7 @@ static void EvalParameters(const Geom2dAdaptor_Curve& Bis,
     IntRes2d_IntersectionSegment Seg;
     for (Standard_Integer i = 1; i <= NbSegments; i++)
     {
-      Seg                 = Intersector.Segment(i);
+      Seg                 = Intersector.Segment1(i);
       U1                  = Seg.FirstPoint().ParamOnSecond();
       Standard_Real Ulast = Seg.LastPoint().ParamOnSecond();
       if (Abs(U1 - CBis.FirstParameter()) <= Tol && Abs(Ulast - CBis.LastParameter()) <= Tol)
@@ -271,7 +271,7 @@ static void EvalParametersBis(const Geom2dAdaptor_Curve& Bis,
     IntRes2d_IntersectionSegment Seg;
     for (Standard_Integer i = 1; i <= NbSegments; i++)
     {
-      Seg                 = Intersector.Segment(i);
+      Seg                 = Intersector.Segment1(i);
       U1                  = Seg.FirstPoint().ParamOnSecond();
       Standard_Real Ulast = Seg.LastPoint().ParamOnSecond();
       if (Abs(U1 - CBis.FirstParameter()) <= Tol && Abs(Ulast - CBis.LastParameter()) <= Tol)

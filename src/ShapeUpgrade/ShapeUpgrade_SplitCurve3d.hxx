@@ -43,11 +43,11 @@ public:
                             const Standard_Real       First,
                             const Standard_Real       Last);
 
-  //! If Segment is True, the result is composed with
+  //! If Segment1 is True, the result is composed with
   //! segments of the curve bounded by the SplitValues.  If
-  //! Segment is False, the result is composed with trimmed
+  //! Segment1 is False, the result is composed with trimmed
   //! Curves all based on the same complete curve.
-  Standard_EXPORT virtual void Build(const Standard_Boolean Segment) Standard_OVERRIDE;
+  Standard_EXPORT virtual void Build(const Standard_Boolean Segment1) Standard_OVERRIDE;
 
   Standard_EXPORT const Handle(TColGeom_HArray1OfCurve)& GetCurves() const;
 

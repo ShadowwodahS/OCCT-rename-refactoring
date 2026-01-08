@@ -32,7 +32,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_CurveTessellator, IMeshTools_CurveTessellato
 //=================================================================================================
 
 BRepMesh_CurveTessellator::BRepMesh_CurveTessellator(const IMeshData::IEdgeHandle& theEdge,
-                                                     const IMeshTools_Parameters&  theParameters,
+                                                     const Parameters3&  theParameters,
                                                      const Standard_Integer        theMinPointsNb)
     : myDEdge(theEdge),
       myParameters(theParameters),
@@ -48,7 +48,7 @@ BRepMesh_CurveTessellator::BRepMesh_CurveTessellator(const IMeshData::IEdgeHandl
 BRepMesh_CurveTessellator::BRepMesh_CurveTessellator(const IMeshData::IEdgeHandle& theEdge,
                                                      const TopAbs_Orientation      theOrientation,
                                                      const IMeshData::IFaceHandle& theFace,
-                                                     const IMeshTools_Parameters&  theParameters,
+                                                     const Parameters3&  theParameters,
                                                      const Standard_Integer        theMinPointsNb)
     : myDEdge(theEdge),
       myParameters(theParameters),

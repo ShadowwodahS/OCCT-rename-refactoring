@@ -20,7 +20,7 @@
 #include <OpenGl_Material.hxx>
 
 //! Defines generic state of material properties.
-class OpenGl_MaterialState : public OpenGl_StateInterface
+class OpenGl_MaterialState : public StateInterface
 {
 public:
   //! Creates new material state.
@@ -32,7 +32,7 @@ public:
   }
 
   //! Sets new material aspect.
-  void Set(const OpenGl_Material& theMat,
+  void Set(const Material4& theMat,
            const float            theAlphaCutoff,
            const bool             theToDistinguish,
            const bool             theToMapTexture)
@@ -44,7 +44,7 @@ public:
   }
 
   //! Return front material.
-  const OpenGl_Material& Material() const { return myMaterial; }
+  const Material4& Material() const { return myMaterial; }
 
   //! Alpha cutoff value.
   float AlphaCutoff() const { return myAlphaCutoff; }
@@ -59,7 +59,7 @@ public:
   bool ToMapTexture() const { return myToMapTexture; }
 
 private:
-  OpenGl_Material myMaterial;      //!< material
+  Material4 myMaterial;      //!< material
   float           myAlphaCutoff;   //!< alpha cutoff value
   bool            myToDistinguish; //!< distinguish front/back flag
   bool            myToMapTexture;  //!< flag for mapping a texture

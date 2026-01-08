@@ -75,13 +75,13 @@ BRepMesh_DelabellaMeshAlgoFactory::~BRepMesh_DelabellaMeshAlgoFactory() {}
 
 Handle(IMeshTools_MeshAlgo) BRepMesh_DelabellaMeshAlgoFactory::GetAlgo(
   const GeomAbs_SurfaceType    theSurfaceType,
-  const IMeshTools_Parameters& theParameters) const
+  const Parameters3& theParameters) const
 {
   switch (theSurfaceType)
   {
     case GeomAbs_Plane:
       return theParameters.InternalVerticesMode
-               ? new NodeInsertionMeshAlgo<BRepMesh_DefaultRangeSplitter>::Type
+               ? new NodeInsertionMeshAlgo<DefaultRangeSplitter>::Type
                : new BaseMeshAlgo::Type;
       break;
 

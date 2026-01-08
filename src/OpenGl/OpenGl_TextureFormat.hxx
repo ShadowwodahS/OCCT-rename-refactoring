@@ -22,21 +22,21 @@
 class OpenGl_Context;
 
 //! Stores parameters of OpenGL texture format.
-class OpenGl_TextureFormat
+class TextureFormat
 {
 public:
   //! Returns texture format for specified type and number of channels.
   //! @tparam theCompType component type
   //! @tparam theNbComps  number of components
   template <class theCompType, int theNbComps>
-  static OpenGl_TextureFormat Create();
+  static TextureFormat Create();
 
   //! Find texture format suitable to specified image format.
   //! @param[in] theCtx  OpenGL context defining supported texture formats
   //! @param[in] theFormat  image format
   //! @param[in] theIsColorMap  flag indicating color nature of image (to select sRGB texture)
   //! @return found format or invalid format
-  Standard_EXPORT static OpenGl_TextureFormat FindFormat(const Handle(OpenGl_Context)& theCtx,
+  Standard_EXPORT static TextureFormat FindFormat(const Handle(OpenGl_Context)& theCtx,
                                                          Image_Format                  theFormat,
                                                          bool theIsColorMap);
 
@@ -44,14 +44,14 @@ public:
   //! @param[in] theCtx  OpenGL context defining supported texture formats
   //! @param[in] theSizedFormat  sized (internal) texture format (example: GL_RGBA8)
   //! @return found format or invalid format
-  Standard_EXPORT static OpenGl_TextureFormat FindSizedFormat(const Handle(OpenGl_Context)& theCtx,
+  Standard_EXPORT static TextureFormat FindSizedFormat(const Handle(OpenGl_Context)& theCtx,
                                                               GLint theSizedFormat);
 
   //! Find texture format suitable to specified compressed texture format.
   //! @param[in] theCtx  OpenGL context defining supported texture formats
   //! @param[in] theFormat  compressed texture format
   //! @return found format or invalid format
-  Standard_EXPORT static OpenGl_TextureFormat FindCompressedFormat(
+  Standard_EXPORT static TextureFormat FindCompressedFormat(
     const Handle(OpenGl_Context)& theCtx,
     Image_CompressedFormat        theFormat,
     bool                          theIsColorMap);
@@ -64,7 +64,7 @@ public:
 
 public:
   //! Empty constructor (invalid texture format).
-  OpenGl_TextureFormat()
+  TextureFormat()
       : myImageFormat(Image_Format_UNKNOWN),
         myInternalFormat(0),
         myPixelFormat(0),
@@ -129,14 +129,14 @@ private:
 
 //! Selects preferable texture format for specified parameters.
 template <class T>
-struct OpenGl_TextureFormatSelector
+struct TextureFormatSelector
 {
   // Not implemented
 };
 
 //! Specialization for unsigned byte.
 template <>
-struct OpenGl_TextureFormatSelector<GLubyte>
+struct TextureFormatSelector<GLubyte>
 {
   static GLint DataType() { return GL_UNSIGNED_BYTE; }
 
@@ -160,7 +160,7 @@ struct OpenGl_TextureFormatSelector<GLubyte>
 
 //! Specialization for unsigned short.
 template <>
-struct OpenGl_TextureFormatSelector<GLushort>
+struct TextureFormatSelector<GLushort>
 {
   static GLint DataType() { return GL_UNSIGNED_SHORT; }
 
@@ -184,7 +184,7 @@ struct OpenGl_TextureFormatSelector<GLushort>
 
 //! Specialization for float.
 template <>
-struct OpenGl_TextureFormatSelector<GLfloat>
+struct TextureFormatSelector<GLfloat>
 {
   static GLint DataType() { return GL_FLOAT; }
 
@@ -208,7 +208,7 @@ struct OpenGl_TextureFormatSelector<GLfloat>
 
 //! Specialization for unsigned int.
 template <>
-struct OpenGl_TextureFormatSelector<GLuint>
+struct TextureFormatSelector<GLuint>
 {
   static GLint DataType() { return GL_UNSIGNED_INT; }
 
@@ -232,7 +232,7 @@ struct OpenGl_TextureFormatSelector<GLuint>
 
 //! Specialization for signed byte.
 template <>
-struct OpenGl_TextureFormatSelector<GLbyte>
+struct TextureFormatSelector<GLbyte>
 {
   static GLint DataType() { return GL_BYTE; }
 
@@ -256,7 +256,7 @@ struct OpenGl_TextureFormatSelector<GLbyte>
 
 //! Specialization for signed short.
 template <>
-struct OpenGl_TextureFormatSelector<GLshort>
+struct TextureFormatSelector<GLshort>
 {
   static GLint DataType() { return GL_SHORT; }
 
@@ -280,7 +280,7 @@ struct OpenGl_TextureFormatSelector<GLshort>
 
 //! Specialization for signed int.
 template <>
-struct OpenGl_TextureFormatSelector<GLint>
+struct TextureFormatSelector<GLint>
 {
   static GLint DataType() { return GL_INT; }
 
@@ -307,12 +307,12 @@ struct OpenGl_TextureFormatSelector<GLint>
 // purpose  :
 // =======================================================================
 template <class theCompType, int theNbComps>
-inline OpenGl_TextureFormat OpenGl_TextureFormat::Create()
+inline TextureFormat TextureFormat::Create()
 {
-  OpenGl_TextureFormat aFormat;
+  TextureFormat aFormat;
   aFormat.SetNbComponents(theNbComps);
-  aFormat.SetInternalFormat(OpenGl_TextureFormatSelector<theCompType>::Internal(theNbComps));
-  aFormat.SetDataType(OpenGl_TextureFormatSelector<theCompType>::DataType());
+  aFormat.SetInternalFormat(TextureFormatSelector<theCompType>::Internal(theNbComps));
+  aFormat.SetDataType(TextureFormatSelector<theCompType>::DataType());
   GLenum aPixelFormat = GL_NONE;
   switch (theNbComps)
   {

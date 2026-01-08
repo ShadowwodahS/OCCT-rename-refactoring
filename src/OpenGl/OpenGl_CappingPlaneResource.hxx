@@ -27,7 +27,7 @@ DEFINE_STANDARD_HANDLE(OpenGl_CappingPlaneResource, OpenGl_Resource)
 
 //! Container of graphical resources for rendering capping plane
 //! associated to graphical clipping plane.
-//! This resource holds data necessary for OpenGl_CappingAlgo.
+//! This resource holds data necessary for CappingAlgo.
 //! This object is implemented as OpenGl resource for the following reasons:
 //! - one instance should be shared between contexts.
 //! - instance associated to Graphic3d_ClipPlane data by id.

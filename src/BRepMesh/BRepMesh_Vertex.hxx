@@ -23,13 +23,13 @@
 //! Light weighted structure representing vertex
 //! of the mesh in parametric space. Vertex could be
 //! associated with 3d point stored in external map.
-class BRepMesh_Vertex
+class Vertex
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Default constructor
-  BRepMesh_Vertex()
+  Vertex()
       : myLocation3d(0),
         myMovability(BRepMesh_Free)
   {
@@ -39,7 +39,7 @@ public:
   //! @param theUV position of vertex in parametric space.
   //! @param theLocation3d index of 3d point to be associated with vertex.
   //! @param theMovability movability of the vertex.
-  BRepMesh_Vertex(const Coords2d&                   theUV,
+  Vertex(const Coords2d&                   theUV,
                   const Standard_Integer         theLocation3d,
                   const BRepMesh_DegreeOfFreedom theMovability)
   {
@@ -50,7 +50,7 @@ public:
   //! @param theU U position of vertex in parametric space.
   //! @param theV V position of vertex in parametric space.
   //! @param theMovability movability of the vertex.
-  BRepMesh_Vertex(const Standard_Real            theU,
+  Vertex(const Standard_Real            theU,
                   const Standard_Real            theV,
                   const BRepMesh_DegreeOfFreedom theMovability)
       : myUV(theU, theV),
@@ -90,7 +90,7 @@ public:
   //! Checks for equality with another vertex.
   //! @param theOther vertex to be checked against this one.
   //! @return TRUE if equal, FALSE if not.
-  Standard_Boolean IsEqual(const BRepMesh_Vertex& theOther) const
+  Standard_Boolean IsEqual(const Vertex& theOther) const
   {
     if (myMovability == BRepMesh_Deleted || theOther.myMovability == BRepMesh_Deleted)
     {
@@ -101,7 +101,7 @@ public:
   }
 
   //! Alias for IsEqual.
-  Standard_Boolean operator==(const BRepMesh_Vertex& Other) const { return IsEqual(Other); }
+  Standard_Boolean operator==(const Vertex& Other) const { return IsEqual(Other); }
 
 private:
   Coords2d                    myUV;
@@ -112,9 +112,9 @@ private:
 namespace std
 {
 template <>
-struct hash<BRepMesh_Vertex>
+struct hash<Vertex>
 {
-  size_t operator()(const BRepMesh_Vertex& theVertex) const noexcept
+  size_t operator()(const Vertex& theVertex) const noexcept
   {
     return std::hash<double>{}(
       (Floor(1e5 * theVertex.Coord().X()) * Floor(1e5 * theVertex.Coord().Y())));

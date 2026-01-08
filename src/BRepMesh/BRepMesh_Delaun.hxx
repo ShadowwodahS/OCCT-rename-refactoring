@@ -28,7 +28,7 @@
 
 class Bnd_B2d;
 class Bnd_Box2d;
-class BRepMesh_Vertex;
+class Vertex;
 
 //! Compute the Delaunay's triangulation with the algorithm of Watson.
 class BRepMesh_Delaun
@@ -67,7 +67,7 @@ public:
                                        const Standard_Integer theCellsCountV);
 
   //! Removes a vertex from the triangulation.
-  Standard_EXPORT void RemoveVertex(const BRepMesh_Vertex& theVertex);
+  Standard_EXPORT void RemoveVertex(const Vertex& theVertex);
 
   //! Adds some vertices into the triangulation.
   Standard_EXPORT void AddVertices(IMeshData::VectorOfInteger&  theVerticesIndices,
@@ -99,7 +99,7 @@ public:
   Handle(IMeshData::MapOfInteger) FreeEdges() const { return getEdgesByType(BRepMesh_Free); }
 
   //! Gives vertex with the given index
-  const BRepMesh_Vertex& GetVertex(const Standard_Integer theIndex) const
+  const Vertex& GetVertex(const Standard_Integer theIndex) const
   {
     return myMeshData->GetNode(theIndex);
   }
@@ -111,7 +111,7 @@ public:
   }
 
   //! Gives triangle with the given index
-  const BRepMesh_Triangle& GetTriangle(const Standard_Integer theIndex) const
+  const Triangle3& GetTriangle(const Standard_Integer theIndex) const
   {
     return myMeshData->GetElement(theIndex);
   }
@@ -124,7 +124,7 @@ public:
   //! @param theEdgeOn If it is != 0 the vertex lies onto the edge index
   //!        returned through this parameter.
   Standard_EXPORT Standard_Boolean Contains(const Standard_Integer theTriangleId,
-                                            const BRepMesh_Vertex& theVertex,
+                                            const Vertex& theVertex,
                                             const Standard_Real    theSqTolerance,
                                             Standard_Integer&      theEdgeOn) const;
 
@@ -157,8 +157,8 @@ private:
   //! Add bounding box for edge defined by start & end point to
   //! the given vector of bounding boxes for triangulation edges.
   void fillBndBox(IMeshData::SequenceOfBndB2d& theBoxes,
-                  const BRepMesh_Vertex&       theV1,
-                  const BRepMesh_Vertex&       theV2);
+                  const Vertex&       theV1,
+                  const Vertex&       theV2);
 
   //! Gives the list of edges with type defined by the input parameter.
   //! If the given type is BRepMesh_Free returns list of edges
@@ -192,7 +192,7 @@ private:
   //! next time until a hanging end is occurred.
   Standard_Integer findNextPolygonLink(const Standard_Integer&                theFirstNode,
                                        const Standard_Integer&                thePivotNode,
-                                       const BRepMesh_Vertex&                 thePivotVertex,
+                                       const Vertex&                 thePivotVertex,
                                        const gp_Vec2d&                        theRefLinkDir,
                                        const IMeshData::SequenceOfBndB2d&     theBoxes,
                                        const IMeshData::SequenceOfInteger&    thePolygon,
@@ -322,7 +322,7 @@ private:
   //! Calculates distances between the given point and edges of triangle.
   Standard_Real calculateDist(const Coords2d            theVEdges[3],
                               const Coords2d            thePoints[3],
-                              const BRepMesh_Vertex& theVertex,
+                              const Vertex& theVertex,
                               Standard_Real          theDistance[3],
                               Standard_Real          theSqModulus[3],
                               Standard_Integer&      theEdgeOn) const;
@@ -361,7 +361,7 @@ private:
   BRepMesh_CircleTool                    myCircles;
   IMeshData::VectorOfInteger             mySupVert;
   Standard_Boolean                       myInitCircles;
-  BRepMesh_Triangle                      mySupTrian;
+  Triangle3                      mySupTrian;
 };
 
 #endif

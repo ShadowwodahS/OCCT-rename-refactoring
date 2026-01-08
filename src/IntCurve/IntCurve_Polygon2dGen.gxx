@@ -326,14 +326,14 @@ void IntCurve_Polygon2dGen::Dump(void) const {
 } 
 #endif
 //======================================================================
-void IntCurve_Polygon2dGen::Segment(const Standard_Integer theIndex,
+void IntCurve_Polygon2dGen::Segment1(const Standard_Integer theIndex,
                                     gp_Pnt2d &theBegin, gp_Pnt2d &theEnd) const
 {
   Standard_Integer ind = theIndex;
   theBegin = ThePnts(TheIndex(theIndex));
   if (theIndex >= NbPntIn) {
     if (!ClosedPolygon)
-      throw Standard_OutOfRange("IntCurve_Polygon2dGen::Segment!");
+      throw Standard_OutOfRange("IntCurve_Polygon2dGen::Segment1!");
     ind = 0;
   }
   theEnd = ThePnts(TheIndex(ind+1));

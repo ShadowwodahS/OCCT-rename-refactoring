@@ -93,11 +93,11 @@ Standard_Integer GeomAPI_IntCS::NbSegments() const
 
 //=================================================================================================
 
-Handle(GeomCurve3d) GeomAPI_IntCS::Segment(const Standard_Integer Index) const
+Handle(GeomCurve3d) GeomAPI_IntCS::Segment1(const Standard_Integer Index) const
 {
-  const IntersectionPoint1& FirstPoint = myIntCS.Segment(Index).FirstPoint();
+  const IntersectionPoint1& FirstPoint = myIntCS.Segment1(Index).FirstPoint();
 
-  const IntersectionPoint1& LastPoint = myIntCS.Segment(Index).SecondPoint();
+  const IntersectionPoint1& LastPoint = myIntCS.Segment1(Index).SecondPoint();
 
   Handle(Geom_TrimmedCurve) TheCurve =
     new Geom_TrimmedCurve(myCurve, FirstPoint.W(), LastPoint.W());
@@ -113,9 +113,9 @@ void GeomAPI_IntCS::Parameters(const Standard_Integer Index,
                                Standard_Real&         U2,
                                Standard_Real&         V2) const
 {
-  const IntersectionPoint1& FirstPoint = myIntCS.Segment(Index).FirstPoint();
+  const IntersectionPoint1& FirstPoint = myIntCS.Segment1(Index).FirstPoint();
 
-  const IntersectionPoint1& LastPoint = myIntCS.Segment(Index).SecondPoint();
+  const IntersectionPoint1& LastPoint = myIntCS.Segment1(Index).SecondPoint();
 
   U1 = FirstPoint.U();
   V1 = FirstPoint.V();

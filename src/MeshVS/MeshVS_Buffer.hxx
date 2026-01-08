@@ -30,11 +30,11 @@
 //! define the constant to the size of 10 points
 #define MeshVS_BufSize 10 * 3 * sizeof(double)
 
-class MeshVS_Buffer
+class Buffer
 {
 public:
   //! Constructor of the buffer of the requested size
-  MeshVS_Buffer(const Standard_Size theSize)
+  Buffer(const Standard_Size theSize)
       : myDynData(0)
   {
     if (theSize > MeshVS_BufSize)
@@ -42,7 +42,7 @@ public:
   }
 
   //! Destructor
-  ~MeshVS_Buffer()
+  ~Buffer()
   {
     if (myDynData)
     {
@@ -71,10 +71,10 @@ public:
 
 private:
   //! Deprecate copy constructor
-  MeshVS_Buffer(const MeshVS_Buffer&) {}
+  Buffer(const Buffer&) {}
 
   //! Deprecate copy operation
-  MeshVS_Buffer& operator=(const MeshVS_Buffer&) { return *this; }
+  Buffer& operator=(const Buffer&) { return *this; }
 
   char  myAutoData[MeshVS_BufSize];
   void* myDynData;

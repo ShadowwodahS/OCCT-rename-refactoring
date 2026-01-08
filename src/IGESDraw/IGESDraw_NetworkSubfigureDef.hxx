@@ -58,7 +58,7 @@ public:
   //! Control Points.
   //! - aTypeFlag        : Type flag determines which Entity
   //! belongs in which design
-  //! (Logical design or Physical design)
+  //! (Logical design or Physical1 design)
   //! - aDesignator      : Designator HAsciiString and its Template
   //! - allPointEntities : Associated Connect Point Entities
   Standard_EXPORT void Init(const Standard_Integer                        aDepth,
@@ -89,7 +89,7 @@ public:
 
   //! return value = 0 : Not Specified
   //! = 1 : Logical  design
-  //! = 2 : Physical design
+  //! = 2 : Physical1 design
   Standard_EXPORT Standard_Integer TypeFlag() const;
 
   //! returns Primary Reference Designator

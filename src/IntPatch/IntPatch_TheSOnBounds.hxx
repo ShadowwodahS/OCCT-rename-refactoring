@@ -82,7 +82,7 @@ public:
   //! False.
   //! The exception OutOfRange is raised if
   //! Index <= 0 or Index > NbPoints.
-  const IntPatch_TheSegmentOfTheSOnBounds& Segment(const Standard_Integer Index) const;
+  const IntPatch_TheSegmentOfTheSOnBounds& Segment1(const Standard_Integer Index) const;
 
 protected:
 private:

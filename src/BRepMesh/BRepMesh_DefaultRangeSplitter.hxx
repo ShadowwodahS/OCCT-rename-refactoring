@@ -18,25 +18,25 @@
 
 #include <IMeshData_Face.hxx>
 
-struct IMeshTools_Parameters;
+struct Parameters3;
 
 //! Default tool to define range of discrete face model and
 //! obtain grid points distributed within this range.
-class BRepMesh_DefaultRangeSplitter
+class DefaultRangeSplitter
 {
 public:
   //! Constructor.
-  BRepMesh_DefaultRangeSplitter()
+  DefaultRangeSplitter()
       : myIsValid(Standard_True)
   {
   }
 
   //! Destructor.
-  virtual ~BRepMesh_DefaultRangeSplitter() {}
+  virtual ~DefaultRangeSplitter() {}
 
   //! Resets this splitter. Must be called before first use.
   Standard_EXPORT virtual void Reset(const IMeshData::IFaceHandle& theDFace,
-                                     const IMeshTools_Parameters&  theParameters);
+                                     const Parameters3&  theParameters);
 
   //! Registers border point.
   Standard_EXPORT virtual void AddPoint(const gp_Pnt2d& thePoint);
@@ -59,7 +59,7 @@ public:
   //! Returns list of nodes generated using surface data and specified parameters.
   //! By default returns null ptr.
   Standard_EXPORT virtual Handle(IMeshData::ListOfPnt2d) GenerateSurfaceNodes(
-    const IMeshTools_Parameters& theParameters) const;
+    const Parameters3& theParameters) const;
 
   //! Returns point in 3d space corresponded to the given
   //! point defined in parametric space of surface.

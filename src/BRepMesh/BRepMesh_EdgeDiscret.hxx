@@ -38,7 +38,7 @@ public:
   //! Creates instance of free edge tessellator.
   Standard_EXPORT static Handle(IMeshTools_CurveTessellator) CreateEdgeTessellator(
     const IMeshData::IEdgeHandle& theDEdge,
-    const IMeshTools_Parameters&  theParameters,
+    const Parameters3&  theParameters,
     const Standard_Integer        theMinPointsNb = 2);
 
   //! Creates instance of edge tessellator.
@@ -46,7 +46,7 @@ public:
     const IMeshData::IEdgeHandle& theDEdge,
     const TopAbs_Orientation      theOrientation,
     const IMeshData::IFaceHandle& theDFace,
-    const IMeshTools_Parameters&  theParameters,
+    const Parameters3&  theParameters,
     const Standard_Integer        theMinPointsNb = 2);
 
   //! Creates instance of tessellation extractor.
@@ -73,7 +73,7 @@ protected:
   //! Performs processing of edges of the given model.
   Standard_EXPORT virtual Standard_Boolean performInternal(
     const Handle(IMeshData_Model)& theModel,
-    const IMeshTools_Parameters&   theParameters,
+    const Parameters3&   theParameters,
     const Message_ProgressRange&   theRange) Standard_OVERRIDE;
 
 private:
@@ -89,7 +89,7 @@ private:
 
 private:
   Handle(IMeshData_Model) myModel;
-  IMeshTools_Parameters   myParameters;
+  Parameters3   myParameters;
 };
 
 #endif

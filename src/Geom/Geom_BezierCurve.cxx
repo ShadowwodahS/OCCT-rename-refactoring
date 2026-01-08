@@ -347,7 +347,7 @@ Standard_Real BezierCurve3d::ReversedParameter(const Standard_Real U) const
 
 //=================================================================================================
 
-void BezierCurve3d::Segment(const Standard_Real U1, const Standard_Real U2)
+void BezierCurve3d::Segment1(const Standard_Real U1, const Standard_Real U2)
 {
   closed = (Abs(Value(U1).Distance(Value(U2))) <= Precision::Confusion());
 

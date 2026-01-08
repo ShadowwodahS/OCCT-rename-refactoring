@@ -1606,7 +1606,7 @@ static Standard_Integer segsur(DrawInterpreter&, Standard_Integer n, const char*
     if (n == 8)
       aVTolerance = Draw1::Atof(a[7]);
 
-    GBs->Segment(Draw1::Atof(a[2]),
+    GBs->Segment1(Draw1::Atof(a[2]),
                  Draw1::Atof(a[3]),
                  Draw1::Atof(a[4]),
                  Draw1::Atof(a[5]),
@@ -1615,7 +1615,7 @@ static Standard_Integer segsur(DrawInterpreter&, Standard_Integer n, const char*
   }
   else
   {
-    GBz->Segment(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4]), Draw1::Atof(a[5]));
+    GBz->Segment1(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4]), Draw1::Atof(a[5]));
   }
 
   Draw1::Repaint();

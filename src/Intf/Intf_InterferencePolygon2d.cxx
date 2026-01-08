@@ -145,7 +145,7 @@ void Intf_InterferencePolygon2d::Interference(const Intf_Polygon2d& Obje1,
   for (iObje1 = 1; iObje1 <= n1; iObje1++)
   {
     bSO.SetVoid();
-    Obje1.Segment(iObje1, p1b, p1e);
+    Obje1.Segment1(iObje1, p1b, p1e);
     bSO.Add(p1b);
     bSO.Add(p1e);
     bSO.Enlarge(d1);
@@ -154,7 +154,7 @@ void Intf_InterferencePolygon2d::Interference(const Intf_Polygon2d& Obje1,
       for (iObje2 = 1; iObje2 <= n2; iObje2++)
       {
         bST.SetVoid();
-        Obje2.Segment(iObje2, p2b, p2e);
+        Obje2.Segment1(iObje2, p2b, p2e);
         bST.Add(p2b);
         bST.Add(p2e);
         bST.Enlarge(d2);
@@ -179,7 +179,7 @@ void Intf_InterferencePolygon2d::Interference(const Intf_Polygon2d& Obje)
   for (iObje1 = 1; iObje1 <= n; iObje1++)
   {
     bSO.SetVoid();
-    Obje.Segment(iObje1, p1b, p1e);
+    Obje.Segment1(iObje1, p1b, p1e);
     bSO.Add(p1b);
     bSO.Add(p1e);
     bSO.Enlarge(d);
@@ -188,7 +188,7 @@ void Intf_InterferencePolygon2d::Interference(const Intf_Polygon2d& Obje)
       for (iObje2 = iObje1 + 1; iObje2 <= n; iObje2++)
       {
         bST.SetVoid();
-        Obje.Segment(iObje2, p2b, p2e);
+        Obje.Segment1(iObje2, p2b, p2e);
         bST.Add(p2b);
         bST.Add(p2e);
         bST.Enlarge(d);

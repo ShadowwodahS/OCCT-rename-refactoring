@@ -20,7 +20,7 @@
 
 //! Auxiliary class extending default range splitter in
 //! order to generate internal nodes for cylindrical surface.
-class BRepMesh_CylinderRangeSplitter : public BRepMesh_DefaultRangeSplitter
+class BRepMesh_CylinderRangeSplitter : public DefaultRangeSplitter
 {
 public:
   //! Constructor.
@@ -34,11 +34,11 @@ public:
 
   //! Resets this splitter. Must be called before first use.
   Standard_EXPORT virtual void Reset(const IMeshData::IFaceHandle& theDFace,
-                                     const IMeshTools_Parameters&  theParameters) Standard_OVERRIDE;
+                                     const Parameters3&  theParameters) Standard_OVERRIDE;
 
   //! Returns list of nodes generated using surface data and specified parameters.
   Standard_EXPORT virtual Handle(IMeshData::ListOfPnt2d) GenerateSurfaceNodes(
-    const IMeshTools_Parameters& theParameters) const Standard_OVERRIDE;
+    const Parameters3& theParameters) const Standard_OVERRIDE;
 
 protected:
   //! Computes parametric delta taking length along U and V into account.

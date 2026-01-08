@@ -80,7 +80,7 @@ void ShapeUpgrade_SplitCurve::SetSplitValues(const Handle(TColStd_HSequenceOfRea
 
 //=================================================================================================
 
-void ShapeUpgrade_SplitCurve::Build(const Standard_Boolean /*Segment*/)
+void ShapeUpgrade_SplitCurve::Build(const Standard_Boolean /*Segment1*/)
 {
   myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
 }
@@ -94,12 +94,12 @@ const Handle(TColStd_HSequenceOfReal)& ShapeUpgrade_SplitCurve::SplitValues() co
 
 //=================================================================================================
 
-void ShapeUpgrade_SplitCurve::Perform(const Standard_Boolean Segment)
+void ShapeUpgrade_SplitCurve::Perform(const Standard_Boolean Segment1)
 {
   Compute();
   // if ( ! mySplitValues.IsNull() )
   //   SetSplitValues(mySplitValues);
-  Build(Segment);
+  Build(Segment1);
 }
 
 //=================================================================================================

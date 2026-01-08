@@ -405,7 +405,7 @@ void SplineCurveTool::OwnDump(const Handle(IGESGeom_SplineCurve)& ent,
     << "Degree Of Continuity : " << ent->Degree() << "\n"
     << "Number Of Dimensions : " << ent->NbDimensions() << "\n"
     << "Number Of Segments   : " << ent->NbSegments() << "\n"
-    << "Segment Break Points : ";
+    << "Segment1 Break Points : ";
   IGESData_DumpVals(S, level, 1, nbSegments + 1, ent->BreakPoint);
   if (level <= 4)
   {
@@ -421,7 +421,7 @@ void SplineCurveTool::OwnDump(const Handle(IGESGeom_SplineCurve)& ent,
     ent->XCoordPolynomial(I, AX, BX, CX, DX);
     ent->YCoordPolynomial(I, AY, BY, CY, DY);
     ent->ZCoordPolynomial(I, AZ, BZ, CZ, DZ);
-    S << "Segment " << I << " :	    X		   Y		Z" << "\n"
+    S << "Segment1 " << I << " :	    X		   Y		Z" << "\n"
       << " A ...	" << AX << "	" << AY << "	" << AZ << "\n"
       << " B ...	" << BX << "	" << BY << "	" << BZ << "\n"
       << " C ...	" << CX << "	" << CY << "	" << CZ << "\n"

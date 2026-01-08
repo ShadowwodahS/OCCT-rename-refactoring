@@ -21,17 +21,17 @@
 //! Structure containing two IDs (of nodes) for using as a key in a map
 //! (as representation of a mesh link)
 //!
-struct MeshVS_TwoNodes
+struct TwoNodes
 {
   Standard_Integer First, Second;
 
-  MeshVS_TwoNodes(Standard_Integer aFirst = 0, Standard_Integer aSecond = 0)
+  TwoNodes(Standard_Integer aFirst = 0, Standard_Integer aSecond = 0)
       : First(aFirst),
         Second(aSecond)
   {
   }
 
-  bool operator==(const MeshVS_TwoNodes& theTwoNode) const
+  bool operator==(const TwoNodes& theTwoNode) const
   {
     return ((First == theTwoNode.First) && (Second == theTwoNode.Second))
            || ((First == theTwoNode.Second) && (Second == theTwoNode.First));
@@ -41,9 +41,9 @@ struct MeshVS_TwoNodes
 namespace std
 {
 template <>
-struct hash<MeshVS_TwoNodes>
+struct hash<TwoNodes>
 {
-  size_t operator()(const MeshVS_TwoNodes& theTwoNodes) const noexcept
+  size_t operator()(const TwoNodes& theTwoNodes) const noexcept
   {
     // Combine two int values into a single hash value.
     int aCombination[2]{theTwoNodes.First, theTwoNodes.Second};

@@ -29,7 +29,7 @@
 
 const Standard_Integer MAXCOLOR = 15;
 
-//! Segment definition.
+//! Segment1 definition.
 struct Draw_XSegment
 {
   NCollection_Vec2<short> Points[2]; // same as XSegment

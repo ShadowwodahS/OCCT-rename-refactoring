@@ -143,7 +143,7 @@ public:
   //! If theImage is empty the texture data will contain trash.
   //! Notice that texture will be unbound after this call.
   Standard_EXPORT bool Init(const Handle(OpenGl_Context)& theCtx,
-                            const OpenGl_TextureFormat&   theFormat,
+                            const TextureFormat&   theFormat,
                             const Graphic3d_Vec3i&        theSizeXYZ,
                             const Graphic3d_TypeOfTexture theType,
                             const Image_PixMap*           theImage = NULL);
@@ -152,7 +152,7 @@ public:
   //! If theImage is empty the texture data will contain trash.
   //! Notice that texture will be unbound after this call.
   bool Init(const Handle(OpenGl_Context)& theCtx,
-            const OpenGl_TextureFormat&   theFormat,
+            const TextureFormat&   theFormat,
             const Graphic3d_Vec2i&        theSizeXY,
             const Graphic3d_TypeOfTexture theType,
             const Image_PixMap*           theImage = NULL)
@@ -186,11 +186,11 @@ public:
   Standard_EXPORT bool InitRectangle(const Handle(OpenGl_Context)& theCtx,
                                      const Standard_Integer        theSizeX,
                                      const Standard_Integer        theSizeY,
-                                     const OpenGl_TextureFormat&   theFormat);
+                                     const TextureFormat&   theFormat);
 
   //! Initializes 3D texture rectangle with specified format and size.
   Standard_EXPORT bool Init3D(const Handle(OpenGl_Context)& theCtx,
-                              const OpenGl_TextureFormat&   theFormat,
+                              const TextureFormat&   theFormat,
                               const Graphic3d_Vec3i&        theSizeXYZ,
                               const void*                   thePixels);
 
@@ -224,7 +224,7 @@ public:
                                  Standard_Integer              theCubeSide = 0) const;
 
 public:
-  Standard_DEPRECATED("Deprecated method, OpenGl_TextureFormat::FindFormat() should be used "
+  Standard_DEPRECATED("Deprecated method, TextureFormat::FindFormat() should be used "
                       "instead")
 
   static bool GetDataFormat(const Handle(OpenGl_Context)& theCtx,
@@ -233,14 +233,14 @@ public:
                             unsigned int&                 thePixelFormat,
                             unsigned int&                 theDataType)
   {
-    OpenGl_TextureFormat aFormat = OpenGl_TextureFormat::FindFormat(theCtx, theFormat, false);
+    TextureFormat aFormat = TextureFormat::FindFormat(theCtx, theFormat, false);
     theTextFormat                = aFormat.InternalFormat();
     thePixelFormat               = aFormat.PixelFormat();
     theDataType                  = aFormat.DataType();
     return aFormat.IsValid();
   }
 
-  Standard_DEPRECATED("Deprecated method, OpenGl_TextureFormat::FindFormat() should be used "
+  Standard_DEPRECATED("Deprecated method, TextureFormat::FindFormat() should be used "
                       "instead")
 
   static bool GetDataFormat(const Handle(OpenGl_Context)& theCtx,
@@ -249,15 +249,15 @@ public:
                             unsigned int&                 thePixelFormat,
                             unsigned int&                 theDataType)
   {
-    OpenGl_TextureFormat aFormat =
-      OpenGl_TextureFormat::FindFormat(theCtx, theData.Format(), false);
+    TextureFormat aFormat =
+      TextureFormat::FindFormat(theCtx, theData.Format(), false);
     theTextFormat  = aFormat.InternalFormat();
     thePixelFormat = aFormat.PixelFormat();
     theDataType    = aFormat.DataType();
     return aFormat.IsValid();
   }
 
-  Standard_DEPRECATED("Deprecated method, OpenGl_TextureFormat should be passed instead of "
+  Standard_DEPRECATED("Deprecated method, TextureFormat should be passed instead of "
                       "separate parameters")
 
   bool Init(const Handle(OpenGl_Context)& theCtx,
@@ -269,7 +269,7 @@ public:
             const Graphic3d_TypeOfTexture theType,
             const Image_PixMap*           theImage = NULL)
   {
-    OpenGl_TextureFormat aFormat;
+    TextureFormat aFormat;
     aFormat.SetInternalFormat(theTextFormat);
     aFormat.SetPixelFormat(thePixelFormat);
     aFormat.SetDataType(theDataType);
@@ -286,7 +286,7 @@ public:
     return Init(theCtx, theImage, theType, true);
   }
 
-  Standard_DEPRECATED("Deprecated method, OpenGl_TextureFormat should be passed instead of "
+  Standard_DEPRECATED("Deprecated method, TextureFormat should be passed instead of "
                       "separate parameters")
 
   bool Init3D(const Handle(OpenGl_Context)& theCtx,
@@ -298,7 +298,7 @@ public:
               const Standard_Integer        theSizeZ,
               const void*                   thePixels)
   {
-    OpenGl_TextureFormat aFormat;
+    TextureFormat aFormat;
     aFormat.SetInternalFormat(theTextFormat);
     aFormat.SetPixelFormat(thePixelFormat);
     aFormat.SetDataType(theDataType);

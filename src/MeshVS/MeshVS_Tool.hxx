@@ -30,7 +30,7 @@ class Graphic3d_AspectText3d;
 class Vector3d;
 
 //! This class provides auxiliary methods to create different aspects
-class MeshVS_Tool
+class Tool4
 {
 public:
   DEFINE_STANDARD_ALLOC

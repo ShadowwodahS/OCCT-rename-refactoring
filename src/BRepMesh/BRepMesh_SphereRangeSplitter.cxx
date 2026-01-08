@@ -19,7 +19,7 @@
 //=================================================================================================
 
 Handle(IMeshData::ListOfPnt2d) BRepMesh_SphereRangeSplitter::GenerateSurfaceNodes(
-  const IMeshTools_Parameters& theParameters) const
+  const Parameters3& theParameters) const
 {
   // Calculate parameters for iteration in V direction
   Standard_Real aStep =

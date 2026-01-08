@@ -64,7 +64,7 @@ struct Aspect_XDisplay;
 class OpenGl_Context;
 
 //! Mega structure defines the complete list of OpenGL functions.
-struct OpenGl_GlFunctions
+struct GlFunctions
 {
 
   //! Check glGetError(); defined for debugging purposes.

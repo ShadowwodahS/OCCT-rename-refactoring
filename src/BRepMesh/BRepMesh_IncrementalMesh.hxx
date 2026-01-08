@@ -50,7 +50,7 @@ public: //! @name mesher API
   //! @param theParameters - parameters of meshing
   Standard_EXPORT MeshGenerator(
     const TopoShape&          theShape,
-    const IMeshTools_Parameters& theParameters,
+    const Parameters3& theParameters,
     const Message_ProgressRange& theRange = Message_ProgressRange());
 
   //! Performs meshing of the shape.
@@ -63,10 +63,10 @@ public: //! @name mesher API
 
 public: //! @name accessing to parameters.
   //! Returns meshing parameters
-  const IMeshTools_Parameters& Parameters() const { return myParameters; }
+  const Parameters3& Parameters() const { return myParameters; }
 
   //! Returns modifiable meshing parameters
-  IMeshTools_Parameters& ChangeParameters() { return myParameters; }
+  Parameters3& ChangeParameters() { return myParameters; }
 
   //! Returns modified flag.
   Standard_Boolean IsModified() const { return myModified; }
@@ -90,7 +90,7 @@ private:
 
     if (myParameters.MinSize < Precision::Confusion())
     {
-      myParameters.MinSize = Max(IMeshTools_Parameters::RelMinSize()
+      myParameters.MinSize = Max(Parameters3::RelMinSize()
                                    * Min(myParameters.Deflection, myParameters.DeflectionInterior),
                                  Precision::Confusion());
     }
@@ -129,7 +129,7 @@ public: //! @name plugin API
   DEFINE_STANDARD_RTTIEXT(MeshGenerator, BRepMesh_DiscretRoot)
 
 protected:
-  IMeshTools_Parameters myParameters;
+  Parameters3 myParameters;
   Standard_Boolean      myModified;
   Standard_Integer      myStatus;
 };

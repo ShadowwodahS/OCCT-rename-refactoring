@@ -754,7 +754,7 @@ void BoundedArc (const TheArc& A,
       // Recuperer point debut et fin, et leur parametre.
       if (IsIntCSdone)
       {
-        IntCurveSurface_IntersectionSegment IntSeg = IntCS.Segment(i);
+        IntCurveSurface_IntersectionSegment IntSeg = IntCS.Segment1(i);
         IntersectionPoint1 End1 = IntSeg.FirstPoint();
         IntersectionPoint1 End2 = IntSeg.SecondPoint();
         pardeb = End1.W();

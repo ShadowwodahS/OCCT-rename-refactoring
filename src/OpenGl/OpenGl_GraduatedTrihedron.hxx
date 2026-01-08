@@ -95,10 +95,10 @@ private:
   //! Struct for triple of orthonormal vectors
   //! and origin point, and axes for tickmarks.
   //! It may be not a right or left coordinate system.
-  struct GridAxes
+  struct GridAxes1
   {
   public:
-    GridAxes()
+    GridAxes1()
         : Origin(0, 0, 0)
     {
       Axes[0] = OpenGl_Vec3(1.0f, 0.0f, 0.0f);
@@ -146,7 +146,7 @@ private:
   //! @param[in] theCorners  the corners of grid
   //! @param[out] theGridAxes  grid axes, the base of graduated trihedron grid.
   Standard_ExtCharacter getGridAxes(const Standard_ShortReal theCorners[8],
-                                    GridAxes&                theGridAxes) const;
+                                    GridAxes1&                theGridAxes) const;
 
   //! Render line from the transformed primitive array myLine
   //! @param[in] theWorkspace  the OpenGl Workspace
@@ -170,7 +170,7 @@ private:
   //!        translation and rotation
   void renderGridPlane(const Handle(OpenGl_Workspace)& theWorkspace,
                        const Standard_Integer&         theIndex,
-                       const GridAxes&                 theGridAxes,
+                       const GridAxes1&                 theGridAxes,
                        OpenGl_Mat4&                    theMat) const;
 
   //! Render the axis of input index
@@ -192,7 +192,7 @@ private:
   void renderTickmarkLabels(const Handle(OpenGl_Workspace)& theWorkspace,
                             const OpenGl_Mat4&              theMat,
                             const Standard_Integer          theIndex,
-                            const GridAxes&                 theGridAxes,
+                            const GridAxes1&                 theGridAxes,
                             const Standard_ShortReal        theDpix) const;
 
 protected: //! @name Scene bounding box values

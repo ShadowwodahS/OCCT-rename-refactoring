@@ -40,7 +40,7 @@ void IntPatch_Polygo::Dump() const
   gp_Pnt2d P, PF;
   for (Standard_Integer i = 1; i <= nbs; i++)
   {
-    Segment(i, P, PF);
+    Segment1(i, P, PF);
     std::cout << "pnt2d " << num << "  " << P.X() << " " << P.Y() << std::endl;
   }
   std::cout << "pnt2d " << num << "  " << PF.X() << " " << PF.Y() << std::endl;

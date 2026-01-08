@@ -815,9 +815,9 @@ Standard_Real Law_BSpline::ReversedParameter(const Standard_Real U) const
 
 //=================================================================================================
 
-void Law_BSpline::Segment(const Standard_Real U1, const Standard_Real U2)
+void Law_BSpline::Segment1(const Standard_Real U1, const Standard_Real U2)
 {
-  Standard_DomainError_Raise_if(U2 < U1, "Law_BSpline::Segment");
+  Standard_DomainError_Raise_if(U2 < U1, "Law_BSpline::Segment1");
   Standard_Real Eps   = Epsilon(Max(Abs(U1), Abs(U2)));
   Standard_Real delta = U2 - U1;
 

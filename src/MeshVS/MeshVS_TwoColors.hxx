@@ -18,7 +18,7 @@
 
 #include <Quantity_Color.hxx>
 
-struct MeshVS_TwoColors
+struct TwoColors
 {
   unsigned int r1 : 8;
   unsigned int g1 : 8;
@@ -27,7 +27,7 @@ struct MeshVS_TwoColors
   unsigned int g2 : 8;
   unsigned int b2 : 8;
 
-  bool operator==(const MeshVS_TwoColors& TwoColors) const
+  bool operator==(const TwoColors& TwoColors) const
   {
     return (((r1 * 256 + g1) * 256 + b1)
               == ((TwoColors.r1 * 256 + TwoColors.g1) * 256 + TwoColors.b1)
@@ -39,9 +39,9 @@ struct MeshVS_TwoColors
 namespace std
 {
 template <>
-struct hash<MeshVS_TwoColors>
+struct hash<TwoColors>
 {
-  size_t operator()(const MeshVS_TwoColors& TwoColors) const noexcept
+  size_t operator()(const TwoColors& TwoColors) const noexcept
   {
     unsigned int aHash = 0;
     meshprsHashByte(aHash, TwoColors.r1);
@@ -63,8 +63,8 @@ private:
 };
 } // namespace std
 
-Standard_EXPORT MeshVS_TwoColors BindTwoColors(const Quantity_Color&, const Quantity_Color&);
-Standard_EXPORT Quantity_Color   ExtractColor(MeshVS_TwoColors&, const Standard_Integer);
-Standard_EXPORT void             ExtractColors(MeshVS_TwoColors&, Quantity_Color&, Quantity_Color&);
+Standard_EXPORT TwoColors BindTwoColors(const Quantity_Color&, const Quantity_Color&);
+Standard_EXPORT Quantity_Color   ExtractColor(TwoColors&, const Standard_Integer);
+Standard_EXPORT void             ExtractColors(TwoColors&, Quantity_Color&, Quantity_Color&);
 
 #endif

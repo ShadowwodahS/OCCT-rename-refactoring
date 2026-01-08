@@ -23,7 +23,7 @@
 #include <BRep_Tool.hxx>
 
 //! Interface class representing discrete model of an edge.
-class IMeshData_Edge : public IMeshData_TessellatedShape, public IMeshData_StatusOwner
+class IMeshData_Edge : public IMeshData_TessellatedShape, public StatusOwner
 {
 public:
   //! Destructor.

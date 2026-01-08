@@ -45,11 +45,11 @@ BRepLib_MakeShell::BRepLib_MakeShell()
 
 //=================================================================================================
 
-BRepLib_MakeShell::BRepLib_MakeShell(const Handle(GeomSurface)& S, const Standard_Boolean Segment)
+BRepLib_MakeShell::BRepLib_MakeShell(const Handle(GeomSurface)& S, const Standard_Boolean Segment1)
 {
   Standard_Real UMin, UMax, VMin, VMax;
   S->Bounds(UMin, UMax, VMin, VMax);
-  Init(S, UMin, UMax, VMin, VMax, Segment);
+  Init(S, UMin, UMax, VMin, VMax, Segment1);
 }
 
 //=================================================================================================
@@ -59,9 +59,9 @@ BRepLib_MakeShell::BRepLib_MakeShell(const Handle(GeomSurface)& S,
                                      const Standard_Real         UMax,
                                      const Standard_Real         VMin,
                                      const Standard_Real         VMax,
-                                     const Standard_Boolean      Segment)
+                                     const Standard_Boolean      Segment1)
 {
-  Init(S, UMin, UMax, VMin, VMax, Segment);
+  Init(S, UMin, UMax, VMin, VMax, Segment1);
 }
 
 //=================================================================================================
@@ -71,7 +71,7 @@ void BRepLib_MakeShell::Init(const Handle(GeomSurface)& S,
                              const Standard_Real         UMax,
                              const Standard_Real         VMin,
                              const Standard_Real         VMax,
-                             const Standard_Boolean      Segment)
+                             const Standard_Boolean      Segment1)
 {
   Handle(GeomSurface) BS = S;
   if (S->DynamicType() == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
@@ -220,9 +220,9 @@ void BRepLib_MakeShell::Init(const Handle(GeomSurface)& S,
 
       // the surface
       Handle(GeomSurface) SS = Handle(GeomSurface)::DownCast(BS->Copy());
-      if (GS.GetType() == GeomAbs_BSplineSurface && Segment)
+      if (GS.GetType() == GeomAbs_BSplineSurface && Segment1)
       {
-        Handle(Geom_BSplineSurface)::DownCast(SS)->Segment(upars(iu),
+        Handle(Geom_BSplineSurface)::DownCast(SS)->Segment1(upars(iu),
                                                            upars(iu + 1),
                                                            vpars(iv),
                                                            vpars(iv + 1));

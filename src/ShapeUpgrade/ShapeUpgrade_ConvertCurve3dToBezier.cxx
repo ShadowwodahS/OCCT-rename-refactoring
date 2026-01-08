@@ -80,7 +80,7 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Compute()
     else
     {
       Handle(BezierCurve3d) besNew = Handle(BezierCurve3d)::DownCast(bezier->Copy());
-      besNew->Segment(First, Last);
+      besNew->Segment1(First, Last);
       mySegments->Append(besNew);
       myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
     }
@@ -205,7 +205,7 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Compute()
 
 //=================================================================================================
 
-void ShapeUpgrade_ConvertCurve3dToBezier::Build(const Standard_Boolean /*Segment*/)
+void ShapeUpgrade_ConvertCurve3dToBezier::Build(const Standard_Boolean /*Segment1*/)
 {
   constexpr Standard_Real prec = Precision::PConfusion();
   Standard_Integer        nb   = mySplitValues->Length();
@@ -228,7 +228,7 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Build(const Standard_Boolean /*Segment
       Standard_Real            uFact  = mySplitParams->Value(j) - mySplitParams->Value(j - 1);
       Standard_Real            pp     = mySplitValues->Value(i - 1);
       Standard_Real            length = (par - pp) / uFact;
-      bes->Segment(prevPar, prevPar + length);
+      bes->Segment1(prevPar, prevPar + length);
       prevPar += length;
       myResultingCurves->SetValue(i - 1, bes);
     }

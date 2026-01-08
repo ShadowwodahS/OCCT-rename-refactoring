@@ -61,23 +61,23 @@ public:
   Standard_EXPORT void SetVSplitValues(const Handle(TColStd_HSequenceOfReal)& VValues);
 
   //! Performs splitting of the supporting surface.
-  //! If resulting surface is B-Spline and Segment is True,
+  //! If resulting surface is B-Spline and Segment1 is True,
   //! the result is composed with segments of the surface bounded
-  //! by the U and V SplitValues (method Geom_BSplineSurface::Segment
+  //! by the U and V SplitValues (method Geom_BSplineSurface::Segment1
   //! is used).
-  //! If Segment is False, the result is composed with
+  //! If Segment1 is False, the result is composed with
   //! Geom_RectangularTrimmedSurface all based on the same complete
   //! surface.
   //! Fields myNbResultingRow and myNbResultingCol must be set to
   //! specify the size of resulting grid of surfaces.
-  Standard_EXPORT virtual void Build(const Standard_Boolean Segment);
+  Standard_EXPORT virtual void Build(const Standard_Boolean Segment1);
 
   //! Calculates points for correction/splitting of the surface.
-  Standard_EXPORT virtual void Compute(const Standard_Boolean Segment = Standard_True);
+  Standard_EXPORT virtual void Compute(const Standard_Boolean Segment1 = Standard_True);
 
   //! Performs correction/splitting of the surface.
   //! First defines splitting values by method Compute(), then calls method Build().
-  Standard_EXPORT void Perform(const Standard_Boolean Segment = Standard_True);
+  Standard_EXPORT void Perform(const Standard_Boolean Segment1 = Standard_True);
 
   //! returns all the U splitting values including the
   //! First and Last parameters of the input surface

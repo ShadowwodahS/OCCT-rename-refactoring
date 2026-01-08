@@ -40,7 +40,7 @@ public:
     GLuint    texture; //!< GL texture ID
   };
 
-  struct RectI
+  struct RectI1
   {
     Standard_Integer Left;
     Standard_Integer Right;
@@ -111,7 +111,7 @@ protected:
   Standard_ShortReal      myDescender;  //!< descender    provided my FT font
   Standard_Integer        myTileSizeY;  //!< tile height
   Standard_Integer        myLastTileId; //!< id of last tile
-  RectI                   myLastTilePx;
+  RectI1                   myLastTilePx;
   Standard_Integer        myTextureFormat; //!< texture format
 
   NCollection_Vector<Handle(OpenGl_Texture)> myTextures; //!< array of textures

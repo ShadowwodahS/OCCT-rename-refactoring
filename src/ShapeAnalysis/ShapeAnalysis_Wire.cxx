@@ -1299,7 +1299,7 @@ Standard_Boolean ShapeAnalysis_Wire::CheckIntersectingEdges(
       IP = Inter.Point(i);
     else
     {
-      const IntRes2d_IntersectionSegment& Seg = Inter.Segment(i - NbPoints);
+      const IntRes2d_IntersectionSegment& Seg = Inter.Segment1(i - NbPoints);
       if (!Seg.HasFirstPoint() || !Seg.HasLastPoint())
         continue;
       IP  = Seg.FirstPoint();
@@ -1445,7 +1445,7 @@ Standard_Boolean ShapeAnalysis_Wire::CheckIntersectingEdges(
       IP = Inter.Point(i);
     else
     {
-      const IntRes2d_IntersectionSegment& Seg = Inter.Segment(i - NbPoints);
+      const IntRes2d_IntersectionSegment& Seg = Inter.Segment1(i - NbPoints);
       if (!Seg.HasFirstPoint() || !Seg.HasLastPoint())
         continue;
       IP  = Seg.FirstPoint();

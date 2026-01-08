@@ -56,8 +56,8 @@ static bool isClockwisePolygon(const Handle(BRepMesh_DataStructureOfDelaun)& the
   for (int aNodeIter = theIndexes.Lower(); aNodeIter <= theIndexes.Upper(); ++aNodeIter)
   {
     int                    aNodeNext = theIndexes.Lower() + ((aNodeIter + 1) % aNbElemNodes);
-    const BRepMesh_Vertex& aVert1    = theMesh->GetNode(theIndexes.Value(aNodeIter));
-    const BRepMesh_Vertex& aVert2    = theMesh->GetNode(theIndexes.Value(aNodeNext));
+    const Vertex& aVert1    = theMesh->GetNode(theIndexes.Value(aNodeIter));
+    const Vertex& aVert2    = theMesh->GetNode(theIndexes.Value(aNodeNext));
     aPtSum += (aVert2.Coord().X() - aVert1.Coord().X()) * (aVert2.Coord().Y() + aVert1.Coord().Y());
   }
   return aPtSum < 0.0;
@@ -553,7 +553,7 @@ Standard_Integer RWObj_Reader::triangulatePolygon(
     const Standard_Integer aNodeIndex = theIndices.Value(theIndices.Lower() + aNodeIter);
     const Coords3d           aPnt3d     = getNode(aNodeIndex).XYZ();
     Coords2d                  aPnt2d(aXDir * aPnt3d, aYDir * aPnt3d);
-    BRepMesh_Vertex        aVertex(aPnt2d, aNodeIndex, BRepMesh_Frontier);
+    Vertex        aVertex(aPnt2d, aNodeIndex, BRepMesh_Frontier);
     anIndexes.Append(aMeshStructure->AddNode(aVertex));
   }
 
@@ -579,7 +579,7 @@ Standard_Integer RWObj_Reader::triangulatePolygon(
     for (IMeshData::MapOfInteger::Iterator aTriIter(aTriangles); aTriIter.More(); aTriIter.Next())
     {
       const Standard_Integer   aTriangleId = aTriIter.Key();
-      const BRepMesh_Triangle& aTriangle   = aMeshStructure->GetElement(aTriangleId);
+      const Triangle3& aTriangle   = aMeshStructure->GetElement(aTriangleId);
       if (aTriangle.Movability() == BRepMesh_Deleted)
       {
         continue;
@@ -591,9 +591,9 @@ Standard_Integer RWObj_Reader::triangulatePolygon(
       {
         std::swap(aTri2d[1], aTri2d[2]);
       }
-      const BRepMesh_Vertex& aVertex1 = aMeshStructure->GetNode(aTri2d[0]);
-      const BRepMesh_Vertex& aVertex2 = aMeshStructure->GetNode(aTri2d[1]);
-      const BRepMesh_Vertex& aVertex3 = aMeshStructure->GetNode(aTri2d[2]);
+      const Vertex& aVertex1 = aMeshStructure->GetNode(aTri2d[0]);
+      const Vertex& aVertex2 = aMeshStructure->GetNode(aTri2d[1]);
+      const Vertex& aVertex3 = aMeshStructure->GetNode(aTri2d[2]);
       addElement(aVertex1.Location3d(), aVertex2.Location3d(), aVertex3.Location3d(), -1);
       ++aNbTrisAdded;
     }

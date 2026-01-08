@@ -4174,7 +4174,7 @@ void BRepOffset_BuildOffsetFaces::RemoveInsideFaces(
         continue;
       }
       //
-      if (BRepOffset_Tool::CheckPlanesNormals(TopoDS::Face(aFx), TopoDS::Face(*pFOffset)))
+      if (Tool5::CheckPlanesNormals(TopoDS::Face(aFx), TopoDS::Face(*pFOffset)))
       {
         // the normal direction has not changed, thus the face can be removed
         aMFToRem.Add(aFInvIm);
@@ -6770,7 +6770,7 @@ void BRepOffset_BuildOffsetFaces::IntersectFaces(const TopoShape&         theFIn
   ShapeList aLInt1, aLInt2;
   TopoEdge          aNullEdge;
   TopoFace          aNullFace;
-  BRepOffset_Tool::Inter3D(TopoDS::Face(theFi),
+  Tool5::Inter3D(TopoDS::Face(theFi),
                            TopoDS::Face(theFj),
                            aLInt1,
                            aLInt2,

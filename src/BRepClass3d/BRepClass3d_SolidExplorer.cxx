@@ -1082,12 +1082,12 @@ Standard_Boolean BRepClass3d_SolidExplorer::RejectFace(const gp_Lin&) const
 #endif
 
 //=======================================================================
-// function : Segment
+// function : Segment1
 // purpose  : Returns  in <L>, <Par>  a segment having at least
 //           one  intersection  with  the  shape  boundary  to
 //           compute  intersections.
 //=======================================================================
-Standard_Integer BRepClass3d_SolidExplorer::Segment(const Point3d& P, gp_Lin& L, Standard_Real& Par)
+Standard_Integer BRepClass3d_SolidExplorer::Segment1(const Point3d& P, gp_Lin& L, Standard_Real& Par)
 {
   Standard_Integer bRetFlag;
   myFirstFace = 0;

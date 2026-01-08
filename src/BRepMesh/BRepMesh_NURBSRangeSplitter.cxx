@@ -52,7 +52,7 @@ public:
 
   //! Returns map of parameters supposed to be removed.
   const Handle(IMeshData::MapOfReal)& GetControlParametersToRemove(
-    const IMeshTools_Parameters& theParameters)
+    const Parameters3& theParameters)
   {
     myParameters = theParameters;
 
@@ -198,7 +198,7 @@ private:
   Handle(NCollection_IncAllocator) myAllocator;
   Handle(IMeshData::MapOfReal)     myControlParamsToRemove;
 
-  IMeshTools_Parameters                 myParameters;
+  Parameters3                 myParameters;
   NCollection_Handle<GeomAdaptor_Curve> myIso;
 
   Standard_Real myCurrParam;
@@ -293,7 +293,7 @@ Standard_Boolean toSplitIntervals(const Handle(GeomSurface)& theSurf,
 
 void BRepMesh_NURBSRangeSplitter::AdjustRange()
 {
-  BRepMesh_DefaultRangeSplitter::AdjustRange();
+  DefaultRangeSplitter::AdjustRange();
   mySurfaceType = GetSurface()->GetType();
 
   if (mySurfaceType == GeomAbs_BezierSurface)
@@ -309,7 +309,7 @@ void BRepMesh_NURBSRangeSplitter::AdjustRange()
 //=================================================================================================
 
 Handle(IMeshData::ListOfPnt2d) BRepMesh_NURBSRangeSplitter::GenerateSurfaceNodes(
-  const IMeshTools_Parameters& theParameters) const
+  const Parameters3& theParameters) const
 {
   if (!initParameters())
   {
@@ -540,7 +540,7 @@ Handle(IMeshData::SequenceOfReal) BRepMesh_NURBSRangeSplitter::computeGrainAndFi
   const Standard_Real                     theTol2d,
   const Standard_Real                     theRangeDiff,
   const Standard_Real                     theDelta,
-  const IMeshTools_Parameters&            theParameters,
+  const Parameters3&            theParameters,
   const Handle(NCollection_IncAllocator)& theAllocator) const
 {
   // Sort and filter sequence of parameters

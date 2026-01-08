@@ -40,7 +40,7 @@ Standard_EXPORT Standard_Boolean IsRaytracedElement(const OpenGl_Element* theEle
 } // namespace OpenGl_Raytrace
 
 //! Stores properties of surface material.
-struct OpenGl_RaytraceMaterial
+struct RaytraceMaterial
 {
   BVH_Vec4f Ambient;          //!< Ambient reflection coefficient
   BVH_Vec4f Diffuse;          //!< Diffuse reflection coefficient
@@ -52,7 +52,7 @@ struct OpenGl_RaytraceMaterial
   BVH_Mat4f TextureTransform; //!< Texture transformation matrix
 
   //! Physically-based material properties (used in path tracing engine).
-  struct Physical
+  struct Physical1
   {
     BVH_Vec4f Kc;          //!< Weight of coat specular/glossy BRDF
     BVH_Vec4f Kd;          //!< Weight of base diffuse BRDF
@@ -66,14 +66,14 @@ struct OpenGl_RaytraceMaterial
 
 public:
   //! Empty constructor.
-  Standard_EXPORT OpenGl_RaytraceMaterial();
+  Standard_EXPORT RaytraceMaterial();
 
   //! Returns packed (serialized) representation of material.
   const Standard_ShortReal* Packed() { return reinterpret_cast<Standard_ShortReal*>(this); }
 };
 
 //! Stores properties of OpenGL light source.
-struct OpenGl_RaytraceLight
+struct RaytraceLight
 {
 
   BVH_Vec4f Emission; //!< Diffuse intensity (in terms of OpenGL)
@@ -81,10 +81,10 @@ struct OpenGl_RaytraceLight
 
 public:
   //! Creates new light source.
-  OpenGl_RaytraceLight() {}
+  RaytraceLight() {}
 
   //! Creates new light source.
-  Standard_EXPORT OpenGl_RaytraceLight(const BVH_Vec4f& theEmission, const BVH_Vec4f& thePosition);
+  Standard_EXPORT RaytraceLight(const BVH_Vec4f& theEmission, const BVH_Vec4f& thePosition);
 
   //! Returns packed (serialized) representation of light source.
   const Standard_ShortReal* Packed() { return reinterpret_cast<Standard_ShortReal*>(this); }
@@ -95,16 +95,16 @@ typedef opencascade::handle<BVH_Tree<Standard_ShortReal, 3, QuadTree>> QuadBvhHa
 typedef BVH_Triangulation<Standard_ShortReal, 3> OpenGl_BVHTriangulation3f;
 
 //! Triangulation of single OpenGL primitive array.
-class OpenGl_TriangleSet : public OpenGl_BVHTriangulation3f
+class TriangleSet2 : public OpenGl_BVHTriangulation3f
 {
-  DEFINE_STANDARD_RTTIEXT(OpenGl_TriangleSet, OpenGl_BVHTriangulation3f)
+  DEFINE_STANDARD_RTTIEXT(TriangleSet2, OpenGl_BVHTriangulation3f)
 public:
   //! Value of invalid material index to return in case of errors.
   static const Standard_Integer INVALID_MATERIAL = -1;
 
 public:
   //! Creates new OpenGL element triangulation.
-  Standard_EXPORT OpenGl_TriangleSet(
+  Standard_EXPORT TriangleSet2(
     const Standard_Size                                            theArrayID,
     const opencascade::handle<BVH_Builder<Standard_ShortReal, 3>>& theBuilder);
 
@@ -170,10 +170,10 @@ public:
 
 public:
   //! Array of properties of light sources.
-  std::vector<OpenGl_RaytraceLight, NCollection_OccAllocator<OpenGl_RaytraceLight>> Sources;
+  std::vector<RaytraceLight, NCollection_OccAllocator<RaytraceLight>> Sources;
 
   //! Array of 'front' material properties.
-  std::vector<OpenGl_RaytraceMaterial, NCollection_OccAllocator<OpenGl_RaytraceMaterial>> Materials;
+  std::vector<RaytraceMaterial, NCollection_OccAllocator<RaytraceMaterial>> Materials;
 
   //! Global ambient from all light sources.
   BVH_Vec4f Ambient;
@@ -197,7 +197,7 @@ public:
   //! Clears only ray-tracing materials.
   void ClearMaterials()
   {
-    std::vector<OpenGl_RaytraceMaterial, NCollection_OccAllocator<OpenGl_RaytraceMaterial>>
+    std::vector<RaytraceMaterial, NCollection_OccAllocator<RaytraceMaterial>>
       anEmptyMaterials;
 
     Materials.swap(anEmptyMaterials);
@@ -230,7 +230,7 @@ public: //! @name methods related to acceleration structure
   //! Returns triangulation data for given leaf node.
   //! If the node index is not valid the function returns NULL.
   //! @note Can be used after processing acceleration structure.
-  Standard_EXPORT OpenGl_TriangleSet* TriangleSet(Standard_Integer theNodeIdx);
+  Standard_EXPORT TriangleSet2* TriangleSet(Standard_Integer theNodeIdx);
 
   //! Returns quad BVH (QBVH) tree produced from binary BVH.
   Standard_EXPORT const QuadBvhHandle& QuadBVH();

@@ -30,7 +30,7 @@ GeomConvert_BSplineCurveToBezierCurve::GeomConvert_BSplineCurveToBezierCurve(
   myCurve          = Handle(BSplineCurve3d)::DownCast(BasisCurve->Copy());
   Standard_Real Uf = myCurve->FirstParameter();
   Standard_Real Ul = myCurve->LastParameter();
-  myCurve->Segment(Uf, Ul);
+  myCurve->Segment1(Uf, Ul);
   myCurve->IncreaseMultiplicity(myCurve->FirstUKnotIndex(),
                                 myCurve->LastUKnotIndex(),
                                 myCurve->Degree());
@@ -71,7 +71,7 @@ GeomConvert_BSplineCurveToBezierCurve::GeomConvert_BSplineCurveToBezierCurve(
       Ul = myCurve->Knot(I1);
   }
 
-  myCurve->Segment(Uf, Ul);
+  myCurve->Segment1(Uf, Ul);
   myCurve->IncreaseMultiplicity(myCurve->FirstUKnotIndex(),
                                 myCurve->LastUKnotIndex(),
                                 myCurve->Degree());

@@ -183,10 +183,10 @@ public:
   }
 
   //! Gets parameters to be used for meshing.
-  const IMeshTools_Parameters& GetParameters() const { return myParameters; }
+  const Parameters3& GetParameters() const { return myParameters; }
 
   //! Gets reference to parameters to be used for meshing.
-  IMeshTools_Parameters& ChangeParameters() { return myParameters; }
+  Parameters3& ChangeParameters() { return myParameters; }
 
   //! Returns discrete model of a shape.
   const Handle(IMeshData_Model)& GetModel() const { return myModel; }
@@ -201,7 +201,7 @@ private:
   Handle(IMeshTools_ModelAlgo)    myPreProcessor;
   Handle(IMeshTools_ModelAlgo)    myFaceDiscret;
   Handle(IMeshTools_ModelAlgo)    myPostProcessor;
-  IMeshTools_Parameters           myParameters;
+  Parameters3           myParameters;
 };
 
 #endif

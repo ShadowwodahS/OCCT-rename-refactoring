@@ -1684,7 +1684,7 @@ static Standard_Integer intersection(DrawInterpreter& di, Standard_Integer n, co
       {
         Sprintf(newname, "%s_%d", a[1], Compt);
         di << newname << " ";
-        Result           = Inters.Segment(i);
+        Result           = Inters.Segment1(i);
         const char* temp = newname; // pour portage WNT
         DrawTrSurf1::Set(temp, Result);
       }
@@ -1705,7 +1705,7 @@ static Standard_Integer intersection(DrawInterpreter& di, Standard_Integer n, co
     }
     else if (nblines == 1)
     {
-      Result = Inters.Segment(1);
+      Result = Inters.Segment1(1);
       Sprintf(newname, "%s", a[1]);
       di << newname << " ";
       DrawTrSurf1::Set(a[1], Result);

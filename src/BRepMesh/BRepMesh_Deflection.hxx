@@ -20,7 +20,7 @@
 #include <Standard_Transient.hxx>
 #include <IMeshData_Types.hxx>
 
-struct IMeshTools_Parameters;
+struct Parameters3;
 
 //! Auxiliary tool encompassing methods to compute deflection of shapes.
 class BRepMesh_Deflection : public RefObject
@@ -40,15 +40,15 @@ public:
   //! Computes and updates deflection of the given discrete edge.
   Standard_EXPORT static void ComputeDeflection(const IMeshData::IEdgeHandle& theDEdge,
                                                 const Standard_Real           theMaxShapeSize,
-                                                const IMeshTools_Parameters&  theParameters);
+                                                const Parameters3&  theParameters);
 
   //! Computes and updates deflection of the given discrete wire.
   Standard_EXPORT static void ComputeDeflection(const IMeshData::IWireHandle& theDWire,
-                                                const IMeshTools_Parameters&  theParameters);
+                                                const Parameters3&  theParameters);
 
   //! Computes and updates deflection of the given discrete face.
   Standard_EXPORT static void ComputeDeflection(const IMeshData::IFaceHandle& theDFace,
-                                                const IMeshTools_Parameters&  theParameters);
+                                                const Parameters3&  theParameters);
 
   //! Checks if the deflection of current polygonal representation
   //! is consistent with the required deflection.

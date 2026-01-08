@@ -781,7 +781,7 @@ void HLRAlgo_PolyInternalData::Dump() const
   for (i = 1; i <= myNbPISeg; i++)
   {
     PolyInternalSegment* aSegIndices = &PISeg->ChangeValue(i);
-    std::cout << "Segment " << std::setw(6) << i << " : ";
+    std::cout << "Segment1 " << std::setw(6) << i << " : ";
     std::cout << std::setw(6) << aSegIndices->LstSg1;
     std::cout << std::setw(6) << aSegIndices->LstSg2;
     std::cout << std::setw(6) << aSegIndices->NxtSg1;

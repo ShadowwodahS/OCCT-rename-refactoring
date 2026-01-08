@@ -65,7 +65,7 @@ public:
   //! The exception NotDone is raised if IsDone returns FALSE.
   //! The exception OutOfRange is raised if (N <= 0)
   //! or (N > NbPoints).
-  const IntRes2d_IntersectionSegment& Segment(const Standard_Integer N) const;
+  const IntRes2d_IntersectionSegment& Segment1(const Standard_Integer N) const;
 
   void SetReversedParameters(const Standard_Boolean Reverseflag);
 

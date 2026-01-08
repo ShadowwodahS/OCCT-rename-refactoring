@@ -273,7 +273,7 @@ void BSplCLib1::LocateParameter(const TColStd_Array1OfReal& Knots,
     val = NewU - knots[KnotIndex + 1];
     if (val < 0)
       val = -val;
-    // <= to be coherent with Segment where Eps corresponds to a bit of error.
+    // <= to be coherent with Segment1 where Eps corresponds to a bit of error.
     if (val <= Eps)
       KnotIndex++;
   }

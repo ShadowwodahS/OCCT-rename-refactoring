@@ -1184,7 +1184,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
           IntRes2d_IntersectionSegment IS;
           for (i = 1; i <= Inter.NbSegments(); i++)
           {
-            IS = Inter.Segment(i);
+            IS = Inter.Segment1(i);
             for (Standard_Integer j = 1; j <= 2; j++)
             {
               if ((j == 1 && IS.HasFirstPoint()) || (j == 2 && IS.HasLastPoint()))
@@ -1223,7 +1223,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
               pt1 = Inter.Point(index1).Value();
             else
             {
-              IS = Inter.Segment(index1);
+              IS = Inter.Segment1(index1);
               if (flag1 == 1)
                 pt1 = IS.FirstPoint().Value();
               else
@@ -1233,7 +1233,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
               pt2 = Inter.Point(index2).Value();
             else
             {
-              IS = Inter.Segment(index2);
+              IS = Inter.Segment1(index2);
               if (flag2 == 1)
                 pt2 = IS.FirstPoint().Value();
               else
@@ -1250,7 +1250,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
             IP = Inter.Point(index1);
           else
           {
-            IS = Inter.Segment(index1);
+            IS = Inter.Segment1(index1);
             if (flag1 == 1)
               IP = IS.FirstPoint();
             else
@@ -1559,7 +1559,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
                     IntRes2d_IntersectionSegment IS;
                     for (i = 1; i <= Inter.NbSegments(); i++)
                     {
-                      IS = Inter.Segment(i);
+                      IS = Inter.Segment1(i);
                       for (Standard_Integer jj = 1; jj <= 2; jj++)
                       {
                         if ((jj == 1 && IS.HasFirstPoint()) || (jj == 2 && IS.HasLastPoint()))
@@ -1588,7 +1588,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
                       IP = Inter.Point(index);
                     else
                     {
-                      IS = Inter.Segment(index);
+                      IS = Inter.Segment1(index);
                       if (flag == 1)
                         IP = IS.FirstPoint();
                       else

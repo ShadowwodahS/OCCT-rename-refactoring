@@ -15,7 +15,7 @@
 // commercial license or contractual agreement.
 
 //  Modified by skv - Thu Jul 13 17:42:58 2006 OCC12627
-//  Total rewriting of the method Segment; add the method OtherSegment.
+//  Total rewriting of the method Segment1; add the method OtherSegment.
 
 #include <BRep_Tool.hxx>
 #include <BRepClass_Edge.hxx>
@@ -108,7 +108,7 @@ Standard_Boolean BRepClass_FaceExplorer::Reject(const gp_Pnt2d&) const
 
 //=================================================================================================
 
-Standard_Boolean BRepClass_FaceExplorer::Segment(const gp_Pnt2d& P, gp_Lin2d& L, Standard_Real& Par)
+Standard_Boolean BRepClass_FaceExplorer::Segment1(const gp_Pnt2d& P, gp_Lin2d& L, Standard_Real& Par)
 {
   myCurEdgeInd = 1;
   myCurEdgePar = Probing_Start;

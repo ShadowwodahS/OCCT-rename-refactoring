@@ -32,7 +32,7 @@ DEFINE_STANDARD_HANDLE(IGESSelect_ComputeStatus, IGESSelect_ModelModifier)
 //! Computes Status of IGES Entities for a whole IGESModel.
 //! This concerns SubordinateStatus and UseFlag, which must have
 //! some definite values according the way they are referenced.
-//! (see definitions of Logical use, Physical use, etc...)
+//! (see definitions of Logical use, Physical1 use, etc...)
 //!
 //! Works by calling a BasicEditor from IGESData1. Works on the
 //! whole produced (target) model, because computation is global.

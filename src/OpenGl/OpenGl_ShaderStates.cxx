@@ -17,7 +17,7 @@
 
 //=================================================================================================
 
-OpenGl_StateInterface::OpenGl_StateInterface()
+StateInterface::StateInterface()
     : myIndex(0)
 {
   //
@@ -126,10 +126,10 @@ const OpenGl_Mat4& OpenGl_WorldViewState::WorldViewMatrixInverse() const
 }
 
 // =======================================================================
-// function : OpenGl_ClippingState
+// function : ClippingState
 // purpose  : Creates new clipping state
 // =======================================================================
-OpenGl_ClippingState::OpenGl_ClippingState()
+ClippingState::ClippingState()
     : myIndex(0),
       myNextIndex(1)
 {
@@ -140,7 +140,7 @@ OpenGl_ClippingState::OpenGl_ClippingState()
 // function : Update
 // purpose  : Updates current state
 // =======================================================================
-void OpenGl_ClippingState::Update()
+void ClippingState::Update()
 {
   myStateStack.Prepend(myIndex);
   myIndex = myNextIndex; // use myNextIndex here to handle properly Update() after Revert()
@@ -151,7 +151,7 @@ void OpenGl_ClippingState::Update()
 // function : Revert
 // purpose  : Reverts current state
 // =======================================================================
-void OpenGl_ClippingState::Revert()
+void ClippingState::Revert()
 {
   if (!myStateStack.IsEmpty())
   {

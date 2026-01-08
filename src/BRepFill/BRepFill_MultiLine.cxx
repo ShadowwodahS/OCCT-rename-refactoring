@@ -684,7 +684,7 @@ static gp_Pnt2d ValueOnFace(const Standard_Real        U,
       }
       else if (Intersector.NbSegments() > 0)
       {
-        IntRes2d_IntersectionSegment Seg = Intersector.Segment(1);
+        IntRes2d_IntersectionSegment Seg = Intersector.Segment1(1);
         Standard_Real                VS1 = Seg.FirstPoint().ParamOnFirst();
         Standard_Real                VS2 = Seg.LastPoint().ParamOnFirst();
         gp_Pnt2d                     PS1 = TheV.Value(VS1);

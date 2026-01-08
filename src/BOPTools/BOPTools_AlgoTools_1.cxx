@@ -593,7 +593,7 @@ static Standard_Real IntersectCurves2d(
   aNb = anInter.NbSegments();
   for (i = 1; i <= aNb; ++i)
   {
-    const IntRes2d_IntersectionSegment& aSeg = anInter.Segment(i);
+    const IntRes2d_IntersectionSegment& aSeg = anInter.Segment1(i);
     aLP.Append(aSeg.FirstPoint());
     aLP.Append(aSeg.LastPoint());
   }

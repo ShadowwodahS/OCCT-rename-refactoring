@@ -168,7 +168,7 @@ Standard_OStream& CDM_MetaData::Print(Standard_OStream& anOStream) const
   anOStream << myFolder << "," << myName;
   if (HasVersion())
     anOStream << "," << myVersion;
-  anOStream << "; Physical situation: ";
+  anOStream << "; Physical1 situation: ";
   anOStream << myFileName;
   anOStream << std::endl;
   return anOStream;

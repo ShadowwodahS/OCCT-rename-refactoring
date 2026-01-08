@@ -32,16 +32,16 @@ public:
                                             const Point3d&                        theFirstPnt,
                                             const Point3d&                        theLastPnt);
 
-  //! changes the start Point of the Segment;
+  //! changes the start Point of the Segment1;
   void SetStartPoint(const Point3d& thePnt) { myStart = thePnt; }
 
   //! changes the end point of the segment
   void SetEndPoint(const Point3d& thePnt) { myEnd = thePnt; }
 
-  //! gives the 3D start Point of the Segment
+  //! gives the 3D start Point of the Segment1
   const Point3d& StartPoint() const { return myStart; }
 
-  //! gives the 3D End Point of the Segment
+  //! gives the 3D End Point of the Segment1
   const Point3d& EndPoint() const { return myEnd; }
 
   //! Returns the amount of points
@@ -66,7 +66,7 @@ public:
   virtual Standard_Boolean ToBuildBVH() const Standard_OVERRIDE { return Standard_False; }
 
 public:
-  //! changes the start Point of the Segment;
+  //! changes the start Point of the Segment1;
   void StartPoint(const Point3d& thePnt) { myStart = thePnt; }
 
   //! changes the end point of the segment

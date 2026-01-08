@@ -2145,7 +2145,7 @@ void ProcessRLine(IntPatch_SequenceOfLine& slin,
             if ((OnFirst && !Ptvtx.IsOnDomS1()) || (!OnFirst && !Ptvtx.IsOnDomS2()))
             {
               // Si OnFirst && OnDomS1, c est qu on est a une extremite
-              // ca doit etre traite par Process Segment...
+              // ca doit etre traite par Process Segment1...
               project   = Standard_True;
               keeppoint = Standard_False;
               toproj    = Ptvtx.Value();
@@ -2781,7 +2781,7 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
       }
       for (i = 1; i <= nbseg; i++)
       {
-        const IntPatch_TheSegmentOfTheSOnBounds& aSegm = solrst.Segment(i);
+        const IntPatch_TheSegmentOfTheSOnBounds& aSegm = solrst.Segment1(i);
         edg1.Append(aSegm);
       }
       nosolonS1 = (nbpt == 0) && (nbseg == 0);
@@ -2822,7 +2822,7 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
 
       for (i = 1; i <= nbseg; i++)
       {
-        const IntPatch_TheSegmentOfTheSOnBounds& aSegm = solrst.Segment(i);
+        const IntPatch_TheSegmentOfTheSOnBounds& aSegm = solrst.Segment1(i);
         edg2.Append(aSegm);
       }
 
@@ -5917,7 +5917,7 @@ void WorkWithBoundaries::AddBoundaryPoint(const Handle(IntPatch_WLine)& theWL,
         continue;
       }
 
-      // Segment [aVf, aVl] intersects at least one V-boundary (first or last)
+      // Segment1 [aVf, aVl] intersects at least one V-boundary (first or last)
       //  (in general, case is possible, when aVf > aVl).
 
       // Precise intersection point

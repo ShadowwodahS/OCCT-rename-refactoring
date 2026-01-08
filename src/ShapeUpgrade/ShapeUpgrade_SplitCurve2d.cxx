@@ -95,7 +95,7 @@ void ShapeUpgrade_SplitCurve2d::Init(const Handle(GeomCurve2d)& C,
 
 //=================================================================================================
 
-void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment)
+void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment1)
 {
   //  if (ShapeUpgrade::Debug()) std::cout<<"ShapeUpgrade_SplitCurve2d::Build"<<std::endl;
   Standard_Real First = mySplitValues->Value(1);
@@ -110,7 +110,7 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment)
     ShapeUpgrade_SplitCurve2d   spc;
     spc.Init(BasCurve, First, Last);
     spc.SetSplitValues(mySplitValues);
-    spc.Build(Segment);
+    spc.Build(Segment1);
     myNbCurves = spc.GetCurves()->Length();
 
     myResultingCurves = new TColGeom2d_HArray1OfCurve(1, myNbCurves);
@@ -133,7 +133,7 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment)
     ShapeUpgrade_SplitCurve2d  spc;
     spc.Init(BasCurve, First, Last);
     spc.SetSplitValues(mySplitValues);
-    spc.Build(Segment);
+    spc.Build(Segment1);
     myNbCurves        = spc.GetCurves()->Length();
     myResultingCurves = new TColGeom2d_HArray1OfCurve(1, myNbCurves);
     for (Standard_Integer i = 1; i <= myNbCurves; i++)
@@ -155,7 +155,7 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment)
         && Abs(myCurve->LastParameter() - Last) < Precision::PConfusion())
       myResultingCurves->SetValue(1, myCurve);
 
-    else if (!Segment
+    else if (!Segment1
              || (!myCurve->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve))
                  && !myCurve->IsKind(STANDARD_TYPE(Geom2d_BezierCurve)))
              || !Status(ShapeExtend_DONE2))
@@ -168,14 +168,14 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment)
         {
           OCC_CATCH_SIGNALS
           if (myCurve->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)))
-            Handle(Geom2d_BSplineCurve)::DownCast(theNewCurve)->Segment(First, Last);
+            Handle(Geom2d_BSplineCurve)::DownCast(theNewCurve)->Segment1(First, Last);
           else if (myCurve->IsKind(STANDARD_TYPE(Geom2d_BezierCurve)))
-            Handle(Geom2d_BezierCurve)::DownCast(theNewCurve)->Segment(First, Last);
+            Handle(Geom2d_BezierCurve)::DownCast(theNewCurve)->Segment1(First, Last);
         }
         catch (ExceptionBase const& anException)
         {
 #ifdef OCCT_DEBUG
-          std::cout << "Warning: ShapeUpgrade_Split2dCurve::Build(): Exception in Segment      :";
+          std::cout << "Warning: ShapeUpgrade_Split2dCurve::Build(): Exception in Segment1      :";
           anException.Print(std::cout);
           std::cout << std::endl;
 #endif
@@ -223,7 +223,7 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment)
     // skl : in the next block I change "First","Last" to "Firstt","Lastt"
     Standard_Real        Firstt = mySplitValues->Value(i), Lastt = mySplitValues->Value(i + 1);
     Handle(GeomCurve2d) theNewCurve;
-    if (Segment)
+    if (Segment1)
     {
       // creates a copy of myCurve before to segment:
       if (myCurve->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve))
@@ -234,15 +234,15 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment)
         {
           OCC_CATCH_SIGNALS
           if (myCurve->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)))
-            Handle(Geom2d_BSplineCurve)::DownCast(theNewCurve)->Segment(Firstt, Lastt);
+            Handle(Geom2d_BSplineCurve)::DownCast(theNewCurve)->Segment1(Firstt, Lastt);
           else if (myCurve->IsKind(STANDARD_TYPE(Geom2d_BezierCurve)))
-            Handle(Geom2d_BezierCurve)::DownCast(theNewCurve)->Segment(Firstt, Lastt);
+            Handle(Geom2d_BezierCurve)::DownCast(theNewCurve)->Segment1(Firstt, Lastt);
           myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
         }
         catch (ExceptionBase const& anException)
         {
 #ifdef OCCT_DEBUG
-          std::cout << "Warning: ShapeUpgrade_Split2dCurve::Build(): Exception in Segment      :";
+          std::cout << "Warning: ShapeUpgrade_Split2dCurve::Build(): Exception in Segment1      :";
           anException.Print(std::cout);
           std::cout << std::endl;
 #endif

@@ -47,7 +47,7 @@ public:
   //! - width       : ArrowHead width
   //! - depth       : Z Depth
   //! - position    : ArrowHead coordinates
-  //! - segments    : Segment tail coordinate pairs
+  //! - segments    : Segment1 tail coordinate pairs
   Standard_EXPORT void Init(const Standard_Real               height,
                             const Standard_Real               width,
                             const Standard_Real               depth,

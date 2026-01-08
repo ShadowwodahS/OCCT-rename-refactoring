@@ -86,7 +86,7 @@
 static Standard_Boolean Choose(const Draft_IndexedDataMapOfFaceFaceInfo&,
                                Draft_IndexedDataMapOfEdgeEdgeInfo&,
                                const TopoVertex&,
-                               Draft_VertexInfo&,
+                               VertexInfo&,
                                GeomAdaptor_Curve&,
                                GeomAdaptor_Surface&);
 
@@ -453,7 +453,7 @@ Standard_Boolean Draft_Modification::Propagate()
         V = TopoDS::Vertex(vtiter.Current());
         if (!myVMap.Contains(V))
         {
-          Draft_VertexInfo VInf;
+          VertexInfo VInf;
           myVMap.Add(V, VInf);
         }
 
@@ -598,7 +598,7 @@ Standard_Boolean Draft_Modification::Propagate()
       { // on the plane
         for (Standard_Integer j = 1; j <= myVMap.Extent(); j++)
         {
-          Draft_VertexInfo& Vinf = myVMap.ChangeFromIndex(j);
+          VertexInfo& Vinf = myVMap.ChangeFromIndex(j);
           for (Vinf.InitEdgeIterator(); Vinf.MoreEdge(); Vinf.NextEdge())
           {
             if (Vinf.Edge().IsSame(EK))
@@ -1412,7 +1412,7 @@ void Draft_Modification::Perform()
       GeomAdaptor_Surface& AS = *HAS;
 
       const TopoVertex& TVV  = myVMap.FindKey(ii);
-      Draft_VertexInfo&    Vinf = myVMap.ChangeFromIndex(ii);
+      VertexInfo&    Vinf = myVMap.ChangeFromIndex(ii);
       if (!Choose(myFMap, myEMap, TVV, Vinf, AC, AS))
       {
 
@@ -1986,7 +1986,7 @@ Handle(GeomCurve3d) Draft_Modification::NewCurve(const Handle(GeomCurve3d)&   C,
 static Standard_Boolean Choose(const Draft_IndexedDataMapOfFaceFaceInfo& theFMap,
                                Draft_IndexedDataMapOfEdgeEdgeInfo&       theEMap,
                                const TopoVertex&                      Vtx,
-                               Draft_VertexInfo&                         Vinf,
+                               VertexInfo&                         Vinf,
                                GeomAdaptor_Curve&                        AC,
                                GeomAdaptor_Surface&                      AS)
 {

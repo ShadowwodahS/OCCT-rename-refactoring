@@ -1121,7 +1121,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
       }
       //
       C1.Load(pcu);
-      // To avoid exception in Segment if C1 is BSpline - IFV
+      // To avoid exception in Segment1 if C1 is BSpline - IFV
       if (!C1.IsPeriodic())
       {
         if (C1.FirstParameter() > first1)
@@ -1226,7 +1226,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
         if (!tabCur(j).IsNull() && last2 > first2)
         {
           C2.Load(tabCur(j));
-          // To avoid exception in Segment if C2 is BSpline - IFV
+          // To avoid exception in Segment1 if C2 is BSpline - IFV
           if (!C2.IsPeriodic())
           {
             if (C2.FirstParameter() > first2)
@@ -1558,7 +1558,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
         //// **** Segments of intersection **** ////
         for (Standard_Integer s = 1; s <= nbs; ++s)
         {
-          const IntRes2d_IntersectionSegment& Seg = Inter.Segment(s);
+          const IntRes2d_IntersectionSegment& Seg = Inter.Segment1(s);
           if (Seg.HasFirstPoint() && Seg.HasLastPoint())
           {
             Standard_Boolean           localok;

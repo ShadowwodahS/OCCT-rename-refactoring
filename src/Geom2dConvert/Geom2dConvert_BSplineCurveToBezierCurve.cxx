@@ -35,7 +35,7 @@ Geom2dConvert_BSplineCurveToBezierCurve::Geom2dConvert_BSplineCurveToBezierCurve
     myCurve->SetNotPeriodic();
   Standard_Real Uf = myCurve->FirstParameter();
   Standard_Real Ul = myCurve->LastParameter();
-  myCurve->Segment(Uf, Ul);
+  myCurve->Segment1(Uf, Ul);
   myCurve->IncreaseMultiplicity(myCurve->FirstUKnotIndex(),
                                 myCurve->LastUKnotIndex(),
                                 myCurve->Degree());
@@ -74,7 +74,7 @@ Geom2dConvert_BSplineCurveToBezierCurve::Geom2dConvert_BSplineCurveToBezierCurve
       Ul = myCurve->Knot(I1);
   }
 
-  myCurve->Segment(Uf, Ul);
+  myCurve->Segment1(Uf, Ul);
   myCurve->IncreaseMultiplicity(myCurve->FirstUKnotIndex(),
                                 myCurve->LastUKnotIndex(),
                                 myCurve->Degree());

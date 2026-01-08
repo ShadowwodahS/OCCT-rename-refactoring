@@ -83,7 +83,7 @@ public:
   //! @param isForceAdd adds the given node to structure without
   //! checking on coincidence with other nodes.
   //! @return index of the node in the structure.
-  Standard_EXPORT Standard_Integer Add(const BRepMesh_Vertex& theVertex,
+  Standard_EXPORT Standard_Integer Add(const Vertex& theVertex,
                                        const Standard_Boolean isForceAdd);
 
   //! Deletes vertex with the given index from the tool.
@@ -96,13 +96,13 @@ public:
   Handle(IMeshData::VectorOfVertex)& ChangeVertices() { return mySelector.ChangeVertices(); }
 
   //! Returns vertex by the given index.
-  const BRepMesh_Vertex& FindKey(const Standard_Integer theIndex)
+  const Vertex& FindKey(const Standard_Integer theIndex)
   {
     return mySelector.GetVertex(theIndex);
   }
 
   //! Returns index of the given vertex.
-  Standard_Integer FindIndex(const BRepMesh_Vertex& theVertex)
+  Standard_Integer FindIndex(const Vertex& theVertex)
   {
     mySelector.SetPoint(theVertex.Coord());
     myCellFilter.Inspect(theVertex.Coord(), mySelector);
@@ -119,7 +119,7 @@ public:
   //! @param theIndex index of vertex to be substituted.
   //! @param theVertex replacement vertex.
   Standard_EXPORT void Substitute(const Standard_Integer theIndex,
-                                  const BRepMesh_Vertex& theVertex);
+                                  const Vertex& theVertex);
 
   //! Remove last node from the structure.
   void RemoveLast() { DeleteVertex(Extent()); }

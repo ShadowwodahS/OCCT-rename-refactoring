@@ -221,7 +221,7 @@ void ShapeUpgrade_SplitSurface::SetVSplitValues(const Handle(TColStd_HSequenceOf
 
 //=================================================================================================
 
-void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment)
+void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment1)
 {
 
   Standard_Real UFirst = myUSplitValues->Value(1);
@@ -242,7 +242,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment)
     ShapeUpgrade_SplitCurve3d spc;
     spc.Init(BasCurve, VFirst, VLast);
     spc.SetSplitValues(myVSplitValues);
-    spc.Build(Segment);
+    spc.Build(Segment1);
     Handle(TColGeom_HArray2OfSurface) Surfaces;
     myNbResultingCol = spc.GetCurves()->Length();
     if (myUSplitValues->Length() > 2)
@@ -310,7 +310,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment)
     ShapeUpgrade_SplitCurve3d spc;
     spc.Init(BasCurve, UFirst, ULast);
     spc.SetSplitValues(myUSplitValues);
-    spc.Build(Segment);
+    spc.Build(Segment1);
     myNbResultingRow = spc.GetCurves()->Length();
     Handle(TColGeom_HArray2OfSurface) Surfaces;
     if (myVSplitValues->Length() > 2)
@@ -380,7 +380,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment)
     sps.SetUSplitValues(myUSplitValues);
     sps.SetVSplitValues(myVSplitValues);
     sps.myStatus = myStatus;
-    sps.Build(Segment);
+    sps.Build(Segment1);
     myStatus |= sps.myStatus;
     myResSurfaces = sps.myResSurfaces;
     return;
@@ -394,7 +394,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment)
     sps.SetUSplitValues(myUSplitValues);
     sps.SetVSplitValues(myVSplitValues);
     sps.myStatus = myStatus;
-    sps.Build(Segment);
+    sps.Build(Segment1);
     Handle(TColGeom_HArray2OfSurface) Patches =
       new TColGeom_HArray2OfSurface(1,
                                     sps.ResSurfaces()->NbUPatches(),
@@ -437,7 +437,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment)
     if (Abs(U1 - UFirst) < Precision::PConfusion() && Abs(U2 - ULast) < Precision::PConfusion()
         && Abs(V1 - VFirst) < Precision::PConfusion() && Abs(V2 - VLast) < Precision::PConfusion())
       Surfaces->SetValue(1, 1, mySurface);
-    else if (!Segment || !mySurface->IsKind(STANDARD_TYPE(Geom_BSplineSurface))
+    else if (!Segment1 || !mySurface->IsKind(STANDARD_TYPE(Geom_BSplineSurface))
              || !Status(ShapeExtend_DONE2))
     {
       // pdn copying of surface
@@ -513,7 +513,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment)
         {
           OCC_CATCH_SIGNALS
           if (isBSpline)
-            Handle(Geom_BSplineSurface)::DownCast(theNew)->Segment(U1, U2, V1, V2);
+            Handle(Geom_BSplineSurface)::DownCast(theNew)->Segment1(U1, U2, V1, V2);
           else if (isBezier)
           {
             // pdn K4L+ (work around)
@@ -526,14 +526,14 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment)
             Standard_Real u2 = U2;
             Standard_Real v1 = V1;
             Standard_Real v2 = V2;
-            Handle(Geom_BezierSurface)::DownCast(theNew)->Segment(u1, u2, v1, v2);
+            Handle(Geom_BezierSurface)::DownCast(theNew)->Segment1(u1, u2, v1, v2);
           }
           myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
         }
         catch (ExceptionBase const& anException)
         {
 #ifdef OCCT_DEBUG
-          std::cout << "Warning: ShapeUpgrade_SplitSurface::Build(): Exception in Segment      :";
+          std::cout << "Warning: ShapeUpgrade_SplitSurface::Build(): Exception in Segment1      :";
           anException.Print(std::cout);
           std::cout << std::endl;
 #endif
@@ -586,17 +586,17 @@ const Handle(TColStd_HSequenceOfReal)& ShapeUpgrade_SplitSurface::VSplitValues()
 
 //=================================================================================================
 
-void ShapeUpgrade_SplitSurface::Perform(const Standard_Boolean Segment)
+void ShapeUpgrade_SplitSurface::Perform(const Standard_Boolean Segment1)
 {
-  Compute(Segment);
+  Compute(Segment1);
   //  SetUSplitValues(myUSplitValues);
   //  SetVSplitValues(myVSplitValues);
-  Build(Segment);
+  Build(Segment1);
 }
 
 //=================================================================================================
 
-void ShapeUpgrade_SplitSurface::Compute(const Standard_Boolean /*Segment*/)
+void ShapeUpgrade_SplitSurface::Compute(const Standard_Boolean /*Segment1*/)
 {
   myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
 }

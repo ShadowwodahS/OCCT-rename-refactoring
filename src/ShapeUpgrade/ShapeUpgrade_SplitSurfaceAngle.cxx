@@ -52,7 +52,7 @@ double ShapeUpgrade_SplitSurfaceAngle::MaxAngle() const
 
 //=================================================================================================
 
-void ShapeUpgrade_SplitSurfaceAngle::Compute(const Standard_Boolean /*Segment*/)
+void ShapeUpgrade_SplitSurfaceAngle::Compute(const Standard_Boolean /*Segment1*/)
 {
   Handle(GeomSurface) S;
   Standard_Real        U1 = 0., U2 = 0.;

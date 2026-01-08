@@ -917,19 +917,19 @@ Standard_Real MAT2d_Tool2d::IntersectBisector(const Handle(MAT_Bisector)& Bisect
     Standard_Real MaxSegmentLength = 10. * Tolerance;
     for (Standard_Integer i = 1; i <= Intersect.NbSegments(); i++)
     {
-      IntRes2d_IntersectionSegment Segment     = Intersect.Segment(i);
+      IntRes2d_IntersectionSegment Segment1     = Intersect.Segment1(i);
       Standard_Boolean             PointRetenu = Standard_False;
       gp_Pnt2d                     PointOnSegment;
       // ----------------------------------------------------------------
       // Si les segments sont petits, recherche des points sur le segment
       // equidistants des edges.
       // ----------------------------------------------------------------
-      if ((Segment.HasFirstPoint() && Segment.HasLastPoint()))
+      if ((Segment1.HasFirstPoint() && Segment1.HasLastPoint()))
       {
         gp_Pnt2d      P1, P2;
         Standard_Real SegmentLength;
-        P1            = Segment.FirstPoint().Value();
-        P2            = Segment.LastPoint().Value();
+        P1            = Segment1.FirstPoint().Value();
+        P2            = Segment1.LastPoint().Value();
         SegmentLength = P1.Distance(P2);
         if (SegmentLength <= Tolerance)
         {

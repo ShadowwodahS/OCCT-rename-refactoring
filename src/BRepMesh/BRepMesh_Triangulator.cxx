@@ -203,7 +203,7 @@ Standard_Boolean BRepMesh_Triangulator::prepareMeshStructure()
       for (Standard_Integer nn = 1; nn <= aW.Length(); ++nn, ++aNumNode)
       {
         const gp_Pnt2d         aP2d = ProjLib1::Project(myPlane, Point3d(myXYZs(aW(nn))));
-        const BRepMesh_Vertex  aVertex(aP2d.XY(), aNumNode, BRepMesh_Frontier);
+        const Vertex  aVertex(aP2d.XY(), aNumNode, BRepMesh_Frontier);
         const Standard_Integer nnn = myMeshStructure->AddNode(aVertex);
         myIndices->SetValue(aNumNode, nnn);
         myTmpMap.Bind(aNumNode + 1, aW(nn) + 1);
@@ -249,7 +249,7 @@ Standard_Boolean BRepMesh_Triangulator::triangulate(
     for (IMeshData::IteratorOfMapOfInteger aTriIter(aTriangles); aTriIter.More(); aTriIter.Next())
     {
       const Standard_Integer   aTriangleId = aTriIter.Key();
-      const BRepMesh_Triangle& aTriangle   = myMeshStructure->GetElement(aTriangleId);
+      const Triangle3& aTriangle   = myMeshStructure->GetElement(aTriangleId);
       if (aTriangle.Movability() == BRepMesh_Deleted)
       {
         continue;

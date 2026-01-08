@@ -177,7 +177,7 @@ void MeshVS_VectorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
       || !aDrawer->GetDouble(MeshVS_DA_VectorArrowPart, anArrowPart) || anArrowPart <= 0)
     return;
 
-  MeshVS_Buffer        aCoordsBuf(3 * aMaxFaceNodes * sizeof(Standard_Real));
+  Buffer        aCoordsBuf(3 * aMaxFaceNodes * sizeof(Standard_Real));
   TColStd_Array1OfReal aCoords(aCoordsBuf, 1, 3 * aMaxFaceNodes);
   Standard_Integer     NbNodes;
   MeshVS_EntityType    aType;

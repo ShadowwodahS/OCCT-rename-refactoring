@@ -92,9 +92,9 @@ public:
   //! 102 : Logical part connector
   //! 103 : Logical offpage connector
   //! 104 : Logical global signal connector
-  //! 201 : Physical PWA surface mount pin
-  //! 202 : Physical PWA blind pin
-  //! 203 : Physical PWA thru-pin
+  //! 201 : Physical1 PWA surface mount pin
+  //! 202 : Physical1 PWA blind pin
+  //! 203 : Physical1 PWA thru-pin
   //! 5001-9999 : Implementor defined.
   Standard_EXPORT Standard_Integer TypeFlag() const;
 

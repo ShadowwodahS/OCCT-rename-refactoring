@@ -141,7 +141,7 @@ private:
   };
 
   //! Parameters for baking IBL.
-  struct BakingParams
+  struct BakingParams1
   {
     Standard_Size      NbSpecSamples;
     Standard_Size      NbDiffSamples;
@@ -150,7 +150,7 @@ private:
     Standard_Boolean   IsZInverted;
     Standard_Boolean   IsTopDown;
 
-    BakingParams()
+    BakingParams1()
         : NbSpecSamples(0),
           NbDiffSamples(0),
           EnvMapSize(1024),
@@ -179,12 +179,12 @@ private:
   //! Responses for diffuse (irradiance) IBL map processing.
   //! @return false in case of failed baking or clearing
   //! Warning! Requires using of OpenGl_PBREnvironmentSentry.
-  bool processDiffIBLMap(const Handle(OpenGl_Context)& theCtx, const BakingParams* theDrawParams);
+  bool processDiffIBLMap(const Handle(OpenGl_Context)& theCtx, const BakingParams1* theDrawParams);
 
   //! Responses for specular IBL map processing.
   //! @return false in case of failed baking or clearing
   //! Warning! Requires using of OpenGl_PBREnvironmentSentry.
-  bool processSpecIBLMap(const Handle(OpenGl_Context)& theCtx, const BakingParams* theDrawParams);
+  bool processSpecIBLMap(const Handle(OpenGl_Context)& theCtx, const BakingParams1* theDrawParams);
 
   //! Checks completeness of frame buffer object for all targets
   //! (all cube map sides and levels of IBL maps).

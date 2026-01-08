@@ -123,7 +123,7 @@ void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
   if (!aDrawer->GetInteger(MeshVS_DA_MaxFaceNodes, aMaxFaceNodes) || aMaxFaceNodes <= 0)
     return;
 
-  MeshVS_Buffer        aCoordsBuf(3 * aMaxFaceNodes * sizeof(Standard_Real));
+  Buffer        aCoordsBuf(3 * aMaxFaceNodes * sizeof(Standard_Real));
   TColStd_Array1OfReal aCoords(aCoordsBuf, 1, 3 * aMaxFaceNodes);
   Standard_Integer     NbNodes;
   MeshVS_EntityType    aType;
@@ -555,7 +555,7 @@ void MeshVS_NodalColorPrsBuilder::AddVolumePrs(
       {
         aPolyNodes.SetValue(0, aFaceNodes.Length());
 
-        if (!MeshVS_Tool::GetAverageNormal(aPolyNodes, aNorm))
+        if (!Tool4::GetAverageNormal(aPolyNodes, aNorm))
         {
           aNorm.SetCoord(0.0, 0.0, 1.0);
         }
@@ -608,7 +608,7 @@ void MeshVS_NodalColorPrsBuilder::AddVolumePrs(
   else
   {
     // Find all pairs of nodes (edges) to draw (will be drawn only once)
-    NCollection_Map<MeshVS_NodePair, MeshVS_SymmetricPairHasher> aEdgeMap;
+    NCollection_Map<MeshVS_NodePair, SymmetricPairHasher> aEdgeMap;
 
     for (Standard_Integer aFaceIdx = theTopo->Lower(), topoup = theTopo->Upper();
          aFaceIdx <= topoup;
@@ -627,7 +627,7 @@ void MeshVS_NodalColorPrsBuilder::AddVolumePrs(
     }
 
     // Draw1 edges
-    for (NCollection_Map<MeshVS_NodePair, MeshVS_SymmetricPairHasher>::Iterator anIt(aEdgeMap);
+    for (NCollection_Map<MeshVS_NodePair, SymmetricPairHasher>::Iterator anIt(aEdgeMap);
          anIt.More();
          anIt.Next())
     {

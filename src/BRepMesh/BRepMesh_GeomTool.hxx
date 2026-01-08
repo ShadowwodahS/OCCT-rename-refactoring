@@ -22,7 +22,7 @@
 
 class BRepAdaptor_Curve;
 class gp_Pnt2d;
-class BRepMesh_DefaultRangeSplitter;
+class DefaultRangeSplitter;
 
 //! Tool class accumulating common geometrical functions as well as
 //! functionality using shape geometry to produce data necessary for
@@ -207,7 +207,7 @@ public: //! @name static API
     const Handle(Adaptor3d_Surface)&     theSurface,
     const Standard_Integer               theVerticesNb,
     const Standard_Real                  theDeflection,
-    const BRepMesh_DefaultRangeSplitter* theRangeSplitter);
+    const DefaultRangeSplitter* theRangeSplitter);
 
 private:
   //! Classifies the point in case of coincidence of two vectors.

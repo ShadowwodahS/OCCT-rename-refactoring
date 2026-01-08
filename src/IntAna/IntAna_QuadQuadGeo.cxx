@@ -223,7 +223,7 @@ void AxeOperator::Distance(Standard_Real& dist, Standard_Real& Param1, Standard_
       Det33(O1O2.X(), U2.X(), N.X(), O1O2.Y(), U2.Y(), N.Y(), O1O2.Z(), U2.Z(), N.Z()) / (-D);
     //------------------------------------------------------------
     //-- On resout P1 * Dir1 + P2 * Dir2 + d * N = O1O2
-    //-- soit : Segment perpendiculaire : O1+P1 D1
+    //-- soit : Segment1 perpendiculaire : O1+P1 D1
     //--                                  O2-P2 D2
     Param2 = Det33(U1.X(), O1O2.X(), N.X(), U1.Y(), O1O2.Y(), N.Y(), U1.Z(), O1O2.Z(), N.Z()) / (D);
   }

@@ -2681,7 +2681,7 @@ static Standard_Integer OCC27884(DrawInterpreter& theDI,
         if (aType == STANDARD_TYPE(BSplineCurve3d))
         {
           Handle(BSplineCurve3d) aCurCopy = Handle(BSplineCurve3d)::DownCast(aCur->Copy());
-          aCurCopy->Segment(aL - aSig, aL);
+          aCurCopy->Segment1(aL - aSig, aL);
           anE = EdgeMaker(aCurCopy);
         }
         else
@@ -2704,7 +2704,7 @@ static Standard_Integer OCC27884(DrawInterpreter& theDI,
         if (aType == STANDARD_TYPE(BSplineCurve3d))
         {
           Handle(BSplineCurve3d) aCurCopy = Handle(BSplineCurve3d)::DownCast(aCur->Copy());
-          aCurCopy->Segment(aL - aSig, aL);
+          aCurCopy->Segment1(aL - aSig, aL);
           anE = EdgeMaker(aCurCopy);
         }
         else
@@ -3701,7 +3701,7 @@ static Standard_Integer OCC30391(DrawInterpreter& theDI,
   Standard_Real aLenAfterVlast   = atof(theArgV[6]);
 
   TopoFace Result;
-  BRepOffset_Tool::EnLargeFace(aFace,
+  Tool5::EnLargeFace(aFace,
                                Result,
                                Standard_True,
                                Standard_True,

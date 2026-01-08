@@ -37,7 +37,7 @@ class TopoShell;
 //! BRepOffsetAPI_MakeOffsetShape. A shell is made of a series of
 //! faces connected by their common edges.
 //! If the underlying surface of a face is not C2 continuous and
-//! the flag Segment is True, MakeShell breaks the surface down into
+//! the flag Segment1 is True, MakeShell breaks the surface down into
 //! several faces which are all C2 continuous and which are
 //! connected along the non-regular curves on the surface.
 //! The resulting shell contains all these faces.
@@ -65,7 +65,7 @@ public:
 
   //! Constructs a shell from the surface S.
   Standard_EXPORT BRepBuilderAPI_MakeShell(const Handle(GeomSurface)& S,
-                                           const Standard_Boolean      Segment = Standard_False);
+                                           const Standard_Boolean      Segment1 = Standard_False);
 
   //! Constructs a shell from the surface S,
   //! limited in the u parametric direction by the two
@@ -76,7 +76,7 @@ public:
                                            const Standard_Real         UMax,
                                            const Standard_Real         VMin,
                                            const Standard_Real         VMax,
-                                           const Standard_Boolean      Segment = Standard_False);
+                                           const Standard_Boolean      Segment1 = Standard_False);
 
   //! Defines or redefines the arguments
   //! for the construction of a shell. The construction is initialized
@@ -93,7 +93,7 @@ public:
                             const Standard_Real         UMax,
                             const Standard_Real         VMin,
                             const Standard_Real         VMax,
-                            const Standard_Boolean      Segment = Standard_False);
+                            const Standard_Boolean      Segment1 = Standard_False);
 
   //! Returns true if the shell is built.
   Standard_EXPORT virtual Standard_Boolean IsDone() const Standard_OVERRIDE;
