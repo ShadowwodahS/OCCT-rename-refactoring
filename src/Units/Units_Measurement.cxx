@@ -75,7 +75,7 @@ void Units_Measurement::Convert(const Standard_CString aunit)
   Handle(Units_Token)      token      = oldtoken / newtoken;
   Handle(Units_Dimensions) dimensions = token->Dimensions();
 
-  if (dimensions->IsEqual(Units::NullDimensions()))
+  if (dimensions->IsEqual(Units2::NullDimensions()))
   {
     thetoken = new Units_Token(aunit, "U");
     thetoken->Value(((newunit.Sequence())->Value(1))->Value());

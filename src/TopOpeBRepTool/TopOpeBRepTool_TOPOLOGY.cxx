@@ -348,7 +348,7 @@ Standard_EXPORT TopAbs_State FUN_tool_staPinE(const Point3d&       P,
 // ----------------------------------------------------------------------
 Standard_EXPORT TopAbs_State FUN_tool_staPinE(const Point3d& P, const TopoEdge& E)
 {
-  //  Standard_Real tol = Precision::Confusion()*10.;
+  //  Standard_Real tol = Precision1::Confusion()*10.;
   Standard_Real tol3d = BRepInspector::Tolerance(E) * 1.e2; // KKKKK a revoir xpu(CTS21118,f14ou,GI13)
   TopAbs_State  sta   = FUN_tool_staPinE(P, E, tol3d);
   return sta;
@@ -604,7 +604,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_EitangenttoFe(const Dir3d&       ngFe,
     return Standard_False; // NYIRAISE
 
   Standard_Real    prod    = ngFe.Dot(tgEi);
-  Standard_Real    tol     = Precision::Parametric(Precision::Confusion());
+  Standard_Real    tol     = Precision1::Parametric(Precision1::Confusion());
   Standard_Boolean tangent = (Abs(prod) <= tol);
   return tangent;
 }
@@ -826,7 +826,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_parVonE(const TopoVertex& v,
                                                   const TopoEdge&   E,
                                                   Standard_Real&       par)
 {
-  Standard_Real    tol    = Precision::Confusion();
+  Standard_Real    tol    = Precision1::Confusion();
   Standard_Boolean isVofE = Standard_False;
   ShapeExplorer  ex;
   for (ex.Init(E, TopAbs_VERTEX); ex.More(); ex.Next())
@@ -1145,7 +1145,7 @@ Standard_EXPORT Standard_Integer FUN_tool_comparebndkole(const TopoShape& sh1,
   TColStd_Array1OfReal xyz1(1, 6), xyz2(1, 6);
   bnd1.Get(xyz1(1), xyz1(2), xyz1(3), xyz1(4), xyz1(5), xyz1(6));
   bnd2.Get(xyz2(1), xyz2(2), xyz2(3), xyz2(4), xyz2(5), xyz2(6));
-  Standard_Real tol = Precision::Confusion();
+  Standard_Real tol = Precision1::Confusion();
 
   Standard_Integer neq, n2sup;
   neq = n2sup = 0;
@@ -1340,7 +1340,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_curvesSO(const TopoEdge&  E1,
   ok = TOOL1::TggeomE(p2, E2, tg2);
   if (!ok)
     return Standard_False; // NYIRAISE
-  Standard_Real    tola = Precision::Angular() * 1.e3;
+  Standard_Real    tola = Precision1::Angular() * 1.e3;
   Standard_Boolean oppo = tg1.IsOpposite(tg2, tola);
   Standard_Boolean samo = tg1.IsParallel(tg2, tola);
   if (oppo)

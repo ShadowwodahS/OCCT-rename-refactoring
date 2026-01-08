@@ -87,7 +87,7 @@ Standard_Boolean BRepMesh_EdgeDiscret::performInternal(const Handle(IMeshData_Mo
     return Standard_False;
   }
 
-  OSD_Parallel::For(0, myModel->EdgesNb(), *this, !myParameters.InParallel);
+  Parallel1::For(0, myModel->EdgesNb(), *this, !myParameters.InParallel);
 
   myModel.Nullify(); // Do not hold link to model.
   return Standard_True;

@@ -110,9 +110,9 @@ void StepGeom_GeometricRepresentationContextAndGlobalUnitAssignedContext::SetUni
 }
 
 Handle(StepBasic_HArray1OfNamedUnit)
-  StepGeom_GeometricRepresentationContextAndGlobalUnitAssignedContext::Units() const
+  StepGeom_GeometricRepresentationContextAndGlobalUnitAssignedContext::Units2() const
 {
-  return globalUnitAssignedContext->Units();
+  return globalUnitAssignedContext->Units2();
 }
 
 Handle(StepBasic_NamedUnit) StepGeom_GeometricRepresentationContextAndGlobalUnitAssignedContext::

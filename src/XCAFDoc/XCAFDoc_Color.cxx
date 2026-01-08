@@ -40,7 +40,7 @@ const Standard_GUID& XCAFDoc_Color::GetID()
 
 //=================================================================================================
 
-Handle(XCAFDoc_Color) XCAFDoc_Color::Set(const DataLabel& L, const Quantity_Color& C)
+Handle(XCAFDoc_Color) XCAFDoc_Color::Set(const DataLabel& L, const Color1& C)
 {
   Handle(XCAFDoc_Color) A;
   if (!L.FindAttribute(XCAFDoc_Color::GetID(), A))
@@ -100,7 +100,7 @@ Handle(XCAFDoc_Color) XCAFDoc_Color::Set(const DataLabel&    L,
 
 //=================================================================================================
 
-void XCAFDoc_Color::Set(const Quantity_Color& C)
+void XCAFDoc_Color::Set(const Color1& C)
 {
   Backup();
   myColor.SetRGB(C);
@@ -130,7 +130,7 @@ void XCAFDoc_Color::Set(const Standard_Real R,
                         const Standard_Real alpha)
 {
   Backup();
-  Quantity_Color aColor;
+  Color1 aColor;
   aColor.SetValues(R, G, B, Quantity_TOC_RGB);
   myColor.SetRGB(aColor);
   myColor.SetAlpha((Standard_ShortReal)alpha);
@@ -138,7 +138,7 @@ void XCAFDoc_Color::Set(const Standard_Real R,
 
 //=================================================================================================
 
-const Quantity_Color& XCAFDoc_Color::GetColor() const
+const Color1& XCAFDoc_Color::GetColor() const
 {
   return myColor.GetRGB();
 }

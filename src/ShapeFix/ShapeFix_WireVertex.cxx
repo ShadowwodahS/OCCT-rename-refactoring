@@ -115,9 +115,9 @@ Standard_Integer ShapeFix_WireVertex::FixSame()
       Handle(GeomCurve3d) crv;
       Standard_Real      cf, cl;
       sae.Curve3d(sbwd->Edge(i), crv, cf, cl);
-      B.UpdateVertex(V1, cl, E1, myAnalyzer.Precision());
+      B.UpdateVertex(V1, cl, E1, myAnalyzer.Precision1());
       sae.Curve3d(sbwd->Edge(j), crv, cf, cl);
-      B.UpdateVertex(V1, cf, E2, myAnalyzer.Precision());
+      B.UpdateVertex(V1, cf, E2, myAnalyzer.Precision1());
     }
     // Et remettre ce vtx en commun
     V1.Orientation(E2.Orientation());
@@ -228,7 +228,7 @@ Standard_Integer ShapeFix_WireVertex::Fix()
     B.Remove(E1, VB);
   }
 
-  Standard_Real Prec = myAnalyzer.Precision();
+  Standard_Real Prec = myAnalyzer.Precision1();
   for (i = 1; i <= nb; i++)
   {
     //    On y va pour de bon

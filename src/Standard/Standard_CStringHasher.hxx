@@ -20,7 +20,7 @@
 
 #include <functional>
 
-class Standard_CStringHasher
+class CStringHasher
 {
 public:
   size_t operator()(const Standard_CString& theString) const noexcept

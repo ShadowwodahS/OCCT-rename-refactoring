@@ -20,7 +20,7 @@
 #include <TColStd_PackedMapOfInteger.hxx>
 
 //! Set of overlapped sub-shapes.
-typedef NCollection_DataMap<Standard_Integer, TColStd_PackedMapOfInteger>
+typedef NCollection_DataMap<Standard_Integer, PackedIntegerMap>
   BRepExtrema_MapOfIntegerPackedMapOfInteger;
 
 #endif // _BRepExtrema_MapOfIntegerPackedMapOfInteger_HeaderFile

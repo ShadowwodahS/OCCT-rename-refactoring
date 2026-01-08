@@ -733,8 +733,8 @@ TopAbs_State AlgoTools::ComputeState(const TopoEdge&              theE,
     Standard_Boolean bF2Inf, bL2Inf;
     Standard_Real    dT = 10.;
     //
-    bF2Inf = Precision::IsNegativeInfinite(aT1);
-    bL2Inf = Precision::IsPositiveInfinite(aT2);
+    bF2Inf = Precision1::IsNegativeInfinite(aT1);
+    bL2Inf = Precision1::IsPositiveInfinite(aT2);
     //
     if (bF2Inf && !bL2Inf)
     {
@@ -1007,7 +1007,7 @@ Standard_Boolean AlgoTools::GetFaceOff(const TopoEdge&              theE1,
   //
   // The difference between faces should be obvious enough
   // to guarantee the correctness of the classification
-  constexpr Standard_Real anAngleCriteria = Precision::Confusion();
+  constexpr Standard_Real anAngleCriteria = Precision1::Confusion();
 
   bRet = Standard_True;
   aIt.Initialize(theLCSOff);
@@ -1030,7 +1030,7 @@ Standard_Boolean AlgoTools::GetFaceOff(const TopoEdge&              theE1,
     // Angle
     aAngle = AngleWithRef(aDBF, aDBF2, aDTF);
     //
-    if (Abs(aAngle) < Precision::Angular())
+    if (Abs(aAngle) < Precision1::Angular())
     {
       if (aF2 == theF1)
       {
@@ -1150,7 +1150,7 @@ Standard_Boolean AlgoTools::AreFacesSameDomain(const TopoFace&              theF
   }
 
   // Checking criteria
-  Standard_Real aTol = aTolF1 + aTolF2 + Max(theFuzz, Precision::Confusion());
+  Standard_Real aTol = aTolF1 + aTolF2 + Max(theFuzz, Precision1::Confusion());
 
   // Project and classify the point on second face
   bFacesSD = theContext->IsValidPointForFace(aP1, theF2, aTol);
@@ -1690,7 +1690,7 @@ Standard_Integer AlgoTools::ComputeVV(const TopoVertex& aV1,
   //
   aTolV1 = BRepInspector::Tolerance(aV1);
 
-  aTolSum  = aTolV1 + aTolP2 + Precision::Confusion();
+  aTolSum  = aTolV1 + aTolP2 + Precision1::Confusion();
   aTolSum2 = aTolSum * aTolSum;
   //
   aP1 = BRepInspector::Pnt(aV1);
@@ -1711,7 +1711,7 @@ Standard_Integer AlgoTools::ComputeVV(const TopoVertex& aV1,
 {
   Standard_Real aTolV1, aTolV2, aTolSum, aTolSum2, aD2;
   Point3d        aP1, aP2;
-  Standard_Real aFuzz1 = (aFuzz > Precision::Confusion() ? aFuzz : Precision::Confusion());
+  Standard_Real aFuzz1 = (aFuzz > Precision1::Confusion() ? aFuzz : Precision1::Confusion());
   //
   aTolV1   = BRepInspector::Tolerance(aV1);
   aTolV2   = BRepInspector::Tolerance(aV2);
@@ -2115,7 +2115,7 @@ Standard_Boolean FindPointInFace(const TopoFace&              aF,
   Standard_Boolean bRet;
   Point3d           aP1, aPS;
   //
-  aDTol = Precision::Angular();
+  aDTol = Precision1::Angular();
   aPM   = aP.XYZ().Modulus();
   if (aPM > 1000.)
   {
@@ -2123,7 +2123,7 @@ Standard_Boolean FindPointInFace(const TopoFace&              aF,
   }
   bRet     = Standard_False;
   aNbItMax = 15;
-  anEps    = Precision::SquareConfusion();
+  anEps    = Precision1::SquareConfusion();
   //
   PointOnSurfProjector& aProj = theContext->ProjPS(aF);
   //
@@ -2241,7 +2241,7 @@ Standard_Real MinStep3D(const TopoEdge&                  theE1,
     //
     if (aR > 100.)
     {
-      constexpr Standard_Real d = 10 * Precision::PConfusion();
+      constexpr Standard_Real d = 10 * Precision1::PConfusion();
       aDtMin                    = Max(aDtMin, sqrt(d * d + 2 * d * aR));
     }
   }

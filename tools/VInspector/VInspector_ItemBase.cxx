@@ -40,7 +40,7 @@ QVariant VInspector_ItemBase::initValue(const int theItemRole) const
   switch (Column())
   {
     case 3:
-      return Standard_Dump::GetPointerInfo(Object(), true).ToCString();
+      return DumpTool::GetPointerInfo(Object(), true).ToCString();
   }
 
   return TreeModel_ItemBase::initValue(theItemRole);

@@ -35,7 +35,7 @@ const Handle(RefObject)& BinXCAFDrivers1::Factory(const Standard_GUID& theGUID)
   if (theGUID == BinXCAFStorageDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "BinXCAFDrivers1 : Storage Plugin" << std::endl;
+    std::cout << "BinXCAFDrivers1 : Storage1 Plugin1" << std::endl;
 #endif
     static Handle(RefObject) model_sd = new BinXCAFDrivers_DocumentStorageDriver;
     return model_sd;
@@ -44,7 +44,7 @@ const Handle(RefObject)& BinXCAFDrivers1::Factory(const Standard_GUID& theGUID)
   if (theGUID == BinXCAFRetrievalDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "BinXCAFDrivers1 : Retrieval Plugin" << std::endl;
+    std::cout << "BinXCAFDrivers1 : Retrieval Plugin1" << std::endl;
 #endif
     static Handle(RefObject) model_rd = new BinXCAFDrivers_DocumentRetrievalDriver;
     return model_rd;
@@ -69,7 +69,7 @@ void BinXCAFDrivers1::DefineFormat(const Handle(AppManager)& theApp)
 Handle(BinMDF_ADriverTable) BinXCAFDrivers1::AttributeDrivers(
   const Handle(Message_Messenger)& aMsgDrv)
 {
-  // Standard Drivers
+  // Standard1 Drivers
   Handle(BinMDF_ADriverTable) aTable = BinDrivers1::AttributeDrivers(aMsgDrv);
 
   // XCAF Drivers

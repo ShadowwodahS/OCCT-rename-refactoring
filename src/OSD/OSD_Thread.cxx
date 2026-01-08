@@ -16,9 +16,9 @@
 #include <OSD_Thread.hxx>
 
 //=============================================
-// OSD_Thread::OSD_Thread
+// Thread::Thread
 //=============================================
-OSD_Thread::OSD_Thread()
+Thread::Thread()
     : myFunc(0),
       myThread(0),
       myThreadId(0),
@@ -27,10 +27,10 @@ OSD_Thread::OSD_Thread()
 }
 
 //=============================================
-// OSD_Thread::OSD_Thread
+// Thread::Thread
 //=============================================
 
-OSD_Thread::OSD_Thread(const OSD_ThreadFunction& func)
+Thread::Thread(const OSD_ThreadFunction& func)
     : myFunc(func),
       myThread(0),
       myThreadId(0),
@@ -39,10 +39,10 @@ OSD_Thread::OSD_Thread(const OSD_ThreadFunction& func)
 }
 
 //=============================================
-// OSD_Thread::OSD_Thread
+// Thread::Thread
 //=============================================
 
-OSD_Thread::OSD_Thread(const OSD_Thread& other)
+Thread::Thread(const Thread& other)
     : myFunc(other.myFunc),
       myThread(0),
       myThreadId(0)
@@ -51,10 +51,10 @@ OSD_Thread::OSD_Thread(const OSD_Thread& other)
 }
 
 //=============================================
-// OSD_Thread::Assign
+// Thread::Assign
 //=============================================
 
-void OSD_Thread::Assign(const OSD_Thread& other)
+void Thread::Assign(const Thread& other)
 {
   // copy function pointer
   myFunc     = other.myFunc;
@@ -79,10 +79,10 @@ void OSD_Thread::Assign(const OSD_Thread& other)
 }
 
 //=============================================
-// OSD_Thread::~OSD_Thread
+// Thread::~Thread
 //=============================================
 
-OSD_Thread::~OSD_Thread()
+Thread::~Thread()
 {
   Detach();
 }
@@ -92,7 +92,7 @@ OSD_Thread::~OSD_Thread()
 // purpose  : Set the thread priority relative to the caller's priority
 //=============================================
 
-void OSD_Thread::SetPriority(const Standard_Integer thePriority)
+void Thread::SetPriority(const Standard_Integer thePriority)
 {
   myPriority = thePriority;
 #ifdef _WIN32
@@ -102,10 +102,10 @@ void OSD_Thread::SetPriority(const Standard_Integer thePriority)
 }
 
 //=============================================
-// OSD_Thread::SetFunction
+// Thread::SetFunction
 //=============================================
 
-void OSD_Thread::SetFunction(const OSD_ThreadFunction& func)
+void Thread::SetFunction(const OSD_ThreadFunction& func)
 {
   // close current handle if any
   Detach();
@@ -113,7 +113,7 @@ void OSD_Thread::SetFunction(const OSD_ThreadFunction& func)
 }
 
 //=============================================
-// OSD_Thread::Run
+// Thread::Run
 //=============================================
 
 #ifdef _WIN32
@@ -137,7 +137,7 @@ static DWORD WINAPI WNTthread_func(LPVOID data)
 }
 #endif
 
-Standard_Boolean OSD_Thread::Run(const Standard_Address data,
+Standard_Boolean Thread::Run(const Standard_Address data,
 #ifdef _WIN32
                                  const Standard_Integer WNTStackSize
 #else
@@ -188,10 +188,10 @@ Standard_Boolean OSD_Thread::Run(const Standard_Address data,
 }
 
 //=============================================
-// OSD_Thread::Detach
+// Thread::Detach
 //=============================================
 
-void OSD_Thread::Detach()
+void Thread::Detach()
 {
 #ifdef _WIN32
 
@@ -212,10 +212,10 @@ void OSD_Thread::Detach()
 }
 
 //=============================================
-// OSD_Thread::Wait
+// Thread::Wait
 //=============================================
 
-Standard_Boolean OSD_Thread::Wait(Standard_Address& theResult)
+Standard_Boolean Thread::Wait(Standard_Address& theResult)
 {
   // check that thread handle is not null
   theResult = 0;
@@ -256,10 +256,10 @@ Standard_Boolean OSD_Thread::Wait(Standard_Address& theResult)
 }
 
 //=============================================
-// OSD_Thread::Wait
+// Thread::Wait
 //=============================================
 
-Standard_Boolean OSD_Thread::Wait(const Standard_Integer theTimeMs, Standard_Address& theResult)
+Standard_Boolean Thread::Wait(const Standard_Integer theTimeMs, Standard_Address& theResult)
 {
   // check that thread handle is not null
   theResult = 0;
@@ -329,19 +329,19 @@ Standard_Boolean OSD_Thread::Wait(const Standard_Integer theTimeMs, Standard_Add
 }
 
 //=============================================
-// OSD_Thread::GetId
+// Thread::GetId
 //=============================================
 
-Standard_ThreadId OSD_Thread::GetId() const
+Standard_ThreadId Thread::GetId() const
 {
   return myThreadId;
 }
 
 //=============================================
-// OSD_Thread::Current
+// Thread::Current
 //=============================================
 
-Standard_ThreadId OSD_Thread::Current()
+Standard_ThreadId Thread::Current()
 {
 #ifdef _WIN32
   return GetCurrentThreadId();

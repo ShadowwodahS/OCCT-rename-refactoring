@@ -241,9 +241,9 @@ Standard_Integer XCAFDoc_AssemblyGraph::addNode(const DataLabel&       theLabel,
   if (theParentId > 0)
   {
     // Add link
-    TColStd_PackedMapOfInteger* aMapPtr = myAdjacencyMap.ChangeSeek(theParentId);
+    PackedIntegerMap* aMapPtr = myAdjacencyMap.ChangeSeek(theParentId);
     if (aMapPtr == NULL)
-      aMapPtr = myAdjacencyMap.Bound(theParentId, TColStd_PackedMapOfInteger());
+      aMapPtr = myAdjacencyMap.Bound(theParentId, PackedIntegerMap());
 
     (*aMapPtr).Add(aChildId);
   }

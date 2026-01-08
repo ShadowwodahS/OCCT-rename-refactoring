@@ -24,7 +24,7 @@
 class RefObject;
 class Standard_GUID;
 
-class Plugin
+class Plugin1
 {
 public:
   Standard_EXPORT static Handle(RefObject) Load(

@@ -1,7 +1,7 @@
 #ifndef TKERNEL_PCH_H
 #define TKERNEL_PCH_H
 
-// Standard library headers
+// Standard1 library headers
 #include <atomic>
 #include <iostream>
 #include <limits>

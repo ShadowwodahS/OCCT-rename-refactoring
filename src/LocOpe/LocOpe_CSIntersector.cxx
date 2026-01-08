@@ -87,7 +87,7 @@ void LocOpe_CSIntersector::Perform(const LocOpe_SequenceOfLin& Slin)
   for (; exp.More(); exp.Next())
   {
     const TopoFace&        theface = TopoDS::Face(exp.Current());
-    IntCurvesFace_Intersector theInt(theface, Precision::PConfusion());
+    IntCurvesFace_Intersector theInt(theface, Precision1::PConfusion());
     for (Standard_Integer i = 1; i <= myNbelem; i++)
     {
       theInt.Perform(Slin(i), binf, bsup);

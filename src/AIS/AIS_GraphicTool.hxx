@@ -25,7 +25,7 @@
 #include <AIS_TypeOfAttribute.hxx>
 #include <Standard_Real.hxx>
 #include <Aspect_TypeOfLine.hxx>
-class Quantity_Color;
+class Color1;
 class Graphic3d_MaterialAspect;
 
 class GraphicTool
@@ -39,7 +39,7 @@ public:
 
   Standard_EXPORT static void GetLineColor(const Handle(StyleDrawer)& aDrawer,
                                            const AIS_TypeOfAttribute   TheTypeOfAttributes,
-                                           Quantity_Color&             TheLineColor);
+                                           Color1&             TheLineColor);
 
   Standard_EXPORT static Standard_Real GetLineWidth(const Handle(StyleDrawer)& aDrawer,
                                                     const AIS_TypeOfAttribute TheTypeOfAttributes);
@@ -57,7 +57,7 @@ public:
   Standard_EXPORT static Quantity_NameOfColor GetInteriorColor(const Handle(StyleDrawer)& aDrawer);
 
   Standard_EXPORT static void GetInteriorColor(const Handle(StyleDrawer)& aDrawer,
-                                               Quantity_Color&             aColor);
+                                               Color1&             aColor);
 
   Standard_EXPORT static Graphic3d_MaterialAspect GetMaterial(const Handle(StyleDrawer)& aDrawer);
 

@@ -627,7 +627,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::NearestE(const ShapeList& loe,
     throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
   efound.Nullify();
   Standard_Real    fac   = 0.45678;
-  Standard_Real    tola  = Precision::Angular();
+  Standard_Real    tola  = Precision1::Angular();
   Standard_Integer iv0e1 = (iStep == 1) ? REVERSED : FORWARD;
 
   // initializing

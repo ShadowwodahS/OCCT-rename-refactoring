@@ -907,7 +907,7 @@ static Standard_Integer ShapeMassProps(DrawInterpreter& di,
   }
   Handle(AppDocument) Doc;
   DDocStd1::GetDocument(argv[1], Doc);
-  Standard_Real atol = Precision::Confusion();
+  Standard_Real atol = Precision1::Confusion();
   if (argc > 2)
     atol = Draw1::Atof(argv[2]);
   if (Doc.IsNull())
@@ -1059,7 +1059,7 @@ static Standard_Integer GetValidationProps(DrawInterpreter& di,
     aProp[0] = 0.;
     aProp[1] = 0.;
 
-    Point3d aP(Precision::Infinite(), Precision::Infinite(), Precision::Infinite());
+    Point3d aP(Precision1::Infinite(), Precision1::Infinite(), Precision1::Infinite());
     XCAFDoc_Volume::Get(aLabel, aProp[Vol]);
     XCAFDoc_Area::Get(aLabel, aProp[Area]);
 
@@ -1067,7 +1067,7 @@ static Standard_Integer GetValidationProps(DrawInterpreter& di,
     if (aLabel.FindAttribute(XCAFDoc_Centroid::GetID(), aCentroid))
       XCAFDoc_Centroid::Get(aLabel, aP);
 
-    if (aProp[Vol] > 0 || aProp[Area] > 0 || !Precision::IsInfinite(aP.X()))
+    if (aProp[Vol] > 0 || aProp[Area] > 0 || !Precision1::IsInfinite(aP.X()))
     {
       AsciiString1 str;
       Tool3::Entry(aLabel, str);
@@ -1082,7 +1082,7 @@ static Standard_Integer GetValidationProps(DrawInterpreter& di,
         }
       }
 
-      if (!Precision::IsInfinite(aP.X()))
+      if (!Precision1::IsInfinite(aP.X()))
       {
         di << "; Centroid -  " << aP.X() << " " << aP.Y() << " " << aP.Z();
         nbProps[Centroid]++;

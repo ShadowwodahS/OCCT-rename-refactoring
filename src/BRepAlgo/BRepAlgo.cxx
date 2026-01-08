@@ -137,11 +137,11 @@ TopoWire BRepAlgo1::ConvertWire(const TopoWire&  theWire,
     gp_Pnt2d      aPnt[2] = {vecCurve(0).Point(Standard_False),
                              vecCurve(vecCurve.Length() - 1).Point(Standard_True)};
     Standard_Real aDist   = aPnt[0].Distance(aPnt[1]);
-    if (aDist > aMaxTol + Precision::Confusion())
-      aDist = Precision::Confusion();
+    if (aDist > aMaxTol + Precision1::Confusion())
+      aDist = Precision1::Confusion();
     else
     {
-      aDist   = 0.5 * aDist + Precision::Confusion();
+      aDist   = 0.5 * aDist + Precision1::Confusion();
       aPnt[0] = 0.5 * (aPnt[0].XY() + aPnt[1].XY());
     }
     Point3d aPnt3d;
@@ -162,10 +162,10 @@ TopoWire BRepAlgo1::ConvertWire(const TopoWire&  theWire,
       {
         aPnt[1] = vecCurve(0).Point(Standard_False);
         aDist   = aPnt[0].Distance(aPnt[1]);
-        if (aDist > aMaxTol + Precision::Confusion())
+        if (aDist > aMaxTol + Precision1::Confusion())
         {
           aSurf->D0(aPnt[0].X(), aPnt[0].Y(), aPnt3d);
-          aVBuilder.MakeVertex(aNextVertex, aPnt3d, Precision::Confusion());
+          aVBuilder.MakeVertex(aNextVertex, aPnt3d, Precision1::Confusion());
         }
         else
         {
@@ -175,7 +175,7 @@ TopoWire BRepAlgo1::ConvertWire(const TopoWire&  theWire,
       else
       {
         aPnt[1] = vecCurve(iCrv + 1).Point(Standard_False);
-        aDist   = 0.5 * (aPnt[0].Distance(aPnt[1])) + Precision::Confusion();
+        aDist   = 0.5 * (aPnt[0].Distance(aPnt[1])) + Precision1::Confusion();
         aPnt[0] = 0.5 * (aPnt[0].XY() + aPnt[1].XY());
         aSurf->D0(aPnt[0].X(), aPnt[0].Y(), aPnt3d);
         aVBuilder.MakeVertex(aNextVertex, aPnt3d, aDist);
@@ -219,7 +219,7 @@ TopoFace BRepAlgo1::ConvertFace(const TopoFace& theFace, const Standard_Real the
 {
   TopoFace                aResult;
   const Handle(GeomSurface) aSurf = BRepInspector::Surface(theFace);
-  FaceMaker    aMkFace(aSurf, Precision::Confusion());
+  FaceMaker    aMkFace(aSurf, Precision1::Confusion());
 
   ShapeExplorer anExp(theFace, TopAbs_WIRE);
   for (; anExp.More(); anExp.Next())
@@ -278,7 +278,7 @@ TopoWire BRepAlgo1::ConcatenateWire(const TopoWire&  W,
       Handle(Geom_TrimmedCurve) aTrCurve = new Geom_TrimmedCurve(aCurve, First, Last);
       tab(index) = GeomConvert1::CurveToBSplineCurve(aTrCurve); // storage in a array
       tab(index)->Transform(L.Transformation());
-      GeomConvert1::C0BSplineToC1BSplineCurve(tab(index), Precision::Confusion());
+      GeomConvert1::C0BSplineToC1BSplineCurve(tab(index), Precision1::Confusion());
 
       if (index >= 1)
       { // continuity test loop
@@ -369,7 +369,7 @@ TopoWire BRepAlgo1::ConcatenateWire(const TopoWire&  W,
     Handle(BSplineCurve3d) aBS =
       GeomConvert1::CurveToBSplineCurve(new Geom_TrimmedCurve(aC, First, Last));
     aBS->Transform(L.Transformation());
-    GeomConvert1::C0BSplineToC1BSplineCurve(aBS, Precision::Confusion());
+    GeomConvert1::C0BSplineToC1BSplineCurve(aBS, Precision1::Confusion());
     if (edge.Orientation() == TopAbs_REVERSED)
     {
       aBS->Reverse();
@@ -386,8 +386,8 @@ TopoWire BRepAlgo1::ConcatenateWire(const TopoWire&  W,
 
 TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
 {
-  Standard_Real LinTol = Precision::Confusion();
-  Standard_Real AngTol = Precision::Angular();
+  Standard_Real LinTol = Precision1::Confusion();
+  Standard_Real AngTol = Precision1::Angular();
 
   TopoEdge ResEdge;
 
@@ -427,7 +427,7 @@ TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
     {
       ElCLib1::AdjustPeriodic(aBasisCurve->FirstParameter(),
                              aBasisCurve->LastParameter(),
-                             Precision::PConfusion(),
+                             Precision1::PConfusion(),
                              fpar,
                              lpar);
     }
@@ -589,7 +589,7 @@ TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
             // The current curve should be after the previous one.
             ElCLib1::AdjustPeriodic(LparSeq.Last(),
                                    LparSeq.Last() + aPeriod,
-                                   Precision::PConfusion(),
+                                   Precision1::PConfusion(),
                                    NewFpar,
                                    NewLpar);
           }
@@ -598,7 +598,7 @@ TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
             // The current curve should be before the previous one.
             ElCLib1::AdjustPeriodic(FparSeq.Last() - aPeriod,
                                    FparSeq.Last(),
-                                   Precision::PConfusion(),
+                                   Precision1::PConfusion(),
                                    NewFpar,
                                    NewLpar);
           }
@@ -679,7 +679,7 @@ TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
       Handle(Geom_TrimmedCurve) aTrCurve =
         new Geom_TrimmedCurve(CurveSeq(i), FparSeq(i), LparSeq(i));
       tab(i - 1) = GeomConvert1::CurveToBSplineCurve(aTrCurve);
-      GeomConvert1::C0BSplineToC1BSplineCurve(tab(i - 1), Precision::Confusion());
+      GeomConvert1::C0BSplineToC1BSplineCurve(tab(i - 1), Precision1::Confusion());
 
       if (!IsFwdSeq(i))
       {

@@ -13,7 +13,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// AGV 140202: Repl.(const char *) for (LDOMBasicString) => myTagName
+// AGV 140202: Repl.(const char *) for (LDOMBasicString1) => myTagName
 
 #ifndef LDOM_BasicElement_HeaderFile
 #define LDOM_BasicElement_HeaderFile
@@ -63,7 +63,7 @@ public:
 
   Standard_EXPORT const BasicNode* GetLastChild() const;
 
-  Standard_EXPORT const LDOM_BasicAttribute& GetAttribute(const LDOMBasicString& aName,
+  Standard_EXPORT const LDOM_BasicAttribute& GetAttribute(const LDOMBasicString1& aName,
                                                           const BasicNode*  aLastCh) const;
   //    Search for attribute name, using or setting myFirstAttribute
 
@@ -73,13 +73,13 @@ protected:
   //  LDOM_BasicElement (const LDOM_Element& anElement);
   //    Constructor
 
-  Standard_EXPORT const BasicNode* AddAttribute(const LDOMBasicString&         anAttrName,
-                                                     const LDOMBasicString&         anAttrValue,
+  Standard_EXPORT const BasicNode* AddAttribute(const LDOMBasicString1&         anAttrName,
+                                                     const LDOMBasicString1&         anAttrValue,
                                                      const Handle(LDOM_MemManager)& aDoc,
                                                      const BasicNode*          aLastCh);
   //    add or replace an attribute to the element
 
-  Standard_EXPORT const BasicNode* RemoveAttribute(const LDOMBasicString& aName,
+  Standard_EXPORT const BasicNode* RemoveAttribute(const LDOMBasicString1& aName,
                                                         const BasicNode*  aLastCh) const;
 
   Standard_EXPORT void RemoveChild(const BasicNode* aChild) const;
@@ -105,7 +105,7 @@ private:
   void ReplaceElement(const LDOM_BasicElement& anOther, const Handle(LDOM_MemManager)& aDoc);
   //    remark: recursive
 
-  void AddElementsByTagName(LDOM_NodeList& aList, const LDOMBasicString& aTagName) const;
+  void AddElementsByTagName(LDOM_NodeList& aList, const LDOMBasicString1& aTagName) const;
   //    remark: recursive
 
   void AddAttributes(LDOM_NodeList& aList, const BasicNode* aLastCh) const;
@@ -114,7 +114,7 @@ private:
 private:
   // ---------- PRIVATE FIELDS ----------
 
-  //  LDOMBasicString       myTagName;
+  //  LDOMBasicString1       myTagName;
   const char*     myTagName;
   unsigned long   myAttributeMask;
   BasicNode* myFirstChild;

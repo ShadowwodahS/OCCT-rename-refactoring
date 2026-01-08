@@ -207,19 +207,19 @@ void Extrema_GenExtCS::Initialize(const Adaptor3d_Surface& S,
   Standard_Real umaxpar, vmaxpar;
   GetSurfMaxParamVals(*myS, umaxpar, vmaxpar);
 
-  if (Precision::IsInfinite(myusup))
+  if (Precision1::IsInfinite(myusup))
   {
     myusup = umaxpar;
   }
-  if (Precision::IsInfinite(myumin))
+  if (Precision1::IsInfinite(myumin))
   {
     myumin = -umaxpar;
   }
-  if (Precision::IsInfinite(myvsup))
+  if (Precision1::IsInfinite(myvsup))
   {
     myvsup = vmaxpar;
   }
-  if (Precision::IsInfinite(myvmin))
+  if (Precision1::IsInfinite(myvmin))
   {
     myvmin = -vmaxpar;
   }
@@ -276,11 +276,11 @@ void Extrema_GenExtCS::Perform(const Adaptor3d_Curve& C,
 
   Standard_Real trimusup = myusup, trimumin = myumin, trimvsup = myvsup, trimvmin = myvmin;
   Standard_Real aCMaxVal = GetCurvMaxParamVal(C);
-  if (Precision::IsInfinite(mytsup))
+  if (Precision1::IsInfinite(mytsup))
   {
     mytsup = aCMaxVal;
   }
-  if (Precision::IsInfinite(mytmin))
+  if (Precision1::IsInfinite(mytmin))
   {
     mytmin = -aCMaxVal;
   }
@@ -371,7 +371,7 @@ void Extrema_GenExtCS::Perform(const Adaptor3d_Curve& C,
     aSqDists.Clear();
     aPntsOnCrv.Clear();
     aPntsOnSurf.Clear();
-    constexpr Standard_Real aTol = Precision::SquareConfusion();
+    constexpr Standard_Real aTol = Precision1::SquareConfusion();
     for (i = 1; i <= aSqDists1.Length(); ++i)
     {
       Standard_Real aDist = aSqDists1(i);
@@ -529,7 +529,7 @@ void Extrema_GenExtCS::GlobMinConicS(const Adaptor3d_Curve& theC,
       Standard_Real aSqDist;
       if (!aFunc.Value(anUV, aSqDist))
       {
-        aSqDist = Precision::Infinite();
+        aSqDist = Precision1::Infinite();
       }
 
       if (aSqDist < aParticle->Distance)
@@ -560,8 +560,8 @@ void Extrema_GenExtCS::GlobMinConicS(const Adaptor3d_Curve& theC,
   Standard_Real aCT = aFunc.ConicParameter(anUV);
   if (theC.IsPeriodic())
   {
-    if (aCT < theTUVinf(1) - Precision::PConfusion()
-        || aCT > theTUVsup(1) + Precision::PConfusion())
+    if (aCT < theTUVinf(1) - Precision1::PConfusion()
+        || aCT > theTUVsup(1) + Precision1::PConfusion())
     {
       aCT = ElCLib1::InPeriod(aCT, theTUVinf(1), theTUVinf(1) + 2. * M_PI);
     }
@@ -577,11 +577,11 @@ void Extrema_GenExtCS::GlobMinConicS(const Adaptor3d_Curve& theC,
   myS->D1(anUV(1), anUV(2), aPOnS, aDU, aDV);
   theC.D1(aCT, aPOnC, aDT);
   Standard_Real aSqDist = aPOnC.SquareDistance(aPOnS);
-  if (aSqDist <= Precision::SquareConfusion())
+  if (aSqDist <= Precision1::SquareConfusion())
     return;
 
   Vector3d aN = aDU.Crossed(aDV);
-  if (aN.SquareMagnitude() < Precision::SquareConfusion())
+  if (aN.SquareMagnitude() < Precision1::SquareConfusion())
     return;
 
   Vector3d PcPs(aPOnC, aPOnS);
@@ -607,13 +607,13 @@ void Extrema_GenExtCS::GlobMinConicS(const Adaptor3d_Curve& theC,
         v               = Max(anUVinf(2), v);
         v               = Min(anUVsup(2), v);
         myS->D1(u, v, aPOnS, aDU, aDV);
-        if (aPOnC.SquareDistance(aPOnS) < Precision::SquareConfusion())
+        if (aPOnC.SquareDistance(aPOnS) < Precision1::SquareConfusion())
         {
           isBadSol = Standard_False;
           break;
         }
         aN = aDU.Crossed(aDV);
-        if (aN.SquareMagnitude() < Precision::SquareConfusion())
+        if (aN.SquareMagnitude() < Precision1::SquareConfusion())
         {
           isBadSol = Standard_False;
           break;
@@ -729,7 +729,7 @@ void Extrema_GenExtCS::GlobMinCQuadric(const Adaptor3d_Curve& theC,
     Standard_Real aSqDist;
     if (!aFunc.Value(aT, aSqDist))
     {
-      aSqDist = Precision::Infinite();
+      aSqDist = Precision1::Infinite();
     }
 
     if (aSqDist < aParticle->Distance)
@@ -757,8 +757,8 @@ void Extrema_GenExtCS::GlobMinCQuadric(const Adaptor3d_Curve& theC,
   aFunc.QuadricParameters(aT, anUV);
   if (myS->IsUPeriodic())
   {
-    if (anUV(1) < theTUVinf(2) - Precision::PConfusion()
-        || anUV(1) > theTUVsup(2) + Precision::PConfusion())
+    if (anUV(1) < theTUVinf(2) - Precision1::PConfusion()
+        || anUV(1) > theTUVsup(2) + Precision1::PConfusion())
     {
       anUV(1) = ElCLib1::InPeriod(anUV(1), theTUVinf(2), theTUVinf(2) + 2. * M_PI);
     }
@@ -766,8 +766,8 @@ void Extrema_GenExtCS::GlobMinCQuadric(const Adaptor3d_Curve& theC,
   //
   if (myS->IsVPeriodic())
   {
-    if (anUV(2) < theTUVinf(3) - Precision::PConfusion()
-        || anUV(2) > theTUVsup(3) + Precision::PConfusion())
+    if (anUV(2) < theTUVinf(3) - Precision1::PConfusion()
+        || anUV(2) > theTUVsup(3) + Precision1::PConfusion())
     {
       anUV(2) = ElCLib1::InPeriod(anUV(2), theTUVinf(3), theTUVinf(3) + 2. * M_PI);
     }

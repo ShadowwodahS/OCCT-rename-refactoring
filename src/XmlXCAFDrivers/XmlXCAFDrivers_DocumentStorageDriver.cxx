@@ -37,7 +37,7 @@ XmlXCAFDrivers_DocumentStorageDriver::XmlXCAFDrivers_DocumentStorageDriver(
 Handle(XmlMDF_ADriverTable) XmlXCAFDrivers_DocumentStorageDriver::AttributeDrivers(
   const Handle(Message_Messenger)& theMsgDrv)
 {
-  // Standard drivers
+  // Standard1 drivers
   Handle(XmlMDF_ADriverTable) aTable = XmlDrivers1::AttributeDrivers(theMsgDrv);
 
   // Native drivers

@@ -431,7 +431,7 @@ void AdvApprox_ApproxAFunction::Approximation(
   TColStd_Array1OfReal&    AverageErrorArray,
   Standard_Integer&        ErrorCode)
 {
-  //  Standard_Real EpsPar =  Precision::Confusion();
+  //  Standard_Real EpsPar =  Precision1::Confusion();
   Standard_Integer NUPIL, TheDeg;
 #ifdef OCCT_DEBUG
   Standard_Integer NDIMEN = TotalDimension;

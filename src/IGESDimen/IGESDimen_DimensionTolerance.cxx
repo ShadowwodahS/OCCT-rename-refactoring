@@ -85,7 +85,7 @@ Standard_Integer IGESDimen_DimensionTolerance::FractionFlag() const
   return theFractionFlag;
 }
 
-Standard_Integer IGESDimen_DimensionTolerance::Precision() const
+Standard_Integer IGESDimen_DimensionTolerance::Precision1() const
 {
   return thePrecision;
 }

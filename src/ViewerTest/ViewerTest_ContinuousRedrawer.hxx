@@ -69,9 +69,9 @@ private:
 
 private:
   Handle(ViewWindow)   myView;      //!< view to invalidate
-  OSD_Thread         myThread;    //!< working thread
+  Thread         myThread;    //!< working thread
   Standard_Mutex     myMutex;     //!< mutex for accessing common variables
-  Standard_Condition myWakeEvent; //!< event to wake up working thread
+  Condition myWakeEvent; //!< event to wake up working thread
   Standard_Real      myTargetFps; //!< desired update framerate
   volatile bool      myToStop;    //!< flag to stop working thread
   volatile bool      myToPause;   //!< flag to put  working thread asleep without stopping

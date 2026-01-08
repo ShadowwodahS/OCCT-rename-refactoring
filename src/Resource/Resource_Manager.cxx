@@ -150,7 +150,7 @@ void Resource_Manager::Load(const AsciiString1&            thePath,
   SystemPath                Path(thePath);
   SystemFile                File     = Path;
   AsciiString1 FileName = Path.Name();
-  File.Open(OSD_ReadOnly, OSD_Protection());
+  File.Open(OSD_ReadOnly, Protection1());
   if (File.Failed())
   {
     if (myVerbose)
@@ -306,7 +306,7 @@ Standard_Boolean Resource_Manager::Save() const
       try
       {
         OCC_CATCH_SIGNALS
-        Dir.Build(OSD_Protection(OSD_RX, OSD_RWXD, OSD_RX, OSD_RX));
+        Dir.Build(Protection1(OSD_RX, OSD_RWXD, OSD_RX, OSD_RX));
       }
       catch (ExceptionBase const&)
       {
@@ -332,7 +332,7 @@ Standard_Boolean Resource_Manager::Save() const
   anOSDPath.SystemName(aFilePath);
 
   SystemFile       File = anOSDPath;
-  OSD_Protection theProt;
+  Protection1 theProt;
   aStatus = Standard_True;
   {
     try
@@ -458,7 +458,7 @@ Standard_ExtString Resource_Manager::ExtValue(const Standard_CString aResource)
   AsciiString1    Result = Value(aResource);
   UtfString ExtResult;
 
-  Resource_Unicode::ConvertFormatToUnicode(Result.ToCString(), ExtResult);
+  UnicodeTools::ConvertFormatToUnicode(Result.ToCString(), ExtResult);
 
   myExtStrMap.Bind(Resource, ExtResult);
   return myExtStrMap(Resource).ToExtString();
@@ -505,7 +505,7 @@ void Resource_Manager::SetResource(const Standard_CString   aResource,
   //
   pStr = (Standard_PCharacter)FormatStr.ToCString();
   //
-  Resource_Unicode::ConvertUnicodeToFormat(ExtValue,
+  UnicodeTools::ConvertUnicodeToFormat(ExtValue,
                                            pStr, // FormatStr.ToCString(),
                                            FormatStr.Length());
   SetResource(aResource, FormatStr.ToCString());

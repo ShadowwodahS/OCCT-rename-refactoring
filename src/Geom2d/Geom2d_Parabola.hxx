@@ -109,10 +109,10 @@ public:
   //! For a parabola, the returned value is -U.
   Standard_EXPORT Standard_Real ReversedParameter(const Standard_Real U) const Standard_OVERRIDE;
 
-  //! Returns RealFirst from Standard.
+  //! Returns RealFirst from Standard1.
   Standard_EXPORT Standard_Real FirstParameter() const Standard_OVERRIDE;
 
-  //! Returns  RealLast from Standard.
+  //! Returns  RealLast from Standard1.
   Standard_EXPORT Standard_Real LastParameter() const Standard_OVERRIDE;
 
   //! Returns False

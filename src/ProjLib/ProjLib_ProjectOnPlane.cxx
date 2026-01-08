@@ -331,8 +331,8 @@ static void PerformApprox(const Handle(Adaptor3d_Curve)& C,
   }
   Approx_FitAndDivide Fit(Deg1,
                           Deg2,
-                          Precision::Approximation(),
-                          Precision::PApproximation(),
+                          Precision1::Approximation(),
+                          Precision1::PApproximation(),
                           Standard_True);
   Fit.SetMaxSegments(aNbSegm);
   Fit.Perform(F);
@@ -461,7 +461,7 @@ ProjLib_ProjectOnPlane::ProjLib_ProjectOnPlane(const Ax3& Pl, const Dir3d& D)
       myType(GeomAbs_OtherCurve),
       myIsApprox(Standard_False)
 {
-  //  if ( Abs(D * Pl.Direction()) < Precision::Confusion()) {
+  //  if ( Abs(D * Pl.Direction()) < Precision1::Confusion()) {
   //    throw Standard_ConstructionError
   //      ("ProjLib_ProjectOnPlane:  The Direction and the Plane1 are parallel");
   //  }
@@ -571,7 +571,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
       gp_Lin L  = myCurve->Line();
       Vector3d Xc = ProjectVec(myPlane, myDirection, Vector3d(L.Direction()));
 
-      if (Xc.Magnitude() < Precision::Confusion())
+      if (Xc.Magnitude() < Precision1::Confusion())
       { // line orthog au plan
         myType                    = GeomAbs_BSplineCurve;
         Point3d                  P = ProjectPnt(myPlane, myDirection, L.Location());
@@ -589,7 +589,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
         myResult = new GeomAdaptor_Curve(aGACurve);
         //  Modified by Sergey KHROMOV - Tue Jan 29 16:57:30 2002 End
       }
-      else if (Abs(Xc.Magnitude() - 1.) < Precision::Confusion())
+      else if (Abs(Xc.Magnitude() - 1.) < Precision1::Confusion())
       {
         myType      = GeomAbs_Line;
         Point3d P    = ProjectPnt(myPlane, myDirection, L.Location());
@@ -703,7 +703,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
 
         if (myKeepParam)
         {
-          myIsApprox = !Dir3d(VDx).IsNormal(Dir3d(VDy), Precision::Angular());
+          myIsApprox = !Dir3d(VDx).IsNormal(Dir3d(VDy), Precision1::Angular());
         }
         else
         {
@@ -764,7 +764,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
         {
           Frame3d Axe(P, Dx ^ Dy, Dx);
 
-          if (Abs(Major - Minor) < Precision::Confusion())
+          if (Abs(Major - Minor) < Precision1::Confusion())
           {
             myType = GeomAbs_Circle;
             gp_Circ Circ(Axe, Major);
@@ -812,8 +812,8 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
         Standard_Real aParLast  = myCurve->LastParameter();
         Point3d        aPntFirst = ProjectPnt(myPlane, myDirection, myCurve->Value(aParFirst));
         Point3d        aPntLast  = ProjectPnt(myPlane, myDirection, myCurve->Value(aParLast));
-        Tool2::Parameter(aResultCurve, aPntFirst, Precision::Confusion(), myFirstPar);
-        Tool2::Parameter(aResultCurve, aPntLast, Precision::Confusion(), myLastPar);
+        Tool2::Parameter(aResultCurve, aPntFirst, Precision1::Confusion(), myFirstPar);
+        Tool2::Parameter(aResultCurve, aPntLast, Precision1::Confusion(), myLastPar);
         while (myLastPar <= myFirstPar)
           myLastPar += myResult->Period();
       }
@@ -832,21 +832,21 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
 
       myIsApprox = Standard_False;
 
-      if ((Abs(Yc.Magnitude() - 1.) < Precision::Confusion())
-          && (Xc.Magnitude() < Precision::Confusion()))
+      if ((Abs(Yc.Magnitude() - 1.) < Precision1::Confusion())
+          && (Xc.Magnitude() < Precision1::Confusion()))
       {
         myType      = GeomAbs_Line;
         aLine       = gp_Lin(P, Dir3d(Yc));
         GeomLinePtr = new GeomLine(aLine);
       }
-      else if (Xc.IsNormal(Yc, Precision::Angular()))
+      else if (Xc.IsNormal(Yc, Precision1::Angular()))
       {
         myType                   = GeomAbs_Parabola;
         Standard_Real F          = Parab.Focal() / Xc.Magnitude();
         gp_Parab      aProjParab = gp_Parab(Frame3d(P, Xc ^ Yc, Xc), F);
         GeomParabolaPtr          = new Geom_Parabola(aProjParab);
       }
-      else if (Yc.Magnitude() < Precision::Confusion() || Yc.IsParallel(Xc, Precision::Angular()))
+      else if (Yc.Magnitude() < Precision1::Confusion() || Yc.IsParallel(Xc, Precision1::Angular()))
       {
         myIsApprox = Standard_True;
       }
@@ -885,20 +885,20 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
       Dir3d        Z      = myPlane.Direction();
       myIsApprox           = Standard_False;
 
-      if (Xc.Magnitude() < Precision::Confusion())
+      if (Xc.Magnitude() < Precision1::Confusion())
       {
         myType           = GeomAbs_Hyperbola;
         Dir3d X         = Dir3d(Yc) ^ Z;
         Hypr             = gp_Hypr(Frame3d(P, Z, X), 0., aR2 * Yc.Magnitude());
         GeomHyperbolaPtr = new Geom_Hyperbola(Hypr);
       }
-      else if (Yc.Magnitude() < Precision::Confusion())
+      else if (Yc.Magnitude() < Precision1::Confusion())
       {
         myType           = GeomAbs_Hyperbola;
         Hypr             = gp_Hypr(Frame3d(P, Z, Dir3d(Xc)), aR1 * Xc.Magnitude(), 0.);
         GeomHyperbolaPtr = new Geom_Hyperbola(Hypr);
       }
-      else if (Xc.IsNormal(Yc, Precision::Angular()))
+      else if (Xc.IsNormal(Yc, Precision1::Angular()))
       {
         myType           = GeomAbs_Hyperbola;
         Hypr             = gp_Hypr(Frame3d(P, Dir3d(Xc ^ Yc), Dir3d(Xc)),
@@ -906,7 +906,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
                        aR2 * Yc.Magnitude());
         GeomHyperbolaPtr = new Geom_Hyperbola(Hypr);
       }
-      else if (Yc.Magnitude() < Precision::Confusion() || Yc.IsParallel(Xc, Precision::Angular()))
+      else if (Yc.Magnitude() < Precision1::Confusion() || Yc.IsParallel(Xc, Precision1::Angular()))
       {
         myIsApprox = Standard_True;
       }
@@ -1355,7 +1355,7 @@ void ProjLib_ProjectOnPlane::GetTrimmedResult(const Handle(GeomCurve3d)& theProj
 
   myFirstPar = theProjCurve->FirstParameter();
   myLastPar  = theProjCurve->LastParameter();
-  if (!Precision::IsInfinite(myCurve->FirstParameter()))
+  if (!Precision1::IsInfinite(myCurve->FirstParameter()))
   {
     Point3d aP = myCurve->Value(myCurve->FirstParameter());
     aP        = ProjectPnt(myPlane, myDirection, aP);
@@ -1373,10 +1373,10 @@ void ProjLib_ProjectOnPlane::GetTrimmedResult(const Handle(GeomCurve3d)& theProj
     }
     else
     {
-      Tool2::Parameter(theProjCurve, aP, Precision::Confusion(), myFirstPar);
+      Tool2::Parameter(theProjCurve, aP, Precision1::Confusion(), myFirstPar);
     }
   }
-  if (!Precision::IsInfinite(myCurve->LastParameter()))
+  if (!Precision1::IsInfinite(myCurve->LastParameter()))
   {
     Point3d aP = myCurve->Value(myCurve->LastParameter());
     aP        = ProjectPnt(myPlane, myDirection, aP);
@@ -1394,7 +1394,7 @@ void ProjLib_ProjectOnPlane::GetTrimmedResult(const Handle(GeomCurve3d)& theProj
     }
     else
     {
-      Tool2::Parameter(theProjCurve, aP, Precision::Confusion(), myLastPar);
+      Tool2::Parameter(theProjCurve, aP, Precision1::Confusion(), myLastPar);
     }
   }
   myResult = new GeomAdaptor_Curve(theProjCurve, myFirstPar, myLastPar);
@@ -1412,9 +1412,9 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildParabolaByApex(Handle(GeomCurve3d)
                                // copy of instance;
   Handle(Adaptor3d_Curve) aProjCrv = ShallowCopy();
   myType                           = aCurType;
-  LProp3d_CLProps      aProps(aProjCrv, 2, Precision::Confusion());
+  LProp3d_CLProps      aProps(aProjCrv, 2, Precision1::Confusion());
   ProjLib_MaxCurvature aMaxCur(aProps);
-  BrentMinimumSolver    aSolver(Precision::PConfusion());
+  BrentMinimumSolver    aSolver(Precision1::PConfusion());
   aSolver.Perform(aMaxCur, -10. * aF, 0., 10. * aF);
 
   if (!aSolver.IsDone())
@@ -1430,7 +1430,7 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildParabolaByApex(Handle(GeomCurve3d)
   Dir3d        anYDir(aDY);
   Dir3d        anXDir;
   Standard_Real aCurv = aProps.Curvature();
-  if (Precision::IsInfinite(aCurv) || aCurv < Precision::Confusion())
+  if (Precision1::IsInfinite(aCurv) || aCurv < Precision1::Confusion())
   {
     return Standard_False;
   }
@@ -1471,9 +1471,9 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildHyperbolaByApex(
   Handle(Adaptor3d_Curve) aProjCrv = ShallowCopy();
   myType                           = aCurType;
   // Searching hyperbola apex as point with maximal curvature
-  LProp3d_CLProps      aProps(aProjCrv, 2, Precision::Confusion());
+  LProp3d_CLProps      aProps(aProjCrv, 2, Precision1::Confusion());
   ProjLib_MaxCurvature aMaxCur(aProps);
-  BrentMinimumSolver    aSolver(Precision::PConfusion());
+  BrentMinimumSolver    aSolver(Precision1::PConfusion());
   aSolver.Perform(aMaxCur, -5., 0., 5.);
 
   if (aSolver.IsDone())
@@ -1482,7 +1482,7 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildHyperbolaByApex(
     aT = aSolver.Location();
     aProps.SetParameter(aT);
     Standard_Real aCurv = aProps.Curvature();
-    if (Precision::IsInfinite(aCurv) || aCurv < Precision::Confusion())
+    if (Precision1::IsInfinite(aCurv) || aCurv < Precision1::Confusion())
     {
       return Standard_False;
     }
@@ -1521,13 +1521,13 @@ void ProjLib_ProjectOnPlane::BuildByApprox(const Standard_Real theLimitParameter
 {
   myType = GeomAbs_BSplineCurve;
   Handle(BSplineCurve3d) anApproxCurve;
-  if (Precision::IsInfinite(myCurve->FirstParameter())
-      || Precision::IsInfinite(myCurve->LastParameter()))
+  if (Precision1::IsInfinite(myCurve->FirstParameter())
+      || Precision1::IsInfinite(myCurve->LastParameter()))
   {
     // To avoid exception in approximation
     Standard_Real           f          = Max(-theLimitParameter, myCurve->FirstParameter());
     Standard_Real           l          = Min(theLimitParameter, myCurve->LastParameter());
-    Handle(Adaptor3d_Curve) aTrimCurve = myCurve->Trim(f, l, Precision::Confusion());
+    Handle(Adaptor3d_Curve) aTrimCurve = myCurve->Trim(f, l, Precision1::Confusion());
     PerformApprox(aTrimCurve, myPlane, myDirection, anApproxCurve);
   }
   else

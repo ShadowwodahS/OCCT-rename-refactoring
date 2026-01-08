@@ -79,7 +79,7 @@ Standard_Boolean FUN_UisoLineOnSphe(const TopoShape& F, const Handle(GeomCurve2d
   {
     Handle(Geom2d_Line) L = Handle(Geom2d_Line)::DownCast(LLL);
     const gp_Dir2d&     d = L->Direction();
-    isisoU                = (Abs(d.X()) < Precision::Parametric(Precision::Confusion()));
+    isisoU                = (Abs(d.X()) < Precision1::Parametric(Precision1::Confusion()));
   }
   return isisoU;
 }
@@ -602,7 +602,7 @@ Standard_Boolean FUN_makeUisoLineOnSphe(const TopoFace& F, // with geometry the 
     return Standard_False;
   if (!FUN_getUV(surf, C3D, par3dsup, usup, vsup))
     return Standard_False;
-  Standard_Real tol = Precision::Parametric(tol3d);
+  Standard_Real tol = Precision1::Parametric(tol3d);
   if (Abs(uinf - usup) > tol)
     return Standard_False;
 
@@ -646,8 +646,8 @@ void TopOpeBRepDS_BuildTool::ComputePCurves(const TopOpeBRepDS_Curve& C,
   Handle(GeomCurve2d) PC1new, PC2new;
   if (C3D.IsNull())
   {
-    Standard_Real tolreached2d1 = Precision::Confusion(), tolreached2d2 = Precision::Confusion(),
-                  tol = Precision::Confusion();
+    Standard_Real tolreached2d1 = Precision1::Confusion(), tolreached2d2 = Precision1::Confusion(),
+                  tol = Precision1::Confusion();
     if (comppc1)
       PC1new = myCurveTool.MakePCurveOnFace(F1, C3D, tolreached2d1);
     if (comppc2)
@@ -686,7 +686,7 @@ void TopOpeBRepDS_BuildTool::ComputePCurves(const TopOpeBRepDS_Curve& C,
     }
     parmin = f;
     parmax = l;
-    ElCLib1::AdjustPeriodic(f, f + period, Precision::PConfusion(), parmin, parmax);
+    ElCLib1::AdjustPeriodic(f, f + period, Precision1::PConfusion(), parmin, parmax);
     if (compc3d)
       C3Dnew = new Geom_TrimmedCurve(C3D, parmin, parmax);
   }
@@ -955,7 +955,7 @@ void TopOpeBRepDS_BuildTool::UpdateEdge(const TopoShape& Ein, TopoShape& Eou) co
     Standard_Real f2n = f2, l2n = l2;
     if (l2n <= f2n)
     {
-      ElCLib1::AdjustPeriodic(f1, l1, Precision::PConfusion(), f2n, l2n);
+      ElCLib1::AdjustPeriodic(f1, l1, Precision1::PConfusion(), f2n, l2n);
       Range(Eou, f2n, l2n);
     }
   }
@@ -1093,16 +1093,16 @@ Standard_EXPORT void TopOpeBRepDS_SetThePCurve(const ShapeBuilder&         B,
     OC = BRepInspector::CurveOnSurface(E, F, f, l);
 
   if (OC.IsNull())
-    B.UpdateEdge(E, C, F, Precision::Confusion());
+    B.UpdateEdge(E, C, F, Precision1::Confusion());
   else
   {
     Standard_Boolean degen = BRepInspector::Degenerated(E);
     if (!degen)
     {
       if (O == TopAbs_REVERSED)
-        B.UpdateEdge(E, OC, C, F, Precision::Confusion());
+        B.UpdateEdge(E, OC, C, F, Precision1::Confusion());
       else
-        B.UpdateEdge(E, C, OC, F, Precision::Confusion());
+        B.UpdateEdge(E, C, OC, F, Precision1::Confusion());
     }
   }
 }
@@ -1176,7 +1176,7 @@ void TopOpeBRepDS_BuildTool::PCurve(TopoShape&               F,
 
     if (!C.IsNull())
     {
-      Standard_Boolean    deca     = (Abs(Cf - CDSmin) > Precision::PConfusion());
+      Standard_Boolean    deca     = (Abs(Cf - CDSmin) > Precision1::PConfusion());
       Handle(Geom2d_Line) line2d   = Handle(Geom2d_Line)::DownCast(PCT);
       Standard_Boolean    isline2d = !line2d.IsNull();
       Standard_Boolean    tran     = (rangedef && deca && C->IsPeriodic() && isline2d);
@@ -1188,12 +1188,12 @@ void TopOpeBRepDS_BuildTool::PCurve(TopoShape&               F,
         Standard_Boolean           isVperio = Surf->IsVPeriodic();
         gp_Dir2d                   dir2d    = line2d->Direction();
         Standard_Real              delta;
-        if (isUperio && dir2d.IsParallel(gp1::DX2d(), Precision::Angular()))
+        if (isUperio && dir2d.IsParallel(gp1::DX2d(), Precision1::Angular()))
         {
           delta = (CDSmin - Cf) * dir2d.X();
           PCT->Translate(gp_Vec2d(delta, 0.));
         }
-        else if (isVperio && dir2d.IsParallel(gp1::DY2d(), Precision::Angular()))
+        else if (isVperio && dir2d.IsParallel(gp1::DY2d(), Precision1::Angular()))
         {
           delta = (CDSmin - Cf) * dir2d.Y();
           PCT->Translate(gp_Vec2d(0., delta));
@@ -1405,7 +1405,7 @@ void  TopOpeBRepDS_BuildTool::RecomputeCurveOnCone
     if (Vmin.Orientation() == TopAbs_FORWARD) { f = parmin; l = parmax; }
     else {                                      f = parmax; l = parmin; }
     parmin = f; parmax = l;
-    ElCLib1::AdjustPeriodic(f,f+period,Precision::PConfusion(),parmin,parmax);
+    ElCLib1::AdjustPeriodic(f,f+period,Precision1::PConfusion(),parmin,parmax);
   }
 
   Handle(Geom_TrimmedCurve) C3Dnew;

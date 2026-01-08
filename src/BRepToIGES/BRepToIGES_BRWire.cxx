@@ -398,15 +398,15 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
       Standard_Real               uShift = 0., vShift = 0.;
       Standard_Real               U0, U1, V0, V1;
       Surf->Bounds(U0, U1, V0, V1);
-      if (aBSpline->IsUPeriodic() && Abs(Ufirst - U0) > Precision::PConfusion())
+      if (aBSpline->IsUPeriodic() && Abs(Ufirst - U0) > Precision1::PConfusion())
       {
         uShift = ShapeAnalysis1::AdjustToPeriod(Ufirst, U0, U1);
       }
-      if (aBSpline->IsVPeriodic() && Abs(Vfirst - V0) > Precision::PConfusion())
+      if (aBSpline->IsVPeriodic() && Abs(Vfirst - V0) > Precision1::PConfusion())
       {
         vShift = ShapeAnalysis1::AdjustToPeriod(Vfirst, V0, V1);
       }
-      if (Abs(uShift) > Precision::PConfusion() || Abs(vShift) > Precision::PConfusion())
+      if (Abs(uShift) > Precision1::PConfusion() || Abs(vShift) > Precision1::PConfusion())
       {
         Transform2d TR;
         TR.SetTranslation(gp_Pnt2d(0., 0.), gp_Pnt2d(uShift, vShift));
@@ -642,7 +642,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferWire(
       }
     }
     */
-    Handle(WireHealer) aSFW = new WireHealer(theWire, theFace, Precision::Confusion());
+    Handle(WireHealer) aSFW = new WireHealer(theWire, theFace, Precision1::Confusion());
     aSFW->FixReorder();
     Handle(ShapeExtend_WireData) aSEWD = aSFW->WireData();
     Standard_Integer             nbE   = aSEWD->NbEdges();

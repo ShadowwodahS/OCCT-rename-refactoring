@@ -58,7 +58,7 @@
 
 // variables for performances
 
-OSD_Chronometer cl_total, cl_extent, cl_perfsetofsurf, cl_perffilletonvertex, cl_filds,
+Chronometer cl_total, cl_extent, cl_perfsetofsurf, cl_perffilletonvertex, cl_filds,
   cl_reconstruction, cl_setregul, cl_perform1corner, cl_perform2corner, cl_performatend,
   cl_perform3corner, cl_performmore3corner;
 
@@ -70,8 +70,8 @@ Standard_EXPORT Standard_Real t_total, t_extent, t_perfsetofsurf, t_perffilleton
   t_t3cornerinit, t_spherique, t_torique, t_notfilling, t_filling, t_sameparam, t_computedata,
   t_completedata, t_t2cornerDS, t_t3cornerDS;
 
-extern void             ChFi3d_InitChron(OSD_Chronometer& ch);
-extern void             ChFi3d_ResultChron(OSD_Chronometer& ch, Standard_Real& time);
+extern void             ChFi3d_InitChron(Chronometer& ch);
+extern void             ChFi3d_ResultChron(Chronometer& ch, Standard_Real& time);
 extern Standard_Boolean ChFi3d_GettraceCHRON();
 #endif
 
@@ -601,7 +601,7 @@ void ChFi3d_Builder::Compute()
   // if it is necessary
   if (IsDone())
   {
-    Standard_Real                      SameParTol = Precision::Confusion();
+    Standard_Real                      SameParTol = Precision1::Confusion();
     Standard_Integer                   aNbSurfaces, iF;
     TopTools_ListIteratorOfListOfShape aIt;
     //

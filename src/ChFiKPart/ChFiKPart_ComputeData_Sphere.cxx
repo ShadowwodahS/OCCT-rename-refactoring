@@ -62,7 +62,7 @@ Standard_Boolean ChFiKPart_Sphere(TopOpeBRepDS_DataStructure&      DStr,
   // - origine of u given by P1S2
   // - u+ to P2S2
 
-  Standard_Real ptol = Precision::Confusion();
+  Standard_Real ptol = Precision1::Confusion();
   Point3d        p1, p2, p3;
   Vector3d        v1, v2;
   S1->D1(PS1.X(), PS1.Y(), p1, v1, v2);

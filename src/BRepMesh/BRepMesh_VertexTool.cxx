@@ -31,7 +31,7 @@ NCollection_CellFilter_Action BRepMesh_VertexInspector::Inspect(const Standard_I
 
   Coords2d            aVec = (myPoint - aVertex.Coord());
   Standard_Boolean inTol;
-  if (Abs(myTolerance[1]) < Precision::Confusion())
+  if (Abs(myTolerance[1]) < Precision1::Confusion())
   {
     inTol = aVec.SquareModulus() < myTolerance[0];
   }
@@ -60,7 +60,7 @@ BRepMesh_VertexTool::BRepMesh_VertexTool(const Handle(NCollection_IncAllocator)&
       myCellFilter(0., myAllocator),
       mySelector(myAllocator)
 {
-  constexpr Standard_Real aTol = Precision::Confusion();
+  constexpr Standard_Real aTol = Precision1::Confusion();
   SetCellSize(aTol + 0.05 * aTol);
   SetTolerance(aTol, aTol);
 }

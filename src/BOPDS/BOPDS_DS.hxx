@@ -103,7 +103,7 @@ public:
 
   //! Initializes the data structure for
   //! the arguments
-  Standard_EXPORT void Init(const Standard_Real theFuzz = Precision::Confusion());
+  Standard_EXPORT void Init(const Standard_Real theFuzz = Precision1::Confusion());
 
   //! Selector
   //! Returns the total number of shapes stored

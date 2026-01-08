@@ -24,21 +24,21 @@ static Standard_Integer OSD_SignalStackTraceLength = 0;
 
 //=================================================================================================
 
-OSD_SignalMode OSD::SignalMode()
+OSD_SignalMode OSD1::SignalMode()
 {
   return OSD_WasSetSignal;
 }
 
 //=================================================================================================
 
-Standard_Integer OSD::SignalStackTraceLength()
+Standard_Integer OSD1::SignalStackTraceLength()
 {
   return OSD_SignalStackTraceLength;
 }
 
 //=================================================================================================
 
-void OSD::SetSignalStackTraceLength(Standard_Integer theLength)
+void OSD1::SetSignalStackTraceLength(Standard_Integer theLength)
 {
   OSD_SignalStackTraceLength = theLength;
 }
@@ -261,7 +261,7 @@ static LONG CallHandler(DWORD theExceptionCode, EXCEPTION_POINTERS* theExcPtr)
   // reset FPE state (before message box, otherwise it may fail to show up)
   if (isFloatErr)
   {
-    OSD::SetFloatingSignal(Standard_True);
+    OSD1::SetFloatingSignal(Standard_True);
   }
 
   const int aStackLength = OSD_SignalStackTraceLength;
@@ -270,7 +270,7 @@ static LONG CallHandler(DWORD theExceptionCode, EXCEPTION_POINTERS* theExcPtr)
   if (aStackBuffer != NULL)
   {
     memset(aStackBuffer, 0, aStackBufLen);
-    Standard::StackTrace(aStackBuffer, aStackBufLen, aStackLength, theExcPtr->ContextRecord);
+    Standard1::StackTrace(aStackBuffer, aStackBufLen, aStackLength, theExcPtr->ContextRecord);
   }
 
   #if !defined(OCCT_UWP) && !defined(__MINGW32__) && !defined(__CYGWIN32__)
@@ -304,7 +304,7 @@ static LONG CallHandler(DWORD theExceptionCode, EXCEPTION_POINTERS* theExcPtr)
 //=======================================================================
 // function : SIGWntHandler
 // purpose  : Will only be used if user calls ::raise() function with
-//           signal type set in OSD::SetSignal() - SIGSEGV, SIGFPE, SIGILL
+//           signal type set in OSD1::SetSignal() - SIGSEGV, SIGFPE, SIGILL
 //           (the latter will likely be removed in the future)
 //=======================================================================
 static void SIGWntHandler(int signum, int sub_code)
@@ -400,7 +400,7 @@ static LONG WINAPI WntHandler(EXCEPTION_POINTERS* lpXP)
 
 //=================================================================================================
 
-void OSD::SetFloatingSignal(Standard_Boolean theFloatingSignal)
+void OSD1::SetFloatingSignal(Standard_Boolean theFloatingSignal)
 {
   _fpreset();
   _clearfp();
@@ -411,7 +411,7 @@ void OSD::SetFloatingSignal(Standard_Boolean theFloatingSignal)
 
 //=================================================================================================
 
-Standard_Boolean OSD::ToCatchFloatingSignals()
+Standard_Boolean OSD1::ToCatchFloatingSignals()
 {
   // return true if at least one of bits within _OSD_FPX
   // is unset, which means relevant FPE will raise exception
@@ -421,7 +421,7 @@ Standard_Boolean OSD::ToCatchFloatingSignals()
 
 //=================================================================================================
 
-void OSD::SetThreadLocalSignal(OSD_SignalMode theSignalMode, Standard_Boolean theFloatingSignal)
+void OSD1::SetThreadLocalSignal(OSD_SignalMode theSignalMode, Standard_Boolean theFloatingSignal)
 {
   #ifdef _MSC_VER
   _se_translator_function aPreviousFunc = NULL;
@@ -438,7 +438,7 @@ void OSD::SetThreadLocalSignal(OSD_SignalMode theSignalMode, Standard_Boolean th
 
 //=================================================================================================
 
-void OSD::SetSignal(OSD_SignalMode theSignalMode, Standard_Boolean theFloatingSignal)
+void OSD1::SetSignal(OSD_SignalMode theSignalMode, Standard_Boolean theFloatingSignal)
 {
   // clang-format off
   Standard_Mutex::Sentry aSentry (THE_SIGNAL_MUTEX); // lock the mutex to prevent simultaneous handling
@@ -500,7 +500,7 @@ void OSD::SetSignal(OSD_SignalMode theSignalMode, Standard_Boolean theFloatingSi
     }
     Standard_ASSERT(aPreviousFunc != SIG_ERR,
                     "signal() failed",
-                    std::cout << "OSD::SetSignal(): signal() returns SIG_ERR");
+                    std::cout << "OSD1::SetSignal(): signal() returns SIG_ERR");
   }
 
   // Set Ctrl-C and Ctrl-Break handler
@@ -522,14 +522,14 @@ void OSD::SetSignal(OSD_SignalMode theSignalMode, Standard_Boolean theFloatingSi
 //============================================================================
 //==== ControlBreak
 //============================================================================
-void OSD::ControlBreak()
+void OSD1::ControlBreak()
 {
   if (fCtrlBrk)
   {
     fCtrlBrk = Standard_False;
     throw OSD_Exception_CTRL_BREAK("*** INTERRUPT ***");
   }
-} // end OSD :: ControlBreak
+} // end OSD1 :: ControlBreak
 
   #ifndef OCCT_UWP
 //============================================================================
@@ -815,7 +815,7 @@ static void Handler(const int theSignal)
     perror("sigaction");
   }
 
-  // std::cout << "OSD::Handler: signal " << (int) theSignal << " occurred inside a try block " <<
+  // std::cout << "OSD1::Handler: signal " << (int) theSignal << " occurred inside a try block " <<
   // std::endl ;
   if (ADR_ACT_SIGIO_HANDLER != NULL)
     (*ADR_ACT_SIGIO_HANDLER)();
@@ -867,7 +867,7 @@ static void Handler(const int theSignal)
       sigaddset(&set, SIGFPE);
       sigprocmask(SIG_UNBLOCK, &set, NULL);
   #ifdef __linux__
-      OSD::SetFloatingSignal(Standard_True);
+      OSD1::SetFloatingSignal(Standard_True);
   #endif
   #if (!defined(__sun)) && (!defined(SOLARIS))
       Standard_NumericError::NewInstance("SIGFPE Arithmetic exception detected")->Jump();
@@ -946,7 +946,7 @@ static void SegvHandler(const int              theSignal,
       if (aStackBuffer != NULL)
       {
         memset(aStackBuffer, 0, aStackBufLen);
-        Standard::StackTrace(aStackBuffer, aStackBufLen, aStackLength);
+        Standard1::StackTrace(aStackBuffer, aStackBufLen, aStackLength);
       }
 
       OSD_SIGSEGV::NewInstance(aMsg, aStackBuffer)->Jump();
@@ -992,7 +992,7 @@ static void SegvHandler(const int              theSignal,
 
 //=================================================================================================
 
-void OSD::SetFloatingSignal(Standard_Boolean theFloatingSignal)
+void OSD1::SetFloatingSignal(Standard_Boolean theFloatingSignal)
 {
   #if defined(__linux__)
   feclearexcept(FE_ALL_EXCEPT);
@@ -1023,7 +1023,7 @@ void OSD::SetFloatingSignal(Standard_Boolean theFloatingSignal)
 
 //=================================================================================================
 
-Standard_Boolean OSD::ToCatchFloatingSignals()
+Standard_Boolean OSD1::ToCatchFloatingSignals()
 {
   #if defined(__linux__)
   return (fegetexcept() & _OSD_FPX) != 0;
@@ -1034,7 +1034,7 @@ Standard_Boolean OSD::ToCatchFloatingSignals()
 
 //=================================================================================================
 
-void OSD::SetThreadLocalSignal(OSD_SignalMode /*theSignalMode*/, Standard_Boolean theFloatingSignal)
+void OSD1::SetThreadLocalSignal(OSD_SignalMode /*theSignalMode*/, Standard_Boolean theFloatingSignal)
 {
   SetFloatingSignal(theFloatingSignal);
 }
@@ -1044,7 +1044,7 @@ void OSD::SetThreadLocalSignal(OSD_SignalMode /*theSignalMode*/, Standard_Boolea
 //====     Set the different signals:
 //============================================================================
 
-void OSD::SetSignal(OSD_SignalMode theSignalMode, Standard_Boolean theFloatingSignal)
+void OSD1::SetSignal(OSD_SignalMode theSignalMode, Standard_Boolean theFloatingSignal)
 {
   SetFloatingSignal(theFloatingSignal);
 
@@ -1107,7 +1107,7 @@ void OSD::SetSignal(OSD_SignalMode theSignalMode, Standard_Boolean theFloatingSi
     }
     Standard_ASSERT(retcode == 0,
                     "sigaction() failed",
-                    std::cout << "OSD::SetSignal(): sigaction() failed for " << aSignalTypes[i]
+                    std::cout << "OSD1::SetSignal(): sigaction() failed for " << aSignalTypes[i]
                               << std::endl);
   }
 }
@@ -1116,7 +1116,7 @@ void OSD::SetSignal(OSD_SignalMode theSignalMode, Standard_Boolean theFloatingSi
 //==== ControlBreak
 //============================================================================
 
-void OSD ::ControlBreak()
+void OSD1 ::ControlBreak()
 {
   if (fCtrlBrk)
   {

@@ -342,8 +342,8 @@ Standard_Boolean TestParallel()
 
   CollectionFiller<CollectionType, StlType>::Perform(&aVector, &aCollec);
 
-  OSD_Parallel::ForEach(aVector->begin(), aVector->end(), Invoker<typename StlType::value_type>());
-  OSD_Parallel::ForEach(aCollec->begin(),
+  Parallel1::ForEach(aVector->begin(), aVector->end(), Invoker<typename StlType::value_type>());
+  Parallel1::ForEach(aCollec->begin(),
                         aCollec->end(),
                         Invoker<typename CollectionType::value_type>());
 
@@ -379,7 +379,7 @@ Standard_Boolean TestDataMapParallel()
 
   MapFiller<CollectionType, T>::Perform(&aCollec1, &aCollec2);
 
-  OSD_Parallel::ForEach(aCollec1->begin(), aCollec1->end(), Invoker<T>());
+  Parallel1::ForEach(aCollec1->begin(), aCollec1->end(), Invoker<T>());
 
   // create OCCT-style iterator
   typename CollectionType::Iterator aOccIter(*aCollec2);

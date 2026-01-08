@@ -97,7 +97,7 @@ public:
       return Standard_False;
     }
 
-    return (myUV.IsEqual(theOther.myUV, Precision::PConfusion()));
+    return (myUV.IsEqual(theOther.myUV, Precision1::PConfusion()));
   }
 
   //! Alias for IsEqual.

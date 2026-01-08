@@ -45,7 +45,7 @@ DEFINE_STANDARD_HANDLE(Storage_Data, RefObject)
 //! -   persistent data which are read from a container.
 //! A Storage_Data object is used in both the
 //! storage and retrieval operations:
-//! -   Storage mechanism: create an empty
+//! -   Storage1 mechanism: create an empty
 //! Storage_Data object, then add successively
 //! persistent objects (roots) to be stored using
 //! the function AddRoot. When the set of data is
@@ -108,7 +108,7 @@ public:
   //! return the creation date
   Standard_EXPORT AsciiString1 CreationDate() const;
 
-  //! return the Storage package version
+  //! return the Storage1 package version
   Standard_EXPORT AsciiString1 StorageVersion() const;
 
   //! get the version of the schema

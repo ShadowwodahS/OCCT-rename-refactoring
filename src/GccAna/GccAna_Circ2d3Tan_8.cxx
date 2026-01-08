@@ -75,7 +75,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedLine& Qualified1,
   gp_Dir2d dir1(L1.Direction());
   gp_Dir2d normL1(-dir1.Y(), dir1.X());
 
-  if (Point2.IsEqual(Point3, Precision::Confusion()))
+  if (Point2.IsEqual(Point3, Precision1::Confusion()))
   {
     WellDone = Standard_False;
     return;

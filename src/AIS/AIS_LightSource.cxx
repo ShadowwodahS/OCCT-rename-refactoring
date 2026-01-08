@@ -104,7 +104,7 @@ void AIS_LightSourceOwner::HilightWithColor(const Handle(PrsMgr_PresentationMana
     TColgp_Array1OfPnt     aCircPoints(0, aNbPnts);
     const Dir3d           aDirNorm(Vector3d(gp1::Origin(), aDetPnt));
     Dir3d                 aDirNormToPln(gp1::DY());
-    if (!gp1::DX().IsParallel(aDirNorm, Precision::Angular()))
+    if (!gp1::DX().IsParallel(aDirNorm, Precision1::Angular()))
     {
       aDirNormToPln = gp1::DX().Crossed(aDirNorm);
     }
@@ -186,7 +186,7 @@ AIS_LightSource::AIS_LightSource(const Handle(Graphic3d_CLight)& theLight)
 
   myInfiniteState = true;
 
-  const Quantity_Color aColor = theLight->Color();
+  const Color1 aColor = theLight->Color();
   myDrawer->SetPointAspect(new Prs3d_PointAspect(myMarkerTypes[1], aColor, 3.0f));
   myDisabledMarkerAspect = new Graphic3d_AspectMarker3d(Aspect_TOM_EMPTY, aColor, 3.0f);
 
@@ -265,7 +265,7 @@ Standard_Boolean AIS_LightSource::ProcessDragging(const Handle(VisualContext)& t
       theCtx->MainSelector()->Pick(theDragTo.x(), theDragTo.y(), theView);
       Point3d aCurrPosition = mySensSphere->LastDetectedPoint();
       if (aCurrPosition.X() != RealLast()
-          && aStartPosition.Distance(aCurrPosition) > Precision::Confusion())
+          && aStartPosition.Distance(aCurrPosition) > Precision1::Confusion())
       {
         Quaternion aQRot;
         aQRot.SetRotation(Vector3d(Point3d(0, 0, 0), aStartPosition),
@@ -293,9 +293,9 @@ Standard_Boolean AIS_LightSource::ProcessDragging(const Handle(VisualContext)& t
 
 void AIS_LightSource::updateLightAspects()
 {
-  const Quantity_Color aBaseColor = myLightSource->Color();
-  const Quantity_Color aDimColor(aBaseColor.Rgb() * 0.3f);
-  const Quantity_Color aColor = myLightSource->IsEnabled() ? aBaseColor : aDimColor;
+  const Color1 aBaseColor = myLightSource->Color();
+  const Color1 aDimColor(aBaseColor.Rgb() * 0.3f);
+  const Color1 aColor = myLightSource->IsEnabled() ? aBaseColor : aDimColor;
   myDrawer->PointAspect()->SetColor(aColor);
   myDrawer->PointAspect()->Aspect()->SetMarkerType(MarkerType(myLightSource->IsEnabled()));
   myDrawer->PointAspect()->Aspect()->SetMarkerImage(MarkerImage(myLightSource->IsEnabled()));

@@ -2094,7 +2094,7 @@ void BRepOffset_BuildOffsetFaces::FindInvalidEdges(
               ShapeBuilder().Add(aCEOr, aEOr);
 
               Vector3d aVCur = GetAverageTangent(aEOr, aNbP);
-              if (!aVRef.IsParallel(aVCur, Precision::Angular()))
+              if (!aVRef.IsParallel(aVCur, Precision1::Angular()))
                 bAllTgt = Standard_False;
             }
             if (!bAllTgt)
@@ -2187,7 +2187,7 @@ void BRepOffset_BuildOffsetFaces::FindInvalidEdges(
               aMF.Add(itFA.Value());
           }
           //
-          if (aCos < Precision::Confusion())
+          if (aCos < Precision1::Confusion())
           {
             bInvalid = Standard_True;
             aNbInv++;
@@ -2479,7 +2479,7 @@ void BRepOffset_BuildOffsetFaces::FindInvalidEdges(
                                                       TopoDS::Face(aFUnclassified),
                                                       aDNUnclass);
 
-          Standard_Boolean isSameOri = aDNClass.IsEqual(aDNUnclass, Precision::Angular());
+          Standard_Boolean isSameOri = aDNClass.IsEqual(aDNUnclass, Precision1::Angular());
 
           // Among other splits of the same face find those where the edge is contained with
           // different orientation
@@ -8271,7 +8271,7 @@ void BRepOffset_BuildOffsetFaces::GetInvalidEdgesByBounds(
           TopoVertex             aV;
           Standard_Real             f, l;
           const Handle(GeomCurve3d)& aC = BRepInspector::Curve(TopoDS::Edge(aEIm), f, l);
-          ShapeBuilder().MakeVertex(aV, aC->Value((f + l) * 0.5), Precision::Confusion());
+          ShapeBuilder().MakeVertex(aV, aC->Value((f + l) * 0.5), Precision1::Confusion());
           // and adding this vertex for checking
           aDMVE.ChangeFromIndex(aDMVE.Add(aV, ShapeList())).Append(aE);
           aMVInv.Add(aV);
@@ -8293,7 +8293,7 @@ void BRepOffset_BuildOffsetFaces::GetInvalidEdgesByBounds(
     TopoVertex             aV;
     Standard_Real             f, l;
     const Handle(GeomCurve3d)& aC = BRepInspector::Curve(TopoDS::Edge(aE), f, l);
-    ShapeBuilder().MakeVertex(aV, aC->Value((f + l) * 0.5), Precision::Confusion());
+    ShapeBuilder().MakeVertex(aV, aC->Value((f + l) * 0.5), Precision1::Confusion());
     // add this vertex for checking
     aDMVE.ChangeFromIndex(aDMVE.Add(aV, ShapeList())).Append(aE);
     aMVInv.Add(aV);

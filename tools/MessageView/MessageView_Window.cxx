@@ -545,7 +545,7 @@ void MessageView_Window::onExportReport()
     return;
   }
   QTextStream anOut(&aLogFile);
-  anOut << Standard_Dump::FormatJson(aStream).ToCString();
+  anOut << DumpTool::FormatJson(aStream).ToCString();
   aLogFile.close();
 }
 

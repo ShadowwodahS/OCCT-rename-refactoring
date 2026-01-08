@@ -28,7 +28,7 @@ View_PreviewParameters::View_PreviewParameters(const Standard_Boolean theToTrans
 {
   myDrawer = new StyleDrawer();
 
-  Quantity_Color aColor(Quantity_NOC_TOMATO);
+  Color1 aColor(Quantity_NOC_TOMATO);
 
   // point parameters
   myDrawer->SetPointAspect(new Prs3d_PointAspect(Aspect_TOM_O_PLUS, aColor, 3.0));

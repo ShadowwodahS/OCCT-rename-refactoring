@@ -18,12 +18,12 @@
 #include <vector>
 
 //! Auxiliary tool for buffered reading of lines from input stream.
-class Standard_ReadLineBuffer
+class ReadLineBuffer
 {
 public:
   //! Constructor with initialization.
   //! @param theMaxBufferSizeBytes the length of buffer to read (in bytes)
-  Standard_ReadLineBuffer(size_t theMaxBufferSizeBytes)
+  ReadLineBuffer(size_t theMaxBufferSizeBytes)
       : myUseReadBufferLastStr(false),
         myIsMultilineMode(false),
         myToPutGapInMultiline(true),
@@ -35,7 +35,7 @@ public:
   }
 
   //! Destructor.
-  virtual ~Standard_ReadLineBuffer() {}
+  virtual ~ReadLineBuffer() {}
 
   //! Clear buffer and cached values.
   void Clear()

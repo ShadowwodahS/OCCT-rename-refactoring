@@ -63,7 +63,7 @@ GlobOptMin::GlobOptMin(MultipleVarFunction* theFunc,
       myCellSize(0, myN - 1),
       myFilter(theFunc->NbVariables()),
       myCont(2),
-      myF(Precision::Infinite())
+      myF(Precision1::Infinite())
 {
   Standard_Integer i;
 
@@ -71,7 +71,7 @@ GlobOptMin::GlobOptMin(MultipleVarFunction* theFunc,
   myC                      = theC;
   myInitC                  = theC;
   myIsFindSingleSolution   = Standard_False;
-  myFunctionalMinimalValue = -Precision::Infinite();
+  myFunctionalMinimalValue = -Precision1::Infinite();
   myZ                      = -1;
   mySolCount               = 0;
 
@@ -210,7 +210,7 @@ void GlobOptMin::Perform(const Standard_Boolean isFindSingleSolution)
     myV(i) = 0.0;
   }
 
-  if (minLength < Precision::PConfusion())
+  if (minLength < Precision1::PConfusion())
   {
 #ifdef OCCT_DEBUG
     std::cout << "GlobOptMin::Perform(): Degenerated parameters space" << std::endl;
@@ -410,7 +410,7 @@ void GlobOptMin::computeGlobalExtremum(Standard_Integer j)
 
         // Piyavsky midpoint estimation.
         Standard_Real aParam = (2 * myX(1) - myV(1)) * 0.5 + (aPrevVal - d) * 0.5 / myC;
-        if (Precision::IsInfinite(aPrevVal))
+        if (Precision1::IsInfinite(aPrevVal))
           aParam = myX(1) - myV(1) * 0.5; // Protection from upper dimension step.
 
         myX(1)             = aParam;
@@ -504,7 +504,7 @@ Standard_Boolean GlobOptMin::isStored(const math_Vector& thePnt)
   }
   else
   {
-    NCollection_CellFilter_Inspector1 anInspector(myN, Precision::PConfusion());
+    NCollection_CellFilter_Inspector1 anInspector(myN, Precision1::PConfusion());
     if (isFirstCellFilterInvoke)
     {
       myFilter.Reset(myCellSize);
@@ -554,7 +554,7 @@ void GlobOptMin::initCellSize()
   for (Standard_Integer anIdx = 1; anIdx <= myN; anIdx++)
   {
     myCellSize(anIdx - 1) =
-      (myGlobB(anIdx) - myGlobA(anIdx)) * Precision::PConfusion() / (2.0 * Sqrt(2.0));
+      (myGlobB(anIdx) - myGlobA(anIdx)) * Precision1::PConfusion() / (2.0 * Sqrt(2.0));
   }
 }
 

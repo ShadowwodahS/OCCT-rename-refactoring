@@ -60,7 +60,7 @@ static void FusionneIntervalles(const TColStd_Array1OfReal& I1,
                                 TColStd_SequenceOfReal&     Seq)
 {
   Standard_Integer ind1 = 1, ind2 = 1;
-  Standard_Real    Epspar = Precision::PConfusion() * 0.99;
+  Standard_Real    Epspar = Precision1::PConfusion() * 0.99;
   // supposed that the positioning works with PConfusion()/2
   Standard_Real v1, v2;
   // Initialisations : IND1 and IND2 point the 1st element
@@ -644,8 +644,8 @@ void BRepBlend_RstRstEvolRad::Section(const Standard_Real Param,
     C.SetPosition(Frame3d(Center, np, ns));
     Pfin = ElCLib1::Parameter(C, ptrst2);
   }
-  if (Pfin < Precision::PConfusion())
-    Pfin += Precision::PConfusion();
+  if (Pfin < Precision1::PConfusion())
+    Pfin += Precision1::PConfusion();
 }
 
 //=================================================================================================

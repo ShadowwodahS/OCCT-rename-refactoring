@@ -41,7 +41,7 @@ public:
   //! return the creation date
   Standard_EXPORT AsciiString1 CreationDate() const;
 
-  //! return the Storage package version
+  //! return the Storage1 package version
   Standard_EXPORT AsciiString1 StorageVersion() const;
 
   //! get the version of the schema

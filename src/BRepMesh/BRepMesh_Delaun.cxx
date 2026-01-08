@@ -39,8 +39,8 @@ const Standard_Real AngDeviation1Deg  = M_PI / 180.;
 const Standard_Real AngDeviation90Deg = 90 * AngDeviation1Deg;
 const Standard_Real Angle2PI          = 2 * M_PI;
 
-const Standard_Real Precision  = Precision::PConfusion();
-const Standard_Real Precision2 = Precision * Precision;
+const Standard_Real Precision1  = Precision1::PConfusion();
+const Standard_Real Precision2 = Precision1 * Precision1;
 
 namespace
 {
@@ -77,7 +77,7 @@ void UpdateBndBox(const Coords2d& thePnt1, const Coords2d& thePnt2, Bnd_B2d& the
 {
   theBox.Add(thePnt1);
   theBox.Add(thePnt2);
-  theBox.Enlarge(Precision);
+  theBox.Enlarge(Precision1);
 }
 } // anonymous namespace
 
@@ -196,7 +196,7 @@ void BRepMesh_Delaun::InitCirclesTool(const Standard_Integer theCellsCountU,
   {
     aBox.Add(gp_Pnt2d(GetVertex(aNodeIt).Coord()));
   }
-  aBox.Enlarge(Precision);
+  aBox.Enlarge(Precision1);
 
   initCirclesTool(aBox, theCellsCountU, theCellsCountV);
 
@@ -262,7 +262,7 @@ void BRepMesh_Delaun::perform(IMeshData::VectorOfInteger& theVertexIndices,
     aBox.Add(gp_Pnt2d(GetVertex(theVertexIndices(anIndex)).Coord()));
   }
 
-  aBox.Enlarge(Precision);
+  aBox.Enlarge(Precision1);
 
   initCirclesTool(aBox, theCellsCountU, theCellsCountV);
   superMesh(aBox);
@@ -443,7 +443,7 @@ void BRepMesh_Delaun::createTriangles(const Standard_Integer          theVertexI
 
     Coords2d         anEdgeDir(aLastVertex.Coord() - aFirstVertex.Coord());
     Standard_Real anEdgeLen = anEdgeDir.Modulus();
-    if (anEdgeLen < Precision)
+    if (anEdgeLen < Precision1)
       continue;
 
     anEdgeDir.SetCoord(anEdgeDir.X() / anEdgeLen, anEdgeDir.Y() / anEdgeLen);
@@ -453,7 +453,7 @@ void BRepMesh_Delaun::createTriangles(const Standard_Integer          theVertexI
 
     Standard_Real aDist12 = aFirstLinkDir ^ anEdgeDir;
     Standard_Real aDist23 = anEdgeDir ^ aLastLinkDir;
-    if (Abs(aDist12) < Precision || Abs(aDist23) < Precision)
+    if (Abs(aDist12) < Precision1 || Abs(aDist23) < Precision1)
     {
       continue;
     }
@@ -669,7 +669,7 @@ Standard_Boolean BRepMesh_Delaun::isBoundToFrontier(const Standard_Integer theRe
                                                     const Standard_Integer theRefLinkId)
 {
   std::stack<Standard_Integer> aLinkStack;
-  TColStd_PackedMapOfInteger   aVisitedLinks;
+  PackedIntegerMap   aVisitedLinks;
 
   aLinkStack.push(theRefLinkId);
   while (!aLinkStack.empty())
@@ -1146,7 +1146,7 @@ Standard_Integer BRepMesh_Delaun::findNextPolygonLink(
     Standard_Boolean isCheckPointOnEdge = Standard_True;
     if (isFrontier)
     {
-      if (Abs(Abs(anAngle) - M_PI) < Precision::Angular())
+      if (Abs(Abs(anAngle) - M_PI) < Precision1::Angular())
       {
         // Glued constrains - don't check intersection
         isCheckPointOnEdge = Standard_False;
@@ -1493,7 +1493,7 @@ Standard_Boolean BRepMesh_Delaun::isVertexInsidePolygon(
     aPrevVertexDir = aCurVertexDir;
   }
 
-  if (Abs(Angle2PI - aTotalAng) > Precision::Angular())
+  if (Abs(Angle2PI - aTotalAng) > Precision1::Angular())
     return Standard_False;
 
   return Standard_True;
@@ -1770,7 +1770,7 @@ void BRepMesh_Delaun::meshPolygon(IMeshData::SequenceOfInteger&   thePolygon,
           // Check is second link touches the first one
           gp_Vec2d aVec1(aRefPoint, aNextPnts[0]);
           gp_Vec2d aVec2(aRefPoint, aNextPnts[1]);
-          if (Abs(aVec1 ^ aVec2) < Precision)
+          if (Abs(aVec1 ^ aVec2) < Precision1)
           {
             isFirstChopping = Standard_True;
             break;
@@ -1972,7 +1972,7 @@ void BRepMesh_Delaun::decomposeSimplePolygon(IMeshData::SequenceOfInteger& thePo
   gp_Vec2d aRefEdgeDir(aRefVertices[0], aRefVertices[1]);
 
   Standard_Real aRefEdgeLen = aRefEdgeDir.Magnitude();
-  if (aRefEdgeLen < Precision)
+  if (aRefEdgeLen < Precision1)
   {
     thePolygon.Clear();
     thePolyBoxes.Clear();
@@ -2005,7 +2005,7 @@ void BRepMesh_Delaun::decomposeSimplePolygon(IMeshData::SequenceOfInteger& thePo
     Standard_Real aDist     = aRefEdgeDir ^ aDistanceDir;
     Standard_Real aAngle    = Abs(aRefEdgeDir.Angle(aDistanceDir));
     Standard_Real anAbsDist = Abs(aDist);
-    if (anAbsDist < Precision || aDist < 0.)
+    if (anAbsDist < Precision1 || aDist < 0.)
       continue;
 
     if ((anAbsDist >= aMinDist) && (aAngle <= aOptAngle || aAngle > AngDeviation90Deg))
@@ -2548,7 +2548,7 @@ Standard_CString BRepMesh_DumpPoly(void*            thePolygon,
         aPnt[i]            = Point3d(aNode.X(), aNode.Y(), 0.);
       }
 
-      if (aPnt[0].SquareDistance(aPnt[1]) < Precision::SquareConfusion())
+      if (aPnt[0].SquareDistance(aPnt[1]) < Precision1::SquareConfusion())
         continue;
 
       aBuilder.Add(aMesh, EdgeMaker(aPnt[0], aPnt[1]));

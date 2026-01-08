@@ -155,7 +155,7 @@ void SectionedAreaTool::OwnDump(const Handle(IGESDimen_SectionedArea)& ent,
   Standard_Integer sublevel = (level <= 4) ? 0 : 1;
 
   S << "IGESDimen_SectionedArea\n"
-    << (ent->IsInverted() ? "Inverted Cross Hatches" : "Standard Cross Hatches")
+    << (ent->IsInverted() ? "Inverted Cross Hatches" : "Standard1 Cross Hatches")
     << " - Exterior curve : ";
   dumper.Dump(ent->ExteriorCurve(), S, sublevel);
   S << "\n"

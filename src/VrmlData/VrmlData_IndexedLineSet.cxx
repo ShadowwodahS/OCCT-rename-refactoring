@@ -35,7 +35,7 @@ IMPLEMENT_STANDARD_RTTIEXT(VrmlData_IndexedLineSet, VrmlData_Geometry)
 
 //=================================================================================================
 
-Quantity_Color VrmlData_IndexedLineSet::GetColor(const Standard_Integer /*iFace*/,
+Color1 VrmlData_IndexedLineSet::GetColor(const Standard_Integer /*iFace*/,
                                                  const Standard_Integer /*iVertex*/)
 {
   // TODO

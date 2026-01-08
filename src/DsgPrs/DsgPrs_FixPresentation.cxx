@@ -90,7 +90,7 @@ void FixPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
 
   aPresentation->NewGroup();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
-  Quantity_Color                   aColor = LA->LineAspect()->Aspect()->Color();
+  Color1                   aColor = LA->LineAspect()->Aspect()->Color();
   Handle(Graphic3d_AspectMarker3d) aMarkerAsp =
     new Graphic3d_AspectMarker3d(Aspect_TOM_O, aColor, 1.0);
   aPresentation->CurrentGroup()->SetPrimitivesAspect(aMarkerAsp);

@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-Standard_Boolean OSD::RealToCString(const Standard_Real aReal, Standard_PCharacter& aString)
+Standard_Boolean OSD1::RealToCString(const Standard_Real aReal, Standard_PCharacter& aString)
 {
   char *p, *q;
 
@@ -48,7 +48,7 @@ Standard_Boolean OSD::RealToCString(const Standard_Real aReal, Standard_PCharact
 
 // Make the RealToCString reciprocal conversion.
 
-Standard_Boolean OSD::CStringToReal(const Standard_CString aString, Standard_Real& aReal)
+Standard_Boolean OSD1::CStringToReal(const Standard_CString aString, Standard_Real& aReal)
 {
   char* endptr;
   aReal = Strtod(aString, &endptr);
@@ -67,7 +67,7 @@ Standard_Boolean OSD::CStringToReal(const Standard_CString aString, Standard_Rea
 // function : OSDSecSleep
 // purpose  : Cause the process to sleep during a amount of seconds
 //=======================================================================
-void OSD::SecSleep(const Standard_Integer theSeconds)
+void OSD1::SecSleep(const Standard_Integer theSeconds)
 {
 #ifdef _WIN32
   Sleep(theSeconds * 1000);
@@ -80,7 +80,7 @@ void OSD::SecSleep(const Standard_Integer theSeconds)
 // function : MilliSecSleep
 // purpose  : Cause the process to sleep during a amount of milliseconds
 //=======================================================================
-void OSD::MilliSecSleep(const Standard_Integer theMilliseconds)
+void OSD1::MilliSecSleep(const Standard_Integer theMilliseconds)
 {
 #ifdef _WIN32
   Sleep(theMilliseconds);

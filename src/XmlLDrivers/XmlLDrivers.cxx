@@ -40,7 +40,7 @@ const Handle(RefObject)& XmlLDrivers1::Factory(const Standard_GUID& theGUID)
   if (theGUID == XmlLStorageDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "XmlLDrivers1 : Storage Plugin" << std::endl;
+    std::cout << "XmlLDrivers1 : Storage1 Plugin1" << std::endl;
 #endif
     static Handle(RefObject) model_sd = new XmlLDrivers_DocumentStorageDriver(
       "Copyright: Open Cascade, 2001-2002"); // default copyright
@@ -50,7 +50,7 @@ const Handle(RefObject)& XmlLDrivers1::Factory(const Standard_GUID& theGUID)
   if (theGUID == XmlLRetrievalDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "XmlLDrivers1 : Retrieval Plugin" << std::endl;
+    std::cout << "XmlLDrivers1 : Retrieval Plugin1" << std::endl;
 #endif
     static Handle(RefObject) model_rd = new XmlLDrivers_DocumentRetrievalDriver();
     return model_rd;
@@ -74,7 +74,7 @@ AsciiString1 XmlLDrivers1::CreationDate()
   if (time(&nowbin) == (time_t)-1)
   {
 #ifdef OCCT_DEBUG
-    std::cerr << "Storage ERROR : Could not get time of day from time()" << std::endl;
+    std::cerr << "Storage1 ERROR : Could not get time of day from time()" << std::endl;
 #endif
   }
 
@@ -83,7 +83,7 @@ AsciiString1 XmlLDrivers1::CreationDate()
   if (strftime(nowstr, SLENGTH, "%Y-%m-%d", nowstruct) == (size_t)0)
   {
 #ifdef OCCT_DEBUG
-    std::cerr << "Storage ERROR : Could not get string from strftime()" << std::endl;
+    std::cerr << "Storage1 ERROR : Could not get string from strftime()" << std::endl;
 #endif
   }
 

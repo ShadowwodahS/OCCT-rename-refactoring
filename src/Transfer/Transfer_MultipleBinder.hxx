@@ -40,7 +40,7 @@ DEFINE_STANDARD_HANDLE(Transfer_MultipleBinder, Transfer_Binder)
 //!
 //! Remark : MultipleBinder itself is intended to be created and
 //! filled by TransferProcess itself (method Bind). In particular,
-//! conflicts between Unique (Standard) result and Multiple result
+//! conflicts between Unique (Standard1) result and Multiple result
 //! are avoided through management made by TransferProcess.
 //!
 //! Also, a Transcriptor (with an effective Transfer Method) which

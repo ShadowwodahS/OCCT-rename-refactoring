@@ -134,7 +134,7 @@ bool DEVRML_Provider::Write(const AsciiString1&  thePath,
     aScaling = aNode->GlobalParameters.SystemUnit / aNode->GlobalParameters.LengthUnit;
     Message1::SendWarning()
       << "Warning in the DEVRML_Provider during writing the file " << thePath
-      << "\t: The document has no information on Units. Using global parameter as initial Unit.";
+      << "\t: The document has no information on Units2. Using global parameter as initial Unit.";
   }
   if (!aWriter.WriteDoc(theDocument, thePath.ToCString(), aScaling))
   {

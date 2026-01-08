@@ -89,7 +89,7 @@ public:
   //! Builds and stores an Oriented Bounding Box1 for the shape.
   //! Returns a reference to OBB.
   Standard_EXPORT OrientedBox& OBB(const TopoShape& theShape,
-                               const Standard_Real theFuzzyValue = Precision::Confusion());
+                               const Standard_Real theFuzzyValue = Precision1::Confusion());
 
   //! Computes the boundaries of the face using surface adaptor
   Standard_EXPORT void UVBounds(const TopoFace& theFace,
@@ -127,7 +127,7 @@ public:
                                              const TopoEdge&   theE,
                                              Standard_Real&       theT,
                                              Standard_Real&       theTol,
-                                             const Standard_Real  theFuzz = Precision::Confusion());
+                                             const Standard_Real  theFuzz = Precision1::Confusion());
 
   //! Computes UV parameters of the vertex aV on face aF
   //! and correct tolerance value for the vertex on the face.
@@ -143,7 +143,7 @@ public:
                                              Standard_Real&       theU,
                                              Standard_Real&       theV,
                                              Standard_Real&       theTol,
-                                             const Standard_Real  theFuzz = Precision::Confusion());
+                                             const Standard_Real  theFuzz = Precision1::Confusion());
 
   //! Returns the state of the point aP2D
   //! relative to face aF

@@ -54,18 +54,18 @@ IMPLEMENT_STANDARD_RTTIEXT(ProjLib_CompProjectedCurve, Adaptor2d_Curve2d)
 #ifdef OCCT_DEBUG_CHRONO
   #include <OSD_Timer.hxx>
 
-static OSD_Chronometer chr_init_point, chr_dicho_bound;
+static Chronometer chr_init_point, chr_dicho_bound;
 
 Standard_EXPORT Standard_Real    t_init_point, t_dicho_bound;
 Standard_EXPORT Standard_Integer init_point_count, dicho_bound_count;
 
-static void InitChron(OSD_Chronometer& ch)
+static void InitChron(Chronometer& ch)
 {
   ch.Reset();
   ch.Start();
 }
 
-static void ResultChron(OSD_Chronometer& ch, Standard_Real& time)
+static void ResultChron(Chronometer& ch, Standard_Real& time)
 {
   Standard_Real tch;
   ch.Stop();
@@ -374,8 +374,8 @@ static Standard_Boolean ExactBound(Point3d&                          Sol,
   // Here we assume that D2d != (0, 0)
   if (Abs(D2d.X()) < gp1::Resolution())
   {
-    RU1 = Precision::Infinite();
-    RU2 = Precision::Infinite();
+    RU1 = Precision1::Infinite();
+    RU2 = Precision1::Infinite();
     RV1 = V0 - FirstV;
     RV2 = LastV - V0;
   }
@@ -383,8 +383,8 @@ static Standard_Boolean ExactBound(Point3d&                          Sol,
   {
     RU1 = U0 - FirstU;
     RU2 = LastU - U0;
-    RV1 = Precision::Infinite();
-    RV2 = Precision::Infinite();
+    RV1 = Precision1::Infinite();
+    RV2 = Precision1::Infinite();
   }
   else
   {
@@ -655,8 +655,8 @@ ProjLib_CompProjectedCurve::ProjLib_CompProjectedCurve(const Standard_Real      
       myProj3d(Standard_False),
       myMaxDist(theMaxDist)
 {
-  myTolU = Max(Precision::PConfusion(), mySurface->UResolution(theTol3d));
-  myTolV = Max(Precision::PConfusion(), mySurface->VResolution(theTol3d));
+  myTolU = Max(Precision1::PConfusion(), mySurface->UResolution(theTol3d));
+  myTolV = Max(Precision1::PConfusion(), mySurface->VResolution(theTol3d));
 
   Init();
 }
@@ -700,7 +700,7 @@ void ProjLib_CompProjectedCurve::Init()
   Standard_Integer i, Nend = 0, aSplitIdx = 0;
   Standard_Boolean FromLastU = Standard_False, isSplitsComputed = Standard_False;
 
-  constexpr Standard_Real aTolExt = Precision::PConfusion();
+  constexpr Standard_Real aTolExt = Precision1::PConfusion();
   Extrema_ExtCS           CExt(*myCurve, *mySurface, aTolExt, aTolExt);
   if (CExt.IsDone() && CExt.NbExt())
   {
@@ -753,7 +753,7 @@ void ProjLib_CompProjectedCurve::Init()
     // Search for the beginning of a new continuous part
     // to avoid infinite computation in some difficult cases.
     new_part = Standard_False;
-    if (t > FirstU && Abs(t - prevDeb) <= Precision::PConfusion())
+    if (t > FirstU && Abs(t - prevDeb) <= Precision1::PConfusion())
       SameDeb = Standard_True;
     while (t <= LastU && !new_part && !FromLastU && !SameDeb)
     {
@@ -778,7 +778,7 @@ void ProjLib_CompProjectedCurve::Init()
 
           aPrjPS.Perform(ParT, ParU, ParV, aTol, aLowBorder, aUppBorder, FuncTol, Standard_True);
 
-          if (aPrjPS.IsDone() && P1.Parameter() > Max(FirstU, t - Step + Precision::PConfusion())
+          if (aPrjPS.IsDone() && P1.Parameter() > Max(FirstU, t - Step + Precision1::PConfusion())
               && P1.Parameter() <= t)
           {
             t         = ParT;
@@ -811,19 +811,19 @@ void ProjLib_CompProjectedCurve::Init()
 
         if ((mySurface->IsUPeriodic()
              && Abs(aUppBorder.X() - aLowBorder.X() - mySurface->UPeriod())
-                  < Precision::Confusion())
+                  < Precision1::Confusion())
             || (mySurface->IsVPeriodic()
                 && Abs(aUppBorder.Y() - aLowBorder.Y() - mySurface->VPeriod())
-                     < Precision::Confusion()))
+                     < Precision1::Confusion()))
         {
-          if ((Abs(U - aLowBorder.X()) < mySurface->UResolution(Precision::PConfusion()))
+          if ((Abs(U - aLowBorder.X()) < mySurface->UResolution(Precision1::PConfusion()))
               && mySurface->IsUPeriodic())
           {
             d1(t, U, V, D, myCurve, mySurface);
             if (D.X() < 0)
               U = aUppBorder.X();
           }
-          else if ((Abs(U - aUppBorder.X()) < mySurface->UResolution(Precision::PConfusion()))
+          else if ((Abs(U - aUppBorder.X()) < mySurface->UResolution(Precision1::PConfusion()))
                    && mySurface->IsUPeriodic())
           {
             d1(t, U, V, D, myCurve, mySurface);
@@ -831,14 +831,14 @@ void ProjLib_CompProjectedCurve::Init()
               U = aLowBorder.X();
           }
 
-          if ((Abs(V - aLowBorder.Y()) < mySurface->VResolution(Precision::PConfusion()))
+          if ((Abs(V - aLowBorder.Y()) < mySurface->VResolution(Precision1::PConfusion()))
               && mySurface->IsVPeriodic())
           {
             d1(t, U, V, D, myCurve, mySurface);
             if (D.Y() < 0)
               V = aUppBorder.Y();
           }
-          else if ((Abs(V - aUppBorder.Y()) <= mySurface->VResolution(Precision::PConfusion()))
+          else if ((Abs(V - aUppBorder.Y()) <= mySurface->VResolution(Precision1::PConfusion()))
                    && mySurface->IsVPeriodic())
           {
             d1(t, U, V, D, myCurve, mySurface);
@@ -912,7 +912,7 @@ void ProjLib_CompProjectedCurve::Init()
     d2CurvOnSurf(Triple.X(), Triple.Y(), Triple.Z(), D1, D2, myCurve, mySurface);
     MagnD1 = D1.Magnitude();
     MagnD2 = D2.Magnitude();
-    if (MagnD2 < Precision::Confusion())
+    if (MagnD2 < Precision1::Confusion())
       WalkStep = MaxStep;
     else
       WalkStep = Min(MaxStep, Max(MinStep, 0.1 * MagnD1 / MagnD2));
@@ -983,7 +983,7 @@ void ProjLib_CompProjectedCurve::Init()
           if (t > (LastU - MinStep / 4))
           {
             Step = Step + LastU - t;
-            if (Abs(Step - SaveStep) <= Precision::PConfusion())
+            if (Abs(Step - SaveStep) <= Precision1::PConfusion())
               Step = GlobalMinStep; // to avoid looping
             t = LastU;
           }
@@ -1004,16 +1004,16 @@ void ProjLib_CompProjectedCurve::Init()
         {
           Standard_Boolean isUPossible = Standard_False;
           if (mySurface->IsUPeriodic()
-              && (Abs(Triple.Y() - mySurface->FirstUParameter()) > Precision::PConfusion()
-                  && Abs(Triple.Y() - mySurface->LastUParameter()) > Precision::PConfusion()))
+              && (Abs(Triple.Y() - mySurface->FirstUParameter()) > Precision1::PConfusion()
+                  && Abs(Triple.Y() - mySurface->LastUParameter()) > Precision1::PConfusion()))
           {
             isUPossible = Standard_True;
           }
 
           Standard_Boolean isVPossible = Standard_False;
           if (mySurface->IsVPeriodic()
-              && (Abs(Triple.Z() - mySurface->FirstVParameter()) > Precision::PConfusion()
-                  && Abs(Triple.Z() - mySurface->LastVParameter()) > Precision::PConfusion()))
+              && (Abs(Triple.Z() - mySurface->FirstVParameter()) > Precision1::PConfusion()
+                  && Abs(Triple.Z() - mySurface->LastVParameter()) > Precision1::PConfusion()))
           {
             isVPossible = Standard_True;
           }
@@ -1039,7 +1039,7 @@ void ProjLib_CompProjectedCurve::Init()
         d2CurvOnSurf(Triple.X(), Triple.Y(), Triple.Z(), D1, D2, myCurve, mySurface);
         MagnD1 = D1.Magnitude();
         MagnD2 = D2.Magnitude();
-        if (MagnD2 < Precision::Confusion())
+        if (MagnD2 < Precision1::Confusion())
           WalkStep = MaxStep;
         else
           WalkStep = Min(MaxStep, Max(MinStep, 0.1 * MagnD1 / MagnD2));
@@ -1057,7 +1057,7 @@ void ProjLib_CompProjectedCurve::Init()
         for (Standard_Integer anIdx = aSplitIdx; anIdx < aSize; ++anIdx)
         {
           const Standard_Real aParam = aSplits(anIdx);
-          if (Abs(aParam - Triple.X()) < Precision::PConfusion())
+          if (Abs(aParam - Triple.X()) < Precision1::PConfusion())
           {
             // The current point is equal to a split point.
             new_part = Standard_False;
@@ -1066,7 +1066,7 @@ void ProjLib_CompProjectedCurve::Init()
             ++aSplitIdx;
             break;
           }
-          else if (aParam < t + Precision::PConfusion())
+          else if (aParam < t + Precision1::PConfusion())
           {
             // The next point crosses the split point.
             t    = aParam;
@@ -1570,12 +1570,12 @@ void ProjLib_CompProjectedCurve::D0(const Standard_Real U, gp_Pnt2d& P) const
 
   //  Cubic Interpolation
   if (mySequence->Value(i)->Length() < 4
-      || (Abs(U - mySequence->Value(i)->Value(j).X()) <= Precision::PConfusion()))
+      || (Abs(U - mySequence->Value(i)->Value(j).X()) <= Precision1::PConfusion()))
   {
     U0 = mySequence->Value(i)->Value(j).Y();
     V0 = mySequence->Value(i)->Value(j).Z();
   }
-  else if (Abs(U - mySequence->Value(i)->Value(j + 1).X()) <= Precision::PConfusion())
+  else if (Abs(U - mySequence->Value(i)->Value(j + 1).X()) <= Precision1::PConfusion())
   {
     U0 = mySequence->Value(i)->Value(j + 1).Y();
     V0 = mySequence->Value(i)->Value(j + 1).Z();
@@ -1857,7 +1857,7 @@ void ProjLib_CompProjectedCurve::BuildIntervals(const GeomAbs_Shape S) const
           Point3d   Triple;
           Triple = mySequence->Value(i)->Value(j);
           d1(Triple.X(), Triple.Y(), Triple.Z(), D, myCurve, mySurface);
-          if (Abs(D.X()) < Precision::Confusion())
+          if (Abs(D.X()) < Precision1::Confusion())
             Tol = myTolU;
           else
             Tol = Min(myTolU, myTolU / Abs(D.X()));
@@ -1883,7 +1883,7 @@ void ProjLib_CompProjectedCurve::BuildIntervals(const GeomAbs_Shape S) const
   }
   for (i = 2; i <= TUdisc.Length(); i++)
   {
-    if (TUdisc(i) - TUdisc(i - 1) < Precision::PConfusion())
+    if (TUdisc(i) - TUdisc(i - 1) < Precision1::PConfusion())
     {
       TUdisc.Remove(i--);
     }
@@ -1925,7 +1925,7 @@ void ProjLib_CompProjectedCurve::BuildIntervals(const GeomAbs_Shape S) const
           Point3d   Triple;
           Triple = mySequence->Value(i)->Value(j);
           d1(Triple.X(), Triple.Y(), Triple.Z(), D, myCurve, mySurface);
-          if (Abs(D.Y()) < Precision::Confusion())
+          if (Abs(D.Y()) < Precision1::Confusion())
             Tol = myTolV;
           else
             Tol = Min(myTolV, myTolV / Abs(D.Y()));
@@ -1952,7 +1952,7 @@ void ProjLib_CompProjectedCurve::BuildIntervals(const GeomAbs_Shape S) const
 
   for (i = 2; i <= TVdisc.Length(); i++)
   {
-    if (TVdisc(i) - TVdisc(i - 1) < Precision::PConfusion())
+    if (TVdisc(i) - TVdisc(i - 1) < Precision1::PConfusion())
     {
       TVdisc.Remove(i--);
     }
@@ -1974,7 +1974,7 @@ void ProjLib_CompProjectedCurve::BuildIntervals(const GeomAbs_Shape S) const
     GeomLib1::FuseIntervals(BArr->ChangeArray1(),
                            CArr->ChangeArray1(),
                            Fusion,
-                           Precision::PConfusion());
+                           Precision1::PConfusion());
     BArr = new TColStd_HArray1OfReal(1, Fusion.Length());
     for (i = 1; i <= BArr->Length(); i++)
     {
@@ -1988,7 +1988,7 @@ void ProjLib_CompProjectedCurve::BuildIntervals(const GeomAbs_Shape S) const
     GeomLib1::FuseIntervals(BArr->ChangeArray1(),
                            UArr->ChangeArray1(),
                            Fusion,
-                           Precision::PConfusion());
+                           Precision1::PConfusion());
     BArr = new TColStd_HArray1OfReal(1, Fusion.Length());
     for (i = 1; i <= BArr->Length(); i++)
     {
@@ -2002,7 +2002,7 @@ void ProjLib_CompProjectedCurve::BuildIntervals(const GeomAbs_Shape S) const
     GeomLib1::FuseIntervals(BArr->ChangeArray1(),
                            VArr->ChangeArray1(),
                            Fusion,
-                           Precision::PConfusion());
+                           Precision1::PConfusion());
     BArr = new TColStd_HArray1OfReal(1, Fusion.Length());
     for (i = 1; i <= BArr->Length(); i++)
     {
@@ -2111,8 +2111,8 @@ void ProjLib_CompProjectedCurve::UpdateTripleByTrapCriteria(Point3d& thePoint) c
   if (mySurface->GetType() == GeomAbs_SurfaceOfRevolution)
   {
     // Compute maximal deviation from 3D and choose the biggest one.
-    Standard_Real aVRes   = mySurface->VResolution(Precision::Confusion());
-    Standard_Real aMaxTol = Max(Precision::PConfusion(), aVRes);
+    Standard_Real aVRes   = mySurface->VResolution(Precision1::Confusion());
+    Standard_Real aMaxTol = Max(Precision1::PConfusion(), aVRes);
 
     if (Abs(thePoint.Z() - mySurface->FirstVParameter()) < aMaxTol
         || Abs(thePoint.Z() - mySurface->LastVParameter()) < aMaxTol)
@@ -2123,10 +2123,10 @@ void ProjLib_CompProjectedCurve::UpdateTripleByTrapCriteria(Point3d& thePoint) c
 
   // 27135 bug. Trap on degenerated edge.
   if (mySurface->GetType() == GeomAbs_Sphere
-      && (Abs(thePoint.Z() - mySurface->FirstVParameter()) < Precision::PConfusion()
-          || Abs(thePoint.Z() - mySurface->LastVParameter()) < Precision::PConfusion()
-          || Abs(thePoint.Y() - mySurface->FirstUParameter()) < Precision::PConfusion()
-          || Abs(thePoint.Y() - mySurface->LastUParameter()) < Precision::PConfusion()))
+      && (Abs(thePoint.Z() - mySurface->FirstVParameter()) < Precision1::PConfusion()
+          || Abs(thePoint.Z() - mySurface->LastVParameter()) < Precision1::PConfusion()
+          || Abs(thePoint.Y() - mySurface->FirstUParameter()) < Precision1::PConfusion()
+          || Abs(thePoint.Y() - mySurface->LastUParameter()) < Precision1::PConfusion()))
   {
     isProblemsPossible = Standard_True;
   }
@@ -2139,8 +2139,8 @@ void ProjLib_CompProjectedCurve::UpdateTripleByTrapCriteria(Point3d& thePoint) c
                                          thePoint.X(),
                                          myCurve,
                                          mySurface,
-                                         Precision::PConfusion(),
-                                         Precision::PConfusion(),
+                                         Precision1::PConfusion(),
+                                         Precision1::PConfusion(),
                                          U,
                                          V,
                                          myMaxDist);
@@ -2150,12 +2150,12 @@ void ProjLib_CompProjectedCurve::UpdateTripleByTrapCriteria(Point3d& thePoint) c
 
   // Restore original position in case of period jump.
   if (mySurface->IsUPeriodic()
-      && Abs(Abs(U - thePoint.Y()) - mySurface->UPeriod()) < Precision::PConfusion())
+      && Abs(Abs(U - thePoint.Y()) - mySurface->UPeriod()) < Precision1::PConfusion())
   {
     U = thePoint.Y();
   }
   if (mySurface->IsVPeriodic()
-      && Abs(Abs(V - thePoint.Z()) - mySurface->VPeriod()) < Precision::PConfusion())
+      && Abs(Abs(V - thePoint.Z()) - mySurface->VPeriod()) < Precision1::PConfusion())
   {
     V = thePoint.Z();
   }
@@ -2287,15 +2287,15 @@ void FindSplitPoint(SplitDS&            theSplitDS,
       aPOnS.Parameter(U, V);
       aProjParam = theSplitDS.myPeriodicDir ? V : U;
 
-      if (Abs(aProjParam - theSplitDS.myPerMinParam) < Precision::PConfusion()
-          || Abs(aProjParam - theSplitDS.myPerMaxParam) < Precision::PConfusion())
+      if (Abs(aProjParam - theSplitDS.myPerMinParam) < Precision1::PConfusion()
+          || Abs(aProjParam - theSplitDS.myPerMaxParam) < Precision1::PConfusion())
       {
         const Standard_Real aParam   = aPOnC2.Parameter();
         const Standard_Real aCFParam = theSplitDS.myCurve->FirstParameter();
         const Standard_Real aCLParam = theSplitDS.myCurve->LastParameter();
 
-        if (aParam > aCFParam + Precision::PConfusion()
-            && aParam < aCLParam - Precision::PConfusion())
+        if (aParam > aCFParam + Precision1::PConfusion()
+            && aParam < aCLParam - Precision1::PConfusion())
         {
           // Add only inner points.
           theSplitDS.mySplits.Append(aParam);
@@ -2305,12 +2305,12 @@ void FindSplitPoint(SplitDS&            theSplitDS,
         const Standard_Real aDelta =
           (theMaxParam - theMinParam + aCLParam - aCFParam) * aDeltaCoeff;
 
-        if (aParam - aDelta > theMinParam + Precision::PConfusion())
+        if (aParam - aDelta > theMinParam + Precision1::PConfusion())
         {
           FindSplitPoint(theSplitDS, theMinParam, aParam - aDelta); // Curve parameters.
         }
 
-        if (aParam + aDelta < theMaxParam - Precision::PConfusion())
+        if (aParam + aDelta < theMaxParam - Precision1::PConfusion())
         {
           FindSplitPoint(theSplitDS, aParam + aDelta, theMaxParam); // Curve parameters.
         }

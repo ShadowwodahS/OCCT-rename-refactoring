@@ -52,7 +52,7 @@ void PWBArtworkStackupTool::ReadOwnParams(const Handle(IGESAppli_PWBArtworkStack
   else
     PR.AddFail("Number of level numbers: Not Positive");
   if (!tempLevelNumbers.IsNull())
-    PR.ReadInts(PR.CurrentList(num), "Level Numbers", tempLevelNumbers);
+    PR.ReadInts(PR.CurrentList(num), "Level Numbers1", tempLevelNumbers);
 
   DirChecker(ent).CheckTypeAndForm(PR.CCheck(), ent);
   ent->Init(tempNbPropertyValues, tempArtworkStackupIdent, tempLevelNumbers);
@@ -120,7 +120,7 @@ void PWBArtworkStackupTool::OwnDump(const Handle(IGESAppli_PWBArtworkStackup)& e
   S << "Artwork Stackup Identification : ";
   IGESData_DumpString(S, ent->Identification());
   S << "\n";
-  S << "Level Numbers : ";
+  S << "Level Numbers1 : ";
   IGESData_DumpVals(S, level, 1, ent->NbLevelNumbers(), ent->LevelNumber);
   S << std::endl;
 }

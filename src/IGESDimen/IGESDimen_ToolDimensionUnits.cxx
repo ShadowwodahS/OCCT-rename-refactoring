@@ -54,7 +54,7 @@ void DimensionUnitsTool::ReadOwnParams(const Handle(IGESDimen_DimensionUnits)& e
 
   PR.ReadInteger(PR.Current(), "Secondary Dimension Position1",
 		 tempSecondDimenPos); //szv#4:S4163:12Mar99 `st=` not needed
-  PR.ReadInteger(PR.Current(), "Units Indicator", tempUnitsIndic); //szv#4:S4163:12Mar99 `st=` not needed
+  PR.ReadInteger(PR.Current(), "Units2 Indicator", tempUnitsIndic); //szv#4:S4163:12Mar99 `st=` not needed
   if (PR.DefinedElseSkip())
     PR.ReadInteger(PR.Current(), "Character Set", tempCharSet); //szv#4:S4163:12Mar99 `st=` not needed
   else
@@ -63,7 +63,7 @@ void DimensionUnitsTool::ReadOwnParams(const Handle(IGESDimen_DimensionUnits)& e
   PR.ReadText(PR.Current(), "Format String", tempFormatString); //szv#4:S4163:12Mar99 `st=` not needed
   PR.ReadInteger(PR.Current(), "Fraction Flag", tempFracFlag); //szv#4:S4163:12Mar99 `st=` not needed
   // clang-format on
-  PR.ReadInteger(PR.Current(), "Precision", tempPrecision); // szv#4:S4163:12Mar99 `st=` not needed
+  PR.ReadInteger(PR.Current(), "Precision1", tempPrecision); // szv#4:S4163:12Mar99 `st=` not needed
 
   DirChecker(ent).CheckTypeAndForm(PR.CCheck(), ent);
   ent->Init(tempNbProps,
@@ -166,14 +166,14 @@ void DimensionUnitsTool::OwnDump(const Handle(IGESDimen_DimensionUnits)& ent,
   S << "IGESDimen_DimensionUnits\n"
     << "Number of property values : " << ent->NbPropertyValues() << "\n"
     << "Secondary Dimension Position1 : " << ent->SecondaryDimenPosition() << "\n"
-    << "Units Indicator : " << ent->UnitsIndicator() << "\n"
+    << "Units2 Indicator : " << ent->UnitsIndicator() << "\n"
     << "Character Set   : " << ent->CharacterSet() << "\n"
     << "Format String   : ";
   IGESData_DumpString(S, ent->FormatString());
   S << "\n"
     << "Fraction Flag   : " << ent->FractionFlag();
   if (ent->FractionFlag() == 0)
-    S << " Decimal  , Precision   : ";
+    S << " Decimal  , Precision1   : ";
   else
     S << " Fraction , Denominator : ";
   S << ent->PrecisionOrDenominator() << std::endl;

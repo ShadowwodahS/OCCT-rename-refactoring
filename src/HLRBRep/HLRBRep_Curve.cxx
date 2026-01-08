@@ -122,10 +122,10 @@ Standard_Real HLRBRep_Curve::Update(Standard_Real TotMin[16], Standard_Real TotM
       {
         Dir3d D1 = BCurveTool::Circle(myCurve).Axis().Direction();
         D1.Transform(((HLRAlgoProjector*)myProj)->Transformation());
-        if (D1.IsParallel(gp1::DZ(), Precision::Angular()))
+        if (D1.IsParallel(gp1::DZ(), Precision1::Angular()))
           myType = GeomAbs_Circle;
         else if (Abs(D1.Dot(gp1::DZ()))
-                 < Precision::Angular()
+                 < Precision1::Angular()
                      * 10) //*10: The minor radius of ellipse should not be too small.
           myType = GeomAbs_OtherCurve;
         else
@@ -145,7 +145,7 @@ Standard_Real HLRBRep_Curve::Update(Standard_Real TotMin[16], Standard_Real TotM
       {
         Dir3d D1 = BCurveTool::Ellipse(myCurve).Axis().Direction();
         D1.Transform(((HLRAlgoProjector*)myProj)->Transformation());
-        if (D1.IsParallel(gp1::DZ(), Precision::Angular()))
+        if (D1.IsParallel(gp1::DZ(), Precision1::Angular()))
         {
           myOX   = 0.; // no offset on the angle
           myType = GeomAbs_Ellipse;

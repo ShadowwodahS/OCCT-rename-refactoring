@@ -797,7 +797,7 @@ void BooleanPaveFiller::MakeBlocks(const Message_ProgressRange& theRange)
         aPB->Indices(nV1, nV2);
         aPB->Range(aT1, aT2);
         //
-        if (fabs(aT1 - aT2) < Precision::PConfusion())
+        if (fabs(aT1 - aT2) < Precision1::PConfusion())
         {
           continue;
         }
@@ -974,7 +974,7 @@ void BooleanPaveFiller::MakeBlocks(const Message_ProgressRange& theRange)
       Box2&         aBoxDS = aSIDS.ChangeBox();
       aBoxDS                  = Box2();
       BRepBndLib1::Add(aV, aBoxDS);
-      aBoxDS.SetGap(aBoxDS.GetGap() + Precision::Confusion());
+      aBoxDS.SetGap(aBoxDS.GetGap() + Precision1::Confusion());
       //
       if (aDMVLV.IsBound(nV1))
         aDMVLV.UnBind(nV1);
@@ -2115,7 +2115,7 @@ static void getBoundPaves(const BOPDS_DS*    theDS,
   Point3d                aP[2];
   aIC.Bounds(aT[0], aT[1], aP[0], aP[1]);
   Standard_Real aTol = Max(theNC.Tolerance(), theNC.TangentialTolerance());
-  aTol += Precision::Confusion();
+  aTol += Precision1::Confusion();
   for (Standard_Integer j = 0; j < 2; ++j)
   {
     const BOPDS_ShapeInfo& aSIV  = theDS->ShapeInfo(theNV[j]);
@@ -2143,7 +2143,7 @@ void BooleanPaveFiller::PutBoundPaveOnCurve(const TopoFace&     aF1,
   Standard_Integer aBndNV[2];
   getBoundPaves(myDS, aNC, aBndNV);
   //
-  Standard_Real    aTolVnew = Precision::Confusion();
+  Standard_Real    aTolVnew = Precision1::Confusion();
   Standard_Boolean isClosed = aP[1].IsEqual(aP[0], aTolVnew);
   if (isClosed && (aBndNV[0] > 0 || aBndNV[1] > 0))
     return;
@@ -2174,7 +2174,7 @@ void BooleanPaveFiller::PutBoundPaveOnCurve(const TopoFace&     aF1,
 
       Box2& aBox = aSIVn.ChangeBox();
       BRepBndLib1::Add(aVn, aBox);
-      aBox.SetGap(aBox.GetGap() + Precision::Confusion());
+      aBox.SetGap(aBox.GetGap() + Precision1::Confusion());
 
       Standard_Integer nVn = myDS->Append(aSIVn);
 
@@ -2345,7 +2345,7 @@ void BooleanPaveFiller::FilterPavesOnCurves(const BOPDS_VectorOfCurve&    theVNC
       if (pTol)
       {
         const TopoVertex& aV       = *(TopoVertex*)&myDS->Shape(nV);
-        const Standard_Real  aRealTol = Max(*pTol, sqrt(aMaxDistKept) + Precision::Confusion());
+        const Standard_Real  aRealTol = Max(*pTol, sqrt(aMaxDistKept) + Precision1::Confusion());
         (*(Handle(BRep_TVertex)*)&aV.TShape())->Tolerance(aRealTol);
       }
     }
@@ -2873,7 +2873,7 @@ void BooleanPaveFiller::PutPaveOnCurve(const Standard_Integer                 nV
         BOPDS_ShapeInfo& aSIDS  = myDS->ChangeShapeInfo(nV);
         Box2&         aBoxDS = aSIDS.ChangeBox();
         BRepBndLib1::Add(aV, aBoxDS);
-        aBoxDS.SetGap(aBoxDS.GetGap() + Precision::Confusion());
+        aBoxDS.SetGap(aBoxDS.GetGap() + Precision1::Confusion());
       }
     }
   }
@@ -3326,7 +3326,7 @@ void BooleanPaveFiller::PutClosingPaveOnCurve(BOPDS_Curve& aNC)
     Standard_Real aTC = aPave.Parameter();
     for (Standard_Integer j = 0; j < 2; ++j)
     {
-      if (Abs(aTC - aT[j]) < Precision::PConfusion())
+      if (Abs(aTC - aT[j]) < Precision1::PConfusion())
       {
         nV   = aPave.Index();
         aTOp = (!j) ? aT[1] : aT[0];
@@ -3347,7 +3347,7 @@ void BooleanPaveFiller::PutClosingPaveOnCurve(BOPDS_Curve& aNC)
   Point3d               aPV   = BRepInspector::Pnt(aV);
   // Tolerance for the point on the curve
   Standard_Real aTolP = Max(aNC.Tolerance(), aNC.TangentialTolerance());
-  aTolP += Precision::Confusion();
+  aTolP += Precision1::Confusion();
 
   const Standard_Real aDistVP = aPV.Distance(aPOp);
   if (aDistVP > aTolV + aTolP)

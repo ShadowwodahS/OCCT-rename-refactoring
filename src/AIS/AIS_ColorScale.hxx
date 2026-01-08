@@ -47,14 +47,14 @@ public:
                                                     const Standard_Integer theColorsCount,
                                                     const Graphic3d_Vec3d& theColorHlsMin,
                                                     const Graphic3d_Vec3d& theColorHlsMax,
-                                                    Quantity_Color&        theColor);
+                                                    Color1&        theColor);
 
   //! Calculate color according passed value; returns true if value is in range or false, if isn't
   static Standard_Boolean FindColor(const Standard_Real    theValue,
                                     const Standard_Real    theMin,
                                     const Standard_Real    theMax,
                                     const Standard_Integer theColorsCount,
-                                    Quantity_Color&        theColor)
+                                    Color1&        theColor)
   {
     return FindColor(theValue,
                      theMin,
@@ -67,7 +67,7 @@ public:
 
   //! Shift hue into valid range.
   //! Lightness and Saturation should be specified in valid range [0.0, 1.0],
-  //! however Hue might be given out of Quantity_Color range to specify desired range for
+  //! however Hue might be given out of Color1 range to specify desired range for
   //! interpolation.
   static Standard_Real hueToValidRange(const Standard_Real theHue)
   {
@@ -89,7 +89,7 @@ public:
 
   //! Calculate color according passed value; returns true if value is in range or false, if isn't
   Standard_EXPORT Standard_Boolean FindColor(const Standard_Real theValue,
-                                             Quantity_Color&     theColor) const;
+                                             Color1&     theColor) const;
 
   //! Returns minimal value of color scale, 0.0 by default.
   Standard_Real GetMin() const { return myMin; }
@@ -131,7 +131,7 @@ public:
   }
 
   //! Sets hue angle range corresponding to minimum and maximum values.
-  //! The valid angle range is [0, 360], see Quantity_Color and Quantity_TOC_HLS for more details.
+  //! The valid angle range is [0, 360], see Color1 and Quantity_TOC_HLS for more details.
   void SetHueRange(const Standard_Real theMinAngle, const Standard_Real theMaxAngle)
   {
     myColorHlsMin[0] = theMinAngle;
@@ -139,7 +139,7 @@ public:
   }
 
   //! Returns color range corresponding to minimum and maximum values, blue to red by default.
-  void ColorRange(Quantity_Color& theMinColor, Quantity_Color& theMaxColor) const
+  void ColorRange(Color1& theMinColor, Color1& theMaxColor) const
   {
     theMinColor.SetValues(hueToValidRange(myColorHlsMin[0]),
                           myColorHlsMin[1],
@@ -152,7 +152,7 @@ public:
   }
 
   //! Sets color range corresponding to minimum and maximum values.
-  void SetColorRange(const Quantity_Color& theMinColor, const Quantity_Color& theMaxColor)
+  void SetColorRange(const Color1& theMinColor, const Color1& theMaxColor)
   {
     theMinColor.Values(myColorHlsMin[0], myColorHlsMin[1], myColorHlsMin[2], Quantity_TOC_HLS);
     theMaxColor.Values(myColorHlsMax[0], myColorHlsMax[1], myColorHlsMax[2], Quantity_TOC_HLS);
@@ -209,14 +209,14 @@ public:
 
   //! Returns the user specified color from color map with index (starts at 1).
   //! Returns default color if index is out of range in color map.
-  Standard_EXPORT Quantity_Color GetIntervalColor(const Standard_Integer theIndex) const;
+  Standard_EXPORT Color1 GetIntervalColor(const Standard_Integer theIndex) const;
 
   //! Sets the color of the specified interval.
   //! Note that list is automatically resized to include specified index.
   //! @param theColor color value to set
   //! @param theIndex index in range [1, GetNumberOfIntervals()];
   //!                 appended to the end of list if -1 is specified
-  Standard_EXPORT void SetIntervalColor(const Quantity_Color&  theColor,
+  Standard_EXPORT void SetIntervalColor(const Color1&  theColor,
                                         const Standard_Integer theIndex);
 
   //! Returns the user specified labels.
@@ -437,7 +437,7 @@ private:
   //! @param[in] theValue  the current value of interval
   //! @param[in] theMin    the min value of interval
   //! @param[in] theMax    the max value of interval
-  Quantity_Color colorFromValue(const Standard_Real theValue,
+  Color1 colorFromValue(const Standard_Real theValue,
                                 const Standard_Real theMin,
                                 const Standard_Real theMax) const;
 
@@ -485,7 +485,7 @@ private:
                  const Standard_Integer            theY,
                  const Standard_Integer            theWidth,
                  const Standard_Integer            theHeight,
-                 const Quantity_Color&             theColor);
+                 const Color1&             theColor);
 
 private:
   Standard_Real myMin;                          //!< values range - minimal value

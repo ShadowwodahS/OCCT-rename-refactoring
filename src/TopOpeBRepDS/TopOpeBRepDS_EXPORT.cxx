@@ -281,7 +281,7 @@ Standard_EXPORT Standard_Boolean FDS_aresamdom(const TopOpeBRepDS_DataStructure&
       BRepInspector::UVPoints(TopoDS::Edge(ES), TopoDS::Face(F1), p2d1, p2d2);
       Dir3d        d1   = FUN_tool_ngS(p2d1, su1);
       Dir3d        d2   = FUN_tool_ngS(p2d2, su2);
-      Standard_Real tola = Precision::Angular();
+      Standard_Real tola = Precision1::Angular();
       Standard_Real dot  = d1.Dot(d2);
       trfa_samdom        = (Abs(1. - Abs(dot)) < tola);
     }
@@ -1272,7 +1272,7 @@ Standard_EXPORT Standard_Boolean FUN_ds_shareG(const Handle(TopOpeBRepDS_HDataSt
   const TopoFace& F2 = TopoDS::Face(BDS.Shape(iF2));
   const TopoEdge& E2 = TopoDS::Edge(BDS.Shape(iE2));
 
-  Standard_Real tol = Precision::Confusion() * 1.e3;
+  Standard_Real tol = Precision1::Confusion() * 1.e3;
   Standard_Real f = 0.0, l = 0.0;
   FUN_tool_bounds(Esp, f, l);
   Standard_Real    x   = 0.45678;
@@ -1367,7 +1367,7 @@ Standard_EXPORT Standard_Boolean FUN_ds_mkTonFsdm(const Handle(TopOpeBRepDS_HDat
   const TopoEdge& EG = TopoDS::Edge(BDS.Shape(iEG));
 
   Standard_Boolean EGisE2 = (iEG == iE2);
-  Standard_Real    tol    = Precision::Confusion() * 1.e3;
+  Standard_Real    tol    = Precision1::Confusion() * 1.e3;
 
   // beafter :
   // ---------
@@ -1432,7 +1432,7 @@ Standard_EXPORT Standard_Boolean FUN_ds_mkTonFsdm(const Handle(TopOpeBRepDS_HDat
     return Standard_False;
 
   Standard_Real prod = beafter.Dot(nxx2);
-  Standard_Real tola = Precision::Angular() * 1.e3;
+  Standard_Real tola = Precision1::Angular() * 1.e3;
   ok                 = (Abs(1 - Abs(prod)) < tola);
   if (!ok)
     return Standard_False;
@@ -3047,12 +3047,12 @@ Standard_EXPORT Standard_Boolean FDS_LOIinfsup(const TopOpeBRepDS_DataStructure&
   TopoVertex    v;
   Standard_Boolean Eclosed = TOOL1::ClosedE(E, v);
   Standard_Real    tole    = BRepInspector::Tolerance(E);
-  Standard_Real    tol     = Precision::Parametric(tole);
+  Standard_Real    tol     = Precision1::Parametric(tole);
   isonboundper             = Standard_False;
   if (Eclosed)
   {
     Standard_Real tolv = BRepInspector::Tolerance(v);
-    tolv               = Precision::Parametric(tolv);
+    tolv               = Precision1::Parametric(tolv);
     if (tolv > tol)
       tol = tolv;
     Standard_Boolean pEisEf = (Abs(pE - f) <= tol);

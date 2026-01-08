@@ -80,7 +80,7 @@ static Standard_Integer ReadObj(DrawInterpreter& theDI,
             || anArgCase == "-fileunits"))
     {
       const AsciiString1 aUnitStr(theArgVec[++anArgIter]);
-      aFileUnitFactor = UnitsAPI::AnyToSI(1.0, aUnitStr.ToCString());
+      aFileUnitFactor = UnitsAPI1::AnyToSI(1.0, aUnitStr.ToCString());
       if (aFileUnitFactor <= 0.0)
       {
         Message1::SendFail() << "Syntax error: wrong length unit '" << aUnitStr << "'";
@@ -256,7 +256,7 @@ static Standard_Integer WriteObj(DrawInterpreter& theDI,
             || anArgCase == "-fileunits"))
     {
       const AsciiString1 aUnitStr(theArgVec[++anArgIter]);
-      aFileUnitFactor = UnitsAPI::AnyToSI(1.0, aUnitStr.ToCString());
+      aFileUnitFactor = UnitsAPI1::AnyToSI(1.0, aUnitStr.ToCString());
       if (aFileUnitFactor <= 0.0)
       {
         Message1::SendFail() << "Syntax error: wrong length unit '" << aUnitStr << "'";

@@ -102,8 +102,8 @@ Standard_Integer GeomFill_Fixed::NbIntervals(const GeomAbs_Shape) const
 
 void GeomFill_Fixed::Intervals(TColStd_Array1OfReal& theT, const GeomAbs_Shape) const
 {
-  theT(theT.Lower()) = -Precision::Infinite();
-  theT(theT.Upper()) = Precision::Infinite();
+  theT(theT.Lower()) = -Precision1::Infinite();
+  theT(theT.Upper()) = Precision1::Infinite();
 }
 
 void GeomFill_Fixed::GetAverageLaw(Vector3d& ATangent, Vector3d& ANormal, Vector3d& ABiNormal)

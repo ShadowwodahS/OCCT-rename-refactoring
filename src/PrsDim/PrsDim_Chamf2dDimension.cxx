@@ -112,7 +112,7 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
 
   Vector3d v1(pfirst,plast);
   Vector3d v2;
-  if (pfirst.IsEqual(plastnext, Precision::Confusion()))
+  if (pfirst.IsEqual(plastnext, Precision1::Confusion()))
     v2.SetXYZ(pfirstnext.XYZ() - pfirst.XYZ());
   else
     v2.SetXYZ(plastnext.XYZ() - pfirst.XYZ());

@@ -74,7 +74,7 @@
 
 static Standard_Boolean FUN_nullprodv(const Standard_Real prodv)
 {
-  //  Standard_Real tola = Precision::Angular()*1.e+1; // NYI
+  //  Standard_Real tola = Precision1::Angular()*1.e+1; // NYI
   Standard_Real tola = 1.e-6; // NYI NYI NYI : for case cto 012 I2
   return (Abs(prodv) < tola);
 }
@@ -116,7 +116,7 @@ static Standard_Boolean CheckEdgeLength(const TopoEdge& E)
     p1 = p2;
   }
 
-  return (ln > Precision::Confusion());
+  return (ln > Precision1::Confusion());
 }
 
 // modified by NIZNHY-PKV Fri Aug  4 11:23:07 2000 to
@@ -840,7 +840,7 @@ Standard_Boolean TOOL1::CurvE(const TopoEdge&  E,
   BRepAdaptor_Curve BAC(E);
   GeomAbs_CurveType CT   = BAC.GetType();
   Standard_Boolean  line = (CT == GeomAbs_Line);
-  Standard_Real     tola = Precision::Angular() * 1.e3; // NYITOLXPU
+  Standard_Real     tola = Precision1::Angular() * 1.e3; // NYITOLXPU
   if (line)
   {
     Dir3d        dir = BAC.Line().Direction();
@@ -850,13 +850,13 @@ Standard_Boolean TOOL1::CurvE(const TopoEdge&  E,
     return Standard_True;
   }
 
-  BRepLProp_CLProps clprops(BAC, par, 2, Precision::Confusion());
+  BRepLProp_CLProps clprops(BAC, par, 2, Precision1::Confusion());
   Standard_Boolean  tgdef = clprops.IsTangentDefined();
   if (!tgdef)
     return Standard_False;
   curv = Abs(clprops.Curvature());
 
-  Standard_Real    tol      = Precision::Confusion() * 1.e+2; // NYITOLXPU
+  Standard_Real    tol      = Precision1::Confusion() * 1.e+2; // NYITOLXPU
   Standard_Boolean nullcurv = (curv < tol);
   if (nullcurv)
   {
@@ -969,7 +969,7 @@ static Standard_Boolean FUN_analyticcS(const gp_Pnt2d&             uv0,
     }
     if (isMaxAcurv)
     {
-      GeomLProp_SLProps slprops(S, uv0.X(), uv0.Y(), 2, Precision::Confusion());
+      GeomLProp_SLProps slprops(S, uv0.X(), uv0.Y(), 2, Precision1::Confusion());
       Standard_Boolean  curdef = slprops.IsCurvatureDefined();
       if (curdef)
       {
@@ -1014,7 +1014,7 @@ Standard_Boolean TOOL1::CurvF(const TopoFace& F,
   if (analyticcontour)
     return Standard_True;
 
-  GeomLProp_SLProps slprops(S, uv.X(), uv.Y(), 2, Precision::Confusion());
+  GeomLProp_SLProps slprops(S, uv.X(), uv.Y(), 2, Precision1::Confusion());
   Standard_Boolean  curdef = slprops.IsCurvatureDefined();
   if (curdef)
   {
@@ -1067,8 +1067,8 @@ Standard_Boolean TOOL1::UVISO(const Handle(GeomCurve2d)& PC,
 
   Handle(Geom2d_Line) L  = Handle(Geom2d_Line)::DownCast(LLL);
   d2d                    = L->Direction();
-  isoU                   = (Abs(d2d.X()) < Precision::Parametric(Precision::Confusion()));
-  isoV                   = (Abs(d2d.Y()) < Precision::Parametric(Precision::Confusion()));
+  isoU                   = (Abs(d2d.X()) < Precision1::Parametric(Precision1::Confusion()));
+  isoV                   = (Abs(d2d.Y()) < Precision1::Parametric(Precision1::Confusion()));
   Standard_Boolean isoUV = isoU || isoV;
   if (!isoUV)
     return Standard_False;
@@ -1185,7 +1185,7 @@ Standard_Real TOOL1::Matter(const Vector3d& d1, const Vector3d& dR2, const Vecto
 {
   Vector3d d2 = dR2.Reversed();
 
-  Standard_Real    tola  = Precision::Angular();
+  Standard_Real    tola  = Precision1::Angular();
   Standard_Real    ang   = d1.Angle(d2);
   Standard_Boolean equal = (ang < tola);
   if (equal)
@@ -1294,7 +1294,7 @@ Standard_Boolean TOOL1::Getduv(const TopoFace&  f,
   if ((S->IsUPeriodic()) && (Abs(DUV.X()) > S->UPeriod() / 2.))
   {
     Standard_Real U1 = uv.X(), U2 = uvtr.X(), period = S->UPeriod();
-    ElCLib1::AdjustPeriodic(0., period, Precision::PConfusion(), U1, U2);
+    ElCLib1::AdjustPeriodic(0., period, Precision1::PConfusion(), U1, U2);
     Standard_Real dx = U2 - U1;
     if (dx > period / 2.)
       dx -= period;
@@ -1303,7 +1303,7 @@ Standard_Boolean TOOL1::Getduv(const TopoFace&  f,
   if ((S->IsVPeriodic()) && (Abs(DUV.Y()) > S->VPeriod() / 2.))
   {
     Standard_Real V1 = uv.Y(), V2 = uvtr.Y(), period = S->VPeriod();
-    ElCLib1::AdjustPeriodic(0., period, Precision::PConfusion(), V1, V2);
+    ElCLib1::AdjustPeriodic(0., period, Precision1::PConfusion(), V1, V2);
     Standard_Real dy = V2 - V1;
     if (dy > period / 2.)
       dy -= period;
@@ -1346,7 +1346,7 @@ Standard_Boolean TOOL1::XX(const gp_Pnt2d&     uv,
   Vector3d ng     = FUN_tool_nggeomF(uv, f);
   Vector3d geomxx = FUN_tool_getgeomxx(f, e, par, ng);
 
-  Standard_Real    tol    = Precision::Confusion() * 1.e2; // NYITOL
+  Standard_Real    tol    = Precision1::Confusion() * 1.e2; // NYITOL
   Standard_Boolean nullng = (geomxx.Magnitude() < tol);
   if (nullng)
     return Standard_False;
@@ -1519,7 +1519,7 @@ Standard_Boolean TOOL1::MatterKPtg(const TopoFace& f1,
 
   Standard_Real eps = 0.123; // NYIXPU190199
 
-  // Standard_Real tola = Precision::Angular()*1.e3;
+  // Standard_Real tola = Precision1::Angular()*1.e3;
 
   gp_Pnt2d uv1;
   FUN_tool_paronEF(e, pare, f1, uv1);
@@ -1755,7 +1755,7 @@ Standard_Boolean TOOL1::EdgeONFace(const Standard_Real par,
     return Standard_True;
   }
 
-  Standard_Real    tola = Precision::Angular() * 1.e2; // NYITOLXPU
+  Standard_Real    tola = Precision1::Angular() * 1.e2; // NYITOLXPU
   Vector3d           tge;
   Standard_Boolean ok = TOOL1::TggeomE(par, ed, tge);
   if (!ok)

@@ -73,7 +73,7 @@ Standard_Boolean IsRightContour(const TColgp_SequenceOfPnt& pts, const Standard_
 
       ShapeBuilder B;
       TopoFace  theFace;
-      B.MakeFace(theFace, thePlane, Precision::Confusion());
+      B.MakeFace(theFace, thePlane, Precision1::Confusion());
       TopoWire theWire = mkPoly.Wire();
       B.Add(theFace, theWire);
       Handle(ShapeAnalysis_Wire) saw = new ShapeAnalysis_Wire(theWire, theFace, prec);
@@ -114,7 +114,7 @@ Vector3d MeanNormal(const TColgp_Array1OfPnt& pts)
 ShapeConstruct_MakeTriangulation::ShapeConstruct_MakeTriangulation(const TColgp_Array1OfPnt& pnts,
                                                                    const Standard_Real       prec)
 {
-  myPrecision = (prec > 0.0) ? prec : Precision::Confusion();
+  myPrecision = (prec > 0.0) ? prec : Precision1::Confusion();
   // Make polygonal wire from points
   BRepBuilderAPI_MakePolygon mkPoly;
   for (Standard_Integer i = pnts.Lower(); i <= pnts.Upper(); i++)
@@ -133,7 +133,7 @@ ShapeConstruct_MakeTriangulation::ShapeConstruct_MakeTriangulation(const TColgp_
 ShapeConstruct_MakeTriangulation::ShapeConstruct_MakeTriangulation(const TopoWire&  wire,
                                                                    const Standard_Real prec)
 {
-  myPrecision = (prec > 0.0) ? prec : Precision::Confusion();
+  myPrecision = (prec > 0.0) ? prec : Precision1::Confusion();
   myWire      = wire;
   Build();
 }
@@ -448,7 +448,7 @@ void ShapeConstruct_MakeTriangulation::AddFacet(const TopoWire& wire)
   // Mean plane created - build face
   ShapeBuilder B;
   TopoFace  theFace;
-  B.MakeFace(theFace, thePlane, Precision::Confusion());
+  B.MakeFace(theFace, thePlane, Precision1::Confusion());
   B.Add(theFace, wire);
 
   // Add new face to the shell

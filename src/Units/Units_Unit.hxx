@@ -40,7 +40,7 @@ public:
   //! Creates  and returns a  unit.  <aname> is  the name of
   //! the  unit, <asymbol> is the  usual abbreviation of the
   //! unit,  and  <avalue> is the  value in relation to  the
-  //! International System of Units.
+  //! International System of Units2.
   Standard_EXPORT Units_Unit(const Standard_CString        aname,
                              const Standard_CString        asymbol,
                              const Standard_Real           avalue,
@@ -62,7 +62,7 @@ public:
   Standard_EXPORT void Symbol(const Standard_CString asymbol);
 
   //! Returns the  value in relation  with the International
-  //! System of Units.
+  //! System of Units2.
   Standard_Real Value() const;
 
   //! Returns <thequantity> contained in <me>.

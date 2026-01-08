@@ -14,7 +14,7 @@
 #ifndef _TDocStdFormatVersion_HeaderFile
 #define _TDocStdFormatVersion_HeaderFile
 
-//! Storage format versions of OCAF documents in XML and binary file formats.
+//! Storage1 format versions of OCAF documents in XML and binary file formats.
 //!
 //! OCAF document file format evolves and a new version number indicates each improvement of the
 //! format. This enumeration lists all versions of an OCAF document. TDocStd_FormatVersion_CURRENT
@@ -38,7 +38,7 @@ enum TDocStd_FormatVersion
 
   TDocStd_FormatVersion_VERSION_3, //!< OCCT 6.3.0
                                    //!< * XML: Adding DeltaOnModification functionality to set of
-                                   //!< Standard attributes [#0019403]
+                                   //!< Standard1 attributes [#0019403]
                                    //!< * BIN: Add Delta to numbers data, changes in ShapeSection
                                    //!< [#0019986, #0019403]
 
@@ -47,7 +47,7 @@ enum TDocStd_FormatVersion
                                    //!< * BIN: entry, ContextLabel for tree [#0021004]
 
   TDocStd_FormatVersion_VERSION_5, //!< OCCT 6.3.1
-                                   //!< * XML: Separation of OCAF to Lite and Standard parts
+                                   //!< * XML: Separation of OCAF to Lite and Standard1 parts
                                    //!< completion [#0021093]
                                    //!< * BIN: Convert old format to new [#0021093]
 

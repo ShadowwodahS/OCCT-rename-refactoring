@@ -203,15 +203,15 @@ void Units_UnitsDictionary::Creates()
       strrightadjust(name);
 
       Standard_Real M = 0., L = 0., T = 0., I = 0., t = 0., N = 0., J = 0., P = 0., S = 0.;
-      OSD::CStringToReal(MM, M);
-      OSD::CStringToReal(LL, L);
-      OSD::CStringToReal(TT, T);
-      OSD::CStringToReal(II, I);
-      OSD::CStringToReal(tt, t);
-      OSD::CStringToReal(NN, N);
-      OSD::CStringToReal(JJ, J);
-      OSD::CStringToReal(PP, P);
-      OSD::CStringToReal(SS, S);
+      OSD1::CStringToReal(MM, M);
+      OSD1::CStringToReal(LL, L);
+      OSD1::CStringToReal(TT, T);
+      OSD1::CStringToReal(II, I);
+      OSD1::CStringToReal(tt, t);
+      OSD1::CStringToReal(NN, N);
+      OSD1::CStringToReal(JJ, J);
+      OSD1::CStringToReal(PP, P);
+      OSD1::CStringToReal(SS, S);
 
       Handle(Units_Dimensions) dimensions = new Units_Dimensions(M, L, T, I, t, N, J, P, S);
 
@@ -282,7 +282,7 @@ void Units_UnitsDictionary::Creates()
 
       if (symbol[0])
       {
-        Units::LexiconUnits(Standard_False)->AddToken(symbol, "U", 0.);
+        Units2::LexiconUnits(Standard_False)->AddToken(symbol, "U", 0.);
         Standard_Integer last = theunitssequence->Length();
         theunitssequence->Value(last)->Symbol(symbol);
       }
@@ -301,10 +301,10 @@ void Units_UnitsDictionary::Creates()
       {
         if (ismove)
         {
-          OSD::CStringToReal(&convert[charnumber], move);
+          OSD1::CStringToReal(&convert[charnumber], move);
         }
         else
-          OSD::CStringToReal(convert, coeff);
+          OSD1::CStringToReal(convert, coeff);
       }
       else
       {

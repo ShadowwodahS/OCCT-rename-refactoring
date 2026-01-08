@@ -105,7 +105,7 @@ Standard_Boolean RWObj_Reader::read(std::istream&                  theStream,
   SystemPath::FolderAndFileFromPath(theFile, myFolder, aFileName);
   myCurrElem.resize(1024, -1);
 
-  Standard_CLocaleSentry aLocaleSentry;
+  CLocaleSentry aLocaleSentry;
   if (!theStream.good())
   {
     Message1::SendFail(AsciiString1("Error: file '") + theFile + "' is not found");
@@ -122,7 +122,7 @@ Standard_Boolean RWObj_Reader::read(std::istream&                  theStream,
     return Standard_False;
   }
 
-  Standard_ReadLineBuffer aBuffer(THE_BUFFER_SIZE);
+  ReadLineBuffer aBuffer(THE_BUFFER_SIZE);
   aBuffer.SetMultilineMode(true);
 
   const Standard_Integer aNbMiBTotal  = Standard_Integer(aFileLen / (1024 * 1024));

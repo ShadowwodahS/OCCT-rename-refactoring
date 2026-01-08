@@ -534,7 +534,7 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
     case AIS_MM_Translation:
     case AIS_MM_Scaling: {
       const gp_Lin aLine(myStartPosition.Location(), myAxes[myCurrentIndex].Position1().Direction());
-      ExtElC anExtrema(anInputLine, aLine, Precision::Angular());
+      ExtElC anExtrema(anInputLine, aLine, Precision1::Angular());
       if (!anExtrema.IsDone() || anExtrema.IsParallel() || anExtrema.NbExt() != 1)
       {
         // translation cannot be done co-directed with camera
@@ -550,7 +550,7 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
         myHasStartedTransformation = Standard_True;
         return Standard_True;
       }
-      else if (aNewPosition.Distance(myStartPick) < Precision::Confusion())
+      else if (aNewPosition.Distance(myStartPick) < Precision1::Confusion())
       {
         return Standard_False;
       }
@@ -563,7 +563,7 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
       }
       else if (myCurrentMode == AIS_MM_Scaling)
       {
-        if (aNewPosition.Distance(myStartPosition.Location()) < Precision::Confusion())
+        if (aNewPosition.Distance(myStartPosition.Location()) < Precision1::Confusion())
         {
           return Standard_False;
         }
@@ -580,8 +580,8 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
       const Axis3d        aCurrAxis = getAx1FromAx2Dir(myStartPosition, myCurrentIndex);
       ConicQuadIntersection aIntersector(anInputLine,
                                        gp_Pln(aPosLoc, aCurrAxis.Direction()),
-                                       Precision::Angular(),
-                                       Precision::Intersection());
+                                       Precision1::Angular(),
+                                       Precision1::Intersection());
       if (!aIntersector.IsDone() || aIntersector.IsParallel() || aIntersector.NbPoints() < 1)
       {
         return Standard_False;
@@ -598,20 +598,20 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
         return Standard_True;
       }
 
-      if (aNewPosition.Distance(myStartPick) < Precision::Confusion())
+      if (aNewPosition.Distance(myStartPick) < Precision1::Confusion())
       {
         return Standard_False;
       }
 
       Dir3d aStartAxis =
-        aPosLoc.IsEqual(myStartPick, Precision::Confusion())
+        aPosLoc.IsEqual(myStartPick, Precision1::Confusion())
           ? getAx1FromAx2Dir(myStartPosition, (myCurrentIndex + 1) % 3).Direction()
           : gce_MakeDir(aPosLoc, myStartPick);
 
       Dir3d        aCurrentAxis = gce_MakeDir(aPosLoc, aNewPosition);
       Standard_Real anAngle      = aStartAxis.AngleWithRef(aCurrentAxis, aCurrAxis.Direction());
 
-      if (Abs(anAngle) < Precision::Confusion())
+      if (Abs(anAngle) < Precision1::Confusion())
       {
         return Standard_False;
       }
@@ -664,8 +664,8 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
       const Axis3d        aCurrAxis = getAx1FromAx2Dir(myStartPosition, myCurrentIndex);
       ConicQuadIntersection aIntersector(anInputLine,
                                        gp_Pln(aPosLoc, aCurrAxis.Direction()),
-                                       Precision::Angular(),
-                                       Precision::Intersection());
+                                       Precision1::Angular(),
+                                       Precision1::Intersection());
       if (!aIntersector.IsDone() || aIntersector.NbPoints() < 1)
       {
         return Standard_False;
@@ -679,7 +679,7 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
         return Standard_True;
       }
 
-      if (aNewPosition.Distance(myStartPick) < Precision::Confusion())
+      if (aNewPosition.Distance(myStartPick) < Precision1::Confusion())
       {
         return Standard_False;
       }
@@ -844,8 +844,8 @@ void AIS_Manipulator::RecomputeTransformation(const Handle(CameraOn3d)& theCamer
       Handle(Prs3d_ShadingAspect) anAspect = new Prs3d_ShadingAspect();
       anAspect->Aspect()->SetShadingModel(Graphic3d_TypeOfShadingModel_Unlit);
 
-      Quantity_Color aColor =
-        isReversed ? Quantity_Color(anAxis.Color().Rgb() * 0.1f) : anAxis.Color();
+      Color1 aColor =
+        isReversed ? Color1(anAxis.Color().Rgb() * 0.1f) : anAxis.Color();
       anAspect->Aspect()->SetInteriorColor(aColor);
 
       Transform3d aTranslatorTrsf;
@@ -1044,9 +1044,9 @@ Transform3d AIS_Manipulator::Transform(const Standard_Integer  thePX,
 
 void AIS_Manipulator::SetPosition(const Frame3d& thePosition)
 {
-  if (!myPosition.Location().IsEqual(thePosition.Location(), Precision::Confusion())
-      || !myPosition.Direction().IsEqual(thePosition.Direction(), Precision::Angular())
-      || !myPosition.XDirection().IsEqual(thePosition.XDirection(), Precision::Angular()))
+  if (!myPosition.Location().IsEqual(thePosition.Location(), Precision1::Confusion())
+      || !myPosition.Direction().IsEqual(thePosition.Direction(), Precision1::Angular())
+      || !myPosition.XDirection().IsEqual(thePosition.XDirection(), Precision1::Angular()))
   {
     myPosition = thePosition;
     myAxes[0].SetPosition(getAx1FromAx2Dir(thePosition, 0));
@@ -1785,7 +1785,7 @@ void AIS_Manipulator::Sector::Init(const Standard_ShortReal theRadius,
 // purpose  :
 //=======================================================================
 AIS_Manipulator::Axis::Axis(const Axis3d&            theAxis,
-                            const Quantity_Color&    theColor,
+                            const Color1&    theColor,
                             const Standard_ShortReal theLength)
     : myReferenceAxis(theAxis),
       myPosition(theAxis),

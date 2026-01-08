@@ -193,9 +193,9 @@ ViewerTest_ViewerCommandsViewMap ViewerTest_myViews;
 
 static struct
 {
-  Quantity_Color            FlatColor;
-  Quantity_Color            GradientColor1;
-  Quantity_Color            GradientColor2;
+  Color1            FlatColor;
+  Color1            GradientColor1;
+  Color1            GradientColor2;
   Aspect_GradientFillMethod FillMethod;
 
   //! Sets the gradient filling for a background in a default viewer.
@@ -2512,7 +2512,7 @@ static int VFitArea(DrawInterpreter& theDI, Standard_Integer theArgNb, const cha
 
   Standard_Real aDiagonal = aMinCorner.Distance(aMaxCorner);
 
-  if (aDiagonal < Precision::Confusion())
+  if (aDiagonal < Precision1::Confusion())
   {
     Message1::SendFail("Error: view area is too small");
     return 1;
@@ -3001,8 +3001,8 @@ static int VBackground(DrawInterpreter& theDI, Standard_Integer theNbArgs, const
   {
     if (isDefault)
     {
-      ViewerTest_DefaultBackground.GradientColor1 = Quantity_Color();
-      ViewerTest_DefaultBackground.GradientColor2 = Quantity_Color();
+      ViewerTest_DefaultBackground.GradientColor1 = Color1();
+      ViewerTest_DefaultBackground.GradientColor2 = Color1();
       ViewerTest_DefaultBackground.FillMethod     = Aspect_GradientFillMethod_None;
       ViewerTest_DefaultBackground.FlatColor      = aColors[0].GetRGB();
       ViewerTest_DefaultBackground.SetDefaultGradient();
@@ -3157,12 +3157,12 @@ static int VZBuffTrihedron(DrawInterpreter& /*theDI*/,
 
   Aspect_TypeOfTriedronPosition aPosition     = Aspect_TOTP_LEFT_LOWER;
   V3d_TypeOfVisualization       aVisType      = V3d_ZBUFFER;
-  Quantity_Color                aLabelsColorX = Quantity_NOC_WHITE;
-  Quantity_Color                aLabelsColorY = Quantity_NOC_WHITE;
-  Quantity_Color                aLabelsColorZ = Quantity_NOC_WHITE;
-  Quantity_Color                anArrowColorX = Quantity_NOC_RED;
-  Quantity_Color                anArrowColorY = Quantity_NOC_GREEN;
-  Quantity_Color                anArrowColorZ = Quantity_NOC_BLUE1;
+  Color1                aLabelsColorX = Quantity_NOC_WHITE;
+  Color1                aLabelsColorY = Quantity_NOC_WHITE;
+  Color1                aLabelsColorZ = Quantity_NOC_WHITE;
+  Color1                anArrowColorX = Quantity_NOC_RED;
+  Color1                anArrowColorY = Quantity_NOC_GREEN;
+  Color1                anArrowColorZ = Quantity_NOC_BLUE1;
   Standard_Real                 aScale        = 0.1;
   Standard_Real                 aSizeRatio    = 0.8;
   Standard_Real                 anArrowDiam   = 0.05;
@@ -3268,7 +3268,7 @@ static int VZBuffTrihedron(DrawInterpreter& /*theDI*/,
              || aFlag == "-colorlabely" || aFlag == "-colorlabelz" || aFlag == "-colorarrowx"
              || aFlag == "-colorarrowy" || aFlag == "-colorarrowz")
     {
-      Quantity_Color   aColor;
+      Color1   aColor;
       Standard_Integer aNbParsed =
         Draw1::ParseColor(theArgNb - anArgIter - 1, theArgVec + anArgIter + 1, aColor);
       if (aNbParsed == 0)
@@ -3678,7 +3678,7 @@ static int VColorScale(DrawInterpreter& theDI, Standard_Integer theArgNb, const 
     }
     else if (aFlag == "-colorrange")
     {
-      Quantity_Color   aColorMin, aColorMax;
+      Color1   aColorMin, aColorMax;
       Standard_Integer aNbParsed1 =
         Draw1::ParseColor(theArgNb - (anArgIter + 1), theArgVec + (anArgIter + 1), aColorMin);
       anArgIter += aNbParsed1;
@@ -3790,7 +3790,7 @@ static int VColorScale(DrawInterpreter& theDI, Standard_Integer theArgNb, const 
         return 1;
       }
 
-      Quantity_Color   aColor;
+      Color1   aColor;
       Standard_Integer aNbParsed =
         Draw1::ParseColor(theArgNb - (anArgIter + 1), theArgVec + (anArgIter + 1), aColor);
       if (aNbParsed == 0)
@@ -3868,7 +3868,7 @@ static int VColorScale(DrawInterpreter& theDI, Standard_Integer theArgNb, const 
       Aspect_SequenceOfColor aSeq;
       for (;;)
       {
-        Quantity_Color   aColor;
+        Color1   aColor;
         Standard_Integer aNbParsed =
           Draw1::ParseColor(theArgNb - (anArgIter + 1), theArgVec + (anArgIter + 1), aColor);
         if (aNbParsed == 0)
@@ -4000,9 +4000,9 @@ static int VColorScale(DrawInterpreter& theDI, Standard_Integer theArgNb, const 
         return 1;
       }
 
-      Quantity_Color aColor;
+      Color1 aColor;
       aColorScale->FindColor(anArg1.RealValue(), aColor);
-      theDI << Quantity_Color::StringName(aColor.Name());
+      theDI << Color1::StringName(aColor.Name());
       return 0;
     }
     else
@@ -4031,16 +4031,16 @@ static int VColorScale(DrawInterpreter& theDI, Standard_Integer theArgNb, const 
 // function : VGraduatedTrihedron
 // purpose  : Displays or hides a graduated trihedron
 //==============================================================================
-static Standard_Boolean GetColor(const AsciiString1& theValue, Quantity_Color& theColor)
+static Standard_Boolean GetColor(const AsciiString1& theValue, Color1& theColor)
 {
   Quantity_NameOfColor    aColorName;
   AsciiString1 aVal = theValue;
   aVal.UpperCase();
-  if (!Quantity_Color::ColorFromName(aVal.ToCString(), aColorName))
+  if (!Color1::ColorFromName(aVal.ToCString(), aColorName))
   {
     return Standard_False;
   }
-  theColor = Quantity_Color(aColorName);
+  theColor = Color1(aColorName);
   return Standard_True;
 }
 
@@ -4164,7 +4164,7 @@ static int VGraduatedTrihedron(DrawInterpreter& /*theDi*/,
   }
 
   Standard_Boolean             toDisplay = Standard_True;
-  Quantity_Color               aColor;
+  Color1               aColor;
   GraduatedTrihedron aTrihedronData;
   // Process parameters
   Handle(TColStd_HSequenceOfAsciiString) aValues;
@@ -4506,7 +4506,7 @@ inline void printZLayerInfo(DrawInterpreter& theDI, const Graphic3d_ZLayerSettin
   if (theLayer.PolygonOffset().Mode != Aspect_POM_None)
   {
     theDI << "  Depth offset: " << theLayer.PolygonOffset().Factor << " "
-          << theLayer.PolygonOffset().Units << "\n";
+          << theLayer.PolygonOffset().Units2 << "\n";
   }
 }
 
@@ -4796,7 +4796,7 @@ static int VZLayer(DrawInterpreter& theDI, Standard_Integer theArgNb, const char
           }
 
           aParams.Factor = static_cast<Standard_ShortReal>(Draw1::Atof(theArgVec[++anArgIter]));
-          aParams.Units  = static_cast<Standard_ShortReal>(Draw1::Atof(theArgVec[++anArgIter]));
+          aParams.Units2  = static_cast<Standard_ShortReal>(Draw1::Atof(theArgVec[++anArgIter]));
         }
         aSettings.SetPolygonOffset(aParams);
       }
@@ -4901,7 +4901,7 @@ void V3d_LineItem::Compute(const Handle(PrsMgr_PresentationManager)&,
                            const Standard_Integer)
 {
   thePresentation->Clear();
-  Quantity_Color   aColor(Quantity_NOC_RED);
+  Color1   aColor(Quantity_NOC_RED);
   Standard_Integer aWidth, aHeight;
   ViewerTest1::CurrentView()->Window()->Size(aWidth, aHeight);
   Handle(Graphic3d_Group)            aGroup = thePresentation->CurrentGroup();
@@ -5528,7 +5528,7 @@ static int VFps(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** 
   aTimer.Stop();
   Standard_Real       aCpu;
   const Standard_Real aTime = aTimer.ElapsedTime();
-  aTimer.OSD_Chronometer::Show(aCpu);
+  aTimer.Chronometer::Show(aCpu);
 
   const Standard_Real aFpsAver = Standard_Real(aFrameIter) / aTime;
   const Standard_Real aCpuAver = aCpu / Standard_Real(aFrameIter);
@@ -5705,11 +5705,11 @@ static int VReadPixel(DrawInterpreter& theDI, Standard_Integer theArgNb, const c
   {
     if (aBufferType == Graphic3d_BT_RGBA)
     {
-      theDI << Quantity_Color::StringName(aColor.GetRGB().Name()) << " " << aColor.Alpha();
+      theDI << Color1::StringName(aColor.GetRGB().Name()) << " " << aColor.Alpha();
     }
     else
     {
-      theDI << Quantity_Color::StringName(aColor.GetRGB().Name());
+      theDI << Color1::StringName(aColor.GetRGB().Name());
     }
   }
   else if (toShowHex)
@@ -5720,7 +5720,7 @@ static int VReadPixel(DrawInterpreter& theDI, Standard_Integer theArgNb, const c
     }
     else
     {
-      theDI << Quantity_Color::ColorToHex(aColor.GetRGB());
+      theDI << Color1::ColorToHex(aColor.GetRGB());
     }
   }
   else
@@ -6426,27 +6426,27 @@ static Standard_Integer VSelectByAxis(DrawInterpreter& theDI,
         ++anArgIter;
       }
     }
-    else if (Precision::IsInfinite(anAxisLocation.X()) && anArgStr.IsRealValue())
+    else if (Precision1::IsInfinite(anAxisLocation.X()) && anArgStr.IsRealValue())
     {
       anAxisLocation.SetX(anArgStr.RealValue());
     }
-    else if (Precision::IsInfinite(anAxisLocation.Y()) && anArgStr.IsRealValue())
+    else if (Precision1::IsInfinite(anAxisLocation.Y()) && anArgStr.IsRealValue())
     {
       anAxisLocation.SetY(anArgStr.RealValue());
     }
-    else if (Precision::IsInfinite(anAxisLocation.Z()) && anArgStr.IsRealValue())
+    else if (Precision1::IsInfinite(anAxisLocation.Z()) && anArgStr.IsRealValue())
     {
       anAxisLocation.SetZ(anArgStr.RealValue());
     }
-    else if (Precision::IsInfinite(anAxisDirection.X()) && anArgStr.IsRealValue())
+    else if (Precision1::IsInfinite(anAxisDirection.X()) && anArgStr.IsRealValue())
     {
       anAxisDirection.SetX(anArgStr.RealValue());
     }
-    else if (Precision::IsInfinite(anAxisDirection.Y()) && anArgStr.IsRealValue())
+    else if (Precision1::IsInfinite(anAxisDirection.Y()) && anArgStr.IsRealValue())
     {
       anAxisDirection.SetY(anArgStr.RealValue());
     }
-    else if (Precision::IsInfinite(anAxisDirection.Z()) && anArgStr.IsRealValue())
+    else if (Precision1::IsInfinite(anAxisDirection.Z()) && anArgStr.IsRealValue())
     {
       anAxisDirection.SetZ(anArgStr.RealValue());
     }
@@ -6457,9 +6457,9 @@ static Standard_Integer VSelectByAxis(DrawInterpreter& theDI,
     }
   }
 
-  if (Precision::IsInfinite(anAxisLocation.X()) || Precision::IsInfinite(anAxisLocation.Y())
-      || Precision::IsInfinite(anAxisLocation.Z()) || Precision::IsInfinite(anAxisDirection.X())
-      || Precision::IsInfinite(anAxisDirection.Y()) || Precision::IsInfinite(anAxisDirection.Z()))
+  if (Precision1::IsInfinite(anAxisLocation.X()) || Precision1::IsInfinite(anAxisLocation.Y())
+      || Precision1::IsInfinite(anAxisLocation.Z()) || Precision1::IsInfinite(anAxisDirection.X())
+      || Precision1::IsInfinite(anAxisDirection.Y()) || Precision1::IsInfinite(anAxisDirection.Z()))
   {
     Message1::SendFail() << "Invalid axis location and direction";
     return 1;
@@ -6494,7 +6494,7 @@ static Standard_Integer VSelectByAxis(DrawInterpreter& theDI,
     aContext->SetAutoActivateSelection(false);
 
     // Display axis
-    Quantity_Color              anAxisColor = Quantity_NOC_GREEN;
+    Color1              anAxisColor = Quantity_NOC_GREEN;
     Handle(Geom_Axis2Placement) anAx2Axis =
       new Geom_Axis2Placement(Frame3d(anAxisLocation, anAxisDirection));
     Handle(VisualAxis) anAISAxis = new VisualAxis(Axis3d(anAxisLocation, anAxisDirection));
@@ -8504,7 +8504,7 @@ static int VClipPlane(DrawInterpreter& theDi, Standard_Integer theArgsNb, const 
     }
     else if (aChangeArg == "-color" || aChangeArg == "color")
     {
-      Quantity_Color   aColor;
+      Color1   aColor;
       Standard_Integer aNbParsed = Draw1::ParseColor(aNbChangeArgs - 1, aChangeArgs + 1, aColor);
       if (aNbParsed == 0)
       {
@@ -9687,7 +9687,7 @@ static int VLight(DrawInterpreter& theDi, Standard_Integer theArgsNb, const char
          aLightIter.Next(), ++aLightId)
     {
       Handle(V3d_Light)    aLight = aLightIter.Value();
-      const Quantity_Color aColor = aLight->Color();
+      const Color1 aColor = aLight->Color();
       theDi << "Light #" << aLightId
             << (!aLight->Name().IsEmpty() ? (AsciiString1(" ") + aLight->Name()) : "")
             << " [" << aLight->GetId() << "] " << (aLight->IsEnabled() ? "ON" : "OFF") << "\n";
@@ -9743,7 +9743,7 @@ static int VLight(DrawInterpreter& theDi, Standard_Integer theArgsNb, const char
         }
       }
       theDi << "  Color:      " << aColor.Red() << " " << aColor.Green() << " " << aColor.Blue()
-            << " [" << Quantity_Color::StringName(aColor.Name()) << "]\n";
+            << " [" << Color1::StringName(aColor.Name()) << "]\n";
     }
   }
 
@@ -9915,7 +9915,7 @@ static int VLight(DrawInterpreter& theDi, Standard_Integer theArgsNb, const char
     else if (!aLightNew.IsNull()
              && (anArgCase == "-color" || anArgCase == "-colour" || anArgCase == "color"))
     {
-      Quantity_Color   aColor;
+      Color1   aColor;
       Standard_Integer aNbParsed =
         Draw1::ParseColor(theArgsNb - anArgIt - 1, theArgVec + anArgIt + 1, aColor);
       anArgIt += aNbParsed;
@@ -12196,12 +12196,12 @@ static int VManipulator(DrawInterpreter& theDi, Standard_Integer theArgsNb, cons
     {
       anArgIter += 3;
       if (anArgIter + 3 < theArgsNb && parseXYZ(theArgVec + anArgIter + 1, aVDir)
-          && aVDir.Modulus() > Precision::Confusion())
+          && aVDir.Modulus() > Precision1::Confusion())
       {
         anArgIter += 3;
       }
       if (anArgIter + 3 < theArgsNb && parseXYZ(theArgVec + anArgIter + 1, anXDir)
-          && anXDir.Modulus() > Precision::Confusion())
+          && anXDir.Modulus() > Precision1::Confusion())
       {
         anArgIter += 3;
       }
@@ -12540,13 +12540,13 @@ static int VManipulator(DrawInterpreter& theDi, Standard_Integer theArgsNb, cons
     }
     aManipulator->SetPosition(aPosition);
   }
-  if (!Precision::IsInfinite(aLocation.X()))
+  if (!Precision1::IsInfinite(aLocation.X()))
   {
-    if (aVDir.Modulus() <= Precision::Confusion())
+    if (aVDir.Modulus() <= Precision1::Confusion())
     {
       aVDir = aManipulator->Position1().Direction().XYZ();
     }
-    if (anXDir.Modulus() <= Precision::Confusion())
+    if (anXDir.Modulus() <= Precision1::Confusion())
     {
       anXDir = aManipulator->Position1().XDirection().XYZ();
     }
@@ -12821,7 +12821,7 @@ static int VSelectionProperties(DrawInterpreter& theDi,
         return 1;
       }
 
-      Quantity_Color   aColor;
+      Color1   aColor;
       Standard_Integer aNbParsed =
         Draw1::ParseColor(theArgsNb - anArgIter - 1, theArgVec + anArgIter + 1, aColor);
       if (aNbParsed == 0)
@@ -12906,9 +12906,9 @@ static int VSelectionProperties(DrawInterpreter& theDi,
           << "\n";
     theDi << "Selection pixel tolerance      : " << aCtx->MainSelector()->PixelTolerance() << "\n";
     theDi << "Selection color                : "
-          << Quantity_Color::StringName(aSelStyle->Color().Name()) << "\n";
+          << Color1::StringName(aSelStyle->Color().Name()) << "\n";
     theDi << "Dynamic highlight color        : "
-          << Quantity_Color::StringName(aHiStyle->Color().Name()) << "\n";
+          << Color1::StringName(aHiStyle->Color().Name()) << "\n";
     theDi << "Selection transparency         : " << aSelStyle->Transparency() << "\n";
     theDi << "Dynamic highlight transparency : " << aHiStyle->Transparency() << "\n";
     theDi << "Selection mode                 : " << aSelStyle->DisplayMode() << "\n";
@@ -13108,7 +13108,7 @@ static int VViewCube(DrawInterpreter&, Standard_Integer theNbArgs, const char** 
 
   Handle(AIS_ViewCube)    aViewCube;
   ViewerTest_AutoUpdater  anUpdateTool(aContext, aView);
-  Quantity_Color          aColorRgb;
+  Color1          aColorRgb;
   AsciiString1 aName;
   for (Standard_Integer anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
   {
@@ -13407,7 +13407,7 @@ static int VColorConvert(DrawInterpreter& theDI,
     {
       hasAlpha = anArgCase.Length() >= 8;
     }
-    else if (Quantity_Color::ColorFromName(theArgVec[anArgIter], aColor.ChangeRGB()))
+    else if (Color1::ColorFromName(theArgVec[anArgIter], aColor.ChangeRGB()))
     {
       //
     }
@@ -13439,12 +13439,12 @@ static int VColorConvert(DrawInterpreter& theDI,
     }
     else
     {
-      theDI << Quantity_Color::ColorToHex(aColor.GetRGB());
+      theDI << Color1::ColorToHex(aColor.GetRGB());
     }
   }
   else if (toPrintName)
   {
-    theDI << Quantity_Color::StringName(aColor.GetRGB().Name());
+    theDI << Color1::StringName(aColor.GetRGB().Name());
   }
   else
   {
@@ -13488,8 +13488,8 @@ static int VColorDiff(DrawInterpreter& theDI, Standard_Integer theNbArgs, const 
   double aG2 = Draw1::Atof(theArgVec[5]);
   double aB2 = Draw1::Atof(theArgVec[6]);
 
-  Quantity_Color aColor1(aR1, aG1, aB1, Quantity_TOC_RGB);
-  Quantity_Color aColor2(aR2, aG2, aB2, Quantity_TOC_RGB);
+  Color1 aColor1(aR1, aG1, aB1, Quantity_TOC_RGB);
+  Color1 aColor2(aR2, aG2, aB2, Quantity_TOC_RGB);
 
   theDI << aColor1.DeltaE2000(aColor2);
 
@@ -13529,7 +13529,7 @@ static int VSelBvhBuild(DrawInterpreter& /*theDI*/,
       aThreadsNb = Draw1::Atoi(theArgVec[++anArgIter]);
       if (aThreadsNb < 1)
       {
-        aThreadsNb = Max(1, OSD_Parallel::NbLogicalProcessors() - 1);
+        aThreadsNb = Max(1, Parallel1::NbLogicalProcessors() - 1);
       }
     }
     else if (anArg == "-wait")

@@ -267,7 +267,7 @@ static void CompParam(const Geom2dAdaptor_Curve& Carc,
   //    if pcurves have the same parameters as the spine.
   gp_Pnt2d      point   = Carc.Value(prefarc);
   Standard_Real distini = point.Distance(Ctg->Value(preftg));
-  if (distini <= Precision::PConfusion())
+  if (distini <= Precision1::PConfusion())
   {
     parc  = prefarc;
     ptg   = preftg;
@@ -284,10 +284,10 @@ static void CompParam(const Geom2dAdaptor_Curve& Carc,
     Standard_Integer           nbpt, nbseg;
     Intersection.Perform(Geom2dAdaptor_Curve(Ctg),
                          Carc,
-                         Precision::PIntersection(),
-                         Precision::PIntersection());
+                         Precision1::PIntersection(),
+                         Precision1::PIntersection());
 
-    Standard_Real dist = Precision::Infinite(), p1, p2;
+    Standard_Real dist = Precision1::Infinite(), p1, p2;
     if (Intersection.IsDone())
     {
       if (!Intersection.IsEmpty())
@@ -395,14 +395,14 @@ static void UpdateLine(Handle(BRepBlend_Line)& Line, const Standard_Boolean isfi
     {
       BRepBlend_Extremity BE;
       BP.ParametersOnS1(U, V);
-      BE.SetValue(BP.PointOnS1(), U, V, Precision::Confusion());
+      BE.SetValue(BP.PointOnS1(), U, V, Precision1::Confusion());
       Line->SetStartPoints(BE, Line->StartPointOnSecond());
     }
     if (Line->StartPointOnSecond().ParameterOnGuide() < tguide)
     {
       BRepBlend_Extremity BE;
       BP.ParametersOnS2(U, V);
-      BE.SetValue(BP.PointOnS2(), U, V, Precision::Confusion());
+      BE.SetValue(BP.PointOnS2(), U, V, Precision1::Confusion());
       Line->SetStartPoints(Line->StartPointOnFirst(), BE);
     }
   }
@@ -414,14 +414,14 @@ static void UpdateLine(Handle(BRepBlend_Line)& Line, const Standard_Boolean isfi
     {
       BRepBlend_Extremity BE;
       BP.ParametersOnS1(U, V);
-      BE.SetValue(BP.PointOnS1(), U, V, Precision::Confusion());
+      BE.SetValue(BP.PointOnS1(), U, V, Precision1::Confusion());
       Line->SetEndPoints(BE, Line->EndPointOnSecond());
     }
     if (Line->EndPointOnSecond().ParameterOnGuide() > tguide)
     {
       BRepBlend_Extremity BE;
       BP.ParametersOnS2(U, V);
-      BE.SetValue(BP.PointOnS2(), U, V, Precision::Confusion());
+      BE.SetValue(BP.PointOnS2(), U, V, Precision1::Confusion());
       Line->SetEndPoints(Line->EndPointOnFirst(), BE);
     }
   }
@@ -713,7 +713,7 @@ Standard_Boolean ChFi3d_Builder::StoreData(Handle(ChFiDS_SurfData)&         Data
 
   Handle(Geom_BoundedSurface) aBndSurf = Surf;
   Standard_Boolean            ext1 = Standard_False, ext2 = Standard_False;
-  Standard_Real               eps = Max(tolget3d, 2. * Precision::Confusion());
+  Standard_Real               eps = Max(tolget3d, 2. * Precision1::Confusion());
   if (length1 > eps)
   {
     Point3d P11, P21;

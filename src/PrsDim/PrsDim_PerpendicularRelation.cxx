@@ -107,13 +107,13 @@ void PrsDim_PerpendicularRelation::ComputeSelection(const Handle(SelectionContai
   Handle(Select3D_SensitiveSegment) seg;
   Standard_Boolean                  ok1(Standard_False), ok2(Standard_False);
 
-  if (!myFAttach.IsEqual(pos, Precision::Confusion()))
+  if (!myFAttach.IsEqual(pos, Precision1::Confusion()))
   {
     seg = new Select3D_SensitiveSegment(own, myFAttach, pos);
     aSelection->Add(seg);
     ok1 = Standard_True;
   }
-  if (!mySAttach.IsEqual(myPosition, Precision::Confusion()))
+  if (!mySAttach.IsEqual(myPosition, Precision1::Confusion()))
   {
     seg = new Select3D_SensitiveSegment(own, mySAttach, pos);
     aSelection->Add(seg);

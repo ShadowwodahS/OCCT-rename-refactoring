@@ -14,7 +14,7 @@
 
 //============================================================================
 //==== Title: Standard_ErrorHandler.cxx
-//==== Role : class "Standard_ErrorHandler" implementation.
+//==== Role : class "ErrorHandler" implementation.
 //============================================================================
 #include <Standard_ErrorHandler.hxx>
 #include <Standard_Failure.hxx>
@@ -28,7 +28,7 @@
 #endif
 
 // ===========================================================================
-// The class "Standard_ErrorHandler" variables
+// The class "ErrorHandler" variables
 // ===========================================================================
 
 // During [sig]setjmp()/[sig]longjmp() K_SETJMP is non zero (try)
@@ -37,7 +37,7 @@
 // or a longjmp, there will be a "terminating SEGV" impossible to handle.
 
 //==== The top of the Errors Stack ===========================================
-static Standard_ErrorHandler* Top = 0;
+static ErrorHandler* Top = 0;
 
 //! A mutex to protect from concurrent access to Top.
 //! Mutex is defined as function to avoid issues caused by
@@ -64,7 +64,7 @@ static inline Standard_ThreadId GetThreadID()
 //====                'Top' of "ErrorHandler's stack".
 //============================================================================
 
-Standard_ErrorHandler::Standard_ErrorHandler()
+ErrorHandler::ErrorHandler()
     : myStatus(Standard_HandlerVoid),
       myCallbackPtr(0)
 {
@@ -81,7 +81,7 @@ Standard_ErrorHandler::Standard_ErrorHandler()
 //==== Destructor : Delete the ErrorHandler and Abort if there is a 'Error'.
 //============================================================================
 
-void Standard_ErrorHandler::Destroy()
+void ErrorHandler::Destroy()
 {
   Unlink();
   if (myStatus == Standard_HandlerJumped)
@@ -93,13 +93,13 @@ void Standard_ErrorHandler::Destroy()
 
 //=================================================================================================
 
-void Standard_ErrorHandler::Unlink()
+void ErrorHandler::Unlink()
 {
   // put a lock on the stack
   GetMutex().Lock();
 
-  Standard_ErrorHandler* aPrevious = 0;
-  Standard_ErrorHandler* aCurrent  = Top;
+  ErrorHandler* aPrevious = 0;
+  ErrorHandler* aCurrent  = Top;
 
   // locate this handler in the stack
   while (aCurrent != 0 && this != aCurrent)
@@ -131,7 +131,7 @@ void Standard_ErrorHandler::Unlink()
   myCallbackPtr         = 0;
   while (aPtr)
   {
-    Standard_ErrorHandler::Callback* aCallback = (Standard_ErrorHandler::Callback*)aPtr;
+    ErrorHandler::Callback1* aCallback = (ErrorHandler::Callback1*)aPtr;
     aPtr                                       = aCallback->myNext;
     // Call destructor explicitly, as we know that it will not be called automatically
     aCallback->DestroyCallback();
@@ -143,9 +143,9 @@ void Standard_ErrorHandler::Unlink()
 // purpose  :  test if the code is currently running in
 //=======================================================================
 
-Standard_Boolean Standard_ErrorHandler::IsInTryBlock()
+Standard_Boolean ErrorHandler::IsInTryBlock()
 {
-  Standard_ErrorHandler* anActive = FindHandler(Standard_HandlerVoid, Standard_False);
+  ErrorHandler* anActive = FindHandler(Standard_HandlerVoid, Standard_False);
   return anActive != NULL;
 }
 
@@ -154,9 +154,9 @@ Standard_Boolean Standard_ErrorHandler::IsInTryBlock()
 //====    Abort if there is a non null 'Error'
 //============================================================================
 
-void Standard_ErrorHandler::Abort(const Handle(ExceptionBase)& theError)
+void ErrorHandler::Abort(const Handle(ExceptionBase)& theError)
 {
-  Standard_ErrorHandler* anActive = FindHandler(Standard_HandlerVoid, Standard_True);
+  ErrorHandler* anActive = FindHandler(Standard_HandlerVoid, Standard_True);
 
   //==== Check if can do the "longjmp" =======================================
   if (anActive == NULL)
@@ -176,9 +176,9 @@ void Standard_ErrorHandler::Abort(const Handle(ExceptionBase)& theError)
 //====          returns True and clean 'Error', else returns False.
 //============================================================================
 
-Standard_Boolean Standard_ErrorHandler::Catches(const Handle(TypeInfo)& AType)
+Standard_Boolean ErrorHandler::Catches(const Handle(TypeInfo)& AType)
 {
-  Standard_ErrorHandler* anActive = FindHandler(Standard_HandlerJumped, Standard_False);
+  ErrorHandler* anActive = FindHandler(Standard_HandlerJumped, Standard_False);
   if (anActive == 0)
     return Standard_False;
 
@@ -196,40 +196,40 @@ Standard_Boolean Standard_ErrorHandler::Catches(const Handle(TypeInfo)& AType)
   }
 }
 
-Handle(ExceptionBase) Standard_ErrorHandler::LastCaughtError()
+Handle(ExceptionBase) ErrorHandler::LastCaughtError()
 {
   Handle(ExceptionBase) aHandle;
-  Standard_ErrorHandler*   anActive = FindHandler(Standard_HandlerProcessed, Standard_False);
+  ErrorHandler*   anActive = FindHandler(Standard_HandlerProcessed, Standard_False);
   if (anActive != 0)
     aHandle = anActive->myCaughtError;
 
   return aHandle;
 }
 
-Handle(ExceptionBase) Standard_ErrorHandler::Error() const
+Handle(ExceptionBase) ErrorHandler::Error() const
 {
   return myCaughtError;
 }
 
-void Standard_ErrorHandler::Error(const Handle(ExceptionBase)& theError)
+void ErrorHandler::Error(const Handle(ExceptionBase)& theError)
 {
-  Standard_ErrorHandler* anActive = FindHandler(Standard_HandlerVoid, Standard_False);
+  ErrorHandler* anActive = FindHandler(Standard_HandlerVoid, Standard_False);
   if (anActive == NULL)
     Abort(theError);
 
   anActive->myCaughtError = theError;
 }
 
-Standard_ErrorHandler* Standard_ErrorHandler::FindHandler(const Standard_HandlerStatus theStatus,
+ErrorHandler* ErrorHandler::FindHandler(const Standard_HandlerStatus theStatus,
                                                           const Standard_Boolean       theUnlink)
 {
   // lock the stack
   GetMutex().Lock();
 
   // Find the current ErrorHandler according to thread
-  Standard_ErrorHandler* aPrevious = 0;
-  Standard_ErrorHandler* aCurrent  = Top;
-  Standard_ErrorHandler* anActive  = 0;
+  ErrorHandler* aPrevious = 0;
+  ErrorHandler* aCurrent  = Top;
+  ErrorHandler* anActive  = 0;
   Standard_Boolean       aStop     = Standard_False;
   Standard_ThreadId      aTreadId  = GetThreadID();
 
@@ -285,26 +285,26 @@ Standard_ErrorHandler* Standard_ErrorHandler::FindHandler(const Standard_Handler
 
 #if defined(OCC_CONVERT_SIGNALS)
 
-Standard_ErrorHandler::Callback::Callback()
+ErrorHandler::Callback1::Callback1()
     : myHandler(0),
       myPrev(0),
       myNext(0)
 {
 }
 
-Standard_ErrorHandler::Callback::~Callback()
+ErrorHandler::Callback1::~Callback1()
 {
   UnregisterCallback();
 }
 
-void Standard_ErrorHandler::Callback::RegisterCallback()
+void ErrorHandler::Callback1::RegisterCallback()
 {
   if (myHandler)
     return; // already registered
 
   // find current active exception handler
-  Standard_ErrorHandler* aHandler =
-    Standard_ErrorHandler::FindHandler(Standard_HandlerVoid, Standard_False);
+  ErrorHandler* aHandler =
+    ErrorHandler::FindHandler(Standard_HandlerVoid, Standard_False);
 
   // if found, add this callback object first to the list
   if (aHandler)
@@ -312,21 +312,21 @@ void Standard_ErrorHandler::Callback::RegisterCallback()
     myHandler = aHandler;
     myNext    = aHandler->myCallbackPtr;
     if (myNext)
-      ((Standard_ErrorHandler::Callback*)myNext)->myPrev = this;
+      ((ErrorHandler::Callback1*)myNext)->myPrev = this;
     aHandler->myCallbackPtr = this;
   }
 }
 
-void Standard_ErrorHandler::Callback::UnregisterCallback()
+void ErrorHandler::Callback1::UnregisterCallback()
 {
   if (!myHandler)
     return;
   if (myNext)
-    ((Standard_ErrorHandler::Callback*)myNext)->myPrev = myPrev;
+    ((ErrorHandler::Callback1*)myNext)->myPrev = myPrev;
   if (myPrev)
-    ((Standard_ErrorHandler::Callback*)myPrev)->myNext = myNext;
-  else if (((Standard_ErrorHandler*)myHandler)->myCallbackPtr == this)
-    ((Standard_ErrorHandler*)myHandler)->myCallbackPtr = (Standard_ErrorHandler::Callback*)myNext;
+    ((ErrorHandler::Callback1*)myPrev)->myNext = myNext;
+  else if (((ErrorHandler*)myHandler)->myCallbackPtr == this)
+    ((ErrorHandler*)myHandler)->myCallbackPtr = (ErrorHandler::Callback1*)myNext;
   myHandler = myNext = myPrev = 0;
 }
 #endif

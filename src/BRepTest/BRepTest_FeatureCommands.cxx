@@ -485,7 +485,7 @@ static Standard_Integer PRW(DrawInterpreter& theCommands, Standard_Integer narg,
     borne = 7;
   }
   Standard_Real Length = V.Magnitude();
-  if (Length < Precision::Confusion())
+  if (Length < Precision1::Confusion())
   {
     return 1;
   }
@@ -566,7 +566,7 @@ static Standard_Integer PRW(DrawInterpreter& theCommands, Standard_Integer narg,
       if (Su->DynamicType() == STANDARD_TYPE(GeomPlane))
       {
         gp_Pln pl = Handle(GeomPlane)::DownCast(Su)->Pln();
-        if (pl.Contains(gp_Lin(pl.Location(), V), Precision::Confusion(), Precision::Angular()))
+        if (pl.Contains(gp_Lin(pl.Location(), V), Precision1::Confusion(), Precision1::Angular()))
         {
           FEIF.Set(ToPrism, fac);
           for (FEIF.Init(); FEIF.More(); FEIF.Next())
@@ -578,7 +578,7 @@ static Standard_Integer PRW(DrawInterpreter& theCommands, Standard_Integer narg,
       else if (Su->DynamicType() == STANDARD_TYPE(Geom_CylindricalSurface))
       {
         Cylinder1 cy = Handle(Geom_CylindricalSurface)::DownCast(Su)->Cylinder();
-        if (V.IsParallel(cy.Axis().Direction(), Precision::Angular()))
+        if (V.IsParallel(cy.Axis().Direction(), Precision1::Angular()))
         {
           FEIF.Set(ToPrism, fac);
           for (FEIF.Init(); FEIF.More(); FEIF.Next())
@@ -688,7 +688,7 @@ static Standard_Integer PRF(DrawInterpreter& theCommands, Standard_Integer narg,
     V.SetCoord(Draw1::Atof(a[4]), Draw1::Atof(a[5]), Draw1::Atof(a[6]));
   }
   Standard_Real Length = V.Magnitude();
-  if (Length < Precision::Confusion())
+  if (Length < Precision1::Confusion())
   {
     return 1;
   }
@@ -758,7 +758,7 @@ static Standard_Integer PRF(DrawInterpreter& theCommands, Standard_Integer narg,
       if (Su->DynamicType() == STANDARD_TYPE(GeomPlane))
       {
         gp_Pln pl = Handle(GeomPlane)::DownCast(Su)->Pln();
-        if (pl.Contains(gp_Lin(pl.Location(), V), Precision::Confusion(), Precision::Angular()))
+        if (pl.Contains(gp_Lin(pl.Location(), V), Precision1::Confusion(), Precision1::Angular()))
         {
           FEIF.Set(ToPrism, fac);
           for (FEIF.Init(); FEIF.More(); FEIF.Next())
@@ -770,7 +770,7 @@ static Standard_Integer PRF(DrawInterpreter& theCommands, Standard_Integer narg,
       else if (Su->DynamicType() == STANDARD_TYPE(Geom_CylindricalSurface))
       {
         Cylinder1 cy = Handle(Geom_CylindricalSurface)::DownCast(Su)->Cylinder();
-        if (V.IsParallel(cy.Axis().Direction(), Precision::Angular()))
+        if (V.IsParallel(cy.Axis().Direction(), Precision1::Angular()))
         {
           FEIF.Set(ToPrism, fac);
           for (FEIF.Init(); FEIF.More(); FEIF.Next())
@@ -1036,7 +1036,7 @@ Standard_Integer thickshell(DrawInterpreter& theCommands, Standard_Integer n, co
   }
 
   Standard_Boolean Inter = Standard_False; // Standard_True;
-  Standard_Real    Tol   = Precision::Confusion();
+  Standard_Real    Tol   = Precision1::Confusion();
   if (n > 5)
     Tol = Draw1::Atof(a[5]);
 
@@ -1152,7 +1152,7 @@ Standard_Integer offsetshape(DrawInterpreter& theCommands, Standard_Integer n, c
 
   BRepOffset_MakeOffset B;
   Standard_Integer      IB  = 4;
-  Standard_Real         Tol = Precision::Confusion();
+  Standard_Real         Tol = Precision1::Confusion();
   if (n > 4)
   {
     TopoShape SF = DBRep1::Get(a[4], TopAbs_FACE);
@@ -1198,7 +1198,7 @@ Standard_Integer offsetshape(DrawInterpreter& theCommands, Standard_Integer n, c
 static BRepOffset_MakeOffset TheOffset;
 static Standard_Real         TheRadius;
 static Standard_Boolean      theYaBouchon;
-static Standard_Real         TheTolerance   = Precision::Confusion();
+static Standard_Real         TheTolerance   = Precision1::Confusion();
 static Standard_Boolean      TheInter       = Standard_False;
 static GeomAbs_JoinType      TheJoin        = GeomAbs_Arc;
 static Standard_Boolean      RemoveIntEdges = Standard_False;
@@ -1496,7 +1496,7 @@ static Standard_Integer ROW(DrawInterpreter& theCommands, Standard_Integer narg,
       if (Su->DynamicType() == STANDARD_TYPE(GeomPlane))
       {
         gp_Pln pl = Handle(GeomPlane)::DownCast(Su)->Pln();
-        if (pl.Axis().IsParallel(theAxis, Precision::Angular()))
+        if (pl.Axis().IsParallel(theAxis, Precision1::Angular()))
         {
           FEIF.Set(ToRotate, fac);
           for (FEIF.Init(); FEIF.More(); FEIF.Next())
@@ -1508,7 +1508,7 @@ static Standard_Integer ROW(DrawInterpreter& theCommands, Standard_Integer narg,
       else if (Su->DynamicType() == STANDARD_TYPE(Geom_CylindricalSurface))
       {
         Cylinder1 cy = Handle(Geom_CylindricalSurface)::DownCast(Su)->Cylinder();
-        if (cy.Axis().IsCoaxial(theAxis, Precision::Angular(), Precision::Confusion()))
+        if (cy.Axis().IsCoaxial(theAxis, Precision1::Angular(), Precision1::Confusion()))
         {
           FEIF.Set(ToRotate, fac);
           for (FEIF.Init(); FEIF.More(); FEIF.Next())
@@ -1669,7 +1669,7 @@ static Standard_Integer ROF(DrawInterpreter& theCommands, Standard_Integer narg,
       if (Su->DynamicType() == STANDARD_TYPE(GeomPlane))
       {
         gp_Pln pl = Handle(GeomPlane)::DownCast(Su)->Pln();
-        if (pl.Axis().IsParallel(theAxis, Precision::Angular()))
+        if (pl.Axis().IsParallel(theAxis, Precision1::Angular()))
         {
           FEIF.Set(ToRotate, fac);
           for (FEIF.Init(); FEIF.More(); FEIF.Next())
@@ -1681,7 +1681,7 @@ static Standard_Integer ROF(DrawInterpreter& theCommands, Standard_Integer narg,
       else if (Su->DynamicType() == STANDARD_TYPE(Geom_CylindricalSurface))
       {
         Cylinder1 cy = Handle(Geom_CylindricalSurface)::DownCast(Su)->Cylinder();
-        if (cy.Axis().IsCoaxial(theAxis, Precision::Angular(), Precision::Confusion()))
+        if (cy.Axis().IsCoaxial(theAxis, Precision1::Angular(), Precision1::Confusion()))
         {
           FEIF.Set(ToRotate, fac);
           for (FEIF.Init(); FEIF.More(); FEIF.Next())
@@ -2717,7 +2717,7 @@ static Standard_Integer ComputeSimpleOffset(DrawInterpreter& theCommands,
 
   Standard_Boolean makeSolid = (narg > 4 && !strcasecmp(a[4], "solid"));
   int              iTolArg   = (makeSolid ? 5 : 4);
-  Standard_Real    aTol      = (narg > iTolArg ? Draw1::Atof(a[iTolArg]) : Precision::Confusion());
+  Standard_Real    aTol      = (narg > iTolArg ? Draw1::Atof(a[iTolArg]) : Precision1::Confusion());
 
   BRepOffset_MakeSimpleOffset aMaker(aShape, anOffsetValue);
   aMaker.SetTolerance(aTol);

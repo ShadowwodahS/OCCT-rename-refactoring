@@ -44,7 +44,7 @@ void BezierToBSpline2d::AddCurve(const TColgp_Array1OfPnt2d& Poles)
 
     // User defined tolerance NYI
     //    Standard_ConstructionError_Raise_if
-    //      ( !P1.IsEqual(P2,Precision::Confusion()),
+    //      ( !P1.IsEqual(P2,Precision1::Confusion()),
     //       "BezierToBSpline2d::Addcurve");
   }
   myDone                               = Standard_False;

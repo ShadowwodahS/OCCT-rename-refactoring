@@ -175,11 +175,11 @@ void ConstraintPresentationTools::ComputeTextAndValue(const Handle(TDataXtd_Cons
   val                              = VAL->Get();
   if (anIsAngle)
   {
-    outvalue = UnitsAPI::CurrentFromLS(Abs(val), "PLANE ANGLE");
+    outvalue = UnitsAPI1::CurrentFromLS(Abs(val), "PLANE ANGLE");
   }
   else
   {
-    outvalue = UnitsAPI::CurrentFromLS(val, "LENGTH");
+    outvalue = UnitsAPI1::CurrentFromLS(val, "LENGTH");
   }
   char res[1000];
   sprintf(res, "%g", outvalue);
@@ -1041,13 +1041,13 @@ void ConstraintPresentationTools::ComputeAngle(const Handle(TDataXtd_Constraint)
 
     if (aTypeaFace == GeomAbs_Plane)
     {
-      if (!anax1aFace1.IsParallel(anax1aFace2, Precision::Angular()))
+      if (!anax1aFace1.IsParallel(anax1aFace2, Precision1::Angular()))
       {
 
         QuadQuadGeoIntersection IntersectPlane(aPlnaFace1,
                                           aPlnaFace2,
-                                          Precision::Angular(),
-                                          Precision::Angular());
+                                          Precision1::Angular(),
+                                          Precision1::Angular());
         if (IntersectPlane.IsDone() && (IntersectPlane.TypeInter() != IntAna_Empty))
         {
           gp_Lin            aLine         = IntersectPlane.Line(1);
@@ -1609,7 +1609,7 @@ static Standard_Boolean CheckShapesPair(const TopoShape& aShape1, const TopoShap
     { // Are lines parallel ?
       Dir3d aDir1 = aCurve1.Line().Direction();
       Dir3d aDir2 = aCurve2.Line().Direction();
-      if (!(aDir1.IsParallel(aDir2, Precision::Confusion())))
+      if (!(aDir1.IsParallel(aDir2, Precision1::Confusion())))
       {
 #ifdef OCCT_DEBUG
         std::cout << " Lines are not parallel" << std::endl;
@@ -1621,7 +1621,7 @@ static Standard_Boolean CheckShapesPair(const TopoShape& aShape1, const TopoShap
     {
       Point3d aCntr1 = aCurve1.Circle().Location(); // get the circle center
       Point3d aCntr2 = aCurve2.Circle().Location(); // get the circle center
-      if (!aCntr1.IsEqual(aCntr2, Precision::Confusion()))
+      if (!aCntr1.IsEqual(aCntr2, Precision1::Confusion()))
       {
 #ifdef OCCT_DEBUG
         std::cout << " Circles are not concentric" << std::endl;
@@ -1654,7 +1654,7 @@ static Standard_Boolean CheckShapesPair(const TopoShape& aShape1, const TopoShap
     if (aCurve.GetType() == GeomAbs_Circle)
     {
       Point3d aCntr = aCurve.Circle().Location();
-      if (!aCntr.IsEqual(aPnt, Precision::Confusion()))
+      if (!aCntr.IsEqual(aPnt, Precision1::Confusion()))
       {
 #ifdef OCCT_DEBUG
         std::cout << " The point doesn't coincide with the circle center" << std::endl;
@@ -1729,7 +1729,7 @@ void ConstraintPresentationTools::ComputeEqualRadius(const Handle(TDataXtd_Const
     const Dir3d& aDir1 = anAx31.Direction();
     const Dir3d& aDir2 = anAx32.Direction();
 
-    if (Abs(D1 - D2) < Precision::Confusion() && aDir1.IsParallel(aDir2, Precision::Confusion()))
+    if (Abs(D1 - D2) < Precision1::Confusion() && aDir1.IsParallel(aDir2, Precision1::Confusion()))
       aplane = aPlane2;
     else
     {

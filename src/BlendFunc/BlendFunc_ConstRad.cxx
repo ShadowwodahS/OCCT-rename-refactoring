@@ -773,7 +773,7 @@ void BlendFunc_ConstRad::Set(const Standard_Real Param)
 //=======================================================================
 // function : Set
 // purpose  : Segmentation of the useful part of the curve
-//           Precision is taken at random and small !?
+//           Precision1 is taken at random and small !?
 //=======================================================================
 
 void BlendFunc_ConstRad::Set(const Standard_Real First, const Standard_Real Last)
@@ -806,7 +806,7 @@ void BlendFunc_ConstRad::GetBounds(math_Vector& InfBound, math_Vector& SupBound)
 
   for (Standard_Integer i = 1; i <= 4; i++)
   {
-    if (!Precision::IsInfinite(InfBound(i)) && !Precision::IsInfinite(SupBound(i)))
+    if (!Precision1::IsInfinite(InfBound(i)) && !Precision1::IsInfinite(SupBound(i)))
     {
       Standard_Real range = (SupBound(i) - InfBound(i));
       InfBound(i) -= range;
@@ -1160,8 +1160,8 @@ void BlendFunc_ConstRad::Section(const Standard_Real Param,
     C.SetPosition(Frame3d(Center, np, ns1));
     Pfin = ElCLib1::Parameter(C, pts2);
   }
-  if (Pfin < Precision::PConfusion())
-    Pfin += Precision::PConfusion();
+  if (Pfin < Precision1::PConfusion())
+    Pfin += Precision1::PConfusion();
 }
 
 //=================================================================================================

@@ -782,5 +782,5 @@ void XSAlgo_ShapeProcessor::SetParameter(const char*                          th
 
 void XSAlgo_ShapeProcessor::PrepareForTransfer()
 {
-  UnitsMethods::SetCasCadeLengthUnit(ExchangeConfig::IVal("xstep.cascade.unit"));
+  UnitsMethods1::SetCasCadeLengthUnit(ExchangeConfig::IVal("xstep.cascade.unit"));
 }

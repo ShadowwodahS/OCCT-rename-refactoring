@@ -33,7 +33,7 @@ static Standard_Integer GetCircleNbPoints(const gp_Circ&         theCircle,
     return 0;
   }
 
-  if (theCircle.Radius() > Precision::Confusion())
+  if (theCircle.Radius() > Precision1::Confusion())
   {
     const Standard_Boolean isSector =
       theIsFilled && Abs(Abs(theU2 - theU1) - 2.0 * M_PI) > gp1::Resolution();

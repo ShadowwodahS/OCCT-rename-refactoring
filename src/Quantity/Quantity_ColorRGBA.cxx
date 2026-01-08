@@ -81,7 +81,7 @@ static bool convertIntegerToColorRGBA(ColorInteger        theColorInteger,
   {
     const Standard_ShortReal aColorComponent =
       takeColorComponentFromInteger(theColorInteger, theColorComponentBase);
-    aColor[aColorComponentIndex] = Quantity_Color::Convert_sRGB_To_LinearRGB(aColorComponent);
+    aColor[aColorComponentIndex] = Color1::Convert_sRGB_To_LinearRGB(aColorComponent);
   }
   if (theColorInteger != 0)
   {
@@ -226,7 +226,7 @@ Standard_Boolean Quantity_ColorRGBA::InitFromJson(const Standard_SStream& theSSt
   Standard_Integer aPos = theStreamPos;
 
   Standard_Real aRed, aGreen, aBlue, anAlpha;
-  OCCT_INIT_VECTOR_CLASS(Standard_Dump::Text(theSStream),
+  OCCT_INIT_VECTOR_CLASS(DumpTool::Text(theSStream),
                          "RGBA",
                          aPos,
                          4,

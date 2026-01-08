@@ -40,7 +40,7 @@ public:
 
   Standard_EXPORT Vrml_DirectionalLight(const Standard_Boolean aOnOff,
                                         const Standard_Real    aIntensity,
-                                        const Quantity_Color&  aColor,
+                                        const Color1&  aColor,
                                         const Vector3d&          aDirection);
 
   Standard_EXPORT void SetOnOff(const Standard_Boolean aOnOff);
@@ -51,9 +51,9 @@ public:
 
   Standard_EXPORT Standard_Real Intensity() const;
 
-  Standard_EXPORT void SetColor(const Quantity_Color& aColor);
+  Standard_EXPORT void SetColor(const Color1& aColor);
 
-  Standard_EXPORT Quantity_Color Color() const;
+  Standard_EXPORT Color1 Color() const;
 
   Standard_EXPORT void SetDirection(const Vector3d& aDirection);
 
@@ -65,7 +65,7 @@ protected:
 private:
   Standard_Boolean myOnOff;
   Standard_Real    myIntensity;
-  Quantity_Color   myColor;
+  Color1   myColor;
   Vector3d           myDirection;
 };
 

@@ -26,7 +26,7 @@
 #include <MeshVS_DataMapOfIntegerAsciiString.hxx>
 #include <Standard_Transient.hxx>
 #include <Standard_Integer.hxx>
-class Quantity_Color;
+class Color1;
 class Graphic3d_MaterialAspect;
 class AsciiString1;
 
@@ -50,7 +50,7 @@ public:
 
   Standard_EXPORT void SetBoolean(const Standard_Integer Key1, const Standard_Boolean Value);
 
-  Standard_EXPORT void SetColor(const Standard_Integer Key1, const Quantity_Color& Value);
+  Standard_EXPORT void SetColor(const Standard_Integer Key1, const Color1& Value);
 
   Standard_EXPORT void SetMaterial(const Standard_Integer          Key1,
                                    const Graphic3d_MaterialAspect& Value);
@@ -68,7 +68,7 @@ public:
                                               Standard_Boolean&      Value) const;
 
   Standard_EXPORT Standard_Boolean GetColor(const Standard_Integer Key1,
-                                            Quantity_Color&        Value) const;
+                                            Color1&        Value) const;
 
   Standard_EXPORT Standard_Boolean GetMaterial(const Standard_Integer    Key1,
                                                Graphic3d_MaterialAspect& Value) const;

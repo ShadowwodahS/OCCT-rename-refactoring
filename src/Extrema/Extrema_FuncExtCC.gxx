@@ -71,7 +71,7 @@ Standard_Real Extrema_FuncExtCC::SearchOfTolerance(const Standard_Address C)
   const Standard_Real aStep = (anEndParam - aStartParam)/(Standard_Real)NPoint;
 
   Standard_Integer aNum = 0;
-  Standard_Real aMax = -Precision::Infinite();  //Maximum value of 1st derivative
+  Standard_Real aMax = -Precision1::Infinite();  //Maximum value of 1st derivative
   //(it is computed with using NPoint point)
 
   do

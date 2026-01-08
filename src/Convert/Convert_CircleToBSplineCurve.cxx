@@ -126,7 +126,7 @@ Convert_CircleToBSplineCurve::Convert_CircleToBSplineCurve(
     : Convert_ConicToBSplineCurve(0, 0, 0)
 {
   Standard_Real delta = ULast - UFirst;
-  Standard_Real Eps   = Precision::PConfusion();
+  Standard_Real Eps   = Precision1::PConfusion();
 
   if ((delta > (2 * M_PI + Eps)) || (delta <= 0.0e0))
   {

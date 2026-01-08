@@ -202,7 +202,7 @@ void PlaneTool::OwnCheck(const Handle(IGESGeom_Plane)& ent,
   //========================================
 
   // szv#4:S4163:12Mar99 not needed
-  // Standard_Real eps = 1.E-06;  // ?? Precision
+  // Standard_Real eps = 1.E-06;  // ?? Precision1
   // Standard_Real A,B,C,D;
   // ent->Equation(A,B,C,D);
   if (ent->FormNumber() < -1 || ent->FormNumber() > 1)

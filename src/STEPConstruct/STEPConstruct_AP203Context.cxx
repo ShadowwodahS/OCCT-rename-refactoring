@@ -99,7 +99,7 @@ Handle(StepBasic_DateAndTime) STEPConstruct_AP203Context::DefaultDateAndTime()
   if (defDateAndTime.IsNull())
   {
     OSD_Process   sys;
-    Quantity_Date date = sys.SystemDate();
+    Date2 date = sys.SystemDate();
 
     Handle(StepBasic_CalendarDate) aDate = new StepBasic_CalendarDate;
     aDate->Init(date.Year(), date.Day(), date.Month());

@@ -40,7 +40,7 @@ public:
   //! Creates  and  returns a  shifted unit.   <aname> is the
   //! name of the unit,  <asymbol> is the usual abbreviation
   //! of the unit, <avalue> is the  value in relation to the
-  //! International System of Units, and <amove>  is the gap
+  //! International System of Units2, and <amove>  is the gap
   //! in relation to another unit.
   //!
   //! For  example Celsius   degree   of temperature  is  an

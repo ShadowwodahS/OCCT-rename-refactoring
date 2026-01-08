@@ -175,7 +175,7 @@ static TopoEdge MakeOffsetEdge(const TopoEdge&         theEdge,
                                                                   S2.LastUParameter(),
                                                                   S2.FirstVParameter(),
                                                                   S2.LastVParameter());
-  GeomInt_IntSS        Intersector(OffsetTrGS1, TrGS2, Precision::Confusion());
+  GeomInt_IntSS        Intersector(OffsetTrGS1, TrGS2, Precision1::Confusion());
   if (!Intersector.IsDone() || Intersector.NbLines() == 0)
   {
     return OffsetEdge;
@@ -258,7 +258,7 @@ static TopoEdge MakeOffsetEdge(const TopoEdge&         theEdge,
     Standard_Boolean IsClosed = Standard_False;
     Point3d           fpnt     = IntCurve->Value(IntCurve->FirstParameter());
     Point3d           lpnt     = IntCurve->Value(IntCurve->LastParameter());
-    if (fpnt.SquareDistance(lpnt) <= Precision::SquareConfusion())
+    if (fpnt.SquareDistance(lpnt) <= Precision1::SquareConfusion())
       IsClosed = Standard_True;
     if (IsClosed)
       Params[1] = IntCurve->LastParameter();

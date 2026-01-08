@@ -141,8 +141,8 @@ MeshVS_MeshPrsBuilder::MeshVS_MeshPrsBuilder(const Handle(MeshVS_Mesh)&       Pa
 //=================================================================================================
 
 void MeshVS_MeshPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
-                                  const TColStd_PackedMapOfInteger& IDs,
-                                  TColStd_PackedMapOfInteger&       IDsToExclude,
+                                  const PackedIntegerMap& IDs,
+                                  PackedIntegerMap&       IDsToExclude,
                                   const Standard_Boolean            IsElement,
                                   const Standard_Integer            DisplayMode) const
 {
@@ -163,8 +163,8 @@ void MeshVS_MeshPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
 //=================================================================================================
 
 void MeshVS_MeshPrsBuilder::BuildNodes(const Handle(Prs3d_Presentation)& Prs,
-                                       const TColStd_PackedMapOfInteger& IDs,
-                                       TColStd_PackedMapOfInteger&       IDsToExclude,
+                                       const PackedIntegerMap& IDs,
+                                       PackedIntegerMap&       IDsToExclude,
                                        const Standard_Integer            DisplayMode) const
 {
   Handle(MeshVS_DataSource)        aSource   = GetDataSource();
@@ -186,7 +186,7 @@ void MeshVS_MeshPrsBuilder::BuildNodes(const Handle(Prs3d_Presentation)& Prs,
   if (!DisplayFreeNodes)
     return;
 
-  TColStd_PackedMapOfInteger anIDs;
+  PackedIntegerMap anIDs;
   anIDs.Assign(IDs);
   if (!HasSelectFlag && !HasHilightFlag)
   {
@@ -227,8 +227,8 @@ void MeshVS_MeshPrsBuilder::BuildNodes(const Handle(Prs3d_Presentation)& Prs,
 //=================================================================================================
 
 void MeshVS_MeshPrsBuilder::BuildElements(const Handle(Prs3d_Presentation)& Prs,
-                                          const TColStd_PackedMapOfInteger& IDs,
-                                          TColStd_PackedMapOfInteger&       IDsToExclude,
+                                          const PackedIntegerMap& IDs,
+                                          PackedIntegerMap&       IDsToExclude,
                                           const Standard_Integer            DisplayMode) const
 {
   Standard_Integer maxnodes;
@@ -289,7 +289,7 @@ void MeshVS_MeshPrsBuilder::BuildElements(const Handle(Prs3d_Presentation)& Prs,
     !IsMeshAllowOverlap && (IsWireFrame || IsShading) && !HasSelectFlag;
 
   // subtract the hidden elements and ids to exclude (to minimize allocated memory)
-  TColStd_PackedMapOfInteger anIDs;
+  PackedIntegerMap anIDs;
   anIDs.Assign(IDs);
   Handle(TColStd_HPackedMapOfInteger) aHiddenElems = myParentMesh->GetHiddenElems();
   if (!aHiddenElems.IsNull())
@@ -387,10 +387,10 @@ void MeshVS_MeshPrsBuilder::BuildElements(const Handle(Prs3d_Presentation)& Prs,
     aEdgeSegments = new Graphic3d_ArrayOfSegments(aNbEdgePrimitives * 2);
   }
 
-  TColStd_PackedMapOfInteger aCustomElements;
+  PackedIntegerMap aCustomElements;
 
-  Quantity_Color       anOldEdgeColor;
-  Quantity_Color       anEdgeColor = aFill->EdgeColor();
+  Color1       anOldEdgeColor;
+  Color1       anEdgeColor = aFill->EdgeColor();
   MeshVS_MapOfTwoNodes aLinkNodes;
 
   // Forbid drawings of edges which overlap with some links
@@ -595,7 +595,7 @@ void MeshVS_MeshPrsBuilder::BuildElements(const Handle(Prs3d_Presentation)& Prs,
 //=================================================================================================
 
 void MeshVS_MeshPrsBuilder::BuildHilightPrs(const Handle(Prs3d_Presentation)& Prs,
-                                            const TColStd_PackedMapOfInteger& IDs,
+                                            const PackedIntegerMap& IDs,
                                             const Standard_Boolean            IsElement) const
 {
   Standard_Integer maxnodes;
@@ -696,7 +696,7 @@ void MeshVS_MeshPrsBuilder::BuildHilightPrs(const Handle(Prs3d_Presentation)& Pr
       break;
 
     default: {
-      TColStd_PackedMapOfInteger tmp;
+      PackedIntegerMap tmp;
       CustomBuild(Prs, IDs, tmp, MeshVS_DMF_HilightPrs);
     }
     break;
@@ -1072,9 +1072,9 @@ void MeshVS_MeshPrsBuilder::DrawArrays(const Handle(Prs3d_Presentation)&        
                    IsPolylines     = (!theLines.IsNull() && theLines->ItemNumber() > 0),
                    IsLinkPolylines = (!theLinkLines.IsNull() && theLinkLines->ItemNumber() > 0);
 
-  Quantity_Color anIntColor  = theFillAsp->InteriorColor();
-  Quantity_Color aBackColor  = theFillAsp->BackInteriorColor();
-  Quantity_Color anEdgeColor = theFillAsp->EdgeColor();
+  Color1 anIntColor  = theFillAsp->InteriorColor();
+  Color1 aBackColor  = theFillAsp->BackInteriorColor();
+  Color1 anEdgeColor = theFillAsp->EdgeColor();
   Standard_Real  aWidth      = theFillAsp->EdgeWidth();
 
   Standard_Boolean      isSupressBackFaces = Standard_False;

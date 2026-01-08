@@ -144,7 +144,7 @@ static Standard_Boolean sameparam(const Handle(ShapeProcess_Context)& context,
 
   ShapeFix1::SameParameter(ctx->Result(),
                           ctx->BooleanVal("Force", Standard_False),
-                          ctx->RealVal("Tolerance3d", Precision::Confusion() /* -1 */),
+                          ctx->RealVal("Tolerance3d", Precision1::Confusion() /* -1 */),
                           Message_ProgressRange(),
                           msg);
 
@@ -580,7 +580,7 @@ static Standard_Boolean fixwgaps(const Handle(ShapeProcess_Context)& context,
   if (!ctx->Messages().IsNull())
     msg = new ShapeExtend_MsgRegistrator;
 
-  Standard_Real aTol3d = ctx->RealVal("Tolerance3d", Precision::Confusion());
+  Standard_Real aTol3d = ctx->RealVal("Tolerance3d", Precision1::Confusion());
 
   Handle(ShapeBuild_ReShape) reshape = new ShapeBuild_ReShape;
   Handle(ShapeFix_Wireframe) sfwf    = new ShapeFix_Wireframe(ctx->Result());
@@ -655,7 +655,7 @@ static Standard_Boolean dropsmalledges (const Handle(ShapeProcess_Context)& cont
   //Handle(ShapeBuild_ReShape) ctx = new ShapeBuild_ReShape;
   Handle(MoniFrame_Element) elem = astep->Operand();
   TopoShape Shape = MoniShape::Shape(elem);
-  Standard_Real aTol3d = Precision::Confusion();
+  Standard_Real aTol3d = Precision1::Confusion();
   Handle(MoniFrame_TypedValue) ptol3d   = aproc->StackParam("Tolerance3d",Standard_True);
   if (ptol3d->IsSetValue()) aTol3d = ptol3d->RealValue();
   Handle(ShapeBuild_ReShape) context;
@@ -681,7 +681,7 @@ static Standard_Boolean mergesmalledges(const Handle(ShapeProcess_Context)& cont
   if (!ctx->Messages().IsNull())
     msg = new ShapeExtend_MsgRegistrator;
 
-  Standard_Real aTol3d = ctx->RealVal("Tolerance3d", Precision::Confusion());
+  Standard_Real aTol3d = ctx->RealVal("Tolerance3d", Precision1::Confusion());
 
   Handle(ShapeBuild_ReShape) reshape = new ShapeBuild_ReShape;
   ShapeFix_Wireframe         ShapeFixWireframe(ctx->Result());
@@ -715,9 +715,9 @@ static Standard_Boolean fixshape(const Handle(ShapeProcess_Context)& context,
   Handle(WireHealer)  sfw = sfs->FixWireTool();
   sfs->SetMsgRegistrator(msg);
 
-  sfs->SetPrecision(ctx->RealVal("Tolerance3d", Precision::Confusion()));
-  sfs->SetMinTolerance(ctx->RealVal("MinTolerance3d", Precision::Confusion()));
-  sfs->SetMaxTolerance(ctx->RealVal("MaxTolerance3d", Precision::Confusion()));
+  sfs->SetPrecision(ctx->RealVal("Tolerance3d", Precision1::Confusion()));
+  sfs->SetMinTolerance(ctx->RealVal("MinTolerance3d", Precision1::Confusion()));
+  sfs->SetMaxTolerance(ctx->RealVal("MaxTolerance3d", Precision1::Confusion()));
 
   sfs->FixFreeShellMode()      = ctx->IntegerVal("FixFreeShellMode", -1);
   sfs->FixFreeFaceMode()       = ctx->IntegerVal("FixFreeFaceMode", -1);

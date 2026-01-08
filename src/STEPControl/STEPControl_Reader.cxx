@@ -795,7 +795,7 @@ Standard_Boolean StepFileReader::findUnits(
   if (aContext.IsNull())
     return Standard_False;
   // Start Computation
-  Handle(StepBasic_HArray1OfNamedUnit) anUnits = aContext->Units();
+  Handle(StepBasic_HArray1OfNamedUnit) anUnits = aContext->Units2();
   Standard_Integer                     nbU     = aContext->NbUnits();
   Standard_Integer                     nbFind  = 0;
   for (Standard_Integer i = 1; i <= nbU; i++)

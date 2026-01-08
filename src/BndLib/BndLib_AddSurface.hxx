@@ -118,7 +118,7 @@ public:
   //! Adds to the bounding box B the surface S
   //! using numerical minimization algorithms
   //! This method is used in AddOptimal for not analytical surfaces and torus.
-  //! if Tol < Precision::Confusion(), Precision::Confusion is used as computation tolerance
+  //! if Tol < Precision1::Confusion(), Precision1::Confusion is used as computation tolerance
   Standard_EXPORT static void AddGenSurf(const Adaptor3d_Surface& S,
                                          const Standard_Real      UMin,
                                          const Standard_Real      UMax,

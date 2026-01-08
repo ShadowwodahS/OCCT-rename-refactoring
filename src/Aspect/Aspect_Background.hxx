@@ -35,20 +35,20 @@ public:
   Standard_EXPORT Aspect_Background();
 
   //! Creates a window background with the colour <AColor>.
-  Standard_EXPORT Aspect_Background(const Quantity_Color& AColor);
+  Standard_EXPORT Aspect_Background(const Color1& AColor);
 
   //! Modifies the colour of the window background <me>.
-  Standard_EXPORT void SetColor(const Quantity_Color& AColor);
+  Standard_EXPORT void SetColor(const Color1& AColor);
 
   //! Returns the colour of the window background <me>.
-  Standard_EXPORT Quantity_Color Color() const;
+  Standard_EXPORT Color1 Color() const;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
 protected:
 private:
-  Quantity_Color MyColor;
+  Color1 MyColor;
 };
 
 #endif // _Aspect_Background_HeaderFile

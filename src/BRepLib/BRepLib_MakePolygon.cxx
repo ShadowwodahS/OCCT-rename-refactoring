@@ -112,7 +112,7 @@ void BRepLib_MakePolygon::Add(const Point3d& P)
 {
   ShapeBuilder  B;
   TopoVertex V;
-  B.MakeVertex(V, P, Precision::Confusion());
+  B.MakeVertex(V, P, Precision1::Confusion());
   Add(V);
 }
 

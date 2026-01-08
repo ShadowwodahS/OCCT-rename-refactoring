@@ -62,8 +62,8 @@ private:
 /*----------------------------------------------------------------------*/
 
 V3d_CircularGrid::V3d_CircularGrid(const V3d_ViewerPointer& aViewer,
-                                   const Quantity_Color&    aColor,
-                                   const Quantity_Color&    aTenthColor)
+                                   const Color1&    aColor,
+                                   const Color1&    aTenthColor)
     : Aspect_CircularGrid(1., 8),
       myViewer(aViewer),
       myCurAreDefined(Standard_False),
@@ -96,7 +96,7 @@ V3d_CircularGrid::~V3d_CircularGrid()
   }
 }
 
-void V3d_CircularGrid::SetColors(const Quantity_Color& aColor, const Quantity_Color& aTenthColor)
+void V3d_CircularGrid::SetColors(const Color1& aColor, const Color1& aTenthColor)
 {
   if (myColor != aColor || myTenthColor != aTenthColor)
   {

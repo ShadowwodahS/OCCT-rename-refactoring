@@ -349,7 +349,7 @@ Standard_Real BezierCurve3d::ReversedParameter(const Standard_Real U) const
 
 void BezierCurve3d::Segment1(const Standard_Real U1, const Standard_Real U2)
 {
-  closed = (Abs(Value(U1).Distance(Value(U2))) <= Precision::Confusion());
+  closed = (Abs(Value(U1).Distance(Value(U2))) <= Precision1::Confusion());
 
   TColStd_Array1OfReal bidflatknots(BSplCLib1::FlatBezierKnots(Degree()), 1, 2 * (Degree() + 1));
   TColgp_HArray1OfPnt  coeffs(1, poles->Size());
@@ -396,7 +396,7 @@ void BezierCurve3d::SetPole(const Standard_Integer Index, const Point3d& P)
 
   if (Index == 1 || Index == cpoles.Length())
   {
-    closed = (cpoles(1).Distance(cpoles(NbPoles())) <= Precision::Confusion());
+    closed = (cpoles(1).Distance(cpoles(NbPoles())) <= Precision1::Confusion());
   }
 }
 
@@ -712,7 +712,7 @@ void BezierCurve3d::Init(const Handle(TColgp_HArray1OfPnt)&   Poles,
   Standard_Integer nbpoles = Poles->Length();
   // closed ?
   const TColgp_Array1OfPnt& cpoles = Poles->Array1();
-  closed                           = cpoles(1).Distance(cpoles(nbpoles)) <= Precision::Confusion();
+  closed                           = cpoles(1).Distance(cpoles(nbpoles)) <= Precision1::Confusion();
 
   // rational
   rational = !Weights.IsNull();

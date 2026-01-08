@@ -59,11 +59,11 @@ public:
                                 const Standard_Byte         a8b5,
                                 const Standard_Byte         a8b6);
 
-  Standard_EXPORT Standard_GUID(const Standard_UUID& aGuid);
+  Standard_EXPORT Standard_GUID(const UUID& aGuid);
 
   Standard_EXPORT Standard_GUID(const Standard_GUID& aGuid);
 
-  Standard_EXPORT Standard_UUID ToUUID() const;
+  Standard_EXPORT UUID ToUUID() const;
 
   //! translate the GUID into ascii string
   //! the aStrGuid is allocated by user.
@@ -91,9 +91,9 @@ public:
 
   void operator=(const Standard_GUID& uid) { Assign(uid); }
 
-  Standard_EXPORT void Assign(const Standard_UUID& uid);
+  Standard_EXPORT void Assign(const UUID& uid);
 
-  void operator=(const Standard_UUID& uid) { Assign(uid); }
+  void operator=(const UUID& uid) { Assign(uid); }
 
   //! Display the GUID with the following format:
   //!

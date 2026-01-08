@@ -182,7 +182,7 @@ Vector3d GeomFill_SnglrFunc::DN(const Standard_Real U, const Standard_Integer N)
 
 Standard_Real GeomFill_SnglrFunc::Resolution(const Standard_Real R3D) const
 {
-  return Precision::Parametric(R3D);
+  return Precision1::Parametric(R3D);
 }
 
 GeomAbs_CurveType GeomFill_SnglrFunc::GetType() const

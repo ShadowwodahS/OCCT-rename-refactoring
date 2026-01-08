@@ -367,7 +367,7 @@ static Standard_Integer smoothing(DrawInterpreter& di, Standard_Integer n, const
   if (n == 3)
   {
     Tolerance = Draw1::Atof(a[2]);
-    if (Abs(Tolerance) < Precision::Confusion() * 1.e-7)
+    if (Abs(Tolerance) < Precision1::Confusion() * 1.e-7)
     {
       Constraint = AppParCurves_PassPoint;
     }
@@ -382,7 +382,7 @@ static Standard_Integer smoothing(DrawInterpreter& di, Standard_Integer n, const
   {
     Standard_Integer ific = 3;
     Tolerance             = Draw1::Atof(a[2]);
-    if (Abs(Tolerance) < Precision::Confusion() * 1.e-7)
+    if (Abs(Tolerance) < Precision1::Confusion() * 1.e-7)
     {
       Constraint = AppParCurves_PassPoint;
     }
@@ -577,7 +577,7 @@ static Standard_Integer smoothingbybezier(DrawInterpreter& di, Standard_Integer 
       methode = 3;
     }
 
-    if (Abs(Tolerance) < Precision::Confusion() * 1.e-7)
+    if (Abs(Tolerance) < Precision1::Confusion() * 1.e-7)
     {
       Constraint = AppParCurves_PassPoint;
     }

@@ -36,8 +36,8 @@ static void FindLimits(const Adaptor3d_Curve& aCurve,
 {
   First                     = aCurve.FirstParameter();
   Last                      = aCurve.LastParameter();
-  Standard_Boolean firstInf = Precision::IsNegativeInfinite(First);
-  Standard_Boolean lastInf  = Precision::IsPositiveInfinite(Last);
+  Standard_Boolean firstInf = Precision1::IsNegativeInfinite(First);
+  Standard_Boolean lastInf  = Precision1::IsPositiveInfinite(Last);
 
   if (firstInf || lastInf)
   {
@@ -154,7 +154,7 @@ static void DrawCurve(Adaptor3d_Curve&                    aCurve,
     break;
     case GeomAbs_Circle: {
       Standard_Real Radius = aCurve.Circle().Radius();
-      if (!Precision::IsInfinite(Radius))
+      if (!Precision1::IsInfinite(Radius))
       {
         Standard_Real    DU = Sqrt(8.0 * TheDeflection / Radius);
         Standard_Integer N  = Standard_Integer(Abs(U2 - U1) / DU);
@@ -183,8 +183,8 @@ static void DrawCurve(Adaptor3d_Curve&                    aCurve,
             HAI1->SetValue(Index, Index - 1);
           }
           /*
-               if( HAV1->Value(1).IsEqual( HAV1->Value(N+1),Precision::Confusion(),
-             Precision::Angular() ) )
+               if( HAV1->Value(1).IsEqual( HAV1->Value(N+1),Precision1::Confusion(),
+             Precision1::Angular() ) )
                  {
                    HAI1->SetValue(N+1, 0);
                  }
@@ -256,7 +256,7 @@ static Standard_Real GetDeflection(const Adaptor3d_Curve&              aCurve,
   if (aDrawer->TypeOfDeflection() == Aspect_TOD_RELATIVE) // TOD_RELATIVE, TOD_ABSOLUTE
   {
     Box2 box;
-    Add3dCurve::Add(aCurve, U1, U2, Precision::Confusion(), box);
+    Add3dCurve::Add(aCurve, U1, U2, Precision1::Confusion(), box);
 
     Standard_Real Xmin, Xmax, Ymin, Ymax, Zmin, Zmax, diagonal;
     box.Get(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
@@ -265,7 +265,7 @@ static Standard_Real GetDeflection(const Adaptor3d_Curve&              aCurve,
     {
       diagonal               = Sqrt((Xmax - Xmin) * (Xmax - Xmin) + (Ymax - Ymin) * (Ymax - Ymin)
                       + (Zmax - Zmin) * (Zmax - Zmin));
-      diagonal               = Max(diagonal, Precision::Confusion());
+      diagonal               = Max(diagonal, Precision1::Confusion());
       theRequestedDeflection = aDrawer->DeviationCoefficient() * diagonal;
     }
     else
@@ -310,9 +310,9 @@ void DeflectionCurveConverter::Add(Standard_OStream&                   anOStream
   Standard_Real V1 = U1;
   Standard_Real V2 = U2;
 
-  if (Precision::IsNegativeInfinite(V1))
+  if (Precision1::IsNegativeInfinite(V1))
     V1 = -aDrawer->MaximalParameterValue();
-  if (Precision::IsPositiveInfinite(V2))
+  if (Precision1::IsPositiveInfinite(V2))
     V2 = aDrawer->MaximalParameterValue();
 
   Standard_Real theRequestedDeflection = GetDeflection(aCurve, V1, V2, aDrawer);

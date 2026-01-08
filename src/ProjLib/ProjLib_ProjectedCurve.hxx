@@ -58,7 +58,7 @@ public:
 
   //! Constructor, which performs projecting.
   //! If projecting uses approximation, default parameters are used, in particular, 3d tolerance of
-  //! approximation is Precision::Confusion()
+  //! approximation is Precision1::Confusion()
   Standard_EXPORT ProjLib_ProjectedCurve(const Handle(Adaptor3d_Surface)& S,
                                          const Handle(Adaptor3d_Curve)&   C);
 

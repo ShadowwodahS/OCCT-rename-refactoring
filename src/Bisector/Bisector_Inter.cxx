@@ -367,7 +367,7 @@ void Bisector_Inter::NeighbourPerform(const Handle(Bisector_BisecCC)& Bis1,
 {
   Standard_Real           USol, U1, U2, Dist;
   Standard_Real           UMin = 0., UMax = 0.;
-  constexpr Standard_Real Eps = Precision::PConfusion();
+  constexpr Standard_Real Eps = Precision1::PConfusion();
   gp_Pnt2d                PSol;
 
   Handle(GeomCurve2d)     Guide;
@@ -430,7 +430,7 @@ void Bisector_Inter::TestBound(const Handle(Geom2d_Line)&  Bis1,
   gp_Pnt2d PF = Bis2->Value(D2.FirstParameter());
   gp_Pnt2d PL = Bis2->Value(D2.LastParameter());
   //  Modified by skv - Mon May  5 14:43:28 2003 OCC616 Begin
-  //   Standard_Real Tol = Min(TolConf,Precision::Confusion());
+  //   Standard_Real Tol = Min(TolConf,Precision1::Confusion());
   //   Tol = 10*Tol;
   Standard_Real Tol = TolConf;
   //  Modified by skv - Mon May  5 14:43:30 2003 OCC616 End

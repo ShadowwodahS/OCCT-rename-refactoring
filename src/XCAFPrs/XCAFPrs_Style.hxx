@@ -47,10 +47,10 @@ public:
   Standard_Boolean IsSetColorSurf() const { return myHasColorSurf; }
 
   //! Return surface color.
-  const Quantity_Color& GetColorSurf() const { return myColorSurf.GetRGB(); }
+  const Color1& GetColorSurf() const { return myColorSurf.GetRGB(); }
 
   //! Set surface color.
-  void SetColorSurf(const Quantity_Color& theColor) { SetColorSurf(Quantity_ColorRGBA(theColor)); }
+  void SetColorSurf(const Color1& theColor) { SetColorSurf(Quantity_ColorRGBA(theColor)); }
 
   //! Return surface color.
   const Quantity_ColorRGBA& GetColorSurfRGBA() const { return myColorSurf; }
@@ -65,10 +65,10 @@ public:
   Standard_Boolean IsSetColorCurv() const { return myHasColorCurv; }
 
   //! Return curve color.
-  const Quantity_Color& GetColorCurv() const { return myColorCurv; }
+  const Color1& GetColorCurv() const { return myColorCurv; }
 
   //! Set curve color.
-  Standard_EXPORT void SetColorCurv(const Quantity_Color& col);
+  Standard_EXPORT void SetColorCurv(const Color1& col);
 
   //! Manage curve color setting
   Standard_EXPORT void UnSetColorCurv();
@@ -130,7 +130,7 @@ public:
 protected:
   Handle(XCAFDoc_VisMaterial) myMaterial;
   Quantity_ColorRGBA          myColorSurf;
-  Quantity_Color              myColorCurv;
+  Color1              myColorCurv;
   Standard_Boolean            myHasColorSurf;
   Standard_Boolean            myHasColorCurv;
   Standard_Boolean            myIsVisible;
@@ -155,7 +155,7 @@ struct hash<XCAFPrs_Style>
     }
     if (theStyle.myHasColorCurv)
     {
-      aCombination[aCount++] = std::hash<Quantity_Color>{}(theStyle.myColorCurv);
+      aCombination[aCount++] = std::hash<Color1>{}(theStyle.myColorCurv);
     }
     if (!theStyle.myMaterial.IsNull())
     {

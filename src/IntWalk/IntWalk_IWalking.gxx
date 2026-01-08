@@ -26,7 +26,7 @@
 
 #ifdef CHRONO
   #include <OSD_Chronometer.hxx>
-OSD_Chronometer Chronrsnld;
+Chronometer Chronrsnld;
 #endif
 
 //==================================================================================
@@ -95,7 +95,7 @@ IntWalk_IWalking::IntWalk_IWalking(const Standard_Real    Epsilon,
 //purpose  : Clears NCollection_Vector-based containers and adds
 //           dummy data to maintain start index of 1 and consistent with
 //           previous TCollection_Sequence-based implementation and other
-//           used TCollection-based containers
+//           used TCollection1-based containers
 //=======================================================================
 
 void IntWalk_IWalking::Clear()
@@ -223,12 +223,12 @@ void IntWalk_IWalking::Perform(const ThePOPIterator&  Pnts1,
     wd2.push_back(aWD2);
   }
 
-  tolerance(1) = ThePSurfaceTool::UResolution(Caro, Precision::Confusion());
-  tolerance(2) = ThePSurfaceTool::VResolution(Caro, Precision::Confusion());
+  tolerance(1) = ThePSurfaceTool::UResolution(Caro, Precision1::Confusion());
+  tolerance(2) = ThePSurfaceTool::VResolution(Caro, Precision1::Confusion());
 
   Func.Set(Caro);
 
-  if (mySRangeU.Delta() > Max(tolerance(1), Precision::PConfusion()))
+  if (mySRangeU.Delta() > Max(tolerance(1), Precision1::PConfusion()))
   {
     mySRangeU.Enlarge(mySRangeU.Delta());
     mySRangeU.Common(Range1(Um, UM));
@@ -238,7 +238,7 @@ void IntWalk_IWalking::Perform(const ThePOPIterator&  Pnts1,
     mySRangeU = Range1(Um, UM);
   }
 
-  if (mySRangeV.Delta() > Max(tolerance(2), Precision::PConfusion()))
+  if (mySRangeV.Delta() > Max(tolerance(2), Precision1::PConfusion()))
   {
     mySRangeV.Enlarge(mySRangeV.Delta());
     mySRangeV.Common(Range1(Vm, VM));
@@ -337,8 +337,8 @@ void IntWalk_IWalking::Perform(const ThePOPIterator&  Pnts1,
     }
   }
 
-  tolerance(1) = ThePSurfaceTool::UResolution(Caro, Precision::Confusion());
-  tolerance(2) = ThePSurfaceTool::VResolution(Caro, Precision::Confusion());
+  tolerance(1) = ThePSurfaceTool::UResolution(Caro, Precision1::Confusion());
+  tolerance(2) = ThePSurfaceTool::VResolution(Caro, Precision1::Confusion());
 
   Um           = ThePSurfaceTool::FirstUParameter(Caro);
   Vm           = ThePSurfaceTool::FirstVParameter(Caro);
@@ -423,10 +423,10 @@ Standard_Boolean IntWalk_IWalking::Cadrage(math_Vector&   BornInf,
   Standard_Real U1      = UVap(1) + Step * Duvx * StepSign;
   Standard_Real V1      = UVap(2) + Step * Duvy * StepSign;
 
-  Standard_Boolean infu = (U1 <= BornInf(1) + Precision::PConfusion());
-  Standard_Boolean supu = (U1 >= BornSup(1) - Precision::PConfusion());
-  Standard_Boolean infv = (V1 <= BornInf(2) + Precision::PConfusion());
-  Standard_Boolean supv = (V1 >= BornSup(2) - Precision::PConfusion());
+  Standard_Boolean infu = (U1 <= BornInf(1) + Precision1::PConfusion());
+  Standard_Boolean supu = (U1 >= BornSup(1) - Precision1::PConfusion());
+  Standard_Boolean infv = (V1 <= BornInf(2) + Precision1::PConfusion());
+  Standard_Boolean supv = (V1 >= BornSup(2) - Precision1::PConfusion());
 
   Standard_Real theStepU, theStepV;
 
@@ -2040,7 +2040,7 @@ void IntWalk_IWalking::ComputeCloseLine(const TColStd_SequenceOfReal& Umult,
       Standard_Real aParam = BornInf(aChangeIdx) + aParamIdx * aStep(aChangeIdx);
       UV(aChangeIdx)       = aParam;
       Func.Derivatives(UV, D);
-      if (Abs(D(1, aChangeIdx)) > Precision::Confusion())
+      if (Abs(D(1, aChangeIdx)) > Precision1::Confusion())
       {
         isLeftDegeneratedBorder[aBorderIdx - 1] = Standard_False;
         break;
@@ -2054,7 +2054,7 @@ void IntWalk_IWalking::ComputeCloseLine(const TColStd_SequenceOfReal& Umult,
       Standard_Real aParam = BornInf(aChangeIdx) + aParamIdx * aStep(aChangeIdx);
       UV(aChangeIdx)       = aParam;
       Func.Derivatives(UV, D);
-      if (Abs(D(1, aChangeIdx)) > Precision::Confusion())
+      if (Abs(D(1, aChangeIdx)) > Precision1::Confusion())
       {
         isRightDegeneratedBorder[aBorderIdx - 1] = Standard_False;
         break;
@@ -2194,9 +2194,9 @@ void IntWalk_IWalking::ComputeCloseLine(const TColStd_SequenceOfReal& Umult,
               {
                 // Check degenerated cases and fix if possible.
                 if ((isLeftDegeneratedBorder[aCoordIdx - 1]
-                     && Abs(Uvap(aCoordIdx) - BornInf(aCoordIdx)) < Precision::PConfusion())
+                     && Abs(Uvap(aCoordIdx) - BornInf(aCoordIdx)) < Precision1::PConfusion())
                     || (isRightDegeneratedBorder[aCoordIdx - 1]
-                        && Abs(Uvap(aCoordIdx) - BornSup(aCoordIdx)) < Precision::PConfusion()))
+                        && Abs(Uvap(aCoordIdx) - BornSup(aCoordIdx)) < Precision1::PConfusion()))
                 {
                   Standard_Real uvprev[2], uv[2];
                   if (!reversed)
@@ -2629,8 +2629,8 @@ IntWalk_StatusDeflection IntWalk_IWalking::TestDeflection(TheIWFunction&        
 
   const Standard_Real Norme = Corde.SquareMagnitude();
 
-  if ((Norme <= 4.0 * Precision::SquareConfusion())
-      && ((Duv <= Precision::SquarePConfusion()) || (StatusPrecedent != IntWalk_OK)))
+  if ((Norme <= 4.0 * Precision1::SquareConfusion())
+      && ((Duv <= Precision1::SquarePConfusion()) || (StatusPrecedent != IntWalk_OK)))
   { // the square is already taken in the constructor
     aStatus = IntWalk_PointConfondu;
     if (StatusPrecedent == IntWalk_PasTropGrand)
@@ -3080,7 +3080,7 @@ Standard_Boolean IntWalk_IWalking::IsPointOnLine(const PointOn2Surfaces& thePOn2
       }
     }
 
-    if (aMinSqDist > Precision::Infinite())
+    if (aMinSqDist > Precision1::Infinite())
       continue;
 
     math_Vector aVecPrms(1, 2);

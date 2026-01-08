@@ -70,7 +70,7 @@ void Approx_Curve2d_Eval::Evaluate(Standard_Integer* Dimension,
   }
   if (StartEnd[0] != StartEndSav[0] || StartEnd[1] != StartEndSav[1])
   {
-    fonct          = fonct->Trim(StartEnd[0], StartEnd[1], Precision::PConfusion());
+    fonct          = fonct->Trim(StartEnd[0], StartEnd[1], Precision1::PConfusion());
     StartEndSav[0] = StartEnd[0];
     StartEndSav[1] = StartEnd[1];
   }
@@ -110,7 +110,7 @@ Approx_Curve2d::Approx_Curve2d(const Handle(Adaptor2d_Curve2d)& C2D,
                                const Standard_Integer           MaxDegree,
                                const Standard_Integer           MaxSegments)
 {
-  C2D->Trim(First, Last, Precision::PConfusion());
+  C2D->Trim(First, Last, Precision1::PConfusion());
 
   Standard_Integer              Num1DSS = 2, Num2DSS = 0, Num3DSS = 0;
   Handle(TColStd_HArray1OfReal) TwoDTolNul, ThreeDTolNul;

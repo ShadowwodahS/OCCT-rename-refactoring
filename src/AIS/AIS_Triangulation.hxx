@@ -25,7 +25,7 @@ DEFINE_STANDARD_HANDLE(AIS_Triangulation, VisualEntity)
 
 //! Interactive object that draws data from  MeshTriangulation, optionally with colors associated
 //! with each triangulation vertex. For maximum efficiency colors are represented as 32-bit integers
-//! instead of classic Quantity_Color values.
+//! instead of classic Color1 values.
 //! Interactive selection of triangles and vertices is not yet implemented.
 class AIS_Triangulation : public VisualEntity
 {

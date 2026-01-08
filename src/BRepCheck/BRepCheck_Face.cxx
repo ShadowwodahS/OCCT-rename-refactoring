@@ -343,7 +343,7 @@ BRepCheck_Status BRepCheck_Face::ClassifyWires(const Standard_Boolean Update)
     newFace.Orientation(TopAbs_FORWARD);
     B.Add(newFace, wir1);
 
-    BRepTopAdaptor_FClass2d FClass2d(newFace, Precision::PConfusion());
+    BRepTopAdaptor_FClass2d FClass2d(newFace, Precision1::PConfusion());
     Standard_Boolean        WireBienOriente = Standard_False;
     if (FClass2d.PerformInfinitePoint() != TopAbs_OUT)
     {
@@ -764,12 +764,12 @@ static Standard_Boolean IsInside(const TopoWire&             theWire,
     Handle(GeomCurve2d) aCurve2D = BRepInspector::CurveOnSurface(anEdge, theFace, aFirst, aLast);
 
     // Selects the parameter of point on the curve
-    if (!Precision::IsNegativeInfinite(aFirst) && !Precision::IsPositiveInfinite(aLast))
+    if (!Precision1::IsNegativeInfinite(aFirst) && !Precision1::IsPositiveInfinite(aLast))
     {
       aParameter = (aFirst + aLast) * 0.5;
 
       // Edge is skipped if its parametric range is too small
-      if (Abs(aParameter - aFirst) < Precision::PConfusion())
+      if (Abs(aParameter - aFirst) < Precision1::PConfusion())
       {
         continue;
       }
@@ -787,18 +787,18 @@ static Standard_Boolean IsInside(const TopoWire&             theWire,
       aCurve->D0(aFirst, aPoints[0]);
       // Compute middle point of edge
       aCurve->D0((aFirst3D + aLast3D) / 2., aPoints[1]);
-      if (aPoints[0].Distance(aPoints[1]) < Precision::Confusion())
+      if (aPoints[0].Distance(aPoints[1]) < Precision1::Confusion())
       {
         continue;
       }
     }
     else
     {
-      if (Precision::IsNegativeInfinite(aFirst) && Precision::IsPositiveInfinite(aLast))
+      if (Precision1::IsNegativeInfinite(aFirst) && Precision1::IsPositiveInfinite(aLast))
       {
         aParameter = 0.;
       }
-      else if (Precision::IsNegativeInfinite(aFirst))
+      else if (Precision1::IsNegativeInfinite(aFirst))
       {
         aParameter = aLast - 1.;
       }

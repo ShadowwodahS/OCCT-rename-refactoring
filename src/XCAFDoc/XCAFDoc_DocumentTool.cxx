@@ -380,7 +380,7 @@ Standard_Boolean XCAFDoc_DocumentTool::GetLengthUnit(const Handle(AppDocument)& 
   if (theDoc->Main().Root().FindAttribute(XCAFDoc_LengthUnit::GetID(), aLengthAttr))
   {
     theResult = aLengthAttr->GetUnitValue()
-                * UnitsMethods::GetLengthUnitScale(UnitsMethods_LengthUnit_Meter, theBaseUnit);
+                * UnitsMethods1::GetLengthUnitScale(UnitsMethods_LengthUnit_Meter, theBaseUnit);
     return Standard_True;
   }
   return Standard_False;
@@ -411,9 +411,9 @@ void XCAFDoc_DocumentTool::SetLengthUnit(const Handle(AppDocument)& theDoc,
                                          const UnitsMethods_LengthUnit   theBaseUnit)
 {
   // Sets length unit info
-  AsciiString1 aUnitName = UnitsMethods::DumpLengthUnit(theUnitValue, theBaseUnit);
+  AsciiString1 aUnitName = UnitsMethods1::DumpLengthUnit(theUnitValue, theBaseUnit);
   const Standard_Real     aScaleFactor =
-    theUnitValue * UnitsMethods::GetLengthUnitScale(theBaseUnit, UnitsMethods_LengthUnit_Meter);
+    theUnitValue * UnitsMethods1::GetLengthUnitScale(theBaseUnit, UnitsMethods_LengthUnit_Meter);
   XCAFDoc_LengthUnit::Set(theDoc->Main().Root(), aUnitName, aScaleFactor);
 }
 
@@ -424,7 +424,7 @@ void XCAFDoc_DocumentTool::SetLengthUnit(const Handle(AppDocument)& theDoc,
 {
   // Sets length unit info
   AsciiString1 aUnitName =
-    UnitsMethods::DumpLengthUnit(theUnitValue, UnitsMethods_LengthUnit_Meter);
+    UnitsMethods1::DumpLengthUnit(theUnitValue, UnitsMethods_LengthUnit_Meter);
   XCAFDoc_LengthUnit::Set(theDoc->Main().Root(), aUnitName, theUnitValue);
 }
 

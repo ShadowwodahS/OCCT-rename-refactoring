@@ -77,7 +77,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
   gp_Pnt2d             center1(C1.Location());
   TColStd_Array1OfReal Radius(1, 2);
 
-  if (Point2.IsEqual(Point3, Precision::Confusion()))
+  if (Point2.IsEqual(Point3, Precision1::Confusion()))
   {
     WellDone = Standard_False;
     return;

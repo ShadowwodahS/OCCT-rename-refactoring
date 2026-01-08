@@ -780,7 +780,7 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
 void ChFi3d_Builder::UpdateTolesp()
 {
   ChFiDS_ListIteratorOfListOfStripe itel;
-  // tolesp = Precision::Infinite();
+  // tolesp = Precision1::Infinite();
   for (itel.Initialize(myListStripe); itel.More(); itel.Next())
   {
     Handle(ChFiDS_Stripe)& curStripe             = itel.ChangeValue();

@@ -66,9 +66,9 @@ void OSD_Process::TerminalType(AsciiString1& Name)
 
 // Get date of system date
 
-Quantity_Date OSD_Process::SystemDate()
+Date2 OSD_Process::SystemDate()
 {
-  Quantity_Date    result;
+  Date2    result;
   Standard_Integer month = 0, day = 0, year = 0, hh = 0, mn = 0, ss = 0;
   struct tm        transfert;
   struct timeval   tval;
@@ -216,10 +216,10 @@ void OSD_Process ::TerminalType(AsciiString1& Name)
 
 } // end OSD_Process :: TerminalType
 
-Quantity_Date OSD_Process ::SystemDate()
+Date2 OSD_Process ::SystemDate()
 {
 
-  Quantity_Date retVal;
+  Date2 retVal;
   SYSTEMTIME    st;
 
   GetLocalTime(&st);

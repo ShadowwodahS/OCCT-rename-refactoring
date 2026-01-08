@@ -112,8 +112,8 @@ void PrsDim_RadiusDimension::SetMeasuredGeometry(const TopoShape&    theShape,
 Standard_Boolean PrsDim_RadiusDimension::CheckPlane(const gp_Pln& thePlane) const
 {
   // Check if anchor point and circle center point belong to plane.
-  if (!thePlane.Contains(myAnchorPoint, Precision::Confusion())
-      && !thePlane.Contains(myCircle.Location(), Precision::Confusion()))
+  if (!thePlane.Contains(myAnchorPoint, Precision1::Confusion())
+      && !thePlane.Contains(myCircle.Location(), Precision1::Confusion()))
   {
     return Standard_False;
   }
@@ -194,7 +194,7 @@ void PrsDim_RadiusDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 Standard_Boolean PrsDim_RadiusDimension::IsValidCircle(const gp_Circ& theCircle) const
 {
-  return theCircle.Radius() > Precision::Confusion();
+  return theCircle.Radius() > Precision1::Confusion();
 }
 
 //=================================================================================================
@@ -205,8 +205,8 @@ Standard_Boolean PrsDim_RadiusDimension::IsValidAnchor(const gp_Circ& theCircle,
   gp_Pln        aCirclePlane(theCircle.Location(), theCircle.Axis().Direction());
   Standard_Real anAnchorDist = theAnchor.Distance(theCircle.Location());
 
-  return anAnchorDist > Precision::Confusion()
-         && aCirclePlane.Contains(theAnchor, Precision::Confusion());
+  return anAnchorDist > Precision1::Confusion()
+         && aCirclePlane.Contains(theAnchor, Precision1::Confusion());
 }
 
 //=================================================================================================

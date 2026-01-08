@@ -315,7 +315,7 @@ void UniformDeflection1::initialize(const TheCurve&        theC,
                                           const Standard_Real    theU2,
                                           const Standard_Boolean theWithControl)
 {
-  const Standard_Real anEPSILON = theC.Resolution(Precision::Confusion());
+  const Standard_Real anEPSILON = theC.Resolution(Precision1::Confusion());
   myDeflection                  = theDeflection;
   myDone                        = Standard_False;
   myParams.Clear();

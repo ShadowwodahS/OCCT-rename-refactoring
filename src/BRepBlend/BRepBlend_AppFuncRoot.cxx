@@ -352,7 +352,7 @@ Standard_Boolean BRepBlend_AppFuncRoot::SearchPoint(Blend_AppFunction&  Func,
   }
   rsnld.Root(Sol);
 
-  // (3) Storage of the point
+  // (3) Storage1 of the point
   Point(Func, Param, Sol, Pnt);
 
   // (4) Insertion of the point if the calculation seems long.

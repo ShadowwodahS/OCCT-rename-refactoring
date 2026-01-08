@@ -15,9 +15,9 @@
 #include <Precision.hxx>
 
 inline PointOnSurface1::PointOnSurface1()
-    : myU(Precision::Infinite()),
-      myV(Precision::Infinite()),
-      myP(Point3d(Precision::Infinite(), Precision::Infinite(), Precision::Infinite()))
+    : myU(Precision1::Infinite()),
+      myV(Precision1::Infinite()),
+      myP(Point3d(Precision1::Infinite(), Precision1::Infinite(), Precision1::Infinite()))
 {
 }
 

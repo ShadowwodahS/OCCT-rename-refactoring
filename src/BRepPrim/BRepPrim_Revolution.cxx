@@ -61,7 +61,7 @@ TopoFace BRepPrim_Revolution::MakeEmptyLateralFace() const
   Handle(Geom_SurfaceOfRevolution) S = new Geom_SurfaceOfRevolution(myMeridian, Axes().Axis());
 
   TopoFace F;
-  myBuilder.Builder().MakeFace(F, S, Precision::Confusion());
+  myBuilder.Builder().MakeFace(F, S, Precision1::Confusion());
   return F;
 }
 
@@ -74,7 +74,7 @@ TopoEdge BRepPrim_Revolution::MakeEmptyMeridianEdge(const Standard_Real Ang) con
   Transform3d            T;
   T.SetRotation(Axes().Axis(), Ang);
   C->Transform(T);
-  myBuilder.Builder().MakeEdge(E, C, Precision::Confusion());
+  myBuilder.Builder().MakeEdge(E, C, Precision1::Confusion());
   return E;
 }
 
@@ -89,5 +89,5 @@ gp_Pnt2d BRepPrim_Revolution::MeridianValue(const Standard_Real V) const
 
 void BRepPrim_Revolution::SetMeridianPCurve(TopoEdge& E, const TopoFace& F) const
 {
-  myBuilder.Builder().UpdateEdge(E, myPMeridian, F, Precision::Confusion());
+  myBuilder.Builder().UpdateEdge(E, myPMeridian, F, Precision1::Confusion());
 }

@@ -109,7 +109,7 @@ Standard_Real Geom_Parabola::Eccentricity() const
 
 Standard_Real Geom_Parabola::FirstParameter() const
 {
-  return -Precision::Infinite();
+  return -Precision1::Infinite();
 }
 
 //=================================================================================================
@@ -123,7 +123,7 @@ Standard_Real Geom_Parabola::Focal() const
 
 Standard_Real Geom_Parabola::LastParameter() const
 {
-  return Precision::Infinite();
+  return Precision1::Infinite();
 }
 
 //=================================================================================================
@@ -235,7 +235,7 @@ void Geom_Parabola::Transform(const Trsf& T)
 
 Standard_Real Geom_Parabola::TransformedParameter(const Standard_Real U, const Transform3d& T) const
 {
-  if (Precision::IsInfinite(U))
+  if (Precision1::IsInfinite(U))
     return U;
   return U * Abs(T.ScaleFactor());
 }

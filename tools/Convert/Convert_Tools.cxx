@@ -144,7 +144,7 @@ void Convert_Tools::ConvertStreamToPresentations(
 // purpose  :
 //=======================================================================
 Standard_Boolean Convert_Tools::ConvertStreamToColor(const Standard_SStream& theSStream,
-                                                     Quantity_Color&         theColor)
+                                                     Color1&         theColor)
 {
   Standard_Integer   aStartPos = 1;
   Quantity_ColorRGBA aColorRGBA;
@@ -154,7 +154,7 @@ Standard_Boolean Convert_Tools::ConvertStreamToColor(const Standard_SStream& the
     return Standard_True;
   }
 
-  Quantity_Color aColor;
+  Color1 aColor;
   if (aColor.InitFromJson(theSStream, aStartPos))
   {
     theColor = aColor;

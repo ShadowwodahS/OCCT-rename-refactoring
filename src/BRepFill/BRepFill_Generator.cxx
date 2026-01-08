@@ -137,7 +137,7 @@ Standard_Integer DetectKPart(const TopoEdge& Edge1, const TopoEdge& Edge2)
       if (IType == 1)
       {
         // the only particular case with degenerated edge at end : the cone
-        if (pos.IsEqual(pos1, Precision::Confusion()))
+        if (pos.IsEqual(pos1, Precision1::Confusion()))
         {
           // the top is mixed with the center of the circle
           IType = 0;
@@ -147,7 +147,7 @@ Standard_Integer DetectKPart(const TopoEdge& Edge1, const TopoEdge& Edge2)
           Vector3d vec(pos1, pos);
           Dir3d dir(vec);
           axe = Axis3d(pos1, dir);
-          if (axe.IsParallel(axe1, Precision::Angular()))
+          if (axe.IsParallel(axe1, Precision1::Angular()))
           {
             // the top is on the axis of the circle
             IType = 2;
@@ -192,21 +192,21 @@ Standard_Integer DetectKPart(const TopoEdge& Edge1, const TopoEdge& Edge2)
         }
         else
         {
-          if (AdC.Circle().Axis().IsCoaxial(axe1, Precision::Angular(), Precision::Confusion()))
+          if (AdC.Circle().Axis().IsCoaxial(axe1, Precision1::Angular(), Precision1::Confusion()))
           {
             // same axis
-            if (Abs(AdC.Circle().Radius() - dist1) < Precision::Confusion())
+            if (Abs(AdC.Circle().Radius() - dist1) < Precision1::Confusion())
             {
               // possibility of cylinder or a piece of cylinder
               Standard_Real    h1 = Abs(last1 - first1), h2 = Abs(last2 - first2);
               Standard_Boolean Same,
-                SameParametricLength = (Abs(h1 - h2) < Precision::PConfusion());
+                SameParametricLength = (Abs(h1 - h2) < Precision1::PConfusion());
               Standard_Real m1 = (first1 + last1) / 2., m2 = (first2 + last2) / 2.;
               Point3d        P1, P2;
               Vector3d        DU;
               AdC1.D1(m1, P1, DU);
               AdC.D0(m2, P2);
-              Same = SameParametricLength && (Vector3d(P1, P2).IsNormal(DU, Precision::Angular()));
+              Same = SameParametricLength && (Vector3d(P1, P2).IsNormal(DU, Precision1::Angular()));
               if (Same)
               {
                 // cylinder or piece of cylinder
@@ -223,13 +223,13 @@ Standard_Integer DetectKPart(const TopoEdge& Edge1, const TopoEdge& Edge2)
               // possibility of cone truncation
               Standard_Real    h1 = Abs(last1 - first1), h2 = Abs(last2 - first2);
               Standard_Boolean Same,
-                SameParametricLength = (Abs(h1 - h2) < Precision::PConfusion());
+                SameParametricLength = (Abs(h1 - h2) < Precision1::PConfusion());
               Standard_Real m1 = (first1 + last1) / 2., m2 = (first2 + last2) / 2.;
               Point3d        P1, P2;
               Vector3d        DU;
               AdC1.D1(m1, P1, DU);
               AdC.D0(m2, P2);
-              Same = SameParametricLength && (Vector3d(P1, P2).IsNormal(DU, Precision::Angular()));
+              Same = SameParametricLength && (Vector3d(P1, P2).IsNormal(DU, Precision1::Angular()));
               if (Same)
               {
                 // truncation of cone
@@ -241,7 +241,7 @@ Standard_Integer DetectKPart(const TopoEdge& Edge1, const TopoEdge& Edge2)
                 IType = 0;
               }
             }
-            if (AdC.Circle().Location().IsEqual(pos1, Precision::Confusion()))
+            if (AdC.Circle().Location().IsEqual(pos1, Precision1::Confusion()))
             {
               // the centers are mixed
               IType = 0;
@@ -277,13 +277,13 @@ Standard_Integer DetectKPart(const TopoEdge& Edge1, const TopoEdge& Edge2)
           Vector3d vec(AdC.Value(first2), AdC.Value(last2));
           Dir3d aDir(vec);
           axe = Axis3d(AdC.Value(first2), aDir);
-          if (axe.IsParallel(axe1, Precision::Angular()))
+          if (axe.IsParallel(axe1, Precision1::Angular()))
           {
             // parallel straight line
-            if (Abs(dist - dist1) < Precision::Confusion())
+            if (Abs(dist - dist1) < Precision1::Confusion())
             {
               Dir3d dir(Vector3d(AdC1.Value(first1), AdC.Value(first2)));
-              if (dir.IsNormal(Dir3d(vec), Precision::Angular()))
+              if (dir.IsNormal(Dir3d(vec), Precision1::Angular()))
               {
                 // plane
                 IType = 4;
@@ -316,7 +316,7 @@ Standard_Integer DetectKPart(const TopoEdge& Edge1, const TopoEdge& Edge2)
           // the only particular case with degenerated edge at the beginning the cone
           pos = AdC.Circle().Location();
           axe = AdC.Circle().Axis();
-          if (pos1.IsEqual(pos, Precision::Confusion()))
+          if (pos1.IsEqual(pos, Precision1::Confusion()))
           {
             // the top is mixed with the center of the circle
             IType = 0;
@@ -326,7 +326,7 @@ Standard_Integer DetectKPart(const TopoEdge& Edge1, const TopoEdge& Edge2)
             Vector3d vec(pos1, pos);
             Dir3d dir(vec);
             axe1 = Axis3d(pos1, dir);
-            if (axe.IsParallel(axe1, Precision::Angular()))
+            if (axe.IsParallel(axe1, Precision1::Angular()))
             {
               // the top is on the axis of the circle
               IType = -2;
@@ -790,8 +790,8 @@ void BRepFill_Generator::Perform()
 
         // transform and trim the curves
 
-        if (Abs(f1 - C1->FirstParameter()) > Precision::PConfusion()
-            || Abs(l1 - C1->LastParameter()) > Precision::PConfusion())
+        if (Abs(f1 - C1->FirstParameter()) > Precision1::PConfusion()
+            || Abs(l1 - C1->LastParameter()) > Precision1::PConfusion())
         {
           C1 = new Geom_TrimmedCurve(C1, f1, l1);
         }
@@ -806,8 +806,8 @@ void BRepFill_Generator::Perform()
           C1->Reverse();
         }
 
-        if (Abs(f2 - C2->FirstParameter()) > Precision::PConfusion()
-            || Abs(l2 - C2->LastParameter()) > Precision::PConfusion())
+        if (Abs(f2 - C2->FirstParameter()) > Precision1::PConfusion()
+            || Abs(l2 - C2->LastParameter()) > Precision1::PConfusion())
         {
           C2 = new Geom_TrimmedCurve(C2, f2, l2);
         }
@@ -825,10 +825,10 @@ void BRepFill_Generator::Perform()
         GeomFill_Generator Generator;
         Generator.AddCurve(C1);
         Generator.AddCurve(C2);
-        Generator.Perform(Precision::PConfusion());
+        Generator.Perform(Precision1::PConfusion());
 
         Surf = Generator.Surface();
-        B.MakeFace(Face, Surf, Precision::Confusion());
+        B.MakeFace(Face, Surf, Precision1::Confusion());
       }
       else
       {
@@ -838,7 +838,7 @@ void BRepFill_Generator::Perform()
           myStatus = BRepFill_ThruSectionErrorStatus_Null3DCurve;
           return;
         }
-        B.MakeFace(Face, Surf, Precision::Confusion());
+        B.MakeFace(Face, Surf, Precision1::Confusion());
       }
 
       // make the missing edges
@@ -884,7 +884,7 @@ void BRepFill_Generator::Perform()
             Extremities(2) = BRepInspector::Pnt(V2f);
             CC             = new BezierCurve3d(Extremities);
           }
-          B.MakeEdge(Edge3, CC, Precision::Confusion());
+          B.MakeEdge(Edge3, CC, Precision1::Confusion());
         }
         V1f.Orientation(TopAbs_FORWARD);
         B.Add(Edge3, V1f);
@@ -934,7 +934,7 @@ void BRepFill_Generator::Perform()
             Extremities(2) = BRepInspector::Pnt(V2l);
             CC             = new BezierCurve3d(Extremities);
           }
-          B.MakeEdge(Edge4, CC, Precision::Confusion());
+          B.MakeEdge(Edge4, CC, Precision1::Confusion());
         }
         V1l.Orientation(TopAbs_FORWARD);
         B.Add(Edge4, V1l);
@@ -977,7 +977,7 @@ void BRepFill_Generator::Perform()
       }
 
       // set the pcurves
-      constexpr Standard_Real T = Precision::Confusion();
+      constexpr Standard_Real T = Precision1::Confusion();
 
       if (IType != 4) // not plane
       {

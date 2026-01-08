@@ -114,7 +114,7 @@ void View_Displayer::DisplayPresentation(const Handle(RefObject)& thePresentatio
     // one presentation can not be shown in several contexts
     if (theType == View_PresentationType_Additional)
     {
-      Quantity_Color aColor;
+      Color1 aColor;
       if (myColorAttributes.Find(View_PresentationType_Additional, aColor))
         aPresentation->SetColor(aColor);
     }
@@ -332,7 +332,7 @@ void View_Displayer::UpdateViewer()
 // function : SetAttributeColor
 // purpose :
 // =======================================================================
-void View_Displayer::SetAttributeColor(const Quantity_Color&       theColor,
+void View_Displayer::SetAttributeColor(const Color1&       theColor,
                                        const View_PresentationType theType)
 {
   myColorAttributes.Bind(theType, theColor);

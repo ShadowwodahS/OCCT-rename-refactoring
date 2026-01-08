@@ -250,7 +250,7 @@ static void FUN_VPgeometryfound(TopOpeBRep_FacesFiller&                    FF,
   EPIfound = CPIfound = OOEPIfound = Standard_False;
   Standard_Real par  = (rkErest == ShapeIndex) ? parErest : VP.EdgeParameter(ShapeIndex);
   Standard_Real tole = FUN_tool_maxtol(edge);
-  Standard_Real tolp = Precision::Parametric(tole);
+  Standard_Real tolp = Precision1::Parametric(tole);
 
   const TopOpeBRepDS_DataStructure& BDS = HDS->DS();
   if (BDS.HasShape(edge))
@@ -299,7 +299,7 @@ static void FUN_VPgeometryfound(TopOpeBRep_FacesFiller&                    FF,
       OOpar = VP.EdgeONParameter(OOShapeIndex);
 
     Standard_Real tolOOe = FUN_tool_maxtol(OOedge);
-    Standard_Real OOtolp = Precision::Parametric(tolOOe);
+    Standard_Real OOtolp = Precision1::Parametric(tolOOe);
     if (BDS.HasShape(OOedge))
     {
       const TopOpeBRepDS_ListOfInterference&        OOEPIL = BDS.ShapeInterferences(OOedge);
@@ -522,7 +522,7 @@ Standard_EXPORT Standard_Boolean FUN_newtransEdge(const Handle(TopOpeBRepDS_HDat
 #endif
   //       <Tr> relative to 3d <OOface> matter,
   //       we take into account <Tr> / 2d <OOface> only if <edge> is normal to <OOface>
-  Standard_Real    tola       = Precision::Angular() * 1.e+4; // dealing with tolerances
+  Standard_Real    tola       = Precision1::Angular() * 1.e+4; // dealing with tolerances
   Standard_Boolean EtgOOF     = FUN_tool_EtgF(paredge, edge, uv, OOface, tola);
   Standard_Boolean inERL      = FUN_INlos(edge, ERL);
   Standard_Boolean isse       = HDS->DS().IsSectionEdge(edge);
@@ -1143,7 +1143,7 @@ void TopOpeBRep_FacesFiller::ProcessVPonR(const TopOpeBRep_VPointInter&  VP,
     VPonedge = ::FUN_onedge(PDS, edge);
   if (myLineINL)
   {
-    Standard_Real tolang = Precision::Angular() * 1.e5; //=1.e-7 NYITOLXPU
+    Standard_Real tolang = Precision1::Angular() * 1.e5; //=1.e-7 NYITOLXPU
 
     Vector3d           tgE = FUN_tool_tggeomE(paredge, edge);
     gp_Pnt2d         OOuv;
@@ -1338,7 +1338,7 @@ void TopOpeBRep_FacesFiller::ProcessVPonR(const TopOpeBRep_VPointInter&  VP,
 
     //       <Tr> relative to 3d <OOface> matter,
     //       we take into account <Tr> / 2d <OOface> only if <edge> is normal to <OOface>
-    Standard_Real tola = Precision::Angular() * 1.e+2; // dealing with tolerances
+    Standard_Real tola = Precision1::Angular() * 1.e+2; // dealing with tolerances
 
     // KK : supplying tolerances pbm (tola too small)
     Standard_Boolean EsdmEofF = myHDS->HasSameDomain(OOedge);
@@ -1484,7 +1484,7 @@ void TopOpeBRep_FacesFiller::ProcessVPonR(const TopOpeBRep_VPointInter&  VP,
   //     cto904A3 (edge19,OOface14,vG16),
   if (myLineINL)
   {
-    Standard_Real    tola   = Precision::Angular() * 1.e+4; // dealing with tolerances
+    Standard_Real    tola   = Precision1::Angular() * 1.e+4; // dealing with tolerances
     gp_Pnt2d         uv     = VP.SurfaceParameters(OOShapeIndex);
     Standard_Boolean EtgOOF = FUN_tool_EtgF(paredge, edge, uv, OOFace, tola);
     Standard_Boolean inERL  = FUN_INlos(edge, myERL);

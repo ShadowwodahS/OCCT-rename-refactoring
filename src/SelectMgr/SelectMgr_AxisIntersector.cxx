@@ -131,7 +131,7 @@ Standard_Boolean SelectMgr_AxisIntersector::hasIntersection(const Point3d&  theP
 
   // Check that vectors are co-directed (thePnt lies on this axis)
   Dir3d aDirToPnt(thePnt.XYZ() - anAxisLoc.XYZ());
-  if (!anAxisDir.IsEqual(aDirToPnt, Precision::Angular()))
+  if (!anAxisDir.IsEqual(aDirToPnt, Precision1::Angular()))
   {
     return Standard_False;
   }
@@ -152,7 +152,7 @@ Standard_Boolean SelectMgr_AxisIntersector::raySegmentDistance(
 
   const Coords3d        anUVNormVec    = aV.Crossed(anU);
   const Standard_Real anUVNormVecMod = anUVNormVec.Modulus();
-  if (anUVNormVecMod <= Precision::Confusion())
+  if (anUVNormVecMod <= Precision1::Confusion())
   {
     // Lines have no intersection
     thePickResult.Invalidate();
@@ -161,7 +161,7 @@ Standard_Boolean SelectMgr_AxisIntersector::raySegmentDistance(
 
   const Coords3d        anUWNormVec    = aW.Crossed(anU);
   const Standard_Real anUWNormVecMod = anUWNormVec.Modulus();
-  if (anUWNormVecMod <= Precision::Confusion())
+  if (anUWNormVecMod <= Precision1::Confusion())
   {
     // Lines have no intersection
     thePickResult.Invalidate();
@@ -178,7 +178,7 @@ Standard_Boolean SelectMgr_AxisIntersector::raySegmentDistance(
 
   const Coords3d anIntersectPnt = myAxis.Location().XYZ() + aV * aParam;
   if ((anIntersectPnt - theSegPnt1.XYZ()).Modulus() + (anIntersectPnt - theSegPnt2.XYZ()).Modulus()
-      > anU.Modulus() + Precision::Confusion())
+      > anU.Modulus() + Precision1::Confusion())
   {
     // Intersection point doesn't lie on the segment
     thePickResult.Invalidate();
@@ -201,7 +201,7 @@ bool SelectMgr_AxisIntersector::rayPlaneIntersection(const Vector3d&            
   Standard_Real aD  = thePlane.Dot(anU);
   Standard_Real aN  = -thePlane.Dot(aW);
 
-  if (Abs(aD) < Precision::Confusion())
+  if (Abs(aD) < Precision1::Confusion())
   {
     thePickResult.Invalidate();
     return false;
@@ -374,7 +374,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsPolygon(
     const Coords3d     aVec1     = aPnt1 - aPnt2;
     const Coords3d     aVec2     = aPnt3 - aPnt2;
     Vector3d           aPolyNorm = aVec2.Crossed(aVec1);
-    if (aPolyNorm.Magnitude() <= Precision::Confusion())
+    if (aPolyNorm.Magnitude() <= Precision1::Confusion())
     {
       // treat degenerated polygon as point
       return OverlapsPoint(theArrayOfPnts.First(), theClipRange, thePickResult);
@@ -482,7 +482,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsTriangle(
     Standard_Integer aNearestEdgeIdx2 = (aNearestEdgeIdx1 + 1) % 3;
     const Vector3d     aVec12(aPnts[aNearestEdgeIdx1], aPnts[aNearestEdgeIdx2]);
     if (aVec12.SquareMagnitude() > gp1::Resolution()
-        && myAxis.Direction().IsParallel(aVec12, Precision::Angular()))
+        && myAxis.Direction().IsParallel(aVec12, Precision1::Angular()))
     {
       aNearestEdgeIdx2 = aNearestEdgeIdx1 == 0 ? 2 : aNearestEdgeIdx1 - 1;
     }
@@ -601,11 +601,11 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsCylinder(
   const Point3d aPntOnCylinder = aLoc.XYZ() + aRayDir.XYZ() * aDepth;
   thePickResult.SetDepth(aDepth);
   thePickResult.SetPickedPoint(aPntOnCylinder.Transformed(theTrsf));
-  if (Abs(aPntOnCylinder.Z()) < Precision::Confusion())
+  if (Abs(aPntOnCylinder.Z()) < Precision1::Confusion())
   {
     thePickResult.SetSurfaceNormal(-gp1::DZ().Transformed(theTrsf));
   }
-  else if (Abs(aPntOnCylinder.Z() - theHeight) < Precision::Confusion())
+  else if (Abs(aPntOnCylinder.Z() - theHeight) < Precision1::Confusion())
   {
     thePickResult.SetSurfaceNormal(gp1::DZ().Transformed(theTrsf));
   }
@@ -681,7 +681,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsCircle(
   const Point3d aPntOnCylinder = aLoc.XYZ() + aRayDir.XYZ() * aDepth;
   thePickResult.SetDepth(aDepth);
   thePickResult.SetPickedPoint(aPntOnCylinder.Transformed(theTrsf));
-  if (Abs(aPntOnCylinder.Z()) < Precision::Confusion())
+  if (Abs(aPntOnCylinder.Z()) < Precision1::Confusion())
   {
     thePickResult.SetSurfaceNormal(-gp1::DZ().Transformed(theTrsf));
   }

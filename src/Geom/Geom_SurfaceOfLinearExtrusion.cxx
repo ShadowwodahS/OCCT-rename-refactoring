@@ -134,8 +134,8 @@ void Geom_SurfaceOfLinearExtrusion::Bounds(Standard_Real& U1,
                                            Standard_Real& V2) const
 {
 
-  V1 = -Precision::Infinite();
-  V2 = Precision::Infinite();
+  V1 = -Precision1::Infinite();
+  V2 = Precision1::Infinite();
   U1 = basisCurve->FirstParameter();
   U2 = basisCurve->LastParameter();
 }
@@ -288,7 +288,7 @@ void Geom_SurfaceOfLinearExtrusion::TransformParameters(Standard_Real& U,
                                                         const Transform3d& T) const
 {
   U = basisCurve->TransformedParameter(U, T);
-  if (!Precision::IsInfinite(V))
+  if (!Precision1::IsInfinite(V))
     V *= Abs(T.ScaleFactor());
 }
 

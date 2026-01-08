@@ -88,7 +88,7 @@ Circle2dTwoTangentRadius::Circle2dTwoTangentRadius(const QualifiedCircle& Qualif
   {
     throw Standard_NegativeValue();
   }
-  else if (C(2).Location().IsEqual(C(1).Location(), Precision::Confusion()))
+  else if (C(2).Location().IsEqual(C(1).Location(), Precision1::Confusion()))
   {
     WellDone = Standard_True;
   }

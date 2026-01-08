@@ -44,12 +44,12 @@
  */
 
 template <class TheItemType>
-class NCollection_SparseArray : public NCollection_SparseArrayBase
+class NCollection_SparseArray : public SparseArrayBase
 {
 public:
   //! Constructor; accepts size of blocks
   explicit NCollection_SparseArray(Standard_Size theIncrement)
-      : NCollection_SparseArrayBase(sizeof(TheItemType), theIncrement)
+      : SparseArrayBase(sizeof(TheItemType), theIncrement)
   {
   }
 
@@ -134,7 +134,7 @@ public:
   /**
    * Implementation of type-specific const Iterator class
    */
-  class ConstIterator : public NCollection_SparseArrayBase::Iterator
+  class ConstIterator : public SparseArrayBase::Iterator
   {
   public:
     //! Empty constructor - for later Init
@@ -142,7 +142,7 @@ public:
 
     //! Constructor with initialisation
     ConstIterator(const NCollection_SparseArray& theVector)
-        : NCollection_SparseArrayBase::Iterator(&theVector)
+        : SparseArrayBase::Iterator(&theVector)
     {
     }
 

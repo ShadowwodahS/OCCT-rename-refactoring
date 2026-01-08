@@ -44,7 +44,7 @@
 
 static Standard_Real FUN_tola()
 {
-  Standard_Real tola = Precision::Angular();
+  Standard_Real tola = Precision1::Angular();
   return tola;
 }
 

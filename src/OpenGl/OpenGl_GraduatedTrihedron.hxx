@@ -64,7 +64,7 @@ private:
   {
   public:
     OpenGl_Vec3                   Direction;
-    Quantity_Color                NameColor;
+    Color1                NameColor;
     OpenGl_Aspects                LineAspect;
     mutable OpenGl_Text           Label;
     mutable OpenGl_PrimitiveArray Tickmark;

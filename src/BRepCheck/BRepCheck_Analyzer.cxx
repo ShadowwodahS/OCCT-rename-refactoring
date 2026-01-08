@@ -436,7 +436,7 @@ void BRepCheck_Analyzer::Perform()
   }
 
   BRepCheck_ParallelAnalyzer aParallelAnalyzer(aArrayOfArray, myMap);
-  OSD_Parallel::For(0, aArrayOfArray.Size(), aParallelAnalyzer, !myIsParallel);
+  Parallel1::For(0, aArrayOfArray.Size(), aParallelAnalyzer, !myIsParallel);
 }
 
 //=================================================================================================

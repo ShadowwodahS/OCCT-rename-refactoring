@@ -80,7 +80,7 @@ public:
 
   //! Sets values of "myMinTol" and "myMaxTol" as follows
   //! myMaxTol = Max ("read.maxprecision.val", myEpsGeom * myUnitFactor)
-  //! myMinTol = Precision::Confusion()
+  //! myMinTol = Precision1::Confusion()
   //! Remark: This method is automatically invoked each time the values
   //! of "myEpsGeom" or "myUnitFactor" are changed
   Standard_EXPORT void UpdateMinMaxTol();

@@ -203,12 +203,12 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
     if (CTy == GeomAbs_Line)
     {
       gp_Dir2d D = C.Line().Direction();
-      if (D.IsParallel(gp1::DX2d(), Precision::Angular()))
+      if (D.IsParallel(gp1::DX2d(), Precision1::Angular()))
       { // Iso V.
         if (STy == GeomAbs_Sphere)
         {
           gp_Pnt2d P = C.Line().Location();
-          if (Abs(Abs(P.Y()) - M_PI / 2.) < Precision::PConfusion())
+          if (Abs(Abs(P.Y()) - M_PI / 2.) < Precision1::PConfusion())
           {
             TheBuilder.Degenerated(Edge, Standard_True);
           }
@@ -221,7 +221,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
             Axis3d    AxeRev(Axis.Location(), DRev);
             Ci.Rotate(AxeRev, P.X());
             Handle(GeomCircle) Circle = new GeomCircle(Ci);
-            if (D.IsOpposite(gp1::DX2d(), Precision::Angular()))
+            if (D.IsOpposite(gp1::DX2d(), Precision1::Angular()))
               Circle->Reverse();
             UpdateEdge(Edge, Circle, Loc, Tol);
           }
@@ -237,7 +237,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
           Axis3d      AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
           Handle(GeomCircle) Circle = new GeomCircle(Ci);
-          if (D.IsOpposite(gp1::DX2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DX2d(), Precision1::Angular()))
             Circle->Reverse();
           UpdateEdge(Edge, Circle, Loc, Tol);
           IsComputed = Standard_True;
@@ -252,7 +252,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
           Axis3d   AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
           Handle(GeomCircle) Circle = new GeomCircle(Ci);
-          if (D.IsOpposite(gp1::DX2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DX2d(), Precision1::Angular()))
             Circle->Reverse();
           UpdateEdge(Edge, Circle, Loc, Tol);
           IsComputed = Standard_True;
@@ -267,13 +267,13 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
           Axis3d   AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
           Handle(GeomCircle) Circle = new GeomCircle(Ci);
-          if (D.IsOpposite(gp1::DX2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DX2d(), Precision1::Angular()))
             Circle->Reverse();
           UpdateEdge(Edge, Circle, Loc, Tol);
           IsComputed = Standard_True;
         }
       }
-      else if (D.IsParallel(gp1::DY2d(), Precision::Angular()))
+      else if (D.IsParallel(gp1::DY2d(), Precision1::Angular()))
       { // Iso U.
         if (STy == GeomAbs_Sphere)
         {
@@ -294,7 +294,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
           Ci.Rotate(AxeRev, P.X());
           Handle(GeomCircle) Circle = new GeomCircle(Ci);
 
-          if (D.IsOpposite(gp1::DY2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DY2d(), Precision1::Angular()))
             Circle->Reverse();
           UpdateEdge(Edge, Circle, Loc, Tol);
           IsComputed = Standard_True;
@@ -308,7 +308,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
           Tr.Multiply(P.Y());
           L.Translate(Tr);
           Handle(GeomLine) Line = new GeomLine(L);
-          if (D.IsOpposite(gp1::DY2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DY2d(), Precision1::Angular()))
             Line->Reverse();
           UpdateEdge(Edge, Line, Loc, Tol);
           IsComputed = Standard_True;
@@ -322,7 +322,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
           Tr.Multiply(P.Y());
           L.Translate(Tr);
           Handle(GeomLine) Line = new GeomLine(L);
-          if (D.IsOpposite(gp1::DY2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DY2d(), Precision1::Angular()))
             Line->Reverse();
           UpdateEdge(Edge, Line, Loc, Tol);
           IsComputed = Standard_True;
@@ -336,7 +336,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
           Ci.Rotate(Ci.Axis(), P.Y());
           Handle(GeomCircle) Circle = new GeomCircle(Ci);
 
-          if (D.IsOpposite(gp1::DY2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DY2d(), Precision1::Angular()))
             Circle->Reverse();
           UpdateEdge(Edge, Circle, Loc, Tol);
           IsComputed = Standard_True;
@@ -517,10 +517,10 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
         Point3d aFPnt = S->Value(aFPnt2d.X(), aFPnt2d.Y()),
                aLPnt = S->Value(aLPnt2d.X(), aLPnt2d.Y());
 
-        //  aFPnt.SquareDistance(aLPnt) > Precision::SquareConfusion() -
+        //  aFPnt.SquareDistance(aLPnt) > Precision1::SquareConfusion() -
         // is a sufficient condition of troubles: non-singular case, but edge is degenerated.
         // So, normal handling of degenerated edges is not applicable in case of non-singular point.
-        if (aFPnt.SquareDistance(aLPnt) < Precision::SquareConfusion())
+        if (aFPnt.SquareDistance(aLPnt) < Precision1::SquareConfusion())
         {
           DegEdges.Append(anEdge);
         }
@@ -534,7 +534,7 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
       Handle(GeomCurve2d) aCurve     = BRepInspector::CurveOnSurface(theDegEdge, Face, fpar, lpar);
       gp_Pnt2d             fp2d       = aCurve->Value(fpar);
       gp_Pnt2d             lp2d       = aCurve->Value(lpar);
-      if (Abs(fp2d.X() - lp2d.X()) <= Precision::PConfusion())
+      if (Abs(fp2d.X() - lp2d.X()) <= Precision1::PConfusion())
         UisoDegen = Standard_True;
 
       if (DegEdges.Length() == 2)
@@ -554,14 +554,14 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
       {
         if (UisoDegen)
         {
-          if (Abs(fp2d.X() - uf1) <= Precision::Confusion())
+          if (Abs(fp2d.X() - uf1) <= Precision1::Confusion())
             UminDegen = Standard_True;
           else
             UmaxDegen = Standard_True;
         }
         else
         {
-          if (Abs(fp2d.Y() - vf1) <= Precision::Confusion())
+          if (Abs(fp2d.Y() - vf1) <= Precision1::Confusion())
             VminDegen = Standard_True;
           else
             VmaxDegen = Standard_True;
@@ -849,7 +849,7 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
         P2d2                     = C2d->Value(BRepInspector::Parameter(V2, Eforward, CurFace));
         if (VonDegen.Contains(V1))
         {
-          if (Abs(P2d1.Y() - vf1) <= Precision::Confusion())
+          if (Abs(P2d1.Y() - vf1) <= Precision1::Confusion())
           {
             P1     = MinApex;
             vstart = v1;
@@ -869,7 +869,7 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
         }
         if (VonDegen.Contains(V2))
         {
-          if (Abs(P2d2.Y() - vf1) <= Precision::Confusion())
+          if (Abs(P2d2.Y() - vf1) <= Precision1::Confusion())
           {
             P2   = MinApex;
             vend = v1;
@@ -1067,7 +1067,7 @@ void BRepOffset_Offset::Init(const TopoEdge&     Path,
     GeomAdaptor_Curve AC1(C1);
     if (AC1.GetType() == GeomAbs_Circle)
     {
-      C1Denerated = (AC1.Circle().Radius() < Precision::Confusion());
+      C1Denerated = (AC1.Circle().Radius() < Precision1::Confusion());
     }
   }
 
@@ -1096,7 +1096,7 @@ void BRepOffset_Offset::Init(const TopoEdge&     Path,
     GeomAdaptor_Curve AC2(C2);
     if (AC2.GetType() == GeomAbs_Circle)
     {
-      C2Denerated = (AC2.Circle().Radius() < Precision::Confusion());
+      C2Denerated = (AC2.Circle().Radius() < Precision1::Confusion());
     }
   }
 
@@ -1266,7 +1266,7 @@ void BRepOffset_Offset::Init(const TopoEdge&     Path,
   if (IsClosed)
     Edge4 = Edge3;
 
-  constexpr Standard_Real TolApp = Precision::Approximation();
+  constexpr Standard_Real TolApp = Precision1::Approximation();
 
   Handle(Geom2d_Line) L1, L2;
   if (IsClosed)
@@ -1614,7 +1614,7 @@ void BRepOffset_Offset::Init(const TopoEdge& Edge, const Standard_Real Offset)
   if (!Pipe.IsDone())
     throw Standard_ConstructionError("GeomFill_Pipe : Cannot make a surface");
 
-  BRepLib_MakeFace MF(Pipe.Surface(), Precision::Confusion());
+  BRepLib_MakeFace MF(Pipe.Surface(), Precision1::Confusion());
   myFace = MF.Face();
 
   if (Offset < 0.)

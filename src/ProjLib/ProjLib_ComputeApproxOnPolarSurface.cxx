@@ -119,7 +119,7 @@ static void computePeriodicity(const Handle(Adaptor3d_Surface)& theSurf,
     aTrimF = theSurf->FirstUParameter();          // Trimmed first
     aTrimL = theSurf->LastUParameter();           // Trimmed last
     aS->Bounds(aBaseF, aBaseL, aDummyF, aDummyL); // Non-trimmed values.
-    if (Abs(aBaseF - aTrimF) + Abs(aBaseL - aTrimL) > Precision::PConfusion())
+    if (Abs(aBaseF - aTrimF) + Abs(aBaseL - aTrimL) > Precision1::PConfusion())
     {
       // Param space reduced.
       theUPeriod = 0.0;
@@ -140,7 +140,7 @@ static void computePeriodicity(const Handle(Adaptor3d_Surface)& theSurf,
     aTrimF = theSurf->FirstVParameter();          // Trimmed first
     aTrimL = theSurf->LastVParameter();           // Trimmed last
     aS->Bounds(aDummyF, aDummyL, aBaseF, aBaseL); // Non-trimmed values.
-    if (Abs(aBaseF - aTrimF) + Abs(aBaseL - aTrimL) > Precision::PConfusion())
+    if (Abs(aBaseF - aTrimF) + Abs(aBaseL - aTrimL) > Precision1::PConfusion())
     {
       // Param space reduced.
       theVPeriod = 0.0;
@@ -167,10 +167,10 @@ static Standard_Real anOrthogSqValue(const Point3d&                    aBasePnt,
   Surf->D1(theU, theV, aProjPnt, aSu, aSv);
   Vector3d aBaseVec(aBasePnt, aProjPnt);
 
-  if (aSu.SquareMagnitude() > Precision::SquareConfusion())
+  if (aSu.SquareMagnitude() > Precision1::SquareConfusion())
     aSu.Normalize();
 
-  if (aSv.SquareMagnitude() > Precision::SquareConfusion())
+  if (aSv.SquareMagnitude() > Precision1::SquareConfusion())
     aSv.Normalize();
 
   Standard_Real aFirstPart  = aSu.Dot(aBaseVec);
@@ -197,8 +197,8 @@ static gp_Pnt2d Function_Value(const Standard_Real theU, const aFuncStruct& theD
   Vsup = theData.mySurf->LastVParameter();
 
   // Check case when curve is close to co-parametrized isoline on surf.
-  if (Abs(p2d.X() - Uinf) < Precision::PConfusion()
-      || Abs(p2d.X() - Usup) < Precision::PConfusion())
+  if (Abs(p2d.X() - Uinf) < Precision1::PConfusion()
+      || Abs(p2d.X() - Usup) < Precision1::PConfusion())
   {
     // V isoline.
     Point3d aPnt;
@@ -207,8 +207,8 @@ static gp_Pnt2d Function_Value(const Standard_Real theU, const aFuncStruct& theD
       p2d.SetY(theU);
   }
 
-  if (Abs(p2d.Y() - Vinf) < Precision::PConfusion()
-      || Abs(p2d.Y() - Vsup) < Precision::PConfusion())
+  if (Abs(p2d.Y() - Vinf) < Precision1::PConfusion()
+      || Abs(p2d.Y() - Vsup) < Precision1::PConfusion())
   {
     // U isoline.
     Point3d aPnt;
@@ -389,7 +389,7 @@ static gp_Pnt2d Function_Value(const Standard_Real theU, const aFuncStruct& theD
     Dist2Min = anOrthogSqValue(p, theData.mySurf, u, v);
     if (Dist2Min < theData.mySqProjOrtTol && // Point is projection.
         locext.SquareDistance()
-          < aSurfPntDist + Precision::SquareConfusion()) // Point better than initial.
+          < aSurfPntDist + Precision1::SquareConfusion()) // Point better than initial.
     {
       gp_Pnt2d pnt(u - decalU * uperiod, v - decalV * vperiod);
       return pnt;
@@ -414,7 +414,7 @@ static gp_Pnt2d Function_Value(const Standard_Real theU, const aFuncStruct& theD
     Dist2Min = anOrthogSqValue(p, theData.mySurf, u, v);
     if (Dist2Min < theData.mySqProjOrtTol && // Point is projection.
         ext.SquareDistance(GoodValue)
-          < aSurfPntDist + Precision::SquareConfusion()) // Point better than initial.
+          < aSurfPntDist + Precision1::SquareConfusion()) // Point better than initial.
     {
       gp_Pnt2d pnt(u - decalU * uperiod, v - decalV * vperiod);
       return pnt;
@@ -481,7 +481,7 @@ public:
 
 ProjLib_ComputeApproxOnPolarSurface::ProjLib_ComputeApproxOnPolarSurface()
     : myProjIsDone(Standard_False),
-      myTolerance(Precision::Approximation()),
+      myTolerance(Precision1::Approximation()),
       myTolReached(-1.0),
       myDegMin(-1),
       myDegMax(-1),
@@ -686,7 +686,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::Perform(
 {
   // OCC217
   Standard_Real           Tol3d    = myTolerance;
-  constexpr Standard_Real ParamTol = Precision::PApproximation();
+  constexpr Standard_Real ParamTol = Precision1::PApproximation();
 
   Handle(Adaptor2d_Curve2d) AHC2d = InitialCurve2d;
   Handle(Adaptor3d_Curve)   AHC   = Curve;
@@ -1138,8 +1138,8 @@ Handle(Adaptor2d_Curve2d) ProjLib_ComputeApproxOnPolarSurface::BuildInitialCurve
     }
     if (aMinSqDist > DistTol3d2) // try to project with less tolerance
     {
-      TolU = Min(TolU, Precision::PConfusion());
-      TolV = Min(TolV, Precision::PConfusion());
+      TolU = Min(TolU, Precision1::PConfusion());
+      TolV = Min(TolV, Precision1::PConfusion());
       aExtPS.Initialize(*Surf,
                         Surf->FirstUParameter(),
                         Surf->LastUParameter(),
@@ -1673,7 +1673,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
   }
   Standard_Real DistTol3d2 = DistTol3d * DistTol3d;
   Standard_Real TolU = Surf->UResolution(Tol3d), TolV = Surf->VResolution(Tol3d);
-  Standard_Real Tol2d = Max(Sqrt(TolU * TolU + TolV * TolV), Precision::PConfusion());
+  Standard_Real Tol2d = Max(Sqrt(TolU * TolU + TolV * TolV), Precision1::PConfusion());
 
   Standard_Integer    i;
   GeomAbs_SurfaceType TheTypeS = Surf->GetType();
@@ -1684,7 +1684,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
     gp_Pln        Plane1 = Surf->Plane1();
     if (TheTypeC == GeomAbs_BSplineCurve)
     {
-      myTolReached                  = Precision::Confusion();
+      myTolReached                  = Precision1::Confusion();
       Handle(BSplineCurve3d) BSC = Curve->BSpline();
       TColgp_Array1OfPnt2d      Poles2d(1, Curve->NbPoles());
       for (i = 1; i <= Curve->NbPoles(); i++)
@@ -1711,7 +1711,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
     }
     if (TheTypeC == GeomAbs_BezierCurve)
     {
-      myTolReached                = Precision::Confusion();
+      myTolReached                = Precision1::Confusion();
       Handle(BezierCurve3d) BC = Curve->Bezier();
       TColgp_Array1OfPnt2d     Poles2d(1, Curve->NbPoles());
       for (i = 1; i <= Curve->NbPoles(); i++)
@@ -2134,7 +2134,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
     // try to smoother the Curve GeomAbs_C1.
 
     Standard_Boolean OK         = Standard_True;
-    Standard_Real    aSmoothTol = Max(Precision::Confusion(), aNewTol2d);
+    Standard_Real    aSmoothTol = Max(Precision1::Confusion(), aNewTol2d);
     if (myBndPnt == AppParCurves_PassPoint)
     {
       aSmoothTol *= 10.;

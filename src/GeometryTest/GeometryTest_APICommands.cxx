@@ -57,7 +57,7 @@ static void showProjSolution(DrawInterpreter&      di,
   Sprintf(name, "%s%d", "ext_", i);
   di << name << " ";
   char* temp = name; // portage WNT
-  if (P.Distance(P1) > Precision::Confusion())
+  if (P.Distance(P1) > Precision1::Confusion())
   {
     Handle(GeomLine)         L  = new GeomLine(P, Vector3d(P, P1));
     Handle(Geom_TrimmedCurve) CT = new Geom_TrimmedCurve(L, 0., P.Distance(P1));
@@ -127,7 +127,7 @@ static Standard_Integer proj(DrawInterpreter& di, Standard_Integer n, const char
     {
       const Coords2d            aP2d(Draw1::Atof(a[5]), Draw1::Atof(a[6]));
       GeomAdaptor_Surface    aGAS(GS);
-      Extrema_GenLocateExtPS aProjector(aGAS, Precision::PConfusion(), Precision::PConfusion());
+      Extrema_GenLocateExtPS aProjector(aGAS, Precision1::PConfusion(), Precision1::PConfusion());
       aProjector.Perform(P, aP2d.X(), aP2d.Y(), Standard_False);
       if (!aProjector.IsDone())
       {
@@ -308,7 +308,7 @@ static Standard_Integer surfapp(DrawInterpreter& di, Standard_Integer n, const c
       for (j = 1; j <= Nv; j++)
       {
         Standard_Real d = Points(1, j).Distance(Points(Nu, j));
-        if (d <= Precision::Confusion())
+        if (d <= Precision1::Confusion())
         {
           RemoveLast = Standard_True;
           break;
@@ -423,7 +423,7 @@ static Standard_Integer surfint(DrawInterpreter& di, Standard_Integer n, const c
     for (j = 1; j <= Nv; j++)
     {
       Standard_Real d = Points(1, j).Distance(Points(Nu, j));
-      if (d <= Precision::Confusion())
+      if (d <= Precision1::Confusion())
       {
         RemoveLast = Standard_True;
         break;

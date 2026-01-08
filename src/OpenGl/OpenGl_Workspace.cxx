@@ -29,9 +29,9 @@ IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Workspace, RefObject)
 
 void Material4::Init(const OpenGl_Context&           theCtx,
                            const Graphic3d_MaterialAspect& theFront,
-                           const Quantity_Color&           theFrontColor,
+                           const Color1&           theFrontColor,
                            const Graphic3d_MaterialAspect& theBack,
-                           const Quantity_Color&           theBackColor)
+                           const Color1&           theBackColor)
 {
   init(theCtx, theFront, theFrontColor, 0);
   if (&theFront != &theBack)
@@ -49,7 +49,7 @@ void Material4::Init(const OpenGl_Context&           theCtx,
 
 void Material4::init(const OpenGl_Context&           theCtx,
                            const Graphic3d_MaterialAspect& theMat,
-                           const Quantity_Color&           theInteriorColor,
+                           const Color1&           theInteriorColor,
                            const Standard_Integer          theIndex)
 {
   MaterialCommon& aCommon = Common[theIndex];

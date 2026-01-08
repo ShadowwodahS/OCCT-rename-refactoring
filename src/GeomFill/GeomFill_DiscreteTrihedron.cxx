@@ -28,7 +28,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(GeomFill_DiscreteTrihedron, GeomFill_TrihedronLaw)
 
-static const Standard_Real TolConf = Precision::Confusion();
+static const Standard_Real TolConf = Precision1::Confusion();
 
 //=================================================================================================
 
@@ -90,7 +90,7 @@ void GeomFill_DiscreteTrihedron::Init()
   TColStd_Array1OfReal Knots(1, NbIntervals + 1);
   myTrimmed->Intervals(Knots, GeomAbs_CN);
 
-  // Standard_Real Tol = Precision::Confusion();
+  // Standard_Real Tol = Precision1::Confusion();
   Standard_Integer NbSamples = 10;
 
   Standard_Integer i, j;
@@ -117,7 +117,7 @@ void GeomFill_DiscreteTrihedron::Init()
     if (norm < TolConf)
     {
       Standard_Real subdelta = (myKnots->Value(i + 1) - myKnots->Value(i)) / NbSamples;
-      if (subdelta < Precision::PConfusion())
+      if (subdelta < Precision1::PConfusion())
         subdelta = myKnots->Value(i + 1) - myKnots->Value(i);
       SubPnt = myTrimmed->Value(Param + subdelta);
       Tangent.SetXYZ(SubPnt.XYZ() - Pnt.XYZ());
@@ -177,8 +177,8 @@ Standard_Boolean GeomFill_DiscreteTrihedron::D0(const Standard_Real Param,
   {
     // Locate <Param> in the sequence <myKnots>
     Standard_Integer        Index  = -1;
-    constexpr Standard_Real TolPar = Precision::PConfusion();
-    // Standard_Real TolConf = Precision::Confusion();
+    constexpr Standard_Real TolPar = Precision1::PConfusion();
+    // Standard_Real TolConf = Precision1::Confusion();
     Standard_Integer NbSamples = 10;
     Point3d           Origin(0., 0., 0.);
 
@@ -215,7 +215,7 @@ Standard_Boolean GeomFill_DiscreteTrihedron::D0(const Standard_Real Param,
       if (norm < TolConf)
       {
         Standard_Real subdelta = (myKnots->Value(Index + 1) - Param) / NbSamples;
-        if (subdelta < Precision::PConfusion())
+        if (subdelta < Precision1::PConfusion())
           subdelta = myKnots->Value(Index + 1) - Param;
         Point3d SubPnt = myTrimmed->Value(Param + subdelta);
         Tangent.SetXYZ(SubPnt.XYZ() - myPoint.XYZ());

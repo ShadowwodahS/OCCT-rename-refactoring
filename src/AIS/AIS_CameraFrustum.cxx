@@ -30,7 +30,7 @@ IMPLEMENT_STANDARD_RTTIEXT(AIS_CameraFrustum, VisualEntity)
 namespace
 {
 static const Standard_ShortReal THE_DEFAULT_TRANSPARENCY = 0.7f;
-static const Quantity_Color     THE_DEFAULT_COLOR        = Quantity_NOC_WHITE;
+static const Color1     THE_DEFAULT_COLOR        = Quantity_NOC_WHITE;
 } // namespace
 
 //=================================================================================================
@@ -77,7 +77,7 @@ void AIS_CameraFrustum::SetCameraFrustum(const Handle(CameraOn3d)& theCamera)
 
 //=================================================================================================
 
-void AIS_CameraFrustum::SetColor(const Quantity_Color& theColor)
+void AIS_CameraFrustum::SetColor(const Color1& theColor)
 {
   VisualEntity::SetColor(theColor);
   myDrawer->ShadingAspect()->SetColor(theColor);

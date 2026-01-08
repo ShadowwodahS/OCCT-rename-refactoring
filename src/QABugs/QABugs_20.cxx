@@ -1895,7 +1895,7 @@ int test<4>()
     try
     {
       for (;;)
-        aList.Append(Standard::Allocate(aBlockSizes[i]));
+        aList.Append(Standard1::Allocate(aBlockSizes[i]));
     }
     catch (ExceptionBase const&)
     {
@@ -1910,7 +1910,7 @@ int test<4>()
   // release all allocated blocks
   for (NCollection_List<Standard_Address>::Iterator it(aList); it.More(); it.Next())
   {
-    Standard::Free(it.Value());
+    Standard1::Free(it.Value());
   }
   return aStatus;
 }
@@ -2136,7 +2136,7 @@ static Standard_Integer OCC26930(DrawInterpreter& theDI,
   Handle(GeomCurve2d) aPCurve;
 
   ShapeConstruct_ProjectCurveOnSurface aProj;
-  aProj.Init(aSurface, Precision::Confusion());
+  aProj.Init(aSurface, Precision1::Confusion());
   {
     try
     {
@@ -2191,8 +2191,8 @@ static Standard_Integer OCC27466(DrawInterpreter& theDI,
     return 1;
   BRepAdaptor_Surface aSurf(aFace);
 
-  constexpr Standard_Real aTolU = Precision::PConfusion();
-  constexpr Standard_Real aTolV = Precision::PConfusion();
+  constexpr Standard_Real aTolU = Precision1::PConfusion();
+  constexpr Standard_Real aTolV = Precision1::PConfusion();
 
   Extrema_GenLocateExtPS anExtrema(aSurf, aTolU, aTolV);
   anExtrema.Perform(aPnt, aUV.X(), aUV.Y(), Standard_True);
@@ -2564,7 +2564,7 @@ static Standard_Integer OCC26270(DrawInterpreter& theDI,
       Handle(Geom_BSplineSurface) aRes = aBSurface.BSplineSurface();
       if (!aRes.IsNull())
       {
-        FaceMaker b_face1(aRes, Precision::Confusion());
+        FaceMaker b_face1(aRes, Precision1::Confusion());
         const TopoFace&      bsp_face1 = b_face1.Face();
         DBRep1::Set(theArgVal[2], bsp_face1);
       }
@@ -2842,35 +2842,35 @@ static Standard_Integer OCC28389(DrawInterpreter& di, Standard_Integer argc, con
   }
 
   Point3d aPP(Draw1::Atof(argv[8]), Draw1::Atof(argv[9]), Draw1::Atof(argv[10]));
-  if (aPP.Distance(anObj->ProjectionPoint()) > Precision::Confusion())
+  if (aPP.Distance(anObj->ProjectionPoint()) > Precision1::Confusion())
   {
     di << "Error: Wrong projection point";
     return 1;
   }
 
   Dir3d aVD(Draw1::Atof(argv[11]), Draw1::Atof(argv[12]), Draw1::Atof(argv[13]));
-  if (!aVD.IsEqual(anObj->ViewDirection(), Precision::Angular()))
+  if (!aVD.IsEqual(anObj->ViewDirection(), Precision1::Angular()))
   {
     di << "Error: Wrong view direction";
     return 1;
   }
 
   Dir3d aUD(Draw1::Atof(argv[14]), Draw1::Atof(argv[15]), Draw1::Atof(argv[16]));
-  if (!aUD.IsEqual(anObj->UpDirection(), Precision::Angular()))
+  if (!aUD.IsEqual(anObj->UpDirection(), Precision1::Angular()))
   {
     di << "Error: Wrong up direction";
     return 1;
   }
 
-  if (fabs(anObj->ZoomFactor() - Draw1::Atof(argv[17])) > Precision::Confusion())
+  if (fabs(anObj->ZoomFactor() - Draw1::Atof(argv[17])) > Precision1::Confusion())
   {
     di << "Error: Wrong zoom factor";
     return 1;
   }
 
-  if (fabs(anObj->WindowHorizontalSize() - Draw1::Atof(argv[18])) > Precision::Confusion())
+  if (fabs(anObj->WindowHorizontalSize() - Draw1::Atof(argv[18])) > Precision1::Confusion())
     isOK = Standard_False;
-  if (fabs(anObj->WindowVerticalSize() - Draw1::Atof(argv[19])) > Precision::Confusion())
+  if (fabs(anObj->WindowVerticalSize() - Draw1::Atof(argv[19])) > Precision1::Confusion())
     isOK = Standard_False;
   if (!isOK)
   {
@@ -2918,12 +2918,12 @@ static Standard_Integer OCC28594(DrawInterpreter& di, Standard_Integer argc, con
   (*tangent_flags)(5)                            = false;
   (*tangent_flags)(6)                            = true;
 
-  Geom2dAPI_Interpolate interp_2d_with_scale(points_2d, Standard_False, Precision::Confusion());
+  Geom2dAPI_Interpolate interp_2d_with_scale(points_2d, Standard_False, Precision1::Confusion());
   interp_2d_with_scale.Load(tangent_2d, tangent_flags);
   interp_2d_with_scale.Perform();
   Handle(Geom2d_BSplineCurve) curve_2d_with_scale = interp_2d_with_scale.Curve();
 
-  Geom2dAPI_Interpolate interp_2d_without_scale(points_2d, Standard_False, Precision::Confusion());
+  Geom2dAPI_Interpolate interp_2d_without_scale(points_2d, Standard_False, Precision1::Confusion());
   interp_2d_without_scale.Load(tangent_2d, tangent_flags, Standard_False);
   interp_2d_without_scale.Perform();
   Handle(Geom2d_BSplineCurve) curve_2d_without_scale = interp_2d_without_scale.Curve();
@@ -3022,7 +3022,7 @@ static Standard_Integer OCC28887(DrawInterpreter&,
     }
   }
 
-  Standard_ArrayStreamBuffer aStreamBuffer((const char*)aBuffer->ChangeData(), aBuffer->Size());
+  ArrayStreamBuffer aStreamBuffer((const char*)aBuffer->ChangeData(), aBuffer->Size());
   std::istream               aStream(&aStreamBuffer);
   // just play with seeking
   aStream.seekg(0, std::ios_base::end);
@@ -3425,8 +3425,8 @@ void AllocDummyArr(DrawInterpreter& theDI, int theN1, int theN2)
 {
   NCollection_Array1<T> aMapArr1(0, theN1), aMapArr2(0, theN2);
 
-  OSD_MemInfo   aMemTool;
-  Standard_Size aMem0 = aMemTool.Value(OSD_MemInfo::MemHeapUsage);
+  MemoryInfo   aMemTool;
+  Standard_Size aMem0 = aMemTool.Value(MemoryInfo::MemHeapUsage);
 
   for (int i = 1; i < theN1; i++)
     aMapArr1(i) = aMapArr1(i - 1);
@@ -3434,7 +3434,7 @@ void AllocDummyArr(DrawInterpreter& theDI, int theN1, int theN2)
     aMapArr2(i) = aMapArr2(0);
 
   aMemTool.Update();
-  Standard_Size aMem1 = aMemTool.Value(OSD_MemInfo::MemHeapUsage);
+  Standard_Size aMem1 = aMemTool.Value(MemoryInfo::MemHeapUsage);
 
   theDI << "Heap usage before copy = " << (int)aMem0 << ", after = " << (int)aMem1 << "\n";
 
@@ -3576,7 +3576,7 @@ static Standard_Integer OCC29807(DrawInterpreter& theDI,
   const Point3d aP1 = anAS1->Value(aU1, aV1);
   const Point3d aP2 = anAS2->Value(aU2, aV2);
 
-  if (aP1.SquareDistance(aP2) > Precision::SquareConfusion())
+  if (aP1.SquareDistance(aP2) > Precision1::SquareConfusion())
   {
     theDI << "Error. True intersection point must be specified. "
              "Please check parameters: u1 v1 u2 v2.\n";
@@ -3926,14 +3926,14 @@ static Standard_Integer OCC29195(DrawInterpreter&, Standard_Integer theArgC, con
     return 0;
   }
   Standard_Integer aNbFiles  = (theArgC - off - 1) / 5;
-  int              nbThreads = OSD_Parallel::NbLogicalProcessors();
+  int              nbThreads = Parallel1::NbLogicalProcessors();
   if (aNbFiles < nbThreads)
   {
     nbThreads = aNbFiles;
   }
   // Allocate data
   Args*       args    = new Args[nbThreads];
-  OSD_Thread* threads = new OSD_Thread[nbThreads];
+  Thread* threads = new Thread[nbThreads];
   while (iThread < nbThreads)
   {
     if (iThread < aNbFiles)
@@ -3960,7 +3960,7 @@ static Standard_Integer OCC29195(DrawInterpreter&, Standard_Integer theArgC, con
   bool finished = false;
   while (!finished)
   {
-    OSD::MilliSecSleep(100);
+    OSD1::MilliSecSleep(100);
     finished = true;
     for (iThread = 0; iThread < nbThreads && finished; iThread++)
     {
@@ -4223,7 +4223,7 @@ static Standard_Integer OCC30747(DrawInterpreter& theDI,
     {
       aLTrim = new Geom2d_TrimmedCurve(aCirc, anId * aDelta, (anId + 1) * aDelta);
     }
-    aRes.Add(aLTrim, Precision::PConfusion());
+    aRes.Add(aLTrim, Precision1::PConfusion());
   }
 
   if (!aRes.BSplineCurve()->IsClosed())
@@ -4634,13 +4634,13 @@ static Standard_Integer OCC31320(DrawInterpreter& di, Standard_Integer argc, con
 
 namespace
 {
-class QABugs_XdeLoader : public OSD_Thread
+class QABugs_XdeLoader : public Thread
 {
 public:
   QABugs_XdeLoader(const Handle(AppManager)& theXdeApp,
                    const Handle(AppDocument)&    theXdeDoc,
                    const AsciiString1&     theFilePath)
-      : OSD_Thread(performThread),
+      : Thread(performThread),
         myXdeApp(theXdeApp),
         myXdeDoc(theXdeDoc),
         myFilePath(theFilePath)
@@ -4664,7 +4664,7 @@ private:
   static Standard_Address performThread(Standard_Address theData)
   {
     QABugs_XdeLoader* aLoader = (QABugs_XdeLoader*)theData;
-    OSD::SetThreadLocalSignal(OSD_SignalMode_Set, false);
+    OSD1::SetThreadLocalSignal(OSD_SignalMode_Set, false);
     try
     {
       OCC_CATCH_SIGNALS
@@ -4734,7 +4734,7 @@ static void CheckAx3Dir(Ax3& theAxis, const Dir3d& theDir)
   {
     std::cout << "Error: coordinate system is reversed\n";
   }
-  if (!theDir.IsEqual(theAxis.Direction(), Precision::Angular()))
+  if (!theDir.IsEqual(theAxis.Direction(), Precision1::Angular()))
   {
     std::cout << "Error: main dir was not set properly\n";
   }
@@ -4751,14 +4751,14 @@ static void CheckAx3DirX(Ax3& theAxis, const Dir3d& theDir)
   Dir3d aGoodY = theAxis.Direction().Crossed(theDir);
   if (theAxis.Direct())
   {
-    if (!aGoodY.IsEqual(theAxis.YDirection(), Precision::Angular()))
+    if (!aGoodY.IsEqual(theAxis.YDirection(), Precision1::Angular()))
     {
       std::cout << "Error: X dir was not set properly\n";
     }
   }
   else
   {
-    if (!aGoodY.IsOpposite(theAxis.YDirection(), Precision::Angular()))
+    if (!aGoodY.IsOpposite(theAxis.YDirection(), Precision1::Angular()))
     {
       std::cout << "Error: X dir was not set properly\n";
     }
@@ -4776,14 +4776,14 @@ static void CheckAx3DirY(Ax3& theAxis, const Dir3d& theDir)
   Dir3d aGoodX = theAxis.Direction().Crossed(theDir);
   if (theAxis.Direct())
   {
-    if (!aGoodX.IsOpposite(theAxis.XDirection(), Precision::Angular()))
+    if (!aGoodX.IsOpposite(theAxis.XDirection(), Precision1::Angular()))
     {
       std::cout << "Error: Y dir was not set properly\n";
     }
   }
   else
   {
-    if (!aGoodX.IsEqual(theAxis.XDirection(), Precision::Angular()))
+    if (!aGoodX.IsEqual(theAxis.XDirection(), Precision1::Angular()))
     {
       std::cout << "Error: Y dir was not set properly\n";
     }
@@ -4798,7 +4798,7 @@ static void CheckAx3Ax1(Ax3& theAx, const Axis3d& theAx0)
   {
     std::cout << "Error: coordinate system is reversed\n";
   }
-  if (!theAx0.Direction().IsEqual(theAx.Direction(), Precision::Angular()))
+  if (!theAx0.Direction().IsEqual(theAx.Direction(), Precision1::Angular()))
   {
     std::cout << "Error: main dir was not set properly\n";
   }
@@ -4932,7 +4932,7 @@ static Standard_Integer OCC33657_1(DrawInterpreter&, Standard_Integer, const cha
 {
   STEPCAFControl_Controller::Init();
   // Checking constructors working in parallel.
-  OSD_Parallel::For(0, 1000, [](int) {
+  Parallel1::For(0, 1000, [](int) {
     STEPCAFControl_Reader aReader;
     aReader.SetColorMode(true);
     STEPCAFControl_Writer aWriter;
@@ -4956,7 +4956,7 @@ static Standard_Integer OCC33657_2(DrawInterpreter& theDI,
 
   STEPCAFControl_Controller::Init();
   // Checking readers working in parallel.
-  OSD_Parallel::For(0, 100, [&](int) {
+  Parallel1::For(0, 100, [&](int) {
     StepFileReader aReader;
     aReader.ReadFile(theArgV[1], DESTEP_Parameters{});
     aReader.TransferRoots();
@@ -4972,7 +4972,7 @@ static Standard_Integer OCC33657_3(DrawInterpreter&, Standard_Integer, const cha
   STEPCAFControl_Controller::Init();
   const TopoShape aShape = BoxMaker(10.0, 20.0, 30.0).Shape();
   // Checking writers working in parallel.
-  OSD_Parallel::For(0, 100, [&](int) {
+  Parallel1::For(0, 100, [&](int) {
     StepFileWriter aWriter;
     aWriter.Transfer(aShape, STEPControl_StepModelType::STEPControl_AsIs, DESTEP_Parameters{});
     std::ostringstream aStream;
@@ -5011,7 +5011,7 @@ static Standard_Integer OCC33657_4(DrawInterpreter& theDI,
   // in order to avoid inter-thread syncronization that can potentially omit some problems.
   std::atomic_bool anErrorOccurred(false);
 
-  OSD_Parallel::For(0, 100, [&](int) {
+  Parallel1::For(0, 100, [&](int) {
     if (anErrorOccurred.load(std::memory_order_relaxed))
     {
       return;
@@ -5118,7 +5118,7 @@ static Standard_Integer QACheckBends(DrawInterpreter& theDI,
   }
 
   Standard_Real U1 = aCurve->FirstParameter(), U2 = aCurve->LastParameter();
-  if (Precision::IsInfinite(U1) || Precision::IsInfinite(U2))
+  if (Precision1::IsInfinite(U1) || Precision1::IsInfinite(U2))
   {
     theDI << "Infinite interval  : " << U1 << "  " << U2 << "\n";
     return 0;
@@ -5176,7 +5176,7 @@ static Standard_Integer OCC26441(DrawInterpreter& theDi,
     return 1;
   }
 
-  Standard_Real anEps = Precision::Confusion();
+  Standard_Real anEps = Precision1::Confusion();
   if (theNbArgs > 3)
   {
     anEps = Draw1::Atof(theArgVec[3]);

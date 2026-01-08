@@ -132,7 +132,7 @@ public:
   //! The array must provide  enough room to  accommodate
   //! for the parameters. i.e. T.Length() > NbIntervals()
   //! raises
-  //! OutOfRange from Standard
+  //! OutOfRange from Standard1
   Standard_EXPORT virtual void Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) const = 0;
 
   Standard_EXPORT virtual void GetShape(Standard_Integer& NbPoles,

@@ -22,8 +22,8 @@
 #include <OSD_Path.hxx>
 #include <OSD_Error.hxx>
 
-class OSD_Protection;
-class Quantity_Date;
+class Protection1;
+class Date2;
 
 //! A class for 'File' and 'Directory' grouping common
 //! methods (file/directory manipulation tools).
@@ -55,20 +55,20 @@ public:
 
   // None of the existing security APIs are supported in a UWP applications
   //! Returns access mode of <me>.
-  Standard_EXPORT OSD_Protection Protection();
+  Standard_EXPORT Protection1 Protection();
 
   //! Changes protection of the FileNode
-  Standard_EXPORT void SetProtection(const OSD_Protection& Prot);
+  Standard_EXPORT void SetProtection(const Protection1& Prot);
 
   //! Returns last write access.
   //! On UNIX, AccessMoment and CreationMoment return the
   //! same value.
-  Standard_EXPORT Quantity_Date AccessMoment();
+  Standard_EXPORT Date2 AccessMoment();
 
   //! Returns creation date.
   //! On UNIX, AccessMoment and CreationMoment return the
   //! same value.
-  Standard_EXPORT Quantity_Date CreationMoment();
+  Standard_EXPORT Date2 CreationMoment();
 
   //! Returns TRUE if an error occurs
   Standard_EXPORT Standard_Boolean Failed() const;

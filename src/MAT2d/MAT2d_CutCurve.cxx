@@ -44,8 +44,8 @@ void MAT2dCutCurve::Perform(const Handle(GeomCurve2d)& C)
   Handle(Geom2d_TrimmedCurve) TrimC;
   Standard_Real               UF, UL, UC;
   gp_Pnt2d                    PF, PL, PC;
-  constexpr Standard_Real     PTol  = Precision::PConfusion() * 10;
-  constexpr Standard_Real     Tol   = Precision::Confusion() * 10;
+  constexpr Standard_Real     PTol  = Precision1::PConfusion() * 10;
+  constexpr Standard_Real     Tol   = Precision1::Confusion() * 10;
   Standard_Boolean            YaCut = Standard_False;
   Sommets.Perform(C);
 

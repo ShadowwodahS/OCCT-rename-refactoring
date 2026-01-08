@@ -19,8 +19,8 @@
 #include <Standard_PCharacter.hxx>
 #include <OSD_SignalMode.hxx>
 
-//! Set of Operating System Dependent (OSD) tools.
-class OSD
+//! Set of Operating System Dependent (OSD1) tools.
+class OSD1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -36,7 +36,7 @@ public:
   //! (SIGSEGV, SIGFPE, SIGILL) into C++ exceptions (classes inheriting
   //! ExceptionBase). They only be called if function ::raise() is called
   //! with one of supported signal type set.
-  //! @li Exception handler OSD::WntHandler() (via ::SetUnhandledExceptionFilter())
+  //! @li Exception handler OSD1::WntHandler() (via ::SetUnhandledExceptionFilter())
   //! that will be used when user's code is compiled with /EHs option.
   //! @li Structured exception (SE) translator (via _set_se_translator()) that
   //! translates SE exceptions (aka asynchronous exceptions) into the
@@ -51,7 +51,7 @@ public:
   //!
   //! ### Linux-specific notes
   //!
-  //! OSD::SetSignal() sets handlers (via ::sigaction()) for multiple signals
+  //! OSD1::SetSignal() sets handlers (via ::sigaction()) for multiple signals
   //! (SIGFPE, SIGSEGV, etc).
   //!
   //! ### Common notes
@@ -68,10 +68,10 @@ public:
   //! Otherwise the (thread-specific) FPE flags are set to raise signal if one of
   //! floating-point exceptions (division by zero, overflow, or invalid operation) occurs.
   //!
-  //! The recommended approach is to call OSD::SetSignal() in the beginning of the
+  //! The recommended approach is to call OSD1::SetSignal() in the beginning of the
   //! execution of the program, in function main() or its equivalent.
-  //! In multithreaded programs it is advisable to call OSD::SetSignal() or
-  //! OSD::SetThreadLocalSignal() with the same parameters in other threads where
+  //! In multithreaded programs it is advisable to call OSD1::SetSignal() or
+  //! OSD1::SetThreadLocalSignal() with the same parameters in other threads where
   //! OCCT is used, to ensure consistency of behavior.
   //!
   //! Note that in order to handle signals as C++ exceptions on Linux and under
@@ -84,7 +84,7 @@ public:
                                         Standard_Boolean theFloatingSignal);
 
   //! Sets signal and FPE handlers.
-  //! Short-cut for OSD::SetSignal (OSD_SignalMode_Set, theFloatingSignal).
+  //! Short-cut for OSD1::SetSignal (OSD_SignalMode_Set, theFloatingSignal).
   static void SetSignal(const Standard_Boolean theFloatingSignal = Standard_True)
   {
     SetSignal(OSD_SignalMode_Set, theFloatingSignal);
@@ -93,7 +93,7 @@ public:
   //! Initializes thread-local signal handlers.
   //! This includes _set_se_translator() on Windows platform, and SetFloatingSignal().
   //! The main purpose of this method is initializing handlers for newly created threads
-  //! without overriding global handlers (set by application or by OSD::SetSignal()).
+  //! without overriding global handlers (set by application or by OSD1::SetSignal()).
   Standard_EXPORT static void SetThreadLocalSignal(OSD_SignalMode   theSignalMode,
                                                    Standard_Boolean theFloatingSignal);
 

@@ -434,8 +434,8 @@ Standard_Boolean SpecialPoints::ProcessSphere(const PointOn2Surfaces& thePtIso,
   // Ask to pay attention to the fact that this vector is always normalized.
   gp_Vec2d aV1;
 
-  if ((Abs(theDUofPSurf.Z()) < Precision::PConfusion())
-      && (Abs(theDVofPSurf.Z()) < Precision::PConfusion()))
+  if ((Abs(theDUofPSurf.Z()) < Precision1::PConfusion())
+      && (Abs(theDVofPSurf.Z()) < Precision1::PConfusion()))
   {
     // Example of this case is an intersection of a plane with a sphere
     // when the plane tangents the sphere in some pole (i.e. only one
@@ -579,7 +579,7 @@ Standard_Boolean SpecialPoints::ProcessCone(const PointOn2Surfaces& thePtIso,
   // Its normal.
   const Coords3d        aTgPlaneZ(theDUofPSurf.Crossed(theDVofPSurf).XYZ());
   const Standard_Real aSqModTg = aTgPlaneZ.SquareModulus();
-  if (aSqModTg < Precision::SquareConfusion())
+  if (aSqModTg < Precision1::SquareConfusion())
   {
     theIsIsoChoosen = Standard_True;
   }
@@ -616,7 +616,7 @@ Standard_Boolean SpecialPoints::ProcessCone(const PointOn2Surfaces& thePtIso,
       // Vector {@\cos(a), \sin(a)@}
       gp_Vec2d            aVecCS(aTgILine[anIdx].X(), aTgILine[anIdx].Y());
       const Standard_Real aSqMod = aVecCS.SquareMagnitude();
-      if (aSqMod < Precision::SquareConfusion())
+      if (aSqMod < Precision1::SquareConfusion())
       {
         theIsIsoChoosen = Standard_True;
         break;
@@ -829,7 +829,7 @@ Standard_Boolean SpecialPoints::AddSingularPole(const Handle(Adaptor3d_Surface)&
   else
     theAddedPoint.SetValue(0.5 * (aP0.XYZ() + aPQuad.XYZ()), aUquad, aVquad, aU0, aV0);
 
-  const Standard_Boolean isSame = theAddedPoint.IsSame(theVertex.PntOn2S(), Precision::Confusion());
+  const Standard_Boolean isSame = theAddedPoint.IsSame(theVertex.PntOn2S(), Precision1::Confusion());
 
   // Found pole does not exist in the Walking-line
   // It must be added there (with correct 2D-parameters)
@@ -956,7 +956,7 @@ Standard_Boolean SpecialPoints::ContinueAfterSpecialPoint(
   if (theSPType == IntPatch_SPntNone)
     return Standard_False;
 
-  if (theNewPoint.IsSame(theRefPt, Precision::Confusion(), theTol2D))
+  if (theNewPoint.IsSame(theRefPt, Precision1::Confusion(), theTol2D))
   {
     return Standard_False;
   }

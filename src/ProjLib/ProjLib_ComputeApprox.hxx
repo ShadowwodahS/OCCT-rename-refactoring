@@ -56,7 +56,7 @@ public:
                                const Handle(Adaptor3d_Surface)& S);
 
   //! Set tolerance of approximation.
-  //! Default value is Precision::Confusion().
+  //! Default value is Precision1::Confusion().
   Standard_EXPORT void SetTolerance(const Standard_Real theTolerance);
 
   //! Set min and max possible degree of result BSpline curve2d, which is got by approximation.

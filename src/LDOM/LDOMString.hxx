@@ -27,7 +27,7 @@ class LDOM_MemManager;
 //  that it is necessary to keep at least one LDOM_Document or LDOM_Node alive
 //  before all LDOMString's (LDOM_AsciiDoc type) are destroyed.
 
-class LDOMString : public LDOMBasicString
+class LDOMString : public LDOMBasicString1
 {
 public:
   // ---------- PUBLIC METHODS ----------
@@ -40,7 +40,7 @@ public:
   //    Empty constructor
 
   LDOMString(const LDOMString& anOther)
-      : LDOMBasicString(anOther),
+      : LDOMBasicString1(anOther),
         myPtrDoc(anOther.myPtrDoc)
   {
   }
@@ -48,7 +48,7 @@ public:
   //    Copy constructor
 
   LDOMString(const Standard_Integer aValue)
-      : LDOMBasicString(aValue),
+      : LDOMBasicString1(aValue),
         myPtrDoc(NULL)
   {
   }
@@ -58,7 +58,7 @@ public:
   //  Standard_EXPORT LDOMString (const Standard_Real aValue);
 
   LDOMString(const char* aValue)
-      : LDOMBasicString(aValue),
+      : LDOMBasicString1(aValue),
         myPtrDoc(NULL)
   {
   }
@@ -69,14 +69,14 @@ public:
 
   LDOMString& operator=(const LDOM_NullPtr* aNull)
   {
-    LDOMBasicString::operator=(aNull);
+    LDOMBasicString1::operator=(aNull);
     return *this;
   }
 
   LDOMString& operator=(const LDOMString& anOther)
   {
     myPtrDoc = anOther.myPtrDoc;
-    LDOMBasicString::operator=(anOther);
+    LDOMBasicString1::operator=(anOther);
     return *this;
   }
 
@@ -90,15 +90,15 @@ private:
 
   static LDOMString CreateDirectString(const char* aValue, const LDOM_MemManager& aDoc);
 
-  LDOMString(const LDOMBasicString& anOther, const LDOM_MemManager& aDoc)
-      : LDOMBasicString(anOther),
+  LDOMString(const LDOMBasicString1& anOther, const LDOM_MemManager& aDoc)
+      : LDOMBasicString1(anOther),
         myPtrDoc(&aDoc)
   {
   }
 
-  //    Plain copy from LDOMBasicString
+  //    Plain copy from LDOMBasicString1
 
-  LDOMString(const LDOMBasicString& anOther, const Handle(LDOM_MemManager)& aDoc);
+  LDOMString(const LDOMBasicString1& anOther, const Handle(LDOM_MemManager)& aDoc);
   //    Copy from another string with allocation in the document space
 
 private:

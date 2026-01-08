@@ -147,7 +147,7 @@ bool RWGltf_TriangulationReader::readStreamData(
   const RWGltf_GltfPrimArrayData&              theGltfData,
   const Handle(MeshTriangulation)&            theDestMesh) const
 {
-  Standard_ArrayStreamBuffer aStreamBuffer((const char*)theGltfData.StreamData->Data(),
+  ArrayStreamBuffer aStreamBuffer((const char*)theGltfData.StreamData->Data(),
                                            theGltfData.StreamData->Size());
   std::istream               aStream(&aStreamBuffer);
   aStream.seekg((std::streamoff)theGltfData.StreamOffset, std::ios_base::beg);
@@ -600,7 +600,7 @@ bool RWGltf_TriangulationReader::readBuffer(
         }
         const size_t aStride =
           theAccessor.ByteStride != 0 ? theAccessor.ByteStride : sizeof(uint16_t);
-        Standard_ReadBuffer aBuffer(theAccessor.Count * aStride, aStride);
+        ReadBuffer aBuffer(theAccessor.Count * aStride, aStride);
         Standard_Integer    aLastIndex = 0;
         for (Standard_Integer aTriIter = 0; aTriIter < aCounter; ++aTriIter)
         {
@@ -680,7 +680,7 @@ bool RWGltf_TriangulationReader::readBuffer(
         }
         const size_t aStride =
           theAccessor.ByteStride != 0 ? theAccessor.ByteStride : sizeof(uint32_t);
-        Standard_ReadBuffer aBuffer(theAccessor.Count * aStride, aStride);
+        ReadBuffer aBuffer(theAccessor.Count * aStride, aStride);
         Standard_Integer    aLastTriIndex = 0;
         for (Standard_Integer aTriIter = 0; aTriIter < aNbTris; ++aTriIter)
         {
@@ -752,7 +752,7 @@ bool RWGltf_TriangulationReader::readBuffer(
         }
         const size_t aStride =
           theAccessor.ByteStride != 0 ? theAccessor.ByteStride : sizeof(uint8_t);
-        Standard_ReadBuffer aBuffer(theAccessor.Count * aStride, aStride);
+        ReadBuffer aBuffer(theAccessor.Count * aStride, aStride);
         Standard_Integer    aLastTriIndex = 0;
         for (Standard_Integer aTriIter = 0; aTriIter < aNbTris; ++aTriIter)
         {
@@ -836,7 +836,7 @@ bool RWGltf_TriangulationReader::readBuffer(
         return false;
       }
 
-      Standard_ReadBuffer aBuffer(theAccessor.Count * aStride - (aStride - sizeof(Graphic3d_Vec3)),
+      ReadBuffer aBuffer(theAccessor.Count * aStride - (aStride - sizeof(Graphic3d_Vec3)),
                                   aStride,
                                   true);
       if (!myCoordSysConverter.IsEmpty())
@@ -891,7 +891,7 @@ bool RWGltf_TriangulationReader::readBuffer(
       {
         return false;
       }
-      Standard_ReadBuffer aBuffer(theAccessor.Count * aStride - (aStride - sizeof(Graphic3d_Vec3)),
+      ReadBuffer aBuffer(theAccessor.Count * aStride - (aStride - sizeof(Graphic3d_Vec3)),
                                   aStride,
                                   true);
       if (!myCoordSysConverter.IsEmpty())
@@ -957,7 +957,7 @@ bool RWGltf_TriangulationReader::readBuffer(
         return false;
       }
 
-      Standard_ReadBuffer aBuffer(theAccessor.Count * aStride - (aStride - sizeof(Graphic3d_Vec2)),
+      ReadBuffer aBuffer(theAccessor.Count * aStride - (aStride - sizeof(Graphic3d_Vec2)),
                                   aStride,
                                   true);
       for (int aVertIter = 0; aVertIter < aNbNodes; ++aVertIter)

@@ -37,10 +37,10 @@ static void FindLimits(const Handle(Adaptor3d_Surface)& surf,
   VFirst = surf->FirstVParameter();
   VLast  = surf->LastVParameter();
 
-  Standard_Boolean UfirstInf = Precision::IsNegativeInfinite(UFirst);
-  Standard_Boolean UlastInf  = Precision::IsPositiveInfinite(ULast);
-  Standard_Boolean VfirstInf = Precision::IsNegativeInfinite(VFirst);
-  Standard_Boolean VlastInf  = Precision::IsPositiveInfinite(VLast);
+  Standard_Boolean UfirstInf = Precision1::IsNegativeInfinite(UFirst);
+  Standard_Boolean UlastInf  = Precision1::IsPositiveInfinite(ULast);
+  Standard_Boolean VfirstInf = Precision1::IsNegativeInfinite(VFirst);
+  Standard_Boolean VlastInf  = Precision1::IsPositiveInfinite(VLast);
 
   if (UfirstInf || UlastInf)
   {

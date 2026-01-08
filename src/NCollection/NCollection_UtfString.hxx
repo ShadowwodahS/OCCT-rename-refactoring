@@ -286,7 +286,7 @@ private: //! @name low-level methods
   //! Allocate NULL-terminated string buffer.
   static Type* strAlloc(const Standard_Size theSizeBytes)
   {
-    Type* aPtr = (Type*)Standard::Allocate(theSizeBytes + sizeof(Type));
+    Type* aPtr = (Type*)Standard1::Allocate(theSizeBytes + sizeof(Type));
     if (aPtr != NULL)
     {
       // always NULL-terminate the string
@@ -296,7 +296,7 @@ private: //! @name low-level methods
   }
 
   //! Release string buffer and nullify the pointer.
-  static void strFree(Type*& thePtr) { Standard::Free(thePtr); }
+  static void strFree(Type*& thePtr) { Standard1::Free(thePtr); }
 
   //! Provides bytes interface to avoid incorrect pointer arithmetics.
   static void strCopy(Standard_Byte*         theStrDst,

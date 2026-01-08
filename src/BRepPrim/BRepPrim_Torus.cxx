@@ -66,7 +66,7 @@ TopoFace BRepPrim_Torus::MakeEmptyLateralFace() const
 {
   Handle(Geom_ToroidalSurface) T = new Geom_ToroidalSurface(Axes(), myMajor, myMinor);
   TopoFace                  F;
-  myBuilder.Builder().MakeFace(F, T, Precision::Confusion());
+  myBuilder.Builder().MakeFace(F, T, Precision1::Confusion());
   return F;
 }
 

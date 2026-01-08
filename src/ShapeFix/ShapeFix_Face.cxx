@@ -98,8 +98,8 @@ static Standard_Boolean IsSurfaceUVInfinite(const Handle(GeomSurface)& theSurf)
   Standard_Real UMin, UMax, VMin, VMax;
   theSurf->Bounds(UMin, UMax, VMin, VMax);
 
-  return (Precision::IsInfinite(UMin) || Precision::IsInfinite(UMax) || Precision::IsInfinite(VMin)
-          || Precision::IsInfinite(VMax));
+  return (Precision1::IsInfinite(UMin) || Precision1::IsInfinite(UMax) || Precision1::IsInfinite(VMin)
+          || Precision1::IsInfinite(VMax));
 }
 
 static Standard_Boolean IsSurfaceUVPeriodic(const Handle(GeomAdaptor_Surface)& theSurf)
@@ -199,7 +199,7 @@ void ShapeFix_Face::Init(const Handle(ShapeAnalysis_Surface)& surf,
   mySurf   = surf;
   SetPrecision(preci);
   ShapeBuilder B;
-  B.MakeFace(myFace, mySurf->Surface(), ::Precision::Confusion());
+  B.MakeFace(myFace, mySurf->Surface(), ::Precision1::Confusion());
   myShape = myFace;
   myFwd   = fwd;
   if (!fwd)
@@ -343,7 +343,7 @@ Standard_Boolean ShapeFix_Face::Perform()
   // gka fix in order to avoid lost messages (following OCC21771)
   TopTools_DataMapOfShapeShape aMapReorderedWires;
 
-  Standard_Real aSavPreci = Precision();
+  Standard_Real aSavPreci = Precision1();
   if (NeedFix(myFixWireMode))
   {
     theAdvFixWire->SetFace(myFace);
@@ -384,7 +384,7 @@ Standard_Boolean ShapeFix_Face::Perform()
       }
     }
     newpreci=sqrt(newpreci)/2.*1.00001;
-    if( aSavPreci > newpreci && newpreci > Precision::Confusion()) {
+    if( aSavPreci > newpreci && newpreci > Precision1::Confusion()) {
       SetPrecision(newpreci);
       theAdvFixWire->SetPrecision(newpreci);
     }
@@ -397,7 +397,7 @@ Standard_Boolean ShapeFix_Face::Perform()
       Standard_Real size     = ShapeFix1::LeastEdgeSize(S);
       Standard_Real newpreci = Min(aSavPreci, size / 2.);
       newpreci               = newpreci * 1.00001;
-      if (aSavPreci > newpreci && newpreci > Precision::Confusion())
+      if (aSavPreci > newpreci && newpreci > Precision1::Confusion())
       {
         SetPrecision(newpreci);
         theAdvFixWire->SetPrecision(newpreci);
@@ -850,7 +850,7 @@ Standard_Boolean ShapeFix_Face::FixAddNaturalBound()
   // deal with the case of an empty face: just create a new face by a standard tool
   if (ws.IsEmpty() && !IsSurfaceUVInfinite(mySurf->Surface()))
   {
-    FaceMaker aFaceBuilder(mySurf->Surface(), Precision::Confusion());
+    FaceMaker aFaceBuilder(mySurf->Surface(), Precision1::Confusion());
 
     TopoFace aNewFace = aFaceBuilder.Face();
     aNewFace.Orientation(myFace.Orientation());
@@ -947,7 +947,7 @@ Standard_Boolean ShapeFix_Face::FixAddNaturalBound()
     TopLoc_Location L;
 
     ShapeFix_ComposeShell CompShell;
-    CompShell.Init ( G, L, myFace, ::Precision::Confusion() );
+    CompShell.Init ( G, L, myFace, ::Precision1::Confusion() );
     CompShell.ClosedMode() = Standard_True;
     CompShell.NaturalBoundMode() = Standard_True;
     CompShell.SetContext( Context() );
@@ -965,7 +965,7 @@ Standard_Boolean ShapeFix_Face::FixAddNaturalBound()
   /* variant 2 */
   TopLoc_Location         L;
   Handle(GeomSurface)    surf = BRepInspector::Surface(myFace, L);
-  FaceMaker mf(surf, Precision::Confusion());
+  FaceMaker mf(surf, Precision1::Confusion());
   TopoFace             ftmp = mf.Face();
   ftmp.Location(L);
   for (wi.Initialize(ftmp, Standard_False); wi.More(); wi.Next())
@@ -974,7 +974,7 @@ Standard_Boolean ShapeFix_Face::FixAddNaturalBound()
       continue;
     TopoWire wire = TopoDS::Wire(wi.Value());
     ws.Append(wire);
-    if (shift.XY().Modulus() < ::Precision::PConfusion())
+    if (shift.XY().Modulus() < ::Precision1::PConfusion())
       continue;
     Shift2dWire(wire, myFace, shift.XY(), mySurf, Standard_True);
   }
@@ -1161,7 +1161,7 @@ Standard_Boolean ShapeFix_Face::FixOrientation(TopTools_DataMapOfShapeListOfShap
     }
     else
       length = 0;
-    if (length > ::Precision::Confusion())
+    if (length > ::Precision1::Confusion())
     {
       ws.Append(wi.Value());
       allSubShapes.Append(wi.Value());
@@ -1220,7 +1220,7 @@ Standard_Boolean ShapeFix_Face::FixOrientation(TopTools_DataMapOfShapeListOfShap
     //: 94 abv 30 Jan 98: calculate parametric precision
 
     //    GeomAdaptor_Surface& Ads = mySurf->Adaptor3d()->ChangeSurface();
-    //    Standard_Real toluv = Min ( Ads.UResolution(Precision()), Ads.VResolution(Precision()) );
+    //    Standard_Real toluv = Min ( Ads.UResolution(Precision1()), Ads.VResolution(Precision1()) );
     Standard_Boolean uclosed = mySurf->IsUClosed();
     Standard_Boolean vclosed = mySurf->IsVClosed();
     Standard_Real    SUF, SUL, SVF, SVL;
@@ -1265,7 +1265,7 @@ Standard_Boolean ShapeFix_Face::FixOrientation(TopTools_DataMapOfShapeListOfShap
         }
         else
           gac.Load(cw, cf, cl);
-        Add2dCurve::Add(gac, ::Precision::Confusion(), aBox);
+        Add2dCurve::Add(gac, ::Precision1::Confusion(), aBox);
       }
 
       Standard_Real aXMin, aXMax, aYMin, aYMax;
@@ -1295,15 +1295,15 @@ Standard_Boolean ShapeFix_Face::FixOrientation(TopTools_DataMapOfShapeListOfShap
       Bnd_Box2d    aBox1 = aWireBoxes.Value(i);
       TopoShape dummy = myFace.EmptyCopied();
       TopoFace  af    = TopoDS::Face(dummy);
-      //      B.MakeFace (af,mySurf->Surface(),::Precision::Confusion());
+      //      B.MakeFace (af,mySurf->Surface(),::Precision1::Confusion());
       af.Orientation(TopAbs_FORWARD);
       B.Add(af, aw);
       // PTV OCC945 06.11.2002 files ie_exhaust-A.stp (entities 3782,  3787)
       // tolerance is too big. It is seems that to identify placement of 2d point
-      // it is enough Precision::PConfusion(), cause wea re know that 2d point in TopAbs_ON
+      // it is enough Precision1::PConfusion(), cause wea re know that 2d point in TopAbs_ON
       // BRepTopAdaptor_FClass2d clas (af,toluv);
       Standard_Boolean        CheckShift = Standard_True;
-      BRepTopAdaptor_FClass2d clas(af, ::Precision::PConfusion());
+      BRepTopAdaptor_FClass2d clas(af, ::Precision1::PConfusion());
       TopAbs_State            sta    = TopAbs_OUT;
       TopAbs_State            staout = clas.PerformInfinitePoint();
       ShapeList    IntWires;
@@ -1320,7 +1320,7 @@ Standard_Boolean ShapeFix_Face::FixOrientation(TopTools_DataMapOfShapeListOfShap
         {
           aWireIt--;
           Point3d   aP  = BRepInspector::Pnt(TopoDS::Vertex(aSh2));
-          gp_Pnt2d p2d = mySurf->ValueOfUV(aP, Precision::Confusion());
+          gp_Pnt2d p2d = mySurf->ValueOfUV(aP, Precision1::Confusion());
           stb          = clas.Perform(p2d, Standard_False);
           if (stb == staout && (uclosed || vclosed))
           {
@@ -1658,37 +1658,37 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
   BRepTools1::UVBounds(myFace, fU1, fU2, fV1, fV2);
 
   // pdn OCC55 fix to faces without the wires to avoid identical first and last parameters
-  if (::Precision::IsInfinite(SUF) || ::Precision::IsInfinite(SUL))
+  if (::Precision1::IsInfinite(SUF) || ::Precision1::IsInfinite(SUL))
   {
-    if (::Precision::IsInfinite(SUF))
+    if (::Precision1::IsInfinite(SUF))
       SUF = fU1;
-    if (::Precision::IsInfinite(SUL))
+    if (::Precision1::IsInfinite(SUL))
       SUL = fU2;
-    if (Abs(SUL - SUF) < ::Precision::PConfusion())
+    if (Abs(SUL - SUF) < ::Precision1::PConfusion())
     {
-      if (::Precision::IsInfinite(SUF))
+      if (::Precision1::IsInfinite(SUF))
         SUF -= 1000.;
       else
         SUL += 1000.;
     }
   }
-  if (::Precision::IsInfinite(SVF) || ::Precision::IsInfinite(SVL))
+  if (::Precision1::IsInfinite(SVF) || ::Precision1::IsInfinite(SVL))
   {
-    if (::Precision::IsInfinite(SVF))
+    if (::Precision1::IsInfinite(SVF))
       SVF = fV1;
-    if (::Precision::IsInfinite(SVL))
+    if (::Precision1::IsInfinite(SVL))
       SVL = fV2;
-    if (Abs(SVL - SVF) < ::Precision::PConfusion())
+    if (Abs(SVL - SVF) < ::Precision1::PConfusion())
     {
-      if (::Precision::IsInfinite(SVF))
+      if (::Precision1::IsInfinite(SVF))
         SVF -= 1000.;
       else
         SVL += 1000.;
     }
   }
 
-  URange = Min(Abs(SUL - SUF), Precision::Infinite());
-  VRange = Min(Abs(SVL - SVF), Precision::Infinite());
+  URange = Min(Abs(SUL - SUF), Precision1::Infinite());
+  VRange = Min(Abs(SVL - SVF), Precision1::Infinite());
   //  Standard_Real UTol = 0.2 * URange, VTol = 0.2 * VRange;
   Standard_Integer ismodeu = 0, ismodev = 0; // szv#4:S4163:12Mar99 was Boolean
   Standard_Integer isdeg1 = 0, isdeg2 = 0;
@@ -1820,10 +1820,10 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
     {
       Standard_Real uCoord;
       if (mySurf->Value(SUF, SVF).Distance(mySurf->Value(SUF, (SVF + SVL) / 2))
-          < ::Precision::Confusion())
+          < ::Precision1::Confusion())
         uCoord = SUF;
       else if (mySurf->Value(SUL, SVF).Distance(mySurf->Value(SUL, (SVF + SVL) / 2))
-               < ::Precision::Confusion())
+               < ::Precision1::Confusion())
         uCoord = SUL;
       else
         return Standard_False;
@@ -1836,10 +1836,10 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
     {
       Standard_Real vCoord;
       if (mySurf->Value(SUF, SVF).Distance(mySurf->Value((SUF + SUL) / 2, SVF))
-          < ::Precision::Confusion())
+          < ::Precision1::Confusion())
         vCoord = SVF;
       else if (mySurf->Value(SUL, SVL).Distance(mySurf->Value((SUF + SUL) / 2, SVL))
-               < ::Precision::Confusion())
+               < ::Precision1::Confusion())
         vCoord = SVL;
       else
         return Standard_False;
@@ -1856,10 +1856,10 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
     TopoEdge         edge;
     B.MakeEdge(edge);
     B.Degenerated(edge, Standard_True);
-    B.UpdateEdge(edge, line, myFace, ::Precision::Confusion());
+    B.UpdateEdge(edge, line, myFace, ::Precision1::Confusion());
     B.Range(edge, myFace, 0., aRange);
     TopoVertex V;
-    B.MakeVertex(V, mySurf->Value(p.X(), p.Y()), ::Precision::Confusion());
+    B.MakeVertex(V, mySurf->Value(p.X(), p.Y()), ::Precision1::Confusion());
     V.Orientation(TopAbs_FORWARD);
     B.Add(edge, V);
     V.Orientation(TopAbs_REVERSED);
@@ -1902,7 +1902,7 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
   // sort original wires
   Handle(WireHealer) sfw = new WireHealer;
   sfw->SetFace(myFace);
-  sfw->SetPrecision(Precision());
+  sfw->SetPrecision(Precision1());
   Handle(ShapeExtend_WireData) wd1 = new ShapeExtend_WireData(w1);
   Handle(ShapeExtend_WireData) wd2 = new ShapeExtend_WireData(w2);
   sfw->Load(wd1);
@@ -1945,7 +1945,7 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
   {
     Standard_Real shiftw2 = ShapeAnalysis1::AdjustByPeriod(
       0.5 * (m2[coord][0] + m2[coord][1]),
-      0.5 * (m1[coord][0] + m1[coord][1] + isneg * (period + ::Precision::PConfusion())),
+      0.5 * (m1[coord][0] + m1[coord][1] + isneg * (period + ::Precision1::PConfusion())),
       period);
     m1[coord][0] = Min(m1[coord][0], m2[coord][0] + shiftw2);
     m1[coord][1] = Max(m1[coord][1], m2[coord][1] + shiftw2);
@@ -2053,7 +2053,7 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
       if (uclosed && ismodeu)
       {
         pos2.SetX(pos2.X() + ShapeAnalysis1::AdjustByPeriod(pos2.X(), pos1.X(), URange));
-        if (Abs(pos2.X() - pos1.X()) < ::Precision::PConfusion()
+        if (Abs(pos2.X() - pos1.X()) < ::Precision1::PConfusion()
             && (foundU != 2 || Abs(pos1.X()) < Abs(uf)))
         {
           foundU = 2;
@@ -2063,7 +2063,7 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
       if (vclosed && !ismodeu)
       {
         pos2.SetY(pos2.Y() + ShapeAnalysis1::AdjustByPeriod(pos2.Y(), pos1.Y(), VRange));
-        if (Abs(pos2.Y() - pos1.Y()) < ::Precision::PConfusion()
+        if (Abs(pos2.Y() - pos1.Y()) < ::Precision1::PConfusion()
             && (foundV != 2 || Abs(pos1.Y()) < Abs(vf)))
         {
           foundV = 2;
@@ -2095,7 +2095,7 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
   ShapeFix_ComposeShell CompShell;
   //  TopoFace tmpF = myFace;
   //  tmpF.Orientation(TopAbs_FORWARD);
-  CompShell.Init(G, L, tmpF, ::Precision::Confusion()); // myPrecision
+  CompShell.Init(G, L, tmpF, ::Precision1::Confusion()); // myPrecision
   if (Context().IsNull())
     SetContext(new ShapeBuild_ReShape);
   CompShell.ClosedMode() = Standard_True;
@@ -2121,10 +2121,10 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
     Standard_Integer nbWires = 0;
     for (; aExpW.More(); aExpW.Next())
     {
-      WireHealer aSfw(TopoDS::Wire(aExpW.Value()), aFace, Precision());
+      WireHealer aSfw(TopoDS::Wire(aExpW.Value()), aFace, Precision1());
       aSfw.SetContext(Context());
       if (aSfw.NbEdges())
-        aSfw.FixSmall(Standard_True, Precision());
+        aSfw.FixSmall(Standard_True, Precision1());
       if (!aSfw.NbEdges())
       {
         Context()->Remove(aExpW.Value());
@@ -2180,7 +2180,7 @@ Standard_Boolean ShapeFix_Face::FixSmallAreaWire(const Standard_Boolean theIsRem
   TopoFace  aFace       = TopoDS::Face(anEmptyCopy);
   aFace.Orientation(TopAbs_FORWARD);
 
-  const Standard_Real aTolerance3d = ShapeFix_Root::Precision();
+  const Standard_Real aTolerance3d = ShapeFix_Root::Precision1();
   for (TopoDS_Iterator aWIt(myFace, Standard_False); aWIt.More(); aWIt.Next())
   {
     const TopoShape& aShape = aWIt.Value();
@@ -2289,7 +2289,7 @@ static void FindNext(const TopoShape&                 aVert,
 static Standard_Boolean isClosed2D(const TopoFace& aFace, const TopoWire& aWire)
 {
   Standard_Boolean           isClosed = Standard_True;
-  Handle(ShapeAnalysis_Wire) asaw = new ShapeAnalysis_Wire(aWire, aFace, Precision::Confusion());
+  Handle(ShapeAnalysis_Wire) asaw = new ShapeAnalysis_Wire(aWire, aFace, Precision1::Confusion());
   for (Standard_Integer i = 1; i <= asaw->NbEdges() && isClosed; i++)
   {
     TopoEdge edge1 = asaw->WireData()->Edge(i);
@@ -2525,7 +2525,7 @@ Standard_Boolean ShapeFix_Face::SplitEdge(const Handle(ShapeExtend_WireData)& se
       }
       else
         gac.Load(c2d, cf, cl);
-      Add2dCurve::Add(gac, ::Precision::Confusion(), box);
+      Add2dCurve::Add(gac, ::Precision1::Confusion(), box);
       boxes.Bind(newE1, box);
     }
     if (sae.PCurve(newE2, S, L, c2d, cf, cl, Standard_False))
@@ -2541,7 +2541,7 @@ Standard_Boolean ShapeFix_Face::SplitEdge(const Handle(ShapeExtend_WireData)& se
       }
       else
         gac.Load(c2d, cf, cl);
-      Add2dCurve::Add(gac, ::Precision::Confusion(), box);
+      Add2dCurve::Add(gac, ::Precision1::Confusion(), box);
       boxes.Bind(newE2, box);
     }
     return Standard_True;
@@ -2602,7 +2602,7 @@ Standard_Boolean ShapeFix_Face::SplitEdge(const Handle(ShapeExtend_WireData)& se
       }
       else
         gac.Load(c2d, cf, cl);
-      Add2dCurve::Add(gac, ::Precision::Confusion(), box);
+      Add2dCurve::Add(gac, ::Precision1::Confusion(), box);
       boxes.Bind(newE1, box);
     }
     if (sae.PCurve(newE2, S, L, c2d, cf, cl, Standard_False))
@@ -2618,7 +2618,7 @@ Standard_Boolean ShapeFix_Face::SplitEdge(const Handle(ShapeExtend_WireData)& se
       }
       else
         gac.Load(c2d, cf, cl);
-      Add2dCurve::Add(gac, ::Precision::Confusion(), box);
+      Add2dCurve::Add(gac, ::Precision1::Confusion(), box);
       boxes.Bind(newE2, box);
     }
     return Standard_True;
@@ -2630,7 +2630,7 @@ Standard_Boolean ShapeFix_Face::SplitEdge(const Handle(ShapeExtend_WireData)& se
 
 Standard_Boolean ShapeFix_Face::FixIntersectingWires()
 {
-  ShapeFix_IntersectionTool ITool(Context(), Precision(), MaxTolerance());
+  ShapeFix_IntersectionTool ITool(Context(), Precision1(), MaxTolerance());
   return ITool.FixIntersectingWires(myFace);
 }
 
@@ -2759,7 +2759,7 @@ Standard_Boolean ShapeFix_Face::FixSplitFace(const TopTools_DataMapOfShapeListOf
         TopoFace  aFace             = TopoDS::Face(aShapeEmptyCopied);
         aFace.Orientation(TopAbs_FORWARD);
         B.Add(aFace, liter.Value());
-        BRepTopAdaptor_FClass2d clas(aFace, ::Precision::PConfusion());
+        BRepTopAdaptor_FClass2d clas(aFace, ::Precision1::PConfusion());
         TopAbs_State            staout = clas.PerformInfinitePoint();
         if (staout == TopAbs_IN)
           B.Add(tmpFace, liter.Value());
@@ -2924,7 +2924,7 @@ Standard_Boolean ShapeFix_Face::FixPeriodicDegenerated()
 
   Standard_Boolean isConicLoop = IsPeriodicConicalLoop(aConeSurf,
                                                        aSoleWire,
-                                                       Precision(),
+                                                       Precision1(),
                                                        aMinLoopU,
                                                        aMaxLoopU,
                                                        aMinLoopV,
@@ -2946,7 +2946,7 @@ Standard_Boolean ShapeFix_Face::FixPeriodicDegenerated()
   Standard_Real aConeBaseR = aConeBaseCirc->Radius();
   Standard_Real aSemiAngle = aConeSurf->SemiAngle();
 
-  if (fabs(aSemiAngle) <= Precision::Confusion())
+  if (fabs(aSemiAngle) <= Precision1::Confusion())
     return Standard_False; // Bad surface
 
   // Find the V parameter of the apex
@@ -2966,7 +2966,7 @@ Standard_Boolean ShapeFix_Face::FixPeriodicDegenerated()
 
   // Check if positional relationship between the initial wire and apex
   // line in 2D is going to be consistent
-  if (fabs(anApexV - aMinLoopV) <= Precision() || fabs(anApexV - aMaxLoopV) <= Precision()
+  if (fabs(anApexV - aMinLoopV) <= Precision1() || fabs(anApexV - aMaxLoopV) <= Precision1()
       || (anApexV < aMaxLoopV && anApexV > aMinLoopV))
     return Standard_False;
 
@@ -2989,7 +2989,7 @@ Standard_Boolean ShapeFix_Face::FixPeriodicDegenerated()
   }
 
   // Create degenerated edge & wire for apex
-  aBuilder.UpdateEdge(anApexEdge, anApexCurve2d, myFace, Precision());
+  aBuilder.UpdateEdge(anApexEdge, anApexCurve2d, myFace, Precision1());
   aBuilder.Add(anApexEdge, anApex);
   aBuilder.Add(anApexEdge, anApex.Reversed());
   aBuilder.Degenerated(anApexEdge, Standard_True);

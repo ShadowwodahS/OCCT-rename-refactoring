@@ -221,7 +221,7 @@ TopoShape VInspector_ItemPresentableObject::buildPresentationShape()
 // =======================================================================
 QString VInspector_ItemPresentableObject::PointerInfo() const
 {
-  return Standard_Dump::GetPointerInfo(GetInteractiveObject(), true).ToCString();
+  return DumpTool::GetPointerInfo(GetInteractiveObject(), true).ToCString();
 }
 
 // =======================================================================

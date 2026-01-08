@@ -30,8 +30,8 @@ ShapeUpgrade_ShapeDivideContinuity::ShapeUpgrade_ShapeDivideContinuity()
   myCurve3dCriterion = GeomAbs_C1;
   myCurve2dCriterion = GeomAbs_C1;
   mySurfaceCriterion = GeomAbs_C1;
-  myTolerance3d      = Precision::Confusion();
-  myTolerance2d      = Precision::PConfusion();
+  myTolerance3d      = Precision1::Confusion();
+  myTolerance2d      = Precision1::PConfusion();
 }
 
 //=================================================================================================
@@ -42,8 +42,8 @@ ShapeUpgrade_ShapeDivideContinuity::ShapeUpgrade_ShapeDivideContinuity(const Top
   myCurve3dCriterion = GeomAbs_C1;
   myCurve2dCriterion = GeomAbs_C1;
   mySurfaceCriterion = GeomAbs_C1;
-  myTolerance3d      = Precision::Confusion();
-  myTolerance2d      = Precision::PConfusion();
+  myTolerance3d      = Precision1::Confusion();
+  myTolerance2d      = Precision1::PConfusion();
 }
 
 //=================================================================================================

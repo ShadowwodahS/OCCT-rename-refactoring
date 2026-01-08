@@ -130,7 +130,7 @@ public:
 
   //! Returns the bounds of this 2D bounding box.
   //! The gap is included. If this bounding box is infinite (i.e. "open"), returned values
-  //! may be equal to +/- Precision::Infinite().
+  //! may be equal to +/- Precision1::Infinite().
   //! if IsVoid()
   Standard_EXPORT void Get(Standard_Real& aXmin,
                            Standard_Real& aYmin,

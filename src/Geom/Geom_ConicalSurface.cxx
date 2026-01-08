@@ -209,8 +209,8 @@ void Geom_ConicalSurface::Bounds(Standard_Real& U1,
 
   U1 = 0.0;
   U2 = 2.0 * M_PI;
-  V1 = -Precision::Infinite();
-  V2 = Precision::Infinite();
+  V1 = -Precision1::Infinite();
+  V2 = Precision1::Infinite();
 }
 
 //=================================================================================================
@@ -355,7 +355,7 @@ void Geom_ConicalSurface::TransformParameters(Standard_Real&,
                                               Standard_Real& V,
                                               const Transform3d& T) const
 {
-  if (!Precision::IsInfinite(V))
+  if (!Precision1::IsInfinite(V))
     V *= Abs(T.ScaleFactor());
 }
 

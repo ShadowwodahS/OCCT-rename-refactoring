@@ -29,7 +29,7 @@ class StdStorage_Root;
 class StdStorage_RootData;
 DEFINE_STANDARD_HANDLE(StdStorage_RootData, RefObject)
 
-//! Storage root data section contains root persistent objects
+//! Storage1 root data section contains root persistent objects
 class StdStorage_RootData : public RefObject
 {
   friend class StdStorage_Data;

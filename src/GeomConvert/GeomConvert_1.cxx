@@ -350,8 +350,8 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
   Standard_Real VLast  = Max(V1, V2);
 
   // If the surface Sr is infinite stop the computation
-  if (Precision::IsNegativeInfinite(UFirst) || Precision::IsPositiveInfinite(ULast)
-      || Precision::IsNegativeInfinite(VFirst) || Precision::IsPositiveInfinite(VLast))
+  if (Precision1::IsNegativeInfinite(UFirst) || Precision1::IsPositiveInfinite(ULast)
+      || Precision1::IsNegativeInfinite(VFirst) || Precision1::IsPositiveInfinite(VLast))
   {
     throw Standard_DomainError("GeomConvert1::SurfaceToBSplineSurface() - infinite surface");
   }
@@ -401,7 +401,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
     }
     //
     // For cylinders, cones, spheres, toruses
-    const Standard_Boolean isUClosed = Abs((ULast - UFirst) - 2. * M_PI) <= Precision::PConfusion();
+    const Standard_Boolean isUClosed = Abs((ULast - UFirst) - 2. * M_PI) <= Precision1::PConfusion();
     const Standard_Real    eps       = 100. * Epsilon(2. * M_PI);
     //
     if (Surf->IsKind(STANDARD_TYPE(GeomPlane)))

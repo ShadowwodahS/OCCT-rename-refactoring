@@ -482,7 +482,7 @@ TopoEdge ChFi2d_Builder::BuildChamferEdge(const TopoVertex& V,
   Point3d        p1 = ComputePoint(V, AdjEdge1, D1, param1);
   Point3d        p2 = ComputePoint(V, AdjEdge2, D2, param2);
 
-  Standard_Real tol = Precision::Confusion();
+  Standard_Real tol = Precision1::Confusion();
   ShapeBuilder  B;
   B.MakeVertex(NewExtr1, p1, tol);
   B.MakeVertex(NewExtr2, p2, tol);
@@ -556,7 +556,7 @@ TopoEdge ChFi2d_Builder::BuildChamferEdge(const TopoVertex& V,
   Point3d aPoint;
   Vector3d tan;
   c.D1(first, aPoint, tan);
-  if (aPoint.Distance(p) > Precision::Confusion())
+  if (aPoint.Distance(p) > Precision1::Confusion())
   {
     c.D1(last, aPoint, tan);
   }
@@ -577,10 +577,10 @@ TopoEdge ChFi2d_Builder::BuildChamferEdge(const TopoVertex& V,
   Dir3d            myDir(vecLin);
   Handle(GeomLine) newLine = new GeomLine(p1, myDir);
   ShapeBuilder      B1;
-  B1.MakeEdge(chamfer, newLine, Precision::Confusion());
+  B1.MakeEdge(chamfer, newLine, Precision1::Confusion());
   Point3d p2 = ComputePoint(refFace, newLine, AdjEdge2, param2);
 
-  Standard_Real tol = Precision::Confusion();
+  Standard_Real tol = Precision1::Confusion();
   ShapeBuilder  B;
   B.MakeVertex(NewExtr1, p1, tol);
   B.MakeVertex(NewExtr2, p2, tol);
@@ -699,7 +699,7 @@ Point3d ComputePoint(const TopoVertex& V,
     }
 
     const GeomAdaptor_Curve& cc = c.Curve();
-    if (p.Distance(c.Value(first)) <= Precision::Confusion())
+    if (p.Distance(c.Value(first)) <= Precision1::Confusion())
     {
       GCPnts_AbscissaPoint computePoint(cc, D, first);
       Param = computePoint.Parameter();
@@ -731,8 +731,8 @@ Point3d ComputePoint(const TopoFace&       F,
   Geom2dAdaptor_Curve adaptorC(c2d);
   Geom2dInt_GInter    Intersection(adaptorL,
                                 adaptorC,
-                                Precision::PIntersection(),
-                                Precision::PIntersection());
+                                Precision1::PIntersection(),
+                                Precision1::PIntersection());
   Standard_Real       paramOnLine = 1E300;
   gp_Pnt2d            p2d;
   if (Intersection.IsDone())

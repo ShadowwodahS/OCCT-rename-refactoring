@@ -139,7 +139,7 @@ static Standard_Boolean CheckMultiCurve(const AppParCurves_MultiCurve& theMultiC
     return Standard_True;
 
   const Standard_Real MinScalProd = -0.9;
-  constexpr Standard_Real SqTol3d = Precision::SquareConfusion();
+  constexpr Standard_Real SqTol3d = Precision1::SquareConfusion();
 
   theIndbad = 0;
   Standard_Integer indbads [4];
@@ -1436,7 +1436,7 @@ Standard_Boolean  Approx_ComputeLine::ComputeCurve(const MultiLine& Line,
       for (i = 1; i <= nbP3d; i++) {
 	Vector3d PVec(tabP1(i), tabP2(i));
 	V13d = tabV1(i);
-	if (!PVec.IsParallel(V13d, Precision::Angular())) {
+	if (!PVec.IsParallel(V13d, Precision1::Angular())) {
 #ifdef OCCT_DEBUG
 	  Parallel = Standard_False;
 #endif
@@ -1446,7 +1446,7 @@ Standard_Boolean  Approx_ComputeLine::ComputeCurve(const MultiLine& Line,
       for (i = 1; i <= nbP2d; i++) {
 	gp_Vec2d PVec2d(tabP12d(i), tabP22d(i));
 	V12d = tabV12d(i);
-	if (!PVec2d.IsParallel(V12d, Precision::Angular())) {
+	if (!PVec2d.IsParallel(V12d, Precision1::Angular())) {
 #ifdef OCCT_DEBUG
 	  Parallel = Standard_False;
 #endif
@@ -1459,7 +1459,7 @@ Standard_Boolean  Approx_ComputeLine::ComputeCurve(const MultiLine& Line,
       for (i = 1; i <= nbP3d; i++) {
 	Vector3d PVec(tabP1(i), tabP2(i));
 	V23d = tabV2(i);
-	if (!PVec.IsParallel(V23d, Precision::Angular())) {
+	if (!PVec.IsParallel(V23d, Precision1::Angular())) {
 #ifdef OCCT_DEBUG
 	  Parallel = Standard_False;
 #endif
@@ -1469,7 +1469,7 @@ Standard_Boolean  Approx_ComputeLine::ComputeCurve(const MultiLine& Line,
       for (i = 1; i <= nbP2d; i++) {
 	gp_Vec2d PVec2d(tabP12d(i), tabP22d(i));
 	V22d = tabV22d(i);
-	if (!PVec2d.IsParallel(V22d, Precision::Angular())) {
+	if (!PVec2d.IsParallel(V22d, Precision1::Angular())) {
 #ifdef OCCT_DEBUG
 	  Parallel = Standard_False;
 #endif
@@ -1547,8 +1547,8 @@ Standard_Boolean  Approx_ComputeLine::ComputeCurve(const MultiLine& Line,
       ThePar->SetValue(i, Para(i));
     }
     myPar.Append(ThePar);
-    Tolers3d.Append(Precision::Confusion());
-    Tolers2d.Append(Precision::PConfusion());
+    Tolers3d.Append(Precision1::Confusion());
+    Tolers2d.Append(Precision1::PConfusion());
     return mydone;
   }
 

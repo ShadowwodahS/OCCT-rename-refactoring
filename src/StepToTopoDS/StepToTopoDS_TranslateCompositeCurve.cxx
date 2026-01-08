@@ -200,8 +200,8 @@ Standard_Boolean StepToTopoDS_TranslateCompositeCurve::Init(
           EdgeMaker MkEdge(c3d, c3d->FirstParameter(), c3d->LastParameter());
           if (MkEdge.IsDone())
           {
-            if (Precision::IsNegativeInfinite(c3d->FirstParameter())
-                || Precision::IsPositiveInfinite(c3d->LastParameter()))
+            if (Precision1::IsNegativeInfinite(c3d->FirstParameter())
+                || Precision1::IsPositiveInfinite(c3d->LastParameter()))
             {
               myInfiniteSegment = Standard_True;
               TP->AddWarning(CC, "Segment1 with infinite parameters");
@@ -236,8 +236,8 @@ Standard_Boolean StepToTopoDS_TranslateCompositeCurve::Init(
             EdgeMaker MkEdge(c2d, Surf, c2d->FirstParameter(), c2d->LastParameter());
             if (MkEdge.IsDone())
             {
-              if (Precision::IsNegativeInfinite(c2d->FirstParameter())
-                  || Precision::IsPositiveInfinite(c2d->LastParameter()))
+              if (Precision1::IsNegativeInfinite(c2d->FirstParameter())
+                  || Precision1::IsPositiveInfinite(c2d->LastParameter()))
               {
                 myInfiniteSegment = Standard_True;
                 TP->AddWarning(CC, "Segment1 with infinite parameters");
@@ -284,7 +284,7 @@ Standard_Boolean StepToTopoDS_TranslateCompositeCurve::Init(
   }
 
   // connect wire; all other fixes are left for caller
-  Standard_Real         preci = Precision();
+  Standard_Real         preci = Precision1();
   Handle(WireHealer) sfw   = new WireHealer;
   sfw->Load(sbwd);
   sfw->SetPrecision(preci);

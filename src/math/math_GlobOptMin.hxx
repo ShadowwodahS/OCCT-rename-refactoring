@@ -238,7 +238,7 @@ private:
   Standard_Real    myC;                // Lipchitz constant, default 9
   Standard_Real    myInitC;            // Lipchitz constant initial value.
   Standard_Boolean myIsFindSingleSolution;   // Default value is false.
-  Standard_Real    myFunctionalMinimalValue; // Default value is -Precision::Infinite
+  Standard_Real    myFunctionalMinimalValue; // Default value is -Precision1::Infinite
   Standard_Boolean myIsConstLocked;          // Is constant locked for modifications.
 
   // Output.

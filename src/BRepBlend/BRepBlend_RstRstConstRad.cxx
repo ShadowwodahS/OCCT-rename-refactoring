@@ -576,8 +576,8 @@ void BRepBlend_RstRstConstRad::Section(const Standard_Real Param,
     C.SetPosition(Frame3d(Center, np, ns));
     Pfin = ElCLib1::Parameter(C, ptrst2);
   }
-  if (Pfin < Precision::PConfusion())
-    Pfin += Precision::PConfusion();
+  if (Pfin < Precision1::PConfusion())
+    Pfin += Precision1::PConfusion();
 }
 
 //=================================================================================================

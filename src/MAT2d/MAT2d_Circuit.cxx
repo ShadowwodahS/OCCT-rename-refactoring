@@ -109,11 +109,11 @@ void MAT2d_Circuit::Perform(MAT2d_SequenceOfSequenceOfGeometry& FigItem,
     Curve       = Handle(Geom2d_TrimmedCurve)::DownCast(FigItem.Value(i).Last());
     gp_Pnt2d P2 = Curve->EndPoint();
     //  Modified by Sergey KHROMOV - Wed Mar  6 16:59:01 2002 Begin
-    //     if ( P1.IsEqual(P2,Precision::Confusion()))  Open(i) = Standard_False;
+    //     if ( P1.IsEqual(P2,Precision1::Confusion()))  Open(i) = Standard_False;
     //     else                                         Open(i) = Standard_True;
     if (IsClosed(i))
       Open(i) = Standard_False;
-    else if (P1.IsEqual(P2, Precision::Confusion()))
+    else if (P1.IsEqual(P2, Precision1::Confusion()))
       Open(i) = Standard_False;
     else
       Open(i) = Standard_True;
@@ -226,7 +226,7 @@ Standard_Boolean MAT2d_Circuit::IsSharpCorner(const Handle(Geom2d_Geometry)& Geo
   Standard_Real               DotProd;
   Standard_Real               ProVec = CrossProd(Geom1, Geom2, DotProd);
   Standard_Integer            NbTest = 1;
-  constexpr Standard_Real     DU     = Precision::Confusion();
+  constexpr Standard_Real     DU     = Precision1::Confusion();
   Handle(Geom2d_TrimmedCurve) C1, C2;
 
   C1 = Handle(Geom2d_TrimmedCurve)::DownCast(Geom1);
@@ -268,7 +268,7 @@ Standard_Boolean MAT2d_Circuit::IsSharpCorner(const Handle(Geom2d_Geometry)& Geo
     // Si pas dintersection => saillant.
     // Sinon                => rentrant.
     Standard_Real           D;
-    constexpr Standard_Real Tol   = Precision::Confusion();
+    constexpr Standard_Real Tol   = Precision1::Confusion();
     Standard_Real           MilC1 = (C1->LastParameter() + C1->FirstParameter()) * 0.5;
     Standard_Real           MilC2 = (C2->LastParameter() + C2->FirstParameter()) * 0.5;
     gp_Pnt2d                P     = C1->Value(C1->LastParameter());
@@ -903,7 +903,7 @@ void MAT2d_DrawCurve(const Handle(GeomCurve2d)& aCurve, const Standard_Integer /
     Standard_Real delta = 400;
 
     // PB de representation des courbes semi_infinies.
-    if (aCurve->LastParameter() == Precision::Infinite())
+    if (aCurve->LastParameter() == Precision1::Infinite())
     {
 
       if (type == STANDARD_TYPE(Geom2d_Parabola))

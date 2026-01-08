@@ -1112,7 +1112,7 @@ Standard_Boolean OpenGl_View::ShaderSource::LoadFromFiles(
     SystemFile aFile(theFileNames[anIndex]);
     if (aFile.Exists())
     {
-      aFile.Open(OSD_ReadOnly, OSD_Protection());
+      aFile.Open(OSD_ReadOnly, Protection1());
     }
     if (!aFile.IsOpen())
     {

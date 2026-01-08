@@ -50,7 +50,7 @@ public:
   void SetPrecision(const Standard_Real preci);
 
   //! Returns basic precision value
-  Standard_Real Precision() const;
+  Standard_Real Precision1() const;
 
   //! Sets minimal allowed tolerance
   void SetMinTolerance(const Standard_Real mintol);

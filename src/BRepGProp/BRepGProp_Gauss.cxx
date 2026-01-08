@@ -40,36 +40,36 @@ static Standard_Real Add(const Standard_Real theA, const Standard_Real theB)
 
 static Standard_Real AddInf(const Standard_Real theA, const Standard_Real theB)
 {
-  if (Precision::IsPositiveInfinite(theA))
+  if (Precision1::IsPositiveInfinite(theA))
   {
-    if (Precision::IsNegativeInfinite(theB))
+    if (Precision1::IsNegativeInfinite(theB))
       return 0.0;
     else
-      return Precision::Infinite();
+      return Precision1::Infinite();
   }
 
-  if (Precision::IsPositiveInfinite(theB))
+  if (Precision1::IsPositiveInfinite(theB))
   {
-    if (Precision::IsNegativeInfinite(theA))
+    if (Precision1::IsNegativeInfinite(theA))
       return 0.0;
     else
-      return Precision::Infinite();
+      return Precision1::Infinite();
   }
 
-  if (Precision::IsNegativeInfinite(theA))
+  if (Precision1::IsNegativeInfinite(theA))
   {
-    if (Precision::IsPositiveInfinite(theB))
+    if (Precision1::IsPositiveInfinite(theB))
       return 0.0;
     else
-      return -Precision::Infinite();
+      return -Precision1::Infinite();
   }
 
-  if (Precision::IsNegativeInfinite(theB))
+  if (Precision1::IsNegativeInfinite(theB))
   {
-    if (Precision::IsPositiveInfinite(theA))
+    if (Precision1::IsPositiveInfinite(theA))
       return 0.0;
     else
-      return -Precision::Infinite();
+      return -Precision1::Infinite();
   }
 
   return theA + theB;
@@ -85,36 +85,36 @@ static Standard_Real MultInf(const Standard_Real theA, const Standard_Real theB)
   if ((theA == 0.0) || (theB == 0.0)) // strictly zerro (without any tolerances)
     return 0.0;
 
-  if (Precision::IsPositiveInfinite(theA))
+  if (Precision1::IsPositiveInfinite(theA))
   {
     if (theB < 0.0)
-      return -Precision::Infinite();
+      return -Precision1::Infinite();
     else
-      return Precision::Infinite();
+      return Precision1::Infinite();
   }
 
-  if (Precision::IsPositiveInfinite(theB))
+  if (Precision1::IsPositiveInfinite(theB))
   {
     if (theA < 0.0)
-      return -Precision::Infinite();
+      return -Precision1::Infinite();
     else
-      return Precision::Infinite();
+      return Precision1::Infinite();
   }
 
-  if (Precision::IsNegativeInfinite(theA))
+  if (Precision1::IsNegativeInfinite(theA))
   {
     if (theB < 0.0)
-      return +Precision::Infinite();
+      return +Precision1::Infinite();
     else
-      return -Precision::Infinite();
+      return -Precision1::Infinite();
   }
 
-  if (Precision::IsNegativeInfinite(theB))
+  if (Precision1::IsNegativeInfinite(theB))
   {
     if (theA < 0.0)
-      return +Precision::Infinite();
+      return +Precision1::Infinite();
     else
-      return -Precision::Infinite();
+      return -Precision1::Infinite();
   }
 
   return theA * theB;
@@ -380,8 +380,8 @@ void Gauss1::checkBounds(const Standard_Real theU1,
                                   const Standard_Real theV1,
                                   const Standard_Real theV2)
 {
-  if (Precision::IsInfinite(theU1) || Precision::IsInfinite(theU2) || Precision::IsInfinite(theV1)
-      || Precision::IsInfinite(theV2))
+  if (Precision1::IsInfinite(theU1) || Precision1::IsInfinite(theU2) || Precision1::IsInfinite(theV1)
+      || Precision1::IsInfinite(theV2))
   {
     add  = (::AddInf);
     mult = (::MultInf);
@@ -590,7 +590,7 @@ Standard_Real Gauss1::Compute(BRepGProp_Face&        theSurface,
     {
       if (!theSurface.Load(theDomain.Value()))
       {
-        return Precision::Infinite();
+        return Precision1::Infinite();
       }
       NbLGaussP[0] = theSurface.LIntOrder(anEpsilon);
     }

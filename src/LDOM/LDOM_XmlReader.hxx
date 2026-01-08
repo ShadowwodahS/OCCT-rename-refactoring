@@ -66,7 +66,7 @@ public:
 
   void CreateElement(const char* theName, const Standard_Integer theLen);
 
-  static Standard_Boolean getInteger(LDOMBasicString& theValue,
+  static Standard_Boolean getInteger(LDOMBasicString1& theValue,
                                      const char*      theStart,
                                      const char*      theEnd);
 

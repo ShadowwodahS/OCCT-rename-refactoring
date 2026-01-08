@@ -21,7 +21,7 @@
 
 class LDOM_BasicElement;
 class LDOM_MemManager;
-class LDOMBasicString;
+class LDOMBasicString1;
 
 // Define handle class for LDOM_MemManager
 DEFINE_STANDARD_HANDLE(LDOM_MemManager, RefObject)
@@ -51,7 +51,7 @@ public:
 
   void HashedAllocate(const char*            aString,
                       const Standard_Integer theLen,
-                      LDOMBasicString&       theResult);
+                      LDOMBasicString1&       theResult);
 
   // Memory allocation with access via hash table. No new allocation
   // if already present

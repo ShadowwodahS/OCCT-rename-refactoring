@@ -66,7 +66,7 @@ void HLRAlgo_PolyAlgo::Update()
   Standard_Real           xTrianMax, yTrianMax, zTrianMax;
   Standard_Real           xSegmnMin, ySegmnMin, zSegmnMin;
   Standard_Real           xSegmnMax, ySegmnMax, zSegmnMax;
-  constexpr Standard_Real Big = Precision::Infinite();
+  constexpr Standard_Real Big = Precision1::Infinite();
   HLRAlgo_PolyData::Box1   aBox(Big, Big, Big, -Big, -Big, -Big);
 
   myNbrShell = myHShell.Size();

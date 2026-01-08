@@ -87,7 +87,7 @@ Standard_Integer props(DrawInterpreter& di, Standard_Integer n, const char** a)
 
   if (witheps)
   {
-    if (Abs(eps) < Precision::Angular())
+    if (Abs(eps) < Precision1::Angular())
       return 2;
     if (*a[0] == 'l')
       BRepGProp1::LinearProperties(S, G, SkipShared);
@@ -249,7 +249,7 @@ Standard_Integer vpropsgk(DrawInterpreter& di, Standard_Integer n, const char** 
   if (mode == 2 || mode == 3)
     IFlag = Standard_True;
 
-  // OSD_Chronometer aChrono;
+  // Chronometer aChrono;
 
   // aChrono.Reset();
   // aChrono.Start();

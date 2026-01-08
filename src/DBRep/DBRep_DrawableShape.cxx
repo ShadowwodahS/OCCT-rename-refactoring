@@ -696,9 +696,9 @@ void DBRep_DrawableShape::DrawOn(DrawDisplay& dis) const
 
       Standard_Real f = C.FirstParameter();
       Standard_Real l = C.LastParameter();
-      if (Precision::IsNegativeInfinite(f))
+      if (Precision1::IsNegativeInfinite(f))
       {
-        if (Precision::IsPositiveInfinite(l))
+        if (Precision1::IsPositiveInfinite(l))
         {
           f = -mySize;
           l = mySize;
@@ -708,12 +708,12 @@ void DBRep_DrawableShape::DrawOn(DrawDisplay& dis) const
           f = l - mySize;
         }
       }
-      else if (Precision::IsPositiveInfinite(l))
+      else if (Precision1::IsPositiveInfinite(l))
       {
         l = f + mySize;
       }
 
-      Handle(Adaptor3d_Curve) HC       = C.Trim(f, l, Precision::Confusion());
+      Handle(Adaptor3d_Curve) HC       = C.Trim(f, l, Precision1::Confusion());
       GeomAbs_CurveType       CurvType = HC->GetType();
 
       Standard_Integer     intrv, nbintv = HC->NbIntervals(GeomAbs_CN);

@@ -460,8 +460,8 @@ void BooleanPaveFiller::PerformEF(const Message_ProgressRange& theRange)
             aProjPS.Perform(aPnew);
             Standard_Real    aMinDistEF          = (aProjPS.IsDone() && aProjPS.NbPoints())
                                                      ? aProjPS.LowerDistance()
-                                                     : Precision::Infinite();
-            Standard_Boolean hasRealIntersection = aMinDistEF < Precision::Intersection();
+                                                     : Precision1::Infinite();
+            Standard_Boolean hasRealIntersection = aMinDistEF < Precision1::Intersection();
 
             if (!hasRealIntersection)
               // no intersection point

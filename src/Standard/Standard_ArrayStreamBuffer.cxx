@@ -15,7 +15,7 @@
 
 //=================================================================================================
 
-Standard_ArrayStreamBuffer::Standard_ArrayStreamBuffer(const char* theBegin, const size_t theSize)
+ArrayStreamBuffer::ArrayStreamBuffer(const char* theBegin, const size_t theSize)
     : myBegin(theBegin),
       myEnd(theBegin + theSize),
       myCurrent(theBegin)
@@ -25,14 +25,14 @@ Standard_ArrayStreamBuffer::Standard_ArrayStreamBuffer(const char* theBegin, con
 
 //=================================================================================================
 
-Standard_ArrayStreamBuffer::~Standard_ArrayStreamBuffer()
+ArrayStreamBuffer::~ArrayStreamBuffer()
 {
   //
 }
 
 //=================================================================================================
 
-void Standard_ArrayStreamBuffer::Init(const char* theBegin, const size_t theSize)
+void ArrayStreamBuffer::Init(const char* theBegin, const size_t theSize)
 {
   myBegin   = theBegin;
   myEnd     = theBegin + theSize;
@@ -41,7 +41,7 @@ void Standard_ArrayStreamBuffer::Init(const char* theBegin, const size_t theSize
 
 //=================================================================================================
 
-Standard_ArrayStreamBuffer::int_type Standard_ArrayStreamBuffer::underflow()
+ArrayStreamBuffer::int_type ArrayStreamBuffer::underflow()
 {
   if (myCurrent == myEnd)
   {
@@ -53,7 +53,7 @@ Standard_ArrayStreamBuffer::int_type Standard_ArrayStreamBuffer::underflow()
 
 //=================================================================================================
 
-Standard_ArrayStreamBuffer::int_type Standard_ArrayStreamBuffer::uflow()
+ArrayStreamBuffer::int_type ArrayStreamBuffer::uflow()
 {
   if (myCurrent == myEnd)
   {
@@ -65,7 +65,7 @@ Standard_ArrayStreamBuffer::int_type Standard_ArrayStreamBuffer::uflow()
 
 //=================================================================================================
 
-Standard_ArrayStreamBuffer::int_type Standard_ArrayStreamBuffer::pbackfail(int_type ch)
+ArrayStreamBuffer::int_type ArrayStreamBuffer::pbackfail(int_type ch)
 {
   if (myCurrent == myBegin || (ch != traits_type::eof() && ch != myCurrent[-1]))
   {
@@ -77,7 +77,7 @@ Standard_ArrayStreamBuffer::int_type Standard_ArrayStreamBuffer::pbackfail(int_t
 
 //=================================================================================================
 
-std::streamsize Standard_ArrayStreamBuffer::showmanyc()
+std::streamsize ArrayStreamBuffer::showmanyc()
 {
   if (myCurrent > myEnd)
   {
@@ -88,7 +88,7 @@ std::streamsize Standard_ArrayStreamBuffer::showmanyc()
 
 //=================================================================================================
 
-Standard_ArrayStreamBuffer::pos_type Standard_ArrayStreamBuffer::seekoff(
+ArrayStreamBuffer::pos_type ArrayStreamBuffer::seekoff(
   off_type                theOff,
   std::ios_base::seekdir  theWay,
   std::ios_base::openmode theWhich)
@@ -129,7 +129,7 @@ Standard_ArrayStreamBuffer::pos_type Standard_ArrayStreamBuffer::seekoff(
 
 //=================================================================================================
 
-Standard_ArrayStreamBuffer::pos_type Standard_ArrayStreamBuffer::seekpos(
+ArrayStreamBuffer::pos_type ArrayStreamBuffer::seekpos(
   pos_type                thePosition,
   std::ios_base::openmode theWhich)
 {
@@ -138,7 +138,7 @@ Standard_ArrayStreamBuffer::pos_type Standard_ArrayStreamBuffer::seekpos(
 
 //=================================================================================================
 
-std::streamsize Standard_ArrayStreamBuffer::xsgetn(char* thePtr, std::streamsize theCount)
+std::streamsize ArrayStreamBuffer::xsgetn(char* thePtr, std::streamsize theCount)
 {
   const char* aCurrent = myCurrent + theCount;
   if (aCurrent >= myEnd)

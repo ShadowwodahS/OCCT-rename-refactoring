@@ -144,7 +144,7 @@ void PrsDim_DiameterDimension::SetMeasuredGeometry(const TopoShape& theShape)
 Standard_Boolean PrsDim_DiameterDimension::CheckPlane(const gp_Pln& thePlane) const
 {
   // Check if the circle center point belongs to plane.
-  if (!thePlane.Contains(myCircle.Location(), Precision::Confusion()))
+  if (!thePlane.Contains(myCircle.Location(), Precision1::Confusion()))
   {
     return Standard_False;
   }
@@ -292,7 +292,7 @@ void PrsDim_DiameterDimension::ComputeSidePoints(const gp_Circ& theCircle,
 
 Standard_Boolean PrsDim_DiameterDimension::IsValidCircle(const gp_Circ& theCircle) const
 {
-  return (theCircle.Radius() * 2.0) > Precision::Confusion();
+  return (theCircle.Radius() * 2.0) > Precision1::Confusion();
 }
 
 //=================================================================================================
@@ -304,8 +304,8 @@ Standard_Boolean PrsDim_DiameterDimension::IsValidAnchor(const gp_Circ& theCircl
   Standard_Real anAnchorDist = theAnchor.Distance(theCircle.Location());
   Standard_Real aRadius      = myCircle.Radius();
 
-  return Abs(anAnchorDist - aRadius) > Precision::Confusion()
-         && aCirclePlane.Contains(theAnchor, Precision::Confusion());
+  return Abs(anAnchorDist - aRadius) > Precision1::Confusion()
+         && aCirclePlane.Contains(theAnchor, Precision1::Confusion());
 }
 
 //=================================================================================================

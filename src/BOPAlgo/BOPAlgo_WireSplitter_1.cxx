@@ -768,7 +768,7 @@ Standard_Real Angle2D(const TopoVertex&            aV,
   Handle(GeomCurve2d) aC2D;
   //
   aTV = BRepInspector::Parameter(aV, anEdge, myFace);
-  if (Precision::IsInfinite(aTV))
+  if (Precision1::IsInfinite(aTV))
   {
     return 0.;
   }
@@ -779,16 +779,16 @@ Standard_Real Angle2D(const TopoVertex&            aV,
   GeomAbs_CurveType   aType;
   Geom2dAdaptor_Curve aGAC2D(aC2D);
   //
-  dt = Max(aGAC2D.Resolution(tol2d), Precision::PConfusion());
+  dt = Max(aGAC2D.Resolution(tol2d), Precision1::PConfusion());
   //
   aType = aGAC2D.GetType();
   if (aType != GeomAbs_Line)
   {
-    Geom2dLProp_CLProps2d LProp(aC2D, aTV, 2, Precision::PConfusion());
+    Geom2dLProp_CLProps2d LProp(aC2D, aTV, 2, Precision1::PConfusion());
     if (LProp.IsTangentDefined())
     {
       Standard_Real R = LProp.Curvature();
-      if (R > Precision::PConfusion())
+      if (R > Precision1::PConfusion())
       {
         R                    = 1. / R;
         Standard_Real cosphi = R / (R + tol2d);
@@ -984,7 +984,7 @@ void RefineAngles(const TopoVertex&            aV,
     }
     else if (iCntInt == 2)
     {
-      aA = (aA <= aA1) ? (aA1 + Precision::Angular()) : (aA2 - Precision::Angular());
+      aA = (aA <= aA1) ? (aA1 + Precision1::Angular()) : (aA2 - Precision1::Angular());
       aDMSR.Bind(aE, aA);
     }
   }

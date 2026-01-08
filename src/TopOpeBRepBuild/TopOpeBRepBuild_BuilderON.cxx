@@ -486,7 +486,7 @@ static Standard_Boolean ComputeFaceCrvtInSec(const TopoFace& aFace,
   Standard_Integer    cn = SurfaceLocalPropsTool::Continuity(aSurf);
   if (cn < 2)
     return Standard_False;
-  BRepLProp_SLProps aProp(aSurf, aP2d.X(), aP2d.Y(), 2, Precision::Confusion());
+  BRepLProp_SLProps aProp(aSurf, aP2d.X(), aP2d.Y(), 2, Precision1::Confusion());
   if (!aProp.IsCurvatureDefined())
     return Standard_False;
 
@@ -534,7 +534,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
   const TopoFace& FS  = TopoDS::Face(BDS.Shape(SI));
   Standard_Integer   iFS = BDS.Shape(FS);
 
-  Standard_Real tola = Precision::Angular() * 1.e3; // nyitol
+  Standard_Real tola = Precision1::Angular() * 1.e3; // nyitol
 
   TopAbs_Orientation oFOR = BDS.Shape(iFOR).Orientation();
   TopAbs_Orientation oFS  = BDS.Shape(iFS).Orientation();
@@ -899,7 +899,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
           crvFS = -crvFS;
         if (ntdot < 0.)
           crvFS = -crvFS;
-        Standard_Real eps       = Precision::Confusion();
+        Standard_Real eps       = Precision1::Confusion();
         Standard_Real absCrvFOR = Abs(crvFOR), absCrvFS = Abs(crvFS);
         if (absCrvFOR <= eps && absCrvFS <= eps)
           return;
@@ -2147,7 +2147,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
         else
         {
           const TopoFace& FF    = TopoDS::Face(lfor.First());
-          Standard_Real      tola1 = Precision::Angular() * 1.e2; // nyitolxpu
+          Standard_Real      tola1 = Precision1::Angular() * 1.e2; // nyitolxpu
           Standard_Real      parEG;
           Standard_Boolean   ok1 = FUN_tool_parE(eON, parON, EG, parEG, tolEG);
           if (!ok1)

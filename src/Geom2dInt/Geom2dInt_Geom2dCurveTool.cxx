@@ -30,7 +30,7 @@ Standard_Integer Geom2dCurveTool::NbSamples(const Adaptor2d_Curve2d& C,
   if (typC == GeomAbs_BSplineCurve)
   {
     Standard_Real t = C.LastParameter() - C.FirstParameter();
-    if (t > Precision::PConfusion())
+    if (t > Precision1::PConfusion())
     {
       Standard_Real t1 = U1 - U0;
       if (t1 < 0.0)

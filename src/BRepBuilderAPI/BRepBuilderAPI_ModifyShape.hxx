@@ -57,7 +57,7 @@ public:
   //! Exceptions
   //! Standard_NoSuchObject if S is not the initial shape or
   //! a subshape of the initial shape to which the
-  //! transformation has been applied. Raises NoSuchObject from Standard
+  //! transformation has been applied. Raises NoSuchObject from Standard1
   //! if S is not the initial shape or a sub-shape
   //! of the initial shape.
   Standard_EXPORT virtual TopoShape ModifiedShape(const TopoShape& S) const;

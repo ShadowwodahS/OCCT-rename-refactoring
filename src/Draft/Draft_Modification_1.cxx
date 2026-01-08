@@ -165,7 +165,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoFace&     F,
         {
           Cir           = Handle(GeomCircle)::DownCast(Cbas)->Circ();
           Dir3d dircir = Cir.Axis().Direction();
-          if (!Direction.IsParallel(dircir, Precision::Angular()))
+          if (!Direction.IsParallel(dircir, Precision1::Angular()))
           {
             badShape = F;
             errStat  = Draft_FaceRecomputation;
@@ -210,7 +210,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoFace&     F,
     {
       Standard_Real umin, umax, vmin, vmax;
       BRepTools1::UVBounds(F, umin, umax, vmin, vmax);
-      if (!Precision::IsNegativeInfinite(vmin) && !Precision::IsPositiveInfinite(vmax))
+      if (!Precision1::IsNegativeInfinite(vmin) && !Precision1::IsPositiveInfinite(vmax))
       {
         Standard_Real deltav = 10. * (vmax - vmin);
         if (typs == STANDARD_TYPE(Geom_CylindricalSurface))
@@ -229,7 +229,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoFace&     F,
               vmax = Vapex;
               vmin = vmin - 10. * (vmax - vmin);
               // JAG debug to avoid apex
-              vmax = vmax - Precision::Confusion();
+              vmax = vmax - Precision1::Confusion();
             }
             else
             {
@@ -244,7 +244,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoFace&     F,
               vmin = Vapex;
               vmax = vmax + 10. * (vmax - vmin);
               // JAG debug to avoid apex
-              vmin = vmin + Precision::Confusion();
+              vmin = vmin + Precision1::Confusion();
             }
             else
             {
@@ -349,7 +349,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoFace&     F,
           else
           {
             gp_Lin              lin = aLocalGeom->Lin();
-            ConicQuadIntersection ilipl(lin, NeutralPlane, Precision::Angular());
+            ConicQuadIntersection ilipl(lin, NeutralPlane, Precision1::Angular());
             if (ilipl.IsDone() && ilipl.NbPoints() != 0)
             {
               EInf.Tangent(ilipl.Point(1));
@@ -526,7 +526,7 @@ Standard_Boolean Draft_Modification::Propagate()
         {
           Standard_Real umin, umax, vmin, vmax;
           BRepTools1::UVBounds(F, umin, umax, vmin, vmax);
-          if (!Precision::IsNegativeInfinite(vmin) && !Precision::IsPositiveInfinite(vmax))
+          if (!Precision1::IsNegativeInfinite(vmin) && !Precision1::IsPositiveInfinite(vmax))
           {
             Standard_Real deltav = 10. * (vmax - vmin);
             vmin                 = vmin - deltav;
@@ -681,7 +681,7 @@ Standard_Boolean Draft_Modification::Propagate()
       {
         ShapeBuilder B;
         TopoFace  TheNewFace;
-        B.MakeFace(TheNewFace, S2, Precision::Confusion());
+        B.MakeFace(TheNewFace, S2, Precision1::Confusion());
         Einf.Add(TheNewFace);
         Draft_FaceInfo FI(S2, Standard_False);
         myFMap.Add(TheNewFace, FI);
@@ -754,7 +754,7 @@ void Draft_Modification::Perform()
         }
         gp_Pln             pp1 = P1->Pln();
         gp_Pln             pp2 = P2->Pln();
-        QuadQuadGeoIntersection i2p(pp1, pp2, Precision::Angular(), Precision::Confusion());
+        QuadQuadGeoIntersection i2p(pp1, pp2, Precision1::Angular(), Precision1::Confusion());
         if (!i2p.IsDone() || i2p.TypeInter() != IntAna_Line)
         {
           errStat  = Draft_FaceRecomputation;
@@ -793,7 +793,7 @@ void Draft_Modification::Perform()
 
         Standard_Real umin, umax, vmin, vmax;
         BRepTools1::UVBounds(FK, umin, umax, vmin, vmax);
-        if (!Precision::IsNegativeInfinite(vmin) && !Precision::IsPositiveInfinite(vmax))
+        if (!Precision1::IsNegativeInfinite(vmin) && !Precision1::IsPositiveInfinite(vmax))
         {
           Standard_Real deltav = 2. * (vmax - vmin);
           vmin                 = vmin - deltav;
@@ -861,8 +861,8 @@ void Draft_Modification::Perform()
 
           if (proj1.IsDone() && proj2.IsDone())
           {
-            if (proj1.LowerDistance() <= Precision::Confusion()
-                && proj2.LowerDistance() <= Precision::Confusion())
+            if (proj1.LowerDistance() <= Precision1::Confusion()
+                && proj2.LowerDistance() <= Precision1::Confusion())
             {
               detrompeur = 1;
             }
@@ -870,8 +870,8 @@ void Draft_Modification::Perform()
 
           if (proj3.IsDone() && proj4.IsDone())
           {
-            if (proj3.LowerDistance() <= Precision::Confusion()
-                && proj4.LowerDistance() <= Precision::Confusion())
+            if (proj3.LowerDistance() <= Precision1::Confusion()
+                && proj4.LowerDistance() <= Precision1::Confusion())
             {
               detrompeur = 2;
             }
@@ -918,7 +918,7 @@ void Draft_Modification::Perform()
             else
             {
               Dir3d AxofCirc = aCirc->Position1().Direction();
-              if (AxofCirc.IsParallel(Axis.Direction(), Precision::Angular()))
+              if (AxofCirc.IsParallel(Axis.Direction(), Precision1::Angular()))
                 KPart = Standard_True;
               else
                 KPart = Standard_False;
@@ -954,7 +954,7 @@ void Draft_Modification::Perform()
             // 2 - Additionally, if YaRev, there is a risk to not be SameRange.
             i2s.Perform(S1,
                         S2,
-                        Precision::Confusion(),
+                        Precision1::Confusion(),
                         Standard_True,
                         Standard_False,
                         Standard_False);
@@ -988,7 +988,7 @@ void Draft_Modification::Perform()
                     Dist2Min = myExtPC.SquareDistance(1);
                     locpmin  = myExtPC.Point(1).Parameter();
                   }
-                  if (myExtPC.NbExt() == 2 && Dist2Min > Precision::SquareConfusion())
+                  if (myExtPC.NbExt() == 2 && Dist2Min > Precision1::SquareConfusion())
                   {
                     // to avoid incorrectly choosing the image
                     // of the first vertex of the initial edge
@@ -1146,19 +1146,19 @@ void Draft_Modification::Perform()
                 {
                   const Handle(GeomCurve3d)&  aCurve = i2s.Line(i);
                   Point3d                     Pnt    = aCurve->Value(aCurve->FirstParameter());
-                  PointOnSurfProjector projector(Pnt, S1, Precision::Confusion());
+                  PointOnSurfProjector projector(Pnt, S1, Precision1::Confusion());
                   Standard_Real              U, V;
                   projector.LowerDistanceParameters(U, V);
-                  if (Abs(U) <= Precision::Confusion()
-                      || Abs(U - 2. * M_PI) <= Precision::Confusion())
+                  if (Abs(U) <= Precision1::Confusion()
+                      || Abs(U - 2. * M_PI) <= Precision1::Confusion())
                     Candidates.Append(aCurve);
                   else
                   {
                     Pnt = aCurve->Value(aCurve->LastParameter());
-                    projector.Init(Pnt, S1, Precision::Confusion());
+                    projector.Init(Pnt, S1, Precision1::Confusion());
                     projector.LowerDistanceParameters(U, V);
-                    if (Abs(U) <= Precision::Confusion()
-                        || Abs(U - 2. * M_PI) <= Precision::Confusion())
+                    if (Abs(U) <= Precision1::Confusion()
+                        || Abs(U - 2. * M_PI) <= Precision1::Confusion())
                     {
                       aCurve->Reverse();
                       Candidates.Append(aCurve);
@@ -1184,13 +1184,13 @@ void Draft_Modification::Perform()
               Handle(GeomCurve3d) FirstCurve;
               if (Candidates.Length() > 1)
               {
-                Standard_Real DistMin = Precision::Infinite();
+                Standard_Real DistMin = Precision1::Infinite();
                 for (i = 1; i <= Candidates.Length(); i++)
                 {
                   Handle(GeomCurve3d)  aCurve = Candidates(i);
                   Point3d              Pnt    = aCurve->Value(aCurve->FirstParameter());
                   const Standard_Real Dist   = Pnt.Distance(pfv);
-                  if (Dist - DistMin < -Precision::Confusion())
+                  if (Dist - DistMin < -Precision1::Confusion())
                   {
                     DistMin    = Dist;
                     FirstCurve = aCurve;
@@ -1218,7 +1218,7 @@ void Draft_Modification::Perform()
                   Point3d             pfirst, plast;
                   pfirst = aCurve->Value(aCurve->FirstParameter());
                   plast  = aCurve->Value(aCurve->LastParameter());
-                  if (pfirst.Distance(EndPoint) <= Precision::Confusion())
+                  if (pfirst.Distance(EndPoint) <= Precision1::Confusion())
                   {
                     ToGlue.Append(aCurve);
                     EndPoint = plast;
@@ -1226,7 +1226,7 @@ void Draft_Modification::Perform()
                     added = Standard_True;
                     break;
                   }
-                  if (plast.Distance(EndPoint) <= Precision::Confusion())
+                  if (plast.Distance(EndPoint) <= Precision1::Confusion())
                   {
                     aCurve->Reverse();
                     ToGlue.Append(aCurve);
@@ -1249,7 +1249,7 @@ void Draft_Modification::Perform()
                 Handle(BSplineCurve3d)::DownCast(FirstCurve));
               for (i = 1; i <= ToGlue.Length(); i++)
                 Concat.Add(Handle(BSplineCurve3d)::DownCast(ToGlue(i)),
-                           Precision::Confusion(),
+                           Precision1::Confusion(),
                            Standard_True);
 
               newC = Concat.BSplineCurve();
@@ -1513,7 +1513,7 @@ void Draft_Modification::Perform()
       Standard_Integer nbsol = myintcs.NbPoints();
       if (nbsol <= 0)
       {
-        Extrema_ExtCS extr(AC, AS, Precision::PConfusion(), Precision::PConfusion());
+        Extrema_ExtCS extr(AC, AS, Precision1::PConfusion(), Precision1::PConfusion());
 
         if (!extr.IsDone() || extr.NbExt() == 0)
         {
@@ -1575,7 +1575,7 @@ void Draft_Modification::Perform()
         }
         else
         {
-          if (Abs(initpar - param) > Precision::PConfusion())
+          if (Abs(initpar - param) > Precision1::PConfusion())
           {
             Standard_Real             f, l;
             TopLoc_Location           Loc;
@@ -1631,19 +1631,19 @@ void Draft_Modification::Perform()
 
         Standard_Real aSqMagn = aDirNF.SquareMagnitude();
 
-        if (aSqMagn > Precision::SquareConfusion())
+        if (aSqMagn > Precision1::SquareConfusion())
           aDirNF.Divide(sqrt(aSqMagn));
 
         aSqMagn = aDirNL.SquareMagnitude();
-        if (aSqMagn > Precision::SquareConfusion())
+        if (aSqMagn > Precision1::SquareConfusion())
           aDirNL.Divide(sqrt(aSqMagn));
 
         aSqMagn = aDirOF.SquareMagnitude();
-        if (aSqMagn > Precision::SquareConfusion())
+        if (aSqMagn > Precision1::SquareConfusion())
           aDirOF.Divide(sqrt(aSqMagn));
 
         aSqMagn = aDirOL.SquareMagnitude();
-        if (aSqMagn > Precision::SquareConfusion())
+        if (aSqMagn > Precision1::SquareConfusion())
           aDirOL.Divide(sqrt(aSqMagn));
 
         const Standard_Real aCosF = aDirNF.Dot(aDirOF), aCosL = aDirNL.Dot(aDirOL);
@@ -1689,7 +1689,7 @@ void Draft_Modification::Perform()
       {
         // pf >= pl
         Standard_Real FirstPar = theCurve->FirstParameter(), LastPar = theCurve->LastParameter();
-        constexpr Standard_Real pconf = Precision::PConfusion();
+        constexpr Standard_Real pconf = Precision1::PConfusion();
         if (Abs(pf - LastPar) <= pconf)
           pf = FirstPar;
         else if (Abs(pl - FirstPar) <= pconf)
@@ -1733,7 +1733,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
     Standard_Real Theta;
     if (FindRotation(Pl, Oris, Direction, Angle, NeutralPlane, Axe, Theta))
     {
-      if (Abs(Theta) > Precision::Angular())
+      if (Abs(Theta) > Precision1::Angular())
       {
         NewS = Handle(GeomSurface)::DownCast(S->Rotated(Axe, Theta));
       }
@@ -1746,7 +1746,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
   else if (TypeS == STANDARD_TYPE(Geom_CylindricalSurface))
   {
     Standard_Real testdir = Direction.Dot(NeutralPlane.Axis().Direction());
-    if (Abs(testdir) <= 1. - Precision::Angular())
+    if (Abs(testdir) <= 1. - Precision1::Angular())
     {
 #ifdef OCCT_DEBUG
       std::cout << "NewSurfaceCyl:Draft_Direction_and_Neutral_Perpendicular" << std::endl;
@@ -1755,17 +1755,17 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
     }
     Cylinder1 Cy = Handle(Geom_CylindricalSurface)::DownCast(S)->Cylinder();
     testdir        = Direction.Dot(Cy.Axis().Direction());
-    if (Abs(testdir) <= 1. - Precision::Angular())
+    if (Abs(testdir) <= 1. - Precision1::Angular())
     {
 #ifdef OCCT_DEBUG
       std::cout << "NewSurfaceCyl:Draft_Direction_and_Cylinder_Perpendicular" << std::endl;
 #endif
       return NewS;
     }
-    if (Abs(Angle) > Precision::Angular())
+    if (Abs(Angle) > Precision1::Angular())
     {
       QuadQuadGeoIntersection i2s;
-      i2s.Perform(NeutralPlane, Cy, Precision::Angular(), Precision::Confusion());
+      i2s.Perform(NeutralPlane, Cy, Precision1::Angular(), Precision1::Confusion());
       Standard_Boolean isIntDone = i2s.IsDone();
 
       if (i2s.TypeInter() == IntAna_Ellipse)
@@ -1819,7 +1819,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
   {
 
     Standard_Real testdir = Direction.Dot(NeutralPlane.Axis().Direction());
-    if (Abs(testdir) <= 1. - Precision::Angular())
+    if (Abs(testdir) <= 1. - Precision1::Angular())
     {
 #ifdef OCCT_DEBUG
       std::cout << "NewSurfaceCone:Draft_Direction_and_Neutral_Perpendicular" << std::endl;
@@ -1830,7 +1830,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
     Cone1 Co1 = Handle(Geom_ConicalSurface)::DownCast(S)->Cone();
 
     testdir = Direction.Dot(Co1.Axis().Direction());
-    if (Abs(testdir) <= 1. - Precision::Angular())
+    if (Abs(testdir) <= 1. - Precision1::Angular())
     {
 #ifdef OCCT_DEBUG
       std::cout << "NewSurfaceCone:Draft_Direction_and_Cone_Perpendicular" << std::endl;
@@ -1839,7 +1839,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
     }
 
     QuadQuadGeoIntersection i2s;
-    i2s.Perform(NeutralPlane, Co1, Precision::Angular(), Precision::Confusion());
+    i2s.Perform(NeutralPlane, Co1, Precision1::Angular(), Precision1::Confusion());
     if (!i2s.IsDone() || i2s.TypeInter() != IntAna_Circle)
     {
 #ifdef OCCT_DEBUG
@@ -1857,7 +1857,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
     }
 
     Point3d Center = i2s.Circle(1).Location();
-    if (Abs(Angle) > Precision::Angular())
+    if (Abs(Angle) > Precision1::Angular())
     {
       if (testdir < 0.)
       {
@@ -1873,7 +1873,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
       {
         alpha = -alpha;
       }
-      if (Abs(alpha - Co1.SemiAngle()) < Precision::Angular())
+      if (Abs(alpha - Co1.SemiAngle()) < Precision1::Angular())
       {
         NewS = S;
       }
@@ -1919,7 +1919,7 @@ Handle(GeomCurve3d) Draft_Modification::NewCurve(const Handle(GeomCurve3d)&   C,
     Standard_Real Theta;
     if (FindRotation(Pl, Oris, Direction, Angle, NeutralPlane, Axe, Theta))
     {
-      if (Abs(Theta) > Precision::Angular())
+      if (Abs(Theta) > Precision1::Angular())
       {
         NewC = Handle(GeomCurve3d)::DownCast(C->Rotated(Axe, Theta));
       }
@@ -1938,7 +1938,7 @@ Handle(GeomCurve3d) Draft_Modification::NewCurve(const Handle(GeomCurve3d)&   C,
 
   gp_Lin lin = Handle(GeomLine)::DownCast(C)->Lin();
   //  Standard_Real testdir = Direction.Dot(lin.Direction());
-  //  if (Abs(testdir) <= 1.-Precision::Angular()) {
+  //  if (Abs(testdir) <= 1.-Precision1::Angular()) {
   //    return NewC;
   //  }
   Dir3d Norm;
@@ -1963,7 +1963,7 @@ Handle(GeomCurve3d) Draft_Modification::NewCurve(const Handle(GeomCurve3d)&   C,
     Norm = d1u.Crossed(d1v);
   }
 
-  ConicQuadIntersection ilipl(lin, NeutralPlane, Precision::Angular());
+  ConicQuadIntersection ilipl(lin, NeutralPlane, Precision1::Angular());
   if (ilipl.IsDone() && ilipl.NbPoints() != 0)
   {
     if (Oris == TopAbs_REVERSED)
@@ -2069,7 +2069,7 @@ static Standard_Boolean Choose(const Draft_IndexedDataMapOfFaceFaceInfo& theFMap
           prm = anewparam;
         Vector3d tg;
         C->D1(prm, ptbid, tg);
-        if (tg.CrossMagnitude(tgref) > Precision::Confusion())
+        if (tg.CrossMagnitude(tgref) > Precision1::Confusion())
         {
           break;
         }
@@ -2193,7 +2193,7 @@ static Standard_Real Parameter(const Handle(GeomCurve3d)& C, const Point3d& P, S
     if (cbase->IsPeriodic())
     {
       Standard_Real Per  = cbase->Period();
-      Standard_Real Tolp = Precision::Parametric(Precision::Confusion());
+      Standard_Real Tolp = Precision1::Parametric(Precision1::Confusion());
       if (Abs(Per - param) <= Tolp)
       {
         param = 0.;
@@ -2213,7 +2213,7 @@ static Standard_Real SmartParameter(Draft_EdgeInfo&             Einf,
                                     const Handle(GeomSurface)& S2)
 {
   Handle(GeomCurve2d)    NewC2d;
-  constexpr Standard_Real Tol  = Precision::Confusion();
+  constexpr Standard_Real Tol  = Precision1::Confusion();
   Standard_Real           Etol = EdgeTol;
 
   Handle(GeomCurve2d) pcu1 = Einf.FirstPC();
@@ -2332,7 +2332,7 @@ static Standard_Boolean FindRotation(const gp_Pln&            Pl,
                                      Axis3d&                  Axe,
                                      Standard_Real&           theta)
 {
-  QuadQuadGeoIntersection i2pl(Pl, NeutralPlane, Precision::Angular(), Precision::Confusion());
+  QuadQuadGeoIntersection i2pl(Pl, NeutralPlane, Precision1::Angular(), Precision1::Confusion());
 
   if (i2pl.IsDone() && i2pl.TypeInter() == IntAna_Line)
   {
@@ -2341,7 +2341,7 @@ static Standard_Boolean FindRotation(const gp_Pln&            Pl,
     Dir3d        nx = li.Direction();
     Dir3d        ny = Pl.Axis().Direction().Crossed(nx);
     Standard_Real a  = Direction.Dot(nx);
-    if (Abs(a) <= 1 - Precision::Angular())
+    if (Abs(a) <= 1 - Precision1::Angular())
     {
       Standard_Real    b = Direction.Dot(ny);
       Standard_Real    c = Direction.Dot(Pl.Axis().Direction());

@@ -400,7 +400,7 @@ void TInspector_Window::Dump(Standard_OStream& theStream) const
   TInspector_ToolInfo anInfo;
   activeToolInfo(anInfo);
 
-  theStream << "Active Plugin: " << anInfo.myName << "\n";
+  theStream << "Active Plugin1: " << anInfo.myName << "\n";
   theStream << "Temporary Directory: " << GetTemporaryDirectory() << "\n";
 }
 
@@ -597,7 +597,7 @@ AsciiString1 TInspector_Window::defaultTemporaryDirectory() const
   aTmpPath.DownTrek("TInspector");
   aTmpDirectory.SetPath(aTmpPath);
   if (!aTmpDirectory.Exists())
-    aTmpDirectory.Build(OSD_Protection());
+    aTmpDirectory.Build(Protection1());
 
   aTmpDirectory.Path(aTmpPath);
   AsciiString1 aTmpDirectoryName;

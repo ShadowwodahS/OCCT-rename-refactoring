@@ -81,7 +81,7 @@ void BRepLib_MakeShell::Init(const Handle(GeomSurface)& S,
     BS = RTS->BasisSurface();
   }
   myError                     = BRepLib_EmptyShell;
-  constexpr Standard_Real tol = Precision::Confusion();
+  constexpr Standard_Real tol = Precision1::Confusion();
 
   // Make a shell from a surface
   GeomAdaptor_Surface GS(BS, UMin, UMax, VMin, VMax);
@@ -108,7 +108,7 @@ void BRepLib_MakeShell::Init(const Handle(GeomSurface)& S,
   for (iu = 1; iu <= nu + 1; iu++)
   {
     Standard_Real u = upars(iu);
-    if (!Precision::IsInfinite(u))
+    if (!Precision1::IsInfinite(u))
       uisos(iu) = new Geom2d_Line(gp_Pnt2d(u, 0.), dv);
   }
 
@@ -117,7 +117,7 @@ void BRepLib_MakeShell::Init(const Handle(GeomSurface)& S,
   for (iv = 1; iv <= nv + 1; iv++)
   {
     Standard_Real v = vpars(iv);
-    if (!Precision::IsInfinite(v))
+    if (!Precision1::IsInfinite(v))
       visos(iv) = new Geom2d_Line(gp_Pnt2d(0., v), du);
   }
 
@@ -141,9 +141,9 @@ void BRepLib_MakeShell::Init(const Handle(GeomSurface)& S,
   TopoVertex vlb, vlt, vrb, vrt, fvlt;
 
   // init the botedges and botvertices
-  if (!Precision::IsInfinite(vpars(1)))
+  if (!Precision1::IsInfinite(vpars(1)))
   {
-    if (!Precision::IsInfinite(upars(1)))
+    if (!Precision1::IsInfinite(upars(1)))
       B.MakeVertex(vrt, S->Value(upars(1), vpars(1)), tol);
     fbotvertices(1) = botvertices(1) = vrt;
 
@@ -153,7 +153,7 @@ void BRepLib_MakeShell::Init(const Handle(GeomSurface)& S,
 
       if (uperiodic && iu == nu)
         vrt = TopoDS::Vertex(botvertices(1));
-      else if (!Precision::IsInfinite(upars(iu + 1)))
+      else if (!Precision1::IsInfinite(upars(iu + 1)))
         B.MakeVertex(vrt, S->Value(upars(iu + 1), vpars(1)), tol);
 
       fbotvertices(iu + 1) = botvertices(iu + 1) = vrt;
@@ -185,15 +185,15 @@ void BRepLib_MakeShell::Init(const Handle(GeomSurface)& S,
     else
     {
       vrt.Nullify();
-      if (!Precision::IsInfinite(vpars(iv + 1)))
+      if (!Precision1::IsInfinite(vpars(iv + 1)))
       {
-        if (!Precision::IsInfinite(upars(1)))
+        if (!Precision1::IsInfinite(upars(1)))
           B.MakeVertex(vrt, S->Value(upars(1), vpars(iv + 1)), tol);
       }
     }
 
     eright.Nullify();
-    if (!Precision::IsInfinite(upars(1)))
+    if (!Precision1::IsInfinite(upars(1)))
     {
       B.MakeEdge(eright);
       if (!vrb.IsNull())
@@ -244,9 +244,9 @@ void BRepLib_MakeShell::Init(const Handle(GeomSurface)& S,
       else
       {
         vrt.Nullify();
-        if (!Precision::IsInfinite(vpars(iv + 1)))
+        if (!Precision1::IsInfinite(vpars(iv + 1)))
         {
-          if (!Precision::IsInfinite(upars(iu + 1)))
+          if (!Precision1::IsInfinite(upars(iu + 1)))
             B.MakeVertex(vrt, S->Value(upars(iu + 1), vpars(iv + 1)), tol);
         }
       }
@@ -263,7 +263,7 @@ void BRepLib_MakeShell::Init(const Handle(GeomSurface)& S,
       else
       {
         eright.Nullify();
-        if (!Precision::IsInfinite(upars(iu + 1)))
+        if (!Precision1::IsInfinite(upars(iu + 1)))
         {
           B.MakeEdge(eright);
           if (!vrb.IsNull())
@@ -308,7 +308,7 @@ void BRepLib_MakeShell::Init(const Handle(GeomSurface)& S,
       else
       {
         etop.Nullify();
-        if (!Precision::IsInfinite(vpars(iv + 1)))
+        if (!Precision1::IsInfinite(vpars(iv + 1)))
         {
           B.MakeEdge(etop);
           if (!vlt.IsNull())
@@ -382,7 +382,7 @@ void BRepLib_MakeShell::Init(const Handle(GeomSurface)& S,
   // Additional checking for degenerated edges
   Standard_Boolean        isDegenerated;
   Standard_Real           aFirst, aLast;
-  constexpr Standard_Real aTol = Precision::Confusion();
+  constexpr Standard_Real aTol = Precision1::Confusion();
   Standard_Real           anActTol;
   ShapeExplorer         anExp(myShape, TopAbs_EDGE);
   for (; anExp.More(); anExp.Next())

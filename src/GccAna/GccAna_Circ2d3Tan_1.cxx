@@ -346,12 +346,12 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
                     pnttg1sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius(ind3) * dc.XY());
                     // POP for protection if cirsol(NbrSol).Location == pnttg1sol(NbrSol)
                     if (cirsol(NbrSol).Location().IsEqual(pnttg1sol(NbrSol),
-                                                          Precision::Confusion()))
+                                                          Precision1::Confusion()))
                       par1sol(NbrSol) = 1;
                     else
                       par1sol(NbrSol) = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
                     // POP for protection if C1.Location == pnttg1sol(NbrSol)
-                    if (C1.Location().IsEqual(pnttg1sol(NbrSol), Precision::Confusion()))
+                    if (C1.Location().IsEqual(pnttg1sol(NbrSol), Precision1::Confusion()))
                       pararg1(NbrSol) = 1;
                     else
                       pararg1(NbrSol) = ElCLib1::Parameter(C1, pnttg1sol(NbrSol));
@@ -368,12 +368,12 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
                     pnttg2sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius(ind3) * dc.XY());
                     // POP for protection if cirsol(NbrSol).Location == pnttg1sol(NbrSol)
                     if (cirsol(NbrSol).Location().IsEqual(pnttg1sol(NbrSol),
-                                                          Precision::Confusion()))
+                                                          Precision1::Confusion()))
                       par1sol(NbrSol) = 1;
                     else
                       par2sol(NbrSol) = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
                     // POP for protection if C2.Location == pnttg2sol(NbrSol)
-                    if (C2.Location().IsEqual(pnttg2sol(NbrSol), Precision::Confusion()))
+                    if (C2.Location().IsEqual(pnttg2sol(NbrSol), Precision1::Confusion()))
                       pararg2(NbrSol) = 1;
                     else
                       pararg2(NbrSol) = ElCLib1::Parameter(C2, pnttg2sol(NbrSol));

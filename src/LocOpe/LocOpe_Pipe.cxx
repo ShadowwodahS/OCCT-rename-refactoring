@@ -132,8 +132,8 @@ LocOpe_Pipe::LocOpe_Pipe(const TopoWire& Spine, const TopoShape& Profile)
             P = Handle(Geom_RectangularTrimmedSurface)::DownCast(P)->BasisSurface();
           }
           gp_Pln Pl = Handle(GeomPlane)::DownCast(P)->Pln();
-          if (Pl.Axis().IsParallel(Plref.Axis(), Precision::Angular())
-              && Plref.Contains(Pl.Location(), Precision::Confusion()))
+          if (Pl.Axis().IsParallel(Plref.Axis(), Precision1::Angular())
+              && Plref.Contains(Pl.Location(), Precision1::Confusion()))
           {
             FacFuse.Append(itm.Key1());
           }

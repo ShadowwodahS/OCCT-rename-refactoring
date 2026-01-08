@@ -97,7 +97,7 @@ public:
                                                    Standard_Boolean               theToReset);
 
 protected:
-  Quantity_Date myDumpDate; //!< The recent date of the shader dump
+  Date2 myDumpDate; //!< The recent date of the shader dump
   GLenum        myType;     //!< Type of OpenGL shader object
   GLuint        myShaderID; //!< Handle of OpenGL shader object
 };

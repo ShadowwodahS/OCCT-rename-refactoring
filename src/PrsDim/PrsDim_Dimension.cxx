@@ -232,7 +232,7 @@ const AsciiString1& PrsDim_Dimension::GetModelUnits() const
 
 Standard_Real PrsDim_Dimension::ValueToDisplayUnits() const
 {
-  return UnitsAPI::AnyToAny(GetValue(), GetModelUnits().ToCString(), GetDisplayUnits().ToCString());
+  return UnitsAPI1::AnyToAny(GetValue(), GetModelUnits().ToCString(), GetDisplayUnits().ToCString());
 }
 
 //=================================================================================================
@@ -359,7 +359,7 @@ void PrsDim_Dimension::DrawArrow(const Handle(Prs3d_Presentation)& thePresentati
     Graphic3d_PolygonOffset aPolOffset;
     aPolOffset.Mode                                  = Aspect_POM_Off;
     aPolOffset.Factor                                = 0.0f;
-    aPolOffset.Units                                 = 0.0f;
+    aPolOffset.Units2                                 = 0.0f;
     Handle(Graphic3d_AspectFillArea3d) aShadingStyle = new Graphic3d_AspectFillArea3d();
     aShadingStyle->SetInteriorStyle(Aspect_IS_SOLID);
     aShadingStyle->SetColor(myDrawer->DimensionAspect()->ArrowAspect()->Aspect()->Color());
@@ -393,7 +393,7 @@ void PrsDim_Dimension::drawText(const Handle(Prs3d_Presentation)& thePresentatio
   {
     // getting font parameters
     Handle(Prs3d_TextAspect) aTextAspect = myDrawer->DimensionAspect()->TextAspect();
-    Quantity_Color           aColor      = aTextAspect->Aspect()->Color();
+    Color1           aColor      = aTextAspect->Aspect()->Color();
     Font_FontAspect          aFontAspect = aTextAspect->Aspect()->GetTextFontAspect();
     Standard_Real            aFontHeight = aTextAspect->Height();
 
@@ -619,7 +619,7 @@ void PrsDim_Dimension::DrawLinearDimension(const Handle(Prs3d_Presentation)& the
                                            const Standard_Boolean            theIsOneSide)
 {
   // do not build any dimension for equal points
-  if (theFirstPoint.IsEqual(theSecondPoint, Precision::Confusion()))
+  if (theFirstPoint.IsEqual(theSecondPoint, Precision1::Confusion()))
   {
     throw Standard_ProgramError("Can not build presentation for equal points.");
   }
@@ -1082,7 +1082,7 @@ Standard_Boolean PrsDim_Dimension::CircleFromEdge(const TopoEdge& theEdge,
     }
     case GeomAbs_Ellipse: {
       gp_Elips anEll = anAdaptedCurve.Ellipse();
-      if ((anEll.MinorRadius() - anEll.MajorRadius()) >= Precision::Confusion())
+      if ((anEll.MinorRadius() - anEll.MajorRadius()) >= Precision1::Confusion())
       {
         return Standard_False;
       }
@@ -1238,7 +1238,7 @@ Standard_Boolean PrsDim_Dimension::InitCircularDimension(const TopoShape& theSha
       return Standard_False;
   }
 
-  theIsClosed = aFirstPoint.IsEqual(aLastPoint, Precision::Confusion());
+  theIsClosed = aFirstPoint.IsEqual(aLastPoint, Precision1::Confusion());
 
   Point3d aCenter = theCircle.Location();
 
@@ -1521,7 +1521,7 @@ Standard_Boolean PrsDim_Dimension::AdjustParametersForLinear(
 
   // Don't set new plane if the text position lies on the attachment points line.
   gp_Lin aTargetPointsLin(theFirstPoint, aTargetPointsDir);
-  if (!aTargetPointsLin.Contains(theTextPos, Precision::Confusion()))
+  if (!aTargetPointsLin.Contains(theTextPos, Precision1::Confusion()))
   {
     // Set new automatic plane.
     thePlane      = gce_MakePln(theTextPos, theFirstPoint, theSecondPoint);
@@ -1533,7 +1533,7 @@ Standard_Boolean PrsDim_Dimension::AdjustParametersForLinear(
   Dir3d aPositiveFlyout = aPlaneNormal ^ aTargetPointsDir;
 
   // Additional check of collinearity of the plane normal and attachment points vector.
-  if (aPlaneNormal.IsParallel(aTargetPointsDir, Precision::Angular()))
+  if (aPlaneNormal.IsParallel(aTargetPointsDir, Precision1::Angular()))
   {
     return Standard_False;
   }
@@ -1550,9 +1550,9 @@ Standard_Boolean PrsDim_Dimension::AdjustParametersForLinear(
   Vector3d aFlyoutVector = Vector3d(aTextPosProj, theTextPos);
 
   theFlyout = 0.0;
-  if (aFlyoutVector.Magnitude() > Precision::Confusion())
+  if (aFlyoutVector.Magnitude() > Precision1::Confusion())
   {
-    theFlyout = Dir3d(aFlyoutVector).IsOpposite(aPositiveFlyout, Precision::Angular())
+    theFlyout = Dir3d(aFlyoutVector).IsOpposite(aPositiveFlyout, Precision1::Angular())
                   ? -aFlyoutVector.Magnitude()
                   : aFlyoutVector.Magnitude();
   }

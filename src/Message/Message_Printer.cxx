@@ -79,7 +79,7 @@ void LogPrinter::SendObject(const Handle(RefObject)& theObject,
   if (!theObject.IsNull() && theGravity >= myTraceLevel)
   {
     send(AsciiString1(theObject->DynamicType()->Name()) + ": "
-           + Standard_Dump::GetPointerInfo(theObject),
+           + DumpTool::GetPointerInfo(theObject),
          theGravity);
   }
 }

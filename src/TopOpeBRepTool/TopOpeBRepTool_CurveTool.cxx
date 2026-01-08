@@ -178,8 +178,8 @@ static Standard_Boolean CheckPCurve(const Handle(GeomCurve2d)& aPC, const TopoFa
   Standard_Real          umin, umax, vmin, vmax;
 
   BRepTools1::UVBounds(aFace, umin, umax, vmin, vmax);
-  Standard_Real tolU = Max((umax - umin) * 0.01, Precision::Confusion());
-  Standard_Real tolV = Max((vmax - vmin) * 0.01, Precision::Confusion());
+  Standard_Real tolU = Max((umax - umin) * 0.01, Precision1::Confusion());
+  Standard_Real tolV = Max((vmax - vmin) * 0.01, Precision1::Confusion());
   Standard_Real fp   = aPC->FirstParameter();
   Standard_Real lp   = aPC->LastParameter();
   Standard_Real step = (lp - fp) / (NPoints + 1);
@@ -551,7 +551,7 @@ Standard_Boolean TopOpeBRepTool_CurveTool::MakeCurves(const Standard_Real       
   {
     dist = P.Distance(Polc3d(ip));
 
-    if (dist < Precision::Confusion())
+    if (dist < Precision1::Confusion())
     {
       IsBad = Standard_True;
       break;
@@ -651,7 +651,7 @@ Standard_Boolean TopOpeBRepTool_CurveTool::MakeCurves(const Standard_Real       
 
   if (IsBad)
   {
-    Standard_Real tt = Min(10. * tol3d, Precision::Approximation());
+    Standard_Real tt = Min(10. * tol3d, Precision1::Approximation());
     tol2d            = tt * tol2d / tol3d;
     tol3d            = tt;
     NbPntMax         = 40;

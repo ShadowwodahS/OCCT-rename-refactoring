@@ -27,16 +27,16 @@
 //! Interface to dynamic library loader.
 //! Provides tools to load a shared library
 //! and retrieve the address of an entry point.
-class OSD_SharedLibrary
+class SharedLibrary
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates a SharedLibrary object with name NULL.
-  Standard_EXPORT OSD_SharedLibrary();
+  Standard_EXPORT SharedLibrary();
 
   //! Creates a SharedLibrary object with name aFilename.
-  Standard_EXPORT OSD_SharedLibrary(const Standard_CString aFilename);
+  Standard_EXPORT SharedLibrary(const Standard_CString aFilename);
 
   //! Sets a name associated to the shared object.
   Standard_EXPORT void SetName(const Standard_CString aName);
@@ -88,7 +88,7 @@ public:
   //! Frees memory allocated.
   Standard_EXPORT void Destroy();
 
-  ~OSD_SharedLibrary() { Destroy(); }
+  ~SharedLibrary() { Destroy(); }
 
 protected:
 private:

@@ -122,7 +122,7 @@ static Standard_Integer OCC23361(DrawInterpreter& di,
   p3.Transform(t2);
 
   // points must be equal
-  if (!p2.IsEqual(p3, Precision::Confusion()))
+  if (!p2.IsEqual(p3, Precision1::Confusion()))
     di << "ERROR OCC23361: equivalent transformations does not produce equal points\n";
   else
     di << "OCC23361: OK\n";
@@ -134,12 +134,12 @@ static Standard_Integer OCC23237(DrawInterpreter& di,
                                  Standard_Integer /*argc*/,
                                  const char** /*argv*/)
 {
-  OSD_PerfMeter aPM("TestMeter", 0);
+  PerformanceMeter aPM("TestMeter", 0);
   OSD_Timer     aTM;
 
   // run some operation in cycle for about 2 seconds to have good values of times to compare
   int count = 0;
-  printf("OSD_PerfMeter test.\nRunning Boolean operation on solids in loop.\n");
+  printf("PerformanceMeter test.\nRunning Boolean operation on solids in loop.\n");
   for (; aTM.ElapsedTime() < 2.; count++)
   {
     aPM.Start();
@@ -223,11 +223,11 @@ static Standard_Integer OCC22980(DrawInterpreter& di,
   const int N = 1 << 24; // big enough to ensure concurrency
 
   // increment
-  OSD_Parallel::For(0, N, IncrementerDecrementer(&aSum, true));
+  Parallel1::For(0, N, IncrementerDecrementer(&aSum, true));
   QCOMPARE(aSum, N);
 
   // decrement
-  OSD_Parallel::For(0, N, IncrementerDecrementer(&aSum, false));
+  Parallel1::For(0, N, IncrementerDecrementer(&aSum, false));
   QCOMPARE(aSum, 0);
 
   return 0;
@@ -491,7 +491,7 @@ static Standard_Integer OCC23952sweep(DrawInterpreter& di,
 
   // start conversion in several threads
   const int  NBTHREADS = 100;
-  OSD_Thread aThread[NBTHREADS];
+  Thread aThread[NBTHREADS];
   for (int i = 0; i < NBTHREADS; i++)
   {
     aThread[i].SetFunction(GeomConvertTest);
@@ -527,7 +527,7 @@ static Standard_Address GeomIntSSTest(Standard_Address data)
 {
   GeomIntSSTest_Data* info = (GeomIntSSTest_Data*)data;
   GeomInt_IntSS       anInter;
-  anInter.Perform(info->surf1, info->surf2, Precision::Confusion(), Standard_True);
+  anInter.Perform(info->surf1, info->surf2, Precision1::Confusion(), Standard_True);
   if (!anInter.IsDone())
   {
     std::cout << "An intersection is not done!" << std::endl;
@@ -570,7 +570,7 @@ static Standard_Integer OCC23952intersect(DrawInterpreter& di,
 
   // start conversion in several threads
   const int  NBTHREADS = 100;
-  OSD_Thread aThread[NBTHREADS];
+  Thread aThread[NBTHREADS];
   for (int i = 0; i < NBTHREADS; i++)
   {
     aThread[i].SetFunction(GeomIntSSTest);
@@ -694,7 +694,7 @@ static Standard_Integer OCC24008(DrawInterpreter& di, Standard_Integer argc, con
     return 1;
   }
   ShapeConstruct_ProjectCurveOnSurface aProj;
-  aProj.Init(aSurf, Precision::Confusion());
+  aProj.Init(aSurf, Precision1::Confusion());
   try
   {
     Handle(GeomCurve2d) aPCurve;
@@ -1284,10 +1284,10 @@ static Standard_Integer OCC24005(DrawInterpreter& theDI,
 
   ShapeBuilder builder;
   TopoFace  face1, face2;
-  builder.MakeFace(face1, plane, Precision::Confusion());
-  builder.MakeFace(face2, cylinder, Precision::Confusion());
+  builder.MakeFace(face1, plane, Precision1::Confusion());
+  builder.MakeFace(face2, cylinder, Precision1::Confusion());
   IntTools_FaceFace anInters;
-  anInters.SetParameters(false, true, true, Precision::Confusion());
+  anInters.SetParameters(false, true, true, Precision1::Confusion());
   anInters.Perform(face1, face2);
 
   if (!anInters.IsDone())
@@ -1467,12 +1467,12 @@ static Standard_Integer OCC24137(DrawInterpreter& theDI,
   FunctionSetRoot aRoot(anExtFunc, aNbIts);
 
   math_Vector aTolUV(1, 2), aUVinf(1, 2), aUVsup(1, 2), aFromUV(1, 2);
-  aTolUV(1)  = Precision::Confusion();
-  aTolUV(2)  = Precision::Confusion();
-  aUVinf(1)  = -Precision::Infinite();
-  aUVinf(2)  = -Precision::Infinite();
-  aUVsup(1)  = Precision::Infinite();
-  aUVsup(2)  = Precision::Infinite();
+  aTolUV(1)  = Precision1::Confusion();
+  aTolUV(2)  = Precision1::Confusion();
+  aUVinf(1)  = -Precision1::Infinite();
+  aUVinf(2)  = -Precision1::Infinite();
+  aUVsup(1)  = Precision1::Infinite();
+  aUVsup(2)  = Precision1::Infinite();
   aFromUV(1) = aUFrom;
   aFromUV(2) = aVFrom;
 
@@ -1678,8 +1678,8 @@ static Standard_Integer OCC24370(DrawInterpreter& di, Standard_Integer argc, con
   // prepare data
   TopoFace  aFace;
   ShapeBuilder aB;
-  aB.MakeFace(aFace, aS, Precision::Confusion());
-  aB.UpdateEdge(anEdge, aC, aFace, Precision::Confusion());
+  aB.MakeFace(aFace, aS, Precision1::Confusion());
+  aB.UpdateEdge(anEdge, aC, aFace, Precision1::Confusion());
   aB.Range(anEdge, aFace, aC->FirstParameter(), aC->LastParameter());
 
   // call algorithm
@@ -1786,7 +1786,7 @@ static Standard_Integer OCC23951(DrawInterpreter& di, Standard_Integer argc, con
   XCAFDoc_DocumentTool::ShapeTool(aDoc->Main())->SetShape(lab1, s1);
   NameAttribute::Set(lab1, "Box1");
 
-  Quantity_Color yellow(Quantity_NOC_YELLOW);
+  Color1 yellow(Quantity_NOC_YELLOW);
   XCAFDoc_DocumentTool::ColorTool(aDoc->Main())->SetColor(lab1, yellow, XCAFDoc_ColorGen);
   XCAFDoc_DocumentTool::ColorTool(aDoc->Main())->SetVisibility(lab1, 0);
 
@@ -1837,7 +1837,7 @@ static Standard_Integer OCC23950(DrawInterpreter& di, Standard_Integer argc, con
     XCAFDoc_DocumentTool::ShapeTool(aDoc->Main())->AddComponent(labelA0, lab1, location0);
   XCAFDoc_DocumentTool::ShapeTool(aDoc->Main())->UpdateAssemblies();
 
-  Quantity_Color yellow(Quantity_NOC_YELLOW);
+  Color1 yellow(Quantity_NOC_YELLOW);
   XCAFDoc_DocumentTool::ColorTool(labelA0)->SetColor(component01, yellow, XCAFDoc_ColorGen);
   XCAFDoc_DocumentTool::ColorTool(labelA0)->SetVisibility(component01, 0);
 
@@ -2061,7 +2061,7 @@ static Standard_Integer OCC24834(DrawInterpreter& di, Standard_Integer n, const 
   {
     for (;;)
     {
-      aList.Append(MyStubObject(Standard::Allocate(aLargeBlockSize)));
+      aList.Append(MyStubObject(Standard1::Allocate(aLargeBlockSize)));
     }
   }
   catch (ExceptionBase const&)
@@ -2078,7 +2078,7 @@ static Standard_Integer OCC24834(DrawInterpreter& di, Standard_Integer n, const 
   {
     for (;;)
     {
-      aList.Append(MyStubObject(Standard::Allocate(aSmallBlockSize)));
+      aList.Append(MyStubObject(Standard1::Allocate(aSmallBlockSize)));
     }
   }
   catch (ExceptionBase const&)
@@ -2093,7 +2093,7 @@ static Standard_Integer OCC24834(DrawInterpreter& di, Standard_Integer n, const 
   // release all allocated blocks
   for (NCollection_List<MyStubObject>::Iterator it(aList); it.More(); it.Next())
   {
-    Standard::Free(it.Value().ptr);
+    Standard1::Free(it.Value().ptr);
   }
   return 0;
 }
@@ -2122,7 +2122,7 @@ static Standard_Integer OCC24889(DrawInterpreter& theDI,
   DrawTrSurf1::Set("c_2", aTrim[1]);
 
   // Intersection
-  constexpr Standard_Real   aTol = Precision::Confusion();
+  constexpr Standard_Real   aTol = Precision1::Confusion();
   Geom2dAPI_InterCurveCurve aIntTool(aTrim[0], aTrim[1], aTol);
 
   const IntRes2d_IntersectionPoint& aIntPnt = aIntTool.Intersector().Point(1);
@@ -2151,7 +2151,7 @@ static Standard_Integer OCC24889(DrawInterpreter& theDI,
 //=======================================================================
 // Function is:
 // f(u,v) = a*(v - b*u^2 + c*u-r)^2+s(1-t)*cos(u)+s
-// Standard borders are:
+// Standard1 borders are:
 // -5 <= u <= 10
 //  0 <= v <= 15
 class BraninFunction : public math_MultipleVarFunctionWithHessian
@@ -2222,7 +2222,7 @@ public:
   }
 
 private:
-  // Standard parameters.
+  // Standard1 parameters.
   Standard_Real a, b, c, r, s, t;
 };
 
@@ -2733,8 +2733,8 @@ static Standard_Integer OCC24826(DrawInterpreter& theDI,
     switch (aMode)
     {
       case 0: {
-        aModeDesc = "OSD_Parallel::For()";
-        OSD_Parallel::For(aFunctor1.Begin(), aFunctor1.End(), aFunctor1);
+        aModeDesc = "Parallel1::For()";
+        Parallel1::For(aFunctor1.Begin(), aFunctor1.End(), aFunctor1);
         break;
       }
       case 1: {
@@ -2744,8 +2744,8 @@ static Standard_Integer OCC24826(DrawInterpreter& theDI,
         break;
       }
       case 2: {
-        aModeDesc = "OSD_Parallel::Batched()";
-        OSD_Parallel::For(aFunctor2.Begin(), aFunctor2.End(), aFunctor2);
+        aModeDesc = "Parallel1::Batched()";
+        Parallel1::For(aFunctor2.Begin(), aFunctor2.End(), aFunctor2);
         break;
       }
       case 3: {
@@ -2893,8 +2893,8 @@ static Standard_Integer OCC29935(DrawInterpreter&, Standard_Integer theArgc, con
     switch (aMode)
     {
       case 0: {
-        aModeDesc = "OSD_Parallel::For()";
-        OSD_Parallel::For(aFunctor1.Begin(), aFunctor1.End(), aFunctor1);
+        aModeDesc = "Parallel1::For()";
+        Parallel1::For(aFunctor1.Begin(), aFunctor1.End(), aFunctor1);
         break;
       }
       case 1: {
@@ -2958,7 +2958,7 @@ static Standard_Integer OCC25100(DrawInterpreter& di, Standard_Integer argc, con
   ShapeExplorer             aFaceExp(S, TopAbs_FACE);
   const Handle(GeomSurface)& aSurf = BRepInspector::Surface(TopoDS::Face(aFaceExp.Current()));
 
-  SurfaceIntersector anIntersector(aSurf, aSurf, Precision::Confusion());
+  SurfaceIntersector anIntersector(aSurf, aSurf, Precision1::Confusion());
 
   if (!anIntersector.IsDone())
   {
@@ -3005,7 +3005,7 @@ static Standard_Integer OCC25413(DrawInterpreter& di, Standard_Integer narg, con
   TopoShape aShape = DBRep1::Get(a[1]);
 
   IntCurvesFace_ShapeIntersector Inter;
-  Inter.Load(aShape, Precision::Confusion());
+  Inter.Load(aShape, Precision1::Confusion());
 
   Box2 aBndBox;
   BRepBndLib1::Add(aShape, aBndBox);
@@ -3215,7 +3215,7 @@ static Standard_Integer OCC25545(DrawInterpreter& di, Standard_Integer, const ch
   OCC25545_Functor aFunc(aShapeVec);
 
   // concurrently process
-  OSD_Parallel::For(0, n, aFunc);
+  Parallel1::For(0, n, aFunc);
 
   QVERIFY(!aFunc.myIsRaceDetected);
   return 0;
@@ -3274,7 +3274,7 @@ static Standard_Integer OCC25547(DrawInterpreter& theDI,
                                                                      aParams);
 
   Standard_Real aDiff = aIntPnt.Distance(gp1::Origin2d());
-  if (aIntFlag != BRepMesh_GeomTool::Cross || aDiff > Precision::PConfusion())
+  if (aIntFlag != BRepMesh_GeomTool::Cross || aDiff > Precision1::PConfusion())
   {
     theDI << "Error. BRepMesh_GeomTool failed to intersect two lines.\n";
     return 1;
@@ -3289,7 +3289,7 @@ static Standard_Integer OCC25547(DrawInterpreter& theDI,
                                           aIntPnt);
 
   aDiff = aIntPnt.Distance(gp1::Origin2d());
-  if (aIntFlag != BRepMesh_GeomTool::Cross || aDiff > Precision::PConfusion())
+  if (aIntFlag != BRepMesh_GeomTool::Cross || aDiff > Precision1::PConfusion())
   {
     theDI << "Error. BRepMesh_GeomTool failed to intersect two segments.\n";
     return 1;
@@ -3426,7 +3426,7 @@ static Standard_Integer OCC24881(DrawInterpreter& di, Standard_Integer narg, con
 
   TopoShape aShape = DBRep1::Get(a[1]);
 
-  OSD::SetSignal();
+  OSD1::SetSignal();
   Handle(WireHealer) aWireFix = new WireHealer;
 
   // map FixStatus - NbSuchStatuses
@@ -3645,7 +3645,7 @@ static Standard_Boolean inspect_point(const Coords2d&        thePoint,
                                       const Coords2d&        theCenter,
                                       const Standard_Real theRadius)
 {
-  static Standard_Real aPrecision   = Precision::PConfusion();
+  static Standard_Real aPrecision   = Precision1::PConfusion();
   static Standard_Real aSqPrecision = aPrecision * aPrecision;
   const Coords2d          aDistVec     = thePoint - theCenter;
   if (aDistVec.SquareModulus() - (theRadius * theRadius) < aSqPrecision)
@@ -3661,7 +3661,7 @@ static Standard_Integer OCC24923(DrawInterpreter& theDI, Standard_Integer argc, 
   const Standard_Real    aMaxDeviation = (argc > 1) ? Draw1::Atof(argv[1]) : 0.01;
   const Standard_Integer aPointsNb     = 10000000;
   const Standard_Real    aMinAngle     = 5 * M_PI / 180.;
-  static Standard_Real   aSqPrecision  = Precision::PConfusion() * Precision::PConfusion();
+  static Standard_Real   aSqPrecision  = Precision1::PConfusion() * Precision1::PConfusion();
 
   Standard_Integer aFailedNb = 0;
   for (Standard_Integer i = 0; i < aPointsNb; ++i)
@@ -3822,11 +3822,11 @@ static Standard_Integer OCC25574(DrawInterpreter& theDI,
       aT.Transforms(v2);
 
       // Check that point is still on origin position
-      if ((v - v2).SquareModulus() > Precision::SquareConfusion())
+      if ((v - v2).SquareModulus() > Precision1::SquareConfusion())
       {
         // avoid reporting small coordinates
         for (int k = 1; k <= 3; k++)
-          if (Abs(v2.Coord(k)) < Precision::Confusion())
+          if (Abs(v2.Coord(k)) < Precision1::Confusion())
             v2.SetCoord(k, 0.);
 
         isTestOk = Standard_False;
@@ -4000,7 +4000,7 @@ Standard_Integer OCC26446(DrawInterpreter& di, Standard_Integer n, const char** 
   TColGeom_Array1OfBSplineCurve          aCurves(0, 1);
   TColStd_Array1OfReal                   aTolerances(0, 0);
   Standard_Real                          aTolConf    = 1.e-3;
-  constexpr Standard_Real                aTolClosure = Precision::Confusion();
+  constexpr Standard_Real                aTolClosure = Precision1::Confusion();
   Handle(TColGeom_HArray1OfBSplineCurve) aConcatCurves;
   Handle(TColStd_HArray1OfInteger)       anIndices;
 
@@ -4022,7 +4022,7 @@ static Standard_Integer OCC26448(DrawInterpreter& theDI, Standard_Integer, const
   TColStd_SequenceOfReal aSeq1, aSeq2;
   aSeq1.Append(11.);
   aSeq1.Prepend(aSeq2);
-  theDI << "TCollection: 11 -> " << aSeq1.First() << "\n";
+  theDI << "TCollection1: 11 -> " << aSeq1.First() << "\n";
 
   NCollection_Sequence<Standard_Real> nSeq1, nSeq2;
   nSeq1.Append(11.);
@@ -4316,8 +4316,8 @@ static Standard_Integer OCC26195(DrawInterpreter& theDI,
 
   Point3d aNearPnt = aMgr->GetNearPickedPnt();
   Point3d aFarPnt  = aMgr->GetFarPickedPnt();
-  if (Precision::IsInfinite(aFarPnt.X()) || Precision::IsInfinite(aFarPnt.Y())
-      || Precision::IsInfinite(aFarPnt.Z()))
+  if (Precision1::IsInfinite(aFarPnt.X()) || Precision1::IsInfinite(aFarPnt.Y())
+      || Precision1::IsInfinite(aFarPnt.Z()))
   {
     theDI << "Near: " << aNearPnt.X() << " " << aNearPnt.Y() << " " << aNearPnt.Z() << "\n";
     theDI << "Far: infinite point " << "\n";
@@ -4862,7 +4862,7 @@ static Standard_Integer OCC26750(DrawInterpreter& theDI,
   const gp_Vec2d aVec1(1.0, 0.0);
   const gp_Vec2d aVec2(0.0, -1.0);
 
-  if (aVec1.IsNormal(aVec2, Precision::Angular()))
+  if (aVec1.IsNormal(aVec2, Precision1::Angular()))
   {
     theDI << "gp_Vec2d OK. Vectors are normal.\n";
   }
@@ -4874,7 +4874,7 @@ static Standard_Integer OCC26750(DrawInterpreter& theDI,
   const gp_Dir2d aD1(1.0, 0.0);
   const gp_Dir2d aD2(0.0, -1.0);
 
-  if (aD1.IsNormal(aD2, Precision::Angular()))
+  if (aD1.IsNormal(aD2, Precision1::Angular()))
   {
     theDI << "gp_Dir2d OK. Vectors are normal.\n";
   }
@@ -5422,14 +5422,14 @@ static Standard_Integer OCC30492(DrawInterpreter& /*theDI*/,
   aStartPnt(1) = 0.0;
 
   // BFGS and FRPR fail when if starting point is exactly the minimum.
-  FletcherReevesPowellRestart aFRPR(aFunc, Precision::Confusion());
+  FletcherReevesPowellRestart aFRPR(aFunc, Precision1::Confusion());
   aFRPR.Perform(aFunc, aStartPnt);
   if (!aFRPR.IsDone())
     std::cout << "OCC30492: Error: FRPR optimization is not done." << std::endl;
   else
     std::cout << "OCC30492: OK: FRPR optimization is done." << std::endl;
 
-  BFGSOptimizer aBFGS(1, Precision::Confusion());
+  BFGSOptimizer aBFGS(1, Precision1::Confusion());
   aBFGS.Perform(aFunc, aStartPnt);
   if (!aBFGS.IsDone())
     std::cout << "OCC30492: Error: BFGS optimization is not done." << std::endl;

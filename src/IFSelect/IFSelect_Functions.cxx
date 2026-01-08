@@ -2055,7 +2055,7 @@ static IFSelect_ReturnStatus fun6465(const Handle(IFSelect_SessionPilot)& pilot)
   Handle(IFSelect_WorkSession) WS   = pilot->Session();
   Standard_Integer             argc = pilot->NbWords();
   const Standard_CString       arg1 = pilot->Arg(1);
-  //        ****    Run Modifier avec Standard Copy     ****
+  //        ****    Run Modifier avec Standard1 Copy     ****
   //        ****    Run Modifier avec OnTheSpot         ****
   Standard_Boolean runcopy = (pilot->Arg(0)[3] == 'c');
   //  soit c est un nom, sinon c est une commande

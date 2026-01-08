@@ -40,14 +40,14 @@ void IntSurf1::MakeTransition(const Vector3d&       TgFirst,
 
   Standard_Real NTgSecond                = TgSecond.Magnitude();
   Standard_Real NTgFirst                 = TgFirst.Magnitude();
-  Standard_Real NTgSecondNTgFirstAngular = NTgSecond * NTgFirst * Precision::Angular();
+  Standard_Real NTgSecondNTgFirstAngular = NTgSecond * NTgFirst * Precision1::Angular();
 
-  if (NTgFirst <= Precision::Confusion())
+  if (NTgFirst <= Precision1::Confusion())
   {
     TFirst.SetValue(Standard_True, IntSurf_Undecided);
     TSecond.SetValue(Standard_True, IntSurf_Undecided);
   }
-  else if ((NTgSecond <= Precision::Confusion()) || (pvect.Magnitude() <= NTgSecondNTgFirstAngular))
+  else if ((NTgSecond <= Precision1::Confusion()) || (pvect.Magnitude() <= NTgSecondNTgFirstAngular))
   {
     TFirst.SetValue(Standard_True, IntSurf_Unknown, TgFirst.Dot(TgSecond) < 0.0);
     TSecond.SetValue(Standard_True, IntSurf_Unknown, TgFirst.Dot(TgSecond) < 0.0);

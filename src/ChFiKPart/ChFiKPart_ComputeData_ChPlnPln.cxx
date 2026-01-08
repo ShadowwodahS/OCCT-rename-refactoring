@@ -81,7 +81,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   }
 
   // compute the intersection line of Pl1 and Pl2
-  QuadQuadGeoIntersection LInt(Pl1, Pl2, Precision::Angular(), Precision::Confusion());
+  QuadQuadGeoIntersection LInt(Pl1, Pl2, Precision1::Angular(), Precision1::Confusion());
 
   Point3d        P;
   Standard_Real Fint;

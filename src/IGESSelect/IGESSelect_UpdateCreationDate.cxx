@@ -37,7 +37,7 @@ void IGESSelect_UpdateCreationDate::Performing(IFSelect_ContextModif&           
 {
   Standard_Integer jour, mois, annee, heure, minute, seconde, millisec, microsec;
   OSD_Process      system;
-  Quantity_Date    ladate = system.SystemDate();
+  Date2    ladate = system.SystemDate();
   ladate.Values(mois, jour, annee, heure, minute, seconde, millisec, microsec);
 
   IGESData_GlobalSection GS = target->GlobalSection();

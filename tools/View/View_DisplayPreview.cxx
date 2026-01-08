@@ -140,7 +140,7 @@ void View_DisplayPreview::UpdatePreview(
     myPreviewPresentation = new VisualShape(aCompound);
     myPreviewPresentation->Attributes()->SetAutoTriangulation(Standard_False);
 
-    Quantity_Color aColor(Quantity_NOC_TOMATO);
+    Color1 aColor(Quantity_NOC_TOMATO);
     myPreviewPresentation->Attributes()->SetPointAspect(
       new Prs3d_PointAspect(Aspect_TOM_O_PLUS, aColor, 3.0));
     myPreviewPresentation->SetAttributes(myPreviewParameters->GetDrawer());

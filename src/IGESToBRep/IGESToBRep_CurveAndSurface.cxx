@@ -135,7 +135,7 @@ void IGESToBRep_CurveAndSurface::UpdateMinMaxTol()
   // #74 rln 11.03.99 S4135: Setting maximum tolerances according to
   // static parameter
   myMaxTol = Max(ExchangeConfig::RVal("read.maxprecision.val"), myEpsGeom * myUnitFactor);
-  myMinTol = Precision::Confusion();
+  myMinTol = Precision1::Confusion();
 }
 
 //=================================================================================================

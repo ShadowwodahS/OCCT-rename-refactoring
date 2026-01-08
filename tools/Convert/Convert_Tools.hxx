@@ -61,12 +61,12 @@ public:
     const Standard_Integer                        theLastPos,
     NCollection_List<Handle(RefObject)>& thePresentations);
 
-  //! Converts stream to color if possible. It processes Quantity_Color, Quantity_ColorRGBA
+  //! Converts stream to color if possible. It processes Color1, Quantity_ColorRGBA
   //! \param theStream source of presentation
   //! \param[out] theColor  converted color
   //! \returns true if done
   Standard_EXPORT static Standard_Boolean ConvertStreamToColor(const Standard_SStream& theSStream,
-                                                               Quantity_Color&         theColor);
+                                                               Color1&         theColor);
 
   //! Creates box shape
   //! \param theBoundingBox box shape parameters

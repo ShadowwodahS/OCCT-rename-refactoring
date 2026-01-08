@@ -160,7 +160,7 @@ public:
       SortRange    aSplits[2] = {{theStart, anOffset, theDigit - 1},
                                  {anOffset, theFinal, theDigit - 1}};
 
-      OSD_Parallel::For(0, 2, Functor(aSplits, isParallel), !isParallel);
+      Parallel1::For(0, 2, Functor(aSplits, isParallel), !isParallel);
     }
   }
 

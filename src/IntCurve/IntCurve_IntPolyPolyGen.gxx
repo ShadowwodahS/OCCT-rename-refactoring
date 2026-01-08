@@ -1224,8 +1224,8 @@ void GetIntersection(const TheCurve& theC1, const Standard_Real theT1f, const St
   theCount++;
   //
   Standard_Real aTol2 = theTolConf*theTolConf;
-  Standard_Real aPTol1 = Max(100.*Epsilon(Max(Abs(theT1f), Abs(theT1l))), Precision::PConfusion());
-  Standard_Real aPTol2 = Max(100.*Epsilon(Max(Abs(theT2f), Abs(theT2l))), Precision::PConfusion());
+  Standard_Real aPTol1 = Max(100.*Epsilon(Max(Abs(theT1f), Abs(theT1l))), Precision1::PConfusion());
+  Standard_Real aPTol2 = Max(100.*Epsilon(Max(Abs(theT2f), Abs(theT2l))), Precision1::PConfusion());
   gp_Pnt2d aP1f, aP1l, aP2f, aP2l;
   Bnd_Box2d aB1, aB2;
   //

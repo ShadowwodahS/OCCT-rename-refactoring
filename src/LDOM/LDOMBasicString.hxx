@@ -25,10 +25,10 @@ class LDOM_NullPtr;
 class AsciiString1;
 class UtfString;
 
-//  Block1 of comments describing class LDOMBasicString
+//  Block1 of comments describing class LDOMBasicString1
 //
 
-class LDOMBasicString
+class LDOMBasicString1
 {
   friend class LDOM_MemManager;
   friend class LDOM_Node;
@@ -45,7 +45,7 @@ public:
     LDOM_AsciiHashed    // String connected to hash table
   };
 
-  Standard_EXPORT ~LDOMBasicString();
+  Standard_EXPORT ~LDOMBasicString1();
 
   StringType Type() const { return myType; }
 
@@ -60,23 +60,23 @@ public:
 
   //    Conversion to char * (only for LDOM_Ascii*)
 
-  Standard_EXPORT Standard_Boolean equals(const LDOMBasicString& anOther) const;
+  Standard_EXPORT Standard_Boolean equals(const LDOMBasicString1& anOther) const;
   //    Compare two strings by content
 
-  Standard_EXPORT LDOMBasicString& operator=(const LDOM_NullPtr*);
+  Standard_EXPORT LDOMBasicString1& operator=(const LDOM_NullPtr*);
 
-  Standard_EXPORT LDOMBasicString& operator=(const LDOMBasicString& anOther);
+  Standard_EXPORT LDOMBasicString1& operator=(const LDOMBasicString1& anOther);
 
   Standard_Boolean operator==(const LDOM_NullPtr*) const { return myType == LDOM_NULL; }
 
   Standard_Boolean operator!=(const LDOM_NullPtr*) const { return myType != LDOM_NULL; }
 
-  Standard_Boolean operator==(const LDOMBasicString& anOther) const
+  Standard_Boolean operator==(const LDOMBasicString1& anOther) const
   {
     return myType == anOther.myType && myVal.i == anOther.myVal.i;
   }
 
-  Standard_Boolean operator!=(const LDOMBasicString& anOther) const
+  Standard_Boolean operator!=(const LDOMBasicString1& anOther) const
   {
     return myType != anOther.myType || myVal.i != anOther.myVal.i;
   }
@@ -86,7 +86,7 @@ public:
 
   Standard_EXPORT operator UtfString() const;
 
-  LDOMBasicString()
+  LDOMBasicString1()
       : myType(LDOM_NULL)
   {
     myVal.ptr = NULL;
@@ -94,23 +94,23 @@ public:
 
   // Empty constructor
 
-  Standard_EXPORT LDOMBasicString(const LDOMBasicString& anOther);
+  Standard_EXPORT LDOMBasicString1(const LDOMBasicString1& anOther);
 
   // Copy constructor
 
-  LDOMBasicString(const Standard_Integer aValue)
+  LDOMBasicString1(const Standard_Integer aValue)
       : myType(LDOM_Integer)
   {
     myVal.i = aValue;
   }
 
-  Standard_EXPORT LDOMBasicString(const char* aValue);
+  Standard_EXPORT LDOMBasicString1(const char* aValue);
   //    Create LDOM_AsciiFree
 
-  Standard_EXPORT LDOMBasicString(const char* aValue, const Handle(LDOM_MemManager)& aDoc);
+  Standard_EXPORT LDOMBasicString1(const char* aValue, const Handle(LDOM_MemManager)& aDoc);
   //    Create LDOM_AsciiDoc
 
-  Standard_EXPORT LDOMBasicString(const char*                    aValue,
+  Standard_EXPORT LDOMBasicString1(const char*                    aValue,
                                   const Standard_Integer         aLen,
                                   const Handle(LDOM_MemManager)& aDoc);
   //    Create LDOM_AsciiDoc
@@ -133,7 +133,7 @@ protected:
     void* ptr;
   } myVal;
 
-  friend char* db_pretty_print(const LDOMBasicString*, int, char*);
+  friend char* db_pretty_print(const LDOMBasicString1*, int, char*);
 };
 
 #endif

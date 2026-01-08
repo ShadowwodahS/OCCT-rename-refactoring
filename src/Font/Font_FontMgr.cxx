@@ -719,7 +719,7 @@ void Font_FontMgr::InitFontDataBase()
     FcConfigDestroy(aFcCfg);
   }
 
-  const OSD_Protection aProtectRead(OSD_R, OSD_R, OSD_R, OSD_R);
+  const Protection1 aProtectRead(OSD_R, OSD_R, OSD_R, OSD_R);
   if (aMapOfFontsDirs.IsEmpty())
   {
     Message1::SendAlarm("Font_FontMgr, fontconfig library returns an empty folder list");

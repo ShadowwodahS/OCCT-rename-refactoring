@@ -91,7 +91,7 @@ Standard_Boolean BRepSweep_Trsf::Process(const TopoShape& aGenS, const SweepNumS
 
 void BRepSweep_Trsf::SetContinuity(const TopoShape& aGenS, const SweepNumShape& aDirS)
 {
-  constexpr Standard_Real tl = Precision::Confusion();
+  constexpr Standard_Real tl = Precision1::Confusion();
   // angular etant un peu severe pour les contours sketches.
   Standard_Real ta = 0.00175; // environ 0.1 degre
   GeomAbs_Shape cont;

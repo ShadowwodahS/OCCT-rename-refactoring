@@ -465,7 +465,7 @@ Standard_Boolean GeomFill_Sweep::BuildProduct(const GeomAbs_Shape    Continuity,
         for (ii=1; ii<=BSurf->NbVKnots(); ii++)
           BS->InsertKnot( BSurf->VKnot(ii),
                          BSurf->VMultiplicity(ii),
-                         Precision::Confusion());
+                         Precision1::Confusion());
        TColgp_Array2OfPnt SurfPoles (1, BSurf->NbUPoles());
        for (ii=1;
 
@@ -910,7 +910,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
               isUReversed = Standard_True;
             }
 
-            if (Abs(l - f) <= Precision::PConfusion() || Abs(UlastOnSec - UfirstOnSec) > M_PI_2)
+            if (Abs(l - f) <= Precision1::PConfusion() || Abs(UlastOnSec - UfirstOnSec) > M_PI_2)
             {
               // l == f - "degenerated" surface
               // UlastOnSec - UfirstOnSec > M_PI_2 - "twisted" surface,
@@ -964,7 +964,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
             myExchUV = Standard_True;
             // Attention l'arete de couture dans le cas periodique
             // n'est peut etre pas a la bonne place...
-            if (isUPeriodic && Abs(UFirst) > Precision::PConfusion())
+            if (isUPeriodic && Abs(UFirst) > Precision1::PConfusion())
               isUPeriodic = Standard_False; // Pour trimmer la surface...
             Ok = Standard_True;
           }

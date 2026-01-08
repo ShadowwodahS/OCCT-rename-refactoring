@@ -344,7 +344,7 @@ void TextFontDefTool::OwnDump(const Handle(IGESGraph_TextFontDef)& ent,
   else
     S << "Superseding Font Number : " << ent->SupersededFontCode();
   S << "\n"
-    << "No. of Grid Units eqvt to 1 Text Height : " << ent->Scale() << "\n"
+    << "No. of Grid Units2 eqvt to 1 Text Height : " << ent->Scale() << "\n"
     << "ASCII Codes                              :\n"
     << "Grid Locations of next character origins :\n"
     << "Pen Motions                              :\n"

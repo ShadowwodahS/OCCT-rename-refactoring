@@ -103,7 +103,7 @@ Standard_Boolean Point3d::InitFromJson(const Standard_SStream& theSStream,
 {
   Standard_Integer aPos = theStreamPos;
 
-  OCCT_INIT_VECTOR_CLASS(Standard_Dump::Text(theSStream),
+  OCCT_INIT_VECTOR_CLASS(DumpTool::Text(theSStream),
                          "Point3d",
                          aPos,
                          3,

@@ -211,7 +211,7 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(GeomCurve3d)& Path,
   Profiler Profil;
   Profil.AddCurve(myFirstSect);
   Profil.AddCurve(myLastSect);
-  Profil.Perform(Precision::Confusion());
+  Profil.Perform(Precision1::Confusion());
 
   myFirstSect = Handle(BSplineCurve3d)::DownCast(Profil.Curve(1));
   myLastSect  = Handle(BSplineCurve3d)::DownCast(Profil.Curve(2));
@@ -326,12 +326,12 @@ void GeomFill_SweepSectionGenerator::Perform(const Standard_Boolean Polynomial)
       Trans.SetTranslation(PRef, P);
 
       Transform3d Rot;
-      if (!D1Ref.IsParallel(D1, Precision::Angular()))
+      if (!D1Ref.IsParallel(D1, Precision1::Angular()))
       {
         // Eval the Rotation between (i-1) section and the i-th.
         Rot.SetRotation(Axis3d(P, Dir3d(D1Ref ^ D1)), D1Ref.AngleWithRef(D1, D1Ref ^ D1));
       }
-      else if (D1Ref.IsOpposite(D1, Precision::Angular()))
+      else if (D1Ref.IsOpposite(D1, Precision1::Angular()))
 #ifdef OCCT_DEBUG
         std::cout << "Que fais-je ???? " << std::endl;
 #endif
@@ -580,8 +580,8 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
 
     if (myAdpFirstSect->GetType() == GeomAbs_Line)
     {
-      if (Precision::IsInfinite(myAdpFirstSect->FirstParameter())
-          || Precision::IsInfinite(myAdpFirstSect->LastParameter()))
+      if (Precision1::IsInfinite(myAdpFirstSect->FirstParameter())
+          || Precision1::IsInfinite(myAdpFirstSect->LastParameter()))
       {
         gp_Lin aLine = myAdpFirstSect->Line();
         U1           = ElCLib1::Parameter(aLine, PPath);
@@ -594,8 +594,8 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
 
     if (myAdpLastSect->GetType() == GeomAbs_Line)
     {
-      if (Precision::IsInfinite(myAdpLastSect->FirstParameter())
-          || Precision::IsInfinite(myAdpLastSect->LastParameter()))
+      if (Precision1::IsInfinite(myAdpLastSect->FirstParameter())
+          || Precision1::IsInfinite(myAdpLastSect->LastParameter()))
       {
         gp_Lin aLine = myAdpLastSect->Line();
         U2           = ElCLib1::Parameter(aLine, PPath);
@@ -605,7 +605,7 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
 
     Frame3d        Axis;
     Standard_Real Angle;
-    if (P1.Distance(P2) < Precision::Confusion())
+    if (P1.Distance(P2) < Precision1::Confusion())
     {
       Angle = 0.;
     }
@@ -625,7 +625,7 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
     }
 */
 #endif
-    if (Angle < Precision::Angular())
+    if (Angle < Precision1::Angular())
     {
       for (Standard_Integer i = 1; i <= Poles.Upper(); i++)
       {

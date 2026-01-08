@@ -110,7 +110,7 @@ static uint32_t readCpuMask(const char* thePath)
     return 0;
   }
 
-  char* aBuffer = (char*)Standard::Allocate(aFileLen);
+  char* aBuffer = (char*)Standard1::Allocate(aFileLen);
   if (aBuffer == NULL)
   {
     return 0;
@@ -136,7 +136,7 @@ static uint32_t readCpuMask(const char* thePath)
     aCharIter        = parseNumber(anIndexLower, aCharIter, aChunkEnd);
     if (aCharIter == NULL)
     {
-      Standard::Free(aBuffer);
+      Standard1::Free(aBuffer);
       return aCpuMask;
     }
 
@@ -147,7 +147,7 @@ static uint32_t readCpuMask(const char* thePath)
       aCharIter = parseNumber(anIndexUpper, aCharIter + 1, aChunkEnd);
       if (aCharIter == NULL)
       {
-        Standard::Free(aBuffer);
+        Standard1::Free(aBuffer);
         return aCpuMask;
       }
     }
@@ -168,7 +168,7 @@ static uint32_t readCpuMask(const char* thePath)
     }
   }
 
-  Standard::Free(aBuffer);
+  Standard1::Free(aBuffer);
   return aCpuMask;
 }
 #endif
@@ -183,14 +183,14 @@ static Standard_Boolean OSD_Parallel_ToUseOcctThreads =
 
 //=================================================================================================
 
-Standard_Boolean OSD_Parallel::ToUseOcctThreads()
+Standard_Boolean Parallel1::ToUseOcctThreads()
 {
   return OSD_Parallel_ToUseOcctThreads;
 }
 
 //=================================================================================================
 
-void OSD_Parallel::SetUseOcctThreads(Standard_Boolean theToUseOcct)
+void Parallel1::SetUseOcctThreads(Standard_Boolean theToUseOcct)
 {
 #ifdef HAVE_TBB
   OSD_Parallel_ToUseOcctThreads = theToUseOcct;
@@ -203,7 +203,7 @@ void OSD_Parallel::SetUseOcctThreads(Standard_Boolean theToUseOcct)
 // function : NbLogicalProcessors
 // purpose  : Returns number of logical processors.
 //=======================================================================
-Standard_Integer OSD_Parallel::NbLogicalProcessors()
+Standard_Integer Parallel1::NbLogicalProcessors()
 {
   static Standard_Integer aNumLogicalProcessors = 0;
   if (aNumLogicalProcessors != 0)

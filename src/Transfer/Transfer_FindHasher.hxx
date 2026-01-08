@@ -26,7 +26,7 @@
 //! Finder its HashCode !  Because this is the Finder itself which
 //! brings the HashCode for its Key1
 //!
-//! This class complies to the template given in TCollection by
+//! This class complies to the template given in TCollection1 by
 //! MapHasher itself
 class TransferFindHasher
 {

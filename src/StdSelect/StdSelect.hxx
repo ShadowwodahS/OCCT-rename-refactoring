@@ -27,7 +27,7 @@
 //! -   2D and 3D viewer selectors.
 //! Note that each new Interactive Object must have all
 //! its selection modes defined.
-//! Standard Classes is useful to build
+//! Standard1 Classes is useful to build
 //! 3D Selectable Objects, and to process
 //! 3D Selections:
 //!

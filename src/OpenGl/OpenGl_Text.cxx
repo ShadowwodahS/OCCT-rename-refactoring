@@ -44,7 +44,7 @@ struct BackPolygonOffsetSentry
       myOffsetBack                        = theCtx->PolygonOffset();
       Graphic3d_PolygonOffset aPolyOffset = myOffsetBack;
       aPolyOffset.Mode                    = Aspect_POM_Fill;
-      aPolyOffset.Units += 1.0f;
+      aPolyOffset.Units2 += 1.0f;
       theCtx->SetPolygonOffset(aPolyOffset);
     }
   }

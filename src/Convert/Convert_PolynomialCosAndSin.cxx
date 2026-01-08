@@ -31,8 +31,8 @@ static Standard_Real Locate(const Standard_Real         Angfin,
 {
   Standard_Real umin = Umin;
   Standard_Real umax = Umax;
-  Standard_Real Ptol = Precision::Angular();
-  Standard_Real Utol = Precision::PConfusion();
+  Standard_Real Ptol = Precision1::Angular();
+  Standard_Real Utol = Precision1::PConfusion();
   while (Abs(umax - umin) >= Utol)
   {
     Standard_Real ptest = (umax + umin) / 2.;

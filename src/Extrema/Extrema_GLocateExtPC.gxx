@@ -97,7 +97,7 @@ void Extrema_GLocateExtPC::Initialize(const TheCurve&     C,
   myumin = Umin;
   myusup = Usup;
   type = TheCurveTool::GetType(C);
-  Standard_Real tolu = TheCurveTool::Resolution(C, Precision::Confusion());
+  Standard_Real tolu = TheCurveTool::Resolution(C, Precision1::Confusion());
   if ((type == GeomAbs_BSplineCurve) || 
       (type == GeomAbs_BezierCurve)  || 
       (type == GeomAbs_OffsetCurve)   ||
@@ -198,7 +198,7 @@ void Extrema_GLocateExtPC::Perform(const ThePoint&     P,
             {
               TheCurveTool::D1(*((TheCurve*)myC), myintuinf, P1, V1);
               s2sup = (TheVector(P, P1)*V1);
-              if(Precision::IsInfinite(s2sup) || Precision::IsInfinite(s1sup))
+              if(Precision1::IsInfinite(s2sup) || Precision1::IsInfinite(s1sup))
               {
                 break;
               }
@@ -235,7 +235,7 @@ void Extrema_GLocateExtPC::Perform(const ThePoint&     P,
             {
               TheCurveTool::D1(*((TheCurve*)myC), myintusup, P1, V1);
               s1inf = (TheVector(P, P1)*V1);
-              if(Precision::IsInfinite(s2inf) || Precision::IsInfinite(s1inf))
+              if(Precision1::IsInfinite(s2inf) || Precision1::IsInfinite(s1inf))
               {
                 break;
               }

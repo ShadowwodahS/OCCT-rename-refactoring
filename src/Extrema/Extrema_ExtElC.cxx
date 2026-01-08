@@ -325,7 +325,7 @@ ExtElC::ExtElC(const gp_Lin& theC1, const gp_Lin& theC2, const Standard_Real)
   const Standard_Real aCosA   = aD1.Dot(aD2);
   const Standard_Real aSqSinA = 1.0 - aCosA * aCosA;
   Standard_Real       aU1 = 0.0, aU2 = 0.0;
-  if (aSqSinA < gp1::Resolution() || aD1.IsParallel(aD2, Precision::Angular()))
+  if (aSqSinA < gp1::Resolution() || aD1.IsParallel(aD2, Precision1::Angular()))
   {
     myIsPar = Standard_True;
   }
@@ -336,7 +336,7 @@ ExtElC::ExtElC(const gp_Lin& theC1, const gp_Lin& theC2, const Standard_Real)
     aU1 = (aD1L - aCosA * aD2L) / aSqSinA;
     aU2 = (aCosA * aD1L - aD2L) / aSqSinA;
 
-    myIsPar = Precision::IsInfinite(aU1) || Precision::IsInfinite(aU2);
+    myIsPar = Precision1::IsInfinite(aU1) || Precision1::IsInfinite(aU2);
   }
 
   if (myIsPar)
@@ -364,7 +364,7 @@ Standard_Boolean ExtElC::PlanarLineCircleExtrema(const gp_Lin&  theLin,
 {
   const Dir3d &aDirC = theCirc.Axis().Direction(), &aDirL = theLin.Direction();
 
-  if (Abs(aDirC.Dot(aDirL)) > Precision::Angular())
+  if (Abs(aDirC.Dot(aDirL)) > Precision1::Angular())
     return Standard_False;
 
   // The line is in the circle-plane completely
@@ -392,7 +392,7 @@ Standard_Boolean ExtElC::PlanarLineCircleExtrema(const gp_Lin&  theLin,
   gp_Lin2d aLin2d(aPL, aDL);
 
   // Extremas
-  ExtElC2d anExt2d(aLin2d, aCirc2d, Precision::Confusion());
+  ExtElC2d anExt2d(aLin2d, aCirc2d, Precision1::Confusion());
   // Intersections
   AnalyticIntersection2d anInters(aLin2d, aCirc2d);
 
@@ -598,7 +598,7 @@ ExtElC::ExtElC(const gp_Lin& C1, const gp_Circ& C2, const Standard_Real)
     myDone      = Standard_True;
     return;
   }
-  // Storage of solutions ...
+  // Storage1 of solutions ...
   Standard_Integer NoSol, NbSol;
   Standard_Real    U1, U2;
   Point3d           P1, P2;
@@ -724,7 +724,7 @@ ExtElC::ExtElC(const gp_Lin& C1, const gp_Elips& C2)
     return;
   }
 
-  // Storage of solutions ...
+  // Storage1 of solutions ...
   Point3d           P1, P2;
   Standard_Real    U1, U2;
   Standard_Integer NbSol = Sol.NbSolutions();
@@ -923,7 +923,7 @@ ExtElC::ExtElC(const gp_Lin& C1, const gp_Parab& C2)
     return;
   }
 
-  // Storage of solutions ...
+  // Storage1 of solutions ...
   Point3d           P1, P2;
   Standard_Real    U1, U2;
   Standard_Integer NbSol = Sol.NbSolutions();
@@ -958,8 +958,8 @@ ExtElC::ExtElC(const gp_Circ& C1, const gp_Circ& C2)
     mySqDist[anIdx] = RealLast();
   }
   //
-  aTolA  = Precision::Angular();
-  aTolD  = Precision::Confusion();
+  aTolA  = Precision1::Angular();
+  aTolD  = Precision1::Confusion();
   aTolD2 = aTolD * aTolD;
   //
   aPc1 = C1.Location();

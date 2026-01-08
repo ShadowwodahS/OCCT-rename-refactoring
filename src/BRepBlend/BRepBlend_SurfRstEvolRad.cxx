@@ -57,7 +57,7 @@ static void FusionneIntervalles(const TColStd_Array1OfReal& I1,
                                 TColStd_SequenceOfReal&     Seq)
 {
   Standard_Integer ind1 = 1, ind2 = 1;
-  Standard_Real    Epspar = Precision::PConfusion() * 0.99;
+  Standard_Real    Epspar = Precision1::PConfusion() * 0.99;
   // it is supposed that positioning works with PConfusion()/2
   Standard_Real v1, v2;
   // Initialisation : IND1 and IND2 point at the first element
@@ -331,7 +331,7 @@ void BRepBlend_SurfRstEvolRad::Set(const Standard_Real Param)
 //=======================================================================
 // function :
 // purpose  : Segments the curve in its useful part.
-//           Precision is taken arbitrary small !?
+//           Precision1 is taken arbitrary small !?
 //=======================================================================
 void BRepBlend_SurfRstEvolRad::Set(const Standard_Real First, const Standard_Real Last)
 {
@@ -359,13 +359,13 @@ void BRepBlend_SurfRstEvolRad::GetBounds(math_Vector& InfBound, math_Vector& Sup
   SupBound(2) = surf->LastVParameter();
   SupBound(3) = cons.LastParameter();
 
-  if (!Precision::IsInfinite(InfBound(1)) && !Precision::IsInfinite(SupBound(1)))
+  if (!Precision1::IsInfinite(InfBound(1)) && !Precision1::IsInfinite(SupBound(1)))
   {
     Standard_Real range = (SupBound(1) - InfBound(1));
     InfBound(1) -= range;
     SupBound(1) += range;
   }
-  if (!Precision::IsInfinite(InfBound(2)) && !Precision::IsInfinite(SupBound(2)))
+  if (!Precision1::IsInfinite(InfBound(2)) && !Precision1::IsInfinite(SupBound(2)))
   {
     Standard_Real range = (SupBound(2) - InfBound(2));
     InfBound(2) -= range;
@@ -716,8 +716,8 @@ void BRepBlend_SurfRstEvolRad::Section(const Standard_Real Param,
     C.SetPosition(Frame3d(Center, np, ns));
     Pfin = ElCLib1::Parameter(C, ptrst);
   }
-  if (Pfin < Precision::PConfusion())
-    Pfin += Precision::PConfusion();
+  if (Pfin < Precision1::PConfusion())
+    Pfin += Precision1::PConfusion();
 }
 
 //=================================================================================================

@@ -265,7 +265,7 @@ void MessageModel_Actions::OnExportToShapeView()
     aPluginParameters.Append(aShape.TShape());
     anItemNames.Append(TInspectorAPI_PluginParameters::ParametersToString(aShape));
 
-    anExportedPointers.append(Standard_Dump::GetPointerInfo(aShape.TShape(), true).ToCString());
+    anExportedPointers.append(DumpTool::GetPointerInfo(aShape.TShape(), true).ToCString());
   }
 
   if (anExportedPointers.empty())

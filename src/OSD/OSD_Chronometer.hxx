@@ -31,7 +31,7 @@
 //! must occur from the same thread where Start() was called
 //! (unless chronometer is stopped); otherwise measurement will
 //! yield false values.
-class OSD_Chronometer
+class Chronometer
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -41,10 +41,10 @@ public:
   //! If ThisThreadOnly is True, measured CPU time will account
   //! time of the current thread only; otherwise CPU of the
   //! process (all threads, and completed children) is measured.
-  Standard_EXPORT OSD_Chronometer(Standard_Boolean theThisThreadOnly = Standard_False);
+  Standard_EXPORT Chronometer(Standard_Boolean theThisThreadOnly = Standard_False);
 
   //! Destructor.
-  Standard_EXPORT virtual ~OSD_Chronometer();
+  Standard_EXPORT virtual ~Chronometer();
 
   //! Return true if timer has been started.
   Standard_Boolean IsStarted() const { return !myIsStopped; }

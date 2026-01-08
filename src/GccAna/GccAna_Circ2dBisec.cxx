@@ -50,7 +50,7 @@ Circle2dBisector::Circle2dBisector(const gp_Circ2d& Circ1, const gp_Circ2d& Circ
   //=========================================================================
 
   WellDone                    = Standard_False;
-  constexpr Standard_Real Tol = Precision::Confusion();
+  constexpr Standard_Real Tol = Precision1::Confusion();
 
   Standard_Real R1 = Circ1.Radius();
   Standard_Real R2 = Circ2.Radius();

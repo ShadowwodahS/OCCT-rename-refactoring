@@ -112,7 +112,7 @@ void Bisector_BisecCC::Perform(const Handle(GeomCurve2d)& Cu1,
   Standard_Real           U, UC1, UC2, Dist, dU, USol;
   gp_Pnt2d                P;
   Standard_Integer        NbPnts    = 21;
-  constexpr Standard_Real EpsMin    = 10 * Precision::Confusion();
+  constexpr Standard_Real EpsMin    = 10 * Precision1::Confusion();
   Standard_Boolean        YaPoly    = Standard_True;
   Standard_Boolean        OriInPoly = Standard_False;
   //---------------------------------------------
@@ -127,7 +127,7 @@ void Bisector_BisecCC::Perform(const Handle(GeomCurve2d)& Cu1,
   }
 
   P = ValueByInt(U, UC1, UC2, Dist);
-  if (Dist < Precision::Confusion())
+  if (Dist < Precision1::Confusion())
   {
     gp_Pnt2d      aP1   = curve1->Value(UC1);
     gp_Pnt2d      aP2   = curve2->Value(UC2);
@@ -140,7 +140,7 @@ void Bisector_BisecCC::Perform(const Handle(GeomCurve2d)& Cu1,
     }
   }
 
-  if (Dist < Precision::Infinite())
+  if (Dist < Precision1::Infinite())
   {
     //----------------------------------------------------
     // the parameter of the origin point gives a point
@@ -148,7 +148,7 @@ void Bisector_BisecCC::Perform(const Handle(GeomCurve2d)& Cu1,
     //----------------------------------------------------
     myPolygon.Append(PointOnBis(UC1, UC2, U, Dist, P));
     startIntervals.Append(U);
-    if (P.IsEqual(Origin, Precision::Confusion()))
+    if (P.IsEqual(Origin, Precision1::Confusion()))
     {
       //----------------------------------------
       // test if the first point is the origin.
@@ -167,7 +167,7 @@ void Bisector_BisecCC::Perform(const Handle(GeomCurve2d)& Cu1,
     for (Standard_Integer i = 1; i <= NbPnts - 1; i++)
     {
       P = ValueByInt(U, UC1, UC2, Dist);
-      if (Dist < Precision::Infinite())
+      if (Dist < Precision1::Infinite())
       {
         USol = SearchBound(U - dU, U);
         P    = ValueByInt(USol, UC1, UC2, Dist);
@@ -201,9 +201,9 @@ void Bisector_BisecCC::Perform(const Handle(GeomCurve2d)& Cu1,
     for (Standard_Integer i = 1; i <= NbPnts - 1; i++)
     {
       P = ValueByInt(U, UC1, UC2, Dist);
-      if (Dist < Precision::Infinite())
+      if (Dist < Precision1::Infinite())
       {
-        if (P.Distance(prevPnt) > Precision::Confusion())
+        if (P.Distance(prevPnt) > Precision1::Confusion())
           myPolygon.Append(PointOnBis(UC1, UC2, U, Dist, P));
       }
       else
@@ -211,7 +211,7 @@ void Bisector_BisecCC::Perform(const Handle(GeomCurve2d)& Cu1,
         USol = SearchBound(U - dU, U);
         P    = ValueByInt(USol, UC1, UC2, Dist);
         endIntervals.SetValue(1, USol);
-        if (P.Distance(prevPnt) > Precision::Confusion())
+        if (P.Distance(prevPnt) > Precision1::Confusion())
           myPolygon.Append(PointOnBis(UC1, UC2, USol, Dist, P));
         break;
       }
@@ -656,7 +656,7 @@ gp_Pnt2d Bisector_BisecCC::ValueAndDist(const Standard_Real U,
   curve1->D1(U1, P1, T1);
   gp_Vec2d N1(T1.Y(), -T1.X());
 
-  if ((VMax - VMin) < Precision::PConfusion())
+  if ((VMax - VMin) < Precision1::PConfusion())
   {
     U2 = VInit;
   }
@@ -702,7 +702,7 @@ gp_Pnt2d Bisector_BisecCC::ValueAndDist(const Standard_Real U,
     Standard_Real       N1P2P1     = N1.Dot(P2P1);
     const Standard_Real anEps      = Epsilon(1);
 
-    if (P1.IsEqual(P2, Precision::Confusion()))
+    if (P1.IsEqual(P2, Precision1::Confusion()))
     {
       PBis = P1;
       Dist = 0.0;
@@ -728,7 +728,7 @@ gp_Pnt2d Bisector_BisecCC::ValueAndDist(const Standard_Real U,
     // Construction of the bisectrice point curve and of the straight line passing
     // by P1 and carried by the normal. curve2 is limited by VMin and VMax.
     //--------------------------------------------------------------------
-    Standard_Real            DMin = Precision::Infinite();
+    Standard_Real            DMin = Precision1::Infinite();
     gp_Pnt2d                 P;
     Handle(Bisector_BisecPC) BisPC = new Bisector_BisecPC(curve2, P1, sign2, VMin, VMax);
     Handle(Geom2d_Line)      NorLi = new Geom2d_Line(P1, N1);
@@ -736,14 +736,14 @@ gp_Pnt2d Bisector_BisecCC::ValueAndDist(const Standard_Real U,
     Geom2dAdaptor_Curve ABisPC(BisPC);
     Geom2dAdaptor_Curve ANorLi(NorLi);
     //-------------------------------------------------------------------------
-    Geom2dInt_GInter Intersect(ABisPC, ANorLi, Precision::Confusion(), Precision::Confusion());
+    Geom2dInt_GInter Intersect(ABisPC, ANorLi, Precision1::Confusion(), Precision1::Confusion());
     //-------------------------------------------------------------------------
 
     if (Intersect.IsDone() && !Intersect.IsEmpty())
     {
       for (Standard_Integer i = 1; i <= Intersect.NbPoints(); i++)
       {
-        if (Intersect.Point(i).ParamOnSecond() * sign1 < Precision::PConfusion())
+        if (Intersect.Point(i).ParamOnSecond() * sign1 < Precision1::PConfusion())
         {
           P = Intersect.Point(i).Value();
           if (P.SquareDistance(P1) < DMin)
@@ -791,7 +791,7 @@ gp_Pnt2d Bisector_BisecCC::ValueByInt(const Standard_Real U,
   //--------------------------------------------------------------------------
   // test confusion of P1 with extremity of curve2.
   //--------------------------------------------------------------------------
-  if (P1.Distance(curve2->Value(curve2->FirstParameter())) < Precision::Confusion())
+  if (P1.Distance(curve2->Value(curve2->FirstParameter())) < Precision1::Confusion())
   {
     U2 = curve2->FirstParameter();
     curve2->D1(U2, P2, Tan2);
@@ -800,13 +800,13 @@ gp_Pnt2d Bisector_BisecCC::ValueByInt(const Standard_Real U,
       Dist = 0.;
       return P1;
     }
-    if (!Tan1.IsParallel(Tan2, Precision::Angular()))
+    if (!Tan1.IsParallel(Tan2, Precision1::Angular()))
     {
       Dist = 0.;
       return P1;
     }
   }
-  if (P1.Distance(curve2->Value(curve2->LastParameter())) < Precision::Confusion())
+  if (P1.Distance(curve2->Value(curve2->LastParameter())) < Precision1::Confusion())
   {
     U2 = curve2->LastParameter();
     curve2->D1(U2, P2, Tan2);
@@ -815,7 +815,7 @@ gp_Pnt2d Bisector_BisecCC::ValueByInt(const Standard_Real U,
       Dist = 0.;
       return P1;
     }
-    if (!Tan1.IsParallel(Tan2, Precision::Angular()))
+    if (!Tan1.IsParallel(Tan2, Precision1::Angular()))
     {
       Dist = 0.;
       return P1;
@@ -823,7 +823,7 @@ gp_Pnt2d Bisector_BisecCC::ValueByInt(const Standard_Real U,
   }
 
   Standard_Boolean YaSol = Standard_False;
-  Standard_Real    DMin  = Precision::Infinite();
+  Standard_Real    DMin  = Precision1::Infinite();
   Standard_Real    USol;
   Standard_Real    EpsMax = 1.E-6;
   Standard_Real    EpsX;
@@ -845,9 +845,9 @@ gp_Pnt2d Bisector_BisecCC::ValueByInt(const Standard_Real U,
     }
   }
 
-  if (Abs(ULastOnC2 - UFirstOnC2) < Precision::PConfusion() / 100.)
+  if (Abs(ULastOnC2 - UFirstOnC2) < Precision1::PConfusion() / 100.)
   {
-    Dist = Precision::Infinite();
+    Dist = Precision1::Infinite();
     return P1;
   }
 
@@ -893,7 +893,7 @@ gp_Pnt2d Bisector_BisecCC::ValueByInt(const Standard_Real U,
   // Test si la bissectrice existe.
   //-------------------------------
   if (BisPC->IsEmpty()) {
-  Dist = Precision::Infinite();
+  Dist = Precision1::Infinite();
   PSol = P1;
   return PSol;
   }
@@ -905,11 +905,11 @@ gp_Pnt2d Bisector_BisecCC::ValueByInt(const Standard_Real U,
 
   //-------------------------------------------------------------------------
   Geom2dInt_GInter  Intersect(BisPC,NorLiAd,
-  Precision::Confusion(),Precision::Confusion());
+  Precision1::Confusion(),Precision1::Confusion());
   //-------------------------------------------------------------------------
   if (Intersect.IsDone() && !Intersect.IsEmpty()) {
   for (Standard_Integer i = 1; i <= Intersect.NbPoints(); i++) {
-  if (Intersect.Point(i).ParamOnSecond()*sign1< Precision::PConfusion()) {
+  if (Intersect.Point(i).ParamOnSecond()*sign1< Precision1::PConfusion()) {
   P       = Intersect.Point(i).Value();
   DistPP1 = P.SquareDistance(P1);
   if (DistPP1  < DMin) {
@@ -937,7 +937,7 @@ gp_Pnt2d Bisector_BisecCC::ValueByInt(const Standard_Real U,
     //-----------------------------------------------
     // Dist = product of norms = distance at the square.
     //-----------------------------------------------
-    if (PP1.Dot(PP2) > (1. - Precision::Angular()) * Dist)
+    if (PP1.Dot(PP2) > (1. - Precision1::Angular()) * Dist)
     {
       YaSol = Standard_False;
     }
@@ -945,7 +945,7 @@ gp_Pnt2d Bisector_BisecCC::ValueByInt(const Standard_Real U,
     {
       if (!isConvex1)
       {
-        Standard_Real K1 = Curvature(curve1, U1, Precision::Confusion());
+        Standard_Real K1 = Curvature(curve1, U1, Precision1::Confusion());
         if (K1 != 0.)
         {
           if (Dist > 1 / (K1 * K1))
@@ -956,7 +956,7 @@ gp_Pnt2d Bisector_BisecCC::ValueByInt(const Standard_Real U,
       {
         if (!isConvex2)
         {
-          Standard_Real K2 = Curvature(curve2, U2, Precision::Confusion());
+          Standard_Real K2 = Curvature(curve2, U2, Precision1::Confusion());
           if (K2 != 0.)
           {
             if (Dist > 1 / (K2 * K2))
@@ -968,7 +968,7 @@ gp_Pnt2d Bisector_BisecCC::ValueByInt(const Standard_Real U,
   }
   if (!YaSol)
   {
-    Dist = Precision::Infinite();
+    Dist = Precision1::Infinite();
     PSol = P1;
   }
   return PSol;
@@ -1284,7 +1284,7 @@ gp_Pnt2d Bisector_BisecCC::Extension(const Standard_Real U,
     P2 = curve2->Value(U2);
     curve1->D1(U1, P1, T1);
     Tang.SetCoord(2 * P.X() - P1.X() - P2.X(), 2 * P.Y() - P1.Y() - P2.Y());
-    if (Tang.Magnitude() < Precision::Confusion())
+    if (Tang.Magnitude() < Precision1::Confusion())
     {
       Tang = T1;
     }
@@ -1322,7 +1322,7 @@ static Standard_Boolean PointByInt(const Handle(GeomCurve2d)& CA,
   //--------------------------------------------------------------------------
   // test of confusion of P1 with extremity of curve2.
   //--------------------------------------------------------------------------
-  if (P1.Distance(CB->Value(CB->FirstParameter())) < Precision::Confusion())
+  if (P1.Distance(CB->Value(CB->FirstParameter())) < Precision1::Confusion())
   {
     UOnB = CB->FirstParameter();
     CB->D1(UOnB, P2, Tan2);
@@ -1331,13 +1331,13 @@ static Standard_Boolean PointByInt(const Handle(GeomCurve2d)& CA,
       Dist = 0.;
       return Standard_True;
     }
-    if (!Tan1.IsParallel(Tan2, Precision::Angular()))
+    if (!Tan1.IsParallel(Tan2, Precision1::Angular()))
     {
       Dist = 0.;
       return Standard_False;
     }
   }
-  if (P1.Distance(CB->Value(CB->LastParameter())) < Precision::Confusion())
+  if (P1.Distance(CB->Value(CB->LastParameter())) < Precision1::Confusion())
   {
     UOnB = CB->LastParameter();
     CB->D1(UOnB, P2, Tan2);
@@ -1346,14 +1346,14 @@ static Standard_Boolean PointByInt(const Handle(GeomCurve2d)& CA,
       Dist = 0.;
       return Standard_True;
     }
-    if (!Tan1.IsParallel(Tan2, Precision::Angular()))
+    if (!Tan1.IsParallel(Tan2, Precision1::Angular()))
     {
       Dist = 0.;
       return Standard_False;
     }
   }
 
-  Standard_Real    DMin = Precision::Infinite();
+  Standard_Real    DMin = Precision1::Infinite();
   Standard_Real    UPC;
   Standard_Boolean YaSol = Standard_False;
   //--------------------------------------------------------------------
@@ -1366,7 +1366,7 @@ static Standard_Boolean PointByInt(const Handle(GeomCurve2d)& CA,
   //-------------------------------
   if (BisPC->IsEmpty())
   {
-    Dist = Precision::Infinite();
+    Dist = Precision1::Infinite();
     PSol = P1;
     return Standard_False;
   }
@@ -1376,14 +1376,14 @@ static Standard_Boolean PointByInt(const Handle(GeomCurve2d)& CA,
   Geom2dAdaptor_Curve ABisPC(BisPC);
   Geom2dAdaptor_Curve ANorLi(NorLi);
   //-------------------------------------------------------------------------
-  Geom2dInt_GInter Intersect(ABisPC, ANorLi, Precision::Confusion(), Precision::Confusion());
+  Geom2dInt_GInter Intersect(ABisPC, ANorLi, Precision1::Confusion(), Precision1::Confusion());
   //-------------------------------------------------------------------------
 
   if (Intersect.IsDone() && !Intersect.IsEmpty())
   {
     for (Standard_Integer i = 1; i <= Intersect.NbPoints(); i++)
     {
-      if (Intersect.Point(i).ParamOnSecond() * SignA < Precision::PConfusion())
+      if (Intersect.Point(i).ParamOnSecond() * SignA < Precision1::PConfusion())
       {
         P = Intersect.Point(i).Value();
         if (P.SquareDistance(P1) < DMin)
@@ -1418,7 +1418,7 @@ static Standard_Boolean PointByInt(const Handle(GeomCurve2d)& CA,
     gp_Dir2d PP1Unit(P1.X() - PSol.X(), P1.Y() - PSol.Y());
     gp_Dir2d PP2Unit(P2.X() - PSol.X(), P2.Y() - PSol.Y());
 
-    if (PP1Unit * PP2Unit > 1. - Precision::Angular())
+    if (PP1Unit * PP2Unit > 1. - Precision1::Angular())
     {
       YaSol = Standard_False;
     }
@@ -1427,7 +1427,7 @@ static Standard_Boolean PointByInt(const Handle(GeomCurve2d)& CA,
       Dist = sqrt(Dist);
       if (!IsConvexA)
       {
-        Standard_Real K1 = Curvature(CA, UOnA, Precision::Confusion());
+        Standard_Real K1 = Curvature(CA, UOnA, Precision1::Confusion());
         if (K1 != 0.)
         {
           if (Dist > Abs(1 / K1))
@@ -1438,7 +1438,7 @@ static Standard_Boolean PointByInt(const Handle(GeomCurve2d)& CA,
       {
         if (!IsConvexB)
         {
-          Standard_Real K2 = Curvature(CB, UOnB, Precision::Confusion());
+          Standard_Real K2 = Curvature(CB, UOnB, Precision1::Confusion());
           if (K2 != 0.)
           {
             if (Dist > Abs(1 / K2))
@@ -1532,11 +1532,11 @@ Standard_Real Bisector_BisecCC::Parameter(const gp_Pnt2d& P) const
 {
   Standard_Real UOnCurve;
 
-  if (P.IsEqual(Value(FirstParameter()), Precision::Confusion()))
+  if (P.IsEqual(Value(FirstParameter()), Precision1::Confusion()))
   {
     UOnCurve = FirstParameter();
   }
-  else if (P.IsEqual(Value(LastParameter()), Precision::Confusion()))
+  else if (P.IsEqual(Value(LastParameter()), Precision1::Confusion()))
   {
     UOnCurve = LastParameter();
   }
@@ -1690,21 +1690,21 @@ Standard_Real Bisector_BisecCC::SearchBound(const Standard_Real U1, const Standa
   Standard_Real           UMid, Dist1, Dist2, DistMid, U11, U22;
   Standard_Real           UC1, UC2;
   gp_Pnt2d                PBis, PBisPrec;
-  constexpr Standard_Real TolPnt = Precision::Confusion();
-  constexpr Standard_Real TolPar = Precision::PConfusion();
+  constexpr Standard_Real TolPnt = Precision1::Confusion();
+  constexpr Standard_Real TolPar = Precision1::PConfusion();
   U11                            = U1;
   U22                            = U2;
   PBisPrec                       = ValueByInt(U11, UC1, UC2, Dist1);
   PBis                           = ValueByInt(U22, UC1, UC2, Dist2);
 
   while ((U22 - U11) > TolPar
-         || ((Dist1 < Precision::Infinite() && Dist2 < Precision::Infinite()
+         || ((Dist1 < Precision1::Infinite() && Dist2 < Precision1::Infinite()
               && !PBis.IsEqual(PBisPrec, TolPnt))))
   {
     PBisPrec = PBis;
     UMid     = 0.5 * (U22 + U11);
     PBis     = ValueByInt(UMid, UC1, UC2, DistMid);
-    if ((Dist1 < Precision::Infinite()) == (DistMid < Precision::Infinite()))
+    if ((Dist1 < Precision1::Infinite()) == (DistMid < Precision1::Infinite()))
     {
       U11   = UMid;
       Dist1 = DistMid;
@@ -1716,7 +1716,7 @@ Standard_Real Bisector_BisecCC::SearchBound(const Standard_Real U1, const Standa
     }
   }
   PBis = ValueByInt(U11, UC1, UC2, Dist1);
-  if (Dist1 < Precision::Infinite())
+  if (Dist1 < Precision1::Infinite())
   {
     UMid = U11;
   }
@@ -1741,13 +1741,13 @@ static Standard_Boolean ProjOnCurve(const gp_Pnt2d&             P,
   C->D1(C->FirstParameter(), PF, TF);
   C->D1(C->LastParameter(), PL, TL);
 
-  if (P.IsEqual(PF, Precision::Confusion()))
+  if (P.IsEqual(PF, Precision1::Confusion()))
   {
     theParam = C->FirstParameter();
     return Standard_True;
   }
 
-  if (P.IsEqual(PL, Precision::Confusion()))
+  if (P.IsEqual(PL, Precision1::Confusion()))
   {
     theParam = C->LastParameter();
     return Standard_True;
@@ -1756,14 +1756,14 @@ static Standard_Boolean ProjOnCurve(const gp_Pnt2d&             P,
   gp_Vec2d PPF(PF.X() - P.X(), PF.Y() - P.Y());
   TF.Normalize();
 
-  if (Abs(PPF.Dot(TF)) < Precision::Confusion())
+  if (Abs(PPF.Dot(TF)) < Precision1::Confusion())
   {
     theParam = C->FirstParameter();
     return Standard_True;
   }
   gp_Vec2d PPL(PL.X() - P.X(), PL.Y() - P.Y());
   TL.Normalize();
-  if (Abs(PPL.Dot(TL)) < Precision::Confusion())
+  if (Abs(PPL.Dot(TL)) < Precision1::Confusion())
   {
     theParam = C->LastParameter();
     return Standard_True;
@@ -1799,11 +1799,11 @@ static Standard_Boolean TestExtension(const Handle(GeomCurve2d)& C1,
     C1->D1(C1->LastParameter(), P1, T1);
   }
   C2->D1(C2->FirstParameter(), P2, T2);
-  if (P1.IsEqual(P2, Precision::Confusion()))
+  if (P1.IsEqual(P2, Precision1::Confusion()))
   {
     T1.Normalize();
     T2.Normalize();
-    if (T1.Dot(T2) > 1.0 - Precision::Confusion())
+    if (T1.Dot(T2) > 1.0 - Precision1::Confusion())
     {
       Test = Standard_True;
     }
@@ -1811,10 +1811,10 @@ static Standard_Boolean TestExtension(const Handle(GeomCurve2d)& C1,
   else
   {
     C2->D1(C2->LastParameter(), P2, T2);
-    if (P1.IsEqual(P2, Precision::Confusion()))
+    if (P1.IsEqual(P2, Precision1::Confusion()))
     {
       T2.Normalize();
-      if (T1.Dot(T2) > 1.0 - Precision::Confusion())
+      if (T1.Dot(T2) > 1.0 - Precision1::Confusion())
       {
         Test = Standard_True;
       }
@@ -1838,8 +1838,8 @@ void Bisector_BisecCC::ComputePointEnd()
   {
     U2 = curve2->FirstParameter();
   }
-  Standard_Real K1 = Curvature(curve1, U1, Precision::Confusion());
-  Standard_Real K2 = Curvature(curve2, U2, Precision::Confusion());
+  Standard_Real K1 = Curvature(curve1, U1, Precision1::Confusion());
+  Standard_Real K2 = Curvature(curve2, U2, Precision1::Confusion());
   if (!isConvex1 && !isConvex2)
   {
     if (K1 < K2)
@@ -1870,7 +1870,7 @@ void Bisector_BisecCC::ComputePointEnd()
   }
   else
   {
-    RC = Precision::Infinite();
+    RC = Precision1::Infinite();
   }
   pointEnd.SetCoord(PF.X() - sign1 * RC * TF.Y(), PF.Y() + sign1 * RC * TF.X());
 }

@@ -53,12 +53,12 @@ IntImp_IntCS::IntImp_IntCS(const Standard_Real U,
     v1 = ThePSurfaceTool::LastVParameter(S);
 
     if (MarginCoef > 0.) {
-      if (!Precision::IsInfinite(u0) && !Precision::IsInfinite(u1)) {
+      if (!Precision1::IsInfinite(u0) && !Precision1::IsInfinite(u1)) {
 	Standard_Real marg = (u1-u0)*MarginCoef;
 	if (u0 > u1) marg = -marg;
 	u0 -= marg; u1 += marg;
       }
-      if (!Precision::IsInfinite(v0) && !Precision::IsInfinite(v1)) {
+      if (!Precision1::IsInfinite(v0) && !Precision1::IsInfinite(v1)) {
 	Standard_Real marg = (v1-v0)*MarginCoef;
 	if (v0 > v1) marg = -marg;
 	v0 -= marg; v1 += marg;
@@ -101,9 +101,9 @@ void IntImp_IntCS::Perform(const Standard_Real U,
 
   BornInf(3) = w0;   BornSup(3) = w1;
 
-  Tolerance(1) = ThePSurfaceTool::UResolution(S,Precision::Confusion());
-  Tolerance(2) = ThePSurfaceTool::VResolution(S,Precision::Confusion());
-  Tolerance(3) = TheCurveTool::Resolution(C,Precision::Confusion());
+  Tolerance(1) = ThePSurfaceTool::UResolution(S,Precision1::Confusion());
+  Tolerance(2) = ThePSurfaceTool::VResolution(S,Precision1::Confusion());
+  Tolerance(3) = TheCurveTool::Resolution(C,Precision1::Confusion());
   Rsnld.SetTolerance(Tolerance);
   Standard_Integer autretentative=0;
   done=Standard_False;

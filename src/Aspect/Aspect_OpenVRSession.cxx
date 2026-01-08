@@ -280,7 +280,7 @@ public:
     for (; aVrError == vr::VRRenderModelError_Loading;)
     {
       aVrError = vr::VRRenderModels()->LoadTexture_Async(theTexture, &aVrTexture);
-      OSD::MilliSecSleep(1);
+      OSD1::MilliSecSleep(1);
     }
     if (aVrError != vr::VRRenderModelError_None || aVrTexture == NULL)
     {
@@ -750,7 +750,7 @@ Handle(Graphic3d_ArrayOfTriangles) Aspect_OpenVRSession::loadRenderModel(
   for (; aVrError == vr::VRRenderModelError_Loading;)
   {
     aVrError = vr::VRRenderModels()->LoadRenderModel_Async(aRenderModelName.ToCString(), &aVrModel);
-    OSD::MilliSecSleep(1);
+    OSD1::MilliSecSleep(1);
   }
   if (aVrError != vr::VRRenderModelError_None)
   {

@@ -82,7 +82,7 @@ public:
                                 const Interface_ParamType atype,
                                 const Standard_Integer    nument = 0);
 
-  //! Same as above, but gets a AsciiString2 from TCollection
+  //! Same as above, but gets a AsciiString2 from TCollection1
   //! Remark that the content of the AsciiString2 is locally copied
   //! (because its content is most often lost after using)
   Standard_EXPORT void AddParam(const Standard_Integer         num,

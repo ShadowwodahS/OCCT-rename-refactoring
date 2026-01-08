@@ -41,7 +41,7 @@ Draw_ProgressIndicator::Draw_ProgressIndicator(const DrawInterpreter& di,
       myUpdateThreshold(0.01 * theUpdateThreshold),
       myLastPosition(-1.),
       myStartTime(0),
-      myGuiThreadId(OSD_Thread::Current())
+      myGuiThreadId(Thread::Current())
 {
 }
 
@@ -92,7 +92,7 @@ void Draw_ProgressIndicator::Show(const Message_ProgressScope& theScope,
   // unless show is forced, show updated state only if at least 1% progress has been reached since
   // the last update
   Standard_Real aPosition = GetPosition();
-  if (!force && (1. - aPosition) > Precision::Confusion()
+  if (!force && (1. - aPosition) > Precision1::Confusion()
       && Abs(aPosition - myLastPosition) < myUpdateThreshold)
     return; // return if update interval has not elapsed
 
@@ -117,7 +117,7 @@ void Draw_ProgressIndicator::Show(const Message_ProgressScope& theScope,
     Standard_Real aVal = aPS->Value();
     if (aPS->IsInfinite())
     {
-      if (Precision::IsInfinite(aVal))
+      if (Precision1::IsInfinite(aVal))
       {
         aText << "finished";
       }
@@ -134,7 +134,7 @@ void Draw_ProgressIndicator::Show(const Message_ProgressScope& theScope,
 
   // Show graphic progress bar.
   // It will be updated only within GUI thread.
-  if (myGraphMode && myGuiThreadId == OSD_Thread::Current())
+  if (myGraphMode && myGuiThreadId == Thread::Current())
   {
     // In addition, write elapsed/estimated/remaining time
     if (GetPosition() > 0.01)
@@ -206,7 +206,7 @@ Standard_Boolean Draw_ProgressIndicator::UserBreak()
     // treatment of Ctrl-Break signal
     try
     {
-      OSD::ControlBreak();
+      OSD1::ControlBreak();
     }
     catch (const OSD_Exception_CTRL_BREAK&)
     {

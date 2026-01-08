@@ -199,7 +199,7 @@ void OSD_Error::Perror()
           extCode = ERR_FPERM;
           break;
         default:
-          buffer += "abnormal error : you modified OSD library";
+          buffer += "abnormal error : you modified OSD1 library";
           extCode = ERR_PERM;
           break;
       }

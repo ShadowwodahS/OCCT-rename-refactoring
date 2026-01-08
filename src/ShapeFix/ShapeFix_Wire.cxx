@@ -25,7 +25,7 @@
 // surfaces
 //: p7 abv 10.03.99 PRO18206: using method IsDegenerated() to detect singularity in FixLacking
 //: r0 abv 19.03.99 PRO7226.stp #489490: remove degenerated edges if several
-// #78 rln 12.03.99 S4135: checking spatial closure with Precision
+// #78 rln 12.03.99 S4135: checking spatial closure with Precision1
 // #79 rln 15.03.99 S4135: bmarkmdl.igs: check for gap before shifting on singularities
 //     pdn 17.03.99 S4135: implemented fixing not adjacent intersection
 // #86 rln 22.03.99 S4135: repeat of fix self-intersection if it was fixed just before
@@ -243,7 +243,7 @@ void WireHealer::Init(const Handle(ShapeAnalysis_Wire)& saw)
   ClearStatuses();
   myAnalyzer = saw;
   myShape.Nullify();
-  //  SetPrecision ( saw.Precision() );
+  //  SetPrecision ( saw.Precision1() );
 }
 
 //=================================================================================================
@@ -546,7 +546,7 @@ Standard_Boolean WireHealer::FixEdgeCurves()
                               face,
                               sbwd->IsSeam(i),
                               myAnalyzer->Surface(),
-                              Precision());
+                              Precision1());
       if (myFixEdge->Status(ShapeExtend_DONE))
         myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
       if (myFixEdge->Status(ShapeExtend_FAIL))
@@ -579,17 +579,17 @@ Standard_Boolean WireHealer::FixEdgeCurves()
             if (SAC.Project(GAC, P3d, MinTolerance(), pr, split, Standard_True)
                 < Max(Preci, MinTolerance()))
             {
-              if (split - a > ::Precision::PConfusion() && b - split > ::Precision::PConfusion())
+              if (split - a > ::Precision1::PConfusion() && b - split > ::Precision1::PConfusion())
               {
                 Standard_Integer k;
                 for (k = 1; k <= seq.Length(); k++)
                 {
-                  if (split < seq(k) - ::Precision::PConfusion())
+                  if (split < seq(k) - ::Precision1::PConfusion())
                   {
                     seq.InsertBefore(k, split);
                     break;
                   }
-                  else if (split < seq(k) + ::Precision::PConfusion())
+                  else if (split < seq(k) + ::Precision1::PConfusion())
                     break;
                 }
                 if (k > seq.Length())
@@ -703,7 +703,7 @@ Standard_Boolean WireHealer::FixEdgeCurves()
     }
 
     //: c0 abv 20 Feb 98: treat case of curve going over degenerated pole and seam
-    if (overdegen && myAnalyzer->Surface()->IsUClosed(Precision()))
+    if (overdegen && myAnalyzer->Surface()->IsUClosed(Precision1()))
     {
       Edge2 sbe;
       Standard_Real   URange, SUF, SUL, SVF, SVL;
@@ -728,7 +728,7 @@ Standard_Boolean WireHealer::FixEdgeCurves()
                                 face,
                                 sbwd->IsSeam(overdegen),
                                 myAnalyzer->Surface(),
-                                Precision());
+                                Precision1());
       }
 #ifdef OCCT_DEBUG
       std::cout << "Edge going over singularity detected; pcurve adjusted" << std::endl;
@@ -764,7 +764,7 @@ Standard_Boolean WireHealer::FixEdgeCurves()
         TopLoc_Location      L;
         Standard_Real        first = 0., last = 0.;
         BRepInspector::CurveOnSurface(sbwd->Edge(i), C, S, L, first, last);
-        if (C.IsNull() || Abs(last - first) < Precision::PConfusion())
+        if (C.IsNull() || Abs(last - first) < Precision1::PConfusion())
         {
           // clang-format off
           SendWarning ( sbwd->Edge ( i ), Message_Msg ( "FixWire.FixCurve3d.Removed" ) );// Incomplete edge (with no pcurves or 3d curve) removed
@@ -774,11 +774,11 @@ Standard_Boolean WireHealer::FixEdgeCurves()
           myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE5);
           if (i == nb)
           {
-            FixClosed(Precision());
+            FixClosed(Precision1());
           }
           else
           {
-            FixConnected(i + 1, Precision());
+            FixConnected(i + 1, Precision1());
           }
         }
         myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL5);
@@ -824,8 +824,8 @@ Standard_Boolean WireHealer::FixEdgeCurves()
         Standard_Real        fp2d, lp2d;
         if (sae.PCurve(sbwd->Edge(i), face, C2d, fp2d, lp2d, Standard_False))
         {
-          if (fabs(First - fp2d) > Precision::PConfusion()
-              || fabs(Last - lp2d) > Precision::PConfusion())
+          if (fabs(First - fp2d) > Precision1::PConfusion()
+              || fabs(Last - lp2d) > Precision1::PConfusion())
           {
             ShapeBuilder B;
             B.SameRange(sbwd->Edge(i), Standard_False);
@@ -840,7 +840,7 @@ Standard_Boolean WireHealer::FixEdgeCurves()
                                     face,
                                     sbwd->IsSeam(i),
                                     myAnalyzer->Surface(),
-                                    Precision());
+                                    Precision1());
             if (myFixEdge->Status(ShapeExtend_DONE))
               myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
             if (myFixEdge->Status(ShapeExtend_FAIL))
@@ -883,7 +883,7 @@ Standard_Boolean WireHealer::FixDegenerated()
   if (!IsReady())
     return Standard_False;
 
-  //  if ( ! myAnalyzer->Surface()->HasSingularities ( Precision() ) ) return;
+  //  if ( ! myAnalyzer->Surface()->HasSingularities ( Precision1() ) ) return;
 
   Standard_Integer lastcoded = -1, prevcoded = 0;
   Standard_Integer stop = (myClosedMode ? 0 : 1);
@@ -945,7 +945,7 @@ Standard_Boolean WireHealer::FixSelfIntersection()
           num--;
         nb = sbwd->NbEdges();
       }
-      FixClosed(Precision());
+      FixClosed(Precision1());
     }
   }
 
@@ -1012,7 +1012,7 @@ Standard_Boolean WireHealer::FixSelfIntersection()
   if (NeedFix(myFixNonAdjacentIntersectingEdgesMode))
   {
 
-    ShapeFix_IntersectionTool ITool(Context(), Precision());
+    ShapeFix_IntersectionTool ITool(Context(), Precision1());
     Standard_Integer          NbSplit = 0, NbCut = 0, NbRemoved = 0;
     if (ITool.FixSelfIntersectWire(sbwd, myAnalyzer->Face(), NbSplit, NbCut, NbRemoved))
     {
@@ -1057,7 +1057,7 @@ Standard_Boolean WireHealer::FixSelfIntersection()
             }
             else
               gac.Load(c2d,cf,cl);
-        Add2dCurve::Add(gac,::Precision::Confusion(),box);
+        Add2dCurve::Add(gac,::Precision1::Confusion(),box);
         boxes(i) = box;
           }
         }
@@ -1414,10 +1414,10 @@ Standard_Boolean WireHealer::FixShifted()
     return Standard_False;
 
   Handle(ShapeAnalysis_Surface) surf = myAnalyzer->Surface();
-  // #78 rln 12.03.99 S4135: checking spatial closure with Precision
-  Standard_Boolean uclosed = surf->IsUClosed(Precision());
+  // #78 rln 12.03.99 S4135: checking spatial closure with Precision1
+  Standard_Boolean uclosed = surf->IsUClosed(Precision1());
   Standard_Boolean vclosed =
-    surf->IsVClosed(Precision()) || surf->Surface()->IsKind(STANDARD_TYPE(Geom_SphericalSurface));
+    surf->IsVClosed(Precision1()) || surf->Surface()->IsKind(STANDARD_TYPE(Geom_SphericalSurface));
   // #67 rln 01.03.99 S4135: ims010.igs entity D11900 (2D contour is 2*PI higher than V range
   // [-pi/2,p/2])
 
@@ -1524,13 +1524,13 @@ Standard_Boolean WireHealer::FixShifted()
 
     //: abv 29.08.01: torCuts.sat: distinguish degeneration by U and by V;
     // only corresponding move is prohibited
-    //    Standard_Boolean isDeg = surf->IsDegenerated ( p, Max ( Precision(),
+    //    Standard_Boolean isDeg = surf->IsDegenerated ( p, Max ( Precision1(),
     //    BRepInspector::Tolerance(V) ) );
     Standard_Integer isDeg = 0;
     gp_Pnt2d         degP1, degP2;
     Standard_Real    degT1, degT2;
     if (surf->DegeneratedValues(p,
-                                Max(Precision(), BRepInspector::Tolerance(V)),
+                                Max(Precision1(), BRepInspector::Tolerance(V)),
                                 degP1,
                                 degP2,
                                 degT1,
@@ -1586,7 +1586,7 @@ Standard_Boolean WireHealer::FixShifted()
       }
       else
       {
-        if (pdeg.SquareDistance(p) < Precision() * Precision())
+        if (pdeg.SquareDistance(p) < Precision1() * Precision1())
         {
           degn2 = n2;
           // if ( stop < n2 ) { stop = n2; degstop = Standard_True; }
@@ -1628,9 +1628,9 @@ Standard_Boolean WireHealer::FixShifted()
           Standard_Real rot2 = (pd1.XY() - pn2.XY()) ^ x.XY();
           Standard_Real scld = (pd2.XY() - pd1.XY()) * x.XY();
           Standard_Real scln = (pn2.XY() - pn1.XY()) * x.XY();
-          if (rot1 * rot2 < -::Precision::PConfusion() && scld * scln < -::Precision::PConfusion()
+          if (rot1 * rot2 < -::Precision1::PConfusion() && scld * scln < -::Precision1::PConfusion()
               && Abs(scln) > 0.1 * period && Abs(scld) > 0.1 * period
-              && rot1 * scld > ::Precision::PConfusion() && rot2 * scln > ::Precision::PConfusion())
+              && rot1 * scld > ::Precision1::PConfusion() && rot2 * scln > ::Precision1::PConfusion())
           {
             // abv 02 Mar 00: trying more sophisticated analysis (ie_exhaust-A.stp #37520)
             Standard_Real sign = (rot2 > 0 ? 1. : -1.);
@@ -1651,8 +1651,8 @@ Standard_Boolean WireHealer::FixShifted()
             Standard_Real deep = deep2 - deep1; // estimated current size of wire by x
             // pdn 30 Oct 00: trying correct period [0,period] (trj5_k1-tc-203.stp #4698)
             Standard_Real dx = ShapeAnalysis1::AdjustToPeriod(deep,
-                                                             ::Precision::PConfusion(),
-                                                             period + ::Precision::PConfusion());
+                                                             ::Precision1::PConfusion(),
+                                                             period + ::Precision1::PConfusion());
             x *= (scld > 0 ? -dx : dx);
             // x *= ( Abs(scld-scln) > 1.5 * period ? 2. : 1. ) *
             //      ( scld >0 ? -period : period );
@@ -1687,23 +1687,23 @@ Standard_Boolean WireHealer::FixShifted()
             TopoVertex VE = sae.LastVertex ( E2 );
             Point3d pe = BRepInspector::Pnt ( VE );
             //pdn is second vertex on singular point ?
-            if ( surf->IsDegenerated ( pe, Max ( Precision(), BRepInspector::Tolerance(V) ) ) ) {
+            if ( surf->IsDegenerated ( pe, Max ( Precision1(), BRepInspector::Tolerance(V) ) ) ) {
           if ( ( c2d1.IsNull() && ! sae.PCurve ( E1, Face(), c2d1, a1, b1, Standard_True ) ) ||
                ( c2d2.IsNull() && ! sae.PCurve ( E2, Face(), c2d2, a2, b2, Standard_True ) ) ) {
             myLastFixStatus |= ShapeExtend1::EncodeStatus ( ShapeExtend_FAIL1 );
             continue;
           }
           gp_Pnt2d p2d1 = c2d1->Value ( b1 ), p2f = c2d2->Value ( a2 ), p2l = c2d2->Value ( b2 );
-          Standard_Real pres2 = ::Precision::PConfusion();
+          Standard_Real pres2 = ::Precision1::PConfusion();
           Standard_Real du = 0.,dv = 0.;
           //#79 rln 15.03.99 S4135: bmarkmdl.igs entity 633 (incorrectly oriented contour) check for
          gap
-          if(uclosed&&(Abs(p2f.X()-p2l.X())<pres2)&&Abs(p2d1.X()-p2f.X())>GAS.UResolution(Precision()))
+          if(uclosed&&(Abs(p2f.X()-p2l.X())<pres2)&&Abs(p2d1.X()-p2f.X())>GAS.UResolution(Precision1()))
          { if((Abs(p2f.X()-SUF)<pres2)&&(p2f.Y()<p2l.Y())) du = URange;
             if((Abs(p2f.X()-SUL)<pres2)&&(p2f.Y()>p2l.Y()))
               du = -URange;
           }
-          if(vclosed&&(Abs(p2f.Y()-p2l.Y())<pres2)&&Abs(p2d1.Y()-p2f.Y())>GAS.VResolution(Precision()))
+          if(vclosed&&(Abs(p2f.Y()-p2l.Y())<pres2)&&Abs(p2d1.Y()-p2f.Y())>GAS.VResolution(Precision1()))
          { if((Abs(p2f.Y()-SVF)<pres2)&&(p2f.X()>p2l.X())) dv = VRange;
             if((Abs(p2f.Y()-SVL)<pres2)&&(p2f.X()<p2l.X()))
               dv = -VRange;
@@ -1856,7 +1856,7 @@ Standard_Boolean WireHealer::FixDegenerated(const Standard_Integer num)
   ShapeBuilder B;
   B.MakeEdge(degEdge);
   B.Degenerated(degEdge, Standard_True);
-  B.UpdateEdge(degEdge, line2d, Face(), ::Precision::Confusion());
+  B.UpdateEdge(degEdge, line2d, Face(), ::Precision1::Confusion());
   B.Range(degEdge, Face(), 0., vect2d.Magnitude());
 
   Handle(ShapeExtend_WireData) sbwd = WireData();
@@ -1999,8 +1999,8 @@ static Standard_Boolean RemoveLoop(TopoEdge&                      E,
 #endif
   GeomAdaptor_Curve GAC(crv, f, l);
   Standard_Real     dt = tolfact * GAC.Resolution(prec);
-  t1 -= dt; // 1e-3;//::Precision::PConfusion();
-  t2 += dt; // 1e-3;//::Precision::PConfusion();
+  t1 -= dt; // 1e-3;//::Precision1::PConfusion();
+  t2 += dt; // 1e-3;//::Precision1::PConfusion();
 #ifdef OCCT_DEBUG
   std::cout << ") -> (" << t1 << ", " << t2 << ")" << std::endl;
 #endif
@@ -2046,11 +2046,11 @@ static Standard_Boolean RemoveLoop(TopoEdge&                      E,
   Mults.SetValue(2, 2);
 
   Handle(BSplineCurve3d) patch = new BSplineCurve3d(Poles, Knots, Mults, 1);
-  if (!connect.Add(patch, ::Precision::PConfusion(), Standard_True, Standard_False))
+  if (!connect.Add(patch, ::Precision1::PConfusion(), Standard_True, Standard_False))
     return Standard_False;
 
   // last segment
-  if (!connect.Add(trim, ::Precision::PConfusion(), Standard_True, Standard_False))
+  if (!connect.Add(trim, ::Precision1::PConfusion(), Standard_True, Standard_False))
     return Standard_False;
   // PTV OCC884
   // keep created 3d curve
@@ -2081,8 +2081,8 @@ static Standard_Boolean RemoveLoop(TopoEdge&                      E,
     if (newtol > Max(prec, tol))
       return Standard_False;
     //: s2  bs = BRepInspector::CurveOnSurface ( edge, face, a, b );
-    if (Abs(a - f) > ::Precision::PConfusion() || // smth strange, cancel
-        Abs(b - l) > ::Precision::PConfusion())
+    if (Abs(a - f) > ::Precision1::PConfusion() || // smth strange, cancel
+        Abs(b - l) > ::Precision1::PConfusion())
       return Standard_False;
     // PTV OCC884
     if (!aPlaneSurf.IsNull())
@@ -2158,11 +2158,11 @@ static Standard_Boolean RemoveLoop(TopoEdge&                      E,
     // create b-spline curve
     Handle(BSplineCurve3d) patch1 = new BSplineCurve3d(Poles1, Knots1, Mults1, 1);
 
-    if (!connect1.Add(patch1, ::Precision::PConfusion(), Standard_True, Standard_False))
+    if (!connect1.Add(patch1, ::Precision1::PConfusion(), Standard_True, Standard_False))
       return Standard_False;
 
     // last segment
-    if (!connect1.Add(trim1, ::Precision::PConfusion(), Standard_True, Standard_False))
+    if (!connect1.Add(trim1, ::Precision1::PConfusion(), Standard_True, Standard_False))
       return Standard_False;
 
     bs1 = connect1.BSplineCurve();
@@ -2228,7 +2228,7 @@ static Standard_Boolean RemoveLoop(TopoEdge&                      E,
 
   // first segment for 2d curve
   Handle(Geom2d_TrimmedCurve) trim1;
-  if ((t1 - a) > Precision::PConfusion())
+  if ((t1 - a) > Precision1::PConfusion())
     trim1 = new Geom2d_TrimmedCurve(c2d, a, t1);
   // second segment for 2d curve
   Handle(Geom2d_TrimmedCurve) trim2 = new Geom2d_TrimmedCurve(c2d, t2, b);
@@ -2381,7 +2381,7 @@ Standard_Boolean WireHealer::FixSelfIntersectingEdge(const Standard_Integer num)
   Standard_Real        tolfact = 0.1; // factor for shifting by parameter in RemoveLoop
   Standard_Real        f2d = 0., l2d = 0.;
   Handle(GeomCurve2d) c2d;
-  Standard_Real        newtol = 0.; // = Precision();
+  Standard_Real        newtol = 0.; // = Precision1();
 
   if (myRemoveLoopMode < 1)
   {
@@ -2411,7 +2411,7 @@ Standard_Boolean WireHealer::FixSelfIntersectingEdge(const Standard_Integer num)
                          Face(),
                          points2d.Value(i),
                          tolfact,
-                         Min(MaxTolerance(), Max(newtol, Precision())),
+                         Min(MaxTolerance(), Max(newtol, Precision1())),
                          myRemoveLoopMode == 0))
           {
             myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE4);
@@ -2449,7 +2449,7 @@ Standard_Boolean WireHealer::FixSelfIntersectingEdge(const Standard_Integer num)
         ShapeBuilder B;
         B.UpdateEdge(E, c2d, Face(), 0.);
         B.Range(E, Face(), f2d, l2d);
-        // newtol+=Precision();
+        // newtol+=Precision1();
       }
       else
       {
@@ -3054,7 +3054,7 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num1,
 //              which should have vertex in order to comprise the gap
 //              (using GeomAdaptor_Surface); computed value is inctol
 //           2. If inctol < tol of vertex, return False (everything is OK)
-//           3. If inctol < Precision, just increase tolerance of vertex to inctol
+//           3. If inctol < Precision1, just increase tolerance of vertex to inctol
 //           4. Else (if both edges are not degenerated) try to add new edge
 //              with straight pcurve (in order to close the gap):
 //              a) if flag MayEdit is False
@@ -3113,19 +3113,19 @@ static Standard_Boolean TryBendingPCurve(const TopoEdge&     E,
         return Standard_False;
 
       Standard_Real par = (end ? last : first);
-      if (fabs(bs->FirstParameter() - par) < ::Precision::PConfusion()
+      if (fabs(bs->FirstParameter() - par) < ::Precision1::PConfusion()
           && bs->Multiplicity(1) > bs->Degree())
         bs->SetPole(1, p2d);
-      else if (fabs(bs->LastParameter() - par) < ::Precision::PConfusion()
+      else if (fabs(bs->LastParameter() - par) < ::Precision1::PConfusion()
                && bs->Multiplicity(bs->NbKnots()) > bs->Degree())
         bs->SetPole(bs->NbPoles(), p2d);
       else
       {
         bs->Segment1(first, last);
-        if (fabs(bs->FirstParameter() - par) < ::Precision::PConfusion()
+        if (fabs(bs->FirstParameter() - par) < ::Precision1::PConfusion()
             && bs->Multiplicity(1) > bs->Degree())
           bs->SetPole(1, p2d);
-        else if (fabs(bs->LastParameter() - par) < ::Precision::PConfusion()
+        else if (fabs(bs->LastParameter() - par) < ::Precision1::PConfusion()
                  && bs->Multiplicity(bs->NbKnots()) > bs->Degree())
           bs->SetPole(bs->NbPoles(), p2d);
         else
@@ -3160,7 +3160,7 @@ Standard_Boolean WireHealer::FixLacking(const Standard_Integer num, const Standa
   //=============
   // First phase: analysis whether the problem (gap) exists
   gp_Pnt2d p2d1, p2d2;
-  myAnalyzer->CheckLacking(num, (force ? Precision() : 0.), p2d1, p2d2);
+  myAnalyzer->CheckLacking(num, (force ? Precision1() : 0.), p2d1, p2d2);
   if (myAnalyzer->LastCheckStatus(ShapeExtend_FAIL))
   {
     myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
@@ -3182,7 +3182,7 @@ Standard_Boolean WireHealer::FixLacking(const Standard_Integer num, const Standa
   TopoVertex      V2  = sae.FirstVertex(E2);
   Standard_Real      tol = Max(BRepInspector::Tolerance(V1), BRepInspector::Tolerance(V2));
 
-  Standard_Real Prec   = Precision();
+  Standard_Real Prec   = Precision1();
   Standard_Real dist2d = myAnalyzer->MaxDistance2d();
   Standard_Real inctol = myAnalyzer->MaxDistance3d();
 
@@ -3190,7 +3190,7 @@ Standard_Boolean WireHealer::FixLacking(const Standard_Integer num, const Standa
   Handle(ShapeAnalysis_Surface) surf = myAnalyzer->Surface();
 
   Point3d        p3d1, p3d2;
-  Standard_Real tol1 = ::Precision::Confusion(), tol2 = ::Precision::Confusion(); // SK
+  Standard_Real tol1 = ::Precision1::Confusion(), tol2 = ::Precision1::Confusion(); // SK
 
   //=============
   //: s2 abv 21 Apr 99: Speculation: try bending pcurves
@@ -3375,7 +3375,7 @@ Standard_Boolean WireHealer::FixLacking(const Standard_Integer num, const Standa
       B.Degenerated(edge, Standard_True); // sln: do it before adding curve
     gp_Vec2d            v12(p2d1, p2d2);
     Handle(Geom2d_Line) theLine2d = new Geom2d_Line(p2d1, gp_Dir2d(v12));
-    B.UpdateEdge(edge, theLine2d, face, ::Precision::Confusion());
+    B.UpdateEdge(edge, theLine2d, face, ::Precision1::Confusion());
     B.Range(edge, face, 0, dist2d);
     B.Add(edge, newV1.Oriented(TopAbs_FORWARD));
     B.Add(edge, newV2.Oriented(TopAbs_REVERSED));
@@ -3514,9 +3514,9 @@ Standard_Boolean WireHealer::FixNotchedEdges()
       // check whether the whole edges should be removed - this is the case
       // when split point coincides with the end of the edge;
       // for closed edges split point may fall at the other end (see issue #0029780)
-      if (Abs(param - (isRemoveFirst ? b : a)) <= ::Precision::PConfusion()
+      if (Abs(param - (isRemoveFirst ? b : a)) <= ::Precision1::PConfusion()
           || (sae.IsClosed3d(splitE)
-              && Abs(param - (isRemoveFirst ? a : b)) <= ::Precision::PConfusion()))
+              && Abs(param - (isRemoveFirst ? a : b)) <= ::Precision1::PConfusion()))
       {
         FixDummySeam(n1);
         // The seam edge is removed from the list. So, need to step back to avoid missing of edge
@@ -3526,7 +3526,7 @@ Standard_Boolean WireHealer::FixNotchedEdges()
       else // perform splitting of the edge and adding to wire
       {
         // pdn check if it is necessary
-        if (Abs((isRemoveFirst ? a : b) - param) < ::Precision::PConfusion())
+        if (Abs((isRemoveFirst ? a : b) - param) < ::Precision1::PConfusion())
         {
           continue;
         }
@@ -3550,7 +3550,7 @@ Standard_Boolean WireHealer::FixNotchedEdges()
         ShapeBuilder  B;
         B.MakeVertex(Vnew,
                      Analyzer()->Surface()->Value(c2d->Value(param)),
-                     ::Precision::Confusion());
+                     ::Precision1::Confusion());
         TopoEdge wE = splitE;
         wE.Orientation(TopAbs_FORWARD);
         TopoShape aTmpShape = Vnew.Oriented(TopAbs_REVERSED); // for porting

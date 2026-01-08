@@ -52,7 +52,7 @@ GeomFill_FunctionGuide::GeomFill_FunctionGuide(const Handle(GeomFill_SectionLaw)
       Last(0.0),
       TheUonS(Param)
 {
-  Standard_Real Tol = Precision::Confusion();
+  Standard_Real Tol = Precision1::Confusion();
   if (TheLaw->IsConstant(Tol))
   {
     isconst  = Standard_True;

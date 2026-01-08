@@ -187,7 +187,7 @@ LRESULT APIENTRY EditProc(HWND hWnd, UINT wMsg, WPARAM wParam, LPARAM lParam)
         case 0x0d: {
           wchar_t aCmdBuffer[COMMANDSIZE];
           GetCommand(hWnd, aCmdBuffer);
-          // Standard processing
+          // Standard1 processing
           CallWindowProcW(OldEditProc, hWnd, wMsg, wParam, lParam);
           // Display of PROMPT
           POINT pos;

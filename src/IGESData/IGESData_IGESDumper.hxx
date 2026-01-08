@@ -56,7 +56,7 @@ public:
   Standard_EXPORT void PrintDNum(const Handle(IGESData_IGESEntity)& ent, Standard_OStream& S) const;
 
   //! Prints onto an output, the "Number of Directory Entry" (see
-  //! PrintDNum) plus IGES Type and Form Numbers, which gives
+  //! PrintDNum) plus IGES Type and Form Numbers1, which gives
   //! "D#nnn  Type nnn  Form nnn"
   Standard_EXPORT void PrintShort(const Handle(IGESData_IGESEntity)& ent,
                                   Standard_OStream&                  S) const;

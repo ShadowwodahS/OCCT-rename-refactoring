@@ -42,7 +42,7 @@ public:
         mySpaceSize(200000),
         myCurrentSpace(-1)
   {
-    mySpace = (DbObject**)Standard::Allocate(sizeof(DbObject*) * mySpaceSize);
+    mySpace = (DbObject**)Standard1::Allocate(sizeof(DbObject*) * mySpaceSize);
   }
 
   Storage_Bucket(const Standard_Integer theSpaceSize)
@@ -50,7 +50,7 @@ public:
         mySpaceSize(theSpaceSize),
         myCurrentSpace(-1)
   {
-    mySpace = (DbObject**)Standard::Allocate(sizeof(DbObject*) * mySpaceSize);
+    mySpace = (DbObject**)Standard1::Allocate(sizeof(DbObject*) * mySpaceSize);
   }
 
   void Clear();

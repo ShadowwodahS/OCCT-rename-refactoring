@@ -176,7 +176,7 @@ public:
   Standard_EXPORT Point3d Apex() const;
 
   //! The conical surface is infinite in the V direction so
-  //! V1 = Realfirst from Standard and V2 = RealLast.
+  //! V1 = Realfirst from Standard1 and V2 = RealLast.
   //! U1 = 0 and U2 = 2*PI.
   Standard_EXPORT void Bounds(Standard_Real& U1,
                               Standard_Real& U2,

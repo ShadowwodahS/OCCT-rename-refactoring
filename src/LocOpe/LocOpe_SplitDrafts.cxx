@@ -169,7 +169,7 @@ void LocOpe_SplitDrafts::Perform(const TopoFace&     F,
   Handle(GeomSurface) NewSg       = new GeomPlane(NewPlg);
   Handle(GeomSurface) NewSd       = new GeomPlane(NewPld);
   Handle(GeomLine)    theLinePipe = new GeomLine(NormalFg); // ou NormalFd
-  GeomInt_IntSS        i2s(NewSg, NewSd, Precision::Confusion());
+  GeomInt_IntSS        i2s(NewSg, NewSd, Precision1::Confusion());
 
   TopTools_MapOfShape         theMap;
   Handle(GeomAdaptor_Curve)   HAC = new GeomAdaptor_Curve;
@@ -241,8 +241,8 @@ void LocOpe_SplitDrafts::Perform(const TopoFace&     F,
           {
             // on segmente edg en pf et pl
             TopoVertex Vnewf, Vnewl;
-            B.MakeVertex(Vnewf, pf, Precision::Confusion());
-            B.MakeVertex(Vnewl, pl, Precision::Confusion());
+            B.MakeVertex(Vnewf, pf, Precision1::Confusion());
+            B.MakeVertex(Vnewl, pl, Precision1::Confusion());
             if (P1.W() >= f && P1.W() <= l && P2.W() >= f && P2.W() <= l)
             {
               splw.Add(Vnewf, P1.W(), edg);
@@ -282,7 +282,7 @@ void LocOpe_SplitDrafts::Perform(const TopoFace&     F,
               if (Pi.W() >= f && Pi.W() <= l)
               {
                 TopoVertex Vnew;
-                B.MakeVertex(Vnew, pi, Precision::Confusion());
+                B.MakeVertex(Vnew, pi, Precision1::Confusion());
                 splw.Add(Vnew, Pi.W(), edg);
               }
             }
@@ -437,7 +437,7 @@ void LocOpe_SplitDrafts::Perform(const TopoFace&     F,
         }
 
         TopoFace NewFace;
-        B.MakeFace(NewFace, thePS, Precision::Confusion());
+        B.MakeFace(NewFace, thePS, Precision1::Confusion());
         MapEV.Add(edg, NewFace);
       }
       else
@@ -607,7 +607,7 @@ void LocOpe_SplitDrafts::Perform(const TopoFace&     F,
           {
             AppS2 = Standard_True;
           }
-          i2s.Perform(S1, S2, Precision::Confusion(), Standard_True, AppS1, AppS2);
+          i2s.Perform(S1, S2, Precision1::Confusion(), Standard_True, AppS1, AppS2);
           if (!i2s.IsDone() || i2s.NbLines() <= 0)
           {
             return;
@@ -740,20 +740,20 @@ void LocOpe_SplitDrafts::Perform(const TopoFace&     F,
         }
         if (it == 1)
         {
-          B.MakeVertex(vtx1, intcs.Point(imin).Pnt(), Precision::Confusion());
+          B.MakeVertex(vtx1, intcs.Point(imin).Pnt(), Precision1::Confusion());
           p1     = intcs.Point(imin).W();
           knownp = p1;
         }
         else
         {
-          B.MakeVertex(vtx2, intcs.Point(imin).Pnt(), Precision::Confusion());
+          B.MakeVertex(vtx2, intcs.Point(imin).Pnt(), Precision1::Confusion());
           p2 = intcs.Point(imin).W();
         }
       }
-      if (Abs(p1 - p2) > Precision::PConfusion())
+      if (Abs(p1 - p2) > Precision1::PConfusion())
       {
         TopoEdge NewEdge;
-        B.MakeEdge(NewEdge, Newc, Precision::Confusion());
+        B.MakeEdge(NewEdge, Newc, Precision1::Confusion());
         if (p1 < p2)
         {
           B.Add(NewEdge, vtx1.Oriented(TopAbs_FORWARD));
@@ -764,14 +764,14 @@ void LocOpe_SplitDrafts::Perform(const TopoFace&     F,
           B.Add(NewEdge, vtx1.Oriented(TopAbs_REVERSED));
           B.Add(NewEdge, vtx2.Oriented(TopAbs_FORWARD));
         }
-        B.UpdateVertex(vtx1, p1, NewEdge, Precision::Confusion());
-        B.UpdateVertex(vtx2, p2, NewEdge, Precision::Confusion());
+        B.UpdateVertex(vtx1, p1, NewEdge, Precision1::Confusion());
+        B.UpdateVertex(vtx2, p2, NewEdge, Precision1::Confusion());
         if (!newCs1.IsNull())
         {
           B.UpdateEdge(NewEdge,
                        newCs1,
                        TopoDS::Face(MapEV.FindFromKey(edg1)),
-                       Precision::Confusion());
+                       Precision1::Confusion());
         }
 
         if (!newCs2.IsNull())
@@ -779,7 +779,7 @@ void LocOpe_SplitDrafts::Perform(const TopoFace&     F,
           B.UpdateEdge(NewEdge,
                        newCs2,
                        TopoDS::Face(MapEV.FindFromKey(edg2)),
-                       Precision::Confusion());
+                       Precision1::Confusion());
         }
 
         MapEV.Add(vtx, NewEdge);
@@ -795,7 +795,7 @@ void LocOpe_SplitDrafts::Perform(const TopoFace&     F,
             if (thevtx.IsSame(vtx))
             {
               B.Add(NE, vtx1.Oriented(thevtx.Orientation()));
-              B.UpdateVertex(vtx1, p1, NE, Precision::Confusion());
+              B.UpdateVertex(vtx1, p1, NE, Precision1::Confusion());
             }
             else
             {
@@ -1484,7 +1484,7 @@ static Standard_Boolean NewPlane(const TopoFace&     F,
   Axis3d        Axe;
   Standard_Real Theta;
 
-  QuadQuadGeoIntersection i2pl(Plorig, Neutr, Precision::Angular(), Precision::Confusion());
+  QuadQuadGeoIntersection i2pl(Plorig, Neutr, Precision1::Angular(), Precision1::Confusion());
 
   if (i2pl.IsDone() && i2pl.TypeInter() == IntAna_Line)
   {
@@ -1493,7 +1493,7 @@ static Standard_Boolean NewPlane(const TopoFace&     F,
     NormalF          = Plorig.Axis();
     Dir3d        ny = NormalF.Direction().Crossed(nx);
     Standard_Real a  = Extr.Dot(nx);
-    if (Abs(a) <= 1 - Precision::Angular())
+    if (Abs(a) <= 1 - Precision1::Angular())
     {
       Standard_Real      b = Extr.Dot(ny);
       Standard_Real      c = Extr.Dot(NormalF.Direction());
@@ -1731,7 +1731,7 @@ static TopoEdge NewEdge(const TopoEdge&          edg,
     AppS1 = Standard_True;
   }
 
-  GeomInt_IntSS i2s(S1, NewS, Precision::Confusion(), Standard_True, AppS1);
+  GeomInt_IntSS i2s(S1, NewS, Precision1::Confusion(), Standard_True, AppS1);
   if (!i2s.IsDone() || i2s.NbLines() <= 0)
   {
     return NewEdg;
@@ -1771,7 +1771,7 @@ static TopoEdge NewEdge(const TopoEdge&          edg,
         }
       }
 
-      if (Dist2Min <= Precision::SquareConfusion())
+      if (Dist2Min <= Precision1::SquareConfusion())
       {
         prmf = thepmin;
         myExtPC.Perform(pvl);
@@ -1794,7 +1794,7 @@ static TopoEdge NewEdge(const TopoEdge&          edg,
             }
           }
 
-          if (Dist2Min <= Precision::SquareConfusion())
+          if (Dist2Min <= Precision1::SquareConfusion())
           {
             prml = thepmin;
             break;
@@ -1896,7 +1896,7 @@ static TopoEdge NewEdge(const TopoEdge&          edg,
         }
       }
 #ifdef OCCT_DEBUG
-      Standard_Real ptol = Precision::PConfusion();
+      Standard_Real ptol = Precision1::PConfusion();
       if (prmf < imf - ptol || prmf > iml + ptol || prml < imf - ptol || prml > iml + ptol)
       {
         std::cout << "Ca ne va pas aller" << std::endl;
@@ -1918,12 +1918,12 @@ static TopoEdge NewEdge(const TopoEdge&          edg,
       Standard_Real ptra = 0.0;
 
       Standard_Real Ustart = Min(Uf, Ul);
-      while (Ustart < -Precision::PConfusion())
+      while (Ustart < -Precision1::PConfusion())
       {
         Ustart += speriod;
         ptra += speriod;
       }
-      while (Ustart > speriod - Precision::PConfusion())
+      while (Ustart > speriod - Precision1::PConfusion())
       {
         Ustart -= speriod;
         ptra -= speriod;
@@ -1945,15 +1945,15 @@ static TopoEdge NewEdge(const TopoEdge&          edg,
       rev = Standard_True;
     }
 
-    B.MakeEdge(NewEdg, Cimg, Precision::Confusion());
+    B.MakeEdge(NewEdg, Cimg, Precision1::Confusion());
 
     B.Add(NewEdg, Vf);
     B.Add(NewEdg, Vl);
-    B.UpdateVertex(Vf, prmf, NewEdg, Precision::Confusion());
-    B.UpdateVertex(Vl, prml, NewEdg, Precision::Confusion());
+    B.UpdateVertex(Vf, prmf, NewEdg, Precision1::Confusion());
+    B.UpdateVertex(Vl, prml, NewEdg, Precision1::Confusion());
     if (AppS1)
     {
-      B.UpdateEdge(NewEdg, Cimg2d, F, Precision::Confusion());
+      B.UpdateEdge(NewEdg, Cimg2d, F, Precision1::Confusion());
     }
 
     if (rev)

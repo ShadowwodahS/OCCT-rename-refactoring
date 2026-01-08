@@ -97,7 +97,7 @@ static void CompCommonPoint(ChFiDS_CommonPoint&            FilPoint,
     V = TopExp1::LastVertex(arc);
   }
   FilPoint.SetVertex(V);
-  FilPoint.SetArc(Precision::PIntersection(),
+  FilPoint.SetArc(Precision1::PIntersection(),
                   arc,
                   PE.Parameter(),
                   TopAbs1::Compose(arc.Orientation(), Or));
@@ -699,7 +699,7 @@ Standard_Boolean ChFi3d_Builder::SplitKPart(const Handle(ChFiDS_SurfData)&     D
 {
   // The hatching of each faces is started by tangency lines.
 
-  Standard_Real pitol = Precision::PIntersection();
+  Standard_Real pitol = Precision1::PIntersection();
 
   ChFiKPart_RstMap M1, M2;
   Standard_Integer iH1 = 0, iH2 = 0;

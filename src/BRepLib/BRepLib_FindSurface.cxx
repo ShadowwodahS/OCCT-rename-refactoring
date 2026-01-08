@@ -117,7 +117,7 @@ static Standard_Boolean Is2DClosed(const TopoShape&         theShape,
     }
     TopoWire aWire = TopoDS::Wire(aWireExp.Current());
     // a tmp face
-    TopoFace aTmpFace = BRepLib_MakeFace(theSurface, Precision::PConfusion());
+    TopoFace aTmpFace = BRepLib_MakeFace(theSurface, Precision1::PConfusion());
 
     // check topological closeness using wire explorer, if the wire is not closed
     // the 1st and the last vertices of wire are different
@@ -185,20 +185,20 @@ static void fillParams(const TColStd_Array1OfReal&        theKnots,
   Standard_Integer aNbP = Max(theDegree, 1);
 
   for (Standard_Integer i = 1;
-       (i < theKnots.Length()) && (theKnots(i) < (theParMax - Precision::PConfusion()));
+       (i < theKnots.Length()) && (theKnots(i) < (theParMax - Precision1::PConfusion()));
        ++i)
   {
-    if (theKnots(i + 1) < theParMin + Precision::PConfusion())
+    if (theKnots(i + 1) < theParMin + Precision1::PConfusion())
       continue;
 
     Standard_Real aStep = (theKnots(i + 1) - theKnots(i)) / aNbP;
     for (Standard_Integer k = 1; k <= aNbP; ++k)
     {
       Standard_Real aPar = theKnots(i) + k * aStep;
-      if (aPar > theParMax - Precision::PConfusion())
+      if (aPar > theParMax - Precision1::PConfusion())
         break;
 
-      if (aPar > aPrevPar + Precision::PConfusion())
+      if (aPar > aPrevPar + Precision1::PConfusion())
       {
         theParams.Append(aPar);
         aPrevPar = aPar;
@@ -541,7 +541,7 @@ void BRepLib_FindSurface::Init(const TopoShape&    S,
     if (S.ShapeType() == TopAbs_WIRE && S.Closed())
     {
       TopoWire  aW       = TopoDS::Wire(S);
-      TopoFace  aTmpFace = BRepLib_MakeFace(mySurface, Precision::Confusion());
+      TopoFace  aTmpFace = BRepLib_MakeFace(mySurface, Precision1::Confusion());
       ShapeBuilder BB;
       BB.Add(aTmpFace, aW);
       BRepTopAdaptor_FClass2d FClass(aTmpFace, 0.);

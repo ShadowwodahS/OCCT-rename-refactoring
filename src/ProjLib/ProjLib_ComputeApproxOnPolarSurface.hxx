@@ -89,7 +89,7 @@ public:
 
   //! Set the tolerance used to project
   //! the curve on the surface.
-  //! Default value is Precision::Approximation().
+  //! Default value is Precision1::Approximation().
   Standard_EXPORT void SetTolerance(const Standard_Real theTolerance);
 
   //! Method, which performs projecting, using default values of parameters or

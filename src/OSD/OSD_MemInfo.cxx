@@ -42,7 +42,7 @@ EM_JS(double, OSD_MemInfo_getModuleHeapLength, (), { return Module.HEAP8.length;
 
 //=================================================================================================
 
-OSD_MemInfo::OSD_MemInfo(const Standard_Boolean theImmediateUpdate)
+MemoryInfo::MemoryInfo(const Standard_Boolean theImmediateUpdate)
 {
   SetActive(Standard_True);
   if (theImmediateUpdate)
@@ -57,7 +57,7 @@ OSD_MemInfo::OSD_MemInfo(const Standard_Boolean theImmediateUpdate)
 
 //=================================================================================================
 
-void OSD_MemInfo::SetActive(const Standard_Boolean theActive)
+void MemoryInfo::SetActive(const Standard_Boolean theActive)
 {
   for (Standard_Integer anIter = 0; anIter < MemCounter_NB; ++anIter)
   {
@@ -67,7 +67,7 @@ void OSD_MemInfo::SetActive(const Standard_Boolean theActive)
 
 //=================================================================================================
 
-void OSD_MemInfo::Clear()
+void MemoryInfo::Clear()
 {
   for (Standard_Integer anIter = 0; anIter < MemCounter_NB; ++anIter)
   {
@@ -77,7 +77,7 @@ void OSD_MemInfo::Clear()
 
 //=================================================================================================
 
-void OSD_MemInfo::Update()
+void MemoryInfo::Update()
 {
   Clear();
 #ifndef OCCT_UWP
@@ -260,7 +260,7 @@ void OSD_MemInfo::Update()
 
 //=================================================================================================
 
-AsciiString1 OSD_MemInfo::ToString() const
+AsciiString1 MemoryInfo::ToString() const
 {
   AsciiString1 anInfo;
   if (hasValue(MemPrivate))
@@ -305,7 +305,7 @@ AsciiString1 OSD_MemInfo::ToString() const
 
 //=================================================================================================
 
-Standard_Size OSD_MemInfo::Value(const OSD_MemInfo::Counter theCounter) const
+Standard_Size MemoryInfo::Value(const MemoryInfo::Counter theCounter) const
 {
   if (theCounter < 0 || theCounter >= MemCounter_NB || !IsActive(theCounter))
   {
@@ -316,7 +316,7 @@ Standard_Size OSD_MemInfo::Value(const OSD_MemInfo::Counter theCounter) const
 
 //=================================================================================================
 
-Standard_Size OSD_MemInfo::ValueMiB(const OSD_MemInfo::Counter theCounter) const
+Standard_Size MemoryInfo::ValueMiB(const MemoryInfo::Counter theCounter) const
 {
   if (theCounter < 0 || theCounter >= MemCounter_NB || !IsActive(theCounter))
   {
@@ -328,7 +328,7 @@ Standard_Size OSD_MemInfo::ValueMiB(const OSD_MemInfo::Counter theCounter) const
 
 //=================================================================================================
 
-Standard_Real OSD_MemInfo::ValuePreciseMiB(const OSD_MemInfo::Counter theCounter) const
+Standard_Real MemoryInfo::ValuePreciseMiB(const MemoryInfo::Counter theCounter) const
 {
   if (theCounter < 0 || theCounter >= MemCounter_NB || !IsActive(theCounter))
   {
@@ -341,8 +341,8 @@ Standard_Real OSD_MemInfo::ValuePreciseMiB(const OSD_MemInfo::Counter theCounter
 
 //=================================================================================================
 
-AsciiString1 OSD_MemInfo::PrintInfo()
+AsciiString1 MemoryInfo::PrintInfo()
 {
-  OSD_MemInfo anInfo;
+  MemoryInfo anInfo;
   return anInfo.ToString();
 }

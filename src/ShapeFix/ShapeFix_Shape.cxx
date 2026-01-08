@@ -116,7 +116,7 @@ Standard_Boolean ShapeFix_Shape::Perform(const Message_ProgressRange& theProgres
   myShape.Location(L, Standard_False);
   TopoShape S = Context()->Apply(myShape);
   if (NeedFix(myFixVertexPositionMode))
-    ShapeFix1::FixVertexPosition(S, Precision(), Context());
+    ShapeFix1::FixVertexPosition(S, Precision1(), Context());
 
   st = S.ShapeType();
 

@@ -139,7 +139,7 @@ void NominalSizeTool::OwnCheck(const Handle(IGESGraph_NominalSize)& ent,
   if (ent->HasStandardName())
     nbp = 3;
   if (ent->NbPropertyValues() != nbp)
-    ach->AddFail("No. of Property values : Value != 2/3 according Standard Name Status");
+    ach->AddFail("No. of Property values : Value != 2/3 according Standard1 Name Status");
 }
 
 void NominalSizeTool::OwnDump(const Handle(IGESGraph_NominalSize)& ent,

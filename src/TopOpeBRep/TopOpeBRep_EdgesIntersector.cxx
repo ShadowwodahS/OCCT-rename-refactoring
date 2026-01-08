@@ -110,8 +110,8 @@ TopOpeBRep_EdgesIntersector::TopOpeBRep_EdgesIntersector()
   mySurface2              = new BRepAdaptor_Surface();
   mySurfacesSameOriented  = Standard_False;
   myFacesSameOriented     = Standard_False;
-  myTol1                  = 0.; // Precision::PConfusion();
-  myTol2                  = 0.; // Precision::PIntersection();
+  myTol1                  = 0.; // Precision1::PConfusion();
+  myTol2                  = 0.; // Precision1::PIntersection();
   myDimension             = 2;
   myTolForced             = Standard_False;
   myf1surf1F_sameoriented = Standard_True;
@@ -746,7 +746,7 @@ Standard_Boolean TopOpeBRep_EdgesIntersector::ComputeSameDomain()
   Standard_Real r2 = c2.Radius();
   //  Standard_Boolean rr = (r1 == r2);
   // clang-format off
-  Standard_Boolean rr = (Abs(r1-r2) < Precision::Confusion()); //xpu281098 (cto019D2) tolerance a revoir
+  Standard_Boolean rr = (Abs(r1-r2) < Precision1::Confusion()); //xpu281098 (cto019D2) tolerance a revoir
   if (!rr) return SetSameDomain(Standard_False);
 
   const gp_Pnt2d& p1 = c1.Location();

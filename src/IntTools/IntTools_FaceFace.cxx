@@ -153,7 +153,7 @@ IntTools_FaceFace::IntTools_FaceFace()
   myTolF1      = 0.;
   myTolF2      = 0.;
   myTol        = 0.;
-  myFuzzyValue = Precision::Confusion();
+  myFuzzyValue = Precision1::Confusion();
   SetParameters(Standard_True, Standard_True, Standard_True, 1.e-07);
 }
 
@@ -235,7 +235,7 @@ void IntTools_FaceFace::SetParameters(const Standard_Boolean ToApproxC3d,
 
 void IntTools_FaceFace::SetFuzzyValue(const Standard_Real theFuzz)
 {
-  myFuzzyValue = Max(theFuzz, Precision::Confusion());
+  myFuzzyValue = Max(theFuzz, Precision1::Confusion());
 }
 
 //=================================================================================================
@@ -283,7 +283,7 @@ static Standard_Boolean isTreatAnalityc(const BRepAdaptor_Surface& theBAS1,
     const Standard_Real VMin = theBAS1.FirstVParameter();
     const Standard_Real VMax = theBAS1.LastVParameter();
 
-    if (Precision::IsNegativeInfinite(VMin) || Precision::IsPositiveInfinite(VMax))
+    if (Precision1::IsNegativeInfinite(VMin) || Precision1::IsPositiveInfinite(VMax))
       return Standard_True;
     else
       aHigh = VMax - VMin;
@@ -295,7 +295,7 @@ static Standard_Boolean isTreatAnalityc(const BRepAdaptor_Surface& theBAS1,
     const Standard_Real VMin = theBAS2.FirstVParameter();
     const Standard_Real VMax = theBAS2.LastVParameter();
 
-    if (Precision::IsNegativeInfinite(VMin) || Precision::IsPositiveInfinite(VMax))
+    if (Precision1::IsNegativeInfinite(VMin) || Precision1::IsPositiveInfinite(VMax))
       return Standard_True;
     else
       aHigh = VMax - VMin;
@@ -651,7 +651,7 @@ void IntTools_FaceFace::ComputeTolReached3d(const Standard_Boolean theToRunParal
                                              aLast,
                                              aD,
                                              aT,
-                                             Precision::PConfusion(),
+                                             Precision1::PConfusion(),
                                              theToRunParallel))
         {
           if (aD > aTolC)
@@ -796,8 +796,8 @@ reapprox:;
         //
         myLConstruct.Part(i, fprm, lprm);
         //
-        bFNIt = Precision::IsNegativeInfinite(fprm);
-        bLPIt = Precision::IsPositiveInfinite(lprm);
+        bFNIt = Precision1::IsNegativeInfinite(fprm);
+        bLPIt = Precision1::IsPositiveInfinite(lprm);
         //
         if (!bFNIt && !bLPIt)
         {
@@ -872,7 +872,7 @@ reapprox:;
 
           Standard_Real u1, v1, u2, v2, Tol;
 
-          Tol = Precision::Confusion();
+          Tol = Precision1::Confusion();
           Parameters(myHS1, myHS2, ptref, u1, v1, u2, v2);
           ok = (dom1->Classify(gp_Pnt2d(u1, v1), Tol) != TopAbs_OUT);
           if (ok)
@@ -1092,7 +1092,7 @@ reapprox:;
           for (j = 0; j <= 17; j++)
           {
             Point3d ptref(newc->Value(j * aTwoPIdiv17));
-            Tol = Precision::Confusion();
+            Tol = Precision1::Confusion();
 
             Parameters(myHS1, myHS2, ptref, u1, v1, u2, v2);
             ok = (dom1->Classify(gp_Pnt2d(u1, v1), Tol) != TopAbs_OUT);
@@ -1261,7 +1261,7 @@ reapprox:;
         if (bIsDecomposited)
         {
           nbiter = aNbSeqOfL;
-          aTolC  = Precision::Confusion();
+          aTolC  = Precision1::Confusion();
         }
         else
         {
@@ -1772,7 +1772,7 @@ reapprox:;
       {
         Standard_Real &aParF = anArrayOfParameters(anInd), &aParL = anArrayOfParameters(anInd + 1);
 
-        if ((aParL - aParF) <= Precision::PConfusion())
+        if ((aParL - aParF) <= Precision1::PConfusion())
         {
           // In order to more precise extending to the boundaries of source curves.
           if (anInd < aNbIntersSolutionsm1 - 1)
@@ -2046,14 +2046,14 @@ void CorrectSurfaceBoundaries(const TopoFace&  theFace,
   if (!isuperiodic && enlarge)
   {
 
-    if (!Precision::IsInfinite(theumin) && ((theumin - uinf) > delta))
+    if (!Precision1::IsInfinite(theumin) && ((theumin - uinf) > delta))
       theumin -= delta;
     else
     {
       theumin = uinf;
     }
 
-    if (!Precision::IsInfinite(theumax) && ((usup - theumax) > delta))
+    if (!Precision1::IsInfinite(theumax) && ((usup - theumax) > delta))
       theumax += delta;
     else
       theumax = usup;
@@ -2062,7 +2062,7 @@ void CorrectSurfaceBoundaries(const TopoFace&  theFace,
   //
   if (!isvperiodic && enlarge)
   {
-    if (!Precision::IsInfinite(thevmin) && ((thevmin - vinf) > delta))
+    if (!Precision1::IsInfinite(thevmin) && ((thevmin - vinf) > delta))
     {
       thevmin -= delta;
     }
@@ -2070,7 +2070,7 @@ void CorrectSurfaceBoundaries(const TopoFace&  theFace,
     {
       thevmin = vinf;
     }
-    if (!Precision::IsInfinite(thevmax) && ((vsup - thevmax) > delta))
+    if (!Precision1::IsInfinite(thevmax) && ((vsup - thevmax) > delta))
     {
       thevmax += delta;
     }
@@ -2123,7 +2123,7 @@ void CorrectSurfaceBoundaries(const TopoFace&  theFace,
           }
           gp_Dir2d      anUDir(1., 0.);
           gp_Dir2d      aVDir(0., 1.);
-          Standard_Real anAngularTolerance = Precision::Angular();
+          Standard_Real anAngularTolerance = Precision1::Angular();
 
           correctU =
             correctU || aLine->Position1().Direction().IsParallel(aVDir, anAngularTolerance);
@@ -2188,7 +2188,7 @@ Standard_Boolean ParameterOutOfBoundary(const Standard_Real             theParam
   Standard_Integer iter       = 0;
   Standard_Real    asumtol    = theTol;
   Standard_Real    adelta     = asumtol * 0.1;
-  adelta                      = (adelta < Precision::Confusion()) ? Precision::Confusion() : adelta;
+  adelta                      = (adelta < Precision1::Confusion()) ? Precision1::Confusion() : adelta;
   Handle(GeomSurface) aSurf1 = BRepInspector::Surface(theFace1);
   Handle(GeomSurface) aSurf2 = BRepInspector::Surface(theFace2);
 
@@ -2684,7 +2684,7 @@ void ApproxParameters(const Handle(GeomAdaptor_Surface)& aHS1,
     Cylinder1   aCylinder;
     gp_Torus      aTorus;
     //
-    aPC = Precision::Confusion();
+    aPC = Precision1::Confusion();
     //
     aCylinder = (aTS1 == GeomAbs_Cylinder) ? aHS1->Cylinder() : aHS2->Cylinder();
     aTorus    = (aTS1 == GeomAbs_Torus) ? aHS1->Torus() : aHS2->Torus();
@@ -2727,7 +2727,7 @@ void Tolerances(const Handle(GeomAdaptor_Surface)& aHS1,
     Cylinder1   aCylinder;
     gp_Torus      aTorus;
     //
-    aPC = Precision::Confusion();
+    aPC = Precision1::Confusion();
     //
     aCylinder = (aTS1 == GeomAbs_Cylinder) ? aHS1->Cylinder() : aHS2->Cylinder();
     aTorus    = (aTS1 == GeomAbs_Torus) ? aHS1->Torus() : aHS2->Torus();
@@ -2942,8 +2942,8 @@ Standard_Boolean CheckPCurve(const Handle(GeomCurve2d)&     aPC,
   Standard_Real          umin, umax, vmin, vmax;
 
   theCtx->UVBounds(aFace, umin, umax, vmin, vmax);
-  Standard_Real tolU = Max((umax - umin) * 0.01, Precision::Confusion());
-  Standard_Real tolV = Max((vmax - vmin) * 0.01, Precision::Confusion());
+  Standard_Real tolU = Max((umax - umin) * 0.01, Precision1::Confusion());
+  Standard_Real tolV = Max((vmax - vmin) * 0.01, Precision1::Confusion());
   Standard_Real fp   = aPC->FirstParameter();
   Standard_Real lp   = aPC->LastParameter();
 
@@ -3017,7 +3017,7 @@ void CorrectPlaneBoundaries(Standard_Real& aUmin,
                             Standard_Real& aVmin,
                             Standard_Real& aVmax)
 {
-  if (!(Precision::IsInfinite(aUmin) || Precision::IsInfinite(aUmax)))
+  if (!(Precision1::IsInfinite(aUmin) || Precision1::IsInfinite(aUmax)))
   {
     Standard_Real dU;
     //
@@ -3025,7 +3025,7 @@ void CorrectPlaneBoundaries(Standard_Real& aUmin,
     aUmin = aUmin - dU;
     aUmax = aUmax + dU;
   }
-  if (!(Precision::IsInfinite(aVmin) || Precision::IsInfinite(aVmax)))
+  if (!(Precision1::IsInfinite(aVmin) || Precision1::IsInfinite(aVmax)))
   {
     Standard_Real dV;
     //

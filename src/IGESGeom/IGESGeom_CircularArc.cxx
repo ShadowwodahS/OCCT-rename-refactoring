@@ -139,6 +139,6 @@ Dir3d IGESGeom_CircularArc::TransformedAxis() const
 
 Standard_Boolean IGESGeom_CircularArc::IsClosed() const
 {
-  return (Abs(theStart.X() - theEnd.X()) < Precision::PConfusion()
-          && Abs(theStart.Y() - theEnd.Y()) < Precision::PConfusion());
+  return (Abs(theStart.X() - theEnd.X()) < Precision1::PConfusion()
+          && Abs(theStart.Y() - theEnd.Y()) < Precision1::PConfusion());
 }

@@ -30,7 +30,7 @@ Graphic3d_AspectMarker3d::Graphic3d_AspectMarker3d()
 //=================================================================================================
 
 Graphic3d_AspectMarker3d::Graphic3d_AspectMarker3d(const Aspect_TypeOfMarker theType,
-                                                   const Quantity_Color&     theColor,
+                                                   const Color1&     theColor,
                                                    const Standard_Real       theScale)
 {
   myShadingModel = Graphic3d_TypeOfShadingModel_Unlit;
@@ -42,7 +42,7 @@ Graphic3d_AspectMarker3d::Graphic3d_AspectMarker3d(const Aspect_TypeOfMarker the
 //=================================================================================================
 
 Graphic3d_AspectMarker3d::Graphic3d_AspectMarker3d(
-  const Quantity_Color&                theColor,
+  const Color1&                theColor,
   const Standard_Integer               theWidth,
   const Standard_Integer               theHeight,
   const Handle(TColStd_HArray1OfByte)& theTextureBitMap)

@@ -335,9 +335,9 @@ gp_Pnt2d Geom2dHatch_Hatching::ClassificationPoint() const
   Standard_Real t, a, b;
   a = myCurve.FirstParameter();
   b = myCurve.LastParameter();
-  if (b >= Precision::Infinite())
+  if (b >= Precision1::Infinite())
   {
-    if (a <= -Precision::Infinite())
+    if (a <= -Precision1::Infinite())
     {
       t = 0;
     }

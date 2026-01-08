@@ -496,18 +496,18 @@ public:
                                                 const Handle(ViewWindow)&               theView);
 
 public:
-  //! Callback called by handleMoveTo() on Selection in 3D Viewer.
+  //! Callback1 called by handleMoveTo() on Selection in 3D Viewer.
   //! This method is expected to be called from rendering thread.
   Standard_EXPORT virtual void OnSelectionChanged(const Handle(VisualContext)& theCtx,
                                                   const Handle(ViewWindow)&               theView);
 
-  //! Callback called by handleMoveTo() on dragging object in 3D Viewer.
+  //! Callback1 called by handleMoveTo() on dragging object in 3D Viewer.
   //! This method is expected to be called from rendering thread.
   Standard_EXPORT virtual void OnObjectDragged(const Handle(VisualContext)& theCtx,
                                                const Handle(ViewWindow)&               theView,
                                                AIS_DragAction                        theAction);
 
-  //! Callback called by HandleViewEvents() on Selection of another (sub)view.
+  //! Callback1 called by HandleViewEvents() on Selection of another (sub)view.
   //! This method is expected to be called from rendering thread.
   Standard_EXPORT virtual void OnSubviewChanged(const Handle(VisualContext)& theCtx,
                                                 const Handle(ViewWindow)&               theOldView,
@@ -583,7 +583,7 @@ public:
   void setAskNextFrame(bool theToDraw = true) { myToAskNextFrame = theToDraw; }
 
   //! Return if panning anchor point has been defined.
-  bool hasPanningAnchorPoint() const { return !Precision::IsInfinite(myPanPnt3d.X()); }
+  bool hasPanningAnchorPoint() const { return !Precision1::IsInfinite(myPanPnt3d.X()); }
 
   //! Return active panning anchor point.
   const Point3d& panningAnchorPoint() const { return myPanPnt3d; }
@@ -761,8 +761,8 @@ protected: //! @name XR input variables
 
   NCollection_Array1<Handle(AIS_XRTrackedDevice)> myXRPrsDevices; //!< array of XR tracked devices presentations
   // clang-format on
-  Quantity_Color             myXRLaserTeleColor;     //!< color of teleport laser
-  Quantity_Color             myXRLaserPickColor;     //!< color of picking  laser
+  Color1             myXRLaserTeleColor;     //!< color of teleport laser
+  Color1             myXRLaserPickColor;     //!< color of picking  laser
   Aspect_XRTrackedDeviceRole myXRLastTeleportHand;   //!< active hand for teleport
   Aspect_XRTrackedDeviceRole myXRLastPickingHand;    //!< active hand for picking objects
   XRHapticActionData  myXRTeleportHaptic;     //!< vibration on picking teleport destination

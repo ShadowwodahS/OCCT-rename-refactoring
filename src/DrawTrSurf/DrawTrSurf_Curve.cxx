@@ -76,8 +76,8 @@ void DrawTrSurf_Curve::DrawOn(DrawDisplay& dis) const
 {
   Standard_Real    First    = curv->FirstParameter();
   Standard_Real    Last     = curv->LastParameter();
-  Standard_Boolean firstInf = Precision::IsNegativeInfinite(First);
-  Standard_Boolean lastInf  = Precision::IsPositiveInfinite(Last);
+  Standard_Boolean firstInf = Precision1::IsNegativeInfinite(First);
+  Standard_Boolean lastInf  = Precision1::IsPositiveInfinite(Last);
 
   if (firstInf || lastInf)
   {

@@ -859,7 +859,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::NearestF(const TopoEdge&          e,
 
   // RONd (x,y,z) = (xxref,ntref,x^y)
   // clang-format off
-  Standard_Real tola = Precision::Angular()*1.e3; //Dir3d xapp,yapp; Standard_Boolean refapp = Standard_False;
+  Standard_Real tola = Precision1::Angular()*1.e3; //Dir3d xapp,yapp; Standard_Boolean refapp = Standard_False;
   // clang-format on
   Dir3d           x, y;
   Standard_Boolean ok = ::FUN_vectors(fref, e, pare, y, x, tola, Standard_False);

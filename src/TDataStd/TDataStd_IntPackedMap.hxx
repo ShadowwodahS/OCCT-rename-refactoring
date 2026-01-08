@@ -32,7 +32,7 @@ class TDF_DeltaOnModification;
 class TDataStd_IntPackedMap;
 DEFINE_STANDARD_HANDLE(TDataStd_IntPackedMap, TDF_Attribute)
 
-//! Attribute for storing TColStd_PackedMapOfInteger
+//! Attribute for storing PackedIntegerMap
 class TDataStd_IntPackedMap : public TDF_Attribute
 {
   friend class TDataStd_DeltaOnModificationOfIntPackedMap;
@@ -58,9 +58,9 @@ public:
 
   Standard_EXPORT Standard_Boolean ChangeMap(const Handle(TColStd_HPackedMapOfInteger)& theMap);
 
-  Standard_EXPORT Standard_Boolean ChangeMap(const TColStd_PackedMapOfInteger& theMap);
+  Standard_EXPORT Standard_Boolean ChangeMap(const PackedIntegerMap& theMap);
 
-  const TColStd_PackedMapOfInteger& GetMap() const { return myMap->Map(); }
+  const PackedIntegerMap& GetMap() const { return myMap->Map(); }
 
   const Handle(TColStd_HPackedMapOfInteger)& GetHMap() const { return myMap; }
 

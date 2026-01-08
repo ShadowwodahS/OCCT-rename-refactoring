@@ -20,10 +20,10 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Integer.hxx>
 
-//! The package Standard provides global memory allocator and other basic
+//! The package Standard1 provides global memory allocator and other basic
 //! services used by other OCCT components.
 
-class Standard
+class Standard1
 {
 public:
   DEFINE_STANDARD_ALLOC

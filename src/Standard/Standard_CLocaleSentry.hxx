@@ -54,14 +54,14 @@
 //!
 //! Internally you should prefer more portable C++ locale interfaces
 //! or OCCT wrappers to some C functions like Sprintf, Atof, Strtod.
-class Standard_CLocaleSentry
+class CLocaleSentry
 {
 public:
   //! Setup current C locale to "C".
-  Standard_EXPORT Standard_CLocaleSentry();
+  Standard_EXPORT CLocaleSentry();
 
   //! Restore previous locale.
-  Standard_EXPORT ~Standard_CLocaleSentry();
+  Standard_EXPORT ~CLocaleSentry();
 
 public:
   #ifdef OCCT_CLOCALE_POSIX2008
@@ -84,17 +84,17 @@ private:
 
 private:
   //! Copying disallowed
-  Standard_CLocaleSentry(const Standard_CLocaleSentry&);
-  Standard_CLocaleSentry& operator=(const Standard_CLocaleSentry&);
+  CLocaleSentry(const CLocaleSentry&);
+  CLocaleSentry& operator=(const CLocaleSentry&);
 };
 
 #else
 
 //! C/C++ runtime on Android currently supports only C-locale, no need to call anything.
-class Standard_CLocaleSentry
+class CLocaleSentry
 {
 public:
-  Standard_CLocaleSentry() {}
+  CLocaleSentry() {}
 
   typedef void* clocale_t;
 

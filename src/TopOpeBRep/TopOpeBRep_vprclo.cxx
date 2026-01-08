@@ -132,7 +132,7 @@ StateTransition TopOpeBRep_FacesFiller::GetEdgeTrans(const TopOpeBRep_VPointInte
   // xpu : 16-01-98
   //       <Tr> relative to 3d <OOface> matter,
   //       we take into account <Tr> / 2d <OOface> only if <edge> is normal to <OOface>
-  Standard_Real    tola     = Precision::Angular() * 1.e+2; // dealing with tolerances
+  Standard_Real    tola     = Precision1::Angular() * 1.e+2; // dealing with tolerances
   Standard_Boolean EtgF     = FUN_tool_EtgF(paredge, edge, OOuv, F, tola);
   Standard_Boolean rest     = FUN_INlos(edge, myERL);
   Standard_Boolean isse     = myHDS->DS().IsSectionEdge(edge);

@@ -41,10 +41,10 @@
 void _osd_wnt_set_error(OSD_Error&, Standard_Integer, ...);
 
   #ifndef OCCT_UWP
-PSECURITY_DESCRIPTOR __fastcall _osd_wnt_protection_to_sd(const OSD_Protection&,
+PSECURITY_DESCRIPTOR __fastcall _osd_wnt_protection_to_sd(const Protection1&,
                                                           BOOL,
                                                           const wchar_t*);
-BOOL __fastcall _osd_wnt_sd_to_protection(PSECURITY_DESCRIPTOR, OSD_Protection&, BOOL);
+BOOL __fastcall _osd_wnt_sd_to_protection(PSECURITY_DESCRIPTOR, Protection1&, BOOL);
 
 static int OSD_File_getBuffer(HANDLE theChannel,
                               char*  theBuffer,
@@ -450,7 +450,7 @@ SystemFile::~SystemFile()
 
 //=================================================================================================
 
-void SystemFile::Build(const OSD_OpenMode theMode, const OSD_Protection& theProtect)
+void SystemFile::Build(const OSD_OpenMode theMode, const Protection1& theProtect)
 {
   if (SystemFile::KindOfFile() == OSD_DIRECTORY)
   {
@@ -523,7 +523,7 @@ void SystemFile::Build(const OSD_OpenMode theMode, const OSD_Protection& theProt
 
 //=================================================================================================
 
-void SystemFile::Append(const OSD_OpenMode theMode, const OSD_Protection& theProtect)
+void SystemFile::Append(const OSD_OpenMode theMode, const Protection1& theProtect)
 {
   if (SystemFile::KindOfFile() == OSD_DIRECTORY)
   {
@@ -611,7 +611,7 @@ void SystemFile::Append(const OSD_OpenMode theMode, const OSD_Protection& thePro
 
 //=================================================================================================
 
-void SystemFile::Open(const OSD_OpenMode theMode, const OSD_Protection& theProtect)
+void SystemFile::Open(const OSD_OpenMode theMode, const Protection1& theProtect)
 {
   if (SystemFile::KindOfFile() == OSD_DIRECTORY)
   {
@@ -750,7 +750,7 @@ void SystemFile::BuildTemporary()
   }
 
   SetPath(SystemPath(AsciiString1(aTmpPathW)));
-  Build(OSD_ReadWrite, OSD_Protection());
+  Build(OSD_ReadWrite, Protection1());
 
 #else /* _WIN32 */
 
@@ -1676,7 +1676,7 @@ Standard_Boolean SystemFile::ReadLastLine(AsciiString1& theLine,
     {
       return Standard_True;
     }
-    OSD::SecSleep(theDelay);
+    OSD1::SecSleep(theDelay);
   }
   return Standard_False;
 }
@@ -1699,7 +1699,7 @@ Standard_Boolean SystemFile::Edit()
       #define __leave return retVal
     #endif
 
-PSECURITY_DESCRIPTOR __fastcall _osd_wnt_protection_to_sd(const OSD_Protection& theProtection,
+PSECURITY_DESCRIPTOR __fastcall _osd_wnt_protection_to_sd(const Protection1& theProtection,
                                                           BOOL                  theIsDir,
                                                           const wchar_t*        theFileName)
 {
@@ -1909,7 +1909,7 @@ PSECURITY_DESCRIPTOR __fastcall _osd_wnt_protection_to_sd(const OSD_Protection& 
 }
 
 BOOL __fastcall _osd_wnt_sd_to_protection(PSECURITY_DESCRIPTOR pSD,
-                                          OSD_Protection&      theProtection,
+                                          Protection1&      theProtection,
                                           BOOL                 theIsDir)
 {
   BOOL fPresent   = FALSE;

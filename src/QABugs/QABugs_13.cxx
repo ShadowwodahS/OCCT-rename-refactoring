@@ -165,7 +165,7 @@ static Standard_Integer OCC332bug(DrawInterpreter& di, Standard_Integer argc, co
   // - Use correct formula for scaling laws
   Handle(Law_Linear) myLaw1 = new Law_Linear();
   Handle(Law_Linear) myLaw2 = new Law_Linear();
-  // if ((radius_r - radius_l) < Precision::Confusion())
+  // if ((radius_r - radius_l) < Precision1::Confusion())
   //{
   // myLaw1->Set(SpineCurve->FirstParameter(), 1.0,
   // SpineCurve->LastParameter(), 1.0);
@@ -237,7 +237,7 @@ static Standard_Integer OCC332bug(DrawInterpreter& di, Standard_Integer argc, co
 
   // Make face for first opening
   Handle(GeomPlane) Plane1 = new GeomPlane(circ1Plane);
-  mkFace.Init(Plane1, Standard_False, Precision::Confusion());
+  mkFace.Init(Plane1, Standard_False, Precision1::Confusion());
   // SUPPORT:
   // - Use wires created by MakePipeShell
   // mkFace.Add(TopoDS::Wire(outerWire1_));
@@ -250,7 +250,7 @@ static Standard_Integer OCC332bug(DrawInterpreter& di, Standard_Integer argc, co
 
   // Make face for second opening
   Handle(GeomPlane) Plane2 = new GeomPlane(circ2Plane);
-  mkFace.Init(Plane2, Standard_False, Precision::Confusion());
+  mkFace.Init(Plane2, Standard_False, Precision1::Confusion());
   // SUPPORT:
   // - Use wires created by MakePipeShell
   // mkFace.Add(TopoDS::Wire(outerWire2_));
@@ -590,7 +590,7 @@ static Standard_Integer OCC544(DrawInterpreter& di, Standard_Integer argc, const
 
   // Make face for first opening
   Handle(GeomPlane) Plane1 = new GeomPlane(circ1Plane);
-  mkFace.Init(Plane1, Standard_False, Precision::Confusion());
+  mkFace.Init(Plane1, Standard_False, Precision1::Confusion());
   mkFace.Add(TopoDS::Wire(outerWire1_));
   mkFace.Add(TopoDS::Wire(Wire1_.Reversed()));
   if (!mkFace.IsDone())
@@ -599,7 +599,7 @@ static Standard_Integer OCC544(DrawInterpreter& di, Standard_Integer argc, const
 
   // Make face for second opening
   Handle(GeomPlane) Plane2 = new GeomPlane(circ2Plane);
-  mkFace.Init(Plane2, Standard_False, Precision::Confusion());
+  mkFace.Init(Plane2, Standard_False, Precision1::Confusion());
   mkFace.Add(TopoDS::Wire(outerWire2_));
   mkFace.Add(TopoDS::Wire(Wire2_.Reversed()));
   if (!mkFace.IsDone())
@@ -796,7 +796,7 @@ static Standard_Integer OCC817(DrawInterpreter& di, Standard_Integer argc, const
     return 1;
   }
 
-  constexpr Standard_Real delt      = 5.0 * Precision::Confusion();
+  constexpr Standard_Real delt      = 5.0 * Precision1::Confusion();
   Standard_Real           mesh_delt = Draw1::Atof(argv[2]);
   if (mesh_delt <= 0.0)
   {

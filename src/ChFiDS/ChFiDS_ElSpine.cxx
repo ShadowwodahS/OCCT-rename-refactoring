@@ -39,8 +39,8 @@ ChFiDS_ElSpine::ChFiDS_ElSpine()
       plast(0.0),
       period(0.0),
       periodic(Standard_False),
-      pfirstsav(Precision::Infinite()),
-      plastsav(Precision::Infinite())
+      pfirstsav(Precision1::Infinite()),
+      plastsav(Precision1::Infinite())
 {
 }
 
@@ -243,7 +243,7 @@ void ChFiDS_ElSpine::SetOrigin(const Standard_Real O)
   Handle(BSplineCurve3d) bs = Handle(BSplineCurve3d)::DownCast(curve.Curve());
   if (!bs.IsNull())
   {
-    bs->SetOrigin(O, Precision::PConfusion());
+    bs->SetOrigin(O, Precision1::PConfusion());
     curve.Load(bs);
   }
 }

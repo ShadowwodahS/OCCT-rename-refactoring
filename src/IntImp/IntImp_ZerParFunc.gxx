@@ -45,11 +45,11 @@ IntImp_ZerParFunc::IntImp_ZerParFunc(const ThePSurface& S1 ,
     ub1 = ThePSurfaceTool::LastUParameter(SURF2);  //-- ThePSurfaceTool::UIntervalLast(surf2);
     vb1 = ThePSurfaceTool::LastVParameter(SURF2);  //-- ThePSurfaceTool::VIntervalLast(surf2);
 
-    ures1 = ThePSurfaceTool::UResolution(SURF1,Precision::Confusion());
-    vres1 = ThePSurfaceTool::VResolution(SURF1,Precision::Confusion());
+    ures1 = ThePSurfaceTool::UResolution(SURF1,Precision1::Confusion());
+    vres1 = ThePSurfaceTool::VResolution(SURF1,Precision1::Confusion());
 
-    ures2 = ThePSurfaceTool::UResolution(SURF2,Precision::Confusion());
-    vres2 = ThePSurfaceTool::VResolution(SURF2,Precision::Confusion());
+    ures2 = ThePSurfaceTool::UResolution(SURF2,Precision1::Confusion());
+    vres2 = ThePSurfaceTool::VResolution(SURF2,Precision1::Confusion());
     memset (f, 0, sizeof (f));
     compute = Standard_False;  
     tangent = Standard_False;

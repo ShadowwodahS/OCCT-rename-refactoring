@@ -279,7 +279,7 @@ static Standard_Boolean CheckSameParameter(const Handle(Adaptor3d_Curve)&   C3d,
     return Standard_False;
   }
   tolreached *= 2.;
-  tolreached = Max(tolreached, Precision::Confusion());
+  tolreached = Max(tolreached, Precision1::Confusion());
   return Standard_True;
 }
 
@@ -306,7 +306,7 @@ static Standard_Boolean CheckSameParameterExact(
   }
   else
   {
-    tolreached = Max(tolreached, Precision::Confusion());
+    tolreached = Max(tolreached, Precision1::Confusion());
     tolreached *= 1.05;
   }
   return Standard_True;
@@ -344,7 +344,7 @@ static Standard_Boolean SameParameter(TopoEdge&                E,
                                    S,
                                    HC2d->FirstParameter(),
                                    HC2d->LastParameter(),
-                                   Precision::Confusion());
+                                   Precision1::Confusion());
     AppCurve.Perform(10, 10, GeomAbs_C1, Standard_True);
     if (AppCurve.IsDone() && AppCurve.HasResult())
     {
@@ -458,13 +458,13 @@ static void Oriente(const Handle(GeomSurface)& S, TopoEdge& E)
 
   if (isuiso)
   {
-    isfirst    = (Abs(P.X() - UFirst) < Precision::Confusion());
+    isfirst    = (Abs(P.X() - UFirst) < Precision1::Confusion());
     isopposite = D.IsOpposite(VRef, 0.1);
     E.Orientation(TopAbs_REVERSED);
   }
   else
   {
-    isfirst    = (Abs(P.Y() - VFirst) < Precision::Confusion());
+    isfirst    = (Abs(P.Y() - VFirst) < Precision1::Confusion());
     isopposite = D.IsOpposite(URef, 0.1);
     E.Orientation(TopAbs_FORWARD);
   }
@@ -552,10 +552,10 @@ static void BuildFace(const Handle(GeomSurface)&   S,
       Handle(BRep_TEdge)& TE2 = *((Handle(BRep_TEdge)*)&E2.TShape());
       Handle(BRep_TEdge)& TE3 = *((Handle(BRep_TEdge)*)&E3.TShape());
       Handle(BRep_TEdge)& TE4 = *((Handle(BRep_TEdge)*)&E4.TShape());
-      TE1->Tolerance(Precision::Confusion());
-      TE2->Tolerance(Precision::Confusion());
-      TE3->Tolerance(Precision::Confusion());
-      TE4->Tolerance(Precision::Confusion());
+      TE1->Tolerance(Precision1::Confusion());
+      TE2->Tolerance(Precision1::Confusion());
+      TE3->Tolerance(Precision1::Confusion());
+      TE4->Tolerance(Precision1::Confusion());
 
       TopoWire      theWire  = BRepLib_MakeWire(E1, E2, E3, E4);
       Standard_Integer NbPoints = NumberOfPoles(theWire);
@@ -713,8 +713,8 @@ static void BuildFace(const Handle(GeomSurface)&   S,
   }
 
   if (!IsPlan)
-  { // Cas Standard : Ajout
-    BB.MakeFace(F, S, Precision::Confusion());
+  { // Cas Standard1 : Ajout
+    BB.MakeFace(F, S, Precision1::Confusion());
     BB.Add(F, WW);
   }
 
@@ -1024,7 +1024,7 @@ static Standard_Boolean Filling(const TopoShape&           EF,
     V2  = V1;
     V1  = aux;
   }
-  GeomLib1::SameRange(Precision::PConfusion(),
+  GeomLib1::SameRange(Precision1::PConfusion(),
                      C2,
                      C2->FirstParameter(),
                      C2->LastParameter(),
@@ -1173,15 +1173,15 @@ static Standard_Boolean Filling(const TopoShape&           EF,
   // Update des Edges
   TopLoc_Location    Loc;
   Handle(GeomCurve3d) C3d;
-  B.UpdateEdge(E1, C1, Surf, Loc, /*Tol3d*/ Precision::Confusion());
-  B.UpdateEdge(E2, C2, Surf, Loc, /*Tol3d*/ Precision::Confusion());
+  B.UpdateEdge(E1, C1, Surf, Loc, /*Tol3d*/ Precision1::Confusion());
+  B.UpdateEdge(E2, C2, Surf, Loc, /*Tol3d*/ Precision1::Confusion());
 
   if (E3.IsSame(E4))
   {
     if (!WithE3)
     {
       C3d = Surf->VIso(f1);
-      E3  = BuildEdge(C3d, C3, Surf, Vf, V1, 0, Angle, /*Tol3d*/ Precision::Confusion());
+      E3  = BuildEdge(C3d, C3, Surf, Vf, V1, 0, Angle, /*Tol3d*/ Precision1::Confusion());
     }
     else
     {
@@ -1192,11 +1192,11 @@ static Standard_Boolean Filling(const TopoShape&           EF,
         B.Range(E3, 0, Angle);
         TopoVertex         V(TopExp1::LastVertex(E3));
         Handle(BRep_TVertex)& TVlast = *((Handle(BRep_TVertex)*)&V.TShape());
-        TVlast->Tolerance(Precision::Confusion());
+        TVlast->Tolerance(Precision1::Confusion());
       }
     }
 
-    B.UpdateEdge(E3, C3, C4, Surf, Loc, /*Tol3d*/ Precision::Confusion());
+    B.UpdateEdge(E3, C3, C4, Surf, Loc, /*Tol3d*/ Precision1::Confusion());
     E4 = E3;
     E4.Reverse();
   }
@@ -1205,7 +1205,7 @@ static Standard_Boolean Filling(const TopoShape&           EF,
     if (!WithE3)
     {
       C3d = Surf->VIso(f1);
-      E3  = BuildEdge(C3d, C3, Surf, Vf, V1, 0, Angle, /*Tol3d*/ Precision::Confusion());
+      E3  = BuildEdge(C3d, C3, Surf, Vf, V1, 0, Angle, /*Tol3d*/ Precision1::Confusion());
     }
     else
     {
@@ -1216,16 +1216,16 @@ static Standard_Boolean Filling(const TopoShape&           EF,
         B.Range(E3, 0, Angle);
         TopoVertex         V(TopExp1::LastVertex(E3));
         Handle(BRep_TVertex)& TVlast = *((Handle(BRep_TVertex)*)&V.TShape());
-        TVlast->Tolerance(Precision::Confusion());
+        TVlast->Tolerance(Precision1::Confusion());
       }
 
-      B.UpdateEdge(E3, C3, Surf, Loc, /*Tol3d*/ Precision::Confusion());
+      B.UpdateEdge(E3, C3, Surf, Loc, /*Tol3d*/ Precision1::Confusion());
     }
 
     if (!WithE4)
     {
       C3d = Surf->VIso(l1);
-      E4  = BuildEdge(C3d, C4, Surf, Vl, V2, 0, Angle, /*Tol3d*/ Precision::Confusion());
+      E4  = BuildEdge(C3d, C4, Surf, Vl, V2, 0, Angle, /*Tol3d*/ Precision1::Confusion());
     }
     else
     {
@@ -1236,10 +1236,10 @@ static Standard_Boolean Filling(const TopoShape&           EF,
         B.Range(E4, 0, Angle);
         TopoVertex         V(TopExp1::LastVertex(E4));
         Handle(BRep_TVertex)& TVlast = *((Handle(BRep_TVertex)*)&V.TShape());
-        TVlast->Tolerance(Precision::Confusion());
+        TVlast->Tolerance(Precision1::Confusion());
       }
 
-      B.UpdateEdge(E4, C4, Surf, Loc, /*Tol3d*/ Precision::Confusion());
+      B.UpdateEdge(E4, C4, Surf, Loc, /*Tol3d*/ Precision1::Confusion());
     }
   }
 
@@ -1276,7 +1276,7 @@ static Standard_Boolean Filling(const TopoShape&           EF,
     Surf->D1(P2d.X(), P2d.Y(), P, D1U, D1V);
     N1 = D1U ^ D1V;
 
-    if (N1.SquareMagnitude() < Precision::SquareConfusion())
+    if (N1.SquareMagnitude() < Precision1::SquareConfusion())
       continue;
 
     //  C1 = BT.CurveOnSurface(E1, TopoDS::Face(F1), f2, l2);
@@ -1286,7 +1286,7 @@ static Standard_Boolean Filling(const TopoShape&           EF,
     AS->D1(P2d.X(), P2d.Y(), P, D1U, D1V);
     N2 = D1U ^ D1V;
 
-    if (N2.SquareMagnitude() < Precision::SquareConfusion())
+    if (N2.SquareMagnitude() < Precision1::SquareConfusion())
       continue;
 
     Angle = N1.Angle(N2);
@@ -1427,7 +1427,7 @@ static void BuildVertex(const Handle(GeomCurve3d)& Iso,
     val = First;
   else
     val = Last;
-  B.MakeVertex(TopoDS::Vertex(Vertex), Iso->Value(val), Precision::Confusion());
+  B.MakeVertex(TopoDS::Vertex(Vertex), Iso->Value(val), Precision1::Confusion());
 }
 
 //=======================================================================
@@ -1495,7 +1495,7 @@ static TopoEdge BuildEdge(const Handle(GeomSurface)& S,
     V = VFirst;
     E = NullEdge(V);
     //    Iso.Nullify();
-    //    B.UpdateEdge(E, Iso, Precision::Confusion());
+    //    B.UpdateEdge(E, Iso, Precision1::Confusion());
     B.Degenerated(E, Standard_True);
   }
 
@@ -1608,7 +1608,7 @@ static TopoEdge BuildEdge(const Handle(GeomSurface)& S,
     L = new (Geom2d_Line)(P, V);
   }
 
-  B.UpdateEdge(E, L, S, Loc, Precision::Confusion());
+  B.UpdateEdge(E, L, S, Loc, Precision1::Confusion());
   if (sing)
     B.Range(E, S, Loc, Iso->FirstParameter(), Iso->LastParameter());
 
@@ -1736,7 +1736,7 @@ static void UpdateEdge(TopoEdge&                E,
   if (First != F2d || Last != L2d)
   {
     Handle(GeomCurve2d) C2d;
-    GeomLib1::SameRange(Precision::PConfusion(), CL, F2d, L2d, First, Last, C2d);
+    GeomLib1::SameRange(Precision1::PConfusion(), CL, F2d, L2d, First, Last, C2d);
     CL = new (Geom2d_TrimmedCurve)(C2d, First, Last);
   }
 
@@ -1766,15 +1766,15 @@ static void UpdateEdge(TopoEdge&                E,
 
   PCurve = Couture(E, S, Loc);
   if (PCurve.IsNull())
-    B.UpdateEdge(E, CL, S, Loc, Precision::Confusion());
+    B.UpdateEdge(E, CL, S, Loc, Precision1::Confusion());
   else
   { // Sewing edge
     TopoEdge e = E;
     Oriente(S, e);
     if (e.Orientation() == TopAbs_REVERSED)
-      B.UpdateEdge(E, CL, PCurve, S, Loc, Precision::Confusion());
+      B.UpdateEdge(E, CL, PCurve, S, Loc, Precision1::Confusion());
     else
-      B.UpdateEdge(E, PCurve, CL, S, Loc, Precision::Confusion());
+      B.UpdateEdge(E, PCurve, CL, S, Loc, Precision1::Confusion());
   }
 
   // Attention to case not SameRange on its shapes (PRO13551)
@@ -1977,7 +1977,7 @@ void BRepFill_Sweep::SetTolerance(const Standard_Real Tol3d,
 
 void BRepFill_Sweep::SetAngularControl(const Standard_Real MinAngle, const Standard_Real MaxAngle)
 {
-  myAngMin = Max(MinAngle, Precision::Angular());
+  myAngMin = Max(MinAngle, Precision1::Angular());
   myAngMax = Min(MaxAngle, 6.28);
 }
 
@@ -3505,7 +3505,7 @@ Standard_Boolean BRepFill_Sweep::PerformCorner(const Standard_Integer           
     {
       aPlaneF = aFMaker.Face();
       ShapeBuilder aBB;
-      aBB.UpdateFace(aPlaneF, Precision::Confusion() * 10.);
+      aBB.UpdateFace(aPlaneF, Precision1::Confusion() * 10.);
     }
   }
 
@@ -3871,7 +3871,7 @@ void BRepFill_Sweep::RebuildTopOrBottomEdge(const TopoEdge&   aNewEdge,
   TEdge->Tolerance(BRepInspector::Tolerance(aNewEdge));
   ShapeBuilder BB;
   BB.Range(anEdge, fpar, lpar);
-  BB.UpdateEdge(anEdge, aNewCurve, Precision::Confusion());
+  BB.UpdateEdge(anEdge, aNewCurve, Precision1::Confusion());
   const Handle(BRep_TEdge)&                    TE  = *((Handle(BRep_TEdge)*)&aNewEdge.TShape());
   const BRep_ListOfCurveRepresentation&        lcr = TE->Curves();
   BRep_ListIteratorOfListOfCurveRepresentation itrep(lcr);
@@ -3884,7 +3884,7 @@ void BRepFill_Sweep::RebuildTopOrBottomEdge(const TopoEdge&   aNewEdge,
       Handle(GeomCurve2d) aPCurve = GC->PCurve();
       Handle(GeomSurface) aSurf   = GC->Surface();
       TopLoc_Location      aLoc    = aNewEdge.Location() * GC->Location();
-      BB.UpdateEdge(anEdge, aPCurve, aSurf, aLoc, Precision::Confusion());
+      BB.UpdateEdge(anEdge, aPCurve, aSurf, aLoc, Precision1::Confusion());
     }
   }
 

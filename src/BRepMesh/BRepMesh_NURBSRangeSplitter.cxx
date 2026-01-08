@@ -102,8 +102,8 @@ private:
 
     Standard_Real anAngle = 0.0;
 
-    if ((myPrevControlVec.SquareMagnitude() > Precision::SquareConfusion())
-        && (myCurrControlVec.SquareMagnitude() > Precision::SquareConfusion()))
+    if ((myPrevControlVec.SquareMagnitude() > Precision1::SquareConfusion())
+        && (myCurrControlVec.SquareMagnitude() > Precision1::SquareConfusion()))
     {
       anAngle = myPrevControlVec.Angle(myCurrControlVec);
     }
@@ -265,7 +265,7 @@ Standard_Boolean toSplitIntervals(const Handle(GeomSurface)& theSurf,
   for (; aIntervalU <= theIntervals[0].Upper(); ++aIntervalU)
   {
     const Standard_Real aParamU = theIntervals[0].Value(aIntervalU);
-    if (Precision::IsInfinite(aParamU))
+    if (Precision1::IsInfinite(aParamU))
       continue;
 
     Standard_Integer aIntervalV = theIntervals[1].Lower();
@@ -273,10 +273,10 @@ Standard_Boolean toSplitIntervals(const Handle(GeomSurface)& theSurf,
     {
       Dir3d              aNorm;
       const Standard_Real aParamV = theIntervals[1].Value(aIntervalV);
-      if (Precision::IsInfinite(aParamV))
+      if (Precision1::IsInfinite(aParamV))
         continue;
 
-      if (GeomLib1::NormEstim(theSurf, gp_Pnt2d(aParamU, aParamV), Precision::Confusion(), aNorm)
+      if (GeomLib1::NormEstim(theSurf, gp_Pnt2d(aParamU, aParamV), Precision1::Confusion(), aNorm)
           != 0)
       {
         return Standard_True;
@@ -544,7 +544,7 @@ Handle(IMeshData::SequenceOfReal) BRepMesh_NURBSRangeSplitter::computeGrainAndFi
   const Handle(NCollection_IncAllocator)& theAllocator) const
 {
   // Sort and filter sequence of parameters
-  Standard_Real aMinDiff = Precision::PConfusion();
+  Standard_Real aMinDiff = Precision1::PConfusion();
   if (theDelta < 1.)
   {
     aMinDiff /= theDelta;

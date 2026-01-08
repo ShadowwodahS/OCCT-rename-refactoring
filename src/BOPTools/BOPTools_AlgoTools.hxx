@@ -84,7 +84,7 @@ public: //! @name Intersection of the vertices
   Standard_EXPORT static Standard_Integer ComputeVV(
     const TopoVertex& theV1,
     const TopoVertex& theV2,
-    const Standard_Real  theFuzz = Precision::Confusion());
+    const Standard_Real  theFuzz = Precision1::Confusion());
 
 public: //! @name Vertices construction
   //! Makes the vertex in the middle of given vertices with
@@ -475,7 +475,7 @@ public: //! Checking if the faces are coinciding
     const TopoFace&              theF1,
     const TopoFace&              theF2,
     const Handle(IntTools_Context)& theContext,
-    const Standard_Real             theFuzz = Precision::Confusion());
+    const Standard_Real             theFuzz = Precision1::Confusion());
 
 public: //! @name Looking for the edge in the face
   //! Returns True if the face theFace contains

@@ -88,8 +88,8 @@
 //! Append into output value: "Name": Field
 #define OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, theField)                                      \
   {                                                                                                \
-    AsciiString1 aName = Standard_Dump::DumpFieldToName(#theField);                     \
-    Standard_Dump::AddValuesSeparator(theOStream);                                                 \
+    AsciiString1 aName = DumpTool::DumpFieldToName(#theField);                     \
+    DumpTool::AddValuesSeparator(theOStream);                                                 \
     theOStream << "\"" << aName << "\": " << theField;                                             \
   }
 
@@ -98,8 +98,8 @@
 //! Inc name value added to the key to provide unique keys
 #define OCCT_DUMP_FIELD_VALUE_NUMERICAL_INC(theOStream, theField, theIncName)                      \
   {                                                                                                \
-    AsciiString1 aName = Standard_Dump::DumpFieldToName(#theField) + theIncName;        \
-    Standard_Dump::AddValuesSeparator(theOStream);                                                 \
+    AsciiString1 aName = DumpTool::DumpFieldToName(#theField) + theIncName;        \
+    DumpTool::AddValuesSeparator(theOStream);                                                 \
     theOStream << "\"" << aName << "\": " << theField;                                             \
   }
 
@@ -111,10 +111,10 @@
 #define OCCT_INIT_FIELD_VALUE_REAL(theOStream, theStreamPos, theField)                             \
   {                                                                                                \
     Standard_Integer aStreamPos = theStreamPos;                                                    \
-    if (!Standard_Dump::ProcessFieldName(theOStream, #theField, aStreamPos))                       \
+    if (!DumpTool::ProcessFieldName(theOStream, #theField, aStreamPos))                       \
       return Standard_False;                                                                       \
     AsciiString1 aValueText;                                                            \
-    if (!Standard_Dump::InitValue(theOStream, aStreamPos, aValueText)                              \
+    if (!DumpTool::InitValue(theOStream, aStreamPos, aValueText)                              \
         || !aValueText.IsRealValue())                                                              \
       return Standard_False;                                                                       \
     theField     = aValueText.RealValue();                                                         \
@@ -129,10 +129,10 @@
 #define OCCT_INIT_FIELD_VALUE_INTEGER(theOStream, theStreamPos, theField)                          \
   {                                                                                                \
     Standard_Integer aStreamPos = theStreamPos;                                                    \
-    if (!Standard_Dump::ProcessFieldName(theOStream, #theField, aStreamPos))                       \
+    if (!DumpTool::ProcessFieldName(theOStream, #theField, aStreamPos))                       \
       return Standard_False;                                                                       \
     AsciiString1 aValueText;                                                            \
-    if (!Standard_Dump::InitValue(theOStream, aStreamPos, aValueText)                              \
+    if (!DumpTool::InitValue(theOStream, aStreamPos, aValueText)                              \
         || !aValueText.IsIntegerValue())                                                           \
       return Standard_False;                                                                       \
     theField     = aValueText.IntegerValue();                                                      \
@@ -143,8 +143,8 @@
 //! Append into output value: "Name": "Field"
 #define OCCT_DUMP_FIELD_VALUE_STRING(theOStream, theField)                                         \
   {                                                                                                \
-    AsciiString1 aName = Standard_Dump::DumpFieldToName(#theField);                     \
-    Standard_Dump::AddValuesSeparator(theOStream);                                                 \
+    AsciiString1 aName = DumpTool::DumpFieldToName(#theField);                     \
+    DumpTool::AddValuesSeparator(theOStream);                                                 \
     theOStream << "\"" << aName << "\": \"" << theField << "\"";                                   \
   }
 
@@ -152,17 +152,17 @@
 //! Append into output value: "Name": "address of the pointer"
 #define OCCT_DUMP_FIELD_VALUE_POINTER(theOStream, theField)                                        \
   {                                                                                                \
-    AsciiString1 aName = Standard_Dump::DumpFieldToName(#theField);                     \
-    Standard_Dump::AddValuesSeparator(theOStream);                                                 \
-    theOStream << "\"" << aName << "\": \"" << Standard_Dump::GetPointerInfo(theField) << "\"";    \
+    AsciiString1 aName = DumpTool::DumpFieldToName(#theField);                     \
+    DumpTool::AddValuesSeparator(theOStream);                                                 \
+    theOStream << "\"" << aName << "\": \"" << DumpTool::GetPointerInfo(theField) << "\"";    \
   }
 
 //! @def OCCT_DUMP_FIELD_VALUE_STRING
 //! Append into output value: "Name": "Field"
 #define OCCT_DUMP_FIELD_VALUE_GUID(theOStream, theField)                                           \
   {                                                                                                \
-    AsciiString1 aName = Standard_Dump::DumpFieldToName(#theField);                     \
-    Standard_Dump::AddValuesSeparator(theOStream);                                                 \
+    AsciiString1 aName = DumpTool::DumpFieldToName(#theField);                     \
+    DumpTool::AddValuesSeparator(theOStream);                                                 \
     char aStr[Standard_GUID_SIZE_ALLOC];                                                           \
     theField.ToCString(aStr);                                                                      \
     theOStream << "\"" << aName << "\": \"" << aStr << "\"";                                       \
@@ -180,8 +180,8 @@
     {                                                                                              \
       Standard_SStream aFieldStream;                                                               \
       (theField)->DumpJson(aFieldStream, theDepth - 1);                                            \
-      AsciiString1 aName = Standard_Dump::DumpFieldToName(#theField);                   \
-      Standard_Dump::DumpKeyToClass(theOStream, aName, Standard_Dump::Text(aFieldStream));         \
+      AsciiString1 aName = DumpTool::DumpFieldToName(#theField);                   \
+      DumpTool::DumpKeyToClass(theOStream, aName, DumpTool::Text(aFieldStream));         \
     }                                                                                              \
   }
 
@@ -198,8 +198,8 @@
     {                                                                                              \
       Standard_SStream aFieldStream;                                                               \
       (theField)->DumpJson(aFieldStream, theDepth - 1);                                            \
-      AsciiString1 aName = Standard_Dump::DumpFieldToName(#theField) + theIncName;      \
-      Standard_Dump::DumpKeyToClass(theOStream, aName, Standard_Dump::Text(aFieldStream));         \
+      AsciiString1 aName = DumpTool::DumpFieldToName(#theField) + theIncName;      \
+      DumpTool::DumpKeyToClass(theOStream, aName, DumpTool::Text(aFieldStream));         \
     }                                                                                              \
   }
 
@@ -221,8 +221,8 @@
 //! Use this macro for Standard_SStream field.
 #define OCCT_DUMP_STREAM_VALUE_DUMPED(theOStream, theField)                                        \
   {                                                                                                \
-    AsciiString1 aName = Standard_Dump::DumpFieldToName(#theField);                     \
-    Standard_Dump::DumpKeyToClass(theOStream, aName, Standard_Dump::Text(theField));               \
+    AsciiString1 aName = DumpTool::DumpFieldToName(#theField);                     \
+    DumpTool::DumpKeyToClass(theOStream, aName, DumpTool::Text(theField));               \
   }
 
 //! @def OCCT_DUMP_FIELD_VALUES_NUMERICAL
@@ -231,9 +231,9 @@
 //! ClassName::Dump.
 #define OCCT_DUMP_FIELD_VALUES_NUMERICAL(theOStream, theName, theCount, ...)                       \
   {                                                                                                \
-    Standard_Dump::AddValuesSeparator(theOStream);                                                 \
+    DumpTool::AddValuesSeparator(theOStream);                                                 \
     theOStream << "\"" << theName << "\": [";                                                      \
-    Standard_Dump::DumpRealValues(theOStream, theCount, __VA_ARGS__);                              \
+    DumpTool::DumpRealValues(theOStream, theCount, __VA_ARGS__);                              \
     theOStream << "]";                                                                             \
   }
 
@@ -243,9 +243,9 @@
 //! ClassName::Dump.
 #define OCCT_DUMP_FIELD_VALUES_STRING(theOStream, theName, theCount, ...)                          \
   {                                                                                                \
-    Standard_Dump::AddValuesSeparator(theOStream);                                                 \
+    DumpTool::AddValuesSeparator(theOStream);                                                 \
     theOStream << "\"" << theName << "\": [";                                                      \
-    Standard_Dump::DumpCharacterValues(theOStream, theCount, __VA_ARGS__);                         \
+    DumpTool::DumpCharacterValues(theOStream, theCount, __VA_ARGS__);                         \
     theOStream << "]";                                                                             \
   }
 
@@ -259,7 +259,7 @@
   {                                                                                                \
     if (theDepth != 0)                                                                             \
     {                                                                                              \
-      Standard_Dump::AddValuesSeparator(theOStream);                                               \
+      DumpTool::AddValuesSeparator(theOStream);                                               \
       theField::DumpJson(theOStream, theDepth - 1);                                                \
     }                                                                                              \
   }
@@ -271,9 +271,9 @@
 //! it should be only one row in the object dump.
 #define OCCT_DUMP_VECTOR_CLASS(theOStream, theName, theCount, ...)                                 \
   {                                                                                                \
-    Standard_Dump::AddValuesSeparator(theOStream);                                                 \
+    DumpTool::AddValuesSeparator(theOStream);                                                 \
     theOStream << "\"" << theName << "\": [";                                                      \
-    Standard_Dump::DumpRealValues(theOStream, theCount, __VA_ARGS__);                              \
+    DumpTool::DumpRealValues(theOStream, theCount, __VA_ARGS__);                              \
     theOStream << "]";                                                                             \
   }
 
@@ -285,9 +285,9 @@
 #define OCCT_INIT_VECTOR_CLASS(theOStream, theName, theStreamPos, theCount, ...)                   \
   {                                                                                                \
     Standard_Integer aStreamPos = theStreamPos;                                                    \
-    if (!Standard_Dump::ProcessStreamName(theOStream, theName, aStreamPos))                        \
+    if (!DumpTool::ProcessStreamName(theOStream, theName, aStreamPos))                        \
       return Standard_False;                                                                       \
-    if (!Standard_Dump::InitRealValues(theOStream, aStreamPos, theCount, __VA_ARGS__))             \
+    if (!DumpTool::InitRealValues(theOStream, aStreamPos, theCount, __VA_ARGS__))             \
       return Standard_False;                                                                       \
     theStreamPos = aStreamPos;                                                                     \
   }
@@ -324,7 +324,7 @@ struct Standard_DumpValue
 };
 
 //! This interface has some tool methods for stream (in JSON format) processing.
-class Standard_Dump
+class DumpTool
 {
 public:
   //! Converts stream value to string value. The result is original stream value.

@@ -72,7 +72,7 @@ Geom2dConvert_ApproxArcsSegments::Geom2dConvert_ApproxArcsSegments(
     case GeomAbs_Line: {
       // Create a single line segment.
       const Standard_Real aDist = myExt[0].Dist(myExt[1]);
-      if (aDist > Precision::Confusion())
+      if (aDist > Precision1::Confusion())
       {
         const gp_Ax2d anAx2d(myExt[0].Point(), gp_Vec2d(myExt[0].Point(), myExt[1].Point()));
         const Handle(Geom2d_Line) aLine = new Geom2d_Line(anAx2d);
@@ -152,9 +152,9 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeArc(
   // Detect the sense (CCW means positive)
   const Coords2d   aDelta = aP2 - aP1;
   Standard_Real aSense = aVec ^ aDelta;
-  if (aSense > Precision::Angular())
+  if (aSense > Precision1::Angular())
     aSense = 1.;
-  else if (aSense < -Precision::Angular())
+  else if (aSense < -Precision1::Angular())
     aSense = -1.;
   else
   {
@@ -416,7 +416,7 @@ void Geom2dConvert_ApproxArcsSegments::getLinearParts(Geom2dConvert_SequenceOfPP
   // check if the curve may be linearised
   Coords2d               aDir  = myExt[1].Point() - myExt[0].Point();
   const Standard_Real aMod2 = aDir.SquareModulus();
-  if (aMod2 > Precision::Confusion())
+  if (aMod2 > Precision1::Confusion())
   {
     Standard_Boolean isLinear = Standard_True;
     aDir /= sqrt(aMod2);
@@ -538,7 +538,7 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeApproximation(
   ParameterPoint& theFirstParam,
   ParameterPoint& theLastParam)
 {
-  // if difference between parameters is less than Precision::PConfusion
+  // if difference between parameters is less than Precision1::PConfusion
   // approximation was not made.
   Standard_Boolean isDone = Standard_False;
   if (theLastParam != theFirstParam)
@@ -550,7 +550,7 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeApproximation(
       isDone                            = !aCurve.IsNull();
       if (isDone && mySeqCurves.Length())
         isDone = checkContinuity(mySeqCurves.Last(), aCurve, myAngleTolerance);
-      if (isDone || aDistance < Precision::Confusion())
+      if (isDone || aDistance < Precision1::Confusion())
       {
         mySeqCurves.Append(aCurve);
         return isDone;
@@ -605,7 +605,7 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::calculateBiArcs(
     anAngle2 = -anAngle2;
 
   // in the case when two angles are equal one arc can be built.
-  Standard_Real anAngleThreshold(Precision::Angular() * 10.);
+  Standard_Real anAngleThreshold(Precision1::Angular() * 10.);
   if (theFirstParam != myExt[0] || theLastParam != myExt[1])
     anAngleThreshold = myAngleTolerance * 0.1;
   if (fabs(anAngle1 - anAngle2) < anAngleThreshold)
@@ -770,8 +770,8 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::checkCurve(
 
     Standard_Real aParam =
       (isUniformDone ? mySeqParams.Value(i).Parameter() : (theFirstParam + i * aParamStep));
-    if (aParam < (theFirstParam - Precision::PConfusion())
-        || aParam > (theLastParam + Precision::PConfusion()))
+    if (aParam < (theFirstParam - Precision1::PConfusion())
+        || aParam > (theLastParam + Precision1::PConfusion()))
       continue;
 
     // getting point from adaptor curve by specified parameter.
@@ -793,7 +793,7 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::checkCurve(
       aProjPoint      = ElCLib1::Value(aParameterCurve, aCirc2d);
     }
 
-    isLess = (aProjPoint.Distance(aPointAdaptor) < myTolerance + Precision::PConfusion());
+    isLess = (aProjPoint.Distance(aPointAdaptor) < myTolerance + Precision1::PConfusion());
   }
   return isLess;
 }
@@ -838,24 +838,24 @@ ParameterPoint getParameter(const Coords2d&             theXY1,
   {
     aResult              = ParameterPoint(af1, theCurve);
     Standard_Real adist1 = (theXY1 - aResult.Point()).Modulus();
-    if (adist1 < Precision::Confusion())
+    if (adist1 < Precision1::Confusion())
     {
       return aResult;
     }
 
     aResult              = ParameterPoint(af2, theCurve);
     Standard_Real adist2 = (theXY1 - aResult.Point()).Modulus();
-    if (adist2 < Precision::Confusion())
+    if (adist2 < Precision1::Confusion())
     {
       return aResult;
     }
 
-    if (aMinDist <= adist2 - Precision::Confusion() && aMinDist <= adist1 - Precision::Confusion())
+    if (aMinDist <= adist2 - Precision1::Confusion() && aMinDist <= adist1 - Precision1::Confusion())
     {
       break;
     }
 
-    if (adist1 < adist2 - Precision::Confusion())
+    if (adist1 < adist2 - Precision1::Confusion())
     {
       prevParam = af1;
       aMinDist  = adist1;

@@ -67,7 +67,7 @@ void DimensionToleranceTool::ReadOwnParams(
 		 tempSignSupFlag); //szv#4:S4163:12Mar99 `st=` not needed
   PR.ReadInteger(PR.Current(), "Fraction Flag", tempFracFlag); //szv#4:S4163:12Mar99 `st=` not needed
   // clang-format on
-  PR.ReadInteger(PR.Current(), "Precision", tempPrecision); // szv#4:S4163:12Mar99 `st=` not needed
+  PR.ReadInteger(PR.Current(), "Precision1", tempPrecision); // szv#4:S4163:12Mar99 `st=` not needed
 
   DirChecker(ent).CheckTypeAndForm(PR.CCheck(), ent);
   ent->Init(tempNbProps,
@@ -93,7 +93,7 @@ void DimensionToleranceTool::WriteOwnParams(
   IW.Send(ent->LowerTolerance());
   IW.SendBoolean(ent->SignSuppressionFlag());
   IW.Send(ent->FractionFlag());
-  IW.Send(ent->Precision());
+  IW.Send(ent->Precision1());
 }
 
 void DimensionToleranceTool::OwnShared(
@@ -114,7 +114,7 @@ void DimensionToleranceTool::OwnCopy(const Handle(IGESDimen_DimensionTolerance)&
             another->LowerTolerance(),
             (another->SignSuppressionFlag() ? 1 : 0),
             another->FractionFlag(),
-            another->Precision());
+            another->Precision1());
 }
 
 Standard_Boolean DimensionToleranceTool::OwnCorrect(
@@ -130,7 +130,7 @@ Standard_Boolean DimensionToleranceTool::OwnCorrect(
               ent->LowerTolerance(),
               (ent->SignSuppressionFlag() ? 1 : 0),
               ent->FractionFlag(),
-              ent->Precision()); // nbpropertyvalues=8
+              ent->Precision1()); // nbpropertyvalues=8
   return res;
 }
 
@@ -180,5 +180,5 @@ void DimensionToleranceTool::OwnDump(const Handle(IGESDimen_DimensionTolerance)&
     << "Lower Tolerance          : " << ent->LowerTolerance() << "\n"
     << "Sign Suppression Flag    : " << (ent->SignSuppressionFlag() ? "True" : "False") << "\n"
     << "Fraction Flag            : " << ent->FractionFlag() << "\n"
-    << "Precision                : " << ent->Precision() << std::endl;
+    << "Precision1                : " << ent->Precision1() << std::endl;
 }

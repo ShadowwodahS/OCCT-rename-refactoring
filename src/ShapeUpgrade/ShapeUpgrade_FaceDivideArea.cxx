@@ -31,7 +31,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_FaceDivideArea, ShapeUpgrade_FaceDivide)
 
 ShapeUpgrade_FaceDivideArea::ShapeUpgrade_FaceDivideArea()
 {
-  myMaxArea  = Precision::Infinite();
+  myMaxArea  = Precision1::Infinite();
   myNbParts  = 0;
   myUnbSplit = myVnbSplit = -1;
   myIsSplittingByNumber   = Standard_False;
@@ -43,7 +43,7 @@ ShapeUpgrade_FaceDivideArea::ShapeUpgrade_FaceDivideArea()
 
 ShapeUpgrade_FaceDivideArea::ShapeUpgrade_FaceDivideArea(const TopoFace& F)
 {
-  myMaxArea  = Precision::Infinite();
+  myMaxArea  = Precision1::Infinite();
   myNbParts  = 0;
   myUnbSplit = myVnbSplit = -1;
   myIsSplittingByNumber   = Standard_False;
@@ -59,7 +59,7 @@ Standard_Boolean ShapeUpgrade_FaceDivideArea::Perform(const Standard_Real)
   myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   GeometricProperties aGprop;
 
-  BRepGProp1::SurfaceProperties(myFace, aGprop, Precision());
+  BRepGProp1::SurfaceProperties(myFace, aGprop, Precision1());
   Standard_Real anArea = aGprop.Mass();
 
   Standard_Integer anbParts = 0;
@@ -69,7 +69,7 @@ Standard_Boolean ShapeUpgrade_FaceDivideArea::Perform(const Standard_Real)
     myMaxArea = anArea / anbParts;
   }
 
-  if ((anArea - myMaxArea) < Precision::Confusion())
+  if ((anArea - myMaxArea) < Precision1::Confusion())
     return Standard_False;
 
   if (anbParts == 0)

@@ -174,7 +174,7 @@ public:
   //! or 0 for GlobalCheck
   Standard_EXPORT Standard_Integer Number() const;
 
-  //! Prints the list of Checks with their attached Numbers
+  //! Prints the list of Checks with their attached Numbers1
   //! If <failsonly> is True, prints only Fail messages
   //! If <failsonly> is False, prints all messages
   //! If <final> = 0 (D), prints also original messages if different

@@ -80,7 +80,7 @@ public:
   Standard_EXPORT virtual void Prepare(
     const Handle(IntTools_Context)& theCtx        = Handle(IntTools_Context)(),
     const Standard_Boolean          theCheckOBB   = Standard_False,
-    const Standard_Real             theFuzzyValue = Precision::Confusion());
+    const Standard_Real             theFuzzyValue = Precision1::Confusion());
 
   //! Updates the tree of Bounding Boxes with increased boxes and
   //! intersects such elements with the tree.
@@ -111,7 +111,7 @@ protected: //! @name Protected methods for bounding boxes intersection
   Standard_EXPORT virtual void Intersect(
     const Handle(IntTools_Context)& theCtx        = Handle(IntTools_Context)(),
     const Standard_Boolean          theCheckOBB   = Standard_False,
-    const Standard_Real             theFuzzyValue = Precision::Confusion());
+    const Standard_Real             theFuzzyValue = Precision1::Confusion());
 
 protected:                                       //! @name Fields
   Handle(NCollection_BaseAllocator) myAllocator; //!< Allocator

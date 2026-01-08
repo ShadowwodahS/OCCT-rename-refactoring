@@ -110,13 +110,13 @@ void BlendFunc_ConstRadInv::GetBounds(math_Vector& InfBound, math_Vector& SupBou
     InfBound(4) = surf2->FirstVParameter();
     SupBound(3) = surf2->LastUParameter();
     SupBound(4) = surf2->LastVParameter();
-    if (!Precision::IsInfinite(InfBound(3)) && !Precision::IsInfinite(SupBound(3)))
+    if (!Precision1::IsInfinite(InfBound(3)) && !Precision1::IsInfinite(SupBound(3)))
     {
       Standard_Real range = (SupBound(3) - InfBound(3));
       InfBound(3) -= range;
       SupBound(3) += range;
     }
-    if (!Precision::IsInfinite(InfBound(4)) && !Precision::IsInfinite(SupBound(4)))
+    if (!Precision1::IsInfinite(InfBound(4)) && !Precision1::IsInfinite(SupBound(4)))
     {
       Standard_Real range = (SupBound(4) - InfBound(4));
       InfBound(4) -= range;
@@ -129,13 +129,13 @@ void BlendFunc_ConstRadInv::GetBounds(math_Vector& InfBound, math_Vector& SupBou
     InfBound(4) = surf1->FirstVParameter();
     SupBound(3) = surf1->LastUParameter();
     SupBound(4) = surf1->LastVParameter();
-    if (!Precision::IsInfinite(InfBound(3)) && !Precision::IsInfinite(SupBound(3)))
+    if (!Precision1::IsInfinite(InfBound(3)) && !Precision1::IsInfinite(SupBound(3)))
     {
       Standard_Real range = (SupBound(3) - InfBound(3));
       InfBound(3) -= range;
       SupBound(3) += range;
     }
-    if (!Precision::IsInfinite(InfBound(4)) && !Precision::IsInfinite(SupBound(4)))
+    if (!Precision1::IsInfinite(InfBound(4)) && !Precision1::IsInfinite(SupBound(4)))
     {
       Standard_Real range = (SupBound(4) - InfBound(4));
       InfBound(4) -= range;

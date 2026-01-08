@@ -59,8 +59,8 @@ static void FUNBREP_Periodize(const TopOpeBRep_LineInter&              L,
   {
     Standard_Real f, l;
     L.Bounds(f, l);
-    Standard_Boolean onf  = Abs(parline - f) < Precision::PConfusion();
-    Standard_Boolean onl  = Abs(parline - l) < Precision::PConfusion();
+    Standard_Boolean onf  = Abs(parline - f) < Precision1::PConfusion();
+    Standard_Boolean onl  = Abs(parline - l) < Precision1::PConfusion();
     Standard_Boolean onfl = onf || onl;
     if (onfl)
     {
@@ -747,7 +747,7 @@ static Standard_Boolean TopoParameter(const TopOpeBRep_LineInter&              L
   Standard_Boolean samepar = Standard_False;
   Standard_Real    pCPI    = InterferenceTool::Parameter(I);
   if (!closingedge)
-    samepar = (Abs(parline - pCPI) < Precision::PConfusion());
+    samepar = (Abs(parline - pCPI) < Precision1::PConfusion());
   else
   {
     // trouve et couture et courbe periodique :
@@ -761,7 +761,7 @@ static Standard_Boolean TopoParameter(const TopOpeBRep_LineInter&              L
     }
     else
     {
-      samepar = (Abs(parline - pCPI) < Precision::PConfusion());
+      samepar = (Abs(parline - pCPI) < Precision1::PConfusion());
     }
   }
   return samepar;

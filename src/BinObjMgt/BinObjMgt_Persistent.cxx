@@ -27,7 +27,7 @@
 #define BP_SHORTREALSIZE ((Standard_Integer)sizeof(Standard_ShortReal))
 #define BP_UUIDSIZE ((Standard_Integer)sizeof(BinObjMgt_UUID))
 
-// We define a GUID structure that is different from Standard_UUID because
+// We define a GUID structure that is different from UUID because
 // the latter contains a 'unsigned long' member that has variables size
 // (4 or 8 bits) thus making the persistent files non-portable.
 // This structure below ensures the portability.
@@ -65,7 +65,7 @@ void BinObjMgt_Persistent::Init()
 {
   if (myData.IsEmpty())
   {
-    Standard_Address aPiece = Standard::Allocate(BP_PIECESIZE);
+    Standard_Address aPiece = Standard1::Allocate(BP_PIECESIZE);
     myData.Append(aPiece);
   }
   Standard_Integer* aData  = (Standard_Integer*)myData(1);
@@ -163,7 +163,7 @@ Standard_IStream& BinObjMgt_Persistent::Read(Standard_IStream& theIS)
         if (i > myData.Length())
         {
           // grow myData dynamically
-          Standard_Address aPiece = Standard::Allocate(BP_PIECESIZE);
+          Standard_Address aPiece = Standard1::Allocate(BP_PIECESIZE);
           myData.Append(aPiece);
         }
         Standard_Integer nbToRead = Min(mySize - nbRead, BP_PIECESIZE);
@@ -194,7 +194,7 @@ void BinObjMgt_Persistent::Destroy()
 {
   for (Standard_Integer i = 1; i <= myData.Length(); i++)
   {
-    Standard::Free(myData(i));
+    Standard1::Free(myData(i));
   }
   myData.Clear();
   myIndex = myOffset = mySize = 0;
@@ -209,7 +209,7 @@ void BinObjMgt_Persistent::incrementData(const Standard_Integer theNbPieces)
 {
   for (Standard_Integer i = 1; i <= theNbPieces; i++)
   {
-    Standard_Address aPiece = Standard::Allocate(BP_PIECESIZE);
+    Standard_Address aPiece = Standard1::Allocate(BP_PIECESIZE);
     myData.Append(aPiece);
   }
 }
@@ -413,7 +413,7 @@ BinObjMgt_Persistent& BinObjMgt_Persistent::PutGUID(const Standard_GUID& theValu
 {
   alignOffset(BP_INTSIZE, Standard_True);
   prepareForPut(BP_UUIDSIZE);
-  const Standard_UUID aStandardUUID = theValue.ToUUID();
+  const UUID aStandardUUID = theValue.ToUUID();
   BinObjMgt_UUID      anUUID;
   anUUID.Data1    = (unsigned int)aStandardUUID.Data1;
   anUUID.Data2    = (unsigned short)aStandardUUID.Data2;
@@ -693,12 +693,12 @@ const BinObjMgt_Persistent& BinObjMgt_Persistent::GetAsciiString(
   {
     // work through buffer string
     Standard_Integer aSize   = (myIndex - aStartIndex) * BP_PIECESIZE + myOffset - aStartOffset;
-    Standard_Address aString = Standard::Allocate(aSize);
+    Standard_Address aString = Standard1::Allocate(aSize);
     me->myIndex              = aStartIndex;
     me->myOffset             = aStartOffset;
     getArray(aString, aSize);
     theValue = (char*)aString;
-    Standard::Free(aString);
+    Standard1::Free(aString);
   }
 
   return *this;
@@ -742,12 +742,12 @@ const BinObjMgt_Persistent& BinObjMgt_Persistent::GetExtendedString(
   {
     // work through buffer string
     Standard_Integer aSize   = (myIndex - aStartIndex) * BP_PIECESIZE + (myOffset - aStartOffset);
-    Standard_Address aString = Standard::Allocate(aSize);
+    Standard_Address aString = Standard1::Allocate(aSize);
     me->myIndex              = aStartIndex;
     me->myOffset             = aStartOffset;
     getArray(aString, aSize);
     theValue = (Standard_ExtCharacter*)aString;
-    Standard::Free(aString);
+    Standard1::Free(aString);
   }
 #ifdef DO_INVERSE
   Standard_PExtCharacter aString = (Standard_PExtCharacter)theValue.ToExtString();

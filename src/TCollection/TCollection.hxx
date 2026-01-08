@@ -23,11 +23,11 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-//! The package <TCollection> provides the services for the
+//! The package <TCollection1> provides the services for the
 //! transient basic data structures.
 class Standard_DEPRECATED(
-  "Deprecated since OCCT 7.9, NCollection_Primes should be used instead of TCollection")
-TCollection{public :
+  "Deprecated since OCCT 7.9, NCollection_Primes should be used instead of TCollection1")
+TCollection1{public :
 
               DEFINE_STANDARD_ALLOC
 

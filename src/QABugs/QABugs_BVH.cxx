@@ -529,7 +529,7 @@ static Standard_Real TriangleTriangleSqDistance(const BVH_Vec3d& theNode11,
       const BVH_Vec3d &aPFirst = anEdges[iE].first, aPLast = anEdges[iE].second;
       BVH_Vec3d        anEdge  = (aPLast - aPFirst);
       Standard_Real    aLength = anEdge.Modulus();
-      if (aLength < Precision::Confusion())
+      if (aLength < Precision1::Confusion())
         continue;
       anEdge /= aLength;
 

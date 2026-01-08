@@ -27,8 +27,8 @@ GeomTool1::GeomTool1(const TopOpeBRepTool_OutCurveType TypeC3D,
       myCompC3D(CompC3D),
       myCompPC1(CompPC1),
       myCompPC2(CompPC2),
-      myTol3d(Precision::Approximation()),
-      myTol2d(Precision::PApproximation()),
+      myTol3d(Precision1::Approximation()),
+      myTol2d(Precision1::PApproximation()),
       myNbPntMax(30)
 {
 }

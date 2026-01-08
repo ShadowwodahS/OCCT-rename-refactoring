@@ -362,16 +362,16 @@ static TopAbs_Orientation GetOrientation(const TopoFace& Fn, const TopoFace& Fb)
   {
     const TopoEdge&   edg = TopoDS::Edge(exp.Current());
     Handle(GeomCurve2d) C2d = BRepInspector::CurveOnSurface(edg, Fn, f, l);
-    if (Precision::IsNegativeInfinite(f) && Precision::IsPositiveInfinite(l))
+    if (Precision1::IsNegativeInfinite(f) && Precision1::IsPositiveInfinite(l))
     {
       f = -100.;
       l = 100.;
     }
-    else if (Precision::IsNegativeInfinite(f))
+    else if (Precision1::IsNegativeInfinite(f))
     {
       f = l - 200.;
     }
-    else if (Precision::IsPositiveInfinite(l))
+    else if (Precision1::IsPositiveInfinite(l))
     {
       l = f + 200.;
     }
@@ -381,7 +381,7 @@ static TopAbs_Orientation GetOrientation(const TopoFace& Fn, const TopoFace& Fb)
       C2d->D0(f + (i - 1) * deltau, ptvtx);
       Sn->D1(ptvtx.X(), ptvtx.Y(), pvt, d1u, d1v);
       n1 = d1u.Crossed(d1v);
-      if (n1.Magnitude() > Precision::Confusion())
+      if (n1.Magnitude() > Precision1::Confusion())
       {
         n1.Normalize();
         if (Fn.Orientation() == TopAbs_REVERSED)
@@ -391,8 +391,8 @@ static TopAbs_Orientation GetOrientation(const TopoFace& Fn, const TopoFace& Fb)
 
         // Projection sur Sb
         GeomAdaptor_Surface GAS(Sb);
-        Standard_Real       TolU = GAS.UResolution(Precision::Confusion());
-        Standard_Real       TolV = GAS.VResolution(Precision::Confusion());
+        Standard_Real       TolU = GAS.UResolution(Precision1::Confusion());
+        Standard_Real       TolV = GAS.VResolution(Precision1::Confusion());
         Extrema_ExtPS       dist(pvt, GAS, TolU, TolV);
         if (dist.IsDone())
         {
@@ -412,7 +412,7 @@ static TopAbs_Orientation GetOrientation(const TopoFace& Fn, const TopoFace& Fb)
             dist.Point(jmin).Parameter(uu, vv);
             Sb->D1(uu, vv, pvt, d1u, d1v);
             n2 = d1u.Crossed(d1v);
-            if (n2.Magnitude() > Precision::Confusion())
+            if (n2.Magnitude() > Precision1::Confusion())
             {
               n2.Normalize();
               if (Fb.Orientation() == TopAbs_REVERSED)

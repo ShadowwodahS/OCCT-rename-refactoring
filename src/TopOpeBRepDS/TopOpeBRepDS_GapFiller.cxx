@@ -363,7 +363,7 @@ void TopOpeBRepDS_GapFiller::FilterByIncidentDistance(const TopoFace&           
                                                       const Handle(TopOpeBRepDS_Interference)& I,
                                                       TopOpeBRepDS_ListOfInterference&         LI)
 {
-  Standard_Real                     DistMin = Precision::Infinite();
+  Standard_Real                     DistMin = Precision1::Infinite();
   Handle(TopOpeBRepDS_Interference) ISol;
 
   const Point1& PI1 = myHDS->Point(I->Geometry1());
@@ -431,7 +431,7 @@ void TopOpeBRepDS_GapFiller::ReBuildGeom(const Handle(TopOpeBRepDS_Interference)
   TopOpeBRepDS_ListOfInterference&              LI = myAsso->Associated(I);
   TopOpeBRepDS_ListIteratorOfListOfInterference it(LI);
 
-  Standard_Real TolMax = 0, UMin = Precision::Infinite();
+  Standard_Real TolMax = 0, UMin = Precision1::Infinite();
   Standard_Real UMax = -UMin, U;
   TopoEdge   E, CE;
   myGapTool->EdgeSupport(I, E);

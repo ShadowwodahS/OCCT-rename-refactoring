@@ -39,7 +39,7 @@ void Express1::WriteFileStamp(Standard_OStream& theOS)
   static const char* EC_VERSION = "2.0";
 
   OSD_Process             aProcess;
-  Quantity_Date           aCurTime = aProcess.SystemDate();
+  Date2           aCurTime = aProcess.SystemDate();
   OSD_Environment         anEnv("EXPTOCAS_TIME");
   AsciiString1 aTimeString = anEnv.Value();
   if (aTimeString.IsEmpty())

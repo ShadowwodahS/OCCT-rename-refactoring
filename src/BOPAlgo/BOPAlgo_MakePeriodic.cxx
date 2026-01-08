@@ -71,9 +71,9 @@ void BOPAlgo_MakePeriodic::Perform()
 //=======================================================================
 void BOPAlgo_MakePeriodic::CheckData()
 {
-  if ((!IsXPeriodic() || XPeriod() < Precision::Confusion())
-      && (!IsYPeriodic() || YPeriod() < Precision::Confusion())
-      && (!IsZPeriodic() || ZPeriod() < Precision::Confusion()))
+  if ((!IsXPeriodic() || XPeriod() < Precision1::Confusion())
+      && (!IsYPeriodic() || YPeriod() < Precision1::Confusion())
+      && (!IsZPeriodic() || ZPeriod() < Precision1::Confusion()))
   {
     // Add error informing the user that no periodicity is required
     // or no valid period is set.
@@ -443,7 +443,7 @@ const TopoShape& BOPAlgo_MakePeriodic::RepeatShape(const Standard_Integer theDir
 
   // Get the shape's period in the required direction
   const Standard_Integer id = BOPAlgo_MakePeriodic::ToDirectionID(theDir);
-  if (myRepeatPeriod[id] < Precision::Confusion())
+  if (myRepeatPeriod[id] < Precision1::Confusion())
     myRepeatPeriod[id] = Period(id);
   const Standard_Real aPeriod = myRepeatPeriod[id];
 

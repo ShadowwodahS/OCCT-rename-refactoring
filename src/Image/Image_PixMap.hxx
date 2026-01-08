@@ -169,7 +169,7 @@ public: // high-level API
   //! non-linear color space (e.g. Image_Format_RGB)
   void SetPixelColor(const Standard_Integer theX,
                      const Standard_Integer theY,
-                     const Quantity_Color&  theColor,
+                     const Color1&  theColor,
                      const Standard_Boolean theToDeLinearize = false)
   {
     SetPixelColor(theX, theY, Quantity_ColorRGBA(theColor, 1.0f), theToDeLinearize);

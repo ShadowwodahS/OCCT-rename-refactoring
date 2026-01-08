@@ -130,7 +130,7 @@ public:
   //! algorithms  is used to include it in the bounding box B:
   //! -   an exact analytical if C is built from a line, a circle or a conic curve,
   //! -   numerical calculation of bounding box sizes, based on minimization algorithm,  for other
-  //! types of curve If Tol = < Precision::PConfusion(), Precision::PConfusion is used as tolerance
+  //! types of curve If Tol = < Precision1::PConfusion(), Precision1::PConfusion is used as tolerance
   //! for calculation
   Standard_EXPORT static void AddOptimal(const Handle(GeomCurve2d)& C,
                                          const Standard_Real         U1,

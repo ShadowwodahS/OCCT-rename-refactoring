@@ -34,7 +34,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_SplitCurve3dContinuity, ShapeUpgrade_Spl
 ShapeUpgrade_SplitCurve3dContinuity::ShapeUpgrade_SplitCurve3dContinuity()
 {
   myCriterion = GeomAbs_C1;
-  myTolerance = Precision::Confusion();
+  myTolerance = Precision1::Confusion();
   myCont      = 1;
 }
 
@@ -78,7 +78,7 @@ void ShapeUpgrade_SplitCurve3dContinuity::Compute()
 {
   Standard_Real           First     = mySplitValues->Value(1);
   Standard_Real           Last      = mySplitValues->Value(mySplitValues->Length());
-  constexpr Standard_Real precision = Precision::PConfusion();
+  constexpr Standard_Real precision = Precision1::PConfusion();
   if (myCurve->Continuity() < myCriterion)
     myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
   if (mySplitValues->Length() > 2)

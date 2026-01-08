@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-Standard_ShortReal Graphic3d_PBRMaterial::RoughnessFromSpecular(const Quantity_Color& theSpecular,
+Standard_ShortReal Graphic3d_PBRMaterial::RoughnessFromSpecular(const Color1& theSpecular,
                                                                 const Standard_Real   theShiness)
 {
   Standard_Real aRoughnessFactor = 1.0 - theShiness;
@@ -97,7 +97,7 @@ void Graphic3d_PBRMaterial::SetColor(const Quantity_ColorRGBA& theColor)
 
 //=================================================================================================
 
-void Graphic3d_PBRMaterial::SetColor(const Quantity_Color& theColor)
+void Graphic3d_PBRMaterial::SetColor(const Color1& theColor)
 {
   myColor.SetRGB(theColor);
 }
@@ -130,7 +130,7 @@ void Graphic3d_PBRMaterial::SetBSDF(const Graphic3d_BSDF& theBSDF)
   if (theBSDF.Absorption != Graphic3d_Vec4(0.f))
   {
     SetMetallic(0.f);
-    SetColor(Quantity_Color(theBSDF.Absorption.rgb()));
+    SetColor(Color1(theBSDF.Absorption.rgb()));
     if (theBSDF.FresnelCoat.FresnelType() == Graphic3d_FM_DIELECTRIC)
     {
       SetIOR(theBSDF.FresnelCoat.Serialize().y());
@@ -146,7 +146,7 @@ void Graphic3d_PBRMaterial::SetBSDF(const Graphic3d_BSDF& theBSDF)
     SetIOR(1.f);
     SetRoughness(1.f);
     SetMetallic(0.f);
-    SetColor(Quantity_Color(theBSDF.Kt));
+    SetColor(Color1(theBSDF.Kt));
     SetAlpha(1.f - (theBSDF.Kt.r() + theBSDF.Kt.g() + theBSDF.Kt.b()) / 3.f);
     return;
   }
@@ -156,17 +156,17 @@ void Graphic3d_PBRMaterial::SetBSDF(const Graphic3d_BSDF& theBSDF)
       || theBSDF.FresnelBase.FresnelType() == Graphic3d_FM_CONSTANT)
   {
     SetIOR(1.5f);
-    SetColor(Quantity_Color(theBSDF.Kd));
+    SetColor(Color1(theBSDF.Kd));
     SetMetallic(0.f);
   }
   else if (theBSDF.FresnelBase.FresnelType() == Graphic3d_FM_SCHLICK)
   {
-    SetColor(Quantity_Color(theBSDF.FresnelBase.Serialize().rgb()));
+    SetColor(Color1(theBSDF.FresnelBase.Serialize().rgb()));
     SetMetallic(1.f);
   }
   else
   {
-    SetColor(Quantity_Color(theBSDF.Ks.rgb()));
+    SetColor(Color1(theBSDF.Ks.rgb()));
     SetMetallic(1.f);
   }
 }

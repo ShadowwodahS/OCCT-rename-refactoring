@@ -357,9 +357,9 @@ static void TempSameRange(const TopoEdge& AnEdge, const Standard_Real Tolerance)
           first_time_in = Standard_False;
         }
 
-        if (Abs(first - current_first) > Precision::PConfusion()
+        if (Abs(first - current_first) > Precision1::PConfusion()
             || //: b8 abv 20 Feb 98: Confusion -> PConfusion
-            Abs(last - current_last) > Precision::PConfusion())
+            Abs(last - current_last) > Precision1::PConfusion())
         {                                            //: b8
           Standard_Real oldFirst = 0., oldLast = 0.; // skl
           if (has_curve)
@@ -381,7 +381,7 @@ static void TempSameRange(const TopoEdge& AnEdge, const Standard_Real Tolerance)
             if (Curve2dPtr->IsKind(STANDARD_TYPE(Geom2d_BezierCurve)))
             {
 
-              constexpr Standard_Real preci = Precision::PConfusion();
+              constexpr Standard_Real preci = Precision1::PConfusion();
               if (Abs(oldFirst) > preci || Abs(oldLast - 1) > preci)
               {
                 Handle(Geom2d_BezierCurve) bezier =
@@ -410,7 +410,7 @@ static void TempSameRange(const TopoEdge& AnEdge, const Standard_Real Tolerance)
             if (Curve2dPtr2->IsKind(STANDARD_TYPE(Geom2d_BezierCurve)))
             {
 
-              constexpr Standard_Real preci = Precision::PConfusion();
+              constexpr Standard_Real preci = Precision1::PConfusion();
               if (Abs(oldFirst) > preci || Abs(oldLast - 1) > preci)
               {
                 Handle(Geom2d_BezierCurve) bezier =
@@ -590,7 +590,7 @@ Standard_Boolean ShapeFix_Edge::FixAddCurve3d(const TopoEdge& edge)
   if (BRepInspector::Degenerated(edge) || EA.HasCurve3d(edge))
     return Standard_False;
   if (!BRepInspector::SameRange(edge))
-    TempSameRange(edge, Precision::PConfusion());
+    TempSameRange(edge, Precision1::PConfusion());
 
   if (!Edge2().BuildCurve3d(edge))
   {
@@ -703,7 +703,7 @@ Standard_Boolean ShapeFix_Edge::FixReversed2d(const TopoEdge&          edge,
   Standard_Real newf = c2d->ReversedParameter(l), newl = c2d->ReversedParameter(f);
   c2d->Reverse();
   ShapeBuilder B;
-  // will break seams!  B.UpdateEdge (edge, c2d, surface, location, Precision::Confusion());
+  // will break seams!  B.UpdateEdge (edge, c2d, surface, location, Precision1::Confusion());
   B.Range(edge, surface, location, newf, newl);
   // #51 rln 15.12.98 pro6562 entity 2788
   // Because of numerical accuracy the range on B-Splines (moreover, on any curve!)
@@ -740,7 +740,7 @@ Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoEdge&  edge,
   {
     ShapeBuilder B;
     if (!BRepInspector::SameRange(edge))
-      TempSameRange(edge, Precision::PConfusion());
+      TempSameRange(edge, Precision1::PConfusion());
     B.SameParameter(edge, Standard_True);
     return Standard_False;
   }
@@ -762,7 +762,7 @@ Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoEdge&  edge,
     {
       OCC_CATCH_SIGNALS
       if (!BRepInspector::SameRange(edge))
-        TempSameRange(edge, Precision::PConfusion());
+        TempSameRange(edge, Precision1::PConfusion());
       // #81 rln 15.03.99 S4135: for not SP edge choose the best result (either BRepLib1 or deviation
       // only)
       if (!wasSP)
@@ -778,7 +778,7 @@ Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoEdge&  edge,
         Standard_Real aF, aL;
         BRepInspector::Range(edge, aF, aL);
         B.Range(copyedge, aF, aL, Standard_True); // only 3D
-        BRepLib1::SameParameter(copyedge, (tolerance >= Precision::Confusion() ? tolerance : tol));
+        BRepLib1::SameParameter(copyedge, (tolerance >= Precision1::Confusion() ? tolerance : tol));
         SP = BRepInspector::SameParameter(copyedge);
         if (!SP)
           myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);

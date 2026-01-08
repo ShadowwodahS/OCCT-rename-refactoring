@@ -33,7 +33,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_SplitCurve2dContinuity, ShapeUpgrade_Spl
 ShapeUpgrade_SplitCurve2dContinuity::ShapeUpgrade_SplitCurve2dContinuity()
 {
   myCriterion = GeomAbs_C1;
-  myTolerance = Precision::PConfusion();
+  myTolerance = Precision1::PConfusion();
   myCont      = 1;
 }
 
@@ -79,7 +79,7 @@ void ShapeUpgrade_SplitCurve2dContinuity::Compute()
     myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
   if (mySplitValues->Length() > 2)
     myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
-  constexpr Standard_Real precision = Precision::PConfusion();
+  constexpr Standard_Real precision = Precision1::PConfusion();
   Standard_Real           First     = mySplitValues->Value(1);
   Standard_Real           Last      = mySplitValues->Value(mySplitValues->Length());
   if (myCurve->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve)))

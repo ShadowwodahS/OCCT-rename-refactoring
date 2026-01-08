@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_Root, RefObject)
 
 ShapeFix_Root::ShapeFix_Root()
 {
-  myPrecision = myMinTol = myMaxTol = Precision::Confusion();
+  myPrecision = myMinTol = myMaxTol = Precision1::Confusion();
   myMsgReg                          = new ShapeExtend_BasicMsgRegistrator;
 }
 

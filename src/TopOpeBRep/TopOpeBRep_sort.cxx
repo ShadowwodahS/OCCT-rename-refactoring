@@ -56,7 +56,7 @@ static void BREP_sortonparameter2(TopOpeBRepDS_ListOfInterference& LOI)
     ng++;
   size_t            sng = (size_t)ng;
   size_t            sad = sizeof(BOA_t);
-  BOA_t*            T   = (BOA_t*)Standard::Allocate(sng * sad);
+  BOA_t*            T   = (BOA_t*)Standard1::Allocate(sng * sad);
   TopOpeBRepDS_Kind K;
   Standard_Integer  G, j = 0;
   for (tki.Init(); tki.More(); tki.Next(), j++)
@@ -68,7 +68,7 @@ static void BREP_sortonparameter2(TopOpeBRepDS_ListOfInterference& LOI)
     TopOpeBRepDS_ListOfInterference& l = *T[j];
     LOI.Append(l);
   }
-  Standard::Free(T);
+  Standard1::Free(T);
 }
 
 Standard_EXPORT void BREP_sortonparameter(const Handle(TopOpeBRepDS_HDataStructure)& HDS)

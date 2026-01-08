@@ -43,21 +43,21 @@ static Standard_Integer BUC60857(DrawInterpreter& di, Standard_Integer /*argc*/,
   }
 
   Handle(Geom_RectangularTrimmedSurface) S = GC_MakeTrimmedCone(P1, P2, R1, R2).Value();
-  TopoShape myshape = FaceMaker(S, Precision::Confusion()).Shape();
+  TopoShape myshape = FaceMaker(S, Precision1::Confusion()).Shape();
   DBRep1::Set("BUC60857_BLUE", myshape);
   Handle(VisualShape) ais1 = new VisualShape(myshape);
   aContext->Display(ais1, Standard_False);
   aContext->SetColor(ais1, Quantity_NOC_BLUE1, Standard_False);
 
   Handle(Geom_RectangularTrimmedSurface) S2 = GC_MakeTrimmedCone(P1, P2, R1, 0).Value();
-  TopoShape myshape2 = FaceMaker(S2, Precision::Confusion()).Shape();
+  TopoShape myshape2 = FaceMaker(S2, Precision1::Confusion()).Shape();
   DBRep1::Set("BUC60857_RED", myshape2);
   Handle(VisualShape) ais2 = new VisualShape(myshape2);
   aContext->Display(ais2, Standard_False);
   aContext->SetColor(ais2, Quantity_NOC_RED, Standard_False);
 
   Handle(Geom_RectangularTrimmedSurface) S3 = GC_MakeTrimmedCone(P1, P2, R2, R1).Value();
-  TopoShape myshape3 = FaceMaker(S3, Precision::Confusion()).Shape();
+  TopoShape myshape3 = FaceMaker(S3, Precision1::Confusion()).Shape();
   DBRep1::Set("BUC60857_GREEN", myshape3);
   Handle(VisualShape) ais3 = new VisualShape(myshape3);
   aContext->Display(ais3, Standard_False);
@@ -111,7 +111,7 @@ static Standard_Integer OCC24303(DrawInterpreter& di, Standard_Integer n, const 
   const Circ2d2TanRad1 circCalc(qualifiedCurve1,
                                          qualifiedCurve2,
                                          radius,
-                                         /*Precision::Approximation()*/ 1.0e-9);
+                                         /*Precision1::Approximation()*/ 1.0e-9);
 
   const Standard_Integer aNbSol = circCalc.NbSolutions();
   di << "Solutions " << aNbSol << "\n";

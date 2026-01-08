@@ -318,13 +318,13 @@ static Standard_Integer testreadstep(DrawInterpreter& theDI,
   DESTEP_Parameters     aParameters;
   aParameters.InitFromStatic();
   int aNbSubShape = 0;
-  OSD_Parallel::For(0, aSize, [&](const Standard_Integer theIndex) {
+  Parallel1::For(0, aSize, [&](const Standard_Integer theIndex) {
     StepFileReader                    aReader;
     XSAlgo_ShapeProcessor::ProcessingData aProcessingData =
       XSAlgo_ShapeProcessor::ReadProcessingData("read.step.resource.name", "read.step.sequence");
     aReader.SetShapeFixParameters(std::move(aProcessingData.first));
     aReader.SetShapeProcessFlags(aProcessingData.second);
-    aReader.SetSystemLengthUnit(UnitsMethods::GetCasCadeLengthUnit());
+    aReader.SetSystemLengthUnit(UnitsMethods1::GetCasCadeLengthUnit());
     if (useStream)
     {
       std::ifstream aStream;
@@ -555,7 +555,7 @@ static Standard_Integer testwrite(DrawInterpreter& theDI,
   DESTEP_Parameters aParameters;
   aParameters.InitFromStatic();
 
-  OSD_Parallel::For(0, aSize, [&](const Standard_Integer theIndex) {
+  Parallel1::For(0, aSize, [&](const Standard_Integer theIndex) {
     StepFileWriter                    aWriter;
     XSAlgo_ShapeProcessor::ProcessingData aProcessingData =
       XSAlgo_ShapeProcessor::ReadProcessingData("write.step.resource.name", "write.step.sequence");

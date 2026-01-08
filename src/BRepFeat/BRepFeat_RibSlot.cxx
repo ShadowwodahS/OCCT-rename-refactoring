@@ -505,7 +505,7 @@ Dir3d BRepFeat_RibSlot::Normal(const TopoFace& F, const Point3d& P)
   AS.D1(U, V, pt, D1U, D1V);
   Dir3d                 N;
   CSLib_DerivativeStatus St;
-  CSLib1::Normal(D1U, D1V, Precision::Confusion(), St, N);
+  CSLib1::Normal(D1U, D1V, Precision1::Confusion(), St, N);
   if (F.Orientation() == TopAbs_FORWARD)
     N.Reverse();
   return N;
@@ -1024,7 +1024,7 @@ Standard_Boolean BRepFeat_RibSlot::ExtremeFaces(const Standard_Boolean    RevolR
 
     if (!OnFirstFace)
     {
-      if (p1.Distance(firstpoint) <= Precision::Confusion())
+      if (p1.Distance(firstpoint) <= Precision1::Confusion())
         OnFirstFace = Standard_True;
       else
         OnFirstFace = Standard_False;
@@ -1032,7 +1032,7 @@ Standard_Boolean BRepFeat_RibSlot::ExtremeFaces(const Standard_Boolean    RevolR
 
     if (!OnLastFace)
     {
-      if (p2.Distance(lastpoint) <= Precision::Confusion())
+      if (p2.Distance(lastpoint) <= Precision1::Confusion())
         OnLastFace = Standard_True;
       else
         OnLastFace = Standard_False;
@@ -1109,10 +1109,10 @@ Standard_Boolean BRepFeat_RibSlot::ExtremeFaces(const Standard_Boolean    RevolR
           intpar  = IntPar(curve, thePoint);
           theEdge = E;
           theFace = aCurFace;
-          B.MakeVertex(theVertex, thePoint, Precision::Confusion());
+          B.MakeVertex(theVertex, thePoint, Precision1::Confusion());
           if (!FirstOK)
           {
-            if (thePoint.Distance(P2) <= Precision::Confusion())
+            if (thePoint.Distance(P2) <= Precision1::Confusion())
             {
               continue;
             }
@@ -1430,7 +1430,7 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoFace&              Prof,
   Handle(GeomCurve2d) ln2d1 = GeomAPI1::To2d(ln1, myPln->Pln());
   Handle(GeomCurve2d) ln2d2 = GeomAPI1::To2d(ln2, myPln->Pln());
 
-  Geom2dAPI_InterCurveCurve inter(ln2d1, ln2d2, Precision::Confusion());
+  Geom2dAPI_InterCurveCurve inter(ln2d1, ln2d2, Precision1::Confusion());
 
   Standard_Boolean TestOK = Standard_True;
   if (RevolRib)
@@ -1495,7 +1495,7 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoFace&              Prof,
       Standard_Real             first, last;
       Handle(GeomCurve3d)        c   = BRepInspector::Curve(e, first, last);
       Handle(GeomCurve2d)      c2d = GeomAPI1::To2d(c, myPln->Pln());
-      Geom2dAPI_InterCurveCurve intcln1(ln2d1, c2d, Precision::Confusion());
+      Geom2dAPI_InterCurveCurve intcln1(ln2d1, c2d, Precision1::Confusion());
       if (intcln1.NbPoints() > 0)
       {
         gp_Pnt2d p2d = intcln1.Point(1);
@@ -1510,7 +1510,7 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoFace&              Prof,
         }
       }
 
-      Geom2dAPI_InterCurveCurve intcln2(ln2d2, c2d, Precision::Confusion());
+      Geom2dAPI_InterCurveCurve intcln2(ln2d2, c2d, Precision1::Confusion());
       if (intcln2.NbPoints() > 0)
       {
         gp_Pnt2d p2d = intcln2.Point(1);
@@ -1789,7 +1789,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoFace&              Prof,
   Handle(GeomCurve2d) ln2d1 = GeomAPI1::To2d(firstln, myPln->Pln());
   Handle(GeomCurve2d) ln2d2 = GeomAPI1::To2d(lastln, myPln->Pln());
 
-  Geom2dAPI_InterCurveCurve inter(ln2d1, ln2d2, Precision::Confusion());
+  Geom2dAPI_InterCurveCurve inter(ln2d1, ln2d2, Precision1::Confusion());
 
   Standard_Boolean TestOK = Standard_True;
   if (RevolRib)
@@ -1880,7 +1880,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoFace&              Prof,
       Standard_Real             first, last;
       Handle(GeomCurve3d)        c   = BRepInspector::Curve(e, first, last);
       Handle(GeomCurve2d)      c2d = GeomAPI1::To2d(c, myPln->Pln());
-      Geom2dAPI_InterCurveCurve intcln1(ln2d1, c2d, Precision::Confusion());
+      Geom2dAPI_InterCurveCurve intcln1(ln2d1, c2d, Precision1::Confusion());
       if (intcln1.NbPoints() > 0)
       {
         gp_Pnt2d p2d = intcln1.Point(1);
@@ -1895,7 +1895,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoFace&              Prof,
         }
       }
 
-      Geom2dAPI_InterCurveCurve intcln2(ln2d2, c2d, Precision::Confusion());
+      Geom2dAPI_InterCurveCurve intcln2(ln2d2, c2d, Precision1::Confusion());
       if (intcln2.NbPoints() > 0)
       {
         gp_Pnt2d p2d = intcln2.Point(1);

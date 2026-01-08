@@ -419,7 +419,7 @@ static Standard_Integer DPrsStd_AISColor(DrawInterpreter& di,
   if (nb == 4)
   {
     Quantity_NameOfColor aColor = Quantity_NOC_BLACK;
-    if (!Quantity_Color::ColorFromName(arg[3], aColor))
+    if (!Color1::ColorFromName(arg[3], aColor))
     {
       std::cout << "Syntax error: unknown color '" << arg[3] << "'\n";
       return 1;
@@ -429,8 +429,8 @@ static Standard_Integer DPrsStd_AISColor(DrawInterpreter& di,
   }
   else if (prs->HasOwnColor())
   {
-    di << "Color = " << Quantity_Color::StringName(prs->Color()) << "\n";
-    di << Quantity_Color::StringName(prs->Color());
+    di << "Color = " << Color1::StringName(prs->Color()) << "\n";
+    di << Color1::StringName(prs->Color());
   }
   else
   {

@@ -179,7 +179,7 @@ Standard_Boolean AlgoTools2D::HasCurveOnSurface(const TopoEdge&    aE,
   aToler = BRepInspector::Tolerance(aE);
   BRepInspector::Range(aE, aFirst, aLast);
 
-  if ((aLast - aFirst) < Precision::PConfusion())
+  if ((aLast - aFirst) < Precision1::PConfusion())
   {
     return Standard_False;
   }
@@ -200,7 +200,7 @@ Standard_Boolean AlgoTools2D::HasCurveOnSurface(const TopoEdge& aE,
   //
   BRepInspector::Range(aE, aFirst, aLast);
   //
-  if ((aLast - aFirst) < Precision::PConfusion())
+  if ((aLast - aFirst) < Precision1::PConfusion())
   {
     return Standard_False;
   }
@@ -267,7 +267,7 @@ void AlgoTools2D::AdjustPCurveOnSurf(const BRepAdaptor_Surface&  aBAS,
   VMin                  = aBAS.FirstVParameter();
   VMax                  = aBAS.LastVParameter();
   //
-  aDelta = Precision::PConfusion();
+  aDelta = Precision1::PConfusion();
 
   aT = .5 * (aFirst + aLast);
 
@@ -528,7 +528,7 @@ void AlgoTools2D::MakePCurveOnFace(const TopoFace&              aF,
   Handle(GeomAdaptor_Curve)   aBAHC = new GeomAdaptor_Curve(aC3D, aT1, aT2);
   //
   Standard_Real    aTolR;
-  Standard_Real    aTR       = Precision::Confusion(); // 1.e-7;
+  Standard_Real    aTR       = Precision1::Confusion(); // 1.e-7;
   Standard_Real    aMaxTol   = 1.e3 * aTR;             // 0.0001
   Standard_Boolean isAnaSurf = ProjLib1::IsAnaSurf(aBAHS);
 
@@ -622,14 +622,14 @@ void AlgoTools2D::MakePCurveOnFace(const TopoFace&              aF,
   // Make sure that the range of the 2D curve is sufficient for representation of the 3D curve.
   Standard_Real aTCFirst = aC2D->FirstParameter();
   Standard_Real aTCLast  = aC2D->LastParameter();
-  if ((aTCFirst - aT1) > Precision::PConfusion() || (aT2 - aTCLast) > Precision::PConfusion())
+  if ((aTCFirst - aT1) > Precision1::PConfusion() || (aT2 - aTCLast) > Precision1::PConfusion())
   {
     if (aTCFirst < aT1)
       aTCFirst = aT1;
     if (aTCLast > aT2)
       aTCLast = aT2;
 
-    GeomLib1::SameRange(Precision::PConfusion(), aC2D, aTCFirst, aTCLast, aT1, aT2, aC2D);
+    GeomLib1::SameRange(Precision1::PConfusion(), aC2D, aTCFirst, aTCLast, aT1, aT2, aC2D);
   }
 
   // compute the appropriate tolerance for the edge
@@ -691,7 +691,7 @@ void AlgoTools2D::IsEdgeIsoline(const TopoEdge& theE,
   aT /= sqrt(aSqMagn);
 
   // sin(da) ~ da, when da->0.
-  constexpr Standard_Real aTol = Precision::Angular();
+  constexpr Standard_Real aTol = Precision1::Angular();
   const gp_Vec2d          aRefVDir(0.0, 1.0), aRefUDir(1.0, 0.0);
 
   const Standard_Real aDPv = aT.CrossMagnitude(aRefVDir), aDPu = aT.CrossMagnitude(aRefUDir);

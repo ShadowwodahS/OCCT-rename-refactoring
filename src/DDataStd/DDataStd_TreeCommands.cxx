@@ -575,7 +575,7 @@ void DDataStd1::TreeCommands(DrawInterpreter& theCommands)
     return;
   done = Standard_True;
 
-  const char* g = "DData : Standard Attribute Commands";
+  const char* g = "DData : Standard1 Attribute Commands";
 
   // SET
 

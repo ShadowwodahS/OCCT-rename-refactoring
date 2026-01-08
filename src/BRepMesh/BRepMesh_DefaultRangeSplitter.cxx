@@ -27,7 +27,7 @@ void DefaultRangeSplitter::Reset(const IMeshData::IFaceHandle& theDFace,
   myRangeU.first = myRangeV.first = 1.e100;
   myRangeU.second = myRangeV.second = -1.e100;
   myDelta.first = myDelta.second = 1.;
-  myTolerance.first = myTolerance.second = Precision::Confusion();
+  myTolerance.first = myTolerance.second = Precision1::Confusion();
 }
 
 //=================================================================================================
@@ -71,7 +71,7 @@ void DefaultRangeSplitter::AdjustRange()
 
   const Standard_Real aLengthU = computeLengthU();
   const Standard_Real aLengthV = computeLengthV();
-  myIsValid = aLengthU > Precision::PConfusion() && aLengthV > Precision::PConfusion();
+  myIsValid = aLengthU > Precision1::PConfusion() && aLengthV > Precision1::PConfusion();
 
   if (myIsValid)
   {

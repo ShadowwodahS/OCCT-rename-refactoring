@@ -37,7 +37,7 @@ IMPLEMENT_STANDARD_RTTIEXT(MeshVS_VectorPrsBuilder, MeshVS_PrsBuilder)
 
 MeshVS_VectorPrsBuilder::MeshVS_VectorPrsBuilder(const Handle(MeshVS_Mesh)&       Parent,
                                                  const Standard_Real              MaxLength,
-                                                 const Quantity_Color&            VectorColor,
+                                                 const Color1&            VectorColor,
                                                  const MeshVS_DisplayModeFlags&   Flags,
                                                  const Handle(MeshVS_DataSource)& DS,
                                                  const Standard_Integer           Id,
@@ -158,8 +158,8 @@ void MeshVS_VectorPrsBuilder::GetMinMaxVectorValue(const Standard_Boolean IsElem
 #define NB_FANS 1
 
 void MeshVS_VectorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
-                                    const TColStd_PackedMapOfInteger& IDs,
-                                    TColStd_PackedMapOfInteger&       IDsToExclude,
+                                    const PackedIntegerMap& IDs,
+                                    PackedIntegerMap&       IDsToExclude,
                                     const Standard_Boolean            IsElement,
                                     const Standard_Integer            theDisplayMode) const
 {
@@ -208,7 +208,7 @@ void MeshVS_VectorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
 
   GetMinMaxVectorValue(IsElement, aMinValue, aMaxValue);
 
-  if (aMaxValue - aMinValue > Precision::Confusion())
+  if (aMaxValue - aMinValue > Precision1::Confusion())
   {
     k = 0.8 * aMaxLen / (aMaxValue - aMinValue);
     b = aMaxLen - k * aMaxValue;
@@ -219,10 +219,10 @@ void MeshVS_VectorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
     b = aMaxLen;
   }
 
-  TColStd_PackedMapOfInteger aCustomElements;
+  PackedIntegerMap aCustomElements;
 
   // subtract the hidden elements and ids to exclude (to minimize allocated memory)
-  TColStd_PackedMapOfInteger anIDs;
+  PackedIntegerMap anIDs;
   anIDs.Assign(IDs);
   if (IsElement)
   {
@@ -240,7 +240,7 @@ void MeshVS_VectorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
     {
       aValue = aVec.Magnitude();
 
-      if (Abs(aValue) < Precision::Confusion())
+      if (Abs(aValue) < Precision1::Confusion())
         continue;
 
       if (aSource->GetGeom(aKey, IsElement, aCoords, NbNodes, aType))
@@ -288,7 +288,7 @@ void MeshVS_VectorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
 
   Handle(Graphic3d_Group) aVGroup = Prs->NewGroup();
 
-  Quantity_Color aColor;
+  Color1 aColor;
   aDrawer->GetColor(MeshVS_DA_VectorColor, aColor);
 
   // Add primitive arrays to group

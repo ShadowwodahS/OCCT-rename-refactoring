@@ -172,7 +172,7 @@ IntCurvesFace_Intersector::IntCurvesFace_Intersector(const TopoFace&     Face,
     if (nbsv > aMaxSamples)
       nbsv = aMaxSamples;
 
-    if (dU > Precision::Confusion() && dV > Precision::Confusion())
+    if (dU > Precision1::Confusion() && dV > Precision1::Confusion())
     {
       if (Max(dU, dV) > Min(dU, dV) * aTresh)
       {

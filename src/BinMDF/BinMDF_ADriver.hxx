@@ -28,7 +28,7 @@ class BinObjMgt_Persistent;
 class BinMDF_ADriver;
 DEFINE_STANDARD_HANDLE(BinMDF_ADriver, RefObject)
 
-//! Attribute Storage/Retrieval Driver.
+//! Attribute Storage1/Retrieval Driver.
 class BinMDF_ADriver : public RefObject
 {
 

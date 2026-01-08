@@ -291,7 +291,7 @@ Standard_Boolean DE_Wrapper::Save(const AsciiString1&   theResourcePath,
 {
   SystemPath       aPath = theResourcePath;
   SystemFile       aFile(aPath);
-  OSD_Protection aProt;
+  Protection1 aProt;
   {
     try
     {

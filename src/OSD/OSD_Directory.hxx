@@ -41,7 +41,7 @@ public:
   //!
   //! If Build is used and <me> is instantiated without a name,
   //! OSDError is raised.
-  Standard_EXPORT void Build(const OSD_Protection& Protect);
+  Standard_EXPORT void Build(const Protection1& Protect);
 };
 
 #endif // _OSD_Directory_HeaderFile

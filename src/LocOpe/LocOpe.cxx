@@ -106,7 +106,7 @@ Standard_Boolean LocOpe1::Closed(const TopoWire& W, const TopoFace& F)
     pl = C2d->Value(f);
   }
 
-  if (pf.Distance(pl) <= Precision::PConfusion(Precision::Confusion()))
+  if (pf.Distance(pl) <= Precision1::PConfusion(Precision1::Confusion()))
   {
     return Standard_True;
   }
@@ -244,7 +244,7 @@ Standard_Boolean LocOpe1::IsInside(const TopoFace& F1,
       TopoEdge e2 = TopoDS::Edge(exp2.Current());
       BRepAdaptor_Curve2d C2(e2, F2);
       Geom2dInt_GInter C;
-      C.Perform(C1, C2, Precision::Confusion(), Precision::Confusion());
+      C.Perform(C1, C2, Precision1::Confusion(), Precision1::Confusion());
       if(!C.IsEmpty()) Result = Standard_False;
       if(Result == Standard_False) {
     for(exp3.Init(e2, TopAbs_VERTEX); exp3.More(); exp3.Next())  {

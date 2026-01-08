@@ -25,9 +25,9 @@ inline Graphic3d_MaterialAspect initDefaultMaterial()
 {
   Graphic3d_MaterialAspect aMat;
   aMat.SetMaterialType(Graphic3d_MATERIAL_ASPECT);
-  aMat.SetAmbientColor(Quantity_Color(Graphic3d_Vec3(0.2f)));
-  aMat.SetDiffuseColor(Quantity_Color(Graphic3d_Vec3(0.8f)));
-  aMat.SetEmissiveColor(Quantity_Color(Graphic3d_Vec3(0.1f)));
+  aMat.SetAmbientColor(Color1(Graphic3d_Vec3(0.2f)));
+  aMat.SetDiffuseColor(Color1(Graphic3d_Vec3(0.8f)));
+  aMat.SetEmissiveColor(Color1(Graphic3d_Vec3(0.1f)));
   aMat.SetSpecularColor(Quantity_NOC_BLACK);
   aMat.SetShininess(10.0f / 128.0f);
   aMat.SetRefractionIndex(1.0f);

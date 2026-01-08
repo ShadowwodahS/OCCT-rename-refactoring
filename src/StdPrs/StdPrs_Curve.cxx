@@ -42,8 +42,8 @@ static void FindLimits(const Adaptor3d_Curve& aCurve,
 {
   First                     = aCurve.FirstParameter();
   Last                      = aCurve.LastParameter();
-  Standard_Boolean firstInf = Precision::IsNegativeInfinite(First);
-  Standard_Boolean lastInf  = Precision::IsPositiveInfinite(Last);
+  Standard_Boolean firstInf = Precision1::IsNegativeInfinite(First);
+  Standard_Boolean lastInf  = Precision1::IsPositiveInfinite(Last);
 
   if (firstInf || lastInf)
   {
@@ -278,9 +278,9 @@ void StdPrs_Curve::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Standard_Real V1 = U1;
   Standard_Real V2 = U2;
 
-  if (Precision::IsNegativeInfinite(V1))
+  if (Precision1::IsNegativeInfinite(V1))
     V1 = -aDrawer->MaximalParameterValue();
-  if (Precision::IsPositiveInfinite(V2))
+  if (Precision1::IsPositiveInfinite(V2))
     V2 = aDrawer->MaximalParameterValue();
 
   const Standard_Integer NbPoints = aDrawer->Discretisation();
@@ -355,9 +355,9 @@ Standard_Boolean StdPrs_Curve::Match(const Standard_Real         X,
   Standard_Real V1 = U1;
   Standard_Real V2 = U2;
 
-  if (Precision::IsNegativeInfinite(V1))
+  if (Precision1::IsNegativeInfinite(V1))
     V1 = -aDrawer->MaximalParameterValue();
-  if (Precision::IsPositiveInfinite(V2))
+  if (Precision1::IsPositiveInfinite(V2))
     V2 = aDrawer->MaximalParameterValue();
 
   return MatchCurve(X,

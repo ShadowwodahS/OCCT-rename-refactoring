@@ -56,7 +56,7 @@ public:
   //! Returns TRUE when the Arrow2 Zoomable is on; TRUE by default.
   bool IsZoomable() const { return myIsZoomable; }
 
-  void SetColor(const Quantity_Color& theColor) { myArrowAspect->SetColor(theColor); }
+  void SetColor(const Color1& theColor) { myArrowAspect->SetColor(theColor); }
 
   const Handle(Graphic3d_AspectLine3d)& Aspect() const { return myArrowAspect; }
 

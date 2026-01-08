@@ -161,11 +161,11 @@ Standard_Boolean BRepLib1::FindValidRange(const Adaptor3d_Curve& theCurve,
                                          Standard_Real&         theFirst,
                                          Standard_Real&         theLast)
 {
-  if (theParV2 - theParV1 < Precision::PConfusion())
+  if (theParV2 - theParV1 < Precision1::PConfusion())
     return Standard_False;
 
-  Standard_Boolean isInfParV1 = Precision::IsInfinite(theParV1),
-                   isInfParV2 = Precision::IsInfinite(theParV2);
+  Standard_Boolean isInfParV1 = Precision1::IsInfinite(theParV1),
+                   isInfParV2 = Precision1::IsInfinite(theParV2);
 
   Standard_Real aMaxPar = 0.0;
   if (!isInfParV1)
@@ -174,7 +174,7 @@ Standard_Boolean BRepLib1::FindValidRange(const Adaptor3d_Curve& theCurve,
     aMaxPar = Max(aMaxPar, Abs(theParV2));
 
   Standard_Real anEps =
-    Max(Max(theCurve.Resolution(theTolE) * 0.1, Epsilon(aMaxPar)), Precision::PConfusion());
+    Max(Max(theCurve.Resolution(theTolE) * 0.1, Epsilon(aMaxPar)), Precision1::PConfusion());
 
   if (isInfParV1)
     theFirst = theParV1;
@@ -232,7 +232,7 @@ Standard_Boolean BRepLib1::FindValidRange(const TopoEdge& theEdge,
     return Standard_False;
   BRepAdaptor_Curve anAC(theEdge);
   Standard_Real     aParV[2] = {anAC.FirstParameter(), anAC.LastParameter()};
-  if (aParV[1] - aParV[0] < Precision::PConfusion())
+  if (aParV[1] - aParV[0] < Precision1::PConfusion())
     return Standard_False;
 
   // get vertices
@@ -241,8 +241,8 @@ Standard_Boolean BRepLib1::FindValidRange(const TopoEdge& theEdge,
 
   Standard_Real aTolE = BRepInspector::Tolerance(theEdge);
   // to have correspondence with intersection precision
-  // the tolerances of vertices are increased on Precision::Confusion()
-  Standard_Real aTolV[2] = {Precision::Confusion(), Precision::Confusion()};
+  // the tolerances of vertices are increased on Precision1::Confusion()
+  Standard_Real aTolV[2] = {Precision1::Confusion(), Precision1::Confusion()};
   Point3d        aPntV[2];
   for (Standard_Integer i = 0; i < 2; i++)
   {
@@ -251,7 +251,7 @@ Standard_Boolean BRepLib1::FindValidRange(const TopoEdge& theEdge,
       aTolV[i] += BRepInspector::Tolerance(aV[i]);
       aPntV[i] = BRepInspector::Pnt(aV[i]);
     }
-    else if (!Precision::IsInfinite(aParV[i]))
+    else if (!Precision1::IsInfinite(aParV[i]))
     {
       aTolV[i] += aTolE;
       aPntV[i] = anAC.Value(aParV[i]);

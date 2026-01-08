@@ -42,7 +42,7 @@ class IGESSelect_IGESTypeForm : public IFSelect_Signature
 {
 
 public:
-  //! Creates a Signature for IGES Type & Form Numbers
+  //! Creates a Signature for IGES Type & Form Numbers1
   //! If <withform> is False, for IGES Type Number only
   Standard_EXPORT IGESSelect_IGESTypeForm(const Standard_Boolean withform = Standard_True);
 

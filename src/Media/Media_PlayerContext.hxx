@@ -129,11 +129,11 @@ private:
 
 private:
   IFrameQueue* myFrameQueue; //!< frame queue
-  OSD_Thread         myThread;     //!< working thread
+  Thread         myThread;     //!< working thread
   Standard_Mutex     myMutex;      //!< mutex for events
                                    // clang-format off
-  Standard_Condition          myWakeEvent;      //!< event to wake up working thread and proceed new playback event
-  Standard_Condition          myNextEvent;      //!< event to check if working thread processed next file event (e.g. released file handles of previous input)
+  Condition          myWakeEvent;      //!< event to wake up working thread and proceed new playback event
+  Condition          myNextEvent;      //!< event to check if working thread processed next file event (e.g. released file handles of previous input)
   Media_Timer                 myTimer;          //!< playback timer       
   Standard_Real               myDuration;       //!< playback duration
 

@@ -150,7 +150,7 @@ static bool isImageFileExist(const AsciiString1& thePath)
 
 //! Parse RGB values coming after specified argument.
 static bool parseRgbColor(Standard_Integer& theArgIter,
-                          Quantity_Color&   theColor,
+                          Color1&   theColor,
                           Standard_Integer  theNbArgs,
                           const char**      theArgVec)
 {
@@ -279,7 +279,7 @@ static Standard_Integer getColor(DrawInterpreter& di, Standard_Integer argc, con
     return 0;
   }
 
-  if ((1.0 - aColor.Alpha()) < Precision::Confusion())
+  if ((1.0 - aColor.Alpha()) < Precision1::Confusion())
   {
     di << aColor.GetRGB().StringName(aColor.GetRGB().Name());
   }
@@ -330,7 +330,7 @@ static Standard_Integer getShapeColor(DrawInterpreter& di,
     return 0;
   }
 
-  if ((1.0 - aColor.Alpha()) < Precision::Confusion())
+  if ((1.0 - aColor.Alpha()) < Precision1::Confusion())
   {
     di << aColor.GetRGB().StringName(aColor.GetRGB().Name());
   }
@@ -370,7 +370,7 @@ static Standard_Integer getAllColors(DrawInterpreter& di, Standard_Integer argc,
       {
         continue;
       }
-      if ((1.0 - aColor.Alpha()) < Precision::Confusion())
+      if ((1.0 - aColor.Alpha()) < Precision1::Confusion())
       {
         di << aColor.GetRGB().StringName(aColor.GetRGB().Name());
       }
@@ -676,7 +676,7 @@ static Standard_Integer getStyledcolor(DrawInterpreter& di,
   Quantity_ColorRGBA        aColor;
   if (aColorTool->GetInstanceColor(aShape, aColType, aColor))
   {
-    if ((1.0 - aColor.Alpha()) < Precision::Confusion())
+    if ((1.0 - aColor.Alpha()) < Precision1::Confusion())
     {
       di << aColor.GetRGB().StringName(aColor.GetRGB().Name());
     }

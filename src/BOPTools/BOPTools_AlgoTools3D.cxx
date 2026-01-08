@@ -269,7 +269,7 @@ Standard_Boolean AlgoTools3D::DoSplitSEAMOnFace(const TopoEdge& theEOrigin,
   Standard_Real aDist1 = aProjPC1.NbPoints() ? aProjPC1.LowerDistance() : RealLast();
   Standard_Real aDist2 = aProjPC2.NbPoints() ? aProjPC2.LowerDistance() : RealLast();
 
-  if (aDist1 > Precision::PConfusion() && aDist2 > Precision::PConfusion())
+  if (aDist1 > Precision1::PConfusion() && aDist2 > Precision1::PConfusion())
     return Standard_False;
 
   // choose the closest and take corresponding point from the opposite
@@ -958,7 +958,7 @@ Standard_Integer AlgoTools3D::PointInFace(const TopoFace&              theF,
   }
   //
   Handle(Geom2d_Line)         aL2D     = new Geom2d_Line(aP2D, aD2D);
-  Handle(Geom2d_TrimmedCurve) aL2DTrim = new Geom2d_TrimmedCurve(aL2D, 0., Precision::Infinite());
+  Handle(Geom2d_TrimmedCurve) aL2DTrim = new Geom2d_TrimmedCurve(aL2D, 0., Precision1::Infinite());
   //
   iErr = AlgoTools3D::PointInFace(theF, aL2DTrim, theP, theP2D, theContext, theDt2D);
   //

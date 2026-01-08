@@ -143,6 +143,6 @@ Standard_Boolean IGESDraw_RectArraySubfigure::PositionNum(const Standard_Integer
 Standard_Integer IGESDraw_RectArraySubfigure::ListPosition(const Standard_Integer Index) const
 {
   return thePositions->Value(Index);
-  // raise OutOfRange from Standard if Index is out-of-bound
+  // raise OutOfRange from Standard1 if Index is out-of-bound
   // Exception NoSuchObject will be raised if thePositions == Null Handle
 }

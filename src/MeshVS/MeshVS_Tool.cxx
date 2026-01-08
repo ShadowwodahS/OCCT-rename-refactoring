@@ -37,7 +37,7 @@ Handle(Graphic3d_AspectFillArea3d) Tool4::CreateAspectFillArea3d(
     return anAsp;
 
   Aspect_InteriorStyle     anIntStyle = Aspect_IS_EMPTY;
-  Quantity_Color           anIntColor = Quantity_NOC_CYAN1, anEdgeColor = Quantity_NOC_WHITE;
+  Color1           anIntColor = Quantity_NOC_CYAN1, anEdgeColor = Quantity_NOC_WHITE;
   Aspect_TypeOfLine        anEdgeType  = Aspect_TOL_SOLID;
   Standard_Real            anEdgeWidth = 1.0;
   Aspect_HatchStyle        aHStyle     = Aspect_HS_HORIZONTAL;
@@ -50,7 +50,7 @@ Handle(Graphic3d_AspectFillArea3d) Tool4::CreateAspectFillArea3d(
   if (!theDr->GetColor(MeshVS_DA_InteriorColor, anIntColor) && !UseDefaults)
     return anAsp;
 
-  Quantity_Color aBackIntColor = anIntColor;
+  Color1 aBackIntColor = anIntColor;
   if (!theDr->GetColor(MeshVS_DA_BackInteriorColor, aBackIntColor) && !UseDefaults)
     return anAsp;
 
@@ -124,7 +124,7 @@ Handle(Graphic3d_AspectLine3d) Tool4::CreateAspectLine3d(const Handle(MeshVS_Dra
   if (theDr.IsNull())
     return anAsp;
 
-  Quantity_Color    aBeamColor = Quantity_NOC_YELLOW;
+  Color1    aBeamColor = Quantity_NOC_YELLOW;
   Aspect_TypeOfLine aBeamType  = Aspect_TOL_SOLID;
   Standard_Real     aBeamWidth = 1.0;
   Standard_Integer  aBeamTypeI = (Standard_Integer)Aspect_TOL_SOLID;
@@ -155,7 +155,7 @@ Handle(Graphic3d_AspectMarker3d) Tool4::CreateAspectMarker3d(
   if (theDr.IsNull())
     return anAsp;
 
-  Quantity_Color      aMColor = Quantity_NOC_YELLOW;
+  Color1      aMColor = Quantity_NOC_YELLOW;
   Aspect_TypeOfMarker aMType  = Aspect_TOM_X;
   Standard_Real       aMScale = 1.0;
   Standard_Integer    aMTypeI = (Standard_Integer)Aspect_TOM_X;
@@ -185,7 +185,7 @@ Handle(Graphic3d_AspectText3d) Tool4::CreateAspectText3d(const Handle(MeshVS_Dra
   if (theDr.IsNull())
     return anAsp;
 
-  Quantity_Color           aTColor     = Quantity_NOC_YELLOW;
+  Color1           aTColor     = Quantity_NOC_YELLOW;
   Standard_Real            anExpFactor = 1.0, aSpace = 0.0;
   Standard_CString         aFont       = Font_NOF_ASCII_MONO;
   Aspect_TypeOfStyleText   aStyle      = Aspect_TOST_NORMAL;
@@ -249,7 +249,7 @@ Standard_Boolean Tool4::GetNormal(const TColStd_Array1OfReal& Nodes, Vector3d& N
   Standard_Boolean res = Standard_True;
 
   Standard_Real           normal[3], first_vec[3], cur_vec[3], xx, yy, zz;
-  constexpr Standard_Real conf = Precision::Confusion();
+  constexpr Standard_Real conf = Precision1::Confusion();
 
   for (i = 0; i < 3; i++)
   {
@@ -314,7 +314,7 @@ Standard_Boolean Tool4::GetAverageNormal(const TColStd_Array1OfReal& Nodes, Vect
   Standard_Boolean res = Standard_True;
 
   Standard_Real           normal[3], first_vec[3], cur_vec[3], xx, yy, zz;
-  constexpr Standard_Real conf = Precision::Confusion();
+  constexpr Standard_Real conf = Precision1::Confusion();
 
   for (i = 0; i < 3; i++)
   {

@@ -43,7 +43,7 @@ MeshVS_CommonSensitiveEntity::MeshVS_CommonSensitiveEntity(
   if (mySelMethod == MeshVS_MSM_NODES)
   {
     Standard_Integer                  aNbSelectableNodes = 0;
-    const TColStd_PackedMapOfInteger& anAllNodesMap      = myDataSource->GetAllNodes();
+    const PackedIntegerMap& anAllNodesMap      = myDataSource->GetAllNodes();
     for (TColStd_MapIteratorOfPackedMapOfInteger aNodesIter(anAllNodesMap); aNodesIter.More();
          aNodesIter.Next())
     {
@@ -64,7 +64,7 @@ MeshVS_CommonSensitiveEntity::MeshVS_CommonSensitiveEntity(
   }
   else if (mySelMethod == MeshVS_MSM_PRECISE)
   {
-    const TColStd_PackedMapOfInteger& anAllNodesMap = myDataSource->GetAllNodes();
+    const PackedIntegerMap& anAllNodesMap = myDataSource->GetAllNodes();
     for (TColStd_MapIteratorOfPackedMapOfInteger aNodesIter(anAllNodesMap); aNodesIter.More();
          aNodesIter.Next())
     {
@@ -75,7 +75,7 @@ MeshVS_CommonSensitiveEntity::MeshVS_CommonSensitiveEntity(
     }
     myCOG = aCenter / anAllNodesMap.Extent();
 
-    const TColStd_PackedMapOfInteger& anAllElementsMap = myDataSource->GetAllElements();
+    const PackedIntegerMap& anAllElementsMap = myDataSource->GetAllElements();
     MeshVS_EntityType                 aType            = MeshVS_ET_NONE;
     for (TColStd_MapIteratorOfPackedMapOfInteger anElemIter(anAllElementsMap); anElemIter.More();
          anElemIter.Next())

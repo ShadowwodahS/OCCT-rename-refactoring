@@ -27,7 +27,7 @@ class Storage_BaseDriver;
 class StdStorage_HeaderData;
 DEFINE_STANDARD_HANDLE(StdStorage_HeaderData, RefObject)
 
-//! Storage header data section that contains some
+//! Storage1 header data section that contains some
 //! auxiliary information (application name, schema version,
 //! creation date, comments and so on...)
 class StdStorage_HeaderData : public RefObject
@@ -52,7 +52,7 @@ public:
   //! Return the creation date
   Standard_EXPORT AsciiString1 CreationDate() const;
 
-  //! Return the Storage package version
+  //! Return the Storage1 package version
   Standard_EXPORT AsciiString1 StorageVersion() const;
 
   //! Get the version of the schema

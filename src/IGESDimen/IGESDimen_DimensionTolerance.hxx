@@ -67,7 +67,7 @@ public:
   //! 0 = Display values as decimal numbers
   //! 1 = Display values as mixed fractions
   //! 2 = Display values as fractions
-  //! - aPrecision    : Precision Value
+  //! - aPrecision    : Precision1 Value
   Standard_EXPORT void Init(const Standard_Integer nbPropVal,
                             const Standard_Integer aSecTolFlag,
                             const Standard_Integer aTolType,
@@ -102,8 +102,8 @@ public:
   //! returns the Fraction Flag
   Standard_EXPORT Standard_Integer FractionFlag() const;
 
-  //! returns the Precision for Value Display
-  Standard_EXPORT Standard_Integer Precision() const;
+  //! returns the Precision1 for Value Display
+  Standard_EXPORT Standard_Integer Precision1() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESDimen_DimensionTolerance, IGESData_IGESEntity)
 

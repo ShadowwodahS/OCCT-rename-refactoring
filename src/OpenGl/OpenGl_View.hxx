@@ -302,8 +302,8 @@ public:
 
   void SetBackgroundTextureStyle(const Aspect_FillMethod FillStyle);
 
-  void SetBackgroundGradient(const Quantity_Color&           AColor1,
-                             const Quantity_Color&           AColor2,
+  void SetBackgroundGradient(const Color1&           AColor1,
+                             const Color1&           AColor2,
                              const Aspect_GradientFillMethod AType);
 
   void SetBackgroundGradientType(const Aspect_GradientFillMethod AType);

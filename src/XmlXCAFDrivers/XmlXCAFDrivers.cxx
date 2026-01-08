@@ -30,7 +30,7 @@ const Handle(RefObject)& XmlXCAFDrivers1::Factory(const Standard_GUID& aGUID)
   if (aGUID == XSStorageDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "XmlXCAFDrivers1 : Storage Plugin" << std::endl;
+    std::cout << "XmlXCAFDrivers1 : Storage1 Plugin1" << std::endl;
 #endif
     static Handle(RefObject) model_sd = new XmlXCAFDrivers_DocumentStorageDriver(
       "Copyright: Open Cascade, 2001-2002"); // default copyright
@@ -39,7 +39,7 @@ const Handle(RefObject)& XmlXCAFDrivers1::Factory(const Standard_GUID& aGUID)
   if (aGUID == XSRetrievalDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "XmlXCAFDrivers1 : Retrieval Plugin" << std::endl;
+    std::cout << "XmlXCAFDrivers1 : Retrieval Plugin1" << std::endl;
 #endif
     static Handle(RefObject) model_rd = new XmlXCAFDrivers_DocumentRetrievalDriver;
     return model_rd;

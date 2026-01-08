@@ -298,7 +298,7 @@ static TopoEdge ReplaceVertex(const TopoEdge&     theEdge,
 {
   TopoVertex aNewVertex;
   ShapeBuilder  aB;
-  aB.MakeVertex(aNewVertex, theP, Precision::Confusion());
+  aB.MakeVertex(aNewVertex, theP, Precision1::Confusion());
   TopoVertex aV1, aV2;
   if (theFwd)
   {
@@ -338,7 +338,7 @@ static Standard_Real getNearPoint(const TColgp_SequenceOfPnt& aSeq1,
     {
       Point3d        p2 = aSeq2.Value(j);
       Standard_Real d  = p1.Distance(p2);
-      if (fabs(d - mindist) <= Precision::Confusion())
+      if (fabs(d - mindist) <= Precision1::Confusion())
         continue;
       if (d < mindist)
       {
@@ -649,11 +649,11 @@ Standard_Boolean ShapeFix1::FixVertexPosition(TopoShape&                     the
 
       ShapeBuilder aB;
 
-      //  aB.UpdateVertex(aVert,Precision::Confusion());
+      //  aB.UpdateVertex(aVert,Precision1::Confusion());
       // else {
       isDone = Standard_True;
       TopoVertex aNewVertex;
-      aB.MakeVertex(aNewVertex, acenter, Precision::Confusion());
+      aB.MakeVertex(aNewVertex, acenter, Precision1::Confusion());
       aNewVertex.Orientation(aVert.Orientation());
       thecontext->Replace(aVert, aNewVertex);
     }

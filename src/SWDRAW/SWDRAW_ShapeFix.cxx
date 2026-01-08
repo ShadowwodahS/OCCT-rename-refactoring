@@ -75,7 +75,7 @@ static Standard_Integer edgesameparam(DrawInterpreter& di,
   }
   TopoShape Shape = DBRep1::Get(argv[1]);
 
-  if (!ShapeFix1::SameParameter(Shape, (argc > 2 && arg2[0] == 'f'), BRepBuilderAPI1::Precision()))
+  if (!ShapeFix1::SameParameter(Shape, (argc > 2 && arg2[0] == 'f'), BRepBuilderAPI1::Precision1()))
     di << "Some edges were not processed\n";
   di << "\n";
   return 0; // Done
@@ -248,7 +248,7 @@ static Standard_Integer stwire(DrawInterpreter& di, Standard_Integer argc, const
     ShapeExplorer expw(Shape, TopAbs_WIRE);
     if (expw.More())
       awire = expw.Current();
-    saw->SetPrecision(BRepBuilderAPI1::Precision());
+    saw->SetPrecision(BRepBuilderAPI1::Precision1());
   }
   if (awire.IsNull())
   {
@@ -303,7 +303,7 @@ static Standard_Integer stwire(DrawInterpreter& di, Standard_Integer argc, const
   //  Traitement
   if (orint)
   { // reorder ?
-    ShapeAnalysis_WireOrder WO((Shape.ShapeType() != TopAbs_FACE), BRepBuilderAPI1::Precision());
+    ShapeAnalysis_WireOrder WO((Shape.ShapeType() != TopAbs_FACE), BRepBuilderAPI1::Precision1());
 
     Standard_Integer stwo = saw->CheckOrder(WO);
     Standard_Integer nb   = WO.NbEdges();
@@ -365,7 +365,7 @@ static Standard_Integer stwire(DrawInterpreter& di, Standard_Integer argc, const
   if (ov)
   {
     ShapeAnalysis_WireVertex sawv;
-    sawv.Init(sbwd, saw->Precision());
+    sawv.Init(sbwd, saw->Precision1());
     sawv.Analyze();
     Standard_Integer nb = sbwd->NbEdges();
     di << "Nb(End)Vertex : " << nb << "\n";
@@ -384,7 +384,7 @@ static Standard_Integer stwire(DrawInterpreter& di, Standard_Integer argc, const
           di << "Same Coords with recorded precisions (but not Same Vertex)\n";
           break;
         case 2:
-          di << "Close (with preci=" << saw->Precision() << ")\n";
+          di << "Close (with preci=" << saw->Precision1() << ")\n";
           break;
         case 3:
           di << "End of " << i << " OK, Start of " << (i == nb ? 1 : i + 1) << " at U=" << ufol;
@@ -414,7 +414,7 @@ static Standard_Integer stwire(DrawInterpreter& di, Standard_Integer argc, const
       Standard_Integer i, nb = sbwd->NbEdges();
       Standard_Integer num = 1;
       for (i = 1; i <= nb; i ++)  CW.Add (sbwd->Edge(i));
-      CW.Perform ( saw->Precision() );
+      CW.Perform ( saw->Precision1() );
       nb = CW.NbWires();
       if (nb != 1) {
     //  On prend celui qui a le plus d edges
@@ -885,7 +885,7 @@ static Standard_Integer checkoverlapedges(DrawInterpreter& di, Standard_Integer 
     return 1;
   }
 
-  Standard_Real    aTol        = Precision::Confusion();
+  Standard_Real    aTol        = Precision1::Confusion();
   Standard_Real    aDistDomain = 0.0;
   Standard_Integer k           = 3;
   if (k < n)
@@ -927,7 +927,7 @@ static Standard_Integer checkfclass2d(DrawInterpreter& di, Standard_Integer n, c
     di << "Invalid arguments\n";
     return 1;
   }
-  Standard_Real tol = Precision::Confusion();
+  Standard_Real tol = Precision1::Confusion();
   if (n > 4)
   {
     tol = Atof(a[4]);
@@ -961,7 +961,7 @@ static Standard_Integer connectedges(DrawInterpreter& di, Standard_Integer n, co
     di << "Shape is null\n";
     return 1;
   }
-  Standard_Real aTol = Precision::Confusion();
+  Standard_Real aTol = Precision1::Confusion();
   if (n > 3)
     aTol = Draw1::Atof(a[3]);
 

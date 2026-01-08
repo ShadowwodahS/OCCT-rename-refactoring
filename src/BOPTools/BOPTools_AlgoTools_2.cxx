@@ -300,7 +300,7 @@ void AlgoTools::CorrectRange(const TopoEdge&    aE1,
     return;
   }
   //
-  dT  = Precision::PConfusion();
+  dT  = Precision1::PConfusion();
   aTF = aSR.First();
   aTL = aSR.Last();
   //
@@ -373,7 +373,7 @@ void AlgoTools::CorrectRange(const TopoEdge&    aE,
   //
   aNewSR = aSR;
   //
-  dT  = Precision::PConfusion();
+  dT  = Precision1::PConfusion();
   aTF = aSR.First();
   aTL = aSR.Last();
   //

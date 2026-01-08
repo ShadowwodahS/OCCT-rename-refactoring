@@ -579,9 +579,9 @@ bool RWGltf_GltfJsonParser::parseTransformationComponents(
       }
     }
 
-    if (Abs(aScaleVec.x() - aScaleVec.y()) > Precision::Confusion()
-        || Abs(aScaleVec.y() - aScaleVec.z()) > Precision::Confusion()
-        || Abs(aScaleVec.x() - aScaleVec.z()) > Precision::Confusion())
+    if (Abs(aScaleVec.x() - aScaleVec.y()) > Precision1::Confusion()
+        || Abs(aScaleVec.y() - aScaleVec.z()) > Precision1::Confusion()
+        || Abs(aScaleVec.x() - aScaleVec.z()) > Precision1::Confusion())
     {
       Graphic3d_Mat4d aScaleMat;
       aScaleMat.SetDiagonal(aScaleVec);
@@ -608,7 +608,7 @@ bool RWGltf_GltfJsonParser::parseTransformationComponents(
                            + "' defines unsupported scaling " + aScaleVec.x() + " " + aScaleVec.y()
                            + " " + aScaleVec.z());
     }
-    else if (Abs(aScaleVec.x() - 1.0) > Precision::Confusion())
+    else if (Abs(aScaleVec.x() - 1.0) > Precision1::Confusion())
     {
       aTrsf.SetScaleFactor(aScaleVec.x());
     }
@@ -672,7 +672,7 @@ bool RWGltf_GltfJsonParser::gltfParseRoots()
   for (int aRootNameIter = 0; aRootNameIter < RWGltf_GltfRootElement_NB; ++aRootNameIter)
   {
     aNames[aRootNameIter] =
-      rapidjson::StringRef(RWGltf_GltfRootElementName((RWGltf_GltfRootElement)aRootNameIter));
+      rapidjson::StringRef1(RWGltf_GltfRootElementName((RWGltf_GltfRootElement)aRootNameIter));
   }
 
   for (ConstMemberIterator aRootIter = MemberBegin(); aRootIter != MemberEnd(); ++aRootIter)
@@ -956,7 +956,7 @@ bool RWGltf_GltfJsonParser::gltfParseStdMaterial(Handle(RWGltf_MaterialCommon)& 
   }
   else if (gltfReadVec4(anAmb, anAmbVal) && validateColor4(anAmb))
   {
-    theMat->AmbientColor = Quantity_Color(anAmb.r(), anAmb.g(), anAmb.b(), Quantity_TOC_sRGB);
+    theMat->AmbientColor = Color1(anAmb.r(), anAmb.g(), anAmb.b(), Quantity_TOC_sRGB);
   }
 
   if (aDiffVal != NULL && aDiffVal->IsString())
@@ -965,13 +965,13 @@ bool RWGltf_GltfJsonParser::gltfParseStdMaterial(Handle(RWGltf_MaterialCommon)& 
   }
   else if (gltfReadVec4(aDiff, aDiffVal) && validateColor4(aDiff))
   {
-    theMat->DiffuseColor = Quantity_Color(aDiff.r(), aDiff.g(), aDiff.b(), Quantity_TOC_sRGB);
+    theMat->DiffuseColor = Color1(aDiff.r(), aDiff.g(), aDiff.b(), Quantity_TOC_sRGB);
     theMat->Transparency = float(1.0 - aDiff.a());
   }
 
   if (gltfReadVec4(anEmi, anEmiVal) && validateColor4(anEmi))
   {
-    theMat->EmissiveColor = Quantity_Color(anEmi.r(), anEmi.g(), anEmi.b(), Quantity_TOC_sRGB);
+    theMat->EmissiveColor = Color1(anEmi.r(), anEmi.g(), anEmi.b(), Quantity_TOC_sRGB);
   }
 
   if (aSpecVal != NULL && aSpecVal->IsString())
@@ -980,7 +980,7 @@ bool RWGltf_GltfJsonParser::gltfParseStdMaterial(Handle(RWGltf_MaterialCommon)& 
   }
   if (gltfReadVec4(aSpec, aSpecVal) && validateColor4(aSpec))
   {
-    theMat->SpecularColor = Quantity_Color(aSpec.r(), aSpec.g(), aSpec.b(), Quantity_TOC_sRGB);
+    theMat->SpecularColor = Color1(aSpec.r(), aSpec.g(), aSpec.b(), Quantity_TOC_sRGB);
   }
 
   if (aShinVal != NULL && aShinVal->IsNumber())
@@ -1948,7 +1948,7 @@ bool RWGltf_GltfJsonParser::gltfParsePrimArray(TopoShape&                  thePr
         for (Standard_Integer aNodeIdx = 1; aNodeIdx <= aMeshData->NbNodes(); ++aNodeIdx)
         {
           TopoVertex aVertex;
-          aBuilder.MakeVertex(aVertex, aMeshData->Node(aNodeIdx), Precision::Confusion());
+          aBuilder.MakeVertex(aVertex, aMeshData->Node(aNodeIdx), Precision1::Confusion());
           aBuilder.Add(aVertices, aVertex);
         }
         aShape = aVertices;

@@ -155,7 +155,7 @@ void LocOpe_SplitShape::Add(const TopoVertex& V, const Standard_Real P, const To
   {
     const TopoEdge& edg = TopoDS::Edge(itl.Value());
     BRepInspector::Range(edg, f, l);
-    if (P > f + Precision::PConfusion() && P < l - Precision::PConfusion())
+    if (P > f + Precision1::PConfusion() && P < l - Precision1::PConfusion())
     {
       break;
     }
@@ -632,7 +632,7 @@ Standard_Boolean LocOpe_SplitShape::AddClosedWire(const TopoWire& W, const TopoF
   //  GeometricProperties GP;
   //  BRepGProp1::SurfaceProperties (newFace,GP);
   //  if (GP.Mass() < 0) {
-  BRepTopAdaptor_FClass2d classif(newFace, Precision::PConfusion());
+  BRepTopAdaptor_FClass2d classif(newFace, Precision1::PConfusion());
   if (classif.PerformInfinitePoint() == TopAbs_IN)
   {
     // le wire donne defini un trou
@@ -1378,7 +1378,7 @@ static Standard_Boolean IsInside(const TopoFace& F, const TopoWire& W1, const To
   //  GeometricProperties GP;
   //  BRepGProp1::SurfaceProperties(newFace,GP);
   //  if (GP.Mass() < 0) {
-  BRepTopAdaptor_FClass2d classif(newFace, Precision::PConfusion());
+  BRepTopAdaptor_FClass2d classif(newFace, Precision1::PConfusion());
   Standard_Boolean        Reversed = Standard_False;
   if (classif.PerformInfinitePoint() == TopAbs_IN)
   {
@@ -1406,7 +1406,7 @@ static Standard_Boolean IsInside(const TopoFace& F, const TopoWire& W1, const To
     return Standard_False;
   }
   gp_Pnt2d pt2d(C2d->Value(prm));
-  //  BRepClass_FaceClassifier classif(newFace,pt2d,Precision::PConfusion());
+  //  BRepClass_FaceClassifier classif(newFace,pt2d,Precision1::PConfusion());
   //  return (classif.State() == TopAbs_IN);
   if (!Reversed)
   {
@@ -1432,17 +1432,17 @@ static Standard_Boolean IsInside(const TopoFace& F, const TopoWire& W)
     //  Standard_Real prm = BRepInspector::Parameter(vtx,edg);
     Standard_Real        f, l, prm;
     Handle(GeomCurve2d) C2d = BRepInspector::CurveOnSurface(edg, F, f, l);
-    if (!Precision::IsNegativeInfinite(f) && !Precision::IsPositiveInfinite(l))
+    if (!Precision1::IsNegativeInfinite(f) && !Precision1::IsPositiveInfinite(l))
     {
       prm = (f + l) / 2.;
     }
     else
     {
-      if (Precision::IsNegativeInfinite(f) && Precision::IsPositiveInfinite(l))
+      if (Precision1::IsNegativeInfinite(f) && Precision1::IsPositiveInfinite(l))
       {
         prm = 0.;
       }
-      else if (Precision::IsNegativeInfinite(f))
+      else if (Precision1::IsNegativeInfinite(f))
       {
         prm = l - 1.;
       }
@@ -1453,9 +1453,9 @@ static Standard_Boolean IsInside(const TopoFace& F, const TopoWire& W)
     }
 
     gp_Pnt2d pt2d(C2d->Value(prm));
-    //  BRepClass_FaceClassifier classif(F,pt2d,Precision::PConfusion());
+    //  BRepClass_FaceClassifier classif(F,pt2d,Precision1::PConfusion());
     //  return (classif.State() != TopAbs_OUT);
-    BRepTopAdaptor_FClass2d classif(F, Precision::PConfusion());
+    BRepTopAdaptor_FClass2d classif(F, Precision1::PConfusion());
     TopAbs_State            stat = classif.Perform(pt2d);
     //  return (classif.Perform(pt2d) != TopAbs_OUT);
     if (stat == TopAbs_OUT)

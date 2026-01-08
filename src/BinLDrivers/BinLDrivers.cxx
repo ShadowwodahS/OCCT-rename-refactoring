@@ -40,7 +40,7 @@ const Handle(RefObject)& BinLDrivers1::Factory(const Standard_GUID& theGUID)
   if (theGUID == BinLStorageDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "BinLDrivers1 : Storage Plugin" << std::endl;
+    std::cout << "BinLDrivers1 : Storage1 Plugin1" << std::endl;
 #endif
     static Handle(RefObject) model_sd = new BinLDrivers_DocumentStorageDriver;
     return model_sd;
@@ -49,7 +49,7 @@ const Handle(RefObject)& BinLDrivers1::Factory(const Standard_GUID& theGUID)
   if (theGUID == BinLRetrievalDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "BinLDrivers1 : Retrieval Plugin" << std::endl;
+    std::cout << "BinLDrivers1 : Retrieval Plugin1" << std::endl;
 #endif
     static Handle(RefObject) model_rd = new BinLDrivers_DocumentRetrievalDriver;
     return model_rd;

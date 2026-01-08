@@ -83,10 +83,10 @@ public:
     Standard_Real anOtherDepth = theOther.Depth - theOther.Tolerance;
     // Comparison depths taking into account tolerances occurs when the surfaces are parallel
     // or have the same sensitivity and the angle between them is less than 60 degrees.
-    if (Abs(aDepth - anOtherDepth) > Precision::Confusion())
+    if (Abs(aDepth - anOtherDepth) > Precision1::Confusion())
     {
-      if ((aCos > 0.5 && Abs(Tolerance - theOther.Tolerance) < Precision::Confusion())
-          || Abs(aCos - 1.0) < Precision::Confusion())
+      if ((aCos > 0.5 && Abs(Tolerance - theOther.Tolerance) < Precision1::Confusion())
+          || Abs(aCos - 1.0) < Precision1::Confusion())
       {
         return aDepth < anOtherDepth;
       }
@@ -128,7 +128,7 @@ public:
     }
 
     // if (Abs (Depth - theOther.Depth) <= (Tolerance + theOther.Tolerance))
-    if (Abs(Depth - theOther.Depth) <= Precision::Confusion())
+    if (Abs(Depth - theOther.Depth) <= Precision1::Confusion())
     {
       return MinDist < theOther.MinDist;
     }

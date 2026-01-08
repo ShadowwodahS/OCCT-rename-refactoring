@@ -190,12 +190,12 @@ Handle(BSplineCurve3d) Curve3::ConvertToBSpline(const Handle(GeomCurve3d)& C,
     // take segment if trim and range differ
     Standard_Real    fbsp = bspl->FirstParameter(), lbsp = bspl->LastParameter();
     Standard_Boolean segment = Standard_False;
-    if (first > fbsp + Precision::PConfusion())
+    if (first > fbsp + Precision1::PConfusion())
     {
       fbsp    = first;
       segment = Standard_True;
     }
-    if (last < lbsp - Precision::PConfusion())
+    if (last < lbsp - Precision1::PConfusion())
     {
       lbsp    = last;
       segment = Standard_True;
@@ -284,12 +284,12 @@ Handle(Geom2d_BSplineCurve) Curve3::ConvertToBSpline(const Handle(GeomCurve2d)& 
     // take segment if trim and range differ
     Standard_Real    fbsp = bspl->FirstParameter(), lbsp = bspl->LastParameter();
     Standard_Boolean segment = Standard_False;
-    if (first > fbsp + Precision::PConfusion())
+    if (first > fbsp + Precision1::PConfusion())
     {
       fbsp    = first;
       segment = Standard_True;
     }
-    if (last < lbsp - Precision::PConfusion())
+    if (last < lbsp - Precision1::PConfusion())
     {
       lbsp    = last;
       segment = Standard_True;

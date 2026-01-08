@@ -36,7 +36,7 @@ public:
         myVertices(new IMeshData::VectorOfVertex),
         myDelNodes(theAllocator)
   {
-    SetTolerance(Precision::Confusion());
+    SetTolerance(Precision1::Confusion());
   }
 
   //! Registers the given vertex.

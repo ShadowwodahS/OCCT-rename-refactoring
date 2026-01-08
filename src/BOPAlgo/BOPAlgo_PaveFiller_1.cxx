@@ -178,7 +178,7 @@ Standard_Integer BooleanPaveFiller::MakeSDVertices(const TColStd_ListOfInteger& 
   BOPDS_ShapeInfo& aSIDS = myDS->ChangeShapeInfo(nV);
   Box2&         aBox  = aSIDS.ChangeBox();
   aBox.Add(BRepInspector::Pnt(aVn));
-  aBox.SetGap(BRepInspector::Tolerance(aVn) + Precision::Confusion());
+  aBox.SetGap(BRepInspector::Tolerance(aVn) + Precision1::Confusion());
   //
   // Fill ShapesSD
   BOPDS_VectorOfInterfVV& aVVs = myDS->InterfVV();

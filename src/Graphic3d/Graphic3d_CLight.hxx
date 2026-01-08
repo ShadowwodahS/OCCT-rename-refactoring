@@ -45,10 +45,10 @@ public:
   void SetName(const AsciiString1& theName) { myName = theName; }
 
   //! Returns the color of the light source; WHITE by default.
-  const Quantity_Color& Color() const { return myColor.GetRGB(); }
+  const Color1& Color() const { return myColor.GetRGB(); }
 
   //! Defines the color of a light source by giving the basic color.
-  Standard_EXPORT void SetColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetColor(const Color1& theColor);
 
   //! Check that the light source is turned on; TRUE by default.
   //! This flag affects all occurrences of light sources, where it was registered and activated;

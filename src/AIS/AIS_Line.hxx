@@ -73,7 +73,7 @@ public:
   }
 
   //! Provides a new color setting aColor for the line in the drawing tool, or "Drawer".
-  Standard_EXPORT void SetColor(const Quantity_Color& aColor) Standard_OVERRIDE;
+  Standard_EXPORT void SetColor(const Color1& aColor) Standard_OVERRIDE;
 
   //! Provides the new width setting aValue for the line in
   //! the drawing tool, or "Drawer".

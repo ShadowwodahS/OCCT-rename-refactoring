@@ -44,7 +44,7 @@ void Extrema_ExtElSS::Perform(const gp_Pln& S1, const gp_Pln& S2)
   myIsPar = Standard_False;
   myNbExt = 0;
 
-  if ((S1.Axis().Direction()).IsParallel(S2.Axis().Direction(), Precision::Angular()))
+  if ((S1.Axis().Direction()).IsParallel(S2.Axis().Direction(), Precision1::Angular()))
   {
     myIsPar  = Standard_True;
     myNbExt  = 1;

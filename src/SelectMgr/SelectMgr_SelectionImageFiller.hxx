@@ -50,7 +50,7 @@ public:
 
 protected:
   //! Find the new unique random color.
-  void randomPastelColor(Quantity_Color& theColor)
+  void randomPastelColor(Color1& theColor)
   {
     for (;;)
     {
@@ -63,9 +63,9 @@ protected:
   }
 
   //! Fills the given color as random.
-  void nextRandomPastelColor(Quantity_Color& theColor)
+  void nextRandomPastelColor(Color1& theColor)
   {
-    theColor = Quantity_Color(Standard_Real(myBullardGenerator.NextInt() % 256) / 255.0,
+    theColor = Color1(Standard_Real(myBullardGenerator.NextInt() % 256) / 255.0,
                               Standard_Real(myBullardGenerator.NextInt() % 256) / 255.0,
                               Standard_Real(myBullardGenerator.NextInt() % 256) / 255.0,
                               Quantity_TOC_sRGB);
@@ -75,7 +75,7 @@ protected:
   Image_PixMap*                   myImage;
   SelectMgr_ViewerSelector*       myMainSel;
   BullardGenerator           myBullardGenerator;
-  NCollection_Map<Quantity_Color> myUniqueColors;
+  NCollection_Map<Color1> myUniqueColors;
 };
 
 #endif

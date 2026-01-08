@@ -35,8 +35,8 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_FixSmallSolid, ShapeFix_Root)
 
 ShapeFix_FixSmallSolid::ShapeFix_FixSmallSolid()
     : myFixMode(0),
-      myVolumeThreshold(Precision::Infinite()),
-      myWidthFactorThreshold(Precision::Infinite())
+      myVolumeThreshold(Precision1::Infinite()),
+      myWidthFactorThreshold(Precision1::Infinite())
 {
 }
 
@@ -55,7 +55,7 @@ void ShapeFix_FixSmallSolid::SetFixMode(const Standard_Integer theMode)
 //=======================================================================
 void ShapeFix_FixSmallSolid::SetVolumeThreshold(const Standard_Real theThreshold)
 {
-  myVolumeThreshold = theThreshold >= 0.0 ? theThreshold : Precision::Infinite();
+  myVolumeThreshold = theThreshold >= 0.0 ? theThreshold : Precision1::Infinite();
 }
 
 //=======================================================================
@@ -64,7 +64,7 @@ void ShapeFix_FixSmallSolid::SetVolumeThreshold(const Standard_Real theThreshold
 //=======================================================================
 void ShapeFix_FixSmallSolid::SetWidthFactorThreshold(const Standard_Real theThreshold)
 {
-  myWidthFactorThreshold = theThreshold >= 0.0 ? theThreshold : Precision::Infinite();
+  myWidthFactorThreshold = theThreshold >= 0.0 ? theThreshold : Precision1::Infinite();
 }
 
 //=================================================================================================
@@ -484,8 +484,8 @@ TopoShape ShapeFix_FixSmallSolid::Merge(const TopoShape&               theShape,
 //=======================================================================
 Standard_Boolean ShapeFix_FixSmallSolid::IsThresholdsSet() const
 {
-  return (IsUsedVolumeThreshold() && myVolumeThreshold < Precision::Infinite())
-         || (IsUsedWidthFactorThreshold() && myWidthFactorThreshold < Precision::Infinite());
+  return (IsUsedVolumeThreshold() && myVolumeThreshold < Precision1::Infinite())
+         || (IsUsedWidthFactorThreshold() && myWidthFactorThreshold < Precision1::Infinite());
 }
 
 //=======================================================================
@@ -503,7 +503,7 @@ Standard_Boolean ShapeFix_FixSmallSolid::IsSmall(const TopoShape& theSolid) cons
   // If the width factor threshold is used and set,
   // and the solid's width factor exceeds threshold value,
   // consider the solid as not small
-  if (IsUsedWidthFactorThreshold() && myWidthFactorThreshold < Precision::Infinite())
+  if (IsUsedWidthFactorThreshold() && myWidthFactorThreshold < Precision1::Infinite())
   {
     Standard_Real anArea = ShapeArea(theSolid);
     if (aVolume > myWidthFactorThreshold * anArea * 0.5)

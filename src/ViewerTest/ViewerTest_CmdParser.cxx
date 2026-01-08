@@ -441,7 +441,7 @@ bool CommandParser::ArgColor(const std::string& theOptionName,
 //! CommandParser::ArgColor() explicit template instantiation definitions
 template bool CommandParser::ArgColor(const std::string& theOptionName,
                                              Standard_Integer&  theArgumentIndex,
-                                             Quantity_Color&    theColor) const;
+                                             Color1&    theColor) const;
 
 template bool CommandParser::ArgColor(const std::string&  theOptionName,
                                              Standard_Integer&   theArgumentIndex,
@@ -483,7 +483,7 @@ bool CommandParser::ArgColor(const ViewerTest_CommandOptionKey theOptionKey,
 //! CommandParser::ArgColor() explicit template instantiation definitions
 template bool CommandParser::ArgColor(ViewerTest_CommandOptionKey theOptionKey,
                                              Standard_Integer&           theArgumentIndex,
-                                             Quantity_Color&             theColor) const;
+                                             Color1&             theColor) const;
 
 template bool CommandParser::ArgColor(ViewerTest_CommandOptionKey theOptionKey,
                                              Standard_Integer&           theArgumentIndex,

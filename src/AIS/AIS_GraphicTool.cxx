@@ -70,14 +70,14 @@ static Handle(Prs3d_LineAspect) GetLineAspect(const Handle(StyleDrawer)& Dr,
 Quantity_NameOfColor GraphicTool::GetLineColor(const Handle(StyleDrawer)& Dr,
                                                    const AIS_TypeOfAttribute   Att)
 {
-  Quantity_Color color;
+  Color1 color;
   GetLineColor(Dr, Att, color);
   return color.Name();
 }
 
 void GraphicTool::GetLineColor(const Handle(StyleDrawer)& Dr,
                                    const AIS_TypeOfAttribute   Att,
-                                   Quantity_Color&             aColor)
+                                   Color1&             aColor)
 {
   aColor = GetLineAspect(Dr, Att)->Aspect()->Color();
 }
@@ -110,12 +110,12 @@ void GraphicTool::GetLineAtt(const Handle(StyleDrawer)& Dr,
 
 Quantity_NameOfColor GraphicTool::GetInteriorColor(const Handle(StyleDrawer)& Dr)
 {
-  Quantity_Color color;
+  Color1 color;
   GetInteriorColor(Dr, color);
   return color.Name();
 }
 
-void GraphicTool::GetInteriorColor(const Handle(StyleDrawer)& Dr, Quantity_Color& aColor)
+void GraphicTool::GetInteriorColor(const Handle(StyleDrawer)& Dr, Color1& aColor)
 {
   Handle(Graphic3d_AspectFillArea3d) AFA = Dr->ShadingAspect()->Aspect();
   aColor                                 = AFA->InteriorColor();

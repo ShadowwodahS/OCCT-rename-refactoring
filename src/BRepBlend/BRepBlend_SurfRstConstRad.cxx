@@ -298,13 +298,13 @@ void BRepBlend_SurfRstConstRad::GetBounds(math_Vector& InfBound, math_Vector& Su
   SupBound(2) = surf->LastVParameter();
   SupBound(3) = cons.LastParameter();
 
-  if (!Precision::IsInfinite(InfBound(1)) && !Precision::IsInfinite(SupBound(1)))
+  if (!Precision1::IsInfinite(InfBound(1)) && !Precision1::IsInfinite(SupBound(1)))
   {
     Standard_Real range = (SupBound(1) - InfBound(1));
     InfBound(1) -= range;
     SupBound(1) += range;
   }
-  if (!Precision::IsInfinite(InfBound(2)) && !Precision::IsInfinite(SupBound(2)))
+  if (!Precision1::IsInfinite(InfBound(2)) && !Precision1::IsInfinite(SupBound(2)))
   {
     Standard_Real range = (SupBound(2) - InfBound(2));
     InfBound(2) -= range;
@@ -651,8 +651,8 @@ void BRepBlend_SurfRstConstRad::Section(const Standard_Real Param,
     C.SetPosition(Frame3d(Center, np, ns));
     Pfin = ElCLib1::Parameter(C, ptrst);
   }
-  if (Pfin < Precision::PConfusion())
-    Pfin += Precision::PConfusion();
+  if (Pfin < Precision1::PConfusion())
+    Pfin += Precision1::PConfusion();
 }
 
 //=================================================================================================

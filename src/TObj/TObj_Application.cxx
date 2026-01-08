@@ -78,7 +78,7 @@ Standard_Boolean TObj_Application::SaveDocument(const Handle(AppDocument)&   the
     SetError(aStatus, theTargetFile);
 
   // Release free memory
-  Standard::Purge();
+  Standard1::Purge();
   return myIsError ? Standard_False : Standard_True;
 }
 
@@ -96,7 +96,7 @@ Standard_Boolean TObj_Application::SaveDocument(const Handle(AppDocument)& theSo
     SetError(aStatus, "");
 
   // Release free memory
-  Standard::Purge();
+  Standard1::Purge();
   return myIsError ? Standard_False : Standard_True;
 }
 
@@ -127,7 +127,7 @@ Standard_Boolean TObj_Application::LoadDocument(const UtfString& theSourceFile,
     SetError(aStatus, theSourceFile);
 
   // Release free memory
-  Standard::Purge();
+  Standard1::Purge();
   return myIsError ? Standard_False : Standard_True;
 }
 
@@ -158,7 +158,7 @@ Standard_Boolean TObj_Application::LoadDocument(Standard_IStream&         theISt
     SetError(aStatus, "");
 
   // Release free memory
-  Standard::Purge();
+  Standard1::Purge();
   return myIsError ? Standard_False : Standard_True;
 }
 

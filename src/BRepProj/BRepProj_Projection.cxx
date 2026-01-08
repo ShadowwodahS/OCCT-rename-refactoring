@@ -132,7 +132,7 @@ void BRepProj_Projection::BuildSection(const TopoShape& theShape, const TopoShap
 
   // connect edges to wires using ShapeAnalysis1 functionality
   ShapeAnalysis_FreeBounds::ConnectEdgesToWires(anEdges,
-                                                Precision::Confusion(),
+                                                Precision1::Confusion(),
                                                 Standard_True,
                                                 mySection);
   myIsDone = (!mySection.IsNull() && mySection->Length() > 0);
@@ -225,7 +225,7 @@ BRepProj_Projection::BRepProj_Projection(const TopoShape& Wire,
 
   // compute the ratio of the scale transformation
   Standard_Real Scale = PC.Distance(P);
-  if (Abs(Scale) < Precision::Confusion())
+  if (Abs(Scale) < Precision1::Confusion())
     throw Standard_ConstructionError("Projection");
   Scale = 1. + mdis / Scale;
 

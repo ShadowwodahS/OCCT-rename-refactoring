@@ -219,8 +219,8 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoEdge&                    aEdge,
       {
         dU += (ceil(fabs(dU) / C->Period()) * C->Period());
       }
-      if ((dU > Precision::PConfusion() && dU <= 0.1 * C->Period() && dpar > 0.5 * C->Period())
-          || (dpar > Precision::PConfusion() && dpar <= 0.1 * C->Period()
+      if ((dU > Precision1::PConfusion() && dU <= 0.1 * C->Period() && dpar > 0.5 * C->Period())
+          || (dpar > Precision1::PConfusion() && dpar <= 0.1 * C->Period()
               && dU > 0.5 * C->Period()))
       {
         std::swap(V1, V2);
@@ -241,7 +241,7 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoEdge&                    aEdge,
         Standard_Real    aDist2m      = aP12.Distance(aPm);
         Standard_Real    aDistMax     = Max(Max(aDist1m, aDist2m), aDist11);
         Standard_Boolean isSmallCurve = (aDistMax <= aTolV1 || aDistMax <= aTolV2);
-        if (BRepTools1::Compare(Vfirst, Vlast) && isSmallCurve && dpar > Precision::PConfusion()
+        if (BRepTools1::Compare(Vfirst, Vlast) && isSmallCurve && dpar > Precision1::PConfusion()
             && dpar <= 0.1 * C->Period())
         {
           Handle(BSplineCurve3d) aBspl1 = Handle(BSplineCurve3d)::DownCast(C->Copy());

@@ -258,7 +258,7 @@ Standard_Boolean TopOpeBRep_VPointInter::EqualpP(const TopOpeBRep_VPointInter& V
 {
   Standard_Real    p1     = ParameterOnLine();
   Standard_Real    p2     = VP.ParameterOnLine();
-  Standard_Boolean pequal = fabs(p1 - p2) < Precision::PConfusion();
+  Standard_Boolean pequal = fabs(p1 - p2) < Precision1::PConfusion();
   Point3d           P1     = Value();
   Point3d           P2     = VP.Value();
   Standard_Real    Ptol1 = Tolerance(), Ptol2 = VP.Tolerance();

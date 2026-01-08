@@ -41,10 +41,10 @@ class TopoFace;
 //! -   with corners at points P1 and P2.
 //! Exceptions
 //! Standard_DomainError if: dx, dy, dz are less than or equal to
-//! Precision::Confusion(), or
+//! Precision1::Confusion(), or
 //! -   the vector joining the points P1 and P2 has a
 //! component projected onto the global coordinate
-//! system less than or equal to Precision::Confusion().
+//! system less than or equal to Precision1::Confusion().
 //! In these cases, the box would be flat.
 
 class BoxMaker : public BRepBuilderAPI_MakeShape

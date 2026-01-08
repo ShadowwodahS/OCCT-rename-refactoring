@@ -26,7 +26,7 @@ Prs3d_DatumAspect::Prs3d_DatumAspect()
       myToDrawArrows(Standard_True)
 {
   const Standard_Real  aDefaultLength = 100.0; // default axis length, the same as in context
-  const Quantity_Color aDefaultColor(Quantity_NOC_LIGHTSTEELBLUE4); // default axis color
+  const Color1 aDefaultColor(Quantity_NOC_LIGHTSTEELBLUE4); // default axis color
 
   myAttributes[Prs3d_DatumAttribute_XAxisLength]                = aDefaultLength;
   myAttributes[Prs3d_DatumAttribute_YAxisLength]                = aDefaultLength;
@@ -43,7 +43,7 @@ Prs3d_DatumAspect::Prs3d_DatumAspect()
   {
     const Prs3d_DatumParts aPart = (Prs3d_DatumParts)aPartIter;
 
-    Quantity_Color aColor = aDefaultColor;
+    Color1 aColor = aDefaultColor;
     if (aPart >= Prs3d_DatumParts_XArrow && aPart <= Prs3d_DatumParts_ZArrow)
     {
       aColor = myArrowAspect->Aspect()->Color();

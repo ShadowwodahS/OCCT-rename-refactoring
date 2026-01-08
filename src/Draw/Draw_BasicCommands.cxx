@@ -314,7 +314,7 @@ static Standard_Integer dbreak(DrawInterpreter& di, Standard_Integer, const char
 {
   try
   {
-    OSD::ControlBreak();
+    OSD1::ControlBreak();
   }
   catch (OSD_Exception_CTRL_BREAK const&)
   {
@@ -530,7 +530,7 @@ static unsigned int __stdcall CpuFunc(void* /*param*/)
   {
     Sleep(5);
     Standard_Real anUserSeconds, aSystemSeconds;
-    OSD_Chronometer::GetProcessCPU(anUserSeconds, aSystemSeconds);
+    Chronometer::GetProcessCPU(anUserSeconds, aSystemSeconds);
     aCurrent      = clock_t(anUserSeconds + aSystemSeconds);
     anElapCurrent = clock_t(aTimer.ElapsedTime());
 
@@ -623,7 +623,7 @@ static Standard_Integer cpulimit(DrawInterpreter& di, Standard_Integer n, const 
   {
     CPU_LIMIT = GetCpuLimit(a[1]);
     Standard_Real anUserSeconds, aSystemSeconds;
-    OSD_Chronometer::GetProcessCPU(anUserSeconds, aSystemSeconds);
+    Chronometer::GetProcessCPU(anUserSeconds, aSystemSeconds);
     CPU_CURRENT = clock_t(anUserSeconds + aSystemSeconds);
     aTimer.Reset();
     aTimer.Start();
@@ -686,8 +686,8 @@ usage: mallochook cmd\n\
 where cmd is one of:\n\
   set [<op>]      - set callback to malloc/free; op is one of the following:\n\
                     0 - set callback to NULL,\n\
-                    1 - set callback OSD_MAllocHook::CollectBySize (default)\n\
-                    2 - set callback OSD_MAllocHook::LogFileHandler\n\
+                    1 - set callback MemoryAllocHook::CollectBySize (default)\n\
+                    2 - set callback MemoryAllocHook::LogFileHandler\n\
   reset           - reset the CollectBySize handler\n\
   report1 [<outfile>]\n\
                   - write report from CollectBySize handler in <outfile>\n\
@@ -713,29 +713,29 @@ By default <logfile> is \"mem-log.txt\", <outfile> is \"mem-stat.txt\""
     }
     else if (aType == 0)
     {
-      OSD_MAllocHook::SetCallback(NULL);
+      MemoryAllocHook::SetCallback(NULL);
       di << "callback is unset\n";
     }
     else if (aType == 1)
     {
-      OSD_MAllocHook::SetCallback(OSD_MAllocHook::GetCollectBySize());
+      MemoryAllocHook::SetCallback(MemoryAllocHook::GetCollectBySize());
       di << "callback is set to CollectBySize\n";
     }
     else // if (aType == 2)
     {
-      OSD_MAllocHook::SetCallback(OSD_MAllocHook::GetLogFileHandler());
+      MemoryAllocHook::SetCallback(MemoryAllocHook::GetLogFileHandler());
       di << "callback is set to LogFileHandler\n";
     }
   }
   else if (strcmp(a[1], "reset") == 0)
   {
-    OSD_MAllocHook::GetCollectBySize()->Reset();
+    MemoryAllocHook::GetCollectBySize()->Reset();
     di << "CollectBySize handler is reset\n";
   }
   else if (strcmp(a[1], "open") == 0)
   {
     const char* aFileName = (n > 2 ? a[2] : "mem-log.txt");
-    if (!OSD_MAllocHook::GetLogFileHandler()->Open(aFileName))
+    if (!MemoryAllocHook::GetLogFileHandler()->Open(aFileName))
     {
       di << "cannot create file " << aFileName << " for writing\n";
       return 1;
@@ -744,7 +744,7 @@ By default <logfile> is \"mem-log.txt\", <outfile> is \"mem-stat.txt\""
   }
   else if (strcmp(a[1], "close") == 0)
   {
-    OSD_MAllocHook::GetLogFileHandler()->Close();
+    MemoryAllocHook::GetLogFileHandler()->Close();
     di << "log file is closed\n";
   }
   else if (strcmp(a[1], "report1") == 0)
@@ -752,7 +752,7 @@ By default <logfile> is \"mem-log.txt\", <outfile> is \"mem-stat.txt\""
     const char* aOutFile = "mem-stat.txt";
     if (n > 2)
       aOutFile = a[2];
-    if (OSD_MAllocHook::GetCollectBySize()->MakeReport(aOutFile))
+    if (MemoryAllocHook::GetCollectBySize()->MakeReport(aOutFile))
     {
       di << "report " << aOutFile << " has been created\n";
     }
@@ -777,7 +777,7 @@ By default <logfile> is \"mem-log.txt\", <outfile> is \"mem-stat.txt\""
           aOutFile = a[4];
       }
     }
-    if (OSD_MAllocHook::LogFileHandler::MakeReport(aLogFile, aOutFile, includeAlive))
+    if (MemoryAllocHook::LogFileHandler::MakeReport(aLogFile, aOutFile, includeAlive))
     {
       di << "report " << aOutFile << " has been created\n";
     }
@@ -836,43 +836,43 @@ static int dmeminfo(DrawInterpreter& theDI, Standard_Integer theArgNb, const cha
 {
   if (theArgNb <= 1)
   {
-    OSD_MemInfo aMemInfo;
+    MemoryInfo aMemInfo;
     theDI << aMemInfo.ToString();
     return 0;
   }
 
-  NCollection_Map<OSD_MemInfo::Counter> aCounters;
+  NCollection_Map<MemoryInfo::Counter> aCounters;
   for (Standard_Integer anIter = 1; anIter < theArgNb; ++anIter)
   {
     AsciiString1 anArg(theArgVec[anIter]);
     anArg.LowerCase();
     if (anArg == "virt" || anArg == "v")
     {
-      aCounters.Add(OSD_MemInfo::MemVirtual);
+      aCounters.Add(MemoryInfo::MemVirtual);
     }
     else if (anArg == "heap" || anArg == "h")
     {
-      aCounters.Add(OSD_MemInfo::MemHeapUsage);
+      aCounters.Add(MemoryInfo::MemHeapUsage);
     }
     else if (anArg == "wset" || anArg == "w")
     {
-      aCounters.Add(OSD_MemInfo::MemWorkingSet);
+      aCounters.Add(MemoryInfo::MemWorkingSet);
     }
     else if (anArg == "wsetpeak")
     {
-      aCounters.Add(OSD_MemInfo::MemWorkingSetPeak);
+      aCounters.Add(MemoryInfo::MemWorkingSetPeak);
     }
     else if (anArg == "swap")
     {
-      aCounters.Add(OSD_MemInfo::MemSwapUsage);
+      aCounters.Add(MemoryInfo::MemSwapUsage);
     }
     else if (anArg == "swappeak")
     {
-      aCounters.Add(OSD_MemInfo::MemSwapUsagePeak);
+      aCounters.Add(MemoryInfo::MemSwapUsagePeak);
     }
     else if (anArg == "private")
     {
-      aCounters.Add(OSD_MemInfo::MemPrivate);
+      aCounters.Add(MemoryInfo::MemPrivate);
     }
     else
     {
@@ -881,16 +881,16 @@ static int dmeminfo(DrawInterpreter& theDI, Standard_Integer theArgNb, const cha
     }
   }
 
-  OSD_MemInfo aMemInfo(Standard_False);
+  MemoryInfo aMemInfo(Standard_False);
   aMemInfo.SetActive(Standard_False);
-  for (NCollection_Map<OSD_MemInfo::Counter>::Iterator aCountersIt(aCounters); aCountersIt.More();
+  for (NCollection_Map<MemoryInfo::Counter>::Iterator aCountersIt(aCounters); aCountersIt.More();
        aCountersIt.Next())
   {
     aMemInfo.SetActive(aCountersIt.Value(), Standard_True);
   }
   aMemInfo.Update();
 
-  for (NCollection_Map<OSD_MemInfo::Counter>::Iterator aCountersIt(aCounters); aCountersIt.More();
+  for (NCollection_Map<MemoryInfo::Counter>::Iterator aCountersIt(aCounters); aCountersIt.More();
        aCountersIt.Next())
   {
     theDI << Standard_Real(aMemInfo.Value(aCountersIt.Value())) << " ";
@@ -906,10 +906,10 @@ static int dparallel(DrawInterpreter& theDI, Standard_Integer theArgNb, const ch
   const Handle(OSD_ThreadPool)& aDefPool = OSD_ThreadPool::DefaultPool();
   if (theArgNb <= 1)
   {
-    theDI << "NbLogicalProcessors: " << OSD_Parallel::NbLogicalProcessors() << "\n"
+    theDI << "NbLogicalProcessors: " << Parallel1::NbLogicalProcessors() << "\n"
           << "NbThreads:           " << aDefPool->NbThreads() << "\n"
           << "NbDefThreads:        " << aDefPool->NbDefaultThreadsToLaunch() << "\n"
-          << "UseOcct:             " << (OSD_Parallel::ToUseOcctThreads() ? 1 : 0);
+          << "UseOcct:             " << (Parallel1::ToUseOcctThreads() ? 1 : 0);
     return 0;
   }
 
@@ -939,8 +939,8 @@ static int dparallel(DrawInterpreter& theDI, Standard_Integer theArgNb, const ch
              && (anArg == "-useocct" || anArg == "-touseocct" || anArg == "-occt"))
     {
       const Standard_Integer aVal = Draw1::Atoi(theArgVec[++anIter]);
-      OSD_Parallel::SetUseOcctThreads(aVal == 1);
-      if (OSD_Parallel::ToUseOcctThreads() != (aVal == 1))
+      Parallel1::SetUseOcctThreads(aVal == 1);
+      if (Parallel1::ToUseOcctThreads() != (aVal == 1))
       {
         std::cout << "Warning: unable to switch threads library - no options available\n";
       }
@@ -949,8 +949,8 @@ static int dparallel(DrawInterpreter& theDI, Standard_Integer theArgNb, const ch
              && (anArg == "-usetbb" || anArg == "-tousetbb" || anArg == "-tbb"))
     {
       const Standard_Integer aVal = Draw1::Atoi(theArgVec[++anIter]);
-      OSD_Parallel::SetUseOcctThreads(aVal == 0);
-      if (OSD_Parallel::ToUseOcctThreads() != (aVal == 0))
+      Parallel1::SetUseOcctThreads(aVal == 0);
+      if (Parallel1::ToUseOcctThreads() != (aVal == 0))
       {
         std::cout << "Warning: unable to switch threads library - no options available\n";
       }
@@ -981,8 +981,8 @@ static int dperf(DrawInterpreter& theDI, Standard_Integer theArgNb, const char**
 static int dsetsignal(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
   OSD_SignalMode   aMode     = OSD_SignalMode_Set;
-  Standard_Boolean aSetFPE   = OSD::ToCatchFloatingSignals();
-  Standard_Integer aStackLen = OSD::SignalStackTraceLength();
+  Standard_Boolean aSetFPE   = OSD1::ToCatchFloatingSignals();
+  Standard_Integer aStackLen = OSD1::SignalStackTraceLength();
 
   // default for FPE signal is defined by CSF_FPE variable, if set
   OSD_Environment         aEnv("CSF_FPE");
@@ -1037,12 +1037,12 @@ static int dsetsignal(DrawInterpreter& theDI, Standard_Integer theArgNb, const c
     }
   }
 
-  OSD::SetSignal(aMode, aSetFPE);
-  OSD::SetSignalStackTraceLength(aStackLen);
+  OSD1::SetSignal(aMode, aSetFPE);
+  OSD1::SetSignalStackTraceLength(aStackLen);
 
   // report actual status in the end
   const char* aModeStr = 0;
-  switch (OSD::SignalMode())
+  switch (OSD1::SignalMode())
   {
     default:
     case OSD_SignalMode_AsIs:
@@ -1059,7 +1059,7 @@ static int dsetsignal(DrawInterpreter& theDI, Standard_Integer theArgNb, const c
       break;
   }
   theDI << "Signal mode: " << aModeStr << "\n"
-        << "Catch FPE: " << (OSD::ToCatchFloatingSignals() ? "1" : "0") << "\n"
+        << "Catch FPE: " << (OSD1::ToCatchFloatingSignals() ? "1" : "0") << "\n"
         << "Stack Trace Length: " << aStackLen << "\n";
   return 0;
 }
@@ -1336,7 +1336,7 @@ void Draw1::BasicCommands(DrawInterpreter& theCommands)
   theCommands.Add("dsetsignal",
                   "dsetsignal [{asIs|set|unhandled|unset}=set] [{0|1|default=$CSF_FPE}]"
                   "\n\t\t:            [-strackTraceLength Length]"
-                  "\n\t\t: Sets OSD signal handler, with FPE option if argument is given."
+                  "\n\t\t: Sets OSD1 signal handler, with FPE option if argument is given."
                   "\n\t\t:  -strackTraceLength specifies length of stack trace to put into "
                   "exceptions redirected from signals.",
                   __FILE__,

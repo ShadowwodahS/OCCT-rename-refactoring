@@ -133,7 +133,7 @@ V3d_Trihedron::~V3d_Trihedron()
 
 //=================================================================================================
 
-void V3d_Trihedron::SetLabelsColor(const Quantity_Color& theColor)
+void V3d_Trihedron::SetLabelsColor(const Color1& theColor)
 {
   myTextAspects[V3d_X]->SetColor(theColor);
   myTextAspects[V3d_Y]->SetColor(theColor);
@@ -158,9 +158,9 @@ void V3d_Trihedron::SetLabels(const AsciiString1& theX,
 
 //=================================================================================================
 
-void V3d_Trihedron::SetLabelsColor(const Quantity_Color& theXColor,
-                                   const Quantity_Color& theYColor,
-                                   const Quantity_Color& theZColor)
+void V3d_Trihedron::SetLabelsColor(const Color1& theXColor,
+                                   const Color1& theYColor,
+                                   const Color1& theZColor)
 {
   myTextAspects[V3d_X]->SetColor(theXColor);
   myTextAspects[V3d_Y]->SetColor(theYColor);
@@ -169,11 +169,11 @@ void V3d_Trihedron::SetLabelsColor(const Quantity_Color& theXColor,
 
 //=================================================================================================
 
-void V3d_Trihedron::SetArrowsColor(const Quantity_Color& theXColor,
-                                   const Quantity_Color& theYColor,
-                                   const Quantity_Color& theZColor)
+void V3d_Trihedron::SetArrowsColor(const Color1& theXColor,
+                                   const Color1& theYColor,
+                                   const Color1& theZColor)
 {
-  const Quantity_Color aColors[3] = {theXColor, theYColor, theZColor};
+  const Color1 aColors[3] = {theXColor, theYColor, theZColor};
   for (Standard_Integer anIt = 0; anIt < 3; ++anIt)
   {
     myArrowShadingAspects[anIt]->SetColor(aColors[anIt]);
@@ -184,7 +184,7 @@ void V3d_Trihedron::SetArrowsColor(const Quantity_Color& theXColor,
 
 void V3d_Trihedron::SetScale(const Standard_Real theScale)
 {
-  if (Abs(myScale - theScale) > Precision::Confusion())
+  if (Abs(myScale - theScale) > Precision1::Confusion())
   {
     invalidate();
   }
@@ -195,7 +195,7 @@ void V3d_Trihedron::SetScale(const Standard_Real theScale)
 
 void V3d_Trihedron::SetSizeRatio(const Standard_Real theRatio)
 {
-  if (Abs(myRatio - theRatio) > Precision::Confusion())
+  if (Abs(myRatio - theRatio) > Precision1::Confusion())
   {
     invalidate();
   }
@@ -206,7 +206,7 @@ void V3d_Trihedron::SetSizeRatio(const Standard_Real theRatio)
 
 void V3d_Trihedron::SetArrowDiameter(const Standard_Real theDiam)
 {
-  if (Abs(myDiameter - theDiam) > Precision::Confusion())
+  if (Abs(myDiameter - theDiam) > Precision1::Confusion())
   {
     invalidate();
   }

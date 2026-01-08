@@ -291,7 +291,7 @@ void ShapeConverter::Convert(const Standard_Boolean theExtractFaces,
             // Create a Transform grouping node
             Handle(VrmlData_Group) aTrans = new VrmlData_Group(myScene, 0L, Standard_True);
             Transform3d                aTrsf(aLoc);
-            if (fabs(myScale - 1.) > Precision::Confusion())
+            if (fabs(myScale - 1.) > Precision1::Confusion())
             {
               const Coords3d aTransl = aTrsf.TranslationPart() * myScale;
               aTrsf.SetTranslationPart(aTransl);
@@ -414,7 +414,7 @@ Handle(VrmlData_Geometry) ShapeConverter::triToIndexedFaceSet(
   Poly_Connect PC(theTri);
   // Create the Normals node (if UV- values are available)
   TopLoc_Location            aLoc;
-  constexpr Standard_Real    aConf2   = Precision::SquareConfusion();
+  constexpr Standard_Real    aConf2   = Precision1::SquareConfusion();
   const Handle(GeomSurface) aSurface = BRepInspector::Surface(theFace, aLoc);
   if (theTri->HasUVNodes() && aSurface.IsNull() == Standard_False)
   {
@@ -524,9 +524,9 @@ Handle(VrmlData_Appearance) ShapeConverter::defaultMaterialFace() const
   if (anAppearance.IsNull())
   {
     const Handle(VrmlData_Material) aMaterial = new VrmlData_Material(myScene, 0L, 1.0, 0.022, 0.);
-    aMaterial->SetDiffuseColor(Quantity_Color(0.780392, 0.568627, 0.113725, Quantity_TOC_sRGB));
-    aMaterial->SetEmissiveColor(Quantity_Color(0.329412, 0.223529, 0.027451, Quantity_TOC_sRGB));
-    aMaterial->SetSpecularColor(Quantity_Color(0.992157, 0.941176, 0.807843, Quantity_TOC_sRGB));
+    aMaterial->SetDiffuseColor(Color1(0.780392, 0.568627, 0.113725, Quantity_TOC_sRGB));
+    aMaterial->SetEmissiveColor(Color1(0.329412, 0.223529, 0.027451, Quantity_TOC_sRGB));
+    aMaterial->SetSpecularColor(Color1(0.992157, 0.941176, 0.807843, Quantity_TOC_sRGB));
     myScene.AddNode(aMaterial, Standard_False);
     anAppearance = new VrmlData_Appearance(myScene, aNodeName);
     anAppearance->SetMaterial(aMaterial);
@@ -545,9 +545,9 @@ Handle(VrmlData_Appearance) ShapeConverter::defaultMaterialEdge() const
   if (anAppearance.IsNull())
   {
     const Handle(VrmlData_Material) aMaterial = new VrmlData_Material(myScene, 0L, 0.2, 0.2, 0.2);
-    aMaterial->SetDiffuseColor(Quantity_Color(0.2, 0.7, 0.2, Quantity_TOC_RGB));
-    aMaterial->SetEmissiveColor(Quantity_Color(0.2, 0.7, 0.2, Quantity_TOC_RGB));
-    aMaterial->SetSpecularColor(Quantity_Color(0.2, 0.7, 0.2, Quantity_TOC_RGB));
+    aMaterial->SetDiffuseColor(Color1(0.2, 0.7, 0.2, Quantity_TOC_RGB));
+    aMaterial->SetEmissiveColor(Color1(0.2, 0.7, 0.2, Quantity_TOC_RGB));
+    aMaterial->SetSpecularColor(Color1(0.2, 0.7, 0.2, Quantity_TOC_RGB));
     myScene.AddNode(aMaterial, Standard_False);
     anAppearance = new VrmlData_Appearance(myScene, aNodeName);
     anAppearance->SetMaterial(aMaterial);
@@ -693,7 +693,7 @@ void ShapeConverter::addShape(const Handle(VrmlData_Group)&   theParent,
         // Create a Transform grouping node
         Handle(VrmlData_Group) aTrans = new VrmlData_Group(myScene, 0L, Standard_True);
         Transform3d                aTrsf(aLoc);
-        if (fabs(myScale - 1.) > Precision::Confusion())
+        if (fabs(myScale - 1.) > Precision1::Confusion())
         {
           const Coords3d aTransl = aTrsf.TranslationPart() * myScale;
           aTrsf.SetTranslationPart(aTransl);
@@ -732,7 +732,7 @@ void ShapeConverter::addInstance(const Handle(VrmlData_Group)&   theParent,
     // Create a Transform grouping node
     aTrans = new VrmlData_Group(myScene, 0L, Standard_True);
     Transform3d aTrsf(aLoc);
-    if (fabs(myScale - 1.) > Precision::Confusion())
+    if (fabs(myScale - 1.) > Precision1::Confusion())
     {
       const Coords3d aTransl = aTrsf.TranslationPart() * myScale;
       aTrsf.SetTranslationPart(aTransl);
@@ -794,7 +794,7 @@ void ShapeConverter::addAssembly(const Handle(VrmlData_Group)&   theParent,
     if (!aLoc.IsIdentity())
     {
       Transform3d aTrsf(aLoc);
-      if (fabs(myScale - 1.) > Precision::Confusion())
+      if (fabs(myScale - 1.) > Precision1::Confusion())
       {
         const Coords3d aTransl = aTrsf.TranslationPart() * myScale;
         aTrsf.SetTranslationPart(aTransl);

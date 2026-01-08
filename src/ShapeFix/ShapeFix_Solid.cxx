@@ -144,7 +144,7 @@ static void CollectSolids(const TopTools_SequenceOfShape&            aSeqShells,
       if (!theMapStatus.IsBound(aShell1))
       {
 
-        bsc3d.PerformInfinitePoint(Precision::Confusion());
+        bsc3d.PerformInfinitePoint(Precision1::Confusion());
         infinstatus = bsc3d.State();
 
         if (infinstatus != TopAbs_UNKNOWN && infinstatus != TopAbs_ON)
@@ -191,7 +191,7 @@ static void CollectSolids(const TopTools_SequenceOfShape&            aSeqShells,
         {
           TopoVertex aV  = TopoDS::Vertex(amapVert.FindKey(k));
           Point3d        aPf = BRepInspector::Pnt(aV);
-          bsc3d.Perform(aPf, Precision::Confusion());
+          bsc3d.Perform(aPf, Precision1::Confusion());
           pointstatus = bsc3d.State();
           if (pointstatus == TopAbs_ON)
             numon++;
@@ -202,7 +202,7 @@ static void CollectSolids(const TopTools_SequenceOfShape&            aSeqShells,
 #ifdef OCCT_DEBUG_GET_MIDDLE_POINT
           Point3d pmid;
           GetMiddlePoint(aShell2, pmid);
-          bsc3d.Perform(pmid, Precision::Confusion());
+          bsc3d.Perform(pmid, Precision1::Confusion());
 #endif
           pointstatus = /*(bsc3d.State() == TopAbs_IN ? TopAbs_IN :*/ TopAbs_OUT;
         }
@@ -306,7 +306,7 @@ static Standard_Boolean CreateSolids(const TopoShape&         theShape,
       {
         OCC_CATCH_SIGNALS
         BRepClass3d_SolidClassifier bsc3d(aSolid);
-        bsc3d.PerformInfinitePoint(Precision::Confusion());
+        bsc3d.PerformInfinitePoint(Precision1::Confusion());
         infinstatus = bsc3d.State();
       }
       catch (ExceptionBase const& anException)
@@ -345,7 +345,7 @@ static Standard_Boolean CreateSolids(const TopoShape&         theShape,
         B.MakeSolid(solid);
         B.Add(solid, aShellHole);
         BRepClass3d_SolidClassifier bsc3dHol(solid);
-        bsc3dHol.PerformInfinitePoint(Precision::Confusion());
+        bsc3dHol.PerformInfinitePoint(Precision1::Confusion());
         infinstatus = bsc3dHol.State();
       }
       if (infinstatus == TopAbs_OUT)
@@ -595,7 +595,7 @@ TopoSolid ShapeFix_Solid::SolidFromShell(const TopoShell& shell)
   {
     OCC_CATCH_SIGNALS
     BRepClass3d_SolidClassifier bsc3d(solid);
-    constexpr Standard_Real     t = Precision::Confusion(); // tolerance moyenne
+    constexpr Standard_Real     t = Precision1::Confusion(); // tolerance moyenne
     bsc3d.PerformInfinitePoint(t);
 
     if (bsc3d.State() == TopAbs_IN)

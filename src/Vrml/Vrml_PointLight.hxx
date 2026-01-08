@@ -41,7 +41,7 @@ public:
 
   Standard_EXPORT Vrml_PointLight(const Standard_Boolean aOnOff,
                                   const Standard_Real    aIntensity,
-                                  const Quantity_Color&  aColor,
+                                  const Color1&  aColor,
                                   const Vector3d&          aLocation);
 
   Standard_EXPORT void SetOnOff(const Standard_Boolean aOnOff);
@@ -52,9 +52,9 @@ public:
 
   Standard_EXPORT Standard_Real Intensity() const;
 
-  Standard_EXPORT void SetColor(const Quantity_Color& aColor);
+  Standard_EXPORT void SetColor(const Color1& aColor);
 
-  Standard_EXPORT Quantity_Color Color() const;
+  Standard_EXPORT Color1 Color() const;
 
   Standard_EXPORT void SetLocation(const Vector3d& aLocation);
 
@@ -66,7 +66,7 @@ protected:
 private:
   Standard_Boolean myOnOff;
   Standard_Real    myIntensity;
-  Quantity_Color   myColor;
+  Color1   myColor;
   Vector3d           myLocation;
 };
 

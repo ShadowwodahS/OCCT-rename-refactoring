@@ -577,7 +577,7 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
   {
   public:
     Axis(const Axis3d&            theAxis   = Axis3d(),
-         const Quantity_Color&    theColor  = Quantity_Color(),
+         const Color1&    theColor  = Color1(),
          const Standard_ShortReal theLength = 10.0f);
 
     void Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
@@ -653,7 +653,7 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
 
     void SetDragging(const Standard_Boolean theIsEnabled) { myHasDragging = theIsEnabled; }
 
-    Quantity_Color Color() const { return myColor; }
+    Color1 Color() const { return myColor; }
 
     Standard_ShortReal AxisLength() const { return myLength; }
 
@@ -736,7 +736,7 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
   protected:
     Axis3d         myReferenceAxis; //!< Returns reference axis assignment.
     Axis3d         myPosition;      //!< Position1 of the axis including local transformation.
-    Quantity_Color myColor;
+    Color1 myColor;
 
     Standard_Boolean   myHasTranslation;
     Standard_ShortReal myLength; //!< Length of translation axis.

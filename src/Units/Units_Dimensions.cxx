@@ -60,7 +60,7 @@ Standard_CString Units_Dimensions::Quantity() const
 {
   if (quantitySequence.IsNull())
   {
-    quantitySequence = Units::DictionaryOfUnits(Standard_False)->Sequence();
+    quantitySequence = Units2::DictionaryOfUnits(Standard_False)->Sequence();
   }
   Handle(Units_Dimensions) dim;
   for (Standard_Integer i = 1; i <= quantitySequence->Length(); i++)

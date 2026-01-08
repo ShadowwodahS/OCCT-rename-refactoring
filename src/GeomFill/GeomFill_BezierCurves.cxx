@@ -46,7 +46,7 @@ static void SetSameWeights(TColStd_Array1OfReal& W1,
                            TColStd_Array1OfReal& W3,
                            TColStd_Array1OfReal& W4)
 {
-  constexpr Standard_Real Eps = Precision::Confusion();
+  constexpr Standard_Real Eps = Precision1::Confusion();
 
   Standard_Integer NU = W1.Length();
   Standard_Integer NV = W2.Length();
@@ -199,7 +199,7 @@ void GeomFill_BezierCurves::Init(const Handle(BezierCurve3d)& C1,
   // On ordonne les courbes
   Handle(BezierCurve3d) CC1, CC2, CC3, CC4;
 
-  constexpr Standard_Real Tol = Precision::Confusion();
+  constexpr Standard_Real Tol = Precision1::Confusion();
 #ifndef No_Exception
   Standard_Boolean IsOK =
 #endif
@@ -329,7 +329,7 @@ void GeomFill_BezierCurves::Init(const Handle(BezierCurve3d)& C1,
 {
   Handle(BezierCurve3d) C4;
   TColgp_Array1OfPnt       Poles(1, 2);
-  Standard_Real            Tol = Precision::Confusion();
+  Standard_Real            Tol = Precision1::Confusion();
   Tol                          = Tol * Tol;
   if (C1->StartPoint().SquareDistance(C2->StartPoint()) > Tol
       && C1->StartPoint().SquareDistance(C2->EndPoint()) > Tol)
@@ -416,7 +416,7 @@ void GeomFill_BezierCurves::Init(const Handle(BezierCurve3d)& C1,
     TColgp_Array1OfPnt P1(1, Deg1 + 1);
     TColgp_Array1OfPnt P2(1, Deg2 + 1);
 
-    constexpr Standard_Real Eps  = Precision::Confusion();
+    constexpr Standard_Real Eps  = Precision1::Confusion();
     Standard_Boolean        IsOK = Standard_False;
     if (CC1->StartPoint().IsEqual(CC2->StartPoint(), Eps))
     {

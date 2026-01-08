@@ -89,7 +89,7 @@ public:
     myNbPnt2d                   = 0;
     Standard_Real           U   = myCurve->FirstParameter();
     Point3d                  P   = myCurve->Value(U);
-    constexpr Standard_Real Tol = Precision::PConfusion();
+    constexpr Standard_Real Tol = Precision1::PConfusion();
     myExtPS                     = new Extrema_ExtPS(P, *S, Tol, Tol);
   }
 
@@ -176,8 +176,8 @@ void ProjLib_ProjectOnSurface::Load(const Handle(Adaptor3d_Curve)& C, const Stan
     Approx_FitAndDivide Fit(F,
                             Deg1,
                             Deg2,
-                            Precision::Approximation(),
-                            Precision::PApproximation(),
+                            Precision1::Approximation(),
+                            Precision1::PApproximation(),
                             Standard_True);
     Standard_Integer    i;
     Standard_Integer    NbCurves = Fit.NbMultiCurves();

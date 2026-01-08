@@ -151,7 +151,7 @@ TopoVertex IGESToBRep_BRepEntity::TransferVertex(const Handle(IGESSolid_VertexLi
       point.Scale(Point3d(0, 0, 0), GetUnitFactor());
       TopoVertex V;
       // pdn 12.03.99 S4135 Constructing vertex with minimal tolerance
-      B.MakeVertex(V, point, Precision::Confusion());
+      B.MakeVertex(V, point, Precision1::Confusion());
       AddShapeResult(start, V);
     }
   }
@@ -244,7 +244,7 @@ TopoShape IGESToBRep_BRepEntity::TransferEdge(const Handle(IGESSolid_EdgeList)& 
             Standard_Real dist2f = p2.Distance(pf);
             Standard_Real dist1l = p1.Distance(pl);
             Standard_Real dist2l = p2.Distance(pl);
-            if (V1.IsSame(V2) || dist1f + dist2l <= dist1l + dist2f + Precision::Confusion())
+            if (V1.IsSame(V2) || dist1f + dist2l <= dist1l + dist2f + Precision1::Confusion())
             {
               //: 77 if (BRepTools1::Compare(V1, Vf)) //the part 'else' only if, in fact, edge should
               //: be reversed

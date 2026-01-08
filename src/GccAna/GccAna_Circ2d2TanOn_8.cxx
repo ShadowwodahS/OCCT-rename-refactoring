@@ -85,7 +85,7 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
   gp_Pnt2d         pinterm;
   gp_Dir2d         dircc;
   Standard_Boolean SameCenter(Standard_False);
-  if (!OnCirc.Location().IsEqual(center1, Precision::Confusion()))
+  if (!OnCirc.Location().IsEqual(center1, Precision1::Confusion()))
   {
     dircc                 = gp_Dir2d(OnCirc.Location().XY() - center1.XY());
     pinterm               = gp_Pnt2d(center1.XY() + (distcco - Ron) * dircc.XY());
@@ -246,7 +246,7 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
               {
 
                 // pop : protection against case center1 == Center
-                if (center1.IsEqual(Center, Precision::Confusion()))
+                if (center1.IsEqual(Center, Precision1::Confusion()))
                 {
                   continue;
                 }

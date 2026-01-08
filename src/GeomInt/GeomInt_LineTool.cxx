@@ -70,7 +70,7 @@ void ProjectPointOnSurf::Init(const Handle(GeomSurface)& Surface,
                               const Standard_Real         Vmin,
                               const Standard_Real         Vsup)
 {
-  constexpr Standard_Real Tolerance = Precision::PConfusion();
+  constexpr Standard_Real Tolerance = Precision1::PConfusion();
   //
   myGeomAdaptor.Load(Surface, Umin, Usup, Vmin, Vsup);
   myExtPS.Initialize(myGeomAdaptor, Umin, Usup, Vmin, Vsup, Tolerance, Tolerance);
@@ -213,7 +213,7 @@ static Standard_Boolean FindPoint(const gp_Pnt2d&     theFirstPoint,
     anormvec.Normalize();
     Standard_Real adot1 = anormvec.Dot(anOtherVecNormal);
 
-    if (fabs(adot1) < Precision::Angular())
+    if (fabs(adot1) < Precision1::Angular())
       continue;
     Standard_Real adist = 0.;
 
@@ -238,7 +238,7 @@ static Standard_Boolean FindPoint(const gp_Pnt2d&     theFirstPoint,
       //
       aDotX    = aVec.Dot(acurvec);
       anAngleX = aVec.Angle(acurvec);
-      aPC      = Precision::PConfusion();
+      aPC      = Precision1::PConfusion();
       //
       if (aDotX > 0. && fabs(anAngleX) < aPC)
       {
@@ -323,7 +323,7 @@ Standard_Real LineTool2::FirstParameter(const Handle(IntPatch_Line)& L)
     case IntPatch_Restriction: {
       Handle(IntPatch_RLine) rlin = Handle(IntPatch_RLine)::DownCast(L);
       // clang-format off
-	  return (rlin->HasFirstPoint()? rlin->FirstPoint().ParameterOnLine() : -Precision::Infinite()); // a voir selon le type de la ligne 2d
+	  return (rlin->HasFirstPoint()? rlin->FirstPoint().ParameterOnLine() : -Precision1::Infinite()); // a voir selon le type de la ligne 2d
       // clang-format on
     }
 
@@ -341,7 +341,7 @@ Standard_Real LineTool2::FirstParameter(const Handle(IntPatch_Line)& L)
         case IntPatch_Lin:
         case IntPatch_Parabola:
         case IntPatch_Hyperbola:
-          return -Precision::Infinite();
+          return -Precision1::Infinite();
         default:
           break;
       }
@@ -371,7 +371,7 @@ Standard_Real LineTool2::LastParameter(const Handle(IntPatch_Line)& L)
     case IntPatch_Restriction: {
       Handle(IntPatch_RLine) rlin = Handle(IntPatch_RLine)::DownCast(L);
       // clang-format off
-	  return (rlin->HasLastPoint()? rlin->LastPoint().ParameterOnLine() : Precision::Infinite()); // a voir selon le type de la ligne 2d
+	  return (rlin->HasLastPoint()? rlin->LastPoint().ParameterOnLine() : Precision1::Infinite()); // a voir selon le type de la ligne 2d
       // clang-format on
     }
 
@@ -389,7 +389,7 @@ Standard_Real LineTool2::LastParameter(const Handle(IntPatch_Line)& L)
         case IntPatch_Lin:
         case IntPatch_Parabola:
         case IntPatch_Hyperbola:
-          return Precision::Infinite();
+          return Precision1::Infinite();
         case IntPatch_Circle:
         case IntPatch_Ellipse:
           return 2. * M_PI;
@@ -449,7 +449,7 @@ Standard_Boolean LineTool2::DecompositionOfWLine(
   Standard_Integer*                        anArrayOfLineType = anArrayOfLineTypeArr;
   //
   nblines = 0;
-  aTol    = Precision::Confusion();
+  aTol    = Precision1::Confusion();
   //
   aSurf1 = theSurface1->Surface();
   aSurf1->Bounds(umin, umax, vmin, vmax);
@@ -716,7 +716,7 @@ Standard_Boolean LineTool2::DecompositionOfWLine(
             Standard_Real    anewU = (bIsUBoundary) ? anotherPar : U;
             Standard_Real    anewV = (bIsUBoundary) ? V : anotherPar;
             //
-            if (((adist1 - adist2) > Precision::PConfusion()) && (adist2 < (aPeriod / 4.)))
+            if (((adist1 - adist2) > Precision1::PConfusion()) && (adist2 < (aPeriod / 4.)))
             {
               bCheckAngle1 = Standard_True;
               aNewVec      = gp_Vec2d(gp_Pnt2d(nU1, nV1), gp_Pnt2d(anewU, anewV));

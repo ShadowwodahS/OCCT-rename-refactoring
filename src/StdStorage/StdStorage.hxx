@@ -40,7 +40,7 @@ class StdStorage1
 {
 
 public:
-  //! Returns the version of Storage's read/write routines
+  //! Returns the version of Storage1's read/write routines
   Standard_EXPORT static AsciiString1 Version();
 
   //! Returns the data read from a file located at theFileName.

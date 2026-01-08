@@ -240,7 +240,7 @@ public:
                 newBuck,
                 ppNewData1,
                 (NCollection_ListNode**)
-                  Standard::Reallocate(myData2, (newBuck + 1) * sizeof(NCollection_ListNode*)));
+                  Standard1::Reallocate(myData2, (newBuck + 1) * sizeof(NCollection_ListNode*)));
     }
   }
 

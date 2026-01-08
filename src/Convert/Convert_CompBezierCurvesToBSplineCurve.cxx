@@ -43,7 +43,7 @@ void BezierToBSpline::AddCurve(const TColgp_Array1OfPnt& Poles)
     P2 = Poles(Poles.Lower());
 
 #ifdef OCCT_DEBUG
-    if (!P1.IsEqual(P2, Precision::Confusion()))
+    if (!P1.IsEqual(P2, Precision1::Confusion()))
       std::cout << "BezierToBSpline::Addcurve" << std::endl;
 #endif
   }

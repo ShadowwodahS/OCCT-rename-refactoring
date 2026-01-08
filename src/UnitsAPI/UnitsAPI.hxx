@@ -25,7 +25,7 @@
 #include <UnitsAPI_SystemUnits.hxx>
 class Units_Dimensions;
 
-//! The UnitsAPI global functions are used to
+//! The UnitsAPI1 global functions are used to
 //! convert a value from any unit into another unit.
 //! Principles
 //! Conversion is executed among three unit systems:
@@ -34,7 +34,7 @@ class Units_Dimensions;
 //! -   the user's Current System.
 //! The SI System is the standard international unit
 //! system. It is indicated by SI in the synopses of
-//! the UnitsAPI functions.
+//! the UnitsAPI1 functions.
 //! The MDTV System corresponds to the SI
 //! international standard but the length unit and all
 //! its derivatives use millimeters instead of the meters.
@@ -43,14 +43,14 @@ class Units_Dimensions;
 //! selecting one of these two systems, the user
 //! defines his Local System through the
 //! SetLocalSystem function. The Local System is
-//! indicated by LS in the synopses of the UnitsAPI functions.
+//! indicated by LS in the synopses of the UnitsAPI1 functions.
 //! The user's Local System units can be modified in
 //! the working environment. The user defines his
 //! Current System by modifying its units through
 //! the SetCurrentUnit function. The Current
 //! System is indicated by Current in the synopses
-//! of the UnitsAPI functions.
-class UnitsAPI
+//! of the UnitsAPI1 functions.
+class UnitsAPI1
 {
 public:
   DEFINE_STANDARD_ALLOC

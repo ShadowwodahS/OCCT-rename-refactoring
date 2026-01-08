@@ -87,7 +87,7 @@ protected:
   //
   void PerformOnePoint();
   //
-  void PerformGenCurv(const Standard_Real Tol = Precision::PConfusion());
+  void PerformGenCurv(const Standard_Real Tol = Precision1::PConfusion());
   //
   Standard_Integer NbSamples();
   //
@@ -476,7 +476,7 @@ void BndLib_Box2dCurve::PerformBSpline()
   }
 
   //
-  constexpr Standard_Real eps = Precision::PConfusion();
+  constexpr Standard_Real eps = Precision1::PConfusion();
   if (fabs(aT1 - aTb[0]) > eps || fabs(aT2 - aTb[1]) > eps)
   {
     aG = aCBS->Copy();
@@ -567,7 +567,7 @@ Standard_Real BndLib_Box2dCurve::AdjustExtr(const Standard_Real    UMin,
   Standard_Real Du = (myCurve->LastParameter() - myCurve->FirstParameter());
   //
   Geom2dAdaptor_Curve aGAC(myCurve);
-  Standard_Real       UTol   = Max(aGAC.Resolution(Tol), Precision::PConfusion());
+  Standard_Real       UTol   = Max(aGAC.Resolution(Tol), Precision1::PConfusion());
   Standard_Real       reltol = UTol / Max(Abs(UMin), Abs(UMax));
   if (UMax - UMin < 0.01 * Du)
   {
@@ -881,13 +881,13 @@ void BndLib_Box2dCurve::PerformLineConic()
   //
   for (i = 0; i < 2; ++i)
   {
-    if (Precision::IsNegativeInfinite(aTb[i]))
+    if (Precision1::IsNegativeInfinite(aTb[i]))
     {
       D0(aTb[i], aP2D);
       aBox2D.Add(aP2D);
       ++iInf[0];
     }
-    else if (Precision::IsPositiveInfinite(aTb[i]))
+    else if (Precision1::IsPositiveInfinite(aTb[i]))
     {
       D0(aTb[i], aP2D);
       aBox2D.Add(aP2D);

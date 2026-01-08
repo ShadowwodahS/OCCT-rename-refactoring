@@ -52,7 +52,7 @@ Standard_Real IntPatch_PointLine::CurvatureRadiusOfIntersLine(
   const Handle(Adaptor3d_Surface)& theS2,
   const PointOn2Surfaces&           theUVPoint)
 {
-  constexpr Standard_Real aSmallValue   = 1.0 / Precision::Infinite();
+  constexpr Standard_Real aSmallValue   = 1.0 / Precision1::Infinite();
   constexpr Standard_Real aSqSmallValue = aSmallValue * aSmallValue;
 
   Standard_Real aU1 = 0.0, aV1 = 0.0, aU2 = 0.0, aV2 = 0.0;
@@ -185,7 +185,7 @@ Standard_Real IntPatch_PointLine::CurvatureRadiusOfIntersLine(
 
   if (aSqMagnSDer < aSqSmallValue)
   { // Intersection curve has null curvature in observed point
-    return Precision::Infinite();
+    return Precision1::Infinite();
   }
 
   // square of curvature radius
@@ -194,7 +194,7 @@ Standard_Real IntPatch_PointLine::CurvatureRadiusOfIntersLine(
 #if 0
   if(aTestID)
   {
-    if(Abs(aFactSqRad - anExpectedSqRad) < Precision::Confusion())
+    if(Abs(aFactSqRad - anExpectedSqRad) < Precision1::Confusion())
     {
       printf("OK: Curvature radius is equal to expected (%5.10g)", anExpectedSqRad);
     }

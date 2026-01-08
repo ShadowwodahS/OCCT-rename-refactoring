@@ -61,8 +61,8 @@ public:
   //! NegativeValue if Height is less than or equal to 0.
   //! NullValue if the distance between P1 and P2 is less
   //! than or equal to the tolerance value for distance in
-  //! Precision::Confusion: P1.IsEqual(P2,
-  //! Precision::Confusion()). The function
+  //! Precision1::Confusion: P1.IsEqual(P2,
+  //! Precision1::Confusion()). The function
   //! gp_Pnt2d::IsEqual tests to see if this is the case.
   //! Definition of the geometricals constraints
   Standard_EXPORT FairCurve_MinimalVariation(const gp_Pnt2d&     P1,

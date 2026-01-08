@@ -83,7 +83,7 @@ public:
   }
 
   //! Allows you to provide settings for the color aColor.
-  Standard_EXPORT virtual void SetColor(const Quantity_Color& theColor) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetColor(const Color1& theColor) Standard_OVERRIDE;
 
   void SetXLabel(const AsciiString1& theLabel) { myXLabel = theLabel; }
 

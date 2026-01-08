@@ -37,13 +37,13 @@ public:
   //! 0.0), concentration factor 1.0 and spot angle 30 degrees.
   Standard_EXPORT V3d_SpotLight(const Point3d&               thePos,
                                 const V3d_TypeOfOrientation theDirection = V3d_XnegYnegZpos,
-                                const Quantity_Color&       theColor     = Quantity_NOC_WHITE);
+                                const Color1&       theColor     = Quantity_NOC_WHITE);
 
   //! Creates a light source of the Spot type in the viewer with default attenuation factors (1.0,
   //! 0.0), concentration factor 1.0 and spot angle 30 degrees.
   Standard_EXPORT V3d_SpotLight(const Point3d&         thePos,
                                 const Dir3d&         theDirection,
-                                const Quantity_Color& theColor = Quantity_NOC_WHITE);
+                                const Color1& theColor = Quantity_NOC_WHITE);
 
   //! Defines the direction of the light source
   //! according to a predefined directional vector.

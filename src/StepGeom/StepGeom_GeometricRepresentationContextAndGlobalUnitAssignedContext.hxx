@@ -69,7 +69,7 @@ public:
 
   Standard_EXPORT void SetUnits(const Handle(StepBasic_HArray1OfNamedUnit)& aUnits);
 
-  Standard_EXPORT Handle(StepBasic_HArray1OfNamedUnit) Units() const;
+  Standard_EXPORT Handle(StepBasic_HArray1OfNamedUnit) Units2() const;
 
   Standard_EXPORT Handle(StepBasic_NamedUnit) UnitsValue(const Standard_Integer num) const;
 

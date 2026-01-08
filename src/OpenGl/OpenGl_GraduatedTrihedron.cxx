@@ -568,8 +568,8 @@ void OpenGl_GraduatedTrihedron::Render(const Handle(OpenGl_Workspace)& theWorksp
   {
     if (!myAxes[0].Line.IsInitialized() || !myAxes[1].Line.IsInitialized()
         || !myAxes[2].Line.IsInitialized()
-        || OpenGl_Vec3(anOldMin - myMin).Modulus() > Precision::Confusion()
-        || OpenGl_Vec3(anOldMax - myMax).Modulus() > Precision::Confusion())
+        || OpenGl_Vec3(anOldMin - myMin).Modulus() > Precision1::Confusion()
+        || OpenGl_Vec3(anOldMax - myMax).Modulus() > Precision1::Confusion())
     {
       myAxes[0].InitLine(aContext, OpenGl_Vec3(myMax.x() - myMin.x(), 0.0f, 0.0f));
       myAxes[1].InitLine(aContext, OpenGl_Vec3(0.0f, myMax.y() - myMin.y(), 0.0f));
@@ -783,7 +783,7 @@ void OpenGl_GraduatedTrihedron::Axis::InitArrow(const Handle(OpenGl_Context)& th
 
   // Radial direction to the arrow
   OpenGl_Vec3 aRadial = OpenGl_Vec3::Cross(this->Direction, theNormal);
-  if (aRadial.Modulus() < (Standard_ShortReal)Precision::Confusion())
+  if (aRadial.Modulus() < (Standard_ShortReal)Precision1::Confusion())
   {
     return;
   }

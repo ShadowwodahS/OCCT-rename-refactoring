@@ -33,7 +33,7 @@ static Standard_Integer Standard_Failure_DefaultStackTraceLength = 0;
 
 //=================================================================================================
 
-ExceptionBase::StringRef* ExceptionBase::StringRef::allocate_message(
+ExceptionBase::StringRef1* ExceptionBase::StringRef1::allocate_message(
   const Standard_CString theString)
 {
   if (theString == NULL || *theString == '\0')
@@ -42,7 +42,7 @@ ExceptionBase::StringRef* ExceptionBase::StringRef::allocate_message(
   }
 
   const Standard_Size aLen = strlen(theString);
-  StringRef* aStrPtr = (StringRef*)Standard::AllocateOptimal(aLen + sizeof(Standard_Integer) + 1);
+  StringRef1* aStrPtr = (StringRef1*)Standard1::AllocateOptimal(aLen + sizeof(Standard_Integer) + 1);
   if (aStrPtr != NULL)
   {
     strcpy((char*)&aStrPtr->Message1[0], theString);
@@ -53,8 +53,8 @@ ExceptionBase::StringRef* ExceptionBase::StringRef::allocate_message(
 
 //=================================================================================================
 
-ExceptionBase::StringRef* ExceptionBase::StringRef::copy_message(
-  ExceptionBase::StringRef* theString)
+ExceptionBase::StringRef1* ExceptionBase::StringRef1::copy_message(
+  ExceptionBase::StringRef1* theString)
 {
   if (theString == NULL)
   {
@@ -67,13 +67,13 @@ ExceptionBase::StringRef* ExceptionBase::StringRef::copy_message(
 
 //=================================================================================================
 
-void ExceptionBase::StringRef::deallocate_message(ExceptionBase::StringRef* theString)
+void ExceptionBase::StringRef1::deallocate_message(ExceptionBase::StringRef1* theString)
 {
   if (theString != NULL)
   {
     if (--theString->Counter == 0)
     {
-      Standard::Free((void*)theString);
+      Standard1::Free((void*)theString);
     }
   }
 }
@@ -92,9 +92,9 @@ ExceptionBase::ExceptionBase()
     if (aStackBuffer != NULL)
     {
       memset(aStackBuffer, 0, aStackBufLen);
-      if (Standard::StackTrace(aStackBuffer, aStackBufLen, aStackLength, NULL, 1))
+      if (Standard1::StackTrace(aStackBuffer, aStackBufLen, aStackLength, NULL, 1))
       {
-        myStackTrace = StringRef::allocate_message(aStackBuffer);
+        myStackTrace = StringRef1::allocate_message(aStackBuffer);
       }
     }
   }
@@ -106,7 +106,7 @@ ExceptionBase::ExceptionBase(const Standard_CString theDesc)
     : myMessage(NULL),
       myStackTrace(NULL)
 {
-  myMessage                           = StringRef::allocate_message(theDesc);
+  myMessage                           = StringRef1::allocate_message(theDesc);
   const Standard_Integer aStackLength = Standard_Failure_DefaultStackTraceLength;
   if (aStackLength > 0)
   {
@@ -115,8 +115,8 @@ ExceptionBase::ExceptionBase(const Standard_CString theDesc)
     if (aStackBuffer != NULL)
     {
       memset(aStackBuffer, 0, aStackBufLen);
-      Standard::StackTrace(aStackBuffer, aStackBufLen, aStackLength, NULL, 1);
-      myStackTrace = StringRef::allocate_message(aStackBuffer);
+      Standard1::StackTrace(aStackBuffer, aStackBufLen, aStackLength, NULL, 1);
+      myStackTrace = StringRef1::allocate_message(aStackBuffer);
     }
   }
 }
@@ -128,8 +128,8 @@ ExceptionBase::ExceptionBase(const Standard_CString theDesc,
     : myMessage(NULL),
       myStackTrace(NULL)
 {
-  myMessage    = StringRef::allocate_message(theDesc);
-  myStackTrace = StringRef::allocate_message(theStackTrace);
+  myMessage    = StringRef1::allocate_message(theDesc);
+  myStackTrace = StringRef1::allocate_message(theStackTrace);
 }
 
 //=================================================================================================
@@ -139,16 +139,16 @@ ExceptionBase::ExceptionBase(const ExceptionBase& theFailure)
       myMessage(NULL),
       myStackTrace(NULL)
 {
-  myMessage    = StringRef::copy_message(theFailure.myMessage);
-  myStackTrace = StringRef::copy_message(theFailure.myStackTrace);
+  myMessage    = StringRef1::copy_message(theFailure.myMessage);
+  myStackTrace = StringRef1::copy_message(theFailure.myStackTrace);
 }
 
 //=================================================================================================
 
 ExceptionBase::~ExceptionBase()
 {
-  StringRef::deallocate_message(myMessage);
-  StringRef::deallocate_message(myStackTrace);
+  StringRef1::deallocate_message(myMessage);
+  StringRef1::deallocate_message(myStackTrace);
 }
 
 //=================================================================================================
@@ -167,8 +167,8 @@ void ExceptionBase::SetMessageString(const Standard_CString theDesc)
     return;
   }
 
-  StringRef::deallocate_message(myMessage);
-  myMessage = StringRef::allocate_message(theDesc);
+  StringRef1::deallocate_message(myMessage);
+  myMessage = StringRef1::allocate_message(theDesc);
 }
 
 //=================================================================================================
@@ -187,8 +187,8 @@ void ExceptionBase::SetStackString(const Standard_CString theStack)
     return;
   }
 
-  StringRef::deallocate_message(myStackTrace);
-  myStackTrace = StringRef::allocate_message(theStack);
+  StringRef1::deallocate_message(myStackTrace);
+  myStackTrace = StringRef1::allocate_message(theStack);
 }
 
 //=================================================================================================
@@ -235,8 +235,8 @@ void ExceptionBase::Reraise()
 void ExceptionBase::Jump()
 {
 #if defined(OCC_CONVERT_SIGNALS)
-  Standard_ErrorHandler::Error(this);
-  Standard_ErrorHandler::Abort(this);
+  ErrorHandler::Error(this);
+  ErrorHandler::Abort(this);
 #else
   Throw();
 #endif

@@ -1669,7 +1669,7 @@ void TopOpeBRepBuild_Builder::SplitShapes(TopOpeBRepTool_ShapeExplorer& Ex,
               Standard_Real               tt    = 0.127956477;
               Standard_Real               par   = (1 - tt) * first + tt * last;
               Point3d                      P3D   = C3D->Value(par);
-              Standard_Real               tol3d = Precision::Confusion();
+              Standard_Real               tol3d = Precision1::Confusion();
               BRepClass3d_SolidClassifier SCL(sol, P3D, tol3d);
               TopAbs_State                state = SCL.State();
               add                               = (state == ToBuild1);

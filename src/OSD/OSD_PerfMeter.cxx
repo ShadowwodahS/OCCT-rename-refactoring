@@ -43,7 +43,7 @@ typedef Standard_Real PERF_TIME;
 #define PICK_TIME(_utime)                                                                          \
   {                                                                                                \
     Standard_Real ktime;                                                                           \
-    OSD_Chronometer::GetThreadCPU(_utime, ktime);                                                  \
+    Chronometer::GetThreadCPU(_utime, ktime);                                                  \
   }
 
 typedef struct

@@ -29,7 +29,7 @@
 //! modelling.
 //! These allow you to create and modify labels
 //! and attributes for many basic data types.
-//! Standard topological and visualization
+//! Standard1 topological and visualization
 //! attributes have also been created.
 //! To find an attribute attached to a specific label,
 //! you use the GUID of the type of attribute you

@@ -280,7 +280,7 @@ void Edge2::CopyRanges(const TopoEdge&  toedge,
         }
       }
       if (doCheck
-          && ((fabs(newF - aCrvF) > Precision::PConfusion() && newF < aCrvF) || newF >= aCrvL))
+          && ((fabs(newF - aCrvF) > Precision1::PConfusion() && newF < aCrvF) || newF >= aCrvL))
       {
         Standard_Real aShift = AdjustByPeriod(newF, 0.5 * (aCrvF + aCrvL), aPeriod);
         newF += aShift;
@@ -590,7 +590,7 @@ Handle(GeomCurve2d) Edge2::TransformPCurve(const Handle(GeomCurve2d)& pcurve,
       // clang-format off
       Handle(GeomCurve2d) tcurve = new Geom2d_TrimmedCurve(result,aFirst,aLast); //protection against parabols ets
       // clang-format on
-      Geom2dConvert_ApproxCurve approx(tcurve, Precision::Approximation(), GeomAbs_C1, 100, 6);
+      Geom2dConvert_ApproxCurve approx(tcurve, Precision1::Approximation(), GeomAbs_C1, 100, 6);
       if (approx.HasResult())
         aBSpline2d = approx.Curve();
       else

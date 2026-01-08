@@ -264,7 +264,7 @@ public: //! @name deprecated methods
   Standard_DEPRECATED("Method has been moved to Draw1::ParseColor()")
   Standard_EXPORT static Standard_Integer ParseColor(const Standard_Integer   theArgNb,
                                                      const char* const* const theArgVec,
-                                                     Quantity_Color&          theColor);
+                                                     Color1&          theColor);
 
   //! Parses boolean argument.
   //! Handles either flag specified by 0|1 or on|off.
@@ -272,7 +272,7 @@ public: //! @name deprecated methods
   Standard_EXPORT static Standard_Boolean ParseOnOff(Standard_CString  theArg,
                                                      Standard_Boolean& theIsOn);
 
-  Standard_DEPRECATED("Method has been moved to Quantity_Color::ColorFromName()")
+  Standard_DEPRECATED("Method has been moved to Color1::ColorFromName()")
   Standard_EXPORT static Quantity_NameOfColor GetColorFromName(const Standard_CString name);
 
 private:

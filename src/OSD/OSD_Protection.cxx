@@ -579,7 +579,7 @@ static OSD_SingleProtection TabProtSub[16][16] = {{OSD_None,
 
 // Initialize System, Group, World for read only and User for read & write
 
-OSD_Protection::OSD_Protection()
+Protection1::Protection1()
 {
   s = OSD_R;
   u = OSD_RWD;
@@ -587,7 +587,7 @@ OSD_Protection::OSD_Protection()
   w = OSD_R;
 }
 
-OSD_Protection::OSD_Protection(const OSD_SingleProtection System,
+Protection1::Protection1(const OSD_SingleProtection System,
                                const OSD_SingleProtection User,
                                const OSD_SingleProtection Group,
                                const OSD_SingleProtection World)
@@ -599,7 +599,7 @@ OSD_Protection::OSD_Protection(const OSD_SingleProtection System,
   w = World;
 }
 
-void OSD_Protection::Values(OSD_SingleProtection& System,
+void Protection1::Values(OSD_SingleProtection& System,
                             OSD_SingleProtection& User,
                             OSD_SingleProtection& Group,
                             OSD_SingleProtection& World)
@@ -610,7 +610,7 @@ void OSD_Protection::Values(OSD_SingleProtection& System,
   World  = w;
 }
 
-void OSD_Protection::SetValues(const OSD_SingleProtection System,
+void Protection1::SetValues(const OSD_SingleProtection System,
                                const OSD_SingleProtection User,
                                const OSD_SingleProtection Group,
                                const OSD_SingleProtection World)
@@ -622,59 +622,59 @@ void OSD_Protection::SetValues(const OSD_SingleProtection System,
   w = World;
 }
 
-void OSD_Protection::SetSystem(const OSD_SingleProtection priv)
+void Protection1::SetSystem(const OSD_SingleProtection priv)
 {
   s = priv;
 }
 
-void OSD_Protection::SetUser(const OSD_SingleProtection priv)
+void Protection1::SetUser(const OSD_SingleProtection priv)
 {
   u = priv;
 }
 
-void OSD_Protection::SetGroup(const OSD_SingleProtection priv)
+void Protection1::SetGroup(const OSD_SingleProtection priv)
 {
   g = priv;
 }
 
-void OSD_Protection::SetWorld(const OSD_SingleProtection priv)
+void Protection1::SetWorld(const OSD_SingleProtection priv)
 {
   w = priv;
 }
 
-OSD_SingleProtection OSD_Protection::System() const
+OSD_SingleProtection Protection1::System() const
 {
   return (s);
 }
 
-OSD_SingleProtection OSD_Protection::User() const
+OSD_SingleProtection Protection1::User() const
 {
   return (u);
 }
 
-OSD_SingleProtection OSD_Protection::Group() const
+OSD_SingleProtection Protection1::Group() const
 {
   return (g);
 }
 
-OSD_SingleProtection OSD_Protection::World() const
+OSD_SingleProtection Protection1::World() const
 {
   return (w);
 }
 
-void OSD_Protection::Add(OSD_SingleProtection& aProtection, const OSD_SingleProtection aRight)
+void Protection1::Add(OSD_SingleProtection& aProtection, const OSD_SingleProtection aRight)
 {
   aProtection = TabProtAdd[aProtection][aRight];
 }
 
-void OSD_Protection::Sub(OSD_SingleProtection& aProtection, const OSD_SingleProtection aRight)
+void Protection1::Sub(OSD_SingleProtection& aProtection, const OSD_SingleProtection aRight)
 {
   aProtection = TabProtSub[aProtection][aRight];
 }
 
 /* Get internal UNIX's access rights for user, group and other */
 
-Standard_Integer OSD_Protection::Internal() const
+Standard_Integer Protection1::Internal() const
 {
 
   Standard_Integer internal_prot = 0;
@@ -721,7 +721,7 @@ Standard_Integer OSD_Protection::Internal() const
 #else
 
 //------------------------------------------------------------------------
-//-------------------  WNT Sources of OSD_Protection ---------------------
+//-------------------  WNT Sources of Protection1 ---------------------
 //------------------------------------------------------------------------
 
   #include <OSD_Protection.hxx>
@@ -734,7 +734,7 @@ Standard_Integer OSD_Protection::Internal() const
 static Standard_Integer __fastcall _get_mask(OSD_SingleProtection);
 static OSD_SingleProtection __fastcall _get_prot(Standard_Integer);
 
-OSD_Protection ::OSD_Protection()
+Protection1 ::Protection1()
 {
 
   s = OSD_RWXD;
@@ -744,7 +744,7 @@ OSD_Protection ::OSD_Protection()
 
 } // end constructor ( 1 )
 
-OSD_Protection ::OSD_Protection(const OSD_SingleProtection System,
+Protection1 ::Protection1(const OSD_SingleProtection System,
                                 const OSD_SingleProtection User,
                                 const OSD_SingleProtection Group,
                                 const OSD_SingleProtection World)
@@ -754,7 +754,7 @@ OSD_Protection ::OSD_Protection(const OSD_SingleProtection System,
 
 } // end constructor ( 2 )
 
-void OSD_Protection ::Values(OSD_SingleProtection& System,
+void Protection1 ::Values(OSD_SingleProtection& System,
                              OSD_SingleProtection& User,
                              OSD_SingleProtection& Group,
                              OSD_SingleProtection& World)
@@ -764,9 +764,9 @@ void OSD_Protection ::Values(OSD_SingleProtection& System,
   Group  = g;
   World  = w;
 
-} // end OSD_Protection :: Values
+} // end Protection1 :: Values
 
-void OSD_Protection ::SetValues(const OSD_SingleProtection System,
+void Protection1 ::SetValues(const OSD_SingleProtection System,
                                 const OSD_SingleProtection User,
                                 const OSD_SingleProtection Group,
                                 const OSD_SingleProtection World)
@@ -777,65 +777,65 @@ void OSD_Protection ::SetValues(const OSD_SingleProtection System,
   g = Group;
   w = World;
 
-} // end OSD_Protection :: SetValues
+} // end Protection1 :: SetValues
 
-void OSD_Protection ::SetSystem(const OSD_SingleProtection priv)
+void Protection1 ::SetSystem(const OSD_SingleProtection priv)
 {
 
   s = priv;
 
-} // end OSD_Protection :: SetSystem
+} // end Protection1 :: SetSystem
 
-void OSD_Protection ::SetUser(const OSD_SingleProtection priv)
+void Protection1 ::SetUser(const OSD_SingleProtection priv)
 {
 
   u = priv;
 
-} // end OSD_Protection :: SetUser
+} // end Protection1 :: SetUser
 
-void OSD_Protection ::SetGroup(const OSD_SingleProtection priv)
+void Protection1 ::SetGroup(const OSD_SingleProtection priv)
 {
 
   g = priv;
 
-} // end OSD_Protection :: SetGroup
+} // end Protection1 :: SetGroup
 
-void OSD_Protection ::SetWorld(const OSD_SingleProtection priv)
+void Protection1 ::SetWorld(const OSD_SingleProtection priv)
 {
 
   w = priv;
 
-} // end OSD_Protection :: SetWorld
+} // end Protection1 :: SetWorld
 
-OSD_SingleProtection OSD_Protection ::System() const
+OSD_SingleProtection Protection1 ::System() const
 {
 
   return s;
 
-} // end OSD_Protection :: System
+} // end Protection1 :: System
 
-OSD_SingleProtection OSD_Protection ::User() const
+OSD_SingleProtection Protection1 ::User() const
 {
 
   return u;
 
-} // end OSD_Protection :: User
+} // end Protection1 :: User
 
-OSD_SingleProtection OSD_Protection ::Group() const
+OSD_SingleProtection Protection1 ::Group() const
 {
 
   return g;
 
-} // end OSD_Protection :: Group
+} // end Protection1 :: Group
 
-OSD_SingleProtection OSD_Protection ::World() const
+OSD_SingleProtection Protection1 ::World() const
 {
 
   return w;
 
-} // end OSD_Protection :: World
+} // end Protection1 :: World
 
-void OSD_Protection ::Add(OSD_SingleProtection& aProt, const OSD_SingleProtection aRight)
+void Protection1 ::Add(OSD_SingleProtection& aProt, const OSD_SingleProtection aRight)
 {
 
   Standard_Integer pMask = 0;
@@ -863,9 +863,9 @@ void OSD_Protection ::Add(OSD_SingleProtection& aProt, const OSD_SingleProtectio
 
   aProt = _get_prot(sMask);
 
-} // end OSD_Protection :: Add
+} // end Protection1 :: Add
 
-void OSD_Protection ::Sub(OSD_SingleProtection& aProt, const OSD_SingleProtection aRight)
+void Protection1 ::Sub(OSD_SingleProtection& aProt, const OSD_SingleProtection aRight)
 {
 
   Standard_Integer pMask = 0;
@@ -892,14 +892,14 @@ void OSD_Protection ::Sub(OSD_SingleProtection& aProt, const OSD_SingleProtectio
 
   aProt = _get_prot(pMask);
 
-} // end OSD_Protection :: Sub
+} // end Protection1 :: Sub
 
-Standard_Integer OSD_Protection ::Internal() const
+Standard_Integer Protection1 ::Internal() const
 {
 
   return 0;
 
-} // end OSD_Protection :: Internal
+} // end Protection1 :: Internal
 
 static Standard_Integer __fastcall _get_mask(OSD_SingleProtection p)
 {

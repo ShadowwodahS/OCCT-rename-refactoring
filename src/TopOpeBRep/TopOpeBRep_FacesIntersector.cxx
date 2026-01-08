@@ -160,7 +160,7 @@ static Handle(IntPatch_WLine) GetMergedWLineOnRestriction(
 TopOpeBRep_FacesIntersector::TopOpeBRep_FacesIntersector()
 {
   ResetIntersection();
-  myTol1 = myTol2   = Precision::Confusion();
+  myTol1 = myTol2   = Precision1::Confusion();
   myForceTolerances = Standard_False;
   mySurface1        = new BRepAdaptor_Surface();
   mySurface2        = new BRepAdaptor_Surface();
@@ -596,7 +596,7 @@ void TopOpeBRep_FacesIntersector::ShapeTolerances(const TopoShape&, const TopoSh
 #endif
 {
   //  myTol1 = Max(ToleranceMax(S1,TopAbs_EDGE),ToleranceMax(S2,TopAbs_EDGE));
-  myTol1            = Precision::Confusion();
+  myTol1            = Precision1::Confusion();
   myTol2            = myTol1;
   myForceTolerances = Standard_False;
 #ifdef OCCT_DEBUG
@@ -618,7 +618,7 @@ Standard_Real TopOpeBRep_FacesIntersector::ToleranceMax(const TopoShape&    S,
 {
   ShapeExplorer e(S, T);
   if (!e.More())
-    return Precision::Intersection();
+    return Precision1::Intersection();
   else
   {
     Standard_Real tol = RealFirst();
@@ -789,7 +789,7 @@ static Handle(IntPatch_RLine) BuildRLineBasedOnWLine(const Handle(IntPatch_WLine
     anRLine->AddVertex(VtxLast);
     anRLine->SetFirstPoint(1);
     anRLine->SetLastPoint(nbvtx);
-    anRLine->ComputeVertexParameters(Precision::Confusion());
+    anRLine->ComputeVertexParameters(Precision1::Confusion());
   }
   else
   {
@@ -836,7 +836,7 @@ static Handle(IntPatch_RLine) BuildRLineBasedOnWLine(const Handle(IntPatch_WLine
     anRLine->AddVertex(VtxLast);
     anRLine->SetFirstPoint(1);
     anRLine->SetLastPoint(nbvtx);
-    anRLine->ComputeVertexParameters(Precision::Confusion());
+    anRLine->ComputeVertexParameters(Precision1::Confusion());
   }
 
   return anRLine;

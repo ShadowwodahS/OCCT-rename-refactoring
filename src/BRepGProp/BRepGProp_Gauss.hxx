@@ -76,7 +76,7 @@ public: //! @name public API
   //! delimited by the surface and point or surface and plane. Surface can be closed.
   //! The method is quick and its precision is enough for many cases of analytical surfaces.
   //! Non-adaptive 2D Gauss integration with predefined numbers of Gauss points
-  //! is used. Numbers of points depend on types of surfaces and curves.
+  //! is used. Numbers1 of points depend on types of surfaces and curves.
   //! Error of the computation is not calculated.
   //! @param theSurface - bounding surface of the region;
   //! @param theLocation - location of the point or the plane;
@@ -96,7 +96,7 @@ public: //! @name public API
   //! Computes the global properties of a surface. Surface can be closed.
   //! The method is quick and its precision is enough for many cases of analytical surfaces.
   //! Non-adaptive 2D Gauss integration with predefined numbers of Gauss points
-  //! is used. Numbers of points depend on types of surfaces and curves.
+  //! is used. Numbers1 of points depend on types of surfaces and curves.
   //! Error of the computation is not calculated.
   //! @param theSurface - bounding surface of the region;
   //! @param theLocation - surface location;
@@ -113,7 +113,7 @@ public: //! @name public API
   //! delimited by the surface and point or surface and plane. Surface can be closed.
   //! The method is quick and its precision is enough for many cases of analytical surfaces.
   //! Non-adaptive 2D Gauss integration with predefined numbers of Gauss points is used.
-  //! Numbers of points depend on types of surfaces and curves.
+  //! Numbers1 of points depend on types of surfaces and curves.
   //! Error of the computation is not calculated.
   //! @param theSurface - bounding surface of the region;
   //! @param theDomain - surface boundings;
@@ -135,7 +135,7 @@ public: //! @name public API
   //! Computes the global properties of a surface. Surface can be closed.
   //! The method is quick and its precision is enough for many cases of analytical surfaces.
   //! Non-adaptive 2D Gauss integration with predefined numbers of Gauss points
-  //! is used. Numbers of points depend on types of surfaces and curves.
+  //! is used. Numbers1 of points depend on types of surfaces and curves.
   //! Error of the computation is not calculated.
   //! @param theSurface - bounding surface of the region;
   //! @param theDomain - surface boundings;

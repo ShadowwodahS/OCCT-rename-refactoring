@@ -164,7 +164,7 @@ static void EvalParameters(const Geom2dAdaptor_Curve& Bis,
                            TColgp_SequenceOfPnt&      Params)
 {
   Geom2dInt_GInter        Intersector;
-  constexpr Standard_Real Tol = Precision::Confusion();
+  constexpr Standard_Real Tol = Precision1::Confusion();
   //  Standard_Real TolC = 1.e-9;
 
   const Geom2dAdaptor_Curve& CBis(Bis);
@@ -518,7 +518,7 @@ void BRepFill_TrimEdgeTool::IntersectWith(const TopoEdge&     Edge1,
   // The tolerance can be eventually changed.
 
   Point3d                  P1, P2;
-  constexpr Standard_Real Tol      = 4 * 100 * Precision::PConfusion();
+  constexpr Standard_Real Tol      = 4 * 100 * Precision1::PConfusion();
   Standard_Integer        i        = 1;
   Standard_Integer        NbPoints = Params.Length();
 
@@ -664,7 +664,7 @@ void BRepFill_TrimEdgeTool::AddOrConfuse(const Standard_Boolean Start,
 {
   Standard_Boolean        ToProj = Standard_True;
   gp_Pnt2d                PBis;
-  constexpr Standard_Real Tol = 10 * Precision::Confusion();
+  constexpr Standard_Real Tol = 10 * Precision1::Confusion();
 
   // return curves associated to edges.
   TopLoc_Location      L;
@@ -786,6 +786,6 @@ Standard_Boolean BRepFill_TrimEdgeTool::IsInside(const gp_Pnt2d& P) const
   }
 
   //  return (Dist < Abs(myOffset);
-  // return (Dist < Abs(myOffset) + Precision::Confusion());
-  return (Dist < Abs(myOffset) - Precision::Confusion());
+  // return (Dist < Abs(myOffset) + Precision1::Confusion());
+  return (Dist < Abs(myOffset) - Precision1::Confusion());
 }

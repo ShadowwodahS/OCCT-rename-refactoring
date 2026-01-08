@@ -26,8 +26,8 @@ IMPLEMENT_STANDARD_RTTIEXT(IntPatch_GLine, IntPatch_Line)
 //  modified by Edward AGAPOV (eap) Wed Mar 6 2002 (bug occ212)
 //  -- case: points with equal params == PI/2
 
-//-- Precision::PConfusion()*1000.0  -> 1e-6
-// #define PrecisionPConfusion ( Precision::PConfusion()*1000.0 )
+//-- Precision1::PConfusion()*1000.0  -> 1e-6
+// #define PrecisionPConfusion ( Precision1::PConfusion()*1000.0 )
 
 #include <gp_Pln.hxx>
 
@@ -383,7 +383,7 @@ void IntPatch_GLine::AddVertex(const IntPatch_Point& Pnt)
           par -= M_PI + M_PI;
         if (par < pf)
         {
-          constexpr Standard_Real PrecisionPConfusion(Precision::PConfusion() * 1000.0);
+          constexpr Standard_Real PrecisionPConfusion(Precision1::PConfusion() * 1000.0);
           if ((pf - par) > PrecisionPConfusion)
           {
             return;
@@ -434,7 +434,7 @@ void IntPatch_GLine::ComputeVertexParameters(const Standard_Real /*Tol*/)
 
   Standard_Integer nbvtx = NbVertex();
 
-  constexpr Standard_Real PrecisionPConfusion(Precision::PConfusion() * 1000.0);
+  constexpr Standard_Real PrecisionPConfusion(Precision1::PConfusion() * 1000.0);
 
   do
   {

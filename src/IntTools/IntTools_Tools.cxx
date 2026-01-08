@@ -94,7 +94,7 @@ Standard_Boolean Tools2::IsClosed(const Handle(GeomCurve3d)& aC3D)
   aC3D->D0(aL, aP2);
 
   //
-  aPC   = Precision::Confusion();
+  aPC   = Precision1::Confusion();
   aPC   = aPC * aPC;
   aDist = aP1.SquareDistance(aP2);
   bRet  = aDist < aPC;
@@ -274,7 +274,7 @@ Standard_Boolean Tools2::IsVertex(const Point3d&        aP,
 
   aTolV = BRepInspector::Tolerance(aV);
   //
-  dTol  = Precision::Confusion();
+  dTol  = Precision1::Confusion();
   aTolV = aTolV + aTolPV + dTol;
   //
   aPv = BRepInspector::Pnt(aV);
@@ -579,10 +579,10 @@ Standard_Boolean Tools2::CheckCurve(const IntTools_Curve& theCurve, Box2& theBox
   //
   // Estimate the bounding box of the curve comparing it with the
   // minimal length for the curve from which the valid edge can be built -
-  // 3*Precision::Confusion():
-  // - 2 vertices with the Precision::Confusion() tolerance;
-  // - plus Precision::Confusion() as the minimal distance between vertices.
-  Standard_Real aTolCmp = 3 * Precision::Confusion();
+  // 3*Precision1::Confusion():
+  // - 2 vertices with the Precision1::Confusion() tolerance;
+  // - plus Precision1::Confusion() as the minimal distance between vertices.
+  Standard_Real aTolCmp = 3 * Precision1::Confusion();
   //
   // Check the size of the box using the Box2::IsThin() method
   // which does not use the gap of the box.
@@ -805,7 +805,7 @@ Standard_Real Tools2::ComputeIntRange(const Standard_Real theTol1,
 {
   Standard_Real aDt;
   //
-  if (Abs(M_PI_2 - theAngle) < Precision::Angular())
+  if (Abs(M_PI_2 - theAngle) < Precision1::Angular())
   {
     aDt = theTol2;
   }

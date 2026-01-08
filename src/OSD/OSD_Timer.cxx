@@ -81,7 +81,7 @@ Standard_Real OSD_Timer::GetWallClockTime()
 //=================================================================================================
 
 OSD_Timer::OSD_Timer(Standard_Boolean theThisThreadOnly)
-    : OSD_Chronometer(theThisThreadOnly),
+    : Chronometer(theThisThreadOnly),
       myTimeStart(0.0),
       myTimeCumul(0.0)
 {
@@ -94,7 +94,7 @@ void OSD_Timer::Reset(const Standard_Real theTimeElapsedSec)
 {
   myTimeStart = 0.0;
   myTimeCumul = theTimeElapsedSec;
-  OSD_Chronometer::Reset();
+  Chronometer::Reset();
 }
 
 //=================================================================================================
@@ -102,7 +102,7 @@ void OSD_Timer::Reset(const Standard_Real theTimeElapsedSec)
 void OSD_Timer::Reset()
 {
   myTimeStart = myTimeCumul = 0.0;
-  OSD_Chronometer::Reset();
+  Chronometer::Reset();
 }
 
 //=================================================================================================
@@ -111,7 +111,7 @@ void OSD_Timer::Restart()
 {
   myTimeStart = GetWallClockTime();
   myTimeCumul = 0.0;
-  OSD_Chronometer::Restart();
+  Chronometer::Restart();
 }
 
 //=================================================================================================
@@ -143,7 +143,7 @@ void OSD_Timer::Show(Standard_Real&    theSeconds,
   const Standard_Real aTimeCumul =
     myIsStopped ? myTimeCumul : myTimeCumul + GetWallClockTime() - myTimeStart;
   timeToHoursMinutesSeconds(aTimeCumul, theHours, theMinutes, theSeconds);
-  OSD_Chronometer::Show(theCPUtime);
+  Chronometer::Show(theCPUtime);
 }
 
 //=================================================================================================
@@ -159,7 +159,7 @@ void OSD_Timer::Show(Standard_OStream& theOStream) const
   std::streamsize prec = theOStream.precision(12);
   theOStream << "Elapsed time: " << anHours << " Hours " << aMinutes << " Minutes " << aSeconds
              << " Seconds\n";
-  OSD_Chronometer::Show(theOStream);
+  Chronometer::Show(theOStream);
   theOStream.precision(prec);
 }
 
@@ -170,7 +170,7 @@ void OSD_Timer::Stop()
   if (!myIsStopped)
   {
     myTimeCumul += GetWallClockTime() - myTimeStart;
-    OSD_Chronometer::Stop();
+    Chronometer::Stop();
   }
 }
 
@@ -181,6 +181,6 @@ void OSD_Timer::Start()
   if (myIsStopped)
   {
     myTimeStart = GetWallClockTime();
-    OSD_Chronometer::Start();
+    Chronometer::Start();
   }
 }

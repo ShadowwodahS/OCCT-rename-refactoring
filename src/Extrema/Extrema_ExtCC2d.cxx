@@ -514,8 +514,8 @@ void Extrema_ExtCC2d::Results(const ExtElC2d& AlgExt,
           if (Period1 != 0.0)
             U = ElCLib1::InPeriod(U, Ut11, Ut11 + Period1);
         }
-        if ((U >= Ut11 - Precision::PConfusion()) && (U <= Ut12 + Precision::PConfusion())
-            && (U2 >= Ut21 - Precision::PConfusion()) && (U2 <= Ut22 + Precision::PConfusion()))
+        if ((U >= Ut11 - Precision1::PConfusion()) && (U <= Ut12 + Precision1::PConfusion())
+            && (U2 >= Ut21 - Precision1::PConfusion()) && (U2 <= Ut22 + Precision1::PConfusion()))
         {
           mynbext++;
           Val = AlgExt.SquareDistance(i);
@@ -573,8 +573,8 @@ void Extrema_ExtCC2d::Results(const CurveCurveExtrema2d1& AlgExt,
       if (Period2 != 0.0)
         U2 = ElCLib1::InPeriod(U2, Ut21, Ut21 + Period2);
 
-      if ((U >= Ut11 - Precision::PConfusion()) && (U <= Ut12 + Precision::PConfusion())
-          && (U2 >= Ut21 - Precision::PConfusion()) && (U2 <= Ut22 + Precision::PConfusion()))
+      if ((U >= Ut11 - Precision1::PConfusion()) && (U <= Ut12 + Precision1::PConfusion())
+          && (U2 >= Ut21 - Precision1::PConfusion()) && (U2 <= Ut22 + Precision1::PConfusion()))
       {
         mynbext++;
         Val = AlgExt.SquareDistance(i);

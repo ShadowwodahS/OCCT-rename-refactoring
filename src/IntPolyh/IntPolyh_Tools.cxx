@@ -35,8 +35,8 @@ void Tools4::IsEnlargePossible(const Handle(Adaptor3d_Surface)& theSurf,
     if (!theSurf->IsUClosed() && !theSurf->IsUPeriodic())
     {
       // Check that surface is not infinite in U direction
-      if (!Precision::IsInfinite(theSurf->FirstUParameter())
-          && !Precision::IsInfinite(theSurf->LastUParameter()))
+      if (!Precision1::IsInfinite(theSurf->FirstUParameter())
+          && !Precision1::IsInfinite(theSurf->LastUParameter()))
       {
         theUEnlarge = Standard_True;
       }
@@ -46,8 +46,8 @@ void Tools4::IsEnlargePossible(const Handle(Adaptor3d_Surface)& theSurf,
     if (!theSurf->IsVClosed() && !theSurf->IsVPeriodic())
     {
       // Check that surface is not infinite in V direction
-      if (!Precision::IsInfinite(theSurf->FirstVParameter())
-          && !Precision::IsInfinite(theSurf->LastVParameter()))
+      if (!Precision1::IsInfinite(theSurf->FirstVParameter())
+          && !Precision1::IsInfinite(theSurf->LastVParameter()))
       {
         theVEnlarge = Standard_True;
       }

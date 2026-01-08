@@ -223,7 +223,7 @@ DFBrowser_Window::DFBrowser_Window()
   myMainWindow->addDockWidget(Qt::RightDockWidgetArea, aViewDockWidget);
 
   QColor aHColor(229, 243, 255);
-  myViewWindow->Displayer()->SetAttributeColor(Quantity_Color(aHColor.red() / 255.,
+  myViewWindow->Displayer()->SetAttributeColor(Color1(aHColor.red() / 255.,
                                                               aHColor.green() / 255.,
                                                               aHColor.blue() / 255.,
                                                               Quantity_TOC_sRGB),
@@ -670,7 +670,7 @@ AsciiString1 DFBrowser_Window::TmpDirectory()
   SystemPath      aTmpPath(aTmpDir);
   OSD_Directory aTmpDirectory(aTmpPath);
   if (!aTmpDirectory.Exists())
-    aTmpDirectory.Build(OSD_Protection());
+    aTmpDirectory.Build(Protection1());
 #else
   OSD_Directory aTmpDirectory = OSD_Directory::BuildTemporary();
   SystemPath      aTmpPath;
@@ -870,7 +870,7 @@ void DFBrowser_Window::onPaneSelectionChanged(const QItemSelection&,
       {
         AsciiString1 aPluginShortName = aPluginName.SubString(3, aPluginName.Length());
         QString                 aMessage         = QString("TShape %1 is sent to %2.")
-                             .arg(Standard_Dump::GetPointerInfo(aParameters.Last()).ToCString())
+                             .arg(DumpTool::GetPointerInfo(aParameters.Last()).ToCString())
                              .arg(aPluginShortName.ToCString());
         QString aQuestion = QString("Would you like to activate %1 immediately?\n")
                               .arg(aPluginShortName.ToCString())

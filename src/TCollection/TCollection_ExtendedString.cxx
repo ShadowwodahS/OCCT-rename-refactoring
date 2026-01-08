@@ -50,7 +50,7 @@ inline Standard_ExtCharacter* Standard_UNUSED fromWideString(const Standard_Wide
   }
   const Standard_Size aRoundSize = (((theLength + 1) * sizeof(Standard_ExtCharacter)) + 3) & ~0x3;
   Standard_ExtCharacter* aString =
-    static_cast<Standard_PExtCharacter>(Standard::AllocateOptimal(aRoundSize));
+    static_cast<Standard_PExtCharacter>(Standard1::AllocateOptimal(aRoundSize));
   NCollection_UtfWideIter anIterRead(theUtfString);
   for (Standard_ExtCharacter* anIterWrite = aString; *anIterRead != 0; ++anIterRead)
   {
@@ -75,7 +75,7 @@ inline Standard_ExtCharacter* Standard_UNUSED
   }
   const Standard_Size aRoundSize = (((theLength + 1) * sizeof(Standard_ExtCharacter)) + 3) & ~0x3;
   Standard_ExtCharacter* aString =
-    static_cast<Standard_PExtCharacter>(Standard::AllocateOptimal(aRoundSize));
+    static_cast<Standard_PExtCharacter>(Standard1::AllocateOptimal(aRoundSize));
   const Standard_Integer aSize = theLength * sizeof(Standard_ExtCharacter);
   memcpy(aString, theUtfString, aSize);
   aString[theLength] = 0;
@@ -365,7 +365,7 @@ void UtfString::Move(UtfString&& theOther)
   {
     if (mystring != THE_DEFAULT_EXT_CHAR_STRING)
     {
-      Standard::Free(mystring);
+      Standard1::Free(mystring);
     }
     mystring = theOther.mystring;
     mylength = theOther.mylength;
@@ -948,7 +948,7 @@ void UtfString::allocate(const int theLength)
   else
   {
     const Standard_Size aRoundSize = (((theLength + 1) * sizeof(Standard_ExtCharacter)) + 3) & ~0x3;
-    mystring           = static_cast<Standard_PExtCharacter>(Standard::AllocateOptimal(aRoundSize));
+    mystring           = static_cast<Standard_PExtCharacter>(Standard1::AllocateOptimal(aRoundSize));
     mystring[mylength] = '\0';
   }
 }
@@ -963,12 +963,12 @@ void UtfString::reallocate(const int theLength)
     {
       const Standard_Size aRoundSize =
         (((theLength + 1) * sizeof(Standard_ExtCharacter)) + 3) & ~0x3;
-      mystring = static_cast<Standard_PExtCharacter>(Standard::AllocateOptimal(aRoundSize));
+      mystring = static_cast<Standard_PExtCharacter>(Standard1::AllocateOptimal(aRoundSize));
     }
     else
     {
       mystring = static_cast<Standard_PExtCharacter>(
-        Standard::Reallocate(mystring, (theLength + 1) * sizeof(Standard_ExtCharacter)));
+        Standard1::Reallocate(mystring, (theLength + 1) * sizeof(Standard_ExtCharacter)));
     }
     mystring[theLength] = 0;
   }
@@ -985,7 +985,7 @@ void UtfString::deallocate()
 {
   if (mystring != THE_DEFAULT_EXT_CHAR_STRING)
   {
-    Standard::Free(mystring);
+    Standard1::Free(mystring);
   }
   mylength = 0;
   mystring = THE_DEFAULT_EXT_CHAR_STRING;

@@ -31,14 +31,14 @@ IMPLEMENT_STANDARD_RTTIEXT(Approx_CurvlinFunc, RefObject)
 
 #ifdef OCCT_DEBUG_CHRONO
   #include <OSD_Timer.hxx>
-static OSD_Chronometer           chr_uparam;
+static Chronometer           chr_uparam;
 Standard_EXPORT Standard_Integer uparam_count;
 Standard_EXPORT Standard_Real    t_uparam;
 
-// Standard_IMPORT extern void InitChron(OSD_Chronometer& ch);
-Standard_IMPORT void InitChron(OSD_Chronometer& ch);
-// Standard_IMPORT extern void ResultChron( OSD_Chronometer & ch, Standard_Real & time);
-Standard_IMPORT void ResultChron(OSD_Chronometer& ch, Standard_Real& time);
+// Standard_IMPORT extern void InitChron(Chronometer& ch);
+Standard_IMPORT void InitChron(Chronometer& ch);
+// Standard_IMPORT extern void ResultChron( Chronometer & ch, Standard_Real & time);
+Standard_IMPORT void ResultChron(Chronometer& ch, Standard_Real& time);
 #endif
 
 static Standard_Real cubic(const Standard_Real X, const Standard_Real* Xi, const Standard_Real* Yi)

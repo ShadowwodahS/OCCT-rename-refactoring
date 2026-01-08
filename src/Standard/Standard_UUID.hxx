@@ -17,7 +17,7 @@
 
 #include <Standard_Type.hxx>
 
-struct Standard_UUID
+struct UUID
 {
   uint32_t Data1;
   uint16_t Data2;

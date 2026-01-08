@@ -108,7 +108,7 @@ void PointOnSurfProjector::Init(const Point3d&               P,
                                       const Extrema_ExtAlgo       theProjAlgo)
 
 {
-  Init(P, Surface, Precision::Confusion(), theProjAlgo);
+  Init(P, Surface, Precision1::Confusion(), theProjAlgo);
 }
 
 //=================================================================================================
@@ -149,7 +149,7 @@ void PointOnSurfProjector::Init(const Point3d&               P,
                                       const Standard_Real         Vsup,
                                       const Extrema_ExtAlgo       theProjAlgo)
 {
-  constexpr Standard_Real Tolerance = Precision::PConfusion();
+  constexpr Standard_Real Tolerance = Precision1::PConfusion();
   // modified by NIZNHY-PKV Thu Apr  4 10:38:23 2002 f
   // GeomAdaptor_Surface TheSurface (Surface,Umin,Usup,Vmin,Vsup);
   // myExtPS = Extrema_ExtPS (P, TheSurface, Tol, Tol);
@@ -196,7 +196,7 @@ void PointOnSurfProjector::Init(const Handle(GeomSurface)& Surface,
                                       const Standard_Real         Vsup,
                                       const Extrema_ExtAlgo       theProjAlgo)
 {
-  constexpr Standard_Real Tolerance = Precision::PConfusion();
+  constexpr Standard_Real Tolerance = Precision1::PConfusion();
   // modified by NIZNHY-PKV Thu Apr  4 10:41:50 2002 f
   // GeomAdaptor_Surface TheSurface (Surface,Umin,Usup,Vmin,Vsup);
   myGeomAdaptor.Load(Surface, Umin, Usup, Vmin, Vsup);

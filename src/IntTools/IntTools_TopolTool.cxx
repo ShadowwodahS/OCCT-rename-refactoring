@@ -96,10 +96,10 @@ void IntTools_TopolTool::ComputeSamplePoints()
     vsup               = temp;
   }
   Standard_Boolean isbiguinf, isbigusup, isbigvinf, isbigvsup;
-  isbiguinf = Precision::IsNegativeInfinite(uinf);
-  isbigusup = Precision::IsPositiveInfinite(usup);
-  isbigvinf = Precision::IsNegativeInfinite(vinf);
-  isbigvsup = Precision::IsPositiveInfinite(vsup);
+  isbiguinf = Precision1::IsNegativeInfinite(uinf);
+  isbigusup = Precision1::IsPositiveInfinite(usup);
+  isbigvinf = Precision1::IsNegativeInfinite(vinf);
+  isbigvsup = Precision1::IsPositiveInfinite(vsup);
 
   if (isbiguinf && isbigusup)
   {
@@ -150,7 +150,7 @@ void IntTools_TopolTool::ComputeSamplePoints()
       {
         aMaxAngle = ACos(1. - aDeflection / aRadius) * 2.;
       }
-      if (aMaxAngle > Precision::Angular())
+      if (aMaxAngle > Precision1::Angular())
       {
         nbsu = Standard_Integer((usup - uinf) / aMaxAngle);
       }
@@ -187,7 +187,7 @@ void IntTools_TopolTool::ComputeSamplePoints()
         aMaxAngle = ACos(1. - aDeflection / aRadius) * 2.;
       }
 
-      if (aMaxAngle > Precision::Angular())
+      if (aMaxAngle > Precision1::Angular())
       {
         nbsu = Standard_Integer((usup - uinf) / aMaxAngle);
       }
@@ -243,7 +243,7 @@ void IntTools_TopolTool::ComputeSamplePoints()
         aMaxAngle = ACos(1. - aDeflection / aRadius1) * 2.;
       }
 
-      if (aMaxAngle > Precision::Angular())
+      if (aMaxAngle > Precision1::Angular())
       {
         nbsu = Standard_Integer((usup - uinf) / aMaxAngle);
       }
@@ -254,7 +254,7 @@ void IntTools_TopolTool::ComputeSamplePoints()
         aMaxAngle = ACos(1. - aDeflection / aRadius2) * 2.;
       }
 
-      if (aMaxAngle > Precision::Angular())
+      if (aMaxAngle > Precision1::Angular())
       {
         nbsv = Standard_Integer((vsup - vinf) / aMaxAngle);
       }

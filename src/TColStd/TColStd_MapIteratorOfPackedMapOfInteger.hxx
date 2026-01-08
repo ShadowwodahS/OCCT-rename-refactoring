@@ -18,7 +18,7 @@
 
 #include <TColStd_PackedMapOfInteger.hxx>
 
-//! Iterator of class TColStd_PackedMapOfInteger.
-typedef TColStd_PackedMapOfInteger::Iterator TColStd_MapIteratorOfPackedMapOfInteger;
+//! Iterator of class PackedIntegerMap.
+typedef PackedIntegerMap::Iterator TColStd_MapIteratorOfPackedMapOfInteger;
 
 #endif

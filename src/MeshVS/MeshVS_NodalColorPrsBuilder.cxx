@@ -109,8 +109,8 @@ MeshVS_NodalColorPrsBuilder::MeshVS_NodalColorPrsBuilder(const Handle(MeshVS_Mes
 //=================================================================================================
 
 void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
-                                        const TColStd_PackedMapOfInteger& IDs,
-                                        TColStd_PackedMapOfInteger&       IDsToExclude,
+                                        const PackedIntegerMap& IDs,
+                                        PackedIntegerMap&       IDsToExclude,
                                         const Standard_Boolean            IsElement,
                                         const Standard_Integer            DisplayMode) const
 {
@@ -136,7 +136,7 @@ void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
     return;
 
   // subtract the hidden elements and ids to exclude (to minimize allocated memory)
-  TColStd_PackedMapOfInteger anIDs;
+  PackedIntegerMap anIDs;
   anIDs.Assign(IDs);
   Handle(TColStd_HPackedMapOfInteger) aHiddenElems = myParentMesh->GetHiddenElems();
   if (!aHiddenElems.IsNull())
@@ -200,8 +200,8 @@ void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
       // is done by TelUpdateMaterial().
       // 0.5 is used to have the colors in 3D maximally similar to those in the color scale.
       // This is possible when the sum of all coefficient is equal to 1.
-      aMaterial[i].SetAmbientColor(Quantity_Color(Graphic3d_Vec3(0.5f)));
-      aMaterial[i].SetDiffuseColor(Quantity_Color(Graphic3d_Vec3(0.5f)));
+      aMaterial[i].SetAmbientColor(Color1(Graphic3d_Vec3(0.5f)));
+      aMaterial[i].SetDiffuseColor(Color1(Graphic3d_Vec3(0.5f)));
     }
   }
 
@@ -286,7 +286,7 @@ void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
       if (!aSource->GetNodesByElement(aKey, aNodes, NbNodes))
         continue;
 
-      Quantity_Color aNColor;
+      Color1 aNColor;
 
       Standard_Boolean isValid = Standard_True;
 
@@ -429,8 +429,8 @@ void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
   //  Standard_Integer      aStyleInt;
   Aspect_TypeOfLine anEdgeType  = Aspect_TOL_SOLID;
   Standard_Real     anEdgeWidth = 1.0;
-  Quantity_Color    anInteriorColor;
-  Quantity_Color    anEdgeColor, aLineColor;
+  Color1    anInteriorColor;
+  Color1    anEdgeColor, aLineColor;
   Standard_Boolean  aShowEdges = Standard_True;
 
   aDrawer->GetColor(MeshVS_DA_InteriorColor, anInteriorColor);
@@ -583,7 +583,7 @@ void MeshVS_NodalColorPrsBuilder::AddVolumePrs(
           }
           else
           {
-            Quantity_Color aNColor;
+            Color1 aNColor;
             GetColor(theNodes((aFaceNodes(aSubIdx == 0 ? 1 : (aNodeIdx + aSubIdx + 1)) + 1)),
                      aNColor);
 
@@ -668,7 +668,7 @@ Standard_Boolean MeshVS_NodalColorPrsBuilder::HasColors() const
 //=================================================================================================
 
 Standard_Boolean MeshVS_NodalColorPrsBuilder::GetColor(const Standard_Integer ID,
-                                                       Quantity_Color&        theColor) const
+                                                       Color1&        theColor) const
 {
   Standard_Boolean aRes = myNodeColorMap.IsBound(ID);
   if (aRes)
@@ -679,7 +679,7 @@ Standard_Boolean MeshVS_NodalColorPrsBuilder::GetColor(const Standard_Integer ID
 //=================================================================================================
 
 void MeshVS_NodalColorPrsBuilder::SetColor(const Standard_Integer theID,
-                                           const Quantity_Color&  theCol)
+                                           const Color1&  theCol)
 {
   Standard_Boolean aRes = myNodeColorMap.IsBound(theID);
   if (aRes)
@@ -734,7 +734,7 @@ const Aspect_SequenceOfColor& MeshVS_NodalColorPrsBuilder::GetColorMap() const
 // Purpose  : Set color representing invalid texture coordinate
 //            (laying outside range [0, 1])
 //================================================================
-void MeshVS_NodalColorPrsBuilder::SetInvalidColor(const Quantity_Color& theInvalidColor)
+void MeshVS_NodalColorPrsBuilder::SetInvalidColor(const Color1& theInvalidColor)
 {
   myInvalidColor = theInvalidColor;
 }
@@ -744,7 +744,7 @@ void MeshVS_NodalColorPrsBuilder::SetInvalidColor(const Quantity_Color& theInval
 // Purpose  : Return color representing invalid texture coordinate
 //            (laying outside range [0, 1])
 //================================================================
-Quantity_Color MeshVS_NodalColorPrsBuilder::GetInvalidColor() const
+Color1 MeshVS_NodalColorPrsBuilder::GetInvalidColor() const
 {
   return myInvalidColor;
 }
@@ -812,7 +812,7 @@ Handle(Graphic3d_Texture2D) MeshVS_NodalColorPrsBuilder::CreateTexture() const
   anImage->SetTopDown(false);
   for (Standard_Size aCol = 0; aCol < Standard_Size(aColorsNb); ++aCol)
   {
-    const Quantity_Color& aSrcColor = myTextureColorMap.Value(Standard_Integer(aCol) + 1);
+    const Color1& aSrcColor = myTextureColorMap.Value(Standard_Integer(aCol) + 1);
     ColorRGBA&      aColor    = anImage->ChangeValue<ColorRGBA>(0, aCol);
     aColor.r()                      = Standard_Byte(255.0 * aSrcColor.Red());
     aColor.g()                      = Standard_Byte(255.0 * aSrcColor.Green());
@@ -821,7 +821,7 @@ Handle(Graphic3d_Texture2D) MeshVS_NodalColorPrsBuilder::CreateTexture() const
   }
 
   // fill padding bytes
-  const Quantity_Color& aLastColorSrc = myTextureColorMap.Last();
+  const Color1& aLastColorSrc = myTextureColorMap.Last();
   const ColorRGBA aLastColor    = {{Standard_Byte(255.0 * aLastColorSrc.Red()),
                                           Standard_Byte(255.0 * aLastColorSrc.Green()),
                                           Standard_Byte(255.0 * aLastColorSrc.Blue()),

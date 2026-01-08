@@ -593,7 +593,7 @@ void TopOpeBRepTool_ShapeClassifier::StateP3DReference(const Point3d& P3D)
     myP3D                     = P3D;
     myP3Ddef                  = Standard_True;
     const TopoSolid& SO    = TopoDS::Solid(myRef);
-    Standard_Real       tol3d = Precision::Confusion();
+    Standard_Real       tol3d = Precision1::Confusion();
     mySolidClassifier.Classify(SO, P3D, tol3d);
     myState = mySolidClassifier.State();
   }
@@ -606,7 +606,7 @@ void TopOpeBRepTool_ShapeClassifier::StateP3DReference(const Point3d& P3D)
     {
       //    for (ShapeExplorer ex(myRef,TopAbs_SOLID);ex.More();ex.Next()) {
       const TopoSolid& SO    = TopoDS::Solid(ex.Current());
-      Standard_Real       tol3d = Precision::Confusion();
+      Standard_Real       tol3d = Precision1::Confusion();
       mySolidClassifier.Classify(SO, P3D, tol3d);
       myState = mySolidClassifier.State();
       if (myState == TopAbs_IN || myState == TopAbs_ON)

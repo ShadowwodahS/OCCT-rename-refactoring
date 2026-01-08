@@ -28,7 +28,7 @@ TopOpeBRepDS_Curve::TopOpeBRepDS_Curve()
     : myFirst(0.0),
       myLast(0.0),
       myRangeDefined(Standard_False),
-      myTolerance(Precision::Confusion()),
+      myTolerance(Precision1::Confusion()),
       myIsWalk(Standard_False),
       myKeep(Standard_True),
       myMother(0),

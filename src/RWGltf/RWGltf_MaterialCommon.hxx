@@ -27,10 +27,10 @@ public:
   Handle(Image_Texture)   SpecularTexture; //!< image defining specular color
   AsciiString1 Id;              //!< material identifier
   AsciiString1 Name;            //!< material name
-  Quantity_Color          AmbientColor;
-  Quantity_Color          DiffuseColor;
-  Quantity_Color          SpecularColor;
-  Quantity_Color          EmissiveColor;
+  Color1          AmbientColor;
+  Color1          DiffuseColor;
+  Color1          SpecularColor;
+  Color1          EmissiveColor;
   Standard_ShortReal      Shininess;
   Standard_ShortReal      Transparency;
 

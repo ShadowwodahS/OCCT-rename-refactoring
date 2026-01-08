@@ -152,15 +152,15 @@ static Standard_Boolean ComputeMinMaxScale(const math_Vector& thePoint,
     {
       // Use PConfusion to get off a little from the bounds to prevent
       // possible refuse in Value function.
-      const Standard_Real aLScale = (aLeft + Precision::PConfusion()) / theDir(anIdx);
-      const Standard_Real aRScale = (aRight - Precision::PConfusion()) / theDir(anIdx);
-      if (Abs(aLeft) < Precision::PConfusion())
+      const Standard_Real aLScale = (aLeft + Precision1::PConfusion()) / theDir(anIdx);
+      const Standard_Real aRScale = (aRight - Precision1::PConfusion()) / theDir(anIdx);
+      if (Abs(aLeft) < Precision1::PConfusion())
       {
         // Point is on the left border.
         theMaxScale = Min(theMaxScale, Max(0., aRScale));
         theMinScale = Max(theMinScale, Min(0., aRScale));
       }
-      else if (Abs(aRight) < Precision::PConfusion())
+      else if (Abs(aRight) < Precision1::PConfusion())
       {
         // Point is on the right border.
         theMaxScale = Min(theMaxScale, Max(0., aLScale));
@@ -180,7 +180,7 @@ static Standard_Boolean ComputeMinMaxScale(const math_Vector& thePoint,
     {
       // Direction is parallel to the border.
       // Check that the point is not out of bounds
-      if (aLeft > Precision::PConfusion() || aRight < -Precision::PConfusion())
+      if (aLeft > Precision1::PConfusion() || aRight < -Precision1::PConfusion())
       {
         return Standard_False;
       }
@@ -209,22 +209,22 @@ static Standard_Boolean MinimizeDirection(math_Vector&       P,
     return Standard_False;
 
   // by default the scaling range is unlimited
-  Standard_Real aMinLambda = -Precision::Infinite();
-  Standard_Real aMaxLambda = Precision::Infinite();
+  Standard_Real aMinLambda = -Precision1::Infinite();
+  Standard_Real aMaxLambda = Precision1::Infinite();
   if (isBounds)
   {
     // limit the scaling range taking into account the bounds
     if (!ComputeMinMaxScale(P, Dir, theLeft, theRight, aMinLambda, aMaxLambda))
       return Standard_False;
 
-    if (aMinLambda > -Precision::PConfusion() && aMaxLambda < Precision::PConfusion())
+    if (aMinLambda > -Precision1::PConfusion() && aMaxLambda < Precision1::PConfusion())
     {
       // Point is on the border and the direction shows outside.
       // Make direction to go along the border
       for (Standard_Integer anIdx = 1; anIdx <= theLeft.Upper(); anIdx++)
       {
-        if ((Abs(P(anIdx) - theRight(anIdx)) < Precision::PConfusion() && Dir(anIdx) > 0.0)
-            || (Abs(P(anIdx) - theLeft(anIdx)) < Precision::PConfusion() && Dir(anIdx) < 0.0))
+        if ((Abs(P(anIdx) - theRight(anIdx)) < Precision1::PConfusion() && Dir(anIdx) > 0.0)
+            || (Abs(P(anIdx) - theLeft(anIdx)) < Precision1::PConfusion() && Dir(anIdx) < 0.0))
         {
           Dir(anIdx) = 0.0;
         }

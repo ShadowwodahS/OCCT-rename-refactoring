@@ -148,7 +148,7 @@ void IGESData_GlobalSection::Init(const Handle(Interface_ParamSet)& params,
   theIGESVersion       = 11;//3 //#66 rln Setting IGES 5.3 by default(To avoid misleading fails below)
   // clang-format on
   theDraftingStandard = 0;
-  theCascadeUnit      = UnitsMethods::GetCasCadeLengthUnit();
+  theCascadeUnit      = UnitsMethods1::GetCasCadeLengthUnit();
   theLastChangeDate.Nullify(); // nouveaute 5.1 (peut etre absente)
   theAppliProtocol.Nullify();  // nouveaute 5.3 (peut etre absente)
 
@@ -698,7 +698,7 @@ void IGESData_GlobalSection::SetLastChangeDate()
     return;
   Standard_Integer mois, jour, annee, heure, minute, seconde, millisec, microsec;
   OSD_Process      system;
-  Quantity_Date    ladate = system.SystemDate();
+  Date2    ladate = system.SystemDate();
   ladate.Values(mois, jour, annee, heure, minute, seconde, millisec, microsec);
   if (annee < 2000)
     // #65 rln 12.02.99 S4151 (explicitly force YYMMDD.HHMMSS before Y2000)
@@ -741,7 +741,7 @@ Handle(TCollection_HAsciiString) IGESData_GlobalSection::NewDateString(
   {
     Standard_Integer millisec, microsec;
     OSD_Process      system;
-    Quantity_Date    ladate = system.SystemDate();
+    Date2    ladate = system.SystemDate();
     ladate.Values(moi, jou, anne, heur, minut, second, millisec, microsec);
   }
   if (mode == 0 || mode == -1)

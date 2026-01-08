@@ -85,7 +85,7 @@ static Standard_Integer mkface(DrawInterpreter&, Standard_Integer n, const char*
   if (n == 3)
   {
     if (mkface)
-      res = FaceMaker(S, Precision::Confusion());
+      res = FaceMaker(S, Precision1::Confusion());
     else
       res = BRepBuilderAPI_MakeShell(S, Segment1);
   }
@@ -107,7 +107,7 @@ static Standard_Integer mkface(DrawInterpreter&, Standard_Integer n, const char*
                                     Draw1::Atof(a[4]),
                                     Draw1::Atof(a[5]),
                                     Draw1::Atof(a[6]),
-                                    Precision::Confusion());
+                                    Precision1::Confusion());
     else
       res = BRepBuilderAPI_MakeShell(S,
                                      Draw1::Atof(a[3]),
@@ -300,7 +300,7 @@ static Standard_Integer pcurve(DrawInterpreter&, Standard_Integer n, const char*
         fr                             = aC->FirstParameter();
         lr                             = aC->LastParameter();
       }
-      if (!IsPeriodic && ((fr - f > Precision::PConfusion()) || (l - lr > Precision::PConfusion())))
+      if (!IsPeriodic && ((fr - f > Precision1::PConfusion()) || (l - lr > Precision1::PConfusion())))
       {
         DrawTrSurf1::Set(name, c);
       }
@@ -336,7 +336,7 @@ static Standard_Integer pcurve(DrawInterpreter&, Standard_Integer n, const char*
 
     col = DBRep_ColorOrientation(SE.Orientation());
     DrawTrSurf_CurveColor(col);
-    if (!IsPeriodic && ((fr - f > Precision::PConfusion()) || (l - lr > Precision::PConfusion())))
+    if (!IsPeriodic && ((fr - f > Precision1::PConfusion()) || (l - lr > Precision1::PConfusion())))
     {
       DrawTrSurf1::Set(a[1], c);
     }
@@ -376,7 +376,7 @@ static Standard_Integer sewing(DrawInterpreter& theDi,
   Standard_Boolean aFaceMode          = Standard_True;
   Standard_Boolean aSetMinTol         = Standard_False;
   Standard_Real    aMinTol            = 0.;
-  Standard_Real    aMaxTol            = Precision::Infinite();
+  Standard_Real    aMaxTol            = Precision1::Infinite();
 
   for (Standard_Integer i = 2; i < theArgc; i++)
   {
@@ -475,10 +475,10 @@ static Standard_Integer sewing(DrawInterpreter& theDi,
 
   if (!aSetMinTol)
     aMinTol = aTol * 1e-4;
-  if (aTol < Precision::Confusion())
-    aTol = Precision::Confusion();
-  if (aMinTol < Precision::Confusion())
-    aMinTol = Precision::Confusion();
+  if (aTol < Precision1::Confusion())
+    aTol = Precision1::Confusion();
+  if (aMinTol < Precision1::Confusion())
+    aMinTol = Precision1::Confusion();
   if (aMinTol > aTol)
   {
     theDi << "Error! min tolerance can't exceed working tolerance\n";

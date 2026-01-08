@@ -294,11 +294,11 @@ Standard_Boolean Edge1::GetEndTangent2d(
   }
   Standard_Real dpnew = dparam;
 
-  if (dpnew > Precision::Confusion())
+  if (dpnew > Precision1::Confusion())
   {
     gp_Pnt2d      ptmp;
     Standard_Real par1, par2, delta = (cl - cf) * dpnew;
-    if (Abs(delta) < Precision::PConfusion())
+    if (Abs(delta) < Precision1::PConfusion())
     {
       dpnew = 0.0;
     }
@@ -320,32 +320,32 @@ Standard_Boolean Edge1::GetEndTangent2d(
         c2d->D0(par2, ptmp);
         v = ptmp.XY() - pnt.XY();
       }
-      if (v.SquareMagnitude() < Precision::PConfusion() * Precision::PConfusion())
+      if (v.SquareMagnitude() < Precision1::PConfusion() * Precision1::PConfusion())
       {
         dpnew = 0.0;
       }
     }
   }
 
-  if (dpnew <= Precision::Confusion())
+  if (dpnew <= Precision1::Confusion())
   {
     // get non-null tangency searching until 3rd derivative, or as straight btw ends
     Standard_Real par = (atend2 ? cl : cf);
     c2d->D1(par, pnt, v);
-    if (v.SquareMagnitude() < Precision::PConfusion() * Precision::PConfusion())
+    if (v.SquareMagnitude() < Precision1::PConfusion() * Precision1::PConfusion())
     {
       gp_Vec2d d1;
       c2d->D2(par, pnt, d1, v);
-      if (v.SquareMagnitude() < Precision::PConfusion() * Precision::PConfusion())
+      if (v.SquareMagnitude() < Precision1::PConfusion() * Precision1::PConfusion())
       {
         gp_Vec2d d2;
         c2d->D3(par, pnt, d1, d2, v);
-        if (v.SquareMagnitude() < Precision::PConfusion() * Precision::PConfusion())
+        if (v.SquareMagnitude() < Precision1::PConfusion() * Precision1::PConfusion())
         {
           gp_Pnt2d p2;
           c2d->D0((atend2 ? cf : cl), p2);
           v = p2.XY() - pnt.XY();
-          if (v.SquareMagnitude() < Precision::PConfusion() * Precision::PConfusion())
+          if (v.SquareMagnitude() < Precision1::PConfusion() * Precision1::PConfusion())
             return Standard_False;
         }
       }
@@ -808,14 +808,14 @@ static Standard_Boolean IsOverlapPartEdges(const TopoEdge&   theFirstEdge,
   {
 
     Point3d aPoint;
-    if (aS <= Precision::Confusion())
+    if (aS <= Precision1::Confusion())
     {
       TopoVertex V1 = TopExp1::FirstVertex(theFirstEdge, Standard_True);
       aPoint           = BRepInspector::Pnt(V1);
     }
     else
     {
-      GCPnts_AbscissaPoint aAbsPoint(Precision::Confusion(),
+      GCPnts_AbscissaPoint aAbsPoint(Precision1::Confusion(),
                                      aAdCurve1,
                                      aS,
                                      aAdCurve1.FirstParameter());
@@ -826,7 +826,7 @@ static Standard_Boolean IsOverlapPartEdges(const TopoEdge&   theFirstEdge,
     }
     ShapeBuilder  aB;
     TopoVertex aV;
-    aB.MakeVertex(aV, aPoint, Precision::Confusion());
+    aB.MakeVertex(aV, aPoint, Precision1::Confusion());
     aMinDist.LoadS2(aV);
     aMinDist.Perform();
     if (aMinDist.IsDone() && aMinDist.Value() >= theTolerance)
@@ -930,7 +930,7 @@ Standard_Boolean Edge1::CheckPCurveRange(const Standard_Real         theFirst,
                                                       const Standard_Real         theLast,
                                                       const Handle(GeomCurve2d)& thePC)
 {
-  constexpr Standard_Real eps        = Precision::PConfusion();
+  constexpr Standard_Real eps        = Precision1::PConfusion();
   Standard_Boolean        isValid    = Standard_True;
   Standard_Boolean        IsPeriodic = thePC->IsPeriodic();
   Standard_Real           aPeriod    = RealLast();

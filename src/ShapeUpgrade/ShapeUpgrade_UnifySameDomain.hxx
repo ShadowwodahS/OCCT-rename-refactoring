@@ -117,14 +117,14 @@ public:
   Standard_EXPORT void SetSafeInputMode(Standard_Boolean theValue);
 
   //! Sets the linear tolerance. It plays the role of chord error when
-  //! taking decision about merging of shapes. Default value is Precision::Confusion().
+  //! taking decision about merging of shapes. Default value is Precision1::Confusion().
   void SetLinearTolerance(const Standard_Real theValue) { myLinTol = theValue; }
 
   //! Sets the angular tolerance. If two shapes form a connection angle greater than
-  //! this value they will not be merged. Default value is Precision::Angular().
+  //! this value they will not be merged. Default value is Precision1::Angular().
   void SetAngularTolerance(const Standard_Real theValue)
   {
-    myAngTol = (theValue < Precision::Angular() ? Precision::Angular() : theValue);
+    myAngTol = (theValue < Precision1::Angular() ? Precision1::Angular() : theValue);
   }
 
   //! Performs unification and builds the resulting shape.

@@ -63,13 +63,13 @@ static void SetThePCurve(const ShapeBuilder&         B,
   if (GP.IsNull())
     OC = BRepInspector::CurveOnSurface(E, F, f, l);
   if (OC.IsNull())
-    B.UpdateEdge(E, C, F, Precision::Confusion());
+    B.UpdateEdge(E, C, F, Precision1::Confusion());
   else
   {
     if (O == TopAbs_REVERSED)
-      B.UpdateEdge(E, OC, C, F, Precision::Confusion());
+      B.UpdateEdge(E, OC, C, F, Precision1::Confusion());
     else
-      B.UpdateEdge(E, C, OC, F, Precision::Confusion());
+      B.UpdateEdge(E, C, OC, F, Precision1::Confusion());
   }
 }
 
@@ -86,7 +86,7 @@ BRepSweep_Translation::BRepSweep_Translation(const TopoShape&    S,
       myCanonize(Canonize)
 {
 
-  Standard_ConstructionError_Raise_if(V.Magnitude() < Precision::Confusion(),
+  Standard_ConstructionError_Raise_if(V.Magnitude() < Precision1::Confusion(),
                                       "BRepSweep_Translation::Constructor");
   Init();
 }
@@ -103,7 +103,7 @@ TopoShape BRepSweep_Translation::MakeEmptyVertex(const TopoShape&   aGenV,
     P.Transform(myLocation.Transformation());
   TopoVertex V;
   ////// modified by jgv, 5.10.01, for buc61008 //////
-  // myBuilder.Builder().MakeVertex(V,P,Precision::Confusion());
+  // myBuilder.Builder().MakeVertex(V,P,Precision1::Confusion());
   myBuilder.Builder().MakeVertex(V, P, BRepInspector::Tolerance(TopoDS::Vertex(aGenV)));
   ////////////////////////////////////////////////////
   return V;
@@ -167,7 +167,7 @@ void BRepSweep_Translation::SetParameters(const TopoShape& aNewFace,
                                    pnt2d.X(),
                                    pnt2d.Y(),
                                    TopoDS::Face(aNewFace),
-                                   Precision::PConfusion());
+                                   Precision1::PConfusion());
 }
 
 //=================================================================================================
@@ -184,7 +184,7 @@ void BRepSweep_Translation::SetDirectingParameter(const TopoShape& aNewEdge,
   myBuilder.Builder().UpdateVertex(TopoDS::Vertex(aNewVertex),
                                    param,
                                    TopoDS::Edge(aNewEdge),
-                                   Precision::PConfusion());
+                                   Precision1::PConfusion());
 }
 
 //=================================================================================================
@@ -200,7 +200,7 @@ void BRepSweep_Translation::SetGeneratingParameter(const TopoShape& aNewEdge,
   myBuilder.Builder().UpdateVertex(vbid,
                                    BRepInspector::Parameter(TopoDS::Vertex(aGenV), TopoDS::Edge(aGenE)),
                                    TopoDS::Edge(aNewEdge),
-                                   Precision::PConfusion());
+                                   Precision1::PConfusion());
 }
 
 //=================================================================================================
@@ -285,7 +285,7 @@ void BRepSweep_Translation::SetPCurve(const TopoShape& aNewFace,
                                    aC1,
                                    aC2,
                                    TopoDS::Face(aNewFace),
-                                   Precision::PConfusion());
+                                   Precision1::PConfusion());
   }
   else
   {
@@ -294,7 +294,7 @@ void BRepSweep_Translation::SetPCurve(const TopoShape& aNewFace,
       TopoDS::Edge(aNewEdge),
       BRepInspector::CurveOnSurface(TopoDS::Edge(aGenE), TopoDS::Face(aGenF), First, Last),
       TopoDS::Face(aNewFace),
-      Precision::PConfusion());
+      Precision1::PConfusion());
   }
 }
 

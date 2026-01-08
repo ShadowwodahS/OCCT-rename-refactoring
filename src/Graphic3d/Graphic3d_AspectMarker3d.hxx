@@ -33,12 +33,12 @@ public:
   Standard_EXPORT Graphic3d_AspectMarker3d();
 
   Standard_EXPORT Graphic3d_AspectMarker3d(const Aspect_TypeOfMarker theType,
-                                           const Quantity_Color&     theColor,
+                                           const Color1&     theColor,
                                            const Standard_Real       theScale);
 
   //! Creates a context table for marker primitives
   //! defined with the specified values.
-  Standard_EXPORT Graphic3d_AspectMarker3d(const Quantity_Color&                theColor,
+  Standard_EXPORT Graphic3d_AspectMarker3d(const Color1&                theColor,
                                            const Standard_Integer               theWidth,
                                            const Standard_Integer               theHeight,
                                            const Handle(TColStd_HArray1OfByte)& theTextureBitmap);

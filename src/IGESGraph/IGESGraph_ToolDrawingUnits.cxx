@@ -51,10 +51,10 @@ void DrawingUnitsTool::ReadOwnParams(const Handle(IGESGraph_DrawingUnits)& ent,
     PR.AddFail("No. of Property values : Value is not 2");
 
   // Reading flag(Integer1)
-  PR.ReadInteger(PR.Current(), "Units Flag", flag); // szv#4:S4163:12Mar99 `st=` not needed
+  PR.ReadInteger(PR.Current(), "Units2 Flag", flag); // szv#4:S4163:12Mar99 `st=` not needed
 
   // Reading unit(String)
-  PR.ReadText(PR.Current(), "Units Name", unit); // szv#4:S4163:12Mar99 `st=` not needed
+  PR.ReadText(PR.Current(), "Units2 Name", unit); // szv#4:S4163:12Mar99 `st=` not needed
 
   DirChecker(ent).CheckTypeAndForm(PR.CCheck(), ent);
   ent->Init(nbPropertyValues, flag, unit);
@@ -256,7 +256,7 @@ void DrawingUnitsTool::OwnDump(const Handle(IGESGraph_DrawingUnits)& ent,
 {
   S << "IGESGraph_DrawingUnits\n"
     << "No. of property values : " << ent->NbPropertyValues() << "\n"
-    << "  Units Flag : " << ent->Flag() << "  Units Name : ";
+    << "  Units2 Flag : " << ent->Flag() << "  Units2 Name : ";
   IGESData_DumpString(S, ent->Unit());
   S << "  computed Value (in meters) : " << ent->UnitValue() << std::endl;
 }

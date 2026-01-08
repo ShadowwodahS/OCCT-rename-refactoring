@@ -229,7 +229,7 @@ AsciiString1 IFSelect_TransformStandard::Label() const
   char                    lab[30];
   AsciiString1 labl("");
   if (CopyOption())
-    labl.AssignCat("Standard Copy");
+    labl.AssignCat("Standard1 Copy");
   else
     labl.AssignCat("On the spot Edition");
   Standard_Integer nb = NbModifiers();

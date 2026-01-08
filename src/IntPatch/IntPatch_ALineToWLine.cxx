@@ -34,7 +34,7 @@ static inline void AddPointIntoLine(Handle(IntSurf_LineOn2S)&  theLine,
 {
   if (theLine->NbPoints() > 0)
   {
-    if (thePoint.IsSame(theLine->Value(theLine->NbPoints()), Precision::Confusion()))
+    if (thePoint.IsSame(theLine->Value(theLine->NbPoints()), Precision1::Confusion()))
       return;
 
     SpecialPoints::AdjustPointAndVertex(theLine->Value(theLine->NbPoints()),
@@ -148,7 +148,7 @@ IntPatch_ALineToWLine::IntPatch_ALineToWLine(const Handle(Adaptor3d_Surface)& th
       myNbPointsInWline(theNbPoints),
       myTolOpenDomain(1.e-9),
       myTolTransition(1.e-8),
-      myTol3D(Precision::Confusion())
+      myTol3D(Precision1::Confusion())
 {
   const GeomAbs_SurfaceType aTyps1 = theS1->GetType();
   const GeomAbs_SurfaceType aTyps2 = theS2->GetType();
@@ -449,8 +449,8 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
     }
   }
 
-  const Standard_Real aTol    = 2.0 * myTol3D + Precision::Confusion();
-  const Standard_Real aPrmTol = Max(1.0e-4 * (theLPar - theFPar), Precision::PConfusion());
+  const Standard_Real aTol    = 2.0 * myTol3D + Precision1::Confusion();
+  const Standard_Real aPrmTol = Max(1.0e-4 * (theLPar - theFPar), Precision1::PConfusion());
 
   IntPatch_SpecPntType aPrePointExist = IntPatch_SPntNone;
 
@@ -586,7 +586,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
             if ((aParam - aPrevParam) < aPrmTol)
             {
               const Point3d aPnt3d(theALine->Value(aParam));
-              if (aPOn2S.Value().SquareDistance(aPnt3d) < Precision::SquareConfusion())
+              if (aPOn2S.Value().SquareDistance(aPnt3d) < Precision1::SquareConfusion())
               {
                 // i-th vertex is the same as a Pole/Apex.
                 // So, it should be ignored.
@@ -604,7 +604,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
           myQuad2.Parameters(aPnt3d, u2, v2);
           aRPT.SetValue(aPnt3d, u1, v1, u2, v2);
 
-          if (aPOn2S.IsSame(aPrevLPoint, Max(Precision::Approximation(), aTol)))
+          if (aPOn2S.IsSame(aPrevLPoint, Max(Precision1::Approximation(), aTol)))
           {
             // Set V-parameter as precise value found on the previous step.
             if (aSingularSurfaceID == 1)
@@ -744,7 +744,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
         for (Standard_Integer i = aVertexNumber + 1; i <= aVertexParams.Upper(); i++)
         {
           const Standard_Real aParam = aVertexParams(i);
-          if ((aParam - aVertexParams(aVertexNumber)) > Precision::PConfusion())
+          if ((aParam - aVertexParams(aVertexNumber)) > Precision1::PConfusion())
           {
             const Standard_Real aPrm = 0.5 * (aParam + aVertexParams(aVertexNumber));
             const Point3d        aPnt3d(theALine->Value(aPrm));
@@ -824,7 +824,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
             aLVtx.SetValue(aVertP2S);
             aLVtx.SetTolerance(aVertToler);
             Standard_Real aParam = aLVtx.ParameterOnLine();
-            if (Abs(aParam - theLPar) <= Precision::PConfusion()) // in the case of closed curve,
+            if (Abs(aParam - theLPar) <= Precision1::PConfusion()) // in the case of closed curve,
               aLVtx.SetParameter(-1); // we don't know yet the number of points in the curve
             else
               aLVtx.SetParameter(aNewVertexParam);
@@ -996,7 +996,7 @@ Standard_Boolean IntPatch_ALineToWLine::StepComputing(const Handle(IntPatch_ALin
                                                       const Standard_Real theMaxDeflection,
                                                       Standard_Real&      theStep) const
 {
-  if (theTgMagnitude < Precision::Confusion())
+  if (theTgMagnitude < Precision1::Confusion())
     return Standard_False;
 
   const Standard_Real anEps = myTol3D;
@@ -1071,7 +1071,7 @@ Standard_Boolean IntPatch_ALineToWLine::StepComputing(const Handle(IntPatch_ALin
     }
 
     theStep = 0.5 * (aMinStep + aMaxStep);
-  } while (((aMaxStep - aMinStep) > Precision::PConfusion()) && (aNbIter <= aNbIterMax));
+  } while (((aMaxStep - aMinStep) > Precision1::PConfusion()) && (aNbIter <= aNbIterMax));
 
   if (aNbIter > aNbIterMax)
     return Standard_False;

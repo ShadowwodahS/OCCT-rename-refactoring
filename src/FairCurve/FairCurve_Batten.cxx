@@ -61,7 +61,7 @@ FairCurve_Batten::FairCurve_Batten(const gp_Pnt2d&     P1,
       NewConstraintOrder2(1),
       Degree(9)
 {
-  if (P1.IsEqual(P2, Precision::Confusion()))
+  if (P1.IsEqual(P2, Precision1::Confusion()))
     throw Standard_NullValue("FairCurve : P1 and P2 are confused");
   if (Height <= 0)
     throw Standard_NegativeValue("FairCurve : Height is not positive");
@@ -135,7 +135,7 @@ void FairCurve_Batten::Angles(const gp_Pnt2d& P1, const gp_Pnt2d& P2)
 void FairCurve_Batten::SetP1(const gp_Pnt2d& P1)
 // ==================================================================
 {
-  if (P1.IsEqual(NewP2, Precision::Confusion()))
+  if (P1.IsEqual(NewP2, Precision1::Confusion()))
     throw Standard_NullValue("FairCurve : P1 and P2 are confused");
   Angles(P1, NewP2);
   NewP1 = P1;
@@ -145,7 +145,7 @@ void FairCurve_Batten::SetP1(const gp_Pnt2d& P1)
 void FairCurve_Batten::SetP2(const gp_Pnt2d& P2)
 // ==================================================================
 {
-  if (NewP1.IsEqual(P2, Precision::Confusion()))
+  if (NewP1.IsEqual(P2, Precision1::Confusion()))
     throw Standard_NullValue("FairCurve : P1 and P2 are confused");
   Angles(NewP1, P2);
   NewP2 = P2;
@@ -549,7 +549,7 @@ Standard_Real FairCurve_Batten::Compute(const Standard_Real Dist,
 Standard_Real FairCurve_Batten::Compute(const Standard_Real Dist, const Standard_Real Angle) const
 // ==================================================================
 {
-  if (Angle < Precision::Angular())
+  if (Angle < Precision1::Angular())
   {
     return Dist;
   } // length of segment P1P2

@@ -770,25 +770,25 @@ Standard_Boolean STEPConstruct_Styles::GetColors(const Handle(StepVisual_StyledI
 
 //=================================================================================================
 
-Handle(StepVisual_Colour) STEPConstruct_Styles::EncodeColor(const Quantity_Color& C)
+Handle(StepVisual_Colour) STEPConstruct_Styles::EncodeColor(const Color1& C)
 {
   // detect if color corresponds to one of pre-defined colors
   Standard_CString cName = 0;
-  if (C == Quantity_Color(Quantity_NOC_GREEN))
+  if (C == Color1(Quantity_NOC_GREEN))
     cName = "green";
-  else if (C == Quantity_Color(Quantity_NOC_RED))
+  else if (C == Color1(Quantity_NOC_RED))
     cName = "red";
-  else if (C == Quantity_Color(Quantity_NOC_BLUE1))
+  else if (C == Color1(Quantity_NOC_BLUE1))
     cName = "blue";
-  else if (C == Quantity_Color(Quantity_NOC_YELLOW))
+  else if (C == Color1(Quantity_NOC_YELLOW))
     cName = "yellow";
-  else if (C == Quantity_Color(Quantity_NOC_MAGENTA1))
+  else if (C == Color1(Quantity_NOC_MAGENTA1))
     cName = "magenta";
-  else if (C == Quantity_Color(Quantity_NOC_CYAN1))
+  else if (C == Color1(Quantity_NOC_CYAN1))
     cName = "cyan";
-  else if (C == Quantity_Color(Quantity_NOC_BLACK))
+  else if (C == Color1(Quantity_NOC_BLACK))
     cName = "black";
-  else if (C == Quantity_Color(Quantity_NOC_WHITE))
+  else if (C == Color1(Quantity_NOC_WHITE))
     cName = "white";
 
   if (cName)
@@ -813,27 +813,27 @@ Handle(StepVisual_Colour) STEPConstruct_Styles::EncodeColor(const Quantity_Color
 //=================================================================================================
 
 Handle(StepVisual_Colour) STEPConstruct_Styles::EncodeColor(
-  const Quantity_Color&                        C,
+  const Color1&                        C,
   STEPConstruct_DataMapOfAsciiStringTransient& DPDCs,
   STEPConstruct_DataMapOfPointTransient&       ColRGBs)
 {
   // detect if color corresponds to one of pre-defined colors
   Standard_CString cName = 0;
-  if (C == Quantity_Color(Quantity_NOC_GREEN))
+  if (C == Color1(Quantity_NOC_GREEN))
     cName = "green";
-  else if (C == Quantity_Color(Quantity_NOC_RED))
+  else if (C == Color1(Quantity_NOC_RED))
     cName = "red";
-  else if (C == Quantity_Color(Quantity_NOC_BLUE1))
+  else if (C == Color1(Quantity_NOC_BLUE1))
     cName = "blue";
-  else if (C == Quantity_Color(Quantity_NOC_YELLOW))
+  else if (C == Color1(Quantity_NOC_YELLOW))
     cName = "yellow";
-  else if (C == Quantity_Color(Quantity_NOC_MAGENTA1))
+  else if (C == Color1(Quantity_NOC_MAGENTA1))
     cName = "magenta";
-  else if (C == Quantity_Color(Quantity_NOC_CYAN1))
+  else if (C == Color1(Quantity_NOC_CYAN1))
     cName = "cyan";
-  else if (C == Quantity_Color(Quantity_NOC_BLACK))
+  else if (C == Color1(Quantity_NOC_BLACK))
     cName = "black";
-  else if (C == Quantity_Color(Quantity_NOC_WHITE))
+  else if (C == Color1(Quantity_NOC_WHITE))
     cName = "white";
 
   if (cName)
@@ -878,7 +878,7 @@ Handle(StepVisual_Colour) STEPConstruct_Styles::EncodeColor(
 //=================================================================================================
 
 Standard_Boolean STEPConstruct_Styles::DecodeColor(const Handle(StepVisual_Colour)& Colour,
-                                                   Quantity_Color&                  Col)
+                                                   Color1&                  Col)
 {
   if (Colour->IsKind(STANDARD_TYPE(StepVisual_ColourRgb)))
   {

@@ -254,7 +254,7 @@ static Standard_Integer geompipe(DrawInterpreter&, Standard_Integer n, const cha
   Handle(GeomSurface) Sur = aPipe.Surface();
   TopoFace          F;
   if (!Sur.IsNull())
-    F = FaceMaker(Sur, Precision::Confusion());
+    F = FaceMaker(Sur, Precision1::Confusion());
   DBRep1::Set(a[1], F);
   return 0;
 }
@@ -842,7 +842,7 @@ static Standard_Integer addsweep(DrawInterpreter& di, Standard_Integer n, const 
           ParAndRad(ii).SetY(Draw1::Atof(a[cur + 1]));
         }
         thelaw = new (Law_Interpol)();
-        thelaw->Set(ParAndRad, Abs(ParAndRad(1).Y() - ParAndRad(L).Y()) < Precision::Confusion());
+        thelaw->Set(ParAndRad, Abs(ParAndRad(1).Y() - ParAndRad(L).Y()) < Precision1::Confusion());
       }
     }
   }

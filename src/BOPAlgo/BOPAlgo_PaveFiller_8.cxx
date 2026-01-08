@@ -264,7 +264,7 @@ void BooleanPaveFiller::FillPaves(const Standard_Integer         nVD,
   //
   // 2D intersection tolerance should be computed as a resolution
   // from the tolerance of vertex to resolve the touching cases
-  Standard_Real aTolInt = Precision::PConfusion();
+  Standard_Real aTolInt = Precision1::PConfusion();
   // UResolution from the tolerance of the vertex
   Standard_Real aURes = aBAS.UResolution(aTolV);
   // VResolution from the tolerance of the vertex
@@ -275,13 +275,13 @@ void BooleanPaveFiller::FillPaves(const Standard_Integer         nVD,
   // Parametric tolerance to compare intersection point with boundaries
   // should be computed as a resolution from the tolerance of vertex
   // in the direction of the 2D curve of degenerated edge
-  Standard_Real aTolCmp = Precision::PConfusion();
+  Standard_Real aTolCmp = Precision1::PConfusion();
   // Get 2D curve
   Standard_Real        aTD1, aTD2;
   Handle(GeomCurve2d) aC2DDE = BRepInspector::CurveOnSurface(aDE, aDF, aTD1, aTD2);
   // Get direction of the curve
   Standard_Boolean bUDir =
-    Abs(aC2DDE->Value(aTD1).Y() - aC2DDE->Value(aTD2).Y()) < Precision::PConfusion();
+    Abs(aC2DDE->Value(aTD1).Y() - aC2DDE->Value(aTD2).Y()) < Precision1::PConfusion();
   //
   aTolCmp = Max(aTolCmp, (bUDir ? aURes : aVRes));
   //

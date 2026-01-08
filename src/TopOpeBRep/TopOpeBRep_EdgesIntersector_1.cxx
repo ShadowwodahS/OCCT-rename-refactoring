@@ -373,7 +373,7 @@ Standard_Boolean TopOpeBRep_EdgesIntersector::IsVertex1(const Standard_Integer I
       if (V.Orientation() == TopAbs_INTERNAL)
       {
         Standard_Real parV = BRepInspector::Parameter(V, E, myFace1);
-        if (Abs(par - parV) <= Precision::PConfusion())
+        if (Abs(par - parV) <= Precision1::PConfusion())
         {
           myIsVertexValue  = Standard_True;
           myIsVertexVertex = V;
@@ -426,9 +426,9 @@ Point3d TopOpeBRep_EdgesIntersector::Value1() const
 {
   gp_Pnt2d p2 = Point1().Value();
   Point3d   p;
-  if (Precision::IsInfinite(p2.X()) || Precision::IsInfinite(p2.Y()))
+  if (Precision1::IsInfinite(p2.X()) || Precision1::IsInfinite(p2.Y()))
   {
-    Standard_Real inf = Precision::Infinite();
+    Standard_Real inf = Precision1::Infinite();
     p.SetCoord(inf, inf, inf);
   }
   else

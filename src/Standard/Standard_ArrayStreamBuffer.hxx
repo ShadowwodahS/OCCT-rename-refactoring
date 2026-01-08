@@ -33,29 +33,29 @@
 //! data) or represents an in-memory resource.
 //!
 //! The memory itself is NOT managed by this class - it is up to the caller to ensure that passed
-//! memory pointer is not released during Standard_ArrayStreamBuffer lifetime.
+//! memory pointer is not released during ArrayStreamBuffer lifetime.
 //!
 //! Usage example:
 //! @code
 //!   const char*  theBuffer;
 //!   const size_t theBufferLength;
-//!   Standard_ArrayStreamBuffer aStreamBuffer (theBuffer, theBufferLength);
+//!   ArrayStreamBuffer aStreamBuffer (theBuffer, theBufferLength);
 //!   std::istream aStream (&aStreamBuffer);
 //!   TopoShape aShape;
 //!   ShapeBuilder aBuilder;
 //!   BRepTools1::Read (aShape, aStream, aBuilder);
 //! @endcode
-class Standard_ArrayStreamBuffer : public std::streambuf
+class ArrayStreamBuffer : public std::streambuf
 {
 public:
   //! Main constructor.
   //! Passed pointer is stored as is (memory is NOT copied nor released with destructor).
   //! @param theBegin pointer to the beginning of pre-allocated buffer
   //! @param theSize  length of pre-allocated buffer
-  Standard_EXPORT Standard_ArrayStreamBuffer(const char* theBegin, const size_t theSize);
+  Standard_EXPORT ArrayStreamBuffer(const char* theBegin, const size_t theSize);
 
   //! Destructor.
-  Standard_EXPORT virtual ~Standard_ArrayStreamBuffer();
+  Standard_EXPORT virtual ~ArrayStreamBuffer();
 
   //! (Re)-initialize the stream.
   //! Passed pointer is stored as is (memory is NOT copied nor released with destructor).
@@ -101,8 +101,8 @@ public:
 
 private:
   // copying is not allowed
-  Standard_ArrayStreamBuffer(const Standard_ArrayStreamBuffer&);
-  Standard_ArrayStreamBuffer& operator=(const Standard_ArrayStreamBuffer&);
+  ArrayStreamBuffer(const ArrayStreamBuffer&);
+  ArrayStreamBuffer& operator=(const ArrayStreamBuffer&);
 
 protected:
   const char* myBegin;

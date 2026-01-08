@@ -71,7 +71,7 @@ void ProjLib_Cone::Project(const gp_Lin& L)
   Standard_Real aDeltaV = 0.0;
 
   Standard_Real U, V;
-  if (aPnt.IsEqual(anApex, Precision::Confusion()))
+  if (aPnt.IsEqual(anApex, Precision1::Confusion()))
   {
     // Take another point in the line L, which does not coincide with the cone apex.
     aPnt.Translate(L.Direction().XYZ());
@@ -86,7 +86,7 @@ void ProjLib_Cone::Project(const gp_Lin& L)
   ElSLib1::ConeD1(U, V, myCone.Position1(), myCone.RefRadius(), myCone.SemiAngle(), P, Vu, Vv);
 
   Dir3d Dv(Vv);
-  if (Dv.IsParallel(L.Direction(), Precision::Angular()))
+  if (Dv.IsParallel(L.Direction(), Precision1::Angular()))
   {
     // L is parallel to U-isoline of the cone.
     myType = GeomAbs_Line;
@@ -110,7 +110,7 @@ void ProjLib_Cone::Project(const gp_Circ& C)
   Ax3 ConePos = myCone.Position1();
   Ax3 CircPos = C.Position1();
   //
-  if (!ConePos.Direction().IsParallel(CircPos.Direction(), Precision::Angular()))
+  if (!ConePos.Direction().IsParallel(CircPos.Direction(), Precision1::Angular()))
   {
     isDone = Standard_False;
     return;

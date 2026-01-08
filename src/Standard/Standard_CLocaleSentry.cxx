@@ -49,7 +49,7 @@ public:
   }
 
 public:
-  Standard_CLocaleSentry::clocale_t myLocale;
+  CLocaleSentry::clocale_t myLocale;
 };
 
 static CLocalePtr theCLocale;
@@ -58,14 +58,14 @@ static CLocalePtr theCLocale;
 
 //=================================================================================================
 
-Standard_CLocaleSentry::clocale_t Standard_CLocaleSentry::GetCLocale()
+CLocaleSentry::clocale_t CLocaleSentry::GetCLocale()
 {
   return theCLocale.myLocale;
 }
 
 //=================================================================================================
 
-Standard_CLocaleSentry::Standard_CLocaleSentry()
+CLocaleSentry::CLocaleSentry()
   #ifdef OCCT_CLOCALE_POSIX2008
     : myPrevLocale(uselocale(
         theCLocale.myLocale)) // switch to C locale within this thread only using xlocale API
@@ -95,7 +95,7 @@ Standard_CLocaleSentry::Standard_CLocaleSentry()
 
 //=================================================================================================
 
-Standard_CLocaleSentry::~Standard_CLocaleSentry()
+CLocaleSentry::~CLocaleSentry()
 {
   #if defined(OCCT_CLOCALE_POSIX2008)
   uselocale((locale_t)myPrevLocale);

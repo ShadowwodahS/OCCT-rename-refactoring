@@ -180,7 +180,7 @@ void BRepPrim_OneAxis::VMax(const Standard_Real V)
 
 Standard_Boolean BRepPrim_OneAxis::MeridianOnAxis(const Standard_Real V) const
 {
-  return Abs(MeridianValue(V).X()) < Precision::Confusion();
+  return Abs(MeridianValue(V).X()) < Precision1::Confusion();
 }
 
 //=================================================================================================
@@ -191,21 +191,21 @@ Standard_Boolean BRepPrim_OneAxis::MeridianClosed() const
     return Standard_False;
   if (VMinInfinite())
     return Standard_False;
-  return MeridianValue(myVMin).IsEqual(MeridianValue(myVMax), Precision::Confusion());
+  return MeridianValue(myVMin).IsEqual(MeridianValue(myVMax), Precision1::Confusion());
 }
 
 //=================================================================================================
 
 Standard_Boolean BRepPrim_OneAxis::VMaxInfinite() const
 {
-  return Precision::IsPositiveInfinite(myVMax);
+  return Precision1::IsPositiveInfinite(myVMax);
 }
 
 //=================================================================================================
 
 Standard_Boolean BRepPrim_OneAxis::VMinInfinite() const
 {
-  return Precision::IsNegativeInfinite(myVMin);
+  return Precision1::IsNegativeInfinite(myVMin);
 }
 
 //=================================================================================================
@@ -238,7 +238,7 @@ Standard_Boolean BRepPrim_OneAxis::HasBottom() const
 
 Standard_Boolean BRepPrim_OneAxis::HasSides() const
 {
-  return 2 * M_PI - myAngle > Precision::Angular();
+  return 2 * M_PI - myAngle > Precision1::Angular();
 }
 
 //=================================================================================================

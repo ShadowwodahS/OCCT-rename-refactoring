@@ -1074,8 +1074,8 @@ const TopoVertex& BRepPrim_GWedge::Vertex(const BRepPrim_Direction d1,
 
 Standard_Boolean BRepPrim_GWedge::IsDegeneratedShape()
 {
-  if ((XMax - XMin <= Precision::Confusion()) || (YMax - YMin <= Precision::Confusion())
-      || (ZMax - ZMin <= Precision::Confusion()) || (Z2Max - Z2Min < 0) || (X2Max - X2Min < 0))
+  if ((XMax - XMin <= Precision1::Confusion()) || (YMax - YMin <= Precision1::Confusion())
+      || (ZMax - ZMin <= Precision1::Confusion()) || (Z2Max - Z2Min < 0) || (X2Max - X2Min < 0))
     return Standard_True;
   else
     return Standard_False;

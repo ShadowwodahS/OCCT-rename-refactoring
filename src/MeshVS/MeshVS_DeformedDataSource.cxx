@@ -127,7 +127,7 @@ Standard_Boolean MeshVS_DeformedDataSource::GetNodesByElement(const Standard_Int
 
 //=================================================================================================
 
-const TColStd_PackedMapOfInteger& MeshVS_DeformedDataSource::GetAllNodes() const
+const PackedIntegerMap& MeshVS_DeformedDataSource::GetAllNodes() const
 {
   if (myNonDeformedDataSource.IsNull())
     return myEmptyMap;
@@ -137,7 +137,7 @@ const TColStd_PackedMapOfInteger& MeshVS_DeformedDataSource::GetAllNodes() const
 
 //=================================================================================================
 
-const TColStd_PackedMapOfInteger& MeshVS_DeformedDataSource::GetAllElements() const
+const PackedIntegerMap& MeshVS_DeformedDataSource::GetAllElements() const
 {
   if (myNonDeformedDataSource.IsNull())
     return myEmptyMap;

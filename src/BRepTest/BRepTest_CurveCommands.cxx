@@ -749,12 +749,12 @@ static Standard_Integer profile(DrawInterpreter& di, Standard_Integer n, const c
         {
           Vector3d vn(Draw1::Atof(a[i - 5]), Draw1::Atof(a[i - 4]), Draw1::Atof(a[i - 3]));
           Vector3d vx(Draw1::Atof(a[i - 2]), Draw1::Atof(a[i - 1]), Draw1::Atof(a[i]));
-          if (vn.Magnitude() <= Precision::Confusion())
+          if (vn.Magnitude() <= Precision1::Confusion())
           {
             di << "profile : null direction";
             return 1;
           }
-          if (vx.Magnitude() <= Precision::Confusion())
+          if (vx.Magnitude() <= Precision1::Confusion())
           {
             di << "profile : null direction";
             return 1;
@@ -844,7 +844,7 @@ static Standard_Integer profile(DrawInterpreter& di, Standard_Integer n, const c
             vy -= y;
           }
           length = Sqrt(vx * vx + vy * vy);
-          if (length > Precision::Confusion())
+          if (length > Precision1::Confusion())
           {
             move = line;
             dx   = vx / length;
@@ -883,7 +883,7 @@ static Standard_Integer profile(DrawInterpreter& di, Standard_Integer n, const c
           Standard_Real vx = Draw1::Atof(a[i - 1]);
           Standard_Real vy = Draw1::Atof(a[i]);
           length           = Sqrt(vx * vx + vy * vy);
-          if (length > Precision::Confusion())
+          if (length > Precision1::Confusion())
           {
             // move = line; DUB
             dx = vx / length;
@@ -898,7 +898,7 @@ static Standard_Integer profile(DrawInterpreter& di, Standard_Integer n, const c
         if (i >= n)
           goto badargs;
         radius = Draw1::Atof(a[i - 1]);
-        if (Abs(radius) > Precision::Confusion())
+        if (Abs(radius) > Precision1::Confusion())
         {
           angle = Draw1::Atof(a[i]) * (M_PI / 180.0);
           move  = circle;
@@ -913,7 +913,7 @@ static Standard_Integer profile(DrawInterpreter& di, Standard_Integer n, const c
         length = Draw1::Atof(a[i]);
         if ((a[i - 1][1] == 'X') || (a[i - 1][1] == 'x'))
         {
-          if (Abs(dx) < Precision::Confusion())
+          if (Abs(dx) < Precision1::Confusion())
           {
             di << "Profile : cannot intersect, arg " << i - 1;
             return 1;
@@ -923,7 +923,7 @@ static Standard_Integer profile(DrawInterpreter& di, Standard_Integer n, const c
         }
         else if ((a[i - 1][1] == 'Y') || (a[i - 1][1] == 'y'))
         {
-          if (Abs(dy) < Precision::Confusion())
+          if (Abs(dy) < Precision1::Confusion())
           {
             di << "Profile : cannot intersect, arg " << i - 1;
             return 1;
@@ -1017,7 +1017,7 @@ static Standard_Integer profile(DrawInterpreter& di, Standard_Integer n, const c
       dx     = x0 - x;
       dy     = y0 - y;
       length = Sqrt(dx * dx + dy * dy);
-      if (length > Precision::Confusion())
+      if (length > Precision1::Confusion())
       {
         move = line;
         dx   = dx / length;
@@ -1036,7 +1036,7 @@ static Standard_Integer profile(DrawInterpreter& di, Standard_Integer n, const c
     else
     {
       FaceMaker MFace;
-      MFace.Init(Surface, Standard_False, Precision::Confusion());
+      MFace.Init(Surface, Standard_False, Precision1::Confusion());
       MFace.Add(MW.Wire());
       S = MFace.Face();
     }
@@ -1281,7 +1281,7 @@ static Standard_Integer bsplineprof(DrawInterpreter& di, Standard_Integer n, con
     else
     {
       FaceMaker MFace;
-      MFace.Init(Surface, Standard_False, Precision::Confusion());
+      MFace.Init(Surface, Standard_False, Precision1::Confusion());
       MFace.Add(MW.Wire());
       S = MFace.Face();
     }
@@ -1464,7 +1464,7 @@ static Standard_Integer profile2d(DrawInterpreter& di, Standard_Integer n, const
             vy -= y;
           }
           length = Sqrt(vx * vx + vy * vy);
-          if (length > Precision::Confusion())
+          if (length > Precision1::Confusion())
           {
             move = line;
             dx   = vx / length;
@@ -1503,7 +1503,7 @@ static Standard_Integer profile2d(DrawInterpreter& di, Standard_Integer n, const
           Standard_Real vx = Draw1::Atof(a[i - 1]);
           Standard_Real vy = Draw1::Atof(a[i]);
           length           = Sqrt(vx * vx + vy * vy);
-          if (length > Precision::Confusion())
+          if (length > Precision1::Confusion())
           {
             // move = line; DUB
             dx = vx / length;
@@ -1518,7 +1518,7 @@ static Standard_Integer profile2d(DrawInterpreter& di, Standard_Integer n, const
         if (i >= n)
           goto badargs;
         radius = Draw1::Atof(a[i - 1]);
-        if (Abs(radius) > Precision::Confusion())
+        if (Abs(radius) > Precision1::Confusion())
         {
           angle = Draw1::Atof(a[i]) * (M_PI / 180.0);
           move  = circle;
@@ -1533,7 +1533,7 @@ static Standard_Integer profile2d(DrawInterpreter& di, Standard_Integer n, const
         length = Draw1::Atof(a[i]);
         if ((a[i - 1][1] == 'X') || (a[i - 1][1] == 'x'))
         {
-          if (Abs(dx) < Precision::Confusion())
+          if (Abs(dx) < Precision1::Confusion())
           {
             di << "Profile : cannot intersect, arg " << i - 1;
             return 1;
@@ -1543,7 +1543,7 @@ static Standard_Integer profile2d(DrawInterpreter& di, Standard_Integer n, const
         }
         else if ((a[i - 1][1] == 'Y') || (a[i - 1][1] == 'y'))
         {
-          if (Abs(dy) < Precision::Confusion())
+          if (Abs(dy) < Precision1::Confusion())
           {
             di << "Profile : cannot intersect, arg " << i - 1;
             return 1;
@@ -1635,7 +1635,7 @@ static Standard_Integer profile2d(DrawInterpreter& di, Standard_Integer n, const
       dx     = x0 - x;
       dy     = y0 - y;
       length = Sqrt(dx * dx + dy * dy);
-      if (length > Precision::Confusion())
+      if (length > Precision1::Confusion())
       {
         move = line;
         dx   = dx / length;
@@ -1876,7 +1876,7 @@ Standard_Integer edgeintersector(DrawInterpreter& di, Standard_Integer n, const 
   ShapeBuilder B;
 
   Standard_Integer        NbV = 0;
-  constexpr Standard_Real Tol = Precision::PConfusion();
+  constexpr Standard_Real Tol = Precision1::PConfusion();
 
   Standard_Boolean rejectreducedsegmentpoints = Standard_True;
   EInter.InitPoint(rejectreducedsegmentpoints);

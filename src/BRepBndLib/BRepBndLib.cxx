@@ -508,8 +508,8 @@ void FindExactUVBounds(const TopoFace&  FF,
     vmax                         = aBAS.LastVParameter();
     Standard_Boolean isUperiodic = aBAS.IsUPeriodic(), isVperiodic = aBAS.IsVPeriodic();
     Standard_Real    aT1, aT2;
-    Standard_Real    TolU = Max(aBAS.UResolution(Tol), Precision::PConfusion());
-    Standard_Real    TolV = Max(aBAS.VResolution(Tol), Precision::PConfusion());
+    Standard_Real    TolU = Max(aBAS.UResolution(Tol), Precision1::PConfusion());
+    Standard_Real    TolV = Max(aBAS.VResolution(Tol), Precision1::PConfusion());
     Standard_Integer Nu = 0, Nv = 0, NbEdges = 0;
     gp_Vec2d         Du(1, 0), Dv(0, 1);
     gp_Pnt2d         aP;
@@ -551,7 +551,7 @@ void FindExactUVBounds(const TopoFace&  FF,
       if (Abs(u - umin) <= TolU || Abs(u - umax) <= TolU)
       {
         Standard_Real d = Dv * aV;
-        if (1. - Abs(d) <= Precision::PConfusion())
+        if (1. - Abs(d) <= Precision1::PConfusion())
         {
           Nu++;
           if (Nu > 2)
@@ -567,7 +567,7 @@ void FindExactUVBounds(const TopoFace&  FF,
       else if (Abs(v - vmin) <= TolV || Abs(v - vmax) <= TolV)
       {
         Standard_Real d = Du * aV;
-        if (1. - Abs(d) <= Precision::PConfusion())
+        if (1. - Abs(d) <= Precision1::PConfusion())
         {
           Nv++;
           if (Nv > 2)
@@ -602,8 +602,8 @@ void FindExactUVBounds(const TopoFace&  FF,
 
   // fill box for the given face
   Standard_Real aT1, aT2;
-  Standard_Real TolU  = Max(aBAS.UResolution(Tol), Precision::PConfusion());
-  Standard_Real TolV  = Max(aBAS.VResolution(Tol), Precision::PConfusion());
+  Standard_Real TolU  = Max(aBAS.UResolution(Tol), Precision1::PConfusion());
+  Standard_Real TolV  = Max(aBAS.VResolution(Tol), Precision1::PConfusion());
   Standard_Real TolUV = Max(TolU, TolV);
   Bnd_Box2d     aBox;
   ex.Init(F, TopAbs_EDGE);
@@ -760,8 +760,8 @@ void AdjustFaceBox(const BRepAdaptor_Surface& BS,
   FaceBox.Get(fxmin, fymin, fzmin, fxmax, fymax, fzmax);
   EdgeBox.Get(exmin, eymin, ezmin, exmax, eymax, ezmax);
   //
-  Standard_Real           TolU = Max(BS.UResolution(Tol), Precision::PConfusion());
-  Standard_Real           TolV = Max(BS.VResolution(Tol), Precision::PConfusion());
+  Standard_Real           TolU = Max(BS.UResolution(Tol), Precision1::PConfusion());
+  Standard_Real           TolV = Max(BS.VResolution(Tol), Precision1::PConfusion());
   BRepTopAdaptor_FClass2d FClass(BS.Face(), Max(TolU, TolV));
   //
   Standard_Boolean isModified = Standard_False;

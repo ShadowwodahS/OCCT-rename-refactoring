@@ -51,7 +51,7 @@ Standard_Boolean TopOpeBRepTool_face::Init(const TopoWire& W, const TopoFace& Fr
   // fres :
   //  TopoFace fres;
   //  Handle(GeomSurface) su = BRepInspector::Surface(Fref);
-  //  ShapeBuilder B; B.MakeFace(fres,su,Precision::Confusion());
+  //  ShapeBuilder B; B.MakeFace(fres,su,Precision1::Confusion());
   TopoShape aLocalShape = Fref.EmptyCopied();
   TopoFace  fres        = TopoDS::Face(aLocalShape);
   //  TopoFace fres = TopoDS::Face(Fref.EmptyCopied());

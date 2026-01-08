@@ -40,7 +40,7 @@ static Standard_Boolean findPluginFile(AsciiString1& thePluginName,
   {
     thePluginName += "DrawPlugin";
 #ifdef OCCT_DEBUG
-    std::cout << "Plugin file name has not been specified. Defaults to "
+    std::cout << "Plugin1 file name has not been specified. Defaults to "
               << thePluginName.ToCString() << std::endl;
 #endif
   }
@@ -257,7 +257,7 @@ static Standard_Integer dtryload(DrawInterpreter& di, Standard_Integer n, const 
     return 1;
   }
 
-  OSD_SharedLibrary aLib(argv[1]);
+  SharedLibrary aLib(argv[1]);
   if (aLib.DlOpen(OSD_RTLD_NOW))
   {
     di << "Loading " << argv[1] << " successful";
@@ -279,7 +279,7 @@ void Draw1::PloadCommands(DrawInterpreter& theCommands)
     return;
   Done = Standard_True;
 
-  const char* g = "Draw1 Plugin";
+  const char* g = "Draw1 Plugin1";
 
   theCommands.Add("pload",
                   "pload [-PluginFilename] [[Key1] [Key2] ...]: Loads Draw1 plugins ",

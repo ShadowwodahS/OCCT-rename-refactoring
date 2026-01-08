@@ -170,7 +170,7 @@ static void addCylinder(Prs3d_NListOfSequenceOfPnt&               theSeqLines,
       aVertLine2->Append(Point3d(Coords3d(-aRadius, 0, 0) + aVec).Transformed(aTrsf));
     }
 
-    if (aRadius > Precision::Confusion())
+    if (aRadius > Precision1::Confusion())
     {
       addCircle(theSeqLines, aRadius, aTrsf, aVec.Z());
     }

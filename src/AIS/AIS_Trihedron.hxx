@@ -86,49 +86,49 @@ public:
   Standard_Boolean HasTextColor() const { return myHasOwnTextColor; }
 
   //! Returns trihedron text color
-  Standard_EXPORT Quantity_Color TextColor() const;
+  Standard_EXPORT Color1 TextColor() const;
 
   //! Sets color of label of trihedron axes.
-  Standard_EXPORT void SetTextColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetTextColor(const Color1& theColor);
 
   //! Sets color of label of trihedron axis.
-  Standard_EXPORT void SetTextColor(const Prs3d_DatumParts thePart, const Quantity_Color& theColor);
+  Standard_EXPORT void SetTextColor(const Prs3d_DatumParts thePart, const Color1& theColor);
 
   //! Returns true if trihedron has own arrow color
   Standard_Boolean HasArrowColor() const { return myHasOwnArrowColor; }
 
   //! Returns trihedron arrow color
-  Standard_EXPORT Quantity_Color ArrowColor() const;
+  Standard_EXPORT Color1 ArrowColor() const;
 
   //! Sets color of arrow of trihedron axes.
-  Standard_EXPORT void SetArrowColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetArrowColor(const Color1& theColor);
 
   //! Sets color of arrow of trihedron axes.
   Standard_EXPORT void SetArrowColor(const Prs3d_DatumParts thePart,
-                                     const Quantity_Color&  theColor);
+                                     const Color1&  theColor);
 
   //! Returns color of datum part: origin or some of trihedron axes.
-  Standard_EXPORT Quantity_Color DatumPartColor(Prs3d_DatumParts thePart);
+  Standard_EXPORT Color1 DatumPartColor(Prs3d_DatumParts thePart);
 
   //! Sets color of datum part: origin or some of trihedron axes.
   //! If presentation is shading mode, this color is set for both sides of facing model
   Standard_EXPORT void SetDatumPartColor(const Prs3d_DatumParts thePart,
-                                         const Quantity_Color&  theColor);
+                                         const Color1&  theColor);
   //! Sets color of origin.
   //! Standard_DEPRECATED("This method is deprecated - SetColor() should be called instead")
-  Standard_EXPORT void SetOriginColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetOriginColor(const Color1& theColor);
 
   //! Sets color of x-axis.
   //! Standard_DEPRECATED("This method is deprecated - SetColor() should be called instead")
-  Standard_EXPORT void SetXAxisColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetXAxisColor(const Color1& theColor);
 
   //! Sets color of y-axis.
   //! Standard_DEPRECATED("This method is deprecated - SetColor() should be called instead")
-  Standard_EXPORT void SetYAxisColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetYAxisColor(const Color1& theColor);
 
   //! Sets color of z-axis.
   //! Standard_DEPRECATED("This method is deprecated - SetColor() should be called instead")
-  Standard_EXPORT void SetAxisColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetAxisColor(const Color1& theColor);
 
   //! Returns true if arrows are to be drawn
   Standard_EXPORT Standard_Boolean ToDrawArrows() const;
@@ -159,7 +159,7 @@ public:
 
 public:
   //! Sets the color theColor for this trihedron object, it changes color of axes.
-  Standard_EXPORT virtual void SetColor(const Quantity_Color& theColor) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetColor(const Color1& theColor) Standard_OVERRIDE;
 
   //! Returns true if the display mode selected, aMode, is valid for trihedron datums.
   virtual Standard_Boolean AcceptDisplayMode(const Standard_Integer theMode) const Standard_OVERRIDE

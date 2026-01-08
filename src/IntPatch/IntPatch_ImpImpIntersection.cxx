@@ -1222,7 +1222,7 @@ Standard_Boolean FindLine(Point3d&                          Psurf,
               aParaInt   = para;
               theLineIdx = i;
             }
-            if (aSqDist < Precision::SquarePConfusion())
+            if (aSqDist < Precision1::SquarePConfusion())
             {
               amelioration = 100;
             }
@@ -2563,7 +2563,7 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
       const Handle(Adaptor3d_Surface)& aSCyl = bReverse ? S1 : S2;
       VMin                                   = aSCyl->FirstVParameter();
       VMax                                   = aSCyl->LastVParameter();
-      H = (Precision::IsNegativeInfinite(VMin) || Precision::IsPositiveInfinite(VMax))
+      H = (Precision1::IsNegativeInfinite(VMin) || Precision1::IsPositiveInfinite(VMax))
             ? 0
             : (VMax - VMin);
       //
@@ -3800,7 +3800,7 @@ Standard_Boolean IntPTo(const Quadric1&   theQuad1,
       for (i = 1; i <= NbSol; ++i)
       {
         gp_Circ aC = inter.Circle(i);
-        if (!aPln.Axis().IsNormal(aTorus.Axis(), Precision::Angular()))
+        if (!aPln.Axis().IsNormal(aTorus.Axis(), Precision1::Angular()))
         {
           AdjustToSeam(aTorus, aC);
         }
@@ -4096,7 +4096,7 @@ ComputationMethods::stCoeffsValue::stCoeffsValue(const Cylinder1& theCyl1,
   // Therefore, in this case we should compare sine with angular tolerance.
   // This constant is used for check if axes are parallel (see constructor
   // AxeOperator::AxeOperator(...) in IntAna_QuadQuadGeo.cxx file).
-  if (Abs(aDetV1V2) < Precision::Angular())
+  if (Abs(aDetV1V2) < Precision1::Angular())
   {
     throw ExceptionBase("Error. Exception in divide by zerro (IntCyCyTrim)!!!!");
   }
@@ -5538,7 +5538,7 @@ Standard_Boolean InscribePoint(const Standard_Real    theUfTarget,
                                const Standard_Real    thePeriod,
                                const Standard_Boolean theFlForce)
 {
-  if (Precision::IsInfinite(theUGiven))
+  if (Precision1::IsInfinite(theUGiven))
   {
     return Standard_False;
   }
@@ -5658,7 +5658,7 @@ static Standard_Boolean ExcludeNearElements(Standard_Real          theArr[],
 
     // Here, anA >= anB
 
-    if (Precision::IsInfinite(anA))
+    if (Precision1::IsInfinite(anA))
       break;
 
     if ((anA - anB) < theTol)
@@ -5670,7 +5670,7 @@ static Standard_Boolean ExcludeNearElements(Standard_Real          theArr[],
 
       // Make this element infinite an forget it
       //(we will not use it in next iterations).
-      anB     = Precision::Infinite();
+      anB     = Precision1::Infinite();
       aRetVal = Standard_True;
     }
   }
@@ -6376,19 +6376,19 @@ static void CriticalPointsComputing(const ComputationMethods::stCoeffsValue& the
   MinMax(aSf, aSl);
 
   // In accorance with pure mathematic, theU1crit[6] and [8]
-  // must be -Precision::Infinite() instead of used +Precision::Infinite()
+  // must be -Precision1::Infinite() instead of used +Precision1::Infinite()
   theU1crit[6] = Abs((aSl - theCoeffs.mC) / theCoeffs.mB) < 1.0
                    ? -acos((aSl - theCoeffs.mC) / theCoeffs.mB) + theCoeffs.mFI1
-                   : Precision::Infinite();
+                   : Precision1::Infinite();
   theU1crit[7] = Abs((aSf - theCoeffs.mC) / theCoeffs.mB) < 1.0
                    ? -acos((aSf - theCoeffs.mC) / theCoeffs.mB) + theCoeffs.mFI1
-                   : Precision::Infinite();
+                   : Precision1::Infinite();
   theU1crit[8] = Abs((aSf - theCoeffs.mC) / theCoeffs.mB) < 1.0
                    ? acos((aSf - theCoeffs.mC) / theCoeffs.mB) + theCoeffs.mFI1
-                   : Precision::Infinite();
+                   : Precision1::Infinite();
   theU1crit[9] = Abs((aSl - theCoeffs.mC) / theCoeffs.mB) < 1.0
                    ? acos((aSl - theCoeffs.mC) / theCoeffs.mB) + theCoeffs.mFI1
-                   : Precision::Infinite();
+                   : Precision1::Infinite();
 
   theU1crit[10] = theCoeffs.mFI1;
   theU1crit[11] = M_PI + theCoeffs.mFI1;
@@ -6398,7 +6398,7 @@ static void CriticalPointsComputing(const ComputationMethods::stCoeffsValue& the
 
   for (Standard_Integer i = 0; i < theNbCritPointsMax; i++)
   {
-    if (Precision::IsInfinite(theU1crit[i]))
+    if (Precision1::IsInfinite(theU1crit[i]))
     {
       continue;
     }
@@ -6420,7 +6420,7 @@ static void CriticalPointsComputing(const ComputationMethods::stCoeffsValue& the
   while (theNbCritPointsMax > 0)
   {
     Standard_Real& anB = theU1crit[theNbCritPointsMax - 1];
-    if (Precision::IsInfinite(anB))
+    if (Precision1::IsInfinite(anB))
     {
       theNbCritPointsMax--;
       continue;
@@ -6441,7 +6441,7 @@ static void CriticalPointsComputing(const ComputationMethods::stCoeffsValue& the
     if (Abs(anB - anA - thePeriod) < theTol2D)
     { // E.g. anA == 2.0e-17, anB == (thePeriod-1.0e-18)
       anA = (anA + anB - thePeriod) / 2.0;
-      anB = Precision::Infinite();
+      anB = Precision1::Infinite();
       theNbCritPointsMax--;
     }
 
@@ -6474,7 +6474,7 @@ void WorkWithBoundaries::BoundaryEstimation(const Cylinder1& theCy1,
   const Standard_Real aSqSinA = aD1.XYZ().CrossSquareMagnitude(aD2.XYZ());
 
   // If sine is small then it can be compared with angle.
-  if (aSqSinA < Precision::Angular() * Precision::Angular())
+  if (aSqSinA < Precision1::Angular() * Precision1::Angular())
     return;
 
   // Half of delta V. Delta V is a distance between
@@ -6502,8 +6502,8 @@ void WorkWithBoundaries::BoundaryEstimation(const Cylinder1& theCy1,
   theOutBoxS2.Add(aV02 - aHDV2);
   theOutBoxS2.Add(aV02 + aHDV2);
 
-  theOutBoxS1.Enlarge(Precision::Confusion());
-  theOutBoxS2.Enlarge(Precision::Confusion());
+  theOutBoxS1.Enlarge(Precision1::Confusion());
+  theOutBoxS2.Enlarge(Precision1::Confusion());
 
   Standard_Real aU1 = 0.0, aV1 = 0.0, aU2 = 0.0, aV2 = 0.0;
   myUVSurf1.Get(aU1, aV1, aU2, aV2);
@@ -6629,7 +6629,7 @@ static IntPatch_ImpImpIntersection::IntStatus CyCyNoGeometric(
   Standard_Integer aNbPts =
     Min(RealToInt((aUSurf1l - aUSurf1f) / du) + 1, RealToInt(20.0 * theCyl1.Radius()));
   const Standard_Integer aNbPoints = Min(Max(aNbMinPoints, aNbPts), aNbMaxPoints);
-  const Standard_Real    aStepMin  = Max(aTol2D, Precision::PConfusion()),
+  const Standard_Real    aStepMin  = Max(aTol2D, Precision1::PConfusion()),
                       aStepMax     = (aUSurf1l - aUSurf1f > M_PI / 100.0)
                                        ? (aUSurf1l - aUSurf1f) / IntToReal(aNbPoints)
                                        : aUSurf1l - aUSurf1f;
@@ -6661,18 +6661,18 @@ static IntPatch_ImpImpIntersection::IntStatus CyCyNoGeometric(
 
   // See CriticalPointsComputing(...) function to get detail information about this array.
   const Standard_Integer aNbCritPointsMax           = 12;
-  Standard_Real          anU1crit[aNbCritPointsMax] = {Precision::Infinite(),
-                                                       Precision::Infinite(),
-                                                       Precision::Infinite(),
-                                                       Precision::Infinite(),
-                                                       Precision::Infinite(),
-                                                       Precision::Infinite(),
-                                                       Precision::Infinite(),
-                                                       Precision::Infinite(),
-                                                       Precision::Infinite(),
-                                                       Precision::Infinite(),
-                                                       Precision::Infinite(),
-                                                       Precision::Infinite()};
+  Standard_Real          anU1crit[aNbCritPointsMax] = {Precision1::Infinite(),
+                                                       Precision1::Infinite(),
+                                                       Precision1::Infinite(),
+                                                       Precision1::Infinite(),
+                                                       Precision1::Infinite(),
+                                                       Precision1::Infinite(),
+                                                       Precision1::Infinite(),
+                                                       Precision1::Infinite(),
+                                                       Precision1::Infinite(),
+                                                       Precision1::Infinite(),
+                                                       Precision1::Infinite(),
+                                                       Precision1::Infinite()};
 
   // This list of critical points is not full because it does not contain any points
   // which intersection line goes through V-bounds of cylinders in.
@@ -7345,7 +7345,7 @@ static IntPatch_ImpImpIntersection::IntStatus CyCyNoGeometric(
           anU1 = aMinUexp;
         }
 
-        if (Precision::PConfusion() >= (anUl - anU1))
+        if (Precision1::PConfusion() >= (anUl - anU1))
           anU1 = anUl;
 
         anUf = anU1;
@@ -7378,7 +7378,7 @@ static IntPatch_ImpImpIntersection::IntStatus CyCyNoGeometric(
           // Check whether the added point exists.
           // It is enough to check the last point.
           if (theSPnt.IsEmpty()
-              || !theSPnt.Last().PntOn2S().IsSame(aP.PntOn2S(), Precision::Confusion()))
+              || !theSPnt.Last().PntOn2S().IsSame(aP.PntOn2S(), Precision1::Confusion()))
           {
             theSPnt.Append(aP);
           }
@@ -7392,7 +7392,7 @@ static IntPatch_ImpImpIntersection::IntStatus CyCyNoGeometric(
             const PointOn2Surfaces& aPf = aWLine[i]->Point(1);
             const PointOn2Surfaces& aPl = aWLine[i]->Point(2);
 
-            if (aPf.IsSame(aPl, Precision::Confusion()))
+            if (aPf.IsSame(aPl, Precision1::Confusion()))
               isGood = Standard_False;
           }
           else if (aWLine[i]->NbPnts() > 2)
@@ -7446,7 +7446,7 @@ static IntPatch_ImpImpIntersection::IntStatus CyCyNoGeometric(
                 const Vector3d aN2 = aQuad2.Normale(aP2);
                 const Vector3d aTg(aN1.Crossed(aN2));
 
-                if (aTg.SquareMagnitude() < Precision::SquareConfusion())
+                if (aTg.SquareMagnitude() < Precision1::SquareConfusion())
                 {
                   // Tangent zone
                   break;
@@ -7544,7 +7544,7 @@ static IntPatch_ImpImpIntersection::IntStatus CyCyNoGeometric(
   // Try to add new points in the neighborhood of existing point
   for (Standard_Integer aNbPnt = 1; aNbPnt <= theSPnt.Length(); aNbPnt++)
   {
-    // Standard algorithm (implemented above) could not find any
+    // Standard1 algorithm (implemented above) could not find any
     // continuous curve in neighborhood of aPnt2S (e.g. because
     // this curve is too small; see tests\bugs\modalg_5\bug25292_35 and _36).
     // Here, we will try to find several new points nearer to aPnt2S.
@@ -8490,11 +8490,11 @@ Standard_Boolean ExploreCurve(const Cone1&      theCo,
   {
     Standard_Real aPrm = anItr.Value();
 
-    if ((aPrm - aT1) < Precision::PConfusion())
+    if ((aPrm - aT1) < Precision1::PConfusion())
       continue;
 
     Standard_Boolean isLast = Standard_False;
-    if ((aT2 - aPrm) < Precision::PConfusion())
+    if ((aT2 - aPrm) < Precision1::PConfusion())
     {
       aPrm   = aT2;
       isLast = Standard_True;
@@ -8520,7 +8520,7 @@ Standard_Boolean ExploreCurve(const Cone1&      theCo,
     return Standard_False;
   }
 
-  if ((aT2 - aT1) > Precision::PConfusion())
+  if ((aT2 - aT1) > Precision1::PConfusion())
   {
     Curve1 aC1 = theCrv;
     aC1.SetDomain(aT1, aT2);
@@ -9165,12 +9165,12 @@ Standard_Boolean IntCoSp(const Quadric1&    Quad1,
 
       if (param >= paramapex)
       {
-        if (qwe > Precision::PConfusion())
+        if (qwe > Precision1::PConfusion())
         {
           trans1 = IntSurf_Out;
           trans2 = IntSurf_In;
         }
-        else if (qwe < -Precision::PConfusion())
+        else if (qwe < -Precision1::PConfusion())
         {
           trans1 = IntSurf_In;
           trans2 = IntSurf_Out;
@@ -9182,12 +9182,12 @@ Standard_Boolean IntCoSp(const Quadric1&    Quad1,
       }
       else
       {
-        if (qwe < -Precision::PConfusion())
+        if (qwe < -Precision1::PConfusion())
         {
           trans1 = IntSurf_Out;
           trans2 = IntSurf_In;
         }
-        else if (qwe > Precision::PConfusion())
+        else if (qwe > Precision1::PConfusion())
         {
           trans1 = IntSurf_In;
           trans2 = IntSurf_Out;

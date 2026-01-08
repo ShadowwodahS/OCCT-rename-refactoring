@@ -103,7 +103,7 @@ static Handle(BSplineCurve3d) EdgeToBSpline(const TopoEdge& theEdge)
     Handle(Geom_TrimmedCurve) aTrimCurve = new Geom_TrimmedCurve(aCurve, aFirst, aLast);
 
     const Handle(GeomCurve3d)& aCurveTemp = aTrimCurve; // to avoid ambiguity
-    GeomConvert_ApproxCurve   anAppr(aCurveTemp, Precision::Confusion(), GeomAbs_C1, 16, 14);
+    GeomConvert_ApproxCurve   anAppr(aCurveTemp, Precision1::Confusion(), GeomAbs_C1, 16, 14);
     if (anAppr.HasResult())
       aBSCurve = anAppr.Curve();
 
@@ -202,7 +202,7 @@ static Handle(Geom_BSplineSurface) totalsurf(const TopTools_Array2OfShape& shape
         if (Bof)
           epsV = BRepInspector::Tolerance(ComV);
         else
-          epsV = Precision::Confusion();
+          epsV = Precision1::Confusion();
         Bof = CompBS.Add(curvBS, epsV, Standard_True, Standard_False, 1);
         if (!Bof)
           Bof = CompBS.Add(curvBS, 200 * epsV, Standard_True, Standard_False, 1);
@@ -246,7 +246,7 @@ static Handle(Geom_BSplineSurface) totalsurf(const TopTools_Array2OfShape& shape
     HPar->SetValue(i, params(i));
   }
   section.SetParam(HPar);
-  section.Perform(Precision::PConfusion());
+  section.Perform(Precision1::PConfusion());
   Handle(GeomFill_Line) line = new GeomFill_Line(NbSects);
   Standard_Integer      nbIt = 0, degmin = 2, degmax = 6;
   Standard_Boolean      knownP = Standard_True;
@@ -540,7 +540,7 @@ void BRepFill_NSections::Init(const TColStd_SequenceOfReal& P, const Standard_Bo
 
   myLaws = new (GeomFill_HArray1OfSectionLaw)(1, NbEdge);
 
-  constexpr Standard_Real tol = Precision::Confusion();
+  constexpr Standard_Real tol = Precision1::Confusion();
   mySurface                   = totalsurf(myEdges->Array2(),
                         myShapes.Length(),
                         NbEdge,
@@ -657,7 +657,7 @@ TopoVertex BRepFill_NSections::Vertex(const Standard_Integer Index,
       Handle(BSplineCurve3d)::DownCast(myLaws->Value(Index)->BSplineSurface()->VIso(Param));
     Standard_Real first = Curve->FirstParameter();
     Curve->D0(first, P);
-    B.UpdateVertex(V, P, Precision::Confusion());
+    B.UpdateVertex(V, P, Precision1::Confusion());
   }
   else if (Index == myEdges->ColLength() + 1)
   {
@@ -665,7 +665,7 @@ TopoVertex BRepFill_NSections::Vertex(const Standard_Integer Index,
       Handle(BSplineCurve3d)::DownCast(myLaws->Value(Index - 1)->BSplineSurface()->VIso(Param));
     Standard_Real last = Curve->LastParameter();
     Curve->D0(last, P);
-    B.UpdateVertex(V, P, Precision::Confusion());
+    B.UpdateVertex(V, P, Precision1::Confusion());
   }
 
   return V;
@@ -678,7 +678,7 @@ TopoVertex BRepFill_NSections::Vertex(const Standard_Integer Index,
 Standard_Real BRepFill_NSections::VertexTol(const Standard_Integer Index,
                                             const Standard_Real    Param) const
 {
-  Standard_Real    Tol = Precision::Confusion();
+  Standard_Real    Tol = Precision1::Confusion();
   Standard_Integer I1, I2;
   if ((Index == 0) || (Index == myEdges->ColLength()))
   {

@@ -67,10 +67,10 @@ public:
     Standard_OVERRIDE;
 
   //! This method returns map of all nodes the object consist of.
-  Standard_EXPORT const TColStd_PackedMapOfInteger& GetAllNodes() const Standard_OVERRIDE;
+  Standard_EXPORT const PackedIntegerMap& GetAllNodes() const Standard_OVERRIDE;
 
   //! This method returns map of all elements the object consist of.
-  Standard_EXPORT const TColStd_PackedMapOfInteger& GetAllElements() const Standard_OVERRIDE;
+  Standard_EXPORT const PackedIntegerMap& GetAllElements() const Standard_OVERRIDE;
 
   //! This method calculates normal of face, which is using for correct reflection presentation.
   //! There is default method, for advance reflection this method can be redefined.
@@ -85,8 +85,8 @@ public:
 protected:
 private:
   Handle(MeshTriangulation)       myMesh;
-  TColStd_PackedMapOfInteger       myNodes;
-  TColStd_PackedMapOfInteger       myElements;
+  PackedIntegerMap       myNodes;
+  PackedIntegerMap       myElements;
   Handle(TColStd_HArray2OfInteger) myElemNodes;
   Handle(TColStd_HArray2OfReal)    myNodeCoords;
   Handle(TColStd_HArray2OfReal)    myElemNormals;

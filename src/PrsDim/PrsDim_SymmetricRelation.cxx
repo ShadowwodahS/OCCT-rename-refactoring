@@ -163,7 +163,7 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
 
       gp_Lin L3;
 
-      if (!P1.IsEqual(P2, Precision::Confusion()))
+      if (!P1.IsEqual(P2, Precision1::Confusion()))
       {
         L3 = gce_MakeLin(P1, P2);
       }
@@ -195,17 +195,17 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
       Point3d PointMin = ElCLib1::Value(parmin, L3);
       Point3d PointMax = ElCLib1::Value(parmax, L3);
 
-      if (!PointMin.IsEqual(PointMax, Precision::Confusion()))
+      if (!PointMin.IsEqual(PointMax, Precision1::Confusion()))
       {
         seg = new Select3D_SensitiveSegment(own, PointMin, PointMax);
         aSel->Add(seg);
       }
-      if (!myFAttach.IsEqual(P1, Precision::Confusion()))
+      if (!myFAttach.IsEqual(P1, Precision1::Confusion()))
       {
         seg = new Select3D_SensitiveSegment(own, myFAttach, P1);
         aSel->Add(seg);
       }
-      if (!mySAttach.IsEqual(P2, Precision::Confusion()))
+      if (!mySAttach.IsEqual(P2, Precision1::Confusion()))
       {
         seg = new Select3D_SensitiveSegment(own, mySAttach, P2);
         aSel->Add(seg);
@@ -225,7 +225,7 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
       Point3d  ProjOffsetPoint = ElCLib1::Value(ElCLib1::Parameter(laxis, OffsetPnt), laxis);
       Point3d  ProjCenter1     = ElCLib1::Value(ElCLib1::Parameter(laxis, Center1), laxis);
       Vector3d  Vp(ProjCenter1, Center1);
-      if (Vp.Magnitude() <= Precision::Confusion())
+      if (Vp.Magnitude() <= Precision1::Confusion())
         Vp = Vector3d(laxis.Direction()) ^ myPlane->Pln().Position1().Direction();
       Standard_Real Dt, R, h;
       Dt = ProjCenter1.Distance(ProjOffsetPoint);
@@ -243,7 +243,7 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
       Point3d P2 = ProjOffsetPoint.Translated(v);
 
       gp_Lin L3;
-      if (!P1.IsEqual(P2, Precision::Confusion()))
+      if (!P1.IsEqual(P2, Precision1::Confusion()))
       {
         L3 = gce_MakeLin(P1, P2);
       }
@@ -275,7 +275,7 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
       Point3d PointMin = ElCLib1::Value(parmin, L3);
       Point3d PointMax = ElCLib1::Value(parmax, L3);
 
-      if (!PointMin.IsEqual(PointMax, Precision::Confusion()))
+      if (!PointMin.IsEqual(PointMax, Precision1::Confusion()))
       {
         seg = new Select3D_SensitiveSegment(own, PointMin, PointMax);
         aSel->Add(seg);
@@ -285,7 +285,7 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
   //=======================Pour les points======================
   else
   {
-    if (myFAttach.IsEqual(mySAttach, Precision::Confusion()))
+    if (myFAttach.IsEqual(mySAttach, Precision1::Confusion()))
     {
       seg = new Select3D_SensitiveSegment(own, myPosition, myFAttach);
       aSel->Add(seg);
@@ -299,7 +299,7 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
       Point3d P2 = ProjOffsetPoint.Translated(PjAtt1_Att1.Reversed());
       gp_Lin L3;
 
-      if (!P1.IsEqual(P2, Precision::Confusion()))
+      if (!P1.IsEqual(P2, Precision1::Confusion()))
       {
         L3 = gce_MakeLin(P1, P2);
       }
@@ -331,17 +331,17 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
       Point3d PointMin = ElCLib1::Value(parmin, L3);
       Point3d PointMax = ElCLib1::Value(parmax, L3);
 
-      if (!PointMin.IsEqual(PointMax, Precision::Confusion()))
+      if (!PointMin.IsEqual(PointMax, Precision1::Confusion()))
       {
         seg = new Select3D_SensitiveSegment(own, PointMin, PointMax);
         aSel->Add(seg);
       }
-      if (!myFAttach.IsEqual(P1, Precision::Confusion()))
+      if (!myFAttach.IsEqual(P1, Precision1::Confusion()))
       {
         seg = new Select3D_SensitiveSegment(own, myFAttach, P1);
         aSel->Add(seg);
       }
-      if (!mySAttach.IsEqual(P2, Precision::Confusion()))
+      if (!mySAttach.IsEqual(P2, Precision1::Confusion()))
       {
         seg = new Select3D_SensitiveSegment(own, mySAttach, P2);
         aSel->Add(seg);
@@ -449,25 +449,25 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
   }
   else if (!isInfinite1 && !isInfinite2)
   {
-    if (ptat11.IsEqual(ptat21, Precision::Confusion()))
+    if (ptat11.IsEqual(ptat21, Precision1::Confusion()))
     {
       myFAttach = ptat12;
       mySAttach = ptat22;
       idem      = Standard_True;
     }
-    if (ptat11.IsEqual(ptat22, Precision::Confusion()))
+    if (ptat11.IsEqual(ptat22, Precision1::Confusion()))
     {
       myFAttach = ptat12;
       mySAttach = ptat21;
       idem      = Standard_True;
     }
-    if (ptat12.IsEqual(ptat21, Precision::Confusion()))
+    if (ptat12.IsEqual(ptat21, Precision1::Confusion()))
     {
       myFAttach = ptat11;
       mySAttach = ptat22;
       idem      = Standard_True;
     }
-    if (ptat12.IsEqual(ptat22, Precision::Confusion()))
+    if (ptat12.IsEqual(ptat22, Precision1::Confusion()))
     {
       myFAttach = ptat11;
       mySAttach = ptat21;
@@ -508,7 +508,7 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
   //----------------------------------------------------
   Point3d PjFAttach = ElCLib1::Value(ElCLib1::Parameter(laxis, myFAttach), laxis);
 
-  if (PjFAttach.IsEqual(myFAttach, Precision::Confusion()))
+  if (PjFAttach.IsEqual(myFAttach, Precision1::Confusion()))
   {
     Handle(GeomLine) geom_lin2(Handle(GeomLine)::DownCast(geom2));
     gp_Lin            l2(geom_lin2->Lin());
@@ -536,7 +536,7 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
 
   Point3d Pj1 = ElCLib1::Value(ElCLib1::Parameter(laxis, myFAttach), laxis);
   Point3d Pj2 = ElCLib1::Value(ElCLib1::Parameter(laxis, mySAttach), laxis);
-  if ((myFAttach.SquareDistance(Pj1) + mySAttach.SquareDistance(Pj2)) <= Precision::Confusion())
+  if ((myFAttach.SquareDistance(Pj1) + mySAttach.SquareDistance(Pj2)) <= Precision1::Confusion())
     myArrowSize = 0.;
   Handle(Prs3d_DimensionAspect) la  = myDrawer->DimensionAspect();
   Handle(Prs3d_ArrowAspect)     arr = la->ArrowAspect();
@@ -636,7 +636,7 @@ void PrsDim_SymmetricRelation::ComputeTwoVerticesSymmetric(const Handle(Prs3d_Pr
     Point3d curpos = PjFAttach.Translated(offset.Added(Vt.Multiplied(.15)));
     myPosition    = curpos;
   }
-  if (2 * (myFAttach.Distance(mySAttach)) <= Precision::Confusion())
+  if (2 * (myFAttach.Distance(mySAttach)) <= Precision1::Confusion())
     myArrowSize = 0.;
   Handle(Prs3d_DimensionAspect) la  = myDrawer->DimensionAspect();
   Handle(Prs3d_ArrowAspect)     arr = la->ArrowAspect();

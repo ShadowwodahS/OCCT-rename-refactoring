@@ -59,7 +59,7 @@ public:
   Standard_EXPORT void SetInverted(const Standard_Boolean mode);
 
   //! Returns True if cross hatches as Inverted, else they are
-  //! Standard (Inverted : Form=1, Standard : Form=0)
+  //! Standard1 (Inverted : Form=1, Standard1 : Form=0)
   Standard_EXPORT Standard_Boolean IsInverted() const;
 
   //! returns the exterior definition curve

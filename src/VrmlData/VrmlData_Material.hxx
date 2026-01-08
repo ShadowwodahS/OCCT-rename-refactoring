@@ -59,22 +59,22 @@ public:
   /**
    * Query the Ambient color
    */
-  inline const Quantity_Color& AmbientColor() const { return myAmbientColor; }
+  inline const Color1& AmbientColor() const { return myAmbientColor; }
 
   /**
    * Query the Diffuse color
    */
-  inline const Quantity_Color& DiffuseColor() const { return myDiffuseColor; }
+  inline const Color1& DiffuseColor() const { return myDiffuseColor; }
 
   /**
    * Query the Emissive color
    */
-  inline const Quantity_Color& EmissiveColor() const { return myEmissiveColor; }
+  inline const Color1& EmissiveColor() const { return myEmissiveColor; }
 
   /**
    * Query the Specular color
    */
-  inline const Quantity_Color& SpecularColor() const { return mySpecularColor; }
+  inline const Color1& SpecularColor() const { return mySpecularColor; }
 
   /**
    * Set the Ambient Intensity value
@@ -100,22 +100,22 @@ public:
   /**
    * Query the Ambient color
    */
-  inline void SetAmbientColor(const Quantity_Color& theColor) { myAmbientColor = theColor; }
+  inline void SetAmbientColor(const Color1& theColor) { myAmbientColor = theColor; }
 
   /**
    * Query the Diffuse color
    */
-  inline void SetDiffuseColor(const Quantity_Color& theColor) { myDiffuseColor = theColor; }
+  inline void SetDiffuseColor(const Color1& theColor) { myDiffuseColor = theColor; }
 
   /**
    * Query the Emissive color
    */
-  inline void SetEmissiveColor(const Quantity_Color& theColor) { myEmissiveColor = theColor; }
+  inline void SetEmissiveColor(const Color1& theColor) { myEmissiveColor = theColor; }
 
   /**
    * Query the Specular color
    */
-  inline void SetSpecularColor(const Quantity_Color& theColor) { mySpecularColor = theColor; }
+  inline void SetSpecularColor(const Color1& theColor) { mySpecularColor = theColor; }
 
   /**
    * Create a copy of this node.
@@ -149,10 +149,10 @@ private:
   Standard_Real  myAmbientIntensity;
   Standard_Real  myShininess;
   Standard_Real  myTransparency;
-  Quantity_Color myAmbientColor;
-  Quantity_Color myDiffuseColor;
-  Quantity_Color myEmissiveColor;
-  Quantity_Color mySpecularColor;
+  Color1 myAmbientColor;
+  Color1 myDiffuseColor;
+  Color1 myEmissiveColor;
+  Color1 mySpecularColor;
 
 public:
   // Declaration of CASCADE RTTI

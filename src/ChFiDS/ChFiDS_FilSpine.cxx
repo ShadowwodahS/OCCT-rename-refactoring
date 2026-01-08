@@ -226,7 +226,7 @@ Standard_Boolean ChFiDS_FilSpine::IsConstant() const
   Standard_Boolean isconst = Standard_True;
   Standard_Real    Radius  = parandrad(1).Y();
   for (Standard_Integer i = 2; i <= parandrad.Length(); i++)
-    if (Abs(Radius - parandrad(i).Y()) > Precision::Confusion())
+    if (Abs(Radius - parandrad(i).Y()) > Precision1::Confusion())
     {
       isconst = Standard_False;
       break;
@@ -259,7 +259,7 @@ Standard_Boolean ChFiDS_FilSpine::IsConstant(const Standard_Integer IE) const
   {
     par = parandrad(i).X();
     rad = parandrad(i).Y();
-    if (Abs(rad - StartRad) > Precision::Confusion())
+    if (Abs(rad - StartRad) > Precision1::Confusion())
       return Standard_False;
     if (Abs(Ul - par) <= gp1::Resolution())
       return Standard_True;
@@ -302,7 +302,7 @@ Standard_Real ChFiDS_FilSpine::Radius(const Standard_Integer IE) const
   {
     par = parandrad(i).X();
     rad = parandrad(i).Y();
-    if (Abs(rad - StartRad) > Precision::Confusion())
+    if (Abs(rad - StartRad) > Precision1::Confusion())
       throw Standard_DomainError("Edge is not constant");
     if (Abs(Ul - par) <= gp1::Resolution())
       return StartRad;
@@ -470,7 +470,7 @@ static void mklaw(Law_Laws&                  res,
 
 Handle(Law_Composite) ChFiDS_FilSpine::ComputeLaw(const Handle(ChFiDS_ElSpine)& Els)
 {
-  Standard_Real tol3d = Precision::Confusion();
+  Standard_Real tol3d = Precision1::Confusion();
   Standard_Real deb, fin, curdeb, curfin;
   curdeb = deb = Els->FirstParameter();
   curfin = fin          = Els->LastParameter();

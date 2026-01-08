@@ -389,7 +389,7 @@ SystemPath::SystemPath(const AsciiString1& aDependentName, const OSD_SysType aSy
       break;
     default:
   #ifdef OCCT_DEBUG
-      std::cout << " WARNING WARNING : OSD Path for an Unknown SYSTEM : " << (Standard_Integer)todo
+      std::cout << " WARNING WARNING : OSD1 Path for an Unknown SYSTEM : " << (Standard_Integer)todo
                 << std::endl;
   #endif
       break;

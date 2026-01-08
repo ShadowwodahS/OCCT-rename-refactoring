@@ -66,7 +66,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   {
     D2.Reverse();
   }
-  QuadQuadGeoIntersection LInt(Pl1, Pl2, Precision::Angular(), Precision::Confusion());
+  QuadQuadGeoIntersection LInt(Pl1, Pl2, Precision1::Angular(), Precision1::Confusion());
   Point3d             Pv;
   if (LInt.IsDone())
   {

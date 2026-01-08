@@ -34,11 +34,11 @@ inline Handle(ShapeExtend_BasicMsgRegistrator) ShapeFix_Root::MsgRegistrator() c
 }
 
 //=======================================================================
-// function : Precision
+// function : Precision1
 // purpose  :
 //=======================================================================
 
-inline Standard_Real ShapeFix_Root::Precision() const
+inline Standard_Real ShapeFix_Root::Precision1() const
 {
   return myPrecision;
 }

@@ -49,13 +49,13 @@ void IntCurve_IntCurveCurveGen::Perform(const TheCurve& C,
     {
       Standard_Real paraminf = TheCurveTool::FirstParameter(C);
       Standard_Real paramsup = TheCurveTool::LastParameter(C);
-      if (Precision::IsInfinite(paraminf) && Precision::IsInfinite(paramsup)) {
+      if (Precision1::IsInfinite(paraminf) && Precision1::IsInfinite(paramsup)) {
         done = Standard_False;
         return;
       }
       //
-      if(paraminf>-Precision::Infinite()) { 
-	if(paramsup<Precision::Infinite()) { 
+      if(paraminf>-Precision1::Infinite()) { 
+	if(paramsup<Precision1::Infinite()) { 
 	  //--         paraminf-----------paramsup
 	  D1.SetValues(TheCurveTool::Value(C,paraminf),
 		       paraminf,
@@ -73,7 +73,7 @@ void IntCurve_IntCurveCurveGen::Perform(const TheCurve& C,
 	}
       }
       else { 
-	if(paramsup<Precision::Infinite()) { 
+	if(paramsup<Precision1::Infinite()) { 
 	  //--    ...-----------------paramsup
 	  D1.SetValues(TheCurveTool::Value(C,paramsup),
 		       paramsup,
@@ -147,8 +147,8 @@ Domain2 IntCurve_IntCurveCurveGen::ComputeDomain(const TheCurve& C1,
   default: { 
     Standard_Real paraminf = TheCurveTool::FirstParameter(C1);
     Standard_Real paramsup = TheCurveTool::LastParameter(C1);
-    if(paraminf>-Precision::Infinite()) { 
-      if(paramsup<Precision::Infinite()) { 
+    if(paraminf>-Precision1::Infinite()) { 
+      if(paramsup<Precision1::Infinite()) { 
 	//--         paraminf-----------paramsup
 	D1.SetValues(TheCurveTool::Value(C1,paraminf),
 		     paraminf,
@@ -166,7 +166,7 @@ Domain2 IntCurve_IntCurveCurveGen::ComputeDomain(const TheCurve& C1,
       }
     }
     else { 
-      if(paramsup<Precision::Infinite()) { 
+      if(paramsup<Precision1::Infinite()) { 
 	//--    ...-----------------paramsup
 	D1.SetValues(TheCurveTool::Value(C1,paramsup),
 		     paramsup,
@@ -195,8 +195,8 @@ void IntCurve_IntCurveCurveGen::Perform (const TheCurve& C1,
     param1sup = TheCurveTool::LastParameter(C1);
   }
   else {
-    param1inf = (D1.HasFirstPoint())? (D1.FirstParameter()) : -Precision::Infinite();
-    param1sup = (D1.HasLastPoint()) ? (D1.LastParameter())  : Precision::Infinite();
+    param1inf = (D1.HasFirstPoint())? (D1.FirstParameter()) : -Precision1::Infinite();
+    param1sup = (D1.HasLastPoint()) ? (D1.LastParameter())  : Precision1::Infinite();
   }
   Standard_Integer nbi2 = TheCurveTool::NbIntervals(C2);
   if(nbi2 > 1) { 
@@ -204,8 +204,8 @@ void IntCurve_IntCurveCurveGen::Perform (const TheCurve& C1,
     param2sup = TheCurveTool::LastParameter(C2);
   }
   else {
-    param2inf = (D2.HasFirstPoint())? (D2.FirstParameter()) : -Precision::Infinite();
-    param2sup = (D2.HasLastPoint()) ? (D2.LastParameter())  : Precision::Infinite();
+    param2inf = (D2.HasFirstPoint())? (D2.FirstParameter()) : -Precision1::Infinite();
+    param2sup = (D2.HasLastPoint()) ? (D2.LastParameter())  : Precision1::Infinite();
   }
   if(nbi1>1 || nbi2>1) { 
     TColStd_Array1OfReal Tab1(1,nbi1+1);

@@ -22,7 +22,7 @@
 #include <IntPatch_WLine.hxx>
 #include <Precision.hxx>
 
-#define INITDEFLE Precision::PConfusion() * 100.
+#define INITDEFLE Precision1::PConfusion() * 100.
 
 //=================================================================================================
 

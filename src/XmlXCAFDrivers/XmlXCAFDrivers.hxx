@@ -28,7 +28,7 @@ public:
   //! Depending from the  ID, returns a list of  storage
   //! or retrieval attribute drivers. Used for plugin.
   //!
-  //! Standard data model drivers
+  //! Standard1 data model drivers
   //! ===========================
   //! 47b0b826-d931-11d1-b5da-00a0c9064368 Transient-Persistent
   //! 47b0b827-d931-11d1-b5da-00a0c9064368 Persistent-Transient

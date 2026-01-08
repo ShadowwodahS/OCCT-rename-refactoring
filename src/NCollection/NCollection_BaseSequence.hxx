@@ -22,37 +22,37 @@
 
 // **************************************** Class SeqNode ********************
 
-class NCollection_SeqNode
+class SequenceNode
 {
 public:
   // define new operator for use with NCollection allocators
   DEFINE_NCOLLECTION_ALLOC
 public:
-  NCollection_SeqNode()
+  SequenceNode()
       : myNext(NULL),
         myPrevious(NULL)
   {
   }
 
-  NCollection_SeqNode* Next() const { return myNext; }
+  SequenceNode* Next() const { return myNext; }
 
-  NCollection_SeqNode* Previous() const { return myPrevious; }
+  SequenceNode* Previous() const { return myPrevious; }
 
-  void SetNext(NCollection_SeqNode* theNext) { myNext = theNext; }
+  void SetNext(SequenceNode* theNext) { myNext = theNext; }
 
-  void SetPrevious(NCollection_SeqNode* thePrev) { myPrevious = thePrev; }
+  void SetPrevious(SequenceNode* thePrev) { myPrevious = thePrev; }
 
 private:
-  NCollection_SeqNode* myNext;
-  NCollection_SeqNode* myPrevious;
+  SequenceNode* myNext;
+  SequenceNode* myPrevious;
 };
 
-typedef void (*NCollection_DelSeqNode)(NCollection_SeqNode*,
+typedef void (*NCollection_DelSeqNode)(SequenceNode*,
                                        Handle(NCollection_BaseAllocator)& theAl);
 
 /**
  * Purpose:     This  is  a base  class  for  the  Sequence.  It  deals with
- *              an indexed bidirectional list of NCollection_SeqNode's.
+ *              an indexed bidirectional list of SequenceNode's.
  */
 class BaseSequence
 {
@@ -95,8 +95,8 @@ public:
     }
 
   protected:
-    NCollection_SeqNode* myCurrent;  //!< Pointer to the current node
-    NCollection_SeqNode* myPrevious; //!< Pointer to the previous node
+    SequenceNode* myCurrent;  //!< Pointer to the current node
+    SequenceNode* myPrevious; //!< Pointer to the previous node
     friend class BaseSequence;
   };
 
@@ -128,12 +128,12 @@ protected:
   virtual ~BaseSequence() {}
 
   Standard_EXPORT void ClearSeq(NCollection_DelSeqNode fDel);
-  Standard_EXPORT void PAppend(NCollection_SeqNode*);
+  Standard_EXPORT void PAppend(SequenceNode*);
   Standard_EXPORT void PAppend(BaseSequence& S);
-  Standard_EXPORT void PPrepend(NCollection_SeqNode*);
+  Standard_EXPORT void PPrepend(SequenceNode*);
   Standard_EXPORT void PPrepend(BaseSequence& S);
-  Standard_EXPORT void PInsertAfter(Iterator& thePosition, NCollection_SeqNode*);
-  Standard_EXPORT void PInsertAfter(const Standard_Integer Index, NCollection_SeqNode*);
+  Standard_EXPORT void PInsertAfter(Iterator& thePosition, SequenceNode*);
+  Standard_EXPORT void PInsertAfter(const Standard_Integer Index, SequenceNode*);
   Standard_EXPORT void PInsertAfter(const Standard_Integer Index, BaseSequence& S);
   Standard_EXPORT void PSplit(const Standard_Integer Index, BaseSequence& Sub);
   Standard_EXPORT void RemoveSeq(Iterator& thePosition, NCollection_DelSeqNode fDel);
@@ -143,15 +143,15 @@ protected:
                                  NCollection_DelSeqNode fDel);
   Standard_EXPORT void PReverse();
   Standard_EXPORT void PExchange(const Standard_Integer I, const Standard_Integer J);
-  Standard_EXPORT NCollection_SeqNode* Find(const Standard_Integer) const;
+  Standard_EXPORT SequenceNode* Find(const Standard_Integer) const;
 
 protected:
   // Fields PROTECTED
   //
   Handle(NCollection_BaseAllocator) myAllocator;
-  NCollection_SeqNode*              myFirstItem;
-  NCollection_SeqNode*              myLastItem;
-  NCollection_SeqNode*              myCurrentItem;
+  SequenceNode*              myFirstItem;
+  SequenceNode*              myLastItem;
+  SequenceNode*              myCurrentItem;
   Standard_Integer                  myCurrentIndex;
   Standard_Integer                  mySize;
 

@@ -35,24 +35,24 @@
 Aspect_Background::Aspect_Background()
 {
 
-  Quantity_Color MatraGray(Quantity_NOC_MATRAGRAY);
+  Color1 MatraGray(Quantity_NOC_MATRAGRAY);
 
   MyColor = MatraGray;
 }
 
-Aspect_Background::Aspect_Background(const Quantity_Color& AColor)
+Aspect_Background::Aspect_Background(const Color1& AColor)
 {
 
   MyColor = AColor;
 }
 
-void Aspect_Background::SetColor(const Quantity_Color& AColor)
+void Aspect_Background::SetColor(const Color1& AColor)
 {
 
   MyColor = AColor;
 }
 
-Quantity_Color Aspect_Background::Color() const
+Color1 Aspect_Background::Color() const
 {
 
   return (MyColor);

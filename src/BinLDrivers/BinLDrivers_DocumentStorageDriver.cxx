@@ -131,7 +131,7 @@ void BinLDrivers_DocumentStorageDriver::Write(const Handle(CDM_Document)&  theDo
     }
 
     //  3. Write document contents
-    // (Storage data to the stream)
+    // (Storage1 data to the stream)
     myRelocTable.Clear();
     myPAtt.Init();
     if (aQuickPart)

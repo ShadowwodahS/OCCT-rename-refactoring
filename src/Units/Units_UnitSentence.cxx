@@ -27,18 +27,18 @@
 //=================================================================================================
 
 Units_UnitSentence::Units_UnitSentence(const Standard_CString astring)
-    : Units_Sentence(Units::LexiconUnits(), astring)
+    : Units_Sentence(Units2::LexiconUnits(), astring)
 {
   Analyse();
   SetConstants();
-  SetUnits(Units::DictionaryOfUnits()->Sequence());
+  SetUnits(Units2::DictionaryOfUnits()->Sequence());
 }
 
 //=================================================================================================
 
 Units_UnitSentence::Units_UnitSentence(const Standard_CString                  astring,
                                        const Handle(Units_QuantitiesSequence)& aquantitiessequence)
-    : Units_Sentence(Units::LexiconUnits(Standard_False), astring)
+    : Units_Sentence(Units2::LexiconUnits(Standard_False), astring)
 {
   Analyse();
   SetConstants();

@@ -134,14 +134,14 @@ GeomAbs_Shape GeomLine::Continuity() const
 
 Standard_Real GeomLine::FirstParameter() const
 {
-  return -Precision::Infinite();
+  return -Precision1::Infinite();
 }
 
 //=================================================================================================
 
 Standard_Real GeomLine::LastParameter() const
 {
-  return Precision::Infinite();
+  return Precision1::Infinite();
 }
 
 //=================================================================================================
@@ -215,7 +215,7 @@ Vector3d GeomLine::DN(const Standard_Real, const Standard_Integer N) const
 
 Standard_Real GeomLine::TransformedParameter(const Standard_Real U, const Transform3d& T) const
 {
-  if (Precision::IsInfinite(U))
+  if (Precision1::IsInfinite(U))
     return U;
   return U * Abs(T.ScaleFactor());
 }

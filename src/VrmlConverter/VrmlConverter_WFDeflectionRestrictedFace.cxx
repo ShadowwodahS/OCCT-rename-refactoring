@@ -39,7 +39,7 @@ static Standard_Real GetDeflection(const Handle(BRepAdaptor_Surface)&  aFace,
   if (aDrawer->TypeOfDeflection() == Aspect_TOD_RELATIVE) // TOD_RELATIVE, TOD_ABSOLUTE
   {
     Box2 box;
-    AddSurface::Add(aFace->Surface(), Precision::Confusion(), box);
+    AddSurface::Add(aFace->Surface(), Precision1::Confusion(), box);
 
     Standard_Real Xmin, Xmax, Ymin, Ymax, Zmin, Zmax, diagonal;
     box.Get(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
@@ -48,7 +48,7 @@ static Standard_Real GetDeflection(const Handle(BRepAdaptor_Surface)&  aFace,
     {
       diagonal               = Sqrt((Xmax - Xmin) * (Xmax - Xmin) + (Ymax - Ymin) * (Ymax - Ymin)
                       + (Zmax - Zmin) * (Zmax - Zmin));
-      diagonal               = Max(diagonal, Precision::Confusion());
+      diagonal               = Max(diagonal, Precision1::Confusion());
       theRequestedDeflection = aDrawer->DeviationCoefficient() * diagonal;
     }
     else

@@ -156,7 +156,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
   Message1::SendInfo() << "Generating ENTITY " << aCPPName;
 
   // create a package directory (if not yet exist)
-  OSD_Protection          aProt(OSD_RWXD, OSD_RWXD, OSD_RX, OSD_RX);
+  Protection1          aProt(OSD_RWXD, OSD_RWXD, OSD_RX, OSD_RX);
   AsciiString1 aPack = GetPackageName();
   SystemPath                aPath(aPack);
   OSD_Directory           aDir(aPath);
@@ -1080,7 +1080,7 @@ Standard_Boolean Express_Entity::writeIncludes(Standard_OStream& theOS) const
       AsciiString1       aNameClass = aNameHA.SubString(aFindPos + 11, aNameHA.Length());
       const Handle(OSD_FileSystem)& aFileSystem = OSD_FileSystem::DefaultFileSystem();
       // create a package directory (if not yet exist)
-      OSD_Protection aProt(OSD_RWXD, OSD_RWXD, OSD_RX, OSD_RX);
+      Protection1 aProt(OSD_RWXD, OSD_RWXD, OSD_RX, OSD_RX);
       SystemPath       aPath(aPack);
       OSD_Directory  aDir(aPath);
       aDir.Build(aProt);

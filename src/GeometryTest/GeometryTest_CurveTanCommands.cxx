@@ -187,7 +187,7 @@ static Standard_Integer circ2d3Tan(DrawInterpreter& theDI,
   Standard_Boolean anIsPoint2 = DrawTrSurf1::GetPoint2d(theArgVec[3], aPoint2);
   Standard_Boolean anIsPoint3 = DrawTrSurf1::GetPoint2d(theArgVec[4], aPoint3);
 
-  Standard_Real aTolerance = Precision::Confusion();
+  Standard_Real aTolerance = Precision1::Confusion();
   if (theArgsNb > 5)
     aTolerance = Draw1::Atof(theArgVec[5]);
 

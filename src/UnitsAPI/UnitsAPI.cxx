@@ -27,7 +27,7 @@ static UnitsAPI_SystemUnits     currentSystem = UnitsAPI_DEFAULT;
 
 //=================================================================================================
 
-void UnitsAPI::CheckLoading(const UnitsAPI_SystemUnits aSystemUnits)
+void UnitsAPI1::CheckLoading(const UnitsAPI_SystemUnits aSystemUnits)
 {
   if (currentSystem != aSystemUnits || CurrentUnits.IsNull())
   {
@@ -133,20 +133,20 @@ void UnitsAPI::CheckLoading(const UnitsAPI_SystemUnits aSystemUnits)
 
 //=================================================================================================
 
-Standard_Real UnitsAPI::CurrentToLS(const Standard_Real aData, const Standard_CString aQuantity)
+Standard_Real UnitsAPI1::CurrentToLS(const Standard_Real aData, const Standard_CString aQuantity)
 {
   Standard_Real aValue = aData;
   CheckLoading(localSystem);
   if (CurrentUnits->Find(aQuantity))
   {
     AsciiString1 current(CurrentUnits->Value(aQuantity));
-    aValue = Units::ToSI(aData, current.ToCString());
+    aValue = Units2::ToSI(aData, current.ToCString());
     aValue = LocalSystemUnits.ConvertSIValueToUserSystem(aQuantity, aValue);
   }
 #ifdef OCCT_DEBUG
   else
   {
-    std::cout << "Warning: UnitsAPI,the quantity '" << aQuantity
+    std::cout << "Warning: UnitsAPI1,the quantity '" << aQuantity
               << "' does not exist in the current units system" << std::endl;
   }
 #endif
@@ -156,19 +156,19 @@ Standard_Real UnitsAPI::CurrentToLS(const Standard_Real aData, const Standard_CS
 
 //=================================================================================================
 
-Standard_Real UnitsAPI::CurrentToSI(const Standard_Real aData, const Standard_CString aQuantity)
+Standard_Real UnitsAPI1::CurrentToSI(const Standard_Real aData, const Standard_CString aQuantity)
 {
   Standard_Real aValue = aData;
   CheckLoading(UnitsAPI_DEFAULT);
   if (CurrentUnits->Find(aQuantity))
   {
     AsciiString1 current(CurrentUnits->Value(aQuantity));
-    aValue = Units::ToSI(aData, current.ToCString());
+    aValue = Units2::ToSI(aData, current.ToCString());
   }
 #ifdef OCCT_DEBUG
   else
   {
-    std::cout << "Warning: UnitsAPI,the quantity '" << aQuantity
+    std::cout << "Warning: UnitsAPI1,the quantity '" << aQuantity
               << "' does not exist in the current units system" << std::endl;
   }
 #endif
@@ -178,7 +178,7 @@ Standard_Real UnitsAPI::CurrentToSI(const Standard_Real aData, const Standard_CS
 
 //=================================================================================================
 
-Standard_Real UnitsAPI::CurrentFromLS(const Standard_Real aData, const Standard_CString aQuantity)
+Standard_Real UnitsAPI1::CurrentFromLS(const Standard_Real aData, const Standard_CString aQuantity)
 {
   Standard_Real aValue = aData;
   CheckLoading(localSystem);
@@ -186,12 +186,12 @@ Standard_Real UnitsAPI::CurrentFromLS(const Standard_Real aData, const Standard_
   {
     AsciiString1 current(CurrentUnits->Value(aQuantity));
     aValue = LocalSystemUnits.ConvertUserSystemValueToSI(aQuantity, aData);
-    aValue = Units::FromSI(aValue, current.ToCString());
+    aValue = Units2::FromSI(aValue, current.ToCString());
   }
 #ifdef OCCT_DEBUG
   else
   {
-    std::cout << "Warning: UnitsAPI,the quantity '" << aQuantity
+    std::cout << "Warning: UnitsAPI1,the quantity '" << aQuantity
               << "' does not exist in the current units system" << std::endl;
   }
 #endif
@@ -201,19 +201,19 @@ Standard_Real UnitsAPI::CurrentFromLS(const Standard_Real aData, const Standard_
 
 //=================================================================================================
 
-Standard_Real UnitsAPI::CurrentFromSI(const Standard_Real aData, const Standard_CString aQuantity)
+Standard_Real UnitsAPI1::CurrentFromSI(const Standard_Real aData, const Standard_CString aQuantity)
 {
   Standard_Real aValue = aData;
   CheckLoading(UnitsAPI_DEFAULT);
   if (CurrentUnits->Find(aQuantity))
   {
     AsciiString1 current(CurrentUnits->Value(aQuantity));
-    aValue = Units::FromSI(aData, current.ToCString());
+    aValue = Units2::FromSI(aData, current.ToCString());
   }
 #ifdef OCCT_DEBUG
   else
   {
-    std::cout << "Warning: UnitsAPI,the quantity '" << aQuantity
+    std::cout << "Warning: UnitsAPI1,the quantity '" << aQuantity
               << "' does not exist in the current units system" << std::endl;
   }
 #endif
@@ -223,7 +223,7 @@ Standard_Real UnitsAPI::CurrentFromSI(const Standard_Real aData, const Standard_
 
 //=================================================================================================
 
-Standard_Real UnitsAPI::CurrentToAny(const Standard_Real    aData,
+Standard_Real UnitsAPI1::CurrentToAny(const Standard_Real    aData,
                                      const Standard_CString aQuantity,
                                      const Standard_CString aUnit)
 {
@@ -237,7 +237,7 @@ Standard_Real UnitsAPI::CurrentToAny(const Standard_Real    aData,
 #ifdef OCCT_DEBUG
   else
   {
-    std::cout << "Warning: UnitsAPI,the quantity '" << aQuantity
+    std::cout << "Warning: UnitsAPI1,the quantity '" << aQuantity
               << "' does not exist in the current units system" << std::endl;
   }
 #endif
@@ -247,7 +247,7 @@ Standard_Real UnitsAPI::CurrentToAny(const Standard_Real    aData,
 
 //=================================================================================================
 
-Standard_Real UnitsAPI::CurrentFromAny(const Standard_Real    aData,
+Standard_Real UnitsAPI1::CurrentFromAny(const Standard_Real    aData,
                                        const Standard_CString aQuantity,
                                        const Standard_CString aUnit)
 {
@@ -261,7 +261,7 @@ Standard_Real UnitsAPI::CurrentFromAny(const Standard_Real    aData,
 #ifdef OCCT_DEBUG
   else
   {
-    std::cout << "Warning: UnitsAPI,the quantity '" << aQuantity
+    std::cout << "Warning: UnitsAPI1,the quantity '" << aQuantity
               << "' does not exist in the current units system" << std::endl;
   }
 #endif
@@ -271,12 +271,12 @@ Standard_Real UnitsAPI::CurrentFromAny(const Standard_Real    aData,
 
 //=================================================================================================
 
-Standard_Real UnitsAPI::AnyToLS(const Standard_Real aData, const Standard_CString aUnit)
+Standard_Real UnitsAPI1::AnyToLS(const Standard_Real aData, const Standard_CString aUnit)
 {
   Standard_Real aValue = aData;
   CheckLoading(localSystem);
   Handle(Units_Dimensions) aDim;
-  aValue = Units::ToSI(aValue, aUnit, aDim);
+  aValue = Units2::ToSI(aValue, aUnit, aDim);
   if (aDim.IsNull())
     return aValue;
   Standard_CString quantity = aDim->Quantity();
@@ -286,7 +286,7 @@ Standard_Real UnitsAPI::AnyToLS(const Standard_Real aData, const Standard_CStrin
   }
 #ifdef OCCT_DEBUG
   else
-    std::cout << "Warning: BAD Quantity returns in UnitsAPI::AnyToLS(" << aData << "," << aUnit
+    std::cout << "Warning: BAD Quantity returns in UnitsAPI1::AnyToLS(" << aData << "," << aUnit
               << ")" << std::endl;
 #endif
   return aValue;
@@ -294,13 +294,13 @@ Standard_Real UnitsAPI::AnyToLS(const Standard_Real aData, const Standard_CStrin
 
 //=================================================================================================
 
-Standard_Real UnitsAPI::AnyToLS(const Standard_Real       aData,
+Standard_Real UnitsAPI1::AnyToLS(const Standard_Real       aData,
                                 const Standard_CString    aUnit,
                                 Handle(Units_Dimensions)& aDim)
 {
   Standard_Real aValue = aData;
   CheckLoading(localSystem);
-  aValue                    = Units::ToSI(aValue, aUnit, aDim);
+  aValue                    = Units2::ToSI(aValue, aUnit, aDim);
   Standard_CString quantity = aDim->Quantity();
   if (aDim.IsNull())
     return aValue;
@@ -310,7 +310,7 @@ Standard_Real UnitsAPI::AnyToLS(const Standard_Real       aData,
   }
 #ifdef OCCT_DEBUG
   else
-    std::cout << "Warning: BAD Quantity returns in UnitsAPI::AnyToLS(" << aData << "," << aUnit
+    std::cout << "Warning: BAD Quantity returns in UnitsAPI1::AnyToLS(" << aData << "," << aUnit
               << "," << aDim.get() << ")" << std::endl;
 #endif
   return aValue;
@@ -318,34 +318,34 @@ Standard_Real UnitsAPI::AnyToLS(const Standard_Real       aData,
 
 //=================================================================================================
 
-Standard_Real UnitsAPI::AnyToSI(const Standard_Real aData, const Standard_CString aUnit)
+Standard_Real UnitsAPI1::AnyToSI(const Standard_Real aData, const Standard_CString aUnit)
 {
   Standard_Real aValue;
   CheckLoading(UnitsAPI_DEFAULT);
-  aValue = Units::ToSI(aData, aUnit);
+  aValue = Units2::ToSI(aData, aUnit);
   return aValue;
 }
 
 //=================================================================================================
 
-Standard_Real UnitsAPI::AnyToSI(const Standard_Real       aData,
+Standard_Real UnitsAPI1::AnyToSI(const Standard_Real       aData,
                                 const Standard_CString    aUnit,
                                 Handle(Units_Dimensions)& aDim)
 {
   Standard_Real aValue;
   CheckLoading(UnitsAPI_DEFAULT);
-  aValue = Units::ToSI(aData, aUnit, aDim);
+  aValue = Units2::ToSI(aData, aUnit, aDim);
   return aValue;
 }
 
 //=================================================================================================
 
-Standard_Real UnitsAPI::AnyFromLS(const Standard_Real aData, const Standard_CString aUnit)
+Standard_Real UnitsAPI1::AnyFromLS(const Standard_Real aData, const Standard_CString aUnit)
 {
   Standard_Real aValue = aData;
   CheckLoading(localSystem);
   Handle(Units_Dimensions) aDim;
-  aValue                    = Units::FromSI(aValue, aUnit, aDim);
+  aValue                    = Units2::FromSI(aValue, aUnit, aDim);
   Standard_CString quantity = aDim->Quantity();
   if (quantity)
   {
@@ -353,7 +353,7 @@ Standard_Real UnitsAPI::AnyFromLS(const Standard_Real aData, const Standard_CStr
   }
 #ifdef OCCT_DEBUG
   else
-    std::cout << "Warning: BAD Quantity returns in UnitsAPI::AnyToLS(" << aData << "," << aUnit
+    std::cout << "Warning: BAD Quantity returns in UnitsAPI1::AnyToLS(" << aData << "," << aUnit
               << ")" << std::endl;
 #endif
 
@@ -362,29 +362,29 @@ Standard_Real UnitsAPI::AnyFromLS(const Standard_Real aData, const Standard_CStr
 
 //=================================================================================================
 
-Standard_Real UnitsAPI::AnyFromSI(const Standard_Real aData, const Standard_CString aUnit)
+Standard_Real UnitsAPI1::AnyFromSI(const Standard_Real aData, const Standard_CString aUnit)
 {
   Standard_Real aValue;
   CheckLoading(UnitsAPI_DEFAULT);
-  aValue = Units::FromSI(aData, aUnit);
+  aValue = Units2::FromSI(aData, aUnit);
   return aValue;
 }
 
 //=================================================================================================
 
-Standard_Real UnitsAPI::AnyToAny(const Standard_Real    aData,
+Standard_Real UnitsAPI1::AnyToAny(const Standard_Real    aData,
                                  const Standard_CString aUnit1,
                                  const Standard_CString aUnit2)
 {
   Standard_Real aValue = aData;
   CheckLoading(UnitsAPI_DEFAULT);
-  aValue = Units::Convert(aValue, aUnit1, aUnit2);
+  aValue = Units2::Convert(aValue, aUnit1, aUnit2);
   return aValue;
 }
 
 //=================================================================================================
 
-Standard_Real UnitsAPI::LSToSI(const Standard_Real aData, const Standard_CString aQuantity)
+Standard_Real UnitsAPI1::LSToSI(const Standard_Real aData, const Standard_CString aQuantity)
 {
   Standard_Real aValue = aData;
   CheckLoading(localSystem);
@@ -395,7 +395,7 @@ Standard_Real UnitsAPI::LSToSI(const Standard_Real aData, const Standard_CString
 #ifdef OCCT_DEBUG
   else
   {
-    std::cout << "Warning: UnitsAPI,the quantity '" << aQuantity
+    std::cout << "Warning: UnitsAPI1,the quantity '" << aQuantity
               << "' does not exist in the current units system" << std::endl;
   }
 #endif
@@ -405,7 +405,7 @@ Standard_Real UnitsAPI::LSToSI(const Standard_Real aData, const Standard_CString
 
 //=================================================================================================
 
-Standard_Real UnitsAPI::SIToLS(const Standard_Real aData, const Standard_CString aQuantity)
+Standard_Real UnitsAPI1::SIToLS(const Standard_Real aData, const Standard_CString aQuantity)
 {
   Standard_Real aValue = aData;
   CheckLoading(localSystem);
@@ -416,7 +416,7 @@ Standard_Real UnitsAPI::SIToLS(const Standard_Real aData, const Standard_CString
 #ifdef OCCT_DEBUG
   else
   {
-    std::cout << "Warning: UnitsAPI,the quantity '" << aQuantity
+    std::cout << "Warning: UnitsAPI1,the quantity '" << aQuantity
               << "' does not exist in the current units system" << std::endl;
   }
 #endif
@@ -426,7 +426,7 @@ Standard_Real UnitsAPI::SIToLS(const Standard_Real aData, const Standard_CString
 
 //=================================================================================================
 
-void UnitsAPI::SetLocalSystem(const UnitsAPI_SystemUnits aSystemUnits)
+void UnitsAPI1::SetLocalSystem(const UnitsAPI_SystemUnits aSystemUnits)
 {
   CheckLoading(aSystemUnits);
   localSystem = currentSystem;
@@ -434,14 +434,14 @@ void UnitsAPI::SetLocalSystem(const UnitsAPI_SystemUnits aSystemUnits)
 
 //=================================================================================================
 
-UnitsAPI_SystemUnits UnitsAPI::LocalSystem()
+UnitsAPI_SystemUnits UnitsAPI1::LocalSystem()
 {
   return localSystem;
 }
 
 //=================================================================================================
 
-void UnitsAPI::SetCurrentUnit(const Standard_CString aQuantity, const Standard_CString anUnit)
+void UnitsAPI1::SetCurrentUnit(const Standard_CString aQuantity, const Standard_CString anUnit)
 {
   CheckLoading(localSystem);
   CurrentUnits->SetResource(aQuantity, anUnit);
@@ -449,7 +449,7 @@ void UnitsAPI::SetCurrentUnit(const Standard_CString aQuantity, const Standard_C
 
 //=================================================================================================
 
-void UnitsAPI::Save()
+void UnitsAPI1::Save()
 {
   CheckLoading(localSystem);
   CurrentUnits->Save();
@@ -457,7 +457,7 @@ void UnitsAPI::Save()
 
 //=================================================================================================
 
-void UnitsAPI::Reload()
+void UnitsAPI1::Reload()
 {
   currentSystem = UnitsAPI_DEFAULT;
   CheckLoading(localSystem);
@@ -467,7 +467,7 @@ void UnitsAPI::Reload()
 
 static AsciiString1 astring;
 
-Standard_CString UnitsAPI::CurrentUnit(const Standard_CString aQuantity)
+Standard_CString UnitsAPI1::CurrentUnit(const Standard_CString aQuantity)
 {
   CheckLoading(localSystem);
   astring = CurrentUnits->Value(aQuantity);
@@ -476,84 +476,84 @@ Standard_CString UnitsAPI::CurrentUnit(const Standard_CString aQuantity)
 
 //=================================================================================================
 
-Handle(Units_Dimensions) UnitsAPI::Dimensions(const Standard_CString aType)
+Handle(Units_Dimensions) UnitsAPI1::Dimensions(const Standard_CString aType)
 {
-  return Units::Dimensions(aType);
+  return Units2::Dimensions(aType);
 }
 
 //=================================================================================================
 
-Handle(Units_Dimensions) UnitsAPI::DimensionLess()
+Handle(Units_Dimensions) UnitsAPI1::DimensionLess()
 {
   return Units_Dimensions::ALess();
 }
 
 //=================================================================================================
 
-Handle(Units_Dimensions) UnitsAPI::DimensionMass()
+Handle(Units_Dimensions) UnitsAPI1::DimensionMass()
 {
   return Units_Dimensions::AMass();
 }
 
 //=================================================================================================
 
-Handle(Units_Dimensions) UnitsAPI::DimensionLength()
+Handle(Units_Dimensions) UnitsAPI1::DimensionLength()
 {
   return Units_Dimensions::ALength();
 }
 
 //=================================================================================================
 
-Handle(Units_Dimensions) UnitsAPI::DimensionTime()
+Handle(Units_Dimensions) UnitsAPI1::DimensionTime()
 {
   return Units_Dimensions::ATime();
 }
 
 //=================================================================================================
 
-Handle(Units_Dimensions) UnitsAPI::DimensionElectricCurrent()
+Handle(Units_Dimensions) UnitsAPI1::DimensionElectricCurrent()
 {
   return Units_Dimensions::AElectricCurrent();
 }
 
 //=================================================================================================
 
-Handle(Units_Dimensions) UnitsAPI::DimensionThermodynamicTemperature()
+Handle(Units_Dimensions) UnitsAPI1::DimensionThermodynamicTemperature()
 {
   return Units_Dimensions::AThermodynamicTemperature();
 }
 
 //=================================================================================================
 
-Handle(Units_Dimensions) UnitsAPI::DimensionAmountOfSubstance()
+Handle(Units_Dimensions) UnitsAPI1::DimensionAmountOfSubstance()
 {
   return Units_Dimensions::AAmountOfSubstance();
 }
 
 //=================================================================================================
 
-Handle(Units_Dimensions) UnitsAPI::DimensionLuminousIntensity()
+Handle(Units_Dimensions) UnitsAPI1::DimensionLuminousIntensity()
 {
   return Units_Dimensions::ALuminousIntensity();
 }
 
 //=================================================================================================
 
-Handle(Units_Dimensions) UnitsAPI::DimensionPlaneAngle()
+Handle(Units_Dimensions) UnitsAPI1::DimensionPlaneAngle()
 {
   return Units_Dimensions::APlaneAngle();
 }
 
 //=================================================================================================
 
-Handle(Units_Dimensions) UnitsAPI::DimensionSolidAngle()
+Handle(Units_Dimensions) UnitsAPI1::DimensionSolidAngle()
 {
   return Units_Dimensions::ASolidAngle();
 }
 
 //=================================================================================================
 
-Standard_Boolean UnitsAPI::Check(const Standard_CString aQuantity, const Standard_CString /*aUnit*/)
+Standard_Boolean UnitsAPI1::Check(const Standard_CString aQuantity, const Standard_CString /*aUnit*/)
 {
   Standard_Boolean status = Standard_False;
   CheckLoading(UnitsAPI_DEFAULT);
@@ -561,7 +561,7 @@ Standard_Boolean UnitsAPI::Check(const Standard_CString aQuantity, const Standar
   {
     AsciiString1 current(CurrentUnits->Value(aQuantity));
     //    aValue = AnyToAny(aData,current.ToCString(),aUnit);
-    //    aValue = Units::Convert(aValue,aUnit1,aUnit2);
+    //    aValue = Units2::Convert(aValue,aUnit1,aUnit2);
   }
 
   return status;

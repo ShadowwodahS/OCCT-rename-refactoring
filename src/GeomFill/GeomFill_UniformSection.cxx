@@ -54,7 +54,7 @@ GeomFill_UniformSection::GeomFill_UniformSection(const Handle(GeomCurve3d)& C,
     if (myCurve->IsPeriodic())
     {
       Standard_Integer M = myCurve->Degree() / 2 + 1;
-      myCurve->RemoveKnot(1, M, Precision::Confusion());
+      myCurve->RemoveKnot(1, M, Precision1::Confusion());
     }
   }
 

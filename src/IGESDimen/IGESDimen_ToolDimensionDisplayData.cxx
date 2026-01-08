@@ -350,7 +350,7 @@ void DimensionDisplayDataTool::OwnDump(const Handle(IGESDimen_DimensionDisplayDa
   switch (ent->CharacterSet())
   {
     case 1:
-      S << " (Standard ASCII)\n";
+      S << " (Standard1 ASCII)\n";
       break;
     case 1001:
       S << " (Symbol Font 1)\n";

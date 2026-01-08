@@ -250,9 +250,9 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   }
   else
   {
-    if (Abs(Umin - U0) < Precision::PConfusion())
+    if (Abs(Umin - U0) < Precision1::PConfusion())
       Umin = U0;
-    if (Abs(Umax - U1) < Precision::PConfusion())
+    if (Abs(Umax - U1) < Precision1::PConfusion())
       Umax = U1;
     uShift = ShapeAnalysis1::AdjustToPeriod(Umin, U0, U1);
     Umin += uShift;
@@ -269,9 +269,9 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   }
   else
   {
-    if (Abs(Vmin - V0) < Precision::PConfusion())
+    if (Abs(Vmin - V0) < Precision1::PConfusion())
       Vmin = V0;
-    if (Abs(Vmax - V1) < Precision::PConfusion())
+    if (Abs(Vmax - V1) < Precision1::PConfusion())
       Vmax = V1;
     vShift = ShapeAnalysis1::AdjustToPeriod(Vmin, V0, V1);
     Vmin += vShift;
@@ -288,12 +288,12 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
     {
       Standard_Real uMaxShift = 0;
       uMaxShift               = ShapeAnalysis1::AdjustToPeriod(Ufin, U0, U1);
-      if (Abs(uShift - uMaxShift) > Precision::PConfusion())
+      if (Abs(uShift - uMaxShift) > Precision1::PConfusion())
       {
         Handle(Geom_BSplineSurface) aBspl =
           Handle(Geom_BSplineSurface)::DownCast(mysurface->Copy());
         Standard_Integer aLeft, aRight;
-        aBspl->LocateU(Umin, Precision::PConfusion(), aLeft, aRight);
+        aBspl->LocateU(Umin, Precision1::PConfusion(), aLeft, aRight);
         aBspl->SetUOrigin(aLeft);
         mysurface = aBspl;
       }
@@ -308,12 +308,12 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
     {
       Standard_Real vMaxShift = 0;
       vMaxShift               = ShapeAnalysis1::AdjustToPeriod(Vfin, V0, V1);
-      if (Abs(vShift - vMaxShift) > Precision::PConfusion())
+      if (Abs(vShift - vMaxShift) > Precision1::PConfusion())
       {
         Handle(Geom_BSplineSurface) aBspl =
           Handle(Geom_BSplineSurface)::DownCast(mysurface->Copy());
         Standard_Integer aLeft, aRight;
-        aBspl->LocateV(Vmin, Precision::PConfusion(), aLeft, aRight);
+        aBspl->LocateV(Vmin, Precision1::PConfusion(), aLeft, aRight);
         aBspl->SetVOrigin(aLeft);
         mysurface = aBspl;
       }
@@ -673,10 +673,10 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   Standard_Real                        U2   = Ufin;
   Standard_Real                        V1   = Vdeb;
   Standard_Real                        V2   = Vfin;
-  if (Precision::IsNegativeInfinite(Vdeb))
-    V1 = -Precision::Infinite();
-  if (Precision::IsPositiveInfinite(Vfin))
-    V2 = Precision::Infinite();
+  if (Precision1::IsNegativeInfinite(Vdeb))
+    V1 = -Precision1::Infinite();
+  if (Precision1::IsPositiveInfinite(Vfin))
+    V2 = Precision1::Infinite();
 
   // creation de la generatrice : Generatrix
   Handle(GeomLine) Ligne =
@@ -750,10 +750,10 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   Standard_Real                        U2   = Ufin;
   Standard_Real                        V1   = Vdeb;
   Standard_Real                        V2   = Vfin;
-  if (Precision::IsNegativeInfinite(Vdeb))
-    V1 = -Precision::Infinite();
-  if (Precision::IsPositiveInfinite(Vfin))
-    V2 = Precision::Infinite();
+  if (Precision1::IsNegativeInfinite(Vdeb))
+    V1 = -Precision1::Infinite();
+  if (Precision1::IsPositiveInfinite(Vfin))
+    V2 = Precision1::Infinite();
 
   // creation de la generatrice : Generatrix
   Handle(GeomLine) Ligne =
@@ -999,10 +999,10 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   Standard_Real                      U2   = Ufin;
   Standard_Real                      V1   = Vdeb;
   Standard_Real                      V2   = Vfin;
-  if (Precision::IsNegativeInfinite(Vdeb))
-    V1 = -Precision::Infinite();
-  if (Precision::IsPositiveInfinite(Vfin))
-    V2 = Precision::Infinite();
+  if (Precision1::IsNegativeInfinite(Vdeb))
+    V1 = -Precision1::Infinite();
+  if (Precision1::IsPositiveInfinite(Vfin))
+    V2 = Precision1::Infinite();
 
   // added by skl 18.07.2005 for OCC9490
   Standard_Real UF, UL, VF, VL;
@@ -1023,7 +1023,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   GeomToIGES_GeomCurve GC(*this);
   // commented by skl 18.07.2005 for OCC9490
   Handle(GeomCurve3d) CopyCurve;
-  if (Abs(V1) > Precision::Confusion())
+  if (Abs(V1) > Precision1::Confusion())
   {
     CopyCurve = Handle(GeomCurve3d)::DownCast(
       TheCurve->Translated(start->Value(U1, 0.), start->Value(U1, V1)));
@@ -1080,10 +1080,10 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   Standard_Real                        U2   = Ufin;
   Standard_Real                        V1   = Vdeb;
   Standard_Real                        V2   = Vfin;
-  if (Precision::IsNegativeInfinite(Vdeb))
-    V1 = -Precision::Infinite();
-  if (Precision::IsPositiveInfinite(Vfin))
-    V2 = Precision::Infinite();
+  if (Precision1::IsNegativeInfinite(Vdeb))
+    V1 = -Precision1::Infinite();
+  if (Precision1::IsPositiveInfinite(Vfin))
+    V2 = Precision1::Infinite();
 
   // creation de la generatrice : Generatrix
   Handle(GeomCurve3d)          Curve = start->BasisCurve();
@@ -1158,7 +1158,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   Vm                                   = (V1 + V2) / 2.;
   Handle(IGESData_IGESEntity) Surface  = TransferSurface(TheSurf, Udeb, Ufin, Vdeb, Vfin);
   Standard_Real               Distance = start->Offset() / GetUnit();
-  GeomLProp_SLProps           Prop = GeomLProp_SLProps(TheSurf, Um, Vm, 1, Precision::Confusion());
+  GeomLProp_SLProps           Prop = GeomLProp_SLProps(TheSurf, Um, Vm, 1, Precision1::Confusion());
   Dir3d                      Dir  = Prop.Normal();
   Standard_Real               Xd, Yd, Zd;
   Dir.Coord(Xd, Yd, Zd);

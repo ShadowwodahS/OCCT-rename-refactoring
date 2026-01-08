@@ -241,15 +241,15 @@ static void ComputeLambda(const math_Matrix&  Constraint,
   Standard_Real EMin, E;
   PLib1::NoDerivativeEvalPolynomial(Lambda, pol4.Length() - 1, 1, pol4.Length() - 1, pol4(1), EMin);
 
-  if (EMin > Precision::Confusion())
+  if (EMin > Precision1::Confusion())
   {
     // Recheche des extrema de la fonction
     GeomLib_PolyFunc      FF(pol4);
     GeomLib_LogSample     S(Lambda / 1000, 50 * Lambda, 100);
     FunctionAllRoots Solve(FF,
                                 S,
-                                Precision::Confusion(),
-                                Precision::Confusion() * (Length + 1),
+                                Precision1::Confusion(),
+                                Precision1::Confusion() * (Length + 1),
                                 1.e-15);
     if (Solve.IsDone())
     {
@@ -924,8 +924,8 @@ void GeomLib1::SameRange(const Standard_Real         Tolerance,
     //  RequestedFirst et RequestedLast on aura un probleme
     //
     //
-    else if (Abs(LastOnCurve - FirstOnCurve) > Precision::PConfusion()
-             || Abs(RequestedLast + RequestedFirst) > Precision::PConfusion())
+    else if (Abs(LastOnCurve - FirstOnCurve) > Precision1::PConfusion()
+             || Abs(RequestedLast + RequestedFirst) > Precision1::PConfusion())
     {
 
       Handle(Geom2d_TrimmedCurve) TC = new Geom2d_TrimmedCurve(CurvePtr, FirstOnCurve, LastOnCurve);
@@ -952,7 +952,7 @@ void GeomLib1::SameRange(const Standard_Real         Tolerance,
 
     if (aCCheck->IsPeriodic())
     {
-      if (Abs(LastOnCurve - FirstOnCurve) > Precision::PConfusion())
+      if (Abs(LastOnCurve - FirstOnCurve) > Precision1::PConfusion())
       {
         TC = new Geom2d_TrimmedCurve(CurvePtr, FirstOnCurve, LastOnCurve);
       }
@@ -966,7 +966,7 @@ void GeomLib1::SameRange(const Standard_Real         Tolerance,
     {
       const Standard_Real Udeb = Max(CurvePtr->FirstParameter(), FirstOnCurve);
       const Standard_Real Ufin = Min(CurvePtr->LastParameter(), LastOnCurve);
-      if (Abs(Ufin - Udeb) > Precision::PConfusion())
+      if (Abs(Ufin - Udeb) > Precision1::PConfusion())
       {
         TC = new Geom2d_TrimmedCurve(CurvePtr, Udeb, Ufin);
       }
@@ -1033,7 +1033,7 @@ void GeomLib_CurveOnSurfaceEvaluator::Evaluate(Standard_Integer*, /*Dimension*/
   // Gestion des positionnements gauche / droite
   if ((DebutFin[0] != FirstParam) || (DebutFin[1] != LastParam))
   {
-    TrimCurve  = CurveOnSurface.Trim(DebutFin[0], DebutFin[1], Precision::PConfusion());
+    TrimCurve  = CurveOnSurface.Trim(DebutFin[0], DebutFin[1], Precision1::PConfusion());
     FirstParam = DebutFin[0];
     LastParam  = DebutFin[1];
   }
@@ -1111,7 +1111,7 @@ void GeomLib1::BuildCurve3d(const Standard_Real       Tolerance,
     }
 
     Handle(Adaptor2d_Curve2d) TrimmedC2D =
-      geom_adaptor_curve_ptr->Trim(FirstParameter, LastParameter, Precision::PConfusion());
+      geom_adaptor_curve_ptr->Trim(FirstParameter, LastParameter, Precision1::PConfusion());
 
     Standard_Boolean isU, isForward;
     Standard_Real    aParam;
@@ -1500,7 +1500,7 @@ void GeomLib1::ExtendSurfByLength(Handle(Geom_BoundedSurface)& Surface,
   if (BS.IsNull())
   {
     // BS = GeomConvert1::SurfaceToBSplineSurface(Surface);
-    constexpr Standard_Real     Tol   = Precision::Confusion(); // 1.e-4;
+    constexpr Standard_Real     Tol   = Precision1::Confusion(); // 1.e-4;
     GeomAbs_Shape               UCont = GeomAbs_C1, VCont = GeomAbs_C1;
     Standard_Integer            degU = 14, degV = 14;
     Standard_Integer            nmax    = 16;
@@ -1529,7 +1529,7 @@ void GeomLib1::ExtendSurfByLength(Handle(Geom_BoundedSurface)& Surface,
   //   Standard_Boolean rational = ( InU && BS->IsURational() )
   //                                   || ( !InU && BS->IsVRational() ) ;
   Standard_Boolean        rational = (BS->IsURational() || BS->IsVRational());
-  constexpr Standard_Real EpsW     = 10 * Precision::PConfusion();
+  constexpr Standard_Real EpsW     = 10 * Precision1::PConfusion();
   Standard_Integer        gap      = 3;
   if (rational)
     gap++;
@@ -2096,19 +2096,19 @@ static Standard_Boolean CanBeTreated(Handle(Geom_BSplineSurface)& BSurf)
    for (i=1;i<=BSurf->NbVPoles();i++)      //test of the proportionnality of the denominator on the boundaries
       // clang-format on
       if ((BSurf->Weight(1, i) / (lambda * BSurf->Weight(BSurf->NbUPoles(), i))
-           < (1 - Precision::Confusion()))
+           < (1 - Precision1::Confusion()))
           || (BSurf->Weight(1, i) / (lambda * BSurf->Weight(BSurf->NbUPoles(), i))
-              > (1 + Precision::Confusion())))
+              > (1 + Precision1::Confusion())))
         return Standard_False;
     i = 1;
     while ((AlreadyTreated) && (i <= BSurf->NbVPoles()))
     { // tests if the surface has already been treated
-      if (((BSurf->Weight(1, i) / (BSurf->Weight(2, i))) < (1 - Precision::Confusion()))
-          || ((BSurf->Weight(1, i) / (BSurf->Weight(2, i))) > (1 + Precision::Confusion()))
+      if (((BSurf->Weight(1, i) / (BSurf->Weight(2, i))) < (1 - Precision1::Confusion()))
+          || ((BSurf->Weight(1, i) / (BSurf->Weight(2, i))) > (1 + Precision1::Confusion()))
           || ((BSurf->Weight(BSurf->NbUPoles() - 1, i) / (BSurf->Weight(BSurf->NbUPoles(), i)))
-              < (1 - Precision::Confusion()))
+              < (1 - Precision1::Confusion()))
           || ((BSurf->Weight(BSurf->NbUPoles() - 1, i) / (BSurf->Weight(BSurf->NbUPoles(), i)))
-              > (1 + Precision::Confusion())))
+              > (1 + Precision1::Confusion())))
         AlreadyTreated = Standard_False;
       i++;
     }
@@ -2164,8 +2164,8 @@ static Standard_Boolean CheckIfKnotExists(const TColStd_Array1OfReal& surface_kn
 {
   Standard_Integer i;
   for (i = 1; i <= surface_knots.Length(); i++)
-    if ((surface_knots(i) - Precision::Confusion() <= knot)
-        && (surface_knots(i) + Precision::Confusion() >= knot))
+    if ((surface_knots(i) - Precision1::Confusion() <= knot)
+        && (surface_knots(i) + Precision1::Confusion() >= knot))
       return Standard_True;
   return Standard_False;
 }
@@ -2452,7 +2452,7 @@ static void CancelDenominatorDerivative1D(Handle(Geom_BSplineSurface)& BSurf)
                                      BCurveKnots,
                                      BCurveMults,
                                      BSurf->UDegree());
-      Hermit1::Solutionbis(BCurve, x, y, Precision::Confusion(), Precision::Confusion());
+      Hermit1::Solutionbis(BCurve, x, y, Precision1::Confusion(), Precision1::Confusion());
       if (x < uknotmin)
         uknotmin = x; // uknotmin,uknotmax:extremal knots
       if ((x != 1.0) && (x > uknotmax))
@@ -2668,7 +2668,7 @@ void GeomLib1::IsClosed(const Handle(GeomSurface)& S,
       return;
     }
     case GeomAbs_SurfaceOfExtrusion: {
-      if (Precision::IsInfinite(u1) || Precision::IsInfinite(u2))
+      if (Precision1::IsInfinite(u1) || Precision1::IsInfinite(u2))
       {
         // not closed
         return;
@@ -2676,7 +2676,7 @@ void GeomLib1::IsClosed(const Handle(GeomSurface)& S,
     }
       Standard_FALLTHROUGH
     case GeomAbs_Cylinder: {
-      if (Precision::IsInfinite(v1))
+      if (Precision1::IsInfinite(v1))
         v1 = 0.;
       Point3d p1 = aGAS.Value(u1, v1);
       Point3d p2 = aGAS.Value(u2, v1);
@@ -2685,7 +2685,7 @@ void GeomLib1::IsClosed(const Handle(GeomSurface)& S,
     }
     case GeomAbs_Cone: {
       // find v with maximal distance from axis
-      if (!(Precision::IsInfinite(v1) || Precision::IsInfinite(v2)))
+      if (!(Precision1::IsInfinite(v1) || Precision1::IsInfinite(v2)))
       {
         Cone1 aCone  = aGAS.Cone();
         Point3d  anApex = aCone.Apex();
@@ -2747,29 +2747,29 @@ void GeomLib1::IsClosed(const Handle(GeomSurface)& S,
     case GeomAbs_OffsetSurface:
     case GeomAbs_OtherSurface: {
       Standard_Integer nbp = 23;
-      if (Precision::IsInfinite(v1))
+      if (Precision1::IsInfinite(v1))
       {
         v1 = Sign(1., v1);
       }
-      if (Precision::IsInfinite(v2))
+      if (Precision1::IsInfinite(v2))
       {
         v2 = Sign(1., v2);
       }
       //
       if (aSType == GeomAbs_OffsetSurface || aSType == GeomAbs_OtherSurface)
       {
-        if (Precision::IsInfinite(u1))
+        if (Precision1::IsInfinite(u1))
         {
           u1 = Sign(1., u1);
         }
-        if (Precision::IsInfinite(u2))
+        if (Precision1::IsInfinite(u2))
         {
           u2 = Sign(1., u2);
         }
       }
       isUClosed         = Standard_True;
       Standard_Real dt  = (v2 - v1) / (nbp - 1);
-      Standard_Real res = Max(aGAS.UResolution(Tol), Precision::PConfusion());
+      Standard_Real res = Max(aGAS.UResolution(Tol), Precision1::PConfusion());
       if (dt <= res)
       {
         nbp = RealToInt((v2 - v1) / (2. * res)) + 1;
@@ -2793,7 +2793,7 @@ void GeomLib1::IsClosed(const Handle(GeomSurface)& S,
       nbp       = 23;
       isVClosed = Standard_True;
       dt        = (u2 - u1) / (nbp - 1);
-      res       = Max(aGAS.VResolution(Tol), Precision::PConfusion());
+      res       = Max(aGAS.VResolution(Tol), Precision1::PConfusion());
       if (dt <= res)
       {
         nbp = RealToInt((u2 - u1) / (2. * res)) + 1;
@@ -2965,7 +2965,7 @@ Standard_Boolean GeomLib1::isIsoLine(const Handle(Adaptor2d_Curve2d)& theC2D,
 
     // Vector should be non-degenerated.
     gp_Vec2d aVec2d(aBSpline2d->Pole(1), aBSpline2d->Pole(2));
-    if (aVec2d.SquareMagnitude() < Precision::Confusion())
+    if (aVec2d.SquareMagnitude() < Precision1::Confusion())
       return Standard_False; // Degenerated spline.
     aDir2d = aVec2d;
 
@@ -2981,7 +2981,7 @@ Standard_Boolean GeomLib1::isIsoLine(const Handle(Adaptor2d_Curve2d)& theC2D,
 
     // Vector should be non-degenerated.
     gp_Vec2d aVec2d(aBezier2d->Pole(1), aBezier2d->Pole(2));
-    if (aVec2d.SquareMagnitude() < Precision::Confusion())
+    if (aVec2d.SquareMagnitude() < Precision1::Confusion())
       return Standard_False; // Degenerated spline.
     aDir2d = aVec2d;
 
@@ -2992,7 +2992,7 @@ Standard_Boolean GeomLib1::isIsoLine(const Handle(Adaptor2d_Curve2d)& theC2D,
     return Standard_False;
 
   // Check line to be vertical or horizontal.
-  if (aDir2d.IsParallel(gp1::DX2d(), Precision::Angular()))
+  if (aDir2d.IsParallel(gp1::DX2d(), Precision1::Angular()))
   {
     // Horizontal line. V = const.
     theIsU       = Standard_False;
@@ -3000,7 +3000,7 @@ Standard_Boolean GeomLib1::isIsoLine(const Handle(Adaptor2d_Curve2d)& theC2D,
     theIsForward = aDir2d.Dot(gp1::DX2d()) > 0.0;
     return Standard_True;
   }
-  else if (aDir2d.IsParallel(gp1::DY2d(), Precision::Angular()))
+  else if (aDir2d.IsParallel(gp1::DY2d(), Precision1::Angular()))
   {
     // Vertical line. U = const.
     theIsU       = Standard_True;
@@ -3050,9 +3050,9 @@ Handle(GeomCurve3d) GeomLib1::buildC3dOnIsoLine(const Handle(Adaptor2d_Curve2d)&
     {
       return Handle(GeomCurve3d)();
     }
-    else if (Precision::IsInfinite(V1) || Precision::IsInfinite(V2))
+    else if (Precision1::IsInfinite(V1) || Precision1::IsInfinite(V2))
     {
-      if (Abs(aV2Param - aV1Param) < Precision::PConfusion())
+      if (Abs(aV2Param - aV1Param) < Precision1::PConfusion())
       {
         return Handle(GeomCurve3d)();
       }
@@ -3063,7 +3063,7 @@ Handle(GeomCurve3d) GeomLib1::buildC3dOnIsoLine(const Handle(Adaptor2d_Curve2d)&
     {
       aV1Param = Max(aV1Param, V1);
       aV2Param = Min(aV2Param, V2);
-      if (Abs(aV2Param - aV1Param) < Precision::PConfusion())
+      if (Abs(aV2Param - aV1Param) < Precision1::PConfusion())
       {
         return Handle(GeomCurve3d)();
       }
@@ -3080,9 +3080,9 @@ Handle(GeomCurve3d) GeomLib1::buildC3dOnIsoLine(const Handle(Adaptor2d_Curve2d)&
     {
       return Handle(GeomCurve3d)();
     }
-    else if (Precision::IsInfinite(U1) || Precision::IsInfinite(U2))
+    else if (Precision1::IsInfinite(U1) || Precision1::IsInfinite(U2))
     {
-      if (Abs(aU2Param - aU1Param) < Precision::PConfusion())
+      if (Abs(aU2Param - aU1Param) < Precision1::PConfusion())
       {
         return Handle(GeomCurve3d)();
       }
@@ -3093,7 +3093,7 @@ Handle(GeomCurve3d) GeomLib1::buildC3dOnIsoLine(const Handle(Adaptor2d_Curve2d)&
     {
       aU1Param = Max(aU1Param, U1);
       aU2Param = Min(aU2Param, U2);
-      if (Abs(aU2Param - aU1Param) < Precision::PConfusion())
+      if (Abs(aU2Param - aU1Param) < Precision1::PConfusion())
       {
         return Handle(GeomCurve3d)();
       }

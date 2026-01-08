@@ -133,7 +133,7 @@ Standard_Real Curve2::Project(const Handle(GeomCurve3d)& C3D,
   if (C3D->IsKind(STANDARD_TYPE(Geom_BoundedCurve)))
   {
     // clang-format off
-    Standard_Real prec = ( AdjustToEnds ? preci : Precision::Confusion() ); //:j8 abv 10 Dec 98: tr10_r0501_db.stp #9423: protection against densing of points near one end
+    Standard_Real prec = ( AdjustToEnds ? preci : Precision1::Confusion() ); //:j8 abv 10 Dec 98: tr10_r0501_db.stp #9423: protection against densing of points near one end
     // clang-format on
     Point3d LowBound = GAC.Value(uMin);
     Point3d HigBound = GAC.Value(uMax);
@@ -158,7 +158,7 @@ Standard_Real Curve2::Project(const Handle(GeomCurve3d)& C3D,
     // modified by rln on 16/12/97 after CSR# PRO11641 entity 20767
     // the VIso was not closed (according to C3D->IsClosed()) while it "almost"
     // was (the distance between ends of the curve was a little bit more than
-    // Precision::Confusion())
+    // Precision1::Confusion())
     // in that case value 0.1 was too much and this method returned not correct parameter
     // uMin = uMin - 0.1;
     // uMax = uMax + 0.1;
@@ -186,12 +186,12 @@ Standard_Real Curve2::Project(const Adaptor3d_Curve& C3D,
   Standard_Real uMin = C3D.FirstParameter();
   Standard_Real uMax = C3D.LastParameter();
 
-  if (Precision::IsInfinite(uMin) && Precision::IsInfinite(uMax))
+  if (Precision1::IsInfinite(uMin) && Precision1::IsInfinite(uMax))
     return ProjectAct(C3D, P3D, preci, proj, param);
 
-  Standard_Real distmin_L = Precision::Infinite(), distmin_H = Precision::Infinite();
+  Standard_Real distmin_L = Precision1::Infinite(), distmin_H = Precision1::Infinite();
   // clang-format off
-  Standard_Real prec = ( AdjustToEnds ? preci : Precision::Confusion() ); //:j8 abv 10 Dec 98: tr10_r0501_db.stp #9423: protection against densing of points near one end
+  Standard_Real prec = ( AdjustToEnds ? preci : Precision1::Confusion() ); //:j8 abv 10 Dec 98: tr10_r0501_db.stp #9423: protection against densing of points near one end
   // clang-format on
   Point3d LowBound = C3D.Value(uMin);
   Point3d HigBound = C3D.Value(uMax);
@@ -213,8 +213,8 @@ Standard_Real Curve2::Project(const Adaptor3d_Curve& C3D,
   }
 
   Standard_Real distProj = ProjectAct(C3D, P3D, preci, proj, param);
-  if (distProj < distmin_L + Precision::Confusion()
-      && distProj < distmin_H + Precision::Confusion())
+  if (distProj < distmin_L + Precision1::Confusion()
+      && distProj < distmin_H + Precision1::Confusion())
     return distProj;
 
   if (distmin_L < distmin_H)
@@ -283,7 +283,7 @@ Standard_Real Curve2::ProjectAct(const Adaptor3d_Curve& C3D,
   // szv#4:S4163:12Mar99 moved
   Standard_Real    uMin = C3D.FirstParameter(), uMax = C3D.LastParameter();
   Standard_Boolean closed  = Standard_False; // si on franchit les bornes ...
-  Standard_Real    distmin = Precision::Infinite(), valclosed = 0.;
+  Standard_Real    distmin = Precision1::Infinite(), valclosed = 0.;
   Standard_Real    aModParam = param;
   Standard_Real    aModMin   = distmin;
 
@@ -362,7 +362,7 @@ Standard_Real Curve2::ProjectAct(const Adaptor3d_Curve& C3D,
       default: {
         //  on ne va quand meme pas se laisser abattre ... ???
         //  on tente ceci : 21 points sur la courbe, quel est le plus proche
-        distmin = Precision::Infinite();
+        distmin = Precision1::Infinite();
         ProjectOnSegments(C3D, P3D, 25, uMin, uMax, distmin, proj, param);
         if (distmin <= preci)
           return distmin;
@@ -436,12 +436,12 @@ Standard_Real Curve2::NextProject(const Standard_Real       paramPrev,
 {
   Standard_Real     uMin    = (cf < cl ? cf : cl);
   Standard_Real     uMax    = (cf < cl ? cl : cf);
-  Standard_Real     distmin = Precision::Infinite();
+  Standard_Real     distmin = Precision1::Infinite();
   GeomAdaptor_Curve GAC(C3D, uMin, uMax);
   if (C3D->IsKind(STANDARD_TYPE(Geom_BoundedCurve)))
   {
     // clang-format off
-    Standard_Real prec = ( AdjustToEnds ? preci : Precision::Confusion() ); //:j8 abv 10 Dec 98: tr10_r0501_db.stp #9423: protection against densing of points near one end
+    Standard_Real prec = ( AdjustToEnds ? preci : Precision1::Confusion() ); //:j8 abv 10 Dec 98: tr10_r0501_db.stp #9423: protection against densing of points near one end
     // clang-format on
     Point3d LowBound = GAC.Value(uMin);
     Point3d HigBound = GAC.Value(uMax);
@@ -466,7 +466,7 @@ Standard_Real Curve2::NextProject(const Standard_Real       paramPrev,
     // modified by rln on 16/12/97 after CSR# PRO11641 entity 20767
     // the VIso was not closed (according to C3D->IsClosed()) while it "almost"
     // was (the distance between ends of the curve was a little bit more than
-    // Precision::Confusion())
+    // Precision1::Confusion())
     // in that case value 0.1 was too much and this method returned not correct parameter
     // uMin = uMin - 0.1;
     // uMax = uMax + 0.1;
@@ -516,7 +516,7 @@ Standard_Boolean Curve2::ValidateRange(const Handle(GeomCurve3d)& theCurve,
 
   Standard_Real cf = theCurve->FirstParameter();
   Standard_Real cl = theCurve->LastParameter();
-  //  Standard_Real preci = BRepAPI::Precision();
+  //  Standard_Real preci = BRepAPI::Precision1();
 
   if (theCurve->IsKind(STANDARD_TYPE(Geom_BoundedCurve)) && !theCurve->IsClosed())
   {
@@ -554,7 +554,7 @@ Standard_Boolean Curve2::ValidateRange(const Handle(GeomCurve3d)& theCurve,
   if (Curve2::IsPeriodic(theCurve))
   {
     // clang-format off
-    ElCLib1::AdjustPeriodic(cf,cl,Precision::PConfusion(),First,Last); //:a7 abv 11 Feb 98: preci -> PConfusion()
+    ElCLib1::AdjustPeriodic(cf,cl,Precision1::PConfusion(),First,Last); //:a7 abv 11 Feb 98: preci -> PConfusion()
     // clang-format on
   }
   else if (First < Last)
@@ -568,10 +568,10 @@ Standard_Boolean Curve2::ValidateRange(const Handle(GeomCurve3d)& theCurve,
     // DANGER precision 3d applique a une espace 1d
 
     // Last = cf au lieu de Last = cl
-    if (Abs(Last - cf) < Precision::PConfusion() /*preci*/)
+    if (Abs(Last - cf) < Precision1::PConfusion() /*preci*/)
       Last = cl;
     // First = cl au lieu de First = cf
-    else if (Abs(First - cl) < Precision::PConfusion() /*preci*/)
+    else if (Abs(First - cl) < Precision1::PConfusion() /*preci*/)
       First = cf;
 
     // on se trouve dans un cas ou l origine est traversee
@@ -602,16 +602,16 @@ Standard_Boolean Curve2::ValidateRange(const Handle(GeomCurve3d)& theCurve,
     Handle(BSplineCurve3d) aBSpline = Handle(BSplineCurve3d)::DownCast(theCurve);
     if (aBSpline->StartPoint().Distance(aBSpline->EndPoint()) <= preci)
     {
-      //: S4136	<= BRepAPI::Precision()) {
+      //: S4136	<= BRepAPI::Precision1()) {
       // l'un des points projecte se trouve sur l'origine du parametrage
       // de la courbe 3D. L algo a donne cl +- preci au lieu de cf ou vice-versa
       // DANGER precision 3d applique a une espace 1d
 
       // Last = cf au lieu de Last = cl
-      if (Abs(Last - cf) < Precision::PConfusion() /*preci*/)
+      if (Abs(Last - cf) < Precision1::PConfusion() /*preci*/)
         Last = cl;
       // First = cl au lieu de First = cf
-      else if (Abs(First - cl) < Precision::PConfusion() /*preci*/)
+      else if (Abs(First - cl) < Precision1::PConfusion() /*preci*/)
         First = cf;
 
       // on se trouve dans un cas ou l origine est traversee
@@ -667,8 +667,8 @@ Standard_Boolean Curve2::ValidateRange(const Handle(GeomCurve3d)& theCurve,
     // pdn 11.01.99 #144 bm1_pe_t4 protection of exceptions in draw
     if (First == Last)
     {
-      First -= Precision::PConfusion();
-      Last += Precision::PConfusion();
+      First -= Precision1::PConfusion();
+      Last += Precision1::PConfusion();
     }
     return Standard_False;
   }
@@ -701,7 +701,7 @@ static Standard_Integer SearchForExtremum(const Handle(GeomCurve2d)& C2d,
       return Standard_True;
 
     par -= (D1 * dir) / Det;
-    if (Abs(par - prevpar) < Precision::PConfusion())
+    if (Abs(par - prevpar) < Precision1::PConfusion())
       return Standard_True;
 
     if (par < First)
@@ -885,13 +885,13 @@ Standard_Integer Curve2::SelectForwardSeam(const Handle(GeomCurve2d)& C1,
 static Coords3d GetAnyNormal(const Coords3d& orig)
 {
   Coords3d Norm;
-  if (Abs(orig.Z()) < Precision::Confusion())
+  if (Abs(orig.Z()) < Precision1::Confusion())
     Norm.SetCoord(0, 0, 1);
   else
   {
     Norm.SetCoord(orig.Z(), 0, -orig.X());
     Standard_Real nrm = Norm.Modulus();
-    if (nrm < Precision::Confusion())
+    if (nrm < Precision1::Confusion())
       Norm.SetCoord(0, 0, 1);
     else
       Norm = Norm / nrm;
@@ -999,7 +999,7 @@ Standard_Boolean Curve2::IsPlanar(const TColgp_Array1OfPnt& pnts,
                                                Coords3d&                   Normal,
                                                const Standard_Real       preci)
 {
-  Standard_Real    precision = (preci > 0.0) ? preci : Precision::Confusion();
+  Standard_Real    precision = (preci > 0.0) ? preci : Precision1::Confusion();
   Standard_Boolean noNorm    = (Normal.SquareModulus() == 0);
 
   if (pnts.Length() < 3)
@@ -1010,7 +1010,7 @@ Standard_Boolean Curve2::IsPlanar(const TColgp_Array1OfPnt& pnts,
       Normal = GetAnyNormal(N1);
       return Standard_True;
     }
-    return Abs(N1 * Normal) < Precision::Confusion();
+    return Abs(N1 * Normal) < Precision1::Confusion();
   }
 
   Coords3d aMaxDir;
@@ -1041,7 +1041,7 @@ Standard_Boolean Curve2::IsPlanar(const TColgp_Array1OfPnt& pnts,
 
   // check if points are linear
   Standard_Real nrm = Normal.Modulus();
-  if (nrm < Precision::Confusion())
+  if (nrm < Precision1::Confusion())
   {
     Normal = GetAnyNormal(aMaxDir);
     return Standard_True;
@@ -1067,7 +1067,7 @@ Standard_Boolean Curve2::IsPlanar(const Handle(GeomCurve3d)& curve,
                                                Coords3d&                   Normal,
                                                const Standard_Real       preci)
 {
-  Standard_Real    precision = (preci > 0.0) ? preci : Precision::Confusion();
+  Standard_Real    precision = (preci > 0.0) ? preci : Precision1::Confusion();
   Standard_Boolean noNorm    = (Normal.SquareModulus() == 0);
 
   if (curve->IsKind(STANDARD_TYPE(GeomLine)))
@@ -1080,7 +1080,7 @@ Standard_Boolean Curve2::IsPlanar(const Handle(GeomCurve3d)& curve,
       Normal = GetAnyNormal(N1);
       return Standard_True;
     }
-    return Abs(N1 * Normal) < Precision::Confusion();
+    return Abs(N1 * Normal) < Precision1::Confusion();
   }
 
   if (curve->IsKind(STANDARD_TYPE(Geom_Conic)))
@@ -1094,7 +1094,7 @@ Standard_Boolean Curve2::IsPlanar(const Handle(GeomCurve3d)& curve,
       return Standard_True;
     }
     Coords3d aVecMul = N1 ^ Normal;
-    return aVecMul.SquareModulus() < Precision::SquareConfusion();
+    return aVecMul.SquareModulus() < Precision1::SquareConfusion();
   }
 
   if (curve->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
@@ -1307,13 +1307,13 @@ Standard_Boolean Curve2::IsClosed(const Handle(GeomCurve3d)& theCurve,
   if (theCurve->IsClosed())
     return Standard_True;
 
-  Standard_Real prec = Max(preci, Precision::Confusion());
+  Standard_Real prec = Max(preci, Precision1::Confusion());
 
   Standard_Real f, l;
   f = theCurve->FirstParameter();
   l = theCurve->LastParameter();
 
-  if (Precision::IsInfinite(f) || Precision::IsInfinite(l))
+  if (Precision1::IsInfinite(f) || Precision1::IsInfinite(l))
     return Standard_False;
 
   Standard_Real aClosedVal = theCurve->Value(f).SquareDistance(theCurve->Value(l));

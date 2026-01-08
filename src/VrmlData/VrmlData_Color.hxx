@@ -51,9 +51,9 @@ public:
    * @return
    *   the color value for the index. If index irrelevant, returns (0., 0., 0.)
    */
-  inline const Quantity_Color Color(const Standard_Integer i) const
+  inline const Color1 Color(const Standard_Integer i) const
   {
-    return Quantity_Color(Value(i).X(), Value(i).Y(), Value(i).Z(), Quantity_TOC_sRGB);
+    return Color1(Value(i).X(), Value(i).Y(), Value(i).Z(), Quantity_TOC_sRGB);
   }
 
   /**

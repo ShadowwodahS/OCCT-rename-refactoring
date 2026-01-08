@@ -25,8 +25,8 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_Tool, RefObject)
 
 ShapeUpgrade_Tool::ShapeUpgrade_Tool()
 {
-  myPrecision = myMinTol = Precision::Confusion();
-  myMaxTol               = 1; // Precision::Infinite() ?? pdn
+  myPrecision = myMinTol = Precision1::Confusion();
+  myMaxTol               = 1; // Precision1::Infinite() ?? pdn
 }
 
 //=================================================================================================

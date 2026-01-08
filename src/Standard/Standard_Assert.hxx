@@ -183,20 +183,20 @@ inline Standard_Boolean Standard_ASSERT_REPORT_(const char* theFile,
 //! Static assert --
 //! empty default template
 template <bool condition>
-struct Standard_Static_Assert
+struct StaticAssert
 {
 };
 
 //! Static assert -- specialization for condition being true
 template <>
-struct Standard_Static_Assert<true>
+struct StaticAssert<true>
 {
   static void assert_ok() {}
 };
 
 //! Cause compiler error if argument is not constant expression or
 //! evaluates to false
-#define Standard_STATIC_ASSERT(theExpr) Standard_Static_Assert<theExpr>::assert_ok();
+#define Standard_STATIC_ASSERT(theExpr) StaticAssert<theExpr>::assert_ok();
 
 #endif // Standard_Assert_HeaderFile
 

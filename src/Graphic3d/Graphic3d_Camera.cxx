@@ -734,7 +734,7 @@ void CameraOn3d::Frustum(gp_Pln& theLeft,
   Vector3d anUp        = OrthogonalizedUp();
   Vector3d aSide       = aProjection ^ anUp;
 
-  Standard_ASSERT_RAISE(!aProjection.IsParallel(anUp, Precision::Angular()),
+  Standard_ASSERT_RAISE(!aProjection.IsParallel(anUp, Precision1::Angular()),
                         "Can not derive SIDE = PROJ x UP - directions are parallel");
 
   theNear = gp_Pln(Eye().Translated(aProjection * ZNear()), aProjection);
@@ -1647,7 +1647,7 @@ void CameraOn3d::Interpolate(const Handle(CameraOn3d)& theStart,
                                    const double                    theT,
                                    Handle(CameraOn3d)&       theCamera)
 {
-  if (Abs(theT - 1.0) < Precision::Confusion())
+  if (Abs(theT - 1.0) < Precision1::Confusion())
   {
     // just copy end-point transformation
     theCamera->Copy(theEnd);
@@ -1655,7 +1655,7 @@ void CameraOn3d::Interpolate(const Handle(CameraOn3d)& theStart,
   }
 
   theCamera->Copy(theStart);
-  if (Abs(theT - 0.0) < Precision::Confusion())
+  if (Abs(theT - 0.0) < Precision1::Confusion())
   {
     return;
   }
@@ -1716,7 +1716,7 @@ void CameraOn3d::Interpolate(const Handle(CameraOn3d)& theStart,
   }
 
   // apply scaling
-  if (Abs(theStart->Scale() - theEnd->Scale()) > Precision::Confusion()
+  if (Abs(theStart->Scale() - theEnd->Scale()) > Precision1::Confusion()
       && theStart->IsOrthographic())
   {
     const Standard_Real aScale =

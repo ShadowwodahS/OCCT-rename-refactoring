@@ -24,7 +24,7 @@ Vrml_PointLight::Vrml_PointLight()
 
 Vrml_PointLight::Vrml_PointLight(const Standard_Boolean aOnOff,
                                  const Standard_Real    aIntensity,
-                                 const Quantity_Color&  aColor,
+                                 const Color1&  aColor,
                                  const Vector3d&          aLocation)
 {
   if (aIntensity < 0. || aIntensity > 1.)
@@ -61,12 +61,12 @@ Standard_Real Vrml_PointLight::Intensity() const
   return myIntensity;
 }
 
-void Vrml_PointLight::SetColor(const Quantity_Color& aColor)
+void Vrml_PointLight::SetColor(const Color1& aColor)
 {
   myColor = aColor;
 }
 
-Quantity_Color Vrml_PointLight::Color() const
+Color1 Vrml_PointLight::Color() const
 {
   return myColor;
 }

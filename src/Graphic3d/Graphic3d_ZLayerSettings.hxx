@@ -28,8 +28,8 @@ struct Graphic3d_ZLayerSettings
 
   //! Default settings.
   Graphic3d_ZLayerSettings()
-      : myCullingDistance(Precision::Infinite()),
-        myCullingSize(Precision::Infinite()),
+      : myCullingDistance(Precision1::Infinite()),
+        myCullingSize(Precision1::Infinite()),
         myIsImmediate(Standard_False),
         myToRaytrace(Standard_True),
         myUseEnvironmentTexture(Standard_True),
@@ -78,7 +78,7 @@ struct Graphic3d_ZLayerSettings
   //! @sa CullingDistance()
   Standard_Boolean HasCullingDistance() const
   {
-    return !Precision::IsInfinite(myCullingDistance) && myCullingDistance > 0.0;
+    return !Precision1::IsInfinite(myCullingDistance) && myCullingDistance > 0.0;
   }
 
   //! Return the distance to discard drawing of distant objects (distance from camera Eye point); by
@@ -94,7 +94,7 @@ struct Graphic3d_ZLayerSettings
   //! @sa CullingSize()
   Standard_Boolean HasCullingSize() const
   {
-    return !Precision::IsInfinite(myCullingSize) && myCullingSize > 0.0;
+    return !Precision1::IsInfinite(myCullingSize) && myCullingSize > 0.0;
   }
 
   //! Return the size to discard drawing of small objects; by default it is Infinite (size culling
@@ -170,7 +170,7 @@ struct Graphic3d_ZLayerSettings
   {
     myPolygonOffset.Mode   = Aspect_POM_Fill;
     myPolygonOffset.Factor = 1.0f;
-    myPolygonOffset.Units  = 1.0f;
+    myPolygonOffset.Units2  = 1.0f;
   }
 
   //! Sets minimal possible negative depth offset.
@@ -178,7 +178,7 @@ struct Graphic3d_ZLayerSettings
   {
     myPolygonOffset.Mode   = Aspect_POM_Fill;
     myPolygonOffset.Factor = 1.0f;
-    myPolygonOffset.Units  = -1.0f;
+    myPolygonOffset.Units2  = -1.0f;
   }
 
   //! Dumps the content of me into the stream

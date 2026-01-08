@@ -95,7 +95,7 @@ void ShapeUpgrade_WireDivide::Init(const TopoWire& W, const Handle(GeomSurface)&
   //  if (ShapeUpgrade1::Debug()) std::cout <<"ShapeUpgrade_WireDivide::Init with Wire, Surface
   //  "<<std::endl;
   myWire = W;
-  BRepLib_MakeFace mkf(S, Precision::Confusion());
+  BRepLib_MakeFace mkf(S, Precision1::Confusion());
   myFace   = mkf.Face();
   myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 }
@@ -127,7 +127,7 @@ void ShapeUpgrade_WireDivide::SetFace(const TopoFace& F)
 
 void ShapeUpgrade_WireDivide::SetSurface(const Handle(GeomSurface)& S)
 {
-  BRepLib_MakeFace mkf(S, Precision::Confusion());
+  BRepLib_MakeFace mkf(S, Precision1::Confusion());
   myFace = mkf.Face();
 }
 
@@ -136,7 +136,7 @@ void ShapeUpgrade_WireDivide::SetSurface(const Handle(GeomSurface)& S)
 void ShapeUpgrade_WireDivide::SetSurface(const Handle(GeomSurface)& S, const TopLoc_Location& L)
 {
   ShapeBuilder B;
-  B.MakeFace(myFace, S, L, Precision::Confusion());
+  B.MakeFace(myFace, S, L, Precision1::Confusion());
 }
 
 //=================================================================================================
@@ -146,7 +146,7 @@ static void CorrectSplitValues(const Handle(TColStd_HSequenceOfReal)& orig3d,
                                Handle(TColStd_HSequenceOfReal)        new2d,
                                Handle(TColStd_HSequenceOfReal)        new3d)
 {
-  constexpr Standard_Real preci = Precision::PConfusion();
+  constexpr Standard_Real preci = Precision1::PConfusion();
   Standard_Integer        len3d = orig3d->Length();
   Standard_Integer        len2d = orig2d->Length();
   TColStd_Array1OfBoolean fixNew2d(1, len3d);
@@ -460,9 +460,9 @@ void ShapeUpgrade_WireDivide::Perform()
           Standard_Real ppar;
           Point3d        pproj;
           if (!c3d.IsNull())
-            sac.Project(c3d, aP, Precision(), pproj, ppar, af, al, Standard_False);
+            sac.Project(c3d, aP, Precision1(), pproj, ppar, af, al, Standard_False);
           else
-            sac.Project(AdCS, aP, Precision(), pproj, ppar);
+            sac.Project(AdCS, aP, Precision1(), pproj, ppar);
           aSeqParNM.Append(ppar);
         }
       }
@@ -511,7 +511,7 @@ void ShapeUpgrade_WireDivide::Perform()
       // below (skl)
 
       // clang-format off
-      Handle(ShapeUpgrade_FixSmallCurves) FixSmallCurveTool = GetFixSmallCurveTool(); //gka Precision
+      Handle(ShapeUpgrade_FixSmallCurves) FixSmallCurveTool = GetFixSmallCurveTool(); //gka Precision1
       // clang-format on
       FixSmallCurveTool->SetMinTolerance(MinTolerance());
       FixSmallCurveTool->Init(E, myFace);
@@ -772,11 +772,11 @@ void ShapeUpgrade_WireDivide::Perform()
           TopoVertex aNMVer =
             ShapeAnalysis_TransferParametersProj::CopyNMVertex(aVold, newEdge, E);
           Context()->Replace(aVold, aNMVer);
-          if (fabs(apar - afpar) <= Precision::PConfusion())
+          if (fabs(apar - afpar) <= Precision1::PConfusion())
           {
             Context()->Replace(aNMVer, V1);
           }
-          else if (fabs(apar - alpar) <= Precision::PConfusion())
+          else if (fabs(apar - alpar) <= Precision1::PConfusion())
           {
             Context()->Replace(aNMVer, V);
           }

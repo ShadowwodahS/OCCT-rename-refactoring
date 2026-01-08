@@ -68,7 +68,7 @@ Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(GeomCurve3d)& 
     try
     {
       OCC_CATCH_SIGNALS
-      GeomConvert_ApproxCurve AproxCurve(trc, Precision(), aCont, 1, 9);
+      GeomConvert_ApproxCurve AproxCurve(trc, Precision1(), aCont, 1, 9);
       if (AproxCurve.IsDone())
       {
         Handle(GeomCurve3d) newCurve = AproxCurve.Curve();
@@ -102,7 +102,7 @@ Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(GeomCurve3d)& 
   TopLoc_Location      L;
   Handle(GeomSurface) aSurf = BRepInspector::Surface(myFace, L);
   GeomAdaptor_Surface  ads(aSurf); // = new GeomAdaptor_Surface(aSurf);
-  Standard_Real        prec = Max(ads.UResolution(Precision()), ads.VResolution(Precision()));
+  Standard_Real        prec = Max(ads.UResolution(Precision1()), ads.VResolution(Precision1()));
   if (sae.PCurve(myEdge, myFace, c2d, f, l, Standard_False))
   {
     if (First < f)

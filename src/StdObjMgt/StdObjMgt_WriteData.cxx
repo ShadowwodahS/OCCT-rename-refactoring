@@ -47,13 +47,13 @@ WriteData& operator<<(WriteData& theWriteData, const Standard_GUID& theGUID)
 {
   WriteData::ObjectSentry aSentry(theWriteData);
 
-  const Standard_UUID anUUID = theGUID.ToUUID();
+  const UUID anUUID = theGUID.ToUUID();
 
   Standard_Integer      a32b;
   Standard_ExtCharacter a16b[3];
   Standard_Character    a8b[6];
 
-  // see Standard_GUID::Standard_GUID(const Standard_UUID& aWntGuid)
+  // see Standard_GUID::Standard_GUID(const UUID& aWntGuid)
   a32b    = anUUID.Data1;
   a16b[0] = anUUID.Data2;
   a16b[1] = anUUID.Data3;

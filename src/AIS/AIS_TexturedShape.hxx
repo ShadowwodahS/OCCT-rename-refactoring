@@ -100,7 +100,7 @@ public: //! @name methods to alter texture mapping properties
   Standard_EXPORT void UpdateAttributes();
 
   //! Sets the color.
-  Standard_EXPORT virtual void SetColor(const Quantity_Color& theColor) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetColor(const Color1& theColor) Standard_OVERRIDE;
 
   //! Removes settings for the color.
   Standard_EXPORT virtual void UnsetColor() Standard_OVERRIDE;

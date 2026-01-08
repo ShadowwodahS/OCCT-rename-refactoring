@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Prs3d_ShadingAspect, Prs3d_BasicAspect)
 Prs3d_ShadingAspect::Prs3d_ShadingAspect()
 {
   const Graphic3d_MaterialAspect aMat(Graphic3d_NameOfMaterial_Brass);
-  const Quantity_Color           aColor = aMat.AmbientColor();
+  const Color1           aColor = aMat.AmbientColor();
   myAspect                              = new Graphic3d_AspectFillArea3d(Aspect_IS_SOLID,
                                             aColor,
                                             aColor,
@@ -39,7 +39,7 @@ Prs3d_ShadingAspect::Prs3d_ShadingAspect()
 
 //=================================================================================================
 
-void Prs3d_ShadingAspect::SetColor(const Quantity_Color&          theColor,
+void Prs3d_ShadingAspect::SetColor(const Color1&          theColor,
                                    const Aspect_TypeOfFacingModel theModel)
 {
   if (theModel != Aspect_TOFM_BOTH_SIDE)
@@ -62,7 +62,7 @@ void Prs3d_ShadingAspect::SetColor(const Quantity_Color&          theColor,
 
 //=================================================================================================
 
-const Quantity_Color& Prs3d_ShadingAspect::Color(const Aspect_TypeOfFacingModel theModel) const
+const Color1& Prs3d_ShadingAspect::Color(const Aspect_TypeOfFacingModel theModel) const
 {
   switch (theModel)
   {

@@ -298,7 +298,7 @@ static Standard_Boolean FUN_shareNOG(const Handle(TopOpeBRepDS_HDataStructure)& 
   TopExp1::MapShapes(F1, TopAbs_EDGE, map1);
   TopTools_IndexedMapOfShape map2;
   TopExp1::MapShapes(F2, TopAbs_EDGE, map2);
-  Standard_Real tola = Precision::Angular();
+  Standard_Real tola = Precision1::Angular();
 
   const TopOpeBRepDS_ListOfInterference&        lIF1 = BDS.ShapeInterferences(F1);
   TopOpeBRepDS_ListIteratorOfListOfInterference it1(lIF1);

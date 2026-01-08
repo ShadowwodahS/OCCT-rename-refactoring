@@ -47,7 +47,7 @@ public:
 
   void UnsetOwnColor() { myHasOwnColor = false; }
 
-  void SetOwnColor(const Quantity_Color& /*theColor*/) { myHasOwnColor = true; }
+  void SetOwnColor(const Color1& /*theColor*/) { myHasOwnColor = true; }
 
   bool HasOwnTransparency() const { return myHasOwnTransp; }
 

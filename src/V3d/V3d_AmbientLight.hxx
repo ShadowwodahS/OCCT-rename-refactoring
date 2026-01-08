@@ -26,7 +26,7 @@ class V3d_AmbientLight : public Graphic3d_CLight
 public:
   //! Constructs an ambient light source in the viewer.
   //! The default Color of this light source is WHITE.
-  Standard_EXPORT V3d_AmbientLight(const Quantity_Color& theColor = Quantity_NOC_WHITE);
+  Standard_EXPORT V3d_AmbientLight(const Color1& theColor = Quantity_NOC_WHITE);
 
   //! @name hidden properties not applicable to ambient light
 private:

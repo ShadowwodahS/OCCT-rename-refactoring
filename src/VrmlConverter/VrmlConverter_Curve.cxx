@@ -32,8 +32,8 @@ static void FindLimits(const Adaptor3d_Curve& aCurve,
 {
   First                     = aCurve.FirstParameter();
   Last                      = aCurve.LastParameter();
-  Standard_Boolean firstInf = Precision::IsNegativeInfinite(First);
-  Standard_Boolean lastInf  = Precision::IsPositiveInfinite(Last);
+  Standard_Boolean firstInf = Precision1::IsNegativeInfinite(First);
+  Standard_Boolean lastInf  = Precision1::IsPositiveInfinite(Last);
 
   if (firstInf || lastInf)
   {
@@ -237,9 +237,9 @@ void CurveConverter::Add(const Adaptor3d_Curve&              aCurve,
   Standard_Real    V1       = U1;
   Standard_Real    V2       = U2;
 
-  if (Precision::IsNegativeInfinite(V1))
+  if (Precision1::IsNegativeInfinite(V1))
     V1 = -aDrawer->MaximalParameterValue();
-  if (Precision::IsPositiveInfinite(V2))
+  if (Precision1::IsPositiveInfinite(V2))
     V2 = aDrawer->MaximalParameterValue();
 
   //     std::cout << "V1 = "<< V1 << std::endl;
@@ -264,9 +264,9 @@ void CurveConverter::Add(const Adaptor3d_Curve& aCurve,
   Standard_Real V1 = U1;
   Standard_Real V2 = U2;
 
-  if (Precision::IsNegativeInfinite(V1))
+  if (Precision1::IsNegativeInfinite(V1))
     V1 = -aDrawer->MaximalParameterValue();
-  if (Precision::IsPositiveInfinite(V2))
+  if (Precision1::IsPositiveInfinite(V2))
     V2 = aDrawer->MaximalParameterValue();
 
   //     std::cout << "V1 = "<< V1 << std::endl;

@@ -276,7 +276,7 @@ public:
   Standard_EXPORT static Standard_Boolean IsSurfG1(
     const Handle(Adaptor3d_Surface)& theSurf,
     const Standard_Boolean           theAlongU,
-    const Standard_Real              theAngTol = Precision::Angular());
+    const Standard_Real              theAngTol = Precision1::Angular());
 
   Standard_EXPORT static Standard_Integer NbSamplesU(const Handle(Adaptor3d_Surface)& S);
 

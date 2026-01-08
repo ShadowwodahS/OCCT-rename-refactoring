@@ -64,7 +64,7 @@ XSControl_Controller::XSControl_Controller(const Standard_CString theLongName,
     : myShortName(theShortName),
       myLongName(theLongName)
 {
-  // Standard parameters
+  // Standard1 parameters
   ExchangeConfig::Standards();
   TraceStatic("read.precision.mode", 5);
   TraceStatic("read.precision.val", 5);

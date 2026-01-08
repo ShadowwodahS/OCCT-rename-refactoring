@@ -52,7 +52,7 @@ VisualAxis::VisualAxis(const Handle(GeomLine)& aComponent)
 
   Dir3d        thedir  = myComponent->Position1().Direction();
   Point3d        loc     = myComponent->Position1().Location();
-  Standard_Real aLength = UnitsAPI::AnyToLS(250000., "mm");
+  Standard_Real aLength = UnitsAPI1::AnyToLS(250000., "mm");
   myPfirst              = loc.XYZ() + aLength * thedir.XYZ();
   myPlast               = loc.XYZ() - aLength * thedir.XYZ();
 }
@@ -70,14 +70,14 @@ VisualAxis::VisualAxis(const Handle(Geom_Axis2Placement)& aComponent, const AIS_
   Standard_Real             aLength;
   try
   {
-    aLength = UnitsAPI::AnyToLS(100., "mm");
+    aLength = UnitsAPI1::AnyToLS(100., "mm");
   }
   catch (ExceptionBase const&)
   {
     aLength = 0.1;
   }
   DA->SetAxisLength(aLength, aLength, aLength);
-  Quantity_Color col(Quantity_NOC_TURQUOISE);
+  Color1 col(Quantity_NOC_TURQUOISE);
   DA->LineAspect(Prs3d_DatumParts_XAxis)->SetColor(col);
   DA->LineAspect(Prs3d_DatumParts_YAxis)->SetColor(col);
   DA->LineAspect(Prs3d_DatumParts_ZAxis)->SetColor(col);
@@ -98,7 +98,7 @@ VisualAxis::VisualAxis(const Handle(Geom_Axis1Placement)& anAxis)
 
   Dir3d        thedir  = myComponent->Position1().Direction();
   Point3d        loc     = myComponent->Position1().Location();
-  Standard_Real aLength = UnitsAPI::AnyToLS(250000., "mm");
+  Standard_Real aLength = UnitsAPI1::AnyToLS(250000., "mm");
   myPfirst              = loc.XYZ() + aLength * thedir.XYZ();
   myPlast               = loc.XYZ() - aLength * thedir.XYZ();
 }
@@ -116,7 +116,7 @@ VisualAxis::VisualAxis(const Axis3d& theAxis, const Standard_Real theLength)
   {
     throw Standard_NumericError("VisualAxis::VisualAxis : invalid value for theLength parameter");
   }
-  myVal   = (theLength == -1) ? UnitsAPI::AnyToLS(250000., "mm") : theLength;
+  myVal   = (theLength == -1) ? UnitsAPI1::AnyToLS(250000., "mm") : theLength;
   myPlast = myPfirst.XYZ() + myVal * myDir.XYZ();
   SetInfiniteState();
   Handle(Prs3d_DatumAspect) aDatumAspect = new Prs3d_DatumAspect();
@@ -139,7 +139,7 @@ void VisualAxis::SetComponent(const Handle(GeomLine)& aComponent)
 
   Dir3d        thedir  = myComponent->Position1().Direction();
   Point3d        loc     = myComponent->Position1().Location();
-  Standard_Real aLength = UnitsAPI::AnyToLS(250000., "mm");
+  Standard_Real aLength = UnitsAPI1::AnyToLS(250000., "mm");
   myPfirst              = loc.XYZ() + aLength * thedir.XYZ();
   myPlast               = loc.XYZ() - aLength * thedir.XYZ();
 }
@@ -198,7 +198,7 @@ void VisualAxis::ComputeSelection(const Handle(SelectionContainer)& aSelection,
 
 //=================================================================================================
 
-void VisualAxis::SetColor(const Quantity_Color& aCol)
+void VisualAxis::SetColor(const Color1& aCol)
 {
   hasOwnColor = Standard_True;
   myDrawer->SetColor(aCol);

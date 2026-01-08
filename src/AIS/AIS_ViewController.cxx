@@ -69,8 +69,8 @@ AIS_ViewController::AIS_ViewController()
       myXRLaserPickColor(Quantity_NOC_BLUE),
       myXRLastTeleportHand(Aspect_XRTrackedDeviceRole_Other),
       myXRLastPickingHand(Aspect_XRTrackedDeviceRole_Other),
-      myXRLastPickDepthLeft(Precision::Infinite()),
-      myXRLastPickDepthRight(Precision::Infinite()),
+      myXRLastPickDepthLeft(Precision1::Infinite()),
+      myXRLastPickDepthRight(Precision1::Infinite()),
       myXRTurnAngle(M_PI_4),
       myToDisplayXRAuxDevices(false),
       myToDisplayXRHands(true),
@@ -98,7 +98,7 @@ AIS_ViewController::AIS_ViewController()
       myUpdateStartPointRot(true),
       myUpdateStartPointZRot(true),
       //
-      myPanPnt3d(Precision::Infinite(), 0.0, 0.0)
+      myPanPnt3d(Precision1::Infinite(), 0.0, 0.0)
 {
   myViewAnimation->SetOwnDuration(0.5);
 
@@ -477,7 +477,7 @@ void AIS_ViewController::flushGestures(const Handle(VisualContext)&,
       Standard_Real aRotAngle = 0.0;
 
       Standard_Real aDenomenator = A1 * A2 + B1 * B2;
-      if (aDenomenator <= Precision::Confusion())
+      if (aDenomenator <= Precision1::Confusion())
       {
         aRotAngle = 0.0;
       }
@@ -1523,17 +1523,17 @@ void AIS_ViewController::handleZoom(const Handle(ViewWindow)&   theView,
 
   // ensure that zoom will not be too small or too big
   double aCoef = aDZoom;
-  if (aViewDims.x() < aCoef * Precision::Confusion())
+  if (aViewDims.x() < aCoef * Precision1::Confusion())
   {
-    aCoef = aViewDims.x() / Precision::Confusion();
+    aCoef = aViewDims.x() / Precision1::Confusion();
   }
   else if (aViewDims.x() > aCoef * 1e12)
   {
     aCoef = aViewDims.x() / 1e12;
   }
-  if (aViewDims.y() < aCoef * Precision::Confusion())
+  if (aViewDims.y() < aCoef * Precision1::Confusion())
   {
-    aCoef = aViewDims.y() / Precision::Confusion();
+    aCoef = aViewDims.y() / Precision1::Confusion();
   }
   else if (aViewDims.y() > aCoef * 1e12)
   {
@@ -1843,7 +1843,7 @@ bool AIS_ViewController::PickPoint(Point3d&                               thePnt
   }
 
   const SelectMgr_SortCriterion& aPicked = aSelector->PickedData(1);
-  if (theToStickToPickRay && !Precision::IsInfinite(aPicked.Depth))
+  if (theToStickToPickRay && !Precision1::IsInfinite(aPicked.Depth))
   {
     thePnt = aSelector->GetManager().DetectedPoint(aPicked.Depth);
   }
@@ -1851,8 +1851,8 @@ bool AIS_ViewController::PickPoint(Point3d&                               thePnt
   {
     thePnt = aSelector->PickedPoint(1);
   }
-  return !Precision::IsInfinite(thePnt.X()) && !Precision::IsInfinite(thePnt.Y())
-         && !Precision::IsInfinite(thePnt.Z());
+  return !Precision1::IsInfinite(thePnt.X()) && !Precision1::IsInfinite(thePnt.Y())
+         && !Precision1::IsInfinite(thePnt.Z());
 }
 
 //=================================================================================================
@@ -1873,8 +1873,8 @@ bool AIS_ViewController::PickAxis(Point3d&                               theTopP
 
   const SelectMgr_SortCriterion& aPickedData = aSelector->PickedData(1);
   theTopPnt                                  = aPickedData.Point;
-  return !Precision::IsInfinite(theTopPnt.X()) && !Precision::IsInfinite(theTopPnt.Y())
-         && !Precision::IsInfinite(theTopPnt.Z());
+  return !Precision1::IsInfinite(theTopPnt.X()) && !Precision1::IsInfinite(theTopPnt.Y())
+         && !Precision1::IsInfinite(theTopPnt.Z());
 }
 
 //=================================================================================================
@@ -2246,7 +2246,7 @@ void AIS_ViewController::handleCameraActions(const Handle(VisualContext)& theCtx
   {
     if (myGL.Panning.ToStart && myToAllowPanning)
     {
-      Point3d aPanPnt(Precision::Infinite(), 0.0, 0.0);
+      Point3d aPanPnt(Precision1::Infinite(), 0.0, 0.0);
       if (!theView->Camera()->IsOrthographic())
       {
         bool toStickToRay = false;
@@ -2254,13 +2254,13 @@ void AIS_ViewController::handleCameraActions(const Handle(VisualContext)& theCtx
         {
           PickPoint(aPanPnt, theCtx, theView, myGL.Panning.PointStart, toStickToRay);
         }
-        if (Precision::IsInfinite(aPanPnt.X()))
+        if (Precision1::IsInfinite(aPanPnt.X()))
         {
           Graphic3d_Vec2i aWinSize;
           theView->Window()->Size(aWinSize.x(), aWinSize.y());
           PickPoint(aPanPnt, theCtx, theView, aWinSize / 2, toStickToRay);
         }
-        if (!Precision::IsInfinite(aPanPnt.X()) && myToShowPanAnchorPoint)
+        if (!Precision1::IsInfinite(aPanPnt.X()) && myToShowPanAnchorPoint)
         {
           Transform3d aPntTrsf;
           aPntTrsf.SetTranslation(Vector3d(aPanPnt.XYZ()));
@@ -2502,7 +2502,7 @@ void AIS_ViewController::handleXRTeleport(const Handle(VisualContext)& theCtx,
       Standard_Real& aPickDepth = aRole == Aspect_XRTrackedDeviceRole_LeftHand
                                     ? myXRLastPickDepthLeft
                                     : myXRLastPickDepthRight;
-      aPickDepth                = Precision::Infinite();
+      aPickDepth                = Precision1::Infinite();
       Graphic3d_Vec3      aPickNorm;
       const Transform3d       aHandBase = theView->View()->PoseXRToWorld(aPose.Orientation);
       const Standard_Real aHeadHeight =
@@ -2524,7 +2524,7 @@ void AIS_ViewController::handleXRTeleport(const Handle(VisualContext)& theCtx,
       if (isClicked)
       {
         myXRLastTeleportHand = Aspect_XRTrackedDeviceRole_Other;
-        if (!Precision::IsInfinite(aPickDepth))
+        if (!Precision1::IsInfinite(aPickDepth))
         {
           const Dir3d aTeleDir = -gp1::DZ().Transformed(aHandBase);
           const Dir3d anUpDir  = theView->View()->BaseXRCamera()->Up();
@@ -3228,7 +3228,7 @@ void AIS_ViewController::handleXRHighlight(const Handle(VisualContext)& theCtx,
   Standard_Real& aPickDepth = myXRLastPickingHand == Aspect_XRTrackedDeviceRole_LeftHand
                                 ? myXRLastPickDepthLeft
                                 : myXRLastPickDepthRight;
-  aPickDepth                = Precision::Infinite();
+  aPickDepth                = Precision1::Infinite();
   if (theCtx->MainSelector()->NbPicked() > 0)
   {
     const Transform3d                  aHandBase = theView->View()->PoseXRToWorld(aPose.Orientation);
@@ -3360,7 +3360,7 @@ void AIS_ViewController::handleXRPresentations(const Handle(VisualContext)& theC
       aLaserLen = myXRLastPickingHand == Aspect_XRTrackedDeviceRole_LeftHand
                     ? myXRLastPickDepthLeft
                     : myXRLastPickDepthRight;
-      if (Precision::IsInfinite(aLaserLen))
+      if (Precision1::IsInfinite(aLaserLen))
       {
         const Box2 aViewBox = theView->View()->MinMaxValues(true);
         if (!aViewBox.IsVoid())
@@ -3379,7 +3379,7 @@ void AIS_ViewController::handleXRPresentations(const Handle(VisualContext)& theC
       aLaserLen = myXRLastTeleportHand == Aspect_XRTrackedDeviceRole_LeftHand
                     ? myXRLastPickDepthLeft
                     : myXRLastPickDepthRight;
-      if (Precision::IsInfinite(aLaserLen))
+      if (Precision1::IsInfinite(aLaserLen))
       {
         const Box2 aViewBox = theView->View()->MinMaxValues(true);
         if (!aViewBox.IsVoid())

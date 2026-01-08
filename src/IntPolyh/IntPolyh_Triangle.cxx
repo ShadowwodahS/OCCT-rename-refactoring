@@ -643,7 +643,7 @@ const Box2& IntPolyh_Triangle::BoundingBox(const IntPolyh_ArrayOfPoints& thePoin
     myBox.Add(Point3d(aP1.X(), aP1.Y(), aP1.Z()));
     myBox.Add(Point3d(aP2.X(), aP2.Y(), aP2.Z()));
     myBox.Add(Point3d(aP3.X(), aP3.Y(), aP3.Z()));
-    myBox.SetGap(myDeflection + Precision::Confusion());
+    myBox.SetGap(myDeflection + Precision1::Confusion());
   }
   return myBox;
 }

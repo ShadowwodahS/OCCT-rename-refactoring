@@ -27,30 +27,30 @@
 
 //! A simple platform-intependent interface to execute
 //! and control threads.
-class OSD_Thread
+class Thread
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor
-  Standard_EXPORT OSD_Thread();
+  Standard_EXPORT Thread();
 
   //! Initialize the tool by the thread function
   //!
   //! Note: On Windows, you might have to take an address of the thread
   //! function explicitly to pass it to this constructor without compiler error
-  Standard_EXPORT OSD_Thread(const OSD_ThreadFunction& func);
+  Standard_EXPORT Thread(const OSD_ThreadFunction& func);
 
   //! Copy constructor
-  Standard_EXPORT OSD_Thread(const OSD_Thread& other);
+  Standard_EXPORT Thread(const Thread& other);
 
-  //! Copy thread handle from other OSD_Thread object.
-  Standard_EXPORT void Assign(const OSD_Thread& other);
+  //! Copy thread handle from other Thread object.
+  Standard_EXPORT void Assign(const Thread& other);
 
-  void operator=(const OSD_Thread& other) { Assign(other); }
+  void operator=(const Thread& other) { Assign(other); }
 
   //! Destructor. Detaches the thread if it wasn't done already.
-  Standard_EXPORT ~OSD_Thread();
+  Standard_EXPORT ~Thread();
 
   Standard_EXPORT void SetPriority(const Standard_Integer thePriority);
 

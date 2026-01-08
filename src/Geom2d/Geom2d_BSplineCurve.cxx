@@ -640,7 +640,7 @@ void Geom2d_BSplineCurve::Segment1(const Standard_Real aU1,
   {
     Standard_Real Period = LastParameter() - FirstParameter();
     DU                   = U2 - U1;
-    if (DU - Period > Precision::PConfusion())
+    if (DU - Period > Precision1::PConfusion())
       throw Standard_DomainError("Geom2d_BSplineCurve::Segment1");
     if (DU > Period)
       DU = Period;

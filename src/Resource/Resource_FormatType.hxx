@@ -18,7 +18,7 @@
 #define _Resource_FormatType_HeaderFile
 
 //! List of non ASCII format types which may be converted into the Unicode 16 bits format type.
-//! Use the functions provided by the Resource_Unicode class to convert a string
+//! Use the functions provided by the UnicodeTools class to convert a string
 //! from one of these non ASCII format to Unicode, and vice versa.
 enum Resource_FormatType
 {

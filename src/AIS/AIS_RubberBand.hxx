@@ -44,7 +44,7 @@ public:
   //! @param[in] theType  type of rubber band lines
   //! @param[in] theLineWidth  width of rubber band line. By default it is 1.
   //! @warning It binds this object with Graphic3d_ZLayerId_TopOSD layer.
-  Standard_EXPORT AIS_RubberBand(const Quantity_Color&   theLineColor,
+  Standard_EXPORT AIS_RubberBand(const Color1&   theLineColor,
                                  const Aspect_TypeOfLine theType,
                                  const Standard_Real     theLineWidth       = 1.0,
                                  const Standard_Boolean  theIsPolygonClosed = Standard_True);
@@ -57,9 +57,9 @@ public:
   //! it is transparent.
   //! @param[in] theLineWidth  width of rubber band line. By default it is 1.
   //! @warning It binds this object with Graphic3d_ZLayerId_TopOSD layer.
-  Standard_EXPORT AIS_RubberBand(const Quantity_Color&   theLineColor,
+  Standard_EXPORT AIS_RubberBand(const Color1&   theLineColor,
                                  const Aspect_TypeOfLine theType,
-                                 const Quantity_Color    theFillColor,
+                                 const Color1    theFillColor,
                                  const Standard_Real     theTransparency    = 1.0,
                                  const Standard_Real     theLineWidth       = 1.0,
                                  const Standard_Boolean  theIsPolygonClosed = Standard_True);
@@ -87,16 +87,16 @@ public:
   void ClearPoints() { myPoints.Clear(); }
 
   //! @return the Color attributes.
-  Standard_EXPORT Quantity_Color LineColor() const;
+  Standard_EXPORT Color1 LineColor() const;
 
   //! Sets color of lines for rubber band presentation.
-  Standard_EXPORT void SetLineColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetLineColor(const Color1& theColor);
 
   //! @return the color of rubber band filling.
-  Standard_EXPORT Quantity_Color FillColor() const;
+  Standard_EXPORT Color1 FillColor() const;
 
   //! Sets color of rubber band filling.
-  Standard_EXPORT void SetFillColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetFillColor(const Color1& theColor);
 
   //! Sets width of line for rubber band presentation.
   Standard_EXPORT void SetLineWidth(const Standard_Real theWidth) const;
@@ -123,7 +123,7 @@ public:
   //! Enable filling of rubber band with defined parameters.
   //! @param[in] theColor  color of filling
   //! @param[in] theTransparency  transparency of the filling. 0 is for opaque filling.
-  Standard_EXPORT void SetFilling(const Quantity_Color theColor,
+  Standard_EXPORT void SetFilling(const Color1 theColor,
                                   const Standard_Real  theTransparency);
 
   //! @return true if filling of rubber band is enabled.

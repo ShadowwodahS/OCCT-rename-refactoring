@@ -73,7 +73,7 @@ public:
   }
 
   //! Get the node of given Index.
-  //! Raises OutOfRange from Standard if Index is not in 1,2,3
+  //! Raises OutOfRange from Standard1 if Index is not in 1,2,3
   Standard_Integer Value(const Standard_Integer theIndex) const
   {
     Standard_OutOfRange_Raise_if(theIndex < 1 || theIndex > 3,

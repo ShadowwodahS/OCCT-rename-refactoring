@@ -91,7 +91,7 @@ Standard_Boolean Bisector_FunctionInter::Values(const Standard_Real X,
   F  = F1 - F2;
   if (Abs(F1) < gp1::Resolution())
   {
-    DF1 = Precision::Infinite();
+    DF1 = Precision1::Infinite();
   }
   else
   {
@@ -99,7 +99,7 @@ Standard_Boolean Bisector_FunctionInter::Values(const Standard_Real X,
   }
   if (Abs(F2) < gp1::Resolution())
   {
-    DF2 = Precision::Infinite();
+    DF2 = Precision1::Infinite();
   }
   else
   {

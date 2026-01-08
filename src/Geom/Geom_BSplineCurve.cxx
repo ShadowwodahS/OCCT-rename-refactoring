@@ -482,7 +482,7 @@ void BSplineCurve3d::Segment1(const Standard_Real U1,
   {
     Standard_Real Period = LastParameter() - FirstParameter();
     DU                   = U2 - U1;
-    if (DU - Period > Precision::PConfusion())
+    if (DU - Period > Precision1::PConfusion())
       throw Standard_DomainError("BSplineCurve3d::Segment1");
     if (DU > Period)
       DU = Period;

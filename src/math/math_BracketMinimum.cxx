@@ -39,7 +39,7 @@ Standard_Boolean BracketMinimum::LimitAndMayBeSwap(Function1&      F,
                                                         Standard_Real&      theFC) const
 {
   theC = Limited(theC);
-  if (Abs(theB - theC) < Precision::PConfusion())
+  if (Abs(theB - theC) < Precision1::PConfusion())
     return Standard_False;
   Standard_Boolean OK = F.Value(theC, theFC);
   if (!OK)
@@ -192,8 +192,8 @@ BracketMinimum::BracketMinimum(Function1&      F,
       FAx(0.),
       FBx(0.),
       FCx(0.),
-      myLeft(-Precision::Infinite()),
-      myRight(Precision::Infinite()),
+      myLeft(-Precision1::Infinite()),
+      myRight(Precision1::Infinite()),
       myIsLimited(Standard_False),
       myFA(Standard_False),
       myFB(Standard_False)
@@ -212,8 +212,8 @@ BracketMinimum::BracketMinimum(Function1&      F,
       FAx(FA),
       FBx(0.),
       FCx(0.),
-      myLeft(-Precision::Infinite()),
-      myRight(Precision::Infinite()),
+      myLeft(-Precision1::Infinite()),
+      myRight(Precision1::Infinite()),
       myIsLimited(Standard_False),
       myFA(Standard_True),
       myFB(Standard_False)
@@ -233,8 +233,8 @@ BracketMinimum::BracketMinimum(Function1&      F,
       FAx(FA),
       FBx(FB),
       FCx(0.),
-      myLeft(-Precision::Infinite()),
-      myRight(Precision::Infinite()),
+      myLeft(-Precision1::Infinite()),
+      myRight(Precision1::Infinite()),
       myIsLimited(Standard_False),
       myFA(Standard_True),
       myFB(Standard_True)

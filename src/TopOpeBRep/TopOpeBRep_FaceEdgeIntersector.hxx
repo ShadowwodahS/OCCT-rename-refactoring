@@ -107,7 +107,7 @@ private:
 
   //! returns the max tolerance of sub-shapes of type <T>
   //! found in shape <S>. If no such sub-shape found, return
-  //! Precision::Intersection()
+  //! Precision1::Intersection()
   //! (called by ShapeTolerances())
   Standard_EXPORT Standard_Real ToleranceMax(const TopoShape& S, const TopAbs_ShapeEnum T) const;
 

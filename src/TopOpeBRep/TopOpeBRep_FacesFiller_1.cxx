@@ -619,7 +619,7 @@ static Standard_Boolean FUN_brep_ONfirstP(const TopOpeBRep_VPointInter& vpf,
   Standard_Real    parfirst = vpf.ParameterOnLine();
   Standard_Real    parcur   = VP.ParameterOnLine();
   Standard_Real    d        = parcur - parfirst;
-  Standard_Real    tol      = Precision::Confusion(); // nyixpu051098 : see lbr...
+  Standard_Real    tol      = Precision1::Confusion(); // nyixpu051098 : see lbr...
   Standard_Boolean ONfirstP = (Abs(d) < tol);
   return ONfirstP;
 }
@@ -727,7 +727,7 @@ void TopOpeBRep_FacesFiller::ProcessRLine()
   //  xpu061098
   VPointIntersectionIterator VPI;
   VPI.Init((*myLine));
-  Standard_Real                 tola = Precision::Angular() * 1.e5; // NYIXPUTOL
+  Standard_Real                 tola = Precision1::Angular() * 1.e5; // NYIXPUTOL
   const TopOpeBRep_VPointInter& vpf  = VPI.CurrentVP();
   for (; VPI.More(); VPI.Next())
   {
@@ -1233,7 +1233,7 @@ void TopOpeBRep_FacesFiller::AddShapesLine()
   myHDS->MinMaxOnParameter(myDSCIL, pmin, pmax);
 
   Standard_Real    d     = Abs(pmin - pmax);
-  Standard_Boolean id    = (d <= Precision::PConfusion());
+  Standard_Boolean id    = (d <= Precision1::PConfusion());
   Standard_Boolean isper = myLine->IsPeriodic();
   id                     = (id && !isper);
 

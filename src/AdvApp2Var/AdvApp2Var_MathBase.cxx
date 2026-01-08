@@ -517,7 +517,7 @@ int mmaper0_(integer*    ncofmx,
   /*     ------------------- */
   /*        YCVMAX : Auxiliary Table (max error on each dimension).
    */
-  /*        ERRMAX : Precision of the approximation. */
+  /*        ERRMAX : Precision1 of the approximation. */
 
   /*     COMMONS USED   : */
   /*     ---------------- */
@@ -667,7 +667,7 @@ int mmaper2_(integer*    ncofmx,
   /*     ------------------- */
   /*        YCVMAX : Auxiliary Table (max error on each dimension).
    */
-  /*        ERRMAX : Precision of the approximation. */
+  /*        ERRMAX : Precision1 of the approximation. */
 
   /*     COMMONS USED   : */
   /*     ---------------- */
@@ -818,7 +818,7 @@ int mmaper4_(integer*    ncofmx,
   /*     ------------------- */
   /*        YCVMAX : Auxiliary Table (max error on each dimension).
    */
-  /*        ERRMAX : Precision of the approximation. */
+  /*        ERRMAX : Precision1 of the approximation. */
 
   /*     COMMONS USED   : */
   /*     ---------------- */
@@ -965,7 +965,7 @@ int mmaper6_(integer*    ncofmx,
   /*     ------------------- */
   /*        YCVMAX : Auxiliary Table (max error on each dimension).
    */
-  /*        ERRMAX : Precision of the approximation. */
+  /*        ERRMAX : Precision1 of the approximation. */
 
   /*     COMMONS USED   : */
   /*     ---------------- */
@@ -1081,7 +1081,7 @@ int MathBase::mmaperx_(integer*    ncofmx,
   /*     ------------------- */
   /*        YCVMAX : Auxiliary Table (max error on each dimension).
    */
-  /*        ERRMAX : Precision of the approximation. */
+  /*        ERRMAX : Precision1 of the approximation. */
   /*        IERCOD = 0, OK */
   /*               = 1, order of constraints (IORDRE) is not within the */
   /*                    authorized values. */
@@ -2137,7 +2137,7 @@ int MathBase::mmcglc1_(integer*    ndimax,
   /*     OUTPUT ARGUMENTS : */
   /*     ------------------- */
   /*      XLONGC : Length of the arc of curve */
-  /*      ERREUR : Precision OBTAINED for the length calculation. */
+  /*      ERREUR : Precision1 OBTAINED for the length calculation. */
   /*      IERCOD : Error code, 0 OK, >0 Serious error. */
   /*               = 1 Too much iterations, the best calculated resultat */
   /*                   (is almost ERROR) */
@@ -2593,7 +2593,7 @@ int MathBase::mmcvctx_(integer*    ndimen,
   {
     SystemBase::mgenmsg_("MMCVCTX", 7L);
   }
-  /*   Precision. */
+  /*   Precision1. */
   MathBase::mmeps1_(&eps1);
 
   /* ****************** CALCULATION OF EVEN COEFFICIENTS *********************
@@ -8759,12 +8759,12 @@ int mmtrpj0_(integer*    ncofmx,
   /*        NCOFMX : Max Nb of coeff. of the curve (dimensioning). */
   /*        NDIMEN : Dimension of the space. */
   /*        NCOEFF : Degree +1 of the polynom. */
-  /*        EPSI3D : Precision required for the approximation. */
+  /*        EPSI3D : Precision1 required for the approximation. */
   /*        CRVLGD : The curve the degree which of it is required to lower. */
 
   /*     OUTPUT ARGUMENTS : */
   /*     ------------------- */
-  /*        EPSTRC : Precision of the approximation. */
+  /*        EPSTRC : Precision1 of the approximation. */
   /*        NCFNEW : Degree +1 of the resulting polynom. */
 
   /*     COMMONS USED   : */
@@ -8912,14 +8912,14 @@ int mmtrpj2_(integer*    ncofmx,
   /*        NCOFMX : Max nb of coeff. of the curve (dimensioning). */
   /*        NDIMEN : Dimension of the space. */
   /*        NCOEFF : Degree +1 of the polynom. */
-  /*        EPSI3D : Precision required for the approximation. */
+  /*        EPSI3D : Precision1 required for the approximation. */
   /*        CRVLGD : The curve the degree which of will be lowered. */
 
   /*     OUTPUT ARGUMENTS : */
   /*     ------------------- */
   /*        YCVMAX : Auxiliary table (error max on each dimension).
    */
-  /*        EPSTRC : Precision of the approximation. */
+  /*        EPSTRC : Precision1 of the approximation. */
   /*        NCFNEW : Degree +1 of the resulting polynom. */
 
   /*     COMMONS USED   : */
@@ -9091,14 +9091,14 @@ int mmtrpj4_(integer*    ncofmx,
   /*        NCOFMX : Max nb of coeff. of the curve (dimensioning). */
   /*        NDIMEN : Dimension of the space. */
   /*        NCOEFF : Degree +1 of the polynom. */
-  /*        EPSI3D : Precision required for the approximation. */
+  /*        EPSI3D : Precision1 required for the approximation. */
   /*        CRVLGD : The curve which wishes to lower the degree. */
 
   /*     OUTPUT ARGUMENTS : */
   /*     ------------------- */
   /*        YCVMAX : Auxiliary table (max error on each dimension).
    */
-  /*        EPSTRC : Precision of the approximation. */
+  /*        EPSTRC : Precision1 of the approximation. */
   /*        NCFNEW : Degree +1 of the resulting polynom. */
 
   /*     COMMONS USED   : */
@@ -9270,13 +9270,13 @@ int mmtrpj6_(integer*    ncofmx,
   /*        NCOFMX : Max nb of coeff. of the curve (dimensioning). */
   /*        NDIMEN : Dimension of the space. */
   /*        NCOEFF : Degree +1 of the polynom. */
-  /*        EPSI3D : Precision required for the approximation. */
+  /*        EPSI3D : Precision1 required for the approximation. */
   /*        CRVLGD : The curve the degree which of will be lowered. */
 
   /*     OUTPUT ARGUMENTS : */
   /*     ------------------- */
   /*        YCVMAX : Auxiliary table (max error on each dimension). */
-  /*        EPSTRC : Precision of the approximation. */
+  /*        EPSTRC : Precision1 of the approximation. */
   /*        NCFNEW : Degree +1 of the resulting polynom. */
 
   /*     COMMONS USED   : */
@@ -9413,13 +9413,13 @@ int MathBase::mmtrpjj_(integer*    ncofmx,
   /*        NCOFMX : Max Nb coeff. of the curve (dimensioning). */
   /*        NDIMEN : Dimension of the space. */
   /*        NCOEFF : Degree +1 of the polynom. */
-  /*        EPSI3D : Precision required for the approximation. */
+  /*        EPSI3D : Precision1 required for the approximation. */
   /*        IORDRE : Order of continuity at the extremities. */
   /*        CRVLGD : The curve the degree which of should be lowered. */
 
   /*     OUTPUT ARGUMENTS : */
   /*     ------------------- */
-  /*        ERRMAX : Precision of the approximation. */
+  /*        ERRMAX : Precision1 of the approximation. */
   /*        NCFNEW : Degree +1 of the resulting polynom. */
 
   /*     COMMONS USED   : */
@@ -9540,7 +9540,7 @@ int MathBase::mmunivt_(integer*    ndimen,
   /* Function Body */
   *iercod = 0;
 
-  /* -------- Precision by default : zero machine 10.D-17 on Vax ------
+  /* -------- Precision1 by default : zero machine 10.D-17 on Vax ------
    */
 
   SystemBase::maovsr8_(&nchif);

@@ -233,7 +233,7 @@ void TopOpeBRep_FacesFiller::Lminmax(const TopOpeBRep_LineInter& L,
     pmax                             = Max(pmax, p);
   }
   Standard_Real    d     = Abs(pmin - pmax);
-  Standard_Boolean id    = (d <= Precision::PConfusion());
+  Standard_Boolean id    = (d <= Precision1::PConfusion());
   Standard_Boolean isper = L.IsPeriodic();
   Standard_Integer n     = L.NbVPoint();
   if (id && isper && n >= 2)
@@ -275,7 +275,7 @@ Standard_Boolean TopOpeBRep_FacesFiller::LSameDomainERL(const TopOpeBRep_LineInt
       return Standard_False;
   } // INL
 
-  Standard_Boolean id = (d <= Precision::PConfusion());
+  Standard_Boolean id = (d <= Precision1::PConfusion());
   if (id)
     return Standard_False;
 
@@ -410,7 +410,7 @@ Standard_EXPORT Standard_Boolean FUN_EqualponR(const TopOpeBRep_LineInter&   Lre
 {
   Standard_Real    p1     = TopOpeBRep_FacesFiller::VPParamOnER(VP1, Lrest);
   Standard_Real    p2     = TopOpeBRep_FacesFiller::VPParamOnER(VP2, Lrest);
-  Standard_Boolean pequal = fabs(p1 - p2) < Precision::PConfusion();
+  Standard_Boolean pequal = fabs(p1 - p2) < Precision1::PConfusion();
   return pequal;
 }
 

@@ -33,7 +33,7 @@ DEFINE_STANDARD_HANDLE(PrsDim_RadiusDimension, PrsDim_Dimension)
 //! middle point on the arc. The radius dimension always lies in the
 //! plane of the measured circle. The dimension is considered as
 //! invalid if the user-specified anchor point is not lying on the circle,
-//! if the radius of the circle is less than Precision::Confusion().
+//! if the radius of the circle is less than Precision1::Confusion().
 //! In case if the dimension is built on the arbitrary shape,
 //! it can be considered as invalid if the shape does not contain
 //! circle geometry.
@@ -69,7 +69,7 @@ public:
 public:
   //! Measure radius of the circle.
   //! The dimension will become invalid if the radius of the circle
-  //! is less than Precision::Confusion().
+  //! is less than Precision1::Confusion().
   //! @param[in] theCircle  the circle to measure.
   void SetMeasuredGeometry(const gp_Circ& theCircle)
   {
@@ -79,7 +79,7 @@ public:
   //! Measure radius of the circle and orient the dimension so
   //! the dimension lines attaches to anchor point on the circle.
   //! The dimension will become invalid if the radius of the circle
-  //! is less than Precision::Confusion().
+  //! is less than Precision1::Confusion().
   //! @param[in] theCircle  the circle to measure.
   //! @param[in] theAnchorPoint  the point to attach the dimension lines, should be on the circle
   //! @param[in] theHasAnchor    should be set TRUE if theAnchorPoint should be used
@@ -89,7 +89,7 @@ public:
 
   //! Measure radius on the passed shape, if applicable.
   //! The dimension will become invalid if the passed shape is not
-  //! measurable or if measured diameter value is less than Precision::Confusion().
+  //! measurable or if measured diameter value is less than Precision1::Confusion().
   //! @param[in] theShape  the shape to measure.
   void SetMeasuredGeometry(const TopoShape& theShape)
   {
@@ -98,7 +98,7 @@ public:
 
   //! Measure radius on the passed shape, if applicable.
   //! The dimension will become invalid if the passed shape is not
-  //! measurable or if measured diameter value is less than Precision::Confusion().
+  //! measurable or if measured diameter value is less than Precision1::Confusion().
   //! @param[in] theShape  the shape to measure.
   //! @param[in] theAnchorPoint  the point to attach the dimension lines, should be on the circle
   //! @param[in] theHasAnchor    should be set TRUE if theAnchorPoint should be used

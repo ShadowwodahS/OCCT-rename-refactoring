@@ -34,17 +34,17 @@ extern "C" int posix_memalign(void** thePtr, size_t theAlign, size_t theSize);
 
 namespace
 {
-static Standard::AllocatorType& allocatorTypeInstance()
+static Standard1::AllocatorType& allocatorTypeInstance()
 {
-  static Standard::AllocatorType aType =
+  static Standard1::AllocatorType aType =
 #ifdef OCCT_MMGT_OPT_FLEXIBLE
-    Standard::AllocatorType::NATIVE;
+    Standard1::AllocatorType::NATIVE;
 #elif defined OCCT_MMGT_OPT_TBB
-    Standard::AllocatorType::TBB;
+    Standard1::AllocatorType::TBB;
 #elif defined OCCT_MMGT_OPT_JEMALLOC
-    Standard::AllocatorType::JEMALLOC;
+    Standard1::AllocatorType::JEMALLOC;
 #else
-    Standard::AllocatorType::NATIVE;
+    Standard1::AllocatorType::NATIVE;
 #endif
   return aType;
 }
@@ -93,7 +93,7 @@ namespace
  * functions: malloc (or calloc), free and realloc
  * without any optimization
  */
-class Standard_MMgrRaw : public Standard_MMgrRoot
+class Standard_MMgrRaw : public MemoryManagerRoot
 {
 public:
   //! Constructor; if theToClear is True, the memory will be nullified
@@ -135,7 +135,7 @@ protected:
 //!
 //! On configurations where TBB is not available standard RTL functions
 //! malloc() / free() are used.
-class Standard_MMgrTBBalloc : public Standard_MMgrRoot
+class Standard_MMgrTBBalloc : public MemoryManagerRoot
 {
 public:
   //! Constructor; if theClear is True, the memory will be nullified
@@ -182,7 +182,7 @@ protected:
 class Standard_MMgrFactory
 {
 public:
-  static Standard_MMgrRoot* GetMMgr();
+  static MemoryManagerRoot* GetMMgr();
   ~Standard_MMgrFactory();
 
 private:
@@ -191,7 +191,7 @@ private:
   Standard_MMgrFactory& operator=(const Standard_MMgrFactory&);
 
 private:
-  Standard_MMgrRoot* myFMMgr;
+  MemoryManagerRoot* myFMMgr;
 };
 
 //=======================================================================
@@ -300,7 +300,7 @@ Standard_MMgrFactory::Standard_MMgrFactory()
     default: // system default memory allocator
       myFMMgr = new Standard_MMgrRaw(toClear);
   }
-  allocatorTypeInstance() = static_cast<Standard::AllocatorType>(anAllocId);
+  allocatorTypeInstance() = static_cast<Standard1::AllocatorType>(anAllocId);
 }
 
 //=================================================================================================
@@ -352,7 +352,7 @@ Standard_MMgrFactory::~Standard_MMgrFactory()
 // be counting calls to Allocate() and Free()...
 //
 //=======================================================================
-Standard_MMgrRoot* Standard_MMgrFactory::GetMMgr()
+MemoryManagerRoot* Standard_MMgrFactory::GetMMgr()
 {
   static Standard_MMgrFactory aFactory;
   return aFactory.myFMMgr;
@@ -362,14 +362,14 @@ Standard_MMgrRoot* Standard_MMgrFactory::GetMMgr()
 
 //=================================================================================================
 
-Standard::AllocatorType Standard::GetAllocatorType()
+Standard1::AllocatorType Standard1::GetAllocatorType()
 {
   return allocatorTypeInstance();
 }
 
 //=================================================================================================
 
-Standard_Address Standard::Allocate(const Standard_Size theSize)
+Standard_Address Standard1::Allocate(const Standard_Size theSize)
 {
 #ifdef OCCT_MMGT_OPT_FLEXIBLE
   return Standard_MMgrFactory::GetMMgr()->Allocate(theSize);
@@ -393,7 +393,7 @@ Standard_Address Standard::Allocate(const Standard_Size theSize)
 
 //=================================================================================================
 
-Standard_Address Standard::AllocateOptimal(const Standard_Size theSize)
+Standard_Address Standard1::AllocateOptimal(const Standard_Size theSize)
 {
 #ifdef OCCT_MMGT_OPT_FLEXIBLE
   return Standard_MMgrFactory::GetMMgr()->Allocate(theSize);
@@ -408,7 +408,7 @@ Standard_Address Standard::AllocateOptimal(const Standard_Size theSize)
 
 //=================================================================================================
 
-void Standard::Free(Standard_Address theStorage)
+void Standard1::Free(Standard_Address theStorage)
 {
 #ifdef OCCT_MMGT_OPT_FLEXIBLE
   Standard_MMgrFactory::GetMMgr()->Free(theStorage);
@@ -423,7 +423,7 @@ void Standard::Free(Standard_Address theStorage)
 
 //=================================================================================================
 
-Standard_Address Standard::Reallocate(Standard_Address theStorage, const Standard_Size theSize)
+Standard_Address Standard1::Reallocate(Standard_Address theStorage, const Standard_Size theSize)
 {
   // Note that it is not possible to ensure that additional memory
   // allocated by realloc will be cleared (so as to satisfy myClear mode);
@@ -450,7 +450,7 @@ Standard_Address Standard::Reallocate(Standard_Address theStorage, const Standar
 
 //=================================================================================================
 
-Standard_Integer Standard::Purge()
+Standard_Integer Standard1::Purge()
 {
 #ifdef OCCT_MMGT_OPT_FLEXIBLE
   return Standard_MMgrFactory::GetMMgr()->Purge();
@@ -461,7 +461,7 @@ Standard_Integer Standard::Purge()
 
 //=================================================================================================
 
-Standard_Address Standard::AllocateAligned(const Standard_Size theSize,
+Standard_Address Standard1::AllocateAligned(const Standard_Size theSize,
                                            const Standard_Size theAlign)
 {
 #ifdef OCCT_MMGT_OPT_JEMALLOC
@@ -489,7 +489,7 @@ Standard_Address Standard::AllocateAligned(const Standard_Size theSize,
 
 //=================================================================================================
 
-void Standard::FreeAligned(Standard_Address thePtrAligned)
+void Standard1::FreeAligned(Standard_Address thePtrAligned)
 {
 #ifdef OCCT_MMGT_OPT_JEMALLOC
   return je_free(thePtrAligned);

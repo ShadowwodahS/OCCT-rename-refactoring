@@ -209,8 +209,8 @@ bool RWMesh_MaterialMap::CreateTextureFolder()
     Message1::SendFail() << "Failed to create textures folder '" << myFolder << "'";
     return false;
   }
-  const OSD_Protection aParentProt = aResDir.Protection();
-  OSD_Protection       aProt       = aParentProt;
+  const Protection1 aParentProt = aResDir.Protection();
+  Protection1       aProt       = aParentProt;
   if (aProt.User() == OSD_None)
   {
     aProt.SetUser(OSD_RWXD);

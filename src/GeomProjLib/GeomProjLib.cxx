@@ -78,7 +78,7 @@ Handle(GeomCurve2d) GeomProjLib1::Curve2d(const Handle(GeomCurve3d)&   C,
   }
 #endif
 
-  Tolerance = Max(Precision::PConfusion(), Tolerance);
+  Tolerance = Max(Precision1::PConfusion(), Tolerance);
 
   GeomAdaptor_Curve   AC(C, First, Last);
   GeomAdaptor_Surface AS(S, UDeb, UFin, VDeb, VFin);
@@ -182,7 +182,7 @@ Handle(GeomCurve2d) GeomProjLib1::Curve2d(const Handle(GeomCurve3d)&   C,
 {
   Standard_Real First = C->FirstParameter();
   Standard_Real Last  = C->LastParameter();
-  Standard_Real Tol   = Precision::PConfusion();
+  Standard_Real Tol   = Precision1::PConfusion();
   return GeomProjLib1::Curve2d(C, First, Last, S, UDeb, UFin, VDeb, VFin, Tol);
 }
 
@@ -210,7 +210,7 @@ Handle(GeomCurve2d) GeomProjLib1::Curve2d(const Handle(GeomCurve3d)&   C,
 {
   Standard_Real First = C->FirstParameter();
   Standard_Real Last  = C->LastParameter();
-  Standard_Real Tol   = Precision::PConfusion();
+  Standard_Real Tol   = Precision1::PConfusion();
   return GeomProjLib1::Curve2d(C, First, Last, S, Tol);
 }
 
@@ -221,7 +221,7 @@ Handle(GeomCurve2d) GeomProjLib1::Curve2d(const Handle(GeomCurve3d)&   C,
                                           const Standard_Real         Last,
                                           const Handle(GeomSurface)& S)
 {
-  Standard_Real Tol = Precision::PConfusion();
+  Standard_Real Tol = Precision1::PConfusion();
   return GeomProjLib1::Curve2d(C, First, Last, S, Tol);
 }
 
@@ -238,7 +238,7 @@ Handle(GeomCurve3d) GeomProjLib1::Project(const Handle(GeomCurve3d)& C, const Ha
   {
     ProjLib_ProjectOnPlane    Proj(AS.Plane1().Position1());
     Handle(GeomAdaptor_Curve) HC = new GeomAdaptor_Curve(AC);
-    Proj.Load(HC, Precision::PApproximation());
+    Proj.Load(HC, Precision1::PApproximation());
 
     switch (Proj.GetType())
     {
@@ -286,9 +286,9 @@ Handle(GeomCurve3d) GeomProjLib1::Project(const Handle(GeomCurve3d)& C, const Ha
   {
     Handle(GeomAdaptor_Surface) HS = new GeomAdaptor_Surface(AS);
     Handle(GeomAdaptor_Curve)   HC = new GeomAdaptor_Curve(AC);
-    //    Standard_Real Tol  = Precision::Approximation();
-    //    Standard_Real TolU = Precision::PApproximation();
-    //    Standard_Real TolV = Precision::PApproximation();
+    //    Standard_Real Tol  = Precision1::Approximation();
+    //    Standard_Real TolU = Precision1::PApproximation();
+    //    Standard_Real TolV = Precision1::PApproximation();
     Standard_Real              Tol  = 0.0001;
     Standard_Real              TolU = Pow(Tol, 2. / 3);
     Standard_Real              TolV = Pow(Tol, 2. / 3);
@@ -319,7 +319,7 @@ Handle(GeomCurve3d) GeomProjLib1::ProjectOnPlane(const Handle(GeomCurve3d)& Curv
   Handle(GeomAdaptor_Curve) HC = new GeomAdaptor_Curve(AC);
 
   ProjLib_ProjectOnPlane Proj(Plane1->Position1(), Dir);
-  Proj.Load(HC, Precision::Approximation(), KeepParametrization);
+  Proj.Load(HC, Precision1::Approximation(), KeepParametrization);
 
   Handle(GeomCurve3d) GC;
 

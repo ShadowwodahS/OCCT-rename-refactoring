@@ -28,7 +28,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Adaptor3d_TopolTool, RefObject)
 
-#define myInfinite Precision::Infinite()
+#define myInfinite Precision1::Infinite()
 
 Adaptor3d_TopolTool::Adaptor3d_TopolTool()
     : myNbSamplesU(-1),
@@ -67,10 +67,10 @@ void Adaptor3d_TopolTool::Initialize(const Handle(Adaptor3d_Surface)& S)
   nbRestr      = 0;
   idRestr      = 0;
 
-  Standard_Boolean Uinfinfinite = Precision::IsNegativeInfinite(Uinf);
-  Standard_Boolean Usupinfinite = Precision::IsPositiveInfinite(Usup);
-  Standard_Boolean Vinfinfinite = Precision::IsNegativeInfinite(Vinf);
-  Standard_Boolean Vsupinfinite = Precision::IsPositiveInfinite(Vsup);
+  Standard_Boolean Uinfinfinite = Precision1::IsNegativeInfinite(Uinf);
+  Standard_Boolean Usupinfinite = Precision1::IsPositiveInfinite(Usup);
+  Standard_Boolean Vinfinfinite = Precision1::IsNegativeInfinite(Vinf);
+  Standard_Boolean Vsupinfinite = Precision1::IsPositiveInfinite(Vsup);
 
   if (!Vinfinfinite)
   {
@@ -239,13 +239,13 @@ void Adaptor3d_TopolTool::Initialize(const Handle(Adaptor2d_Curve2d)& C)
   Standard_Real theUinf, theUsup;
   theUinf = C->FirstParameter();
   theUsup = C->LastParameter();
-  //  if (!Precision::IsNegativeInfinite(theUinf)) {
+  //  if (!Precision1::IsNegativeInfinite(theUinf)) {
   if (theUinf > -myInfinite)
   {
     myVtx[nbVtx] = new Adaptor3d_HVertex(C->Value(theUinf), TopAbs_FORWARD, 1.e-8);
     nbVtx++;
   }
-  //  if (!Precision::IsPositiveInfinite(theUsup)) {
+  //  if (!Precision1::IsPositiveInfinite(theUsup)) {
   if (theUsup < myInfinite)
   {
     myVtx[nbVtx] = new Adaptor3d_HVertex(C->Value(theUsup), TopAbs_REVERSED, 1.e-8);
@@ -306,12 +306,12 @@ TopAbs_State Adaptor3d_TopolTool::Classify(const gp_Pnt2d&     P,
   else
   {
     Standard_Boolean dansu, dansv, surumin, surumax, survmin, survmax;
-    if (Precision::IsNegativeInfinite(Uinf) && Precision::IsPositiveInfinite(Usup))
+    if (Precision1::IsNegativeInfinite(Uinf) && Precision1::IsPositiveInfinite(Usup))
     {
       dansu   = Standard_True;
       surumin = surumax = Standard_False;
     }
-    else if (Precision::IsNegativeInfinite(Uinf))
+    else if (Precision1::IsNegativeInfinite(Uinf))
     {
       surumin = Standard_False;
       if (U >= Usup + Tol)
@@ -329,7 +329,7 @@ TopAbs_State Adaptor3d_TopolTool::Classify(const gp_Pnt2d&     P,
         }
       }
     }
-    else if (Precision::IsPositiveInfinite(Usup))
+    else if (Precision1::IsPositiveInfinite(Usup))
     {
       surumax = Standard_False;
       if (U < Uinf - Tol)
@@ -368,12 +368,12 @@ TopAbs_State Adaptor3d_TopolTool::Classify(const gp_Pnt2d&     P,
       }
     }
 
-    if (Precision::IsNegativeInfinite(Vinf) && Precision::IsPositiveInfinite(Vsup))
+    if (Precision1::IsNegativeInfinite(Vinf) && Precision1::IsPositiveInfinite(Vsup))
     {
       dansv   = Standard_True;
       survmin = survmax = Standard_False;
     }
-    else if (Precision::IsNegativeInfinite(Vinf))
+    else if (Precision1::IsNegativeInfinite(Vinf))
     {
       survmin = Standard_False;
       if (V > Vsup + Tol)
@@ -391,7 +391,7 @@ TopAbs_State Adaptor3d_TopolTool::Classify(const gp_Pnt2d&     P,
         }
       }
     }
-    else if (Precision::IsPositiveInfinite(Vsup))
+    else if (Precision1::IsPositiveInfinite(Vsup))
     {
       survmax = Standard_False;
       if (V < Vinf - Tol)
@@ -471,12 +471,12 @@ Standard_Boolean Adaptor3d_TopolTool::IsThePointOn(const gp_Pnt2d&     P,
   else
   {
     Standard_Boolean dansu, dansv, surumin, surumax, survmin, survmax;
-    if (Precision::IsNegativeInfinite(Uinf) && Precision::IsPositiveInfinite(Usup))
+    if (Precision1::IsNegativeInfinite(Uinf) && Precision1::IsPositiveInfinite(Usup))
     {
       dansu   = Standard_True;
       surumin = surumax = Standard_False;
     }
-    else if (Precision::IsNegativeInfinite(Uinf))
+    else if (Precision1::IsNegativeInfinite(Uinf))
     {
       surumin = Standard_False;
       if (U >= Usup + Tol)
@@ -494,7 +494,7 @@ Standard_Boolean Adaptor3d_TopolTool::IsThePointOn(const gp_Pnt2d&     P,
         }
       }
     }
-    else if (Precision::IsPositiveInfinite(Usup))
+    else if (Precision1::IsPositiveInfinite(Usup))
     {
       surumax = Standard_False;
       if (U < Uinf - Tol)
@@ -533,12 +533,12 @@ Standard_Boolean Adaptor3d_TopolTool::IsThePointOn(const gp_Pnt2d&     P,
       }
     }
 
-    if (Precision::IsNegativeInfinite(Vinf) && Precision::IsPositiveInfinite(Vsup))
+    if (Precision1::IsNegativeInfinite(Vinf) && Precision1::IsPositiveInfinite(Vsup))
     {
       dansv   = Standard_True;
       survmin = survmax = Standard_False;
     }
-    else if (Precision::IsNegativeInfinite(Vinf))
+    else if (Precision1::IsNegativeInfinite(Vinf))
     {
       survmin = Standard_False;
       if (V > Vsup + Tol)
@@ -556,7 +556,7 @@ Standard_Boolean Adaptor3d_TopolTool::IsThePointOn(const gp_Pnt2d&     P,
         }
       }
     }
-    else if (Precision::IsPositiveInfinite(Vsup))
+    else if (Precision1::IsPositiveInfinite(Vsup))
     {
       survmax = Standard_False;
       if (V < Vinf - Tol)
@@ -957,13 +957,13 @@ void Adaptor3d_TopolTool::SamplePoint(const Standard_Integer i, gp_Pnt2d& P2d, P
 
 Standard_Boolean Adaptor3d_TopolTool::DomainIsInfinite()
 {
-  if (Precision::IsNegativeInfinite(Uinf))
+  if (Precision1::IsNegativeInfinite(Uinf))
     return (Standard_True);
-  if (Precision::IsPositiveInfinite(Usup))
+  if (Precision1::IsPositiveInfinite(Usup))
     return (Standard_True);
-  if (Precision::IsNegativeInfinite(Vinf))
+  if (Precision1::IsNegativeInfinite(Vinf))
     return (Standard_True);
-  if (Precision::IsPositiveInfinite(Vsup))
+  if (Precision1::IsPositiveInfinite(Vsup))
     return (Standard_True);
   return (Standard_False);
 }

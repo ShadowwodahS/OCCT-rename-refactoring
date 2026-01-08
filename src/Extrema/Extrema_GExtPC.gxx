@@ -44,14 +44,14 @@ void Extrema_GExtPC::Perform(const ThePoint& P)
   Standard_Integer i, NbExt, n;                     
   Standard_Real U;
   mysample = 17;
-  constexpr Standard_Real t3d = Precision::Confusion();
-  if (Precision::IsInfinite(myuinf)) mydist1 = RealLast();
+  constexpr Standard_Real t3d = Precision1::Confusion();
+  if (Precision1::IsInfinite(myuinf)) mydist1 = RealLast();
   else {
     Pf = TheCurveTool::Value(*((TheCurve*)myC), myuinf);
     mydist1 = P.SquareDistance(Pf);
   }
   
-  if (Precision::IsInfinite(myusup)) mydist2 = RealLast();
+  if (Precision1::IsInfinite(myusup)) mydist2 = RealLast();
   else {
     Pl = TheCurveTool::Value(*((TheCurve*)myC), myusup);
     mydist2 = P.SquareDistance(Pl);
@@ -107,7 +107,7 @@ void Extrema_GExtPC::Perform(const ThePoint& P)
       // blend, where knots may be moved from parameter space.
       Standard_Real aPeriodJump = 0.0;
       // Avoid problem with too close knots.
-      const Standard_Real aTolCoeff = (myusup - myuinf) * Precision::PConfusion();
+      const Standard_Real aTolCoeff = (myusup - myuinf) * Precision1::PConfusion();
       if (TheCurveTool::IsPeriodic(aCurve))
       {
         Standard_Integer aPeriodShift =
@@ -201,12 +201,12 @@ void Extrema_GExtPC::Perform(const ThePoint& P)
           aMin2 = P.SquareDistance(aP2);
           Standard_Real aMinSqDist = Min(aMin1, aMin2);
           Standard_Real aMinDer = Min(Abs(aVal1), Abs(aVal2));
-          if (!(Precision::IsInfinite(aVal1) || Precision::IsInfinite(aVal2)))
+          if (!(Precision1::IsInfinite(aVal1) || Precision1::IsInfinite(aVal2)))
           {
             // Derivatives have opposite signs - min or max inside of interval (sufficient condition).
             if (aVal1 * aVal2 <= 0.0 ||
-                aMinSqDist < 100. * Precision::SquareConfusion() ||
-                2.*aMinDer < Precision::Confusion())
+                aMinSqDist < 100. * Precision1::SquareConfusion() ||
+                2.*aMinDer < Precision1::Confusion())
             {
               myintuinf = aF;
               myintusup = aL;
@@ -214,7 +214,7 @@ void Extrema_GExtPC::Perform(const ThePoint& P)
             }
           }
         }
-        if (!Precision::IsInfinite(distmin))
+        if (!Precision1::IsInfinite(distmin))
         {
           Standard_Boolean isToAdd = Standard_True;
           NbExt = mypoint.Length();
@@ -267,7 +267,7 @@ void Extrema_GExtPC::Perform(const ThePoint& P)
         // Find extremas.
         for (anIdx = aVal.Lower() + 1; anIdx < aVal.Upper(); anIdx++)
         {
-          if (aVal(anIdx) <= Precision::SquareConfusion())
+          if (aVal(anIdx) <= Precision1::SquareConfusion())
           {
             mySqDist.Append(aVal(anIdx));
             myismin.Append(Standard_True);
@@ -286,7 +286,7 @@ void Extrema_GExtPC::Perform(const ThePoint& P)
         }
 
         // Solve on the first and last intervals.
-        if (mydist1 > Precision::SquareConfusion() && !Precision::IsPositiveInfinite(mydist1))
+        if (mydist1 > Precision1::SquareConfusion() && !Precision1::IsPositiveInfinite(mydist1))
         {
           ThePoint aP1, aP2;
           TheVector aV1, aV2;
@@ -295,14 +295,14 @@ void Extrema_GExtPC::Perform(const ThePoint& P)
           TheVector aBase1(P, aP1), aBase2(P, aP2);
           Standard_Real aVal1 = aV1.Dot(aBase1); // Derivative of (C(u) - P)^2
           Standard_Real aVal2 = aV2.Dot(aBase2); // Derivative of (C(u) - P)^2
-          if (!(Precision::IsInfinite(aVal1) || Precision::IsInfinite(aVal2)))
+          if (!(Precision1::IsInfinite(aVal1) || Precision1::IsInfinite(aVal2)))
           {
             // Derivatives have opposite signs - min or max inside of interval (sufficient condition).
             // Necessary condition - when point lies on curve.
             // Necessary condition - when derivative of point is too small.
             if (aVal1 * aVal2 <= 0.0 ||
               aBase1.Dot(aBase2) <= 0.0 ||
-              2.0 * Abs(aVal1) < Precision::Confusion())
+              2.0 * Abs(aVal1) < Precision1::Confusion())
             {
               myintuinf = aParam(aVal.Lower());
               myintusup = aParam(aVal.Lower() + 1);
@@ -311,7 +311,7 @@ void Extrema_GExtPC::Perform(const ThePoint& P)
           }
         }
 
-        if (mydist2 > Precision::SquareConfusion() && !Precision::IsPositiveInfinite(mydist2))
+        if (mydist2 > Precision1::SquareConfusion() && !Precision1::IsPositiveInfinite(mydist2))
         {
           ThePoint aP1, aP2;
           TheVector aV1, aV2;
@@ -321,14 +321,14 @@ void Extrema_GExtPC::Perform(const ThePoint& P)
           Standard_Real aVal1 = aV1.Dot(aBase1); // Derivative of (C(u) - P)^2
           Standard_Real aVal2 = aV2.Dot(aBase2); // Derivative of (C(u) - P)^2
 
-          if (!(Precision::IsInfinite(aVal1) || Precision::IsInfinite(aVal2)))
+          if (!(Precision1::IsInfinite(aVal1) || Precision1::IsInfinite(aVal2)))
           {
             // Derivatives have opposite signs - min or max inside of interval (sufficient condition).
             // Necessary condition - when point lies on curve.
             // Necessary condition - when derivative of point is too small.
             if (aVal1 * aVal2 <= 0.0 ||
               aBase1.Dot(aBase2) <= 0.0 ||
-              2.0 * Abs(aVal2) < Precision::Confusion())
+              2.0 * Abs(aVal2) < Precision1::Confusion())
             {
               myintuinf = aParam(aVal.Upper() - 1);
               myintusup = aParam(aVal.Upper());
@@ -426,8 +426,8 @@ void Extrema_GExtPC::Perform(const ThePoint& P)
   {
     // Additional checking if the point is on the first or last point of the curve
     // and does not added yet.
-    if (mydist1 < Precision::SquareConfusion() || 
-        mydist2 < Precision::SquareConfusion())
+    if (mydist1 < Precision1::SquareConfusion() || 
+        mydist2 < Precision1::SquareConfusion())
     {
       Standard_Boolean isFirstAdded = Standard_False;
       Standard_Boolean isLastAdded  = Standard_False;
@@ -440,13 +440,13 @@ void Extrema_GExtPC::Perform(const ThePoint& P)
         else if (Abs(myusup - U) < mytolu)
           isLastAdded = Standard_True;
       }
-      if (!isFirstAdded && mydist1 < Precision::SquareConfusion())
+      if (!isFirstAdded && mydist1 < Precision1::SquareConfusion())
       {
         mySqDist.Prepend(mydist1);
         myismin.Prepend(Standard_True);
         mypoint.Prepend(ThePOnC(myuinf, Pf));
       }
-      if (!isLastAdded && mydist2 < Precision::SquareConfusion())
+      if (!isLastAdded && mydist2 < Precision1::SquareConfusion())
       {
         mySqDist.Append(mydist2);
         myismin.Append(Standard_True);
@@ -498,7 +498,7 @@ void Extrema_GExtPC::Initialize(const TheCurve&     C,
   myintuinf = myuinf = Uinf;
   myintusup = myusup = Usup;
   mytolf = TolF;
-  mytolu = TheCurveTool::Resolution(*((TheCurve*)myC), Precision::Confusion());
+  mytolu = TheCurveTool::Resolution(*((TheCurve*)myC), Precision1::Confusion());
   type = TheCurveTool::GetType(C);
   mydone = Standard_False;
   mydist1 = RealLast();
@@ -582,7 +582,7 @@ Extrema_GExtPC::Extrema_GExtPC()
   mytolu = 0.0;
   mytolf = 0.0;
   mysample = 17;
-  myintuinf = myintusup = myuinf = myusup = Precision::Infinite();
+  myintuinf = myintusup = myuinf = myusup = Precision1::Infinite();
   type = GeomAbs_OtherCurve;
 }
 

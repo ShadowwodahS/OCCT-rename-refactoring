@@ -142,7 +142,7 @@ bool DEXCAF_Provider::Write(const AsciiString1&  thePath,
   {
     Message1::SendWarning()
       << "Warning in the DEXCAF_Provider during writing the file " << thePath
-      << "\t: Target Units for writing were changed, but current format doesn't support scaling";
+      << "\t: Target Units2 for writing were changed, but current format doesn't support scaling";
   }
 
   PCDM_StoreStatus aStatus = PCDM_SS_Doc_IsNull;
@@ -152,8 +152,8 @@ bool DEXCAF_Provider::Write(const AsciiString1&  thePath,
   }
   else if (!theDocument->IsSaved())
   {
-    Message1::SendFail() << "Storage error in the DEXCAF_Provider during writing the file "
-                        << thePath << "\t: Storage error : this document has never been saved";
+    Message1::SendFail() << "Storage1 error in the DEXCAF_Provider during writing the file "
+                        << thePath << "\t: Storage1 error : this document has never been saved";
     return false;
   }
   else
@@ -167,35 +167,35 @@ bool DEXCAF_Provider::Write(const AsciiString1&  thePath,
       return true;
     case PCDM_SS_DriverFailure:
       Message1::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
-                          << "\t: Storage error : driver failure";
+                          << "\t: Storage1 error : driver failure";
       break;
     case PCDM_SS_WriteFailure:
       Message1::SendFail() << "Error in the DEXCAF_Provider during the writing the file : "
-                          << thePath << "\t: Storage error : write failure";
+                          << thePath << "\t: Storage1 error : write failure";
       break;
     case PCDM_SS_Failure:
       Message1::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
-                          << "\t: Storage error : general failure";
+                          << "\t: Storage1 error : general failure";
       break;
     case PCDM_SS_Doc_IsNull:
       Message1::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
-                          << "\t: Storage error :: document is NULL";
+                          << "\t: Storage1 error :: document is NULL";
       break;
     case PCDM_SS_No_Obj:
       Message1::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
-                          << "\t: Storage error : no object";
+                          << "\t: Storage1 error : no object";
       break;
     case PCDM_SS_Info_Section_Error:
       Message1::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
-                          << "\t: Storage error : section error";
+                          << "\t: Storage1 error : section error";
       break;
     case PCDM_SS_UserBreak:
       Message1::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
-                          << "\t: Storage error : user break";
+                          << "\t: Storage1 error : user break";
       break;
     case PCDM_SS_UnrecognizedFormat:
       Message1::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
-                          << "\t: Storage error : unrecognized document storage format : "
+                          << "\t: Storage1 error : unrecognized document storage format : "
                           << theDocument->StorageFormat();
       break;
   }

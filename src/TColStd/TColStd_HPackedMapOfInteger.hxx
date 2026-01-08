@@ -25,24 +25,24 @@
 class TColStd_HPackedMapOfInteger;
 DEFINE_STANDARD_HANDLE(TColStd_HPackedMapOfInteger, RefObject)
 
-//! Extension of TColStd_PackedMapOfInteger class to be manipulated by handle.
+//! Extension of PackedIntegerMap class to be manipulated by handle.
 class TColStd_HPackedMapOfInteger : public RefObject
 {
 
 public:
   Standard_EXPORT TColStd_HPackedMapOfInteger(const Standard_Integer NbBuckets = 1);
 
-  Standard_EXPORT TColStd_HPackedMapOfInteger(const TColStd_PackedMapOfInteger& theOther);
+  Standard_EXPORT TColStd_HPackedMapOfInteger(const PackedIntegerMap& theOther);
 
-  const TColStd_PackedMapOfInteger& Map() const;
+  const PackedIntegerMap& Map() const;
 
-  TColStd_PackedMapOfInteger& ChangeMap();
+  PackedIntegerMap& ChangeMap();
 
   DEFINE_STANDARD_RTTIEXT(TColStd_HPackedMapOfInteger, RefObject)
 
 protected:
 private:
-  TColStd_PackedMapOfInteger myMap;
+  PackedIntegerMap myMap;
 };
 
 #include <TColStd_HPackedMapOfInteger.lxx>

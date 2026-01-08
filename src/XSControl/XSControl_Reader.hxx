@@ -216,7 +216,7 @@ public:
   //! - a compound containing the resulting shapes if there are more than one.
   Standard_EXPORT TopoShape OneShape() const;
 
-  //! Prints the check list attached to loaded data, on the Standard
+  //! Prints the check list attached to loaded data, on the Standard1
   //! Trace File (starts at std::cout)
   //! All messages or fails only, according to <failsonly>
   //! mode = 0 : per entity, prints messages

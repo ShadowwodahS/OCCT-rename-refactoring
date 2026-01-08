@@ -127,7 +127,7 @@ void PrsDim_MidPointRelation::ComputeSelection(const Handle(SelectionContainer)&
   Handle(Select3D_SensitiveSegment) seg;
   Handle(SelectMgr_EntityOwner)     own = new SelectMgr_EntityOwner(this, 7);
 
-  if (!myMidPoint.IsEqual(myFAttach, Precision::Confusion()))
+  if (!myMidPoint.IsEqual(myFAttach, Precision1::Confusion()))
   {
     // segment from mid point to the first geometry
     seg = new Select3D_SensitiveSegment(own, myFAttach, myMidPoint);
@@ -136,7 +136,7 @@ void PrsDim_MidPointRelation::ComputeSelection(const Handle(SelectionContainer)&
     seg = new Select3D_SensitiveSegment(own, mySAttach, myMidPoint);
     aSel->Add(seg);
   }
-  if (!myMidPoint.IsEqual(myPosition, Precision::Confusion()))
+  if (!myMidPoint.IsEqual(myPosition, Precision1::Confusion()))
   {
     // segment from mid point to the text position
     seg = new Select3D_SensitiveSegment(own, myMidPoint, myPosition);
@@ -381,7 +381,7 @@ void PrsDim_MidPointRelation::ComputePointsOnLine(const gp_Lin& aLin, const Stan
   Point3d        anAttach = ElCLib1::Value(ppar, aLin);
 
   Standard_Real dist = anAttach.Distance(myMidPoint) / 10.0;
-  if (dist < Precision::Confusion())
+  if (dist < Precision1::Confusion())
     dist = 10.0;
 
   Standard_Real fpar = ppar + dist;
@@ -421,7 +421,7 @@ void PrsDim_MidPointRelation::ComputePointsOnLine(const Point3d&          pnt1,
   Standard_Real dist     = myMidPoint.Distance(aProjPnt);
   Standard_Real ll       = pnt1.Distance(pnt2);
   Standard_Real segm     = Min(dist, ll) * 0.75;
-  if (dist < Precision::Confusion())
+  if (dist < Precision1::Confusion())
     segm = ll * 0.75;
 
   Point3d anAttach, aPnt1, aPnt2;
@@ -482,7 +482,7 @@ void PrsDim_MidPointRelation::ComputePointsOnCirc(const gp_Circ&         aCirc,
 
   // Case of confusion between the current position and the center
   // of the circle -> we move the current position
-  constexpr Standard_Real confusion(Precision::Confusion());
+  constexpr Standard_Real confusion(Precision1::Confusion());
   Point3d                  aCenter = aCirc.Location();
   if (aCenter.Distance(curpos) <= confusion)
   {
@@ -608,7 +608,7 @@ void PrsDim_MidPointRelation::ComputePointsOnElips(const gp_Elips&        anEll,
 
   // Case of confusion between the current position and the center
   // of the circle -> we move the current position
-  constexpr Standard_Real confusion(Precision::Confusion());
+  constexpr Standard_Real confusion(Precision1::Confusion());
   Point3d                  aCenter = anEll.Location();
   if (aCenter.Distance(curpos) <= confusion)
   {

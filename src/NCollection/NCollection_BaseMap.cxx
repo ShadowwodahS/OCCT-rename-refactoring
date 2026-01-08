@@ -34,10 +34,10 @@ Standard_Boolean BaseMap::BeginResize(const Standard_Integer  NbBuckets,
     else
       return Standard_False;
   }
-  data1 = (NCollection_ListNode**)Standard::Allocate((N + 1) * sizeof(NCollection_ListNode*));
+  data1 = (NCollection_ListNode**)Standard1::Allocate((N + 1) * sizeof(NCollection_ListNode*));
   if (isDouble)
   {
-    data2 = (NCollection_ListNode**)Standard::Allocate((N + 1) * sizeof(NCollection_ListNode*));
+    data2 = (NCollection_ListNode**)Standard1::Allocate((N + 1) * sizeof(NCollection_ListNode*));
   }
   else
     data2 = nullptr;
@@ -53,9 +53,9 @@ void BaseMap::EndResize(const Standard_Integer theNbBuckets,
 {
   (void)theNbBuckets; // obsolete parameter
   if (myData1)
-    Standard::Free(myData1);
+    Standard1::Free(myData1);
   if (myData2 && isDouble)
-    Standard::Free(myData2);
+    Standard1::Free(myData2);
   myNbBuckets = N;
   myData1     = data1;
   myData2     = data2;
@@ -91,9 +91,9 @@ void BaseMap::Destroy(NCollection_DelMapNode fDel, Standard_Boolean doReleaseMem
   if (doReleaseMemory)
   {
     if (myData1)
-      Standard::Free(myData1);
+      Standard1::Free(myData1);
     if (myData2)
-      Standard::Free(myData2);
+      Standard1::Free(myData2);
     myData1 = myData2 = nullptr;
   }
 }

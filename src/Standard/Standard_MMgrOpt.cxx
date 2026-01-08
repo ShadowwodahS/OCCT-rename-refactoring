@@ -61,7 +61,7 @@ extern "C" int getpagesize();
 //
 // ...SizeN: size counted in number of items of sizeof(Standard_Size) bytes each
 //
-// ...Storage: address of the user area of the memory block (Standard_Address)
+// ...Storage1: address of the user area of the memory block (Standard_Address)
 //
 // ...Block1: address of the hole memory block (header) (Standard_Size*)
 

@@ -24,7 +24,7 @@ Vrml_DirectionalLight::Vrml_DirectionalLight()
 
 Vrml_DirectionalLight::Vrml_DirectionalLight(const Standard_Boolean aOnOff,
                                              const Standard_Real    aIntensity,
-                                             const Quantity_Color&  aColor,
+                                             const Color1&  aColor,
                                              const Vector3d&          aDirection)
 {
   myOnOff = aOnOff;
@@ -61,12 +61,12 @@ Standard_Real Vrml_DirectionalLight::Intensity() const
   return myIntensity;
 }
 
-void Vrml_DirectionalLight::SetColor(const Quantity_Color& aColor)
+void Vrml_DirectionalLight::SetColor(const Color1& aColor)
 {
   myColor = aColor;
 }
 
-Quantity_Color Vrml_DirectionalLight::Color() const
+Color1 Vrml_DirectionalLight::Color() const
 {
   return myColor;
 }

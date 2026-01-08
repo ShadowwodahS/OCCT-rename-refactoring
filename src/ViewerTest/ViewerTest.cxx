@@ -85,7 +85,7 @@ extern int ViewerMainLoop(Standard_Integer argc, const char** argv);
 Quantity_NameOfColor ViewerTest1::GetColorFromName(const Standard_CString theName)
 {
   Quantity_NameOfColor aColor = DEFAULT_COLOR;
-  Quantity_Color::ColorFromName(theName, aColor);
+  Color1::ColorFromName(theName, aColor);
   return aColor;
 }
 
@@ -102,7 +102,7 @@ Standard_Integer ViewerTest1::ParseColor(const Standard_Integer   theArgNb,
 
 Standard_Integer ViewerTest1::ParseColor(const Standard_Integer   theArgNb,
                                         const char* const* const theArgVec,
-                                        Quantity_Color&          theColor)
+                                        Color1&          theColor)
 {
   return Draw1::ParseColor(theArgNb, theArgVec, theColor);
 }
@@ -695,7 +695,7 @@ void ViewerTest1::Clear()
 static Handle(Prs3d_IsoAspect) CopyIsoAspect(const Handle(Prs3d_IsoAspect)& theIsoAspect,
                                              const Standard_Integer         theNbIsos)
 {
-  Quantity_Color    aColor = theIsoAspect->Aspect()->Color();
+  Color1    aColor = theIsoAspect->Aspect()->Color();
   Aspect_TypeOfLine aType  = theIsoAspect->Aspect()->Type();
   Standard_Real     aWidth = theIsoAspect->Aspect()->Width();
 
@@ -1683,9 +1683,9 @@ struct ViewerTest_AspectsChangeSet
   Standard_Integer Visibility;
 
   Standard_Integer ToSetColor;
-  Quantity_Color   Color;
+  Color1   Color;
   Standard_Integer ToSetBackFaceColor;
-  Quantity_Color   BackFaceColor;
+  Color1   BackFaceColor;
 
   Standard_Integer ToSetLineWidth;
   Standard_Real    LineWidth;
@@ -1721,7 +1721,7 @@ struct ViewerTest_AspectsChangeSet
   Standard_Integer ToSetFreeBoundaryWidth;
   Standard_Real    FreeBoundaryWidth;
   Standard_Integer ToSetFreeBoundaryColor;
-  Quantity_Color   FreeBoundaryColor;
+  Color1   FreeBoundaryColor;
 
   Standard_Integer ToEnableIsoOnTriangulation;
 
@@ -1730,7 +1730,7 @@ struct ViewerTest_AspectsChangeSet
   GeomAbs_Shape    FaceBoundaryUpperContinuity;
 
   Standard_Integer ToSetFaceBoundaryColor;
-  Quantity_Color   FaceBoundaryColor;
+  Color1   FaceBoundaryColor;
 
   Standard_Integer ToSetFaceBoundaryWidth;
   Standard_Real    FaceBoundaryWidth;
@@ -2277,13 +2277,13 @@ static Standard_Integer VAspects(DrawInterpreter& theDI,
 
     Quantity_NameOfColor aColor = Quantity_NOC_BLACK;
     Standard_Boolean     isOk   = Standard_False;
-    if (Quantity_Color::ColorFromName(aNames.Last().ToCString(), aColor))
+    if (Color1::ColorFromName(aNames.Last().ToCString(), aColor))
     {
       aChangeSet->Color = aColor;
       aNames.Remove(aNames.Length());
       isOk = Standard_True;
     }
-    else if (Quantity_Color::ColorFromHex(aNames.Last().ToCString(), aChangeSet->Color))
+    else if (Color1::ColorFromHex(aNames.Last().ToCString(), aChangeSet->Color))
     {
       aNames.Remove(aNames.Length());
       isOk = Standard_True;
@@ -2400,7 +2400,7 @@ static Standard_Integer VAspects(DrawInterpreter& theDI,
           && aNames.Value(5).IsIntegerValue())
       {
         aChangeSet->ToSetFaceBoundaryColor = 1;
-        aChangeSet->FaceBoundaryColor      = Quantity_Color(aNames.Value(3).IntegerValue() / 255.0,
+        aChangeSet->FaceBoundaryColor      = Color1(aNames.Value(3).IntegerValue() / 255.0,
                                                        aNames.Value(4).IntegerValue() / 255.0,
                                                        aNames.Value(5).IntegerValue() / 255.0,
                                                        Quantity_TOC_sRGB);
@@ -2485,7 +2485,7 @@ static Standard_Integer VAspects(DrawInterpreter& theDI,
       }
       aChangeSet->ToSetTransparency = 1;
       aChangeSet->Transparency      = Draw1::Atof(theArgVec[anArgIter]);
-      if (aChangeSet->Transparency >= 0.0 && aChangeSet->Transparency <= Precision::Confusion())
+      if (aChangeSet->Transparency >= 0.0 && aChangeSet->Transparency <= Precision1::Confusion())
       {
         aChangeSet->ToSetTransparency = -1;
         aChangeSet->Transparency      = 0.0;
@@ -2602,7 +2602,7 @@ static Standard_Integer VAspects(DrawInterpreter& theDI,
         return 1;
       }
       aChangeSet->Transparency = 1.0 - aChangeSet->Transparency;
-      if (aChangeSet->Transparency >= 0.0 && aChangeSet->Transparency <= Precision::Confusion())
+      if (aChangeSet->Transparency >= 0.0 && aChangeSet->Transparency <= Precision1::Confusion())
       {
         aChangeSet->ToSetTransparency = -1;
         aChangeSet->Transparency      = 0.0;
@@ -2619,7 +2619,7 @@ static Standard_Integer VAspects(DrawInterpreter& theDI,
              || anArg == "-setfaceboundarycolor" || anArg == "-setboundarycolor"
              || anArg == "-faceboundarycolor" || anArg == "-boundarycolor")
     {
-      Quantity_Color   aColor;
+      Color1   aColor;
       Standard_Integer aNbParsed =
         Draw1::ParseColor(theArgNb - anArgIter - 1, theArgVec + anArgIter + 1, aColor);
       if (aNbParsed == 0)
@@ -3253,9 +3253,9 @@ static Standard_Integer VAspects(DrawInterpreter& theDI,
       aDrawer->DumpJson(aStream, aDumpDepth);
 
       if (toCompactDump)
-        theDI << Standard_Dump::Text(aStream);
+        theDI << DumpTool::Text(aStream);
       else
-        theDI << Standard_Dump::FormatJson(aStream);
+        theDI << DumpTool::FormatJson(aStream);
     }
     return 0;
   }
@@ -3417,7 +3417,7 @@ static Standard_Integer VAspects(DrawInterpreter& theDI,
         aDrawer->DumpJson(aStream);
 
         theDI << aName << ": \n";
-        theDI << Standard_Dump::FormatJson(aStream);
+        theDI << DumpTool::FormatJson(aStream);
         theDI << "\n";
       }
     }
@@ -6028,7 +6028,7 @@ static int VPickSelected(DrawInterpreter&, Standard_Integer theArgNb, const char
 static int VIOTypes(DrawInterpreter& di, Standard_Integer, const char**)
 {
   //                             1234567890         12345678901234567         123456789
-  AsciiString1 Colum[3] = {"Standard Types", "Type Of Object", "Signature"};
+  AsciiString1 Colum[3] = {"Standard1 Types", "Type Of Object", "Signature"};
   AsciiString1 BlankLine(64, '_');
   Standard_Integer        i;
 
@@ -6823,7 +6823,7 @@ vshowfaceboundary [name]: Alias for vaspects [name] -setFaceBoundaryDraw on.
   addCmd("vsensdis", VDispSensi, /* [vsensdis] */ R"(
 vsensdis : Display active entities
 (sensitive entities of one of the standard types corresponding to active selection modes).
-Standard entity types are those defined in Select3D package:
+Standard1 entity types are those defined in Select3D package:
  - sensitive box, face, curve, segment, circle, point, triangulation, triangle.
 Custom (application-defined) sensitive entity types are not processed by this command.
 )" /* [vsensdis] */);
@@ -6981,7 +6981,7 @@ void ViewerTest1::Factory(DrawInterpreter& theDI)
   ViewerTest1::Commands(theDI);
 
 #ifdef OCCT_DEBUG
-  theDI << "Draw1 Plugin : OCC V2d & V3d1 commands are loaded\n";
+  theDI << "Draw1 Plugin1 : OCC V2d & V3d1 commands are loaded\n";
 #endif
 }
 

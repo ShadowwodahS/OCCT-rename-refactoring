@@ -70,8 +70,8 @@ extern Standard_Boolean ChFi3d_GetcontextFORCEFILLING();
   #include <OSD_Chronometer.hxx>
 
 extern Standard_Real t_t3cornerinit, t_spherique, t_torique, t_notfilling, t_filling, t_t3cornerDS;
-extern void          ChFi3d_InitChron(OSD_Chronometer& ch);
-extern void          ChFi3d_ResultChron(OSD_Chronometer& ch, Standard_Real& time);
+extern void          ChFi3d_InitChron(Chronometer& ch);
+extern void          ChFi3d_ResultChron(Chronometer& ch, Standard_Real& time);
 #endif
 
 //=================================================================================================
@@ -222,7 +222,7 @@ static Standard_Boolean ToricCorner(const TopoFace&  F,
                                     const Standard_Real rf,
                                     const Vector3d&       v)
 {
-  if (Abs(rd - rf) > Precision::Confusion())
+  if (Abs(rd - rf) > Precision1::Confusion())
   {
     return Standard_False;
   }
@@ -233,7 +233,7 @@ static Standard_Boolean ToricCorner(const TopoFace&  F,
   }
   Standard_Real scal1 = Abs(bs.Plane1().Position1().XDirection().Dot(v));
   Standard_Real scal2 = Abs(bs.Plane1().Position1().YDirection().Dot(v));
-  return (scal1 <= Precision::Confusion() && scal2 <= Precision::Confusion());
+  return (scal1 <= Precision1::Confusion() && scal2 <= Precision1::Confusion());
 }
 
 //=======================================================================
@@ -246,7 +246,7 @@ void ChFi3d_FilBuilder::PerformThreeCorner(const Standard_Integer Jndex)
 {
 
 #ifdef OCCT_DEBUG
-  OSD_Chronometer ch;
+  Chronometer ch;
   ChFi3d_InitChron(ch); // init perf initialisation
 #endif
 

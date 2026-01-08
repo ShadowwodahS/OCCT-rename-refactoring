@@ -21,7 +21,7 @@
 
 class LDOM_Document;
 class LDOM_Node;
-class LDOMBasicString;
+class LDOMBasicString1;
 
 class XmlWriter
 {
@@ -45,7 +45,7 @@ private:
 
   XmlWriter& operator=(const XmlWriter& anOther);
 
-  void Write(Standard_OStream& theOStream, const LDOMBasicString& theString);
+  void Write(Standard_OStream& theOStream, const LDOMBasicString1& theString);
   void Write(Standard_OStream& theOStream, const char* theString);
   void Write(Standard_OStream& theOStream, const char theChar);
 

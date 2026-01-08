@@ -230,7 +230,7 @@ private:
     // Select the correct pcurve of the seam-edge.
     const gp_Pnt2d& aFPntOfPC1 = aPC1->Value(aPC1->FirstParameter());
 
-    if (Abs(aLPntOfIPC1.X() - aFPntOfPC1.X()) > Precision::Confusion())
+    if (Abs(aLPntOfIPC1.X() - aFPntOfPC1.X()) > Precision1::Confusion())
     {
       std::swap(aPC1, aPC2);
     }
@@ -256,8 +256,8 @@ private:
     for (Standard_Integer aPointIdx = 1;; ++aPointIdx)
     {
       const Standard_Real aCurrParam = aFirstParam + aPointIdx * theDT * (isReversed ? -1.0 : 1.0);
-      if ((isReversed && (aCurrParam - aLastParam < Precision::PConfusion()))
-          || (!isReversed && !(aCurrParam - aLastParam < -Precision::PConfusion())))
+      if ((isReversed && (aCurrParam - aLastParam < Precision1::PConfusion()))
+          || (!isReversed && !(aCurrParam - aLastParam < -Precision1::PConfusion())))
       {
         break;
       }
@@ -301,8 +301,8 @@ Standard_Boolean BRepMesh_ModelPreProcessor::performInternal(
 
   const Standard_Integer aFacesNb    = theModel->FacesNb();
   const Standard_Boolean isOneThread = !theParameters.InParallel;
-  OSD_Parallel::For(0, aFacesNb, SeamEdgeAmplifier(theModel, theParameters), isOneThread);
-  OSD_Parallel::For(0,
+  Parallel1::For(0, aFacesNb, SeamEdgeAmplifier(theModel, theParameters), isOneThread);
+  Parallel1::For(0,
                     aFacesNb,
                     TriangulationConsistency(theModel, theParameters.AllowQualityDecrease),
                     isOneThread);

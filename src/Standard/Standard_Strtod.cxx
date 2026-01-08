@@ -61,7 +61,7 @@
  * biased rounding (add half and chop).
  *
  * Inspired loosely by William D. Clinger's paper "How to Read Floating
- * Point Numbers Accurately" [Proc. ACM SIGPLAN '90, pp. 92-101].
+ * Point Numbers1 Accurately" [Proc. ACM SIGPLAN '90, pp. 92-101].
  *
  * Modifications:
  *
@@ -4858,7 +4858,7 @@ void freedtoa(char* s)
 
 /* dtoa for IEEE arithmetic (dmg): convert double to ASCII string.
  *
- * Inspired by "How to Print Floating-Point Numbers Accurately" by
+ * Inspired by "How to Print Floating-Point Numbers1 Accurately" by
  * Guy L. Steele, Jr. and Jon L. White [Proc. ACM SIGPLAN '90, pp. 112-126].
  *
  * Modifications:

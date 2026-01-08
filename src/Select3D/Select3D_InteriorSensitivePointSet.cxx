@@ -40,7 +40,7 @@ public:
     Standard_Real aRes =
       myPlane.x() * thePnt.X() + myPlane.y() * thePnt.Y() + myPlane.z() * thePnt.Z() + myPlane.w();
 
-    if (aRes < Precision::Confusion())
+    if (aRes < Precision1::Confusion())
       return Standard_True;
 
     return Standard_False;
@@ -118,7 +118,7 @@ Select3D_InteriorSensitivePointSet::Select3D_InteriorSensitivePointSet(
       const Coords3d& aVec1   = aPnt1.XYZ() - aPnt2.XYZ();
       const Coords3d& aVec2   = aPnt3.XYZ() - aPnt2.XYZ();
       Standard_Real anAngle = aVec1.Dot(aVec2);
-      if (!aPlane.Contains(thePoints.Value(aPntIter)) || anAngle > Precision::Confusion())
+      if (!aPlane.Contains(thePoints.Value(aPntIter)) || anAngle > Precision1::Confusion())
       {
         // subtract 1 due to indexation from zero in sub-polygons
         Standard_Integer            anUpperBound = aPntIter - aStartIdx - 1;

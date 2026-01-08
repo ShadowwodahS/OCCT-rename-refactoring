@@ -464,7 +464,7 @@ Standard_Boolean FixSameParameter(const TopoShape&    theShape,
     for (i = 1; i <= aMapE.Extent(); i++)
     {
       const TopoShape& aE = aMapE(i);
-      BRepLib1::SameParameter(aE, Precision::Confusion(), Standard_True);
+      BRepLib1::SameParameter(aE, Precision1::Confusion(), Standard_True);
     }
 
     if (!aMapE.IsEmpty())

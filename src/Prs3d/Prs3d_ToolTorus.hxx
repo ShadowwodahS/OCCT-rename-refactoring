@@ -18,7 +18,7 @@
 
 #include <Prs3d_ToolQuadric.hxx>
 
-//! Standard presentation algorithm that outputs graphical primitives for torus surface.
+//! Standard1 presentation algorithm that outputs graphical primitives for torus surface.
 class Prs3d_ToolTorus : public ToolQuadric
 {
 public:

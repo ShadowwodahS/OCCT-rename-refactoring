@@ -329,8 +329,8 @@ Handle(Transfer_Binder) STEPControl_ActorRead::Transfer(const Handle(RefObject)&
   if (!aStepModel->IsInitializedUnit())
   {
     XSAlgo_ShapeProcessor::PrepareForTransfer(); // update unit info
-    aStepModel->SetLocalLengthUnit(UnitsMethods::GetCasCadeLengthUnit());
-    aLocalFactors.SetCascadeUnit(UnitsMethods::GetCasCadeLengthUnit());
+    aStepModel->SetLocalLengthUnit(UnitsMethods1::GetCasCadeLengthUnit());
+    aLocalFactors.SetCascadeUnit(UnitsMethods1::GetCasCadeLengthUnit());
   }
   aLocalFactors.SetCascadeUnit(aStepModel->LocalLengthUnit());
   Interface_EntityIterator anEntIt = aStepModel->Header();
@@ -956,9 +956,9 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
           {
             const Ax3 ax3Orig(Point3d(0., 0., 0), Vector3d(0., 0., 1.), Vector3d(1., 0., 0.));
             const Ax3 ax3Targ(aTargAP->Ax2());
-            if (ax3Targ.Location().SquareDistance(ax3Orig.Location()) < Precision::SquareConfusion()
-                && ax3Targ.Direction().IsEqual(ax3Orig.Direction(), Precision::Angular())
-                && ax3Targ.XDirection().IsEqual(ax3Orig.XDirection(), Precision::Angular()))
+            if (ax3Targ.Location().SquareDistance(ax3Orig.Location()) < Precision1::SquareConfusion()
+                && ax3Targ.Direction().IsEqual(ax3Orig.Direction(), Precision1::Angular())
+                && ax3Targ.XDirection().IsEqual(ax3Orig.XDirection(), Precision1::Angular()))
             {
               continue;
             }
@@ -1290,7 +1290,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
           continue;
         Handle(GeomPlane) aPlane = new GeomPlane(Ax3(anAxis->Ax2()));
         TopoFace        aPlaneFace;
-        aB.MakeFace(aPlaneFace, aPlane, Precision::Confusion());
+        aB.MakeFace(aPlaneFace, aPlane, Precision1::Confusion());
         Handle(TransferBRep_ShapeBinder) axisbinder = new TransferBRep_ShapeBinder(aPlaneFace);
         theTP->Bind(aStepAxis, axisbinder);
         aB.Add(aComp, aPlaneFace);
@@ -2026,7 +2026,7 @@ void STEPControl_ActorRead::PrepareUnits(const Handle(StepRepr_Representation)& 
     return;
   }
 
-  // Get Units Applied to this model
+  // Get Units2 Applied to this model
   Handle(StepRepr_RepresentationContext) theRepCont = rep->ContextOfItems();
   if (theRepCont.IsNull())
   {
@@ -2094,7 +2094,7 @@ void STEPControl_ActorRead::PrepareUnits(const Handle(StepRepr_Representation)& 
       TP->AddWarning(theRepCont, myUnit.StatusMessage(stat2));
   }
 
-  //  myPrecision = Precision::Confusion();
+  //  myPrecision = Precision1::Confusion();
   if (aStepModel->InternalParameters.ReadPrecisionMode == 1) //: i1 gka S4136 05.04.99
     myPrecision = aStepModel->InternalParameters.ReadPrecisionVal;
   else if (myUnit.HasUncertainty())

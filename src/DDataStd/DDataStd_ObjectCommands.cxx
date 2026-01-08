@@ -210,7 +210,7 @@ void DDataStd1::ObjectCommands(DrawInterpreter& theCommands)
   if (done)
     return;
   done          = Standard_True;
-  const char* g = "DData : Standard Attribute Commands";
+  const char* g = "DData : Standard1 Attribute Commands";
 
   theCommands.Add("NewNoteBook", "NewNoteBook (DF, entry)", __FILE__, DDataStd_NewNoteBook, g);
 

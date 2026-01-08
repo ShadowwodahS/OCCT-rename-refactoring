@@ -83,7 +83,7 @@ void BRepMAT2d_Explorer::Perform(const TopoFace& aFace)
   ShapeExplorer Exp(F, TopAbs_WIRE);
   //  Modified by Sergey KHROMOV - Tue Nov 26 16:10:37 2002 Begin
   Handle(GeomSurface) aSurf = BRepInspector::Surface(F);
-  TopoFace          aNewF = FaceMaker(aSurf, Precision::Confusion());
+  TopoFace          aNewF = FaceMaker(aSurf, Precision1::Confusion());
 
   while (Exp.More())
   {
@@ -131,7 +131,7 @@ void BRepMAT2d_Explorer::Add(const TopoWire& Spine,
   gp_Pnt2d                    aPCurFirst;
   //  Modified by skv - Mon Jul 11 19:00:25 2005 Integration Begin
   //  Set the confusion tolerance in accordance with the further algo
-  //   Standard_Real               aTolConf   = Precision::Confusion();
+  //   Standard_Real               aTolConf   = Precision1::Confusion();
   Standard_Real aTolConf = 1.e-8;
   //  Modified by skv - Mon Jul 11 19:00:25 2005 Integration End
   Standard_Boolean isModif = Standard_False;
@@ -324,7 +324,7 @@ void BRepMAT2d_Explorer::Add(const TopoWire& Spine,
 //       {
 // 	gp_Pnt2d P1 = theCurves(i)(j-1)->Value( theCurves(i)(j-1)->LastParameter() );
 // 	gp_Pnt2d P2 = theCurves(i)(j)->Value( theCurves(i)(j)->FirstParameter() );
-// 	if (P1.Distance( P2 ) > Precision::Confusion())
+// 	if (P1.Distance( P2 ) > Precision1::Confusion())
 // 	  {
 // 	    Handle( Geom2d_BSplineCurve ) BCurve;
 // 	    if (theCurves(i)(j)->DynamicType() != STANDARD_TYPE(Geom2d_BSplineCurve))
@@ -476,7 +476,7 @@ TopoEdge MakeEdge(const Handle(GeomCurve2d)& theCurve,
 {
   TopoEdge             aNewEdge;
   ShapeBuilder            aBuilder;
-  constexpr Standard_Real aTol  = Precision::Confusion();
+  constexpr Standard_Real aTol  = Precision1::Confusion();
   Standard_Real           aFPar = theCurve->FirstParameter();
   Standard_Real           aLPar = theCurve->LastParameter();
 

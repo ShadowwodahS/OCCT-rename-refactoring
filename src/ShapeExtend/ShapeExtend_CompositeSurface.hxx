@@ -61,7 +61,7 @@ DEFINE_STANDARD_HANDLE(ShapeExtend_CompositeSurface, GeomSurface)
 //! Geometrical connectivity is expressed via global parameters:
 //! S[i,j](Ui+1,V) = S[i+1,j](Ui+1,V) for any i, j, V
 //! S[i,j](U,Vj+1) = S[i,j+1](U,Vj+1) for any i, j, U
-//! It is checked with Precision::Confusion() by default.
+//! It is checked with Precision1::Confusion() by default.
 //!
 //! NOTE 1: This class is inherited from GeomSurface in order to
 //! make it more easy to store and deal with it. However, it should
@@ -258,11 +258,11 @@ public:
                                       Standard_Real& V2) const Standard_OVERRIDE;
 
   //! Returns True if grid is closed in U direction
-  //! (i.e. connected with Precision::Confusion)
+  //! (i.e. connected with Precision1::Confusion)
   Standard_EXPORT virtual Standard_Boolean IsUClosed() const Standard_OVERRIDE;
 
   //! Returns True if grid is closed in V direction
-  //! (i.e. connected with Precision::Confusion)
+  //! (i.e. connected with Precision1::Confusion)
   Standard_EXPORT virtual Standard_Boolean IsVClosed() const Standard_OVERRIDE;
 
   //! Returns False

@@ -51,7 +51,7 @@ void ShapeUpgrade_SplitCurve3d::Init(const Handle(GeomCurve3d)& C,
   //  if (ShapeUpgrade1::Debug()) std::cout << "SplitCurve3d::Init"<<std::endl;
   Handle(GeomCurve3d) CopyOfC        = Handle(GeomCurve3d)::DownCast(C->Copy());
   myCurve                           = CopyOfC;
-  constexpr Standard_Real precision = Precision::PConfusion();
+  constexpr Standard_Real precision = Precision1::PConfusion();
   Standard_Real           firstPar  = First;
   Standard_Real           lastPar   = Last;
   Handle(GeomCurve3d)      aCurve    = myCurve;
@@ -150,7 +150,7 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment1)
   if (!Curve2::IsPeriodic(myCurve))
   {
     // pdn exceptons only on non periodic curves
-    constexpr Standard_Real precision = Precision::PConfusion();
+    constexpr Standard_Real precision = Precision1::PConfusion();
     Standard_Real           firstPar  = myCurve->FirstParameter();
     Standard_Real           lastPar   = myCurve->LastParameter();
     if (Abs(First - firstPar) < precision)
@@ -180,8 +180,8 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment1)
   if (myNbCurves == 1)
   {
     Standard_Boolean filled = Standard_True;
-    if (Abs(myCurve->FirstParameter() - First) < Precision::PConfusion()
-        && Abs(myCurve->LastParameter() - Last) < Precision::PConfusion())
+    if (Abs(myCurve->FirstParameter() - First) < Precision1::PConfusion()
+        && Abs(myCurve->LastParameter() - Last) < Precision1::PConfusion())
       myResultingCurves->SetValue(1, myCurve);
 
     else if (!Segment1
@@ -230,9 +230,9 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment1)
       Standard_Real spval = mySplitValues->Value(ii);
       for (; j <= LastInd; j++)
       {
-        if (spval > BsCurve->Knot(j) + Precision::PConfusion())
+        if (spval > BsCurve->Knot(j) + Precision1::PConfusion())
           continue;
-        if (spval < BsCurve->Knot(j) - Precision::PConfusion())
+        if (spval < BsCurve->Knot(j) - Precision1::PConfusion())
           break;
         mySplitValues->SetValue(ii, BsCurve->Knot(j));
       }

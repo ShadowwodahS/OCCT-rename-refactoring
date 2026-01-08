@@ -138,7 +138,7 @@ void IGESData_IGESModel::DumpHeader(Standard_OStream& S, const Standard_Integer)
     << "   -> Name : " << IGESData_BasicEditor::IGESVersionName(num);
 
   num = theheader.DraftingStandard();
-  S << "\n[24]  Drafting Standard     : " << num;
+  S << "\n[24]  Drafting Standard1     : " << num;
   if (num > 0)
     S << "   -> Name : " << IGESData_BasicEditor::DraftingName(num);
   S << std::endl;
@@ -352,28 +352,28 @@ void IGESData_IGESModel::VerifyCheck(Handle(Interface_Check)& ach) const
       }
     }
   }
-  // Sending of message : Single Precision Magnitude parameter is incorrect.
+  // Sending of message : Single Precision1 Magnitude parameter is incorrect.
   if (theheader.MaxPower10Single() <= 0)
   {
     Message_Msg Msg43("XSTEP_43");
     ach->SendFail(Msg43);
   }
 
-  // Sending of message : Precision Significance parameter is incorrect.
+  // Sending of message : Precision1 Significance parameter is incorrect.
   if (theheader.MaxDigitsSingle() <= 0)
   {
     Message_Msg Msg44("XSTEP_44");
     ach->SendFail(Msg44);
   }
 
-  // Sending of messages : Double Precision Magnitude parameter is incorrect.
+  // Sending of messages : Double Precision1 Magnitude parameter is incorrect.
   if (theheader.MaxPower10Double() <= 0)
   {
     Message_Msg Msg45("XSTEP_45");
     ach->SendFail(Msg45);
   }
 
-  // Sending of message : Double Precision Significance parameter is incorrect.
+  // Sending of message : Double Precision1 Significance parameter is incorrect.
   if (theheader.MaxDigitsDouble() <= 0)
   {
     Message_Msg Msg46("XSTEP_46");
@@ -475,7 +475,7 @@ void IGESData_IGESModel::VerifyCheck(Handle(Interface_Check)& ach) const
     ach->SendWarning(Msg53);
   }
 
-  // Sending of message : Drafting Standard Flag parameter is incorrect.
+  // Sending of message : Drafting Standard1 Flag parameter is incorrect.
   if (theheader.DraftingStandard() < 0
       || theheader.DraftingStandard() > IGESData_BasicEditor::DraftingMax())
   {

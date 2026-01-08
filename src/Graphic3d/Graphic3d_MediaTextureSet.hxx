@@ -27,7 +27,7 @@ class Graphic3d_MediaTextureSet : public Graphic3d_TextureSet, public IFrameQueu
 {
   DEFINE_STANDARD_RTTIEXT(Graphic3d_MediaTextureSet, Graphic3d_TextureSet)
 public:
-  //! Callback definition.
+  //! Callback1 definition.
   typedef void (*CallbackOnUpdate_t)(void* theUserPtr);
 
 public:

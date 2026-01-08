@@ -17,18 +17,18 @@
 
 //=================================================================================================
 
-void Standard_Dump::AddValuesSeparator(Standard_OStream& theOStream)
+void DumpTool::AddValuesSeparator(Standard_OStream& theOStream)
 {
   Standard_SStream aStream;
   aStream << theOStream.rdbuf();
-  AsciiString1 aStreamStr = Standard_Dump::Text(aStream);
+  AsciiString1 aStreamStr = DumpTool::Text(aStream);
   if (!aStreamStr.IsEmpty() && !aStreamStr.EndsWith("{") && !aStreamStr.EndsWith(", "))
     theOStream << ", ";
 }
 
 //=================================================================================================
 
-void Standard_Dump::DumpKeyToClass(Standard_OStream&              theOStream,
+void DumpTool::DumpKeyToClass(Standard_OStream&              theOStream,
                                    const AsciiString1& theKey,
                                    const AsciiString1& theField)
 {
@@ -38,7 +38,7 @@ void Standard_Dump::DumpKeyToClass(Standard_OStream&              theOStream,
 
 //=================================================================================================
 
-void Standard_Dump::DumpCharacterValues(Standard_OStream& theOStream, int theCount, ...)
+void DumpTool::DumpCharacterValues(Standard_OStream& theOStream, int theCount, ...)
 {
   va_list vl;
   va_start(vl, theCount);
@@ -53,7 +53,7 @@ void Standard_Dump::DumpCharacterValues(Standard_OStream& theOStream, int theCou
 
 //=================================================================================================
 
-void Standard_Dump::DumpRealValues(Standard_OStream& theOStream, int theCount, ...)
+void DumpTool::DumpRealValues(Standard_OStream& theOStream, int theCount, ...)
 {
   va_list vl;
   va_start(vl, theCount);
@@ -68,7 +68,7 @@ void Standard_Dump::DumpRealValues(Standard_OStream& theOStream, int theCount, .
 
 //=================================================================================================
 
-Standard_Boolean Standard_Dump::ProcessStreamName(const AsciiString1& theStreamStr,
+Standard_Boolean DumpTool::ProcessStreamName(const AsciiString1& theStreamStr,
                                                   const AsciiString1& theName,
                                                   Standard_Integer&              theStreamPos)
 {
@@ -97,7 +97,7 @@ Standard_Boolean Standard_Dump::ProcessStreamName(const AsciiString1& theStreamS
 
 //=================================================================================================
 
-Standard_Boolean Standard_Dump::ProcessFieldName(const AsciiString1& theStreamStr,
+Standard_Boolean DumpTool::ProcessFieldName(const AsciiString1& theStreamStr,
                                                  const AsciiString1& theName,
                                                  Standard_Integer&              theStreamPos)
 {
@@ -111,7 +111,7 @@ Standard_Boolean Standard_Dump::ProcessFieldName(const AsciiString1& theStreamSt
     aSubText = theStreamStr.SubString(theStreamPos, theStreamStr.Length());
   }
 
-  AsciiString1 aName = Standard_Dump::DumpFieldToName(theName.ToCString());
+  AsciiString1 aName = DumpTool::DumpFieldToName(theName.ToCString());
   AsciiString1 aKeyName =
     AsciiString1(JsonKeyToString(Standard_JsonKey_Quote)) + aName
     + AsciiString1(JsonKeyToString(Standard_JsonKey_Quote))
@@ -126,7 +126,7 @@ Standard_Boolean Standard_Dump::ProcessFieldName(const AsciiString1& theStreamSt
 
 //=================================================================================================
 
-Standard_Boolean Standard_Dump::InitRealValues(const AsciiString1& theStreamStr,
+Standard_Boolean DumpTool::InitRealValues(const AsciiString1& theStreamStr,
                                                Standard_Integer&              theStreamPos,
                                                int                            theCount,
                                                ...)
@@ -174,7 +174,7 @@ Standard_Boolean Standard_Dump::InitRealValues(const AsciiString1& theStreamStr,
 
 //=================================================================================================
 
-Standard_Boolean Standard_Dump::InitValue(const AsciiString1& theStreamStr,
+Standard_Boolean DumpTool::InitValue(const AsciiString1& theStreamStr,
                                           Standard_Integer&              theStreamPos,
                                           AsciiString1&       theValue)
 {
@@ -207,7 +207,7 @@ Standard_Boolean Standard_Dump::InitValue(const AsciiString1& theStreamStr,
 
 //=================================================================================================
 
-AsciiString1 Standard_Dump::GetPointerInfo(const Handle(RefObject)& thePointer,
+AsciiString1 DumpTool::GetPointerInfo(const Handle(RefObject)& thePointer,
                                                       const bool                        isShortInfo)
 {
   if (thePointer.IsNull())
@@ -218,7 +218,7 @@ AsciiString1 Standard_Dump::GetPointerInfo(const Handle(RefObject)& thePointer,
 
 //=================================================================================================
 
-AsciiString1 Standard_Dump::GetPointerInfo(const void* thePointer,
+AsciiString1 DumpTool::GetPointerInfo(const void* thePointer,
                                                       const bool  isShortInfo)
 {
   if (!thePointer)
@@ -245,7 +245,7 @@ AsciiString1 Standard_Dump::GetPointerInfo(const void* thePointer,
 // =======================================================================
 // DumpFieldToName
 // =======================================================================
-AsciiString1 Standard_Dump::DumpFieldToName(const AsciiString1& theField)
+AsciiString1 DumpTool::DumpFieldToName(const AsciiString1& theField)
 {
   AsciiString1 aName = theField;
   if (theField.StartsWith('&'))
@@ -281,7 +281,7 @@ AsciiString1 Standard_Dump::DumpFieldToName(const AsciiString1& theField)
 // =======================================================================
 // Text
 // =======================================================================
-AsciiString1 Standard_Dump::Text(const Standard_SStream& theStream)
+AsciiString1 DumpTool::Text(const Standard_SStream& theStream)
 {
   return AsciiString1(theStream.str().c_str());
 }
@@ -289,7 +289,7 @@ AsciiString1 Standard_Dump::Text(const Standard_SStream& theStream)
 // =======================================================================
 // FormatJson
 // =======================================================================
-AsciiString1 Standard_Dump::FormatJson(const Standard_SStream& theStream,
+AsciiString1 DumpTool::FormatJson(const Standard_SStream& theStream,
                                                   const Standard_Integer  theIndent)
 {
   AsciiString1 aStreamStr = Text(theStream);
@@ -380,7 +380,7 @@ AsciiString1 Standard_Dump::FormatJson(const Standard_SStream& theStream,
 // =======================================================================
 // SplitJson
 // =======================================================================
-Standard_Boolean Standard_Dump::SplitJson(
+Standard_Boolean DumpTool::SplitJson(
   const AsciiString1&                                           theStreamStr,
   NCollection_IndexedDataMap<AsciiString1, Standard_DumpValue>& theKeyToValues)
 {
@@ -430,7 +430,7 @@ Standard_Boolean Standard_Dump::SplitJson(
 // =======================================================================
 // HierarchicalValueIndices
 // =======================================================================
-NCollection_List<Standard_Integer> Standard_Dump::HierarchicalValueIndices(
+NCollection_List<Standard_Integer> DumpTool::HierarchicalValueIndices(
   const NCollection_IndexedDataMap<AsciiString1, AsciiString1>& theValues)
 {
   NCollection_List<Standard_Integer> anIndices;
@@ -446,7 +446,7 @@ NCollection_List<Standard_Integer> Standard_Dump::HierarchicalValueIndices(
 // =======================================================================
 // splitKeyToValue
 // =======================================================================
-Standard_Boolean Standard_Dump::splitKeyToValue(
+Standard_Boolean DumpTool::splitKeyToValue(
   const AsciiString1&                                           theStreamStr,
   Standard_Integer                                                         theStartIndex,
   Standard_Integer&                                                        theNextIndex,
@@ -569,7 +569,7 @@ Standard_Boolean Standard_Dump::splitKeyToValue(
 // =======================================================================
 // jsonKey
 // =======================================================================
-Standard_Boolean Standard_Dump::jsonKey(const AsciiString1& theStreamStr,
+Standard_Boolean DumpTool::jsonKey(const AsciiString1& theStreamStr,
                                         Standard_Integer               theStartIndex,
                                         Standard_Integer&              theNextIndex,
                                         Standard_JsonKey&              theKey)
@@ -595,7 +595,7 @@ Standard_Boolean Standard_Dump::jsonKey(const AsciiString1& theStreamStr,
 // =======================================================================
 // HasChildKey
 // =======================================================================
-Standard_Boolean Standard_Dump::HasChildKey(const AsciiString1& theSourceValue)
+Standard_Boolean DumpTool::HasChildKey(const AsciiString1& theSourceValue)
 {
   return theSourceValue.Search(JsonKeyToString(Standard_JsonKey_SeparatorKeyToValue)) >= 0;
 }
@@ -603,7 +603,7 @@ Standard_Boolean Standard_Dump::HasChildKey(const AsciiString1& theSourceValue)
 // =======================================================================
 // JsonKeyToString
 // =======================================================================
-Standard_CString Standard_Dump::JsonKeyToString(const Standard_JsonKey theKey)
+Standard_CString DumpTool::JsonKeyToString(const Standard_JsonKey theKey)
 {
   switch (theKey)
   {
@@ -631,7 +631,7 @@ Standard_CString Standard_Dump::JsonKeyToString(const Standard_JsonKey theKey)
 // =======================================================================
 // JsonKeyLength
 // =======================================================================
-Standard_Integer Standard_Dump::JsonKeyLength(const Standard_JsonKey theKey)
+Standard_Integer DumpTool::JsonKeyLength(const Standard_JsonKey theKey)
 {
   return (Standard_Integer)strlen(JsonKeyToString(theKey));
 }
@@ -639,7 +639,7 @@ Standard_Integer Standard_Dump::JsonKeyLength(const Standard_JsonKey theKey)
 // =======================================================================
 // nextClosePosition
 // =======================================================================
-Standard_Integer Standard_Dump::nextClosePosition(const AsciiString1& theSourceValue,
+Standard_Integer DumpTool::nextClosePosition(const AsciiString1& theSourceValue,
                                                   const Standard_Integer         theStartPosition,
                                                   const Standard_JsonKey         theOpenKey,
                                                   const Standard_JsonKey         theCloseKey)

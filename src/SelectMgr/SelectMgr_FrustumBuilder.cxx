@@ -89,7 +89,7 @@ Standard_Real SelectMgr_FrustumBuilder::SignedPlanePntDist(const SelectMgr_Vec3&
 {
   const Standard_Real aNormLength = LENGTH(theEq);
   const Standard_Real anInvNormLength =
-    aNormLength < Precision::Confusion() ? 0.0 : 1.0 / aNormLength;
+    aNormLength < Precision1::Confusion() ? 0.0 : 1.0 / aNormLength;
   const Standard_Real anA = theEq.x() * anInvNormLength;
   const Standard_Real aB  = theEq.y() * anInvNormLength;
   const Standard_Real aC  = theEq.z() * anInvNormLength;

@@ -126,12 +126,12 @@ void GeomAdaptor_SurfaceOfRevolution::Load(const Axis3d& V)
     P                   = Value(0., 0.); // ce qui ne veut pas dire grand chose
     if (GetType() == GeomAbs_Cone)
     {
-      if (gp_Lin(myAxis).Distance(P) <= Precision::Confusion())
+      if (gp_Lin(myAxis).Distance(P) <= Precision1::Confusion())
         Q = ElCLib1::Value(1., myBasisCurve->Line());
       else
         Q = P;
     }
-    else if (Precision::IsInfinite(First))
+    else if (Precision1::IsInfinite(First))
       Q = P;
     else
       Q = Value(0., First);
@@ -139,7 +139,7 @@ void GeomAdaptor_SurfaceOfRevolution::Load(const Axis3d& V)
 
   Dir3d DZ = myAxis.Direction();
   O.SetXYZ(O.XYZ() + (Vector3d(O, P) * DZ) * DZ.XYZ());
-  if (gp_Lin(myAxis).Distance(Q) > Precision::Confusion())
+  if (gp_Lin(myAxis).Distance(Q) > Precision1::Confusion())
   {
     Ox = Dir3d(Q.XYZ() - O.XYZ());
   }
@@ -155,7 +155,7 @@ void GeomAdaptor_SurfaceOfRevolution::Load(const Axis3d& V)
       PP   = myBasisCurve->Value(First + (Last - First) / Ratio);
       Dist = gp_Lin(myAxis).Distance(PP);
       Ratio++;
-    } while (Dist < Precision::Confusion() && Ratio < 100);
+    } while (Dist < Precision1::Confusion() && Ratio < 100);
 
     if (Ratio >= 100)
     {
@@ -264,7 +264,7 @@ Handle(Adaptor3d_Surface) GeomAdaptor_SurfaceOfRevolution::UTrim(const Standard_
                                                                  const Standard_Real Last,
                                                                  const Standard_Real Tol) const
 {
-  constexpr Standard_Real Eps = Precision::PConfusion();
+  constexpr Standard_Real Eps = Precision1::PConfusion();
   (void)Eps;
   (void)First;
   (void)Last;
@@ -335,7 +335,7 @@ Standard_Real GeomAdaptor_SurfaceOfRevolution::VPeriod() const
 
 Standard_Real GeomAdaptor_SurfaceOfRevolution::UResolution(const Standard_Real R3d) const
 {
-  return Precision::Parametric(R3d);
+  return Precision1::Parametric(R3d);
 }
 
 //=================================================================================================
@@ -349,9 +349,9 @@ Standard_Real GeomAdaptor_SurfaceOfRevolution::VResolution(const Standard_Real R
 
 GeomAbs_SurfaceType GeomAdaptor_SurfaceOfRevolution::GetType() const
 {
-  constexpr Standard_Real TolConf        = Precision::Confusion();
-  constexpr Standard_Real TolAng         = Precision::Angular();
-  constexpr Standard_Real TolConeSemiAng = Precision::Confusion();
+  constexpr Standard_Real TolConf        = Precision1::Confusion();
+  constexpr Standard_Real TolAng         = Precision1::Angular();
+  constexpr Standard_Real TolConeSemiAng = Precision1::Confusion();
 
   switch (myBasisCurve->GetType())
   {
@@ -373,7 +373,7 @@ GeomAbs_SurfaceType GeomAdaptor_SurfaceOfRevolution::GetType() const
       {
         Standard_Real    uf     = myBasisCurve->FirstParameter();
         Standard_Real    ul     = myBasisCurve->LastParameter();
-        Standard_Boolean istrim = (!Precision::IsInfinite(uf) && !Precision::IsInfinite(ul));
+        Standard_Boolean istrim = (!Precision1::IsInfinite(uf) && !Precision1::IsInfinite(ul));
         if (istrim)
         {
           Point3d        pf  = myBasisCurve->Value(uf);
@@ -452,7 +452,7 @@ gp_Pln GeomAdaptor_SurfaceOfRevolution::Plane1() const
 
   Point3d P(myAxis.Location().XYZ() + aDot * myAxis.Direction().XYZ());
   Axe.SetLocation(P);
-  if (Axe.XDirection().Dot(myBasisCurve->Line().Direction()) >= -Precision::Confusion())
+  if (Axe.XDirection().Dot(myBasisCurve->Line().Direction()) >= -Precision1::Confusion())
     Axe.XReverse();
 
   return gp_Pln(Axe);
@@ -481,7 +481,7 @@ Cone1 GeomAdaptor_SurfaceOfRevolution::Cone() const
   Standard_Real Angle = (Axe.Direction()).Angle(ldir);
   Point3d        P0    = Value(0., 0.);
   Standard_Real R     = (Axe.Location()).Distance(P0);
-  if (R >= Precision::Confusion())
+  if (R >= Precision1::Confusion())
   {
     Point3d        O = Axe.Location();
     Vector3d        OP0(O, P0);

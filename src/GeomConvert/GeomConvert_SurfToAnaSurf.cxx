@@ -71,7 +71,7 @@ void GeomConvert_SurfToAnaSurf::CheckVTrimForRevSurf(
   const Axis3d& anAxis = aRevSurf->Axis();
 
   gp_Lin         anALin(anAxis);
-  ExtElC anExtLL(aLine->Lin(), anALin, Precision::Angular());
+  ExtElC anExtLL(aLine->Lin(), anALin, Precision1::Angular());
   if (!anExtLL.IsDone() || anExtLL.IsParallel())
     return;
   Standard_Integer aNbExt = anExtLL.NbExt();
@@ -82,7 +82,7 @@ void GeomConvert_SurfToAnaSurf::CheckVTrimForRevSurf(
   Standard_Integer imin = 0;
   for (i = 1; i <= aNbExt; ++i)
   {
-    if (anExtLL.SquareDistance(i) < Precision::SquareConfusion())
+    if (anExtLL.SquareDistance(i) < Precision1::SquareConfusion())
     {
       imin = i;
       break;
@@ -252,7 +252,7 @@ Standard_Boolean GeomConvert_SurfToAnaSurf::GetCylByLS(const Handle(TColgp_HArra
 {
 
   GetLSGap(thePoints, thePos, theR, theGap);
-  if (theGap <= Precision::Confusion())
+  if (theGap <= Precision1::Confusion())
   {
     return Standard_True;
   }
@@ -285,7 +285,7 @@ Standard_Boolean GeomConvert_SurfToAnaSurf::GetCylByLS(const Handle(TColgp_HArra
   aLBnd(4) = aStartPoint(4) + aDR;
 
   //
-  constexpr Standard_Real        aTol = Precision::Confusion();
+  constexpr Standard_Real        aTol = Precision1::Confusion();
   MultipleVarFunction*      aPFunc;
   GeomConvert_FuncCylinderLSDist aFuncCyl(thePoints, thePos.Direction());
   aPFunc = (MultipleVarFunction*)&aFuncCyl;
@@ -383,7 +383,7 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::TryCylinderByGaussField(
     aPoints = new TColgp_HArray1OfXYZ(1, theNbU * theNbU);
   }
   //
-  GeomLProp_SLProps aProps(theSurf, 2, Precision::Confusion());
+  GeomLProp_SLProps aProps(theSurf, 2, Precision1::Confusion());
   Standard_Real     anAvMaxCurv = 0., anAvMinCurv = 0., anAvR = 0, aSign = 1.;
   Coords3d            anAvDir;
   Dir3d            aMinD, aMaxD;
@@ -642,7 +642,7 @@ Standard_Real GeomConvert_SurfToAnaSurf::ComputeGap(const Handle(GeomSurface)& t
       aTor = aGAS.Torus();
       break;
     default:
-      return Precision::Infinite();
+      return Precision1::Infinite();
       break;
   }
 
@@ -748,12 +748,12 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::ConvertToAnalytical(
 {
   Standard_Real U1, U2, V1, V2;
   mySurf->Bounds(U1, U2, V1, V2);
-  if (Precision::IsInfinite(U1) && Precision::IsInfinite(U2))
+  if (Precision1::IsInfinite(U1) && Precision1::IsInfinite(U2))
   {
     U1 = -1.;
     U2 = 1.;
   }
-  if (Precision::IsInfinite(V1) && Precision::IsInfinite(V2))
+  if (Precision1::IsInfinite(V1) && Precision1::IsInfinite(V2))
   {
     V1                                        = -1.;
     V2                                        = 1.;
@@ -817,7 +817,7 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::ConvertToAnalytical(
   Standard_Real U1, U2, V1, V2;
   mySurf->Bounds(U1, U2, V1, V2);
   Standard_Boolean        aDoSegment = Standard_False;
-  constexpr Standard_Real aTolBnd    = Precision::PConfusion();
+  constexpr Standard_Real aTolBnd    = Precision1::PConfusion();
   Standard_Integer        isurf      = 0;
   if (Umin < U1 || Umax > U2 || Vmin < V1 || Vmax > V2)
   {

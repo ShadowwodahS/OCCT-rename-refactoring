@@ -676,8 +676,8 @@ Standard_Boolean TopOpeBRepTool_FuseEdges::SameSupport(const TopoEdge& E1,
   }
 
   // On a presomption de confusion
-  const Standard_Real tollin = Precision::Confusion();
-  const Standard_Real tolang = Precision::Angular();
+  const Standard_Real tollin = Precision1::Confusion();
+  const Standard_Real tolang = Precision1::Angular();
   if (typC1 == STANDARD_TYPE(GeomLine))
   {
     gp_Lin li1(Handle(GeomLine)::DownCast(C1)->Lin());
@@ -976,7 +976,7 @@ Standard_Boolean TopOpeBRepTool_FuseEdges::UpdatePCurve(const TopoEdge&         
             Handle(Geom2d_BoundedCurve) BC = Handle(Geom2d_BoundedCurve)::DownCast(C);
             if (BC.IsNull())
               BC = new Geom2d_TrimmedCurve(C, first, last);
-            if (!Concat.Add(BC, Precision::PConfusion()))
+            if (!Concat.Add(BC, Precision1::PConfusion()))
               // cannot merge pcurves
               return Standard_False;
           }
@@ -985,7 +985,7 @@ Standard_Boolean TopOpeBRepTool_FuseEdges::UpdatePCurve(const TopoEdge&         
           // check that new curve 2d is same range
           Standard_Real first = Curv2d->FirstParameter();
           Standard_Real last  = Curv2d->LastParameter();
-          if (Abs(first - ef) > Precision::PConfusion() || Abs(last - el) > Precision::PConfusion())
+          if (Abs(first - ef) > Precision1::PConfusion() || Abs(last - el) > Precision1::PConfusion())
           {
             Handle(Geom2d_BSplineCurve) bc = Handle(Geom2d_BSplineCurve)::DownCast(Curv2d);
             TColStd_Array1OfReal        Knots(1, bc->NbKnots());

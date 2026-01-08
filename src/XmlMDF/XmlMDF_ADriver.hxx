@@ -32,7 +32,7 @@ class PersistentStorage;
 class XmlMDF_ADriver;
 DEFINE_STANDARD_HANDLE(XmlMDF_ADriver, RefObject)
 
-//! Attribute Storage/Retrieval Driver.
+//! Attribute Storage1/Retrieval Driver.
 class XmlMDF_ADriver : public RefObject
 {
 

@@ -127,7 +127,7 @@ void StepData_StepReaderData::cleanText(const Handle(TCollection_HAsciiString)& 
   }
   UtfString aResString;
   const Standard_Boolean     toConversion = mySourceCodePage != Resource_FormatType_NoConversion;
-  Resource_Unicode::ConvertFormatToUnicode(mySourceCodePage, theVal->ToCString() + 1, aResString);
+  UnicodeTools::ConvertFormatToUnicode(mySourceCodePage, theVal->ToCString() + 1, aResString);
   Standard_Integer           aResStringSize = aResString.Length() - 1; // skip the last apostrophe
   UtfString aTempExtString;  // string for characters within control directives
   Standard_Integer           aSetCharInd = 1; // index to set value to result string
@@ -173,7 +173,7 @@ void StepData_StepReaderData::cleanText(const Handle(TCollection_HAsciiString)& 
         Standard_Character aResChar =
           static_cast<Standard_Character>(aResString.Value(aStringInd + 3) | 0x80);
         const char aStrForCovert[2] = {aResChar, '\0'};
-        Resource_Unicode::ConvertFormatToUnicode(aLocalFormatType, aStrForCovert, aTempExtString);
+        UnicodeTools::ConvertFormatToUnicode(aLocalFormatType, aStrForCovert, aTempExtString);
         isConverted = Standard_True;
         aStringInd += 3;
       }

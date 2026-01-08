@@ -2001,17 +2001,17 @@ static int yy_flex_strlen(const char* s)
 
 void* yyalloc(size_t theNbBytes)
 {
-  return Standard::AllocateOptimal(theNbBytes);
+  return Standard1::AllocateOptimal(theNbBytes);
 }
 
 void* yyrealloc(void* thePnt, size_t theNbBytes)
 {
-  return Standard::Reallocate(thePnt, theNbBytes);
+  return Standard1::Reallocate(thePnt, theNbBytes);
 }
 
 void yyfree(void* thePnt)
 {
-  Standard::Free(thePnt);
+  Standard1::Free(thePnt);
 }
 
 step::scanner::scanner(StepFile_ReadData* theDataModel, std::istream* in, std::ostream* out)

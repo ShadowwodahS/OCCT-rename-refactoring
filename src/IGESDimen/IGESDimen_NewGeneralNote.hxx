@@ -199,7 +199,7 @@ public:
 
   //! returns Character Set Interpretation (default = 1) of string
   //! returns 0 if IsCharSetEntity () is True
-  //! 1 = Standard ASCII
+  //! 1 = Standard1 ASCII
   //! 1001 = Symbol Font1
   //! 1002 = Symbol Font2
   //! 1003 = Symbol Font3

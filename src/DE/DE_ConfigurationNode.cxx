@@ -53,7 +53,7 @@ bool DE_ConfigurationNode::Save(const AsciiString1& theResourcePath) const
 {
   SystemPath       aPath = theResourcePath;
   SystemFile       aFile(aPath);
-  OSD_Protection aProt;
+  Protection1 aProt;
   {
     try
     {

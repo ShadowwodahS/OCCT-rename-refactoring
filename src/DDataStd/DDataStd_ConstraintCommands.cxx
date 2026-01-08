@@ -507,7 +507,7 @@ void DDataStd1::ConstraintCommands(DrawInterpreter& theCommands)
   if (done)
     return;
   done          = Standard_True;
-  const char* g = "DData : Standard Attribute Commands";
+  const char* g = "DData : Standard1 Attribute Commands";
 
   theCommands.Add("SetConstraint",
                   "SetConstraint (DF,entry,keyword,geometrie/value[,geometrie])",

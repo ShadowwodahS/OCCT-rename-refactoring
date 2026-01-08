@@ -72,23 +72,23 @@ public:
   //! If theUntilPos is non-zero, reads not more than until that position.
   //! Returns true if success, false on error or user break.
   Standard_EXPORT Standard_Boolean ReadAscii(Standard_IStream&            theStream,
-                                             Standard_ReadLineBuffer&     theBuffer,
+                                             ReadLineBuffer&     theBuffer,
                                              const std::streampos         theUntilPos,
                                              const Message_ProgressRange& theProgress);
 
 public:
-  //! Callback function to be implemented in descendant.
+  //! Callback1 function to be implemented in descendant.
   //! Should create new node with specified coordinates in the target model, and return its ID as
   //! integer.
   virtual Standard_Integer AddNode(const Coords3d& thePnt) = 0;
 
-  //! Callback function to be implemented in descendant.
+  //! Callback1 function to be implemented in descendant.
   //! Should create new triangle built on specified nodes in the target model.
   virtual void AddTriangle(Standard_Integer theN1,
                            Standard_Integer theN2,
                            Standard_Integer theN3) = 0;
 
-  //! Callback function to be implemented in descendant.
+  //! Callback1 function to be implemented in descendant.
   //! Should create a new triangulation for a solid in multi-domain case.
   virtual void AddSolid() {}
 

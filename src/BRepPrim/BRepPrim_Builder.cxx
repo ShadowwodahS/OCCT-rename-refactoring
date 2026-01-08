@@ -61,7 +61,7 @@ void BRepPrim_Builder::MakeShell(TopoShell& S) const
 
 void BRepPrim_Builder::MakeFace(TopoFace& F, const gp_Pln& P) const
 {
-  myBuilder.MakeFace(F, new GeomPlane(P), Precision::Confusion());
+  myBuilder.MakeFace(F, new GeomPlane(P), Precision1::Confusion());
 }
 
 //=======================================================================
@@ -89,7 +89,7 @@ void BRepPrim_Builder::MakeDegeneratedEdge(TopoEdge& E) const
 
 void BRepPrim_Builder::MakeEdge(TopoEdge& E, const gp_Lin& L) const
 {
-  myBuilder.MakeEdge(E, new GeomLine(L), Precision::Confusion());
+  myBuilder.MakeEdge(E, new GeomLine(L), Precision1::Confusion());
 }
 
 //=======================================================================
@@ -99,14 +99,14 @@ void BRepPrim_Builder::MakeEdge(TopoEdge& E, const gp_Lin& L) const
 
 void BRepPrim_Builder::MakeEdge(TopoEdge& E, const gp_Circ& C) const
 {
-  myBuilder.MakeEdge(E, new GeomCircle(C), Precision::Confusion());
+  myBuilder.MakeEdge(E, new GeomCircle(C), Precision1::Confusion());
 }
 
 //=================================================================================================
 
 void BRepPrim_Builder::SetPCurve(TopoEdge& E, const TopoFace& F, const gp_Lin2d& L) const
 {
-  myBuilder.UpdateEdge(E, new Geom2d_Line(L), F, Precision::Confusion());
+  myBuilder.UpdateEdge(E, new Geom2d_Line(L), F, Precision1::Confusion());
 }
 
 //=================================================================================================
@@ -121,11 +121,11 @@ void BRepPrim_Builder::SetPCurve(TopoEdge&       E,
                        new Geom2d_Line(L1),
                        new Geom2d_Line(L2),
                        F,
-                       Precision::Confusion());
+                       Precision1::Confusion());
   //  myBuilder.UpdateEdge(TopoDS::Edge(E.Oriented(TopAbs_FORWARD)),
   //		       new Geom2d_Line(L1),
   //		       new Geom2d_Line(L2),
-  //		       F,Precision::Confusion());
+  //		       F,Precision1::Confusion());
   myBuilder.Continuity(E, F, F, GeomAbs_CN);
 }
 
@@ -133,7 +133,7 @@ void BRepPrim_Builder::SetPCurve(TopoEdge&       E,
 
 void BRepPrim_Builder::SetPCurve(TopoEdge& E, const TopoFace& F, const gp_Circ2d& C) const
 {
-  myBuilder.UpdateEdge(E, new Geom2d_Circle(C), F, Precision::Confusion());
+  myBuilder.UpdateEdge(E, new Geom2d_Circle(C), F, Precision1::Confusion());
 }
 
 //=======================================================================
@@ -143,7 +143,7 @@ void BRepPrim_Builder::SetPCurve(TopoEdge& E, const TopoFace& F, const gp_Circ2d
 
 void BRepPrim_Builder::MakeVertex(TopoVertex& V, const Point3d& P) const
 {
-  myBuilder.MakeVertex(V, P, Precision::Confusion());
+  myBuilder.MakeVertex(V, P, Precision1::Confusion());
 }
 
 //=======================================================================
@@ -170,7 +170,7 @@ void BRepPrim_Builder::AddEdgeVertex(TopoEdge&           E,
   if (!direct)
     VV.Reverse();
   myBuilder.Add(E, VV);
-  myBuilder.UpdateVertex(VV, P, E, Precision::Confusion());
+  myBuilder.UpdateVertex(VV, P, E, Precision1::Confusion());
 }
 
 //=======================================================================

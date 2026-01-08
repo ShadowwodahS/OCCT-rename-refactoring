@@ -91,21 +91,21 @@ static const Quantity_StandardColor THE_COLORS[] = {
 
 //=================================================================================================
 
-Standard_Real Quantity_Color::Epsilon()
+Standard_Real Color1::Epsilon()
 {
   return TheEpsilon;
 }
 
 //=================================================================================================
 
-void Quantity_Color::SetEpsilon(const Standard_Real theEpsilon)
+void Color1::SetEpsilon(const Standard_Real theEpsilon)
 {
   TheEpsilon = theEpsilon;
 }
 
 //=================================================================================================
 
-NCollection_Vec3<float> Quantity_Color::valuesOf(const Quantity_NameOfColor theName,
+NCollection_Vec3<float> Color1::valuesOf(const Quantity_NameOfColor theName,
                                                  const Quantity_TypeOfColor theType)
 {
   if ((Standard_Integer)theName < 0 || (Standard_Integer)theName > Quantity_NOC_WHITE)
@@ -132,7 +132,7 @@ NCollection_Vec3<float> Quantity_Color::valuesOf(const Quantity_NameOfColor theN
 
 //=================================================================================================
 
-Standard_CString Quantity_Color::StringName(const Quantity_NameOfColor theName)
+Standard_CString Color1::StringName(const Quantity_NameOfColor theName)
 {
   if ((Standard_Integer)theName < 0 || (Standard_Integer)theName > Quantity_NOC_WHITE)
   {
@@ -143,7 +143,7 @@ Standard_CString Quantity_Color::StringName(const Quantity_NameOfColor theName)
 
 //=================================================================================================
 
-Standard_Boolean Quantity_Color::ColorFromName(const Standard_CString theName,
+Standard_Boolean Color1::ColorFromName(const Standard_CString theName,
                                                Quantity_NameOfColor&  theColor)
 {
   AsciiString1 aName(theName);
@@ -222,8 +222,8 @@ Standard_Boolean Quantity_Color::ColorFromName(const Standard_CString theName,
 
 //=================================================================================================
 
-bool Quantity_Color::ColorFromHex(const Standard_CString theHexColorString,
-                                  Quantity_Color&        theColor)
+bool Color1::ColorFromHex(const Standard_CString theHexColorString,
+                                  Color1&        theColor)
 {
   Quantity_ColorRGBA aColorRGBA;
   if (!Quantity_ColorRGBA::ColorFromHex(theHexColorString, aColorRGBA, true))
@@ -236,7 +236,7 @@ bool Quantity_Color::ColorFromHex(const Standard_CString theHexColorString,
 
 //=================================================================================================
 
-Quantity_Color::Quantity_Color(const Standard_Real        theC1,
+Color1::Color1(const Standard_Real        theC1,
                                const Standard_Real        theC2,
                                const Standard_Real        theC3,
                                const Quantity_TypeOfColor theType)
@@ -246,7 +246,7 @@ Quantity_Color::Quantity_Color(const Standard_Real        theC1,
 
 //=================================================================================================
 
-Quantity_Color::Quantity_Color(const NCollection_Vec3<float>& theRgb)
+Color1::Color1(const NCollection_Vec3<float>& theRgb)
     : myRgb(theRgb)
 {
   Quantity_ColorValidateRgbRange(theRgb.r(), theRgb.g(), theRgb.b());
@@ -254,7 +254,7 @@ Quantity_Color::Quantity_Color(const NCollection_Vec3<float>& theRgb)
 
 //=================================================================================================
 
-void Quantity_Color::ChangeContrast(const Standard_Real theDelta)
+void Color1::ChangeContrast(const Standard_Real theDelta)
 {
   NCollection_Vec3<float> aHls = Convert_LinearRGB_To_HLS(myRgb);
   aHls[2] += aHls[2] * Standard_ShortReal(theDelta) / 100.0f; // saturation
@@ -266,7 +266,7 @@ void Quantity_Color::ChangeContrast(const Standard_Real theDelta)
 
 //=================================================================================================
 
-void Quantity_Color::ChangeIntensity(const Standard_Real theDelta)
+void Color1::ChangeIntensity(const Standard_Real theDelta)
 {
   NCollection_Vec3<float> aHls = Convert_LinearRGB_To_HLS(myRgb);
   aHls[1] += aHls[1] * Standard_ShortReal(theDelta) / 100.0f; // light
@@ -278,7 +278,7 @@ void Quantity_Color::ChangeIntensity(const Standard_Real theDelta)
 
 //=================================================================================================
 
-void Quantity_Color::SetValues(const Standard_Real        theC1,
+void Color1::SetValues(const Standard_Real        theC1,
                                const Standard_Real        theC2,
                                const Standard_Real        theC3,
                                const Quantity_TypeOfColor theType)
@@ -320,7 +320,7 @@ void Quantity_Color::SetValues(const Standard_Real        theC1,
 
 //=================================================================================================
 
-void Quantity_Color::Delta(const Quantity_Color& theColor,
+void Color1::Delta(const Color1& theColor,
                            Standard_Real&        theDC,
                            Standard_Real&        theDI) const
 {
@@ -335,7 +335,7 @@ void Quantity_Color::Delta(const Quantity_Color& theColor,
 // purpose  : color difference according to CIE Delta E 2000 formula
 // see http://brucelindbloom.com/index.html?Eqn_DeltaE_CIE2000.html
 // =======================================================================
-Standard_Real Quantity_Color::DeltaE2000(const Quantity_Color& theOther) const
+Standard_Real Color1::DeltaE2000(const Color1& theOther) const
 {
   // get color components in CIE Lch space
   Standard_Real aL1, aL2, aa1, aa2, ab1, ab2;
@@ -404,7 +404,7 @@ Standard_Real Quantity_Color::DeltaE2000(const Quantity_Color& theOther) const
 
 //=================================================================================================
 
-Quantity_NameOfColor Quantity_Color::Name() const
+Quantity_NameOfColor Color1::Name() const
 {
   // it is better finding closest sRGB color (closest to human eye) instead of linear RGB color,
   // as enumeration defines color names for human
@@ -431,7 +431,7 @@ Quantity_NameOfColor Quantity_Color::Name() const
 
 //=================================================================================================
 
-void Quantity_Color::Values(Standard_Real&             theR1,
+void Color1::Values(Standard_Real&             theR1,
                             Standard_Real&             theR2,
                             Standard_Real&             theR3,
                             const Quantity_TypeOfColor theType) const
@@ -478,7 +478,7 @@ void Quantity_Color::Values(Standard_Real&             theR1,
 // function : Convert_HLS_To_sRGB
 // purpose  : Reference1: La synthese d'images, Collection Hermes
 // =======================================================================
-NCollection_Vec3<float> Quantity_Color::Convert_HLS_To_sRGB(const NCollection_Vec3<float>& theHls)
+NCollection_Vec3<float> Color1::Convert_HLS_To_sRGB(const NCollection_Vec3<float>& theHls)
 {
   float       aHue        = theHls[0];
   const float aLight      = theHls[1];
@@ -523,7 +523,7 @@ NCollection_Vec3<float> Quantity_Color::Convert_HLS_To_sRGB(const NCollection_Ve
 // function : Convert_sRGB_To_HLS
 // purpose  : Reference1: La synthese d'images, Collection Hermes
 // =======================================================================
-NCollection_Vec3<float> Quantity_Color::Convert_sRGB_To_HLS(const NCollection_Vec3<float>& theRgb)
+NCollection_Vec3<float> Color1::Convert_sRGB_To_HLS(const NCollection_Vec3<float>& theRgb)
 {
   float aPlus = 0.0f;
   float aDiff = theRgb.g() - theRgb.b();
@@ -595,7 +595,7 @@ static inline double CIELab_invertf(double theValue)
 // purpose  : convert RGB color to CIE Lab color
 // see https://www.easyrgb.com/en/math1.php
 // =======================================================================
-NCollection_Vec3<float> Quantity_Color::Convert_LinearRGB_To_Lab(
+NCollection_Vec3<float> Color1::Convert_LinearRGB_To_Lab(
   const NCollection_Vec3<float>& theRgb)
 {
   double aR = theRgb[0];
@@ -625,7 +625,7 @@ NCollection_Vec3<float> Quantity_Color::Convert_LinearRGB_To_Lab(
 // purpose  : convert CIE Lab color to RGB
 // see https://www.easyrgb.com/en/math1.php
 // =======================================================================
-NCollection_Vec3<float> Quantity_Color::Convert_Lab_To_LinearRGB(
+NCollection_Vec3<float> Color1::Convert_Lab_To_LinearRGB(
   const NCollection_Vec3<float>& theLab)
 {
   double aL = theLab[0];
@@ -670,7 +670,7 @@ NCollection_Vec3<float> Quantity_Color::Convert_Lab_To_LinearRGB(
 // purpose  : convert CIE Lab color to CIE Lch color
 // see https://www.easyrgb.com/en/math1.php
 // =======================================================================
-NCollection_Vec3<float> Quantity_Color::Convert_Lab_To_Lch(const NCollection_Vec3<float>& theLab)
+NCollection_Vec3<float> Color1::Convert_Lab_To_Lch(const NCollection_Vec3<float>& theLab)
 {
   double aa = theLab[1];
   double ab = theLab[2];
@@ -689,7 +689,7 @@ NCollection_Vec3<float> Quantity_Color::Convert_Lab_To_Lch(const NCollection_Vec
 // purpose  : convert CIE Lch color to CIE Lab color
 // see https://www.easyrgb.com/en/math1.php
 // =======================================================================
-NCollection_Vec3<float> Quantity_Color::Convert_Lch_To_Lab(const NCollection_Vec3<float>& theLch)
+NCollection_Vec3<float> Color1::Convert_Lch_To_Lab(const NCollection_Vec3<float>& theLch)
 {
   double aC = theLch[1];
   double aH = theLch[2];
@@ -704,17 +704,17 @@ NCollection_Vec3<float> Quantity_Color::Convert_Lch_To_Lab(const NCollection_Vec
 
 //=================================================================================================
 
-void Quantity_Color::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
+void Color1::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
   OCCT_DUMP_FIELD_VALUES_NUMERICAL(theOStream, "RGB", 3, myRgb.r(), myRgb.g(), myRgb.b())}
 
 //=================================================================================================
 
-Standard_Boolean Quantity_Color::InitFromJson(const Standard_SStream& theSStream,
+Standard_Boolean Color1::InitFromJson(const Standard_SStream& theSStream,
                                               Standard_Integer&       theStreamPos)
 {
   Standard_Integer aPos = theStreamPos;
   Standard_Real    aRed, aGreen, aBlue;
-  OCCT_INIT_VECTOR_CLASS(Standard_Dump::Text(theSStream), "RGB", aPos, 3, &aRed, &aGreen, &aBlue)
+  OCCT_INIT_VECTOR_CLASS(DumpTool::Text(theSStream), "RGB", aPos, 3, &aRed, &aGreen, &aBlue)
 
   SetValues((Standard_ShortReal)aRed,
             (Standard_ShortReal)aGreen,

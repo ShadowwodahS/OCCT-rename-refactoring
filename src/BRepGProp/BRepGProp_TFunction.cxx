@@ -106,7 +106,7 @@ Standard_Boolean BRepGProp_TFunction::Value(const Standard_Real X, Standard_Real
 
   Standard_Real aAbsCoeff = Abs(aCoeff);
 
-  if (aAbsCoeff <= Precision::Angular())
+  if (aAbsCoeff <= Precision1::Angular())
   {
     // No need to compute the integral. The value will be equal to 0.
     F = 0.;

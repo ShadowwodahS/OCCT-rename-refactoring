@@ -51,7 +51,7 @@ Standard_Boolean AIS_AttributeFilter::IsOk(const Handle(SelectMgr_EntityOwner)& 
   Standard_Boolean okstat = Standard_True;
   if (hasC && aSelectable->HasColor())
   {
-    Quantity_Color aColor;
+    Color1 aColor;
     aSelectable->Color(aColor);
     okstat = (myCol == aColor.Name());
   }

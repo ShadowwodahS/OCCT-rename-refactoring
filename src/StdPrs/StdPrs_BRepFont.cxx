@@ -84,7 +84,7 @@ static TopAbs_State classifyWW(const TopoWire& theW1,
   aF.Orientation(TopAbs_FORWARD);
   ShapeBuilder aB;
   aB.Add(aF, theW1);
-  BRepTopAdaptor_FClass2d aClass2d(aF, ::Precision::PConfusion());
+  BRepTopAdaptor_FClass2d aClass2d(aF, ::Precision1::PConfusion());
   for (TopoDS_Iterator anEdgeIter(theW2); anEdgeIter.More(); anEdgeIter.Next())
   {
     const TopoEdge&   anEdge  = TopoDS::Edge(anEdgeIter.Value());
@@ -117,7 +117,7 @@ static TopAbs_State classifyWW(const TopoWire& theW1,
 //=================================================================================================
 
 StdPrs_BRepFont::StdPrs_BRepFont()
-    : myPrecision(Precision::Confusion()),
+    : myPrecision(Precision1::Confusion()),
       myScaleUnits(1.0),
       myIsCompositeCurve(Standard_False),
       my3Poles(1, 3),
@@ -142,7 +142,7 @@ void StdPrs_BRepFont::init()
 StdPrs_BRepFont::StdPrs_BRepFont(const NCollection_String& theFontPath,
                                  const Standard_Real       theSize,
                                  const Standard_Integer    theFaceId)
-    : myPrecision(Precision::Confusion()),
+    : myPrecision(Precision1::Confusion()),
       myScaleUnits(1.0),
       myIsCompositeCurve(Standard_False),
       my3Poles(1, 3),
@@ -165,7 +165,7 @@ StdPrs_BRepFont::StdPrs_BRepFont(const NCollection_String& theFontName,
                                  const Font_FontAspect     theFontAspect,
                                  const Standard_Real       theSize,
                                  const Font_StrictLevel    theStrictLevel)
-    : myPrecision(Precision::Confusion()),
+    : myPrecision(Precision1::Confusion()),
       myScaleUnits(1.0),
       myIsCompositeCurve(Standard_False),
       my3Poles(1, 3),
@@ -636,7 +636,7 @@ Standard_Boolean StdPrs_BRepFont::renderGlyph(const Standard_Utf32Char theChar,
       TopoFace aFace;
       myBuilder.MakeFace(aFace, mySurface, myPrecision);
       myBuilder.Add(aFace, aWireDraft);
-      BRepTopAdaptor_FClass2d aClass2d(aFace, ::Precision::PConfusion());
+      BRepTopAdaptor_FClass2d aClass2d(aFace, ::Precision1::PConfusion());
       TopAbs_State            aState = aClass2d.PerformInfinitePoint();
       if (aState != TopAbs_OUT)
       {

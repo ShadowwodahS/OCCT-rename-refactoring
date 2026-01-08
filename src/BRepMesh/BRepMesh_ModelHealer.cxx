@@ -54,7 +54,7 @@ public:
     Standard_Integer aPointsNb = aDEdge->GetCurve()->ParametersNb();
 
     aDEdge->Clear(Standard_True);
-    aDEdge->SetDeflection(Max(aDEdge->GetDeflection() / 3., Precision::Confusion()));
+    aDEdge->SetDeflection(Max(aDEdge->GetDeflection() / 3., Precision1::Confusion()));
 
     for (Standard_Integer aPCurveIt = 0; aPCurveIt < aDEdge->PCurvesNb(); ++aPCurveIt)
     {
@@ -139,7 +139,7 @@ Standard_Boolean BRepMesh_ModelHealer::performInternal(const Handle(IMeshData_Mo
   // self-intersecting polygon, which cannot be fixed.
   // As result the face will not be triangulated at all.
   // E.g. see "Test mesh standard_mesh C7", the face #17.
-  myParameters.MinSize = Precision::Confusion();
+  myParameters.MinSize = Precision1::Confusion();
 
   myFaceIntersectingEdges = new IMeshData::DMapOfIFacePtrsMapOfIEdgePtrs;
   for (Standard_Integer aFaceIt = 0; aFaceIt < myModel->FacesNb(); ++aFaceIt)
@@ -149,7 +149,7 @@ Standard_Boolean BRepMesh_ModelHealer::performInternal(const Handle(IMeshData_Mo
   }
 
   // TODO: Here we can process edges in order to remove close discrete points.
-  OSD_Parallel::For(0, myModel->FacesNb(), *this, !isParallel());
+  Parallel1::For(0, myModel->FacesNb(), *this, !isParallel());
   amplifyEdges();
 
   IMeshData::DMapOfIFacePtrsMapOfIEdgePtrs::Iterator aFaceIt(*myFaceIntersectingEdges);
@@ -183,7 +183,7 @@ void BRepMesh_ModelHealer::amplifyEdges()
   while (aAmpIt++ < aIterNb && popEdgesToUpdate(aEdgesToUpdate))
   {
     // Try to update discretization by decreasing deflection of problematic edges.
-    OSD_Parallel::ForEach(aEdgesToUpdate.cbegin(),
+    Parallel1::ForEach(aEdgesToUpdate.cbegin(),
                           aEdgesToUpdate.cend(),
                           anEdgeAmplifier,
                           !(myParameters.InParallel && aEdgesToUpdate.Size() > 1),
@@ -200,7 +200,7 @@ void BRepMesh_ModelHealer::amplifyEdges()
       }
     }
 
-    OSD_Parallel::ForEach(aFacesToCheck.cbegin(),
+    Parallel1::ForEach(aFacesToCheck.cbegin(),
                           aFacesToCheck.cend(),
                           *this,
                           !(myParameters.InParallel && aFacesToCheck.Size() > 1),

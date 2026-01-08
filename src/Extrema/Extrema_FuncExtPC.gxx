@@ -43,7 +43,7 @@ Standard_Real Extrema_FuncExtPC::SearchOfTolerance()
   const Standard_Real aStep = (myUsupremum - myUinfium)/(Standard_Real)NPoint;
 
   Standard_Integer aNum = 0;
-  Standard_Real aMax = -Precision::Infinite();  //Maximum value of 1st derivative
+  Standard_Real aMax = -Precision1::Infinite();  //Maximum value of 1st derivative
   //(it is computed with using NPoint point)
 
   do
@@ -56,7 +56,7 @@ Standard_Real Extrema_FuncExtPC::SearchOfTolerance()
     Vec VDer;   // 1st derivative vector
     Tool::D1(*((Curve*)myC), u, Ptemp, VDer);
 
-    if(Precision::IsInfinite(VDer.X()) || Precision::IsInfinite(VDer.Y()))
+    if(Precision1::IsInfinite(VDer.X()) || Precision1::IsInfinite(VDer.Y()))
     {
       continue;
     }
@@ -167,9 +167,9 @@ Standard_Boolean Extrema_FuncExtPC::Value (const Standard_Real U, Standard_Real&
   Vec D1c;
   Tool::D1(*((Curve*)myC),myU,myPc,D1c);
 
-  if(Precision::IsInfinite(D1c.X()) || Precision::IsInfinite(D1c.Y()))
+  if(Precision1::IsInfinite(D1c.X()) || Precision1::IsInfinite(D1c.Y()))
   {
-    F = Precision::Infinite();
+    F = Precision1::Infinite();
     return Standard_False;
   }
 

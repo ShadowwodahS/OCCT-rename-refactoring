@@ -263,37 +263,37 @@ GeomAbs_SurfaceType GeomAdaptor_SurfaceOfLinearExtrusion::GetType() const
 
     case GeomAbs_Line: {
       Dir3d D = myBasisCurve->Line().Direction();
-      if (!myDirection.IsParallel(D, Precision::Angular()))
+      if (!myDirection.IsParallel(D, Precision1::Angular()))
         return GeomAbs_Plane;
       break;
     }
 
     case GeomAbs_Circle: {
       Dir3d D = (myBasisCurve->Circle()).Axis().Direction();
-      if (myDirection.IsParallel(D, Precision::Angular()))
+      if (myDirection.IsParallel(D, Precision1::Angular()))
         return GeomAbs_Cylinder;
-      else if (myDirection.IsNormal(D, Precision::Angular()))
+      else if (myDirection.IsNormal(D, Precision1::Angular()))
         return GeomAbs_Plane;
       break;
     }
 
     case GeomAbs_Ellipse: {
       Dir3d D = (myBasisCurve->Ellipse()).Axis().Direction();
-      if (myDirection.IsNormal(D, Precision::Angular()))
+      if (myDirection.IsNormal(D, Precision1::Angular()))
         return GeomAbs_Plane;
       break;
     }
 
     case GeomAbs_Parabola: {
       Dir3d D = (myBasisCurve->Parabola()).Axis().Direction();
-      if (myDirection.IsNormal(D, Precision::Angular()))
+      if (myDirection.IsNormal(D, Precision1::Angular()))
         return GeomAbs_Plane;
       break;
     }
 
     case GeomAbs_Hyperbola: {
       Dir3d D = (myBasisCurve->Hyperbola()).Axis().Direction();
-      if (myDirection.IsNormal(D, Precision::Angular()))
+      if (myDirection.IsNormal(D, Precision1::Angular()))
         return GeomAbs_Plane;
       break;
     }
@@ -316,16 +316,16 @@ gp_Pln GeomAdaptor_SurfaceOfLinearExtrusion::Plane1() const
   Vector3d        D1u, newZ;
   Standard_Real UFirst = myBasisCurve->FirstParameter();
   Standard_Real ULast  = myBasisCurve->LastParameter();
-  if (Precision::IsNegativeInfinite(UFirst) && Precision::IsPositiveInfinite(ULast))
+  if (Precision1::IsNegativeInfinite(UFirst) && Precision1::IsPositiveInfinite(ULast))
   {
     UFirst = -100.;
     ULast  = 100.;
   }
-  else if (Precision::IsNegativeInfinite(UFirst))
+  else if (Precision1::IsNegativeInfinite(UFirst))
   {
     UFirst = ULast - 200.;
   }
-  else if (Precision::IsPositiveInfinite(ULast))
+  else if (Precision1::IsPositiveInfinite(ULast))
   {
     ULast = UFirst + 200.;
   }

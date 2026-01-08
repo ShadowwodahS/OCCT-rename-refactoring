@@ -26,9 +26,9 @@ namespace
 {
 //! Class implementing tools for parallel processing
 //! using threads (when TBB is not available);
-//! it is derived from OSD_Parallel to get access to
-//! Iterator and FunctorInterface nested types.
-class OSD_Parallel_Threads : public OSD_ThreadPool, public OSD_Parallel
+//! it is derived from Parallel1 to get access to
+//! Iterator and FunctorInterface1 nested types.
+class OSD_Parallel_Threads : public OSD_ThreadPool, public Parallel1
 {
 public:
   //! Auxiliary class which ensures exclusive
@@ -37,8 +37,8 @@ public:
   {
   public: //! @name public methods
     //! Constructor
-    Range(const OSD_Parallel::UniversalIterator& theBegin,
-          const OSD_Parallel::UniversalIterator& theEnd)
+    Range(const Parallel1::UniversalIterator1& theBegin,
+          const Parallel1::UniversalIterator1& theEnd)
         : myBegin(theBegin),
           myEnd(theEnd),
           myIt(theBegin)
@@ -46,14 +46,14 @@ public:
     }
 
     //! Returns const link on the first element.
-    inline const OSD_Parallel::UniversalIterator& Begin() const { return myBegin; }
+    inline const Parallel1::UniversalIterator1& Begin() const { return myBegin; }
 
     //! Returns const link on the last element.
-    inline const OSD_Parallel::UniversalIterator& End() const { return myEnd; }
+    inline const Parallel1::UniversalIterator1& End() const { return myEnd; }
 
     //! Returns first non processed element or end.
     //! Thread-safe method.
-    inline OSD_Parallel::UniversalIterator It() const
+    inline Parallel1::UniversalIterator1 It() const
     {
       Standard_Mutex::Sentry aMutex(myMutex);
       return (myIt != myEnd) ? myIt++ : myEnd;
@@ -67,20 +67,20 @@ public:
     Range& operator=(const Range& theCopy);
 
   private:                                          //! @name private fields
-    const OSD_Parallel::UniversalIterator& myBegin; //!< First element of range.
-    const OSD_Parallel::UniversalIterator& myEnd;   //!< Last element of range.
+    const Parallel1::UniversalIterator1& myBegin; //!< First element of range.
+    const Parallel1::UniversalIterator1& myEnd;   //!< Last element of range.
                                                     // clang-format off
-      mutable OSD_Parallel::UniversalIterator   myIt;    //!< First non processed element of range.
+      mutable Parallel1::UniversalIterator1   myIt;    //!< First non processed element of range.
       mutable Standard_Mutex                 myMutex; //!< Access controller for the first non processed element.
                                                     // clang-format on
   };
 
   //! Auxiliary wrapper class for thread function.
-  class Task : public JobInterface
+  class Task : public JobInterface1
   {
   public: //! @name public methods
     //! Constructor.
-    Task(const OSD_Parallel::FunctorInterface& thePerformer, Range& theRange)
+    Task(const Parallel1::FunctorInterface1& thePerformer, Range& theRange)
         : myPerformer(thePerformer),
           myRange(theRange)
     {
@@ -90,7 +90,7 @@ public:
     //! so this method defines the main calculations.
     virtual void Perform(int) Standard_OVERRIDE
     {
-      for (OSD_Parallel::UniversalIterator anIter = myRange.It(); anIter != myRange.End();
+      for (Parallel1::UniversalIterator1 anIter = myRange.It(); anIter != myRange.End();
            anIter                                 = myRange.It())
       {
         myPerformer(*anIter);
@@ -105,7 +105,7 @@ public:
     Task& operator=(const Task& theCopy);
 
   private:                               //! @name private fields
-    const FunctorInterface& myPerformer; //!< Link1 on functor
+    const FunctorInterface1& myPerformer; //!< Link1 on functor
     const Range&            myRange;     //!< Link1 on processed data block
   };
 
@@ -120,9 +120,9 @@ public:
     }
 
     //! Primitive for parallelization of "for" loops.
-    void Perform(OSD_Parallel::UniversalIterator&      theBegin,
-                 OSD_Parallel::UniversalIterator&      theEnd,
-                 const OSD_Parallel::FunctorInterface& theFunctor)
+    void Perform(Parallel1::UniversalIterator1&      theBegin,
+                 Parallel1::UniversalIterator1&      theEnd,
+                 const Parallel1::FunctorInterface1& theFunctor)
     {
       Range aData(theBegin, theEnd);
       Task  aJob(theFunctor, aData);
@@ -134,9 +134,9 @@ public:
 
 //=================================================================================================
 
-void OSD_Parallel::forEachOcct(UniversalIterator&      theBegin,
-                               UniversalIterator&      theEnd,
-                               const FunctorInterface& theFunctor,
+void Parallel1::forEachOcct(UniversalIterator1&      theBegin,
+                               UniversalIterator1&      theEnd,
+                               const FunctorInterface1& theFunctor,
                                Standard_Integer        theNbItems)
 {
   const Handle(OSD_ThreadPool)& aThreadPool = OSD_ThreadPool::DefaultPool();
@@ -150,9 +150,9 @@ void OSD_Parallel::forEachOcct(UniversalIterator&      theBegin,
 #ifndef HAVE_TBB
 //=================================================================================================
 
-void OSD_Parallel::forEachExternal(UniversalIterator&      theBegin,
-                                   UniversalIterator&      theEnd,
-                                   const FunctorInterface& theFunctor,
+void Parallel1::forEachExternal(UniversalIterator1&      theBegin,
+                                   UniversalIterator1&      theEnd,
+                                   const FunctorInterface1& theFunctor,
                                    Standard_Integer        theNbItems)
 {
   forEachOcct(theBegin, theEnd, theFunctor, theNbItems);

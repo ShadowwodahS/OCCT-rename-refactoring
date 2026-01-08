@@ -192,7 +192,7 @@ public:
                                               const Standard_Boolean            dispatched) const;
 
   //! Returns a category number which characterizes an entity
-  //! Category Numbers are managed by the class Category
+  //! Category Numbers1 are managed by the class Category
   //! <shares> can be used to evaluate this number in the context
   //! Default returns 0 which means "unspecified"
   Standard_EXPORT virtual Standard_Integer CategoryNumber(const Standard_Integer            CN,

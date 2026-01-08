@@ -93,15 +93,15 @@ Handle(GeomSurface) GeomFill1::Surface(const Handle(GeomCurve3d)& Curve1,
     Dir3d D1 = L1.Direction();
     Dir3d D2 = L2.Direction();
 
-    if (D1.IsParallel(D2, Precision::Angular()))
+    if (D1.IsParallel(D2, Precision1::Angular()))
     {
       Vector3d        P1P2(L1.Location(), L2.Location());
       Standard_Real proj = P1P2.Dot(D1);
 
-      if (D1.IsEqual(D2, Precision::Angular()))
+      if (D1.IsEqual(D2, Precision1::Angular()))
       {
-        if (Abs(a1 - proj - a2) <= Precision::Confusion()
-            && Abs(b1 - proj - b2) <= Precision::Confusion())
+        if (Abs(a1 - proj - a2) <= Precision1::Confusion()
+            && Abs(b1 - proj - b2) <= Precision1::Confusion())
         {
           Ax3             Ax(L1.Location(), Dir3d(D1.Crossed(P1P2)), D1);
           Handle(GeomPlane) P = new GeomPlane(Ax);
@@ -110,10 +110,10 @@ Handle(GeomSurface) GeomFill1::Surface(const Handle(GeomCurve3d)& Curve1,
           IsDone = Standard_True;
         }
       }
-      if (D1.IsOpposite(D2, Precision::Angular()))
+      if (D1.IsOpposite(D2, Precision1::Angular()))
       {
-        if (Abs(a1 - proj + b2) <= Precision::Confusion()
-            && Abs(b1 - proj + a2) <= Precision::Confusion())
+        if (Abs(a1 - proj + b2) <= Precision1::Confusion()
+            && Abs(b1 - proj + a2) <= Precision1::Confusion())
         {
           Ax3             Ax(L1.Location(), Dir3d(D1.Crossed(P1P2)), D1);
           Handle(GeomPlane) P = new GeomPlane(Ax);
@@ -137,12 +137,12 @@ Handle(GeomSurface) GeomFill1::Surface(const Handle(GeomCurve3d)& Curve1,
     Ax3 A2 = C2.Position1();
 
     // first, A1 & A2 must be coaxials
-    if (A1.Axis().IsCoaxial(A2.Axis(), Precision::Angular(), Precision::Confusion()))
+    if (A1.Axis().IsCoaxial(A2.Axis(), Precision1::Angular(), Precision1::Confusion()))
     {
       Standard_Real V = Vector3d(A1.Location(), A2.Location()).Dot(Vector3d(A1.Direction()));
       if (!Trim1 && !Trim2)
       {
-        if (Abs(C1.Radius() - C2.Radius()) < Precision::Confusion())
+        if (Abs(C1.Radius() - C2.Radius()) < Precision1::Confusion())
         {
           Handle(Geom_CylindricalSurface) C = new Geom_CylindricalSurface(A1, C1.Radius());
           Surf = new Geom_RectangularTrimmedSurface(C, Min(0., V), Max(0., V), Standard_False);
@@ -174,7 +174,7 @@ Handle(GeomSurface) GeomFill1::Surface(const Handle(GeomCurve3d)& Curve1,
     GeomFill_Generator Generator;
     Generator.AddCurve(Curve1);
     Generator.AddCurve(Curve2);
-    Generator.Perform(Precision::PConfusion());
+    Generator.Perform(Precision1::PConfusion());
     Surf = Generator.Surface();
   }
 
@@ -247,7 +247,7 @@ void GeomFill1::GetMinimalWeights(const Convert_ParameterisationType TConv,
     CtoBspl->Weights(Weights);
 
     TColStd_Array1OfReal poids(Weights.Lower(), Weights.Upper());
-    Standard_Real        angle_min = Max(Precision::PConfusion(), MinAng);
+    Standard_Real        angle_min = Max(Precision1::PConfusion(), MinAng);
 
     Handle(Geom_TrimmedCurve) Sect2 = new Geom_TrimmedCurve(new GeomCircle(C), 0., angle_min);
     CtoBspl                         = GeomConvert1::CurveToBSplineCurve(Sect2, TConv);

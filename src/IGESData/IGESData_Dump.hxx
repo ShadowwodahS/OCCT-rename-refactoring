@@ -39,7 +39,7 @@
 //                          AVAILABLE MACROS
 
 //  Dumping simple IGESEntity : see the class IGESDumper itself
-//  Dumping a text as HAsciiString (either from PCollection or TCollection)
+//  Dumping a text as HAsciiString (either from PCollection or TCollection1)
 //  (manages an empty pointer) :
 //  IGESData_DumpString(S,str)  displays   " "Content" " or "(undefined)"
 
@@ -69,7 +69,7 @@
 //  If it is a classic list, starting from 1 with a count (which can be 0),
 //  displays "Count <upper> ..."  or "Empty". Else, display "(low - up) ..."
 //        Level = 5, in addfition items are displayed shortly
-//        (Entity Directory Numbers, XY/XYZ Coordinates)
+//        (Entity Directory Numbers1, XY/XYZ Coordinates)
 //        Level > 5, in some cases, items are displayed with more details
 //        (Entities with Type/Form, XY/XYZ with Transformed equivalents)
 

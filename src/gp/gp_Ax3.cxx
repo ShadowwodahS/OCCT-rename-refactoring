@@ -140,7 +140,7 @@ Standard_Boolean Ax3::InitFromJson(const Standard_SStream& theSStream,
                                       Standard_Integer&       theStreamPos)
 {
   Standard_Integer        aPos       = theStreamPos;
-  AsciiString1 aStreamStr = Standard_Dump::Text(theSStream);
+  AsciiString1 aStreamStr = DumpTool::Text(theSStream);
 
   Coords3d anXYZLoc;
   OCCT_INIT_VECTOR_CLASS(aStreamStr,
@@ -181,7 +181,7 @@ Standard_Boolean Ax3::InitFromJson(const Standard_SStream& theSStream,
   vxdir = Dir3d(aXDir);
   vydir = Dir3d(anYDir);
 
-  if (!Direction().IsEqual(aDir, Precision::Angular()))
+  if (!Direction().IsEqual(aDir, Precision1::Angular()))
     return Standard_False;
 
   theStreamPos = aPos;

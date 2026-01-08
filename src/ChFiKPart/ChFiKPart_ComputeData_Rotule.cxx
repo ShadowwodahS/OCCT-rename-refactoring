@@ -83,7 +83,7 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
 
   Standard_Real alpha = dpl1.Angle(dpl2);
 
-  QuadQuadGeoIntersection LInt(pl1, pl2, Precision::Angular(), Precision::Confusion());
+  QuadQuadGeoIntersection LInt(pl1, pl2, Precision1::Angular(), Precision1::Confusion());
   Point3d             ptor, pcirc;
   if (LInt.IsDone())
   {

@@ -198,9 +198,9 @@ protected:
   //! @param[in] theAllElements  the map of all mesh elements
   //! @param[in] theNbMaxFaceNodes  the maximum amount of nodes per face, retrieved from drawer
   //! @param[out] theSharedNodes  the result map of all vertices that belong to one face at least
-  Standard_EXPORT void scanFacesForSharedNodes(const TColStd_PackedMapOfInteger& theAllElements,
+  Standard_EXPORT void scanFacesForSharedNodes(const PackedIntegerMap& theAllElements,
                                                const Standard_Integer            theNbMaxFaceNodes,
-                                               TColStd_PackedMapOfInteger& theSharedNodes) const;
+                                               PackedIntegerMap& theSharedNodes) const;
 
 protected:
   MeshVS_DataMapOfIntegerOwner  myNodeOwners;

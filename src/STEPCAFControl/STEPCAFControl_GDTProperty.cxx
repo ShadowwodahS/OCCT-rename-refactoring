@@ -87,7 +87,7 @@ Standard_Integer CountNormals(const Handle(MeshTriangulation)& theTriangulation)
 
   // Function to compare normal coordinates values.
   auto isEqual = [](const Standard_Real theVal1, const Standard_Real theVal2) {
-    return std::abs(theVal1 - theVal2) < Precision::Confusion();
+    return std::abs(theVal1 - theVal2) < Precision1::Confusion();
   };
   // Checking if all normals are equal.
   const Dir3d aReferenceNormal = theTriangulation->Normal(1);
@@ -263,7 +263,7 @@ Handle(StepVisual_TessellatedCurveSet) GenerateTessellatedCurveSet(const TopoSha
     {
       Curve3      aSCC;
       Handle(BSplineCurve3d) aBSCurve =
-        aSCC.ConvertToBSpline(anEdgeCurve, aFirstParam, aLastParam, Precision::Confusion());
+        aSCC.ConvertToBSpline(anEdgeCurve, aFirstParam, aLastParam, Precision1::Confusion());
       for (Standard_Integer aPoleIndex = 1; aPoleIndex <= aBSCurve->NbPoles(); ++aPoleIndex)
       {
         aTmpPointsContainer.Append(aBSCurve->Pole(aPoleIndex).XYZ());

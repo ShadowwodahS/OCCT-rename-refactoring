@@ -35,8 +35,8 @@ void BRepExtrema_ExtPC::Initialize(const TopoEdge& E)
     return; // protect against non-geometric type (e.g. polygon)
   Standard_Real U1, U2;
   myHC              = new BRepAdaptor_Curve(E);
-  Standard_Real Tol = Min(BRepInspector::Tolerance(E), Precision::Confusion());
-  Tol               = Max(myHC->Resolution(Tol), Precision::PConfusion());
+  Standard_Real Tol = Min(BRepInspector::Tolerance(E), Precision1::Confusion());
+  Tol               = Max(myHC->Resolution(Tol), Precision1::PConfusion());
   BRepInspector::Range(E, U1, U2);
   myExtPC.Initialize(*myHC, U1, U2, Tol);
 }

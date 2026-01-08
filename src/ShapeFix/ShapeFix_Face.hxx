@@ -201,7 +201,7 @@ public:
   Standard_EXPORT Standard_Boolean FixMissingSeam();
 
   //! Detects wires with small area (that is less than
-  //! 100*Precision::PConfusion(). Removes these wires if they are internal.
+  //! 100*Precision1::PConfusion(). Removes these wires if they are internal.
   //! Returns : True if at least one small wire removed,
   //! False if does nothing.
   Standard_EXPORT Standard_Boolean FixSmallAreaWire(const Standard_Boolean theIsRemoveSmallFace);

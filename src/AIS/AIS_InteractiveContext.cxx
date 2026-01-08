@@ -50,7 +50,7 @@ typedef NCollection_DataMap<Handle(SelectMgr_SelectableObject),
 
 //! Initialize default highlighting attributes.
 static void initDefaultHilightAttributes(const Handle(StyleDrawer)& theDrawer,
-                                         const Quantity_Color&       theColor)
+                                         const Color1&       theColor)
 {
   theDrawer->SetMethod(Aspect_TOHM_COLOR);
   theDrawer->SetDisplayMode(0);
@@ -1236,7 +1236,7 @@ void VisualContext::SetCurrentFacingModel(const Handle(VisualEntity)& theIObj,
 //=================================================================================================
 
 void VisualContext::SetColor(const Handle(VisualEntity)& theIObj,
-                                      const Quantity_Color&                theColor,
+                                      const Color1&                theColor,
                                       const Standard_Boolean               theToUpdateViewer)
 {
   if (theIObj.IsNull())
@@ -1389,7 +1389,7 @@ Standard_Boolean VisualContext::HasColor(
 //=================================================================================================
 
 void VisualContext::Color(const Handle(VisualEntity)& theIObj,
-                                   Quantity_Color&                      theColor) const
+                                   Color1&                      theColor) const
 {
   theIObj->Color(theColor);
 }
@@ -1932,7 +1932,7 @@ void VisualContext::InitAttributes()
   Handle(Prs3d_DatumAspect) aTrihAspect = myDefaultDrawer->DatumAspect();
   const Standard_Real       aLength     = 100.0;
   aTrihAspect->SetAxisLength(aLength, aLength, aLength);
-  const Quantity_Color aColor = Quantity_NOC_LIGHTSTEELBLUE4;
+  const Color1 aColor = Quantity_NOC_LIGHTSTEELBLUE4;
   aTrihAspect->LineAspect(Prs3d_DatumParts_XAxis)->SetColor(aColor);
   aTrihAspect->LineAspect(Prs3d_DatumParts_YAxis)->SetColor(aColor);
   aTrihAspect->LineAspect(Prs3d_DatumParts_ZAxis)->SetColor(aColor);
@@ -1984,7 +1984,7 @@ Standard_Boolean VisualContext::PlaneSize(Standard_Real& theX, Standard_Real& th
 {
   theX = myDefaultDrawer->PlaneAspect()->PlaneXLength();
   theY = myDefaultDrawer->PlaneAspect()->PlaneYLength();
-  return (Abs(theX - theY) <= Precision::Confusion());
+  return (Abs(theX - theY) <= Precision1::Confusion());
 }
 
 //=================================================================================================
@@ -2746,7 +2746,7 @@ AIS_StatusOfPick VisualContext::SelectDetected(const AIS_SelectionScheme theSelS
   {
     Graphic3d_Vec2i aMousePos(-1, -1);
     gp_Pnt2d        aMouseRealPos = MainSelector()->GetManager().GetMousePosition();
-    if (!Precision::IsInfinite(aMouseRealPos.X()) && !Precision::IsInfinite(aMouseRealPos.Y()))
+    if (!Precision1::IsInfinite(aMouseRealPos.X()) && !Precision1::IsInfinite(aMouseRealPos.Y()))
     {
       aMousePos.SetValues((Standard_Integer)aMouseRealPos.X(), (Standard_Integer)aMouseRealPos.Y());
     }

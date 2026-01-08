@@ -90,8 +90,8 @@ void Approx_CurveOnSurface_Eval::Evaluate(Standard_Integer* Dimension,
   // Parameter is incorrect
   if (StartEnd[0] != StartEndSav[0] || StartEnd[1] != StartEndSav[1])
   {
-    fonct          = fonct->Trim(StartEnd[0], StartEnd[1], Precision::PConfusion());
-    fonct2d        = fonct2d->Trim(StartEnd[0], StartEnd[1], Precision::PConfusion());
+    fonct          = fonct->Trim(StartEnd[0], StartEnd[1], Precision1::PConfusion());
+    fonct2d        = fonct2d->Trim(StartEnd[0], StartEnd[1], Precision1::PConfusion());
     StartEndSav[0] = StartEnd[0];
     StartEndSav[1] = StartEnd[1];
   }
@@ -187,7 +187,7 @@ void Approx_CurveOnSurface_Eval3d::Evaluate(Standard_Integer* Dimension,
   // Parameter is incorrect
   if (StartEnd[0] != StartEndSav[0] || StartEnd[1] != StartEndSav[1])
   {
-    fonct          = fonct->Trim(StartEnd[0], StartEnd[1], Precision::PConfusion());
+    fonct          = fonct->Trim(StartEnd[0], StartEnd[1], Precision1::PConfusion());
     StartEndSav[0] = StartEnd[0];
     StartEndSav[1] = StartEnd[1];
   }
@@ -270,7 +270,7 @@ void Approx_CurveOnSurface_Eval2d::Evaluate(Standard_Integer* Dimension,
   // Parameter is incorrect
   if (StartEnd[0] != StartEndSav[0] || StartEnd[1] != StartEndSav[1])
   {
-    fonct2d        = fonct2d->Trim(StartEnd[0], StartEnd[1], Precision::PConfusion());
+    fonct2d        = fonct2d->Trim(StartEnd[0], StartEnd[1], Precision1::PConfusion());
     StartEndSav[0] = StartEnd[0];
     StartEndSav[1] = StartEnd[1];
   }
@@ -377,7 +377,7 @@ void Approx_CurveOnSurface::Perform(const Standard_Integer theMaxSegments,
   else if (aContinuity > GeomAbs_C2)
     aContinuity = GeomAbs_C2; // Restriction of AdvApprox_ApproxAFunction
 
-  Handle(Adaptor2d_Curve2d) TrimmedC2D = myC2D->Trim(myFirst, myLast, Precision::PConfusion());
+  Handle(Adaptor2d_Curve2d) TrimmedC2D = myC2D->Trim(myFirst, myLast, Precision1::PConfusion());
 
   Standard_Boolean isU, isForward;
   Standard_Real    aParam;
@@ -423,17 +423,17 @@ void Approx_CurveOnSurface::Perform(const Standard_Integer theMaxSegments,
 
     if (mySurf->UContinuity() == GeomAbs_C0)
     {
-      if (!HSurfaceTool::IsSurfG1(mySurf, Standard_True, Precision::Angular()))
+      if (!HSurfaceTool::IsSurfG1(mySurf, Standard_True, Precision1::Angular()))
         TolU = Min(1.e-3, 1.e3 * TolU);
-      if (!HSurfaceTool::IsSurfG1(mySurf, Standard_True, Precision::Confusion()))
+      if (!HSurfaceTool::IsSurfG1(mySurf, Standard_True, Precision1::Confusion()))
         TolU = Min(1.e-3, 1.e2 * TolU);
     }
 
     if (mySurf->VContinuity() == GeomAbs_C0)
     {
-      if (!HSurfaceTool::IsSurfG1(mySurf, Standard_False, Precision::Angular()))
+      if (!HSurfaceTool::IsSurfG1(mySurf, Standard_False, Precision1::Angular()))
         TolV = Min(1.e-3, 1.e3 * TolV);
-      if (!HSurfaceTool::IsSurfG1(mySurf, Standard_False, Precision::Confusion()))
+      if (!HSurfaceTool::IsSurfG1(mySurf, Standard_False, Precision1::Confusion()))
         TolV = Min(1.e-3, 1.e2 * TolV);
     }
 
@@ -593,7 +593,7 @@ Standard_Boolean Approx_CurveOnSurface::isIsoLine(const Handle(Adaptor2d_Curve2d
 
     // Vector should be non-degenerated.
     gp_Vec2d aVec2d(aBSpline2d->Pole(1), aBSpline2d->Pole(2));
-    if (aVec2d.SquareMagnitude() < Precision::Confusion())
+    if (aVec2d.SquareMagnitude() < Precision1::Confusion())
       return Standard_False; // Degenerated spline.
     aDir2d = aVec2d;
 
@@ -609,7 +609,7 @@ Standard_Boolean Approx_CurveOnSurface::isIsoLine(const Handle(Adaptor2d_Curve2d
 
     // Vector should be non-degenerated.
     gp_Vec2d aVec2d(aBezier2d->Pole(1), aBezier2d->Pole(2));
-    if (aVec2d.SquareMagnitude() < Precision::Confusion())
+    if (aVec2d.SquareMagnitude() < Precision1::Confusion())
       return Standard_False; // Degenerated spline.
     aDir2d = aVec2d;
 
@@ -620,7 +620,7 @@ Standard_Boolean Approx_CurveOnSurface::isIsoLine(const Handle(Adaptor2d_Curve2d
     return Standard_False;
 
   // Check line to be vertical or horizontal.
-  if (aDir2d.IsParallel(gp1::DX2d(), Precision::Angular()))
+  if (aDir2d.IsParallel(gp1::DX2d(), Precision1::Angular()))
   {
     // Horizontal line. V = const.
     theIsU       = Standard_False;
@@ -628,7 +628,7 @@ Standard_Boolean Approx_CurveOnSurface::isIsoLine(const Handle(Adaptor2d_Curve2d
     theIsForward = aDir2d.Dot(gp1::DX2d()) > 0.0;
     return Standard_True;
   }
-  else if (aDir2d.IsParallel(gp1::DY2d(), Precision::Angular()))
+  else if (aDir2d.IsParallel(gp1::DY2d(), Precision1::Angular()))
   {
     // Vertical line. U = const.
     theIsU       = Standard_True;
@@ -676,9 +676,9 @@ Standard_Boolean Approx_CurveOnSurface::buildC3dOnIsoLine(const Handle(Adaptor2d
     {
       return Standard_False;
     }
-    else if (Precision::IsInfinite(V1) || Precision::IsInfinite(V2))
+    else if (Precision1::IsInfinite(V1) || Precision1::IsInfinite(V2))
     {
-      if (Abs(aV2Param - aV1Param) < Precision::PConfusion())
+      if (Abs(aV2Param - aV1Param) < Precision1::PConfusion())
       {
         return Standard_False;
       }
@@ -689,7 +689,7 @@ Standard_Boolean Approx_CurveOnSurface::buildC3dOnIsoLine(const Handle(Adaptor2d
     {
       aV1Param = Max(aV1Param, V1);
       aV2Param = Min(aV2Param, V2);
-      if (Abs(aV2Param - aV1Param) < Precision::PConfusion())
+      if (Abs(aV2Param - aV1Param) < Precision1::PConfusion())
       {
         return Standard_False;
       }
@@ -706,9 +706,9 @@ Standard_Boolean Approx_CurveOnSurface::buildC3dOnIsoLine(const Handle(Adaptor2d
     {
       return Standard_False;
     }
-    else if (Precision::IsInfinite(U1) || Precision::IsInfinite(U2))
+    else if (Precision1::IsInfinite(U1) || Precision1::IsInfinite(U2))
     {
-      if (Abs(aU2Param - aU1Param) < Precision::PConfusion())
+      if (Abs(aU2Param - aU1Param) < Precision1::PConfusion())
       {
         return Standard_False;
       }
@@ -719,7 +719,7 @@ Standard_Boolean Approx_CurveOnSurface::buildC3dOnIsoLine(const Handle(Adaptor2d
     {
       aU1Param = Max(aU1Param, U1);
       aU2Param = Min(aU2Param, U2);
-      if (Abs(aU2Param - aU1Param) < Precision::PConfusion())
+      if (Abs(aU2Param - aU1Param) < Precision1::PConfusion())
       {
         return Standard_False;
       }

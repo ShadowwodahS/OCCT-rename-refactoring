@@ -38,7 +38,7 @@ static Standard_Boolean Controle(const TColgp_Array1OfPnt&   Poles,
   Standard_Real           gx, gy, gz;
   Point3d                  Bary;
   Dir3d                  DX, DY;
-  constexpr Standard_Real aTolSingular = Precision::Confusion();
+  constexpr Standard_Real aTolSingular = Precision1::Confusion();
 
   GeomLib1::Inertia1(Poles, Bary, DX, DY, gx, gy, gz);
   if (gz < Tol && gy > aTolSingular)

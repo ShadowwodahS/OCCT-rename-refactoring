@@ -24,7 +24,7 @@
 //=================================================================================================
 
 BRepMesh_CircleTool::BRepMesh_CircleTool(const Handle(NCollection_IncAllocator)& theAllocator)
-    : myTolerance(Precision::PConfusion()),
+    : myTolerance(Precision1::PConfusion()),
       myAllocator(theAllocator),
       myCellFilter(10.0, theAllocator),
       mySelector(myTolerance, 64, theAllocator)
@@ -35,7 +35,7 @@ BRepMesh_CircleTool::BRepMesh_CircleTool(const Handle(NCollection_IncAllocator)&
 
 BRepMesh_CircleTool::BRepMesh_CircleTool(const Standard_Integer                  theReservedSize,
                                          const Handle(NCollection_IncAllocator)& theAllocator)
-    : myTolerance(Precision::PConfusion()),
+    : myTolerance(Precision1::PConfusion()),
       myAllocator(theAllocator),
       myCellFilter(10.0, theAllocator),
       mySelector(myTolerance, Max(theReservedSize, 64), theAllocator)
@@ -80,7 +80,7 @@ Standard_Boolean BRepMesh_CircleTool::MakeCircle(const Coords2d&   thePoint1,
                                                  Coords2d&         theLocation,
                                                  Standard_Real& theRadius)
 {
-  static const Standard_Real aPrecision   = Precision::PConfusion();
+  static const Standard_Real aPrecision   = Precision1::PConfusion();
   static const Standard_Real aSqPrecision = aPrecision * aPrecision;
 
   Coords2d aLink1(

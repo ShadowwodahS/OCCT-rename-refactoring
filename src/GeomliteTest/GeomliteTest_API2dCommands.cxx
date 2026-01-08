@@ -76,7 +76,7 @@ static Standard_Integer proj(DrawInterpreter& di, Standard_Integer n, const char
     gp_Pnt2d                      aP1   = proj.Point(i);
     const Standard_Real           aDist = P.Distance(aP1);
     const AsciiString1 aName = AsciiString1("ext_") + i;
-    if (aDist > Precision::PConfusion())
+    if (aDist > Precision1::PConfusion())
     {
       Handle(Geom2d_Line)         L  = new Geom2d_Line(P, gp_Dir2d(aP1.XY() - P.XY()));
       Handle(Geom2d_TrimmedCurve) CT = new Geom2d_TrimmedCurve(L, 0., aDist);
@@ -310,7 +310,7 @@ static Standard_Integer extrema(DrawInterpreter& di, Standard_Integer n, const c
     Ex.Points(i, P1, P2);
     di << "dist " << i << ": " << Ex.Distance(i) << "  ";
     const AsciiString1 aName = AsciiString1("ext_") + i;
-    if (Ex.Distance(i) <= Precision::PConfusion())
+    if (Ex.Distance(i) <= Precision1::PConfusion())
     {
       Handle(Draw_Marker2D) mark = new Draw_Marker2D(P1, Draw_X, Draw_vert);
       dout << mark;

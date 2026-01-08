@@ -382,7 +382,7 @@ Standard_Boolean AIS_Plane::Size(Standard_Real& X, Standard_Real& Y) const
 {
   X = myDrawer->PlaneAspect()->PlaneXLength();
   Y = myDrawer->PlaneAspect()->PlaneYLength();
-  return Abs(X - Y) <= Precision::Confusion();
+  return Abs(X - Y) <= Precision1::Confusion();
 }
 
 //=================================================================================================
@@ -416,7 +416,7 @@ Standard_Boolean AIS_Plane::HasMinimumSize() const
 
 //=================================================================================================
 
-void AIS_Plane::SetColor(const Quantity_Color& aCol)
+void AIS_Plane::SetColor(const Color1& aCol)
 {
   // if the plane already has its proper size, there is an already created planeaspect
   //  Standard_Boolean yenadeja = hasOwnColor || myHasOwnSize;
@@ -469,7 +469,7 @@ void AIS_Plane::UnsetColor()
   {
     const Handle(Prs3d_PlaneAspect) PA =
       myDrawer->HasLink() ? myDrawer->Link1()->PlaneAspect() : new Prs3d_PlaneAspect();
-    Quantity_Color Col = PA->EdgesAspect()->Aspect()->Color();
+    Color1 Col = PA->EdgesAspect()->Aspect()->Color();
     myDrawer->PlaneAspect()->EdgesAspect()->SetColor(Col);
 
     myDrawer->DatumAspect()->LineAspect(Prs3d_DatumParts_XAxis)->SetColor(Col);
@@ -501,9 +501,9 @@ void AIS_Plane::ComputeFrame()
 
     U = 2.4 * Abs(U);
     V = 2.4 * Abs(V);
-    if (U < 10 * Precision::Confusion())
+    if (U < 10 * Precision1::Confusion())
       U = 0.1;
-    if (V < 10 * Precision::Confusion())
+    if (V < 10 * Precision1::Confusion())
       V = 0.1;
     SetSize(U, V);
     myDrawer->PlaneAspect()->SetPlaneLength(U, V);

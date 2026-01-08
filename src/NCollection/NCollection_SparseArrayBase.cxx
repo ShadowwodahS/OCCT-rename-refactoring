@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-void NCollection_SparseArrayBase::allocData(const Standard_Size iBlock)
+void SparseArrayBase::allocData(const Standard_Size iBlock)
 {
   if (iBlock < myNbBlocks)
     return;
@@ -41,7 +41,7 @@ void NCollection_SparseArrayBase::allocData(const Standard_Size iBlock)
 
 //=================================================================================================
 
-void NCollection_SparseArrayBase::freeBlock(const Standard_Size iBlock)
+void SparseArrayBase::freeBlock(const Standard_Size iBlock)
 {
   Standard_Address& anAddr = myData[iBlock];
   Block1             aBlock = getBlock(anAddr);
@@ -57,7 +57,7 @@ void NCollection_SparseArrayBase::freeBlock(const Standard_Size iBlock)
 
 //=================================================================================================
 
-void NCollection_SparseArrayBase::Clear()
+void SparseArrayBase::Clear()
 {
   // free block data
   for (Standard_Size iBlock = 0; iBlock < myNbBlocks; iBlock++)
@@ -72,12 +72,12 @@ void NCollection_SparseArrayBase::Clear()
   // consistency check
   Standard_ProgramError_Raise_if(
     mySize != 0,
-    "NCollection_SparseArrayBase: Implementation error: inconsistent items count")
+    "SparseArrayBase: Implementation error: inconsistent items count")
 }
 
 //=================================================================================================
 
-void NCollection_SparseArrayBase::assign(const NCollection_SparseArrayBase& theOther)
+void SparseArrayBase::assign(const SparseArrayBase& theOther)
 {
   if (this == &theOther)
     return;
@@ -160,7 +160,7 @@ void NCollection_SparseArrayBase::assign(const NCollection_SparseArrayBase& theO
   // consistency check
   Standard_ProgramError_Raise_if(
     mySize != theOther.mySize,
-    "NCollection_SparseArrayBase: Implementation error: inconsistent items count")
+    "SparseArrayBase: Implementation error: inconsistent items count")
 }
 
 //=================================================================================================
@@ -173,7 +173,7 @@ static inline void sswap(T& a, T& b)
   b   = c;
 }
 
-void NCollection_SparseArrayBase::exchange(NCollection_SparseArrayBase& theOther)
+void SparseArrayBase::exchange(SparseArrayBase& theOther)
 {
   if (this == &theOther)
     return;
@@ -188,7 +188,7 @@ void NCollection_SparseArrayBase::exchange(NCollection_SparseArrayBase& theOther
 
 //=================================================================================================
 
-Standard_Address NCollection_SparseArrayBase::setValue(const Standard_Size    theIndex,
+Standard_Address SparseArrayBase::setValue(const Standard_Size    theIndex,
                                                        const Standard_Address theValue)
 {
   Standard_Size iBlock = theIndex / myBlockSize;
@@ -224,7 +224,7 @@ Standard_Address NCollection_SparseArrayBase::setValue(const Standard_Size    th
 
 //=================================================================================================
 
-Standard_Boolean NCollection_SparseArrayBase::HasValue(const Standard_Size theIndex) const
+Standard_Boolean SparseArrayBase::HasValue(const Standard_Size theIndex) const
 {
   Standard_Size iBlock = theIndex / myBlockSize;
   if (iBlock >= myNbBlocks || !myData[iBlock])
@@ -234,7 +234,7 @@ Standard_Boolean NCollection_SparseArrayBase::HasValue(const Standard_Size theIn
 
 //=================================================================================================
 
-Standard_Boolean NCollection_SparseArrayBase::UnsetValue(const Standard_Size theIndex)
+Standard_Boolean SparseArrayBase::UnsetValue(const Standard_Size theIndex)
 {
   // check that the item is defined
   Standard_Size iBlock = theIndex / myBlockSize;
@@ -260,8 +260,8 @@ Standard_Boolean NCollection_SparseArrayBase::UnsetValue(const Standard_Size the
 
 //=================================================================================================
 
-NCollection_SparseArrayBase::Iterator::Iterator(const NCollection_SparseArrayBase* theArray)
-    : myArr((NCollection_SparseArrayBase*)theArray),
+SparseArrayBase::Iterator::Iterator(const SparseArrayBase* theArray)
+    : myArr((SparseArrayBase*)theArray),
       myHasMore(Standard_False),
       myIBlock(0),
       myInd(0),
@@ -272,7 +272,7 @@ NCollection_SparseArrayBase::Iterator::Iterator(const NCollection_SparseArrayBas
 
 //=================================================================================================
 
-void NCollection_SparseArrayBase::Iterator::Next()
+void SparseArrayBase::Iterator::Next()
 {
   if (!myArr || !myHasMore)
     return;
@@ -306,9 +306,9 @@ void NCollection_SparseArrayBase::Iterator::Next()
 
 //=================================================================================================
 
-void NCollection_SparseArrayBase::Iterator::init(const NCollection_SparseArrayBase* theArray)
+void SparseArrayBase::Iterator::init(const SparseArrayBase* theArray)
 {
-  myArr     = (NCollection_SparseArrayBase*)theArray;
+  myArr     = (SparseArrayBase*)theArray;
   myHasMore = Standard_False;
   if (myArr)
   {

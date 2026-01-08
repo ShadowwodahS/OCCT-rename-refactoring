@@ -68,7 +68,7 @@ static Standard_Integer distmini(DrawInterpreter& di, Standard_Integer n, const 
   const char * ns1 = (a[2]), *ns2 = (a[3]), *ns0 = (a[1]);
   TopoShape S1(DBRep1::Get(ns1)), S2(DBRep1::Get(ns2));
 
-  Standard_Real    aDeflection = Precision::Confusion();
+  Standard_Real    aDeflection = Precision1::Confusion();
   Standard_Integer anIndex     = 4;
   if (n >= 5 && a[4][0] != '-')
   {
@@ -217,7 +217,7 @@ static int ShapeProximity(DrawInterpreter& theDI, Standard_Integer theNbArgs, co
     else if (aFlag == "-value")
     {
       isValue = Standard_True;
-      aTool.SetTolerance(Precision::Infinite());
+      aTool.SetTolerance(Precision1::Infinite());
     }
     else if (aFlag == "-profile")
     {

@@ -33,13 +33,13 @@ class V3d_CircularGrid : public Aspect_CircularGrid
   DEFINE_STANDARD_RTTIEXT(V3d_CircularGrid, Aspect_CircularGrid)
 public:
   Standard_EXPORT V3d_CircularGrid(const V3d_ViewerPointer& aViewer,
-                                   const Quantity_Color&    aColor,
-                                   const Quantity_Color&    aTenthColor);
+                                   const Color1&    aColor,
+                                   const Color1&    aTenthColor);
 
   Standard_EXPORT virtual ~V3d_CircularGrid();
 
-  Standard_EXPORT void SetColors(const Quantity_Color& aColor,
-                                 const Quantity_Color& aTenthColor) Standard_OVERRIDE;
+  Standard_EXPORT void SetColors(const Color1& aColor,
+                                 const Color1& aTenthColor) Standard_OVERRIDE;
 
   Standard_EXPORT void Display() Standard_OVERRIDE;
 

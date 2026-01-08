@@ -26,15 +26,15 @@
 //! and another thread either waits this event or checks periodically its state to perform job.
 //!
 //! This class provides interface similar to WinAPI Event objects.
-class Standard_Condition
+class Condition
 {
 public:
   //! Default constructor.
   //! @param theIsSet Initial flag state
-  Standard_EXPORT Standard_Condition(bool theIsSet);
+  Standard_EXPORT Condition(bool theIsSet);
 
   //! Destructor.
-  Standard_EXPORT ~Standard_Condition();
+  Standard_EXPORT ~Condition();
 
   //! Set event into signaling state.
   Standard_EXPORT void Set();
@@ -66,9 +66,9 @@ public:
 
 private:
   //! This method should not be called (prohibited).
-  Standard_Condition(const Standard_Condition& theCopy);
+  Condition(const Condition& theCopy);
   //! This method should not be called (prohibited).
-  Standard_Condition& operator=(const Standard_Condition& theCopy);
+  Condition& operator=(const Condition& theCopy);
 
 private:
 #ifdef _WIN32

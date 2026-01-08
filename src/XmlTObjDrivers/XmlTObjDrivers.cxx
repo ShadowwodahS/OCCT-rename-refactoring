@@ -36,7 +36,7 @@ const Handle(RefObject)& XmlTObjDrivers1::Factory(const Standard_GUID& aGUID)
   if (aGUID == XmlStorageDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "XmlTObjDrivers1 : Storage Plugin" << std::endl;
+    std::cout << "XmlTObjDrivers1 : Storage1 Plugin1" << std::endl;
 #endif
     static Handle(RefObject) model_sd =
       new XmlTObjDrivers_DocumentStorageDriver("Copyright: Open CASCADE 2004"); // default copyright
@@ -46,7 +46,7 @@ const Handle(RefObject)& XmlTObjDrivers1::Factory(const Standard_GUID& aGUID)
   if (aGUID == XmlRetrievalDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "XmlTObjDrivers1 : Retrieval Plugin" << std::endl;
+    std::cout << "XmlTObjDrivers1 : Retrieval Plugin1" << std::endl;
 #endif
     static Handle(RefObject) model_rd = new XmlTObjDrivers_DocumentRetrievalDriver;
     return model_rd;

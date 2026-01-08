@@ -68,7 +68,7 @@ static Standard_Integer chamf_throat_with_penetration(DrawInterpreter& di,
       offset = Draw1::Atof(a[i + 2]);
       throat = Draw1::Atof(a[i + 3]);
 
-      if (offset > Precision::Confusion() && throat > offset)
+      if (offset > Precision1::Confusion() && throat > offset)
         aMCh.Add(offset, throat, E, F);
     }
     i += NbArg;
@@ -128,7 +128,7 @@ static Standard_Integer chamf_throat(DrawInterpreter& di, Standard_Integer narg,
     {
       throat = Draw1::Atof(a[i + 1]);
 
-      if (throat > Precision::Confusion())
+      if (throat > Precision1::Confusion())
         aMCh.Add(throat, E);
     }
     i += 2;
@@ -204,7 +204,7 @@ static Standard_Integer chamfer(DrawInterpreter& di, Standard_Integer narg, cons
       {
         // symmetric chamfer (one distance)
         d1 = atof(a[i + 1]);
-        if (aMCh.Contour(E) == 0 && d1 > Precision::Confusion())
+        if (aMCh.Contour(E) == 0 && d1 > Precision1::Confusion())
           aMCh.Add(d1, E);
         i += 2;
       }
@@ -220,8 +220,8 @@ static Standard_Integer chamfer(DrawInterpreter& di, Standard_Integer narg, cons
             d1    = Draw1::Atof(a[i + 3]);
             angle = Draw1::Atof(a[i + 4]);
             angle *= M_PI / 180.;
-            if (aMCh.Contour(E) == 0 && d1 > Precision::Confusion()
-                && angle > Precision::Confusion() && M_PI / 2 - angle > Precision::Confusion())
+            if (aMCh.Contour(E) == 0 && d1 > Precision1::Confusion()
+                && angle > Precision1::Confusion() && M_PI / 2 - angle > Precision1::Confusion())
               aMCh.AddDA(d1, angle, E, F);
             i += 5;
           }
@@ -230,7 +230,7 @@ static Standard_Integer chamfer(DrawInterpreter& di, Standard_Integer narg, cons
             // chamfer with two distances
             d1 = Draw1::Atof(a[i + 2]);
             d2 = Draw1::Atof(a[i + 3]);
-            if (aMCh.Contour(E) == 0 && d1 > Precision::Confusion() && d2 > Precision::Confusion())
+            if (aMCh.Contour(E) == 0 && d1 > Precision1::Confusion() && d2 > Precision1::Confusion())
               aMCh.Add(d1, d2, E, F);
             i += 4;
           }

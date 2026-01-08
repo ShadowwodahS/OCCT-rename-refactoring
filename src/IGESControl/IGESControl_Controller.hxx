@@ -66,7 +66,7 @@ public:
     const Standard_Integer                  modetrans = 0,
     const Message_ProgressRange& theProgress = Message_ProgressRange()) const Standard_OVERRIDE;
 
-  //! Standard Initialisation. It creates a Controller for IGES and
+  //! Standard1 Initialisation. It creates a Controller for IGES and
   //! records it to various names, available to select it later
   //! Returns True when done, False if could not be done
   //! Also, it creates and records an Adaptor for FNES

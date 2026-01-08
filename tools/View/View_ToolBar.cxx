@@ -128,7 +128,7 @@ void View_ToolBar::SetContext(View_ContextType                      theType,
   if (!theContext.IsNull())
     aViewContextName = QString("%1 : [%2]")
                          .arg(myViewContextNames[theType])
-                         .arg(Standard_Dump::GetPointerInfo(theContext, true).ToCString());
+                         .arg(DumpTool::GetPointerInfo(theContext, true).ToCString());
   // there are only "Own" and "None" items
   if (!theContext.IsNull() && theType == View_ContextType_External && myViewSelector->count() == 2)
     myViewSelector->insertItem(View_ContextType_External, aViewContextName);

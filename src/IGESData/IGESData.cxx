@@ -225,7 +225,7 @@ void IGESData1::Init()
   */
   Standard_Integer year; // gka 19.01.99
   OSD_Process      system;
-  Quantity_Date    ladate = system.SystemDate();
+  Date2    ladate = system.SystemDate();
   year                    = ladate.Year();
   Handle(TCollection_HAsciiString) datestr;
   if (year < 2000)

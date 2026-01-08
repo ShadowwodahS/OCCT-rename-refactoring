@@ -156,7 +156,7 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
   if (Context().IsNull())
     SetContext(new ShapeBuild_ReShape);
 
-  Standard_Real preci = Precision();
+  Standard_Real preci = Precision1();
 
   Handle(ShapeExtend_WireData) sbwd = WireData();
   Standard_Integer             n2   = (num > 0 ? num : sbwd->NbEdges());
@@ -327,12 +327,12 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
           segment = Standard_True;
         }
         if (segment)
-          bsp = GeomConvert1::SplitBSplineCurve(bsp, fbsp, lbsp, ::Precision::Confusion());
+          bsp = GeomConvert1::SplitBSplineCurve(bsp, fbsp, lbsp, ::Precision1::Confusion());
       }
       else if (c->IsKind(STANDARD_TYPE(Geom_Conic)))
       {
         Approx_Curve3d Conv(new GeomAdaptor_Curve(c, first, last),
-                            myAnalyzer->Precision(),
+                            myAnalyzer->Precision1(),
                             GeomAbs_C1,
                             9,
                             1000);
@@ -516,8 +516,8 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
       u2 = AdjustOnPeriodic3d(c2, !reversed2, first2, last2, u2);
       // Check points to satisfy distance criterium
       Point3d p1 = c1->Value(u1), p2 = c2->Value(u2);
-      if (p1.Distance(p2) <= gap && Abs(cfirst1 - u1) > ::Precision::PConfusion()
-          && Abs(clast2 - u2) > ::Precision::PConfusion()
+      if (p1.Distance(p2) <= gap && Abs(cfirst1 - u1) > ::Precision1::PConfusion()
+          && Abs(clast2 - u2) > ::Precision1::PConfusion()
           && (((u1 > first1) && (u1 < last1)) || ((u2 > first2) && (u2 < last2))
               || (cpnt1.Distance(p1) <= gap) || (cpnt2.Distance(p2) <= gap)))
       {
@@ -570,7 +570,7 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
               uu2 = AdjustOnPeriodic3d(c2, !reversed2, first2, last2, uu2);
               pp1 = c1->Value(uu1);
               pp2 = c2->Value(uu2);
-              if (pp1.Distance(pp2) < ::Precision::Confusion())
+              if (pp1.Distance(pp2) < ::Precision1::Confusion())
               {
                 // assume intersection
                 pardist = Abs(cfirst1 - uu1);
@@ -608,8 +608,8 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
             uu2 = AdjustOnPeriodic3d(c2, !reversed2, first2, last2, uu2);
             // Check points to satisfy distance criterium
             pp1 = c1->Value(uu1), pp2 = c2->Value(uu2);
-            if (pp1.Distance(pp2) <= gap && Abs(cfirst1 - uu1) > ::Precision::PConfusion()
-                && Abs(clast2 - uu2) > ::Precision::PConfusion()
+            if (pp1.Distance(pp2) <= gap && Abs(cfirst1 - uu1) > ::Precision1::PConfusion()
+                && Abs(clast2 - uu2) > ::Precision1::PConfusion()
                 && (((uu1 > first1) && (uu1 < last1)) || ((uu2 > first2) && (uu2 < last2))
                     || (cpnt1.Distance(pp1) <= gap) || (cpnt2.Distance(pp2) <= gap)))
             {
@@ -693,7 +693,7 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
     // smh#8
     TopoShape  emptyCopiedV2 = V2.EmptyCopied();
     TopoVertex newV2         = TopoDS::Vertex(emptyCopiedV2);
-    SFST.SetTolerance(newV2, ::Precision::Confusion());
+    SFST.SetTolerance(newV2, ::Precision1::Confusion());
     Context()->Replace(V2, newV2);
     if (V1.IsSame(V2))
     // smh#8
@@ -706,7 +706,7 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
       // smh#8
       TopoShape emptyCopied = V1.EmptyCopied();
       newV1                    = TopoDS::Vertex(emptyCopied);
-      SFST.SetTolerance(newV1, ::Precision::Confusion());
+      SFST.SetTolerance(newV1, ::Precision1::Confusion());
       Context()->Replace(V1, newV1);
     }
 
@@ -718,7 +718,7 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
       TopoShape tmpE1 = newE1.Oriented(TopAbs_FORWARD);
       B.UpdateEdge(TopoDS::Edge(tmpE1), c1, 0.);
       SBE.SetRange3d(TopoDS::Edge(tmpE1), first1, last1);
-      SFST.SetTolerance(newE1, ::Precision::Confusion(), TopAbs_EDGE);
+      SFST.SetTolerance(newE1, ::Precision1::Confusion(), TopAbs_EDGE);
       B.SameRange(newE1, Standard_False);
       //      B.SameParameter(newE1,Standard_False);
 
@@ -749,7 +749,7 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
       TopoShape tmpE2 = newE2.Oriented(TopAbs_FORWARD);
       B.UpdateEdge(TopoDS::Edge(tmpE2), c2, 0.);
       SBE.SetRange3d(TopoDS::Edge(tmpE2), first2, last2);
-      SFST.SetTolerance(newE2, ::Precision::Confusion(), TopAbs_EDGE);
+      SFST.SetTolerance(newE2, ::Precision1::Confusion(), TopAbs_EDGE);
       B.SameRange(newE2, Standard_False);
       //      B.SameParameter(newE2,Standard_False);
 
@@ -816,8 +816,8 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
   if (Context().IsNull())
     SetContext(new ShapeBuild_ReShape);
 
-  constexpr Standard_Real preci = ::Precision::PConfusion();
-  // Standard_Real preci = Precision();
+  constexpr Standard_Real preci = ::Precision1::PConfusion();
+  // Standard_Real preci = Precision1();
   // GeomAdaptor_Surface& SA = Analyzer().Surface()->Adaptor()->ChangeSurface();
   // preci = Max(SA.UResolution(preci), SA.VResolution(preci));
 
@@ -972,13 +972,13 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
           segment = Standard_True;
         }
         if (segment)
-          bsp = Geom2dConvert1::SplitBSplineCurve(bsp, fbsp, lbsp, ::Precision::PConfusion());
+          bsp = Geom2dConvert1::SplitBSplineCurve(bsp, fbsp, lbsp, ::Precision1::PConfusion());
       }
       else if (pc->IsKind(STANDARD_TYPE(Geom2d_Conic)))
       {
         GeomAdaptor_Surface& AS   = *myAnalyzer->Surface()->Adaptor3d();
-        Standard_Real        tolu = AS.UResolution(myAnalyzer->Precision()),
-                      tolv        = AS.VResolution(myAnalyzer->Precision());
+        Standard_Real        tolu = AS.UResolution(myAnalyzer->Precision1()),
+                      tolv        = AS.VResolution(myAnalyzer->Precision1());
         Approx_Curve2d Conv(new Geom2dAdaptor_Curve(pc, first, last),
                             first,
                             last,
@@ -1133,7 +1133,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
       Standard_Real ipar1 = clast1, ipar2 = cfirst2;
 
       Geom2dInt_GInter        Inter;
-      constexpr Standard_Real tolint = ::Precision::PConfusion();
+      constexpr Standard_Real tolint = ::Precision1::PConfusion();
 
       Geom2dAdaptor_Curve AC1(pc1), AC2(pc2);
 
@@ -1261,8 +1261,8 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
           Standard_Real u2 = AdjustOnPeriodic2d(pc2, !reversed2, first2, last2, IP.ParamOnSecond());
           // Check points to satisfy distance criterium
           gp_Pnt2d p1 = pc1->Value(u1), p2 = pc2->Value(u2);
-          if (p1.Distance(p2) <= gap && Abs(cfirst1 - u1) > ::Precision::PConfusion()
-              && Abs(clast2 - u2) > ::Precision::PConfusion()
+          if (p1.Distance(p2) <= gap && Abs(cfirst1 - u1) > ::Precision1::PConfusion()
+              && Abs(clast2 - u2) > ::Precision1::PConfusion()
               && (((u1 > first1) && (u1 < last1)) || ((u2 > first2) && (u2 < last2))
                   || (cpnt1.Distance(p1) <= gap) || (cpnt2.Distance(p2) <= gap)))
           {
@@ -1286,8 +1286,8 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
           u2 = AdjustOnPeriodic2d(pc2, !reversed2, first2, last2, u2);
           // Check points to satisfy distance criterium
           gp_Pnt2d p1 = pc1->Value(u1), p2 = pc2->Value(u2);
-          if (p1.Distance(p2) <= gap && Abs(cfirst1 - u1) > ::Precision::PConfusion()
-              && Abs(clast2 - u2) > ::Precision::PConfusion()
+          if (p1.Distance(p2) <= gap && Abs(cfirst1 - u1) > ::Precision1::PConfusion()
+              && Abs(clast2 - u2) > ::Precision1::PConfusion()
               && (((u1 > first1) && (u1 < last1)) || ((u2 > first2) && (u2 < last2))
                   || (cpnt1.Distance(p1) <= gap) || (cpnt2.Distance(p2) <= gap)))
           {
@@ -1399,8 +1399,8 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
         u2 = AdjustOnPeriodic2d(pc2, !reversed2, first2, last2, u2);
         // Check points to satisfy distance criterium
         gp_Pnt2d p1 = pc1->Value(u1), p2 = pc2->Value(u2);
-        if (p1.Distance(p2) <= gap && Abs(cfirst1 - u1) > ::Precision::PConfusion()
-            && Abs(clast2 - u2) > ::Precision::PConfusion()
+        if (p1.Distance(p2) <= gap && Abs(cfirst1 - u1) > ::Precision1::PConfusion()
+            && Abs(clast2 - u2) > ::Precision1::PConfusion()
             && (((u1 > first1) && (u1 < last1)) || ((u2 > first2) && (u2 < last2))
                 || (cpnt1.Distance(p1) <= gap) || (cpnt2.Distance(p2) <= gap)))
         {
@@ -1419,18 +1419,18 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
           // Check whether new points lie inside the surface bounds
           Standard_Real umin, umax, vmin, vmax;
           myAnalyzer->Surface()->Surface()->Bounds(umin, umax, vmin, vmax);
-          if (::Precision::IsInfinite(umin) || ::Precision::IsInfinite(umax)
-              || ::Precision::IsInfinite(vmin) || ::Precision::IsInfinite(vmax))
+          if (::Precision1::IsInfinite(umin) || ::Precision1::IsInfinite(umax)
+              || ::Precision1::IsInfinite(vmin) || ::Precision1::IsInfinite(vmax))
           {
             Standard_Real fumin, fumax, fvmin, fvmax;
             BRepTools1::UVBounds(face, fumin, fumax, fvmin, fvmax);
-            if (::Precision::IsInfinite(umin))
+            if (::Precision1::IsInfinite(umin))
               umin = fumin - preci;
-            if (::Precision::IsInfinite(umax))
+            if (::Precision1::IsInfinite(umax))
               umax = fumax + preci;
-            if (::Precision::IsInfinite(vmin))
+            if (::Precision1::IsInfinite(vmin))
               vmin = fvmin - preci;
-            if (::Precision::IsInfinite(vmax))
+            if (::Precision1::IsInfinite(vmax))
               vmax = fvmax + preci;
           }
 
@@ -1600,12 +1600,12 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
                                             fpar,
                                             lpar,
                                             IP.ParamOnSecond());
-                    if (j == 1 && Abs(cfirst1 - uu) > ::Precision::PConfusion())
+                    if (j == 1 && Abs(cfirst1 - uu) > ::Precision1::PConfusion())
                     {
                       ipar1 = uu;
                       ipnt  = IP.Value();
                     }
-                    if (j == 2 && Abs(clast2 - uu) > ::Precision::PConfusion())
+                    if (j == 2 && Abs(clast2 - uu) > ::Precision1::PConfusion())
                     {
                       ipar2 = uu;
                       ipnt  = IP.Value();
@@ -1707,7 +1707,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
     // smh#8
     TopoShape  emptyCopiedV2 = V2.EmptyCopied();
     TopoVertex newV2         = TopoDS::Vertex(emptyCopiedV2);
-    SFST.SetTolerance(newV2, ::Precision::Confusion());
+    SFST.SetTolerance(newV2, ::Precision1::Confusion());
     Context()->Replace(V2, newV2);
     if (V1.IsSame(V2))
     // smh#8
@@ -1720,7 +1720,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
       // smh#8
       TopoShape emptyCopiedV1 = V1.EmptyCopied();
       newV1                      = TopoDS::Vertex(emptyCopiedV1);
-      SFST.SetTolerance(newV1, ::Precision::Confusion());
+      SFST.SetTolerance(newV1, ::Precision1::Confusion());
       Context()->Replace(V1, newV1);
     }
 
@@ -1732,7 +1732,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
       TopoShape tmpE1 = newE1.Oriented(TopAbs_FORWARD);
       B.UpdateEdge(TopoDS::Edge(tmpE1), pc1, face, 0.);
       B.Range(TopoDS::Edge(tmpE1), face, first1, last1);
-      SFST.SetTolerance(newE1, ::Precision::Confusion(), TopAbs_EDGE);
+      SFST.SetTolerance(newE1, ::Precision1::Confusion(), TopAbs_EDGE);
       B.SameRange(newE1, Standard_False);
       //      B.SameParameter(newE1,Standard_False);
 
@@ -1763,7 +1763,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
       TopoShape tmpE2 = newE2.Oriented(TopAbs_FORWARD);
       B.UpdateEdge(TopoDS::Edge(tmpE2), pc2, face, 0.);
       B.Range(TopoDS::Edge(tmpE2), face, first2, last2);
-      SFST.SetTolerance(newE2, ::Precision::Confusion(), TopAbs_EDGE);
+      SFST.SetTolerance(newE2, ::Precision1::Confusion(), TopAbs_EDGE);
       B.SameRange(newE2, Standard_False);
       //      B.SameParameter(newE2,Standard_False);
       // To keep NM vertices belonging initial edges

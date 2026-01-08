@@ -12,7 +12,7 @@
 // commercial license or contractual agreement.
 
 // gka 06.01.99 S3767
-// abv 10.04.99 S4136: eliminate using BRepAPI::Precision()
+// abv 10.04.99 S4136: eliminate using BRepAPI::Precision1()
 
 #include <BRepLib.hxx>
 #include <DEIGES_Parameters.hxx>

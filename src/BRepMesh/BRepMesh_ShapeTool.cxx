@@ -119,8 +119,8 @@ void BRepMesh_ShapeTool::CheckAndUpdateFlags(const IMeshData::IEdgeHandle&   the
     {
       const Standard_Real aDiffFirst = aCurveOnSurf.FirstParameter() - aFirstParam;
       const Standard_Real aDiffLast  = aCurveOnSurf.LastParameter() - aLastParam;
-      theEdge->SetSameRange(Abs(aDiffFirst) < Precision::PConfusion()
-                            && Abs(aDiffLast) < Precision::PConfusion());
+      theEdge->SetSameRange(Abs(aDiffFirst) < Precision1::PConfusion()
+                            && Abs(aDiffLast) < Precision1::PConfusion());
 
       if (!theEdge->GetSameRange())
       {

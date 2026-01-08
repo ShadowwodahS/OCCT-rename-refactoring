@@ -448,8 +448,8 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::Compute(Standard_Real& u1,
   gp_Vec2d&              aPrmTg  = MyImplicitFirst ? Tguv2 : Tguv1;
 
   // for square
-  constexpr Standard_Real aNullValue = Precision::Approximation() * Precision::Approximation(),
-                          anAngTol   = Precision::Angular();
+  constexpr Standard_Real aNullValue = Precision1::Approximation() * Precision1::Approximation(),
+                          anAngTol   = Precision1::Angular();
 
   Standard_Real tu1 = u1;
   Standard_Real tu2 = u2;
@@ -1006,9 +1006,9 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::FillInitialVectorOfSolution(
   if (GetUseSolver())
   {
     Standard_Real du =
-      Max(Precision::Confusion(), ThePSurfaceTool::UResolution(aPSurf, Precision::Confusion()));
+      Max(Precision1::Confusion(), ThePSurfaceTool::UResolution(aPSurf, Precision1::Confusion()));
     Standard_Real dv =
-      Max(Precision::Confusion(), ThePSurfaceTool::VResolution(aPSurf, Precision::Confusion()));
+      Max(Precision1::Confusion(), ThePSurfaceTool::VResolution(aPSurf, Precision1::Confusion()));
     if (X(1) - 0.0000000001 <= binfu)
       X(1) = X(1) + du;
     if (X(1) + 0.0000000001 >= bsupu)

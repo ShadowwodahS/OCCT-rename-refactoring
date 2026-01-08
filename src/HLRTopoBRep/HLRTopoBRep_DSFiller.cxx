@@ -88,7 +88,7 @@ void DSFiller::Insert(const TopoShape&            S,
       }
       else
       {
-        BRepTopAdaptor_Tool BRT(S1, Precision::PConfusion());
+        BRepTopAdaptor_Tool BRT(S1, Precision1::PConfusion());
         MST.Bind(S1, BRT);
         Domain  = BRT.GetTopolTool();
         Surface = BRT.GetSurface();
@@ -187,7 +187,7 @@ void DSFiller::InsertFace(const Standard_Integer /*FI*/,
           VL                       = MakeVertex(PL, tol, DS);
           const Standard_Real parL = PL.ParameterOnLine();
 
-          if ((parL - parF) > Precision::PConfusion())
+          if ((parL - parF) > Precision1::PConfusion())
           {
 
             Handle(GeomCurve3d)   C;

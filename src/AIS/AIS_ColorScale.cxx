@@ -41,8 +41,8 @@ static void addColoredQuad(const Handle(Graphic3d_ArrayOfTriangles)& theTris,
                            const Standard_Integer                    theYBottom,
                            const Standard_Integer                    theSizeX,
                            const Standard_Integer                    theSizeY,
-                           const Quantity_Color&                     theColorBottom,
-                           const Quantity_Color&                     theColorTop)
+                           const Color1&                     theColorBottom,
+                           const Color1&                     theColorTop)
 {
   const Standard_Integer aVertIndex = theTris->VertexNumber() + 1;
   theTris->AddVertex(Point3d(theXLeft, theYBottom, 0.0), theColorBottom);
@@ -54,7 +54,7 @@ static void addColoredQuad(const Handle(Graphic3d_ArrayOfTriangles)& theTris,
 }
 
 //! Compute hue angle from specified value.
-static Quantity_Color colorFromValueEx(const Standard_Real    theValue,
+static Color1 colorFromValueEx(const Standard_Real    theValue,
                                        const Standard_Real    theMin,
                                        const Standard_Real    theMax,
                                        const Graphic3d_Vec3d& theHlsMin,
@@ -73,7 +73,7 @@ static Quantity_Color colorFromValueEx(const Standard_Real    theValue,
     NCollection_Lerp1<Standard_Real>::Interpolate(theHlsMin[1], theHlsMax[1], aValue);
   Standard_Real aSaturation =
     NCollection_Lerp1<Standard_Real>::Interpolate(theHlsMin[2], theHlsMax[2], aValue);
-  return Quantity_Color(AIS_ColorScale::hueToValidRange(aHue),
+  return Color1(AIS_ColorScale::hueToValidRange(aHue),
                         aLightness,
                         aSaturation,
                         Quantity_TOC_HLS);
@@ -93,7 +93,7 @@ static Standard_Integer colorDiscreteInterval(Standard_Real    theValue,
                                               Standard_Real    theMax,
                                               Standard_Integer theNbIntervals)
 {
-  if (Abs(theMax - theMin) <= Precision::Approximation())
+  if (Abs(theMax - theMin) <= Precision1::Approximation())
   {
     return 1;
   }
@@ -164,13 +164,13 @@ UtfString AIS_ColorScale::GetLabel(const Standard_Integer theIndex) const
 
 //=================================================================================================
 
-Quantity_Color AIS_ColorScale::GetIntervalColor(const Standard_Integer theIndex) const
+Color1 AIS_ColorScale::GetIntervalColor(const Standard_Integer theIndex) const
 {
   if (myColorType == Aspect_TOCSD_USER)
   {
     if (theIndex <= 0 || theIndex > myColors.Length())
     {
-      return Quantity_Color();
+      return Color1();
     }
     return myColors.Value(theIndex);
   }
@@ -236,13 +236,13 @@ void AIS_ColorScale::SetLabel(const UtfString& theLabel,
 
 //=================================================================================================
 
-void AIS_ColorScale::SetIntervalColor(const Quantity_Color&  theColor,
+void AIS_ColorScale::SetIntervalColor(const Color1&  theColor,
                                       const Standard_Integer theIndex)
 {
   const Standard_Integer aColorIndex = (theIndex <= 0 ? myColors.Length() + 1 : theIndex);
   while (myColors.Length() < aColorIndex)
   {
-    myColors.Append(Quantity_Color());
+    myColors.Append(Color1());
   }
   myColors.SetValue(aColorIndex, theColor);
 }
@@ -281,7 +281,7 @@ Aspect_SequenceOfColor AIS_ColorScale::MakeUniformColors(Standard_Integer theNbC
 
   // adjust range to be within (0, 360], with sign according to theHueFrom and theHueTo
   Standard_Real           aHueRange = std::fmod(theHueTo - theHueFrom, 360.);
-  constexpr Standard_Real aHueEps   = Precision::Angular() * 180. / M_PI;
+  constexpr Standard_Real aHueEps   = Precision1::Angular() * 180. / M_PI;
   if (Abs(aHueRange) <= aHueEps)
   {
     aHueRange = (aHueRange < 0 ? -360. : 360.);
@@ -299,7 +299,7 @@ Aspect_SequenceOfColor AIS_ColorScale::MakeUniformColors(Standard_Integer theNbC
     {
       aHue += 360.;
     }
-    Quantity_Color aColor(theLightness, 130., aHue, Quantity_TOC_CIELch);
+    Color1 aColor(theLightness, 130., aHue, Quantity_TOC_CIELch);
     aResult.Append(aColor);
     return aResult;
   }
@@ -307,7 +307,7 @@ Aspect_SequenceOfColor AIS_ColorScale::MakeUniformColors(Standard_Integer theNbC
   // discretize the range with 1 degree step
   const int                          NBCOLORS = 2 + (int)Abs(aHueRange / 1.);
   Standard_Real                      aHueStep = aHueRange / (NBCOLORS - 1);
-  NCollection_Array1<Quantity_Color> aGrid(0, NBCOLORS - 1);
+  NCollection_Array1<Color1> aGrid(0, NBCOLORS - 1);
   for (Standard_Integer i = 0; i < NBCOLORS; i++)
   {
     Standard_Real aHue = std::fmod(theHueFrom + i * aHueStep, 360.);
@@ -348,7 +348,7 @@ Aspect_SequenceOfColor AIS_ColorScale::MakeUniformColors(Standard_Integer theNbC
     {
       float          aCoefPrev = float((aParam - aTarget) / (aParam - aPrev));
       float          aCoefCurr = float((aTarget - aPrev) / (aParam - aPrev));
-      Quantity_Color aColor(aGrid(i).Rgb() * aCoefCurr + aGrid(i - 1).Rgb() * aCoefPrev);
+      Color1 aColor(aGrid(i).Rgb() * aCoefCurr + aGrid(i - 1).Rgb() * aCoefPrev);
       aResult.Append(aColor);
       aTarget += aDStep;
     }
@@ -421,7 +421,7 @@ Standard_Real AIS_ColorScale::GetIntervalValue(const Standard_Integer theIndex) 
 
 //=================================================================================================
 
-Quantity_Color AIS_ColorScale::colorFromValue(const Standard_Real theValue,
+Color1 AIS_ColorScale::colorFromValue(const Standard_Real theValue,
                                               const Standard_Real theMin,
                                               const Standard_Real theMax) const
 {
@@ -431,11 +431,11 @@ Quantity_Color AIS_ColorScale::colorFromValue(const Standard_Real theValue,
 //=================================================================================================
 
 Standard_Boolean AIS_ColorScale::FindColor(const Standard_Real theValue,
-                                           Quantity_Color&     theColor) const
+                                           Color1&     theColor) const
 {
   if (theValue < myMin || theValue > myMax || myMax < myMin)
   {
-    theColor = Quantity_Color();
+    theColor = Color1();
     return Standard_False;
   }
 
@@ -445,7 +445,7 @@ Standard_Boolean AIS_ColorScale::FindColor(const Standard_Real theValue,
       colorDiscreteInterval(theValue, myMin, myMax, myNbIntervals);
     if (anInterval < myColors.Lower() || anInterval > myColors.Upper())
     {
-      theColor = Quantity_Color();
+      theColor = Color1();
       return Standard_False;
     }
 
@@ -464,7 +464,7 @@ Standard_Boolean AIS_ColorScale::FindColor(const Standard_Real    theValue,
                                            const Standard_Integer theColorsCount,
                                            const Graphic3d_Vec3d& theColorHlsMin,
                                            const Graphic3d_Vec3d& theColorHlsMax,
-                                           Quantity_Color&        theColor)
+                                           Color1&        theColor)
 {
   if (theValue < theMin || theValue > theMax || theMax < theMin)
   {
@@ -500,7 +500,7 @@ Standard_Integer AIS_ColorScale::computeMaxLabelWidth(
 void AIS_ColorScale::updateTextAspect()
 {
   // update text aspect
-  const Quantity_Color aFgColor(hasOwnColor ? myDrawer->Color() : Quantity_NOC_WHITE);
+  const Color1 aFgColor(hasOwnColor ? myDrawer->Color() : Quantity_NOC_WHITE);
   if (!myDrawer->HasOwnTextAspect())
   {
     myDrawer->SetTextAspect(new Prs3d_TextAspect());
@@ -632,7 +632,7 @@ void AIS_ColorScale::drawColorBar(const Handle(Prs3d_Presentation)& thePrs,
                                                                      // clang-format off
                                                  false, true);                   // per-vertex colors
                                                                      // clang-format on
-    Quantity_Color         aColor1(aColors.Value(1)), aColor2;
+    Color1         aColor1(aColors.Value(1)), aColor2;
     Standard_Integer       aSizeY        = Standard_Integer(aStepY / 2);
     const Standard_Integer anYBottom     = theBarBottom + aSizeY;
     Standard_Integer       anYBottomIter = anYBottom;
@@ -653,7 +653,7 @@ void AIS_ColorScale::drawColorBar(const Handle(Prs3d_Presentation)& thePrs,
   {
     // smooth transition between standard colors - without solid color regions at the beginning and
     // end of full color range
-    const Quantity_Color aColorsFixed[5] = {colorFromValue(0, 0, 4),
+    const Color1 aColorsFixed[5] = {colorFromValue(0, 0, 4),
                                             colorFromValue(1, 0, 4),
                                             colorFromValue(2, 0, 4),
                                             colorFromValue(3, 0, 4),
@@ -706,7 +706,7 @@ void AIS_ColorScale::drawColorBar(const Handle(Prs3d_Presentation)& thePrs,
     Standard_Integer anYBottomIter = theBarBottom;
     for (Standard_Integer aColorIter = 0; aColorIter < myNbIntervals; ++aColorIter)
     {
-      const Quantity_Color&  aColor = aColors.Value(aColorIter + 1);
+      const Color1&  aColor = aColors.Value(aColorIter + 1);
       const Standard_Integer aSizeY =
         theBarBottom + Standard_Integer((aColorIter + 1) * aStepY) - anYBottomIter;
       addColoredQuad(aTriangles, anXLeft, anYBottomIter, theColorBreadth, aSizeY, aColor, aColor);
@@ -718,7 +718,7 @@ void AIS_ColorScale::drawColorBar(const Handle(Prs3d_Presentation)& thePrs,
   aGroup->SetGroupPrimitivesAspect(myDrawer->ShadingAspect()->Aspect());
   aGroup->AddPrimitiveArray(aTriangles);
 
-  const Quantity_Color aFgColor(hasOwnColor ? myDrawer->Color() : Quantity_NOC_WHITE);
+  const Color1 aFgColor(hasOwnColor ? myDrawer->Color() : Quantity_NOC_WHITE);
   drawFrame(thePrs, anXLeft - 1, theBarBottom - 1, theColorBreadth + 2, theBarHeight + 2, aFgColor);
 }
 
@@ -844,7 +844,7 @@ void AIS_ColorScale::drawFrame(const Handle(Prs3d_Presentation)& thePrs,
                                const Standard_Integer            theY,
                                const Standard_Integer            theWidth,
                                const Standard_Integer            theHeight,
-                               const Quantity_Color&             theColor)
+                               const Color1&             theColor)
 {
   Handle(Graphic3d_ArrayOfPolylines) aPrim = new Graphic3d_ArrayOfPolylines(5);
   aPrim->AddVertex(theX, theY, 0.0);

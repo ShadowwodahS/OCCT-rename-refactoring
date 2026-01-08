@@ -116,7 +116,7 @@ void BlendFunc1::GetMinimalWeights(const BlendFunc_SectionShape       SShape,
       CtoBspl->Weights(Weights);
 
       TColStd_Array1OfReal poids(Weights.Lower(), Weights.Upper());
-      Standard_Real        angle_min = Max(Precision::PConfusion(), MinAng);
+      Standard_Real        angle_min = Max(Precision1::PConfusion(), MinAng);
 
       Handle(Geom_TrimmedCurve) Sect2 = new Geom_TrimmedCurve(new GeomCircle(C), 0., angle_min);
       CtoBspl                         = GeomConvert1::CurveToBSplineCurve(Sect2, TConv);

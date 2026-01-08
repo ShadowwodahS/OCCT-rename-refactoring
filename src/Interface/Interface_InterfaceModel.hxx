@@ -40,7 +40,7 @@ DEFINE_STANDARD_HANDLE(Interface_InterfaceModel, RefObject)
 //! Defines an (Indexed) Set of data corresponding to a complete
 //! Transfer by a File Interface, i.e. File Header and Transient
 //! Entities (Objects) contained in a File. Contained Entities are
-//! identified in the Model by unique and consecutive Numbers.
+//! identified in the Model by unique and consecutive Numbers1.
 //!
 //! In addition, a Model can attach to each entity, a specific
 //! Label according to the norm (e.g. Name for VDA, #ident for
@@ -279,14 +279,14 @@ public:
   Standard_EXPORT void ReplaceEntity(const Standard_Integer            nument,
                                      const Handle(RefObject)& anent);
 
-  //! Reverses the Numbers of the Entities, between <after> and the
+  //! Reverses the Numbers1 of the Entities, between <after> and the
   //! total count of Entities. Thus, the entities :
   //! 1,2 ... after, after+1 ... nb-1, nb  become numbered as :
   //! 1,2 ... after, nb, nb-1 ... after+1
   //! By default (after = 0) the whole list of Entities is reversed
   Standard_EXPORT void ReverseOrders(const Standard_Integer after = 0);
 
-  //! Changes the Numbers of some Entities : <oldnum> is moved to
+  //! Changes the Numbers1 of some Entities : <oldnum> is moved to
   //! <newnum>, same for <count> entities. Thus :
   //! 1,2 ... newnum-1 newnum ... oldnum .. oldnum+count oldnum+count+1 .. gives
   //! 1,2 ... newnum-1 oldnum .. oldnum+count newnum ... oldnum+count+1

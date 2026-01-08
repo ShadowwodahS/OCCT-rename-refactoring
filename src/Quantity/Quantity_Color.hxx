@@ -29,37 +29,37 @@
 //! This class allows the definition of an RGB color as triplet of 3 normalized floating point
 //! values (red, green, blue).
 //!
-//! Although Quantity_Color can be technically used for pass-through storage of RGB triplet in any
-//! color space, other OCCT interfaces taking/returning Quantity_Color would expect them in linear
+//! Although Color1 can be technically used for pass-through storage of RGB triplet in any
+//! color space, other OCCT interfaces taking/returning Color1 would expect them in linear
 //! space. Therefore, take a look into methods converting to and from non-linear sRGB color space,
 //! if needed; for instance, application usually providing color picking within 0..255 range in sRGB
 //! color space.
-class Quantity_Color
+class Color1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates Quantity_NOC_YELLOW color (for historical reasons).
-  Quantity_Color()
+  Color1()
       : myRgb(valuesOf(Quantity_NOC_YELLOW, Quantity_TOC_RGB))
   {
   }
 
   //! Creates the color from enumeration value.
-  Quantity_Color(const Quantity_NameOfColor theName)
+  Color1(const Quantity_NameOfColor theName)
       : myRgb(valuesOf(theName, Quantity_TOC_RGB))
   {
   }
 
   //! Creates a color according to the definition system theType.
   //! Throws exception if values are out of range.
-  Standard_EXPORT Quantity_Color(const Standard_Real        theC1,
+  Standard_EXPORT Color1(const Standard_Real        theC1,
                                  const Standard_Real        theC2,
                                  const Standard_Real        theC3,
                                  const Quantity_TypeOfColor theType);
 
   //! Define color from linear RGB values.
-  Standard_EXPORT explicit Quantity_Color(const NCollection_Vec3<float>& theRgb);
+  Standard_EXPORT explicit Color1(const NCollection_Vec3<float>& theRgb);
 
   //! Returns the name of the nearest color from the Quantity_NameOfColor enumeration.
   Standard_EXPORT Quantity_NameOfColor Name() const;
@@ -122,29 +122,29 @@ public:
   Standard_EXPORT void ChangeContrast(const Standard_Real theDelta);
 
   //! Returns TRUE if the distance between two colors is greater than Epsilon().
-  Standard_Boolean IsDifferent(const Quantity_Color& theOther) const
+  Standard_Boolean IsDifferent(const Color1& theOther) const
   {
     return (SquareDistance(theOther) > Epsilon() * Epsilon());
   }
 
   //! Alias to IsDifferent().
-  Standard_Boolean operator!=(const Quantity_Color& theOther) const
+  Standard_Boolean operator!=(const Color1& theOther) const
   {
     return IsDifferent(theOther);
   }
 
   //! Returns TRUE if the distance between two colors is no greater than Epsilon().
-  Standard_Boolean IsEqual(const Quantity_Color& theOther) const
+  Standard_Boolean IsEqual(const Color1& theOther) const
   {
     return (SquareDistance(theOther) <= Epsilon() * Epsilon());
   }
 
   //! Alias to IsEqual().
-  Standard_Boolean operator==(const Quantity_Color& theOther) const { return IsEqual(theOther); }
+  Standard_Boolean operator==(const Color1& theOther) const { return IsEqual(theOther); }
 
   //! Returns the distance between two colors. It's a value between 0 and the square root of 3 (the
   //! black/white distance).
-  Standard_Real Distance(const Quantity_Color& theColor) const
+  Standard_Real Distance(const Color1& theColor) const
   {
     return (NCollection_Vec3<Standard_Real>(myRgb)
             - NCollection_Vec3<Standard_Real>(theColor.myRgb))
@@ -152,7 +152,7 @@ public:
   }
 
   //! Returns the square of distance between two colors.
-  Standard_Real SquareDistance(const Quantity_Color& theColor) const
+  Standard_Real SquareDistance(const Color1& theColor) const
   {
     return (NCollection_Vec3<Standard_Real>(myRgb)
             - NCollection_Vec3<Standard_Real>(theColor.myRgb))
@@ -164,7 +164,7 @@ public:
   //! The calculation is with respect to this color.
   //! If <DC> is positive then <me> is more contrasty.
   //! If <DI> is positive then <me> is more intense.
-  Standard_EXPORT void Delta(const Quantity_Color& theColor,
+  Standard_EXPORT void Delta(const Color1& theColor,
                              Standard_Real&        DC,
                              Standard_Real&        DI) const;
 
@@ -173,7 +173,7 @@ public:
   //! The difference is in range [0, 100.], with 1 approximately corresponding
   //! to the minimal perceivable difference (usually difference 5 or greater is
   //! needed for the difference to be recognizable in practice).
-  Standard_EXPORT Standard_Real DeltaE2000(const Quantity_Color& theOther) const;
+  Standard_EXPORT Standard_Real DeltaE2000(const Color1& theOther) const;
 
 public:
   //! Returns the color from Quantity_NameOfColor enumeration nearest to specified RGB values.
@@ -181,7 +181,7 @@ public:
                                    const Standard_Real theG,
                                    const Standard_Real theB)
   {
-    const Quantity_Color aColor(theR, theG, theB, Quantity_TOC_RGB);
+    const Color1 aColor(theR, theG, theB, Quantity_TOC_RGB);
     return aColor.Name();
   }
 
@@ -199,7 +199,7 @@ public:
   //! @param theColor a found color
   //! @return false if the color name is unknown, or true if the search by color name was successful
   static Standard_Boolean ColorFromName(const Standard_CString theColorNameString,
-                                        Quantity_Color&        theColor)
+                                        Color1&        theColor)
   {
     Quantity_NameOfColor aColorName = Quantity_NOC_BLACK;
     if (!ColorFromName(theColorNameString, aColorName))
@@ -219,10 +219,10 @@ public:
   //! @param theColor a color that is a result of parsing
   //! @return true if parsing was successful, or false otherwise
   Standard_EXPORT static bool ColorFromHex(const Standard_CString theHexColorString,
-                                           Quantity_Color&        theColor);
+                                           Color1&        theColor);
 
   //! Returns hex sRGB string in format "#FFAAFF".
-  static AsciiString1 ColorToHex(const Quantity_Color& theColor,
+  static AsciiString1 ColorToHex(const Color1& theColor,
                                             const bool            theToPrefixHash = true)
   {
     NCollection_Vec3<Standard_ShortReal> anSRgb =
@@ -281,7 +281,7 @@ public:
   //! as would be usually expected for RGB color packed into 4 bytes.
   //! @param[in] theColor  color to convert
   //! @param[out] theARGB  result color encoded as integer
-  static void Color2argb(const Quantity_Color& theColor, Standard_Integer& theARGB)
+  static void Color2argb(const Color1& theColor, Standard_Integer& theARGB)
   {
     const NCollection_Vec3<Standard_Integer> aColor(
       static_cast<Standard_Integer>(255.0f * theColor.myRgb.r() + 0.5f),
@@ -293,7 +293,7 @@ public:
   //! Convert integer ARGB value to Color. Alpha bits are ignored.
   //! Note that this packing does NOT involve linear -> non-linear sRGB conversion,
   //! as would be usually expected to preserve higher (for human eye) color precision in 4 bytes.
-  static void Argb2color(const Standard_Integer theARGB, Quantity_Color& theColor)
+  static void Argb2color(const Standard_Integer theARGB, Color1& theColor)
   {
     const NCollection_Vec3<Standard_Real> aColor(
       static_cast<Standard_Real>((theARGB & 0xff0000) >> 16),
@@ -441,9 +441,9 @@ private:
 namespace std
 {
 template <>
-struct hash<Quantity_Color>
+struct hash<Color1>
 {
-  std::size_t operator()(const Quantity_Color& theColor) const noexcept
+  std::size_t operator()(const Color1& theColor) const noexcept
   {
     unsigned char aByteArr[3] = {static_cast<unsigned char>(255 * theColor.Red()),
                                  static_cast<unsigned char>(255 * theColor.Green()),

@@ -31,7 +31,7 @@ LDOM_BasicAttribute::LDOM_BasicAttribute(const LDOM_Attr& anAttr)
 // purpose  : construction in the Document's data pool
 //=======================================================================
 
-LDOM_BasicAttribute& LDOM_BasicAttribute::Create(const LDOMBasicString&         theName,
+LDOM_BasicAttribute& LDOM_BasicAttribute::Create(const LDOMBasicString1&         theName,
                                                  const Handle(LDOM_MemManager)& theDoc,
                                                  Standard_Integer&              theHash)
 {

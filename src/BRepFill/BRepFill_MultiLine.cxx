@@ -99,7 +99,7 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoFace&          Face1,
 {
   //
   constexpr Standard_Real mult = 5.;
-  constexpr Standard_Real eps  = mult * Precision::Confusion();
+  constexpr Standard_Real eps  = mult * Precision1::Confusion();
   //
   myNbPnt2d = 2;
   myNbPnt   = 1;
@@ -217,7 +217,7 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoFace&          Face1,
   {
     ElCLib1::AdjustPeriodic(UU1->FirstParameter(),
                            UU1->LastParameter(),
-                           Precision::PConfusion(),
+                           Precision1::PConfusion(),
                            Umin,
                            Umax);
   }
@@ -225,7 +225,7 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoFace&          Face1,
   {
     ElCLib1::AdjustPeriodic(VV1->FirstParameter(),
                            VV1->LastParameter(),
-                           Precision::PConfusion(),
+                           Precision1::PConfusion(),
                            Vmin,
                            Vmax);
   }
@@ -334,7 +334,7 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoFace&          Face1,
   {
     ElCLib1::AdjustPeriodic(UU2->FirstParameter(),
                            UU2->LastParameter(),
-                           Precision::PConfusion(),
+                           Precision1::PConfusion(),
                            Umin,
                            Umax);
   }
@@ -342,7 +342,7 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoFace&          Face1,
   {
     ElCLib1::AdjustPeriodic(VV2->FirstParameter(),
                            VV2->LastParameter(),
-                           Precision::PConfusion(),
+                           Precision1::PConfusion(),
                            Vmin,
                            Vmax);
   }
@@ -581,9 +581,9 @@ static gp_Pnt2d ValueOnFace(const Standard_Real        U,
 #endif
   //
   constexpr Standard_Real mult = 5.;
-  constexpr Standard_Real eps  = mult * Precision::Confusion();
+  constexpr Standard_Real eps  = mult * Precision1::Confusion();
   //
-  Standard_Real UU = 0., Dist = Precision::Infinite(), D1, D2;
+  Standard_Real UU = 0., Dist = Precision1::Infinite(), D1, D2;
 
   if (Ext.NbPoints() != 0)
   {
@@ -629,7 +629,7 @@ static gp_Pnt2d ValueOnFace(const Standard_Real        U,
     }
   }
 
-  constexpr Standard_Real Tol = Precision::Confusion();
+  constexpr Standard_Real Tol = Precision1::Confusion();
   Standard_Real           VV;
 
   gp_Pnt2d PF = TheV.Value(TheV.FirstParameter());

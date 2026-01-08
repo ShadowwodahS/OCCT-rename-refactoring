@@ -363,9 +363,9 @@ Quantity_ColorRGBA Image_PixMap::ColorFromRawPixel(const Standard_Byte*   theRaw
       const ColorRGBA& aPixel = *reinterpret_cast<const ColorRGBA*>(theRawValue);
       return theToLinearize
                ? Quantity_ColorRGBA(
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.g()) / 255.0f),
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.b()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.g()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.b()) / 255.0f),
                    float(aPixel.a()) / 255.0f)
                : Quantity_ColorRGBA(float(aPixel.r()) / 255.0f,
                                     float(aPixel.g()) / 255.0f,
@@ -376,9 +376,9 @@ Quantity_ColorRGBA Image_PixMap::ColorFromRawPixel(const Standard_Byte*   theRaw
       const ColorBGRA& aPixel = *reinterpret_cast<const ColorBGRA*>(theRawValue);
       return theToLinearize
                ? Quantity_ColorRGBA(
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.g()) / 255.0f),
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.b()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.g()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.b()) / 255.0f),
                    float(aPixel.a()) / 255.0f)
                : Quantity_ColorRGBA(float(aPixel.r()) / 255.0f,
                                     float(aPixel.g()) / 255.0f,
@@ -389,9 +389,9 @@ Quantity_ColorRGBA Image_PixMap::ColorFromRawPixel(const Standard_Byte*   theRaw
       const ColorRGB32& aPixel = *reinterpret_cast<const ColorRGB32*>(theRawValue);
       return theToLinearize
                ? Quantity_ColorRGBA(
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.g()) / 255.0f),
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.b()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.g()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.b()) / 255.0f),
                    1.0f)
                : Quantity_ColorRGBA(float(aPixel.r()) / 255.0f,
                                     float(aPixel.g()) / 255.0f,
@@ -402,9 +402,9 @@ Quantity_ColorRGBA Image_PixMap::ColorFromRawPixel(const Standard_Byte*   theRaw
       const ColorBGR32& aPixel = *reinterpret_cast<const ColorBGR32*>(theRawValue);
       return theToLinearize
                ? Quantity_ColorRGBA(
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.g()) / 255.0f),
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.b()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.g()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.b()) / 255.0f),
                    1.0f)
                : Quantity_ColorRGBA(float(aPixel.r()) / 255.0f,
                                     float(aPixel.g()) / 255.0f,
@@ -415,9 +415,9 @@ Quantity_ColorRGBA Image_PixMap::ColorFromRawPixel(const Standard_Byte*   theRaw
       const ColorRGB& aPixel = *reinterpret_cast<const ColorRGB*>(theRawValue);
       return theToLinearize
                ? Quantity_ColorRGBA(
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.g()) / 255.0f),
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.b()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.g()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.b()) / 255.0f),
                    1.0f)
                : Quantity_ColorRGBA(float(aPixel.r()) / 255.0f,
                                     float(aPixel.g()) / 255.0f,
@@ -428,9 +428,9 @@ Quantity_ColorRGBA Image_PixMap::ColorFromRawPixel(const Standard_Byte*   theRaw
       const ColorBGR& aPixel = *reinterpret_cast<const ColorBGR*>(theRawValue);
       return theToLinearize
                ? Quantity_ColorRGBA(
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.g()) / 255.0f),
-                   Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.b()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.g()) / 255.0f),
+                   Color1::Convert_sRGB_To_LinearRGB(float(aPixel.b()) / 255.0f),
                    1.0f)
                : Quantity_ColorRGBA(float(aPixel.r()) / 255.0f,
                                     float(aPixel.g()) / 255.0f,
@@ -539,9 +539,9 @@ void Image_PixMap::ColorToRawPixel(Standard_Byte*            theRawValue,
       ColorRGBA& aPixel = *reinterpret_cast<ColorRGBA*>(theRawValue);
       if (theToDeLinearize)
       {
-        aPixel.r() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
-        aPixel.g() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.g()) * 255.0f);
-        aPixel.b() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.b()) * 255.0f);
+        aPixel.r() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
+        aPixel.g() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.g()) * 255.0f);
+        aPixel.b() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.b()) * 255.0f);
       }
       else
       {
@@ -556,9 +556,9 @@ void Image_PixMap::ColorToRawPixel(Standard_Byte*            theRawValue,
       ColorBGRA& aPixel = *reinterpret_cast<ColorBGRA*>(theRawValue);
       if (theToDeLinearize)
       {
-        aPixel.r() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
-        aPixel.g() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.g()) * 255.0f);
-        aPixel.b() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.b()) * 255.0f);
+        aPixel.r() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
+        aPixel.g() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.g()) * 255.0f);
+        aPixel.b() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.b()) * 255.0f);
       }
       else
       {
@@ -573,9 +573,9 @@ void Image_PixMap::ColorToRawPixel(Standard_Byte*            theRawValue,
       ColorRGB32& aPixel = *reinterpret_cast<ColorRGB32*>(theRawValue);
       if (theToDeLinearize)
       {
-        aPixel.r() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
-        aPixel.g() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.g()) * 255.0f);
-        aPixel.b() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.b()) * 255.0f);
+        aPixel.r() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
+        aPixel.g() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.g()) * 255.0f);
+        aPixel.b() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.b()) * 255.0f);
       }
       else
       {
@@ -590,9 +590,9 @@ void Image_PixMap::ColorToRawPixel(Standard_Byte*            theRawValue,
       ColorBGR32& aPixel = *reinterpret_cast<ColorBGR32*>(theRawValue);
       if (theToDeLinearize)
       {
-        aPixel.r() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
-        aPixel.g() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.g()) * 255.0f);
-        aPixel.b() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.b()) * 255.0f);
+        aPixel.r() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
+        aPixel.g() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.g()) * 255.0f);
+        aPixel.b() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.b()) * 255.0f);
       }
       else
       {
@@ -607,9 +607,9 @@ void Image_PixMap::ColorToRawPixel(Standard_Byte*            theRawValue,
       ColorRGB& aPixel = *reinterpret_cast<ColorRGB*>(theRawValue);
       if (theToDeLinearize)
       {
-        aPixel.r() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
-        aPixel.g() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.g()) * 255.0f);
-        aPixel.b() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.b()) * 255.0f);
+        aPixel.r() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
+        aPixel.g() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.g()) * 255.0f);
+        aPixel.b() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.b()) * 255.0f);
       }
       else
       {
@@ -623,9 +623,9 @@ void Image_PixMap::ColorToRawPixel(Standard_Byte*            theRawValue,
       ColorBGR& aPixel = *reinterpret_cast<ColorBGR*>(theRawValue);
       if (theToDeLinearize)
       {
-        aPixel.r() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
-        aPixel.g() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.g()) * 255.0f);
-        aPixel.b() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.b()) * 255.0f);
+        aPixel.r() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
+        aPixel.g() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.g()) * 255.0f);
+        aPixel.b() = Standard_Byte(Color1::Convert_LinearRGB_To_sRGB(aColor.b()) * 255.0f);
       }
       else
       {

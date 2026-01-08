@@ -27,9 +27,9 @@ struct RWObj_Material
   AsciiString1 SpecularTexture; //!< path to the texture image file defining specular color
                                        // clang-format on
   AsciiString1 BumpTexture; //!< path to the texture image file defining normal map
-  Quantity_Color          AmbientColor;
-  Quantity_Color          DiffuseColor;
-  Quantity_Color          SpecularColor;
+  Color1          AmbientColor;
+  Color1          DiffuseColor;
+  Color1          SpecularColor;
   Standard_ShortReal      Shininess;
   Standard_ShortReal      Transparency;
 

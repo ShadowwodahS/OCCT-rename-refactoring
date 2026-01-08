@@ -129,10 +129,10 @@ bool DESTEP_Provider::Write(const AsciiString1&  thePath,
     aModel->SetLocalLengthUnit(aNode->GlobalParameters.SystemUnit);
     Message1::SendWarning()
       << "Warning in the DESTEP_Provider during writing the file " << thePath
-      << "\t: The document has no information on Units. Using global parameter as initial Unit.";
+      << "\t: The document has no information on Units2. Using global parameter as initial Unit.";
   }
   UnitsMethods_LengthUnit aTargetUnit =
-    UnitsMethods::GetLengthUnitByFactorValue(aNode->GlobalParameters.LengthUnit,
+    UnitsMethods1::GetLengthUnitByFactorValue(aNode->GlobalParameters.LengthUnit,
                                              UnitsMethods_LengthUnit_Millimeter);
   aParams.WriteUnit = aTargetUnit;
   aModel->SetWriteLengthUnit(aNode->GlobalParameters.LengthUnit);
@@ -248,7 +248,7 @@ bool DESTEP_Provider::Write(const AsciiString1& thePath,
   DESTEP_Parameters aParams = aNode->InternalParameters;
   aModel->SetLocalLengthUnit(aNode->GlobalParameters.SystemUnit);
   UnitsMethods_LengthUnit aTargetUnit =
-    UnitsMethods::GetLengthUnitByFactorValue(aNode->GlobalParameters.LengthUnit,
+    UnitsMethods1::GetLengthUnitByFactorValue(aNode->GlobalParameters.LengthUnit,
                                              UnitsMethods_LengthUnit_Millimeter);
   aParams.WriteUnit = aTargetUnit;
   if (aTargetUnit == UnitsMethods_LengthUnit_Undefined)
@@ -256,7 +256,7 @@ bool DESTEP_Provider::Write(const AsciiString1& thePath,
     aModel->SetWriteLengthUnit(1.0);
     Message1::SendWarning()
       << "Custom units are not supported by STEP format, but LengthUnit global parameter doesn't "
-         "fit any predefined unit. Units will be scaled to Millimeters";
+         "fit any predefined unit. Units2 will be scaled to Millimeters";
   }
   else
   {

@@ -223,7 +223,7 @@ public:
     Standard_Integer aPos = theStreamPos;
 
     Standard_Integer        anIsInited = 0;
-    AsciiString1 aStreamStr = Standard_Dump::Text(theSStream);
+    AsciiString1 aStreamStr = DumpTool::Text(theSStream);
 
     OCCT_INIT_FIELD_VALUE_INTEGER(aStreamStr, aPos, anIsInited);
     myIsInited = anIsInited != 0;

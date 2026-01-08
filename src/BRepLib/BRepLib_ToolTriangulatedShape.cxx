@@ -43,7 +43,7 @@ void ToolTriangulatedShape::ComputeNormals(const TopoFace&                theFac
     return;
   }
 
-  constexpr Standard_Real aTol = Precision::Confusion();
+  constexpr Standard_Real aTol = Precision1::Confusion();
   Standard_Integer        aTri[3];
   Dir3d                  aNorm;
   theTris->AddNormals();

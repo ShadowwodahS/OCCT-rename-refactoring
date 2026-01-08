@@ -376,7 +376,7 @@ void DDataStd1::DatumCommands(DrawInterpreter& theCommands)
   if (done)
     return;
   done          = Standard_True;
-  const char* g = "DData : Standard Attribute Commands";
+  const char* g = "DData : Standard1 Attribute Commands";
 
   theCommands.Add("SetPoint", "SetPoint (DF, entry, [drawpoint])", __FILE__, DDataStd_SetPoint, g);
 

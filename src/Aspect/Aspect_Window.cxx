@@ -72,20 +72,20 @@ void Aspect_Window::SetBackground(const Aspect_Background& theBackground)
   SetBackground(theBackground.Color());
 }
 
-void Aspect_Window::SetBackground(const Quantity_Color& theColor)
+void Aspect_Window::SetBackground(const Color1& theColor)
 {
   MyBackground.SetColor(theColor);
 }
 
 void Aspect_Window::SetBackground(const Aspect_GradientBackground& theBackground)
 {
-  Quantity_Color aFirstColor, aSecondColor;
+  Color1 aFirstColor, aSecondColor;
   theBackground.Colors(aFirstColor, aSecondColor);
   SetBackground(aFirstColor, aSecondColor, theBackground.BgGradientFillMethod());
 }
 
-void Aspect_Window::SetBackground(const Quantity_Color&           theFirstColor,
-                                  const Quantity_Color&           theSecondColor,
+void Aspect_Window::SetBackground(const Color1&           theFirstColor,
+                                  const Color1&           theSecondColor,
                                   const Aspect_GradientFillMethod theFillMethod)
 {
   MyGradientBackground.SetColors(theFirstColor, theSecondColor, theFillMethod);

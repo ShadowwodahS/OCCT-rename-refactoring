@@ -58,7 +58,7 @@ void Extrema_ExtElCS::Perform(const gp_Lin& C, const gp_Pln& S)
   myIsPar = Standard_False;
   myNbExt = 0;
 
-  if (C.Direction().IsNormal(S.Axis().Direction(), Precision::Angular()))
+  if (C.Direction().IsNormal(S.Axis().Direction(), Precision1::Angular()))
   {
     mySqDist = new TColStd_HArray1OfReal(1, 1);
     mySqDist->SetValue(1, S.SquareDistance(C));
@@ -83,7 +83,7 @@ void Extrema_ExtElCS::Perform(const gp_Lin& C, const Cylinder1& S)
   Standard_Boolean isParallel = Standard_False;
 
   Standard_Real  radius = S.Radius();
-  ExtElC Extrem(gp_Lin(Pos.Axis()), C, Precision::Angular());
+  ExtElC Extrem(gp_Lin(Pos.Axis()), C, Precision1::Angular());
   if (Extrem.IsParallel())
   {
     isParallel = Standard_True;
@@ -98,7 +98,7 @@ void Extrema_ExtElCS::Perform(const gp_Lin& C, const Cylinder1& S)
     Point3d PC      = myPOnC2.Value();
 
     // line intersects the cylinder
-    if (radius - PonAxis.Distance(PC) > Precision::PConfusion())
+    if (radius - PonAxis.Distance(PC) > Precision1::PConfusion())
     {
       Quadric2      theQuadric(S);
       ConicQuadIntersection Inters(C, theQuadric);
@@ -134,7 +134,7 @@ void Extrema_ExtElCS::Perform(const gp_Lin& C, const Cylinder1& S)
     else
     {
       // line is tangent or outside of the cylinder
-      PointElSurfaceExtrema ExPS(PC, S, Precision::Confusion());
+      PointElSurfaceExtrema ExPS(PC, S, Precision1::Confusion());
       if (ExPS.IsDone())
       {
         if (aStartIdx == 0)
@@ -219,7 +219,7 @@ void Extrema_ExtElCS::Perform(const gp_Lin& C, const Sphere3& S)
 
   Point3d aCenter = S.Location();
 
-  PointElCCurveExtrema Extrem(aCenter, C, Precision::Angular(), RealFirst(), RealLast());
+  PointElCCurveExtrema Extrem(aCenter, C, Precision1::Angular(), RealFirst(), RealLast());
 
   Standard_Integer i;
   if (Extrem.IsDone() && Extrem.NbExt() > 0)
@@ -252,7 +252,7 @@ void Extrema_ExtElCS::Perform(const gp_Lin& C, const Sphere3& S)
       }
     }
 
-    PointElSurfaceExtrema ExPS(myPOnC1.Value(), S, Precision::Confusion());
+    PointElSurfaceExtrema ExPS(myPOnC1.Value(), S, Precision1::Confusion());
     if (ExPS.IsDone())
     {
       if (aStartIdx == 0)
@@ -307,7 +307,7 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Pln& S)
 
   Standard_Boolean isParallel = Standard_False;
 
-  if (NCirc.IsParallel(NPln, Precision::Angular()))
+  if (NCirc.IsParallel(NPln, Precision1::Angular()))
   {
     isParallel = Standard_True;
   }
@@ -329,7 +329,7 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Pln& S)
     //
     myNbExt = 2;
     // Check intersection
-    ConicQuadIntersection anInter(C, S, Precision::Angular(), Precision::Confusion());
+    ConicQuadIntersection anInter(C, S, Precision1::Angular(), Precision1::Confusion());
 
     if (anInter.IsDone() && anInter.IsInQuadric())
     {
@@ -427,7 +427,7 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const Cylinder1& S)
     Standard_Integer        aNbExt = anExtC.NbExt();
     Standard_Integer        i;
     Standard_Integer        aCurI    = 1;
-    constexpr Standard_Real aTolConf = Precision::Confusion();
+    constexpr Standard_Real aTolConf = Precision1::Confusion();
     Standard_Real           aCylRad  = S.Radius();
 
     // Check whether two objects have intersection points
@@ -575,7 +575,7 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const Sphere3& S)
   myIsPar = Standard_False;
   myNbExt = 0;
 
-  if (gp_Lin(C.Axis()).SquareDistance(S.Location()) < Precision::SquareConfusion())
+  if (gp_Lin(C.Axis()).SquareDistance(S.Location()) < Precision1::SquareConfusion())
   {
     // Circle and sphere are parallel
     myIsPar = Standard_True;
@@ -663,7 +663,7 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const Sphere3& S)
   for (Standard_Integer i = 1; i <= aNbExt; ++i)
   {
     Standard_Real aDiff = anExtC.SquareDistance(i) - aMinSqDist;
-    if (aDiff < Precision::SquareConfusion())
+    if (aDiff < Precision1::SquareConfusion())
       aSols.Append(i);
   }
 
@@ -720,7 +720,7 @@ void Extrema_ExtElCS::Perform(const gp_Hypr& C, const gp_Pln& S)
   Dir3d NHypr = Pos.Direction();
   Dir3d NPln  = S.Axis().Direction();
 
-  if (NHypr.IsParallel(NPln, Precision::Angular()))
+  if (NHypr.IsParallel(NPln, Precision1::Angular()))
   {
 
     mySqDist = new TColStd_HArray1OfReal(1, 1);

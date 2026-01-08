@@ -20,8 +20,8 @@
 #include <Quantity_Color.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<Standard_Integer, Quantity_Color> MeshVS_DataMapOfIntegerColor;
-typedef NCollection_DataMap<Standard_Integer, Quantity_Color>::Iterator
+typedef NCollection_DataMap<Standard_Integer, Color1> MeshVS_DataMapOfIntegerColor;
+typedef NCollection_DataMap<Standard_Integer, Color1>::Iterator
   MeshVS_DataMapIteratorOfDataMapOfIntegerColor;
 
 #endif

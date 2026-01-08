@@ -23,7 +23,7 @@
 
 class AsciiString1;
 
-//! Storage package is used to write and read persistent objects.
+//! Storage1 package is used to write and read persistent objects.
 //! These objects are read and written by a retrieval or storage
 //! algorithm (Storage_Schema object) in a container (disk, memory,
 //! network ...). Drivers (FSD_File objects) assign a physical
@@ -42,12 +42,12 @@ class AsciiString1;
 //! -   call the function Write from the schema,
 //! setting the driver and the Storage_Data   instance as parameters,
 //! -      close the driver.
-class Storage
+class Storage1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! returns the version of Storage's read/write routines
+  //! returns the version of Storage1's read/write routines
   Standard_EXPORT static AsciiString1 Version();
 };
 

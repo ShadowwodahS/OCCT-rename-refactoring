@@ -78,36 +78,36 @@ private:
   //! Initializes specific parameters
   void initParameters()
   {
-    if (myParameters.Deflection < Precision::Confusion())
+    if (myParameters.Deflection < Precision1::Confusion())
     {
       throw Standard_NumericError(
         "MeshGenerator::initParameters : invalid parameter value");
     }
-    if (myParameters.DeflectionInterior < Precision::Confusion())
+    if (myParameters.DeflectionInterior < Precision1::Confusion())
     {
       myParameters.DeflectionInterior = myParameters.Deflection;
     }
 
-    if (myParameters.MinSize < Precision::Confusion())
+    if (myParameters.MinSize < Precision1::Confusion())
     {
       myParameters.MinSize = Max(Parameters3::RelMinSize()
                                    * Min(myParameters.Deflection, myParameters.DeflectionInterior),
-                                 Precision::Confusion());
+                                 Precision1::Confusion());
     }
 
-    if (myParameters.Angle < Precision::Angular())
+    if (myParameters.Angle < Precision1::Angular())
     {
       throw Standard_NumericError(
         "MeshGenerator::initParameters : invalid parameter value");
     }
-    if (myParameters.AngleInterior < Precision::Angular())
+    if (myParameters.AngleInterior < Precision1::Angular())
     {
       myParameters.AngleInterior = 2.0 * myParameters.Angle;
     }
   }
 
 public: //! @name plugin API
-  //! Plugin interface for the Mesh1 Factories.
+  //! Plugin1 interface for the Mesh1 Factories.
   //! Initializes meshing algorithm with the given parameters.
   //! @param theShape shape to be meshed.
   //! @param theLinDeflection linear deflection.

@@ -47,7 +47,7 @@ XCAFApp_Application::XCAFApp_Application()
 Standard_CString XCAFApp_Application::ResourcesName()
 {
   return Standard_CString("XCAF");
-  //  return Standard_CString("Standard");
+  //  return Standard_CString("Standard1");
 }
 
 //=================================================================================================

@@ -418,7 +418,7 @@ Standard_Integer TopOpeBRepBuild_CorrectFace2d::ConnectWire(
   TopTools_IndexedMapOfShape anEdMap;
   gp_Pnt2d                   PF, PL, PA, PB, PA1, PB1;
   Handle(GeomCurve2d)       aTrCF, aTrCR, aTrC;
-  Standard_Real              aD, aDTolerance = Precision::Confusion();
+  Standard_Real              aD, aDTolerance = Precision1::Confusion();
 
   TopTools_SequenceOfShape aSeqEdges;
 
@@ -706,7 +706,7 @@ void TopOpeBRepBuild_CorrectFace2d::CheckList(const TopoFace&    aFace,
                                               ShapeList& HeadList)
 {
   TopAbs_Orientation                 r1;
-  Standard_Real                      aDTolerance = Precision::Confusion();
+  Standard_Real                      aDTolerance = Precision1::Confusion();
   TopTools_SequenceOfShape           aSeq;
   TopTools_ListIteratorOfListOfShape anIt(HeadList);
   for (; anIt.More(); anIt.Next())
@@ -866,7 +866,7 @@ void TopOpeBRepBuild_CorrectFace2d::BndBoxWire(const TopoWire& aWire, Bnd_Box2d&
 
 void TopOpeBRepBuild_CorrectFace2d::MoveWire2d(TopoWire& aWire, const gp_Vec2d& aTrV)
 {
-  if (aTrV.Magnitude() < Precision::Confusion())
+  if (aTrV.Magnitude() < Precision1::Confusion())
     return;
 
   Standard_Integer           i, aNbEdges;

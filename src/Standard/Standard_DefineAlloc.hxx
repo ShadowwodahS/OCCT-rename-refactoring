@@ -24,11 +24,11 @@
   #define DEFINE_STANDARD_ALLOC_ARRAY                                                              \
     void* operator new[](size_t theSize)                                                           \
     {                                                                                              \
-      return Standard::Allocate(theSize);                                                          \
+      return Standard1::Allocate(theSize);                                                          \
     }                                                                                              \
     void operator delete[](void* theAddress)                                                       \
     {                                                                                              \
-      Standard::Free(theAddress);                                                                  \
+      Standard1::Free(theAddress);                                                                  \
     }
 #endif
 
@@ -54,11 +54,11 @@
 #define DEFINE_STANDARD_ALLOC                                                                      \
   void* operator new(size_t theSize)                                                               \
   {                                                                                                \
-    return Standard::Allocate(theSize);                                                            \
+    return Standard1::Allocate(theSize);                                                            \
   }                                                                                                \
   void operator delete(void* theAddress)                                                           \
   {                                                                                                \
-    Standard::Free(theAddress);                                                                    \
+    Standard1::Free(theAddress);                                                                    \
   }                                                                                                \
   DEFINE_STANDARD_ALLOC_ARRAY                                                                      \
   DEFINE_STANDARD_ALLOC_PLACEMENT

@@ -87,7 +87,7 @@ Standard_Integer AlgoTools2D::AttachExistingPCurve(const TopoEdge& theE2, // old
   //
   aC2DT = new Geom2d_TrimmedCurve(aC2DoldC, aT21, aT22);
   //
-  aTolPPC = Precision::PConfusion();
+  aTolPPC = Precision1::PConfusion();
   //
   Handle(GeomCurve3d) aCE1 = BRepInspector::Curve(aE1, aT11, aT12);
   //

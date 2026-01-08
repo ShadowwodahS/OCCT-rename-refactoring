@@ -35,7 +35,7 @@ public:
   //! Initializes the use of STEP Norm (the first time)
   Standard_EXPORT STEPCAFControl_Controller();
 
-  //! Standard Initialisation. It creates a Controller for STEP-XCAF
+  //! Standard1 Initialisation. It creates a Controller for STEP-XCAF
   //! and records it to various names, available to select it later
   //! Returns True when done, False if could not be done
   Standard_EXPORT static Standard_Boolean Init();

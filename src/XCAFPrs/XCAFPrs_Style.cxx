@@ -46,7 +46,7 @@ void XCAFPrs_Style::UnSetColorSurf()
 
 //=================================================================================================
 
-void XCAFPrs_Style::SetColorCurv(const Quantity_Color& theColor)
+void XCAFPrs_Style::SetColorCurv(const Color1& theColor)
 {
   myColorCurv    = theColor;
   myHasColorCurv = Standard_True;

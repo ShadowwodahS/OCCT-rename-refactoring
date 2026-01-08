@@ -54,7 +54,7 @@
 #include <TColStd_Array1OfReal.hxx>
 
 // #include <Geom2dConvert_BSplineCurveKnotSplitting.hxx>
-static const Standard_Real PosTol = Precision::PConfusion() / 2;
+static const Standard_Real PosTol = Precision1::PConfusion() / 2;
 
 IMPLEMENT_STANDARD_RTTIEXT(Geom2dAdaptor_Curve, Adaptor2d_Curve2d)
 
@@ -116,12 +116,12 @@ GeomAbs_Shape Geom2dAdaptor_Curve::LocalContinuity(const Standard_Real U1,
                             Nb,
                             Index2,
                             newLast);
-  if (Abs(newFirst - TK(Index1 + 1)) < Precision::PConfusion())
+  if (Abs(newFirst - TK(Index1 + 1)) < Precision1::PConfusion())
   {
     if (Index1 < Nb)
       Index1++;
   }
-  if (Abs(newLast - TK(Index2)) < Precision::PConfusion())
+  if (Abs(newLast - TK(Index2)) < Precision1::PConfusion())
     Index2--;
   Standard_Integer MultMax;
   // attention aux courbes peridiques.
@@ -350,7 +350,7 @@ Standard_Integer Geom2dAdaptor_Curve::NbIntervals(const GeomAbs_Shape S) const
         throw Standard_DomainError("Geom2dAdaptor_Curve::NbIntervals()");
     }
 
-    Standard_Real anEps = Min(Resolution(Precision::Confusion()), Precision::PConfusion());
+    Standard_Real anEps = Min(Resolution(Precision1::Confusion()), Precision1::PConfusion());
 
     return BSplCLib1::Intervals(myBSplineCurve->Knots(),
                                myBSplineCurve->Multiplicities(),
@@ -432,7 +432,7 @@ void Geom2dAdaptor_Curve::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape
         throw Standard_DomainError("Geom2dAdaptor_Curve::Intervals()");
     }
 
-    Standard_Real anEps = Min(Resolution(Precision::Confusion()), Precision::PConfusion());
+    Standard_Real anEps = Min(Resolution(Precision1::Confusion()), Precision1::PConfusion());
 
     BSplCLib1::Intervals(myBSplineCurve->Knots(),
                         myBSplineCurve->Multiplicities(),
@@ -499,11 +499,11 @@ Handle(Adaptor2d_Curve2d) Geom2dAdaptor_Curve::Trim(const Standard_Real First,
 
 Standard_Boolean Geom2dAdaptor_Curve::IsClosed() const
 {
-  if (!Precision::IsPositiveInfinite(myLast) && !Precision::IsNegativeInfinite(myFirst))
+  if (!Precision1::IsPositiveInfinite(myLast) && !Precision1::IsNegativeInfinite(myFirst))
   {
     gp_Pnt2d Pd = Value(myFirst);
     gp_Pnt2d Pf = Value(myLast);
-    return (Pd.Distance(Pf) <= Precision::Confusion());
+    return (Pd.Distance(Pf) <= Precision1::Confusion());
   }
   else
     return Standard_False;
@@ -784,7 +784,7 @@ Standard_Real Geom2dAdaptor_Curve::Resolution(const Standard_Real Ruv) const
       return res;
     }
     default:
-      return Precision::Parametric(Ruv);
+      return Precision1::Parametric(Ruv);
   }
 }
 

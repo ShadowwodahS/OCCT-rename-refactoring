@@ -100,7 +100,7 @@ Standard_EXPORT void FUN_ComputeGeomData(const TopoShape& F,
   Standard_Boolean plane  = FUN_tool_plane(F);
 
   // Getting the principle directions,the normal and the curvatures
-  BRepLProp_SLProps props(surf, uu, vv, 2, Precision::Confusion());
+  BRepLProp_SLProps props(surf, uu, vv, 2, Precision1::Confusion());
   Standard_Boolean  curdef = props.IsCurvatureDefined();
   if (!curdef)
     throw Standard_ProgramError("TopOpeBRepDS_FaceInterferenceTool::Init");
@@ -127,7 +127,7 @@ Standard_EXPORT void FUN_ComputeGeomData(const TopoShape& F,
       throw ExceptionBase("FUN_ComputeGeomData");
 
     D1                 = Norm;
-    Standard_Real    x = D1.X(), y = D1.Y(), z = D1.Z(), tol = Precision::Confusion();
+    Standard_Real    x = D1.X(), y = D1.Y(), z = D1.Z(), tol = Precision1::Confusion();
     Standard_Boolean nullx = (Abs(x) < tol), nully = (Abs(y) < tol), nullz = (Abs(z) < tol);
     if (nullx && nully)
       D2 = Dir3d(1, 0, 0);
@@ -213,7 +213,7 @@ void TopOpeBRepDS_FaceInterferenceTool::Init(const TopoShape&                   
     }
   }
 
-  myTole = Precision::Angular();
+  myTole = Precision1::Angular();
   gp_Pnt2d         uv;
   Standard_Boolean ok = Standard_False;
   Standard_Real    d  = 0.;

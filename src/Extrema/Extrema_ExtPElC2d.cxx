@@ -100,7 +100,7 @@ void PointElCCurveExtrema2d::Perform(const gp_Pnt2d&     P,
   gp_Pnt2d OC(C.Location());
   myNbExt = 0;
 
-  if (OC.IsEqual(P, Precision::Confusion()))
+  if (OC.IsEqual(P, Precision1::Confusion()))
   {
     myDone = Standard_False;
   }
@@ -117,8 +117,8 @@ void PointElCCurveExtrema2d::Perform(const gp_Pnt2d&     P,
     U2                   = U1 + M_PI;
     P2                   = OC.Translated(-radius * V);
     Standard_Real myuinf = Uinf;
-    ElCLib1::AdjustPeriodic(Uinf, Uinf + 2 * M_PI, Precision::PConfusion(), myuinf, U1);
-    ElCLib1::AdjustPeriodic(Uinf, Uinf + 2 * M_PI, Precision::PConfusion(), myuinf, U2);
+    ElCLib1::AdjustPeriodic(Uinf, Uinf + 2 * M_PI, Precision1::PConfusion(), myuinf, U1);
+    ElCLib1::AdjustPeriodic(Uinf, Uinf + 2 * M_PI, Precision1::PConfusion(), myuinf, U2);
     if (((U1 - 2 * M_PI - Uinf) < Tol) && ((U1 - 2 * M_PI - Uinf) > -Tol))
     {
       U1 = Uinf;
@@ -181,7 +181,7 @@ void PointElCCurveExtrema2d::Perform(const gp_Pnt2d&     P,
   Standard_Real    B = E.MinorRadius();
   gp_Vec2d         V(OR, P);
 
-  if (OR.IsEqual(P, Precision::Confusion()) && (Abs(A - B) <= Tol))
+  if (OR.IsEqual(P, Precision1::Confusion()) && (Abs(A - B) <= Tol))
   {
     return;
   }

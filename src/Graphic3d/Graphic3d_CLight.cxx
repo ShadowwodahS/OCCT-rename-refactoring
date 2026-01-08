@@ -123,7 +123,7 @@ void Graphic3d_CLight::CopyFrom(const Handle(Graphic3d_CLight)& theLight)
 
 //=================================================================================================
 
-void Graphic3d_CLight::SetColor(const Quantity_Color& theColor)
+void Graphic3d_CLight::SetColor(const Color1& theColor)
 {
   updateRevisionIf(myColor.GetRGB().IsDifferent(theColor));
   myColor.SetRGB(theColor);

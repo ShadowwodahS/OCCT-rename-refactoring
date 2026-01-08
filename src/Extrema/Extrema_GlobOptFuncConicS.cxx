@@ -42,13 +42,13 @@ void Extrema_GlobOptFuncConicS::value(Standard_Real su, Standard_Real sv, Standa
       ct = ElCLib1::Parameter(myParab, aPS);
       break;
     default:
-      F = Precision::Infinite();
+      F = Precision1::Infinite();
       return;
   }
   //
   if (myCType == GeomAbs_Circle || myCType == GeomAbs_Ellipse)
   {
-    if (myTl > 2. * M_PI + Precision::PConfusion())
+    if (myTl > 2. * M_PI + Precision1::PConfusion())
     {
       ct += 2. * M_PI;
     }
@@ -132,12 +132,12 @@ void Extrema_GlobOptFuncConicS::LoadConic(const Adaptor3d_Curve* C,
   myTl = theTl;
   if (myC->IsPeriodic())
   {
-    constexpr Standard_Real aTMax = 2. * M_PI + Precision::PConfusion();
-    if (myTf > aTMax || myTf < -Precision::PConfusion() || Abs(myTl - myTf) > aTMax)
+    constexpr Standard_Real aTMax = 2. * M_PI + Precision1::PConfusion();
+    if (myTf > aTMax || myTf < -Precision1::PConfusion() || Abs(myTl - myTf) > aTMax)
     {
       ElCLib1::AdjustPeriodic(0.,
                              2. * M_PI,
-                             Min(Abs(myTl - myTf) / 2, Precision::PConfusion()),
+                             Min(Abs(myTl - myTf) / 2, Precision1::PConfusion()),
                              myTf,
                              myTl);
     }
@@ -183,7 +183,7 @@ Standard_Boolean Extrema_GlobOptFuncConicS::Value(const math_Vector& X, Standard
     return Standard_False;
 
   value(su, sv, F);
-  if (Precision::IsInfinite(F))
+  if (Precision1::IsInfinite(F))
   {
     return Standard_False;
   }
@@ -220,7 +220,7 @@ Standard_Real Extrema_GlobOptFuncConicS::ConicParameter(const math_Vector& theUV
   //
   if (myCType == GeomAbs_Circle || myCType == GeomAbs_Ellipse)
   {
-    if (myTl > 2. * M_PI + Precision::PConfusion())
+    if (myTl > 2. * M_PI + Precision1::PConfusion())
     {
       ct += 2. * M_PI;
     }

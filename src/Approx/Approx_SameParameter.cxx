@@ -167,13 +167,13 @@ static Standard_Real ComputeTolReached(const Handle(Adaptor3d_Curve)&  c3d,
     }
     catch (ExceptionBase const&)
     {
-      d2 = Precision::Infinite();
+      d2 = Precision1::Infinite();
       break;
     }
-    if (Precision::IsInfinite(Pcons.X()) || Precision::IsInfinite(Pcons.Y())
-        || Precision::IsInfinite(Pcons.Z()))
+    if (Precision1::IsInfinite(Pcons.X()) || Precision1::IsInfinite(Pcons.Y())
+        || Precision1::IsInfinite(Pcons.Z()))
     {
-      d2 = Precision::Infinite();
+      d2 = Precision1::Infinite();
       break;
     }
     d2 = Max(d2, Pc3d.SquareDistance(Pcons));
@@ -181,7 +181,7 @@ static Standard_Real ComputeTolReached(const Handle(Adaptor3d_Curve)&  c3d,
 
   const Standard_Real aMult      = 1. + 0.05; //
   Standard_Real       aDeviation = aMult * sqrt(d2);
-  aDeviation = Max(aDeviation, Precision::Confusion()); // Tolerance in modeling space.
+  aDeviation = Max(aDeviation, Precision1::Confusion()); // Tolerance in modeling space.
   return aDeviation;
 }
 
@@ -239,7 +239,7 @@ static Standard_Boolean Check(const TColStd_Array1OfReal&     FlatKnots,
 
     if (tcons < tprev || tcons > aParamLast)
     {
-      tol = Precision::Infinite();
+      tol = Precision1::Infinite();
       return Standard_False;
     }
     tprev               = tcons;
@@ -269,7 +269,7 @@ SameParameterTool::SameParameterTool(const Handle(GeomCurve3d)&   C3D,
                                            const Handle(GeomCurve2d)& C2D,
                                            const Handle(GeomSurface)& S,
                                            const Standard_Real         Tol)
-    : myDeltaMin(Precision::PConfusion()),
+    : myDeltaMin(Precision1::PConfusion()),
       mySameParameter(Standard_True),
       myDone(Standard_False)
 {
@@ -285,7 +285,7 @@ SameParameterTool::SameParameterTool(const Handle(Adaptor3d_Curve)&   C3D,
                                            const Handle(GeomCurve2d)&      C2D,
                                            const Handle(Adaptor3d_Surface)& S,
                                            const Standard_Real              Tol)
-    : myDeltaMin(Precision::PConfusion()),
+    : myDeltaMin(Precision1::PConfusion()),
       mySameParameter(Standard_True),
       myDone(Standard_False)
 {
@@ -301,7 +301,7 @@ SameParameterTool::SameParameterTool(const Handle(Adaptor3d_Curve)&   C3D,
                                            const Handle(Adaptor2d_Curve2d)& C2D,
                                            const Handle(Adaptor3d_Surface)& S,
                                            const Standard_Real              Tol)
-    : myDeltaMin(Precision::PConfusion()),
+    : myDeltaMin(Precision1::PConfusion()),
       mySameParameter(Standard_True),
       myDone(Standard_False)
 {
@@ -391,7 +391,7 @@ void SameParameterTool::Build(const Standard_Real Tolerance)
   if (aContinuity > GeomAbs_C1)
     aContinuity = GeomAbs_C1;
 
-  Standard_Real    besttol2 = aData.myTol * aData.myTol, tolsov = Precision::Infinite();
+  Standard_Real    besttol2 = aData.myTol * aData.myTol, tolsov = Precision1::Infinite();
   Standard_Boolean interpolok = Standard_False, hasCountChanged = Standard_False;
   do
   {

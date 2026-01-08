@@ -439,7 +439,7 @@ void BOPAlgo_CheckerSI::CheckFaceSelfIntersection(const Message_ProgressRange& t
       gp_Torus      aTorus       = BAsurf.Torus();
       Standard_Real aMajorRadius = aTorus.MajorRadius();
       Standard_Real aMinorRadius = aTorus.MinorRadius();
-      if (aMajorRadius > aMinorRadius + Precision::Confusion())
+      if (aMajorRadius > aMinorRadius + Precision1::Confusion())
         continue;
     }
 

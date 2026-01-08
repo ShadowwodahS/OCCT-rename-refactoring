@@ -15,7 +15,7 @@
 #ifndef _RWMesh_CoordinateSystem_HeaderFile
 #define _RWMesh_CoordinateSystem_HeaderFile
 
-//! Standard coordinate system definition.
+//! Standard1 coordinate system definition.
 //! Open CASCADE does not force application using specific coordinate system,
 //! although Draw1 Harness and samples define +Z-up +Y-forward coordinate system for camera view
 //! manipulation. This enumeration defines two commonly used conventions - Z-up and Y-up..

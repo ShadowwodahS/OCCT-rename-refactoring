@@ -29,7 +29,7 @@
 static void CorrectTol(const Standard_Real theU0, const Standard_Real theV0, math_Vector& theTol)
 {
   // Correct tolerance for large values of UV parameters
-  constexpr Standard_Real aTolRef  = Precision::PConfusion();
+  constexpr Standard_Real aTolRef  = Precision1::PConfusion();
   Standard_Real           anEpsRef = Epsilon(1.);
   Standard_Real           epsu     = Epsilon(theU0);
   const Standard_Real     tolog10  = 0.43429;
@@ -66,9 +66,9 @@ Standard_Boolean Extrema_GenLocateExtPS::IsMinDist(const Point3d&            the
                                                    const Standard_Real      theV0)
 {
   Standard_Real du =
-    Max(theS.UResolution(10. * Precision::Confusion()), 10. * Precision::PConfusion());
+    Max(theS.UResolution(10. * Precision1::Confusion()), 10. * Precision1::PConfusion());
   Standard_Real dv =
-    Max(theS.VResolution(10. * Precision::Confusion()), 10. * Precision::PConfusion());
+    Max(theS.VResolution(10. * Precision1::Confusion()), 10. * Precision1::PConfusion());
   Standard_Real    u, v;
   Point3d           aP0 = theS.Value(theU0, theV0);
   Standard_Real    d0  = theP.SquareDistance(aP0);
@@ -181,8 +181,8 @@ void Extrema_GenLocateExtPS::Perform(const Point3d&          theP,
       CorrectTol(theU0, theV0, aTol);
     }
 
-    Standard_Boolean isCorrectTol = (Abs(aTol(1) - myTolU) > Precision::PConfusion()
-                                     || Abs(aTol(2) - myTolV) > Precision::PConfusion());
+    Standard_Boolean isCorrectTol = (Abs(aTol(1) - myTolU) > Precision1::PConfusion()
+                                     || Abs(aTol(2) - myTolV) > Precision1::PConfusion());
 
     FunctionSetRoot aSR(F, aTol);
     aSR.Perform(F, aStart, aBoundInf, aBoundSup);
@@ -194,7 +194,7 @@ void Extrema_GenLocateExtPS::Perform(const Point3d&          theP,
         aTol(1) = myTolU;
         aTol(2) = myTolV;
       }
-      NewtonFunctionSetRoot aNSR(F, aTol, Precision::Confusion());
+      NewtonFunctionSetRoot aNSR(F, aTol, Precision1::Confusion());
       aNSR.Perform(F, aStart, aBoundInf, aBoundSup);
       if (!aSR.IsDone() && !aNSR.IsDone())
       {

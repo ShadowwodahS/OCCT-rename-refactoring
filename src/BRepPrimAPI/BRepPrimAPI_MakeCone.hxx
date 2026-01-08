@@ -90,10 +90,10 @@ public:
   //! two triangles, in the planes u = 0 and u = angle).
   //! Exceptions
   //! Standard_DomainError if:
-  //! -   H is less than or equal to Precision::Confusion(), or
+  //! -   H is less than or equal to Precision1::Confusion(), or
   //! -   the half-angle at the apex of the cone, defined by
-  //! R1, R2 and H, is less than Precision::Confusion()/H, or greater than
-  //! (Pi/2)-Precision::Confusion()/H.f
+  //! R1, R2 and H, is less than Precision1::Confusion()/H, or greater than
+  //! (Pi/2)-Precision1::Confusion()/H.f
   Standard_EXPORT BRepPrimAPI_MakeCone(const Frame3d&       Axes,
                                        const Standard_Real R1,
                                        const Standard_Real R2,

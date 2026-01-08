@@ -18,8 +18,8 @@ IMPLEMENT_STANDARD_RTTIEXT(Aspect_Grid, RefObject)
 Aspect_Grid::Aspect_Grid(const Standard_Real   theXOrigin,
                          const Standard_Real   theYOrigin,
                          const Standard_Real   theAngle,
-                         const Quantity_Color& theColor,
-                         const Quantity_Color& theTenthColor)
+                         const Color1& theColor,
+                         const Color1& theTenthColor)
     : myRotationAngle(theAngle),
       myXOrigin(theXOrigin),
       myYOrigin(theYOrigin),
@@ -67,14 +67,14 @@ void Aspect_Grid::Translate(const Standard_Real theDx, const Standard_Real theDy
   UpdateDisplay();
 }
 
-void Aspect_Grid::SetColors(const Quantity_Color& theColor, const Quantity_Color& theTenthColor)
+void Aspect_Grid::SetColors(const Color1& theColor, const Color1& theTenthColor)
 {
   myColor      = theColor;
   myTenthColor = theTenthColor;
   UpdateDisplay();
 }
 
-void Aspect_Grid::Colors(Quantity_Color& theColor, Quantity_Color& theTenthColor) const
+void Aspect_Grid::Colors(Color1& theColor, Color1& theTenthColor) const
 {
   theColor      = myColor;
   theTenthColor = myTenthColor;

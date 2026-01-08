@@ -353,8 +353,8 @@ void STEPCAFControl_Writer::prepareUnit(const DataLabel&                  theLab
   else
   {
     XSAlgo_ShapeProcessor::PrepareForTransfer(); // update unit info
-    theModel->SetLocalLengthUnit(UnitsMethods::GetCasCadeLengthUnit());
-    theLocalFactors.SetCascadeUnit(UnitsMethods::GetCasCadeLengthUnit());
+    theModel->SetLocalLengthUnit(UnitsMethods1::GetCasCadeLengthUnit());
+    theLocalFactors.SetCascadeUnit(UnitsMethods1::GetCasCadeLengthUnit());
   }
 }
 
@@ -1256,7 +1256,7 @@ static void MakeSTEPStyles(STEPConstruct_Styles&                        theStyle
         {
           // default white color
           aSurfColor =
-            theStyles.EncodeColor(Quantity_Color(Quantity_NOC_WHITE), theDPDCs, theColRGBs);
+            theStyles.EncodeColor(Color1(Quantity_NOC_WHITE), theDPDCs, theColRGBs);
           aPSA =
             theStyles.MakeColorPSA(anItem, aSurfColor, aCurvColor, aSurfColor, 0.0, theIsComponent);
           if (theIsComponent)
@@ -1786,7 +1786,7 @@ Standard_Boolean STEPCAFControl_Writer::writeLayers(const Handle(ExchangeSession
 
 static Standard_Boolean getSHUOstyle(const DataLabel& theSHUOlab, XCAFPrs_Style& theSHUOstyle)
 {
-  Quantity_Color aColor;
+  Color1 aColor;
   if (!XCAFDoc_ColorTool::IsVisible(theSHUOlab))
   {
     theSHUOstyle.SetVisibility(Standard_False);
@@ -2008,7 +2008,7 @@ static Standard_Boolean createSHUOStyledItem(const XCAFPrs_Style& theStyle,
   Standard_Boolean isSetDefaultColor = Standard_False;
   if (aSurfColor.IsNull() && aCurvColor.IsNull() && !theStyle.IsVisible())
   {
-    aSurfColor        = aStyles.EncodeColor(Quantity_Color(Quantity_NOC_WHITE));
+    aSurfColor        = aStyles.EncodeColor(Color1(Quantity_NOC_WHITE));
     isSetDefaultColor = Standard_True;
   }
   Handle(StepVisual_PresentationStyleAssignment) aPSA =
@@ -2376,7 +2376,7 @@ static StepBasic_Unit GetUnit(const Handle(StepRepr_RepresentationContext)& theR
       Handle(StepGeom_GeometricRepresentationContextAndGlobalUnitAssignedContext)::DownCast(theRC);
     if (!aCtx.IsNull())
     {
-      for (StepBasic_HArray1OfNamedUnit::Iterator aUnitIter(aCtx->Units()->Array1());
+      for (StepBasic_HArray1OfNamedUnit::Iterator aUnitIter(aCtx->Units2()->Array1());
            aUnitIter.More();
            aUnitIter.Next())
       {
@@ -2395,7 +2395,7 @@ static StepBasic_Unit GetUnit(const Handle(StepRepr_RepresentationContext)& theR
         Handle(StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx)::DownCast(theRC);
       if (!aCtx1.IsNull())
       {
-        for (StepBasic_HArray1OfNamedUnit::Iterator aUnitIter(aCtx1->Units()->Array1());
+        for (StepBasic_HArray1OfNamedUnit::Iterator aUnitIter(aCtx1->Units2()->Array1());
              aUnitIter.More();
              aUnitIter.Next())
         {
@@ -2419,7 +2419,7 @@ static StepBasic_Unit GetUnit(const Handle(StepRepr_RepresentationContext)& theR
       Handle(StepGeom_GeometricRepresentationContextAndGlobalUnitAssignedContext)::DownCast(theRC);
     if (!aCtx.IsNull())
     {
-      for (StepBasic_HArray1OfNamedUnit::Iterator aUnitIter(aCtx->Units()->Array1());
+      for (StepBasic_HArray1OfNamedUnit::Iterator aUnitIter(aCtx->Units2()->Array1());
            aUnitIter.More();
            aUnitIter.Next())
       {
@@ -2438,7 +2438,7 @@ static StepBasic_Unit GetUnit(const Handle(StepRepr_RepresentationContext)& theR
         Handle(StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx)::DownCast(theRC);
       if (!aCtx1.IsNull())
       {
-        for (StepBasic_HArray1OfNamedUnit::Iterator aUnitIter(aCtx1->Units()->Array1());
+        for (StepBasic_HArray1OfNamedUnit::Iterator aUnitIter(aCtx1->Units2()->Array1());
              aUnitIter.More();
              aUnitIter.Next())
         {

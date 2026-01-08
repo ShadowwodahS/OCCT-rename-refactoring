@@ -74,7 +74,7 @@ public:
   //! If useShapeTolerance = True, bounding box is enlardged by shape tolerances and
   //! these tolerances are used for numerical methods of bounding box size calculations,
   //! otherwise bounding box is built according to sizes of uderlined geometrical entities,
-  //! numerical calculation use tolerance Precision::Confusion().
+  //! numerical calculation use tolerance Precision1::Confusion().
   Standard_EXPORT static void AddOptimal(const TopoShape&    S,
                                          Box2&               B,
                                          const Standard_Boolean useTriangulation  = Standard_True,

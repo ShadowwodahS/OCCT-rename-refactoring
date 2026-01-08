@@ -150,7 +150,7 @@ void MeshTest_CheckTopology::Perform(DrawInterpreter& di)
     const Transform3d& aTrsf = aLoc.Transformation();
 
     // remember boundary nodes
-    TColStd_PackedMapOfInteger aMapBndNodes;
+    PackedIntegerMap aMapBndNodes;
     ShapeExplorer            ex(aFace, TopAbs_EDGE);
     for (; ex.More(); ex.Next())
     {
@@ -165,7 +165,7 @@ void MeshTest_CheckTopology::Perform(DrawInterpreter& di)
         aMapBndNodes.Add(aNodes(i));
     }
 
-    TColStd_PackedMapOfInteger aUsedNodes;
+    PackedIntegerMap aUsedNodes;
 
     // check of free links and nodes
     Poly_Connect     aConn(aT);
@@ -183,7 +183,7 @@ void MeshTest_CheckTopology::Perform(DrawInterpreter& di)
                               aT->Node(n[2]).Transformed(aTrsf)};
 
       Standard_Real anArea = ComputeArea(aPts[0].XYZ(), aPts[1].XYZ(), aPts[2].XYZ());
-      if (anArea < Precision::SquareConfusion())
+      if (anArea < Precision1::SquareConfusion())
       {
         mySmallTrianglesFaces.Append(iF);
         mySmallTrianglesTriangles.Append(i);
@@ -192,7 +192,7 @@ void MeshTest_CheckTopology::Perform(DrawInterpreter& di)
       {
         const Coords2d aPUV[3] = {aT->UVNode(n[0]).XY(), aT->UVNode(n[1]).XY(), aT->UVNode(n[2]).XY()};
         anArea              = ComputeArea(aPUV[0], aPUV[1], aPUV[2]);
-        if (anArea < Precision::SquarePConfusion())
+        if (anArea < Precision1::SquarePConfusion())
         {
           mySmallTrianglesFaces.Append(iF);
           mySmallTrianglesTriangles.Append(i);

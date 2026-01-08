@@ -869,7 +869,7 @@ Standard_Boolean FindEdgeTangent(const BRepAdaptor_Curve& theCurve, Vector3d& th
   {
     Point3d aP;
     theCurve.D1(aT, aP, theTangent);
-    if (theTangent.Magnitude() > Precision::Confusion())
+    if (theTangent.Magnitude() > Precision1::Confusion())
     {
       return Standard_True;
     }
@@ -927,7 +927,7 @@ Standard_Boolean FindPlane(const BRepAdaptor_Curve& theCurve, gp_Pln& thePlane)
         theCurve.D1(aT, aP2, aV2);
         //
         aVN = aV1 ^ aV2;
-        if (aVN.Magnitude() > Precision::Confusion())
+        if (aVN.Magnitude() > Precision1::Confusion())
         {
           bFound = Standard_True;
           break;
@@ -989,7 +989,7 @@ Standard_Boolean FindPlane(const TopoShape&               theWire,
         continue;
       }
       //
-      if (aDTE1.IsParallel(aDTE2, Precision::Angular()))
+      if (aDTE1.IsParallel(aDTE2, Precision1::Angular()))
       {
         continue;
       }
@@ -1029,7 +1029,7 @@ class BOPAlgo_PairVerticesSelector : public BOPTools_BoxPairSelector
 public:
   BOPAlgo_PairVerticesSelector()
       : myVertices(NULL),
-        myFuzzyValue(Precision::Confusion())
+        myFuzzyValue(Precision1::Confusion())
   {
   }
 
@@ -1435,7 +1435,7 @@ void BOPAlgo_FillIn3DParts::Perform()
     Standard_Boolean bIsIN = AlgoTools::IsInternalFace(aFaceToClassify,
                                                                 mySolid,
                                                                 aMEFDS,
-                                                                Precision::Confusion(),
+                                                                Precision1::Confusion(),
                                                                 myContext);
     if (bIsIN)
     {
@@ -1724,7 +1724,7 @@ void BooleanTools::FillInternals(const ShapeList&               theSolids,
     {
       TopoShape aPart = itLP.Value();
       TopAbs_State aState =
-        AlgoTools::ComputeStateByOnePoint(aPart, aSd, Precision::Confusion(), theContext);
+        AlgoTools::ComputeStateByOnePoint(aPart, aSd, Precision1::Confusion(), theContext);
       if (aState == TopAbs_IN)
       {
         if (aPart.ShapeType() == TopAbs_FACE)

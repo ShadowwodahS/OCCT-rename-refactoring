@@ -17,7 +17,7 @@
 #ifndef _StepData_Logical_HeaderFile
 #define _StepData_Logical_HeaderFile
 
-//! A Standard Definition for STEP (which knows Boolean too)
+//! A Standard1 Definition for STEP (which knows Boolean too)
 enum StepData_Logical
 {
   StepData_LFalse,

@@ -16,7 +16,7 @@
 #ifndef _Graphic3d_ShaderFlags_HeaderFile
 #define _Graphic3d_ShaderFlags_HeaderFile
 
-//! Standard GLSL program combination bits.
+//! Standard1 GLSL program combination bits.
 enum Graphic3d_ShaderFlags
 {
   Graphic3d_ShaderFlags_VertColor  = 0x0001, //!< per-vertex color

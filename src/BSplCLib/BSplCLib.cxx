@@ -3891,7 +3891,7 @@ void BSplCLib1::TangExtendToConstraint(const TColStd_Array1OfReal& FlatKnots,
 
   //  ratio of reparametrization
   Standard_Real Ratio = 1, Delta;
-  if ((L1 > Precision::Confusion()) && (L2 > Precision::Confusion()))
+  if ((L1 > Precision1::Confusion()) && (L2 > Precision1::Confusion()))
   {
     Ratio = L2 / L1;
   }

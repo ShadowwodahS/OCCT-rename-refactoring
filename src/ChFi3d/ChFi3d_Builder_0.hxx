@@ -52,7 +52,7 @@
 #include <TopTools_Array1OfShape.hxx>
 #ifdef OCCT_DEBUG
   #include <OSD_Chronometer.hxx>
-extern OSD_Chronometer simul, elspine, chemine;
+extern Chronometer simul, elspine, chemine;
 #endif
 
 Standard_Real ChFi3d_InPeriod(const Standard_Real U,

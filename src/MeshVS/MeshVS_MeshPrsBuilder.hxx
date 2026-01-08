@@ -47,26 +47,26 @@ public:
 
   //! Builds base mesh presentation by calling the methods below
   Standard_EXPORT virtual void Build(const Handle(Prs3d_Presentation)& Prs,
-                                     const TColStd_PackedMapOfInteger& IDs,
-                                     TColStd_PackedMapOfInteger&       IDsToExclude,
+                                     const PackedIntegerMap& IDs,
+                                     PackedIntegerMap&       IDsToExclude,
                                      const Standard_Boolean            IsElement,
                                      const Standard_Integer DisplayMode) const Standard_OVERRIDE;
 
   //! Builds nodes presentation
   Standard_EXPORT virtual void BuildNodes(const Handle(Prs3d_Presentation)& Prs,
-                                          const TColStd_PackedMapOfInteger& IDs,
-                                          TColStd_PackedMapOfInteger&       IDsToExclude,
+                                          const PackedIntegerMap& IDs,
+                                          PackedIntegerMap&       IDsToExclude,
                                           const Standard_Integer            DisplayMode) const;
 
   //! Builds elements presentation
   Standard_EXPORT virtual void BuildElements(const Handle(Prs3d_Presentation)& Prs,
-                                             const TColStd_PackedMapOfInteger& IDs,
-                                             TColStd_PackedMapOfInteger&       IDsToExclude,
+                                             const PackedIntegerMap& IDs,
+                                             PackedIntegerMap&       IDsToExclude,
                                              const Standard_Integer            DisplayMode) const;
 
   //! Builds presentation of hilighted entity
   Standard_EXPORT virtual void BuildHilightPrs(const Handle(Prs3d_Presentation)& Prs,
-                                               const TColStd_PackedMapOfInteger& IDs,
+                                               const PackedIntegerMap& IDs,
                                                const Standard_Boolean            IsElement) const;
 
   //! Add to array polygons or polylines representing volume

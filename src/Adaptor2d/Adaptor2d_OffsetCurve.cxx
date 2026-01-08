@@ -247,8 +247,8 @@ Standard_Boolean Adaptor2d_OffsetCurve::IsClosed() const
         gp_Pnt2d P;
         myCurve->D1(myCurve->FirstParameter(), P, Dummy[0]);
         myCurve->D1(myCurve->LastParameter(), P, Dummy[1]);
-        if (Dummy[0].IsParallel(Dummy[1], Precision::Angular())
-            && !(Dummy[0].IsOpposite(Dummy[1], Precision::Angular())))
+        if (Dummy[0].IsParallel(Dummy[1], Precision1::Angular())
+            && !(Dummy[0].IsOpposite(Dummy[1], Precision1::Angular())))
           return Standard_True;
         else
           return Standard_False;
@@ -361,7 +361,7 @@ gp_Vec2d Adaptor2d_OffsetCurve::DN(const Standard_Real, const Standard_Integer) 
 
 Standard_Real Adaptor2d_OffsetCurve::Resolution(const Standard_Real R3d) const
 {
-  return Precision::PConfusion(R3d);
+  return Precision1::PConfusion(R3d);
 }
 
 //=================================================================================================

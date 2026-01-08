@@ -41,7 +41,7 @@ public:
   }
 
   //! Change the polygons interior color and material ambient color.
-  Standard_EXPORT void SetColor(const Quantity_Color&          aColor,
+  Standard_EXPORT void SetColor(const Color1&          aColor,
                                 const Aspect_TypeOfFacingModel aModel = Aspect_TOFM_BOTH_SIDE);
 
   //! Change the polygons material aspect.
@@ -55,7 +55,7 @@ public:
     const Aspect_TypeOfFacingModel aModel = Aspect_TOFM_BOTH_SIDE);
 
   //! Returns the polygons color.
-  Standard_EXPORT const Quantity_Color& Color(
+  Standard_EXPORT const Color1& Color(
     const Aspect_TypeOfFacingModel aModel = Aspect_TOFM_FRONT_SIDE) const;
 
   //! Returns the polygons material aspect.

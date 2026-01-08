@@ -18,33 +18,33 @@
 
 //=================================================================================================
 
-Quantity_Color IGESCAFControl1::DecodeColor(const Standard_Integer color)
+Color1 IGESCAFControl1::DecodeColor(const Standard_Integer color)
 {
   switch (color)
   {
     case 1:
-      return Quantity_Color(Quantity_NOC_BLACK);
+      return Color1(Quantity_NOC_BLACK);
     case 2:
-      return Quantity_Color(Quantity_NOC_RED);
+      return Color1(Quantity_NOC_RED);
     case 3:
-      return Quantity_Color(Quantity_NOC_GREEN);
+      return Color1(Quantity_NOC_GREEN);
     case 4:
-      return Quantity_Color(Quantity_NOC_BLUE1);
+      return Color1(Quantity_NOC_BLUE1);
     case 5:
-      return Quantity_Color(Quantity_NOC_YELLOW);
+      return Color1(Quantity_NOC_YELLOW);
     case 6:
-      return Quantity_Color(Quantity_NOC_MAGENTA1);
+      return Color1(Quantity_NOC_MAGENTA1);
     case 7:
-      return Quantity_Color(Quantity_NOC_CYAN1);
+      return Color1(Quantity_NOC_CYAN1);
     case 8:
     default:
-      return Quantity_Color(Quantity_NOC_WHITE);
+      return Color1(Quantity_NOC_WHITE);
   }
 }
 
 //=================================================================================================
 
-Standard_Integer IGESCAFControl1::EncodeColor(const Quantity_Color& col)
+Standard_Integer IGESCAFControl1::EncodeColor(const Color1& col)
 {
   Standard_Integer code = 0;
   if (Abs(col.Red() - 1.) <= col.Epsilon())

@@ -38,7 +38,7 @@ void CurveShapeIntersector::Init(const Axis3d& Axis, const TopoShape& S)
   {
     return;
   }
-  Standard_Real Tol = Precision::Confusion();
+  Standard_Real Tol = Precision1::Confusion();
 
   BRepIntCurveSurface_Inter theInt;
   theInt.Init(S, gp_Lin(Axis), Tol);
@@ -56,7 +56,7 @@ void CurveShapeIntersector::Init(const gp_Circ& C, const TopoShape& S)
   {
     return;
   }
-  Standard_Real Tol = Precision::Confusion();
+  Standard_Real Tol = Precision1::Confusion();
 
   Handle(GeomCircle) GC = new GeomCircle(C);
   GeomAdaptor_Curve   AC(GC, 0., 2. * M_PI);
@@ -79,7 +79,7 @@ Standard_Boolean CurveShapeIntersector::LocalizeAfter(const Standard_Real From,
   {
     throw StdFail_NotDone();
   }
-  Standard_Real    Eps = Precision::Confusion();
+  Standard_Real    Eps = Precision1::Confusion();
   Standard_Real    param, FMEPS = From - Eps;
   Standard_Integer i, ifirst, nbpoints = myPoints.Length();
   for (ifirst = 1; ifirst <= nbpoints; ifirst++)
@@ -143,7 +143,7 @@ Standard_Boolean CurveShapeIntersector::LocalizeBefore(const Standard_Real From,
   {
     throw StdFail_NotDone();
   }
-  Standard_Real    Eps = Precision::Confusion();
+  Standard_Real    Eps = Precision1::Confusion();
   Standard_Real    param, FPEPS = From + Eps;
   Standard_Integer i, ifirst, nbpoints = myPoints.Length();
   for (ifirst = nbpoints; ifirst >= 1; ifirst--)
@@ -213,7 +213,7 @@ Standard_Boolean CurveShapeIntersector::LocalizeAfter(const Standard_Integer Fro
     return Standard_False;
   }
 
-  Standard_Real    Eps = Precision::Confusion();
+  Standard_Real    Eps = Precision1::Confusion();
   Standard_Real    param, FMEPS;
   Standard_Integer i, ifirst;
   if (FromInd >= 1)
@@ -291,7 +291,7 @@ Standard_Boolean CurveShapeIntersector::LocalizeBefore(const Standard_Integer Fr
     return Standard_False;
   }
 
-  Standard_Real    Eps = Precision::Confusion();
+  Standard_Real    Eps = Precision1::Confusion();
   Standard_Real    param, FPEPS;
   Standard_Integer i, ifirst;
   if (FromInd <= nbpoints)

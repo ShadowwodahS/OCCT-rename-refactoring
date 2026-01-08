@@ -288,7 +288,7 @@ void IGESCAFControl_Writer::MakeColors(const TopoShape&                       S,
 
   // analyze whether current entity should get a color
   Standard_Boolean hasColor = Standard_False;
-  Quantity_Color   col;
+  Color1   col;
   if (S.ShapeType() == TopAbs_FACE || S.ShapeType() == TopAbs_SOLID)
   {
     if (style.IsSetColorSurf())
@@ -608,7 +608,7 @@ void IGESCAFControl_Writer::prepareUnit(const DataLabel& theLabel)
   else
   {
     XSAlgo_ShapeProcessor::PrepareForTransfer(); // update unit info
-    Model()->ChangeGlobalSection().SetCascadeUnit(UnitsMethods::GetCasCadeLengthUnit());
+    Model()->ChangeGlobalSection().SetCascadeUnit(UnitsMethods1::GetCasCadeLengthUnit());
   }
 }
 

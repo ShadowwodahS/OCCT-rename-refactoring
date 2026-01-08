@@ -89,7 +89,7 @@ Circle2dTwoTangentRadius::Circle2dTwoTangentRadius(const QualifiedLine& Qualifie
   }
   else
   {
-    if (L1.Direction().IsParallel(L2.Direction(), Precision::Angular()))
+    if (L1.Direction().IsParallel(L2.Direction(), Precision1::Angular()))
     {
       WellDone = Standard_True;
     }

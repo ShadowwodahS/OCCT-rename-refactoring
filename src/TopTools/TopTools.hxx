@@ -33,7 +33,7 @@ class TopoShape;
 //! * OrientedShapeMapHasher. Hash a Shape base on the
 //! TShape ,the Location and the Orientation.
 //!
-//! * Instantiations of TCollection for Shapes :
+//! * Instantiations of TCollection1 for Shapes :
 //! MapOfShape
 //! IndexedMapOfShape
 //! DataMapOfIntegerShape

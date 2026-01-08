@@ -158,7 +158,7 @@ struct VertexFunctor
         Map2(NULL),
         Scope(theRange, "Vertices distances calculating", theBandArray->Size()),
         Ranges(0, theBandArray->Size() - 1),
-        Eps(Precision::Confusion()),
+        Eps(Precision1::Confusion()),
         StartDist(0.0)
   {
     for (Standard_Integer i = 0; i < theBandArray->Size(); ++i)
@@ -270,7 +270,7 @@ Standard_Boolean BRepExtrema_DistShapeShape::DistanceVertVert(
   aFunctor.StartDist = myDistRef;
   aFunctor.Eps       = myEps;
 
-  OSD_Parallel::For(0, aNbTasks, aFunctor, !myIsMultiThread);
+  Parallel1::For(0, aNbTasks, aFunctor, !myIsMultiThread);
   if (!aDistScope.More())
   {
     return Standard_False;
@@ -312,7 +312,7 @@ struct DistanceFunctor
         LBox2(NULL),
         Scope(theRange, "Shapes distances calculating", theArrayOfArrays->Size()),
         Ranges(0, theArrayOfArrays->Size() - 1),
-        Eps(Precision::Confusion()),
+        Eps(Precision1::Confusion()),
         StartDist(0.0)
   {
     for (Standard_Integer i = 0; i < theArrayOfArrays->Size(); ++i)
@@ -406,7 +406,7 @@ struct DistancePairFunctor
         Scope(theRange, "Boxes distances calculating", theBandArray->Size()),
         Ranges(0, theBandArray->Size() - 1),
         DistRef(0),
-        Eps(Precision::Confusion())
+        Eps(Precision1::Confusion())
   {
     for (Standard_Integer i = 0; i < theBandArray->Size(); ++i)
     {
@@ -517,7 +517,7 @@ Standard_Boolean BRepExtrema_DistShapeShape::DistanceMapMap(
   aPairFunctor.DistRef = myDistRef;
   aPairFunctor.Eps     = myEps;
 
-  OSD_Parallel::For(0, aNbPairTasks, aPairFunctor, !myIsMultiThread);
+  Parallel1::For(0, aNbPairTasks, aPairFunctor, !myIsMultiThread);
   if (!aTwinScope.More())
   {
     return Standard_False;
@@ -584,7 +584,7 @@ Standard_Boolean BRepExtrema_DistShapeShape::DistanceMapMap(
   aFunctor.Eps       = myEps;
   aFunctor.StartDist = myDistRef;
 
-  OSD_Parallel::For(0, aNbTasks, aFunctor, !myIsMultiThread);
+  Parallel1::For(0, aNbTasks, aFunctor, !myIsMultiThread);
   if (!aTwinScope.More())
   {
     return Standard_False;
@@ -620,7 +620,7 @@ BRepExtrema_DistShapeShape::BRepExtrema_DistShapeShape()
     : myDistRef(0.0),
       myIsDone(Standard_False),
       myInnerSol(Standard_False),
-      myEps(Precision::Confusion()),
+      myEps(Precision1::Confusion()),
       myIsInitS1(Standard_False),
       myIsInitS2(Standard_False),
       myFlag(Extrema_ExtFlag_MINMAX),
@@ -639,7 +639,7 @@ BRepExtrema_DistShapeShape::BRepExtrema_DistShapeShape(const TopoShape&         
     : myDistRef(0.0),
       myIsDone(Standard_False),
       myInnerSol(Standard_False),
-      myEps(Precision::Confusion()),
+      myEps(Precision1::Confusion()),
       myIsInitS1(Standard_False),
       myIsInitS2(Standard_False),
       myFlag(F),
@@ -813,7 +813,7 @@ Standard_Boolean BRepExtrema_DistShapeShape::SolidTreatment(
     aFunctor.Mutex.reset(new Standard_HMutex());
   }
 
-  OSD_Parallel::For(0, aNbTasks, aFunctor, !myIsMultiThread);
+  Parallel1::For(0, aNbTasks, aFunctor, !myIsMultiThread);
 
   if (!aScope.More())
   {

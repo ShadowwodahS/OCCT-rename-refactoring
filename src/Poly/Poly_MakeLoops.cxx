@@ -465,7 +465,7 @@ Standard_Boolean LoopBuilder::canLinkBeTaken(Standard_Integer theIndexS) const
 void LoopBuilder::showBoundaryBreaks() const
 {
   // collect nodes of boundary links
-  TColStd_PackedMapOfInteger aNodesMap;
+  PackedIntegerMap aNodesMap;
   Standard_Integer           i;
   for (i = 1; i <= myMapLink.Extent(); i++)
   {

@@ -50,7 +50,7 @@
 //              On NT platforms (in BRepTools_ShapeSet):
 //              ----------------
 //                In Visual C++ 5 (or higher) the std::fstream::tellg method is not
-//                conform to Standard C++ because it modifies the file pointer
+//                conform to Standard1 C++ because it modifies the file pointer
 //                position and returns a wrong position. After that the next
 //                readings are shifted and the reading process stop with errors.
 //

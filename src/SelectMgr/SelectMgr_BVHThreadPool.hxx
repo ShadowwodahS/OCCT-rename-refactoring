@@ -35,13 +35,13 @@ public:
 
 public:
   //! Thread with back reference to thread pool and thread mutex in it.
-  class BVHThread : public OSD_Thread
+  class BVHThread : public Thread
   {
     friend class SelectMgr_BVHThreadPool;
 
   public:
     BVHThread()
-        : OSD_Thread(),
+        : Thread(),
           myPool(nullptr),
           myMutex(),
           myToCatchFpe(Standard_False)
@@ -49,7 +49,7 @@ public:
     }
 
     BVHThread(const BVHThread& theOther)
-        : OSD_Thread(theOther),
+        : Thread(theOther),
           myPool(theOther.myPool),
           myMutex(),
           myToCatchFpe(theOther.myToCatchFpe)
@@ -69,7 +69,7 @@ public:
     //! Assignment operator.
     void Assign(const BVHThread& theCopy)
     {
-      OSD_Thread::Assign(theCopy);
+      Thread::Assign(theCopy);
       myPool       = theCopy.myPool;
       myToCatchFpe = theCopy.myToCatchFpe;
     }
@@ -154,8 +154,8 @@ protected:
   NCollection_Array1<BVHThread> myBVHThreads;                          //!< threads to build BVH
   Standard_Boolean myToStopBVHThread;                                  //!< flag to stop BVH threads
   Standard_Mutex myBVHListMutex;                                       //!< mutex for interaction with myBVHToBuildList
-  Standard_Condition myWakeEvent;                                      //!< raises when any sensitive is added to the BVH list
-  Standard_Condition myIdleEvent;                                      //!< raises when BVH list become empty
+  Condition myWakeEvent;                                      //!< raises when any sensitive is added to the BVH list
+  Condition myIdleEvent;                                      //!< raises when BVH list become empty
   Standard_Boolean myIsStarted;                                        //!< indicates that threads are running
   // clang-format on
 };

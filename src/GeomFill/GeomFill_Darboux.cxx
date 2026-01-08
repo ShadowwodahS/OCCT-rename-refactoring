@@ -350,7 +350,7 @@ Standard_Boolean GeomFill_Darboux::D0(const Standard_Real Param,
   BiNormal.SetXYZ(NormalDir.XYZ());
 
   mySupport->D1(C2d.X(), C2d.Y(), S, dS_du, dS_dv);
-  //  if(D2d.Magnitude() <= Precision::Confusion())
+  //  if(D2d.Magnitude() <= Precision1::Confusion())
   //    DoTSingular(Param, Order);
 
   Tangent = D2d.X() * dS_du + D2d.Y() * dS_dv;
@@ -381,7 +381,7 @@ Standard_Boolean GeomFill_Darboux::D1(const Standard_Real Param,
   //  Standard_Integer Order;
   myCurve2d->D2(Param, C2d, D2d, D2_2d);
   mySupport->D2(C2d.X(), C2d.Y(), S, dS_du, dS_dv, d2S_du, d2S_dv, d2S_duv);
-  //  if(D2d.Magnitude() <= Precision::Confusion())
+  //  if(D2d.Magnitude() <= Precision1::Confusion())
   //    DoTSingular(Param, Order);
 
   F       = D2d.X() * dS_du + D2d.Y() * dS_dv;
@@ -437,7 +437,7 @@ Standard_Boolean GeomFill_Darboux::D2(const Standard_Real Param,
                 d3S_dv,
                 d3S_duuv,
                 d3S_duvv);
-  //  if(D2d.Magnitude() <= Precision::Confusion())
+  //  if(D2d.Magnitude() <= Precision1::Confusion())
   //    DoTSingular(Param, Order);
 
   F       = D2d.X() * dS_du + D2d.Y() * dS_dv;

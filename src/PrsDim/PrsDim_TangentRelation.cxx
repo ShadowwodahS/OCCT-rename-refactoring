@@ -130,13 +130,13 @@ static Standard_Boolean ComputeTangencyPoint(const Handle(GeomCurve3d)& GC1,
     }
     else
     {
-      if ((dist < mindist) || (dist < Precision::Confusion()))
+      if ((dist < mindist) || (dist < Precision1::Confusion()))
       {
         mindist = dist;
         PC1     = P1;
       }
     }
-    if (dist < Precision::Confusion())
+    if (dist < Precision1::Confusion())
     {
       if (GC1->IsInstance(STANDARD_TYPE(GeomLine)))
       {
@@ -167,7 +167,7 @@ static Standard_Boolean ComputeTangencyPoint(const Handle(GeomCurve3d)& GC1,
         Standard_Real        par_inter = ElCLib1::Parameter(ellipse->Elips(), P2);
         ElCLib1::D1(par_inter, ellipse->Elips(), P2, aVector2);
       }
-      //	  if ( aVector1.IsParallel(aVector2, 100*Precision::Angular()) ) break;
+      //	  if ( aVector1.IsParallel(aVector2, 100*Precision1::Angular()) ) break;
       if (aVector1.IsParallel(aVector2, M_PI / 360.0))
         break; // 0.5 graduce
     }
@@ -371,7 +371,7 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
       myLength               = Max(R1, R2) / 5.0;
       if (!found)
       {
-        if ((circle1->Location()).IsEqual(circle2->Location(), Precision::Confusion()))
+        if ((circle1->Location()).IsEqual(circle2->Location(), Precision1::Confusion()))
         {
           if (R1 >= R2)
           {

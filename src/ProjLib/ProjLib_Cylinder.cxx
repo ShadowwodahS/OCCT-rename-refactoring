@@ -83,7 +83,7 @@ static gp_Pnt2d EvalPnt2d(const Point3d& P, const Cylinder1& Cy)
   Standard_Real Z = OP.Dot(Vector3d(Cy.Position1().Direction()));
   Standard_Real U;
 
-  if (Abs(X) > Precision::PConfusion() || Abs(Y) > Precision::PConfusion())
+  if (Abs(X) > Precision1::PConfusion() || Abs(Y) > Precision1::PConfusion())
   {
     U = ATan2(Y, X);
   }
@@ -101,7 +101,7 @@ void ProjLib_Cylinder::Project(const gp_Lin& L)
   // Check the line is parallel to the axis of cylinder.
   // In other cases, the projection is wrong.
   if (L.Direction().XYZ().CrossSquareMagnitude(myCylinder.Position1().Direction().XYZ())
-      > Precision::Angular() * Precision::Angular())
+      > Precision1::Angular() * Precision1::Angular())
     return;
 
   myType = GeomAbs_Line;
@@ -128,7 +128,7 @@ void ProjLib_Cylinder::Project(const gp_Circ& C)
   const Ax3& aCylPos  = myCylinder.Position1();
   const Frame3d& aCircPos = C.Position1();
   if (aCylPos.Direction().XYZ().CrossSquareMagnitude(aCircPos.Direction().XYZ())
-      > Precision::Angular() * Precision::Angular())
+      > Precision1::Angular() * Precision1::Angular())
     return;
 
   myType = GeomAbs_Line;

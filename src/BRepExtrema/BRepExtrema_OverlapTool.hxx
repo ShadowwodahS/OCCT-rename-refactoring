@@ -73,10 +73,10 @@ public:
 
 #ifdef OVERLAP_TOOL_OUTPUT_TRIANGLES
   //! Returns set of overlapped triangles from the 1st shape (for debug).
-  const TColStd_PackedMapOfInteger& OverlapTriangles1() const { return myOverlapTriangles1; }
+  const PackedIntegerMap& OverlapTriangles1() const { return myOverlapTriangles1; }
 
   //! Returns set of overlapped triangles from the 2nd shape (for debug).
-  const TColStd_PackedMapOfInteger& OverlapTriangles2() const { return myOverlapTriangles2; }
+  const PackedIntegerMap& OverlapTriangles2() const { return myOverlapTriangles2; }
 #endif
 
   //! Sets filtering tool for preliminary checking pairs of mesh elements.
@@ -120,9 +120,9 @@ private:
 
 #ifdef OVERLAP_TOOL_OUTPUT_TRIANGLES
   //! Set of overlapped elements from the 1st shape (only triangles).
-  TColStd_PackedMapOfInteger myOverlapTriangles1;
+  PackedIntegerMap myOverlapTriangles1;
   //! Set of overlapped elements from the 2nd shape (only triangles).
-  TColStd_PackedMapOfInteger myOverlapTriangles2;
+  PackedIntegerMap myOverlapTriangles2;
 #endif
 
   //! Is overlap test test completed?

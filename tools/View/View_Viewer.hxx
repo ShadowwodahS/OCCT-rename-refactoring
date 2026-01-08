@@ -29,7 +29,7 @@ class View_Viewer
 {
 public:
   //! Constructor
-  View_Viewer(const Quantity_Color& theColor)
+  View_Viewer(const Color1& theColor)
       : myDefaultColor(theColor)
   {
   }
@@ -38,12 +38,12 @@ public:
   virtual ~View_Viewer() {}
 
   //! Returns the view default colors
-  static Quantity_Color DefaultColor() { return Quantity_Color(Quantity_NOC_BLACK); }
+  static Color1 DefaultColor() { return Color1(Quantity_NOC_BLACK); }
 
   //! Returns the view default colors
-  static Quantity_Color DisabledColor()
+  static Color1 DisabledColor()
   {
-    return Quantity_Color(195 / 255., 195 / 255., 195 / 255., Quantity_TOC_sRGB);
+    return Color1(195 / 255., 195 / 255., 195 / 255., Quantity_TOC_sRGB);
   }
 
   //! Creates V3d1 view
@@ -75,7 +75,7 @@ private:
   Handle(ViewWindow)   myView;   //!< the OCCT view window
   Handle(VisualContext)
                  myContext;      //!< OCCT context to provide display and selection mechanism
-  Quantity_Color myDefaultColor; //!< the default color of the viewer
+  Color1 myDefaultColor; //!< the default color of the viewer
 };
 
 #endif // View_Viewer_H

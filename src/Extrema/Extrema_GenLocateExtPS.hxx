@@ -35,8 +35,8 @@ public:
 
   //! Constructor.
   Standard_EXPORT Extrema_GenLocateExtPS(const Adaptor3d_Surface& theS,
-                                         const Standard_Real      theTolU = Precision::PConfusion(),
-                                         const Standard_Real theTolV = Precision::PConfusion());
+                                         const Standard_Real      theTolU = Precision1::PConfusion(),
+                                         const Standard_Real theTolV = Precision1::PConfusion());
 
   //! Calculates the extrema between the point and the surface using a close point.
   //! The close point is defined by the parameter values theU0 and theV0.

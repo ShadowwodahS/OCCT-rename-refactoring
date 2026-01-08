@@ -48,7 +48,7 @@ void WFRestrictedFaceConverter::Add(Standard_OStream&                   anOStrea
   for (ToolRst.Init(); ToolRst.More(); ToolRst.Next())
   {
     const Adaptor2d_Curve2d& TheRCurve = ToolRst.Value();
-    Add2dCurve::Add(TheRCurve, Precision::PConfusion(), B);
+    Add2dCurve::Add(TheRCurve, Precision1::PConfusion(), B);
   }
 
   B.Get(UMin, VMin, UMax, VMax);

@@ -145,7 +145,7 @@ protected:
 
   //! coordinates of different pixels, packed in one int using 16-bit integers to save memory
   NCollection_Vector<Standard_Integer>                  myDiffPixels;
-  TColStd_PackedMapOfInteger                            myLinearGroups;
+  PackedIntegerMap                            myLinearGroups;
   NCollection_List<Handle(TColStd_HPackedMapOfInteger)> myGroupsOfDiffPixels;
 
 public:

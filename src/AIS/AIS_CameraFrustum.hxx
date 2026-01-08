@@ -42,7 +42,7 @@ public:
   Standard_EXPORT void SetCameraFrustum(const Handle(CameraOn3d)& theCamera);
 
   //! Setup custom color.
-  Standard_EXPORT virtual void SetColor(const Quantity_Color& theColor) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetColor(const Color1& theColor) Standard_OVERRIDE;
 
   //! Restore default color.
   Standard_EXPORT virtual void UnsetColor() Standard_OVERRIDE;

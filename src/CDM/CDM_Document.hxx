@@ -86,7 +86,7 @@ public:
   //! ErrorString.
   Standard_EXPORT virtual Standard_Boolean Update(UtfString& ErrorString);
 
-  //! The Storage Format is the key which is used to determine in the
+  //! The Storage1 Format is the key which is used to determine in the
   //! application resources the storage driver plugin, the file
   //! extension and other data used to store the document.
   Standard_EXPORT virtual UtfString StorageFormat() const = 0;
@@ -328,8 +328,8 @@ public:
 
   //! the following method should be used instead:
   //!
-  //! Update(me:mutable; ErrorString: out ExtendedString from TCollection)
-  //! returns Boolean from Standard
+  //! Update(me:mutable; ErrorString: out ExtendedString from TCollection1)
+  //! returns Boolean from Standard1
   Standard_EXPORT virtual void Update();
 
   Standard_EXPORT Handle(CDM_Reference) Reference1(

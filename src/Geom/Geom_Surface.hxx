@@ -136,7 +136,7 @@ public:
 
   //! Returns the parametric bounds U1, U2, V1 and V2 of this surface.
   //! If the surface is infinite, this function can return a value
-  //! equal to Precision::Infinite: instead of Standard_Real::LastReal.
+  //! equal to Precision1::Infinite: instead of Standard_Real::LastReal.
   Standard_EXPORT virtual void Bounds(Standard_Real& U1,
                                       Standard_Real& U2,
                                       Standard_Real& V1,

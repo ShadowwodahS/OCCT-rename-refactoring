@@ -267,7 +267,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonE(const Point3d&       P,
 
   Standard_Real f, l;
   FUN_tool_bounds(E, f, l);
-  Standard_Real    tolp = Precision::Parametric(Precision::Confusion());
+  Standard_Real    tolp = Precision1::Parametric(Precision1::Confusion());
   Standard_Boolean onf  = Abs(f - param) < tolp;
   if (onf)
     param = f;

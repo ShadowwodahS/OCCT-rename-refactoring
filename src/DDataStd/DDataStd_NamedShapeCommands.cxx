@@ -69,7 +69,7 @@ void DDataStd1::NamedShapeCommands(DrawInterpreter& theCommands)
   if (done)
     return;
   done          = Standard_True;
-  const char* g = "DData : Standard Attribute Commands";
+  const char* g = "DData : Standard1 Attribute Commands";
 
   theCommands.Add("SetShape", "SetShape (DF, entry, drawname)", __FILE__, DDataStd_SetShape, g);
 }

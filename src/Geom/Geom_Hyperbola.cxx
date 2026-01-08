@@ -93,14 +93,14 @@ Standard_Boolean Geom_Hyperbola::IsPeriodic() const
 
 Standard_Real Geom_Hyperbola::FirstParameter() const
 {
-  return -Precision::Infinite();
+  return -Precision1::Infinite();
 }
 
 //=================================================================================================
 
 Standard_Real Geom_Hyperbola::LastParameter() const
 {
-  return Precision::Infinite();
+  return Precision1::Infinite();
 }
 
 //=================================================================================================

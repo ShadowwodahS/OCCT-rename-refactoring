@@ -251,7 +251,7 @@ static Standard_Integer OCC486(DrawInterpreter& di, Standard_Integer argc, const
     }
     Point3d P3D(Draw1::Atof(argv[2]), Draw1::Atof(argv[3]), Draw1::Atof(argv[4]));
 
-    constexpr Standard_Real Tol = Precision::PConfusion();
+    constexpr Standard_Real Tol = Precision1::PConfusion();
     Extrema_ExtPS           myExtPS;
     if (argc > 5)
       du = Draw1::Atof(argv[5]);
@@ -292,7 +292,7 @@ static Standard_Integer OCC486(DrawInterpreter& di, Standard_Integer argc, const
       di << "ExtremaDistance = " << distMin << "\n";
       di << "CheckDistance = " << aCheckDist << "\n";
 
-      if (fabs(distMin - aCheckDist) < Precision::Confusion())
+      if (fabs(distMin - aCheckDist) < Precision1::Confusion())
         return 0;
       else
         return 1;
@@ -747,7 +747,7 @@ static Standard_Integer OCC825(DrawInterpreter& di, Standard_Integer argc, const
 
   Handle(Geom_BezierSurface)  BezSurf = new Geom_BezierSurface(poles);
   Handle(Geom_BSplineSurface) BSpSurf = GeomConvert1::SurfaceToBSplineSurface(BezSurf);
-  FaceMaker     faceMaker(BSpSurf, Precision::Confusion());
+  FaceMaker     faceMaker(BSpSurf, Precision1::Confusion());
   const TopoFace&          face = faceMaker.Face();
 
   Point3d                     pnt(0, size, 0);

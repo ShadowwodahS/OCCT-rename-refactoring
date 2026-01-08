@@ -146,7 +146,7 @@ public:
   Standard_Boolean IsReady() const;
 
   //! Returns the value of precision
-  Standard_Real Precision() const;
+  Standard_Real Precision1() const;
 
   //! Returns wire object being analyzed
   const Handle(ShapeExtend_WireData)& WireData() const;

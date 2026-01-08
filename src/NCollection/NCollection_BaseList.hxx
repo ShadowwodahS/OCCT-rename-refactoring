@@ -16,7 +16,7 @@
 // Purpose:     This is a base  class  for the  List, Set, Queue  and Stack
 //              collections. It offers operations on abstract lists (of the
 //              objects of class NCollection_ListNode).
-//              Apart from this class being  brand new (in TCollection said
+//              Apart from this class being  brand new (in TCollection1 said
 //              collections were independent, only using the same class for
 //              node representation),  here is an  important new  feature -
 //              the  list  length is  continuously updated,  so the  method

@@ -121,7 +121,7 @@ ShapeAnalysis_FreeBounds::ShapeAnalysis_FreeBounds(const TopoShape&    shape,
     Handle(TopTools_HSequenceOfShape) edges = see.SeqFromCompound(sas.FreeEdges(), Standard_False);
 
     Handle(TopTools_HSequenceOfShape) wires;
-    ConnectEdgesToWires(edges, Precision::Confusion(), Standard_True, wires);
+    ConnectEdgesToWires(edges, Precision1::Confusion(), Standard_True, wires);
     DispatchWires(wires, myWires, myEdges);
     SplitWires();
   }
@@ -180,7 +180,7 @@ void ShapeAnalysis_FreeBounds::ConnectWiresToWires(Handle(TopTools_HSequenceOfSh
   for (i = 1; i <= arrwires->Length(); i++)
     arrwires->SetValue(i, iwires->Value(i));
   owires                  = new TopTools_HSequenceOfShape;
-  Standard_Real tolerance = Max(toler, Precision::Confusion());
+  Standard_Real tolerance = Max(toler, Precision1::Confusion());
 
   Handle(ShapeExtend_WireData) sewd = new ShapeExtend_WireData(TopoDS::Wire(arrwires->Value(1)));
 
@@ -390,7 +390,7 @@ static void SplitWire(const TopoWire&                 wire,
 {
   closed                  = new TopTools_HSequenceOfShape;
   open                    = new TopTools_HSequenceOfShape;
-  Standard_Real tolerance = Max(toler, Precision::Confusion());
+  Standard_Real tolerance = Max(toler, Precision1::Confusion());
 
   ShapeBuilder       B;
   Edge1 sae;

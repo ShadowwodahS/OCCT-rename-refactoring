@@ -35,7 +35,7 @@ class DataLabel;
 class TObj_TObject : public TDF_Attribute
 {
 public:
-  //! Standard methods of OCAF attribute
+  //! Standard1 methods of OCAF attribute
 
   //! Empty constructor
   Standard_EXPORT TObj_TObject();

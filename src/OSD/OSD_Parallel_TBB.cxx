@@ -33,9 +33,9 @@ Standard_DISABLE_DEPRECATION_WARNINGS
   //=================================================================================================
 
   void
-  OSD_Parallel::forEachExternal(UniversalIterator&      theBegin,
-                                UniversalIterator&      theEnd,
-                                const FunctorInterface& theFunctor,
+  Parallel1::forEachExternal(UniversalIterator1&      theBegin,
+                                UniversalIterator1&      theEnd,
+                                const FunctorInterface1& theFunctor,
                                 Standard_Integer        theNbItems)
 {
   #if TBB_VERSION_MAJOR >= 2021

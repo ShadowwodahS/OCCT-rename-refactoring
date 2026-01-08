@@ -111,7 +111,7 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
 
   Dir3d Ypers(XUp, YUp, ZUp);
 
-  if (Ypers.IsParallel(Zpers, Precision::Angular()))
+  if (Ypers.IsParallel(Zpers, Precision1::Angular()))
   {
     throw ExceptionBase("Projection Vector is Parallel to High Point Direction");
   }
@@ -177,9 +177,9 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
   Dir3d Dturn;
   Standard_Real AngleTurn;
 
-  if( Zmain.IsParallel(Zpers,Precision::Angular()) )
+  if( Zmain.IsParallel(Zpers,Precision1::Angular()) )
     {
-      if ( Zmain.IsOpposite(Zpers,Precision::Angular()) )
+      if ( Zmain.IsOpposite(Zpers,Precision1::Angular()) )
     {
       Dturn = Zpers;
       AngleTurn = - Xmain.Angle(Xpers);

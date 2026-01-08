@@ -136,7 +136,7 @@ static Standard_Boolean newParameter(const Point3d&             thePoint,
                            theParam,
                            theFirst,
                            theLast,
-                           Precision::PConfusion());
+                           Precision1::PConfusion());
   if (proj.IsDone())
   {
     Standard_Real aDist2Min = proj.SquareDistance();
@@ -157,7 +157,7 @@ static Standard_Boolean newParameter(const gp_Pnt2d&             theUV,
                                      Standard_Real&              theParam)
 {
   Geom2dAdaptor_Curve   anAdaptor(theCurve2d);
-  Extrema_LocateExtPC2d aProj(theUV, anAdaptor, theParam, Precision::PConfusion());
+  Extrema_LocateExtPC2d aProj(theUV, anAdaptor, theParam, Precision1::PConfusion());
   if (aProj.IsDone())
   {
     Standard_Real aDist2Min = aProj.SquareDistance();
@@ -176,7 +176,7 @@ static Standard_Boolean newParameter(const gp_Pnt2d&             theUV,
     if (anExt.IsDone())
     {
       Standard_Integer aMinInd    = 0;
-      Standard_Real    aMinSqDist = Precision::Infinite();
+      Standard_Real    aMinSqDist = Precision1::Infinite();
       for (Standard_Integer anIndex = 1; anIndex <= anExt.NbExt(); ++anIndex)
         if (anExt.SquareDistance(anIndex) < aMinSqDist)
         {
@@ -586,9 +586,9 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoEdge& 
 
     if (!C2d->IsPeriodic())
     {
-      if (fc - f2d > Precision::PConfusion())
+      if (fc - f2d > Precision1::PConfusion())
         f2d = fc;
-      if (l2d - lc > Precision::PConfusion())
+      if (l2d - lc > Precision1::PConfusion())
         l2d = lc;
     }
 
@@ -719,7 +719,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoEdge& 
       {
         // Surface is periodic, checking curve2d domain
         // Old domain
-        Standard_Real aMinDist = Precision::Infinite();
+        Standard_Real aMinDist = Precision1::Infinite();
         if (S->IsUPeriodic())
         {
           aMinDist = Min(0.5 * S->UPeriod(), aMinDist);

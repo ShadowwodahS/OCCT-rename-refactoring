@@ -148,6 +148,6 @@ void ViewerTest_ContinuousRedrawer::doThreadLoop()
       myView->Window()->InvalidateContent(aDisp);
     }
 
-    OSD::MilliSecSleep(1);
+    OSD1::MilliSecSleep(1);
   }
 }

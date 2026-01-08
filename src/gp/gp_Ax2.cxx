@@ -144,7 +144,7 @@ Standard_Boolean Frame3d::InitFromJson(const Standard_SStream& theSStream,
                                       Standard_Integer&       theStreamPos)
 {
   Standard_Integer        aPos       = theStreamPos;
-  AsciiString1 aStreamStr = Standard_Dump::Text(theSStream);
+  AsciiString1 aStreamStr = DumpTool::Text(theSStream);
 
   Coords3d anXYZLoc;
   OCCT_INIT_VECTOR_CLASS(aStreamStr,
@@ -185,7 +185,7 @@ Standard_Boolean Frame3d::InitFromJson(const Standard_SStream& theSStream,
   vxdir = Dir3d(aXDir);
   vydir = Dir3d(anYDir);
 
-  if (!Direction().IsEqual(aDir, Precision::Confusion()))
+  if (!Direction().IsEqual(aDir, Precision1::Confusion()))
     return Standard_False;
 
   theStreamPos = aPos;

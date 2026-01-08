@@ -88,12 +88,12 @@ public:
   }
 
   //! Setup per-label color.
-  Standard_EXPORT void SetLabelsColor(const Quantity_Color& theXColor,
-                                      const Quantity_Color& theYColor,
-                                      const Quantity_Color& theZColor);
+  Standard_EXPORT void SetLabelsColor(const Color1& theXColor,
+                                      const Color1& theYColor,
+                                      const Color1& theZColor);
 
   //! Setup color of text labels.
-  Standard_EXPORT void SetLabelsColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetLabelsColor(const Color1& theColor);
 
   //! Return shading aspect for specified axis.
   //! @param[in] theAxis  axis index
@@ -104,9 +104,9 @@ public:
   }
 
   //! Setup colors of arrows.
-  Standard_EXPORT void SetArrowsColor(const Quantity_Color& theXColor,
-                                      const Quantity_Color& theYColor,
-                                      const Quantity_Color& theZColor);
+  Standard_EXPORT void SetArrowsColor(const Color1& theXColor,
+                                      const Color1& theYColor,
+                                      const Color1& theZColor);
 
   //! Return shading aspect of origin sphere.
   const Handle(Prs3d_ShadingAspect)& OriginAspect() const { return mySphereShadingAspect; }

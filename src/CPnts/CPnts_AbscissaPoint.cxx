@@ -395,7 +395,7 @@ void CPnts_AbscissaPoint::Perform(const Standard_Real Abscissa,
                                   const Standard_Real U0,
                                   const Standard_Real Resolution)
 {
-  if (myL < Precision::Confusion())
+  if (myL < Precision1::Confusion())
   {
     //
     //  leave less violently : it is expected that
@@ -419,7 +419,7 @@ void CPnts_AbscissaPoint::Perform(const Standard_Real Abscissa,
                                   const Standard_Real Ui,
                                   const Standard_Real Resolution)
 {
-  if (myL < Precision::Confusion())
+  if (myL < Precision1::Confusion())
   {
     //
     //  leave less violently :
@@ -460,7 +460,7 @@ void CPnts_AbscissaPoint::AdvPerform(const Standard_Real Abscissa,
                                      const Standard_Real Ui,
                                      const Standard_Real Resolution)
 {
-  if (myL < Precision::Confusion())
+  if (myL < Precision1::Confusion())
   {
     //
     //  leave less violently :

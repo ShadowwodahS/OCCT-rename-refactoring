@@ -209,7 +209,7 @@ static Standard_Integer projface(DrawInterpreter& di, Standard_Integer argc, con
   }
   TopoFace             F       = TopoDS::Face(Shape);
   Handle(GeomSurface)    thesurf = BRepInspector::Surface(F); // pas locface
-  BRepTopAdaptor_FClass2d aClassifier(F, Precision::Confusion());
+  BRepTopAdaptor_FClass2d aClassifier(F, Precision1::Confusion());
   //  On y va
   Standard_Real X, Y, Z, U, V;
   X = U = Draw1::Atof(argv[2]);
@@ -222,13 +222,13 @@ static Standard_Integer projface(DrawInterpreter& di, Standard_Integer argc, con
     Standard_Real uf, ul, vf, vl;
     thesurf->Bounds(uf, ul, vf, vl);
 
-    if (Precision::IsInfinite(uf))
+    if (Precision1::IsInfinite(uf))
       uf = -1000;
-    if (Precision::IsInfinite(ul))
+    if (Precision1::IsInfinite(ul))
       ul = 1000;
-    if (Precision::IsInfinite(vf))
+    if (Precision1::IsInfinite(vf))
       vf = -1000;
-    if (Precision::IsInfinite(vl))
+    if (Precision1::IsInfinite(vl))
       vl = 1000;
     Standard_Real du = Abs(ul - uf) / 10;
     Standard_Real dv = Abs(vl - vf) / 10;
@@ -338,14 +338,14 @@ static Standard_Integer projcurve(DrawInterpreter& di, Standard_Integer argc, co
   X = Draw1::Atof(argv[2 + i0]);
   Y = Draw1::Atof(argv[3 + i0]);
   Z = Draw1::Atof(argv[4 + i0]);
-  di << "Precision (BRepBuilderAPI1) : " << BRepBuilderAPI1::Precision() << "  Projection : " << X
+  di << "Precision1 (BRepBuilderAPI1) : " << BRepBuilderAPI1::Precision1() << "  Projection : " << X
      << "  " << Y << "  " << Z << "\n";
 
   Point3d        P3D(X, Y, Z);
   Point3d        res;
   Standard_Real param, dist;
 
-  dist = Curve2().Project(C, P3D, BRepBuilderAPI1::Precision(), res, param, cf, cl);
+  dist = Curve2().Project(C, P3D, BRepBuilderAPI1::Precision1(), res, param, cf, cl);
   res.Coord(X, Y, Z);
   di << "Result : " << X << "  " << Y << "  " << Z << "\nParam = " << param << "  Gap = " << dist
      << "\n";
@@ -453,7 +453,7 @@ static Standard_Integer anaface(DrawInterpreter& di, Standard_Integer argc, cons
   }
   Standard_Boolean iasurf = !surface.IsNull();
   //: sw  if (!Face.IsNull()) STW.SetFace (Face);
-  //: sw  else STW.SetPrecision (BRepBuilderAPI1::Precision());
+  //: sw  else STW.SetPrecision (BRepBuilderAPI1::Precision1());
 
   for (ShapeExplorer exp(Shape, TopAbs_WIRE); exp.More(); exp.Next())
   {
@@ -884,7 +884,7 @@ static Standard_Integer XSHAPE_comptoledge(DrawInterpreter& di,
     TopoEdge   edge = TopoDS::Edge(exp.Current());
     sae.CheckSameParameter(edge, tol, nbpnts);
     Standard_Real t   = BRepInspector::Tolerance(edge);
-    Standard_Real rel = tol / (t > Precision::Confusion() ? t : Precision::Confusion());
+    Standard_Real rel = tol / (t > Precision1::Confusion() ? t : Precision1::Confusion());
     ave += tol;
     relave += rel;
     if (!num)
@@ -1199,7 +1199,7 @@ static Standard_Integer checkselfintersection(DrawInterpreter& di,
     }
   }
 
-  ShapeAnalysis_Wire analyser(TopoDS::Wire(wire), TopoDS::Face(face), Precision::Confusion());
+  ShapeAnalysis_Wire analyser(TopoDS::Wire(wire), TopoDS::Face(face), Precision1::Confusion());
   Standard_Boolean   result = analyser.CheckSelfIntersection();
 
   if (result == Standard_True)
@@ -1435,7 +1435,7 @@ Standard_Integer getanacurve(DrawInterpreter& di, Standard_Integer n, const char
       icurv = 2;
   }
 
-  Standard_Real tol = Precision::Confusion();
+  Standard_Real tol = Precision1::Confusion();
   if (n > 4)
     tol = Draw1::Atof(a[4]);
 

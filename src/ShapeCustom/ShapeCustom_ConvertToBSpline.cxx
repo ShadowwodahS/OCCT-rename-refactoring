@@ -96,12 +96,12 @@ Standard_Boolean ShapeCustom_ConvertToBSpline::NewSurface(const TopoFace&    F,
   S->Bounds(U1, U2, V1, V2);
   Standard_Real Umin, Umax, Vmin, Vmax;
   BRepTools1::UVBounds(F, Umin, Umax, Vmin, Vmax);
-  if (Precision::IsInfinite(U1) || Precision::IsInfinite(U2))
+  if (Precision1::IsInfinite(U1) || Precision1::IsInfinite(U2))
   {
     U1 = Umin;
     U2 = Umax;
   }
-  if (Precision::IsInfinite(V1) || Precision::IsInfinite(V2))
+  if (Precision1::IsInfinite(V1) || Precision1::IsInfinite(V2))
   {
     V1 = Vmin;
     V2 = Vmax;
@@ -123,7 +123,7 @@ Standard_Boolean ShapeCustom_ConvertToBSpline::NewSurface(const TopoFace&    F,
                                               U2,
                                               V1,
                                               V2,
-                                              Precision::Approximation(),
+                                              Precision1::Approximation(),
                                               surf->Continuity(),
                                               10000,
                                               15);
@@ -140,7 +140,7 @@ Standard_Boolean ShapeCustom_ConvertToBSpline::NewSurface(const TopoFace&    F,
                                                   U2,
                                                   V1,
                                                   V2,
-                                                  Precision::Approximation(),
+                                                  Precision1::Approximation(),
                                                   cnt,
                                                   10000,
                                                   15);

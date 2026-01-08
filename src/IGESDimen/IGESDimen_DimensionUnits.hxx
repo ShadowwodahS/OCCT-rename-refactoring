@@ -26,7 +26,7 @@ class TCollection_HAsciiString;
 class IGESDimen_DimensionUnits;
 DEFINE_STANDARD_HANDLE(IGESDimen_DimensionUnits, IGESData_IGESEntity)
 
-//! defines Dimension Units, Type <406>, Form <28>
+//! defines Dimension Units2, Type <406>, Form <28>
 //! in package IGESDimen1
 //! Describes the units and formatting details of the
 //! nominal value of a dimension.
@@ -45,17 +45,17 @@ public:
   //! 2 = After primary dimension
   //! 3 = Above primary dimension
   //! 4 = Below primary dimension
-  //! - aUnitsInd  : Units Indicator
+  //! - aUnitsInd  : Units2 Indicator
   //! - aCharSet   : Character Set used
   //! - aFormat    : Format HAsciiString
-  //! 1 = Standard ASCII
+  //! 1 = Standard1 ASCII
   //! 1001 = Symbol Font 1
   //! 1002 = Symbol Font 2
   //! 1003 = Drafting Font
   //! - aFracFlag  : Fraction Flag
   //! 0 = Display values as decimal numbers
   //! 1 = Display values as fractions
-  //! - aPrecision : Precision Value
+  //! - aPrecision : Precision1 Value
   Standard_EXPORT void Init(const Standard_Integer                  nbPropVal,
                             const Standard_Integer                  aSecondPos,
                             const Standard_Integer                  aUnitsInd,

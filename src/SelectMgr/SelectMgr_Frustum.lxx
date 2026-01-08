@@ -232,7 +232,7 @@ Standard_Boolean SelectMgr_Frustum<N>::hasSegmentOverlap(const Point3d& theStart
                                                          const Point3d& theEndPnt) const
 {
   const Coords3d& aDir = theEndPnt.XYZ() - theStartPnt.XYZ();
-  if (aDir.Modulus() < Precision::Confusion())
+  if (aDir.Modulus() < Precision1::Confusion())
     return Standard_True;
 
   const Standard_Integer anIncFactor = (Camera()->IsOrthographic() && N == 4) ? 2 : 1;
@@ -494,7 +494,7 @@ Standard_Boolean SelectMgr_Frustum<N>::hasSphereOverlap(const Point3d&       the
   }
   const Vector3d aVecPlane1(myVertices[0], myVertices[2]);
   const Vector3d aVecPlane2(myVertices[0], myVertices[2 * N - 2]);
-  if (aVecPlane1.IsParallel(aVecPlane2, Precision::Angular()))
+  if (aVecPlane1.IsParallel(aVecPlane2, Precision1::Angular()))
   {
     return Standard_False;
   }
@@ -530,7 +530,7 @@ Standard_Boolean SelectMgr_Frustum<N>::isDotInside(const Point3d&             th
     const Vector3d aVec2(thePnt, aVert2);
     anAngle += aVec1.Angle(aVec2);
   }
-  if (Abs(anAngle - 2.0 * M_PI) < Precision::Angular())
+  if (Abs(anAngle - 2.0 * M_PI) < Precision1::Angular())
   {
     return true;
   }
@@ -556,7 +556,7 @@ Standard_Boolean SelectMgr_Frustum<N>::isSegmentsIntersect(const Point3d& thePnt
                        thePnt2Seg2.X() - thePnt1Seg1.X(),
                        thePnt2Seg2.Y() - thePnt1Seg1.Y(),
                        thePnt2Seg2.Z() - thePnt1Seg1.Z());
-  if (Abs(aMatPln.Determinant()) > Precision::Confusion())
+  if (Abs(aMatPln.Determinant()) > Precision1::Confusion())
   {
     return false;
   }
@@ -760,7 +760,7 @@ Standard_Boolean SelectMgr_Frustum<N>::hasCylinderOverlap(const Standard_Real   
   }
 
   Point3d       aPoints[6];
-  const Dir3d aDirEndFaces = (aCylNorm.IsParallel(aViewRayDir, Precision::Angular()))
+  const Dir3d aDirEndFaces = (aCylNorm.IsParallel(aViewRayDir, Precision1::Angular()))
                                 ? gp1::DY().Transformed(theTrsf)
                                 : aCylNorm.Crossed(aViewRayDir);
 

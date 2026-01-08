@@ -26,12 +26,12 @@ IMPLEMENT_STANDARD_RTTIEXT(Draw_Drawable3D, RefObject)
 //! Return the map of factory functions.
 static NCollection_DataMap<Standard_CString,
                            Draw_Drawable3D::FactoryFunction_t,
-                           Standard_CStringHasher>&
+                           CStringHasher>&
   getFactoryMap()
 {
   static NCollection_DataMap<Standard_CString,
                              Draw_Drawable3D::FactoryFunction_t,
-                             Standard_CStringHasher>
+                             CStringHasher>
     myToolMap;
   return myToolMap;
 }

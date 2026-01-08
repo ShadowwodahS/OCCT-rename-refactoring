@@ -242,7 +242,7 @@ Standard_Real IntTools_SurfaceRangeLocalizeData::GetUParamInFrame(
   Standard_Integer aFrmInd = theIndex + myUIndMin - 1;
 
   if (myUParams.IsNull() || aFrmInd > myUIndMax)
-    return Precision::Infinite();
+    return Precision1::Infinite();
 
   return myUParams->Value(aFrmInd);
 }
@@ -253,7 +253,7 @@ Standard_Real IntTools_SurfaceRangeLocalizeData::GetVParamInFrame(
   Standard_Integer aFrmInd = theIndex + myVIndMin - 1;
 
   if (myVParams.IsNull() || aFrmInd > myVIndMax)
-    return Precision::Infinite();
+    return Precision1::Infinite();
 
   return myVParams->Value(aFrmInd);
 }

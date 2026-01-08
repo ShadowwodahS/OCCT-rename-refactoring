@@ -38,7 +38,7 @@ public:
                                               Standard_Integer  theArgNb,
                                               const char**      theArgVec);
 
-  //! Callback for TCL (interface)
+  //! Callback1 for TCL (interface)
   struct CallBackData
   {
 
@@ -63,7 +63,7 @@ public:
   };
 
 protected:
-  //! Callback implementation for global function definition
+  //! Callback1 implementation for global function definition
   struct CallBackDataFunc : public CallBackData
   {
 
@@ -83,7 +83,7 @@ protected:
     DrawInterpreter::CommandFunction myFunc;
   };
 
-  //! Callback implementation for class's method definition
+  //! Callback1 implementation for class's method definition
   template <typename theObjHandle>
   struct CallBackDataMethod : public CallBackData
   {

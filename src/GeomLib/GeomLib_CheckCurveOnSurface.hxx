@@ -34,11 +34,11 @@ public:
   //! Constructor
   Standard_EXPORT GeomLib_CheckCurveOnSurface(
     const Handle(Adaptor3d_Curve)& theCurve,
-    const Standard_Real            theTolRange = Precision::PConfusion());
+    const Standard_Real            theTolRange = Precision1::PConfusion());
 
   //! Sets the data for the algorithm
   Standard_EXPORT void Init(const Handle(Adaptor3d_Curve)& theCurve,
-                            const Standard_Real            theTolRange = Precision::PConfusion());
+                            const Standard_Real            theTolRange = Precision1::PConfusion());
 
   //! Initializes all members by default values
   Standard_EXPORT void Init();

@@ -125,7 +125,7 @@ bool RWPly_CafWriter::Perform(const Handle(AppDocument)&             theDocument
     return false;
   }
 
-  Standard_CLocaleSentry aLocaleSentry;
+  CLocaleSentry aLocaleSentry;
   RWPly_PlyWriterContext aPlyCtx;
   aPlyCtx.SetDoublePrecision(myIsDoublePrec);
   aPlyCtx.SetNormals(myHasNormals);

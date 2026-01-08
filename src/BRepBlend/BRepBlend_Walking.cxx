@@ -889,7 +889,7 @@ Blend_Status BRepBlend_Walking::TestArret(Blend_Function&        Function,
       Nor1.Normalize();
       Nor2.Normalize();
       Standard_Real testra = Tgp1.Dot(Nor1.Crossed(V1));
-      if (Abs(testra) > Precision::Confusion())
+      if (Abs(testra) > Precision1::Confusion())
       {
         tras1 = IntSurf_In;
         if ((testra > 0. && !loctwist1) || (testra < 0. && loctwist1))
@@ -898,7 +898,7 @@ Blend_Status BRepBlend_Walking::TestArret(Blend_Function&        Function,
         }
 
         testra = Tgp2.Dot(Nor2.Crossed(V2));
-        if (Abs(testra) > Precision::Confusion())
+        if (Abs(testra) > Precision1::Confusion())
         {
           tras2 = IntSurf_Out;
           if ((testra > 0. && !loctwist2) || (testra < 0. && loctwist2))
@@ -1403,7 +1403,7 @@ Standard_Boolean BRepBlend_Walking::Recadre(Blend_FuncInv&             FuncInv,
       dist      = distaux;
     }
 
-    if (dist > Precision::PConfusion())
+    if (dist > Precision1::PConfusion())
     {
       prm = pmin;
       if (OnFirst)
@@ -2067,7 +2067,7 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
           SavedParams[1]                  = theElSpine.GetSavedLastParameter();
           for (Standard_Integer ind = 0; ind < 2; ind++)
           {
-            if (!Precision::IsInfinite(SavedParams[ind]))
+            if (!Precision1::IsInfinite(SavedParams[ind]))
             {
               // Check the original first and last parameters of guide curve
               // for equality to found parameter <param>:
@@ -2093,7 +2093,7 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
                 SameDirs[ind] = Standard_True;
             }
           }
-          Standard_Real theParam = Precision::Infinite();
+          Standard_Real theParam = Precision1::Infinite();
           // Choose the closest parameter
           if (SameDirs[0] && SameDirs[1])
             theParam = (Abs(param - SavedParams[0]) < Abs(param - SavedParams[1])) ? SavedParams[0]
@@ -2113,7 +2113,7 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
               theParam = NewParam;
           }
 
-          if (!Precision::IsInfinite(theParam))
+          if (!Precision1::IsInfinite(theParam))
             param = theParam;
         }
         else if (recad1)
@@ -2534,7 +2534,7 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
   Standard_Real Ends[2];
   Ends[0]                       = HCurve2dTool::FirstParameter(DomainOfRst->Value());
   Ends[1]                       = HCurve2dTool::LastParameter(DomainOfRst->Value());
-  Standard_Real GlobalMinSqDist = Precision::Infinite();
+  Standard_Real GlobalMinSqDist = Precision1::Infinite();
   Standard_Real ParamOnGuide    = 0;
   Point3d        PointOnGuide;
   for (Standard_Integer k = 0; k < 2; k++)
@@ -2544,7 +2544,7 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
     Extrema_ExtPC projoncurv(PntOnEnd, theElSpine);
     if (!projoncurv.IsDone())
       continue;
-    Standard_Real    MinSqDist = Precision::Infinite();
+    Standard_Real    MinSqDist = Precision1::Infinite();
     Standard_Integer imin      = 0;
     for (Standard_Integer ind = 1; ind <= projoncurv.NbExt(); ind++)
     {
@@ -2572,7 +2572,7 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
   }
 
   // Second we find right point and tangent on guide
-  GlobalMinSqDist = Precision::Infinite();
+  GlobalMinSqDist = Precision1::Infinite();
   Axis3d theAx1;
   for (Standard_Integer ind = 1; ind <= theElSpine.NbVertices(); ind++)
   {
@@ -2622,12 +2622,12 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
   // Project the point <PntOnPlane> on the surface 2
   Extrema_ExtPS projonsurf(PntOnPlane,
                            *AnotherSurf,
-                           Precision::PConfusion(),
-                           Precision::PConfusion(),
+                           Precision1::PConfusion(),
+                           Precision1::PConfusion(),
                            Extrema_ExtFlag_MIN);
   if (projonsurf.IsDone())
   {
-    Standard_Real    MinSqDist = Precision::Infinite();
+    Standard_Real    MinSqDist = Precision1::Infinite();
     Standard_Integer imin      = 0;
     for (Standard_Integer ind = 1; ind <= projonsurf.NbExt(); ind++)
     {

@@ -159,7 +159,7 @@ void ViewControl_Table::SelectedPointers(QStringList& thePointers) const
         continue;
 
       QString aData = aTableValues->Data(aRowId, aSelectedColId, Qt::DisplayRole).toString();
-      if (aData.contains(Standard_Dump::GetPointerPrefix().ToCString()))
+      if (aData.contains(DumpTool::GetPointerPrefix().ToCString()))
         thePointers.append(aData);
     }
   }

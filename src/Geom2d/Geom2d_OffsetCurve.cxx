@@ -36,7 +36,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Geom2d_OffsetCurve, GeomCurve2d)
 
-static const Standard_Real MyAngularToleranceForG1 = Precision::Angular();
+static const Standard_Real MyAngularToleranceForG1 = Precision1::Angular();
 
 //=================================================================================================
 

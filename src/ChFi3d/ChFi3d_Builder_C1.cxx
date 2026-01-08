@@ -111,8 +111,8 @@
 //  Modified by Sergey KHROMOV - Thu Apr 11 12:23:40 2002 End
 
 extern Standard_Real t_same, t_inter, t_sameinter;
-extern void          ChFi3d_InitChron(OSD_Chronometer& ch);
-extern void          ChFi3d_ResultChron(OSD_Chronometer& ch, Standard_Real& time);
+extern void          ChFi3d_InitChron(Chronometer& ch);
+extern void          ChFi3d_ResultChron(Chronometer& ch, Standard_Real& time);
 #endif
 #include <Geom2dAPI_ProjectPointOnCurve.hxx>
 #include <math_FunctionSample.hxx>
@@ -208,8 +208,8 @@ static Standard_Boolean Update(const Handle(Adaptor3d_Surface)& fb,
   if (Intersection.IsDone())
   {
     Standard_Integer nbp = Intersection.NbPoints(), i, isol = 0, isolbis = 0;
-    Standard_Real    dist    = Precision::Infinite();
-    Standard_Real    distbis = Precision::Infinite();
+    Standard_Real    dist    = Precision1::Infinite();
+    Standard_Real    distbis = Precision1::Infinite();
     for (i = 1; i <= nbp; i++)
     {
       w = Intersection.Point(i).W();
@@ -561,7 +561,7 @@ void ChFi3d_Builder::PerformOneCorner(const Standard_Integer Index,
   TopOpeBRepDS_DataStructure& DStr = myDS->ChangeDS();
 
 #ifdef OCCT_DEBUG
-  OSD_Chronometer ch; // init perf for PerformSetOfKPart
+  Chronometer ch; // init perf for PerformSetOfKPart
 #endif
   // the top,
   const TopoVertex& Vtx = myVDataMap.FindKey(Index);
@@ -944,7 +944,7 @@ void ChFi3d_Builder::PerformOneCorner(const Standard_Integer Index,
             distmin2 = extCC.SquareDistance(i);
             imin     = i;
           }
-        if (distmin2 <= Precision::SquareConfusion())
+        if (distmin2 <= Precision1::SquareConfusion())
         {
           PointOnCurve1 ponc1, ponc2;
           extCC.Points(imin, ponc1, ponc2);
@@ -1067,7 +1067,7 @@ void ChFi3d_Builder::PerformOneCorner(const Standard_Integer Index,
         if (IsEqual(anOtherPCurve.LastParameter(), anOtherPCurve.FirstParameter()))
           // Degenerates
           continue;
-        anIntersector.Perform(aCorkPCurve, anOtherPCurve, tol2d, Precision::PConfusion());
+        anIntersector.Perform(aCorkPCurve, anOtherPCurve, tol2d, Precision1::PConfusion());
         if (anIntersector.NbSegments() > 0 || anIntersector.NbPoints() > 0)
           throw StdFail_NotDone("OneCorner : fillets have too big radiuses");
       }
@@ -1089,7 +1089,7 @@ void ChFi3d_Builder::PerformOneCorner(const Standard_Integer Index,
       Geom2dAdaptor_Curve anOtherPCurve(anOtherIntrf->PCurve(),
                                         anOtherCur->FirstParameter(),
                                         anOtherCur->LastParameter());
-      anIntersector.Perform(aCorkPCurve, anOtherPCurve, tol2d, Precision::PConfusion());
+      anIntersector.Perform(aCorkPCurve, anOtherPCurve, tol2d, Precision1::PConfusion());
       if (anIntersector.NbSegments() > 0 || anIntersector.NbPoints() > 0)
         throw StdFail_NotDone("OneCorner : fillets have too big radiuses");
     }
@@ -1690,7 +1690,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
   //   more than one face
 
 #ifdef OCCT_DEBUG
-  OSD_Chronometer ch; // init perf
+  Chronometer ch; // init perf
 #endif
 
   TopOpeBRepDS_DataStructure&       DStr = myDS->ChangeDS();
@@ -1927,24 +1927,24 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
   HGs->D0(P2d1.X(), P2d1.Y(), aP1);
   HGs->D0(P2d2.X(), P2d2.Y(), aP2);
   Standard_Real Fi1Length = aP1.Distance(aP2);
-  //  Standard_Real eps = Precision::Confusion();
-  checkShrink = (Fi1Length <= Precision::Confusion());
+  //  Standard_Real eps = Precision1::Confusion();
+  checkShrink = (Fi1Length <= Precision1::Confusion());
 
   gp_Pnt2d P2d3 = Fi2.PCurveOnSurf()->Value(Fi2.Parameter(isfirst));
   gp_Pnt2d P2d4 = Fi2.PCurveOnSurf()->Value(Fi2.Parameter(!isfirst));
   HGs->D0(P2d3.X(), P2d3.Y(), aP1);
   HGs->D0(P2d4.X(), P2d4.Y(), aP2);
   Standard_Real Fi2Length = aP1.Distance(aP2);
-  checkShrink             = checkShrink || (Fi2Length <= Precision::Confusion());
+  checkShrink             = checkShrink || (Fi2Length <= Precision1::Confusion());
 
   if (checkShrink)
   {
-    if (Abs(P2d2.Y() - P2d4.Y()) <= Precision::PConfusion())
+    if (Abs(P2d2.Y() - P2d4.Y()) <= Precision1::PConfusion())
     {
       isUShrink     = Standard_False;
       checkShrParam = P2d2.Y();
     }
-    else if (Abs(P2d2.X() - P2d4.X()) <= Precision::PConfusion())
+    else if (Abs(P2d2.X() - P2d4.X()) <= Precision1::PConfusion())
     {
       isUShrink     = Standard_True;
       checkShrParam = P2d2.X();
@@ -3098,7 +3098,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
           Geom2dAPI_ProjectPointOnCurve Projector(P2d, C2dint1);
           par                 = Projector.LowerDistanceParameter();
           Standard_Real shift = par - ParVtx;
-          if (Abs(shift) > Precision::Confusion())
+          if (Abs(shift) > Precision1::Confusion())
           {
             par1 += shift;
             par2 += shift;
@@ -3165,7 +3165,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
     }
 
     if (checkShrink
-        && IsShrink(Ps, p1, p2, checkShrParam, isUShrink, Precision::Parametric(tolreached)))
+        && IsShrink(Ps, p1, p2, checkShrParam, isUShrink, Precision1::Parametric(tolreached)))
     {
       shrink[nb - 1] = 1;
       // store section face-chamf curve for previous SurfData
@@ -3338,7 +3338,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
     Standard_Real       tol   = Pds.Tolerance();
 
     Geom2dAdaptor_Curve PC1(Ps), PC2(PCend);
-    Geom2dInt_GInter    Intersector(PC1, PC2, Precision::PConfusion(), Precision::PConfusion());
+    Geom2dInt_GInter    Intersector(PC1, PC2, Precision1::PConfusion(), Precision1::PConfusion());
     if (!Intersector.IsDone())
       return;
     for (nb = 1; nb <= Intersector.NbPoints(); nb++)
@@ -3717,7 +3717,7 @@ void ChFi3d_Builder::PerformMoreSurfdata(const Standard_Integer Index)
     aTrCracc = new Geom_TrimmedCurve(aCracc, aCracc->FirstParameter(), aCracc->LastParameter());
   }
 
-  // Storage of the data structure
+  // Storage1 of the data structure
 
   // calculation of the orientation of line of surfdata number
   // anIndPrev which contains aCP2onArc
@@ -4230,7 +4230,7 @@ void ChFi3d_Builder::IntersectMoreCorner(const Standard_Integer Index)
   TopOpeBRepDS_DataStructure& DStr = myDS->ChangeDS();
 
 #ifdef OCCT_DEBUG
-  OSD_Chronometer ch; // init perf pour PerformSetOfKPart
+  Chronometer ch; // init perf pour PerformSetOfKPart
 #endif
   // The fillet is returned,
   ChFiDS_ListIteratorOfListOfStripe StrIt;
@@ -4584,7 +4584,7 @@ void ChFi3d_Builder::IntersectMoreCorner(const Standard_Integer Index)
             dist2min = extCC.SquareDistance(i);
             imin     = i;
           }
-        if (dist2min <= Precision::SquareConfusion())
+        if (dist2min <= Precision1::SquareConfusion())
         {
           PointOnCurve1 ponc1, ponc2;
           extCC.Points(imin, ponc1, ponc2);

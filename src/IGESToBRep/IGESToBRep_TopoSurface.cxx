@@ -294,12 +294,12 @@ TopoShape IGESToBRep_TopoSurface::TransferTopoBasicSurface(const Handle(IGESData
     ShapeBuilder B;
     TopoFace  plane;
     B.MakeFace(plane);
-    B.UpdateFace(plane, surf, TopLoc_Location(), Precision::Confusion());
+    B.UpdateFace(plane, surf, TopLoc_Location(), Precision1::Confusion());
     res = plane;
   }
   else
   {
-    BRepLib_MakeFace makeFace(surf, Precision::Confusion());
+    BRepLib_MakeFace makeFace(surf, Precision1::Confusion());
     res = makeFace.Face();
   }
 
@@ -360,7 +360,7 @@ static void ReparamCurve(TopoEdge& edge)
 
   Handle(GeomCurve3d) curve =
     Handle(GeomCurve3d)::DownCast(BRepInspector::Curve(edge, L, First, Last)->Copy());
-  // if ( Abs (First) <= Precision::PConfusion() && Abs (Last - 1.) <= Precision::PConfusion() )
+  // if ( Abs (First) <= Precision1::PConfusion() && Abs (Last - 1.) <= Precision1::PConfusion() )
   // return;
   if (!curve->IsKind(STANDARD_TYPE(GeomLine)))
     return;
@@ -368,7 +368,7 @@ static void ReparamCurve(TopoEdge& edge)
   reparamBSpline(curve, First, Last);
 
   ShapeBuilder B;
-  B.UpdateEdge(edge, curve, L, Precision::Confusion());
+  B.UpdateEdge(edge, curve, L, Precision1::Confusion());
   B.Range(edge, 0., 1);
 }
 
@@ -605,7 +605,7 @@ TopoShape IGESToBRep_TopoSurface::TransferRuledSurface(const Handle(IGESGeom_Rul
       Standard_Real      First, Last;
       Handle(GeomCurve3d) curve =
         Handle(GeomCurve3d)::DownCast(BRepInspector::Curve(edge, L, First, Last)->Copy());
-      if (Abs(First) <= Precision::PConfusion() && Abs(Last - 1.) <= Precision::PConfusion())
+      if (Abs(First) <= Precision1::PConfusion() && Abs(Last - 1.) <= Precision1::PConfusion())
         continue;
 
       Handle(BSplineCurve3d) bscurve;
@@ -626,7 +626,7 @@ TopoShape IGESToBRep_TopoSurface::TransferRuledSurface(const Handle(IGESGeom_Rul
       bscurve->SetKnots(Knots);
 
       ShapeBuilder B;
-      B.UpdateEdge(edge, bscurve, L, Precision::Confusion());
+      B.UpdateEdge(edge, bscurve, L, Precision1::Confusion());
       B.Range(edge, 0., 1);
       if (i == 1)
         shape1 = edge;
@@ -749,7 +749,7 @@ TopoShape IGESToBRep_TopoSurface::TransferSurfaceOfRevolution(
   Standard_Real    startAngle  = 2 * M_PI - st->EndAngle();
   Standard_Real    endAngle    = 2 * M_PI - st->StartAngle();
   Standard_Real    deltaAngle  = endAngle - startAngle;
-  Standard_Boolean IsFullAngle = (deltaAngle > 2. * M_PI - Precision::PConfusion());
+  Standard_Boolean IsFullAngle = (deltaAngle > 2. * M_PI - Precision1::PConfusion());
   if (IsFullAngle)
     deltaAngle = 2. * M_PI; // ** CKY 18-SEP-1996
   // il faudra translater les courbes 2d de startAngle pour
@@ -785,11 +785,11 @@ TopoShape IGESToBRep_TopoSurface::TransferSurfaceOfRevolution(
             const Standard_Real UL = endAngle - startAngle;
             // PTV 29.08.2002  end of OCC663
 
-            aMakeF.Init(aResultSurf, UF, UL, VF, VL, Precision::Confusion());
+            aMakeF.Init(aResultSurf, UF, UL, VF, VL, Precision1::Confusion());
           } // if (!IsFullAngle)
           else
           {
-            aMakeF.Init(aResultSurf, Standard_True, Precision::Confusion());
+            aMakeF.Init(aResultSurf, Standard_True, Precision1::Confusion());
           }
 
           if (aMakeF.IsDone())
@@ -907,7 +907,7 @@ TopoShape IGESToBRep_TopoSurface::TransferTabulatedCylinder(
   pt2.Scale(Point3d(0, 0, 0), GetUnitFactor());
 
   TheULength = pt1.Distance(pt2);
-  if (TheULength < Precision::Confusion())
+  if (TheULength < Precision1::Confusion())
   {
     Message_Msg msg("Tabulated cylinder with zero length");
     SendFail(st, msg); // TabulatedCylinder was built with continuity C0
@@ -938,7 +938,7 @@ TopoShape IGESToBRep_TopoSurface::TransferTabulatedCylinder(
                                          aBasisCurve->LastParameter(),
                                          0.,
                                          dir.Magnitude(),
-                                         Precision::Confusion());
+                                         Precision1::Confusion());
           if (aMakeF.IsDone())
             res = aMakeF.Face();
         }
@@ -975,7 +975,7 @@ TopoShape IGESToBRep_TopoSurface::TransferTabulatedCylinder(
   {
     Standard_Real UMin, UMax, VMin, VMax;
     BRepTools1::UVBounds(TopoDS::Face(res), UMin, UMax, VMin, VMax);
-    if (VMax <= Precision::PConfusion() && VMin < -Precision::PConfusion())
+    if (VMax <= Precision1::PConfusion() && VMin < -Precision1::PConfusion())
     {
       TheULength *= -1;
       res.Reverse();
@@ -1129,8 +1129,8 @@ TopoShape IGESToBRep_TopoSurface::TransferOffsetSurface(const Handle(IGESGeom_Of
     geomSupport = BRepInspector::Surface(TopoDS::Face(res));
     Standard_Real umin, umax, vmin, vmax;
     geomSupport->Bounds(umin, umax, vmin, vmax);
-    if (Precision::IsInfinite(umin) || Precision::IsInfinite(umax) || Precision::IsInfinite(vmin)
-        || Precision::IsInfinite(vmax))
+    if (Precision1::IsInfinite(umin) || Precision1::IsInfinite(umax) || Precision1::IsInfinite(vmin)
+        || Precision1::IsInfinite(vmax))
     {
       // convert to C1 B-Spline
       BRepTools1::UVBounds(face, umin, umax, vmin, vmax);
@@ -1152,7 +1152,7 @@ TopoShape IGESToBRep_TopoSurface::TransferOffsetSurface(const Handle(IGESGeom_Of
     basisSrf = new Geom_OffsetSurface(geomSupport, st->Distance() * GetUnitFactor());
   }
 
-  BRepLib_MakeFace MF(basisSrf, Precision::Confusion());
+  BRepLib_MakeFace MF(basisSrf, Precision1::Confusion());
   if (!MF.IsDone())
   {
     Message_Msg msg1265("IGES_1265");
@@ -1302,7 +1302,7 @@ TopoShape IGESToBRep_TopoSurface::TransferTrimmedSurface(
                        + aMat.Value(3, 2) * aMat.Value(3, 2);
     Standard_Real s3 = aMat.Value(1, 3) * aMat.Value(1, 3) + aMat.Value(2, 3) * aMat.Value(2, 3)
                        + aMat.Value(3, 3) * aMat.Value(3, 3);
-    if (fabs(s1 - s2) > Precision::Confusion() || fabs(s1 - s3) > Precision::Confusion())
+    if (fabs(s1 - s2) > Precision1::Confusion() || fabs(s1 - s3) > Precision1::Confusion())
     {
       BRepBuilderAPI_GTransform aTransform(aGT);
       aTransform.Perform(face, Standard_True);
@@ -1320,7 +1320,7 @@ TopoShape IGESToBRep_TopoSurface::TransferTrimmedSurface(
         fabs(aMat.Value(1, 1) - 1.) + fabs(aMat.Value(1, 2)) + fabs(aMat.Value(1, 3))
         + fabs(aMat.Value(2, 1)) + fabs(aMat.Value(2, 2) - 1.) + fabs(aMat.Value(2, 3))
         + fabs(aMat.Value(3, 1)) + fabs(aMat.Value(3, 2)) + fabs(aMat.Value(3, 3) - 1.);
-      if ((tmpVal + aTrans.Modulus()) > Precision::Confusion())
+      if ((tmpVal + aTrans.Modulus()) > Precision1::Confusion())
       {
         // not Identity
         Transform3d aT;
@@ -1606,7 +1606,7 @@ TopoShape IGESToBRep_TopoSurface::TransferPlaneParts(const Handle(IGESGeom_Plane
     //   ATTENTION, ici on CALCULE la trsf, on ne l`applique pas ...
     // S4054: B.UpdateFace (plane, geomPln, TopLoc_Location(),
     // GetEpsGeom()*GetUnitFactor());
-    B.UpdateFace(plane, geomPln, TopLoc_Location(), Precision::Confusion());
+    B.UpdateFace(plane, geomPln, TopLoc_Location(), Precision1::Confusion());
     //: 3 by ABV 5 Nov 97: set Infinite() flag (see below for unsetting)
     plane.Infinite(Standard_True); //: 3
   }
@@ -1825,7 +1825,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
       if (Curve2d->IsKind(STANDARD_TYPE(Geom2d_Line)))
       {
         DeclareAndCast(Geom2d_Line, Line2d, Curve2d);
-        if (Line2d->Direction().IsParallel(gp1::DY2d(), Precision::Angular()))
+        if (Line2d->Direction().IsParallel(gp1::DY2d(), Precision1::Angular()))
         {
           theedge = myedge;
           break;
@@ -1835,7 +1835,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
 
     Standard_Real      First, Last;
     Handle(GeomCurve3d) Curve3d = BRepInspector::Curve(theedge, First, Last);
-    if (Precision::IsNegativeInfinite(First))
+    if (Precision1::IsNegativeInfinite(First))
       First = 0.;
 
     if (Surf->IsKind(STANDARD_TYPE(Geom_CylindricalSurface)))
@@ -1922,9 +1922,9 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
     }
   }
 
-  if (Abs(paramu) <= Precision::Confusion())
+  if (Abs(paramu) <= Precision1::Confusion())
     paramu = 0.;
-  if (Abs(paramv) <= Precision::Confusion())
+  if (Abs(paramv) <= Precision1::Confusion())
     paramv = 0.;
 
   // S4181 pdn 16.04.99 computation of transformation depending on

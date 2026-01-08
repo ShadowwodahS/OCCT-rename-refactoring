@@ -68,7 +68,7 @@ static void sortSegments(const SeqOfVecOfSegments&   theSegments,
     Standard_Real aLast = 0.0;
     for (VecOfSegments::Iterator aSegIter(*anIsoSegs); aSegIter.More(); aSegIter.Next())
     {
-      if (!aPolyline->IsEmpty() && Abs(aSegIter.Value()[0].Param - aLast) > Precision::PConfusion())
+      if (!aPolyline->IsEmpty() && Abs(aSegIter.Value()[0].Param - aLast) > Precision1::PConfusion())
       {
         aPolyline = new TColgp_HSequenceOfPnt();
         thePolylines.Append(aPolyline);
@@ -94,8 +94,8 @@ static void findLimits(const Adaptor3d_Curve& theCurve,
   theFirst = Max(theCurve.FirstParameter(), theFirst);
   theLast  = Min(theCurve.LastParameter(), theLast);
 
-  Standard_Boolean isFirstInf = Precision::IsNegativeInfinite(theFirst);
-  Standard_Boolean isLastInf  = Precision::IsPositiveInfinite(theLast);
+  Standard_Boolean isFirstInf = Precision1::IsNegativeInfinite(theFirst);
+  Standard_Boolean isLastInf  = Precision1::IsPositiveInfinite(theLast);
 
   if (!isFirstInf && !isLastInf)
   {
@@ -211,8 +211,8 @@ void StdPrs_Isolines::AddOnTriangulation(const TopoFace&          theFace,
     aSurface->Bounds(u1, u2, v1, v2);
     // Isolines of Offset surfaces are calculated by approximation and
     // cannot be calculated for infinite limits.
-    if (Precision::IsInfinite(u1) || Precision::IsInfinite(u2) || Precision::IsInfinite(v1)
-        || Precision::IsInfinite(v2))
+    if (Precision1::IsInfinite(u1) || Precision1::IsInfinite(u2) || Precision1::IsInfinite(v1)
+        || Precision1::IsInfinite(v2))
     {
       u1       = Max(aUmin, u1);
       u2       = Min(aUmax, u2);
@@ -471,13 +471,13 @@ void StdPrs_Isolines::addOnSurface(const Handle(BRepAdaptor_Surface)& theSurface
         // U1 and U2 anew.
         Standard_Real anOrigin = 0.0;
 
-        if (!Precision::IsNegativeInfinite(aU1) || !Precision::IsPositiveInfinite(aU2))
+        if (!Precision1::IsNegativeInfinite(aU1) || !Precision1::IsPositiveInfinite(aU2))
         {
-          if (Precision::IsNegativeInfinite(aU1))
+          if (Precision1::IsNegativeInfinite(aU1))
           {
             anOrigin = aU2 - aUVLimit;
           }
-          else if (Precision::IsPositiveInfinite(aU2))
+          else if (Precision1::IsPositiveInfinite(aU2))
           {
             anOrigin = aU1 + aUVLimit;
           }
@@ -520,7 +520,7 @@ void StdPrs_Isolines::addOnSurface(const Handle(BRepAdaptor_Surface)& theSurface
 
     // Compute a hatching tolerance.
     aHatchingTolerance *= 0.1;
-    aHatchingTolerance = Max(Precision::Confusion(), aHatchingTolerance);
+    aHatchingTolerance = Max(Precision1::Confusion(), aHatchingTolerance);
     aHatchingTolerance = Min(1.0E-5, aHatchingTolerance);
 
     // Load isolines into hatcher.
@@ -586,7 +586,7 @@ void StdPrs_Isolines::addOnSurface(const Handle(BRepAdaptor_Surface)& theSurface
 
           findLimits(aBSurfaceCurve, aUVLimit, aSegmentP1, aSegmentP2);
 
-          if (aSegmentP2 - aSegmentP1 <= Precision::Confusion())
+          if (aSegmentP2 - aSegmentP1 <= Precision1::Confusion())
           {
             continue;
           }
@@ -600,7 +600,7 @@ void StdPrs_Isolines::addOnSurface(const Handle(BRepAdaptor_Surface)& theSurface
 
           findLimits(aCanonicalCurve, aUVLimit, aSegmentP1, aSegmentP2);
 
-          if (aSegmentP2 - aSegmentP1 <= Precision::Confusion())
+          if (aSegmentP2 - aSegmentP1 <= Precision1::Confusion())
           {
             continue;
           }
@@ -667,13 +667,13 @@ void StdPrs_Isolines::UVIsoParameters(const TopoFace&      theFace,
   Standard_Real aVmin = theVmin;
   Standard_Real aVmax = theVmax;
 
-  if (Precision::IsInfinite(aUmin))
+  if (Precision1::IsInfinite(aUmin))
     aUmin = -theUVLimit;
-  if (Precision::IsInfinite(aUmax))
+  if (Precision1::IsInfinite(aUmax))
     aUmax = theUVLimit;
-  if (Precision::IsInfinite(aVmin))
+  if (Precision1::IsInfinite(aVmin))
     aVmin = -theUVLimit;
-  if (Precision::IsInfinite(aVmax))
+  if (Precision1::IsInfinite(aVmax))
     aVmax = theUVLimit;
 
   const Standard_Boolean isUClosed = aSurface->IsUClosed();
@@ -741,7 +741,7 @@ Standard_Boolean StdPrs_Isolines::findSegmentOnTriangulation(const Handle(GeomSu
       isLeftUV2 ? theIsoline.Distance(aNodeUV2) : -theIsoline.Distance(aNodeUV2);
 
     // Isoline crosses first point of an edge.
-    if (Abs(aDistanceUV1) < Precision::PConfusion())
+    if (Abs(aDistanceUV1) < Precision1::PConfusion())
     {
       theSegment[aNPoints].Param = theIsU ? aNodeUV1.Y() : aNodeUV1.X();
       theSegment[aNPoints].Pnt   = aNode1;
@@ -750,7 +750,7 @@ Standard_Boolean StdPrs_Isolines::findSegmentOnTriangulation(const Handle(GeomSu
     }
 
     // Isoline crosses second point of an edge.
-    if (Abs(aDistanceUV2) < Precision::PConfusion())
+    if (Abs(aDistanceUV2) < Precision1::PConfusion())
     {
       theSegment[aNPoints].Param = theIsU ? aNodeUV2.Y() : aNodeUV2.X();
       theSegment[aNPoints].Pnt   = aNode2;
@@ -767,7 +767,7 @@ Standard_Boolean StdPrs_Isolines::findSegmentOnTriangulation(const Handle(GeomSu
     }
 
     // Isoline crosses degenerated link.
-    if (aNode1.SquareDistance(aNode2) < Precision::PConfusion())
+    if (aNode1.SquareDistance(aNode2) < Precision1::PConfusion())
     {
       theSegment[aNPoints].Param = theIsU ? aNodeUV1.Y() : aNodeUV1.X();
       theSegment[aNPoints].Pnt   = aNode1;
@@ -824,7 +824,7 @@ Standard_Boolean StdPrs_Isolines::findSegmentOnTriangulation(const Handle(GeomSu
         GCPnts_AbscissaPoint::Length(aCurveAdaptor1, aPntOnNode1Iso, aPntOnNode3Iso, 1e-2);
       Standard_Real aLength2 =
         GCPnts_AbscissaPoint::Length(aCurveAdaptor2, aPntOnNode2Iso, aPntOnNode3Iso, 1e-2);
-      if (Abs(aLength1) < Precision::Confusion() || Abs(aLength2) < Precision::Confusion())
+      if (Abs(aLength1) < Precision1::Confusion() || Abs(aLength2) < Precision1::Confusion())
       {
         theSegment[aNPoints].Param = aCrossParam;
         theSegment[aNPoints].Pnt   = (aNode2.XYZ() - aNode1.XYZ()) * anAlpha + aNode1.XYZ();
@@ -840,7 +840,7 @@ Standard_Boolean StdPrs_Isolines::findSegmentOnTriangulation(const Handle(GeomSu
     ++aNPoints;
   }
 
-  if (aNPoints != 2 || Abs(theSegment[1].Param - theSegment[0].Param) <= Precision::PConfusion())
+  if (aNPoints != 2 || Abs(theSegment[1].Param - theSegment[0].Param) <= Precision1::PConfusion())
   {
     return false;
   }

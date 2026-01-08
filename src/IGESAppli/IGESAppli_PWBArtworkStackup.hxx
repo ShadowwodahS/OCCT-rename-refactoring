@@ -45,7 +45,7 @@ public:
   //! PWBArtworkStackup
   //! - nbPropVal    : number of property values
   //! - anArtIdent   : Artwork Stackup Identification
-  //! - allLevelNums : Level Numbers
+  //! - allLevelNums : Level Numbers1
   Standard_EXPORT void Init(const Standard_Integer                  nbPropVal,
                             const Handle(TCollection_HAsciiString)& anArtIdent,
                             const Handle(TColStd_HArray1OfInteger)& allLevelNums);
@@ -56,7 +56,7 @@ public:
   //! returns Artwork Stackup Identification
   Standard_EXPORT Handle(TCollection_HAsciiString) Identification() const;
 
-  //! returns total number of Level Numbers
+  //! returns total number of Level Numbers1
   Standard_EXPORT Standard_Integer NbLevelNumbers() const;
 
   //! returns Level Number

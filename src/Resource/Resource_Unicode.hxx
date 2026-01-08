@@ -31,7 +31,7 @@ class UtfString;
 //! This class provides functions used to convert a non-ASCII C string
 //! given in ANSI, EUC, GB or SJIS format, to a
 //! Unicode string of extended characters, and vice versa.
-class Resource_Unicode
+class UnicodeTools
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -122,7 +122,7 @@ public:
   static void ConvertFormatToUnicode(const Standard_CString      theFromStr,
                                      UtfString& theToStr)
   {
-    return ConvertFormatToUnicode(Resource_Unicode::GetFormat(), theFromStr, theToStr);
+    return ConvertFormatToUnicode(UnicodeTools::GetFormat(), theFromStr, theToStr);
   }
 
   //! Converts the non-ASCII C string in specified format to the Unicode string of extended
@@ -157,7 +157,7 @@ public:
                                                  Standard_PCharacter&              theToStr,
                                                  const Standard_Integer            theMaxSize)
   {
-    return ConvertUnicodeToFormat(Resource_Unicode::GetFormat(), theFromStr, theToStr, theMaxSize);
+    return ConvertUnicodeToFormat(UnicodeTools::GetFormat(), theFromStr, theToStr, theMaxSize);
   }
 };
 

@@ -27,10 +27,10 @@
 
 void BaseSequence::ClearSeq(NCollection_DelSeqNode fDel)
 {
-  NCollection_SeqNode* p = myFirstItem;
+  SequenceNode* p = myFirstItem;
   while (p)
   {
-    NCollection_SeqNode* q = p;
+    SequenceNode* q = p;
     p                      = p->Next();
     fDel(q, myAllocator);
   }
@@ -42,7 +42,7 @@ void BaseSequence::ClearSeq(NCollection_DelSeqNode fDel)
 // purpose  : append an item to sequence
 //=======================================================================
 
-void BaseSequence::PAppend(NCollection_SeqNode* theItem)
+void BaseSequence::PAppend(SequenceNode* theItem)
 {
   if (mySize == 0)
   {
@@ -94,7 +94,7 @@ void BaseSequence::PAppend(BaseSequence& Other)
 // purpose  : prepend an item to sequence
 //=======================================================================
 
-void BaseSequence::PPrepend(NCollection_SeqNode* theItem)
+void BaseSequence::PPrepend(SequenceNode* theItem)
 {
   if (mySize == 0)
   {
@@ -149,15 +149,15 @@ void BaseSequence::PPrepend(BaseSequence& Other)
 
 void BaseSequence::PReverse()
 {
-  NCollection_SeqNode* p = myFirstItem;
+  SequenceNode* p = myFirstItem;
   while (p)
   {
-    NCollection_SeqNode* tmp = p->Next();
+    SequenceNode* tmp = p->Next();
     p->SetNext(p->Previous());
     p->SetPrevious(tmp);
     p = tmp;
   }
-  NCollection_SeqNode* tmp = myFirstItem;
+  SequenceNode* tmp = myFirstItem;
   myFirstItem              = myLastItem;
   myLastItem               = tmp;
   if (mySize != 0)
@@ -167,9 +167,9 @@ void BaseSequence::PReverse()
 //=================================================================================================
 
 void BaseSequence::PInsertAfter(BaseSequence::Iterator& thePosition,
-                                            NCollection_SeqNode*                theItem)
+                                            SequenceNode*                theItem)
 {
-  NCollection_SeqNode* aPos = thePosition.myCurrent;
+  SequenceNode* aPos = thePosition.myCurrent;
   if (aPos == NULL)
     PPrepend(theItem);
   else
@@ -190,13 +190,13 @@ void BaseSequence::PInsertAfter(BaseSequence::Iterator& thePosition,
 //=================================================================================================
 
 void BaseSequence::PInsertAfter(const Standard_Integer theIndex,
-                                            NCollection_SeqNode*   theItem)
+                                            SequenceNode*   theItem)
 {
   if (theIndex == 0)
     PPrepend(theItem);
   else
   {
-    NCollection_SeqNode* p = Find(theIndex);
+    SequenceNode* p = Find(theIndex);
     theItem->SetNext(p->Next());
     theItem->SetPrevious(p);
     if (theIndex == mySize)
@@ -226,7 +226,7 @@ void BaseSequence::PInsertAfter(const Standard_Integer    theIndex,
       PPrepend(Other);
     else
     {
-      NCollection_SeqNode* p = Find(theIndex);
+      SequenceNode* p = Find(theIndex);
       Other.myFirstItem->SetPrevious(p);
       Other.myLastItem->SetNext(p->Next());
       if (theIndex == mySize)
@@ -256,8 +256,8 @@ void BaseSequence::PExchange(const Standard_Integer I, const Standard_Integer J)
     PExchange(J, I);
   else if (I < J)
   {
-    NCollection_SeqNode* pi = Find(I);
-    NCollection_SeqNode* pj = Find(J);
+    SequenceNode* pi = Find(I);
+    SequenceNode* pj = Find(J);
 
     // update the node before I
     if (pi->Previous())
@@ -285,7 +285,7 @@ void BaseSequence::PExchange(const Standard_Integer I, const Standard_Integer J)
       // update the node before J
       pj->Previous()->SetNext(pi);
       // update nodes I and J
-      NCollection_SeqNode* tmp = pi->Next();
+      SequenceNode* tmp = pi->Next();
       pi->SetNext(pj->Next());
       pj->SetNext(tmp);
       tmp = pi->Previous();
@@ -308,7 +308,7 @@ void BaseSequence::PSplit(const Standard_Integer    theIndex,
   Standard_OutOfRange_Raise_if(theIndex <= 0 || theIndex > mySize, "");
   Standard_DomainError_Raise_if(this == &Sub, "No Split on myself!!");
 
-  NCollection_SeqNode* p = Find(theIndex);
+  SequenceNode* p = Find(theIndex);
 
   Sub.myLastItem = myLastItem;
   Sub.mySize     = mySize - theIndex + 1;
@@ -340,7 +340,7 @@ void BaseSequence::PSplit(const Standard_Integer    theIndex,
 void BaseSequence::RemoveSeq(BaseSequence::Iterator& thePosition,
                                          NCollection_DelSeqNode              fDel)
 {
-  NCollection_SeqNode* aPos = thePosition.myCurrent;
+  SequenceNode* aPos = thePosition.myCurrent;
   if (aPos == NULL)
     return;
   thePosition.myCurrent = aPos->Next();
@@ -370,7 +370,7 @@ void BaseSequence::RemoveSeq(const Standard_Integer theIndex,
   Standard_OutOfRange_Raise_if(theIndex <= 0 || theIndex > mySize,
                                "BaseSequence::RemoveSeq() - index is out of range");
 
-  NCollection_SeqNode* p = Find(theIndex);
+  SequenceNode* p = Find(theIndex);
   if (p->Previous())
     p->Previous()->SetNext(p->Next());
   else
@@ -408,8 +408,8 @@ void BaseSequence::RemoveSeq(const Standard_Integer From,
   Standard_OutOfRange_Raise_if(From <= 0 || To > mySize || From > To,
                                "BaseSequence::RemoveSeq() - invalid input range");
 
-  NCollection_SeqNode* pfrom = Find(From);
-  NCollection_SeqNode* pto   = Find(To);
+  SequenceNode* pfrom = Find(From);
+  SequenceNode* pto   = Find(To);
 
   if (pfrom->Previous())
     pfrom->Previous()->SetNext(pto->Next());
@@ -439,7 +439,7 @@ void BaseSequence::RemoveSeq(const Standard_Integer From,
 
   for (Standard_Integer i = From; i <= To; i++)
   {
-    NCollection_SeqNode* tmp = pfrom;
+    SequenceNode* tmp = pfrom;
     pfrom                    = pfrom->Next();
     fDel(tmp, myAllocator);
   }
@@ -447,10 +447,10 @@ void BaseSequence::RemoveSeq(const Standard_Integer From,
 
 //=================================================================================================
 
-NCollection_SeqNode* BaseSequence::Find(const Standard_Integer theIndex) const
+SequenceNode* BaseSequence::Find(const Standard_Integer theIndex) const
 {
   Standard_Integer     i;
-  NCollection_SeqNode* p;
+  SequenceNode* p;
   if (theIndex <= myCurrentIndex)
   {
     if (theIndex < myCurrentIndex / 2)

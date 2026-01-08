@@ -63,7 +63,7 @@ extern "C"
 // Create and initialize a shared library object to NULL
 //
 // ----------------------------------------------------------------
-OSD_SharedLibrary::OSD_SharedLibrary()
+SharedLibrary::SharedLibrary()
     : myHandle(NULL),
       myName(NULL)
 {
@@ -75,7 +75,7 @@ OSD_SharedLibrary::OSD_SharedLibrary()
 // name given as argument
 //
 // ----------------------------------------------------------------
-OSD_SharedLibrary::OSD_SharedLibrary(const Standard_CString aName)
+SharedLibrary::SharedLibrary(const Standard_CString aName)
     : myHandle(NULL)
 {
   if (aName != NULL)
@@ -90,7 +90,7 @@ OSD_SharedLibrary::OSD_SharedLibrary(const Standard_CString aName)
 // Name: Returns the shared library name
 //
 // ----------------------------------------------------------------
-Standard_CString OSD_SharedLibrary::Name() const
+Standard_CString SharedLibrary::Name() const
 {
   return myName;
 }
@@ -100,7 +100,7 @@ Standard_CString OSD_SharedLibrary::Name() const
 // SetName: Sets a name to a shared library object
 //
 // ----------------------------------------------------------------
-void OSD_SharedLibrary::SetName(const Standard_CString aName)
+void SharedLibrary::SetName(const Standard_CString aName)
 {
   if (aName != NULL)
   {
@@ -132,7 +132,7 @@ void OSD_SharedLibrary::SetName(const Standard_CString aName)
 // executable, which allows access to dynamic symbols in the running program.
 //
 // ----------------------------------------------------------------
-Standard_Boolean OSD_SharedLibrary::DlOpen(const OSD_LoadMode aMode)
+Standard_Boolean SharedLibrary::DlOpen(const OSD_LoadMode aMode)
 {
   if (aMode == OSD_RTLD_LAZY)
   {
@@ -161,7 +161,7 @@ Standard_Boolean OSD_SharedLibrary::DlOpen(const OSD_LoadMode aMode)
 // pointer is returned.
 //
 // ----------------------------------------------------------------
-OSD_Function OSD_SharedLibrary::DlSymb(const Standard_CString aName) const
+OSD_Function SharedLibrary::DlSymb(const Standard_CString aName) const
 {
   void (*fp)();
   fp = (void (*)())dlsym(myHandle, aName);
@@ -183,7 +183,7 @@ OSD_Function OSD_SharedLibrary::DlSymb(const Standard_CString aName) const
 // cated	by dlclose, the	results	are undefined.
 //
 // ----------------------------------------------------------------
-void OSD_SharedLibrary::DlClose() const
+void SharedLibrary::DlClose() const
 {
   dlclose(myHandle);
 }
@@ -194,7 +194,7 @@ void OSD_SharedLibrary::DlClose() const
 // occurred from a call to dlopen, dlclose or dlsym.
 //
 // ----------------------------------------------------------------
-Standard_CString OSD_SharedLibrary::DlError() const
+Standard_CString SharedLibrary::DlError() const
 {
   return (char*)dlerror();
 }
@@ -202,7 +202,7 @@ Standard_CString OSD_SharedLibrary::DlError() const
 // ----------------------------------------------------------------------------
 // Destroy
 // ----------------------------------------------------------------------------
-void OSD_SharedLibrary::Destroy()
+void SharedLibrary::Destroy()
 {
   if (myName != NULL)
   {
@@ -215,7 +215,7 @@ void OSD_SharedLibrary::Destroy()
 #else
 
   //------------------------------------------------------------------------
-  //-------------------  Windows NT sources for OSD_SharedLibrary ----------
+  //-------------------  Windows NT sources for SharedLibrary ----------
   //------------------------------------------------------------------------
 
   // it is important to define STRICT and enforce including <windows.h> before
@@ -237,7 +237,7 @@ static DWORD lastDLLError;
 static wchar_t errMsg[1024];
 static char    errMsgA[1024];
 
-OSD_SharedLibrary ::OSD_SharedLibrary()
+SharedLibrary ::SharedLibrary()
 {
 
   myHandle = NULL;
@@ -245,7 +245,7 @@ OSD_SharedLibrary ::OSD_SharedLibrary()
 
 } // end constructor ( 1 )
 
-OSD_SharedLibrary ::OSD_SharedLibrary(const Standard_CString aFilename)
+SharedLibrary ::SharedLibrary(const Standard_CString aFilename)
 {
 
   myHandle = NULL;
@@ -255,7 +255,7 @@ OSD_SharedLibrary ::OSD_SharedLibrary(const Standard_CString aFilename)
 
 } // end constructro ( 2 )
 
-void OSD_SharedLibrary ::SetName(const Standard_CString aName)
+void SharedLibrary ::SetName(const Standard_CString aName)
 {
 
   SystemPath                path(aName);
@@ -280,16 +280,16 @@ void OSD_SharedLibrary ::SetName(const Standard_CString aName)
   FreeLibrary((HMODULE)myHandle);
   #endif
 
-} // end OSD_SharedLibrary :: SetName
+} // end SharedLibrary :: SetName
 
-Standard_CString OSD_SharedLibrary ::Name() const
+Standard_CString SharedLibrary ::Name() const
 {
 
   return myName;
 
-} // end OSD_SharedLibrary :: Name
+} // end SharedLibrary :: Name
 
-Standard_Boolean OSD_SharedLibrary ::DlOpen(const OSD_LoadMode /*Mode*/)
+Standard_Boolean SharedLibrary ::DlOpen(const OSD_LoadMode /*Mode*/)
 {
 
   Standard_Boolean retVal = Standard_True;
@@ -312,9 +312,9 @@ Standard_Boolean OSD_SharedLibrary ::DlOpen(const OSD_LoadMode /*Mode*/)
 
   return retVal;
 
-} // end OSD_SharedLibrary :: DlOpen
+} // end SharedLibrary :: DlOpen
 
-OSD_Function OSD_SharedLibrary ::DlSymb(const Standard_CString Name) const
+OSD_Function SharedLibrary ::DlSymb(const Standard_CString Name) const
 {
 
   OSD_Function func = (OSD_Function)GetProcAddress((HMODULE)myHandle, Name);
@@ -325,16 +325,16 @@ OSD_Function OSD_SharedLibrary ::DlSymb(const Standard_CString Name) const
 
   return func;
 
-} // end OSD_SharedLibrary :: DlSymb
+} // end SharedLibrary :: DlSymb
 
-void OSD_SharedLibrary ::DlClose() const
+void SharedLibrary ::DlClose() const
 {
 
   FreeLibrary((HMODULE)myHandle);
 
-} // end OSD_SharedLibrary :: DlClose
+} // end SharedLibrary :: DlClose
 
-Standard_CString OSD_SharedLibrary ::DlError() const
+Standard_CString SharedLibrary ::DlError() const
 {
 
   FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ARGUMENT_ARRAY,
@@ -347,14 +347,14 @@ Standard_CString OSD_SharedLibrary ::DlError() const
 
   WideCharToMultiByte(CP_UTF8, 0, errMsg, -1, errMsgA, sizeof(errMsgA), NULL, NULL);
   return errMsgA;
-} // end OSD_SharedLibrary :: DlError
+} // end SharedLibrary :: DlError
 
-void OSD_SharedLibrary ::Destroy()
+void SharedLibrary ::Destroy()
 {
 
   if (myName != NULL)
     delete[] myName;
 
-} // end OSD_SharedLibrary :: Destroy
+} // end SharedLibrary :: Destroy
 
 #endif

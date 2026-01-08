@@ -50,7 +50,7 @@ void IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
 
   aPresentation->NewGroup();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
-  Quantity_Color                   aColor = LA->LineAspect()->Aspect()->Color();
+  Color1                   aColor = LA->LineAspect()->Aspect()->Color();
   Handle(Graphic3d_AspectMarker3d) aMarkerAsp =
     new Graphic3d_AspectMarker3d(Aspect_TOM_O, aColor, 1.0);
   aPresentation->CurrentGroup()->SetPrimitivesAspect(aMarkerAsp);
@@ -82,7 +82,7 @@ void IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Vector3d v2(aSAttach, aPntOffset);
 
   aPrims->AddVertex(aPntOffset);
-  if (!v1.IsParallel(v2, Precision::Angular()))
+  if (!v1.IsParallel(v2, Precision1::Angular()))
   {
     // on joint aPntOffset a son projete
     gp_Lin ll(aFAttach, Dir3d(v1));
@@ -125,7 +125,7 @@ void IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Handle(Graphic3d_ArrayOfPolylines) aPrims;
 
   // trait joignant aPntOffset
-  if (Abs((aPntOffset.Distance(aCenter) - rad)) >= Precision::Confusion())
+  if (Abs((aPntOffset.Distance(aCenter) - rad)) >= Precision1::Confusion())
   {
     aPrims = new Graphic3d_ArrayOfPolylines(nbp + 2, 2);
     aPrims->AddBound(2);
@@ -175,7 +175,7 @@ void IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Handle(Graphic3d_ArrayOfPolylines) aPrims;
 
   // trait joignant aPntOffset
-  if (aPntOffset.Distance(aPntOnCirc) >= Precision::Confusion())
+  if (aPntOffset.Distance(aPntOnCirc) >= Precision1::Confusion())
   {
     aPrims = new Graphic3d_ArrayOfPolylines(nbp + 2, 2);
     aPrims->AddBound(2);
@@ -222,7 +222,7 @@ void IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Handle(Graphic3d_ArrayOfPolylines) aPrims;
 
   // trait joignant aPntOffset
-  if (!aPntOnElli.IsEqual(aPntOffset, Precision::Confusion()))
+  if (!aPntOnElli.IsEqual(aPntOffset, Precision1::Confusion()))
   {
     aPrims = new Graphic3d_ArrayOfPolylines(nbp + 2, 2);
     aPrims->AddBound(2);

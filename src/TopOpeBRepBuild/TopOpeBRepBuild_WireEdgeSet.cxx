@@ -591,7 +591,7 @@ void TopOpeBRepBuild_WireEdgeSet::IsUVISO(const TopoEdge& E,
   {
     Handle(Geom2d_Line) HL(Handle(Geom2d_Line)::DownCast(PC));
     const gp_Dir2d&     D   = HL->Direction();
-    Standard_Real       tol = Precision::Angular();
+    Standard_Real       tol = Precision1::Angular();
 
     if (D.IsParallel(gp_Dir2d(0., 1.), tol))
       uiso = Standard_True;

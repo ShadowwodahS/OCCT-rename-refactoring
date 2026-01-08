@@ -69,7 +69,7 @@ Standard_Real Draft1::Angle(const TopoFace& F, const Dir3d& D)
   {
     Cylinder1   Cy(Handle(Geom_CylindricalSurface)::DownCast(S)->Cylinder());
     Standard_Real testdir = D.Dot(Cy.Axis().Direction());
-    if (Abs(testdir) <= 1. - Precision::Angular())
+    if (Abs(testdir) <= 1. - Precision1::Angular())
     {
       throw Standard_DomainError();
     }
@@ -79,7 +79,7 @@ Standard_Real Draft1::Angle(const TopoFace& F, const Dir3d& D)
   { // STANDARD_TYPE(Geom_ConicalSurface)
     Cone1       Co(Handle(Geom_ConicalSurface)::DownCast(S)->Cone());
     Standard_Real testdir = D.Dot(Co.Axis().Direction());
-    if (Abs(testdir) <= 1. - Precision::Angular())
+    if (Abs(testdir) <= 1. - Precision1::Angular())
     {
       throw Standard_DomainError();
     }

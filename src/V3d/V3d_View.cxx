@@ -515,12 +515,12 @@ void ViewWindow::SetBackgroundColor(const Quantity_TypeOfColor theType,
   Standard_Real aV2 = Max(Min(theV2, 1.0), 0.0);
   Standard_Real aV3 = Max(Min(theV3, 1.0), 0.0);
 
-  SetBackgroundColor(Quantity_Color(aV1, aV2, aV3, theType));
+  SetBackgroundColor(Color1(aV1, aV2, aV3, theType));
 }
 
 //=================================================================================================
 
-void ViewWindow::SetBackgroundColor(const Quantity_Color& theColor)
+void ViewWindow::SetBackgroundColor(const Color1& theColor)
 {
   myView->SetBackground(Aspect_Background(theColor));
 
@@ -532,8 +532,8 @@ void ViewWindow::SetBackgroundColor(const Quantity_Color& theColor)
 
 //=================================================================================================
 
-void ViewWindow::SetBgGradientColors(const Quantity_Color&           theColor1,
-                                   const Quantity_Color&           theColor2,
+void ViewWindow::SetBgGradientColors(const Color1&           theColor1,
+                                   const Color1&           theColor2,
                                    const Aspect_GradientFillMethod theFillStyle,
                                    const Standard_Boolean          theToUpdate)
 {
@@ -552,8 +552,8 @@ void ViewWindow::SetBgGradientColors(const Quantity_Color&           theColor1,
 void ViewWindow::SetBgGradientStyle(const Aspect_GradientFillMethod theFillStyle,
                                   const Standard_Boolean          theToUpdate)
 {
-  Quantity_Color aColor1;
-  Quantity_Color aColor2;
+  Color1 aColor1;
+  Color1 aColor2;
   GradientBackground().Colors(aColor1, aColor2);
 
   SetBgGradientColors(aColor1, aColor2, theFillStyle, theToUpdate);
@@ -1426,17 +1426,17 @@ void ViewWindow::SetZoom(const Standard_Real theCoef, const Standard_Boolean the
 
   // ensure that zoom will not be too small or too big
   Standard_Real aCoef = theCoef;
-  if (aViewWidth < aCoef * Precision::Confusion())
+  if (aViewWidth < aCoef * Precision1::Confusion())
   {
-    aCoef = aViewWidth / Precision::Confusion();
+    aCoef = aViewWidth / Precision1::Confusion();
   }
   else if (aViewWidth > aCoef * 1e12)
   {
     aCoef = aViewWidth / 1e12;
   }
-  if (aViewHeight < aCoef * Precision::Confusion())
+  if (aViewHeight < aCoef * Precision1::Confusion())
   {
-    aCoef = aViewHeight / Precision::Confusion();
+    aCoef = aViewHeight / Precision1::Confusion();
   }
   else if (aViewHeight > aCoef * 1e12)
   {
@@ -1516,7 +1516,7 @@ void ViewWindow::FitAll(const Box2&         theBox,
     return;
   }
 
-  if (!FitMinMax(Camera(), theBox, theMargin, 10.0 * Precision::Confusion()))
+  if (!FitMinMax(Camera(), theBox, theMargin, 10.0 * Precision1::Confusion()))
   {
     return;
   }
@@ -1913,20 +1913,20 @@ void ViewWindow::BackgroundColor(const Quantity_TypeOfColor Type,
                                Standard_Real&             V2,
                                Standard_Real&             V3) const
 {
-  Quantity_Color C = BackgroundColor();
+  Color1 C = BackgroundColor();
   C.Values(V1, V2, V3, Type);
 }
 
 //=================================================================================================
 
-Quantity_Color ViewWindow::BackgroundColor() const
+Color1 ViewWindow::BackgroundColor() const
 {
   return myView->Background().Color();
 }
 
 //=================================================================================================
 
-void ViewWindow::GradientBackgroundColors(Quantity_Color& theColor1, Quantity_Color& theColor2) const
+void ViewWindow::GradientBackgroundColors(Color1& theColor1, Color1& theColor2) const
 {
   myView->GradientBackground().Colors(theColor1, theColor2);
 }
@@ -2484,17 +2484,17 @@ void ViewWindow::ZoomAtPoint(const Standard_Integer theMouseStartX,
 
   // ensure that zoom will not be too small or too big.
   Standard_Real aCoef = aDZoom;
-  if (aViewWidth < aCoef * Precision::Confusion())
+  if (aViewWidth < aCoef * Precision1::Confusion())
   {
-    aCoef = aViewWidth / Precision::Confusion();
+    aCoef = aViewWidth / Precision1::Confusion();
   }
   else if (aViewWidth > aCoef * 1e12)
   {
     aCoef = aViewWidth / 1e12;
   }
-  if (aViewHeight < aCoef * Precision::Confusion())
+  if (aViewHeight < aCoef * Precision1::Confusion())
   {
-    aCoef = aViewHeight / Precision::Confusion();
+    aCoef = aViewHeight / Precision1::Confusion();
   }
   else if (aViewHeight > aCoef * 1e12)
   {
@@ -3547,9 +3547,9 @@ Vertex1 ViewWindow::Compute(const Vertex1& theVertex) const
 
 //=================================================================================================
 
-void ViewWindow::ZBufferTriedronSetup(const Quantity_Color&  theXColor,
-                                    const Quantity_Color&  theYColor,
-                                    const Quantity_Color&  theZColor,
+void ViewWindow::ZBufferTriedronSetup(const Color1&  theXColor,
+                                    const Color1&  theYColor,
+                                    const Color1&  theZColor,
                                     const Standard_Real    theSizeRatio,
                                     const Standard_Real    theAxisDiametr,
                                     const Standard_Integer theNbFacettes)
@@ -3564,7 +3564,7 @@ void ViewWindow::ZBufferTriedronSetup(const Quantity_Color&  theXColor,
 //=================================================================================================
 
 void ViewWindow::TriedronDisplay(const Aspect_TypeOfTriedronPosition thePosition,
-                               const Quantity_Color&               theColor,
+                               const Color1&               theColor,
                                const Standard_Real                 theScale,
                                const V3d_TypeOfVisualization       theMode)
 {

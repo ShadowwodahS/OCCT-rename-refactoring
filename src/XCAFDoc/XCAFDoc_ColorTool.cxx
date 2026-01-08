@@ -66,13 +66,13 @@ const Handle(XCAFDoc_ShapeTool)& XCAFDoc_ColorTool::ShapeTool()
 
 Standard_Boolean XCAFDoc_ColorTool::IsColor(const DataLabel& lab) const
 {
-  Quantity_Color C;
+  Color1 C;
   return GetColor(lab, C);
 }
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ColorTool::GetColor(const DataLabel& lab, Quantity_Color& col)
+Standard_Boolean XCAFDoc_ColorTool::GetColor(const DataLabel& lab, Color1& col)
 {
   Quantity_ColorRGBA aCol;
   Standard_Boolean   isDone = GetColor(lab, aCol);
@@ -96,7 +96,7 @@ Standard_Boolean XCAFDoc_ColorTool::GetColor(const DataLabel& lab, Quantity_Colo
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ColorTool::FindColor(const Quantity_Color& col, DataLabel& lab) const
+Standard_Boolean XCAFDoc_ColorTool::FindColor(const Color1& col, DataLabel& lab) const
 {
   Quantity_ColorRGBA aCol;
   aCol.SetRGB(col);
@@ -134,7 +134,7 @@ DataLabel XCAFDoc_ColorTool::FindColor(const Quantity_ColorRGBA& col) const
 
 //=================================================================================================
 
-DataLabel XCAFDoc_ColorTool::FindColor(const Quantity_Color& col) const
+DataLabel XCAFDoc_ColorTool::FindColor(const Color1& col) const
 {
   DataLabel L;
   FindColor(col, L);
@@ -143,7 +143,7 @@ DataLabel XCAFDoc_ColorTool::FindColor(const Quantity_Color& col) const
 
 //=================================================================================================
 
-DataLabel XCAFDoc_ColorTool::AddColor(const Quantity_Color& col) const
+DataLabel XCAFDoc_ColorTool::AddColor(const Color1& col) const
 {
   Quantity_ColorRGBA aCol;
   aCol.SetRGB(col);
@@ -169,7 +169,7 @@ DataLabel XCAFDoc_ColorTool::AddColor(const Quantity_ColorRGBA& theColor) const
   {
     // set name according to color value
     const AsciiString1 aName =
-      AsciiString1(Quantity_Color::StringName(theColor.GetRGB().Name())) + " ("
+      AsciiString1(Color1::StringName(theColor.GetRGB().Name())) + " ("
       + Quantity_ColorRGBA::ColorToHex(theColor) + ")";
     NameAttribute::Set(aLab, aName);
   }
@@ -216,7 +216,7 @@ void XCAFDoc_ColorTool::SetColor(const DataLabel&        L,
 //=================================================================================================
 
 void XCAFDoc_ColorTool::SetColor(const DataLabel&        L,
-                                 const Quantity_Color&   Color,
+                                 const Color1&   Color,
                                  const XCAFDoc_ColorType type) const
 {
   DataLabel colorL = AddColor(Color);
@@ -265,7 +265,7 @@ Standard_Boolean XCAFDoc_ColorTool::GetColor(const DataLabel&        L,
 
 Standard_Boolean XCAFDoc_ColorTool::GetColor(const DataLabel&        L,
                                              const XCAFDoc_ColorType type,
-                                             Quantity_Color&         color)
+                                             Color1&         color)
 {
   DataLabel colorL;
   if (!GetColor(L, type, colorL))
@@ -301,7 +301,7 @@ Standard_Boolean XCAFDoc_ColorTool::SetColor(const TopoShape&     S,
 //=================================================================================================
 
 Standard_Boolean XCAFDoc_ColorTool::SetColor(const TopoShape&     S,
-                                             const Quantity_Color&   Color,
+                                             const Color1&   Color,
                                              const XCAFDoc_ColorType type)
 {
   DataLabel colorL = AddColor(Color);
@@ -355,7 +355,7 @@ Standard_Boolean XCAFDoc_ColorTool::GetColor(const TopoShape&     S,
 
 Standard_Boolean XCAFDoc_ColorTool::GetColor(const TopoShape&     S,
                                              const XCAFDoc_ColorType type,
-                                             Quantity_Color&         color)
+                                             Color1&         color)
 {
   DataLabel colorL;
   if (!GetColor(S, type, colorL))
@@ -461,7 +461,7 @@ void XCAFDoc_ColorTool::SetColorByLayer(const DataLabel& L, const Standard_Boole
 
 Standard_Boolean XCAFDoc_ColorTool::SetInstanceColor(const TopoShape&     theShape,
                                                      const XCAFDoc_ColorType type,
-                                                     const Quantity_Color&   color,
+                                                     const Color1&   color,
                                                      const Standard_Boolean  IsCreateSHUO)
 {
   Quantity_ColorRGBA aCol;
@@ -504,7 +504,7 @@ Standard_Boolean XCAFDoc_ColorTool::SetInstanceColor(const TopoShape&       theS
 
 Standard_Boolean XCAFDoc_ColorTool::GetInstanceColor(const TopoShape&     theShape,
                                                      const XCAFDoc_ColorType type,
-                                                     Quantity_Color&         color)
+                                                     Color1&         color)
 {
   Quantity_ColorRGBA aCol;
   Standard_Boolean   isDone = GetInstanceColor(theShape, type, aCol);

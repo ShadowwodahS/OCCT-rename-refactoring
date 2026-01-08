@@ -49,8 +49,8 @@ TDataStd_DeltaOnModificationOfIntPackedMap::TDataStd_DeltaOnModificationOfIntPac
       return;
     if (aMap1 != aMap2)
     {
-      const TColStd_PackedMapOfInteger& map1 = aMap1->Map();
-      const TColStd_PackedMapOfInteger& map2 = aMap2->Map();
+      const PackedIntegerMap& map1 = aMap1->Map();
+      const PackedIntegerMap& map2 = aMap2->Map();
       if (map1.IsSubset(map2))
       {
         myDeletion = new TColStd_HPackedMapOfInteger();

@@ -74,7 +74,7 @@ public:
   //! The 3dCurve is taken between the parametrization
   //! range [First, Last]
   //! If the projection needs an approximation,
-  //! Precision::PApproximation() is used.
+  //! Precision1::PApproximation() is used.
   //! WARNING :  if   the projection has  failed,   this
   //! method returns a null Handle.
   Standard_EXPORT static Handle(GeomCurve2d) Curve2d(const Handle(GeomCurve3d)&   C,
@@ -85,7 +85,7 @@ public:
   //! gives  the  2d-curve  of  a  3d-curve lying   on a
   //! surface   ( uses   GeomProjLib_ProjectedCurve ).
   //! If the projection needs an approximation,
-  //! Precision::PApproximation() is used.
+  //! Precision1::PApproximation() is used.
   //! WARNING  :  if the   projection has  failed,  this
   //! method returns a null Handle.
   Standard_EXPORT static Handle(GeomCurve2d) Curve2d(const Handle(GeomCurve3d)&   C,
@@ -94,7 +94,7 @@ public:
   //! gives  the  2d-curve  of  a  3d-curve lying   on a
   //! surface   ( uses   GeomProjLib_ProjectedCurve ).
   //! If the projection needs an approximation,
-  //! Precision::PApproximation() is used.
+  //! Precision1::PApproximation() is used.
   //! WARNING  :  if the   projection has  failed,  this
   //! method returns a null Handle.
   //! can expand a little the bounds of surface
@@ -108,7 +108,7 @@ public:
   //! gives  the  2d-curve  of  a  3d-curve lying   on a
   //! surface   ( uses   GeomProjLib_ProjectedCurve ).
   //! If the projection needs an approximation,
-  //! Precision::PApproximation() is used.
+  //! Precision1::PApproximation() is used.
   //! WARNING  :  if the   projection has  failed,  this
   //! method returns a null Handle.
   //! can expand a little the bounds of surface

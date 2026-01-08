@@ -480,7 +480,7 @@ void Media_PlayerContext::doThreadLoop()
   // always set OCCT signal handler to catch signals if any;
   // this is safe (for thread local handler) since the thread
   // is owned by this class
-  OSD::SetThreadLocalSignal(OSD_SignalMode_Set, false);
+  OSD1::SetThreadLocalSignal(OSD_SignalMode_Set, false);
 
   Handle(Media_Frame) aFrame;
   bool                wasSeeked = false;
@@ -608,7 +608,7 @@ void Media_PlayerContext::doThreadLoop()
           aFrame = myFrameQueue->LockFrame();
           if (aFrame.IsNull())
           {
-            OSD::MilliSecSleep(1);
+            OSD1::MilliSecSleep(1);
             continue;
           }
           aFrame->Unref();
@@ -627,7 +627,7 @@ void Media_PlayerContext::doThreadLoop()
           break;
         }
 
-        OSD::MilliSecSleep(1);
+        OSD1::MilliSecSleep(1);
       }
       if (aPlayEvent == Media_PlayerEvent_NEXT)
       {

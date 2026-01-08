@@ -1386,7 +1386,7 @@ void TopOpeBRepBuild_Builder::AddONPatchesSFS(const GTopologyClassifier&  G1,
       aBAS1.D1(aP2d.X(), aP2d.Y(), aPbid, aDU, aDV);
       aN1                = aDU ^ aDV;
       Standard_Real norm = aN1.Magnitude();
-      if (norm < Precision::Confusion())
+      if (norm < Precision1::Confusion())
         continue;
       aN1 /= norm;
       if (aFace1.Orientation() == TopAbs_REVERSED)
@@ -1422,7 +1422,7 @@ void TopOpeBRepBuild_Builder::AddONPatchesSFS(const GTopologyClassifier&  G1,
           aBAS2.D1(aP2d.X(), aP2d.Y(), aPbid, aDU, aDV);
           aN2  = aDU ^ aDV;
           norm = aN2.Magnitude();
-          if (norm < Precision::Confusion())
+          if (norm < Precision1::Confusion())
           {
             ok = Standard_False;
             continue;
@@ -1523,7 +1523,7 @@ static Standard_Boolean AreFacesCoincideInArea(const TopoShape&         theBaseF
   // find the nearest intersection of aLin with other edges
   Standard_Boolean      hasInt  = Standard_False;
   Standard_Real         pLinMin = RealLast();
-  Standard_Real         tol2d   = Precision::PConfusion();
+  Standard_Real         tol2d   = Precision1::PConfusion();
   BRepClass_Intersector anInter;
   BRepClass_Edge        aBCE;
   aBCE.Face()           = aBaseFace;
@@ -1571,9 +1571,9 @@ static Standard_Boolean AreFacesCoincideInArea(const TopoShape&         theBaseF
       {
         const IntRes2d_IntersectionSegment& aIS = anInter.Segment1(i);
         Standard_Real                       pLinF =
-          aIS.HasFirstPoint() ? aIS.FirstPoint().ParamOnFirst() : -Precision::Infinite();
+          aIS.HasFirstPoint() ? aIS.FirstPoint().ParamOnFirst() : -Precision1::Infinite();
         Standard_Real pLinL =
-          aIS.HasLastPoint() ? aIS.LastPoint().ParamOnFirst() : Precision::Infinite();
+          aIS.HasLastPoint() ? aIS.LastPoint().ParamOnFirst() : Precision1::Infinite();
         if (pLinF < tol2d && pLinL > -tol2d)
           isError = Standard_True;
         else if (pLinF > tol2d && pLinF < pLinMin)

@@ -22,7 +22,7 @@
 #include <MeshVS_BuilderPriority.hxx>
 
 class MeshVS_Mesh;
-class Quantity_Color;
+class Color1;
 class MeshVS_DataSource;
 class AsciiString1;
 
@@ -37,7 +37,7 @@ public:
   Standard_EXPORT MeshVS_TextPrsBuilder(
     const Handle(MeshVS_Mesh)&       Parent,
     const Standard_Real              Height,
-    const Quantity_Color&            Color,
+    const Color1&            Color,
     const MeshVS_DisplayModeFlags&   Flags    = MeshVS_DMF_TextDataPrs,
     const Handle(MeshVS_DataSource)& DS       = 0,
     const Standard_Integer           Id       = -1,
@@ -45,8 +45,8 @@ public:
 
   //! Builds presentation of text data
   Standard_EXPORT virtual void Build(const Handle(Prs3d_Presentation)& Prs,
-                                     const TColStd_PackedMapOfInteger& IDs,
-                                     TColStd_PackedMapOfInteger&       IDsToExclude,
+                                     const PackedIntegerMap& IDs,
+                                     PackedIntegerMap&       IDsToExclude,
                                      const Standard_Boolean            IsElement,
                                      const Standard_Integer theDisplayMode) const Standard_OVERRIDE;
 

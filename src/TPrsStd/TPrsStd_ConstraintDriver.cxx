@@ -44,7 +44,7 @@ Standard_Boolean TPrsStd_ConstraintDriver::Update(const DataLabel&              
     if (!apConstraint->Verified())
     {
       ConstraintPresentationTools::UpdateOnlyValue(apConstraint, anAISObject);
-      Quantity_Color aColor;
+      Color1 aColor;
       anAISObject->Color(aColor);
       if (aColor.Name() != Quantity_NOC_RED)
       {
@@ -163,7 +163,7 @@ Standard_Boolean TPrsStd_ConstraintDriver::Update(const DataLabel&              
 
   if (anAISObject->HasInteractiveContext())
   {
-    Quantity_Color originColor;
+    Color1 originColor;
     anAISObject->Color(originColor);
     if (!apConstraint->Verified())
     {

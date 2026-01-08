@@ -201,13 +201,13 @@ Standard_Boolean SplitTool::CutEdge(const TopoEdge&  edge,
                                              const TopoFace&  face,
                                              Standard_Boolean&   iscutline) const
 {
-  if (Abs(cut - pend) < 10. * Precision::PConfusion())
+  if (Abs(cut - pend) < 10. * Precision1::PConfusion())
     return Standard_False;
   Standard_Real aRange = Abs(cut - pend);
   Standard_Real a, b;
   BRepInspector::Range(edge, a, b);
   iscutline = Standard_False;
-  if (aRange < 10. * Precision::PConfusion())
+  if (aRange < 10. * Precision1::PConfusion())
     return Standard_False;
 
   // case pcurve is trimm of line
@@ -225,18 +225,18 @@ Standard_Boolean SplitTool::CutEdge(const TopoEdge&  edge,
         {
           ShapeBuilder B;
           B.Range(edge, Min(pend, cut), Max(pend, cut));
-          if (Abs(pend - lp) < Precision::PConfusion())
+          if (Abs(pend - lp) < Precision1::PConfusion())
           { // cut from the beginning
             Standard_Real cut3d = (cut - fp) * (b - a) / (lp - fp);
-            if (cut3d <= Precision::PConfusion())
+            if (cut3d <= Precision1::PConfusion())
               return Standard_False;
             B.Range(edge, a + cut3d, b, Standard_True);
             iscutline = Standard_True;
           }
-          else if (Abs(pend - fp) < Precision::PConfusion())
+          else if (Abs(pend - fp) < Precision1::PConfusion())
           { // cut from the end
             Standard_Real cut3d = (lp - cut) * (b - a) / (lp - fp);
-            if (cut3d <= Precision::PConfusion())
+            if (cut3d <= Precision1::PConfusion())
               return Standard_False;
             B.Range(edge, a, b - cut3d, Standard_True);
             iscutline = Standard_True;
@@ -248,9 +248,9 @@ Standard_Boolean SplitTool::CutEdge(const TopoEdge&  edge,
   }
 
   // det-study on 03/12/01 checking the old and new ranges
-  if (Abs(Abs(a - b) - aRange) < Precision::PConfusion())
+  if (Abs(Abs(a - b) - aRange) < Precision1::PConfusion())
     return Standard_False;
-  if (aRange < 10. * Precision::PConfusion())
+  if (aRange < 10. * Precision1::PConfusion())
     return Standard_False;
 
   Handle(GeomCurve3d)  c = BRepInspector::Curve(edge, a, b);
@@ -261,7 +261,7 @@ Standard_Boolean SplitTool::CutEdge(const TopoEdge&  edge,
 
   ShapeBuilder B;
   if (!BRepInspector::Degenerated(edge) && !c.IsNull()
-      && sac.ValidateRange(c, na, nb, Precision::PConfusion()) && (na != a || nb != b))
+      && sac.ValidateRange(c, na, nb, Precision1::PConfusion()) && (na != a || nb != b))
   {
     B.Range(edge, na, nb, Standard_True);
     Edge1 sae;

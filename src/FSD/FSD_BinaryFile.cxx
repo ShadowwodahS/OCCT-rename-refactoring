@@ -1323,12 +1323,12 @@ void FSD_BinaryFile::ReadString(AsciiString1& aString)
   if (size > 0)
   {
     Standard_Character* c =
-      (Standard_Character*)Standard::Allocate((size + 1) * sizeof(Standard_Character));
+      (Standard_Character*)Standard1::Allocate((size + 1) * sizeof(Standard_Character));
     if (!fread(c, size, 1, myStream))
       throw Storage_StreamWriteError();
     c[size] = '\0';
     aString = c;
-    Standard::Free(c);
+    Standard1::Free(c);
   }
   else
   {
@@ -1349,7 +1349,7 @@ void FSD_BinaryFile::ReadString(Standard_IStream& theIStream, AsciiString1& aStr
   if (size > 0)
   {
     Standard_Character* c =
-      (Standard_Character*)Standard::Allocate((size + 1) * sizeof(Standard_Character));
+      (Standard_Character*)Standard1::Allocate((size + 1) * sizeof(Standard_Character));
 
     if (!theIStream.good())
     {
@@ -1367,7 +1367,7 @@ void FSD_BinaryFile::ReadString(Standard_IStream& theIStream, AsciiString1& aStr
 
     aString = c;
 
-    Standard::Free(c);
+    Standard1::Free(c);
   }
   else
   {
@@ -1465,7 +1465,7 @@ void FSD_BinaryFile::ReadExtendedString(UtfString& aString)
   if (size > 0)
   {
     Standard_ExtCharacter* c =
-      (Standard_ExtCharacter*)Standard::Allocate((size + 1) * sizeof(Standard_ExtCharacter));
+      (Standard_ExtCharacter*)Standard1::Allocate((size + 1) * sizeof(Standard_ExtCharacter));
     if (!fread(c, size * sizeof(Standard_ExtCharacter), 1, myStream))
       throw Storage_StreamWriteError();
     c[size] = '\0';
@@ -1474,7 +1474,7 @@ void FSD_BinaryFile::ReadExtendedString(UtfString& aString)
       c[i] = InverseExtChar(c[i]);
 #endif
     aString = c;
-    Standard::Free(c);
+    Standard1::Free(c);
   }
   else
   {
@@ -1496,7 +1496,7 @@ void FSD_BinaryFile::ReadExtendedString(Standard_IStream&           theIStream,
   if (size > 0)
   {
     Standard_ExtCharacter* c =
-      (Standard_ExtCharacter*)Standard::Allocate((size + 1) * sizeof(Standard_ExtCharacter));
+      (Standard_ExtCharacter*)Standard1::Allocate((size + 1) * sizeof(Standard_ExtCharacter));
 
     if (!theIStream.good())
     {
@@ -1519,7 +1519,7 @@ void FSD_BinaryFile::ReadExtendedString(Standard_IStream&           theIStream,
     }
 #endif
     aString = c;
-    Standard::Free(c);
+    Standard1::Free(c);
   }
   else
   {

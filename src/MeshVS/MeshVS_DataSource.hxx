@@ -96,10 +96,10 @@ public:
                                                              Standard_Integer& NbNodes) const = 0;
 
   //! This method returns map of all nodes the object consist of.
-  Standard_EXPORT virtual const TColStd_PackedMapOfInteger& GetAllNodes() const = 0;
+  Standard_EXPORT virtual const PackedIntegerMap& GetAllNodes() const = 0;
 
   //! This method returns map of all elements the object consist of.
-  Standard_EXPORT virtual const TColStd_PackedMapOfInteger& GetAllElements() const = 0;
+  Standard_EXPORT virtual const PackedIntegerMap& GetAllElements() const = 0;
 
   //! This method calculates normal of face, which is using for correct reflection presentation.
   //! There is default method, for advance reflection this method can be redefined.
@@ -139,12 +139,12 @@ public:
     Handle(TColStd_HArray1OfReal)& Normals) const;
 
   //! This method returns map of all groups the object contains.
-  Standard_EXPORT virtual void GetAllGroups(TColStd_PackedMapOfInteger& Ids) const;
+  Standard_EXPORT virtual void GetAllGroups(PackedIntegerMap& Ids) const;
 
   //! This method returns map of all group elements.
   Standard_EXPORT virtual Standard_Boolean GetGroup(const Standard_Integer      Id,
                                                     MeshVS_EntityType&          Type,
-                                                    TColStd_PackedMapOfInteger& Ids) const;
+                                                    PackedIntegerMap& Ids) const;
 
   //! This method returns pointer which represents group data structure.
   //! This address will be saved in MeshVS_MeshOwner, so that you can access to data structure fast

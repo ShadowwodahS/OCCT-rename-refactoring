@@ -87,7 +87,7 @@ static Standard_Integer ReadVrml(DrawInterpreter& theDI,
     if (anArgIt + 1 < theArgc && anArg == "-fileunit")
     {
       const AsciiString1 aUnitStr(theArgv[++anArgIt]);
-      aFileUnitFactor = UnitsAPI::AnyToSI(1.0, aUnitStr.ToCString());
+      aFileUnitFactor = UnitsAPI1::AnyToSI(1.0, aUnitStr.ToCString());
       if (aFileUnitFactor <= 0.0)
       {
         Message1::SendFail() << "Error: wrong length unit '" << aUnitStr << "'";
@@ -164,7 +164,7 @@ static Standard_Integer ReadVrml(DrawInterpreter& theDI,
   if (!XCAFDoc_DocumentTool::GetLengthUnit(aDoc, aScaleFactor))
   {
     XSAlgo_ShapeProcessor::PrepareForTransfer();
-    aScaleFactor = UnitsMethods::GetCasCadeLengthUnit();
+    aScaleFactor = UnitsMethods1::GetCasCadeLengthUnit();
   }
 
   VrmlAPI_CafReader aVrmlReader;
@@ -227,7 +227,7 @@ static Standard_Integer WriteVrml(DrawInterpreter& di, Standard_Integer argc, co
   if (!XCAFDoc_DocumentTool::GetLengthUnit(aDoc, aScaleFactorM))
   {
     XSAlgo_ShapeProcessor::PrepareForTransfer(); // update unit info
-    aScaleFactorM = UnitsMethods::GetCasCadeLengthUnit(UnitsMethods_LengthUnit_Meter);
+    aScaleFactorM = UnitsMethods1::GetCasCadeLengthUnit(UnitsMethods_LengthUnit_Meter);
   }
   if (!writer.WriteDoc(aDoc, argv[2], aScaleFactorM))
   {

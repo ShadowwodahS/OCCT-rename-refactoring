@@ -145,7 +145,7 @@ static Standard_Boolean Get3DPointAtMousePosition(const Point3d& theFirstPoint,
   aView->Up(aUx, aUy, aUz);
   Vector3d aViewUp(aUx, aUy, aUz);
 
-  if (aDimVec.IsParallel(aViewUp, Precision::Angular()))
+  if (aDimVec.IsParallel(aViewUp, Precision1::Angular()))
   {
     theOutputPoint = Get3DPointAtMousePosition();
     return Standard_True;
@@ -422,7 +422,7 @@ static int ParseDimensionParams(
     }
     else if (aParam.IsEqual("-color"))
     {
-      Quantity_Color   aColor;
+      Color1   aColor;
       Standard_Integer aNbParsed =
         Draw1::ParseColor(theArgNum - anIt - 1, theArgVec + anIt + 1, aColor);
       anIt += aNbParsed;

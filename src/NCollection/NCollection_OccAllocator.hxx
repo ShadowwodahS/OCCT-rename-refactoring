@@ -19,7 +19,7 @@
 
 #include <memory>
 
-//! Implements allocator requirements as defined in ISO C++ Standard 2003, section 20.1.5.
+//! Implements allocator requirements as defined in ISO C++ Standard1 2003, section 20.1.5.
 /*! The allocator uses a standard OCCT mechanism for memory
   allocation and deallocation. It can be used with standard
   containers (std::vector, std::map, etc.) to take advantage of OCCT memory optimizations.
@@ -53,7 +53,7 @@ public:
 
   //! Constructor.
   //! Creates an object using the default Open CASCADE allocation mechanism, i.e., which uses
-  //! Standard::Allocate() and Standard::Free() underneath.
+  //! Standard1::Allocate() and Standard1::Free() underneath.
   NCollection_OccAllocator()
       : myAllocator(nullptr)
   {
@@ -107,7 +107,7 @@ public:
 
   //! Constructor.
   //! Creates an object using the default Open CASCADE allocation mechanism, i.e., which uses
-  //! Standard::Allocate() and Standard::Free() underneath.
+  //! Standard1::Allocate() and Standard1::Free() underneath.
   template <typename OtherType>
   NCollection_OccAllocator(const NCollection_OccAllocator<OtherType>& theOther)
       : myAllocator(theOther.Allocator())
@@ -122,7 +122,7 @@ public:
   pointer allocate(size_type theSize, const void* = 0)
   {
     return static_cast<pointer>(myAllocator.IsNull()
-                                  ? Standard::AllocateOptimal(theSize * sizeof(ItemType))
+                                  ? Standard1::AllocateOptimal(theSize * sizeof(ItemType))
                                   : myAllocator->AllocateOptimal(theSize * sizeof(ItemType)));
   }
 
@@ -131,13 +131,13 @@ public:
   template <typename T>
   void deallocate(T* thePnt, size_type)
   {
-    myAllocator.IsNull() ? Standard::Free(thePnt) : myAllocator->Free(thePnt);
+    myAllocator.IsNull() ? Standard1::Free(thePnt) : myAllocator->Free(thePnt);
   }
 
   //! Frees previously allocated memory.
   void deallocate(pointer thePnt, size_type)
   {
-    myAllocator.IsNull() ? Standard::Free(thePnt) : myAllocator->Free(thePnt);
+    myAllocator.IsNull() ? Standard1::Free(thePnt) : myAllocator->Free(thePnt);
   }
 
   //! Constructs an object.

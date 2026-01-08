@@ -74,31 +74,31 @@ public:
   const Quantity_ColorRGBA& ColorRGBA() const { return myInteriorColor; }
 
   //! Return the color.
-  const Quantity_Color& Color() const { return myInteriorColor.GetRGB(); }
+  const Color1& Color() const { return myInteriorColor.GetRGB(); }
 
   //! Modifies the color.
-  void SetColor(const Quantity_Color& theColor) { myInteriorColor.SetRGB(theColor); }
+  void SetColor(const Color1& theColor) { myInteriorColor.SetRGB(theColor); }
 
   //! Return interior color.
-  const Quantity_Color& InteriorColor() const { return myInteriorColor.GetRGB(); }
+  const Color1& InteriorColor() const { return myInteriorColor.GetRGB(); }
 
   //! Return interior color.
   const Quantity_ColorRGBA& InteriorColorRGBA() const { return myInteriorColor; }
 
   //! Modifies the color of the interior of the face
-  void SetInteriorColor(const Quantity_Color& theColor) { myInteriorColor.SetRGB(theColor); }
+  void SetInteriorColor(const Color1& theColor) { myInteriorColor.SetRGB(theColor); }
 
   //! Modifies the color of the interior of the face
   void SetInteriorColor(const Quantity_ColorRGBA& theColor) { myInteriorColor = theColor; }
 
   //! Return back interior color.
-  const Quantity_Color& BackInteriorColor() const { return myBackInteriorColor.GetRGB(); }
+  const Color1& BackInteriorColor() const { return myBackInteriorColor.GetRGB(); }
 
   //! Return back interior color.
   const Quantity_ColorRGBA& BackInteriorColorRGBA() const { return myBackInteriorColor; }
 
   //! Modifies the color of the interior of the back face
-  void SetBackInteriorColor(const Quantity_Color& theColor)
+  void SetBackInteriorColor(const Color1& theColor)
   {
     myBackInteriorColor.SetRGB(theColor);
   }
@@ -210,7 +210,7 @@ public:
   {
     theMode   = myPolygonOffset.Mode;
     theFactor = myPolygonOffset.Factor;
-    theUnits  = myPolygonOffset.Units;
+    theUnits  = myPolygonOffset.Units2;
   }
 
   //! Sets up OpenGL polygon offsets mechanism.
@@ -235,7 +235,7 @@ public:
   {
     myPolygonOffset.Mode   = (Aspect_PolygonOffsetMode)(theMode & Aspect_POM_Mask);
     myPolygonOffset.Factor = theFactor;
-    myPolygonOffset.Units  = theUnits;
+    myPolygonOffset.Units2  = theUnits;
   }
 
   //! @name parameters specific to Line primitive rendering
@@ -398,10 +398,10 @@ public:
   const Quantity_ColorRGBA& ColorSubTitleRGBA() const { return myEdgeColor; }
 
   //! Return text background/shadow color; equals to EdgeColor() property.
-  const Quantity_Color& ColorSubTitle() const { return myEdgeColor.GetRGB(); }
+  const Color1& ColorSubTitle() const { return myEdgeColor.GetRGB(); }
 
   //! Modifies text background/shadow color; equals to EdgeColor() property.
-  void SetColorSubTitle(const Quantity_Color& theColor) { myEdgeColor.SetRGB(theColor); }
+  void SetColorSubTitle(const Color1& theColor) { myEdgeColor.SetRGB(theColor); }
 
   //! Modifies text background/shadow color; equals to EdgeColor() property.
   void SetColorSubTitle(const Quantity_ColorRGBA& theColor) { myEdgeColor = theColor; }
@@ -446,13 +446,13 @@ public:
   void SetEdgeOff() { SetDrawEdges(false); }
 
   //! Return color of edges.
-  const Quantity_Color& EdgeColor() const { return myEdgeColor.GetRGB(); }
+  const Color1& EdgeColor() const { return myEdgeColor.GetRGB(); }
 
   //! Return color of edges.
   const Quantity_ColorRGBA& EdgeColorRGBA() const { return myEdgeColor; }
 
   //! Modifies the color of the edge of the face
-  void SetEdgeColor(const Quantity_Color& theColor) { myEdgeColor.SetRGB(theColor); }
+  void SetEdgeColor(const Color1& theColor) { myEdgeColor.SetRGB(theColor); }
 
   //! Modifies the color of the edge of the face
   void SetEdgeColor(const Quantity_ColorRGBA& theColor) { myEdgeColor = theColor; }

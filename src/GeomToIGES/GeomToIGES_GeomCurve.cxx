@@ -69,9 +69,9 @@
 #include <TColStd_HArray1OfReal.hxx>
 
 // Pour toutes les courbes infinies soit
-// Udeb <= -Precision::Infinite() et/ou Ufin >= Precision::Infinite()
+// Udeb <= -Precision1::Infinite() et/ou Ufin >= Precision1::Infinite()
 // on choisit arbitrairement de les construire entre
-// Udeb = -Precision::Infinite() et Ufin = Precision::Infinite()
+// Udeb = -Precision1::Infinite() et Ufin = Precision1::Infinite()
 //=============================================================================
 // GeomToIGES_GeomCurve
 //=============================================================================
@@ -170,13 +170,13 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
 static Coords3d GetAnyNormal(Coords3d orig)
 {
   Coords3d Norm;
-  if (Abs(orig.Z()) < Precision::Confusion())
+  if (Abs(orig.Z()) < Precision1::Confusion())
     Norm.SetCoord(0, 0, 1);
   else
   {
     Norm.SetCoord(orig.Z(), 0, -orig.X());
     Standard_Real nrm = Norm.Modulus();
-    if (nrm < Precision::Confusion())
+    if (nrm < Precision1::Confusion())
       Norm.SetCoord(0, 0, 1);
     else
       Norm = Norm / nrm;
@@ -202,7 +202,7 @@ static Standard_Boolean ArePolesPlanar(const TColgp_Array1OfPnt& Poles, Coords3d
   for (i = 1; i < Poles.Length(); i++)
     Normal += Poles(i).XYZ() ^ Poles(i + 1).XYZ();
 
-  constexpr Standard_Real tol = Precision::Confusion();
+  constexpr Standard_Real tol = Precision1::Confusion();
   Standard_Real           nrm = Normal.Modulus();
   if (nrm < tol)
   {
@@ -302,20 +302,20 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
 
   Standard_Real Umin = Udeb;
   Standard_Real Umax = Ufin;
-  if (Precision::IsNegativeInfinite(Udeb))
-    Umin = -Precision::Infinite();
-  if (Precision::IsPositiveInfinite(Ufin))
-    Umax = Precision::Infinite();
+  if (Precision1::IsNegativeInfinite(Udeb))
+    Umin = -Precision1::Infinite();
+  if (Precision1::IsPositiveInfinite(Ufin))
+    Umax = Precision1::Infinite();
 
   //%12 pdn: cut curve for E3
   Standard_Real First = mycurve->FirstParameter();
   Standard_Real Last  = mycurve->LastParameter();
   //: l5 abv 14 Jan 99: protect against exceptions in Segment1()
-  if (Umin - First < Precision::PConfusion())
+  if (Umin - First < Precision1::PConfusion())
     Umin = First;
-  if (Last - Umax < Precision::PConfusion())
+  if (Last - Umax < Precision1::PConfusion())
     Umax = Last;
-  if (Umin - First > Precision::PConfusion() || Last - Umax > Precision::PConfusion())
+  if (Umin - First > Precision1::PConfusion() || Last - Umax > Precision1::PConfusion())
   {
     try
     {
@@ -323,7 +323,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
       Handle(BSplineCurve3d) bspl = Handle(BSplineCurve3d)::DownCast(mycurve->Copy());
       if (!bspl.IsNull())
       {
-        if (Abs(Umax - Umin) > Precision::PConfusion())
+        if (Abs(Umax - Umin) > Precision1::PConfusion())
           bspl->Segment1(Umin, Umax);
         mycurve = bspl;
       }
@@ -549,7 +549,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   // gka BUG 6542 1.09.04 BSpline curve was written in the IGES instead circle.
   Point3d pfirst, plast;
   start->D0(U1, pfirst);
-  if (Abs(Ufin - Udeb - 2 * M_PI) <= Precision::PConfusion())
+  if (Abs(Ufin - Udeb - 2 * M_PI) <= Precision1::PConfusion())
     plast = pfirst;
   else
     start->D0(U2, plast);
@@ -595,7 +595,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
 
   // #35 rln 22.10.98 BUC60391 face 9
   // Closed Conic Arc is incorrectly oriented when reading back to CAS.CADE
-  if (Abs(Ufin - Udeb - 2 * M_PI) <= Precision::PConfusion())
+  if (Abs(Ufin - Udeb - 2 * M_PI) <= Precision1::PConfusion())
   {
     // #53 rln 24.12.98 CCI60005
     // Trimmed ellipse. To avoid huge weights in B-Spline first rotate it and then convert
@@ -605,7 +605,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
     Handle(BSplineCurve3d) Bspline;
     //: q3 abv 17 Mar 99: use GeomConvert_ApproxCurve for precise conversion
     const Handle(GeomCurve3d)& aCopy = copystart; // to avoid ambiguity
-    GeomConvert_ApproxCurve   approx(aCopy, Precision::Approximation(), GeomAbs_C1, 100, 6);
+    GeomConvert_ApproxCurve   approx(aCopy, Precision1::Approximation(), GeomAbs_C1, 100, 6);
     if (approx.HasResult())
       Bspline = approx.Curve();
     if (Bspline.IsNull())
@@ -689,10 +689,10 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   IGESConvGeom_GeomBuilder  Build;
   Standard_Real             U1 = Udeb;
   Standard_Real             U2 = Ufin;
-  if (Precision::IsNegativeInfinite(Udeb))
-    U1 = -Precision::Infinite();
-  if (Precision::IsPositiveInfinite(Ufin))
-    U2 = Precision::Infinite();
+  if (Precision1::IsNegativeInfinite(Udeb))
+    U1 = -Precision1::Infinite();
+  if (Precision1::IsPositiveInfinite(Ufin))
+    U2 = Precision1::Infinite();
 
   // creation du "ConicArc" (#104)
   // -----------------------------
@@ -757,10 +757,10 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   IGESConvGeom_GeomBuilder  Build;
   Standard_Real             U1 = Udeb;
   Standard_Real             U2 = Ufin;
-  if (Precision::IsNegativeInfinite(Udeb))
-    U1 = -Precision::Infinite();
-  if (Precision::IsPositiveInfinite(Ufin))
-    U2 = Precision::Infinite();
+  if (Precision1::IsNegativeInfinite(Udeb))
+    U1 = -Precision1::Infinite();
+  if (Precision1::IsPositiveInfinite(Ufin))
+    U2 = Precision1::Infinite();
 
   // creation du "ConicArc" (#104)
   // -----------------------------
@@ -823,10 +823,10 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   Handle(IGESGeom_Line) Line = new IGESGeom_Line;
   Standard_Real         U1   = Udeb;
   Standard_Real         U2   = Ufin;
-  if (Precision::IsNegativeInfinite(Udeb))
-    U1 = -Precision::Infinite();
-  if (Precision::IsPositiveInfinite(Ufin))
-    U2 = Precision::Infinite();
+  if (Precision1::IsNegativeInfinite(Udeb))
+    U1 = -Precision1::Infinite();
+  if (Precision1::IsPositiveInfinite(Ufin))
+    U2 = Precision1::Infinite();
 
   // creation du "Line" (#110)
   // -------------------------
@@ -860,10 +860,10 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
   Handle(IGESGeom_OffsetCurve) OffsetC = new IGESGeom_OffsetCurve;
   Standard_Real                U1      = Udeb;
   Standard_Real                U2      = Ufin;
-  if (Precision::IsNegativeInfinite(Udeb))
-    U1 = -Precision::Infinite();
-  if (Precision::IsPositiveInfinite(Ufin))
-    U2 = Precision::Infinite();
+  if (Precision1::IsNegativeInfinite(Udeb))
+    U1 = -Precision1::Infinite();
+  if (Precision1::IsPositiveInfinite(Ufin))
+    U2 = Precision1::Infinite();
 
   if (ExchangeConfig::IVal("write.iges.offset.mode") == 0)
   {

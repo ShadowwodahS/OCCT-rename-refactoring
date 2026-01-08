@@ -57,12 +57,12 @@ class IGESData_ReadWriteModule : public Interface_ReaderModule
 public:
   //! Translates the Type of record <num> in <data> to a positive
   //! Case Number, or 0 if failed.
-  //! Works with IGESReaderData which provides Type & Form Numbers,
+  //! Works with IGESReaderData which provides Type & Form Numbers1,
   //! and calls CaseIGES (see below)
   Standard_EXPORT Standard_Integer CaseNum(const Handle(Interface_FileReaderData)& data,
                                            const Standard_Integer num) const Standard_OVERRIDE;
 
-  //! Defines Case Numbers corresponding to the Entity Types taken
+  //! Defines Case Numbers1 corresponding to the Entity Types taken
   //! into account by a sub-class of ReadWriteModule (hence, each
   //! sub-class of ReadWriteModule has to redefine this method)
   //! Called by CaseNum. Its result will then be used to call

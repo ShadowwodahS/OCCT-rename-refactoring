@@ -546,7 +546,7 @@ void BRepFill_Draft::BuildShell(const Handle(GeomSurface)& Surf,
     // Waiting the use of traces & restriction in BRepFill_Sweep
     // Make Fuse.
     BRepLib_MakeFace MkF;
-    MkF.Init(Surf, Standard_True, Precision::Confusion());
+    MkF.Init(Surf, Standard_True, Precision1::Confusion());
     Fuse(MkF.Face(), KeepOutSide);
   }
 }
@@ -630,7 +630,7 @@ Standard_Boolean BRepFill_Draft::Fuse(const TopoShape&    StopShape,
 
     // We need to find the section edge, closest to myWire
     TopoEdge                aSEMin;
-    Standard_Real              Dmin = Precision::Infinite();
+    Standard_Real              Dmin = Precision1::Infinite();
     BRepExtrema_DistShapeShape DistTool;
     DistTool.LoadS1(myWire);
 
@@ -646,7 +646,7 @@ Standard_Boolean BRepFill_Draft::Fuse(const TopoShape&    StopShape,
         {
           Dmin   = D;
           aSEMin = TopoDS::Edge(aSE);
-          if (Dmin < Precision::Confusion())
+          if (Dmin < Precision1::Confusion())
             break;
         }
       }
@@ -724,7 +724,7 @@ Standard_Boolean BRepFill_Draft::Fuse(const TopoShape&    StopShape,
         anExpS.Next();
         if (anExpS.More())
         {
-          Standard_Real              aDMin = Precision::Infinite();
+          Standard_Real              aDMin = Precision1::Infinite();
           BRepExtrema_DistShapeShape DistTool;
           DistTool.LoadS1(myWire);
 
@@ -889,7 +889,7 @@ Standard_Boolean BRepFill_Draft::Sewing()
       BS.Add(solid, TopoDS::Shell(myShape));
 
       BRepClass3d_SolidClassifier SC(solid);
-      SC.PerformInfinitePoint(Precision::Confusion());
+      SC.PerformInfinitePoint(Precision1::Confusion());
       if (SC.State() == TopAbs_IN)
       {
         BS.MakeSolid(solid);

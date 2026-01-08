@@ -259,8 +259,8 @@ void EdgeConnect::Build()
         theMaxDev = theDeviation;
     }
     theMaxDev *= 1.0001; // To avoid numerical roundings
-    if (theMaxDev < Precision::Confusion())
-      theMaxDev = Precision::Confusion();
+    if (theMaxDev < Precision1::Confusion())
+      theMaxDev = Precision1::Confusion();
 
     // Update shared vertex
     theBuilder.UpdateVertex(theSharedVertex, Point3d(thePosition), theMaxDev);

@@ -36,7 +36,7 @@
 //! aTimer.Show();    // Give the elapsed time between t1 and t2.
 //! // Give also the process CPU time between
 //! // t1 and t2.
-class OSD_Timer : public OSD_Chronometer
+class OSD_Timer : public Chronometer
 {
 public:
   //! Returns current time in seconds with system-defined precision.
@@ -54,7 +54,7 @@ public:
   //! only;
   //!                          otherwise CPU of the process (all threads, and completed children) is
   //!                          measured; this flag does NOT affect ElapsedTime() value, only values
-  //!                          returned by OSD_Chronometer
+  //!                          returned by Chronometer
   Standard_EXPORT OSD_Timer(Standard_Boolean theThisThreadOnly = Standard_False);
 
   //! Stops and reinitializes the timer with specified elapsed time.

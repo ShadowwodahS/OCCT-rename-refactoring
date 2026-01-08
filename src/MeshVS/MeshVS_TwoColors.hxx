@@ -63,8 +63,8 @@ private:
 };
 } // namespace std
 
-Standard_EXPORT TwoColors BindTwoColors(const Quantity_Color&, const Quantity_Color&);
-Standard_EXPORT Quantity_Color   ExtractColor(TwoColors&, const Standard_Integer);
-Standard_EXPORT void             ExtractColors(TwoColors&, Quantity_Color&, Quantity_Color&);
+Standard_EXPORT TwoColors BindTwoColors(const Color1&, const Color1&);
+Standard_EXPORT Color1   ExtractColor(TwoColors&, const Standard_Integer);
+Standard_EXPORT void             ExtractColors(TwoColors&, Color1&, Color1&);
 
 #endif

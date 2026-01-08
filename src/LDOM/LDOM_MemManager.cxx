@@ -349,9 +349,9 @@ const char* LDOM_MemManager::HashedAllocate(const char*            theString,
 
 void LDOM_MemManager::HashedAllocate(const char*            aString,
                                      const Standard_Integer theLen,
-                                     LDOMBasicString&       theResult)
+                                     LDOMBasicString1&       theResult)
 {
-  theResult.myType = LDOMBasicString::LDOM_AsciiHashed;
+  theResult.myType = LDOMBasicString1::LDOM_AsciiHashed;
   Standard_Integer aDummy;
   const char*      aHashedString = HashedAllocate(aString, theLen, aDummy);
   if (aHashedString != NULL)

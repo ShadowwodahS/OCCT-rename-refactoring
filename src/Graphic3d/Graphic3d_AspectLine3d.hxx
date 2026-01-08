@@ -37,7 +37,7 @@ public:
   //! The nominal line width is 1 pixel.
   //! The width of the line is determined by applying the line width scale factor to this nominal
   //! line width. The supported line widths vary by 1-pixel units.
-  Standard_EXPORT Graphic3d_AspectLine3d(const Quantity_Color& theColor,
+  Standard_EXPORT Graphic3d_AspectLine3d(const Color1& theColor,
                                          Aspect_TypeOfLine     theType,
                                          Standard_Real         theWidth);
 

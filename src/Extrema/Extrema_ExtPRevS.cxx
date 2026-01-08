@@ -46,13 +46,13 @@ static Frame3d GetPosition(
     case GeomAbs_Line: {
       gp_Lin L = C->Line();
       Dir3d N = S.AxeOfRevolution().Direction();
-      if (N.IsParallel(L.Direction(), Precision::Angular()))
+      if (N.IsParallel(L.Direction(), Precision1::Angular()))
       {
         Vector3d OO(L.Location(), S.AxeOfRevolution().Location());
         if (OO.Magnitude() <= gp1::Resolution())
         {
           OO = Vector3d(L.Location(), ElCLib1::Value(100, L));
-          if (N.IsParallel(OO, Precision::Angular()))
+          if (N.IsParallel(OO, Precision1::Angular()))
             return Frame3d(); // Line and axe of revolution coincide
         }
         N ^= OO;
@@ -89,12 +89,12 @@ static Standard_Boolean HasSingularity(const GeomAdaptor_SurfaceOfRevolution& S)
 
   P = C->Value(C->FirstParameter());
 
-  if (L.SquareDistance(P) < Precision::SquareConfusion())
+  if (L.SquareDistance(P) < Precision1::SquareConfusion())
     return Standard_True;
 
   P = C->Value(C->LastParameter());
 
-  if (L.SquareDistance(P) < Precision::SquareConfusion())
+  if (L.SquareDistance(P) < Precision1::SquareConfusion())
     return Standard_True;
 
   return Standard_False;
@@ -110,10 +110,10 @@ static void PerformExtPElC(PointElCCurveExtrema&               E,
   switch (C->GetType())
   {
     case GeomAbs_Hyperbola:
-      E.Perform(P, C->Hyperbola(), Tol, -Precision::Infinite(), Precision::Infinite());
+      E.Perform(P, C->Hyperbola(), Tol, -Precision1::Infinite(), Precision1::Infinite());
       return;
     case GeomAbs_Line:
-      E.Perform(P, C->Line(), Tol, -Precision::Infinite(), Precision::Infinite());
+      E.Perform(P, C->Line(), Tol, -Precision1::Infinite(), Precision1::Infinite());
       return;
     case GeomAbs_Circle:
       E.Perform(P, C->Circle(), Tol, 0.0, 2.0 * M_PI);
@@ -122,7 +122,7 @@ static void PerformExtPElC(PointElCCurveExtrema&               E,
       E.Perform(P, C->Ellipse(), Tol, 0.0, 2.0 * M_PI);
       return;
     case GeomAbs_Parabola:
-      E.Perform(P, C->Parabola(), Tol, -Precision::Infinite(), Precision::Infinite());
+      E.Perform(P, C->Parabola(), Tol, -Precision1::Infinite(), Precision1::Infinite());
       return;
     default:
       return;
@@ -151,7 +151,7 @@ static Standard_Boolean IsCaseAnalyticallyComputable(const GeomAbs_CurveType& th
   gp_Pln        pl(theCurvePos.Location(), theCurvePos.Direction());
   Point3d        p1   = AxeOfRevolution.Location();
   Standard_Real dist = 100., dist2 = dist * dist;
-  Standard_Real aThreshold = Precision::Angular() * Precision::Angular() * dist2;
+  Standard_Real aThreshold = Precision1::Angular() * Precision1::Angular() * dist2;
   Point3d        p2 = AxeOfRevolution.Location().XYZ() + dist * AxeOfRevolution.Direction().XYZ();
 
   if ((pl.SquareDistance(p1) < aThreshold) && (pl.SquareDistance(p2) < aThreshold))
@@ -172,7 +172,7 @@ static Standard_Boolean IsOriginalPnt(const Point3d&          P,
 {
   for (Standard_Integer i = 1; i <= NbPoints; i++)
   {
-    if (Points[i - 1].Value().IsEqual(P, Precision::Confusion()))
+    if (Points[i - 1].Value().IsEqual(P, Precision1::Confusion()))
     {
       return Standard_False;
     }
@@ -208,7 +208,7 @@ static Standard_Boolean IsExtremum(const Standard_Real      U,
 Extrema_ExtPRevS::Extrema_ExtPRevS()
 {
   myvinf = myvsup            = 0.0;
-  mytolv                     = Precision::Confusion();
+  mytolv                     = Precision1::Confusion();
   myDone                     = Standard_False;
   myNbExt                    = 0;
   myIsAnalyticallyComputable = Standard_False;
@@ -318,7 +318,7 @@ void Extrema_ExtPRevS::Perform(const Point3d& P)
 
   Standard_Real OPdir = Vector3d(O, P).Dot(Dir);
   Point3d        Pp    = P.Translated(Dir.Multiplied(-OPdir));
-  if (O.IsEqual(Pp, Precision::Confusion())) // P is on the AxeOfRevolution
+  if (O.IsEqual(Pp, Precision1::Confusion())) // P is on the AxeOfRevolution
     return;
 
   Standard_Real U, V;
@@ -332,7 +332,7 @@ void Extrema_ExtPRevS::Perform(const Point3d& P)
   else
   {
     Ppp = Pp.Translated(Z.Multiplied(-OPpz));
-    if (O.IsEqual(Ppp, Precision::Confusion()))
+    if (O.IsEqual(Ppp, Precision1::Confusion()))
       U = M_PI / 2;
     else
     {

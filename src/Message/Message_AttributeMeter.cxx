@@ -39,8 +39,8 @@ Standard_Boolean Message_AttributeMeter::HasMetric(const Message_MetricType& the
 
 Standard_Boolean Message_AttributeMeter::IsMetricValid(const Message_MetricType& theMetric) const
 {
-  return Abs(StartValue(theMetric) - UndefinedMetricValue()) > Precision::Confusion()
-         && Abs(StopValue(theMetric) - UndefinedMetricValue()) > Precision::Confusion();
+  return Abs(StartValue(theMetric) - UndefinedMetricValue()) > Precision1::Confusion()
+         && Abs(StopValue(theMetric) - UndefinedMetricValue()) > Precision1::Confusion();
 }
 
 //=================================================================================================
@@ -132,7 +132,7 @@ void Message_AttributeMeter::SetAlertMetrics(const Handle(Message_AlertExtended)
         || anActiveMetrics.Contains(Message_MetricType_ProcessCPUSystemTime))
     {
       Standard_Real aProcessUserTime, aProcessSystemTime;
-      OSD_Chronometer::GetProcessCPU(aProcessUserTime, aProcessSystemTime);
+      Chronometer::GetProcessCPU(aProcessUserTime, aProcessSystemTime);
       if (anActiveMetrics.Contains(Message_MetricType_ProcessCPUUserTime))
       {
         if (theStartValue)
@@ -162,7 +162,7 @@ void Message_AttributeMeter::SetAlertMetrics(const Handle(Message_AlertExtended)
         || anActiveMetrics.Contains(Message_MetricType_ThreadCPUSystemTime))
     {
       Standard_Real aThreadUserTime, aThreadSystemTime;
-      OSD_Chronometer::GetThreadCPU(aThreadUserTime, aThreadSystemTime);
+      Chronometer::GetThreadCPU(aThreadUserTime, aThreadSystemTime);
       if (anActiveMetrics.Contains(Message_MetricType_ThreadCPUUserTime))
       {
         if (theStartValue)
@@ -189,14 +189,14 @@ void Message_AttributeMeter::SetAlertMetrics(const Handle(Message_AlertExtended)
   }
 
   // memory metrics
-  OSD_MemInfo aMemInfo(Standard_False);
+  MemoryInfo aMemInfo(Standard_False);
   aMemInfo.SetActive(Standard_False);
-  NCollection_IndexedMap<OSD_MemInfo::Counter> aCounters;
+  NCollection_IndexedMap<MemoryInfo::Counter> aCounters;
   for (NCollection_IndexedMap<Message_MetricType>::Iterator anIterator(anActiveMetrics);
        anIterator.More();
        anIterator.Next())
   {
-    OSD_MemInfo::Counter anInfoCounter;
+    MemoryInfo::Counter anInfoCounter;
     if (!Message1::ToOSDMetric(anIterator.Value(), anInfoCounter))
     {
       continue;
@@ -212,7 +212,7 @@ void Message_AttributeMeter::SetAlertMetrics(const Handle(Message_AlertExtended)
 
   aMemInfo.Update();
   Message_MetricType aMetricType;
-  for (NCollection_IndexedMap<OSD_MemInfo::Counter>::Iterator anIterator(aCounters);
+  for (NCollection_IndexedMap<MemoryInfo::Counter>::Iterator anIterator(aCounters);
        anIterator.More();
        anIterator.Next())
   {

@@ -343,14 +343,14 @@ Standard_Boolean XSDRAWSTL_DataSource3D::GetNodesByElement(const Standard_Intege
 
 //=================================================================================================
 
-const TColStd_PackedMapOfInteger& XSDRAWSTL_DataSource3D::GetAllNodes() const
+const PackedIntegerMap& XSDRAWSTL_DataSource3D::GetAllNodes() const
 {
   return myNodes;
 }
 
 //=================================================================================================
 
-const TColStd_PackedMapOfInteger& XSDRAWSTL_DataSource3D::GetAllElements() const
+const PackedIntegerMap& XSDRAWSTL_DataSource3D::GetAllElements() const
 {
   return myElements;
 }

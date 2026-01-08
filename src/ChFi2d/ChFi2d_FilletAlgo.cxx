@@ -160,29 +160,29 @@ static Standard_Boolean IsRadiusIntersected(const Handle(GeomCurve2d)& theCurve,
 {
   // Check the given start and end if they are identical. If yes
   // return false
-  if (theStart.SquareDistance(theEnd) < Precision::SquareConfusion())
+  if (theStart.SquareDistance(theEnd) < Precision1::SquareConfusion())
   {
     return Standard_False;
   }
   Handle(Geom2d_Line)       line = new Geom2d_Line(theStart, gp_Dir2d(gp_Vec2d(theStart, theEnd)));
-  Geom2dAPI_InterCurveCurve anInter(theCurve, line, Precision::Confusion());
+  Geom2dAPI_InterCurveCurve anInter(theCurve, line, Precision1::Confusion());
   Standard_Integer          a;
   gp_Pnt2d                  aPoint;
   for (a = anInter.NbPoints(); a > 0; a--)
   {
     aPoint = anInter.Point(a);
     Geom2dAPI_ProjectPointOnCurve aProjInt(aPoint, theCurve, theCurveMin, theCurveMax);
-    if (aProjInt.NbPoints() < 1 || aProjInt.LowerDistanceParameter() > Precision::Confusion())
+    if (aProjInt.NbPoints() < 1 || aProjInt.LowerDistanceParameter() > Precision1::Confusion())
       continue; // point is not on edge
 
-    if (aPoint.Distance(theStart) < Precision::Confusion())
+    if (aPoint.Distance(theStart) < Precision1::Confusion())
     {
       if (!theStartConnected)
         return Standard_True;
     }
-    if (aPoint.Distance(theEnd) < Precision::Confusion())
+    if (aPoint.Distance(theEnd) < Precision1::Confusion())
       return Standard_True;
-    if (gp_Vec2d(aPoint, theStart).IsOpposite(gp_Vec2d(aPoint, theEnd), Precision::Angular()))
+    if (gp_Vec2d(aPoint, theStart).IsOpposite(gp_Vec2d(aPoint, theEnd), Precision1::Angular()))
       return Standard_True;
   }
   const Handle(GeomCurve2d)& aCurve = theCurve;
@@ -192,27 +192,27 @@ static Standard_Boolean IsRadiusIntersected(const Handle(GeomCurve2d)& theCurve,
     aPoint = aCurve->Value(aCurve->FirstParameter());
 
     Geom2dAPI_ProjectPointOnCurve aProjInt(aPoint, theCurve, theCurveMin, theCurveMax);
-    if (aProjInt.NbPoints() && aProjInt.LowerDistanceParameter() < Precision::Confusion())
+    if (aProjInt.NbPoints() && aProjInt.LowerDistanceParameter() < Precision1::Confusion())
     { // point is on edge
-      if (aPoint.Distance(theStart) < Precision::Confusion())
+      if (aPoint.Distance(theStart) < Precision1::Confusion())
         if (!theStartConnected)
           return Standard_True;
-      if (aPoint.Distance(theEnd) < Precision::Confusion())
+      if (aPoint.Distance(theEnd) < Precision1::Confusion())
         return Standard_True;
-      if (gp_Vec2d(aPoint, theStart).IsOpposite(gp_Vec2d(aPoint, theEnd), Precision::Angular()))
+      if (gp_Vec2d(aPoint, theStart).IsOpposite(gp_Vec2d(aPoint, theEnd), Precision1::Angular()))
         return Standard_True;
     }
     aPoint = aCurve->Value(aCurve->LastParameter());
 
     aProjInt.Init(aPoint, theCurve, theCurveMin, theCurveMax);
-    if (aProjInt.NbPoints() && aProjInt.LowerDistanceParameter() < Precision::Confusion())
+    if (aProjInt.NbPoints() && aProjInt.LowerDistanceParameter() < Precision1::Confusion())
     { // point is on edge
-      if (aPoint.Distance(theStart) < Precision::Confusion())
+      if (aPoint.Distance(theStart) < Precision1::Confusion())
         if (!theStartConnected)
           return Standard_True;
-      if (aPoint.Distance(theEnd) < Precision::Confusion())
+      if (aPoint.Distance(theEnd) < Precision1::Confusion())
         return Standard_True;
-      if (gp_Vec2d(aPoint, theStart).IsOpposite(gp_Vec2d(aPoint, theEnd), Precision::Angular()))
+      if (gp_Vec2d(aPoint, theStart).IsOpposite(gp_Vec2d(aPoint, theEnd), Precision1::Angular()))
         return Standard_True;
     }
   }
@@ -224,7 +224,7 @@ void ChFi2d_FilletAlgo::FillPoint(FilletPoint1* thePoint, const Standard_Real th
 
   // on the intersection point
   Standard_Boolean aValid = Standard_False;
-  Standard_Real    aStep  = Precision::Confusion();
+  Standard_Real    aStep  = Precision1::Confusion();
   gp_Pnt2d         aCenter, aPoint; // center of fillet and point on curve1
   Standard_Real    aParam = thePoint->getParam();
   if (theLimit < aParam)
@@ -236,7 +236,7 @@ void ChFi2d_FilletAlgo::FillPoint(FilletPoint1* thePoint, const Standard_Real th
     aStep *= 2;
     gp_Vec2d aVec;
     myCurve1->D1(aParam, aPoint, aVec);
-    if (aVec.SquareMagnitude() < Precision::Confusion())
+    if (aVec.SquareMagnitude() < Precision1::Confusion())
       continue;
 
     gp_Vec2d aPerp(((myStartSide) ? -1 : 1) * aVec.Y(), ((myStartSide) ? 1 : -1) * aVec.X());
@@ -246,7 +246,7 @@ void ChFi2d_FilletAlgo::FillPoint(FilletPoint1* thePoint, const Standard_Real th
 
     Geom2dAPI_ProjectPointOnCurve aProjInt(aPoint, myCurve2, myStart2, myEnd2);
     if (aProjInt.NbPoints() == 0
-        || aPoint.Distance(aProjInt.NearestPoint()) > Precision::Confusion())
+        || aPoint.Distance(aProjInt.NearestPoint()) > Precision1::Confusion())
     {
       aValid = Standard_True;
       break;
@@ -263,7 +263,7 @@ void ChFi2d_FilletAlgo::FillPoint(FilletPoint1* thePoint, const Standard_Real th
   int                           a, aNB = aProj.NbPoints();
   for (a = aNB; a > 0; a--)
   {
-    if (aPoint.SquareDistance(aProj.Point(a)) < Precision::Confusion())
+    if (aPoint.SquareDistance(aProj.Point(a)) < Precision1::Confusion())
       continue;
 
     Standard_Boolean aValid2 = aValid;
@@ -279,7 +279,7 @@ void ChFi2d_FilletAlgo::FillPoint(FilletPoint1* thePoint, const Standard_Real th
     const Standard_Real d = aProj.Distance(a);
     thePoint->appendValue(d * d - myRadius * myRadius,
                           (aParamProj >= myStart2 && aParamProj <= myEnd2 && aValid2));
-    if (Abs(d - myRadius) < Precision::Confusion())
+    if (Abs(d - myRadius) < Precision1::Confusion())
       thePoint->setParam2(aParamProj);
   }
 }
@@ -339,7 +339,7 @@ Standard_Boolean ChFi2d_FilletAlgo::Perform(const Standard_Real theRadius)
     FilletPoint1 *aLeft = NULL, *aRight;
 
     for (aParam = myStart1 + aStep;
-         aParam < myEnd1 || Abs(myEnd1 - aParam) < Precision::Confusion();
+         aParam < myEnd1 || Abs(myEnd1 - aParam) < Precision1::Confusion();
          aParam += aStep)
     {
       if (!aLeft)
@@ -432,7 +432,7 @@ void ChFi2d_FilletAlgo::PerformNewton(FilletPoint1* theLeft, FilletPoint1* theRi
   }
 
   Standard_Real aDX = theRight->getParam() - theLeft->getParam();
-  if (aDX < 1.e-6 * Precision::Confusion())
+  if (aDX < 1.e-6 * Precision1::Confusion())
   {
     a = theRight->hasSolution(myRadius);
     if (a && theRight->isValid(a))
@@ -452,7 +452,7 @@ void ChFi2d_FilletAlgo::PerformNewton(FilletPoint1* theLeft, FilletPoint1* theRi
                        + aA * theLeft->getParam() * theLeft->getParam() / 2.0;
     Standard_Real aDet = aB * aB - 2.0 * aA * aC;
 
-    if (Abs(aA) < Precision::Confusion())
+    if (Abs(aA) < Precision1::Confusion())
     { // linear case
       // std::cout<<"###"<<std::endl;
       if (Abs(aB) > 10e-20)
@@ -639,8 +639,8 @@ TopoEdge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
   // Check the case when start and end are identical. This happens
   // when the edge decreases to size 0. Old ww5 allows such
   // cases. So we are again bug compatible
-  if (fabs(aStart - anEnd) < Precision::Confusion())
-    anEnd = aStart + Precision::Confusion();
+  if (fabs(aStart - anEnd) < Precision1::Confusion())
+    anEnd = aStart + Precision1::Confusion();
   // Divide edge
   EdgeMaker aDivider1(aCurve, aStart, anEnd);
   if (myEdgesExchnged)
@@ -661,8 +661,8 @@ TopoEdge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
   // Check the case when start and end are identical. This happens
   // when the edge decreases to size 0. Old ww5 allows such
   // cases. So we are again bug compatible
-  if (fabs(aStart - anEnd) < Precision::Confusion())
-    anEnd = aStart + Precision::Confusion();
+  if (fabs(aStart - anEnd) < Precision1::Confusion())
+    anEnd = aStart + Precision1::Confusion();
   EdgeMaker aDivider2(aCurve, aStart, anEnd);
   if (myEdgesExchnged)
     theEdge1 = aDivider2.Edge();
@@ -763,14 +763,14 @@ void FilletPoint1::FilterPoints(FilletPoint1* thePoint)
       { // the same sign at the same sides of the interval
         if (myV.Value(a) * myD.Value(a) > 0)
         {
-          if (Abs(myD.Value(a)) > Precision::Confusion())
+          if (Abs(myD.Value(a)) > Precision1::Confusion())
             aNear = 0;
         }
         else
         {
           if (Abs(myV.Value(a)) > Abs(thePoint->myV.Value(aNear)))
             if (thePoint->myV.Value(aNear) * thePoint->myD.Value(aNear) < 0
-                && Abs(thePoint->myD.Value(aNear)) > Precision::Confusion())
+                && Abs(thePoint->myD.Value(aNear)) > Precision1::Confusion())
             {
               aNear = 0;
             }
@@ -782,10 +782,10 @@ void FilletPoint1::FilterPoints(FilletPoint1* thePoint)
     {
       if (myV.Value(a) * thePoint->myV.Value(aNear) > 0)
       {
-        if ((myV.Value(a) + myD.Value(a) * aDX) * myV.Value(a) > Precision::Confusion()
+        if ((myV.Value(a) + myD.Value(a) * aDX) * myV.Value(a) > Precision1::Confusion()
             && (thePoint->myV.Value(aNear) + thePoint->myD.Value(aNear) * aDX)
                    * thePoint->myV.Value(aNear)
-                 > Precision::Confusion())
+                 > Precision1::Confusion())
         {
           aNear = 0;
         }
@@ -863,7 +863,7 @@ int FilletPoint1::hasSolution(const Standard_Real theRadius)
   for (a = 1; a <= myV.Length(); a++)
   {
     if (Abs(sqrt(Abs(Abs(myV.Value(a)) + theRadius * theRadius)) - theRadius)
-        < Precision::Confusion())
+        < Precision1::Confusion())
       return a;
   }
   return 0;

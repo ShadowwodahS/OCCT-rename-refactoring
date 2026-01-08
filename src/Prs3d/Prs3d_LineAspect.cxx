@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Prs3d_LineAspect, Prs3d_BasicAspect)
 
 //=================================================================================================
 
-Prs3d_LineAspect::Prs3d_LineAspect(const Quantity_Color&   theColor,
+Prs3d_LineAspect::Prs3d_LineAspect(const Color1&   theColor,
                                    const Aspect_TypeOfLine theType,
                                    const Standard_Real     theWidth)
     : myAspect(new Graphic3d_AspectLine3d(theColor, theType, theWidth))

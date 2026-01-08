@@ -84,7 +84,7 @@ void StepToTopoDS_TranslateSolid::Init(const Handle(StepVisual_TessellatedSolid)
   Handle(Transfer_TransientProcess) aTP = theTool.TransientProcess();
 
   StepToTopoDS_TranslateFace aTranTF;
-  aTranTF.SetPrecision(Precision());
+  aTranTF.SetPrecision(Precision1());
   aTranTF.SetMaxTol(MaxTol());
 
   for (Standard_Integer i = 1; i <= aNb && aPS.More(); i++, aPS.Next())

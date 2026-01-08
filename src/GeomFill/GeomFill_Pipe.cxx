@@ -164,12 +164,12 @@ static Standard_Boolean CheckSense(const TColGeom_SequenceOfCurve& Seq1,
 
     // meme sens ?
     Standard_Boolean ok      = Standard_True,
-                     pasnul1 = (Abs(alpha1) > Precision::Confusion())
-                               && (Abs(beta1) > Precision::Confusion()),
-                     pasnul2 = (Abs(alpha2) > Precision::Confusion())
-                               && (Abs(beta2) > Precision::Confusion()),
-                     pasnul3 = (Abs(alpha3) > Precision::Confusion())
-                               && (Abs(beta3) > Precision::Confusion());
+                     pasnul1 = (Abs(alpha1) > Precision1::Confusion())
+                               && (Abs(beta1) > Precision1::Confusion()),
+                     pasnul2 = (Abs(alpha2) > Precision1::Confusion())
+                               && (Abs(beta2) > Precision1::Confusion()),
+                     pasnul3 = (Abs(alpha3) > Precision1::Confusion())
+                               && (Abs(beta3) > Precision1::Confusion());
     if (pasnul1 && pasnul2 && pasnul3)
     {
       if (alpha1 * beta1 > 0.0)
@@ -381,7 +381,7 @@ void GeomFill_Pipe::Init(const Handle(GeomCurve3d)&      Path,
   TheLoc->SetCurve(myAdpPath);
 
   GeomFill_SectionPlacement Place(TheLoc, FirstSect);
-  Place.Perform(Precision::Confusion());
+  Place.Perform(Precision1::Confusion());
 
   // loi de section
   mySec = new (GeomFill_UniformSection)(Place.Section(Standard_False),
@@ -511,7 +511,7 @@ void GeomFill_Pipe::Init(const Handle(GeomCurve3d)& Path,
       myLoc = new (GeomFill_CurveAndTrihedron)(TLaw);
       myLoc->SetCurve(myAdpPath);
       GeomFill_SectionPlacement Place(myLoc, FirstSect);
-      Place.Perform(Precision::Confusion());
+      Place.Perform(Precision1::Confusion());
       Standard_Real ponsec = Place.ParameterOnSection();
 
       Standard_Real     Eps = 1.e-9;
@@ -550,7 +550,7 @@ void GeomFill_Pipe::Init(const Handle(GeomCurve3d)& Path,
     myLoc = new (GeomFill_CurveAndTrihedron)(TLaw);
     myLoc->SetCurve(myAdpPath);
     GeomFill_SectionPlacement Place(myLoc, FirstSect);
-    Place.Perform(Precision::Confusion());
+    Place.Perform(Precision1::Confusion());
     param = Place.ParameterOnPath();
     Sect  = Place.Section(Standard_False);
 
@@ -583,7 +583,7 @@ void GeomFill_Pipe::Init(const Handle(GeomCurve2d)& Path,
   myLoc = new (GeomFill_CurveAndTrihedron)(TLaw);
   myLoc->SetCurve(myAdpPath);
   GeomFill_SectionPlacement Place(myLoc, FirstSect);
-  Place.Perform(myAdpPath, Precision::Confusion());
+  Place.Perform(myAdpPath, Precision1::Confusion());
   Sect = Place.Section(Standard_False);
 
 #ifdef DRAW
@@ -615,7 +615,7 @@ void GeomFill_Pipe::Init(const Handle(GeomCurve3d)& Path,
   myLoc = new (GeomFill_CurveAndTrihedron)(TLaw);
   myLoc->SetCurve(myAdpPath);
   GeomFill_SectionPlacement Place(myLoc, FirstSect);
-  Place.Perform(Precision::Confusion());
+  Place.Perform(Precision1::Confusion());
   Sect = Place.Section(Standard_False);
 
 #ifdef DRAW
@@ -652,7 +652,7 @@ void GeomFill_Pipe::Init(const Handle(GeomCurve3d)& Path, const TColGeom_Sequenc
     for (i = 1; i <= NSections.Length(); i++)
     {
       GeomFill_SectionPlacement Place(myLoc, NSections(i));
-      Place.Perform(Precision::Confusion());
+      Place.Perform(Precision1::Confusion());
       SeqP.Append(Place.ParameterOnPath());
       SeqC.Append(Place.Section(Standard_False));
     }
@@ -682,7 +682,7 @@ void GeomFill_Pipe::Init(const Handle(GeomCurve3d)& Path, const TColGeom_Sequenc
     }
     for (i = 1; i < NSections.Length(); i++)
     {
-      if (Abs(SeqP.Value(i + 1) - SeqP.Value(i)) < Precision::PConfusion())
+      if (Abs(SeqP.Value(i + 1) - SeqP.Value(i)) < Precision1::PConfusion())
       {
         throw Standard_ConstructionError("GeomFill_Pipe::Init with NSections : invalid parameters");
       }
@@ -727,10 +727,10 @@ void GeomFill_Pipe::Init(const Handle(GeomCurve3d)& Path,
     SeqP.Clear();
     // sequence of sections
     GeomFill_SectionPlacement Pl1(myLoc, FirstSect);
-    Pl1.Perform(first, Precision::Confusion());
+    Pl1.Perform(first, Precision1::Confusion());
     SeqC.Append(Pl1.Section(Standard_False));
     GeomFill_SectionPlacement Pl2(myLoc, LastSect);
-    Pl2.Perform(first, Precision::Confusion());
+    Pl2.Perform(first, Precision1::Confusion());
     SeqC.Append(Pl2.Section(Standard_False));
     // sequence of associated parameters
     SeqP.Append(first);
@@ -903,7 +903,7 @@ Standard_Boolean GeomFill_Pipe::KPartT4()
     Dir3d D0 = A0.Direction();
     Dir3d D1 = A1.Direction();
     Dir3d D2 = A2.Direction();
-    if (!D0.IsEqual(D1, Precision::Angular()) || !D1.IsEqual(D2, Precision::Angular()))
+    if (!D0.IsEqual(D1, Precision1::Angular()) || !D1.IsEqual(D2, Precision1::Angular()))
     {
       return Ok;
     }
@@ -912,7 +912,7 @@ Standard_Boolean GeomFill_Pipe::KPartT4()
     Standard_Real L0 = myAdpPath->LastParameter() - myAdpPath->FirstParameter();
     Standard_Real L1 = myAdpFirstSect->LastParameter() - myAdpFirstSect->FirstParameter();
     Standard_Real L2 = myAdpLastSect->LastParameter() - myAdpLastSect->FirstParameter();
-    if (Abs(L1 - L0) > Precision::Confusion() || Abs(L2 - L0) > Precision::Confusion())
+    if (Abs(L1 - L0) > Precision1::Confusion() || Abs(L2 - L0) > Precision1::Confusion())
     {
       return Ok;
     }
@@ -923,7 +923,7 @@ Standard_Boolean GeomFill_Pipe::KPartT4()
     Point3d P2 = myAdpLastSect->Value(myAdpLastSect->FirstParameter());
     Dir3d V1(Vector3d(P0, P1));
     Dir3d V2(Vector3d(P0, P2));
-    if (Abs(V1.Dot(D0)) > Precision::Confusion() || Abs(V2.Dot(D0)) > Precision::Confusion())
+    if (Abs(V1.Dot(D0)) > Precision1::Confusion() || Abs(V2.Dot(D0)) > Precision1::Confusion())
       return Ok;
 
     // the result is a cylindrical surface.
@@ -957,7 +957,7 @@ Standard_Boolean GeomFill_Pipe::KPartT4()
     Standard_Real Alp1 = myAdpFirstSect->FirstParameter() - myAdpFirstSect->LastParameter();
     Standard_Real Alp2 = myAdpLastSect->FirstParameter() - myAdpLastSect->LastParameter();
 
-    if (Abs(Alp0 - Alp1) > Precision::Angular() || Abs(Alp0 - Alp2) > Precision::Angular())
+    if (Abs(Alp0 - Alp1) > Precision1::Angular() || Abs(Alp0 - Alp2) > Precision1::Angular())
       return Ok;
 
     Frame3d A0 = myAdpPath->Circle().Position1();
@@ -971,13 +971,13 @@ Standard_Boolean GeomFill_Pipe::KPartT4()
     Point3d P2 = myAdpLastSect->Value(myAdpLastSect->FirstParameter());
 
     // les 3 directions doivent etre egales.
-    if (!D0.IsEqual(D1, Precision::Angular()) || !D1.IsEqual(D2, Precision::Angular()))
+    if (!D0.IsEqual(D1, Precision1::Angular()) || !D1.IsEqual(D2, Precision1::Angular()))
       return Ok;
 
     // les 3 ax1 doivent etre confondus.
     gp_Lin L(A0.Axis());
-    if (!L.Contains(A1.Location(), Precision::Confusion())
-        || !L.Contains(A2.Location(), Precision::Confusion()))
+    if (!L.Contains(A1.Location(), Precision1::Confusion())
+        || !L.Contains(A2.Location(), Precision1::Confusion()))
       return Ok;
 
     // les 3 premiers points doivent etre dans la meme section.
@@ -985,7 +985,7 @@ Standard_Boolean GeomFill_Pipe::KPartT4()
     Dir3d  V2(Vector3d(P0, P2));
     gp_Circ Ci   = myAdpPath->Circle();
     Vector3d  YRef = ElCLib1::CircleDN(myAdpPath->FirstParameter(), A0, Ci.Radius(), 1);
-    if (Abs(V1.Dot(YRef)) > Precision::Confusion() || Abs(V2.Dot(YRef)) > Precision::Confusion())
+    if (Abs(V1.Dot(YRef)) > Precision1::Confusion() || Abs(V2.Dot(YRef)) > Precision1::Confusion())
       return Ok;
 
     // OK it`s a Toroidal Surface !!  OUF !!
@@ -1059,8 +1059,8 @@ void GeomFill_Pipe::ApproxSurf(const Standard_Boolean WithParameters)
 
   Handle(GeomFill_Line)   Line = new GeomFill_Line(Section.NbSections());
   Standard_Integer        NbIt = 0;
-  constexpr Standard_Real T3d  = Precision::Approximation();
-  constexpr Standard_Real T2d  = Precision::PApproximation();
+  constexpr Standard_Real T3d  = Precision1::Approximation();
+  constexpr Standard_Real T2d  = Precision1::PApproximation();
   GeomFill_AppSweep       App(4, 8, T3d, T2d, NbIt, WithParameters);
 
   App.Perform(Line, Section, 30);

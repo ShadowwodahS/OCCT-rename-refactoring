@@ -86,10 +86,10 @@ void BRepPrim_FaceBuilder::Init(const ShapeBuilder&         B,
     throw Standard_ConstructionError("BRepPrim_FaceBuilder");
 
   // Make the vertices
-  B.MakeVertex(myVertex[0], S->Value(UMin, VMin), Precision::Confusion());
-  B.MakeVertex(myVertex[1], S->Value(UMax, VMin), Precision::Confusion());
-  B.MakeVertex(myVertex[2], S->Value(UMax, VMax), Precision::Confusion());
-  B.MakeVertex(myVertex[3], S->Value(UMin, VMax), Precision::Confusion());
+  B.MakeVertex(myVertex[0], S->Value(UMin, VMin), Precision1::Confusion());
+  B.MakeVertex(myVertex[1], S->Value(UMax, VMin), Precision1::Confusion());
+  B.MakeVertex(myVertex[2], S->Value(UMax, VMax), Precision1::Confusion());
+  B.MakeVertex(myVertex[3], S->Value(UMin, VMax), Precision1::Confusion());
 
   // Make the edges
   B.MakeEdge(myEdges[0]);
@@ -98,18 +98,18 @@ void BRepPrim_FaceBuilder::Init(const ShapeBuilder&         B,
   B.MakeEdge(myEdges[3]);
 
   // Make the face
-  B.MakeFace(myFace, S, Precision::Confusion());
+  B.MakeFace(myFace, S, Precision1::Confusion());
 
   // set the pcurves
   Handle(Geom2d_Line) L;
   L = new Geom2d_Line(gp_Pnt2d(UMin, VMin), gp_Dir2d(1, 0));
-  B.UpdateEdge(myEdges[0], L, myFace, Precision::Confusion());
+  B.UpdateEdge(myEdges[0], L, myFace, Precision1::Confusion());
   L = new Geom2d_Line(gp_Pnt2d(UMax, VMin), gp_Dir2d(0, 1));
-  B.UpdateEdge(myEdges[1], L, myFace, Precision::Confusion());
+  B.UpdateEdge(myEdges[1], L, myFace, Precision1::Confusion());
   L = new Geom2d_Line(gp_Pnt2d(UMax, VMax), gp_Dir2d(-1, 0));
-  B.UpdateEdge(myEdges[2], L, myFace, Precision::Confusion());
+  B.UpdateEdge(myEdges[2], L, myFace, Precision1::Confusion());
   L = new Geom2d_Line(gp_Pnt2d(UMin, VMax), gp_Dir2d(0, -1));
-  B.UpdateEdge(myEdges[3], L, myFace, Precision::Confusion());
+  B.UpdateEdge(myEdges[3], L, myFace, Precision1::Confusion());
 
   // set the parameters
   B.UpdateVertex(myVertex[0], 0, myEdges[0], 0);

@@ -90,7 +90,7 @@ int VInspector_Tools::SelectedOwners(const Handle(VisualContext)& theContext,
       continue;
     aSelectedIds.append((size_t)anOwnerPtr);
 
-    anObjects.append(Standard_Dump::GetPointerInfo(anOwnerPtr, true).ToCString());
+    anObjects.append(DumpTool::GetPointerInfo(anOwnerPtr, true).ToCString());
   }
   return anObjects.size();
 }
@@ -248,7 +248,7 @@ QList<QVariant> VInspector_Tools::GetInfo(Handle(VisualEntity)& theObject)
 {
   QList<QVariant> anInfo;
   anInfo.append(theObject->DynamicType()->Name());
-  anInfo.append(Standard_Dump::GetPointerInfo(theObject, true).ToCString());
+  anInfo.append(DumpTool::GetPointerInfo(theObject, true).ToCString());
 
   Handle(VisualShape) aShapeIO = Handle(VisualShape)::DownCast(theObject);
   if (aShapeIO.IsNull())
@@ -296,7 +296,7 @@ QList<QVariant> VInspector_Tools::GetHighlightInfo(const Handle(VisualContext)& 
       aSelectedPointers.append(anIOInfo[1].toString());
       aSelectedTypes.append(anIOInfo[2].toString());
     }
-    aSelectedOwners.append(Standard_Dump::GetPointerInfo(anOwnerPtr, true).ToCString());
+    aSelectedOwners.append(DumpTool::GetPointerInfo(anOwnerPtr, true).ToCString());
   }
   aValues.append(aSelectedNames.join(", "));
   aValues.append(aSelectedPointers.join(", "));
@@ -342,7 +342,7 @@ QList<QVariant> VInspector_Tools::GetSelectedInfo(const Handle(VisualContext)& t
       aSelectedPointers.append(anIOInfo[1].toString());
       aSelectedTypes.append(anIOInfo[2].toString());
     }
-    aSelectedOwners.append(Standard_Dump::GetPointerInfo(anOwnerPtr, true).ToCString());
+    aSelectedOwners.append(DumpTool::GetPointerInfo(anOwnerPtr, true).ToCString());
   }
   aValues.append(aSelectedNames.join(", "));
   aValues.append(aSelectedPointers.join(", "));

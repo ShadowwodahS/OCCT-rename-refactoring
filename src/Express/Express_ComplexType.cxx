@@ -61,7 +61,7 @@ const AsciiString1 Express_ComplexType::CPPName() const
   {
     aClassName = aName;
   }
-  Standard_Integer anIdx = aName.Location("TCollection", 1, aName.Length());
+  Standard_Integer anIdx = aName.Location("TCollection1", 1, aName.Length());
   if (anIdx)
   {
     aName = "Interface_";

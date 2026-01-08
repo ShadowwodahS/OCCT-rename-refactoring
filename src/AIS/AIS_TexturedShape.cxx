@@ -155,7 +155,7 @@ void AIS_TexturedShape::DisableTextureModulate()
 
 //=================================================================================================
 
-void AIS_TexturedShape::SetColor(const Quantity_Color& theColor)
+void AIS_TexturedShape::SetColor(const Color1& theColor)
 {
   VisualShape::SetColor(theColor);
 

@@ -46,7 +46,7 @@ Handle(XCAFDoc_LengthUnit) XCAFDoc_LengthUnit::Set(const DataLabel&    theLabel,
                                                    const Standard_Real theUnitValue)
 {
   AsciiString1 aUnitName =
-    UnitsMethods::DumpLengthUnit(theUnitValue, UnitsMethods_LengthUnit_Meter);
+    UnitsMethods1::DumpLengthUnit(theUnitValue, UnitsMethods_LengthUnit_Meter);
   return Set(theLabel, GetID(), aUnitName, theUnitValue);
 }
 

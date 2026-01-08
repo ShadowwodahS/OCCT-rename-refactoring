@@ -43,7 +43,7 @@ static void conditionGetRealTime(struct timespec& theTime)
 
 //=================================================================================================
 
-Standard_Condition::Standard_Condition(bool theIsSet)
+Condition::Condition(bool theIsSet)
 #ifdef _WIN32
     : myEvent((void*)::CreateEvent(0, true, theIsSet, NULL))
 #else
@@ -58,7 +58,7 @@ Standard_Condition::Standard_Condition(bool theIsSet)
 
 //=================================================================================================
 
-Standard_Condition::~Standard_Condition()
+Condition::~Condition()
 {
 #ifdef _WIN32
   ::CloseHandle((HANDLE)myEvent);
@@ -70,7 +70,7 @@ Standard_Condition::~Standard_Condition()
 
 //=================================================================================================
 
-void Standard_Condition::Set()
+void Condition::Set()
 {
 #ifdef _WIN32
   ::SetEvent((HANDLE)myEvent);
@@ -84,7 +84,7 @@ void Standard_Condition::Set()
 
 //=================================================================================================
 
-void Standard_Condition::Reset()
+void Condition::Reset()
 {
 #ifdef _WIN32
   ::ResetEvent((HANDLE)myEvent);
@@ -97,7 +97,7 @@ void Standard_Condition::Reset()
 
 //=================================================================================================
 
-void Standard_Condition::Wait()
+void Condition::Wait()
 {
 #ifdef _WIN32
   ::WaitForSingleObject((HANDLE)myEvent, INFINITE);
@@ -113,7 +113,7 @@ void Standard_Condition::Wait()
 
 //=================================================================================================
 
-bool Standard_Condition::Wait(int theTimeMilliseconds)
+bool Condition::Wait(int theTimeMilliseconds)
 {
 #ifdef _WIN32
   return (::WaitForSingleObject((HANDLE)myEvent, (DWORD)theTimeMilliseconds) != WAIT_TIMEOUT);
@@ -143,7 +143,7 @@ bool Standard_Condition::Wait(int theTimeMilliseconds)
 
 //=================================================================================================
 
-bool Standard_Condition::Check()
+bool Condition::Check()
 {
 #ifdef _WIN32
   return (::WaitForSingleObject((HANDLE)myEvent, (DWORD)0) != WAIT_TIMEOUT);
@@ -166,7 +166,7 @@ bool Standard_Condition::Check()
 
 //=================================================================================================
 
-bool Standard_Condition::CheckReset()
+bool Condition::CheckReset()
 {
 #ifdef _WIN32
   const bool wasSignalled = (::WaitForSingleObject((HANDLE)myEvent, (DWORD)0) != WAIT_TIMEOUT);

@@ -168,7 +168,7 @@ public:
     }
 
   private:
-    TColStd_PackedMapOfInteger              myMap;
+    PackedIntegerMap              myMap;
     TColStd_MapIteratorOfPackedMapOfInteger myIter;
     Standard_Boolean                        myIterReady;
   };
@@ -259,7 +259,7 @@ private:
   NCollection_IndexedMap<Link1, Hasher1> myMapLink;
   NCollection_Sequence<Loop>           myLoops;
   HeapOfInteger                        myStartIndices;
-  TColStd_PackedMapOfInteger           myHangIndices;
+  PackedIntegerMap           myHangIndices;
 };
 
 /**

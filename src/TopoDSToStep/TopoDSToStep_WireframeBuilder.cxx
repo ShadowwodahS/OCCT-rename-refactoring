@@ -218,8 +218,8 @@ Standard_Boolean TopoDSToStep_WireframeBuilder::GetTrimmedCurveFromEdge(
     Standard_Real aTrim1 = aCA.FirstParameter();
     Standard_Real aTrim2 = aCA.LastParameter();
 
-    if (aVFirst.IsNull() && aVLast.IsNull() && Precision::IsInfinite(aFirst)
-        && Precision::IsInfinite(aLast))
+    if (aVFirst.IsNull() && aVLast.IsNull() && Precision1::IsInfinite(aFirst)
+        && Precision1::IsInfinite(aLast))
     {
       GeomToStep_MakeCurve aCurveMaker(aC, theLocalFactors);
       if (aCurveMaker.IsDone())
@@ -277,7 +277,7 @@ Standard_Boolean TopoDSToStep_WireframeBuilder::GetTrimmedCurveFromEdge(
       Point3d        aPnt1 = aCA.Value(aCA.FirstParameter()), aPnt2 = aCA.Value(aCA.LastParameter());
       Vector3d        aV(aPnt1, aPnt2);
       Standard_Real aLength = aV.Magnitude();
-      if (aLength >= Precision::Confusion())
+      if (aLength >= Precision1::Confusion())
       {
         Handle(GeomLine)   aL = new GeomLine(aPnt1, Dir3d(aV));
         GeomToStep_MakeLine aGTSML(aL, theLocalFactors);

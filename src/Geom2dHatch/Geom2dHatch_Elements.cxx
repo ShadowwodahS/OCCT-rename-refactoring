@@ -120,9 +120,9 @@ Standard_Boolean HatchElements::OtherSegment(const gp_Pnt2d& P,
     if (Or == TopAbs_FORWARD || Or == TopAbs_REVERSED)
     {
       Standard_Real aFPar = E.FirstParameter(), aLPar = E.LastParameter();
-      if (Precision::IsNegativeInfinite(aFPar))
+      if (Precision1::IsNegativeInfinite(aFPar))
       {
-        if (Precision::IsPositiveInfinite(aLPar))
+        if (Precision1::IsPositiveInfinite(aLPar))
         {
           aFPar = -1.;
           aLPar = 1.;
@@ -130,7 +130,7 @@ Standard_Boolean HatchElements::OtherSegment(const gp_Pnt2d& P,
         else
           aFPar = aLPar - 1.;
       }
-      else if (Precision::IsPositiveInfinite(aLPar))
+      else if (Precision1::IsPositiveInfinite(aLPar))
         aLPar = aFPar + 1.;
 
       for (; myCurEdgePar < Probing_End; myCurEdgePar += Probing_Step)
@@ -141,11 +141,11 @@ Standard_Boolean HatchElements::OtherSegment(const gp_Pnt2d& P,
         E.D1(aParam, aPOnC, aTanVec);
         gp_Vec2d aLinVec(P, aPOnC);
         Par = aLinVec.SquareMagnitude();
-        if (Par > Precision::SquarePConfusion())
+        if (Par > Precision1::SquarePConfusion())
         {
           gp_Dir2d      aLinDir(aLinVec);
           Standard_Real aTanMod = aTanVec.SquareMagnitude();
-          if (aTanMod < Precision::SquarePConfusion())
+          if (aTanMod < Precision1::SquarePConfusion())
             continue;
 
           aTanVec /= Sqrt(aTanMod);
@@ -161,10 +161,10 @@ Standard_Boolean HatchElements::OtherSegment(const gp_Pnt2d& P,
           L = gp_Lin2d(P, aLinDir);
 
           aPOnC = E.Value(aFPar);
-          if (L.SquareDistance(aPOnC) > Precision::SquarePConfusion())
+          if (L.SquareDistance(aPOnC) > Precision1::SquarePConfusion())
           {
             aPOnC = E.Value(aLPar);
-            if (L.SquareDistance(aPOnC) > Precision::SquarePConfusion())
+            if (L.SquareDistance(aPOnC) > Precision1::SquarePConfusion())
             {
               myCurEdgePar += Probing_Step;
               if (myCurEdgePar >= Probing_End)

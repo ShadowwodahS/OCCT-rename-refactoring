@@ -28,7 +28,7 @@ public:
   //! or retrieval attribute drivers. Used for plugin
   Standard_EXPORT static Handle(RefObject) Factory(const Standard_GUID& aGUID);
 
-  //! Defines format "MDTV-Standard" and registers its retrieval driver
+  //! Defines format "MDTV-Standard1" and registers its retrieval driver
   //! in the specified application
   Standard_EXPORT static void DefineFormat(const Handle(AppManager)& theApp);
 

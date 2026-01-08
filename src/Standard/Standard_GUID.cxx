@@ -293,12 +293,12 @@ Standard_GUID::Standard_GUID(const Standard_GUID& aGuid)
   my8b6  = aGuid.my8b6;
 }
 
-Standard_GUID::Standard_GUID(const Standard_UUID& theUUID)
+Standard_GUID::Standard_GUID(const UUID& theUUID)
 {
   Assign(theUUID);
 }
 
-void Standard_GUID::Assign(const Standard_UUID& theUUID)
+void Standard_GUID::Assign(const UUID& theUUID)
 {
   my32b  = theUUID.Data1;
   my16b1 = theUUID.Data2;
@@ -345,9 +345,9 @@ void Standard_GUID::ToExtString(const Standard_PExtCharacter aStrGuid) const
   aStrGuid[Standard_GUID_SIZE] = (Standard_ExtCharacter)0;
 }
 
-Standard_UUID Standard_GUID::ToUUID() const
+UUID Standard_GUID::ToUUID() const
 {
-  Standard_UUID result{};
+  UUID result{};
 
   result.Data1    = my32b;
   result.Data2    = my16b1;

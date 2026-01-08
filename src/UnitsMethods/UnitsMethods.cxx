@@ -19,7 +19,7 @@ static Standard_Real UnitsMethods_CascadeLengthUnit = 1.;
 
 //=================================================================================================
 
-Standard_Real UnitsMethods::GetCasCadeLengthUnit(const UnitsMethods_LengthUnit theBaseUnit)
+Standard_Real UnitsMethods1::GetCasCadeLengthUnit(const UnitsMethods_LengthUnit theBaseUnit)
 {
   return UnitsMethods_CascadeLengthUnit
          * GetLengthUnitScale(UnitsMethods_LengthUnit_Millimeter, theBaseUnit);
@@ -27,7 +27,7 @@ Standard_Real UnitsMethods::GetCasCadeLengthUnit(const UnitsMethods_LengthUnit t
 
 //=================================================================================================
 
-void UnitsMethods::SetCasCadeLengthUnit(const Standard_Real           theUnitValue,
+void UnitsMethods1::SetCasCadeLengthUnit(const Standard_Real           theUnitValue,
                                         const UnitsMethods_LengthUnit theBaseUnit)
 {
   UnitsMethods_CascadeLengthUnit =
@@ -36,14 +36,14 @@ void UnitsMethods::SetCasCadeLengthUnit(const Standard_Real           theUnitVal
 
 //=================================================================================================
 
-void UnitsMethods::SetCasCadeLengthUnit(const Standard_Integer theUnit)
+void UnitsMethods1::SetCasCadeLengthUnit(const Standard_Integer theUnit)
 {
   UnitsMethods_CascadeLengthUnit = GetLengthFactorValue(theUnit);
 }
 
 //=================================================================================================
 
-Standard_Real UnitsMethods::GetLengthFactorValue(const Standard_Integer theUnit)
+Standard_Real UnitsMethods1::GetLengthFactorValue(const Standard_Integer theUnit)
 {
   switch (theUnit)
   {
@@ -74,7 +74,7 @@ Standard_Real UnitsMethods::GetLengthFactorValue(const Standard_Integer theUnit)
 
 //=================================================================================================
 
-Standard_Real UnitsMethods::GetLengthUnitScale(const UnitsMethods_LengthUnit theFromUnit,
+Standard_Real UnitsMethods1::GetLengthUnitScale(const UnitsMethods_LengthUnit theFromUnit,
                                                const UnitsMethods_LengthUnit theToUnit)
 {
   Standard_Real aVal1 = GetLengthFactorValue(theFromUnit);
@@ -84,7 +84,7 @@ Standard_Real UnitsMethods::GetLengthUnitScale(const UnitsMethods_LengthUnit the
 
 //=================================================================================================
 
-UnitsMethods_LengthUnit UnitsMethods::GetLengthUnitByFactorValue(
+UnitsMethods_LengthUnit UnitsMethods1::GetLengthUnitByFactorValue(
   const Standard_Real           theFactorValue,
   const UnitsMethods_LengthUnit theBaseUnit)
 {
@@ -136,7 +136,7 @@ UnitsMethods_LengthUnit UnitsMethods::GetLengthUnitByFactorValue(
 
 //=================================================================================================
 
-Standard_CString UnitsMethods::DumpLengthUnit(const UnitsMethods_LengthUnit theUnit)
+Standard_CString UnitsMethods1::DumpLengthUnit(const UnitsMethods_LengthUnit theUnit)
 {
   switch (theUnit)
   {
@@ -167,7 +167,7 @@ Standard_CString UnitsMethods::DumpLengthUnit(const UnitsMethods_LengthUnit theU
 
 //=================================================================================================
 
-Standard_CString UnitsMethods::DumpLengthUnit(const Standard_Real           theScaleFactor,
+Standard_CString UnitsMethods1::DumpLengthUnit(const Standard_Real           theScaleFactor,
                                               const UnitsMethods_LengthUnit theBaseUnit)
 {
   const UnitsMethods_LengthUnit aUnit = GetLengthUnitByFactorValue(theScaleFactor, theBaseUnit);
@@ -176,7 +176,7 @@ Standard_CString UnitsMethods::DumpLengthUnit(const Standard_Real           theS
 
 //=================================================================================================
 
-UnitsMethods_LengthUnit UnitsMethods::LengthUnitFromString(Standard_CString       theStr,
+UnitsMethods_LengthUnit UnitsMethods1::LengthUnitFromString(Standard_CString       theStr,
                                                            const Standard_Boolean theCaseSensitive)
 {
   AsciiString1 aStr(theStr);

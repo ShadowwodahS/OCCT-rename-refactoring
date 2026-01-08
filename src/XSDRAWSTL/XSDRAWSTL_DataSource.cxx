@@ -66,7 +66,7 @@ XSDRAWSTL_DataSource::XSDRAWSTL_DataSource(const Handle(MeshTriangulation)& aMes
       Vector3d aV2(aP2, aP3);
 
       Vector3d aN = aV1.Crossed(aV2);
-      if (aN.SquareMagnitude() > Precision::SquareConfusion())
+      if (aN.SquareMagnitude() > Precision1::SquareConfusion())
         aN.Normalize();
       else
         aN.SetCoord(0.0, 0.0, 0.0);
@@ -175,14 +175,14 @@ Standard_Boolean XSDRAWSTL_DataSource::GetNodesByElement(const Standard_Integer 
 
 //=================================================================================================
 
-const TColStd_PackedMapOfInteger& XSDRAWSTL_DataSource::GetAllNodes() const
+const PackedIntegerMap& XSDRAWSTL_DataSource::GetAllNodes() const
 {
   return myNodes;
 }
 
 //=================================================================================================
 
-const TColStd_PackedMapOfInteger& XSDRAWSTL_DataSource::GetAllElements() const
+const PackedIntegerMap& XSDRAWSTL_DataSource::GetAllElements() const
 {
   return myElements;
 }

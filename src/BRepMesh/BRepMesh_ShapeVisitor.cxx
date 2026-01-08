@@ -98,7 +98,7 @@ Standard_Boolean BRepMesh_ShapeVisitor::addWire(const TopoWire&            theWi
 
   Handle(ShapeExtend_WireData) aWireData =
     new ShapeExtend_WireData(theWire, Standard_True, Standard_False);
-  ShapeAnalysis_Wire aWireTool(aWireData, theDFace->GetFace(), Precision::Confusion());
+  ShapeAnalysis_Wire aWireTool(aWireData, theDFace->GetFace(), Precision1::Confusion());
 
   ShapeAnalysis_WireOrder aOrderTool;
   aWireTool.CheckOrder(aOrderTool, Standard_True, Standard_False);

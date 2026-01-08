@@ -515,7 +515,7 @@ void BRepFill_PipeShell::Add(const TopoShape&    Profile,
     myLaw = new Law_Interpol();
 
     Standard_Boolean IsPeriodic =
-      (Abs(ParAndRad->Value(1).Y() - ParAndRad->Value(NbParRad).Y()) < Precision::Confusion());
+      (Abs(ParAndRad->Value(1).Y() - ParAndRad->Value(NbParRad).Y()) < Precision1::Confusion());
 
     (Handle(Law_Interpol)::DownCast(myLaw))->Set(ParAndRad->Array1(), IsPeriodic);
   }
@@ -851,7 +851,7 @@ Standard_Boolean BRepFill_PipeShell::MakeSolid()
     BS.MakeSolid(solid);
     BS.Add(solid, TopoDS::Shell(myShape));
     BRepClass3d_SolidClassifier SC(solid);
-    SC.PerformInfinitePoint(Precision::Confusion());
+    SC.PerformInfinitePoint(Precision1::Confusion());
     if (SC.State() == TopAbs_IN)
     {
       BS.MakeSolid(solid);

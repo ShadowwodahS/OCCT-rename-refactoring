@@ -117,7 +117,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_BSplineCurve, Geom2d_BoundedCurve)
 //! consider that U1 = U2 if Abs (U2 - U1) <= Epsilon (U1).
 //! For two weights values W1, W2 we consider that W1 = W2 if
 //! Abs (W2 - W1) <= Epsilon (W1).  The method Epsilon is
-//! defined in the class Real from package Standard.
+//! defined in the class Real from package Standard1.
 //!
 //! References :
 //! . A survey of curve and surface methods in CADG Wolfgang BOHM
@@ -382,10 +382,10 @@ public:
   //! Standard_DomainError if U2 is less than U1.
   //! raises if U2 < U1.
   //! Standard_DomainError if U2 - U1 exceeds the period for periodic curves.
-  //! i.e. ((U2 - U1) - Period) > Precision::PConfusion().
+  //! i.e. ((U2 - U1) - Period) > Precision1::PConfusion().
   Standard_EXPORT void Segment1(const Standard_Real U1,
                                const Standard_Real U2,
-                               const Standard_Real theTolerance = Precision::PConfusion());
+                               const Standard_Real theTolerance = Precision1::PConfusion());
 
   //! Modifies this BSpline curve by assigning the value K
   //! to the knot of index Index in the knots table. This is a

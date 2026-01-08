@@ -184,10 +184,10 @@ void GeomPlane::Bounds(Standard_Real& U1,
                         Standard_Real& V2) const
 {
 
-  U1 = -Precision::Infinite();
-  U2 = Precision::Infinite();
-  V1 = -Precision::Infinite();
-  V2 = Precision::Infinite();
+  U1 = -Precision1::Infinite();
+  U2 = Precision1::Infinite();
+  V1 = -Precision1::Infinite();
+  V2 = Precision1::Infinite();
 }
 
 //=================================================================================================
@@ -301,9 +301,9 @@ Handle(GeomCurve3d) GeomPlane::VIso(const Standard_Real V) const
 
 void GeomPlane::TransformParameters(Standard_Real& U, Standard_Real& V, const Transform3d& T) const
 {
-  if (!Precision::IsInfinite(U))
+  if (!Precision1::IsInfinite(U))
     U *= Abs(T.ScaleFactor());
-  if (!Precision::IsInfinite(V))
+  if (!Precision1::IsInfinite(V))
     V *= Abs(T.ScaleFactor());
 }
 

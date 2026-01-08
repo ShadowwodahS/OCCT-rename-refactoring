@@ -26,7 +26,7 @@
 //! Manages date intervals. For example, a Period object
 //! gives the interval between two dates.
 //! A period is expressed in seconds and microseconds.
-class Quantity_Period
+class TimePeriod
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -38,7 +38,7 @@ public:
   //! 0 <= ss
   //! 0 <= mis
   //! 0 <= mics
-  Standard_EXPORT Quantity_Period(const Standard_Integer dd,
+  Standard_EXPORT TimePeriod(const Standard_Integer dd,
                                   const Standard_Integer hh,
                                   const Standard_Integer mn,
                                   const Standard_Integer ss,
@@ -56,7 +56,7 @@ public:
   //! -   mis milliseconds and mics microseconds, or
   //! -   Mics
   //! is less than 0.
-  Standard_EXPORT Quantity_Period(const Standard_Integer ss, const Standard_Integer mics = 0);
+  Standard_EXPORT TimePeriod(const Standard_Integer ss, const Standard_Integer mics = 0);
 
   //! Decomposes this period into a number of days,hours,
   //! minutes,seconds,milliseconds and microseconds
@@ -101,29 +101,29 @@ public:
   Standard_EXPORT void SetValues(const Standard_Integer ss, const Standard_Integer mics = 0);
 
   //! Subtracts one Period from another and returns the difference.
-  Standard_EXPORT Quantity_Period Subtract(const Quantity_Period& anOther) const;
+  Standard_EXPORT TimePeriod Subtract(const TimePeriod& anOther) const;
 
-  Quantity_Period operator-(const Quantity_Period& anOther) const { return Subtract(anOther); }
+  TimePeriod operator-(const TimePeriod& anOther) const { return Subtract(anOther); }
 
   //! Adds one Period to another one.
-  Standard_EXPORT Quantity_Period Add(const Quantity_Period& anOther) const;
+  Standard_EXPORT TimePeriod Add(const TimePeriod& anOther) const;
 
-  Quantity_Period operator+(const Quantity_Period& anOther) const { return Add(anOther); }
+  TimePeriod operator+(const TimePeriod& anOther) const { return Add(anOther); }
 
   //! Returns TRUE if both <me> and <other> are equal.
-  Standard_EXPORT Standard_Boolean IsEqual(const Quantity_Period& anOther) const;
+  Standard_EXPORT Standard_Boolean IsEqual(const TimePeriod& anOther) const;
 
-  Standard_Boolean operator==(const Quantity_Period& anOther) const { return IsEqual(anOther); }
+  Standard_Boolean operator==(const TimePeriod& anOther) const { return IsEqual(anOther); }
 
   //! Returns TRUE if <me> is shorter than <other>.
-  Standard_EXPORT Standard_Boolean IsShorter(const Quantity_Period& anOther) const;
+  Standard_EXPORT Standard_Boolean IsShorter(const TimePeriod& anOther) const;
 
-  Standard_Boolean operator<(const Quantity_Period& anOther) const { return IsShorter(anOther); }
+  Standard_Boolean operator<(const TimePeriod& anOther) const { return IsShorter(anOther); }
 
   //! Returns TRUE if <me> is longer then <other>.
-  Standard_EXPORT Standard_Boolean IsLonger(const Quantity_Period& anOther) const;
+  Standard_EXPORT Standard_Boolean IsLonger(const TimePeriod& anOther) const;
 
-  Standard_Boolean operator>(const Quantity_Period& anOther) const { return IsLonger(anOther); }
+  Standard_Boolean operator>(const TimePeriod& anOther) const { return IsLonger(anOther); }
 
   //! Checks the validity of a Period in form (dd,hh,mn,ss,mil,mic)
   //! With:      0 <= dd

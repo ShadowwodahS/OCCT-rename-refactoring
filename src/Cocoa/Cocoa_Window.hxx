@@ -53,7 +53,7 @@ struct NSWindow;
 class Aspect_WindowDefinitionError;
 class Aspect_WindowError;
 class Aspect_Background;
-class Quantity_Color;
+class Color1;
 class Aspect_GradientBackground;
 
 //! This class defines Cocoa window

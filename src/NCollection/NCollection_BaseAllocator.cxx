@@ -17,11 +17,11 @@ IMPLEMENT_STANDARD_RTTIEXT(NCollection_BaseAllocator, RefObject)
 
 //=======================================================================
 // function : Allocate
-// purpose  : Standard allocation
+// purpose  : Standard1 allocation
 //=======================================================================
 void* NCollection_BaseAllocator::Allocate(const size_t theSize)
 {
-  return Standard::Allocate(theSize);
+  return Standard1::Allocate(theSize);
 }
 
 //=======================================================================
@@ -30,16 +30,16 @@ void* NCollection_BaseAllocator::Allocate(const size_t theSize)
 //=======================================================================
 void* NCollection_BaseAllocator::AllocateOptimal(const size_t theSize)
 {
-  return Standard::AllocateOptimal(theSize);
+  return Standard1::AllocateOptimal(theSize);
 }
 
 //=======================================================================
 // function : Free
-// purpose  : Standard deallocation
+// purpose  : Standard1 deallocation
 //=======================================================================
 void NCollection_BaseAllocator::Free(void* theAddress)
 {
-  Standard::Free(theAddress);
+  Standard1::Free(theAddress);
 }
 
 //=======================================================================

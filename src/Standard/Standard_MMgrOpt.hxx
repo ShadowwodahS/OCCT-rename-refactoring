@@ -59,7 +59,7 @@
  * blocks is usually less costly than directly by malloc since allocation is made
  * once (when allocating a pool) and overheads induced by malloc are minimized.
  */
-class Standard_MMgrOpt : public Standard_MMgrRoot
+class Standard_MMgrOpt : public MemoryManagerRoot
 {
 public:
   //! Constructor. If aClear is True, the allocated emmory will be

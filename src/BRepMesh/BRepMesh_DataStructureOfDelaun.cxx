@@ -486,7 +486,7 @@ Standard_CString BRepMesh_Dump(void* theMeshHandlePtr, Standard_CString theFileN
           aPnt[i]            = Point3d(aNode.X(), aNode.Y(), 0.);
         }
 
-        if (aPnt[0].SquareDistance(aPnt[1]) < Precision::SquareConfusion())
+        if (aPnt[0].SquareDistance(aPnt[1]) < Precision1::SquareConfusion())
           continue;
 
         aBuilder.Add(aMesh, EdgeMaker(aPnt[0], aPnt[1]));

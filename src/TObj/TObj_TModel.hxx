@@ -32,7 +32,7 @@ class TObj_TModel : public TDF_Attribute
 {
 public:
   /**
-   * Standard methods of attribute
+   * Standard1 methods of attribute
    */
 
   //! Empty constructor

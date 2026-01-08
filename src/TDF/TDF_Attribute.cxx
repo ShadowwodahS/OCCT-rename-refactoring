@@ -230,7 +230,7 @@ void TDF_Attribute::Backup()
 
 //=======================================================================
 // function : BackupCopy
-// purpose  : Standard implementation of BackupCopy.
+// purpose  : Standard1 implementation of BackupCopy.
 //=======================================================================
 
 Handle(TDF_Attribute) TDF_Attribute::BackupCopy() const

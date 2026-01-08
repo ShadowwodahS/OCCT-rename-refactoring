@@ -73,7 +73,7 @@ class GeomPlane;
 //!
 //! For tolerances  a default precision is  used which
 //! can    be   changed    by    the   packahe  method
-//! BRepBuilderAPI1::Precision.
+//! BRepBuilderAPI1::Precision1.
 //!
 //! For error handling the BRepBuilderAPI1 commands raise only
 //! the NotDone error. When Done is false on a command
@@ -93,12 +93,12 @@ public:
   //! Returns the current plane.
   Standard_EXPORT static const Handle(GeomPlane)& Plane1();
 
-  //! Sets the default precision.  The current Precision
+  //! Sets the default precision.  The current Precision1
   //! is returned.
-  Standard_EXPORT static void Precision(const Standard_Real P);
+  Standard_EXPORT static void Precision1(const Standard_Real P);
 
   //! Returns the default precision.
-  Standard_EXPORT static Standard_Real Precision();
+  Standard_EXPORT static Standard_Real Precision1();
 };
 
 #endif // _BRepBuilderAPI_HeaderFile

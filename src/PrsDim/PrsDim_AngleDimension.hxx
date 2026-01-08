@@ -328,7 +328,7 @@ protected:
   //! Check that the points forming angle are valid.
   //! @return TRUE if the points met the following requirements:
   //!         The (P1, Center), (P2, Center) can be built.
-  //!         The angle between the vectors > Precision::Angular().
+  //!         The angle between the vectors > Precision1::Angular().
   Standard_EXPORT Standard_Boolean IsValidPoints(const Point3d& theFirstPoint,
                                                  const Point3d& theCenterPoint,
                                                  const Point3d& theSecondPoint) const;

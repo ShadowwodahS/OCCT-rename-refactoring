@@ -27,7 +27,7 @@
 /**
  * Optimized Map of integer values. Each block of 32 integers is stored in 8 bytes in memory.
  */
-class TColStd_PackedMapOfInteger
+class PackedIntegerMap
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -46,24 +46,24 @@ private:
   //!  - bits 32 - 63: 32-bit field where each bit indicates the presence of the corresponding
   //!  integer in the block.
   //!                  Number of non-zero bits must be equal to the number expressed in bits 0-4.
-  class TColStd_intMapNode
+  class IntegerMapNode
   {
   public:
-    TColStd_intMapNode(TColStd_intMapNode* thePtr = NULL)
+    IntegerMapNode(IntegerMapNode* thePtr = NULL)
         : myNext(thePtr),
           myMask(0),
           myData(0)
     {
     }
 
-    TColStd_intMapNode(Standard_Integer theValue, TColStd_intMapNode*& thePtr)
+    IntegerMapNode(Standard_Integer theValue, IntegerMapNode*& thePtr)
         : myNext(thePtr),
           myMask((unsigned int)(theValue & MASK_HIGH)),
           myData(1 << (theValue & MASK_LOW))
     {
     }
 
-    TColStd_intMapNode(unsigned int theMask, unsigned int theData, TColStd_intMapNode* thePtr)
+    IntegerMapNode(unsigned int theMask, unsigned int theData, IntegerMapNode* thePtr)
         : myNext(thePtr),
           myMask(theMask),
           myData(theData)
@@ -126,10 +126,10 @@ private:
     Standard_Integer FindNext(unsigned int& theMask) const;
 
     //! Return the next node having the same hash code.
-    TColStd_intMapNode* Next() const { return myNext; }
+    IntegerMapNode* Next() const { return myNext; }
 
     //! Set the next node having the same hash code.
-    void SetNext(TColStd_intMapNode* theNext) { myNext = theNext; }
+    void SetNext(IntegerMapNode* theNext) { myNext = theNext; }
 
   public:
     //! Support of Map interface.
@@ -145,13 +145,13 @@ private:
     }
 
   private:
-    TColStd_intMapNode* myNext;
+    IntegerMapNode* myNext;
     unsigned int        myMask;
     unsigned int        myData;
   };
 
 public:
-  //! Iterator of class TColStd_PackedMapOfInteger.
+  //! Iterator of class PackedIntegerMap.
   class Iterator
   {
   public:
@@ -167,7 +167,7 @@ public:
     }
 
     /// Constructor.
-    Iterator(const TColStd_PackedMapOfInteger& theMap)
+    Iterator(const PackedIntegerMap& theMap)
         : myBuckets(theMap.myData1),
           myNode(NULL),
           myNbBuckets(theMap.myData1 != NULL ? theMap.myNbBuckets : -1),
@@ -179,7 +179,7 @@ public:
     }
 
     //! Re-initialize with the same or another Map instance.
-    void Initialize(const TColStd_PackedMapOfInteger& theMap)
+    void Initialize(const PackedIntegerMap& theMap)
     {
       myBuckets   = theMap.myData1;
       myBucket    = -1;
@@ -252,8 +252,8 @@ public:
     }
 
   private:
-    TColStd_intMapNode** myBuckets;
-    TColStd_intMapNode*  myNode;
+    IntegerMapNode** myBuckets;
+    IntegerMapNode*  myNode;
     Standard_Integer     myNbBuckets;
     Standard_Integer     myBucket;
 
@@ -263,7 +263,7 @@ public:
 
 public:
   //! Constructor
-  TColStd_PackedMapOfInteger(const Standard_Integer theNbBuckets = 1)
+  PackedIntegerMap(const Standard_Integer theNbBuckets = 1)
       : myData1(NULL),
         myNbBuckets(theNbBuckets),
         myNbPackedMapNodes(0),
@@ -272,7 +272,7 @@ public:
   }
 
   //! Copy constructor
-  TColStd_PackedMapOfInteger(const TColStd_PackedMapOfInteger& theOther)
+  PackedIntegerMap(const PackedIntegerMap& theOther)
       : myData1(NULL),
         myNbBuckets(1),
         myNbPackedMapNodes(0),
@@ -281,16 +281,16 @@ public:
     Assign(theOther);
   }
 
-  inline TColStd_PackedMapOfInteger& operator=(const TColStd_PackedMapOfInteger& Other)
+  inline PackedIntegerMap& operator=(const PackedIntegerMap& Other)
   {
     return Assign(Other);
   }
 
-  Standard_EXPORT TColStd_PackedMapOfInteger& Assign(const TColStd_PackedMapOfInteger&);
+  Standard_EXPORT PackedIntegerMap& Assign(const PackedIntegerMap&);
   Standard_EXPORT void                        ReSize(const Standard_Integer NbBuckets);
   Standard_EXPORT void                        Clear();
 
-  ~TColStd_PackedMapOfInteger() { Clear(); }
+  ~PackedIntegerMap() { Clear(); }
 
   Standard_EXPORT Standard_Boolean Add(const Standard_Integer aKey);
   Standard_EXPORT Standard_Boolean Contains(const Standard_Integer aKey) const;
@@ -330,7 +330,7 @@ public:
    * map or in the second map or in both. All previous contents of this Map is cleared. This map
    * (result of the boolean operation) can also be passed as one of operands.
    */
-  Standard_EXPORT void Union(const TColStd_PackedMapOfInteger&, const TColStd_PackedMapOfInteger&);
+  Standard_EXPORT void Union(const PackedIntegerMap&, const PackedIntegerMap&);
 
   /**
    * Apply to this Map the boolean operation union (aka addition, fuse, merge, boolean OR) with
@@ -338,12 +338,12 @@ public:
    * or contained in the given (operand) map. This algorithm is similar to method Union().
    * @return True if content of this map is changed
    */
-  Standard_EXPORT Standard_Boolean Unite(const TColStd_PackedMapOfInteger&);
+  Standard_EXPORT Standard_Boolean Unite(const PackedIntegerMap&);
 
   /**
    * Overloaded operator version of Unite().
    */
-  TColStd_PackedMapOfInteger& operator|=(const TColStd_PackedMapOfInteger& MM)
+  PackedIntegerMap& operator|=(const PackedIntegerMap& MM)
   {
     Unite(MM);
     return *this;
@@ -357,8 +357,8 @@ public:
    * difference; the method minimizes internally the number of iterations using the smallest map for
    * the loop.
    */
-  Standard_EXPORT void Intersection(const TColStd_PackedMapOfInteger&,
-                                    const TColStd_PackedMapOfInteger&);
+  Standard_EXPORT void Intersection(const PackedIntegerMap&,
+                                    const PackedIntegerMap&);
 
   /**
    * Apply to this Map the intersection operation (aka multiplication, common,  boolean AND) with
@@ -366,12 +366,12 @@ public:
    * the given maps. This algorithm is similar to method Intersection().
    * @return True if content of this map is changed
    */
-  Standard_EXPORT Standard_Boolean Intersect(const TColStd_PackedMapOfInteger&);
+  Standard_EXPORT Standard_Boolean Intersect(const PackedIntegerMap&);
 
   /**
    * Overloaded operator version of Intersect().
    */
-  TColStd_PackedMapOfInteger& operator&=(const TColStd_PackedMapOfInteger& MM)
+  PackedIntegerMap& operator&=(const PackedIntegerMap& MM)
   {
     Intersect(MM);
     return *this;
@@ -384,8 +384,8 @@ public:
    * map operands and not contained in the second one. All previous contents of this Map is cleared.
    * This map (result of the boolean operation) can also be used as the first operand.
    */
-  Standard_EXPORT void Subtraction(const TColStd_PackedMapOfInteger&,
-                                   const TColStd_PackedMapOfInteger&);
+  Standard_EXPORT void Subtraction(const PackedIntegerMap&,
+                                   const PackedIntegerMap&);
 
   /**
    * Apply to this Map the subtraction (aka set-theoretic difference, relative complement, exclude,
@@ -394,12 +394,12 @@ public:
    * to method Subtract() with two operands.
    * @return True if contents of this map is changed
    */
-  Standard_EXPORT Standard_Boolean Subtract(const TColStd_PackedMapOfInteger&);
+  Standard_EXPORT Standard_Boolean Subtract(const PackedIntegerMap&);
 
   /**
    * Overloaded operator version of Subtract().
    */
-  TColStd_PackedMapOfInteger& operator-=(const TColStd_PackedMapOfInteger& MM)
+  PackedIntegerMap& operator-=(const PackedIntegerMap& MM)
   {
     Subtract(MM);
     return *this;
@@ -411,8 +411,8 @@ public:
    * the first or the second operand maps but not in both. All previous contents of this Map is
    * cleared. This map (result of the boolean operation) can also be used as one of operands.
    */
-  Standard_EXPORT void Difference(const TColStd_PackedMapOfInteger&,
-                                  const TColStd_PackedMapOfInteger&);
+  Standard_EXPORT void Difference(const PackedIntegerMap&,
+                                  const PackedIntegerMap&);
 
   /**
    * Apply to this Map the symmetric difference (aka exclusive disjunction, boolean XOR) operation
@@ -420,12 +420,12 @@ public:
    * operand map, but not in both. This algorithm is similar to method Difference().
    * @return True if contents of this map is changed
    */
-  Standard_EXPORT Standard_Boolean Differ(const TColStd_PackedMapOfInteger&);
+  Standard_EXPORT Standard_Boolean Differ(const PackedIntegerMap&);
 
   /**
    * Overloaded operator version of Differ().
    */
-  TColStd_PackedMapOfInteger& operator^=(const TColStd_PackedMapOfInteger& MM)
+  PackedIntegerMap& operator^=(const PackedIntegerMap& MM)
   {
     Differ(MM);
     return *this;
@@ -435,29 +435,29 @@ public:
    * Returns True if this map is equal to the given one, i.e. they contain the
    * same sets of elements
    */
-  Standard_EXPORT Standard_Boolean IsEqual(const TColStd_PackedMapOfInteger&) const;
+  Standard_EXPORT Standard_Boolean IsEqual(const PackedIntegerMap&) const;
 
   /**
    * Overloaded operator version of IsEqual().
    */
-  Standard_Boolean operator==(const TColStd_PackedMapOfInteger& MM) const { return IsEqual(MM); }
+  Standard_Boolean operator==(const PackedIntegerMap& MM) const { return IsEqual(MM); }
 
   /**
    * Returns True if this map is subset of the given one, i.e. all elements
    * contained in this map is contained also in the operand map.
    * if this map is empty that this method returns true for any operand map.
    */
-  Standard_EXPORT Standard_Boolean IsSubset(const TColStd_PackedMapOfInteger&) const;
+  Standard_EXPORT Standard_Boolean IsSubset(const PackedIntegerMap&) const;
 
   /**
    * Overloaded operator version of IsSubset().
    */
-  Standard_Boolean operator<=(const TColStd_PackedMapOfInteger& MM) const { return IsSubset(MM); }
+  Standard_Boolean operator<=(const PackedIntegerMap& MM) const { return IsSubset(MM); }
 
   /**
    * Returns True if this map has common items with the given one.
    */
-  Standard_EXPORT Standard_Boolean HasIntersection(const TColStd_PackedMapOfInteger&) const;
+  Standard_EXPORT Standard_Boolean HasIntersection(const PackedIntegerMap&) const;
 
   //!@}
 
@@ -472,17 +472,17 @@ private:
   //! Find the smallest non-zero bit under the given mask.
   //! Outputs the new mask that does not contain the detected bit.
   Standard_EXPORT static Standard_Integer TColStd_intMapNode_findNext(
-    const TColStd_intMapNode* theNode,
+    const IntegerMapNode* theNode,
     unsigned int&             theMask);
 
   //! Find the highest non-zero bit under the given mask.
   //! Outputs the new mask that does not contain the detected bit.
   Standard_EXPORT static Standard_Integer TColStd_intMapNode_findPrev(
-    const TColStd_intMapNode* theNode,
+    const IntegerMapNode* theNode,
     unsigned int&             theMask);
 
   //! Compute the population (i.e., the number of non-zero bits) of the 32-bit word theData.
-  //! The population is stored decremented as it is defined in TColStd_intMapNode.
+  //! The population is stored decremented as it is defined in IntegerMapNode.
   //! Source: H.S.Warren, Hacker's Delight, Addison-Wesley Inc. 2002, Ch.5.1
   static size_t TColStd_Population(unsigned int& theMask, unsigned int theData)
   {
@@ -491,13 +491,13 @@ private:
     aRes              = (aRes + (aRes >> 4)) & 0x0f0f0f0f;
     aRes              = aRes + (aRes >> 8);
     aRes              = aRes + (aRes >> 16);
-    theMask           = (theMask & TColStd_PackedMapOfInteger::MASK_HIGH)
-              | ((aRes - 1) & TColStd_PackedMapOfInteger::MASK_LOW);
+    theMask           = (theMask & PackedIntegerMap::MASK_HIGH)
+              | ((aRes - 1) & PackedIntegerMap::MASK_LOW);
     return size_t(aRes & 0x3f);
   }
 
 private:
-  TColStd_intMapNode** myData1;            //!< data array
+  IntegerMapNode** myData1;            //!< data array
   Standard_Integer     myNbBuckets;        //!< number of buckets (size of data array)
   Standard_Integer     myNbPackedMapNodes; //!< amount of packed map nodes
   // clang-format off

@@ -452,7 +452,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsSphere(
            anIdx < myBoundaryPoints.Size() / 2 + myBoundaryPoints.Lower();
            anIdx++)
       {
-        if (myBoundaryPoints[anIdx1].Distance(myBoundaryPoints[anIdx]) < Precision::Confusion())
+        if (myBoundaryPoints[anIdx1].Distance(myBoundaryPoints[anIdx]) < Precision1::Confusion())
         {
           continue;
         }
@@ -504,7 +504,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsSphere(
         Vector3d aVecAngle2(aCenterProj, aPntProj2);
         anAngleSum += aVecAngle1.Angle(aVecAngle2);
       }
-      Standard_Boolean isCenterInside   = Abs(anAngleSum - 2 * M_PI) < Precision::Confusion();
+      Standard_Boolean isCenterInside   = Abs(anAngleSum - 2 * M_PI) < Precision1::Confusion();
       Standard_Boolean isBoundaryInside = Standard_False;
       Standard_Boolean isIntersectSphereBoundaries =
         IsBoundaryIntersectSphere(aCenterProj, theRadius, aNorm, aBoundaries, isBoundaryInside);
@@ -620,7 +620,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsCylinder(
   Point3d aPoints[6];
   aPoints[0] = aBottomCenterProject.XYZ() - aCylNormProject * theBottomRad * Abs(aCosAngle);
   aPoints[1] = aTopCenterProject.XYZ() + aCylNormProject * theTopRad * Abs(aCosAngle);
-  const Dir3d aDirEndFaces = (aCylNorm.IsParallel(aDirNorm, Precision::Angular()))
+  const Dir3d aDirEndFaces = (aCylNorm.IsParallel(aDirNorm, Precision1::Angular()))
                                 ? gp1::DY().Transformed(theTrsf)
                                 : aCylNorm.Crossed(aDirNorm);
 
@@ -827,8 +827,8 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::segmentSegmentIntersection(
   Coords3d aVec2  = theEndPnt2.XYZ() - theStartPnt2.XYZ();
   Coords3d aVec21 = theStartPnt2.XYZ() - theStartPnt1.XYZ();
   Coords3d aVec12 = theStartPnt1.XYZ() - theStartPnt2.XYZ();
-  if (Abs(aVec21.DotCross(aVec1, aVec2)) > Precision::Confusion()
-      || Abs(aVec12.DotCross(aVec2, aVec1)) > Precision::Confusion())
+  if (Abs(aVec21.DotCross(aVec1, aVec2)) > Precision1::Confusion()
+      || Abs(aVec12.DotCross(aVec2, aVec1)) > Precision1::Confusion())
   {
     // lines are not coplanar
     return false;
@@ -874,7 +874,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::isIntersectBoundary(
     Dir3d aBndPlaneNorm           = Vector3d(aFace[0], aFace[1]).Crossed(Vector3d(aFace[0], aFace[2]));
     Handle(GeomSurface) aBndPlane = new GeomPlane(aFace[0], aBndPlaneNorm);
 
-    GeomInt_IntSS anInterSS(aCircPlane, aBndPlane, Precision::Confusion());
+    GeomInt_IntSS anInterSS(aCircPlane, aBndPlane, Precision1::Confusion());
     if (!anInterSS.IsDone() || anInterSS.NbLines() == 0)
     {
       continue;

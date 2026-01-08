@@ -35,7 +35,7 @@ public:
 
   //! Constructor; remembers the tolerance
   BRepExtrema_VertexInspector()
-      : myTol(Precision::SquareConfusion()),
+      : myTol(Precision1::SquareConfusion()),
         myIsNeedAdd(Standard_True)
   {
   }

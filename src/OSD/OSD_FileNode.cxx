@@ -219,9 +219,9 @@ void OSD_FileNode::Copy(const SystemPath& ToPath)
 
 // Get protections of a file/directory
 
-OSD_Protection OSD_FileNode::Protection()
+Protection1 OSD_FileNode::Protection()
 {
-  OSD_Protection thisProt;
+  Protection1 thisProt;
   struct stat    myStat;
   int            status;
   int            s, u, g, w;
@@ -271,7 +271,7 @@ OSD_Protection OSD_FileNode::Protection()
 
 // Set protections of a file/directory
 
-void OSD_FileNode::SetProtection(const OSD_Protection& Prot)
+void OSD_FileNode::SetProtection(const Protection1& Prot)
 {
   int status;
 
@@ -289,10 +289,10 @@ void OSD_FileNode::SetProtection(const OSD_Protection& Prot)
 
 // return the date of last access of file/directory
 
-Quantity_Date OSD_FileNode::CreationMoment()
+Date2 OSD_FileNode::CreationMoment()
 {
 
-  Quantity_Date result;
+  Date2 result;
   struct tm*    decode;
   struct stat   buffer;
 
@@ -325,10 +325,10 @@ Quantity_Date OSD_FileNode::CreationMoment()
 
 // return Last access of file/directory
 
-Quantity_Date OSD_FileNode::AccessMoment()
+Date2 OSD_FileNode::AccessMoment()
 {
 
-  Quantity_Date result;
+  Date2 result;
   struct tm*    decode;
   struct stat   buffer;
 
@@ -409,10 +409,10 @@ Standard_Integer OSD_FileNode::Error() const
 
   #ifndef OCCT_UWP
 // None of the existing security APIs are supported in a UWP applications
-PSECURITY_DESCRIPTOR __fastcall _osd_wnt_protection_to_sd(const OSD_Protection&,
+PSECURITY_DESCRIPTOR __fastcall _osd_wnt_protection_to_sd(const Protection1&,
                                                           BOOL,
                                                           const wchar_t*);
-BOOL __fastcall _osd_wnt_sd_to_protection(PSECURITY_DESCRIPTOR pSD, OSD_Protection& prot, BOOL);
+BOOL __fastcall _osd_wnt_sd_to_protection(PSECURITY_DESCRIPTOR pSD, Protection1& prot, BOOL);
   #endif
 Standard_Integer __fastcall _get_file_type(Standard_CString, HANDLE);
 
@@ -611,10 +611,10 @@ void OSD_FileNode::Copy(const SystemPath& ToPath)
 
 //=================================================================================================
 
-OSD_Protection OSD_FileNode::Protection()
+Protection1 OSD_FileNode::Protection()
 {
 
-  OSD_Protection          retVal;
+  Protection1          retVal;
   AsciiString1 fName;
   PSECURITY_DESCRIPTOR    pSD;
 
@@ -643,7 +643,7 @@ OSD_Protection OSD_FileNode::Protection()
 
 //=================================================================================================
 
-void OSD_FileNode::SetProtection(const OSD_Protection& Prot)
+void OSD_FileNode::SetProtection(const Protection1& Prot)
 {
 
   AsciiString1 fName;
@@ -674,7 +674,7 @@ void OSD_FileNode::SetProtection(const OSD_Protection& Prot)
 
 //=================================================================================================
 
-OSD_Protection OSD_FileNode::Protection()
+Protection1 OSD_FileNode::Protection()
 {
   AsciiString1 fName;
 
@@ -690,23 +690,23 @@ OSD_Protection OSD_FileNode::Protection()
     aProt = OSD_R;
 
   // assume full access for system and none for everybody
-  OSD_Protection retVal(OSD_RWXD, aProt, aProt, OSD_None);
+  Protection1 retVal(OSD_RWXD, aProt, aProt, OSD_None);
   return retVal;
 } // end OSD_FileNode :: Protection
 
 //=================================================================================================
 
-void OSD_FileNode::SetProtection(const OSD_Protection& /*Prot*/) {
+void OSD_FileNode::SetProtection(const Protection1& /*Prot*/) {
 } // end OSD_FileNode :: SetProtection
 
   #endif
 
 //=================================================================================================
 
-Quantity_Date OSD_FileNode::AccessMoment()
+Date2 OSD_FileNode::AccessMoment()
 {
 
-  Quantity_Date           retVal;
+  Date2           retVal;
   SYSTEMTIME              stAccessMoment;
   SYSTEMTIME              stAccessSystemMoment;
   AsciiString1 fName;
@@ -741,10 +741,10 @@ Quantity_Date OSD_FileNode::AccessMoment()
 
 //=================================================================================================
 
-Quantity_Date OSD_FileNode::CreationMoment()
+Date2 OSD_FileNode::CreationMoment()
 {
 
-  Quantity_Date           retVal;
+  Date2           retVal;
   SYSTEMTIME              stCreationMoment;
   SYSTEMTIME              stCreationSystemMoment;
   AsciiString1 fName;

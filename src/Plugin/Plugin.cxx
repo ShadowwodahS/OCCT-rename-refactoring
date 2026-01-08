@@ -30,7 +30,7 @@ static Standard_PCharacter thePluginId = tc;
 
 //=================================================================================================
 
-Handle(RefObject) Plugin::Load(const Standard_GUID&   aGUID,
+Handle(RefObject) Plugin1::Load(const Standard_GUID&   aGUID,
                                         const Standard_Boolean theVerbose)
 {
 
@@ -42,7 +42,7 @@ Handle(RefObject) Plugin::Load(const Standard_GUID&   aGUID,
   if (!theMapOfFunctions.IsBound(pid))
   {
 
-    Handle(Resource_Manager) PluginResource = new Resource_Manager("Plugin");
+    Handle(Resource_Manager) PluginResource = new Resource_Manager("Plugin1");
     AsciiString1  theResource(thePluginId);
     theResource += ".Location";
 
@@ -70,7 +70,7 @@ Handle(RefObject) Plugin::Load(const Standard_GUID&   aGUID,
 #else
     thePluginLibrary += ".so";
 #endif
-    OSD_SharedLibrary theSharedLibrary(thePluginLibrary.ToCString());
+    SharedLibrary theSharedLibrary(thePluginLibrary.ToCString());
     if (!theSharedLibrary.DlOpen(OSD_RTLD_LAZY))
     {
       AsciiString1 error(theSharedLibrary.DlError());

@@ -2371,7 +2371,7 @@ int mcrfree_(integer*, // ibyte,
 
 {
   *ier = 0;
-  Standard::Free((void*)iadr);
+  Standard1::Free((void*)iadr);
   return 0;
 }
 
@@ -2409,7 +2409,7 @@ int mcrgetv_(integer* sz, intptr_t* iad, integer* ier)
 {
 
   *ier = 0;
-  *iad = (intptr_t)Standard::Allocate(*sz);
+  *iad = (intptr_t)Standard1::Allocate(*sz);
   if (!*iad)
     *ier = 1;
   return 0;
@@ -2760,7 +2760,7 @@ int SystemBase::mcrrqst_(integer*  iunit,
   /*     . add size of the user zone */
   /*     . add 8 for alinement of start address of */
   /*       allocation on multiple of 8 so that to be able to  */
-  /*       set flags with Double Precision without other pb than alignment */
+  /*       set flags with Double Precision1 without other pb than alignment */
   /*     . add 16 octets for two flags */
 
   ibyte = izu + 24;

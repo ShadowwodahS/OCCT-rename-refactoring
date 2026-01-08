@@ -57,7 +57,7 @@ void MessageModel_TreeModel::InitColumns()
        aMetricId++)
   {
     Message_MetricType   aMetricType = (Message_MetricType)aMetricId;
-    OSD_MemInfo::Counter aMemInfo;
+    MemoryInfo::Counter aMemInfo;
     bool                 isMemInfo = Message1::ToOSDMetric(aMetricType, aMemInfo);
 
     setHeaderItem(

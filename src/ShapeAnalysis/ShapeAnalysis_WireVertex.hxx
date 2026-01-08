@@ -72,18 +72,18 @@ public:
   //! Records status "Same Coords" (at the Vertices Tolerances)
   Standard_EXPORT void SetSameCoords(const Standard_Integer num);
 
-  //! Records status "Close Coords" (at the Precision of <me>)
+  //! Records status "Close Coords" (at the Precision1 of <me>)
   Standard_EXPORT void SetClose(const Standard_Integer num);
 
   //! <num> is the End of preceding Edge, and its projection on the
-  //! following one lies on it at the Precision of <me>
+  //! following one lies on it at the Precision1 of <me>
   //! <ufol> gives the parameter on the following edge
   Standard_EXPORT void SetEnd(const Standard_Integer num,
                               const Coords3d&          pos,
                               const Standard_Real    ufol);
 
   //! <num> is the Start of following Edge, its projection on the
-  //! preceding one lies on it at the Precision of <me>
+  //! preceding one lies on it at the Precision1 of <me>
   //! <upre> gives the parameter on the preceding edge
   Standard_EXPORT void SetStart(const Standard_Integer num,
                                 const Coords3d&          pos,
@@ -104,7 +104,7 @@ public:
   Standard_EXPORT Standard_Boolean IsDone() const;
 
   //! Returns precision value used in analysis
-  Standard_EXPORT Standard_Real Precision() const;
+  Standard_EXPORT Standard_Real Precision1() const;
 
   //! Returns the number of edges in analyzed wire (i.e. the
   //! length of all arrays)

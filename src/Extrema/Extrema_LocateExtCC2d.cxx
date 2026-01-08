@@ -30,8 +30,8 @@ Extrema_LocateExtCC2d::Extrema_LocateExtCC2d(const Adaptor2d_Curve2d& C1,
                                              const Standard_Real      V0)
     : mySqDist(RealLast())
 {
-  Standard_Real     TolU = Curve2dTool1::Resolution(C1, Precision::Confusion());
-  Standard_Real     TolV = Curve2dTool1::Resolution(C2, Precision::Confusion());
+  Standard_Real     TolU = Curve2dTool1::Resolution(C1, Precision1::Confusion());
+  Standard_Real     TolV = Curve2dTool1::Resolution(C2, Precision1::Confusion());
   PointOnCurve2d P1, P2;
 
   // Non implemente pour l instant: l appel a Geom2dExtrema_ExtCC.

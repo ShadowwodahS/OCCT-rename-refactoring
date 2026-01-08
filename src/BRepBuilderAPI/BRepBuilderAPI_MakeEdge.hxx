@@ -206,7 +206,7 @@ public:
   //! For the vertices:
   //! -      Vertices may be null shapes. When V1 or V2 is null the edge is open in the
   //! corresponding direction and the parameter value p1 or p2 must be infinite
-  //! (remember that Precision::Infinite() defines an infinite value).
+  //! (remember that Precision1::Infinite() defines an infinite value).
   //! -      The two vertices must be identical if they have the same 3D location.
   //! Identical vertices are used in particular when the curve is closed.
   //! For the parameters:
@@ -241,7 +241,7 @@ public:
   //! precision of the vertex. If this condition is not satisfied the edge is not built,
   //! and the Error function will return BRepAPI_PointProjectionFailed.
   //! -      3D points can be given in place of vertices. Vertices will be created from the
-  //! points (with the default topological precision Precision::Confusion()).
+  //! points (with the default topological precision Precision1::Confusion()).
   //! Note:
   //! -      Giving vertices is useful when creating a connected edge.
   //! -      If the parameter values correspond to the extremities of a closed curve,

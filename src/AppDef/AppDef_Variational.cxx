@@ -352,7 +352,7 @@ void AppDef_Variational::Init()
             Vt2d = TabV2d.Value(jp2d);
             Vt2d.Normalize();
             Vc2d = TabV2dcurv.Value(jp2d);
-            if (Abs(Abs(Vc2d.Angle(Vt2d)) - M_PI / 2.) > Precision::Angular())
+            if (Abs(Abs(Vc2d.Angle(Vt2d)) - M_PI / 2.) > Precision1::Angular())
               throw Standard_ConstructionError();
             myTabConstraints->SetValue(jndex++, Vt2d.X());
             myTabConstraints->SetValue(jndex++, Vt2d.Y());
@@ -373,7 +373,7 @@ void AppDef_Variational::Init()
             Vt3d = TabV3d.Value(jp3d);
             Vt3d.Normalize();
             Vc3d = TabV3dcurv.Value(jp3d);
-            if ((Vc3d.Normalized()).IsNormal(Vt3d, Precision::Angular()) == Standard_False)
+            if ((Vc3d.Normalized()).IsNormal(Vt3d, Precision1::Angular()) == Standard_False)
               throw Standard_ConstructionError();
             myTabConstraints->SetValue(jndex++, Vt3d.X());
             myTabConstraints->SetValue(jndex++, Vt3d.Y());
@@ -395,7 +395,7 @@ void AppDef_Variational::Init()
             Vt3d = TabV3d.Value(jp3d);
             Vt3d.Normalize();
             Vc3d = TabV3dcurv.Value(jp3d);
-            if ((Vc3d.Normalized()).IsNormal(Vt3d, Precision::Angular()) == Standard_False)
+            if ((Vc3d.Normalized()).IsNormal(Vt3d, Precision1::Angular()) == Standard_False)
               throw Standard_ConstructionError();
             myTabConstraints->SetValue(jndex++, Vt3d.X());
             myTabConstraints->SetValue(jndex++, Vt3d.Y());
@@ -410,7 +410,7 @@ void AppDef_Variational::Init()
             Vt2d = TabV2d.Value(jp2d);
             Vt2d.Normalize();
             Vc2d = TabV2dcurv.Value(jp2d);
-            if (Abs(Abs(Vc2d.Angle(Vt2d)) - M_PI / 2.) > Precision::Angular())
+            if (Abs(Abs(Vc2d.Angle(Vt2d)) - M_PI / 2.) > Precision1::Angular())
               throw Standard_ConstructionError();
             myTabConstraints->SetValue(jndex++, Vt2d.X());
             myTabConstraints->SetValue(jndex++, Vt2d.Y());
@@ -2179,7 +2179,7 @@ void AppDef_Variational::InitSmoothCriterion()
 void AppDef_Variational::InitParameters(Standard_Real& Length)
 {
 
-  constexpr Standard_Real Eps1 = Precision::Confusion() * .01;
+  constexpr Standard_Real Eps1 = Precision1::Confusion() * .01;
 
   Standard_Real    aux, dist;
   Standard_Integer i, i0, i1 = 0, ipoint;
@@ -2228,7 +2228,7 @@ void AppDef_Variational::InitCriterionEstimations(const Standard_Real Length,
 {
   E1 = Length * Length;
 
-  constexpr Standard_Real Eps1 = Precision::Confusion() * .01;
+  constexpr Standard_Real Eps1 = Precision1::Confusion() * .01;
 
   math_Vector VTang1(1, myDimension), VTang2(1, myDimension), VTang3(1, myDimension),
     VScnd1(1, myDimension), VScnd2(1, myDimension), VScnd3(1, myDimension);
@@ -2362,7 +2362,7 @@ void AppDef_Variational::EstTangent(const Standard_Integer ipnt, math_Vector& VT
 
 {
   Standard_Integer        i;
-  constexpr Standard_Real Eps1    = Precision::Confusion() * .01;
+  constexpr Standard_Real Eps1    = Precision1::Confusion() * .01;
   const Standard_Real     EpsNorm = 1.e-9;
 
   Standard_Real Wpnt = 1.;

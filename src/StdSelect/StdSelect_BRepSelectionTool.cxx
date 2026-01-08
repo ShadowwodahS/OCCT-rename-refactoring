@@ -158,7 +158,7 @@ void BRepSelectionTool::Load(const Handle(SelectionContainer)& theSelection,
 {
   Standard_Integer aPriority =
     (thePriority == -1) ? GetStandardPriority(theShape, theType) : thePriority;
-  if (isAutoTriangulation && !BRepTools1::Triangulation(theShape, Precision::Infinite(), true))
+  if (isAutoTriangulation && !BRepTools1::Triangulation(theShape, Precision1::Infinite(), true))
   {
     MeshGenerator aMesher(theShape, theDeflection, Standard_False, theDeviationAngle);
   }
@@ -466,8 +466,8 @@ static Standard_Boolean FindLimits(const Adaptor3d_Curve& theCurve,
 {
   theFirst                    = theCurve.FirstParameter();
   theLast                     = theCurve.LastParameter();
-  Standard_Boolean isFirstInf = Precision::IsNegativeInfinite(theFirst);
-  Standard_Boolean isLastInf  = Precision::IsPositiveInfinite(theLast);
+  Standard_Boolean isFirstInf = Precision1::IsNegativeInfinite(theFirst);
+  Standard_Boolean isLastInf  = Precision1::IsPositiveInfinite(theLast);
   if (isFirstInf || isLastInf)
   {
     Point3d           aPnt1, aPnt2;
@@ -565,7 +565,7 @@ void BRepSelectionTool::GetEdgeSensitive(const TopoShape&                  theSh
     }
     case GeomAbs_Circle: {
       const gp_Circ aCircle = cu3d.Circle();
-      if (aCircle.Radius() <= Precision::Confusion())
+      if (aCircle.Radius() <= Precision1::Confusion())
       {
         theSelection->Add(new Select3D_SensitivePoint(theOwner, aCircle.Location()));
       }
@@ -778,13 +778,13 @@ Standard_Boolean BRepSelectionTool::GetSensitiveForFace(
   if (BS.GetType() == GeomAbs_Plane)
   {
     const Standard_Real aFirstU =
-      BS.FirstUParameter() <= -Precision::Infinite() ? -theMaxParam : BS.FirstUParameter();
+      BS.FirstUParameter() <= -Precision1::Infinite() ? -theMaxParam : BS.FirstUParameter();
     const Standard_Real aLastU =
-      BS.LastUParameter() >= Precision::Infinite() ? theMaxParam : BS.LastUParameter();
+      BS.LastUParameter() >= Precision1::Infinite() ? theMaxParam : BS.LastUParameter();
     const Standard_Real aFirstV =
-      BS.FirstVParameter() <= -Precision::Infinite() ? -theMaxParam : BS.FirstVParameter();
+      BS.FirstVParameter() <= -Precision1::Infinite() ? -theMaxParam : BS.FirstVParameter();
     const Standard_Real aLastV =
-      BS.LastVParameter() >= Precision::Infinite() ? theMaxParam : BS.LastVParameter();
+      BS.LastVParameter() >= Precision1::Infinite() ? theMaxParam : BS.LastVParameter();
     Handle(TColgp_HArray1OfPnt) aPlanePnts = new TColgp_HArray1OfPnt(1, 5);
     BS.D0(aFirstU, aFirstV, aPlanePnts->ChangeValue(1));
     BS.D0(aLastU, aFirstV, aPlanePnts->ChangeValue(2));
@@ -835,7 +835,7 @@ Standard_Boolean BRepSelectionTool::GetSensitiveForFace(
 
     Standard_Real wf = 0.0, wl = 0.0;
     BRepInspector::Range(aWireExplorer.Current(), wf, wl);
-    if (Abs(wf - wl) <= Precision::Confusion())
+    if (Abs(wf - wl) <= Precision1::Confusion())
     {
 #ifdef OCCT_DEBUG
       std::cout << " BRepSelectionTool : Curve where ufirst = ulast ...." << std::endl;
@@ -863,7 +863,7 @@ Standard_Boolean BRepSelectionTool::GetSensitiveForFace(
         break;
       }
       case GeomAbs_Circle: {
-        if (2.0 * M_PI - Abs(wl - wf) <= Precision::Confusion())
+        if (2.0 * M_PI - Abs(wl - wf) <= Precision1::Confusion())
         {
           if (BS.GetType() == GeomAbs_Cylinder || BS.GetType() == GeomAbs_Torus
               || BS.GetType() == GeomAbs_Cone
@@ -888,7 +888,7 @@ Standard_Boolean BRepSelectionTool::GetSensitiveForFace(
           }
           else
           {
-            if (cu3d.Circle().Radius() <= Precision::Confusion())
+            if (cu3d.Circle().Radius() <= Precision1::Confusion())
             {
               theSensitiveList.Append(
                 new Select3D_SensitivePoint(theOwner, cu3d.Circle().Location()));
@@ -997,7 +997,7 @@ Standard_Boolean BRepSelectionTool::GetSensitiveForCylinder(
     }
     if (!aGeomCone.IsNull() && !aGeomPln.IsNull()
         && aGeomPln->Position1().Direction().IsEqual(aGeomCone->Position1().Direction(),
-                                                    Precision::Angular()))
+                                                    Precision1::Angular()))
     {
       const Cone1       aCone = BRepAdaptor_Surface(*aFaces[aConIndex]).Cone();
       const Standard_Real aRad1 = aCone.RefRadius();
@@ -1063,9 +1063,9 @@ Standard_Boolean BRepSelectionTool::GetSensitiveForCylinder(
     {
       if (!aGeomPlanes[0].IsNull() && !aGeomPlanes[1].IsNull()
           && aGeomPlanes[0]->Position1().Direction().IsEqual(aGeomCone->Position1().Direction(),
-                                                            Precision::Angular())
+                                                            Precision1::Angular())
           && aGeomPlanes[1]->Position1().Direction().IsEqual(aGeomCone->Position1().Direction(),
-                                                            Precision::Angular()))
+                                                            Precision1::Angular()))
       {
         const Cone1       aCone = BRepAdaptor_Surface(*aFaces[aConIndex]).Cone();
         const Standard_Real aRad1 = aCone.RefRadius();
@@ -1093,9 +1093,9 @@ Standard_Boolean BRepSelectionTool::GetSensitiveForCylinder(
     {
       if (!aGeomPlanes[0].IsNull() && !aGeomPlanes[1].IsNull()
           && aGeomPlanes[0]->Position1().Direction().IsParallel(aGeomCyl->Position1().Direction(),
-                                                               Precision::Angular())
+                                                               Precision1::Angular())
           && aGeomPlanes[1]->Position1().Direction().IsParallel(aGeomCyl->Position1().Direction(),
-                                                               Precision::Angular()))
+                                                               Precision1::Angular()))
       {
         const Cylinder1   aCyl = BRepAdaptor_Surface(*aFaces[aConIndex]).Cylinder();
         const Standard_Real aRad = aCyl.Radius();
@@ -1108,8 +1108,8 @@ Standard_Boolean BRepSelectionTool::GetSensitiveForCylinder(
         Transform3d aTrsf;
         Ax3  aPos = aCyl.Position1();
         if (aGeomPlanes[0]->Position1().IsCoplanar(aGeomPlanes[1]->Position1(),
-                                                  Precision::Angular(),
-                                                  Precision::Angular()))
+                                                  Precision1::Angular(),
+                                                  Precision1::Angular()))
         {
           // cylinders created as a prism have an inverse vector of the cylindrical surface
           aPos.SetDirection(aPos.Direction().Reversed());

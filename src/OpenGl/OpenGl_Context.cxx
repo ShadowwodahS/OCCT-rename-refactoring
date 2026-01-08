@@ -264,7 +264,7 @@ OpenGl_Context::OpenGl_Context(const Handle(OpenGl_Caps)& theCaps)
 
   myPolygonOffset.Mode   = Aspect_POM_Off;
   myPolygonOffset.Factor = 0.0f;
-  myPolygonOffset.Units  = 0.0f;
+  myPolygonOffset.Units2  = 0.0f;
 
   // system-dependent fields
 #if defined(HAVE_EGL)
@@ -1098,7 +1098,7 @@ static Standard_CString THE_DBGMSG_SEV_HIGH   = "High";   // GL_DEBUG_SEVERITY_H
 static Standard_CString THE_DBGMSG_SEV_MEDIUM = "Medium"; // GL_DEBUG_SEVERITY_MEDIUM
 static Standard_CString THE_DBGMSG_SEV_LOW    = "Low";    // GL_DEBUG_SEVERITY_LOW
 
-//! Callback for GL_ARB_debug_output extension
+//! Callback1 for GL_ARB_debug_output extension
 static void APIENTRY debugCallbackWrap(unsigned int theSource,
                                        unsigned int theType,
                                        unsigned int theId,
@@ -2336,8 +2336,8 @@ void OpenGl_Context::SetShadingMaterial(
   const Graphic3d_MaterialAspect& aMatFrontSrc  = anAspect->FrontMaterial();
   const Graphic3d_MaterialAspect& aMatBackSrc =
     toDistinguish ? anAspect->BackMaterial() : aMatFrontSrc;
-  const Quantity_Color& aFrontIntColor = anAspect->InteriorColor();
-  const Quantity_Color& aBackIntColor =
+  const Color1& aFrontIntColor = anAspect->InteriorColor();
+  const Color1& aBackIntColor =
     toDistinguish ? anAspect->BackInteriorColor() : aFrontIntColor;
 
   myMaterial.Init(*this, aMatFrontSrc, aFrontIntColor, aMatBackSrc, aBackIntColor);
@@ -2789,9 +2789,9 @@ void OpenGl_Context::SetPolygonOffset(const Graphic3d_PolygonOffset& theOffset)
     }
   }
 
-  if (myPolygonOffset.Factor != theOffset.Factor || myPolygonOffset.Units != theOffset.Units)
+  if (myPolygonOffset.Factor != theOffset.Factor || myPolygonOffset.Units2 != theOffset.Units2)
   {
-    core11fwd->glPolygonOffset(theOffset.Factor, theOffset.Units);
+    core11fwd->glPolygonOffset(theOffset.Factor, theOffset.Units2);
   }
   myPolygonOffset = theOffset;
 }

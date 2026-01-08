@@ -61,8 +61,8 @@ public:
   Standard_EXPORT void SetGradientFillMethod(const Aspect_GradientFillMethod theType);
 
   //! Sets background gradient parameters
-  Standard_EXPORT void SetGradientParameters(const Quantity_Color&           theColor1,
-                                             const Quantity_Color&           theColor2,
+  Standard_EXPORT void SetGradientParameters(const Color1&           theColor1,
+                                             const Color1&           theColor2,
                                              const Aspect_GradientFillMethod theType);
 
 protected: //! @name Internal structure for storing gradient parameters

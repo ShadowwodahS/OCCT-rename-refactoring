@@ -133,9 +133,9 @@ Standard_Boolean MyDirFunction::Value(const Standard_Real x, Standard_Real& fval
     for (Standard_Integer i = FV->Lower(); i <= FV->Upper(); i++)
     {
       aVal = FV->Value(i);
-      if (aVal <= -1.e+100) // Precision::HalfInfinite() later
+      if (aVal <= -1.e+100) // Precision1::HalfInfinite() later
         return Standard_False;
-      else if (aVal >= 1.e+100) // Precision::HalfInfinite() later
+      else if (aVal >= 1.e+100) // Precision1::HalfInfinite() later
         return Standard_False;
     }
 
@@ -163,13 +163,13 @@ Standard_Boolean MyDirFunction::Value(const math_Vector& Sol,
       aVal = FF.Value(i);
       if (aVal < 0.)
       {
-        if (aVal <= -1.e+100) // Precision::HalfInfinite() later
-          //       if(Precision::IsInfinite(Abs(FF.Value(i)))) {
-          //	F2 = Precision::Infinite();
-          //	Gnr1 = Precision::Infinite();
+        if (aVal <= -1.e+100) // Precision1::HalfInfinite() later
+          //       if(Precision1::IsInfinite(Abs(FF.Value(i)))) {
+          //	F2 = Precision1::Infinite();
+          //	Gnr1 = Precision1::Infinite();
           return Standard_False;
       }
-      else if (aVal >= 1.e+100) // Precision::HalfInfinite() later
+      else if (aVal >= 1.e+100) // Precision1::HalfInfinite() later
         return Standard_False;
       // modified by NIZHNY-MKK  Mon Oct  3 17:57:05 2005.END
     }
@@ -178,7 +178,7 @@ Standard_Boolean MyDirFunction::Value(const math_Vector& Sol,
     GH.TMultiply(DF, FF);
     for (Standard_Integer i = GH.Lower(); i <= GH.Upper(); i++)
     {
-      if (Precision::IsInfinite((GH.Value(i))))
+      if (Precision1::IsInfinite((GH.Value(i))))
       {
         return Standard_False;
       }
@@ -263,7 +263,7 @@ static Standard_Boolean MinimizeDirection(const math_Vector&   P,
 //----------------------------------------------------------------------
 
 {
-  if (Precision::IsInfinite(PValue) || Precision::IsInfinite(PDirValue))
+  if (Precision1::IsInfinite(PValue) || Precision1::IsInfinite(PDirValue))
   {
     return Standard_False;
   }
@@ -372,7 +372,7 @@ static Standard_Boolean MinimizeDirection(const math_Vector&   P,
 
         // Objective function changes too fast ->
         // perform additional computations.
-        if (Gradient.Norm2() > 1.0 / Precision::SquareConfusion() && tsol > ax
+        if (Gradient.Norm2() > 1.0 / Precision1::SquareConfusion() && tsol > ax
             && tsol < cx) // Solution inside of (ax, cx) interval.
         {
           // First and second part invocation.
@@ -770,8 +770,8 @@ void FunctionSetRoot::Perform(math_FunctionSetWithDerivatives& F,
   math_IntegerVector  aConstraints(1, Ninc); // Pour savoir sur quels bord on se trouve
   for (i = 1; i <= Ninc; i++)
   {
-    const Standard_Real aSupBound  = Min(theSupBound(i), Precision::Infinite());
-    const Standard_Real anInfBound = Max(theInfBound(i), -Precision::Infinite());
+    const Standard_Real aSupBound  = Min(theSupBound(i), Precision1::Infinite());
+    const Standard_Real anInfBound = Max(theInfBound(i), -Precision1::Infinite());
     InvLengthMax(i)                = 1. / Max((aSupBound - anInfBound) / 4, 1.e-9);
   }
 
@@ -1042,7 +1042,7 @@ void FunctionSetRoot::Perform(math_FunctionSetWithDerivatives& F,
             Stop = Standard_True;
           }
         }
-        FSR_DEBUG("--- Sortie du Traitement Standard");
+        FSR_DEBUG("--- Sortie du Traitement Standard1");
         FSR_DEBUG("    DescenteIter = " << DescenteIter << " F2 = " << F2);
       }
       // ------------------------------------

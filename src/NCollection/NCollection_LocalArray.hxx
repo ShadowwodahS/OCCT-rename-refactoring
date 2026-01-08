@@ -42,7 +42,7 @@ public:
   {
     Deallocate();
     if (theSize > MAX_ARRAY_SIZE)
-      myPtr = (theItem*)Standard::Allocate(theSize * sizeof(theItem));
+      myPtr = (theItem*)Standard1::Allocate(theSize * sizeof(theItem));
     else
       myPtr = myBuffer;
 
@@ -61,7 +61,7 @@ protected:
   void Deallocate()
   {
     if (myPtr != myBuffer)
-      Standard::Free(myPtr);
+      Standard1::Free(myPtr);
   }
 
 protected:

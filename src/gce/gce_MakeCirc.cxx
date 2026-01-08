@@ -100,7 +100,7 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& P1, const Point3d& P2, const Point3d& 
   dir = VDir2.Crossed(Dir3);
   gp_Lin L2(Point3d((P3.XYZ() + P2.XYZ()) / 2.), dir);
 
-  constexpr Standard_Real Tol = Precision::PConfusion();
+  constexpr Standard_Real Tol = Precision1::PConfusion();
   ExtElC          distmin(L1, L2, Tol);
 
   if (!distmin.IsDone())

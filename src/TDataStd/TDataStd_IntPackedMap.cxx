@@ -81,7 +81,7 @@ Standard_Boolean TDataStd_IntPackedMap::ChangeMap(const Handle(TColStd_HPackedMa
 
 //=================================================================================================
 
-Standard_Boolean TDataStd_IntPackedMap::ChangeMap(const TColStd_PackedMapOfInteger& theMap)
+Standard_Boolean TDataStd_IntPackedMap::ChangeMap(const PackedIntegerMap& theMap)
 {
   if (!myMap->Map().IsEqual(theMap))
   {
@@ -211,7 +211,7 @@ void TDataStd_IntPackedMap::DumpJson(Standard_OStream& theOStream, Standard_Inte
 
   OCCT_DUMP_BASE_CLASS(theOStream, theDepth, TDF_Attribute)
 
-  for (TColStd_PackedMapOfInteger::Iterator aMapIt(myMap->Map()); aMapIt.More(); aMapIt.Next())
+  for (PackedIntegerMap::Iterator aMapIt(myMap->Map()); aMapIt.More(); aMapIt.Next())
   {
     Standard_Integer aKey = aMapIt.Key1();
     OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, aKey)

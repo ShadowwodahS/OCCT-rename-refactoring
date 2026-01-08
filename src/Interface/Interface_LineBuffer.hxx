@@ -84,7 +84,7 @@ public:
   //! Adds a text as a CString. Its length is given as <lntext>
   Standard_EXPORT void Add(const Standard_CString text, const Standard_Integer lntext);
 
-  //! Adds a text as a AsciiString2 from TCollection
+  //! Adds a text as a AsciiString2 from TCollection1
   Standard_EXPORT void Add(const AsciiString1& text);
 
   //! Adds a text made of only ONE Character

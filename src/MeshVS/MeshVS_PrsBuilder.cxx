@@ -49,8 +49,8 @@ MeshVS_PrsBuilder::MeshVS_PrsBuilder(const Handle(MeshVS_Mesh)&       Parent,
 //=================================================================================================
 
 void MeshVS_PrsBuilder::CustomBuild(const Handle(Prs3d_Presentation)&,
-                                    const TColStd_PackedMapOfInteger&,
-                                    TColStd_PackedMapOfInteger&,
+                                    const PackedIntegerMap&,
+                                    PackedIntegerMap&,
                                     const Standard_Integer) const
 {
 }

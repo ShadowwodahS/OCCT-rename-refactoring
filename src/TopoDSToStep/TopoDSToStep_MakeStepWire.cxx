@@ -175,7 +175,7 @@ void TopoDSToStep_MakeStepWire::Init(const TopoWire&                    aWire,
 
     const TopoWire     ForwardWire = TopoDS::Wire(aWire.Oriented(TopAbs_FORWARD));
     Handle(WireHealer) STW =
-      new WireHealer(ForwardWire, aTool.CurrentFace(), Precision::Confusion());
+      new WireHealer(ForwardWire, aTool.CurrentFace(), Precision1::Confusion());
     // for toroidal like surfaces we need to use both (3d and 2d) mode to correctly reorder the
     // edges
     STW->FixReorder(Standard_True);

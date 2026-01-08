@@ -39,7 +39,7 @@ Handle(RefObject) StdDrivers1::Factory(const Standard_GUID& aGUID)
   if (aGUID == StdRetrievalDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "StdDrivers1 : Retrieval Plugin" << std::endl;
+    std::cout << "StdDrivers1 : Retrieval Plugin1" << std::endl;
 #endif
 
     static Handle(StdDrivers_DocumentRetrievalDriver) model_rd =
@@ -54,8 +54,8 @@ Handle(RefObject) StdDrivers1::Factory(const Standard_GUID& aGUID)
 
 void StdDrivers1::DefineFormat(const Handle(AppManager)& theApp)
 {
-  theApp->DefineFormat("MDTV-Standard",
-                       "Standard OCAF Document",
+  theApp->DefineFormat("MDTV-Standard1",
+                       "Standard1 OCAF Document",
                        "std",
                        new StdDrivers_DocumentRetrievalDriver,
                        0);

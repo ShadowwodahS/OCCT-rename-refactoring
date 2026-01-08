@@ -72,7 +72,7 @@ static void AddSpecialPoints(const Quadric2& theQuad,
     ElSLib1::Parameters(theGpObj, aPt, aU, aV);
     const Point3d aPProj(ElSLib1::Value(aU, aV, theGpObj));
 
-    if (aPt.SquareDistance(aPProj) > Precision::SquareConfusion())
+    if (aPt.SquareDistance(aPProj) > Precision1::SquareConfusion())
     {
       // aPt is not an intersection point
       continue;

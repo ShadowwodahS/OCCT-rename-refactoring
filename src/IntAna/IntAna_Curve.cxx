@@ -353,9 +353,9 @@ void Curve1::InternalUVValue(const Standard_Real theta,
   if (aDiscriminant < aTolD)
     aDiscriminant = 0.0;
 
-  if (Abs(A) <= Precision::PConfusion())
+  if (Abs(A) <= Precision1::PConfusion())
   {
-    if (Abs(B) <= Precision::PConfusion())
+    if (Abs(B) <= Precision1::PConfusion())
     {
       Param2 = 0.0;
     }
@@ -439,7 +439,7 @@ void Curve1::FindParameter(const Point3d& theP, TColStd_ListOfReal& theParams) c
                       InternalPrecision =
                         1.e-8; // precision of internal algorithm of values computation
   // clang-format off
-  constexpr Standard_Real aSqTolPrecision = Precision::SquareConfusion(); //for boundary points to check their coincidence with others
+  constexpr Standard_Real aSqTolPrecision = Precision1::SquareConfusion(); //for boundary points to check their coincidence with others
   // clang-format on
 
   Standard_Real aTheta = 0.0;
@@ -497,7 +497,7 @@ void Curve1::FindParameter(const Point3d& theP, TColStd_ListOfReal& theParams) c
     if (aParams[i] < myFirstParameter)
       continue;
 
-    if (i && (aParams[i] - aParams[i - 1]) < Precision::PConfusion())
+    if (i && (aParams[i] - aParams[i - 1]) < Precision1::PConfusion())
       continue;
 
     Standard_Real U = 0.0, V = 0.0, A = 0.0, B = 0.0, C = 0.0, sint = 0.0, cost = 0.0,

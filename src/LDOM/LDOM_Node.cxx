@@ -240,24 +240,24 @@ Standard_Boolean LDOM_Node::hasChildNodes() const
 
 void LDOM_Node::SetValueClear() const
 {
-  LDOMBasicString* aValue = NULL;
+  LDOMBasicString1* aValue = NULL;
   switch (getNodeType())
   {
     case ATTRIBUTE_NODE: {
       const LDOM_BasicAttribute& anAttr = *(const LDOM_BasicAttribute*)myOrigin;
-      aValue                            = (LDOMBasicString*)&anAttr.GetValue();
+      aValue                            = (LDOMBasicString1*)&anAttr.GetValue();
       break;
     }
     case TEXT_NODE:
     case CDATA_SECTION_NODE:
     case COMMENT_NODE: {
       const LDOM_BasicText& aText = *(const LDOM_BasicText*)myOrigin;
-      aValue                      = (LDOMBasicString*)&aText.GetData();
+      aValue                      = (LDOMBasicString1*)&aText.GetData();
       break;
     }
     default:
       return;
   }
-  if (aValue->Type() == LDOMBasicString::LDOM_AsciiDoc)
-    aValue->myType = LDOMBasicString::LDOM_AsciiDocClear;
+  if (aValue->Type() == LDOMBasicString1::LDOM_AsciiDoc)
+    aValue->myType = LDOMBasicString1::LDOM_AsciiDocClear;
 }

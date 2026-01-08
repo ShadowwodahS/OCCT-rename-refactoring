@@ -15,7 +15,7 @@
 // commercial license or contractual agreement.
 
 //: o0 abv 16.02.99: POLYLINE allowed as 3d curve of edge
-// gka,abv 05.04.99: S4136: improving tolerance management, eliminate BRepAPI::Precision()
+// gka,abv 05.04.99: S4136: improving tolerance management, eliminate BRepAPI::Precision1()
 
 #include <BRep_Builder.hxx>
 #include <BRep_Tool.hxx>
@@ -161,7 +161,7 @@ static TopoEdge MakeEdge(const Handle(GeomCurve3d)& C3D,
 {
   ShapeBuilder B;
   TopoEdge  E;
-  B.MakeEdge(E, C3D, Precision::Confusion());
+  B.MakeEdge(E, C3D, Precision1::Confusion());
   B.Add(E, V1);
   B.Add(E, V2);
   B.UpdateVertex(V1, U1, E, 0.);
@@ -337,12 +337,12 @@ void StepToTopoDS_TranslateEdge::Init(const Handle(StepShape_Edge)& aEdge,
     // ---     (3d + 2 Pcurve Or Surface)       ---
     Handle(StepGeom_SurfaceCurve) Sc = Handle(StepGeom_SurfaceCurve)::DownCast(C);
     Handle(StepGeom_Curve)        C1 = Sc->Curve3d();
-    MakeFromCurve3D(C1, EC, Vend, Precision(), E, V1, V2, aTool, theLocalFactors);
+    MakeFromCurve3D(C1, EC, Vend, Precision1(), E, V1, V2, aTool, theLocalFactors);
   }
   else
   {
     // --- The Edge Geometry1 is a Single 3d Curve ---
-    MakeFromCurve3D(C, EC, Vend, Precision(), E, V1, V2, aTool, theLocalFactors);
+    MakeFromCurve3D(C, EC, Vend, Precision1(), E, V1, V2, aTool, theLocalFactors);
   }
   // Force set flags SameRange and SameParameter to Standard_False
   if (done)
@@ -443,7 +443,7 @@ void StepToTopoDS_TranslateEdge::MakeFromCurve3D(const Handle(StepGeom_Curve)&  
     // #25415: handling of special case found on some STEP files produced by FPX Expert 2013 (PCB
     // design system): edge curve is line displaced from its true position but with correct
     // direction; we can shift the line in this case so that it passes through vertices correctly
-    if (Abs(temp1 - temp2) < preci && Abs(U2 - U1 - pnt1.Distance(pnt2)) < Precision::Confusion()
+    if (Abs(temp1 - temp2) < preci && Abs(U2 - U1 - pnt1.Distance(pnt2)) < Precision1::Confusion()
         && C1->IsKind(STANDARD_TYPE(GeomLine)))
     {
       Handle(GeomLine) aLine    = Handle(GeomLine)::DownCast(C1);

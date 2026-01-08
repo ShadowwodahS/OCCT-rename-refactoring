@@ -1113,7 +1113,7 @@ static Standard_Integer VtkSetColor(DrawInterpreter&,
   }
 
   NCollection_Sequence<vtkSmartPointer<vtkActor>> anActorSeq;
-  Quantity_Color                                  aQColor;
+  Color1                                  aQColor;
   bool                                            hasColor = false;
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
@@ -1153,7 +1153,7 @@ static Standard_Integer VtkSetColor(DrawInterpreter&,
 #endif
   const Graphic3d_Vec3 aColor =
     isSRGBAware ? (Graphic3d_Vec3)aQColor
-                : Quantity_Color::Convert_LinearRGB_To_sRGB((Graphic3d_Vec3)aQColor);
+                : Color1::Convert_LinearRGB_To_sRGB((Graphic3d_Vec3)aQColor);
   for (NCollection_Sequence<vtkSmartPointer<vtkActor>>::Iterator anActorIter(anActorSeq);
        anActorIter.More();
        anActorIter.Next())
@@ -1668,7 +1668,7 @@ static Standard_Integer VtkBackgroundColor(DrawInterpreter&,
     return 1;
   }
 
-  Quantity_Color         aQColor1;
+  Color1         aQColor1;
   const Standard_Integer aNbParsed1 = Draw1::ParseColor(theArgNum - 1, theArgs + 1, aQColor1);
   if (aNbParsed1 == 0)
   {
@@ -1682,12 +1682,12 @@ static Standard_Integer VtkBackgroundColor(DrawInterpreter&,
 #endif
   const Graphic3d_Vec3 aColor1 =
     isSRGBAware ? (Graphic3d_Vec3)aQColor1
-                : Quantity_Color::Convert_LinearRGB_To_sRGB((Graphic3d_Vec3)aQColor1);
+                : Color1::Convert_LinearRGB_To_sRGB((Graphic3d_Vec3)aQColor1);
   GetRenderer()->SetGradientBackground(false);
   GetRenderer()->SetBackground(aColor1.r(), aColor1.g(), aColor1.b());
   if (theArgNum - 1 > aNbParsed1)
   {
-    Quantity_Color         aQColor2;
+    Color1         aQColor2;
     const Standard_Integer aNbParsed2 =
       Draw1::ParseColor(theArgNum - 1 - aNbParsed1, theArgs + 1 + aNbParsed1, aQColor2);
     if (aNbParsed2 == 0)
@@ -1698,7 +1698,7 @@ static Standard_Integer VtkBackgroundColor(DrawInterpreter&,
 
     const Graphic3d_Vec3 aColor2 =
       isSRGBAware ? (Graphic3d_Vec3)aQColor2
-                  : Quantity_Color::Convert_LinearRGB_To_sRGB((Graphic3d_Vec3)aQColor2);
+                  : Color1::Convert_LinearRGB_To_sRGB((Graphic3d_Vec3)aQColor2);
     GetRenderer()->SetBackground2(aColor2.r(), aColor2.g(), aColor2.b());
     GetRenderer()->SetGradientBackground(true);
   }

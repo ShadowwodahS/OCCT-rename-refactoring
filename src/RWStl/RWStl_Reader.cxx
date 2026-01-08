@@ -149,7 +149,7 @@ Standard_Boolean RWStl_Reader::Read(const char* theFile, const Message_ProgressR
   // (probing may bring stream to fail state if EOF is reached)
   bool isAscii = ((size_t)theEnd < THE_STL_MIN_FILE_SIZE || IsAscii(*aStream, true));
 
-  Standard_ReadLineBuffer aBuffer(THE_BUFFER_SIZE);
+  ReadLineBuffer aBuffer(THE_BUFFER_SIZE);
 
   // Note: here we are trying to handle rare but realistic case of
   // STL files which are composed of several STL data blocks
@@ -238,7 +238,7 @@ Standard_Boolean RWStl_Reader::IsAscii(Standard_IStream& theStream, const bool i
   // strtod_l/strtol_l/strtoll_l functions with explicitly specified locale
   // and newlocale/uselocale/freelocale to switch locale within current thread only.
   // So we switch to C locale temporarily
-  #define SAVE_TL() Standard_CLocaleSentry aLocaleSentry;
+  #define SAVE_TL() CLocaleSentry aLocaleSentry;
   #define sscanf_l(theBuffer, theLocale, theFormat, ...) sscanf(theBuffer, theFormat, __VA_ARGS__)
 #endif
 
@@ -279,7 +279,7 @@ static bool ReadVertex(const char* theStr, double& theX, double& theY, double& t
 //=================================================================================================
 
 Standard_Boolean RWStl_Reader::ReadAscii(Standard_IStream&            theStream,
-                                         Standard_ReadLineBuffer&     theBuffer,
+                                         ReadLineBuffer&     theBuffer,
                                          const std::streampos         theUntilPos,
                                          const Message_ProgressRange& theProgress)
 {
@@ -306,7 +306,7 @@ Standard_Boolean RWStl_Reader::ReadAscii(Standard_IStream&            theStream,
   aMergeTool.SetMergeAngle(myMergeAngle);
   aMergeTool.SetMergeTolerance(myMergeTolearance);
 
-  Standard_CLocaleSentry::clocale_t aLocale = Standard_CLocaleSentry::GetCLocale();
+  CLocaleSentry::clocale_t aLocale = CLocaleSentry::GetCLocale();
   (void)aLocale; // to avoid warning on GCC where it is actually not used
   SAVE_TL()      // for GCC only, set C locale globally
 

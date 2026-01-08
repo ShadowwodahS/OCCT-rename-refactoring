@@ -149,5 +149,5 @@ void MeshGenerator::SetParallelDefault(const Standard_Boolean theInParallel)
   IS_IN_PARALLEL = theInParallel;
 }
 
-//! Export Mesh1 Plugin entry function
+//! Export Mesh1 Plugin1 entry function
 DISCRETPLUGIN(MeshGenerator)

@@ -128,14 +128,14 @@ Handle(MeshTriangulation) Poly_CoherentTriangulation::GetTriangulation() const
 
     vecNodeId.SetValue(i, ++aCount);
     const Coords3d aNormal = aNode.GetNormal();
-    if (aNormal.SquareModulus() > Precision::Confusion())
+    if (aNormal.SquareModulus() > Precision1::Confusion())
     {
       aResult->AddNormals();
       aResult->SetNormal(aCount, Dir3d(aNormal));
     }
 
     aResult->SetNode(aCount, aNode);
-    if (aNode.GetU() * aNode.GetU() + aNode.GetV() * aNode.GetV() > Precision::Confusion())
+    if (aNode.GetU() * aNode.GetU() + aNode.GetV() * aNode.GetV() > Precision1::Confusion())
     {
       aResult->AddUVNodes();
       aResult->SetUVNode(aCount, gp_Pnt2d(aNode.GetU(), aNode.GetV()));

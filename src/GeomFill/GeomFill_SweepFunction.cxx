@@ -240,7 +240,7 @@ Standard_Integer GeomFill_SweepFunction::NbIntervals(const GeomAbs_Shape S) cons
   }
   myLoc->Intervals(IntL, S);
 
-  GeomLib1::FuseIntervals(IntS, IntL, Inter, Precision::PConfusion() * 0.99);
+  GeomLib1::FuseIntervals(IntS, IntL, Inter, Precision1::PConfusion() * 0.99);
   return Inter.Length() - 1;
 }
 
@@ -282,7 +282,7 @@ void GeomFill_SweepFunction::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Sh
   }
   myLoc->Intervals(IntL, S);
 
-  GeomLib1::FuseIntervals(IntS, IntL, Inter, Precision::PConfusion() * 0.99);
+  GeomLib1::FuseIntervals(IntS, IntL, Inter, Precision1::PConfusion() * 0.99);
   for (ii = 1; ii <= Inter.Length(); ii++)
     T(ii) = Inter(ii);
 }

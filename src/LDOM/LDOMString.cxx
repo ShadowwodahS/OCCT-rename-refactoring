@@ -25,7 +25,7 @@ LDOMString LDOMString::CreateDirectString(const char* aValue, const LDOM_MemMana
 {
   LDOMString aResult;
   aResult.myPtrDoc = &aDoc;
-  aResult.SetDirect(LDOMBasicString::LDOM_AsciiHashed, aValue);
+  aResult.SetDirect(LDOMBasicString1::LDOM_AsciiHashed, aValue);
   return aResult;
 }
 
@@ -34,7 +34,7 @@ LDOMString LDOMString::CreateDirectString(const char* aValue, const LDOM_MemMana
 // purpose  : Copy from another string with allocation in the document
 //=======================================================================
 
-LDOMString::LDOMString(const LDOMBasicString& anOther, const Handle(LDOM_MemManager)& aDoc)
+LDOMString::LDOMString(const LDOMBasicString1& anOther, const Handle(LDOM_MemManager)& aDoc)
     : myPtrDoc(&aDoc->Self())
 {
   myType = anOther.Type();

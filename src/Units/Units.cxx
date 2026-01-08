@@ -46,21 +46,21 @@ static Standard_Real            lastvalue, lastmove;
 
 //=================================================================================================
 
-void Units::UnitsFile(const Standard_CString afile)
+void Units2::UnitsFile(const Standard_CString afile)
 {
   unitsfile = AsciiString1(afile);
 }
 
 //=================================================================================================
 
-void Units::LexiconFile(const Standard_CString afile)
+void Units2::LexiconFile(const Standard_CString afile)
 {
   lexiconfile = AsciiString1(afile);
 }
 
 //=================================================================================================
 
-Handle(Units_UnitsDictionary) Units::DictionaryOfUnits(const Standard_Boolean amode)
+Handle(Units_UnitsDictionary) Units2::DictionaryOfUnits(const Standard_Boolean amode)
 {
   if (unitsdictionary.IsNull())
   {
@@ -79,14 +79,14 @@ Handle(Units_UnitsDictionary) Units::DictionaryOfUnits(const Standard_Boolean am
 
 //=================================================================================================
 
-Handle(Units_Quantity) Units::Quantity(const Standard_CString aquantity)
+Handle(Units_Quantity) Units2::Quantity(const Standard_CString aquantity)
 {
   Standard_Integer                 index;
   Handle(Units_Quantity)           quantity;
   Handle(Units_Quantity)           nullquantity;
   Handle(Units_QuantitiesSequence) quantitiessequence;
 
-  quantitiessequence = Units::DictionaryOfUnits()->Sequence();
+  quantitiessequence = Units2::DictionaryOfUnits()->Sequence();
   for (index = 1; index <= quantitiessequence->Length(); index++)
   {
     quantity = quantitiessequence->Value(index);
@@ -95,7 +95,7 @@ Handle(Units_Quantity) Units::Quantity(const Standard_CString aquantity)
   }
 
 #ifdef OCCT_DEBUG
-  std::cout << "Warning: BAD Quantity = Units::Quantity(quantity('" << aquantity << "'))"
+  std::cout << "Warning: BAD Quantity = Units2::Quantity(quantity('" << aquantity << "'))"
             << std::endl;
 #endif
   return nullquantity;
@@ -105,7 +105,7 @@ Handle(Units_Quantity) Units::Quantity(const Standard_CString aquantity)
 
 static AsciiString1 symbol_string, quantity_string;
 
-Standard_CString Units::FirstQuantity(const Standard_CString aunit)
+Standard_CString Units2::FirstQuantity(const Standard_CString aunit)
 {
   Standard_Integer                        i, j, k;
   Handle(Units_Quantity)                  thequantity;
@@ -118,7 +118,7 @@ Standard_CString Units::FirstQuantity(const Standard_CString aunit)
   if (symbol == symbol_string)
     return quantity_string.ToCString();
 
-  quantitiessequence = Units::DictionaryOfUnits()->Sequence();
+  quantitiessequence = Units2::DictionaryOfUnits()->Sequence();
   for (i = 1; i <= quantitiessequence->Length(); i++)
   {
     thequantity   = quantitiessequence->Value(i);
@@ -140,14 +140,14 @@ Standard_CString Units::FirstQuantity(const Standard_CString aunit)
   }
 
 #ifdef OCCT_DEBUG
-  std::cout << "Warning: BAD Quantity = Units::Quantity(unit('" << symbol << "'))" << std::endl;
+  std::cout << "Warning: BAD Quantity = Units2::Quantity(unit('" << symbol << "'))" << std::endl;
 #endif
   return NULL;
 }
 
 //=================================================================================================
 
-Handle(Units_Lexicon) Units::LexiconUnits(const Standard_Boolean amode)
+Handle(Units_Lexicon) Units2::LexiconUnits(const Standard_Boolean amode)
 {
   if (lexiconunits.IsNull())
   {
@@ -161,7 +161,7 @@ Handle(Units_Lexicon) Units::LexiconUnits(const Standard_Boolean amode)
 
 //=================================================================================================
 
-Handle(Units_Lexicon) Units::LexiconFormula()
+Handle(Units_Lexicon) Units2::LexiconFormula()
 {
   if (lexiconformula.IsNull())
   {
@@ -175,7 +175,7 @@ Handle(Units_Lexicon) Units::LexiconFormula()
 
 //=================================================================================================
 
-Handle(Units_Dimensions) Units::NullDimensions()
+Handle(Units_Dimensions) Units2::NullDimensions()
 {
   if (nulldimensions.IsNull())
     nulldimensions = new Units_Dimensions(0., 0., 0., 0., 0., 0., 0., 0., 0.);
@@ -184,7 +184,7 @@ Handle(Units_Dimensions) Units::NullDimensions()
 
 //=================================================================================================
 
-Standard_Real Units::Convert(const Standard_Real    avalue,
+Standard_Real Units2::Convert(const Standard_Real    avalue,
                              const Standard_CString afirstunit,
                              const Standard_CString asecondunit)
 {
@@ -195,16 +195,16 @@ Standard_Real Units::Convert(const Standard_Real    avalue,
 
 //=================================================================================================
 
-Standard_Real Units::ToSI(const Standard_Real aData, const Standard_CString aUnit)
+Standard_Real Units2::ToSI(const Standard_Real aData, const Standard_CString aUnit)
 {
 
   Handle(Units_Dimensions) aDimBid;
-  return Units::ToSI(aData, aUnit, aDimBid);
+  return Units2::ToSI(aData, aUnit, aDimBid);
 }
 
 //=================================================================================================
 
-Standard_Real Units::ToSI(const Standard_Real       aData,
+Standard_Real Units2::ToSI(const Standard_Real       aData,
                           const Standard_CString    aUnit,
                           Handle(Units_Dimensions)& dim)
 {
@@ -235,15 +235,15 @@ Standard_Real Units::ToSI(const Standard_Real       aData,
 
 //=================================================================================================
 
-Standard_Real Units::FromSI(const Standard_Real aData, const Standard_CString aUnit)
+Standard_Real Units2::FromSI(const Standard_Real aData, const Standard_CString aUnit)
 {
   Handle(Units_Dimensions) aDimBid;
-  return Units::FromSI(aData, aUnit, aDimBid);
+  return Units2::FromSI(aData, aUnit, aDimBid);
 }
 
 //=================================================================================================
 
-Standard_Real Units::FromSI(const Standard_Real       aData,
+Standard_Real Units2::FromSI(const Standard_Real       aData,
                             const Standard_CString    aUnit,
                             Handle(Units_Dimensions)& dim)
 {
@@ -274,11 +274,11 @@ Standard_Real Units::FromSI(const Standard_Real       aData,
 
 //=================================================================================================
 
-Handle(Units_Dimensions) Units::Dimensions(const Standard_CString aType)
+Handle(Units_Dimensions) Units2::Dimensions(const Standard_CString aType)
 {
   if (aType)
   {
-    Handle(Units_UnitsDictionary) dico = Units::DictionaryOfUnits(Standard_False);
+    Handle(Units_UnitsDictionary) dico = Units2::DictionaryOfUnits(Standard_False);
 
     Handle(Units_QuantitiesSequence) qSeq = dico->Sequence();
     Handle(Units_Quantity)           q;
@@ -289,7 +289,7 @@ Handle(Units_Dimensions) Units::Dimensions(const Standard_CString aType)
         return qSeq->Value(i)->Dimensions();
       }
     }
-    throw Standard_NoSuchObject("Units::Dimensions");
+    throw Standard_NoSuchObject("Units2::Dimensions");
   }
   return Units_Dimensions::ALess();
 }

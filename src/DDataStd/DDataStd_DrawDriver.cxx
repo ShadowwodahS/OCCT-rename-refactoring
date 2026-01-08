@@ -121,7 +121,7 @@ Handle(Draw_Drawable3D) DDataStd_DrawDriver::Drawable(const DataLabel& L) const
     return DrawableShape(L, Draw_magenta, Standard_False);
   }
 
-  // Standard GEOMETRY
+  // Standard1 GEOMETRY
 
   Handle(TDataXtd_Geometry) STD_GEOM;
   if (L.FindAttribute(TDataXtd_Geometry::GetID(), STD_GEOM))

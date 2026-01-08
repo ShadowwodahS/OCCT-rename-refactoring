@@ -55,7 +55,7 @@ Standard_Boolean XmlMDataXtd_TriangulationDriver::Paste(const PersistentStorage&
 
   // Read the FirstIndex; if the attribute is absent initialize to 1
   XmlObjMgt_DOMString triangStatus = element.getAttribute(::TriangString());
-  if (triangStatus == NULL || triangStatus.Type() != LDOMBasicString::LDOM_AsciiDoc
+  if (triangStatus == NULL || triangStatus.Type() != LDOMBasicString1::LDOM_AsciiDoc
       || strcmp(triangStatus.GetString(), ::ExistString().GetString()))
   {
     // No triangulation.

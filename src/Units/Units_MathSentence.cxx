@@ -20,7 +20,7 @@
 //=================================================================================================
 
 Units_MathSentence::Units_MathSentence(const Standard_CString astring)
-    : Units_Sentence(Units::LexiconFormula(), astring)
+    : Units_Sentence(Units2::LexiconFormula(), astring)
 {
   SetConstants();
 }

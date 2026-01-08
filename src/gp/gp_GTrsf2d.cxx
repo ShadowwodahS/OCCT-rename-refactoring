@@ -169,7 +169,7 @@ void GeneralTransform2d::PreMultiply(const GeneralTransform2d& T)
 Transform2d GeneralTransform2d::Trsf2d() const
 {
   // Test of orthogonality
-  const Standard_Real aTolerance  = Precision::Angular();
+  const Standard_Real aTolerance  = Precision1::Angular();
   const Standard_Real aTolerance2 = 2.0 * aTolerance;
 
   if (Form() == gp_Other)

@@ -135,7 +135,7 @@ public:
   //! Analysis a Location given as a GTrsf, by trying to convert it
   //! to a Trsf (i.e. to a True Location of which effect is
   //! described by an Isometry or a Similarity)
-  //! Works with the Precision given by default or by SetPrecision
+  //! Works with the Precision1 given by default or by SetPrecision
   //! Calls ConvertLocation (see below)
   Standard_EXPORT Standard_Boolean AnalyseLocation(const GeneralTransform& loc, Transform3d& result) const;
 

@@ -147,9 +147,9 @@ public:
   //!
   //! Default implementation uses plugin mechanism to load reader dynamically.
   //! For this to work, application resources should define GUID of
-  //! the plugin as value of [Format].RetrievalPlugin, and "Plugin"
+  //! the plugin as value of [Format].RetrievalPlugin, and "Plugin1"
   //! resource should define name of plugin library to be loaded as
-  //! value of [GUID].Location. Plugin library should provide
+  //! value of [GUID].Location. Plugin1 library should provide
   //! method PLUGINFACTORY returning instance of the reader for the
   //! same GUID (see Plugin_Macro.hxx).
   //!
@@ -162,9 +162,9 @@ public:
   //!
   //! Default implementation uses plugin mechanism to load driver dynamically.
   //! For this to work, application resources should define GUID of
-  //! the plugin as value of [Format].StoragePlugin, and "Plugin"
+  //! the plugin as value of [Format].StoragePlugin, and "Plugin1"
   //! resource should define name of plugin library to be loaded as
-  //! value of [GUID].Location. Plugin library should provide
+  //! value of [GUID].Location. Plugin1 library should provide
   //! method PLUGINFACTORY returning instance of the reader for the
   //! same GUID (see Plugin_Macro.hxx).
   //!

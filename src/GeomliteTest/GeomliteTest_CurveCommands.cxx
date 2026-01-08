@@ -722,9 +722,9 @@ static Standard_Integer cinsertknot(DrawInterpreter&, Standard_Integer n, const 
     if (n == 4)
       mult = Draw1::Atoi(a[3]);
     if (!GBs.IsNull())
-      GBs->InsertKnot(knot, mult, Precision::PConfusion());
+      GBs->InsertKnot(knot, mult, Precision1::PConfusion());
     else
-      GBs2d->InsertKnot(knot, mult, Precision::PConfusion());
+      GBs2d->InsertKnot(knot, mult, Precision1::PConfusion());
   }
 
   else
@@ -742,9 +742,9 @@ static Standard_Integer cinsertknot(DrawInterpreter&, Standard_Integer n, const 
     }
 
     if (!GBs.IsNull())
-      GBs->InsertKnots(knots, mults, Precision::PConfusion());
+      GBs->InsertKnots(knots, mults, Precision1::PConfusion());
     else
-      GBs2d->InsertKnots(knots, mults, Precision::PConfusion());
+      GBs2d->InsertKnots(knots, mults, Precision1::PConfusion());
   }
 
   Draw1::Repaint();
@@ -1119,7 +1119,7 @@ static Standard_Integer segment(DrawInterpreter&, Standard_Integer n, const char
 
   Standard_Real f = Draw1::Atof(a[2]), l = Draw1::Atof(a[3]);
 
-  Standard_Real aTolerance = Precision::PConfusion();
+  Standard_Real aTolerance = Precision1::PConfusion();
   if (n == 5)
     aTolerance = Draw1::Atof(a[4]);
 
@@ -1381,7 +1381,7 @@ static Standard_Integer localprop(DrawInterpreter& di, Standard_Integer argc, co
     C3d = DrawTrSurf1::GetCurve(argv[1]);
     if (C3d.IsNull())
       return 1;
-    GeomLProp_CLProps Prop(C3d, 2, Precision::Confusion());
+    GeomLProp_CLProps Prop(C3d, 2, Precision1::Confusion());
     Prop.SetParameter(U);
     Handle(Draw_Marker3D) drp = new Draw_Marker3D(Prop.Value(), Draw_Plus, Draw_vert);
     dout << drp;
@@ -1390,7 +1390,7 @@ static Standard_Integer localprop(DrawInterpreter& di, Standard_Integer argc, co
       Standard_Real K = Prop.Curvature();
       di << " Curvature : " << K << "\n";
 
-      if (Abs(K) > Precision::Confusion())
+      if (Abs(K) > Precision1::Confusion())
       {
         Standard_Real R = 1 / Abs(K);
         Point3d        Center;
@@ -1413,7 +1413,7 @@ static Standard_Integer localprop(DrawInterpreter& di, Standard_Integer argc, co
   }
   else
   {
-    Geom2dLProp_CLProps2d Prop(C2d, 2, Precision::Confusion());
+    Geom2dLProp_CLProps2d Prop(C2d, 2, Precision1::Confusion());
     Prop.SetParameter(U);
     Handle(Draw_Marker2D) drp = new Draw_Marker2D(Prop.Value(), Draw_Plus, Draw_vert);
     dout << drp;
@@ -1424,7 +1424,7 @@ static Standard_Integer localprop(DrawInterpreter& di, Standard_Integer argc, co
 
       di << " Curvature : " << K << "\n";
 
-      if (Abs(K) > Precision::Confusion())
+      if (Abs(K) > Precision1::Confusion())
       {
         Standard_Real R = 1 / Abs(K);
         Prop.CentreOfCurvature(Center);
@@ -1460,7 +1460,7 @@ static Standard_Integer rawcont(DrawInterpreter& di, Standard_Integer n, const c
   Point3d a_point1, a_point2;
   GC1->D0(param1, a_point1);
   GC2->D0(param2, a_point2);
-  if (a_point2.SquareDistance(a_point1) < Precision::Confusion())
+  if (a_point2.SquareDistance(a_point1) < Precision1::Confusion())
   {
     GeomAbs_Shape cont = GeomLProp1::Continuity(GC1,
                                                GC2,
@@ -1468,8 +1468,8 @@ static Standard_Integer rawcont(DrawInterpreter& di, Standard_Integer n, const c
                                                param2,
                                                Standard_True,
                                                Standard_True,
-                                               Precision::Confusion(),
-                                               Precision::Angular());
+                                               Precision1::Confusion(),
+                                               Precision1::Angular());
     switch (cont)
     {
       case GeomAbs_C0:
@@ -1862,7 +1862,7 @@ static Standard_Integer splitc1(DrawInterpreter& di, Standard_Integer n, const c
   Standard_Real f = ACurve->FirstParameter();
   Standard_Real l = ACurve->LastParameter();
 
-  if (Precision::IsInfinite(f) || Precision::IsInfinite(l))
+  if (Precision1::IsInfinite(f) || Precision1::IsInfinite(l))
   {
     di << " Error: Infinite curves\n";
     return 1;
@@ -1919,7 +1919,7 @@ static Standard_Integer splitc12d(DrawInterpreter& di, Standard_Integer n, const
   Standard_Real f = ACurve->FirstParameter();
   Standard_Real l = ACurve->LastParameter();
 
-  if (Precision::IsInfinite(f) || Precision::IsInfinite(l))
+  if (Precision1::IsInfinite(f) || Precision1::IsInfinite(l))
   {
     di << " Error: Infinite curves\n";
     return 1;
@@ -1987,7 +1987,7 @@ static Standard_Integer length(DrawInterpreter& di, Standard_Integer n, const ch
     return 1;
   Handle(GeomCurve3d)   GC   = DrawTrSurf1::GetCurve(a[1]);
   Handle(GeomCurve2d) GC2d = DrawTrSurf1::GetCurve2d(a[1]);
-  Standard_Real        Tol  = Precision::Confusion(), L;
+  Standard_Real        Tol  = Precision1::Confusion(), L;
   if (n == 3)
     Tol = Draw1::Atof(a[2]);
 

@@ -42,7 +42,7 @@ public:
           const Handle(SelectMgr_SensitiveEntity)& aSens = aSelEntIter.Value();
           if (!myMapEntityColors.IsBound(aSens->BaseSensitive()))
           {
-            Quantity_Color aColor;
+            Color1 aColor;
             randomPastelColor(aColor);
             myMapEntityColors.Bind(aSens->BaseSensitive(), aColor);
           }
@@ -57,18 +57,18 @@ public:
   {
     if (thePicked < 1 || thePicked > myMainSel->NbPicked())
     {
-      myImage->SetPixelColor(theCol, theRow, Quantity_Color(Quantity_NOC_BLACK));
+      myImage->SetPixelColor(theCol, theRow, Color1(Quantity_NOC_BLACK));
       return;
     }
 
     const Handle(Select3D_SensitiveEntity)& aPickedEntity = myMainSel->PickedEntity(thePicked);
-    Quantity_Color                          aColor(Quantity_NOC_BLACK);
+    Color1                          aColor(Quantity_NOC_BLACK);
     myMapEntityColors.Find(aPickedEntity, aColor);
     myImage->SetPixelColor(theCol, theRow, aColor);
   }
 
 protected:
-  NCollection_DataMap<Handle(Select3D_SensitiveEntity), Quantity_Color> myMapEntityColors;
+  NCollection_DataMap<Handle(Select3D_SensitiveEntity), Color1> myMapEntityColors;
 };
 
 //! Help class for filling pixel with random color.
@@ -96,7 +96,7 @@ public:
           const Handle(SelectMgr_SensitiveEntity)& aSens = aSelEntIter.Value();
           if (!myMapEntityColors.IsBound(aSens->BaseSensitive()->DynamicType()))
           {
-            Quantity_Color aColor;
+            Color1 aColor;
             randomPastelColor(aColor);
             myMapEntityColors.Bind(aSens->BaseSensitive()->DynamicType(), aColor);
           }
@@ -111,18 +111,18 @@ public:
   {
     if (thePicked < 1 || thePicked > myMainSel->NbPicked())
     {
-      myImage->SetPixelColor(theCol, theRow, Quantity_Color(Quantity_NOC_BLACK));
+      myImage->SetPixelColor(theCol, theRow, Color1(Quantity_NOC_BLACK));
       return;
     }
 
     const Handle(Select3D_SensitiveEntity)& aPickedEntity = myMainSel->PickedEntity(thePicked);
-    Quantity_Color                          aColor(Quantity_NOC_BLACK);
+    Color1                          aColor(Quantity_NOC_BLACK);
     myMapEntityColors.Find(aPickedEntity->DynamicType(), aColor);
     myImage->SetPixelColor(theCol, theRow, aColor);
   }
 
 protected:
-  NCollection_DataMap<Handle(TypeInfo), Quantity_Color> myMapEntityColors;
+  NCollection_DataMap<Handle(TypeInfo), Color1> myMapEntityColors;
 };
 
 //! Help class for filling pixel with normalized depth of ray.
@@ -261,7 +261,7 @@ public:
           const Handle(SelectMgr_EntityOwner)&     anOwner = aSens->BaseSensitive()->OwnerId();
           if (!myMapOwnerColors.IsBound(anOwner))
           {
-            Quantity_Color aColor;
+            Color1 aColor;
             randomPastelColor(aColor);
             myMapOwnerColors.Bind(anOwner, aColor);
           }
@@ -276,18 +276,18 @@ public:
   {
     if (thePicked < 1 || thePicked > myMainSel->NbPicked())
     {
-      myImage->SetPixelColor(theCol, theRow, Quantity_Color(Quantity_NOC_BLACK));
+      myImage->SetPixelColor(theCol, theRow, Color1(Quantity_NOC_BLACK));
       return;
     }
 
     const Handle(SelectMgr_EntityOwner)& aPickedOwner = myMainSel->Picked(thePicked);
-    Quantity_Color                       aColor(Quantity_NOC_BLACK);
+    Color1                       aColor(Quantity_NOC_BLACK);
     myMapOwnerColors.Find(aPickedOwner, aColor);
     myImage->SetPixelColor(theCol, theRow, aColor);
   }
 
 protected:
-  NCollection_DataMap<Handle(SelectMgr_EntityOwner), Quantity_Color> myMapOwnerColors;
+  NCollection_DataMap<Handle(SelectMgr_EntityOwner), Color1> myMapOwnerColors;
 };
 
 //! Help class for filling pixel with random color for each selection mode.
@@ -321,7 +321,7 @@ public:
   {
     if (thePicked < 1 || thePicked > myMainSel->NbPicked())
     {
-      myImage->SetPixelColor(theCol, theRow, Quantity_Color(Quantity_NOC_BLACK));
+      myImage->SetPixelColor(theCol, theRow, Color1(Quantity_NOC_BLACK));
       return;
     }
 
@@ -348,23 +348,23 @@ public:
     }
     if (aSelectionMode == -1)
     {
-      myImage->SetPixelColor(theCol, theRow, Quantity_Color(Quantity_NOC_BLACK));
+      myImage->SetPixelColor(theCol, theRow, Color1(Quantity_NOC_BLACK));
       return;
     }
 
     if (!myMapSelectionModeColors.IsBound(aSelectionMode))
     {
-      Quantity_Color aColor;
+      Color1 aColor;
       randomPastelColor(aColor);
       myMapSelectionModeColors.Bind(aSelectionMode, aColor);
     }
 
-    const Quantity_Color& aColor = myMapSelectionModeColors.Find(aSelectionMode);
+    const Color1& aColor = myMapSelectionModeColors.Find(aSelectionMode);
     myImage->SetPixelColor(theCol, theRow, aColor);
   }
 
 protected:
-  NCollection_DataMap<Standard_Integer, Quantity_Color> myMapSelectionModeColors;
+  NCollection_DataMap<Standard_Integer, Color1> myMapSelectionModeColors;
 };
 
 //! Help class for filling pixel with color of detected shape.
@@ -380,7 +380,7 @@ public:
                     const Standard_Integer theRow,
                     const Standard_Integer thePicked) Standard_OVERRIDE
   {
-    Quantity_Color aColor(Quantity_NOC_BLACK);
+    Color1 aColor(Quantity_NOC_BLACK);
     if (thePicked > 0 && thePicked <= myMainSel->NbPicked())
     {
       const Handle(SelectMgr_SelectableObject)& aSelectable =

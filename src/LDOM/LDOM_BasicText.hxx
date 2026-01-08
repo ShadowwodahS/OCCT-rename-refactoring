@@ -40,9 +40,9 @@ public:
 
   //    Nullify
 
-  const LDOMBasicString& GetData() const { return myValue; }
+  const LDOMBasicString1& GetData() const { return myValue; }
 
-  void SetData(const LDOMBasicString& aValue, const Handle(LDOM_MemManager)& aDoc)
+  void SetData(const LDOMBasicString1& aValue, const Handle(LDOM_MemManager)& aDoc)
   {
     myValue = LDOMString(aValue, aDoc);
   }
@@ -54,7 +54,7 @@ private:
   friend class LDOM_Document;
   friend class LDOM_BasicElement;
 
-  LDOM_BasicText(const LDOM_Node::NodeType aType, const LDOMBasicString& aData)
+  LDOM_BasicText(const LDOM_Node::NodeType aType, const LDOMBasicString1& aData)
       : BasicNode(aType),
         myValue(aData)
   {
@@ -65,14 +65,14 @@ private:
   LDOM_BasicText(const LDOM_CharacterData& aText);
 
   static LDOM_BasicText& Create(const LDOM_Node::NodeType      aType,
-                                const LDOMBasicString&         aData,
+                                const LDOMBasicString1&         aData,
                                 const Handle(LDOM_MemManager)& aDoc);
   // Creation
 
 private:
   // ---------- PRIVATE FIELDS ----------
 
-  LDOMBasicString myValue;
+  LDOMBasicString1 myValue;
 };
 
 #endif

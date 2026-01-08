@@ -398,7 +398,7 @@ void MessageSystem::TDate(const Standard_CString text,
   {
     //  completion
     OSD_Process   pourdate;
-    Quantity_Date ladate = pourdate.SystemDate();
+    Date2 ladate = pourdate.SystemDate();
     if (yy == 0)
     {
       y2 = ladate.Year();

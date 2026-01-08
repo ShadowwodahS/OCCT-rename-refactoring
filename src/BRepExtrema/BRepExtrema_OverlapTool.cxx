@@ -105,9 +105,9 @@ public:
     EdgeNormals[1] = BVH_Vec3d::Cross(Edges[1], Normal);
     EdgeNormals[2] = BVH_Vec3d::Cross(Edges[2], Normal);
 
-    EdgeNormals[0] *= 1.0 / Max(EdgeNormals[0].Modulus(), Precision::Confusion());
-    EdgeNormals[1] *= 1.0 / Max(EdgeNormals[1].Modulus(), Precision::Confusion());
-    EdgeNormals[2] *= 1.0 / Max(EdgeNormals[2].Modulus(), Precision::Confusion());
+    EdgeNormals[0] *= 1.0 / Max(EdgeNormals[0].Modulus(), Precision1::Confusion());
+    EdgeNormals[1] *= 1.0 / Max(EdgeNormals[1].Modulus(), Precision1::Confusion());
+    EdgeNormals[2] *= 1.0 / Max(EdgeNormals[2].Modulus(), Precision1::Confusion());
 
     const BVH_Vec3d aDirect01 = EdgeNormals[0] - EdgeNormals[1];
     const BVH_Vec3d aDirect02 = EdgeNormals[0] + EdgeNormals[2];
@@ -121,7 +121,7 @@ public:
       theVertex2 + aDirect12 * (theDeflect / aDirect12.Dot(EdgeNormals[2]));
 
     const BVH_Vec3d aNormOffset =
-      Normal * (theDeflect / Max(Normal.Modulus(), Precision::Confusion()));
+      Normal * (theDeflect / Max(Normal.Modulus(), Precision1::Confusion()));
 
     for (Standard_Integer aVertIdx = 0; aVertIdx < 3; ++aVertIdx)
     {
@@ -265,9 +265,9 @@ Standard_Boolean trianglesIntersected(const BVH_Vec3d& theTrng0Vert0,
     return Standard_False; // 1st triangle lies on one side of the 2nd triangle
   }
 
-  if (fabs(aDistTrng0Vert0) > Precision::Confusion()
-      || fabs(aDistTrng0Vert1) > Precision::Confusion()
-      || fabs(aDistTrng0Vert2) > Precision::Confusion()) // general 3D case
+  if (fabs(aDistTrng0Vert0) > Precision1::Confusion()
+      || fabs(aDistTrng0Vert1) > Precision1::Confusion()
+      || fabs(aDistTrng0Vert2) > Precision1::Confusion()) // general 3D case
   {
     const BVH_Vec3d aTrng0Normal =
       BVH_Vec3d::Cross(theTrng0Vert1 - theTrng0Vert0, theTrng0Vert2 - theTrng0Vert0).Normalized();
@@ -482,12 +482,12 @@ inline Standard_Boolean overlapBoxes(const BVH_Vec3d&    theBoxMin1,
 
 //=================================================================================================
 
-TColStd_PackedMapOfInteger& getSetOfFaces(BRepExtrema_MapOfIntegerPackedMapOfInteger& theFaces,
+PackedIntegerMap& getSetOfFaces(BRepExtrema_MapOfIntegerPackedMapOfInteger& theFaces,
                                           const Standard_Integer                      theFaceIdx)
 {
   if (!theFaces.IsBound(theFaceIdx))
   {
-    theFaces.Bind(theFaceIdx, TColStd_PackedMapOfInteger());
+    theFaces.Bind(theFaceIdx, PackedIntegerMap());
   }
 
   return theFaces.ChangeFind(theFaceIdx);

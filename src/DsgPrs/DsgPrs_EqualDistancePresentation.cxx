@@ -68,10 +68,10 @@ void EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   Dir3d        LineDir, OrtDir;
   Vector3d        LineVec, OrtVec;
 
-  if (Dist > Precision::Confusion())
+  if (Dist > Precision1::Confusion())
   {
     SmallDist = Dist * 0.05; // 1/20.0 part
-    if (SmallDist <= Precision::Confusion())
+    if (SmallDist <= Precision1::Confusion())
       SmallDist = Dist;
     LineDir = gce_MakeDir(Middle12, Middle34);
     OrtDir  = Plane1->Pln().Axis().Direction() ^ LineDir;
@@ -84,7 +84,7 @@ void EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   {
     Vector3d Vec1(Middle, Point1);
 
-    if (Vec1.SquareMagnitude() > Precision::Confusion() * Precision::Confusion())
+    if (Vec1.SquareMagnitude() > Precision1::Confusion() * Precision1::Confusion())
     {
       Standard_Real Angle  = Vector3d(Middle, Point1).Angle(Vector3d(Middle, Point3));
       Point3d        MidPnt = Point1.Rotated(Plane1->Pln().Axis(), Angle * 0.5);
@@ -93,7 +93,7 @@ void EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
 
       Standard_Real Distance = Point1.Distance(Point2);
       SmallDist              = Distance * 0.05; // 1/20.0
-      if (SmallDist <= Precision::Confusion())
+      if (SmallDist <= Precision1::Confusion())
         SmallDist = Distance;
 
       OrtVec  = Vector3d(OrtDir) * SmallDist;
@@ -170,7 +170,7 @@ void EqualDistancePresentation::AddIntervalBetweenTwoArcs(
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
   Standard_Real aPar11, aPar12, aPar21, aPar22;
-  if (aCirc1.Radius() > Precision::Confusion())
+  if (aCirc1.Radius() > Precision1::Confusion())
   {
     aPar11 = ElCLib1::Parameter(aCirc1, aPoint1);
     aPar12 = ElCLib1::Parameter(aCirc1, aPoint2);
@@ -180,7 +180,7 @@ void EqualDistancePresentation::AddIntervalBetweenTwoArcs(
     aPar11 = M_PI;
     aPar12 = M_PI;
   }
-  if (aCirc2.Radius() > Precision::Confusion())
+  if (aCirc2.Radius() > Precision1::Confusion())
   {
     aPar21 = ElCLib1::Parameter(aCirc2, aPoint3);
     aPar22 = ElCLib1::Parameter(aCirc2, aPoint4);
@@ -200,7 +200,7 @@ void EqualDistancePresentation::AddIntervalBetweenTwoArcs(
   Standard_Real    aDelta, aCurPar;
   if (aPar12 < aPar11)
     aPar12 += 2. * M_PI;
-  if (Abs(aPar12 - aPar11) > Precision::Confusion())
+  if (Abs(aPar12 - aPar11) > Precision1::Confusion())
   {
     aNodeNb = Standard_Integer(Max(Abs(aPar12 - aPar11) * 50. / M_PI + 0.5, 4.));
     aDelta  = (aPar12 - aPar11) / aNodeNb;
@@ -214,7 +214,7 @@ void EqualDistancePresentation::AddIntervalBetweenTwoArcs(
   }
   if (aPar22 < aPar21)
     aPar22 += 2. * M_PI;
-  if (Abs(aPar22 - aPar21) > Precision::Confusion())
+  if (Abs(aPar22 - aPar21) > Precision1::Confusion())
   {
     aNodeNb = Standard_Integer(Max(Abs(aPar22 - aPar21) * 50. / M_PI + 0.5, 4.));
     aDelta  = (aPar22 - aPar21) / aNodeNb;
@@ -229,7 +229,7 @@ void EqualDistancePresentation::AddIntervalBetweenTwoArcs(
 
   // get the direction of interval
   Dir3d DirOfArrow;
-  if (aPoint4.Distance(aPoint2) > Precision::Confusion())
+  if (aPoint4.Distance(aPoint2) > Precision1::Confusion())
   {
     DirOfArrow.SetXYZ(aPoint4.XYZ() - aPoint2.XYZ());
   }
@@ -237,7 +237,7 @@ void EqualDistancePresentation::AddIntervalBetweenTwoArcs(
   {
     // Let's take the radius direction
     Point3d aCenter = aCirc1.Location();
-    if (aPoint4.Distance(aCenter) < Precision::Confusion())
+    if (aPoint4.Distance(aCenter) < Precision1::Confusion())
       return;
     DirOfArrow.SetXYZ(aPoint4.XYZ() - aCenter.XYZ());
   }

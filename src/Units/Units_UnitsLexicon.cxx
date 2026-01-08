@@ -42,5 +42,5 @@ void Units_UnitsLexicon::Creates(const Standard_Boolean amode)
   Units_Lexicon::Creates();
 
   if (amode)
-    unitsdictionary = Units::DictionaryOfUnits(amode);
+    unitsdictionary = Units2::DictionaryOfUnits(amode);
 }

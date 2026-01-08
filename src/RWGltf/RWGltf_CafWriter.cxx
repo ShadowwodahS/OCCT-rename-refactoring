@@ -1076,7 +1076,7 @@ bool RWGltf_CafWriter::writeBinData(const Handle(AppDocument)& theDocument,
 
     std::vector<std::shared_ptr<draco::EncoderBuffer>> anEncoderBuffers(aMeshes.size());
     DracoEncodingFunctor aFunctor(aScope.Next(), aDracoEncoder, aMeshes, anEncoderBuffers);
-    OSD_Parallel::For(0, int(aMeshes.size()), aFunctor, !myToParallel);
+    Parallel1::For(0, int(aMeshes.size()), aFunctor, !myToParallel);
 
     int aNbSkippedBuffers = 0;
     for (size_t aBuffInd = 0; aBuffInd != anEncoderBuffers.size(); ++aBuffInd)
@@ -2304,7 +2304,7 @@ void RWGltf_CafWriter::writeNodes(const Handle(AppDocument)&         theDocument
                                  || Abs(aQuaternion.Z()) > gp1::Resolution()
                                  || Abs(aQuaternion.W() - 1.0) > gp1::Resolution();
         const Standard_Real aScaleFactor   = aTrsf.ScaleFactor();
-        const bool          hasScale       = Abs(aScaleFactor - 1.0) > Precision::Confusion();
+        const bool          hasScale       = Abs(aScaleFactor - 1.0) > Precision1::Confusion();
         const Coords3d&       aTranslPart    = aTrsf.TranslationPart();
         const bool          hasTranslation = aTranslPart.SquareModulus() > gp1::Resolution();
 

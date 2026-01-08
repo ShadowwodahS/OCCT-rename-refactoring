@@ -334,7 +334,7 @@ TopoShape MakeShape(const Handle(GeomSurface)& S)
   GeomAbs_Shape c = S->Continuity();
   if (c >= GeomAbs_C2)
   {
-    return FaceMaker(S, Precision::Confusion());
+    return FaceMaker(S, Precision1::Confusion());
   }
   return BRepBuilderAPI_MakeShell(S);
 }

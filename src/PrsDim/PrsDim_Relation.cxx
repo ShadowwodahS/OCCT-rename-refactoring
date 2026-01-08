@@ -90,7 +90,7 @@ void PrsDim_Relation::ComputeProjEdgePresentation(const Handle(Prs3d_Presentatio
   Handle(GeomCurve3d) curve;
   Standard_Boolean   isInfinite;
   curve      = BRepInspector::Curve(anEdge, loc, pf, pl);
-  isInfinite = (Precision::IsInfinite(pf) || Precision::IsInfinite(pl));
+  isInfinite = (Precision1::IsInfinite(pf) || Precision1::IsInfinite(pl));
 
   TopoEdge E;
 
@@ -199,7 +199,7 @@ void PrsDim_Relation::ComputeProjVertexPresentation(const Handle(Prs3d_Presentat
   }
 
   // Si les points ne sont pas confondus...
-  if (!ProjPoint.IsEqual(BRepInspector::Pnt(aVertex), Precision::Confusion()))
+  if (!ProjPoint.IsEqual(BRepInspector::Pnt(aVertex), Precision1::Confusion()))
   {
     Handle(Graphic3d_Group)           aGroup         = aPrs->NewGroup();
     Handle(Graphic3d_ArrayOfSegments) anArrayOfLines = new Graphic3d_ArrayOfSegments(2);
@@ -212,7 +212,7 @@ void PrsDim_Relation::ComputeProjVertexPresentation(const Handle(Prs3d_Presentat
 
 //=================================================================================================
 
-void PrsDim_Relation::SetColor(const Quantity_Color& aCol)
+void PrsDim_Relation::SetColor(const Color1& aCol)
 {
   if (hasOwnColor && myDrawer->Color() == aCol)
     return;
@@ -253,7 +253,7 @@ void PrsDim_Relation::UnsetColor()
     return;
   hasOwnColor                        = Standard_False;
   const Handle(Prs3d_LineAspect)& LA = myDrawer->LineAspect();
-  Quantity_Color                  CC = Quantity_NOC_YELLOW;
+  Color1                  CC = Quantity_NOC_YELLOW;
   if (myDrawer->HasLink())
   {
     GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Line, CC);

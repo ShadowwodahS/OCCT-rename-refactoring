@@ -19,13 +19,13 @@
 // Create :
 // -----------
 
-Resource_LexicalCompare::Resource_LexicalCompare() {}
+LexicalCompare::LexicalCompare() {}
 
 // -----------
 // IsLower :
 // -----------
 
-Standard_Boolean Resource_LexicalCompare::IsLower(const AsciiString1& Left,
+Standard_Boolean LexicalCompare::IsLower(const AsciiString1& Left,
                                                   const AsciiString1& Right) const
 {
   return Left.IsLess(Right);

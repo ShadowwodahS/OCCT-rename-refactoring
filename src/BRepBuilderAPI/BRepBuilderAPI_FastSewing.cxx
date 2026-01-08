@@ -193,8 +193,8 @@ Standard_Boolean BRepBuilderAPI_FastSewing::Add(const TopoShape& theShape)
       Standard_Real aUf = 0.0, aUl = 0.0, aVf = 0.0, aVl = 0.0;
       aSurf->Bounds(aUf, aUl, aVf, aVl);
 
-      if (Precision::IsInfinite(aUf) || Precision::IsInfinite(aUl) || Precision::IsInfinite(aVf)
-          || Precision::IsInfinite(aVl))
+      if (Precision1::IsInfinite(aUf) || Precision1::IsInfinite(aUl) || Precision1::IsInfinite(aVf)
+          || Precision1::IsInfinite(aVl))
       {
         SetStatus(FS_InfiniteSurface);
         continue;
@@ -230,8 +230,8 @@ Standard_Boolean BRepBuilderAPI_FastSewing::Add(const Handle(GeomSurface)& theSu
   Standard_Real aUf = 0.0, aUl = 0.0, aVf = 0.0, aVl = 0.0;
   theSurface->Bounds(aUf, aUl, aVf, aVl);
 
-  if (Precision::IsInfinite(aUf) || Precision::IsInfinite(aUl) || Precision::IsInfinite(aVf)
-      || Precision::IsInfinite(aVl))
+  if (Precision1::IsInfinite(aUf) || Precision1::IsInfinite(aUl) || Precision1::IsInfinite(aVf)
+      || Precision1::IsInfinite(aVl))
   {
     SetStatus(FS_InfiniteSurface);
     return Standard_False;

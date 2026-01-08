@@ -195,7 +195,7 @@ public:
   //! Note that in this schema, the third case is valid if edges of the
   //! wire W are declared internal to the face. As a result, these edges
   //! are no longer bounds of the face.
-  //! A default tolerance (Precision::Confusion()) is given to the face,
+  //! A default tolerance (Precision1::Confusion()) is given to the face,
   //! this tolerance may be increased during construction of the face
   //! using various algorithms.
   //! Rules applied to the arguments

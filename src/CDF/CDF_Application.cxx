@@ -48,7 +48,7 @@ CDF_Application::CDF_Application()
 
 Handle(CDF_Application) CDF_Application::Load(const Standard_GUID& aGUID)
 {
-  return Handle(CDF_Application)::DownCast(Plugin::Load(aGUID));
+  return Handle(CDF_Application)::DownCast(Plugin1::Load(aGUID));
 }
 
 //=================================================================================================
@@ -469,7 +469,7 @@ Handle(PCDM_Reader) CDF_Application::ReaderFromFormat(const UtfString& theFormat
   try
   {
     OCC_CATCH_SIGNALS
-    aReader = Handle(PCDM_RetrievalDriver)::DownCast(Plugin::Load(aPluginId));
+    aReader = Handle(PCDM_RetrievalDriver)::DownCast(Plugin1::Load(aPluginId));
   }
   catch (ExceptionBase const& anException)
   {
@@ -524,7 +524,7 @@ Handle(PCDM_StorageDriver) CDF_Application::WriterFromFormat(
   try
   {
     OCC_CATCH_SIGNALS
-    aDriver = Handle(PCDM_StorageDriver)::DownCast(Plugin::Load(aPluginId));
+    aDriver = Handle(PCDM_StorageDriver)::DownCast(Plugin1::Load(aPluginId));
   }
   catch (ExceptionBase const& anException)
   {

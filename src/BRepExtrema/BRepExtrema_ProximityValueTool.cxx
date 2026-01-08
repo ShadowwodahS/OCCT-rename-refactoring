@@ -155,7 +155,7 @@ Standard_Boolean BRepExtrema_ProximityValueTool::getInfoForRefinement(
     return Standard_False;
   }
 
-  if (theStep < Precision::Confusion())
+  if (theStep < Precision1::Confusion())
   {
     return Standard_False;
   }
@@ -242,7 +242,7 @@ Standard_Boolean BRepExtrema_ProximityValueTool::getEdgeAdditionalVertices(
 {
   BRepAdaptor_Curve aBAC(theEdge);
 
-  if (!aBAC.Is3DCurve() || theStep < Precision::Confusion())
+  if (!aBAC.Is3DCurve() || theStep < Precision1::Confusion())
   {
     return Standard_False;
   }
@@ -292,7 +292,7 @@ void BRepExtrema_ProximityValueTool::doRecurTrgSplit(
   Coords3d        aTrgSide2 = theTrg[2].Coord() - theTrg[0].Coord();
   Standard_Real aTrgArea  = 0.5 * aTrgSide1.CrossMagnitude(aTrgSide2);
 
-  if (aTrgArea - theStep < Precision::SquareConfusion())
+  if (aTrgArea - theStep < Precision1::SquareConfusion())
     return;
 
   Standard_Real    aD[3]{theTrg[0].Distance(theTrg[1]),
@@ -413,7 +413,7 @@ Standard_Boolean BRepExtrema_ProximityValueTool::getFaceAdditionalVertices(
   BVH_Array3d&                        theAddVertices,
   NCollection_Vector<ProxPnt_Status>& theAddStatuses)
 {
-  constexpr Standard_Real aTol = Precision::Confusion();
+  constexpr Standard_Real aTol = Precision1::Confusion();
 
   TopLoc_Location            aLocation;
   Handle(MeshTriangulation) aTr = BRepInspector::Triangulation(theFace, aLocation);

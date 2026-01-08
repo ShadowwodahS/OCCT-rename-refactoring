@@ -316,7 +316,7 @@ static Standard_Integer gplate(DrawInterpreter& di, Standard_Integer n, const ch
 
   Henri.Surface()->Bounds(Umin, Umax, Vmin, Vmax);
 
-  FaceMaker MF(Surf, Umin, Umax, Vmin, Vmax, Precision::Confusion());
+  FaceMaker MF(Surf, Umin, Umax, Vmin, Vmax, Precision1::Confusion());
 
   DBRep1::Set(a[1], MF.Face());
   return 0;
@@ -462,7 +462,7 @@ static Standard_Integer filling(DrawInterpreter& di, Standard_Integer n, const c
 {
 #ifdef OCCT_DEBUG
   // Chronometrage
-  OSD_Chronometer Chrono;
+  Chronometer Chrono;
   Chrono.Reset();
   Chrono.Start();
 #endif

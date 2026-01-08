@@ -224,12 +224,12 @@ void TopoDSToStep_MakeStepFace::Init(const TopoFace&                    aFace,
           Handle(GeomCurve3d) BasisCurve = new GeomCircle(Ax2, TS->MinorRadius());
           // convert basis curve to bspline in order to avoid self-intersecting
           // surface of revolution (necessary e.g. for CATIA)
-          if (VL - VF - 2 * M_PI < -Precision::PConfusion())
+          if (VL - VF - 2 * M_PI < -Precision1::PConfusion())
             BasisCurve =
               ShapeAlgo1::AlgoContainer()->ConvertCurveToBSpline(BasisCurve,
                                                                 VF,
                                                                 VL,
-                                                                Precision::Approximation(),
+                                                                Precision1::Approximation(),
                                                                 GeomAbs_C1,
                                                                 100,
                                                                 9);

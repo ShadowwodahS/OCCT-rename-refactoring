@@ -151,7 +151,7 @@ static Standard_Integer SetSameDistribution(Handle(BSplineCurve3d)& C1,
     BSplCLib1::Reparametrize(K21, K22, K1);
     C1->SetKnots(K1);
   }
-  else if (Abs(K12 - K11) > Precision::PConfusion())
+  else if (Abs(K12 - K11) > Precision1::PConfusion())
   {
     BSplCLib1::Reparametrize(K11, K12, K2);
     C2->SetKnots(K2);
@@ -166,7 +166,7 @@ static Standard_Integer SetSameDistribution(Handle(BSplineCurve3d)& C1,
                                    &M2,
                                    NP,
                                    NK,
-                                   Precision::PConfusion(),
+                                   Precision1::PConfusion(),
                                    Standard_False))
   {
     TColgp_Array1OfPnt      NewP(1, NP);
@@ -185,7 +185,7 @@ static Standard_Integer SetSameDistribution(Handle(BSplineCurve3d)& C1,
                           &NewW,
                           NewK,
                           NewM,
-                          Precision::PConfusion(),
+                          Precision1::PConfusion(),
                           Standard_False);
     if (C1->IsRational())
     {
@@ -207,7 +207,7 @@ static Standard_Integer SetSameDistribution(Handle(BSplineCurve3d)& C1,
                           &NewW,
                           NewK,
                           NewM,
-                          Precision::PConfusion(),
+                          Precision1::PConfusion(),
                           Standard_False);
     if (C2->IsRational())
     {
@@ -271,7 +271,7 @@ void GeomFill_BSplineCurves::Init(const Handle(BSplineCurve3d)& C1,
   // On ordonne les courbes
   Handle(BSplineCurve3d) CC1, CC2, CC3, CC4;
 
-  constexpr Standard_Real Tol = Precision::Confusion();
+  constexpr Standard_Real Tol = Precision1::Confusion();
 #ifndef No_Exception
   Standard_Boolean IsOK =
 #endif
@@ -428,7 +428,7 @@ void GeomFill_BSplineCurves::Init(const Handle(BSplineCurve3d)& C1,
   TColgp_Array1OfPnt        Poles(1, 2);
   TColStd_Array1OfReal      Knots(1, 2);
   TColStd_Array1OfInteger   Mults(1, 2);
-  Standard_Real             Tol = Precision::Confusion();
+  Standard_Real             Tol = Precision1::Confusion();
   Tol                           = Tol * Tol;
   if (C1->StartPoint().SquareDistance(C2->StartPoint()) > Tol
       && C1->StartPoint().SquareDistance(C2->EndPoint()) > Tol)
@@ -541,7 +541,7 @@ void GeomFill_BSplineCurves::Init(const Handle(BSplineCurve3d)& C1,
   }
   else
   {
-    constexpr Standard_Real Eps  = Precision::Confusion();
+    constexpr Standard_Real Eps  = Precision1::Confusion();
     Standard_Boolean        IsOK = Standard_False;
     if (CC1->StartPoint().IsEqual(CC2->StartPoint(), Eps))
     {

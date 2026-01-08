@@ -75,8 +75,8 @@ extern Standard_Boolean ChFi3d_GetcontextFORCEFILLING();
 
 extern Standard_Real t_t2cornerinit, t_perf2cornerbyinter, t_chfikpartcompdata, t_cheminement,
   t_remplissage, t_t2cornerDS;
-extern void ChFi3d_InitChron(OSD_Chronometer& ch);
-extern void ChFi3d_ResultChron(OSD_Chronometer& ch, Standard_Real& time);
+extern void ChFi3d_InitChron(Chronometer& ch);
+extern void ChFi3d_ResultChron(Chronometer& ch, Standard_Real& time);
 #endif
 
 //=======================================================================
@@ -135,7 +135,7 @@ static void RemoveSD(Handle(ChFiDS_Stripe)& Stripe,
 void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
 {
 #ifdef OCCT_DEBUG
-  OSD_Chronometer ch;
+  Chronometer ch;
   ChFi3d_InitChron(ch); // init perf initialisation
 #endif
 

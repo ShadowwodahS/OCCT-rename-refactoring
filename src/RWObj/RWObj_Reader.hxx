@@ -163,24 +163,24 @@ protected:
   //! Retrieve sub-mesh node position, added by addNode().
   virtual Point3d getNode(Standard_Integer theIndex) const = 0;
 
-  //! Callback function to be implemented in descendant.
+  //! Callback1 function to be implemented in descendant.
   //! Should create new node with specified coordinates in the target model, and return its ID as
   //! integer.
   virtual Standard_Integer addNode(const Point3d& thePnt) = 0;
 
-  //! Callback function to be implemented in descendant.
+  //! Callback1 function to be implemented in descendant.
   //! Should set normal coordinates for specified node.
   //! @param theIndex node ID as returned by addNode()
   //! @param theNorm  normal vector
   virtual void setNodeNormal(const Standard_Integer theIndex, const Graphic3d_Vec3& theNorm) = 0;
 
-  //! Callback function to be implemented in descendant.
+  //! Callback1 function to be implemented in descendant.
   //! Should set texture coordinates for specified node.
   //! @param theIndex node ID as returned by addNode()
   //! @param theUV    UV texture coordinates
   virtual void setNodeUV(const Standard_Integer theIndex, const Graphic3d_Vec2& theUV) = 0;
 
-  //! Callback function to be implemented in descendant.
+  //! Callback1 function to be implemented in descendant.
   //! Should create new element (triangle or quad if 4th index is != -1) built on specified nodes in
   //! the target model.
   virtual void addElement(Standard_Integer theN1,

@@ -73,10 +73,10 @@ void FaceIsoLiner::Perform(const Standard_Integer FI,
   Geom2dHatch_Hatcher Hatcher(Intersector, HatcherConfusion2d, HatcherConfusion3d, Standard_True);
 
   BRepTools1::UVBounds(TF, UMin, UMax, VMin, VMax);
-  Standard_Boolean InfiniteUMin = Precision::IsNegativeInfinite(UMin);
-  Standard_Boolean InfiniteUMax = Precision::IsPositiveInfinite(UMax);
-  Standard_Boolean InfiniteVMin = Precision::IsNegativeInfinite(VMin);
-  Standard_Boolean InfiniteVMax = Precision::IsPositiveInfinite(VMax);
+  Standard_Boolean InfiniteUMin = Precision1::IsNegativeInfinite(UMin);
+  Standard_Boolean InfiniteUMax = Precision1::IsPositiveInfinite(UMax);
+  Standard_Boolean InfiniteVMin = Precision1::IsNegativeInfinite(VMin);
+  Standard_Boolean InfiniteVMax = Precision1::IsPositiveInfinite(VMax);
 
   if (InfiniteUMin && InfiniteUMax)
   {
@@ -119,8 +119,8 @@ void FaceIsoLiner::Perform(const Standard_Integer FI,
     Standard_Integer           IndE;
     const TopoEdge&         newE = TopoDS::Edge(ExpEdges.Current());
     const Handle(GeomCurve2d) PC   = BRepInspector::CurveOnSurface(newE, TF, U1, U2);
-    if (Abs(PC->FirstParameter() - U1) <= Precision::PConfusion()
-        && Abs(PC->LastParameter() - U2) <= Precision::PConfusion())
+    if (Abs(PC->FirstParameter() - U1) <= Precision1::PConfusion()
+        && Abs(PC->LastParameter() - U2) <= Precision1::PConfusion())
     {
       IndE = Hatcher.AddElement(PC, newE.Orientation());
     }
@@ -145,8 +145,8 @@ void FaceIsoLiner::Perform(const Standard_Integer FI,
       Standard_Integer           IndE;
       const TopoEdge&         newE = TopoDS::Edge(itE.Value());
       const Handle(GeomCurve2d) PC   = BRepInspector::CurveOnSurface(newE, TF, U1, U2);
-      if (Abs(PC->FirstParameter() - U1) <= Precision::PConfusion()
-          && Abs(PC->LastParameter() - U2) <= Precision::PConfusion())
+      if (Abs(PC->FirstParameter() - U1) <= Precision1::PConfusion()
+          && Abs(PC->LastParameter() - U2) <= Precision1::PConfusion())
       {
         IndE = Hatcher.AddElement(PC, TopAbs_INTERNAL);
       }

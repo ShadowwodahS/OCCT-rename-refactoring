@@ -27,7 +27,7 @@ public:
   //! Returns CPP-style name of the type
   Standard_EXPORT virtual const AsciiString1 CPPName() const = 0;
 
-  //! Return True if type is defined in package Standard (False by default)
+  //! Return True if type is defined in package Standard1 (False by default)
   Standard_EXPORT virtual Standard_Boolean IsStandard() const;
 
   //! Return True if type is simple (not a class)

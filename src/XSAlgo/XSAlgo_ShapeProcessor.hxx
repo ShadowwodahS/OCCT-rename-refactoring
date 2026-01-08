@@ -81,7 +81,7 @@ public:
   //! Check quality of pcurve of the edge on the given face, and correct it if necessary.
   //! @param theEdge Edge to check.
   //! @param theFace Face on which the edge is located.
-  //! @param thePrecision Precision to use for checking.
+  //! @param thePrecision Precision1 to use for checking.
   //! @param theIsSeam Flag indicating whether the edge is a seam edge.
   //! @return True if the pcurve was corrected, false if it was dropped.
   Standard_EXPORT static Standard_Boolean CheckPCurve(const TopoEdge&     theEdge,

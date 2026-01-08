@@ -56,7 +56,7 @@ public:
 
   //! Display the plane representation in the chosen view.
   Standard_EXPORT virtual void Display(const Handle(ViewWindow)& theView,
-                                       const Quantity_Color&   theColor = Quantity_NOC_GRAY);
+                                       const Color1&   theColor = Quantity_NOC_GRAY);
 
   //! Erase the plane representation.
   Standard_EXPORT void Erase();

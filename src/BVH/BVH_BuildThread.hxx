@@ -60,7 +60,7 @@ protected:
   BVH_BuildQueue& myBuildQueue;
 
   //! Thread to execute work items.
-  OSD_Thread myWorkThread;
+  Thread myWorkThread;
 
 public:
   DEFINE_STANDARD_RTTIEXT(BVH_BuildThread, RefObject)

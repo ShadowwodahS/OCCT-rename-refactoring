@@ -83,7 +83,7 @@ void BooleanPaveFiller::UpdateEdgeTolerance(const Standard_Integer nE, const Sta
   ShapeBuilder().UpdateEdge(aE, theTol);
   Box2& aBoxE = aSIE.ChangeBox();
   BRepBndLib1::Add(aE, aBoxE);
-  aBoxE.SetGap(aBoxE.GetGap() + Precision::Confusion());
+  aBoxE.SetGap(aBoxE.GetGap() + Precision1::Confusion());
 
   // Update vertices
   TColStd_ListIteratorOfListOfInteger itLI(aLI);
@@ -115,7 +115,7 @@ Standard_Integer BooleanPaveFiller::UpdateVertex(const Standard_Integer nV,
       BOPDS_ShapeInfo& aSIV  = myDS->ChangeShapeInfo(nVNew);
       Box2&         aBoxV = aSIV.ChangeBox();
       BRepBndLib1::Add(aVSD, aBoxV);
-      aBoxV.SetGap(aBoxV.GetGap() + Precision::Confusion());
+      aBoxV.SetGap(aBoxV.GetGap() + Precision1::Confusion());
       myIncreasedSS.Add(nV);
     }
     return nVNew;
@@ -140,7 +140,7 @@ Standard_Integer BooleanPaveFiller::UpdateVertex(const Standard_Integer nV,
   BOPDS_ShapeInfo& aSIDS  = myDS->ChangeShapeInfo(nVNew);
   Box2&         aBoxDS = aSIDS.ChangeBox();
   BRepBndLib1::Add(aVNew, aBoxDS);
-  aBoxDS.SetGap(aBoxDS.GetGap() + Precision::Confusion());
+  aBoxDS.SetGap(aBoxDS.GetGap() + Precision1::Confusion());
   //
   // add vertex to SD map
   myDS->AddShapeSD(nV, nVNew);
@@ -185,7 +185,7 @@ void BooleanPaveFiller::UpdateCommonBlocksWithSDVertices()
   BOPDS_ListIteratorOfListOfPaveBlock aItPB;
   Handle(BOPDS_PaveBlock)             aPB;
   //
-  aTolV = Precision::Confusion();
+  aTolV = Precision1::Confusion();
   //
   for (i = 0; i < aNbPBP; ++i)
   {

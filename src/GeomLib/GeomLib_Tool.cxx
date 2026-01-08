@@ -200,7 +200,7 @@ public:
   {
     myDirRef  = thePl - thePf;
     mySqMod   = myDirRef.SquareModulus();
-    myIsValid = (mySqMod > Precision::SquarePConfusion());
+    myIsValid = (mySqMod > Precision1::SquarePConfusion());
   }
 
   //! Compute additional parameters depending on the argument
@@ -333,7 +333,7 @@ Standard_Real Tool2::ComputeDeviation(const Geom2dAdaptor_Curve& theCurve,
 
   aFunc.GetLine(theLine);
 
-  constexpr Standard_Real aTolDefl = Precision::PConfusion();
+  constexpr Standard_Real aTolDefl = Precision1::PConfusion();
 
   Standard_Real aD1   = 0.0;
   Standard_Real aD2   = 0.0;
@@ -343,7 +343,7 @@ Standard_Real Tool2::ComputeDeviation(const Geom2dAdaptor_Curve& theCurve,
   aFunc.ValueAndDerives(aU0, aSqDefl, aD1, aD2);
   for (Standard_Integer anItr = 1; anItr <= theNbIters; anItr++)
   {
-    if (Abs(aD2) < Precision::PConfusion())
+    if (Abs(aD2) < Precision1::PConfusion())
     {
       break;
     }
@@ -367,7 +367,7 @@ Standard_Real Tool2::ComputeDeviation(const Geom2dAdaptor_Curve& theCurve,
       }
     }
 
-    if (Abs(aU0 - aU1) < Precision::PConfusion())
+    if (Abs(aU0 - aU1) < Precision1::PConfusion())
     {
       break;
     }

@@ -123,7 +123,7 @@ public: //! @name Geometry1 management API
   //! Set new value of box facet extension.
   void SetBoxFacetExtension(Standard_Real theValue)
   {
-    if (Abs(myBoxFacetExtension - theValue) > Precision::Confusion())
+    if (Abs(myBoxFacetExtension - theValue) > Precision1::Confusion())
     {
       myBoxFacetExtension = theValue;
       SetToUpdate();
@@ -136,7 +136,7 @@ public: //! @name Geometry1 management API
   //! Set new value of padding between axes and 3D part (box).
   void SetAxesPadding(Standard_Real theValue)
   {
-    if (Abs(myAxesPadding - theValue) > Precision::Confusion())
+    if (Abs(myAxesPadding - theValue) > Precision1::Confusion())
     {
       myAxesPadding = theValue;
       SetToUpdate();
@@ -149,7 +149,7 @@ public: //! @name Geometry1 management API
   //! Set new value of box edges gap.
   void SetBoxEdgeGap(Standard_Real theValue)
   {
-    if (Abs(myBoxEdgeGap - theValue) > Precision::Confusion())
+    if (Abs(myBoxEdgeGap - theValue) > Precision1::Confusion())
     {
       myBoxEdgeGap = theValue;
       SetToUpdate();
@@ -162,7 +162,7 @@ public: //! @name Geometry1 management API
   //! Set new value of box edge minimal size.
   void SetBoxEdgeMinSize(Standard_Real theValue)
   {
-    if (Abs(myBoxEdgeMinSize - theValue) > Precision::Confusion())
+    if (Abs(myBoxEdgeMinSize - theValue) > Precision1::Confusion())
     {
       myBoxEdgeMinSize = theValue;
       SetToUpdate();
@@ -175,7 +175,7 @@ public: //! @name Geometry1 management API
   //! Set new value of box corner minimal size.
   void SetBoxCornerMinSize(Standard_Real theValue)
   {
-    if (Abs(myCornerMinSize - theValue) > Precision::Confusion())
+    if (Abs(myCornerMinSize - theValue) > Precision1::Confusion())
     {
       myCornerMinSize = theValue;
       SetToUpdate();
@@ -196,7 +196,7 @@ public: //! @name Geometry1 management API
   //! Sets radius of axes of the trihedron.
   void SetAxesRadius(const Standard_Real theRadius)
   {
-    if (Abs(myAxesRadius - theRadius) > Precision::Confusion())
+    if (Abs(myAxesRadius - theRadius) > Precision1::Confusion())
     {
       myAxesRadius = theRadius;
       SetToUpdate();
@@ -209,7 +209,7 @@ public: //! @name Geometry1 management API
   //! Sets radius of cone of axes of the trihedron.
   void SetAxesConeRadius(Standard_Real theRadius)
   {
-    if (Abs(myAxesConeRadius - theRadius) > Precision::Confusion())
+    if (Abs(myAxesConeRadius - theRadius) > Precision1::Confusion())
     {
       myAxesConeRadius = theRadius;
       SetToUpdate();
@@ -222,7 +222,7 @@ public: //! @name Geometry1 management API
   //! Sets radius of sphere (central point) of the trihedron.
   void SetAxesSphereRadius(Standard_Real theRadius)
   {
-    if (Abs(myAxesSphereRadius - theRadius) > Precision::Confusion())
+    if (Abs(myAxesSphereRadius - theRadius) > Precision1::Confusion())
     {
       myAxesSphereRadius = theRadius;
       SetToUpdate();
@@ -286,11 +286,11 @@ public: //! @name Style management API
   const Handle(Prs3d_ShadingAspect)& BoxCornerStyle() const { return myBoxCornerAspect; }
 
   //! Return value of front color for the 3D part of object.
-  const Quantity_Color& BoxColor() const { return myDrawer->ShadingAspect()->Color(); }
+  const Color1& BoxColor() const { return myDrawer->ShadingAspect()->Color(); }
 
   //! Set new value of front color for the 3D part of object.
   //! @param[in] theColor  input color value.
-  void SetBoxColor(const Quantity_Color& theColor)
+  void SetBoxColor(const Color1& theColor)
   {
     if (!myDrawer->ShadingAspect()->Color().IsEqual(theColor)
         || !myBoxEdgeAspect->Color().IsEqual(theColor)
@@ -310,9 +310,9 @@ public: //! @name Style management API
   //! @param[in] theValue  input transparency value
   void SetBoxTransparency(Standard_Real theValue)
   {
-    if (Abs(myDrawer->ShadingAspect()->Transparency() - theValue) > Precision::Confusion()
-        || Abs(myBoxEdgeAspect->Transparency() - theValue) > Precision::Confusion()
-        || Abs(myBoxCornerAspect->Transparency() - theValue) > Precision::Confusion())
+    if (Abs(myDrawer->ShadingAspect()->Transparency() - theValue) > Precision1::Confusion()
+        || Abs(myBoxEdgeAspect->Transparency() - theValue) > Precision1::Confusion()
+        || Abs(myBoxCornerAspect->Transparency() - theValue) > Precision1::Confusion())
     {
       myDrawer->ShadingAspect()->SetTransparency(theValue);
       myBoxEdgeAspect->SetTransparency(theValue);
@@ -322,14 +322,14 @@ public: //! @name Style management API
   }
 
   //! Return color of sides back material.
-  const Quantity_Color& InnerColor() const
+  const Color1& InnerColor() const
   {
     return myDrawer->ShadingAspect()->Color(Aspect_TOFM_BACK_SIDE);
   }
 
   //! Set color of sides back material. Alias for:
   //! @code Attributes()->ShadingAspect()->Aspect()->ChangeBackMaterial().SetColor() @endcode
-  void SetInnerColor(const Quantity_Color& theColor)
+  void SetInnerColor(const Color1& theColor)
   {
     myDrawer->ShadingAspect()->SetColor(theColor, Aspect_TOFM_BACK_SIDE);
     SynchronizeAspects();
@@ -355,11 +355,11 @@ public: //! @name Style management API
   }
 
   //! Return text color of labels of box sides; BLACK by default.
-  const Quantity_Color& TextColor() const { return myDrawer->TextAspect()->Aspect()->Color(); }
+  const Color1& TextColor() const { return myDrawer->TextAspect()->Aspect()->Color(); }
 
   //! Set color of text labels on box sides. Alias for:
   //! @code Attributes()->TextAspect()->SetColor() @endcode
-  void SetTextColor(const Quantity_Color& theColor)
+  void SetTextColor(const Color1& theColor)
   {
     myDrawer->TextAspect()->SetColor(theColor);
     SynchronizeAspects();
@@ -384,7 +384,7 @@ public: //! @name Style management API
   //! @code Attributes()->TextAspect()->SetHeight() @endcode
   void SetFontHeight(Standard_Real theValue)
   {
-    if (Abs(myDrawer->TextAspect()->Height() - theValue) > Precision::Confusion())
+    if (Abs(myDrawer->TextAspect()->Height() - theValue) > Precision1::Confusion())
     {
       myDrawer->TextAspect()->SetHeight(theValue);
       SetToUpdate();
@@ -413,7 +413,7 @@ public: //! @name Style management API
 public:
   //! Set new value of color for the whole object.
   //! @param[in] theColor  input color value.
-  virtual void SetColor(const Quantity_Color& theColor) Standard_OVERRIDE { SetBoxColor(theColor); }
+  virtual void SetColor(const Color1& theColor) Standard_OVERRIDE { SetBoxColor(theColor); }
 
   //! Reset color for the whole object.
   virtual void UnsetColor() Standard_OVERRIDE

@@ -68,7 +68,7 @@ static Standard_Integer addShape(DrawInterpreter& di, Standard_Integer argc, con
   if (!XCAFDoc_DocumentTool::GetLengthUnit(Doc, aLengthUnit))
   {
     XSAlgo_ShapeProcessor::PrepareForTransfer(); // update unit info
-    aLengthUnit = UnitsMethods::GetCasCadeLengthUnit(UnitsMethods_LengthUnit_Meter);
+    aLengthUnit = UnitsMethods1::GetCasCadeLengthUnit(UnitsMethods_LengthUnit_Meter);
     XCAFDoc_DocumentTool::SetLengthUnit(Doc, aLengthUnit);
   }
 

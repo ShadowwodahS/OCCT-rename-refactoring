@@ -59,7 +59,7 @@ void XSAlgo1::Init()
   ExchangeConfig::Init("XSTEP", "xstep.cascade.unit", '&', "eval UIN");  // 11
   ExchangeConfig::SetCVal("xstep.cascade.unit", "MM");
 
-  // init Standard Shape Processing operators
+  // init Standard1 Shape Processing operators
   OperLibrary::Init();
 }
 

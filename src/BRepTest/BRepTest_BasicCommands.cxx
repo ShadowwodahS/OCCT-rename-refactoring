@@ -695,7 +695,7 @@ static Standard_Integer BoundBox(DrawInterpreter& theDI,
       anOBB.DumpJson(aStream);
 
       theDI << "Oriented bounding box\n";
-      theDI << Standard_Dump::FormatJson(aStream);
+      theDI << DumpTool::FormatJson(aStream);
     }
 
     if (hasToDraw && !anOBB.IsVoid())
@@ -769,7 +769,7 @@ static Standard_Integer BoundBox(DrawInterpreter& theDI,
         anAABB.DumpJson(aStream);
 
         theDI << "Bounding box\n";
-        theDI << Standard_Dump::FormatJson(aStream);
+        theDI << DumpTool::FormatJson(aStream);
       }
 
       // save DRAW variables
@@ -890,9 +890,9 @@ static Standard_Integer gbounding(DrawInterpreter& di, Standard_Integer n, const
       // add surf
       GeomAdaptor_Surface aGAS(S);
       if (IsOptimal)
-        AddSurface::AddOptimal(aGAS, Precision::Confusion(), B);
+        AddSurface::AddOptimal(aGAS, Precision1::Confusion(), B);
       else
-        AddSurface::Add(aGAS, Precision::Confusion(), B);
+        AddSurface::Add(aGAS, Precision1::Confusion(), B);
     }
     else
     {
@@ -902,9 +902,9 @@ static Standard_Integer gbounding(DrawInterpreter& di, Standard_Integer n, const
         // add cur
         GeomAdaptor_Curve aGAC(C);
         if (IsOptimal)
-          Add3dCurve::AddOptimal(aGAC, Precision::Confusion(), B);
+          Add3dCurve::AddOptimal(aGAC, Precision1::Confusion(), B);
         else
-          Add3dCurve::Add(aGAC, Precision::Confusion(), B);
+          Add3dCurve::Add(aGAC, Precision1::Confusion(), B);
       }
       else
       {
@@ -917,13 +917,13 @@ static Standard_Integer gbounding(DrawInterpreter& di, Standard_Integer n, const
             Add2dCurve::AddOptimal(C2d,
                                           C2d->FirstParameter(),
                                           C2d->LastParameter(),
-                                          Precision::Confusion(),
+                                          Precision1::Confusion(),
                                           B2d);
           else
             Add2dCurve::Add(C2d,
                                    C2d->FirstParameter(),
                                    C2d->LastParameter(),
-                                   Precision::Confusion(),
+                                   Precision1::Confusion(),
                                    B2d);
         }
         else
@@ -988,12 +988,12 @@ static Standard_Integer precision(DrawInterpreter& di, Standard_Integer n, const
 
   if (n == 0)
   {
-    // std::cout << " Current Precision = " << BRepBuilderAPI1::Precision() << std::endl;
-    di << " Current Precision = " << BRepBuilderAPI1::Precision() << "\n";
+    // std::cout << " Current Precision1 = " << BRepBuilderAPI1::Precision1() << std::endl;
+    di << " Current Precision1 = " << BRepBuilderAPI1::Precision1() << "\n";
   }
   else
   {
-    BRepBuilderAPI1::Precision(Draw1::Atof(a[1]));
+    BRepBuilderAPI1::Precision1(Draw1::Atof(a[1]));
   }
   return 0;
 }

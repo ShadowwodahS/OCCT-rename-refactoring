@@ -581,15 +581,15 @@ public:
   //! of the surface <me> or if the surface makes loop.
   //! raises if U2 < U1 or V2 < V1.
   //! Standard_DomainError if U2 - U1 exceeds the uperiod for uperiodic surfaces.
-  //! i.e. ((U2 - U1) - UPeriod) > Precision::PConfusion().
+  //! i.e. ((U2 - U1) - UPeriod) > Precision1::PConfusion().
   //! Standard_DomainError if V2 - V1 exceeds the vperiod for vperiodic surfaces.
-  //! i.e. ((V2 - V1) - VPeriod) > Precision::PConfusion()).
+  //! i.e. ((V2 - V1) - VPeriod) > Precision1::PConfusion()).
   Standard_EXPORT void Segment1(const Standard_Real U1,
                                const Standard_Real U2,
                                const Standard_Real V1,
                                const Standard_Real V2,
-                               const Standard_Real theUTolerance = Precision::PConfusion(),
-                               const Standard_Real theVTolerance = Precision::PConfusion());
+                               const Standard_Real theUTolerance = Precision1::PConfusion(),
+                               const Standard_Real theVTolerance = Precision1::PConfusion());
 
   //! Segments the surface between U1 and U2 in the U-Direction.
   //! between V1 and V2 in the V-Direction.
@@ -608,15 +608,15 @@ public:
   //! of the surface <me> or if the surface makes loop.
   //! raises if U2 < U1 or V2 < V1.
   //! Standard_DomainError if U2 - U1 exceeds the uperiod for uperiodic surfaces.
-  //! i.e. ((U2 - U1) - UPeriod) > Precision::PConfusion().
+  //! i.e. ((U2 - U1) - UPeriod) > Precision1::PConfusion().
   //! Standard_DomainError if V2 - V1 exceeds the vperiod for vperiodic surfaces.
-  //! i.e. ((V2 - V1) - VPeriod) > Precision::PConfusion()).
+  //! i.e. ((V2 - V1) - VPeriod) > Precision1::PConfusion()).
   Standard_EXPORT void CheckAndSegment(const Standard_Real U1,
                                        const Standard_Real U2,
                                        const Standard_Real V1,
                                        const Standard_Real V2,
-                                       const Standard_Real theUTolerance = Precision::PConfusion(),
-                                       const Standard_Real theVTolerance = Precision::PConfusion());
+                                       const Standard_Real theUTolerance = Precision1::PConfusion(),
+                                       const Standard_Real theVTolerance = Precision1::PConfusion());
 
   //! Substitutes the UKnots of range UIndex with K.
   //!

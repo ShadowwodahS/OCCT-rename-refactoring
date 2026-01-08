@@ -600,9 +600,9 @@ void Correct2dPoint(const TopoFace& theF, gp_Pnt2d& theP2d)
   u2 = aBAS.LastUParameter();
   v1 = aBAS.FirstVParameter();
   v2 = aBAS.LastVParameter();
-  if (!(Precision::IsInfinite(u1) || Precision::IsInfinite(u2)))
+  if (!(Precision1::IsInfinite(u1) || Precision1::IsInfinite(u2)))
   {
-    eps = Max(coeff * (u2 - u1), Precision::PConfusion());
+    eps = Max(coeff * (u2 - u1), Precision1::PConfusion());
     if (Abs(theP2d.X() - u1) < eps)
     {
       theP2d.SetX(u1 + eps);
@@ -612,9 +612,9 @@ void Correct2dPoint(const TopoFace& theF, gp_Pnt2d& theP2d)
       theP2d.SetX(u2 - eps);
     }
   }
-  if (!(Precision::IsInfinite(v1) || Precision::IsInfinite(v2)))
+  if (!(Precision1::IsInfinite(v1) || Precision1::IsInfinite(v2)))
   {
-    eps = Max(coeff * (v2 - v1), Precision::PConfusion());
+    eps = Max(coeff * (v2 - v1), Precision1::PConfusion());
     if (Abs(theP2d.Y() - v1) < eps)
     {
       theP2d.SetY(v1 + eps);

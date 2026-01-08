@@ -184,7 +184,7 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   S1,
       Ax3                  anAxis(gp1::Origin(), aDirection);
       Handle(Adaptor3d_Curve) aBasisCurve = S1->BasisCurve();
       ProjLib_ProjectOnPlane  Projector(anAxis);
-      Projector.Load(aBasisCurve, Precision::Confusion());
+      Projector.Load(aBasisCurve, Precision1::Confusion());
       Handle(GeomAdaptor_Curve)   aProjCurve = Projector.GetResult();
       Handle(GeomPlane)          aPlane     = new GeomPlane(anAxis);
       Handle(GeomAdaptor_Surface) aGAHsurf   = new GeomAdaptor_Surface(aPlane);
@@ -194,7 +194,7 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   S1,
       Geom2dAdaptor_Curve AC(aPCurve,
                              aProjectedCurve.FirstParameter(),
                              aProjectedCurve.LastParameter());
-      Geom2dInt_GInter    Intersector(AC, Precision::Confusion(), Precision::Confusion());
+      Geom2dInt_GInter    Intersector(AC, Precision1::Confusion(), Precision1::Confusion());
       if (Intersector.IsDone()
           && (Intersector.IsEmpty() || (AC.IsClosed() && Intersector.NbPoints() == 1)))
       {
@@ -331,10 +331,10 @@ static void FUN_TrimInfSurf(const Point3d&                    Pmin,
   }
   else
   {
-    const Standard_Boolean    Uinf = Precision::IsNegativeInfinite(InfSurf->FirstUParameter());
-    const Standard_Boolean    Usup = Precision::IsPositiveInfinite(InfSurf->LastUParameter());
-    const Standard_Boolean    Vinf = Precision::IsNegativeInfinite(InfSurf->FirstVParameter());
-    const Standard_Boolean    Vsup = Precision::IsPositiveInfinite(InfSurf->LastVParameter());
+    const Standard_Boolean    Uinf = Precision1::IsNegativeInfinite(InfSurf->FirstUParameter());
+    const Standard_Boolean    Usup = Precision1::IsPositiveInfinite(InfSurf->LastUParameter());
+    const Standard_Boolean    Vinf = Precision1::IsNegativeInfinite(InfSurf->FirstVParameter());
+    const Standard_Boolean    Vsup = Precision1::IsPositiveInfinite(InfSurf->LastVParameter());
     Handle(Adaptor3d_Surface) TmpSS;
     Standard_Integer          IsTrimed = 0;
     const Standard_Real       tp       = 1000.0 * TP;
@@ -665,7 +665,7 @@ static void FUN_PL_Intersection(const Handle(Adaptor3d_Surface)& S1,
   C1.Nullify();
   C2.Nullify();
   Standard_Integer iso = 0;
-  if (isoS1isLine[0] && isoS2isLine[0] && derS1[1].IsParallel(derS2[1], Precision::Angular()))
+  if (isoS1isLine[0] && isoS2isLine[0] && derS1[1].IsParallel(derS2[1], Precision1::Angular()))
   {
     iso = 1;
     FUN_GetViso(gs1,
@@ -685,7 +685,7 @@ static void FUN_PL_Intersection(const Handle(Adaptor3d_Surface)& S1,
                 MS2[1],
                 C2);
   }
-  else if (isoS1isLine[0] && isoS2isLine[1] && derS1[1].IsParallel(derS2[0], Precision::Angular()))
+  else if (isoS1isLine[0] && isoS2isLine[1] && derS1[1].IsParallel(derS2[0], Precision1::Angular()))
   {
     iso = 1;
     FUN_GetViso(gs1,
@@ -705,7 +705,7 @@ static void FUN_PL_Intersection(const Handle(Adaptor3d_Surface)& S1,
                 MS2[0],
                 C2);
   }
-  else if (isoS1isLine[1] && isoS2isLine[0] && derS1[0].IsParallel(derS2[1], Precision::Angular()))
+  else if (isoS1isLine[1] && isoS2isLine[0] && derS1[0].IsParallel(derS2[1], Precision1::Angular()))
   {
     iso = 0;
     FUN_GetUiso(gs1,
@@ -725,7 +725,7 @@ static void FUN_PL_Intersection(const Handle(Adaptor3d_Surface)& S1,
                 MS2[1],
                 C2);
   }
-  else if (isoS1isLine[1] && isoS2isLine[1] && derS1[0].IsParallel(derS2[0], Precision::Angular()))
+  else if (isoS1isLine[1] && isoS2isLine[1] && derS1[0].IsParallel(derS2[0], Precision1::Angular()))
   {
     iso = 0;
     FUN_GetUiso(gs1,
@@ -951,9 +951,9 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
 {
   myTolArc  = TolArc;
   myTolTang = TolTang;
-  if (myFleche <= Precision::PConfusion())
+  if (myFleche <= Precision1::PConfusion())
     myFleche = 0.01;
-  if (myUVMaxStep <= Precision::PConfusion())
+  if (myUVMaxStep <= Precision1::PConfusion())
     myUVMaxStep = 0.01;
 
   done = Standard_False;
@@ -1000,11 +1000,11 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
         if (a1 > 1.55 && a2 > 1.55)
         { // quasi-planes: if same domain, treat as canonic
           const Axis3d A1 = aCon1.Axis(), A2 = aCon2.Axis();
-          if (A1.IsParallel(A2, Precision::Angular()))
+          if (A1.IsParallel(A2, Precision1::Angular()))
           {
             const Point3d Apex1 = aCon1.Apex(), Apex2 = aCon2.Apex();
             const gp_Pln Plan1(Apex1, A1.Direction());
-            if (Plan1.Distance(Apex2) <= Precision::Confusion())
+            if (Plan1.Distance(Apex2) <= Precision1::Confusion())
             {
               bToCheck = Standard_False;
             }
@@ -1057,9 +1057,9 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
           }
           else
           {
-            if (aCTAx.IsParallel(aGeomAx, Precision::Angular())
-                || (aCTAx.IsNormal(aGeomAx, Precision::Angular())
-                    && (aGeomSurf->Plane1().Distance(aCTAx.Location()) < Precision::Confusion())))
+            if (aCTAx.IsParallel(aGeomAx, Precision1::Angular())
+                || (aCTAx.IsNormal(aGeomAx, Precision1::Angular())
+                    && (aGeomSurf->Plane1().Distance(aCTAx.Location()) < Precision1::Confusion())))
             {
               bGeomGeom = 1;
             }
@@ -1068,7 +1068,7 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
           break;
         }
         case GeomAbs_Sphere: {
-          if (aL1.Distance(aGeomSurf->Sphere().Location()) < Precision::Confusion())
+          if (aL1.Distance(aGeomSurf->Sphere().Location()) < Precision1::Confusion())
           {
             bGeomGeom = 1;
           }
@@ -1091,8 +1091,8 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
       //
       if (bToCheck)
       {
-        if (aCTAx.IsParallel(aGeomAx, Precision::Angular())
-            && (aL1.Distance(aGeomAx.Location()) <= Precision::Confusion()))
+        if (aCTAx.IsParallel(aGeomAx, Precision1::Angular())
+            && (aL1.Distance(aGeomAx.Location()) <= Precision1::Confusion()))
         {
           bGeomGeom = 1;
         }
@@ -1245,9 +1245,9 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
 {
   myTolArc  = TolArc;
   myTolTang = TolTang;
-  if (myFleche <= Precision::PConfusion())
+  if (myFleche <= Precision1::PConfusion())
     myFleche = 0.01;
-  if (myUVMaxStep <= Precision::PConfusion())
+  if (myUVMaxStep <= Precision1::PConfusion())
     myUVMaxStep = 0.01;
   done = Standard_False;
   spnt.Clear();
@@ -1293,11 +1293,11 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
         if (a1 > 1.55 && a2 > 1.55)
         { // quasi-planes: if same domain, treat as canonic
           const Axis3d A1 = aCon1.Axis(), A2 = aCon2.Axis();
-          if (A1.IsParallel(A2, Precision::Angular()))
+          if (A1.IsParallel(A2, Precision1::Angular()))
           {
             const Point3d Apex1 = aCon1.Apex(), Apex2 = aCon2.Apex();
             const gp_Pln Plan1(Apex1, A1.Direction());
-            if (Plan1.Distance(Apex2) <= Precision::Confusion())
+            if (Plan1.Distance(Apex2) <= Precision1::Confusion())
             {
               bToCheck = Standard_False;
             }
@@ -1352,9 +1352,9 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
           }
           else
           {
-            if (aCTAx.IsParallel(aGeomAx, Precision::Angular())
-                || (aCTAx.IsNormal(aGeomAx, Precision::Angular())
-                    && (aGeomSurf->Plane1().Distance(aCTAx.Location()) < Precision::Confusion())))
+            if (aCTAx.IsParallel(aGeomAx, Precision1::Angular())
+                || (aCTAx.IsNormal(aGeomAx, Precision1::Angular())
+                    && (aGeomSurf->Plane1().Distance(aCTAx.Location()) < Precision1::Confusion())))
             {
               bGeomGeom = 1;
             }
@@ -1363,7 +1363,7 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
           break;
         }
         case GeomAbs_Sphere: {
-          if (aL1.Distance(aGeomSurf->Sphere().Location()) < Precision::Confusion())
+          if (aL1.Distance(aGeomSurf->Sphere().Location()) < Precision1::Confusion())
           {
             bGeomGeom = 1;
           }
@@ -1386,8 +1386,8 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
       //
       if (bToCheck)
       {
-        if (aCTAx.IsParallel(aGeomAx, Precision::Angular())
-            && (aL1.Distance(aGeomAx.Location()) <= Precision::Confusion()))
+        if (aCTAx.IsParallel(aGeomAx, Precision1::Angular())
+            && (aL1.Distance(aGeomAx.Location()) <= Precision1::Confusion()))
         {
           bGeomGeom = 1;
         }
@@ -1697,8 +1697,8 @@ void Intersection1::GeomGeomPerfom(const Handle(Adaptor3d_Surface)&   theS1,
     aBx2.Add(gp_Pnt2d(aU2L, aV2L));
     aBx2.Add(gp_Pnt2d(aU2F, aV2L));
 
-    aBx1.Enlarge(Precision::PConfusion());
-    aBx2.Enlarge(Precision::PConfusion());
+    aBx1.Enlarge(Precision1::PConfusion());
+    aBx2.Enlarge(Precision1::PConfusion());
 
     const Standard_Real anArrOfPeriod[4] = {theS1->IsUPeriodic() ? theS1->UPeriod() : 0.0,
                                             theS1->IsVPeriodic() ? theS1->VPeriod() : 0.0,
@@ -2100,7 +2100,7 @@ Standard_Boolean Intersection1::CheckSingularPoints(
   const Handle(Adaptor3d_Surface)&   theS2,
   Standard_Real&                     theDist)
 {
-  theDist                     = Precision::Infinite();
+  theDist                     = Precision1::Infinite();
   Standard_Boolean isSingular = Standard_False;
   if (theS1 == theS2)
   {
@@ -2108,7 +2108,7 @@ Standard_Boolean Intersection1::CheckSingularPoints(
   }
   //
   const Standard_Integer  aNbBndPnts = 5;
-  constexpr Standard_Real aTol       = Precision::Confusion();
+  constexpr Standard_Real aTol       = Precision1::Confusion();
   Standard_Integer        i;
   theD1->Init();
   Standard_Boolean isU = Standard_True;
@@ -2116,7 +2116,7 @@ Standard_Boolean Intersection1::CheckSingularPoints(
   {
     Handle(Adaptor2d_Curve2d) aBnd = theD1->Value();
     Standard_Real             pinf = aBnd->FirstParameter(), psup = aBnd->LastParameter();
-    if (Precision::IsNegativeInfinite(pinf) || Precision::IsPositiveInfinite(psup))
+    if (Precision1::IsNegativeInfinite(pinf) || Precision1::IsPositiveInfinite(psup))
     {
       continue;
     }
@@ -2154,7 +2154,7 @@ Standard_Boolean Intersection1::CheckSingularPoints(
       // Singular point aPP1;
       aPmid /= aNb;
       aPP1.SetXYZ(aPmid);
-      constexpr Standard_Real aTolU = Precision::PConfusion(), aTolV = Precision::PConfusion();
+      constexpr Standard_Real aTolU = Precision1::PConfusion(), aTolV = Precision1::PConfusion();
       Extrema_ExtPS           aProj(aPP1, *theS2.get(), aTolU, aTolV, Extrema_ExtFlag_MIN);
 
       if (aProj.IsDone())
@@ -2167,7 +2167,7 @@ Standard_Boolean Intersection1::CheckSingularPoints(
       }
     }
   }
-  if (!Precision::IsInfinite(theDist))
+  if (!Precision1::IsInfinite(theDist))
   {
     theDist    = Sqrt(theDist);
     isSingular = Standard_True;
@@ -2184,9 +2184,9 @@ Standard_Real Intersection1::DefineUVMaxStep(const Handle(Adaptor3d_Surface)&   
                                                      const Handle(Adaptor3d_TopolTool)& theD2)
 {
   Standard_Real           anUVMaxStep  = 0.001;
-  Standard_Real           aDistToSing1 = Precision::Infinite();
-  Standard_Real           aDistToSing2 = Precision::Infinite();
-  constexpr Standard_Real aTolMin = Precision::Confusion(), aTolMax = 1.e-5;
+  Standard_Real           aDistToSing1 = Precision1::Infinite();
+  Standard_Real           aDistToSing2 = Precision1::Infinite();
+  constexpr Standard_Real aTolMin = Precision1::Confusion(), aTolMax = 1.e-5;
   if (theS1 != theS2)
   {
     Standard_Boolean isSing1 = CheckSingularPoints(theS1, theD1, theS2, aDistToSing1);
@@ -2240,9 +2240,9 @@ static void splitCone(const Handle(Adaptor3d_Surface)&               theS,
   if (aState == TopAbs_IN || aState == TopAbs_ON)
   {
     const Handle(Adaptor3d_Surface) aHSDn =
-      theS->VTrim(theS->FirstVParameter(), aV0, Precision::PConfusion());
+      theS->VTrim(theS->FirstVParameter(), aV0, Precision1::PConfusion());
     const Handle(Adaptor3d_Surface) aHSUp =
-      theS->VTrim(aV0, theS->LastVParameter(), Precision::PConfusion());
+      theS->VTrim(aV0, theS->LastVParameter(), Precision1::PConfusion());
 
     theVecHS.Append(aHSDn);
     theVecHS.Append(aHSUp);

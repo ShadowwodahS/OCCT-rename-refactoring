@@ -641,7 +641,7 @@ void TObjDRAW1::Factory(DrawInterpreter& theDI)
   TObjDRAW1::Init(theDI);
 
 #ifdef OCCT_DEBUG
-  theDI << "Draw1 Plugin : All TKTObjDRAW commands are loaded\n";
+  theDI << "Draw1 Plugin1 : All TKTObjDRAW commands are loaded\n";
 #endif
 }
 

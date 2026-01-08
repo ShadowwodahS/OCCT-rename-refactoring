@@ -1150,7 +1150,7 @@ static Standard_Integer OCC22(DrawInterpreter& di, Standard_Integer argc, const 
     // 2. Iniitialize aShapeUpgrade
     ShapeUpgrade_ShapeDivideAngle aShapeUpgrade(M_PI / 2.);
     // precision
-    aShapeUpgrade.SetPrecision(Precision::Confusion());
+    aShapeUpgrade.SetPrecision(Precision1::Confusion());
     // tolerance
     aShapeUpgrade.SetMaxTolerance(0.1);
     // subshapes to be divided
@@ -2250,7 +2250,7 @@ static Standard_Integer OCC5698(DrawInterpreter& di, Standard_Integer argc, cons
   check_curve.D0(check_par, check_pnt);
   // check that points are coinciding
   Standard_Real error_dist = pnt.Distance(check_pnt);
-  if (error_dist > Precision::Confusion())
+  if (error_dist > Precision1::Confusion())
   {
     // std::cout.precision(3);
     di << "error_dist = " << error_dist << "  ( " << error_dist / need_length * 100 << " %)\n";
@@ -2286,7 +2286,7 @@ static Standard_Integer OCC6143(DrawInterpreter& di, Standard_Integer argc, cons
   Standard_Boolean Succes;
 
   Succes = Standard_True;
-  // OSD::SetSignal();
+  // OSD1::SetSignal();
 
   { //==== Test Divide ByZero (Integer1) ========================================
     try
@@ -2663,7 +2663,7 @@ public:
     if (theToPrintStack)
     {
       char aMsg[4096] = {};
-      Standard::StackTrace(aMsg, 4096, 10);
+      Standard1::StackTrace(aMsg, 4096, 10);
       std::cout << aMsg << "\n";
       return 0;
     }
@@ -2870,7 +2870,7 @@ static Standard_Integer OCC8169(DrawInterpreter& di, Standard_Integer argc, cons
 
   Handle(GeomSurface) thePlane = BRepInspector::Surface(theFace);
 
-  constexpr Standard_Real aConfusion = Precision::Confusion();
+  constexpr Standard_Real aConfusion = Precision1::Confusion();
   Standard_Real           aP1first, aP1last, aP2first, aP2last;
 
   Handle(GeomCurve3d)   aCurve1   = BRepInspector::Curve(theEdge1, aP1first, aP1last);
@@ -4809,7 +4809,7 @@ Standard_Integer OCC17424(DrawInterpreter& di, Standard_Integer argc, const char
   Standard_Real PInf = Draw1::Atof(argv[8]);
 
   IntCurvesFace_ShapeIntersector intersector;
-  intersector.Load(shape, Precision::Intersection());
+  intersector.Load(shape, Precision1::Intersection());
 
   Point3d origin(X_Pnt, Y_Pnt, Z_Pnt);
   Dir3d dir(X_Dir, Y_Dir, Z_Dir);
@@ -4839,12 +4839,12 @@ Standard_Integer OCC22301(DrawInterpreter& di, Standard_Integer argc, const char
   }
 
   // Create mask 1111: extent == 4
-  TColStd_PackedMapOfInteger aFullMask;
+  PackedIntegerMap aFullMask;
   for (Standard_Integer i = 0; i < 4; i++)
     aFullMask.Add(i);
 
   // Create mask 1100: extent == 2
-  TColStd_PackedMapOfInteger aPartMask;
+  PackedIntegerMap aPartMask;
   for (Standard_Integer i = 0; i < 2; i++)
     aPartMask.Add(i);
 
@@ -4955,7 +4955,7 @@ Standard_Integer OCC22736(DrawInterpreter& di, Standard_Integer argc, const char
   Transform2d Tcomp;
   Tcomp = M2.Multiplied(M1);
 
-  constexpr Standard_Real aTol    = Precision::Confusion();
+  constexpr Standard_Real aTol    = Precision1::Confusion();
   Standard_Integer        aStatus = 0;
 
   // After applying two times the same mirror the point is located on the same location OK
@@ -5195,7 +5195,7 @@ Standard_Integer OCC25748(DrawInterpreter& di, Standard_Integer argc, const char
 
   OSD_Timer aTimer;
   aTimer.Start();
-  OSD_Parallel::ForEach(aTasks.begin(), aTasks.end(), Functor(), !isParallel);
+  Parallel1::ForEach(aTasks.begin(), aTasks.end(), Functor(), !isParallel);
   aTimer.Stop();
 
   aTimerWhole.Stop();

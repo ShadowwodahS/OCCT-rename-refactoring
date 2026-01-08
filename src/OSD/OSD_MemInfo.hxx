@@ -46,7 +46,7 @@
 //!
 //! This also means that these values should not be used for intellectual
 //! memory management by application itself.
-class OSD_MemInfo
+class MemoryInfo
 {
 
 public:
@@ -64,10 +64,10 @@ public:
 
 public:
   //! Create and initialize. By default all countes are active
-  Standard_EXPORT OSD_MemInfo(const Standard_Boolean theImmediateUpdate = Standard_True);
+  Standard_EXPORT MemoryInfo(const Standard_Boolean theImmediateUpdate = Standard_True);
 
   //! Return true if the counter is active
-  Standard_Boolean IsActive(const OSD_MemInfo::Counter theCounter) const
+  Standard_Boolean IsActive(const MemoryInfo::Counter theCounter) const
   {
     return myActiveCounters[theCounter];
   }
@@ -79,7 +79,7 @@ public:
   //! Set the counter active. The information is collected for active counters.
   //! @param theCounter type of counter
   //! @param theActive state for the counter
-  void SetActive(const OSD_MemInfo::Counter theCounter, const Standard_Boolean theActive)
+  void SetActive(const MemoryInfo::Counter theCounter, const Standard_Boolean theActive)
   {
     myActiveCounters[theCounter] = theActive;
   }
@@ -96,17 +96,17 @@ public:
   //! Return value of specified counter in bytes.
   //! Notice that NOT all counters are available on various systems.
   //! Standard_Size(-1) means invalid (unavailable) value.
-  Standard_EXPORT Standard_Size Value(const OSD_MemInfo::Counter theCounter) const;
+  Standard_EXPORT Standard_Size Value(const MemoryInfo::Counter theCounter) const;
 
   //! Return value of specified counter in MiB.
   //! Notice that NOT all counters are available on various systems.
   //! Standard_Size(-1) means invalid (unavailable) value.
-  Standard_EXPORT Standard_Size ValueMiB(const OSD_MemInfo::Counter theCounter) const;
+  Standard_EXPORT Standard_Size ValueMiB(const MemoryInfo::Counter theCounter) const;
 
   //! Return floating value of specified counter in MiB.
   //! Notice that NOT all counters are available on various systems.
   //! Standard_Real(-1) means invalid (unavailable) value.
-  Standard_EXPORT Standard_Real ValuePreciseMiB(const OSD_MemInfo::Counter theCounter) const;
+  Standard_EXPORT Standard_Real ValuePreciseMiB(const MemoryInfo::Counter theCounter) const;
 
 public:
   //! Return the string representation for all available counter.
@@ -114,7 +114,7 @@ public:
 
 protected:
   //! Return true if the counter is active and the value is valid
-  Standard_Boolean hasValue(const OSD_MemInfo::Counter theCounter) const
+  Standard_Boolean hasValue(const MemoryInfo::Counter theCounter) const
   {
     return IsActive(theCounter) && myCounters[theCounter] != Standard_Size(-1);
   }

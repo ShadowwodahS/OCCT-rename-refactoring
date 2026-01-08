@@ -90,7 +90,7 @@ Standard_Boolean Axis3d::InitFromJson(const Standard_SStream& theSStream,
                                       Standard_Integer&       theStreamPos)
 {
   Standard_Integer        aPos       = theStreamPos;
-  AsciiString1 aStreamStr = Standard_Dump::Text(theSStream);
+  AsciiString1 aStreamStr = DumpTool::Text(theSStream);
 
   Coords3d& anXYZLoc = loc.ChangeCoord();
   OCCT_INIT_VECTOR_CLASS(aStreamStr,

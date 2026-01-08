@@ -78,7 +78,7 @@ void MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
     Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, Position1);
   }
 
-  if (!AttachPoint.IsEqual(MidPoint, Precision::Confusion()))
+  if (!AttachPoint.IsEqual(MidPoint, Precision1::Confusion()))
   {
     if (!first)
     {
@@ -111,7 +111,7 @@ void MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                       const Standard_Boolean            first)
 {
   Standard_Real rad = AttachPoint.Distance(MidPoint) / 20.0;
-  if (rad <= Precision::Confusion())
+  if (rad <= Precision1::Confusion())
     rad = Point1.Distance(Point2) / 20.0;
 
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
@@ -155,7 +155,7 @@ void MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
     Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, Position1);
   }
 
-  if (!AttachPoint.IsEqual(MidPoint, Precision::Confusion()))
+  if (!AttachPoint.IsEqual(MidPoint, Precision1::Confusion()))
   {
     // mid point
     aPrims = new Graphic3d_ArrayOfSegments(2);
@@ -180,7 +180,7 @@ void MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                       const Standard_Boolean            first)
 {
   Standard_Real rad = AttachPoint.Distance(MidPoint) / 20.0;
-  if (rad <= Precision::Confusion())
+  if (rad <= Precision1::Confusion())
     rad = Point1.Distance(Point2) / 20.0;
 
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
@@ -233,7 +233,7 @@ void MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
     Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, Position1);
   }
 
-  if (!AttachPoint.IsEqual(MidPoint, Precision::Confusion()))
+  if (!AttachPoint.IsEqual(MidPoint, Precision1::Confusion()))
   {
     // segment from mid point to the geometry
     aPrims = new Graphic3d_ArrayOfSegments(2);
@@ -260,7 +260,7 @@ void MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                       const Standard_Boolean            first)
 {
   Standard_Real rad = AttachPoint.Distance(MidPoint) / 20.0;
-  if (rad <= Precision::Confusion())
+  if (rad <= Precision1::Confusion())
     rad = Point1.Distance(Point2) / 20.0;
 
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
@@ -315,7 +315,7 @@ void MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
     Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, Position1);
   }
 
-  if (!AttachPoint.IsEqual(MidPoint, Precision::Confusion()))
+  if (!AttachPoint.IsEqual(MidPoint, Precision1::Confusion()))
   {
     // segment from mid point to the geometry
     aPrims = new Graphic3d_ArrayOfSegments(2);

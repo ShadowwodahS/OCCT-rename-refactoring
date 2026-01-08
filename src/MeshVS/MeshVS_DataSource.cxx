@@ -207,13 +207,13 @@ Standard_Boolean MeshVS_DataSource::GetNormalsByElement(
 
 //=================================================================================================
 
-void MeshVS_DataSource::GetAllGroups(TColStd_PackedMapOfInteger& /*Ids*/) const {}
+void MeshVS_DataSource::GetAllGroups(PackedIntegerMap& /*Ids*/) const {}
 
 //=================================================================================================
 
 Standard_Boolean MeshVS_DataSource::GetGroup(const Standard_Integer /*Id*/,
                                              MeshVS_EntityType& Type,
-                                             TColStd_PackedMapOfInteger& /*Ids*/) const
+                                             PackedIntegerMap& /*Ids*/) const
 {
   Type = MeshVS_ET_NONE;
   return Standard_False;
@@ -291,7 +291,7 @@ Box2 MeshVS_DataSource::GetBoundingBox() const
 {
   // Compute the 3D bounding box for mesh
   Box2                           aBox;
-  const TColStd_PackedMapOfInteger& aNodes = GetAllNodes();
+  const PackedIntegerMap& aNodes = GetAllNodes();
   if (aNodes.Extent())
   {
     Standard_Real                           aCoordsBuf[3];

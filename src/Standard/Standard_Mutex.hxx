@@ -62,7 +62,7 @@
  * TryLock(), and UnregisterCallback() before Unlock() (or use Sentry classes).
  */
 
-class Standard_Mutex : public Standard_ErrorHandler::Callback
+class Standard_Mutex : public ErrorHandler::Callback1
 {
 public:
   /**
@@ -151,7 +151,7 @@ public:
   void Unlock();
 
 private:
-  //! Callback method to unlock the mutex if OCC exception or signal is raised
+  //! Callback1 method to unlock the mutex if OCC exception or signal is raised
   Standard_EXPORT virtual void DestroyCallback() Standard_OVERRIDE;
 
   //! This method should not be called (prohibited).

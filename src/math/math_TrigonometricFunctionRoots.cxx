@@ -248,7 +248,7 @@ void TrigonometricFunctionRoots::Perform(const Standard_Real A,
         Zer(2) = M_PI;
 
         AA = -D / (B * 2);
-        if (Abs(AA) <= 1.0 + Precision::PConfusion())
+        if (Abs(AA) <= 1.0 + Precision1::PConfusion())
         {
           NZer = 4;
           if (AA >= 1.0)
@@ -279,7 +279,7 @@ void TrigonometricFunctionRoots::Perform(const Standard_Real A,
           // =================================================
           Zer(i) += IntegerPart(Mod) * 2. * M_PI;
           X = Zer(i) - MyBorneInf;
-          if ((X >= (-Precision::PConfusion())) && (X <= Delta + Precision::PConfusion()))
+          if ((X >= (-Precision1::PConfusion())) && (X <= Delta + Precision1::PConfusion()))
           {
             if (Zer(i) < InfBound)
               Zer(i) = InfBound;
@@ -299,7 +299,7 @@ void TrigonometricFunctionRoots::Perform(const Standard_Real A,
         Zer(2) = M_PI * 3.0 / 2.0;
 
         AA = -C / (B * 2);
-        if (Abs(AA) <= 1.0 + Precision::PConfusion())
+        if (Abs(AA) <= 1.0 + Precision1::PConfusion())
         {
           NZer = 4;
           if (AA >= 1.0)
@@ -331,7 +331,7 @@ void TrigonometricFunctionRoots::Perform(const Standard_Real A,
           // =================================================
           Zer(i) += IntegerPart(Mod) * 2. * M_PI;
           X = Zer(i) - MyBorneInf;
-          if ((X >= (-Precision::PConfusion())) && (X <= Delta + Precision::PConfusion()))
+          if ((X >= (-Precision1::PConfusion())) && (X <= Delta + Precision1::PConfusion()))
           {
             if (Zer(i) < InfBound)
               Zer(i) = InfBound;

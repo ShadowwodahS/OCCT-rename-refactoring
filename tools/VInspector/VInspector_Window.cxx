@@ -669,7 +669,7 @@ void VInspector_Window::onExportToShapeView()
         continue;
       aParameters.Append(aShape.TShape());
       anItemNames.Append(TInspectorAPI_PluginParameters::ParametersToString(aShape));
-      anExportedPointers.append(Standard_Dump::GetPointerInfo(aShape.TShape(), true).ToCString());
+      anExportedPointers.append(DumpTool::GetPointerInfo(aShape.TShape(), true).ToCString());
     }
   }
 

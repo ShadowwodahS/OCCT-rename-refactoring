@@ -55,12 +55,12 @@ public:
   //! @param[out] theResult  interpolated value
   void Interpolate(double theT, Transform3d& theResult) const
   {
-    if (Abs(theT - 0.0) < Precision::Confusion())
+    if (Abs(theT - 0.0) < Precision1::Confusion())
     {
       theResult = myTrsfStart;
       return;
     }
-    else if (Abs(theT - 1.0) < Precision::Confusion())
+    else if (Abs(theT - 1.0) < Precision1::Confusion())
     {
       theResult = myTrsfEnd;
       return;

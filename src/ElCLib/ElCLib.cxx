@@ -69,8 +69,8 @@ Standard_Real ElCLib1::InPeriod(const Standard_Real theU,
                                const Standard_Real theUFirst,
                                const Standard_Real theULast)
 {
-  if (Precision::IsInfinite(theU) || Precision::IsInfinite(theUFirst)
-      || Precision::IsInfinite(theULast))
+  if (Precision1::IsInfinite(theU) || Precision1::IsInfinite(theUFirst)
+      || Precision1::IsInfinite(theULast))
   { // In order to avoid FLT_Overflow exception
     return theU;
   }
@@ -91,7 +91,7 @@ void ElCLib1::AdjustPeriodic(const Standard_Real UFirst,
                             Standard_Real&      U1,
                             Standard_Real&      U2)
 {
-  if (Precision::IsInfinite(UFirst) || Precision::IsInfinite(ULast))
+  if (Precision1::IsInfinite(UFirst) || Precision1::IsInfinite(ULast))
   {
     U1 = UFirst;
     U2 = ULast;

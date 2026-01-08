@@ -442,7 +442,7 @@ Standard_EXPORT void FUN_reducedoublons
             {
               // xpu100697 : if interf are EVI compare parameters
               Standard_Real    tolE    = FUN_tool_maxtol(E);
-              Standard_Real    t       = Precision::Parametric(tolE);
+              Standard_Real    t       = Precision1::Parametric(tolE);
               Standard_Real    t1      = EVI1->Parameter();
               Standard_Real    t2      = EVI2->Parameter();
               Standard_Real    dd      = t1 - t2;

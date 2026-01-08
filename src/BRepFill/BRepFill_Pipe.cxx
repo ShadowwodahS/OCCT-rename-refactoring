@@ -779,7 +779,7 @@ TopoShape BRepFill_Pipe::MakeShape(const TopoShape& S,
     BS.Add(solid, TopoDS::Shell(result));
 
     BRepClass3d_SolidClassifier SC(solid);
-    SC.PerformInfinitePoint(Precision::Confusion());
+    SC.PerformInfinitePoint(Precision1::Confusion());
     if (SC.State() == TopAbs_IN)
     {
       BS.MakeSolid(solid);
@@ -953,13 +953,13 @@ void BRepFill_Pipe::DefineRealSegmax()
       if (first > BC->FirstParameter())
       {
         Standard_Integer I1, I2;
-        BC->LocateU(first, Precision::PConfusion(), I1, I2);
+        BC->LocateU(first, Precision1::PConfusion(), I1, I2);
         RealNbKnots -= I1 - 1;
       }
       if (last < BC->LastParameter())
       {
         Standard_Integer I1, I2;
-        BC->LocateU(last, Precision::PConfusion(), I1, I2);
+        BC->LocateU(last, Precision1::PConfusion(), I1, I2);
         RealNbKnots -= NbKnots - I2;
       }
       RealSegmax += RealNbKnots - 1;

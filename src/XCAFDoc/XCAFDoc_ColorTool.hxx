@@ -26,7 +26,7 @@
 class XCAFDoc_ShapeTool;
 class DataLabel;
 class Standard_GUID;
-class Quantity_Color;
+class Color1;
 class Quantity_ColorRGBA;
 class TopoShape;
 
@@ -70,7 +70,7 @@ public:
   //! Returns color defined by label lab
   //! Returns False if the label is not in colortable
   //! or does not define a color
-  Standard_EXPORT static Standard_Boolean GetColor(const DataLabel& lab, Quantity_Color& col);
+  Standard_EXPORT static Standard_Boolean GetColor(const DataLabel& lab, Color1& col);
 
   //! Returns color defined by label lab
   //! Returns False if the label is not in colortable
@@ -80,7 +80,7 @@ public:
   //! Finds a color definition in a colortable and returns
   //! its label if found
   //! Returns False if color is not found in colortable
-  Standard_EXPORT Standard_Boolean FindColor(const Quantity_Color& col, DataLabel& lab) const;
+  Standard_EXPORT Standard_Boolean FindColor(const Color1& col, DataLabel& lab) const;
 
   //! Finds a color definition in a colortable and returns
   //! its label if found
@@ -89,7 +89,7 @@ public:
 
   //! Finds a color definition in a colortable and returns
   //! its label if found (or Null label else)
-  Standard_EXPORT DataLabel FindColor(const Quantity_Color& col) const;
+  Standard_EXPORT DataLabel FindColor(const Color1& col) const;
 
   //! Finds a color definition in a colortable and returns
   //! its label if found (or Null label else)
@@ -98,7 +98,7 @@ public:
   //! Adds a color definition to a colortable and returns
   //! its label (returns existing label if the same color
   //! is already defined)
-  Standard_EXPORT DataLabel AddColor(const Quantity_Color& col) const;
+  Standard_EXPORT DataLabel AddColor(const Color1& col) const;
 
   //! Adds a color definition to a colortable and returns
   //! its label (returns existing label if the same color
@@ -129,7 +129,7 @@ public:
   //! in the colortable
   //! Adds a color as necessary
   Standard_EXPORT void SetColor(const DataLabel&        L,
-                                const Quantity_Color&   Color,
+                                const Color1&   Color,
                                 const XCAFDoc_ColorType type) const;
 
   //! Sets a link with GUID defined by <type> (see
@@ -158,7 +158,7 @@ public:
   //! Returns False if no such color is assigned
   Standard_EXPORT static Standard_Boolean GetColor(const DataLabel&        L,
                                                    const XCAFDoc_ColorType type,
-                                                   Quantity_Color&         color);
+                                                   Color1&         color);
 
   //! Returns color assigned to <L> as <type>
   //! Returns False if no such color is assigned
@@ -180,7 +180,7 @@ public:
   //! Adds a color as necessary
   //! Returns False if cannot find a label for shape S
   Standard_EXPORT Standard_Boolean SetColor(const TopoShape&     S,
-                                            const Quantity_Color&   Color,
+                                            const Color1&   Color,
                                             const XCAFDoc_ColorType type);
 
   //! Sets a link with GUID defined by <type> (see
@@ -211,7 +211,7 @@ public:
   //! Returns False if no such color is assigned
   Standard_EXPORT Standard_Boolean GetColor(const TopoShape&     S,
                                             const XCAFDoc_ColorType type,
-                                            Quantity_Color&         color);
+                                            Color1&         color);
 
   //! Returns color assigned to <L> as <type>
   //! Returns False if no such color is assigned
@@ -241,7 +241,7 @@ public:
   Standard_EXPORT Standard_Boolean
     SetInstanceColor(const TopoShape&     theShape,
                      const XCAFDoc_ColorType type,
-                     const Quantity_Color&   color,
+                     const Color1&   color,
                      const Standard_Boolean  isCreateSHUO = Standard_True);
 
   //! Sets the color of component that styled with SHUO structure
@@ -257,7 +257,7 @@ public:
   //! Returns FALSE if no sush component or color type
   Standard_EXPORT Standard_Boolean GetInstanceColor(const TopoShape&     theShape,
                                                     const XCAFDoc_ColorType type,
-                                                    Quantity_Color&         color);
+                                                    Color1&         color);
 
   //! Gets the color of component that styled with SHUO structure
   //! Returns FALSE if no sush component or color type

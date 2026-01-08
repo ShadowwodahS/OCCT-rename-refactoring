@@ -248,7 +248,7 @@ static Standard_Boolean IsIntersect(const Handle(Adaptor3d_Curve)& theC, const A
     gp_Circ       aCirc  = theC->Circle();
     const Point3d& aCentr = aCirc.Location();
     Standard_Real anR2   = aCirc.Radius();
-    anR2 -= Precision::Confusion();
+    anR2 -= Precision1::Confusion();
     anR2 *= anR2;
     if (anAxis.SquareDistance(aCentr) > anR2)
     {
@@ -257,7 +257,7 @@ static Standard_Boolean IsIntersect(const Handle(Adaptor3d_Curve)& theC, const A
   }
   const Handle(GeomLine) aL = new GeomLine(anAxis);
   const GeomAdaptor_Curve aLin(aL);
-  const Standard_Real     aParTol = theC->Resolution(Precision::Confusion());
+  const Standard_Real     aParTol = theC->Resolution(Precision1::Confusion());
   const Standard_Real     aParF   = theC->FirstParameter() + aParTol,
                       aParL       = theC->LastParameter() - aParTol;
 
@@ -268,7 +268,7 @@ static Standard_Boolean IsIntersect(const Handle(Adaptor3d_Curve)& theC, const A
     PointOnCurve1 aP1, aP2;
     for (Standard_Integer i = 1; i <= anExtr.NbExt(); i++)
     {
-      if (anExtr.SquareDistance(i) > Precision::SquareConfusion())
+      if (anExtr.SquareDistance(i) > Precision1::SquareConfusion())
       {
         continue;
       }
@@ -318,7 +318,7 @@ Standard_Boolean BRepPrimAPI_MakeRevol::CheckValidity(const TopoShape& theShape,
       PP   = HC->Value(First + (Last - First) / Ratio);
       Dist = gp_Lin(theA).Distance(PP);
       Ratio++;
-    } while (Dist < Precision::Confusion() && Ratio < 100);
+    } while (Dist < Precision1::Confusion() && Ratio < 100);
     //
     if (Ratio >= 100) // edge coincides with axes
     {

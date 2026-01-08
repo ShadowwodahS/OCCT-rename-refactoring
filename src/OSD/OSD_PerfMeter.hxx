@@ -21,19 +21,19 @@
 //! This class enables measuring the CPU time between two points of code execution, regardless of
 //! the scope of these points of code. A meter is identified by its name (string). So multiple
 //! objects in various places of user code may point to the same meter. The results will be printed
-//! on stdout upon finish of the program. For details see OSD_PerfMeter.h
-class OSD_PerfMeter
+//! on stdout upon finish of the program. For details see PerformanceMeter.h
+class PerformanceMeter
 {
 
 public:
   //! Constructs a void meter (to further call Init and Start)
-  OSD_PerfMeter()
+  PerformanceMeter()
       : myIMeter(-1)
   {
   }
 
   //! Constructs and starts (if autoStart is true) the named meter
-  OSD_PerfMeter(const char* theMeter, const bool theToAutoStart = true)
+  PerformanceMeter(const char* theMeter, const bool theToAutoStart = true)
       : myIMeter(perf_get_meter(theMeter, 0, 0))
   {
     if (myIMeter < 0)
@@ -63,15 +63,15 @@ public:
   void Flush() const { perf_close_imeter(myIMeter); }
 
   //! Assures stopping upon destruction
-  ~OSD_PerfMeter()
+  ~PerformanceMeter()
   {
     if (myIMeter >= 0)
       Stop();
   }
 
 private:
-  OSD_PerfMeter(const OSD_PerfMeter&);
-  OSD_PerfMeter& operator=(const OSD_PerfMeter&);
+  PerformanceMeter(const PerformanceMeter&);
+  PerformanceMeter& operator=(const PerformanceMeter&);
 
 protected:
   int myIMeter;

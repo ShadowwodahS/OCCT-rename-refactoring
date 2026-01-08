@@ -192,7 +192,7 @@ static void EvalParameters(const TopoEdge&          Edge,
   Standard_Real    U1, U2;
   Point3d           P; //,PSeq;
 
-  //  Standard_Real Tol = Precision::Intersection();
+  //  Standard_Real Tol = Precision1::Intersection();
   //  modified by NIZHNY-EAP Wed Dec 22 15:00:51 1999 ___BEGIN___
   Standard_Real Tol  = 1.e-6; // BRepFill_Precision();
   Standard_Real TolC = 0.;
@@ -321,14 +321,14 @@ static void EvalParameters(const TopoEdge&          Edge,
     //  modified by NIZHNY-EAP Wed Jan 12 11:41:30 2000 ___BEGIN___
     // inside gp_Pnt2d::Distance
     // Infinite * Infinite => Exception: DefaultNumericError
-    // Case encounered: UBis < Precision::Infinite()
-    // but PBis.X() > Precision::Infinite()
-    if (Precision::IsPositiveInfinite(Abs(PBis.X())) || Precision::IsPositiveInfinite(Abs(PBis.Y()))
+    // Case encounered: UBis < Precision1::Infinite()
+    // but PBis.X() > Precision1::Infinite()
+    if (Precision1::IsPositiveInfinite(Abs(PBis.X())) || Precision1::IsPositiveInfinite(Abs(PBis.Y()))
         || PBis.Distance(P2d) > Tol)
     {
       //  modified by NIZHNY-EAP Wed Jan 12 11:41:40 2000 ___END___
       UBis = Bis->LastParameter();
-      if (UBis >= Precision::Infinite())
+      if (UBis >= Precision1::Infinite())
         return;
       PBis = Bis->Value(UBis);
       if (PBis.Distance(P2d) > Tol)
@@ -442,12 +442,12 @@ Standard_Boolean BRepFill_TrimSurfaceTool::IsOnFace(const gp_Pnt2d& Point) const
 
   // eval if is on face 1
   //  modified by NIZHNY-EAP Fri Jan 21 09:49:09 2000 ___BEGIN___
-  Inter.Init(myFace1, Line, 1e-6); // Precision::PConfusion());
+  Inter.Init(myFace1, Line, 1e-6); // Precision1::PConfusion());
   if (Inter.More())
     return Standard_True;
 
   // eval if is on face 2
-  Inter.Init(myFace2, Line, 1e-6); // Precision::PConfusion());
+  Inter.Init(myFace2, Line, 1e-6); // Precision1::PConfusion());
   return Inter.More();
   //  modified by NIZHNY-EAP Fri Jan 21 09:49:14 2000 ___END___
 }
@@ -471,7 +471,7 @@ Standard_Real BRepFill_TrimSurfaceTool::ProjOn(const gp_Pnt2d& Point, const Topo
   Geom2dAPI_ProjectPointOnCurve Projector(Point, C2d);
 #ifdef OCCT_DEBUG
   Standard_Real Dist = Projector.LowerDistance();
-  if (Dist > Precision::Confusion())
+  if (Dist > Precision1::Confusion())
   {
     std::cout << " *** WARNING  TrimSurfaceTool:  *** " << std::endl;
     std::cout << "      --> the point is not on the edge" << std::endl;

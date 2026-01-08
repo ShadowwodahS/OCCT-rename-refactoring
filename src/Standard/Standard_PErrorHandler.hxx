@@ -17,7 +17,7 @@
 #ifndef _Standard_PErrorHandler_HeaderFile
 #define _Standard_PErrorHandler_HeaderFile
 
-class Standard_ErrorHandler;
-typedef Standard_ErrorHandler* Standard_PErrorHandler;
+class ErrorHandler;
+typedef ErrorHandler* Standard_PErrorHandler;
 
 #endif // _Standard_PErrorHandler_HeaderFile

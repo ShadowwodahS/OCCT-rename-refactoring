@@ -221,14 +221,14 @@ Standard_Boolean BRepMesh_ModelPostProcessor::performInternal(
   }
 
   // TODO: Force single threaded solution due to data races on edges sharing the same TShape
-  OSD_Parallel::For(0,
+  Parallel1::For(0,
                     theModel->EdgesNb(),
                     PolygonCommitter(theModel),
                     Standard_True /*!theParameters.InParallel*/);
 
   // Estimate deflection here due to BRepLib1::EstimateDeflection requires
   // existence of both MeshTriangulation and Poly_PolygonOnTriangulation.
-  OSD_Parallel::For(0,
+  Parallel1::For(0,
                     theModel->FacesNb(),
                     DeflectionEstimator(theModel, theParameters),
                     !theParameters.InParallel);

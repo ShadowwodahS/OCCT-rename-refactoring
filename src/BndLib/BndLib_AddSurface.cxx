@@ -132,10 +132,10 @@ static Point3d BaryCenter(const gp_Pln&       aPlane,
                          const Standard_Real aVMax)
 {
   Standard_Real    aU, aV;
-  Standard_Boolean isU1Inf = Precision::IsInfinite(aUMin);
-  Standard_Boolean isU2Inf = Precision::IsInfinite(aUMax);
-  Standard_Boolean isV1Inf = Precision::IsInfinite(aVMin);
-  Standard_Boolean isV2Inf = Precision::IsInfinite(aVMax);
+  Standard_Boolean isU1Inf = Precision1::IsInfinite(aUMin);
+  Standard_Boolean isU2Inf = Precision1::IsInfinite(aUMax);
+  Standard_Boolean isV1Inf = Precision1::IsInfinite(aVMin);
+  Standard_Boolean isV2Inf = Precision1::IsInfinite(aVMax);
 
   if (isU1Inf && isU2Inf)
     aU = 0;
@@ -254,8 +254,8 @@ void AddSurface::Add(const Adaptor3d_Surface& S,
 {
   GeomAbs_SurfaceType Type = S.GetType(); // skv OCC6503
 
-  if (Precision::IsInfinite(VMin) || Precision::IsInfinite(VMax) || Precision::IsInfinite(UMin)
-      || Precision::IsInfinite(UMax))
+  if (Precision1::IsInfinite(VMin) || Precision1::IsInfinite(VMax) || Precision1::IsInfinite(UMin)
+      || Precision1::IsInfinite(UMax))
   {
     //  Modified by skv - Fri Aug 27 12:29:04 2004 OCC6503 Begin
     //     B.SetWhole();
@@ -301,9 +301,9 @@ void AddSurface::Add(const Adaptor3d_Surface& S,
       break;
     }
     case GeomAbs_Sphere: {
-      if (Abs(UMin) < Precision::Angular() && Abs(UMax - 2. * M_PI) < Precision::Angular()
-          && Abs(VMin + M_PI / 2.) < Precision::Angular()
-          && Abs(VMax - M_PI / 2.) < Precision::Angular()) // a whole sphere
+      if (Abs(UMin) < Precision1::Angular() && Abs(UMax - 2. * M_PI) < Precision1::Angular()
+          && Abs(VMin + M_PI / 2.) < Precision1::Angular()
+          && Abs(VMax - M_PI / 2.) < Precision1::Angular()) // a whole sphere
         BndLib1::Add(S.Sphere(), Tol, B);
       else
         BndLib1::Add(S.Sphere(), UMin, UMax, VMin, VMax, Tol, B);
@@ -319,7 +319,7 @@ void AddSurface::Add(const Adaptor3d_Surface& S,
     case GeomAbs_BezierSurface:
     case GeomAbs_BSplineSurface: {
       Standard_Boolean isUseConvexHullAlgorithm = Standard_True;
-      Standard_Real    PTol                     = Precision::Parametric(Precision::Confusion());
+      Standard_Real    PTol                     = Precision1::Parametric(Precision1::Confusion());
       // Borders of underlying geometry.
       Standard_Real anUMinParam = UMin, anUMaxParam = UMax, // BSpline case.
         aVMinParam = VMin, aVMaxParam = VMax;
@@ -487,8 +487,8 @@ void AddSurface::AddOptimal(const Adaptor3d_Surface& S,
 {
   GeomAbs_SurfaceType Type = S.GetType();
 
-  if (Precision::IsInfinite(VMin) || Precision::IsInfinite(VMax) || Precision::IsInfinite(UMin)
-      || Precision::IsInfinite(UMax))
+  if (Precision1::IsInfinite(VMin) || Precision1::IsInfinite(VMax) || Precision1::IsInfinite(UMin)
+      || Precision1::IsInfinite(UMax))
   {
     switch (Type)
     {
@@ -624,7 +624,7 @@ void AddSurface::AddGenSurf(const Adaptor3d_Surface& S,
   }
   //
   // Adjusting minmax
-  Standard_Real eps = Max(Tol, Precision::Confusion());
+  Standard_Real eps = Max(Tol, Precision1::Confusion());
   for (k = 0; k < 3; ++k)
   {
     Standard_Real d = DeflMax[k];

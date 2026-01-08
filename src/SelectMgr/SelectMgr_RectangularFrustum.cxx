@@ -115,9 +115,9 @@ bool RectangularFrustum::segmentPlaneIntersection(
   Standard_Real aD = thePlane.Dot(anU);
   Standard_Real aN = -thePlane.Dot(aW);
 
-  if (Abs(aD) < Precision::Confusion())
+  if (Abs(aD) < Precision1::Confusion())
   {
-    if (Abs(aN) < Precision::Angular())
+    if (Abs(aN) < Precision1::Angular())
     {
       thePickResult.Invalidate();
       return false;
@@ -656,7 +656,7 @@ Standard_Boolean RectangularFrustum::OverlapsPolygon(
       return Standard_False;
     }
 
-    if (aPolyNorm.Magnitude() <= Precision::Confusion())
+    if (aPolyNorm.Magnitude() <= Precision1::Confusion())
     {
       // treat degenerated polygon as point
       return OverlapsPoint(theArrayOfPnts.First(), theClipRange, thePickResult);
@@ -772,7 +772,7 @@ Standard_Boolean RectangularFrustum::OverlapsTriangle(
     Standard_Integer aNearestEdgeIdx2 = (aNearestEdgeIdx1 + 1) % 3;
     const Vector3d     aVec12(aPnts[aNearestEdgeIdx1], aPnts[aNearestEdgeIdx2]);
     if (aVec12.SquareMagnitude() > gp1::Resolution()
-        && myViewRayDir.IsParallel(aVec12, Precision::Angular()))
+        && myViewRayDir.IsParallel(aVec12, Precision1::Angular()))
     {
       aNearestEdgeIdx2 = aNearestEdgeIdx1 == 0 ? 2 : aNearestEdgeIdx1 - 1;
     }
@@ -823,11 +823,11 @@ Standard_Boolean RectangularFrustum::OverlapsCylinder(
   }
 
   const Point3d aPntOnCylinder = aLoc.XYZ() + aRayDir.XYZ() * aTimes[aResTime];
-  if (Abs(aPntOnCylinder.Z()) < Precision::Confusion())
+  if (Abs(aPntOnCylinder.Z()) < Precision1::Confusion())
   {
     thePickResult.SetSurfaceNormal(-gp1::DZ().Transformed(theTrsf));
   }
-  else if (Abs(aPntOnCylinder.Z() - theHeight) < Precision::Confusion())
+  else if (Abs(aPntOnCylinder.Z() - theHeight) < Precision1::Confusion())
   {
     thePickResult.SetSurfaceNormal(gp1::DZ().Transformed(theTrsf));
   }
@@ -880,7 +880,7 @@ Standard_Boolean RectangularFrustum::OverlapsCircle(
   }
 
   const Point3d aPntOnCircle = aLoc.XYZ() + aRayDir.XYZ() * aTime;
-  if (Abs(aPntOnCircle.Z()) < Precision::Confusion())
+  if (Abs(aPntOnCircle.Z()) < Precision1::Confusion())
   {
     thePickResult.SetSurfaceNormal(-gp1::DZ().Transformed(theTrsf));
   }
@@ -959,7 +959,7 @@ Standard_Boolean RectangularFrustum::isSegmentsIntersect(const Point3d& thePnt1S
                        thePnt2Seg2.X() - thePnt1Seg1.X(),
                        thePnt2Seg2.Y() - thePnt1Seg1.Y(),
                        thePnt2Seg2.Z() - thePnt1Seg1.Z());
-  if (Abs(aMatPln.Determinant()) > Precision::Confusion())
+  if (Abs(aMatPln.Determinant()) > Precision1::Confusion())
   {
     return false;
   }

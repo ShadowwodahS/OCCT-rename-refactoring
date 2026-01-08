@@ -144,7 +144,7 @@ OpenGl_View::OpenGl_View(const Handle(Graphic3d_StructureManager)& theMgr,
         BVH_Constants_LeafNodeSizeAverage,
         BVH_Constants_MaxTreeDepth,
         Standard_False,
-        OSD_Parallel::NbLogicalProcessors() + 1)),
+        Parallel1::NbLogicalProcessors() + 1)),
       myRaytraceSceneRadius(0.0f),
       myRaytraceSceneEpsilon(1.0e-6f),
       myToUpdateEnvironmentMap(Standard_False),
@@ -636,7 +636,7 @@ Standard_Boolean OpenGl_View::ShadowMapDump(Image_PixMap&                  theIm
 
 Aspect_GradientBackground OpenGl_View::GradientBackground() const
 {
-  Quantity_Color aColor1, aColor2;
+  Color1 aColor1, aColor2;
   aColor1.SetValues(myBackgrounds[Graphic3d_TOB_GRADIENT]->GradientColor(0).r(),
                     myBackgrounds[Graphic3d_TOB_GRADIENT]->GradientColor(0).g(),
                     myBackgrounds[Graphic3d_TOB_GRADIENT]->GradientColor(0).b(),
@@ -654,7 +654,7 @@ Aspect_GradientBackground OpenGl_View::GradientBackground() const
 
 void OpenGl_View::SetGradientBackground(const Aspect_GradientBackground& theBackground)
 {
-  Quantity_Color aColor1, aColor2;
+  Color1 aColor1, aColor2;
   theBackground.Colors(aColor1, aColor2);
   myBackgrounds[Graphic3d_TOB_GRADIENT]->SetGradientParameters(
     aColor1,
@@ -2672,7 +2672,7 @@ void OpenGl_View::renderStructs(CameraOn3d::Projection theProjection,
       // Prepare preliminary OpenGL output
       if (aCtx->arbFBOBlit != NULL)
       {
-        // Render bottom OSD layer
+        // Render bottom OSD1 layer
         myZLayers.Render(myWorkspace,
                          theToDrawImmediate,
                          OpenGl_LF_Bottom,

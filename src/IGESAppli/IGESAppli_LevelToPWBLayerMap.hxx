@@ -43,9 +43,9 @@ public:
   //! This method is used to set the fields of the class
   //! LevelToPWBLayerMap
   //! - nbPropVal       : Number of property values
-  //! - allExchLevels   : Exchange File Level Numbers
+  //! - allExchLevels   : Exchange File Level Numbers1
   //! - allNativeLevels : Native Level Identifications
-  //! - allPhysLevels   : Physical1 Layer Numbers
+  //! - allPhysLevels   : Physical1 Layer Numbers1
   //! - allExchIdents   : Exchange File Level Identifications
   //! raises exception if allExchLevels, allNativeLevels, allPhysLevels
   //! and all ExchIdents are not of same dimensions

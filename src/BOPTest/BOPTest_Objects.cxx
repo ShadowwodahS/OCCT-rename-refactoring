@@ -98,14 +98,14 @@ public:
   {
     myRunParallel    = Standard_False;
     myNonDestructive = Standard_False;
-    myFuzzyValue     = Precision::Confusion();
+    myFuzzyValue     = Precision1::Confusion();
     myGlue           = BOPAlgo_GlueOff;
     myDrawWarnShapes = Standard_False;
     myCheckInverted  = Standard_True;
     myUseOBB         = Standard_False;
     myUnifyEdges     = Standard_False;
     myUnifyFaces     = Standard_False;
-    myAngTol         = Precision::Angular();
+    myAngTol         = Precision1::Angular();
   }
 
   //

@@ -962,7 +962,7 @@ Standard_Boolean Transform3d::InitFromJson(const Standard_SStream& theSStream,
                                        Standard_Integer&       theStreamPos)
 {
   Standard_Integer        aPos       = theStreamPos;
-  AsciiString1 aStreamStr = Standard_Dump::Text(theSStream);
+  AsciiString1 aStreamStr = DumpTool::Text(theSStream);
 
   Coords3d anXYZLoc;
   OCCT_INIT_VECTOR_CLASS(aStreamStr,

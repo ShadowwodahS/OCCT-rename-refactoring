@@ -74,7 +74,7 @@ static void Compute(CPnts_AbscissaPoint& theComputer,
                     const Standard_Real  theEPSILON)
 {
   // test for easy solution
-  if (Abs(theAbscis) <= Precision::Confusion())
+  if (Abs(theAbscis) <= Precision1::Confusion())
   {
     theComputer.SetParameter(theU0);
     return;
@@ -111,7 +111,7 @@ static void Compute(CPnts_AbscissaPoint& theComputer,
       while (anIndex >= 1 && anIndex <= aNbIntervals)
       {
         aL = CPnts_AbscissaPoint::Length(theC, theU0, aTI(anIndex + aDirection));
-        if (Abs(aL - theAbscis) <= Precision::Confusion())
+        if (Abs(aL - theAbscis) <= Precision1::Confusion())
         {
           theComputer.SetParameter(aTI(anIndex + aDirection));
           return;
@@ -203,7 +203,7 @@ static void AdvCompute(CPnts_AbscissaPoint& theComputer,
       if (anIndex == 0 && aDirection > 0)
       {
         aL = CPnts_AbscissaPoint::Length(theC, theU0, aTI(anIndex + aDirection), theEPSILON);
-        if (Abs(aL - theAbscis) <= /*Precision::Confusion()*/ theEPSILON)
+        if (Abs(aL - theAbscis) <= /*Precision1::Confusion()*/ theEPSILON)
         {
           theComputer.SetParameter(aTI(anIndex + aDirection));
           return;
@@ -231,7 +231,7 @@ static void AdvCompute(CPnts_AbscissaPoint& theComputer,
       while (anIndex >= 1 && anIndex <= aNbIntervals)
       {
         aL = CPnts_AbscissaPoint::Length(theC, theU0, aTI(anIndex + aDirection), theEPSILON);
-        if (Abs(aL - theAbscis) <= Precision::PConfusion())
+        if (Abs(aL - theAbscis) <= Precision1::PConfusion())
         {
           theComputer.SetParameter(aTI(anIndex + aDirection));
           return;
@@ -433,7 +433,7 @@ void GCPnts_AbscissaPoint::compute(const TheCurve&     theC,
                                    const Standard_Real theU0)
 {
   const Standard_Real aL = GCPnts_AbscissaPoint::Length(theC);
-  if (aL < Precision::Confusion())
+  if (aL < Precision1::Confusion())
   {
     throw Standard_ConstructionError();
   }
@@ -441,7 +441,7 @@ void GCPnts_AbscissaPoint::compute(const TheCurve&     theC,
   Standard_Real anAbscis = theAbscissa;
   Standard_Real aUU0     = theU0;
   Standard_Real aUUi     = theU0 + (anAbscis / aL) * (theC.LastParameter() - theC.FirstParameter());
-  Compute(myComputer, theC, anAbscis, aUU0, aUUi, theC.Resolution(Precision::Confusion()));
+  Compute(myComputer, theC, anAbscis, aUU0, aUUi, theC.Resolution(Precision1::Confusion()));
 }
 
 //=================================================================================================
@@ -471,14 +471,14 @@ void GCPnts_AbscissaPoint::advCompute(const Standard_Real theTol,
                                       const Standard_Real theU0)
 {
   const Standard_Real aL = GCPnts_AbscissaPoint::Length(theC, theTol);
-  /*if (aL < Precision::Confusion())
+  /*if (aL < Precision1::Confusion())
   {
     throw Standard_ConstructionError ("GCPnts_AbscissaPoint::GCPnts_AbscissaPoint");
   }*/
   Standard_Real anAbscis = theAbscissa;
   Standard_Real aUU0     = theU0;
   Standard_Real aUUi     = 0.0;
-  if (aL >= Precision::Confusion())
+  if (aL >= Precision1::Confusion())
   {
     aUUi = theU0 + (anAbscis / aL) * (theC.LastParameter() - theC.FirstParameter());
   }
@@ -517,7 +517,7 @@ GCPnts_AbscissaPoint::GCPnts_AbscissaPoint(const Adaptor3d_Curve& theC,
                                            const Standard_Real    theUi)
 {
   Standard_Real anAbscis = theAbscissa, aUU0 = theU0, aUUi = theUi;
-  Compute(myComputer, theC, anAbscis, aUU0, aUUi, theC.Resolution(Precision::Confusion()));
+  Compute(myComputer, theC, anAbscis, aUU0, aUUi, theC.Resolution(Precision1::Confusion()));
 }
 
 //=================================================================================================
@@ -528,7 +528,7 @@ GCPnts_AbscissaPoint::GCPnts_AbscissaPoint(const Adaptor2d_Curve2d& theC,
                                            const Standard_Real      theUi)
 {
   Standard_Real anAbscis = theAbscissa, aUU0 = theU0, aUUi = theUi;
-  Compute(myComputer, theC, anAbscis, aUU0, aUUi, theC.Resolution(Precision::Confusion()));
+  Compute(myComputer, theC, anAbscis, aUU0, aUUi, theC.Resolution(Precision1::Confusion()));
 }
 
 //=================================================================================================

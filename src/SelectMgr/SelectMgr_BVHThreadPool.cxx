@@ -29,7 +29,7 @@ SelectMgr_BVHThreadPool::SelectMgr_BVHThreadPool(Standard_Integer theNbThreads)
   Standard_Integer aBVHThreadsNum = Max(1, theNbThreads);
   myBVHThreads.Resize(1, aBVHThreadsNum, Standard_False);
 
-  Standard_Boolean toCatchFpe = OSD::ToCatchFloatingSignals();
+  Standard_Boolean toCatchFpe = OSD1::ToCatchFloatingSignals();
 
   for (Standard_Integer i = myBVHThreads.Lower(); i <= myBVHThreads.Upper(); ++i)
   {
@@ -104,7 +104,7 @@ void SelectMgr_BVHThreadPool::AddEntity(const Handle(Select3D_SensitiveEntity)& 
 
 void SelectMgr_BVHThreadPool::BVHThread::performThread()
 {
-  OSD::SetThreadLocalSignal(OSD::SignalMode(), myToCatchFpe);
+  OSD1::SetThreadLocalSignal(OSD1::SignalMode(), myToCatchFpe);
 
   for (;;)
   {

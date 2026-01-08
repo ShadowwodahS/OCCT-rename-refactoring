@@ -825,7 +825,7 @@ Standard_Boolean IsInside(const TopoShape&       theS1,
     TopExp1::MapShapes(*pS2, TopAbs_EDGE, aBounds);
     const TopoFace& aF = (*(TopoFace*)(&aExp.Current()));
     aState =
-      AlgoTools::ComputeState(aF, *pS2, Precision::Confusion(), aBounds, theContext);
+      AlgoTools::ComputeState(aF, *pS2, Precision1::Confusion(), aBounds, theContext);
   }
   return (aState == TopAbs_IN);
 }

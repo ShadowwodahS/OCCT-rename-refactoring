@@ -38,7 +38,7 @@ DEFINE_STANDARD_HANDLE(ShapeCustom_TrsfModification, BRepTools_TrsfModification)
 //! scaling regarding tolerances.
 //! Uses actual tolerances (attached to the shapes) not ones
 //! returned by BRepInspector::Tolerance to work with tolerances
-//! lower than Precision::Confusion.
+//! lower than Precision1::Confusion.
 class ShapeCustom_TrsfModification : public BRepTools_TrsfModification
 {
 

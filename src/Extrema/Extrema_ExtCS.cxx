@@ -158,10 +158,10 @@ void Extrema_ExtCS::Perform(const Adaptor3d_Curve& C,
           Standard_Real ufirst = myS->FirstUParameter(), ulast = myS->LastUParameter(),
                         vfirst = myS->FirstVParameter(), vlast = myS->LastVParameter();
 
-          if (!(Precision::IsInfinite(ufirst) || Precision::IsInfinite(ulast)
-                || Precision::IsInfinite(vfirst) || Precision::IsInfinite(vlast)))
+          if (!(Precision1::IsInfinite(ufirst) || Precision1::IsInfinite(ulast)
+                || Precision1::IsInfinite(vfirst) || Precision1::IsInfinite(vlast)))
           {
-            Standard_Real tmin = Precision::Infinite(), tmax = -tmin;
+            Standard_Real tmin = Precision1::Infinite(), tmax = -tmin;
             Standard_Real xmin, ymin, zmin, xmax, ymax, zmax;
             Box2       aSurfBox;
             AddSurface::Add(*myS,
@@ -169,7 +169,7 @@ void Extrema_ExtCS::Perform(const Adaptor3d_Curve& C,
                                    ulast,
                                    vfirst,
                                    vlast,
-                                   Precision::Confusion(),
+                                   Precision1::Confusion(),
                                    aSurfBox);
             aSurfBox.Get(xmin, ymin, zmin, xmax, ymax, zmax);
             gp_Lin        aLin = C.Line();
@@ -200,7 +200,7 @@ void Extrema_ExtCS::Perform(const Adaptor3d_Curve& C,
           if (myS->IsVPeriodic())
             NbV = 13;
 
-          if (clast - cfirst <= Precision::Confusion())
+          if (clast - cfirst <= Precision1::Confusion())
           {
             Standard_Real aCPar = (cfirst + clast) / 2.;
             Point3d        aPm   = C.Value(aCPar);
@@ -325,7 +325,7 @@ void Extrema_ExtCS::Perform(const Adaptor3d_Curve& C,
           Standard_Real aDist[2] = {-1, -1};
           for (i = 0; i < 2; ++i)
           {
-            if (Precision::IsInfinite(aT[i]))
+            if (Precision1::IsInfinite(aT[i]))
               continue;
 
             aPOnC[i] = C.Value(aT[i]);
@@ -370,7 +370,7 @@ void Extrema_ExtCS::Perform(const Adaptor3d_Curve& C,
           {
             Standard_Real aDiff = aDist[0] - aDist[1];
             // Both computed -> take only minimal
-            if (Abs(aDiff) < Precision::Confusion())
+            if (Abs(aDiff) < Precision1::Confusion())
               // Add both
               bAdd[0] = bAdd[1] = Standard_True;
             else if (aDiff < 0)

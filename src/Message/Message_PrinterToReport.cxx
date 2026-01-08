@@ -47,7 +47,7 @@ void Message_PrinterToReport::SendStringStream(const Standard_SStream& theStream
     sendMetricAlert(theStream.str().c_str(), theGravity);
     return;
   }
-  if (Standard_Dump::HasChildKey(Standard_Dump::Text(theStream)))
+  if (DumpTool::HasChildKey(DumpTool::Text(theStream)))
   {
     Message_AlertExtended::AddAlert(aReport,
                                     new Message_AttributeStream(theStream, myName),
@@ -62,7 +62,7 @@ void Message_PrinterToReport::SendStringStream(const Standard_SStream& theStream
       myName.Clear();
       send(aName, theGravity);
     }
-    myName = Standard_Dump::Text(theStream);
+    myName = DumpTool::Text(theStream);
   }
 }
 

@@ -17,7 +17,7 @@
 
 //=================================================================================================
 
-TwoColors BindTwoColors(const Quantity_Color& theCol1, const Quantity_Color& theCol2)
+TwoColors BindTwoColors(const Color1& theCol1, const Color1& theCol2)
 {
   TwoColors                aRes;
   NCollection_Vec3<Standard_Real> aColor_sRGB;
@@ -35,9 +35,9 @@ TwoColors BindTwoColors(const Quantity_Color& theCol1, const Quantity_Color& the
 
 //=================================================================================================
 
-Quantity_Color ExtractColor(TwoColors& theTwoColors, const Standard_Integer Index)
+Color1 ExtractColor(TwoColors& theTwoColors, const Standard_Integer Index)
 {
-  Quantity_Color aRes;
+  Color1 aRes;
   Standard_Real  max = 255.0;
 
   if (Index == 1)
@@ -56,7 +56,7 @@ Quantity_Color ExtractColor(TwoColors& theTwoColors, const Standard_Integer Inde
 
 //=================================================================================================
 
-void ExtractColors(TwoColors& theTwoColors, Quantity_Color& theCol1, Quantity_Color& theCol2)
+void ExtractColors(TwoColors& theTwoColors, Color1& theCol1, Color1& theCol2)
 {
   Standard_Real max = 255.0;
   theCol1.SetValues(Standard_Real(theTwoColors.r1) / max,

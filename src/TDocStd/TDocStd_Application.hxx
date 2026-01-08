@@ -53,7 +53,7 @@ DEFINE_STANDARD_HANDLE(AppManager, CDF_Application)
 //! services for them:
 //! -   Creation of new documents
 //! -   Activation of documents in sessions of an application
-//! -   Storage and retrieval of documents
+//! -   Storage1 and retrieval of documents
 //! -   Initialization of document views.
 //! Note:
 //! If a client needs detailed information concerning

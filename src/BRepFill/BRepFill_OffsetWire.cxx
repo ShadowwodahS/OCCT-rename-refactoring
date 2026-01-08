@@ -493,7 +493,7 @@ void BRepFill_OffsetWire::Perform(const Standard_Real Offset, const Standard_Rea
         Handle(GeomCurve3d) G3d = BRepInspector::Curve(TopoDS::Edge(anE), f, l);
         GeomAdaptor_Curve  AC(G3d, f, l);
 
-        PerformCurve(Parameters, Points, AC, aDefl, f, l, Precision::Confusion(), 2);
+        PerformCurve(Parameters, Points, AC, aDefl, f, l, Precision1::Confusion(), 2);
 
         Standard_Integer NPnts = Points.Length();
         if (NPnts > 2)
@@ -690,7 +690,7 @@ void BRepFill_OffsetWire::PerformWithBiLo(const TopoFace&              Spine,
   }
   myMap.Clear();
 
-  if (Abs(myOffset) < Precision::Confusion())
+  if (Abs(myOffset) < Precision1::Confusion())
   {
     Compute(mySpine, myShape, myMap, Alt);
     myIsDone = Standard_True;
@@ -914,7 +914,7 @@ void BRepFill_OffsetWire::PerformWithBiLo(const TopoFace&              Spine,
       gp_Pnt2d P2 = Bisec.Value()->Value(Params.Value(s).X());
       Point3d   PVC(P2.X(), P2.Y(), 0.);
 
-      myBuilder.UpdateVertex(VC, PVC, Precision::Confusion());
+      myBuilder.UpdateVertex(VC, PVC, Precision1::Confusion());
       Vertices.Append(VC);
     }
     if (StartOnEdge)
@@ -955,7 +955,7 @@ void BRepFill_OffsetWire::PerformWithBiLo(const TopoFace&              Spine,
 
     UpdateDetromp(Detromp, S[0], S[1], Vertices, Params, Bisec, StartOnEdge, EndOnEdge, Trim);
     //----------------------------------------------
-    // Storage of vertices on parallel edges.
+    // Storage1 of vertices on parallel edges.
     // fill MapBis and MapVerPar.
     //----------------------------------------------
     if (!Vertices.IsEmpty() && Params.Length() == Vertices.Length())
@@ -1103,7 +1103,7 @@ void BRepFill_OffsetWire::PerformWithBiLo(const TopoFace&              Spine,
     {
       Point3d P = BRepInspector::Pnt(V);
       P        = RefPlane->Value(P.X(), P.Y());
-      myBuilder.UpdateVertex(V, P, Precision::Confusion());
+      myBuilder.UpdateVertex(V, P, Precision1::Confusion());
     }
   }
 
@@ -1303,7 +1303,7 @@ void BRepFill_OffsetWire::UpdateDetromp(BRepFill_DataMapOfOrientedShapeListOfSha
     {
       gp_Pnt2d Pf = Bis->Value(Bis->FirstParameter());
       gp_Pnt2d Pl = Bis->Value(Bis->LastParameter());
-      ForceAdd    = Pf.Distance(Pl) <= Precision::Confusion();
+      ForceAdd    = Pf.Distance(Pl) <= Precision1::Confusion();
     }
 
     U1 = Bis->FirstParameter();
@@ -1340,7 +1340,7 @@ void BRepFill_OffsetWire::UpdateDetromp(BRepFill_DataMapOfOrientedShapeListOfSha
     U2 = Bis->LastParameter();
     if (!EOnE)
     {
-      if (!Precision::IsInfinite(U2))
+      if (!Precision1::IsInfinite(U2))
       {
         gp_Pnt2d P = Bis->Value((U2 + U1) * 0.5);
         if (!Trim.IsInside(P) || ForceAdd)
@@ -1974,8 +1974,8 @@ void CutCurve(const Handle(Geom2d_TrimmedCurve)& C,
   Standard_Real               UF, UL, UC;
   Standard_Real               Step;
   gp_Pnt2d                    PF, PL, PC;
-  constexpr Standard_Real     PTol  = Precision::PConfusion() * 10;
-  constexpr Standard_Real     Tol   = Precision::Confusion() * 10;
+  constexpr Standard_Real     PTol  = Precision1::PConfusion() * 10;
+  constexpr Standard_Real     Tol   = Precision1::Confusion() * 10;
   Standard_Boolean            YaCut = Standard_False;
 
   UF = C->FirstParameter();
@@ -2103,7 +2103,7 @@ void MakeOffset(const TopoEdge&                                 E,
     Standard_Real Crossed = Xd.X() * Yd.Y() - Xd.Y() * Yd.X();
     Standard_Real Signe   = (Crossed > 0.) ? -1. : 1.;
 
-    if (anOffset * Signe < AC.Circle().Radius() - Precision::Confusion())
+    if (anOffset * Signe < AC.Circle().Radius() - Precision1::Confusion())
     {
 
       Handle(Geom2dAdaptor_Curve) AHC = new Geom2dAdaptor_Curve(G2d);
@@ -2150,14 +2150,14 @@ void MakeOffset(const TopoEdge&                                 E,
       if (theJoinType == GeomAbs_Arc)
         f -= Delta;
       else // GeomAbs_Intersection
-        f = -Precision::Infinite();
+        f = -Precision1::Infinite();
     }
     if (ToExtendLastPar)
     {
       if (theJoinType == GeomAbs_Arc)
         l += Delta;
       else // GeomAbs_Intersection
-        l = Precision::Infinite();
+        l = Precision1::Infinite();
     }
     G2dOC = new Geom2d_TrimmedCurve(CC, f, l);
   }
@@ -2200,7 +2200,7 @@ Standard_Boolean VertexFromNode(const Handle(MAT_Node)&      aNode,
                                 TopoVertex&               VN)
 {
   Standard_Boolean        Status;
-  constexpr Standard_Real Tol = Precision::Confusion();
+  constexpr Standard_Real Tol = Precision1::Confusion();
   ShapeBuilder            B;
 
   if (!aNode->Infinite() && Abs(aNode->Distance() - Offset) < Tol)
@@ -2216,7 +2216,7 @@ Standard_Boolean VertexFromNode(const Handle(MAT_Node)&      aNode,
     {
       Point3d P(PN.X(), PN.Y(), 0.);
       B.MakeVertex(VN);
-      B.UpdateVertex(VN, P, Precision::Confusion());
+      B.UpdateVertex(VN, P, Precision1::Confusion());
       MapNodeVertex.Bind(aNode, VN);
     }
     Status = Standard_True;
@@ -2305,7 +2305,7 @@ void TrimEdge(const TopoEdge&                   E,
   //----------------------------------------------------------
   if (!BRepInspector::Degenerated(E))
   {
-    constexpr Standard_Real aParTol = 2.0 * Precision::PConfusion();
+    constexpr Standard_Real aParTol = 2.0 * Precision1::PConfusion();
     for (Standard_Integer k = 1; k < TheVer.Length(); k++)
     {
       if (TheVer.Value(k).IsSame(TheVer.Value(k + 1))
@@ -2556,7 +2556,7 @@ static void CheckBadEdges(const TopoFace&              Spine,
 {
 
   TopoFace             F       = TopoDS::Face(Spine.Oriented(TopAbs_FORWARD));
-  constexpr Standard_Real eps     = Precision::Confusion();
+  constexpr Standard_Real eps     = Precision1::Confusion();
   Standard_Real           LimCurv = 1. / Offset;
 
   TopTools_MapOfShape aMap;
@@ -2818,7 +2818,7 @@ Standard_Boolean CheckSmallParamOnEdge(const TopoEdge& anEdge)
       ((Handle(BRep_TEdge)::DownCast(anEdge.TShape()))->Curves()).First();
     Standard_Real f = (Handle(BRep_GCurve)::DownCast(CRep))->First();
     Standard_Real l = (Handle(BRep_GCurve)::DownCast(CRep))->Last();
-    if (Abs(l - f) < Precision::PConfusion())
+    if (Abs(l - f) < Precision1::PConfusion())
       return Standard_False;
   }
   return Standard_True;

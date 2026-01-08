@@ -60,7 +60,7 @@ Standard_Boolean ShapeExtend_CompositeSurface::Init(
     return Standard_False;
   myPatches = GridSurf;
   ComputeJointValues(param);
-  return CheckConnectivity(Precision::Confusion());
+  return CheckConnectivity(Precision1::Confusion());
 }
 
 //=================================================================================================
@@ -84,7 +84,7 @@ Standard_Boolean ShapeExtend_CompositeSurface::Init(
 #endif
   }
 
-  return (CheckConnectivity(Precision::Confusion()) ? ok : Standard_False);
+  return (CheckConnectivity(Precision1::Confusion()) ? ok : Standard_False);
 }
 
 //=================================================================================================
@@ -156,7 +156,7 @@ Standard_Boolean ShapeExtend_CompositeSurface::SetUJointValues(const TColStd_Arr
   for (Standard_Integer i = 1, j = UJoints.Lower(); i <= NbU + 1; i++, j++)
   {
     UJointValues->SetValue(i, UJoints(j));
-    if (i > 1 && UJoints(j) - UJoints(j - 1) < Precision::PConfusion())
+    if (i > 1 && UJoints(j) - UJoints(j - 1) < Precision1::PConfusion())
       return Standard_False;
   }
   myUJointValues = UJointValues;
@@ -175,7 +175,7 @@ Standard_Boolean ShapeExtend_CompositeSurface::SetVJointValues(const TColStd_Arr
   for (Standard_Integer i = 1, j = VJoints.Lower(); i <= NbV + 1; i++, j++)
   {
     VJointValues->SetValue(i, VJoints(j));
-    if (i > 1 && VJoints(j) - VJoints(j - 1) < Precision::PConfusion())
+    if (i > 1 && VJoints(j) - VJoints(j - 1) < Precision1::PConfusion())
       return Standard_False;
   }
   myVJointValues = VJointValues;
@@ -641,7 +641,7 @@ void ShapeExtend_CompositeSurface::ComputeJointValues(const ShapeExtend_Parametr
 
 static inline Standard_Real LimitValue(const Standard_Real& par)
 {
-  return Precision::IsInfinite(par) ? (par < 0 ? -10000. : 10000.) : par;
+  return Precision1::IsInfinite(par) ? (par < 0 ? -10000. : 10000.) : par;
 }
 
 static void GetLimitedBounds(const Handle(GeomSurface)& surf,

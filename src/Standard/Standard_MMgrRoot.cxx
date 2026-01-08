@@ -16,11 +16,11 @@
 
 //=================================================================================================
 
-Standard_MMgrRoot::~Standard_MMgrRoot() {}
+MemoryManagerRoot::~MemoryManagerRoot() {}
 
 //=================================================================================================
 
-Standard_Integer Standard_MMgrRoot::Purge(Standard_Boolean)
+Standard_Integer MemoryManagerRoot::Purge(Standard_Boolean)
 {
   return 0;
 }

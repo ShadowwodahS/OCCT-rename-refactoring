@@ -32,13 +32,13 @@ class V3d_RectangularGrid : public Aspect_RectangularGrid
   DEFINE_STANDARD_RTTIEXT(V3d_RectangularGrid, Aspect_RectangularGrid)
 public:
   Standard_EXPORT V3d_RectangularGrid(const V3d_ViewerPointer& aViewer,
-                                      const Quantity_Color&    aColor,
-                                      const Quantity_Color&    aTenthColor);
+                                      const Color1&    aColor,
+                                      const Color1&    aTenthColor);
 
   Standard_EXPORT virtual ~V3d_RectangularGrid();
 
-  Standard_EXPORT virtual void SetColors(const Quantity_Color& aColor,
-                                         const Quantity_Color& aTenthColor) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetColors(const Color1& aColor,
+                                         const Color1& aTenthColor) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Display() Standard_OVERRIDE;
 

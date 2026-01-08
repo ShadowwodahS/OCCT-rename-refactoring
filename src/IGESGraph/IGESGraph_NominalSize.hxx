@@ -58,7 +58,7 @@ public:
   //! returns the name of <me>
   Standard_EXPORT Handle(TCollection_HAsciiString) NominalSizeName() const;
 
-  //! returns True if an engineering Standard is defined for <me>
+  //! returns True if an engineering Standard1 is defined for <me>
   //! else, returns False
   Standard_EXPORT Standard_Boolean HasStandardName() const;
 

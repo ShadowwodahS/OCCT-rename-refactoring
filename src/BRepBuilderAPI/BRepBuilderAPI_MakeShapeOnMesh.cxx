@@ -221,7 +221,7 @@ void BRepBuilderAPI_MakeShapeOnMesh::Build(const Message_ProgressRange& theRange
     const Dir3d      aD1 = aC1.Line().Direction();
     const Dir3d      aD2 = aC2.Line().Direction();
     Coords3d            aN  = aD1.XYZ().Crossed(aD2.XYZ());
-    if (aN.SquareModulus() < Precision::SquareConfusion())
+    if (aN.SquareModulus() < Precision1::SquareConfusion())
       continue;
     if (aTEdge1.Orientation() == TopAbs_REVERSED)
       aN.Reverse();

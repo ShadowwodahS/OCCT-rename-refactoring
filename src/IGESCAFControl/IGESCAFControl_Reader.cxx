@@ -164,7 +164,7 @@ Standard_Boolean IGESCAFControl_Reader::Transfer(const Handle(AppDocument)& doc,
   if (!XCAFDoc_DocumentTool::GetLengthUnit(doc, aScaleFactorMM, UnitsMethods_LengthUnit_Millimeter))
   {
     XSAlgo_ShapeProcessor::PrepareForTransfer(); // update unit info
-    aScaleFactorMM = UnitsMethods::GetCasCadeLengthUnit();
+    aScaleFactorMM = UnitsMethods1::GetCasCadeLengthUnit();
     // set length unit to the document
     XCAFDoc_DocumentTool::SetLengthUnit(doc, aScaleFactorMM, UnitsMethods_LengthUnit_Millimeter);
   }
@@ -218,7 +218,7 @@ Standard_Boolean IGESCAFControl_Reader::Transfer(const Handle(AppDocument)& doc,
       continue;
 
     Standard_Boolean IsColor = Standard_False;
-    Quantity_Color   col;
+    Color1   col;
     if (GetColorMode() && IsCTool)
     {
       // read colors

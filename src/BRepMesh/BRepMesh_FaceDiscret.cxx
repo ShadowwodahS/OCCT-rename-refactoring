@@ -78,7 +78,7 @@ Standard_Boolean BRepMesh_FaceDiscret::performInternal(const Handle(IMeshData_Mo
   }
 
   FaceListFunctor aFunctor(this, theRange);
-  OSD_Parallel::For(0,
+  Parallel1::For(0,
                     myModel->FacesNb(),
                     aFunctor,
                     !(myParameters.InParallel && myModel->FacesNb() > 1));

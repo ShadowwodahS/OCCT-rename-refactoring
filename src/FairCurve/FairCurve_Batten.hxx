@@ -56,8 +56,8 @@ public:
   //! NegativeValue if Height is less than or equal to 0.
   //! NullValue if the distance between P1 and P2 is less
   //! than or equal to the tolerance value for distance in
-  //! Precision::Confusion: P1.IsEqual(P2,
-  //! Precision::Confusion()). The function
+  //! Precision1::Confusion: P1.IsEqual(P2,
+  //! Precision1::Confusion()). The function
   //! gp_Pnt2d::IsEqual tests to see if this is the case.
   Standard_EXPORT FairCurve_Batten(const gp_Pnt2d&     P1,
                                    const gp_Pnt2d&     P2,
@@ -106,8 +106,8 @@ public:
   //! Exceptions
   //! NullValue if the distance between P1 and P2 is less
   //! than or equal to the tolerance value for distance in
-  //! Precision::Confusion: P1.IsEqual(P2,
-  //! Precision::Confusion()). The function
+  //! Precision1::Confusion: P1.IsEqual(P2,
+  //! Precision1::Confusion()). The function
   //! gp_Pnt2d::IsEqual tests to see if this is the case.
   Standard_EXPORT void SetP1(const gp_Pnt2d& P1);
 
@@ -118,8 +118,8 @@ public:
   //! Exceptions
   //! NullValue if the distance between P1 and P2 is less
   //! than or equal to the tolerance value for distance in
-  //! Precision::Confusion: P1.IsEqual(P2,
-  //! Precision::Confusion()). The function
+  //! Precision1::Confusion: P1.IsEqual(P2,
+  //! Precision1::Confusion()). The function
   //! gp_Pnt2d::IsEqual tests to see if this is the case.
   Standard_EXPORT void SetP2(const gp_Pnt2d& P2);
 

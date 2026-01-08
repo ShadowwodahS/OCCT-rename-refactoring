@@ -517,12 +517,12 @@ void MAT2d_Tool2d::TrimBisec(Bisector_Bisec&        B1,
       //-----------------------------------------------------------------------
       if (!Line1.IsNull())
       {
-        Line = new Geom2d_TrimmedCurve(Line1, 0., Precision::Infinite());
+        Line = new Geom2d_TrimmedCurve(Line1, 0., Precision1::Infinite());
         SetTrim(B1, Line);
       }
       if (!Line2.IsNull())
       {
-        Line = new Geom2d_TrimmedCurve(Line2, 0., Precision::Infinite());
+        Line = new Geom2d_TrimmedCurve(Line2, 0., Precision1::Infinite());
         SetTrim(B1, Line);
       }
     }
@@ -543,7 +543,7 @@ Standard_Boolean MAT2d_Tool2d::TrimBisector(const Handle(MAT_Bisector)& abisecto
 
   Handle(Geom2d_TrimmedCurve) bisector = ChangeGeomBis(abisector->BisectorNumber()).ChangeValue();
 
-  if (bisector->BasisCurve()->IsPeriodic() && param == Precision::Infinite())
+  if (bisector->BasisCurve()->IsPeriodic() && param == Precision1::Infinite())
   {
     param = bisector->FirstParameter() + 2 * M_PI;
   }
@@ -611,7 +611,7 @@ Standard_Boolean MAT2d_Tool2d::Projection(const Standard_Integer IEdge,
   }
   else
   {
-    Distance = Precision::Infinite();
+    Distance = Precision1::Infinite();
     Curve    = Handle(Geom2d_TrimmedCurve)::DownCast(Elt);
     //-----------------------------------------------------------------------
     // Calcul des parametres MinMax sur l edge si celui ci est lies a ses
@@ -661,7 +661,7 @@ Standard_Boolean MAT2d_Tool2d::Projection(const Standard_Integer IEdge,
     Extrema_ExtPC2d Extremas(PCom, C1, ParamMin, ParamMax);
     if (Extremas.IsDone())
     {
-      Distance = Precision::Infinite();
+      Distance = Precision1::Infinite();
       if (Extremas.NbExt() < 1)
       {
         return Standard_False;
@@ -710,7 +710,7 @@ Standard_Boolean MAT2d_Tool2d::IsSameDistance(const Handle(MAT_Bisector)& Bisect
     if (!isDone2)
     {
       Handle(Geom2d_Geometry) Elt = theCircuit->Value(IEdge2);
-      Standard_Real           Tol = Max(Precision::Confusion(), eps * Dist(1));
+      Standard_Real           Tol = Max(Precision1::Confusion(), eps * Dist(1));
       if (CheckEnds(Elt, PCom, Dist(1), Tol))
       {
         Dist(2) = Dist(1);
@@ -722,7 +722,7 @@ Standard_Boolean MAT2d_Tool2d::IsSameDistance(const Handle(MAT_Bisector)& Bisect
     if (isDone2)
     {
       Handle(Geom2d_Geometry) Elt = theCircuit->Value(IEdge1);
-      Standard_Real           Tol = Max(Precision::Confusion(), eps * Dist(2));
+      Standard_Real           Tol = Max(Precision1::Confusion(), eps * Dist(2));
       if (CheckEnds(Elt, PCom, Dist(2), Tol))
       {
         Dist(1) = Dist(2);
@@ -750,7 +750,7 @@ Standard_Boolean MAT2d_Tool2d::IsSameDistance(const Handle(MAT_Bisector)& Bisect
     if (!isDone4)
     {
       Handle(Geom2d_Geometry) Elt = theCircuit->Value(IEdge4);
-      Standard_Real           Tol = Max(Precision::Confusion(), eps * Dist(3));
+      Standard_Real           Tol = Max(Precision1::Confusion(), eps * Dist(3));
       if (CheckEnds(Elt, PCom, Dist(3), Tol))
       {
         Dist(4) = Dist(3);
@@ -762,7 +762,7 @@ Standard_Boolean MAT2d_Tool2d::IsSameDistance(const Handle(MAT_Bisector)& Bisect
     if (isDone4)
     {
       Handle(Geom2d_Geometry) Elt = theCircuit->Value(IEdge3);
-      Standard_Real           Tol = Max(Precision::Confusion(), eps * Dist(4));
+      Standard_Real           Tol = Max(Precision1::Confusion(), eps * Dist(4));
       if (CheckEnds(Elt, PCom, Dist(4), Tol))
       {
         Dist(3) = Dist(4);
@@ -780,10 +780,10 @@ Standard_Boolean MAT2d_Tool2d::IsSameDistance(const Handle(MAT_Bisector)& Bisect
 
   Standard_Real EpsDist = MAT2d_TOLCONF * 300.;
   Distance              = Dist(1);
-  if (theJoinType == GeomAbs_Intersection && Precision::IsInfinite(Distance))
+  if (theJoinType == GeomAbs_Intersection && Precision1::IsInfinite(Distance))
   {
     for (Standard_Integer i = 2; i <= 4; i++)
-      if (!Precision::IsInfinite(Dist(i)))
+      if (!Precision1::IsInfinite(Dist(i)))
       {
         Distance = Dist(i);
         break;
@@ -791,11 +791,11 @@ Standard_Boolean MAT2d_Tool2d::IsSameDistance(const Handle(MAT_Bisector)& Bisect
   }
   for (Standard_Integer i = 1; i <= 4; i++)
   {
-    if (theJoinType == GeomAbs_Intersection && Precision::IsInfinite(Dist(i)))
+    if (theJoinType == GeomAbs_Intersection && Precision1::IsInfinite(Dist(i)))
       continue;
     if (Abs(Dist(i) - Distance) > EpsDist)
     {
-      Distance = Precision::Infinite();
+      Distance = Precision1::Infinite();
       return Standard_False;
     }
   }
@@ -822,7 +822,7 @@ Standard_Real MAT2d_Tool2d::IntersectBisector(const Handle(MAT_Bisector)& Bisect
     ChangeGeomBis(BisectorTwo->BisectorNumber()).ChangeValue();
 
   if (Bisector1.IsNull() || Bisector2.IsNull())
-    return Precision::Infinite();
+    return Precision1::Infinite();
 
   //-------------------------------------------------------------------------
   // Si les deux bissectrices separent des elements consecutifs et qu elles
@@ -843,7 +843,7 @@ Standard_Real MAT2d_Tool2d::IntersectBisector(const Handle(MAT_Bisector)& Bisect
     C2 = theCircuit->Connexion(IS2);
     if (C2->IndexFirstLine() == C1->IndexSecondLine()
         && C1->IndexFirstLine() == C2->IndexSecondLine())
-      return Precision::Infinite();
+      return Precision1::Infinite();
   }
 
   // -----------------------------------------
@@ -853,9 +853,9 @@ Standard_Real MAT2d_Tool2d::IntersectBisector(const Handle(MAT_Bisector)& Bisect
   Domain2 Domain2 = Domain(Bisector2, Tolerance);
 
   if (Domain1.LastParameter() - Domain1.FirstParameter() < Tolerance)
-    return Precision::Infinite();
+    return Precision1::Infinite();
   if (Domain2.LastParameter() - Domain2.FirstParameter() < Tolerance)
-    return Precision::Infinite();
+    return Precision1::Infinite();
 
 #ifdef OCCT_DEBUG
   Standard_Boolean Affich = Standard_False;
@@ -902,14 +902,14 @@ Standard_Real MAT2d_Tool2d::IntersectBisector(const Handle(MAT_Bisector)& Bisect
   // -------------------------------------------------------------------------
 
   if (!Intersect.IsDone())
-    return Precision::Infinite();
+    return Precision1::Infinite();
 
   if (Intersect.IsEmpty())
-    return Precision::Infinite();
+    return Precision1::Infinite();
 
-  DistanceMini   = Precision::Infinite();
-  Param1         = Precision::Infinite();
-  Param2         = Precision::Infinite();
+  DistanceMini   = Precision1::Infinite();
+  Param1         = Precision1::Infinite();
+  Param2         = Precision1::Infinite();
   SolutionValide = Standard_False;
 
   if (Intersect.NbSegments() >= 1)
@@ -1005,7 +1005,7 @@ Standard_Real MAT2d_Tool2d::IntersectBisector(const Handle(MAT_Bisector)& Bisect
   }
 
   if (!SolutionValide)
-    return Precision::Infinite();
+    return Precision1::Infinite();
   theNumberOfPnts++;
   theGeomPnts.Bind(theNumberOfPnts, PointSolution);
   IntPnt = theNumberOfPnts;
@@ -1062,7 +1062,7 @@ Standard_Real MAT2d_Tool2d::IntersectBisector(const Handle(MAT_Bisector)& Bisect
   // if (ExtremiteControle) {
   //   if(Bisector1->StartPoint().Distance(PointSolution) < Tolerance ||
   //     Bisector2->StartPoint().Distance(PointSolution) < Tolerance  )
-  //     return Precision::Infinite();
+  //     return Precision1::Infinite();
   // }
 
   if (ExtremiteControle)
@@ -1076,7 +1076,7 @@ Standard_Real MAT2d_Tool2d::IntersectBisector(const Handle(MAT_Bisector)& Bisect
         DrawTrSurf1::Set("Bis2", Bisector2);
       }
 #endif
-      return Precision::Infinite();
+      return Precision1::Infinite();
     }
     if (Bisector2->StartPoint().Distance(PointSolution) < Tolerance)
     {
@@ -1088,17 +1088,17 @@ Standard_Real MAT2d_Tool2d::IntersectBisector(const Handle(MAT_Bisector)& Bisect
         DrawTrSurf1::Set("Bis2", Bisector2);
       }
 #endif
-      return Precision::Infinite();
+      return Precision1::Infinite();
     }
   }
 
-  if (BisectorOne->SecondParameter() < Precision::Infinite()
+  if (BisectorOne->SecondParameter() < Precision1::Infinite()
       && BisectorOne->SecondParameter() < Param1 * (1. - Tolerance))
-    return Precision::Infinite();
+    return Precision1::Infinite();
 
-  if (BisectorTwo->FirstParameter() < Precision::Infinite()
+  if (BisectorTwo->FirstParameter() < Precision1::Infinite()
       && BisectorTwo->FirstParameter() < Param2 * (1. - Tolerance))
-    return Precision::Infinite();
+    return Precision1::Infinite();
 
   BisectorOne->SecondParameter(Param1);
   BisectorTwo->FirstParameter(Param2);
@@ -1122,9 +1122,9 @@ Standard_Real MAT2d_Tool2d::Distance(const Handle(MAT_Bisector)& Bis,
                                      const Standard_Real         Param1,
                                      const Standard_Real         Param2) const
 {
-  Standard_Real Dist = Precision::Infinite();
+  Standard_Real Dist = Precision1::Infinite();
 
-  if (Param1 != Precision::Infinite() && Param2 != Precision::Infinite())
+  if (Param1 != Precision1::Infinite() && Param2 != Precision1::Infinite())
   {
     gp_Pnt2d P1 = GeomBis(Bis->BisectorNumber()).Value()->Value(Param1);
     gp_Pnt2d P2 = GeomBis(Bis->BisectorNumber()).Value()->Value(Param2);
@@ -1308,7 +1308,7 @@ static void SetTrim(Bisector_Bisec& Bis, const Handle(GeomCurve2d)& Line1)
   Standard_Real   UB2     = Bisector1->LastParameter();
 
   gp_Pnt2d      FirstPointBisector = Bisector1->Value(UB1);
-  Standard_Real UTrim              = Precision::Infinite();
+  Standard_Real UTrim              = Precision1::Infinite();
 
   Geom2dAdaptor_Curve AdapBisector(Bisector1);
   Geom2dAdaptor_Curve AdapLine1(Line1);
@@ -1449,7 +1449,7 @@ void MAT2d_DrawCurve(const Handle(GeomCurve2d)& aCurve, const Standard_Integer /
     Standard_Real delta = 400;
 
     // PB de representation des courbes semi_infinies.
-    if (aCurve->LastParameter() == Precision::Infinite())
+    if (aCurve->LastParameter() == Precision1::Infinite())
     {
 
       if (type == STANDARD_TYPE(Geom2d_Parabola))

@@ -74,7 +74,7 @@ public:
   Standard_EXPORT void SetColor(const Quantity_ColorRGBA& theColor);
 
   //! Modifies only albedo color.
-  Standard_EXPORT void SetColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetColor(const Color1& theColor);
 
   //! Returns alpha component in range [0, 1].
   Standard_ShortReal Alpha() const { return myColor.Alpha(); };
@@ -114,13 +114,13 @@ public:
   //! @param[in] theSpecular  specular color
   //! @param[in] theShiness   normalized shininess coefficient within [0..1] range
   //! @return roughness within [0..1] range
-  Standard_EXPORT static Standard_ShortReal RoughnessFromSpecular(const Quantity_Color& theSpecular,
+  Standard_EXPORT static Standard_ShortReal RoughnessFromSpecular(const Color1& theSpecular,
                                                                   const Standard_Real   theShiness);
 
   //! Compute material metallicity from common material (specular color).
   //! @param[in] theSpecular  specular color
   //! @return metallicity within [0..1] range
-  static Standard_ShortReal MetallicFromSpecular(const Quantity_Color& theSpecular)
+  static Standard_ShortReal MetallicFromSpecular(const Color1& theSpecular)
   {
     return ((Graphic3d_Vec3)theSpecular).maxComp();
   }

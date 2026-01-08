@@ -90,7 +90,7 @@ AIS_XRTrackedDevice::AIS_XRTrackedDevice()
 
 //=================================================================================================
 
-void AIS_XRTrackedDevice::SetLaserColor(const Quantity_Color& theColor)
+void AIS_XRTrackedDevice::SetLaserColor(const Color1& theColor)
 {
   if (!myLaserColor.IsEqual(theColor))
   {
@@ -161,12 +161,12 @@ void AIS_XRTrackedDevice::Compute(const Handle(PrsMgr_PresentationManager)&,
     aGroup->SetGroupPrimitivesAspect(myDrawer->LineAspect()->Aspect());
     Handle(Graphic3d_ArrayOfPrimitives) aLines =
       new Graphic3d_ArrayOfSegments(6, 0, Graphic3d_ArrayFlags_VertexColor);
-    aLines->AddVertex(Point3d(0.0, 0.0, 0.0), Quantity_Color(Quantity_NOC_RED));
-    aLines->AddVertex(Point3d(aSize, 0.0, 0.0), Quantity_Color(Quantity_NOC_RED));
-    aLines->AddVertex(Point3d(0.0, 0.0, 0.0), Quantity_Color(Quantity_NOC_GREEN));
-    aLines->AddVertex(Point3d(0.0, aSize, 0.0), Quantity_Color(Quantity_NOC_GREEN));
-    aLines->AddVertex(Point3d(0.0, 0.0, 0.0), Quantity_Color(Quantity_NOC_BLUE));
-    aLines->AddVertex(Point3d(0.0, 0.0, aSize), Quantity_Color(Quantity_NOC_BLUE));
+    aLines->AddVertex(Point3d(0.0, 0.0, 0.0), Color1(Quantity_NOC_RED));
+    aLines->AddVertex(Point3d(aSize, 0.0, 0.0), Color1(Quantity_NOC_RED));
+    aLines->AddVertex(Point3d(0.0, 0.0, 0.0), Color1(Quantity_NOC_GREEN));
+    aLines->AddVertex(Point3d(0.0, aSize, 0.0), Color1(Quantity_NOC_GREEN));
+    aLines->AddVertex(Point3d(0.0, 0.0, 0.0), Color1(Quantity_NOC_BLUE));
+    aLines->AddVertex(Point3d(0.0, 0.0, aSize), Color1(Quantity_NOC_BLUE));
     aGroup->AddPrimitiveArray(aLines);
   }
 

@@ -767,7 +767,7 @@ Handle(Geom2d_BSplineCurve) Hermit1::Solution(const Handle(BSplineCurve3d)& BS,
   Handle(Geom2d_BSplineCurve)  BS1=new Geom2d_BSplineCurve(Poles,Knots,Multiplicities,3);//creation of the basic
   Handle(Geom2d_BSplineCurve)  BS2=new Geom2d_BSplineCurve(Poles,Knots,Multiplicities,3);//BSpline without modif
 
-  PolyTest(Herm,BS,Upos1,Upos2,zeroboucle,Precision::Confusion(),Precision::Confusion(),1.0,0.0);//computation of the positivity knots
+  PolyTest(Herm,BS,Upos1,Upos2,zeroboucle,Precision1::Confusion(),Precision1::Confusion(),1.0,0.0);//computation of the positivity knots
   // clang-format on
   InsertKnots(BS2, Upos1, Upos2); // and insertion
 
@@ -868,7 +868,7 @@ Handle(Geom2d_BSplineCurve) Hermit1::Solution(const Handle(Geom2d_BSplineCurve)&
   Handle(Geom2d_BSplineCurve)  BS1=new Geom2d_BSplineCurve(Poles,Knots,Multiplicities,3);//creation of the basic
   Handle(Geom2d_BSplineCurve)  BS2=new Geom2d_BSplineCurve(Poles,Knots,Multiplicities,3);//BSpline without modif
 
-  PolyTest(Herm,BS,Upos1,Upos2,zeroboucle,Precision::Confusion(),Precision::Confusion(),1.0,0.0);//computation of the positivity knots
+  PolyTest(Herm,BS,Upos1,Upos2,zeroboucle,Precision1::Confusion(),Precision1::Confusion(),1.0,0.0);//computation of the positivity knots
   // clang-format on
   InsertKnots(BS2, Upos1, Upos2); // and insertion
 
@@ -969,7 +969,7 @@ void Hermit1::Solutionbis(const Handle(BSplineCurve3d)& BS,
   Handle(Geom2d_BSplineCurve)  BS2=new Geom2d_BSplineCurve(Poles,Knots,Multiplicities,3);//creation of the basic
                                                                                          //BSpline without modif
   
-  PolyTest(Herm,BS,Upos1,Upos2,zeroboucle,Precision::Confusion(),Precision::Confusion(),1.0,0.0);//computation of the positivity knots
+  PolyTest(Herm,BS,Upos1,Upos2,zeroboucle,Precision1::Confusion(),Precision1::Confusion(),1.0,0.0);//computation of the positivity knots
   // clang-format on
   InsertKnots(BS2, Upos1, Upos2); // and insertion
 

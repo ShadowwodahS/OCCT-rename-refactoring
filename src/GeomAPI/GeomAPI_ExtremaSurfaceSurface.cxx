@@ -63,7 +63,7 @@ void GeomAPI_ExtremaSurfaceSurface::Init(const Handle(GeomSurface)& S1,
   GeomAdaptor_Surface TheSurface1(S1);
   GeomAdaptor_Surface TheSurface2(S2);
 
-  constexpr Standard_Real Tol = Precision::PConfusion();
+  constexpr Standard_Real Tol = Precision1::PConfusion();
 
   Extrema_ExtSS theExtSS(TheSurface1, TheSurface2, Tol, Tol);
   myExtSS = theExtSS;
@@ -106,7 +106,7 @@ void GeomAPI_ExtremaSurfaceSurface::Init(const Handle(GeomSurface)& S1,
   GeomAdaptor_Surface TheSurface1(S1, U1min, U1max, V1min, V1max);
   GeomAdaptor_Surface TheSurface2(S2, U2min, U2max, V2min, V2max);
 
-  constexpr Standard_Real Tol = Precision::PConfusion();
+  constexpr Standard_Real Tol = Precision1::PConfusion();
   Extrema_ExtSS           theExtSS(TheSurface1,
                          TheSurface2,
                          U1min,

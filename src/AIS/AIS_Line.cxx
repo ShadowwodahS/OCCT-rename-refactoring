@@ -113,7 +113,7 @@ void AIS_Line::replaceWithNewLineAspect(const Handle(Prs3d_LineAspect)& theAspec
 
 //=================================================================================================
 
-void AIS_Line::SetColor(const Quantity_Color& aCol)
+void AIS_Line::SetColor(const Color1& aCol)
 {
   hasOwnColor = Standard_True;
   myDrawer->SetColor(aCol);
@@ -146,7 +146,7 @@ void AIS_Line::UnsetColor()
   }
   else
   {
-    Quantity_Color CC = Quantity_NOC_YELLOW;
+    Color1 CC = Quantity_NOC_YELLOW;
     if (HasColor())
       CC = myDrawer->Color();
     else if (myDrawer->HasLink())
@@ -165,7 +165,7 @@ void AIS_Line::SetWidth(const Standard_Real aValue)
 
   if (!myDrawer->HasOwnLineAspect())
   {
-    Quantity_Color CC = Quantity_NOC_YELLOW;
+    Color1 CC = Quantity_NOC_YELLOW;
     if (HasColor())
       CC = myDrawer->Color();
     else if (myDrawer->HasLink())
@@ -238,8 +238,8 @@ void AIS_Line::ComputeInfiniteLineSelection(const Handle(SelectionContainer)& aS
   const Point3d& loc     = myComponent->Position1().Location();
   const Coords3d& dir_xyz = thedir.XYZ();
   const Coords3d& loc_xyz = loc.XYZ();
-  // POP  Standard_Real aLength = UnitsAPI::CurrentToLS (250000. ,"LENGTH");
-  Standard_Real                     aLength = UnitsAPI::AnyToLS(250000., "mm");
+  // POP  Standard_Real aLength = UnitsAPI1::CurrentToLS (250000. ,"LENGTH");
+  Standard_Real                     aLength = UnitsAPI1::AnyToLS(250000., "mm");
   Point3d                            P1      = loc_xyz + aLength * dir_xyz;
   Point3d                            P2      = loc_xyz - aLength * dir_xyz;
   Handle(SelectMgr_EntityOwner)     eown    = new SelectMgr_EntityOwner(this, 5);

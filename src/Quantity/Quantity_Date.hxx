@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Boolean.hxx>
-class Quantity_Period;
+class TimePeriod;
 
 //! This class provides services to manage date information.
 //! A date represents the following time intervals:
@@ -33,7 +33,7 @@ class Quantity_Period;
 //! January 1, 1979 (zero hour). The valid date can
 //! only be later than this one.
 //! Note: a Period object gives the interval between two dates.
-class Quantity_Date
+class Date2
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -41,7 +41,7 @@ public:
   //! Constructs a default date
   //! (00:00 GMT, January 1, 1979 (zero hour)); use the function
   //! SetValues to define the required date; or
-  Standard_EXPORT Quantity_Date();
+  Standard_EXPORT Date2();
 
   //! Constructs a date from the year yyyy, the
   //! month mm, the day dd, the hour hh, the minute
@@ -58,7 +58,7 @@ public:
   //! Exceptions
   //! Quantity_DateDefinitionError if mm, dd, hh,
   //! mn, ss, mis and mics are not the components of the valid date.
-  Standard_EXPORT Quantity_Date(const Standard_Integer mm,
+  Standard_EXPORT Date2(const Standard_Integer mm,
                                 const Standard_Integer dd,
                                 const Standard_Integer yyyy,
                                 const Standard_Integer hh,
@@ -105,19 +105,19 @@ public:
   //! between and returns the value.
   //! The result is the absolute value between the difference
   //! of two dates.
-  Standard_EXPORT Quantity_Period Difference(const Quantity_Date& anOther);
+  Standard_EXPORT TimePeriod Difference(const Date2& anOther);
 
   //! Subtracts a period from a Date and returns the new Date.
   //! Raises an exception if the result date is anterior to
   //! Jan 1, 1979.
-  Standard_EXPORT Quantity_Date Subtract(const Quantity_Period& aPeriod);
+  Standard_EXPORT Date2 Subtract(const TimePeriod& aPeriod);
 
-  Quantity_Date operator-(const Quantity_Period& aPeriod) { return Subtract(aPeriod); }
+  Date2 operator-(const TimePeriod& aPeriod) { return Subtract(aPeriod); }
 
   //! Adds a Period to a Date and returns the new Date.
-  Standard_EXPORT Quantity_Date Add(const Quantity_Period& aPeriod);
+  Standard_EXPORT Date2 Add(const TimePeriod& aPeriod);
 
-  Quantity_Date operator+(const Quantity_Period& aPeriod) { return Add(aPeriod); }
+  Date2 operator+(const TimePeriod& aPeriod) { return Add(aPeriod); }
 
   //! Returns year of a Date.
   Standard_EXPORT Standard_Integer Year();
@@ -145,19 +145,19 @@ public:
 
   //! Returns TRUE if both <me> and <other> are equal.
   //! This method is an alias of operator ==.
-  Standard_EXPORT Standard_Boolean IsEqual(const Quantity_Date& anOther) const;
+  Standard_EXPORT Standard_Boolean IsEqual(const Date2& anOther) const;
 
-  Standard_Boolean operator==(const Quantity_Date& anOther) const { return IsEqual(anOther); }
+  Standard_Boolean operator==(const Date2& anOther) const { return IsEqual(anOther); }
 
   //! Returns TRUE if <me> is earlier than <other>.
-  Standard_EXPORT Standard_Boolean IsEarlier(const Quantity_Date& anOther) const;
+  Standard_EXPORT Standard_Boolean IsEarlier(const Date2& anOther) const;
 
-  Standard_Boolean operator<(const Quantity_Date& anOther) const { return IsEarlier(anOther); }
+  Standard_Boolean operator<(const Date2& anOther) const { return IsEarlier(anOther); }
 
   //! Returns TRUE if <me> is later then <other>.
-  Standard_EXPORT Standard_Boolean IsLater(const Quantity_Date& anOther) const;
+  Standard_EXPORT Standard_Boolean IsLater(const Date2& anOther) const;
 
-  Standard_Boolean operator>(const Quantity_Date& anOther) const { return IsLater(anOther); }
+  Standard_Boolean operator>(const Date2& anOther) const { return IsLater(anOther); }
 
   //! Checks the validity of a date - returns true if a
   //! date defined from the year yyyy, the month mm,

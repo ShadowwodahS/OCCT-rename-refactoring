@@ -61,11 +61,11 @@ public:
 public:
   //! Main constructor.
   //! Application may consider specifying more threads than actually
-  //! available (OSD_Parallel::NbLogicalProcessors()) and set up NbDefaultThreadsToLaunch() to a
+  //! available (Parallel1::NbLogicalProcessors()) and set up NbDefaultThreadsToLaunch() to a
   //! smaller value so that concurrent threads will be able using single Thread Pool instance more
   //! efficiently.
   //! @param theNbThreads threads number to be created by pool
-  //!                     (if -1 is specified then OSD_Parallel::NbLogicalProcessors() will be used)
+  //!                     (if -1 is specified then Parallel1::NbLogicalProcessors() will be used)
   Standard_EXPORT OSD_ThreadPool(int theNbThreads = -1);
 
   //! Destructor.
@@ -100,14 +100,14 @@ public:
 
 protected:
   //! Thread function interface.
-  class JobInterface
+  class JobInterface1
   {
   public:
     virtual void Perform(int theThreadIndex) = 0;
   };
 
   //! Thread with back reference to thread pool and thread index in it.
-  class EnumeratedThread : public OSD_Thread
+  class EnumeratedThread : public Thread
   {
     friend class OSD_ThreadPool;
 
@@ -135,7 +135,7 @@ protected:
     Standard_EXPORT void Free();
 
     //! Wake up the thread.
-    Standard_EXPORT void WakeUp(JobInterface* theJob, bool theToCatchFpe);
+    Standard_EXPORT void WakeUp(JobInterface1* theJob, bool theToCatchFpe);
 
     //! Wait the thread going into Idle state (finished jobs).
     Standard_EXPORT void WaitIdle();
@@ -143,7 +143,7 @@ protected:
   public:
     //! Copy constructor.
     EnumeratedThread(const EnumeratedThread& theCopy)
-        : OSD_Thread(),
+        : Thread(),
           myPool(NULL),
           myJob(NULL),
           myWakeEvent(false),
@@ -167,7 +167,7 @@ protected:
     //! Assignment operator.
     void Assign(const EnumeratedThread& theCopy)
     {
-      OSD_Thread::Assign(theCopy);
+      Thread::Assign(theCopy);
       myPool         = theCopy.myPool;
       myJob          = theCopy.myJob;
       myThreadIndex  = theCopy.myThreadIndex;
@@ -184,10 +184,10 @@ protected:
 
   private:
     OSD_ThreadPool*          myPool;
-    JobInterface*            myJob;
+    JobInterface1*            myJob;
     Handle(ExceptionBase) myFailure;
-    Standard_Condition       myWakeEvent;
-    Standard_Condition       myIdleEvent;
+    Condition       myWakeEvent;
+    Condition       myIdleEvent;
     int                      myThreadIndex;
     volatile int             myUsageCounter;
     bool                     myIsStarted;
@@ -239,7 +239,7 @@ public:
     template <typename Functor>
     void Perform(int theBegin, int theEnd, const Functor& theFunctor)
     {
-      JobRange     aData(theBegin, theEnd);
+      JobRange1     aData(theBegin, theEnd);
       Job<Functor> aJob(theFunctor, aData);
       perform(aJob);
     }
@@ -249,10 +249,10 @@ public:
 
   protected:
     //! Execute job.
-    Standard_EXPORT void perform(JobInterface& theJob);
+    Standard_EXPORT void perform(JobInterface1& theJob);
 
     //! Initialize job and start threads.
-    Standard_EXPORT void run(JobInterface& theJob);
+    Standard_EXPORT void run(JobInterface1& theJob);
 
     //! Wait threads execution.
     Standard_EXPORT void wait();
@@ -271,11 +271,11 @@ public:
 
 protected:
   //! Auxiliary class which ensures exclusive access to iterators of processed data pool.
-  class JobRange
+  class JobRange1
   {
   public:
     //! Constructor
-    JobRange(const int& theBegin, const int& theEnd)
+    JobRange1(const int& theBegin, const int& theEnd)
         : myBegin(theBegin),
           myEnd(theEnd),
           myIt(theBegin)
@@ -293,8 +293,8 @@ protected:
     int It() const { return Standard_Atomic_Increment(reinterpret_cast<volatile int*>(&myIt)) - 1; }
 
   private:
-    JobRange(const JobRange& theCopy);
-    JobRange& operator=(const JobRange& theCopy);
+    JobRange1(const JobRange1& theCopy);
+    JobRange1& operator=(const JobRange1& theCopy);
 
   private:
     const int&  myBegin; //!< First element of range
@@ -304,11 +304,11 @@ protected:
 
   //! Auxiliary wrapper class for thread function.
   template <typename FunctorT>
-  class Job : public JobInterface
+  class Job : public JobInterface1
   {
   public:
     //! Constructor.
-    Job(const FunctorT& thePerformer, JobRange& theRange)
+    Job(const FunctorT& thePerformer, JobRange1& theRange)
         : myPerformer(thePerformer),
           myRange(theRange)
     {
@@ -329,7 +329,7 @@ protected:
 
   private:                       //! @name private fields
     const FunctorT& myPerformer; //!< Link1 on functor
-    const JobRange& myRange;     //!< Link1 on processed data block
+    const JobRange1& myRange;     //!< Link1 on processed data block
   };
 
   //! Release threads.
@@ -337,7 +337,7 @@ protected:
 
   //! Perform the job and catch exceptions.
   static void performJob(Handle(ExceptionBase)&     theFailure,
-                         OSD_ThreadPool::JobInterface* theJob,
+                         OSD_ThreadPool::JobInterface1* theJob,
                          int                           theThreadIndex);
 
 private:

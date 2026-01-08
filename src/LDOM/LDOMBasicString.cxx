@@ -24,7 +24,7 @@
 // purpose  : Create a free string (not connected to any type of container)
 //=======================================================================
 
-LDOMBasicString::LDOMBasicString(const char* aValue)
+LDOMBasicString1::LDOMBasicString1(const char* aValue)
 {
   if (aValue == NULL /*|| aValue[0] == '\0'*/)
   {
@@ -45,7 +45,7 @@ LDOMBasicString::LDOMBasicString(const char* aValue)
 // purpose  : Create an Ascii1 string managed by LDOM_Document
 //=======================================================================
 
-LDOMBasicString::LDOMBasicString(const char* aValue, const Handle(LDOM_MemManager)& aDoc)
+LDOMBasicString1::LDOMBasicString1(const char* aValue, const Handle(LDOM_MemManager)& aDoc)
 {
   if (aValue == NULL /*|| aValue[0] == '\0'*/)
   {
@@ -66,7 +66,7 @@ LDOMBasicString::LDOMBasicString(const char* aValue, const Handle(LDOM_MemManage
 // purpose  : Create an Ascii1 string managed by LDOM_Document
 //=======================================================================
 
-LDOMBasicString::LDOMBasicString(const char*                    aValue,
+LDOMBasicString1::LDOMBasicString1(const char*                    aValue,
                                  const Standard_Integer         aLen,
                                  const Handle(LDOM_MemManager)& aDoc)
 {
@@ -85,11 +85,11 @@ LDOMBasicString::LDOMBasicString(const char*                    aValue,
 }
 
 //=======================================================================
-// function : LDOMBasicString
+// function : LDOMBasicString1
 // purpose  : Copy constructor
 //=======================================================================
 
-LDOMBasicString::LDOMBasicString(const LDOMBasicString& anOther)
+LDOMBasicString1::LDOMBasicString1(const LDOMBasicString1& anOther)
     : myType(anOther.Type())
 {
   switch (myType)
@@ -116,7 +116,7 @@ LDOMBasicString::LDOMBasicString(const LDOMBasicString& anOther)
 
 //=================================================================================================
 
-LDOMBasicString::~LDOMBasicString()
+LDOMBasicString1::~LDOMBasicString1()
 {
   if (myType == LDOM_AsciiFree)
   {
@@ -130,7 +130,7 @@ LDOMBasicString::~LDOMBasicString()
 // purpose  : Assignment to NULL
 //=======================================================================
 
-LDOMBasicString& LDOMBasicString::operator=(const LDOM_NullPtr*)
+LDOMBasicString1& LDOMBasicString1::operator=(const LDOM_NullPtr*)
 {
   if (myType == LDOM_AsciiFree && myVal.ptr)
     delete[] (char*)myVal.ptr;
@@ -144,7 +144,7 @@ LDOMBasicString& LDOMBasicString::operator=(const LDOM_NullPtr*)
 // purpose  : Assignment
 //=======================================================================
 
-LDOMBasicString& LDOMBasicString::operator=(const LDOMBasicString& anOther)
+LDOMBasicString1& LDOMBasicString1::operator=(const LDOMBasicString1& anOther)
 {
   if (myType == LDOM_AsciiFree && myVal.ptr)
     delete[] (char*)myVal.ptr;
@@ -177,7 +177,7 @@ LDOMBasicString& LDOMBasicString::operator=(const LDOMBasicString& anOther)
 // purpose  : Compare two strings by content
 //=======================================================================
 
-Standard_Boolean LDOMBasicString::equals(const LDOMBasicString& anOther) const
+Standard_Boolean LDOMBasicString1::equals(const LDOMBasicString1& anOther) const
 {
   Standard_Boolean aResult = Standard_False;
   switch (myType)
@@ -223,7 +223,7 @@ Standard_Boolean LDOMBasicString::equals(const LDOMBasicString& anOther) const
 
 //=================================================================================================
 
-LDOMBasicString::operator AsciiString1() const
+LDOMBasicString1::operator AsciiString1() const
 {
   switch (myType)
   {
@@ -241,7 +241,7 @@ LDOMBasicString::operator AsciiString1() const
 
 //=================================================================================================
 
-LDOMBasicString::operator UtfString() const
+LDOMBasicString1::operator UtfString() const
 {
   switch (myType)
   {
@@ -299,7 +299,7 @@ LDOMBasicString::operator UtfString() const
 // purpose  : Conversion to Integer1
 //=======================================================================
 
-Standard_Boolean LDOMBasicString::GetInteger(Standard_Integer& aResult) const
+Standard_Boolean LDOMBasicString1::GetInteger(Standard_Integer& aResult) const
 {
   switch (myType)
   {
@@ -332,30 +332,30 @@ Standard_Boolean LDOMBasicString::GetInteger(Standard_Integer& aResult) const
     #include <LDOM_OSStream.hxx>
     #define FLITERAL 0x10
 
-char* db_pretty_print(const LDOMBasicString* aString, int fl, char*)
+char* db_pretty_print(const LDOMBasicString1* aString, int fl, char*)
 {
   LDOM_OSStream out(128);
   const char*   str;
   switch (aString->myType)
   {
-    case LDOMBasicString::LDOM_Integer:
+    case LDOMBasicString1::LDOM_Integer:
       if ((fl & FLITERAL) == 0)
         out << "LDOM_Integer: ";
       out << '\"' << aString->myVal.i << '\"';
       goto finis;
-    case LDOMBasicString::LDOM_AsciiFree:
+    case LDOMBasicString1::LDOM_AsciiFree:
       if ((fl & FLITERAL) == 0)
         out << "LDOM_AsciiFree: ";
       break;
-    case LDOMBasicString::LDOM_AsciiDoc:
+    case LDOMBasicString1::LDOM_AsciiDoc:
       if ((fl & FLITERAL) == 0)
         out << "LDOM_AsciiDoc: ";
       break;
-    case LDOMBasicString::LDOM_AsciiDocClear:
+    case LDOMBasicString1::LDOM_AsciiDocClear:
       if ((fl & FLITERAL) == 0)
         out << "LDOM_AsciiDocClear: ";
       break;
-    case LDOMBasicString::LDOM_AsciiHashed:
+    case LDOMBasicString1::LDOM_AsciiHashed:
       if ((fl & FLITERAL) == 0)
         out << "LDOM_AsciiHashed: ";
       break;

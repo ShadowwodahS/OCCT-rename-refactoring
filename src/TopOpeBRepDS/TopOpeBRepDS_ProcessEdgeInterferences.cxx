@@ -113,7 +113,7 @@ static Standard_Boolean FUN_keepEinterference
     // MSV Oct 4, 2001: reject interference having the parameter coinciding with
     //                  one of sides of the edge range
 
-    Standard_Real eps = Precision::PConfusion();
+    Standard_Real eps = Precision1::PConfusion();
     Standard_Real par = aCPI->Parameter();
     Standard_Real f, l;
     BRepInspector::Range(TopoDS::Edge(E), f, l);

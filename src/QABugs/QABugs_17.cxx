@@ -135,7 +135,7 @@ static Standard_Integer BUC60843(DrawInterpreter& di, Standard_Integer argc, con
   }
 
   Standard_Real par1 = 0.0, par2 = 0.0;
-  Standard_Real tol = Precision::Angular();
+  Standard_Real tol = Precision1::Angular();
   if (argc >= 5)
     par1 = Draw1::Atof(argv[4]);
   if (argc == 6)
@@ -781,7 +781,7 @@ static Standard_Integer OCC606(DrawInterpreter& di, Standard_Integer n, const ch
       Handle(Geom_BSplineSurface) result_surf1 = b_surface1.BSplineSurface();
       if (!result_surf1.IsNull())
       {
-        FaceMaker b_face1(result_surf1, Precision::Confusion());
+        FaceMaker b_face1(result_surf1, Precision1::Confusion());
         const TopoFace&      bsp_face1 = b_face1.Face();
         DBRep1::Set(a[1], bsp_face1);
       }
@@ -1029,7 +1029,7 @@ static Standard_Integer OCC884(DrawInterpreter& di, Standard_Integer argc, const
     sfw->SetPrecision(Draw1::Atof(argv[3]) /*0.1*/);
   if (argc > 4)
     sfw->SetMaxTolerance(Draw1::Atof(argv[4]));
-  di << "Info: Precision is set to " << sfw->Precision() << "\n";
+  di << "Info: Precision1 is set to " << sfw->Precision1() << "\n";
   di << "Info: MaxTolerance is set to " << sfw->MaxTolerance() << "\n";
 
   sfw->ModifyTopologyMode()          = 1;
@@ -1302,7 +1302,7 @@ static Standard_Integer OCC1642(DrawInterpreter& di, Standard_Integer argc, cons
   Handle(WireHealer) sfw = new WireHealer;
   sfw->Load(TopoDS::Wire(wire));
   sfw->SetFace(face);
-  sfw->SetPrecision(Precision::Confusion());
+  sfw->SetPrecision(Precision1::Confusion());
 
   sfw->FixReorderMode()                      = 1;
   sfw->ClosedWireMode()                      = 1;

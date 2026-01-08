@@ -41,7 +41,7 @@ public: //! @name Constructor from two shapes
   //! @param theBox2 - Bounding box of second shape
   //! @param theDstRef - Initial distance between the shapes to start with
   //! @param theDeflection - Maximum deviation of extreme distances from the minimum
-  //!                        one (default is Precision::Confusion()).
+  //!                        one (default is Precision1::Confusion()).
   //! @param theExtFlag - Specifies which extrema solutions to look for
   //!                     (default is MINMAX, applied only to point-face extrema)
   //! @param theExtAlgo - Specifies which extrema algorithm is to be used
@@ -51,7 +51,7 @@ public: //! @name Constructor from two shapes
                          const Box2&        theBox1,
                          const Box2&        theBox2,
                          const Standard_Real   theDstRef,
-                         const Standard_Real   theDeflection = Precision::Confusion(),
+                         const Standard_Real   theDeflection = Precision1::Confusion(),
                          const Extrema_ExtFlag theExtFlag    = Extrema_ExtFlag_MINMAX,
                          const Extrema_ExtAlgo theExtAlgo    = Extrema_ExtAlgo_Grad)
       : myDstRef(theDstRef),

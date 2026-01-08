@@ -358,7 +358,7 @@ Standard_Boolean GeomFill_NSections::D1(const Standard_Real   V,
   }
 
   Standard_Real           ww;
-  constexpr Standard_Real EpsW       = 10 * Precision::PConfusion();
+  constexpr Standard_Real EpsW       = 10 * Precision1::PConfusion();
   Standard_Boolean        NullWeight = Standard_False;
   if (!rational)
     DWeights.Init(0.);
@@ -466,7 +466,7 @@ Standard_Boolean GeomFill_NSections::D2(const Standard_Real   V,
   }
 
   Standard_Real           ww;
-  constexpr Standard_Real EpsW       = 10 * Precision::PConfusion();
+  constexpr Standard_Real EpsW       = 10 * Precision1::PConfusion();
   Standard_Boolean        NullWeight = Standard_False;
   if (!rational)
     D2Weights.Init(0.);
@@ -624,7 +624,7 @@ void GeomFill_NSections::ComputeSurface()
       }
       section.SetParam(HPar);
     }
-    section.Perform(Precision::PConfusion());
+    section.Perform(Precision1::PConfusion());
 
     Handle(GeomFill_Line) line = new GeomFill_Line(Nbcurves);
     Standard_Integer      nbIt = 0, degmin = 2, degmax = 6;
@@ -654,15 +654,15 @@ void GeomFill_NSections::ComputeSurface()
     Ui1 = UFirst;
     Ui2 = ULast;
     Standard_Integer i1, i2;
-    myRefSurf->LocateU(Ui1, Precision::PConfusion(), i1, i2);
-    if (Abs(Ui1 - myRefSurf->UKnot(i1)) <= Precision::PConfusion())
+    myRefSurf->LocateU(Ui1, Precision1::PConfusion(), i1, i2);
+    if (Abs(Ui1 - myRefSurf->UKnot(i1)) <= Precision1::PConfusion())
       Ui1 = myRefSurf->UKnot(i1);
-    if (Abs(Ui1 - myRefSurf->UKnot(i2)) <= Precision::PConfusion())
+    if (Abs(Ui1 - myRefSurf->UKnot(i2)) <= Precision1::PConfusion())
       Ui1 = myRefSurf->UKnot(i2);
-    myRefSurf->LocateU(Ui2, Precision::PConfusion(), i1, i2);
-    if (Abs(Ui2 - myRefSurf->UKnot(i1)) <= Precision::PConfusion())
+    myRefSurf->LocateU(Ui2, Precision1::PConfusion(), i1, i2);
+    if (Abs(Ui2 - myRefSurf->UKnot(i1)) <= Precision1::PConfusion())
       Ui2 = myRefSurf->UKnot(i1);
-    if (Abs(Ui2 - myRefSurf->UKnot(i2)) <= Precision::PConfusion())
+    if (Abs(Ui2 - myRefSurf->UKnot(i2)) <= Precision1::PConfusion())
       Ui2 = myRefSurf->UKnot(i2);
     V0 = myRefSurf->VKnot(myRefSurf->FirstVKnotIndex());
     V1 = myRefSurf->VKnot(myRefSurf->LastVKnotIndex());
@@ -1026,8 +1026,8 @@ Standard_Boolean GeomFill_NSections::IsConicalLaw(Standard_Real& Error) const
           //// Modified by jgv, 18.02.2009 for OCC20866 ////
           Standard_Real first1 = AC1.FirstParameter(), last1 = AC1.LastParameter();
           Standard_Real first2 = AC2.FirstParameter(), last2 = AC2.LastParameter();
-          isconic = (Abs(first1 - first2) <= Precision::PConfusion()
-                     && Abs(last1 - last2) <= Precision::PConfusion());
+          isconic = (Abs(first1 - first2) <= Precision1::PConfusion()
+                     && Abs(last1 - last2) <= Precision1::PConfusion());
           //////////////////////////////////////////////////
         }
       }
@@ -1062,7 +1062,7 @@ Handle(GeomCurve3d) GeomFill_NSections::CirclSection(const Standard_Real V) cons
   const Standard_Real aParL   = AC1.LastParameter();
   const Standard_Real aPeriod = AC1.IsPeriodic() ? AC1.Period() : 0.0;
 
-  if ((aPeriod == 0.0) || (Abs(aParL - aParF - aPeriod) > Precision::PConfusion()))
+  if ((aPeriod == 0.0) || (Abs(aParL - aParF - aPeriod) > Precision1::PConfusion()))
   {
     Handle(GeomCurve3d) Cbis = new Geom_TrimmedCurve(C, aParF, aParL);
     C                       = Cbis;

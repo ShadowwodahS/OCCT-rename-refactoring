@@ -48,7 +48,7 @@ AIS_TextLabel::AIS_TextLabel()
 
 //=================================================================================================
 
-void AIS_TextLabel::SetColor(const Quantity_Color& theColor)
+void AIS_TextLabel::SetColor(const Color1& theColor)
 {
   hasOwnColor = Standard_True;
   myDrawer->SetColor(theColor);
@@ -210,7 +210,7 @@ void AIS_TextLabel::SetDisplayType(const Aspect_TypeOfDisplayText theDisplayType
 
 //=================================================================================================
 
-void AIS_TextLabel::SetColorSubTitle(const Quantity_Color& theColor)
+void AIS_TextLabel::SetColorSubTitle(const Color1& theColor)
 {
   myDrawer->TextAspect()->Aspect()->SetColorSubTitle(theColor);
 }

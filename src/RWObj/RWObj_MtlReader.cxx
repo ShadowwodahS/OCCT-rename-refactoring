@@ -168,7 +168,7 @@ bool RWObj_MtlReader::Read(const AsciiString1& theFolder,
       aPos = aNext;
       if (validateColor(aColor))
       {
-        aMat.AmbientColor = Quantity_Color(aColor.r(), aColor.g(), aColor.b(), Quantity_TOC_sRGB);
+        aMat.AmbientColor = Color1(aColor.r(), aColor.g(), aColor.b(), Quantity_TOC_sRGB);
         hasAspect         = true;
       }
     }
@@ -181,7 +181,7 @@ bool RWObj_MtlReader::Read(const AsciiString1& theFolder,
       aPos = aNext;
       if (validateColor(aColor))
       {
-        aMat.DiffuseColor = Quantity_Color(aColor.r(), aColor.g(), aColor.b(), Quantity_TOC_sRGB);
+        aMat.DiffuseColor = Color1(aColor.r(), aColor.g(), aColor.b(), Quantity_TOC_sRGB);
         hasAspect         = true;
       }
     }
@@ -194,7 +194,7 @@ bool RWObj_MtlReader::Read(const AsciiString1& theFolder,
       aPos = aNext;
       if (validateColor(aColor))
       {
-        aMat.SpecularColor = Quantity_Color(aColor.r(), aColor.g(), aColor.b(), Quantity_TOC_sRGB);
+        aMat.SpecularColor = Color1(aColor.r(), aColor.g(), aColor.b(), Quantity_TOC_sRGB);
         hasAspect          = true;
       }
     }

@@ -181,7 +181,7 @@ static Standard_Integer saveDoc(DrawInterpreter& di, Standard_Integer argc, cons
   }
   else if (!D->IsSaved())
   {
-    std::cout << "Storage error: this document has never been saved\n";
+    std::cout << "Storage1 error: this document has never been saved\n";
     return 1;
   }
   else
@@ -194,28 +194,28 @@ static Standard_Integer saveDoc(DrawInterpreter& di, Standard_Integer argc, cons
     case PCDM_SS_OK:
       break;
     case PCDM_SS_DriverFailure:
-      di << "Storage error: driver failure\n";
+      di << "Storage1 error: driver failure\n";
       break;
     case PCDM_SS_WriteFailure:
-      di << "Storage error: write failure\n";
+      di << "Storage1 error: write failure\n";
       break;
     case PCDM_SS_Failure:
-      di << "Storage error: general failure\n";
+      di << "Storage1 error: general failure\n";
       break;
     case PCDM_SS_Doc_IsNull:
-      di << "Storage error: document is NULL\n";
+      di << "Storage1 error: document is NULL\n";
       break;
     case PCDM_SS_No_Obj:
-      di << "Storage error: no object\n";
+      di << "Storage1 error: no object\n";
       break;
     case PCDM_SS_Info_Section_Error:
-      di << "Storage error: section error\n";
+      di << "Storage1 error: section error\n";
       break;
     case PCDM_SS_UserBreak:
-      di << "Storage error: user break\n";
+      di << "Storage1 error: user break\n";
       break;
     case PCDM_SS_UnrecognizedFormat:
-      di << "Storage error: unrecognized document storage format " << D->StorageFormat() << "\n";
+      di << "Storage1 error: unrecognized document storage format " << D->StorageFormat() << "\n";
       break;
   }
 
@@ -574,7 +574,7 @@ static Standard_Integer statdoc(DrawInterpreter& di, Standard_Integer argc, cons
     for (i = 1; i <= CLabels.Length(); i++)
     {
       DataLabel      aLabel = CLabels.Value(i);
-      Quantity_Color col;
+      Color1 col;
       CTool->GetColor(aLabel, col);
       di << col.StringName(col.Name()) << " ";
     }
@@ -668,7 +668,7 @@ static Standard_Integer setPrs(DrawInterpreter& di, Standard_Integer argc, const
       prs = TPrsStd_AISPresentation::Set(seq.Value(i), XCAFPrs_Driver::GetID());
       prs->SetMaterial(Graphic3d_NameOfMaterial_Plastified);
     }
-    //    Quantity_Color Col;
+    //    Color1 Col;
     //    if ( colors.GetColor ( seq.Value(i), XCAFDoc_ColorSurf, Col ) )
     //      prs->SetColor ( Col.Name() );
     //    else if ( colors.GetColor ( seq.Value(i), XCAFDoc_ColorCurv, Col ) )
@@ -738,7 +738,7 @@ static Standard_Integer show(DrawInterpreter& di, Standard_Integer argc, const c
       prs = TPrsStd_AISPresentation::Set(seq.Value(i), XCAFPrs_Driver::GetID());
       prs->SetMaterial(Graphic3d_NameOfMaterial_Plastified);
     }
-    //    Quantity_Color Col;
+    //    Color1 Col;
     //    if ( colors.GetColor ( seq.Value(i), XCAFDoc_ColorSurf, Col ) )
     //      prs->SetColor ( Col.Name() );
     //    else if ( colors.GetColor ( seq.Value(i), XCAFDoc_ColorCurv, Col ) )
@@ -1253,7 +1253,7 @@ static Standard_Integer setLengthUnit(DrawInterpreter& di,
   if (!anUnit.IsRealValue(true))
   {
     UnitsMethods_LengthUnit aTypeUnit =
-      UnitsMethods::LengthUnitFromString(anUnit.ToCString(), Standard_False);
+      UnitsMethods1::LengthUnitFromString(anUnit.ToCString(), Standard_False);
     if (aTypeUnit == UnitsMethods_LengthUnit_Undefined)
     {
       di << "Error: " << anUnit
@@ -1261,12 +1261,12 @@ static Standard_Integer setLengthUnit(DrawInterpreter& di,
       return 1;
     }
     anUnitName  = anUnit;
-    anUnitValue = UnitsMethods::GetLengthFactorValue(aTypeUnit) * 0.001;
+    anUnitValue = UnitsMethods1::GetLengthFactorValue(aTypeUnit) * 0.001;
   }
   else
   {
     anUnitValue = anUnit.RealValue();
-    anUnitName  = UnitsMethods::DumpLengthUnit(anUnitValue, UnitsMethods_LengthUnit_Meter);
+    anUnitName  = UnitsMethods1::DumpLengthUnit(anUnitValue, UnitsMethods_LengthUnit_Meter);
   }
   XCAFDoc_LengthUnit::Set(aDoc->Main().Root(), anUnitName, anUnitValue);
   return 0;
@@ -1428,7 +1428,7 @@ static Standard_Integer XShowFaceBoundary(DrawInterpreter& di,
     }
   }
 
-  Quantity_Color aColor(aRed, aGreen, aBlue, Quantity_TOC_RGB);
+  Color1 aColor(aRed, aGreen, aBlue, Quantity_TOC_RGB);
 
   Handle(Prs3d_LineAspect) aBoundaryAspect = new Prs3d_LineAspect(aColor, aLineType, aWidth);
 
@@ -1633,7 +1633,7 @@ static Standard_Integer XDumpAssemblyGraph(DrawInterpreter& di,
 
       aSS << theNode << " " << graphNodeTypename(aNodeType) << " " << aNodeEntry;
       const XCAFDoc_AssemblyGraph::AdjacencyMap& anAdjacencyMap = theGraph->GetLinks();
-      const TColStd_PackedMapOfInteger*          aLinksPtr      = anAdjacencyMap.Seek(theNode);
+      const PackedIntegerMap*          aLinksPtr      = anAdjacencyMap.Seek(theNode);
       if (aLinksPtr != NULL)
       {
         for (TColStd_MapIteratorOfPackedMapOfInteger anIt1(*aLinksPtr); anIt1.More(); anIt1.Next())
@@ -2025,7 +2025,7 @@ void XDEDRAW1::Factory(DrawInterpreter& theDI)
   XDEDRAW1::Init(theDI);
 
 #ifdef OCCT_DEBUG
-  theDI << "Draw1 Plugin : All TKXDEDRAW commands are loaded\n";
+  theDI << "Draw1 Plugin1 : All TKXDEDRAW commands are loaded\n";
 #endif
 }
 

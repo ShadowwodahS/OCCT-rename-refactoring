@@ -396,7 +396,7 @@ static Standard_Integer BUC60902(DrawInterpreter& di,
     aP.SetY(Sin((i - 1) * 1.57));
     aPnts->SetValue(i, aP);
   }
-  GeomAPI_Interpolate anInterpolater(aPnts, Standard_False, Precision::Confusion());
+  GeomAPI_Interpolate anInterpolater(aPnts, Standard_False, Precision1::Confusion());
   anInterpolater.Perform();
   if (!anInterpolater.IsDone())
   {
@@ -410,7 +410,7 @@ static Standard_Integer BUC60902(DrawInterpreter& di,
   di << " Used Tang1 = " << aFirstTang.X() << " " << aFirstTang.Y() << " " << aFirstTang.Z()
      << "\n";
   di << " Used Tang2 = " << aLastTang.X() << " " << aLastTang.Y() << " " << aLastTang.Z() << "\n";
-  GeomAPI_Interpolate anInterpolater1(aPnts, Standard_False, Precision::Confusion());
+  GeomAPI_Interpolate anInterpolater1(aPnts, Standard_False, Precision1::Confusion());
   anInterpolater1.Load(aFirstTang, aLastTang, Standard_False);
   anInterpolater1.Perform();
   if (!anInterpolater1.IsDone())
@@ -426,7 +426,7 @@ static Standard_Integer BUC60902(DrawInterpreter& di,
      << aFirstTang1.Z() << "\n";
   di << " Tang2 after compute = " << aLastTang1.X() << " " << aLastTang1.Y() << " "
      << aLastTang1.Z() << "\n";
-  if (aFirstTang.IsEqual(aFirstTang1, Precision::Confusion(), Precision::Angular()))
+  if (aFirstTang.IsEqual(aFirstTang1, Precision1::Confusion(), Precision1::Angular()))
   {
     di << "First tangent is OK\n";
   }
@@ -434,7 +434,7 @@ static Standard_Integer BUC60902(DrawInterpreter& di,
   {
     di << "Faulty : first tangent is wrong\n";
   }
-  if (aLastTang.IsEqual(aLastTang1, Precision::Confusion(), Precision::Angular()))
+  if (aLastTang.IsEqual(aLastTang1, Precision1::Confusion(), Precision1::Angular()))
   {
     di << "Last tangent is OK\n";
   }
@@ -562,7 +562,7 @@ Standard_Boolean BuildWires(const ShapeList& theListOfEdges,
                             ShapeList&       theListOfWires,
                             const Standard_Boolean      isFixConnectedMode = Standard_False,
                             const Standard_Boolean      isKeepLoopsMode    = Standard_True,
-                            const Standard_Real         theTolerance       = Precision::Confusion())
+                            const Standard_Real         theTolerance       = Precision1::Confusion())
 {
   Handle(ShapeBuild_ReShape) aReshape = new ShapeBuild_ReShape;
   return BuildWiresWithReshape(aReshape,

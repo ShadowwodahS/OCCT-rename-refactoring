@@ -20,6 +20,6 @@
 #include <Quantity_Color.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Quantity_Color> Quantity_Array1OfColor;
+typedef NCollection_Array1<Color1> Quantity_Array1OfColor;
 
 #endif

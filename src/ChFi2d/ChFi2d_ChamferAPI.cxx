@@ -87,21 +87,21 @@ Standard_Boolean ChFi2d_ChamferAPI::Perform()
   myCurve1 = BRepInspector::Curve(myEdge1, myStart1, myEnd1);
   myCurve2 = BRepInspector::Curve(myEdge2, myStart2, myEnd2);
   // searching for common points
-  if (myCurve1->Value(myStart1).IsEqual(myCurve2->Value(myEnd2), Precision::Confusion()))
+  if (myCurve1->Value(myStart1).IsEqual(myCurve2->Value(myEnd2), Precision1::Confusion()))
   {
     myCommonStart1 = true;
     myCommonStart2 = false;
   }
   else
   {
-    if (myCurve1->Value(myEnd1).IsEqual(myCurve2->Value(myStart2), Precision::Confusion()))
+    if (myCurve1->Value(myEnd1).IsEqual(myCurve2->Value(myStart2), Precision1::Confusion()))
     {
       myCommonStart1 = false;
       myCommonStart2 = true;
     }
     else
     {
-      if (myCurve1->Value(myEnd1).IsEqual(myCurve2->Value(myEnd2), Precision::Confusion()))
+      if (myCurve1->Value(myEnd1).IsEqual(myCurve2->Value(myEnd2), Precision1::Confusion()))
       {
         myCommonStart1 = false;
         myCommonStart2 = false;

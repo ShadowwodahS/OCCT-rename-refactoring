@@ -46,7 +46,7 @@
   // strtod_l/strtol_l/strtoll_l functions with explicitly specified locale
   // and newlocale/uselocale/freelocale to switch locale within current thread only.
   // So we switch to C locale temporarily
-  #define SAVE_TL() Standard_CLocaleSentry aLocaleSentry;
+  #define SAVE_TL() CLocaleSentry aLocaleSentry;
   #ifndef OCCT_CLOCALE_POSIX2008
     // glibc version for android platform use locale-independent implementation of
     // strtod, strtol, strtoll functions. For other system with locale-depended
@@ -73,7 +73,7 @@ int Printf(const Standard_CString theFormat, ...)
   SAVE_TL();
   va_list argp;
   va_start(argp, theFormat);
-  int result = vprintf_l(Standard_CLocaleSentry::GetCLocale(), theFormat, argp);
+  int result = vprintf_l(CLocaleSentry::GetCLocale(), theFormat, argp);
   va_end(argp);
   return result;
 }
@@ -83,7 +83,7 @@ int Fprintf(FILE* theFile, const char* theFormat, ...)
   SAVE_TL();
   va_list argp;
   va_start(argp, theFormat);
-  int result = vfprintf_l(theFile, Standard_CLocaleSentry::GetCLocale(), theFormat, argp);
+  int result = vfprintf_l(theFile, CLocaleSentry::GetCLocale(), theFormat, argp);
   va_end(argp);
   return result;
 }
@@ -93,7 +93,7 @@ int Sprintf(char* theBuffer, const char* theFormat, ...)
   SAVE_TL();
   va_list argp;
   va_start(argp, theFormat);
-  int result = vsprintf_l(theBuffer, Standard_CLocaleSentry::GetCLocale(), theFormat, argp);
+  int result = vsprintf_l(theBuffer, CLocaleSentry::GetCLocale(), theFormat, argp);
   va_end(argp);
   return result;
 }
@@ -101,5 +101,5 @@ int Sprintf(char* theBuffer, const char* theFormat, ...)
 int Vsprintf(char* theBuffer, const char* theFormat, va_list theArgList)
 {
   SAVE_TL();
-  return vsprintf_l(theBuffer, Standard_CLocaleSentry::GetCLocale(), theFormat, theArgList);
+  return vsprintf_l(theBuffer, CLocaleSentry::GetCLocale(), theFormat, theArgList);
 }

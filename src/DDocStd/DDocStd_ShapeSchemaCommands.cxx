@@ -40,44 +40,44 @@ static void DDocStd_StorageErrorMessage(DrawInterpreter& theDI, const Storage_Er
     case Storage_VSOk:
       break;
     case Storage_VSOpenError:
-      theDI << "Storage error: failed to open the stream";
+      theDI << "Storage1 error: failed to open the stream";
       break;
     case Storage_VSModeError:
-      theDI << "Storage error: the stream is opened with a wrong mode for operation ";
+      theDI << "Storage1 error: the stream is opened with a wrong mode for operation ";
       break;
     case Storage_VSCloseError:
-      theDI << "Storage error: failed to closing the stream";
+      theDI << "Storage1 error: failed to closing the stream";
       break;
     case Storage_VSAlreadyOpen:
-      theDI << "Storage error: stream is already opened";
+      theDI << "Storage1 error: stream is already opened";
       break;
     case Storage_VSNotOpen:
-      theDI << "Storage error: stream not opened";
+      theDI << "Storage1 error: stream not opened";
       break;
     case Storage_VSSectionNotFound:
-      theDI << "Storage error: the section is not found";
+      theDI << "Storage1 error: the section is not found";
       break;
     case Storage_VSWriteError:
-      theDI << "Storage error: error during writing";
+      theDI << "Storage1 error: error during writing";
       break;
     case Storage_VSFormatError:
-      theDI << "Storage error: wrong format error occurred while reading";
+      theDI << "Storage1 error: wrong format error occurred while reading";
       break;
     case Storage_VSUnknownType:
-      theDI << "Storage error: try to read an unknown type";
+      theDI << "Storage1 error: try to read an unknown type";
       break;
     case Storage_VSTypeMismatch:
       theDI
-        << "Storage error: try to read a wrong primitive type (read a char while expecting a real)";
+        << "Storage1 error: try to read a wrong primitive type (read a char while expecting a real)";
       break;
     case Storage_VSInternalError:
-      theDI << "Storage error: internal error";
+      theDI << "Storage1 error: internal error";
       break;
     case Storage_VSExtCharParityError:
-      theDI << "Storage error: parity error";
+      theDI << "Storage1 error: parity error";
       break;
     default:
-      theDI << "Storage error: unknown error code";
+      theDI << "Storage1 error: unknown error code";
       break;
   }
 }
@@ -96,7 +96,7 @@ static Standard_Integer DDocStd_fsdwrite(DrawInterpreter& theDI,
     theDI << "        Arguments:\n";
     theDI << "        shapes   : list os shape names\n";
     theDI << "        filename : output file name\n";
-    theDI << "        Storage driver:\n";
+    theDI << "        Storage1 driver:\n";
     theDI << "          gen : FSD_File driver (default)\n";
     theDI << "          cmp : FSD_CmpFile driver\n";
     theDI << "          bin : FSD_BinaryFile driver\n";

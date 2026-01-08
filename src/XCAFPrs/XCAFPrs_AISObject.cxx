@@ -189,7 +189,7 @@ void XCAFPrs_AISObject::DispatchStyles(const Standard_Boolean theToSyncStyles)
     }
     if (aStyle.IsSetColorSurf() || aStyle.IsSetColorCurv())
     {
-      aDrawer->SetOwnColor(Quantity_Color());
+      aDrawer->SetOwnColor(Color1());
     }
     setStyleToDrawer(aDrawer,
                      aStyle,
@@ -258,7 +258,7 @@ void XCAFPrs_AISObject::setStyleToDrawer(const Handle(StyleDrawer)&     theDrawe
   theDrawer->SetOwnLineAspects();
 
   Quantity_ColorRGBA                 aSurfColor = theDefStyle.GetColorSurfRGBA();
-  Quantity_Color                     aCurvColor = theDefStyle.GetColorCurv();
+  Color1                     aCurvColor = theDefStyle.GetColorCurv();
   Graphic3d_MaterialAspect           aMaterial  = theDefMaterial;
   const Handle(XCAFDoc_VisMaterial)& anXMat =
     !theStyle.Material().IsNull() ? theStyle.Material() : theDefStyle.Material();

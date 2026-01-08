@@ -1378,7 +1378,7 @@ Standard_Boolean Geom_BSplineSurface::IsUClosed() const
     return Standard_False;
   Handle(BSplineCurve3d) aBsF = Handle(BSplineCurve3d)::DownCast(aCUF);
   Handle(BSplineCurve3d) aBsL = Handle(BSplineCurve3d)::DownCast(aCUL);
-  return (!aBsF.IsNull() && !aBsL.IsNull() && aBsF->IsEqual(aBsL, Precision::Confusion()));
+  return (!aBsF.IsNull() && !aBsL.IsNull() && aBsF->IsEqual(aBsL, Precision1::Confusion()));
 }
 
 //=================================================================================================
@@ -1396,7 +1396,7 @@ Standard_Boolean Geom_BSplineSurface::IsVClosed() const
     return Standard_False;
   Handle(BSplineCurve3d) aBsF = Handle(BSplineCurve3d)::DownCast(aCVF);
   Handle(BSplineCurve3d) aBsL = Handle(BSplineCurve3d)::DownCast(aCVL);
-  return (!aBsF.IsNull() && !aBsL.IsNull() && aBsF->IsEqual(aBsL, Precision::Confusion()));
+  return (!aBsF.IsNull() && !aBsL.IsNull() && aBsF->IsEqual(aBsL, Precision1::Confusion()));
 }
 
 //=================================================================================================

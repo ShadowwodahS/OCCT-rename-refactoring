@@ -18,7 +18,7 @@
 
 #include <Prs3d_ToolQuadric.hxx>
 
-//! Standard presentation algorithm that outputs graphical primitives for spherical surface.
+//! Standard1 presentation algorithm that outputs graphical primitives for spherical surface.
 class Prs3d_ToolSphere : public ToolQuadric
 {
 public:

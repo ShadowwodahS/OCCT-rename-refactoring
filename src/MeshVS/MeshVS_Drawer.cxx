@@ -67,7 +67,7 @@ void MeshVS_Drawer::SetBoolean(const Standard_Integer Key1, const Standard_Boole
 
 //=================================================================================================
 
-void MeshVS_Drawer::SetColor(const Standard_Integer Key1, const Quantity_Color& Value)
+void MeshVS_Drawer::SetColor(const Standard_Integer Key1, const Color1& Value)
 {
   if (myColors.IsBound(Key1))
     myColors.ChangeFind(Key1) = Value;
@@ -129,7 +129,7 @@ Standard_Boolean MeshVS_Drawer::GetBoolean(const Standard_Integer Key1,
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_Drawer::GetColor(const Standard_Integer Key1, Quantity_Color& Value) const
+Standard_Boolean MeshVS_Drawer::GetColor(const Standard_Integer Key1, Color1& Value) const
 {
   Standard_Boolean aRes = myColors.IsBound(Key1);
   if (aRes)

@@ -190,7 +190,7 @@ Handle(Geom_Axis2Placement) StepToGeom1::MakeAxis2Placement(
       if (!D.IsNull())
       {
         const Dir3d Vxgp = D->Dir();
-        if (!Ngp.IsParallel(Vxgp, Precision::Angular()))
+        if (!Ngp.IsParallel(Vxgp, Precision1::Angular()))
         {
           gpAx2                  = Frame3d(Pgp, Ngp, Vxgp);
           isDefaultDirectionUsed = Standard_False;
@@ -1273,7 +1273,7 @@ Handle(Geom_ConicalSurface) StepToGeom1::MakeConicalSurface(
     const Standard_Real Ang = SS->SemiAngle() * theLocalFactors.PlaneAngleFactor();
     // #2(K3-3) rln 12/02/98 ProSTEP ct_turbine-A.stp entity #518, #3571 (gp1::Resolution() is too
     // little)
-    return new Geom_ConicalSurface(A->Ax2(), Max(Ang, Precision::Angular()), R);
+    return new Geom_ConicalSurface(A->Ax2(), Max(Ang, Precision1::Angular()), R);
   }
   return 0;
 }
@@ -1423,7 +1423,7 @@ Handle(Geom_Direction) StepToGeom1::MakeDirection(const Handle(StepGeom_Directio
     const Standard_Real Y = SD->DirectionRatiosValue(2);
     const Standard_Real Z = SD->DirectionRatiosValue(3);
     // 5.08.2021. Unstable test bugs xde bug24759: Y is very large value - FPE in SquareModulus
-    if (Precision::IsInfinite(X) || Precision::IsInfinite(Y) || Precision::IsInfinite(Z))
+    if (Precision1::IsInfinite(X) || Precision1::IsInfinite(Y) || Precision1::IsInfinite(Z))
     {
       return 0;
     }
@@ -1614,7 +1614,7 @@ Handle(GeomLine) StepToGeom1::MakeLine(const Handle(StepGeom_Line)& SC,
     Handle(Geom_VectorWithMagnitude) D = MakeVectorWithMagnitude(SC->Dir(), theLocalFactors);
     if (!D.IsNull())
     {
-      if (D->Vec().SquareMagnitude() < Precision::Confusion() * Precision::Confusion())
+      if (D->Vec().SquareMagnitude() < Precision1::Confusion() * Precision1::Confusion())
         return 0;
       const Dir3d V(D->Vec());
       return new GeomLine(P->Pnt(), V);
@@ -1887,7 +1887,7 @@ Handle(GeomSurface) StepToGeom1::MakeSurface(const Handle(StepGeom_Surface)& SS,
         const Standard_Real anOffset = OS->Distance() * theLocalFactors.LengthFactor();
         if (aBasisSurface->Continuity() == GeomAbs_C0)
         {
-          const FaceMaker aBFace(aBasisSurface, Precision::Confusion());
+          const FaceMaker aBFace(aBasisSurface, Precision1::Confusion());
           if (aBFace.IsDone())
           {
             const TopoShape aResult =
@@ -1959,7 +1959,7 @@ Handle(Geom_SurfaceOfLinearExtrusion) StepToGeom1::MakeSurfaceOfLinearExtrusion(
     {
       const Dir3d      D(V->Vec());
       Handle(GeomLine) aLine = Handle(GeomLine)::DownCast(C);
-      if (!aLine.IsNull() && aLine->Lin().Direction().IsParallel(D, Precision::Angular()))
+      if (!aLine.IsNull() && aLine->Lin().Direction().IsParallel(D, Precision1::Angular()))
         return Handle(Geom_SurfaceOfLinearExtrusion)();
       return new Geom_SurfaceOfLinearExtrusion(C, D);
     }
@@ -1989,14 +1989,14 @@ Handle(Geom_SurfaceOfRevolution) StepToGeom1::MakeSurfaceOfRevolution(
         const Handle(Geom_Conic) conic = Handle(Geom_Conic)::DownCast(C);
         const Point3d             pc    = conic->Location();
         const gp_Lin             rl(A);
-        if (rl.Distance(pc) < Precision::Confusion())
+        if (rl.Distance(pc) < Precision1::Confusion())
         { // pc lies on A2
           const Dir3d dirline = A.Direction();
           const Dir3d norm    = conic->Axis().Direction();
           const Dir3d xAxis   = conic->XAxis().Direction();
           // checking A2 lies on plane of circle
-          if (dirline.IsNormal(norm, Precision::Angular())
-              && (dirline.IsParallel(xAxis, Precision::Angular())
+          if (dirline.IsNormal(norm, Precision1::Angular())
+              && (dirline.IsParallel(xAxis, Precision1::Angular())
                   || C->IsKind(STANDARD_TYPE(GeomCircle))))
           {
             // change parametrization for trimming
@@ -2153,7 +2153,7 @@ static Standard_Boolean ExtractParameter(const Handle(GeomCurve3d)&             
 {
   Handle(StepGeom_CartesianPoint) aPoint;
   Standard_Integer                i;
-  //: S4136  Standard_Real precBrep = BRepAPI::Precision();
+  //: S4136  Standard_Real precBrep = BRepAPI::Precision1();
   for (i = 1; i <= nbSel; i++)
   {
     StepGeom_TrimmingSelect theSel = TS->Value(i);
@@ -2172,7 +2172,7 @@ static Standard_Boolean ExtractParameter(const Handle(GeomCurve3d)&             
       //: S4136: use advanced algorithm
       Curve2 sac;
       Point3d              p;
-      sac.Project(aGeomCurve, thegpPnt, Precision::Confusion(), p, aParam);
+      sac.Project(aGeomCurve, thegpPnt, Precision1::Confusion(), p, aParam);
       /* //:S4136
             //Trim == natural boundary ?
             if(aGeomCurve->IsKind(STANDARD_TYPE(Geom_BoundedCurve))) {
@@ -2226,7 +2226,7 @@ static Standard_Boolean ExtractParameter(const Handle(GeomCurve3d)&             
       // Project Point On Curve
       Curve2 sac;
       Point3d              p;
-      sac.Project(aGeomCurve, thegpPnt, Precision::Confusion(), p, aParam);
+      sac.Project(aGeomCurve, thegpPnt, Precision1::Confusion(), p, aParam);
       /*
             GeomAPI_ProjectPointOnCurve PPOC(thegpPnt, aGeomCurve);
             if (PPOC.NbPoints() == 0) {
@@ -2362,15 +2362,15 @@ Handle(Geom_TrimmedCurve) StepToGeom1::MakeTrimmedCurve(const Handle(StepGeom_Tr
       else if (trim2 > cl)
         trim2 = cl;
     }
-    if (Abs(trim1 - trim2) < Precision::PConfusion())
+    if (Abs(trim1 - trim2) < Precision1::PConfusion())
     {
       if (theCurve->IsPeriodic())
       {
-        ElCLib1::AdjustPeriodic(cf, cl, Precision::PConfusion(), trim1, trim2);
+        ElCLib1::AdjustPeriodic(cf, cl, Precision1::PConfusion(), trim1, trim2);
       }
       else if (theCurve->IsClosed())
       {
-        if (Abs(trim1 - cf) < Precision::PConfusion())
+        if (Abs(trim1 - cf) < Precision1::PConfusion())
         {
           trim2 += cl;
         }
@@ -2385,7 +2385,7 @@ Handle(Geom_TrimmedCurve) StepToGeom1::MakeTrimmedCurve(const Handle(StepGeom_Tr
       }
     }
     //  CKY 16-DEC-1997 : USA60035 le texte de Part42 parle de degres
-    //    mais des systemes ecrivent en radians. Exploiter UnitsMethods
+    //    mais des systemes ecrivent en radians. Exploiter UnitsMethods1
     //: o6    trim1 = trim1 * fact;
     //: o6    trim2 = trim2 * fact;
     if (SC->SenseAgreement())
@@ -2446,7 +2446,7 @@ Handle(Geom2d_BSplineCurve) StepToGeom1::MakeTrimmedCurve2d(const Handle(StepGeo
       // LATER !!!
     }
     //    CKY 16-DEC-1997 : USA60035 le texte de Part42 parle de degres
-    //      mais des systemes ecrivent en radians. Exploiter UnitsMethods
+    //      mais des systemes ecrivent en radians. Exploiter UnitsMethods1
 
     const Standard_Real newU1 = shift + u1 * fact;
     const Standard_Real newU2 = shift + u2 * fact;
@@ -2522,7 +2522,7 @@ Handle(TColStd_HArray1OfReal) StepToGeom1::MakeYprRotation(
                        SR.RotationAboutDirection()->DirectionOfAxis()->DirectionRatiosValue(2),
                        SR.RotationAboutDirection()->DirectionOfAxis()->DirectionRatiosValue(3));
   Standard_Real anAngle = SR.RotationAboutDirection()->RotationAngle();
-  if (Abs(anAngle) < Precision::Angular())
+  if (Abs(anAngle) < Precision1::Angular())
   {
     // a zero rotation is converted trivially
     anYPRRotation = new TColStd_HArray1OfReal(1, 3);
@@ -2535,7 +2535,7 @@ Handle(TColStd_HArray1OfReal) StepToGeom1::MakeYprRotation(
   Standard_Real                                     dy = anAxis->Y();
   Standard_Real                                     dz = anAxis->Z();
   NCollection_Sequence<Handle(StepBasic_NamedUnit)> aPaUnits;
-  for (Standard_Integer anInd = 1; anInd <= theCntxt->Units()->Length(); ++anInd)
+  for (Standard_Integer anInd = 1; anInd <= theCntxt->Units2()->Length(); ++anInd)
   {
     if (theCntxt->UnitsValue(anInd)->IsKind(
           STANDARD_TYPE(StepBasic_ConversionBasedUnitAndPlaneAngleUnit))
@@ -2576,7 +2576,7 @@ Handle(TColStd_HArray1OfReal) StepToGeom1::MakeYprRotation(
   Standard_Real aYaw = 0, aPitch = 0, aRoll = 0;
 
   // axis parallel either to x-axis or to z-axis?
-  if (Abs(dy) < Precision::Confusion() && Abs(dx * dz) < Precision::SquareConfusion())
+  if (Abs(dy) < Precision1::Confusion() && Abs(dx * dz) < Precision1::SquareConfusion())
   {
     while (anAngle <= -M_PI)
     {
@@ -2588,7 +2588,7 @@ Handle(TColStd_HArray1OfReal) StepToGeom1::MakeYprRotation(
     }
 
     aYaw = anUcf * anAngle;
-    if (Abs(anAngle - M_PI) >= Precision::Angular())
+    if (Abs(anAngle - M_PI) >= Precision1::Angular())
     {
       aRoll = -aYaw;
     }
@@ -2600,7 +2600,7 @@ Handle(TColStd_HArray1OfReal) StepToGeom1::MakeYprRotation(
     anYPRRotation->SetValue(1, 0.);
     anYPRRotation->SetValue(2, 0.);
     anYPRRotation->SetValue(3, 0.);
-    if (Abs(dx) >= Precision::Confusion())
+    if (Abs(dx) >= Precision1::Confusion())
     {
       if (dx > 0.)
         anYPRRotation->SetValue(3, aYaw);
@@ -2618,8 +2618,8 @@ Handle(TColStd_HArray1OfReal) StepToGeom1::MakeYprRotation(
   }
 
   // axis parallel to y-axis - use y-axis as pitch axis
-  if (Abs(dy) >= Precision::Confusion() && Abs(dx) < Precision::Confusion()
-      && Abs(dz) < Precision::Confusion())
+  if (Abs(dy) >= Precision1::Confusion() && Abs(dx) < Precision1::Confusion()
+      && Abs(dz) < Precision1::Confusion())
   {
     if (aCA >= 0.)
     {
@@ -2652,10 +2652,10 @@ Handle(TColStd_HArray1OfReal) StepToGeom1::MakeYprRotation(
     {dx * dz * aCm1 - dy * aSA, dy * dz * aCm1 + dx * aSA, dz * dz * aCm1 + aCA}};
 
   // aRotMat[1][3] equals SIN(pitch_angle)
-  if (Abs(Abs(aRotMat[0][2] - 1.)) < Precision::Confusion())
+  if (Abs(Abs(aRotMat[0][2] - 1.)) < Precision1::Confusion())
   {
     // |aPitch| = PI/2
-    if (Abs(aRotMat[0][2] - 1.) < Precision::Confusion())
+    if (Abs(aRotMat[0][2] - 1.) < Precision1::Confusion())
       aPitch = M_PI_2;
     else
       aPitch = -M_PI_2;
@@ -2683,7 +2683,7 @@ Handle(TColStd_HArray1OfReal) StepToGeom1::MakeYprRotation(
 
     if (aRotMat[0][0] < 0.)
     {
-      if (aYaw < 0. || Abs(aYaw) < Precision::Angular())
+      if (aYaw < 0. || Abs(aYaw) < Precision1::Angular())
         aYaw = aYaw + M_PI;
       else
         aYaw = aYaw - M_PI;

@@ -78,8 +78,8 @@
   #include <OSD_Chronometer.hxx>
 extern Standard_Real t_perfsetofkpart, t_perfsetofkgen, t_makextremities, t_performsurf, t_startsol;
 extern Standard_Boolean ChFi3d_GettraceCHRON();
-extern void             ChFi3d_InitChron(OSD_Chronometer& ch);
-extern void             ChFi3d_ResultChron(OSD_Chronometer& ch, Standard_Real& time);
+extern void             ChFi3d_InitChron(Chronometer& ch);
+extern void             ChFi3d_ResultChron(Chronometer& ch, Standard_Real& time);
 #endif
 
 //===================================================================
@@ -411,9 +411,9 @@ Standard_Boolean IsInput(const Vector3d& Vec, const TopoVertex& Ve, const TopoFa
   // Calculate the normal and the angles in the associated vector plane
   Vector3d Normal;
   Normal = Vec3d[0] ^ Vec3d[1];
-  if (Normal.SquareMagnitude() < Precision::Confusion())
+  if (Normal.SquareMagnitude() < Precision1::Confusion())
   { // Colinear case
-    return (Vec.IsParallel(Vec3d[0], Precision::Confusion()));
+    return (Vec.IsParallel(Vec3d[0], Precision1::Confusion()));
   }
 
   Standard_Real amin, amax;
@@ -588,11 +588,11 @@ static void ChangeTransition(const ChFiDS_CommonPoint&                  Precedan
     Point3d            P;
     BRepAdaptor_Curve AC(Arc);
     AC.D1(Precedant.ParameterOnArc(), P, tgarc);
-    tochange = tgarc.IsParallel(Precedant.Vector(), Precision::Confusion());
+    tochange = tgarc.IsParallel(Precedant.Vector(), Precision1::Confusion());
   }
 
   if (tochange)
-    Courant.SetArc(Precision::Confusion(),
+    Courant.SetArc(Precision1::Confusion(),
                    Arc,
                    Precedant.ParameterOnArc(),
                    TopAbs1::Reverse(Precedant.TransitionOnArc()));
@@ -636,7 +636,7 @@ void ChFi3d_Builder::CallPerformSurf(Handle(ChFiDS_Stripe)&             Stripe,
                                      Handle(BRepAdaptor_Surface)& Surf2)
 {
 #ifdef OCCT_DEBUG
-  OSD_Chronometer ch1;
+  Chronometer ch1;
 #endif
   Handle(BRepAdaptor_Surface) HSon1, HSon2;
   HSon1 = HS1;
@@ -921,7 +921,7 @@ void ChFi3d_Builder::StartSol(const Handle(ChFiDS_Stripe)&      Stripe,
   PExt.Initialize(els,
                   Spine->FirstParameter(1),
                   Spine->LastParameter(nbed),
-                  Precision::Confusion());
+                  Precision1::Confusion());
   TopAbs_State Pos1, Pos2;
   for (nbessai = 0; nbessai <= nbessaimax; nbessai++)
   {
@@ -952,7 +952,7 @@ void ChFi3d_Builder::StartSol(const Handle(ChFiDS_Stripe)&      Stripe,
     I1->Initialize((const Handle(Adaptor3d_Surface)&)HS1);
     PC->D1(woned, P1, derive);
     // There are points on the border, and internal points are found
-    if (derive.Magnitude() > Precision::PConfusion())
+    if (derive.Magnitude() > Precision1::PConfusion())
     {
       derive.Normalize();
       derive.Rotate(M_PI / 2);
@@ -1112,7 +1112,7 @@ static void ChFi3d_BuildPlane(TopOpeBRepDS_DataStructure&    DStr,
     {
       P                       = theProp.Value();
       Handle(GeomPlane) Pln  = new GeomPlane(P, theProp.Normal());
-      TopoFace        NewF = BRepLib_MakeFace(Pln, Precision::Confusion());
+      TopoFace        NewF = BRepLib_MakeFace(Pln, Precision1::Confusion());
       NewF.Orientation(F.Orientation());
       pons.SetCoord(0., 0.);
       HS->Initialize(NewF);
@@ -2132,7 +2132,7 @@ void ChFi3d_Builder::PerformSetOfSurfOnElSpine(const Handle(ChFiDS_ElSpine)&    
                                                const Standard_Boolean            Simul)
 {
 #ifdef OCCT_DEBUG
-  OSD_Chronometer ch1;
+  Chronometer ch1;
 #endif
 
   // Temporary
@@ -3730,7 +3730,7 @@ void ChFi3d_Builder::PerformSetOfSurf(Handle(ChFiDS_Stripe)& Stripe, const Stand
   TopOpeBRepDS_DataStructure& DStr = myDS->ChangeDS();
 
 #ifdef OCCT_DEBUG
-  OSD_Chronometer ch;
+  Chronometer ch;
   ChFi3d_InitChron(ch); // init perf for PerformSetOfKPart
 #endif
 

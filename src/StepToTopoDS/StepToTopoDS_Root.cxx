@@ -24,5 +24,5 @@
 Root2::Root2()
     : done(Standard_False)
 {
-  myPrecision = myMaxTol = Precision::Confusion();
+  myPrecision = myMaxTol = Precision1::Confusion();
 }

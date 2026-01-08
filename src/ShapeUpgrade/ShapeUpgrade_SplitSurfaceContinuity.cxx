@@ -35,7 +35,7 @@ ShapeUpgrade_SplitSurfaceContinuity::ShapeUpgrade_SplitSurfaceContinuity()
     : myCont(0)
 {
   myCriterion = GeomAbs_C1;
-  myTolerance = Precision::Confusion();
+  myTolerance = Precision1::Confusion();
 }
 
 //=================================================================================================
@@ -76,13 +76,13 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
   {
     Standard_Real UF, UL, VF, VL;
     mySurface->Bounds(UF, UL, VF, VL);
-    if (!Precision::IsInfinite(UF))
+    if (!Precision1::IsInfinite(UF))
       myUSplitValues->SetValue(1, UF);
-    if (!Precision::IsInfinite(UL))
+    if (!Precision1::IsInfinite(UL))
       myUSplitValues->SetValue(myUSplitValues->Length(), UL);
-    if (!Precision::IsInfinite(VF))
+    if (!Precision1::IsInfinite(VF))
       myVSplitValues->SetValue(1, VF);
-    if (!Precision::IsInfinite(VL))
+    if (!Precision1::IsInfinite(VL))
       myVSplitValues->SetValue(myVSplitValues->Length(), VL);
   }
 
@@ -90,7 +90,7 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
   Standard_Real           ULast     = myUSplitValues->Value(myUSplitValues->Length());
   Standard_Real           VFirst    = myVSplitValues->Value(1);
   Standard_Real           VLast     = myVSplitValues->Value(myVSplitValues->Length());
-  constexpr Standard_Real precision = Precision::Confusion();
+  constexpr Standard_Real precision = Precision1::Confusion();
   //  if (ShapeUpgrade1::Debug()) std::cout << "SplitSurfaceContinuity::Build" << std::endl;
   if (mySurface->Continuity() < myCriterion)
     myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);

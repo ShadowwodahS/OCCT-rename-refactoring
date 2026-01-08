@@ -134,7 +134,7 @@ public:
     myTol = BooleanTools::ComputeToleranceOfCB(myCB, myDS, myContext);
     AlgoTools::MakeSplitEdge(myE, myV1, myT1, myV2, myT2, myESp);
     BRepBndLib1::Add(myESp, myBox);
-    myBox.SetGap(myBox.GetGap() + Precision::Confusion());
+    myBox.SetGap(myBox.GetGap() + Precision1::Confusion());
   }
 
   //
@@ -562,7 +562,7 @@ Standard_Integer BooleanPaveFiller::SplitEdge(const Standard_Integer nE,
   //
   Box2& aBox = aSI.ChangeBox();
   BRepBndLib1::Add(aSp, aBox);
-  aBox.SetGap(aBox.GetGap() + Precision::Confusion());
+  aBox.SetGap(aBox.GetGap() + Precision1::Confusion());
   //
   nSp = myDS->Append(aSI);
   return nSp;

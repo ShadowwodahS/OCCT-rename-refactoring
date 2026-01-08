@@ -96,7 +96,7 @@ public:
           return QVariant("Name");
         Quantity_NameOfColor aColorName;
         if (ViewControl_ColorSelector::IsExactColorName(myColor, aColorName))
-          return Quantity_Color::StringName(aColorName);
+          return Color1::StringName(aColorName);
       }
       break;
       case 2:
@@ -112,7 +112,7 @@ public:
         return isFirstColumn ? QVariant("Alpha") : ViewControl_Tools::ToVariant(myColor.Alpha());
       case 6:
         return isFirstColumn ? QVariant("Near Name")
-                             : Quantity_Color::StringName(myColor.GetRGB().Name());
+                             : Color1::StringName(myColor.GetRGB().Name());
     }
     return QVariant();
   }
@@ -252,7 +252,7 @@ public:
 
     if (theRole == Qt::ToolTipRole)
       return QString("%1").arg(
-        ViewControl_ColorSelector::ColorToString(Quantity_Color(aNameOfColor)));
+        ViewControl_ColorSelector::ColorToString(Color1(aNameOfColor)));
     return QVariant();
   }
 
@@ -322,7 +322,7 @@ public:
     if (aNameOfColorId < (int)Quantity_NOC_WHITE)
       aNameOfColor = (Quantity_NameOfColor)aNameOfColorId;
 
-    Quantity_Color anOCCTColor(aNameOfColor);
+    Color1 anOCCTColor(aNameOfColor);
     QColor aQColor = ViewControl_ColorSelector::ColorToQColor(Quantity_ColorRGBA(anOCCTColor));
     thePainter->fillRect(aBaseRect, aQColor);
 
@@ -485,7 +485,7 @@ QString ViewControl_ColorSelector::GetStreamValue() const
   Standard_SStream aStream;
   aColor.DumpJson(aStream);
 
-  return Standard_Dump::Text(aStream).ToCString();
+  return DumpTool::Text(aStream).ToCString();
 }
 
 // =======================================================================
@@ -514,7 +514,7 @@ void ViewControl_ColorSelector::ParameterColorChanged()
 // function : ColorToString
 // purpose :
 // =======================================================================
-QString ViewControl_ColorSelector::ColorToString(const Quantity_Color& theColor)
+QString ViewControl_ColorSelector::ColorToString(const Color1& theColor)
 {
   Standard_Real aRed, aGreen, aBlue;
   theColor.Values(aRed, aGreen, aBlue, Quantity_TOC_RGB);
@@ -559,7 +559,7 @@ Standard_Boolean ViewControl_ColorSelector::IsExactColorName(const Quantity_Colo
                                                              Quantity_NameOfColor&     theColorName)
 {
   theColorName = theColor.GetRGB().Name();
-  return Quantity_Color(theColorName).IsEqual(theColor.GetRGB());
+  return Color1(theColorName).IsEqual(theColor.GetRGB());
 }
 
 // =======================================================================
@@ -586,6 +586,6 @@ void ViewControl_ColorSelector::onOCCTColorsTableSelectionChanged(const QItemSel
     dynamic_cast<ViewControl_TableModel*>(myParameters->model());
   ViewControl_ParametersModel* aParametersModel =
     dynamic_cast<ViewControl_ParametersModel*>(aTableModel->ModelValues());
-  Quantity_Color anOCCTColor(aNameOfColor);
+  Color1 anOCCTColor(aNameOfColor);
   aParametersModel->SetColor(Quantity_ColorRGBA(anOCCTColor), aTableModel);
 }

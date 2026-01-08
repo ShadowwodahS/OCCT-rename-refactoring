@@ -142,7 +142,7 @@ static void TrimC3d(Handle(Adaptor3d_Curve)& myCurve,
   {
     IsTrimmed[0]    = Standard_True;
     f               = f + dt;
-    myCurve         = myCurve->Trim(f, l, Precision::Confusion());
+    myCurve         = myCurve->Trim(f, l, Precision1::Confusion());
     SingularCase[0] = NumberOfSingularCase;
   }
 
@@ -151,7 +151,7 @@ static void TrimC3d(Handle(Adaptor3d_Curve)& myCurve,
   {
     IsTrimmed[1]    = Standard_True;
     l               = l - dt;
-    myCurve         = myCurve->Trim(f, l, Precision::Confusion());
+    myCurve         = myCurve->Trim(f, l, Precision1::Confusion());
     SingularCase[1] = NumberOfSingularCase;
   }
 }
@@ -175,7 +175,7 @@ static void ExtendC2d(Handle(Geom2d_BSplineCurve)& aRes,
   gp_Dir2d                              aDBnd;
   Handle(Geom2d_TrimmedCurve)           aSegment;
   Geom2dConvert_CompCurveToBSplineCurve aCompCurve(aRes, Convert_RationalC1);
-  constexpr Standard_Real               aTol = Precision::Confusion();
+  constexpr Standard_Real               aTol = Precision1::Confusion();
 
   aRes->D1(theParam, aPBnd, aVBnd);
   aDBnd.SetXY(aVBnd.XY());
@@ -208,7 +208,7 @@ static void ExtendC2d(Handle(Geom2d_BSplineCurve)& aRes,
   }
   gp_Lin2d      BoundLin(thePole, theBoundDir); // one of the bounds of rectangle
   Standard_Real ParOnLin = 0.;
-  if (theBoundDir.IsParallel(aDBnd, 100. * Precision::Angular()))
+  if (theBoundDir.IsParallel(aDBnd, 100. * Precision1::Angular()))
   {
     ParOnLin = ElCLib1::Parameter(aLin, thePole);
   }
@@ -270,7 +270,7 @@ static void Project(ProjLib_Projector& P, Handle(Adaptor3d_Curve)& C)
 //=================================================================================================
 
 ProjLib_ProjectedCurve::ProjLib_ProjectedCurve()
-    : myTolerance(Precision::Confusion()),
+    : myTolerance(Precision1::Confusion()),
       myDegMin(-1),
       myDegMax(-1),
       myMaxSegments(-1),
@@ -282,7 +282,7 @@ ProjLib_ProjectedCurve::ProjLib_ProjectedCurve()
 //=================================================================================================
 
 ProjLib_ProjectedCurve::ProjLib_ProjectedCurve(const Handle(Adaptor3d_Surface)& S)
-    : myTolerance(Precision::Confusion()),
+    : myTolerance(Precision1::Confusion()),
       myDegMin(-1),
       myDegMax(-1),
       myMaxSegments(-1),
@@ -296,7 +296,7 @@ ProjLib_ProjectedCurve::ProjLib_ProjectedCurve(const Handle(Adaptor3d_Surface)& 
 
 ProjLib_ProjectedCurve::ProjLib_ProjectedCurve(const Handle(Adaptor3d_Surface)& S,
                                                const Handle(Adaptor3d_Curve)&   C)
-    : myTolerance(Precision::Confusion()),
+    : myTolerance(Precision1::Confusion()),
       myDegMin(-1),
       myDegMax(-1),
       myMaxSegments(-1),
@@ -312,7 +312,7 @@ ProjLib_ProjectedCurve::ProjLib_ProjectedCurve(const Handle(Adaptor3d_Surface)& 
 ProjLib_ProjectedCurve::ProjLib_ProjectedCurve(const Handle(Adaptor3d_Surface)& S,
                                                const Handle(Adaptor3d_Curve)&   C,
                                                const Standard_Real              Tol)
-    : myTolerance(Max(Tol, Precision::Confusion())),
+    : myTolerance(Max(Tol, Precision1::Confusion())),
       myDegMin(-1),
       myDegMax(-1),
       myMaxSegments(-1),
@@ -366,7 +366,7 @@ void ProjLib_ProjectedCurve::Load(const Standard_Real theTol)
 
 void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
 {
-  myTolerance                          = Max(myTolerance, Precision::Confusion());
+  myTolerance                          = Max(myTolerance, Precision1::Confusion());
   myCurve                              = C;
   Standard_Real       FirstPar         = C->FirstParameter();
   Standard_Real       LastPar          = C->LastParameter();
@@ -376,7 +376,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
   Standard_Boolean    IsTrimmed[2]     = {Standard_False, Standard_False};
   Standard_Integer    SingularCase[2];
   const Standard_Real eps     = 0.01;
-  Standard_Real       TolConf = Precision::Confusion();
+  Standard_Real       TolConf = Precision1::Confusion();
   Standard_Real       dt      = (LastPar - FirstPar) * eps;
   Standard_Real       U1 = 0.0, U2 = 0.0, V1 = 0.0, V2 = 0.0;
   U1 = mySurface->FirstUParameter();
@@ -519,7 +519,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
             ExtendC2d(aRes, l, dt, U1, U2, V1, V2, 1, SingularCase[1]);
           }
           Handle(GeomCurve2d) NewCurve2d;
-          GeomLib1::SameRange(Precision::PConfusion(),
+          GeomLib1::SameRange(Precision1::PConfusion(),
                              aRes,
                              aRes->FirstParameter(),
                              aRes->LastParameter(),
@@ -555,11 +555,11 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
         dt = (l - f) * eps;
 
         P = myCurve->Value(f);
-        if (L.Distance(P) < Precision::Confusion())
+        if (L.Distance(P) < Precision1::Confusion())
         {
           IsTrimmed[0] = Standard_True;
           f            = f + dt;
-          myCurve      = myCurve->Trim(f, l, Precision::Confusion());
+          myCurve      = myCurve->Trim(f, l, Precision1::Confusion());
           // Searching the parameter on the basis curve for surface of revolution
           Extrema_ExtPC anExtr(P, *mySurface->BasisCurve(), myTolerance);
           if (anExtr.IsDone())
@@ -580,11 +580,11 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
         }
 
         P = myCurve->Value(l);
-        if (L.Distance(P) < Precision::Confusion())
+        if (L.Distance(P) < Precision1::Confusion())
         {
           IsTrimmed[1] = Standard_True;
           l            = l - dt;
-          myCurve      = myCurve->Trim(f, l, Precision::Confusion());
+          myCurve      = myCurve->Trim(f, l, Precision1::Confusion());
           // Searching the parameter on the basis curve for surface of revolution
           Extrema_ExtPC anExtr(P, *mySurface->BasisCurve(), myTolerance);
           if (anExtr.IsDone())
@@ -605,8 +605,8 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
         }
       }
 
-      Standard_Real aTolU  = Max(ComputeTolU(mySurface, myTolerance), Precision::Confusion());
-      Standard_Real aTolV  = Max(ComputeTolV(mySurface, myTolerance), Precision::Confusion());
+      Standard_Real aTolU  = Max(ComputeTolU(mySurface, myTolerance), Precision1::Confusion());
+      Standard_Real aTolV  = Max(ComputeTolV(mySurface, myTolerance), Precision1::Confusion());
       Standard_Real aTol2d = Sqrt(aTolU * aTolU + aTolV * aTolV);
 
       Standard_Real aMaxDist = 100. * myTolerance;
@@ -680,7 +680,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
             ExtendC2d(aRes, l, dt, u1, u2, v1, Vsingular[1], 1, 4);
           }
           Handle(GeomCurve2d) NewCurve2d;
-          GeomLib1::SameRange(Precision::PConfusion(),
+          GeomLib1::SameRange(Precision1::PConfusion(),
                              aRes,
                              aRes->FirstParameter(),
                              aRes->LastParameter(),
@@ -693,7 +693,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
             // try to smoother the Curve GeomAbs_C1.
             Standard_Integer aDeg       = aRes->Degree();
             Standard_Boolean OK         = Standard_True;
-            Standard_Real    aSmoothTol = Max(Precision::Confusion(), aNewTol2d);
+            Standard_Real    aSmoothTol = Max(Precision1::Confusion(), aNewTol2d);
             for (Standard_Integer ij = 2; ij < aRes->NbKnots(); ij++)
             {
               OK = OK && aRes->RemoveKnot(ij, aDeg - 1, aSmoothTol);
@@ -744,7 +744,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
         ExtendC2d(aRes, l, dt, U1, U2, V1, V2, 1, SingularCase[1]);
       }
       Handle(GeomCurve2d) NewCurve2d;
-      GeomLib1::SameRange(Precision::PConfusion(),
+      GeomLib1::SameRange(Precision1::PConfusion(),
                          aRes,
                          aRes->FirstParameter(),
                          aRes->LastParameter(),

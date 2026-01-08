@@ -34,7 +34,7 @@
 //! curve but have different locations.
 //! -      BRepBuilderAPI_PointWithInfiniteParameter
 //! A finite coordinate point was associated with an infinite
-//! parameter (see the Precision package for a definition of    infinite values).
+//! parameter (see the Precision1 package for a definition of    infinite values).
 //! -      BRepBuilderAPI_DifferentsPointAndParameter
 //! The distance between the 3D point and the point evaluated
 //! on the curve with the parameter is greater than the precision.

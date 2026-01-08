@@ -518,11 +518,11 @@ static const char* fresnelModelString(const Graphic3d_FresnelModel theModel)
 }
 
 //! Create a colored rectangle SVG element.
-static AsciiString1 formatSvgColoredRect(const Quantity_Color& theColor)
+static AsciiString1 formatSvgColoredRect(const Color1& theColor)
 {
   return AsciiString1()
          + "<svg width='20px' height='20px'><rect width='20px' height='20px' fill='"
-         + Quantity_Color::ColorToHex(theColor) + "' /></svg>";
+         + Color1::ColorToHex(theColor) + "' /></svg>";
 }
 
 //=================================================================================================
@@ -714,9 +714,9 @@ static Standard_Integer VListMaterials(DrawInterpreter& theDI,
     if (aMatFile.get() != NULL)
     {
       *aMatFile << "newmtl " << aMatName << "\n";
-      *aMatFile << "Ka " << Quantity_Color::Convert_LinearRGB_To_sRGB(anAmbient) << "\n";
-      *aMatFile << "Kd " << Quantity_Color::Convert_LinearRGB_To_sRGB(aDiffuse) << "\n";
-      *aMatFile << "Ks " << Quantity_Color::Convert_LinearRGB_To_sRGB(aSpecular) << "\n";
+      *aMatFile << "Ka " << Color1::Convert_LinearRGB_To_sRGB(anAmbient) << "\n";
+      *aMatFile << "Kd " << Color1::Convert_LinearRGB_To_sRGB(aDiffuse) << "\n";
+      *aMatFile << "Ks " << Color1::Convert_LinearRGB_To_sRGB(aSpecular) << "\n";
       *aMatFile << "Ns " << aShiness << "\n";
       if (aMat.Transparency() >= 0.0001)
       {
@@ -736,16 +736,16 @@ static Standard_Integer VListMaterials(DrawInterpreter& theDI,
                  << (Graphic3d_Vec3)aMat.PBRMaterial().Color().GetRGB() << "</td>\n";
       *aHtmlFile << "<td>" << aMat.PBRMaterial().Metallic() << "</td>\n";
       *aHtmlFile << "<td>" << aMat.PBRMaterial().NormalizedRoughness() << "</td>\n";
-      *aHtmlFile << "<td>" << formatSvgColoredRect(Quantity_Color(aMat.PBRMaterial().Emission()))
+      *aHtmlFile << "<td>" << formatSvgColoredRect(Color1(aMat.PBRMaterial().Emission()))
                  << aMat.PBRMaterial().Emission() << "</td>\n";
       *aHtmlFile << "<td>" << aMat.PBRMaterial().IOR() << "</td>\n";
-      *aHtmlFile << "<td>" << formatSvgColoredRect(Quantity_Color(anAmbient)) << anAmbient
+      *aHtmlFile << "<td>" << formatSvgColoredRect(Color1(anAmbient)) << anAmbient
                  << "</td>\n";
-      *aHtmlFile << "<td>" << formatSvgColoredRect(Quantity_Color(aDiffuse)) << aDiffuse
+      *aHtmlFile << "<td>" << formatSvgColoredRect(Color1(aDiffuse)) << aDiffuse
                  << "</td>\n";
-      *aHtmlFile << "<td>" << formatSvgColoredRect(Quantity_Color(aSpecular)) << aSpecular
+      *aHtmlFile << "<td>" << formatSvgColoredRect(Color1(aSpecular)) << aSpecular
                  << "</td>\n";
-      *aHtmlFile << "<td>" << formatSvgColoredRect(Quantity_Color(anEmission)) << anEmission
+      *aHtmlFile << "<td>" << formatSvgColoredRect(Color1(anEmission)) << anEmission
                  << "</td>\n";
       *aHtmlFile << "<td>" << aMat.Shininess() << "</td>\n";
       *aHtmlFile << "<td>" << aMat.BSDF().Kc << "</td>\n";
@@ -832,7 +832,7 @@ static Standard_Integer VListColors(DrawInterpreter& theDI,
     AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     Quantity_NameOfColor aName;
-    if (Quantity_Color::ColorFromName(theArgVec[anArgIter], aName))
+    if (Color1::ColorFromName(theArgVec[anArgIter], aName))
     {
       aColList.Append(aName);
     }
@@ -861,7 +861,7 @@ static Standard_Integer VListColors(DrawInterpreter& theDI,
       for (Standard_Integer aColIter = 0; aColIter <= (Standard_Integer)Quantity_NOC_WHITE;
            ++aColIter)
       {
-        theDI << Quantity_Color::StringName(Quantity_NameOfColor(aColIter)) << " ";
+        theDI << Color1::StringName(Quantity_NameOfColor(aColIter)) << " ";
       }
       return 0;
     }
@@ -894,7 +894,7 @@ static Standard_Integer VListColors(DrawInterpreter& theDI,
   {
     aMaxNameLen =
       Max(aMaxNameLen,
-          AsciiString1(Quantity_Color::StringName(aColIter.Value())).Length());
+          AsciiString1(Color1::StringName(aColIter.Value())).Length());
   }
 
   ImageDumpOptions anImgParams;
@@ -942,9 +942,9 @@ static Standard_Integer VListColors(DrawInterpreter& theDI,
   for (NCollection_Sequence<Quantity_NameOfColor>::Iterator aColIter(aColList); aColIter.More();
        aColIter.Next(), ++aColIndex)
   {
-    Quantity_Color                aCol(aColIter.Value());
-    const AsciiString1 aColName  = Quantity_Color::StringName(aColIter.Value());
-    const AsciiString1 anSRgbHex = Quantity_Color::ColorToHex(aCol);
+    Color1                aCol(aColIter.Value());
+    const AsciiString1 aColName  = Color1::StringName(aColIter.Value());
+    const AsciiString1 anSRgbHex = Color1::ColorToHex(aCol);
     const Graphic3d_Vec3i         anSRgbInt((Graphic3d_Vec3)aCol * 255.0f);
     if (aHtmlFile.get() != NULL)
     {

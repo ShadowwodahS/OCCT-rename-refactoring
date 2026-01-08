@@ -71,7 +71,7 @@ Standard_Boolean ShapeCustomCurve2d::IsLinear(const TColgp_Array1OfPnt2d& thePol
       }
     }
 
-  constexpr Standard_Real dPreci = Precision::PConfusion() * Precision::PConfusion();
+  constexpr Standard_Real dPreci = Precision1::PConfusion() * Precision1::PConfusion();
   if (dMax < dPreci)
     return Standard_False;
 
@@ -160,7 +160,7 @@ Standard_Boolean ShapeCustomCurve2d::SimplifyBSpline2d(Handle(Geom2d_BSplineCurv
       gp_Vec2d      aVec1 = theBSpline2d->LocalDN(U, aKnotIndx - 1, aKnotIndx, DegMult);
       gp_Vec2d      aVec2 = theBSpline2d->LocalDN(U, aKnotIndx, aKnotIndx + 1, DegMult);
       // check the derivations are have the "same" angle
-      if (aVec1.IsParallel(aVec2, Precision::Angular()))
+      if (aVec1.IsParallel(aVec2, Precision1::Angular()))
       {
         // remove knot
         try

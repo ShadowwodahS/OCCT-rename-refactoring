@@ -179,7 +179,7 @@ void TopOpeBRepDS_Edge3dInterferenceTool::Init(const TopoShape&                 
   const TopoFace& FF    = TopoDS::Face(F);
   myrefdef                 = Standard_False;
 
-  myTole = Precision::Angular(); // NYI
+  myTole = Precision1::Angular(); // NYI
 
   Standard_Real    pref = 0.0;
   Standard_Boolean ok   = ::FUN_hasparam(I, pref);
@@ -219,7 +219,7 @@ void TopOpeBRepDS_Edge3dInterferenceTool::Init(const TopoShape&                 
 
   Standard_Real dot     = tgref.Dot(tgOO);
   dot                   = 1 - Abs(dot);
-  Standard_Real    tola = Precision::Confusion();
+  Standard_Real    tola = Precision1::Confusion();
   Standard_Boolean Esdm = (Abs(dot) < tola);
   if (Esdm)
     return;

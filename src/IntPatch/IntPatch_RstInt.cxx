@@ -108,7 +108,7 @@ static void Recadre(GeomAbs_SurfaceType           typeS1,
   }
 }
 
-const Standard_Real Confusion = Precision::Confusion();
+const Standard_Real Confusion = Precision1::Confusion();
 
 inline Standard_Real Tol3d(const Handle(Adaptor3d_HVertex)&   vtx,
                            const Handle(Adaptor3d_TopolTool)& Domain,
@@ -432,9 +432,9 @@ void RestrictedIntersection::PutVertexOnLine(const Handle(IntPatch_Line)&       
   // clang-format on
   Handle(IntPatch_WLine) wlin(Handle(IntPatch_WLine)::DownCast(L)); //-- faite au cast.
   Standard_Integer       Nbvtx   = 0;
-  Standard_Real          tolPLin = Surf->UResolution(Precision::Confusion());
-  tolPLin                        = Max(tolPLin, Surf->VResolution(Precision::Confusion()));
-  tolPLin                        = Min(tolPLin, Precision::Confusion());
+  Standard_Real          tolPLin = Surf->UResolution(Precision1::Confusion());
+  tolPLin                        = Max(tolPLin, Surf->VResolution(Precision1::Confusion()));
+  tolPLin                        = Min(tolPLin, Precision1::Confusion());
   IntPatch_PolyLine PLin(tolPLin);
 
   Standard_Real    PFirst, PLast;
@@ -522,12 +522,12 @@ void RestrictedIntersection::PutVertexOnLine(const Handle(IntPatch_Line)&       
     Standard_Real edgeTol = Tol3d(arc, Domain, Tol);
 
     HInterTool::Bounds(arc, PFirst, PLast);
-    if (Precision::IsNegativeInfinite(PFirst))
+    if (Precision1::IsNegativeInfinite(PFirst))
       PFirst = -myInfinite;
-    if (Precision::IsPositiveInfinite(PLast))
+    if (Precision1::IsPositiveInfinite(PLast))
       PLast = myInfinite;
-    // if (Precision::IsNegativeInfinite(PFirst) ||
-    //  Precision::IsPositiveInfinite(PLast)) {
+    // if (Precision1::IsNegativeInfinite(PFirst) ||
+    //  Precision1::IsPositiveInfinite(PLast)) {
     //  //-- std::cout<<" RestrictedIntersection::PutVertexOnLine  ---> Restrictions Infinies
     //  :"<<std::endl; return;
     //}
@@ -538,11 +538,11 @@ void RestrictedIntersection::PutVertexOnLine(const Handle(IntPatch_Line)&       
     {
       Handle(Adaptor3d_HVertex) vtx = Domain->Vertex();
       Standard_Real             prm = HInterTool::Parameter(vtx, arc);
-      if (Abs(prm - PFirst) < Precision::PConfusion())
+      if (Abs(prm - PFirst) < Precision1::PConfusion())
       {
         arc->D0(PFirst, p2dFirst);
       }
-      else if (Abs(prm - PLast) < Precision::PConfusion())
+      else if (Abs(prm - PLast) < Precision1::PConfusion())
       {
         arc->D0(PLast, p2dLast);
       }
@@ -703,8 +703,8 @@ void RestrictedIntersection::PutVertexOnLine(const Handle(IntPatch_Line)&       
             Point3d anOldPnt, aNewPnt;
             OtherSurf->D0(U, V, anOldPnt);
             OtherSurf->D0(U2, V2, aNewPnt);
-            // if (anOldPnt.SquareDistance(aNewPnt) < Precision::SquareConfusion())
-            Standard_Real aTolConf = Max(Precision::Confusion(), edgeTol);
+            // if (anOldPnt.SquareDistance(aNewPnt) < Precision1::SquareConfusion())
+            Standard_Real aTolConf = Max(Precision1::Confusion(), edgeTol);
 
             if (anOldPnt.SquareDistance(aNewPnt) < aTolConf * aTolConf)
             {

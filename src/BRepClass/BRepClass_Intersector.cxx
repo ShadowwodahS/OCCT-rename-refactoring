@@ -122,7 +122,7 @@ Standard_Real MaxTol2DCurEdge(const TopoVertex& theV1,
 Standard_Boolean IsInter(Bnd_Box2d& theBox, const gp_Lin2d& theL, const Standard_Real theP)
 {
   Standard_Boolean aStatusInter = Standard_True;
-  if (Precision::IsInfinite(theP))
+  if (Precision1::IsInfinite(theP))
   {
     aStatusInter = theBox.IsOut(theL);
   }
@@ -178,11 +178,11 @@ Standard_Boolean CheckOn(IntRes2d_IntersectionPoint& thePntInter,
     {
       Transition3 aTrOnLin(IntRes2d_Head);
       IntRes2d_Position   aPosOnCurve = IntRes2d_Middle;
-      if ((Abs(aPar - theDeb) <= Precision::Confusion()) || (aPar < theDeb))
+      if ((Abs(aPar - theDeb) <= Precision1::Confusion()) || (aPar < theDeb))
       {
         aPosOnCurve = IntRes2d_Head;
       }
-      else if ((Abs(aPar - theFin) <= Precision::Confusion()) || (aPar > theFin))
+      else if ((Abs(aPar - theFin) <= Precision1::Confusion()) || (aPar > theFin))
       {
         aPosOnCurve = IntRes2d_End;
       }
@@ -320,8 +320,8 @@ void CheckSkip(Geom2dInt_GInter&           theInter,
                                 theDL,
                                 theCur,
                                 aDE,
-                                Precision::PConfusion(),
-                                Precision::PIntersection());
+                                Precision1::PConfusion(),
+                                Precision1::PIntersection());
   }
 }
 
@@ -366,7 +366,7 @@ void BRepClass_Intersector::Perform(const gp_Lin2d&       L,
     IntRes2d_IntersectionPoint aPntInter;
     Standard_Real              aDebTol = deb;
     Standard_Real              aFinTol = fin;
-    if (aTolZ > Precision::Confusion())
+    if (aTolZ > Precision1::Confusion())
     {
       aDebTol = deb - aTolZ;
       aFinTol = fin + aTolZ;
@@ -407,14 +407,14 @@ void BRepClass_Intersector::Perform(const gp_Lin2d&       L,
   {
     DL.SetValues(L.Location(),
                  0.,
-                 Precision::PConfusion(),
+                 Precision1::PConfusion(),
                  ElCLib1::Value(P, L),
                  P,
-                 Precision::PConfusion());
+                 Precision1::PConfusion());
   }
   else
   {
-    DL.SetValues(L.Location(), 0., Precision::PConfusion(), Standard_True);
+    DL.SetValues(L.Location(), 0., Precision1::PConfusion(), Standard_True);
   }
 
   Domain2 DE(pdeb, deb, toldeb, pfin, fin, tolfin);
@@ -428,7 +428,7 @@ void BRepClass_Intersector::Perform(const gp_Lin2d&       L,
 
   Handle(Geom2d_Line) GL = new Geom2d_Line(L);
   Geom2dAdaptor_Curve CGA(GL);
-  Geom2dInt_GInter    Inter(CGA, DL, C, DE, Precision::PConfusion(), Precision::PIntersection());
+  Geom2dInt_GInter    Inter(CGA, DL, C, DE, Precision1::PConfusion(), Precision1::PIntersection());
   //
   // The check is for hitting the intersector to
   // a vertex with high tolerance
@@ -451,7 +451,7 @@ void BRepClass_Intersector::LocalGeometry(const BRepClass_Edge& E,
 {
   Standard_Real         fpar, lpar;
   Handle(GeomCurve2d)  aPCurve = BRepInspector::CurveOnSurface(E.Edge(), E.Face(), fpar, lpar);
-  Geom2dLProp_CLProps2d Prop(aPCurve, U, 2, Precision::PConfusion());
+  Geom2dLProp_CLProps2d Prop(aPCurve, U, 2, Precision1::PConfusion());
 
   C = 0.;
   if (Prop.IsTangentDefined())
@@ -462,7 +462,7 @@ void BRepClass_Intersector::LocalGeometry(const BRepClass_Edge& E,
   else
     GetTangentAsChord(aPCurve, Tang, U, fpar, lpar);
 
-  if (C > Precision::PConfusion() && !Precision::IsInfinite(C))
+  if (C > Precision1::PConfusion() && !Precision1::IsInfinite(C))
     Prop.Normal(Norm);
   else
     Norm.SetCoord(Tang.Y(), -Tang.X());
@@ -498,9 +498,9 @@ void RefineTolerance(const TopoFace&         aF,
       aTolX = -aTolX;
     }
     //
-    if (aTolX < Precision::Confusion())
+    if (aTolX < Precision1::Confusion())
     {
-      aTolX = Precision::Confusion();
+      aTolX = Precision1::Confusion();
     }
     //
     if (aTolX < aTolZ)
@@ -520,7 +520,7 @@ void GetTangentAsChord(const Handle(GeomCurve2d)& thePCurve,
 {
   Standard_Real Offset = 0.1 * (theLast - theFirst);
 
-  if (theLast - theParam < Precision::PConfusion()) // theParam == theLast
+  if (theLast - theParam < Precision1::PConfusion()) // theParam == theLast
     Offset *= -1;
   else if (theParam + Offset > theLast) //<theParam> is close to <theLast>
     Offset = 0.5 * (theLast - theParam);
@@ -533,6 +533,6 @@ void GetTangentAsChord(const Handle(GeomCurve2d)& thePCurve,
     aChord.Reverse();
 
   Standard_Real SqLength = aChord.SquareMagnitude();
-  if (SqLength > Precision::SquarePConfusion())
+  if (SqLength > Precision1::SquarePConfusion())
     theTangent = aChord;
 }

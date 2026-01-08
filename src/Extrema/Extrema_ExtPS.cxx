@@ -46,10 +46,10 @@ static Standard_Boolean IsoIsDeg(const Adaptor3d_Surface& S,
   Standard_Real Step, D1NormMax;
   if (IT == GeomAbs_IsoV)
   {
-    if (!Precision::IsInfinite(U1) && !Precision::IsInfinite(U2))
+    if (!Precision1::IsInfinite(U1) && !Precision1::IsInfinite(U2))
     {
       Step = (U2 - U1) / 10;
-      if (Step < Precision::PConfusion())
+      if (Step < Precision1::PConfusion())
       {
         return Standard_False;
       }
@@ -67,10 +67,10 @@ static Standard_Boolean IsoIsDeg(const Adaptor3d_Surface& S,
   }
   else
   {
-    if (!Precision::IsInfinite(V1) && !Precision::IsInfinite(V2))
+    if (!Precision1::IsInfinite(V1) && !Precision1::IsInfinite(V2))
     {
       Step = (V2 - V1) / 10;
-      if (Step < Precision::PConfusion())
+      if (Step < Precision1::PConfusion())
       {
         return Standard_False;
       }
@@ -201,13 +201,13 @@ void Extrema_ExtPS::Initialize(const Adaptor3d_Surface& theS,
   myvinf = theVinf;
   myvsup = theVsup;
 
-  if (Precision::IsNegativeInfinite(myuinf))
+  if (Precision1::IsNegativeInfinite(myuinf))
     myuinf = -1e10;
-  if (Precision::IsPositiveInfinite(myusup))
+  if (Precision1::IsPositiveInfinite(myusup))
     myusup = 1e10;
-  if (Precision::IsNegativeInfinite(myvinf))
+  if (Precision1::IsNegativeInfinite(myvinf))
     myvinf = -1e10;
-  if (Precision::IsPositiveInfinite(myvsup))
+  if (Precision1::IsPositiveInfinite(myvsup))
     myvsup = 1e10;
 
   mytolu = theTolU;
@@ -251,19 +251,19 @@ void Extrema_ExtPS::Perform(const Point3d& thePoint)
   switch (mytype)
   {
     case GeomAbs_Cylinder:
-      myExtPElS.Perform(thePoint, myS->Cylinder(), Precision::Confusion());
+      myExtPElS.Perform(thePoint, myS->Cylinder(), Precision1::Confusion());
       break;
     case GeomAbs_Plane:
-      myExtPElS.Perform(thePoint, myS->Plane1(), Precision::Confusion());
+      myExtPElS.Perform(thePoint, myS->Plane1(), Precision1::Confusion());
       break;
     case GeomAbs_Cone:
-      myExtPElS.Perform(thePoint, myS->Cone(), Precision::Confusion());
+      myExtPElS.Perform(thePoint, myS->Cone(), Precision1::Confusion());
       break;
     case GeomAbs_Sphere:
-      myExtPElS.Perform(thePoint, myS->Sphere(), Precision::Confusion());
+      myExtPElS.Perform(thePoint, myS->Sphere(), Precision1::Confusion());
       break;
     case GeomAbs_Torus:
-      myExtPElS.Perform(thePoint, myS->Torus(), Precision::Confusion());
+      myExtPElS.Perform(thePoint, myS->Torus(), Precision1::Confusion());
       break;
 
     case GeomAbs_SurfaceOfExtrusion: {

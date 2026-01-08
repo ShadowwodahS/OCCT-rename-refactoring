@@ -284,7 +284,7 @@ static void BuildDomains(TopoFace&               myFace,
     BRepAdaptor_Surface S(F, 0);
     Standard_Real       Tol = BRepInspector::Tolerance(F);
 
-    BRepTopAdaptor_FClass2d CL(F, Precision::Confusion());
+    BRepTopAdaptor_FClass2d CL(F, Precision1::Confusion());
 
     TopTools_ListIteratorOfListOfShape itW(LOW);
     while (itW.More())
@@ -298,7 +298,7 @@ static void BuildDomains(TopoFace&               myFace,
       gp_Pnt2d        PV;
       Point3d          P3d = BRepInspector::Pnt(V);
       Extrema_ExtPS   ExtPS(P3d, S, Tol, Tol);
-      Standard_Real   Dist2Min = Precision::Infinite();
+      Standard_Real   Dist2Min = Precision1::Infinite();
       Standard_Real   Found    = Standard_False;
       for (Standard_Integer ie = 1; ie <= ExtPS.NbExt(); ie++)
       {

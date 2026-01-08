@@ -52,7 +52,7 @@ void DsgPrs1::ComputeSymbol(const Handle(Prs3d_Presentation)&    aPresentation,
 {
   Handle(Graphic3d_Group) aGroup = aPresentation->NewGroup();
 
-  Quantity_Color                   aColor = LA->LineAspect()->Aspect()->Color();
+  Color1                   aColor = LA->LineAspect()->Aspect()->Color();
   Handle(Graphic3d_AspectMarker3d) aMarkerAsp =
     new Graphic3d_AspectMarker3d(Aspect_TOM_O, aColor, 1.0);
   aGroup->SetGroupPrimitivesAspect(LA->LineAspect()->Aspect());
@@ -156,7 +156,7 @@ void DsgPrs1::ComputePlanarFacesLengthPresentation(const Standard_Real FirstArro
   EndOfArrow1 = ElCLib1::Value(ElCLib1::Parameter(FirstLin, OffsetPoint), FirstLin);
   EndOfArrow2 = ElCLib1::Value(ElCLib1::Parameter(SecondLin, OffsetPoint), SecondLin);
 
-  if (EndOfArrow1.SquareDistance(EndOfArrow2) > Precision::SquareConfusion()) // not null length
+  if (EndOfArrow1.SquareDistance(EndOfArrow2) > Precision1::SquareConfusion()) // not null length
   {
     Dir3d LengthDir(Vector3d(EndOfArrow1, EndOfArrow2));
     if ((FirstArrowLength + SecondArrowLength) * (FirstArrowLength + SecondArrowLength)
@@ -190,7 +190,7 @@ void DsgPrs1::ComputeCurvilinearFacesLengthPresentation(const Standard_Real Firs
   GeomAPI_ProjectPointOnCurve ProjectorOnCurve;
   Standard_Real               U1, V1, U2, V2;
   Standard_Real               LastU, LastV;
-  constexpr Standard_Real     SquareTolerance = Precision::SquareConfusion();
+  constexpr Standard_Real     SquareTolerance = Precision1::SquareConfusion();
 
   ProjectorOnSurface.Init(AttachmentPoint1, SecondSurf);
   Standard_Integer Index(1);
@@ -207,7 +207,7 @@ void DsgPrs1::ComputeCurvilinearFacesLengthPresentation(const Standard_Real Firs
       LocalDir = Dir3d(Vector3d(AttachmentPoint1, ProjectorOnSurface.Point(i)));
     else
       LocalDir = Dir3d(D1U ^ D1V);
-    if (DirAttach.IsParallel(LocalDir, Precision::Angular())
+    if (DirAttach.IsParallel(LocalDir, Precision1::Angular())
         && ProjectorOnSurface.Distance(i) < MinDist)
     {
       Index   = i;
@@ -223,7 +223,7 @@ void DsgPrs1::ComputeCurvilinearFacesLengthPresentation(const Standard_Real Firs
   else
     DirOfArrow1 = DirAttach;
 
-  if (EndOfArrow2.SquareDistance(AttachmentPoint2) > Precision::SquareConfusion())
+  if (EndOfArrow2.SquareDistance(AttachmentPoint2) > Precision1::SquareConfusion())
   {
     VCurve = SecondSurf->VIso(V1);
     ProjectorOnCurve.Init(EndOfArrow2, VCurve);
@@ -285,7 +285,7 @@ void DsgPrs1::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
                                            Standard_Real&         FirstParAttachCirc,
                                            Standard_Real&         LastParAttachCirc)
 {
-  if (Value > Precision::Angular() && Abs(M_PI - Value) > Precision::Angular())
+  if (Value > Precision1::Angular() && Abs(M_PI - Value) > Precision1::Angular())
   {
     // Computing presentation of angle's arc
     Frame3d ax(CenterPoint, axisdir, dir1);
@@ -340,7 +340,7 @@ void DsgPrs1::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
     EndOfArrow1        = ElCLib1::Value(Par1, AngleCirc);
     EndOfArrow2        = ElCLib1::Value(Par2, AngleCirc);
     Standard_Real beta = 0.;
-    if (AngleCirc.Radius() > Precision::Confusion())
+    if (AngleCirc.Radius() > Precision1::Confusion())
       beta = ArrowLength / AngleCirc.Radius();
     Point3d OriginOfArrow1 = ElCLib1::Value(Par1 + beta, AngleCirc);
     Point3d OriginOfArrow2 = ElCLib1::Value(Par2 - beta, AngleCirc);
@@ -365,7 +365,7 @@ void DsgPrs1::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
 
   // Line or arc from AttachmentPoint2 to its "projection"
   gp_Lin SecondLin(CenterPoint, dir2);
-  if (SecondLin.Contains(AttachmentPoint2, Precision::Confusion()))
+  if (SecondLin.Contains(AttachmentPoint2, Precision1::Confusion()))
     ProjAttachPoint2 = AttachmentPoint2;
   else
   {
@@ -421,8 +421,8 @@ void DsgPrs1::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*
   Dir3d        dir1(Vector3d(Center, FirstPoint));
   Dir3d        dir2(Vector3d(Center, SecondPoint));
   Standard_Real Angle = dir1.Angle(dir2);
-  if (Angle <= Precision::Angular() || (M_PI - Angle) <= Precision::Angular()
-      || Value <= Precision::Confusion())
+  if (Angle <= Precision1::Angular() || (M_PI - Angle) <= Precision1::Angular()
+      || Value <= Precision1::Confusion())
     SpecCase = Standard_True;
   else
     SpecCase = Standard_False;
@@ -437,7 +437,7 @@ void DsgPrs1::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*
     Vector3d vec2(dir2);
     vec2 *= FilletCirc.Radius();
     Vector3d PosVec;
-    if (!Center.IsEqual(Position1, Precision::Confusion()))
+    if (!Center.IsEqual(Position1, Precision1::Confusion()))
       PosVec.SetXYZ(Vector3d(Center, Position1).XYZ());
     else
       PosVec.SetXYZ((vec1.Added(vec2)).XYZ());
@@ -472,7 +472,7 @@ void DsgPrs1::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*
         DrawPosition = ElCLib1::Value(ElCLib1::Parameter(L2, Position1), L2);
       }
     }
-    if ((dir1 ^ dir2).IsOpposite(NormalDir, Precision::Angular()))
+    if ((dir1 ^ dir2).IsOpposite(NormalDir, Precision1::Angular()))
     {
       Dir3d newdir = NormalDir.Reversed();
       Frame3d axnew(Center, newdir, dir1);

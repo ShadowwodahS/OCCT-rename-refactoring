@@ -130,7 +130,7 @@ public:
 
   //! Returns the bounds of this bounding box. The gap is included.
   //! If this bounding box is infinite (i.e. "open"), returned values
-  //! may be equal to +/- Precision::Infinite().
+  //! may be equal to +/- Precision1::Infinite().
   //! Standard_ConstructionError exception will be thrown if the box is void.
   //! if IsVoid()
   Standard_EXPORT void Get(Standard_Real& theXmin,
@@ -142,14 +142,14 @@ public:
 
   //! Returns the lower corner of this bounding box. The gap is included.
   //! If this bounding box is infinite (i.e. "open"), returned values
-  //! may be equal to +/- Precision::Infinite().
+  //! may be equal to +/- Precision1::Infinite().
   //! Standard_ConstructionError exception will be thrown if the box is void.
   //! if IsVoid()
   Standard_EXPORT Point3d CornerMin() const;
 
   //! Returns the upper corner of this bounding box. The gap is included.
   //! If this bounding box is infinite (i.e. "open"), returned values
-  //! may be equal to +/- Precision::Infinite().
+  //! may be equal to +/- Precision1::Infinite().
   //! Standard_ConstructionError exception will be thrown if the box is void.
   //! if IsVoid()
   Standard_EXPORT Point3d CornerMax() const;

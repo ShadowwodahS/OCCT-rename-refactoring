@@ -286,7 +286,7 @@ static void LineConstructor(Contap_TheSequenceOfLine&          slin,
 
   //-- ------------------------------------------------------------
   //-- on decoupe la ligne en portions  entre 2 vertex
-  constexpr Standard_Real Tol  = Precision::PConfusion();
+  constexpr Standard_Real Tol  = Precision1::PConfusion();
   Contap_IType            typl = L.TypeContour();
   //-- std::cout<<"\n ----------- Ligne Constructor "<<std::endl;
   if (typl == Contap_Walking)
@@ -531,7 +531,7 @@ static void KeepInsidePoints(const TheSearchInside1&    solins,
       if (projok)
       {
         Point3d pprojete = HSurfaceTool::Value(Surf, Ptproj.X(), Ptproj.Y());
-        if (pti.Value().Distance(pprojete) <= Precision::Confusion())
+        if (pti.Value().Distance(pprojete) <= Precision1::Confusion())
         {
           tokeep = Standard_False;
           break;
@@ -600,7 +600,7 @@ static void ComputeTangency(const ContourSearch&            solrst,
           // IFV - begin
           Point3d pprojete = HSurfaceTool::Value(Surf, pproj.X(), pproj.Y());
           // IFV - end
-          if ((PStart.Value()).Distance(pprojete) <= Precision::Confusion())
+          if ((PStart.Value()).Distance(pprojete) <= Precision1::Confusion())
           {
             SurUneRestrictionSolution = Standard_True;
           }
@@ -1141,7 +1141,7 @@ void ComputeInternalPointsOnRstr(Contap_Line&         Line,
   Standard_Integer Nbpnts = HContTool::NbSamplesOnArc(thearc);
   indexinf                = 1;
   vecregard               = SFunc.Direction();
-  toler                   = HCurve2dTool2::Resolution(thearc, Precision::Confusion());
+  toler                   = HCurve2dTool2::Resolution(thearc, Precision1::Confusion());
   found                   = Standard_False;
 
   do
@@ -1553,12 +1553,12 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
   Contap_ThePathPointOfTheSearch PStartf, PStartl;
 
   //  Standard_Real TolArc = 1.e-5;
-  Standard_Real TolArc = Precision::Confusion();
+  Standard_Real TolArc = Precision1::Confusion();
 
   const Handle(Adaptor3d_Surface)& Surf = mySFunc.Surface();
 
-  Standard_Real EpsU  = HSurfaceTool::UResolution(Surf, Precision::Confusion());
-  Standard_Real EpsV  = HSurfaceTool::VResolution(Surf, Precision::Confusion());
+  Standard_Real EpsU  = HSurfaceTool::UResolution(Surf, Precision1::Confusion());
+  Standard_Real EpsV  = HSurfaceTool::VResolution(Surf, Precision1::Confusion());
   Standard_Real Preci = Min(EpsU, EpsV);
   //  Standard_Real Fleche = 5.e-1;
   //  Standard_Real Pas    = 5.e-2;
@@ -1577,10 +1577,10 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
   Standard_Real Usup = Surf->LastUParameter();
   Standard_Real Vsup = Surf->LastVParameter();
 
-  Standard_Boolean Uinfinfinite = Precision::IsNegativeInfinite(Uinf);
-  Standard_Boolean Usupinfinite = Precision::IsPositiveInfinite(Usup);
-  Standard_Boolean Vinfinfinite = Precision::IsNegativeInfinite(Vinf);
-  Standard_Boolean Vsupinfinite = Precision::IsPositiveInfinite(Vsup);
+  Standard_Boolean Uinfinfinite = Precision1::IsNegativeInfinite(Uinf);
+  Standard_Boolean Usupinfinite = Precision1::IsPositiveInfinite(Usup);
+  Standard_Boolean Vinfinfinite = Precision1::IsNegativeInfinite(Vinf);
+  Standard_Boolean Vsupinfinite = Precision1::IsPositiveInfinite(Vsup);
 
   if (Uinfinfinite || Usupinfinite || Vinfinfinite || Vsupinfinite)
   {
@@ -1615,7 +1615,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
   // Point3d valpt;
 
   // jag 940616  SFunc.Set(1.e-8); // tolerance sur la fonction
-  mySFunc.Set(Precision::Confusion()); // tolerance sur la fonction
+  mySFunc.Set(Precision1::Confusion()); // tolerance sur la fonction
 
   Standard_Boolean RecheckOnRegularity = Standard_True;
   solrst.Perform(myAFunc, Domain, TolArc, TolArc, RecheckOnRegularity);
@@ -1635,7 +1635,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
   }
 
   // jag 940616  solins.Perform(SFunc,Surf,Domain,1.e-6); // 1.e-6 : tolerance dans l espace.
-  solins.Perform(mySFunc, Surf, Domain, Precision::Confusion());
+  solins.Perform(mySFunc, Surf, Domain, Precision1::Confusion());
 
   NbPointIns = solins.NbPoints();
   IntSurf_SequenceOfInteriorPoint seqpins;
@@ -1655,7 +1655,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
           Dir3d   aTorDir  = aTor.Axis().Direction();
           Dir3d   aProjDir = mySFunc.Direction();
 
-          if (aTorDir.Dot(aProjDir) < Precision::Confusion())
+          if (aTorDir.Dot(aProjDir) < Precision1::Confusion())
           {
             bKeepAllPoints = Standard_True;
           }
@@ -2057,7 +2057,7 @@ static void PutPointsOnLine(const ContourSearch&          solrst,
           // des cones, et les sommets d`une sphere. Il faudrait peut-etre
           // rajouter une methode dans SurfProps
 
-          if (Abs(d2d.Y()) <= Precision::Confusion())
+          if (Abs(d2d.Y()) <= Precision1::Confusion())
           {
             tgtrst = d1v.Crossed(normale);
             if (d2d.X() < 0.0)
@@ -2172,7 +2172,7 @@ void Contap_Contour::PerformAna(const Handle(Adaptor3d_TopolTool)& Domain)
       {
         case Contap_ContourStd: {
           Dir3d Dirpln(pl.Axis().Direction());
-          if (Abs(mySFunc.Direction().Dot(Dirpln)) > Precision::Angular())
+          if (Abs(mySFunc.Direction().Dot(Dirpln)) > Precision1::Angular())
           {
             // Aucun point du plan n`est solution, en particulier aucun point
             // sur restriction.
@@ -2182,7 +2182,7 @@ void Contap_Contour::PerformAna(const Handle(Adaptor3d_TopolTool)& Domain)
         break;
         case Contap_ContourPrs: {
           Point3d Eye(mySFunc.Eye());
-          if (pl.Distance(Eye) > Precision::Confusion())
+          if (pl.Distance(Eye) > Precision1::Confusion())
           {
             // Aucun point du plan n`est solution, en particulier aucun point
             // sur restriction.
@@ -2194,7 +2194,7 @@ void Contap_Contour::PerformAna(const Handle(Adaptor3d_TopolTool)& Domain)
           Dir3d        Dirpln(pl.Axis().Direction());
           Standard_Real Sina = Sin(mySFunc.Angle());
           if (Abs(mySFunc.Direction().Dot(Dirpln) + Sina) > // voir SurfFunction
-              Precision::Angular())
+              Precision1::Angular())
           {
 
             PerformSolRst = Standard_False;

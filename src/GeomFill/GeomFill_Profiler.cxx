@@ -134,7 +134,7 @@ void Profiler::AddCurve(const Handle(GeomCurve3d)& Curve)
     theCurve = Handle(Geom_TrimmedCurve)::DownCast(theCurve)->BasisCurve();
   if (theCurve->IsKind(STANDARD_TYPE(Geom_Conic)))
   {
-    GeomConvert_ApproxCurve appr(Curve, Precision::Confusion(), GeomAbs_C1, 16, 14);
+    GeomConvert_ApproxCurve appr(Curve, Precision1::Confusion(), GeomAbs_C1, 16, 14);
     if (appr.HasResult())
       C = appr.Curve();
   }

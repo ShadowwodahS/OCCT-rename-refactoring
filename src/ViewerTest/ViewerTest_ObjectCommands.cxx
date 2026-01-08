@@ -166,7 +166,7 @@ extern Handle(VisualContext)& TheAISContext();
 namespace
 {
 static bool convertToColor(const Handle(TColStd_HSequenceOfAsciiString)& theColorValues,
-                           Quantity_Color&                               theColor)
+                           Color1&                               theColor)
 {
   const char* anArgs[3] = {theColorValues->Size() >= 1 ? theColorValues->Value(1).ToCString() : "",
                            theColorValues->Size() >= 2 ? theColorValues->Value(2).ToCString() : "",
@@ -426,7 +426,7 @@ static Standard_Boolean setTrihedronParams(Standard_Integer      theArgsNb,
 
     convertToDatumParts(aValues->Value(1), aParts);
     aValues->Remove(1); // datum part is processed
-    Quantity_Color aColor;
+    Color1 aColor;
     if (!convertToColor(aValues, aColor))
     {
       Message1::SendFail("Syntax error: -color wrong parameters");
@@ -457,7 +457,7 @@ static Standard_Boolean setTrihedronParams(Standard_Integer      theArgsNb,
       aValues->Remove(1); // datum part is processed
     }
 
-    Quantity_Color aColor;
+    Color1 aColor;
     if (!convertToColor(aValues, aColor))
     {
       Message1::SendFail("Syntax error: -textcolor wrong parameters");
@@ -484,7 +484,7 @@ static Standard_Boolean setTrihedronParams(Standard_Integer      theArgsNb,
       aValues->Remove(1); // datum part is processed
     }
 
-    Quantity_Color aColor;
+    Color1 aColor;
     if (!convertToColor(aValues, aColor))
     {
       Message1::SendFail("Syntax error: -arrowcolor wrong parameters");
@@ -822,7 +822,7 @@ static int VSize(DrawInterpreter& di, Standard_Integer argc, const char** argv)
        anObjIter.Next())
   {
     const Handle(AIS_Trihedron)& aTrihedron = anObjIter.Value();
-    Quantity_Color               aColor     = Quantity_NOC_BLACK;
+    Color1               aColor     = Quantity_NOC_BLACK;
     const bool                   hasColor   = aTrihedron->HasColor();
     if (hasColor)
     {
@@ -1289,25 +1289,25 @@ static Standard_Integer VPlaneBuilder(DrawInterpreter& /*di*/,
         Handle(Geom_CartesianPoint)::DownCast(anAISPointC->Component());
 
       // Verification that the three points are different
-      if (Abs(aCartPointB->X() - aCartPointA->X()) <= Precision::Confusion()
-          && Abs(aCartPointB->Y() - aCartPointA->Y()) <= Precision::Confusion()
-          && Abs(aCartPointB->Z() - aCartPointA->Z()) <= Precision::Confusion())
+      if (Abs(aCartPointB->X() - aCartPointA->X()) <= Precision1::Confusion()
+          && Abs(aCartPointB->Y() - aCartPointA->Y()) <= Precision1::Confusion()
+          && Abs(aCartPointB->Z() - aCartPointA->Z()) <= Precision1::Confusion())
       {
         // B=A
         Message1::SendFail("Error: same points");
         return 1;
       }
-      if (Abs(aCartPointC->X() - aCartPointA->X()) <= Precision::Confusion()
-          && Abs(aCartPointC->Y() - aCartPointA->Y()) <= Precision::Confusion()
-          && Abs(aCartPointC->Z() - aCartPointA->Z()) <= Precision::Confusion())
+      if (Abs(aCartPointC->X() - aCartPointA->X()) <= Precision1::Confusion()
+          && Abs(aCartPointC->Y() - aCartPointA->Y()) <= Precision1::Confusion()
+          && Abs(aCartPointC->Z() - aCartPointA->Z()) <= Precision1::Confusion())
       {
         // C=A
         Message1::SendFail("Error: same points");
         return 1;
       }
-      if (Abs(aCartPointC->X() - aCartPointB->X()) <= Precision::Confusion()
-          && Abs(aCartPointC->Y() - aCartPointB->Y()) <= Precision::Confusion()
-          && Abs(aCartPointC->Z() - aCartPointB->Z()) <= Precision::Confusion())
+      if (Abs(aCartPointC->X() - aCartPointB->X()) <= Precision1::Confusion()
+          && Abs(aCartPointC->Y() - aCartPointB->Y()) <= Precision1::Confusion()
+          && Abs(aCartPointC->Z() - aCartPointB->Z()) <= Precision1::Confusion())
       {
         // C=B
         Message1::SendFail("Error: same points");
@@ -1487,7 +1487,7 @@ static Standard_Integer VPlaneBuilder(DrawInterpreter& /*di*/,
           TopoVertex aVertA  = TopoDS::Vertex(aShapeA);
 
           BRepExtrema_ExtPC OrthoProj(aVertA, anEdgeB);
-          if (OrthoProj.SquareDistance(1) < Precision::Approximation())
+          if (OrthoProj.SquareDistance(1) < Precision1::Approximation())
           {
             // The vertex is on the edge
             Message1::SendFail("Error: point is on the edge");
@@ -1560,7 +1560,7 @@ static Standard_Integer VPlaneBuilder(DrawInterpreter& /*di*/,
         TopoVertex aVertB  = TopoDS::Vertex(aShapeB);
 
         BRepExtrema_ExtPC OrthoProj(aVertB, anEdgeA);
-        if (OrthoProj.SquareDistance(1) < Precision::Approximation())
+        if (OrthoProj.SquareDistance(1) < Precision1::Approximation())
         {
           // The vertex is on the edge
           Message1::SendFail("Error point is on the edge");
@@ -1692,7 +1692,7 @@ static Standard_Integer VPlaneBuilder(DrawInterpreter& /*di*/,
       BRepExtrema_ExtPF aHeightB(aVAb, aFace);
       // Compare to heights
       if (fabs(sqrt(aHeightA.SquareDistance(1)) - sqrt(aHeightB.SquareDistance(1)))
-          > Precision::Confusion())
+          > Precision1::Confusion())
       {
         // the edge is not parallel to the face
         Message1::SendFail("Error: the edge is not parallel to the face");
@@ -2176,25 +2176,25 @@ static int VCircleBuilder(DrawInterpreter& /*di*/, Standard_Integer argc, const 
       Handle(Geom_CartesianPoint) aCartPointC =
         Handle(Geom_CartesianPoint)::DownCast(anAISPointC->Component());
       // Test A=B
-      if (Abs(aCartPointA->X() - aCartPointB->X()) <= Precision::Confusion()
-          && Abs(aCartPointA->Y() - aCartPointB->Y()) <= Precision::Confusion()
-          && Abs(aCartPointA->Z() - aCartPointB->Z()) <= Precision::Confusion())
+      if (Abs(aCartPointA->X() - aCartPointB->X()) <= Precision1::Confusion()
+          && Abs(aCartPointA->Y() - aCartPointB->Y()) <= Precision1::Confusion()
+          && Abs(aCartPointA->Z() - aCartPointB->Z()) <= Precision1::Confusion())
       {
         Message1::SendFail("Error: Same points");
         return 1;
       }
       // Test A=C
-      if (Abs(aCartPointA->X() - aCartPointC->X()) <= Precision::Confusion()
-          && Abs(aCartPointA->Y() - aCartPointC->Y()) <= Precision::Confusion()
-          && Abs(aCartPointA->Z() - aCartPointC->Z()) <= Precision::Confusion())
+      if (Abs(aCartPointA->X() - aCartPointC->X()) <= Precision1::Confusion()
+          && Abs(aCartPointA->Y() - aCartPointC->Y()) <= Precision1::Confusion()
+          && Abs(aCartPointA->Z() - aCartPointC->Z()) <= Precision1::Confusion())
       {
         Message1::SendFail("Error: Same points");
         return 1;
       }
       // Test B=C
-      if (Abs(aCartPointB->X() - aCartPointC->X()) <= Precision::Confusion()
-          && Abs(aCartPointB->Y() - aCartPointC->Y()) <= Precision::Confusion()
-          && Abs(aCartPointB->Z() - aCartPointC->Z()) <= Precision::Confusion())
+      if (Abs(aCartPointB->X() - aCartPointC->X()) <= Precision1::Confusion()
+          && Abs(aCartPointB->Y() - aCartPointC->Y()) <= Precision1::Confusion()
+          && Abs(aCartPointB->Z() - aCartPointC->Z()) <= Precision1::Confusion())
       {
         Message1::SendFail("Error: Same points");
         return 1;
@@ -2436,7 +2436,7 @@ static int VDrawText(DrawInterpreter& theDI, Standard_Integer theArgsNb, const c
     }
     else if (aParam == "-color")
     {
-      Quantity_Color   aColor;
+      Color1   aColor;
       Standard_Integer aNbParsed =
         Draw1::ParseColor(theArgsNb - anArgIt - 1, theArgVec + anArgIt + 1, aColor);
       if (aNbParsed == 0)
@@ -2615,7 +2615,7 @@ static int VDrawText(DrawInterpreter& theDI, Standard_Integer theArgsNb, const c
     }
     else if (aParam == "-subcolor" || aParam == "-subtitlecolor")
     {
-      Quantity_Color   aColor;
+      Color1   aColor;
       Standard_Integer aNbParsed =
         Draw1::ParseColor(theArgsNb - anArgIt - 1, theArgVec + anArgIt + 1, aColor);
       if (aNbParsed == 0)
@@ -2959,7 +2959,7 @@ Handle(MeshTriangulation) CalculationOfSphere(double X, double Y, double Z, int 
   Poly_Connect pc(polyTriangulation);
 
   Standard_Integer        index[3];
-  constexpr Standard_Real Tol = Precision::Confusion();
+  constexpr Standard_Real Tol = Precision1::Confusion();
 
   Dir3d Nor;
   for (i = 1; i <= polyTriangulation->NbNodes(); i++)
@@ -3072,8 +3072,8 @@ static int VDrawSphere(DrawInterpreter& /*di*/, Standard_Integer argc, const cha
 
   // Setting material properties, very important for desirable visual result!
   Graphic3d_MaterialAspect aMat(Graphic3d_NameOfMaterial_Plastified);
-  aMat.SetAmbientColor(Quantity_Color(Graphic3d_Vec3(0.04f)));
-  aMat.SetSpecularColor(Quantity_Color(Graphic3d_Vec3(0.50f)));
+  aMat.SetAmbientColor(Color1(Graphic3d_Vec3(0.04f)));
+  aMat.SetSpecularColor(Color1(Graphic3d_Vec3(0.50f)));
   Handle(Graphic3d_AspectFillArea3d) anAspect = new Graphic3d_AspectFillArea3d(Aspect_IS_SOLID,
                                                                                Quantity_NOC_WHITE,
                                                                                Quantity_NOC_YELLOW,
@@ -3309,7 +3309,7 @@ static int VComputeHLR(DrawInterpreter&, Standard_Integer theArgNb, const char**
     if (toShowHiddenEdges)
     {
       Handle(Prs3d_LineAspect) aLineAspect =
-        new Prs3d_LineAspect(Quantity_Color(Quantity_NOC_RED), Aspect_TOL_DASH, 1.0f);
+        new Prs3d_LineAspect(Color1(Quantity_NOC_RED), Aspect_TOL_DASH, 1.0f);
       for (int aTypeIter = 0; aTypeIter < 6; ++aTypeIter)
       {
         if (!aHidden[aTypeIter].IsNull())
@@ -3363,7 +3363,7 @@ public:
 
   //! Sets color to this interactive object
   //! @param theColor the color to be set
-  virtual void SetColor(const Quantity_Color& theColor) Standard_OVERRIDE;
+  virtual void SetColor(const Color1& theColor) Standard_OVERRIDE;
 
 private:
   virtual void Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
@@ -3381,7 +3381,7 @@ private:
 
   //! Sets color for the shading aspect of the drawer used in this interactive object
   //! @param theColor the color to be set
-  void setColorForShadingAspect(const Quantity_Color& theColor);
+  void setColorForShadingAspect(const Color1& theColor);
 
   //! Replaces shading aspect from myDrawer->Link1() with the own shading aspect of myDrawer for this
   //! interactive object
@@ -3501,8 +3501,8 @@ Standard_Boolean MyPArrayObject::Init(Graphic3d_TypeOfPrimitiveArray            
       Graphic3d_MaterialAspect aMat(Graphic3d_NameOfMaterial_Plastified);
       aMat.SetSpecularColor(Quantity_NOC_BLACK);
       aMat.SetEmissiveColor(Quantity_NOC_BLACK);
-      aMat.SetAmbientColor(Quantity_Color(Graphic3d_Vec3(0.5f)));
-      aMat.SetDiffuseColor(Quantity_Color(Graphic3d_Vec3(0.5f)));
+      aMat.SetAmbientColor(Color1(Graphic3d_Vec3(0.5f)));
+      aMat.SetDiffuseColor(Color1(Graphic3d_Vec3(0.5f)));
       myDrawer->ShadingAspect()->SetMaterial(aMat);
       myDrawer->ShadingAspect()->SetColor(Quantity_NOC_WHITE);
     }
@@ -3623,7 +3623,7 @@ Standard_Boolean MyPArrayObject::Init(Graphic3d_TypeOfPrimitiveArray            
 
 //=================================================================================================
 
-void MyPArrayObject::SetColor(const Quantity_Color& theColor)
+void MyPArrayObject::SetColor(const Color1& theColor)
 {
   VisualEntity::SetColor(theColor);
   setColorForShadingAspect(theColor);
@@ -3723,7 +3723,7 @@ bool MyPArrayObject::CheckInputCommand(const AsciiString1&              theComma
 
 //=================================================================================================
 
-void MyPArrayObject::setColorForShadingAspect(const Quantity_Color& theColor)
+void MyPArrayObject::setColorForShadingAspect(const Color1& theColor)
 {
   if (myDrawer->SetupOwnShadingAspect())
   {
@@ -4360,13 +4360,13 @@ static Standard_Integer VConnect(DrawInterpreter& /*di*/, Standard_Integer argc,
   const AsciiString1            aName(argv[anArgIter++]);
   Handle(AIS_MultipleConnectedInteractive) aMultiConObject;
   AsciiString1                  aColorString(argv[argc - 1]);
-  Quantity_Color                           aColor;
+  Color1                           aColor;
   Standard_Boolean                         hasColor = Standard_False;
   if (aColorString.Search("color=") != -1)
   {
     hasColor = Standard_True;
     aColorString.Remove(1, 6);
-    if (!Quantity_Color::ColorFromName(aColorString.ToCString(), aColor))
+    if (!Color1::ColorFromName(aColorString.ToCString(), aColor))
     {
       Message1::SendFail() << "Syntax error at " << aColorString;
       return 1;
@@ -5026,7 +5026,7 @@ static Standard_Integer VTriangle(DrawInterpreter& /*di*/,
 
     for (Standard_Integer aPnt2Iter = 0; aPnt2Iter < aPntIter; ++aPnt2Iter)
     {
-      if (aPnts[aPnt2Iter].IsEqual(aPnts[aPntIter], Precision::Confusion()))
+      if (aPnts[aPnt2Iter].IsEqual(aPnts[aPntIter], Precision1::Confusion()))
       {
         Message1::SendFail("Syntax error: points should not be equal");
         return 1;
@@ -5165,8 +5165,8 @@ static Standard_Integer VTorus(DrawInterpreter& /*di*/,
   aPipeAngle = aPipeAngle * (M_PI / 180.0);
 
   if (aMajorRad <= 0 || aMinorRad <= 0 || aNbSlices <= 0 || aNbStacks <= 0
-      || Abs(aSegAngle2 - aSegAngle1) <= Precision::Angular()
-      || Abs(aPipeAngle) <= Precision::Angular())
+      || Abs(aSegAngle2 - aSegAngle1) <= Precision1::Angular()
+      || Abs(aPipeAngle) <= Precision1::Angular())
   {
     Message1::SendFail("Syntax error: wrong parameters");
     return 1;
@@ -5634,7 +5634,7 @@ static Standard_Integer VMarkersTest(DrawInterpreter&,
 
   Handle(Graphic3d_AspectMarker3d) anAspect;
   Handle(Image_AlienPixMap)        anImage;
-  Quantity_Color                   aColor(Quantity_NOC_GREEN1);
+  Color1                   aColor(Quantity_NOC_GREEN1);
   if ((aMarkerType == Aspect_TOM_USERDEFINED || aMarkerType < 0) && !aFileName.IsEmpty())
   {
     anImage = new Image_AlienPixMap();
@@ -6286,7 +6286,7 @@ static Standard_Integer VPointCloud(DrawInterpreter& theDI,
   bool          hasNormals = true, hasUV = false;
   bool          isDensityPoints = false;
   Standard_Real aDensity = 0.0, aDist = 0.0;
-  Standard_Real aTol = Precision::Confusion();
+  Standard_Real aTol = Precision1::Confusion();
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNum; ++anArgIter)
   {
     AsciiString1 aFlag(theArgs[anArgIter]);
@@ -6316,7 +6316,7 @@ static Standard_Integer VPointCloud(DrawInterpreter& theDI,
         theDI << "Syntax error: -distance value should be >= 0.0";
         return 1;
       }
-      aDist = Max(aDist, Precision::Confusion());
+      aDist = Max(aDist, Precision1::Confusion());
     }
     else if ((aFlag == "-dens" || aFlag == "-density") && anArgIter + 1 < theArgNum
              && Draw1::ParseReal(theArgs[anArgIter + 1], aDensity))
@@ -6333,9 +6333,9 @@ static Standard_Integer VPointCloud(DrawInterpreter& theDI,
              && Draw1::ParseReal(theArgs[anArgIter + 1], aTol))
     {
       ++anArgIter;
-      if (aTol < Precision::Confusion())
+      if (aTol < Precision1::Confusion())
       {
-        theDI << "Syntax error: -tol value should be >= " << Precision::Confusion();
+        theDI << "Syntax error: -tol value should be >= " << Precision1::Confusion();
         return 1;
       }
     }
@@ -6410,7 +6410,7 @@ static Standard_Integer VPointCloud(DrawInterpreter& theDI,
         }
         if (myPoints->HasVertexColors())
         {
-          Quantity_Color aColor(360.0 * Standard_Real(aPntIndex)
+          Color1 aColor(360.0 * Standard_Real(aPntIndex)
                                   / Standard_Real(myPoints->VertexNumberAllocated()),
                                 1.0,
                                 0.5,
@@ -6461,7 +6461,7 @@ static Standard_Integer VPointCloud(DrawInterpreter& theDI,
       const Standard_Integer anIndexOfPoint = anArrayPoints->AddVertex(aPoint);
       if (toRandColors)
       {
-        Quantity_Color aColor(360.0 * Standard_Real(anIndexOfPoint) / Standard_Real(aDistNbPoints),
+        Color1 aColor(360.0 * Standard_Real(anIndexOfPoint) / Standard_Real(aDistNbPoints),
                               1.0,
                               0.5,
                               Quantity_TOC_HLS);
@@ -7160,7 +7160,7 @@ Additional options:
  -randColor generate random color per point
  -distance  distance from shape into the range [0, Value];
  -density   density of points to generate randomly on surface;
- -tolerance cloud generator's tolerance; default value is Precision::Confusion();
+ -tolerance cloud generator's tolerance; default value is Precision1::Confusion();
 
 )" /* [vpointcloud] */);
 

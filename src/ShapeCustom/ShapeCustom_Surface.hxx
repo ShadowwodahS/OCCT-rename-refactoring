@@ -61,7 +61,7 @@ public:
   //! Tries to convert the Surface to the Periodic form
   //! Returns the resulting surface
   //! Works only if the Surface is BSpline and is closed with
-  //! Precision::Confusion()
+  //! Precision1::Confusion()
   //! Else, or in case of failure, returns a Null Handle
   Standard_EXPORT Handle(GeomSurface) ConvertToPeriodic(const Standard_Boolean substitute,
                                                          const Standard_Real    preci = -1);

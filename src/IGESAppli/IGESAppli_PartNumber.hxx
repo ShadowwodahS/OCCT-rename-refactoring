@@ -41,7 +41,7 @@ public:
   //! PartNumber
   //! - nbPropVal : number of property values, always = 4
   //! - aGenName  : Generic part number or name
-  //! - aMilName  : Military Standard (MIL-STD) part number
+  //! - aMilName  : Military Standard1 (MIL-STD) part number
   //! - aVendName : Vendor part number or name
   //! - anIntName : Internal part number
   Standard_EXPORT void Init(const Standard_Integer                  nbPropVal,
@@ -56,7 +56,7 @@ public:
   //! returns Generic part number or name
   Standard_EXPORT Handle(TCollection_HAsciiString) GenericNumber() const;
 
-  //! returns Military Standard (MIL-STD) part number
+  //! returns Military Standard1 (MIL-STD) part number
   Standard_EXPORT Handle(TCollection_HAsciiString) MilitaryNumber() const;
 
   //! returns Vendor part number or name

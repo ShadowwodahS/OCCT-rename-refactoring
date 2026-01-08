@@ -128,7 +128,7 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
     if (Ex.More())
     {
       Standard_Real                       tolrac, epsV;
-      constexpr Standard_Real             tol = Precision::Confusion();
+      constexpr Standard_Real             tol = Precision1::Confusion();
       GeomConvert_CompCurveToBSplineCurve Conv(TC);
       for (; Ex.More(); Ex.Next())
       {
@@ -174,7 +174,7 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   //     TC = new (Geom_TrimmedCurve)(C, First, Last);
   //     Ex.Next();
   //     if (Ex.More()) { // On essai d'avoir un echantillon representatif
-  //       Standard_Real tolrac, epsV, tol = Precision::Confusion();
+  //       Standard_Real tolrac, epsV, tol = Precision1::Confusion();
   //       GeomConvert_CompCurveToBSplineCurve Conv(TC);
   //       for (; Ex.More(); Ex.Next()) {
   // 	E = TopoDS::Edge(Ex.Current());
@@ -235,11 +235,11 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   //         PV = BRepInspector::Pnt(TopoDS::Vertex(mySection));
   //       }
   //       length = Origine.Distance(PV);
-  //       if (length > Precision::Confusion()) {
+  //       if (length > Precision1::Confusion()) {
   // 	Vector3d theVec(Origine, PV);
   // 	D.SetXYZ(theVec.XYZ());
   //       }
-  //       else length = 10*Precision::Confusion();
+  //       else length = 10*Precision1::Confusion();
   //       Handle(GeomLine) CL = new (GeomLine) (Origine, D);
   //       TC = new (Geom_TrimmedCurve)(CL, 0., length);
   //       C = TC;
@@ -294,10 +294,10 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
 
   Handle(BRepAdaptor_CompCurve) adpPath = new (BRepAdaptor_CompCurve)(myLaw->Wire());
 
-  Place.Perform(adpPath, Precision::Confusion());
+  Place.Perform(adpPath, Precision1::Confusion());
 
   Standard_Real           theParam = Place.ParameterOnPath();
-  constexpr Standard_Real eps      = Precision::PConfusion();
+  constexpr Standard_Real eps      = Precision1::PConfusion();
 
 #ifdef OCCT_DEBUG
   if (myDebug)
@@ -340,10 +340,10 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   Standard_Real Angle;
   Place.SetLocation(myLaw->Law1(Ind1));
   if (TheV.IsNull())
-    Place.Perform(Precision::Confusion());
+    Place.Perform(Precision1::Confusion());
   else
   {
-    Place.Perform(SearchParam(myLaw, Ind1, TheV), Precision::Confusion());
+    Place.Perform(SearchParam(myLaw, Ind1, TheV), Precision1::Confusion());
   }
 
   myTrsf  = Place.Transformation(WithContact, WithCorrection);
@@ -355,12 +355,12 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   {
     Place.SetLocation(myLaw->Law1(Ind2));
     if (TheV.IsNull())
-      Place.Perform(Precision::Confusion());
+      Place.Perform(Precision1::Confusion());
     else
     {
       if (Ind1 == Ind2)
         TheV.Reverse();
-      Place.Perform(SearchParam(myLaw, Ind2, TheV), Precision::Confusion());
+      Place.Perform(SearchParam(myLaw, Ind2, TheV), Precision1::Confusion());
     }
     if (Place.Angle() > Angle)
     {

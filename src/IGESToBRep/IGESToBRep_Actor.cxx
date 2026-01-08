@@ -170,7 +170,7 @@ Handle(Transfer_Binder) IGESToBRep_Actor::Transfer(const Handle(RefObject)&     
       eps = mymodel->GlobalSection().Resolution();
     else
       eps = ExchangeConfig::RVal("read.precision.val"); //: 10 ABV 11 Nov 97
-    //: 10      eps = BRepAPI::Precision();
+    //: 10      eps = BRepAPI::Precision1();
     Ival = ExchangeConfig::IVal("read.iges.bspline.approxd1.mode");
     CAS.SetModeApprox((Ival > 0));
     Ival = ExchangeConfig::IVal("read.surfacecurve.mode");

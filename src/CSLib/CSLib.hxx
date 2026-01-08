@@ -32,7 +32,7 @@ class Dir3d;
 //! computation on curves and surfaces.
 //! The tolerance criterions used in this package are
 //! Resolution from package gp1 and RealEpsilon from class
-//! Real of package Standard.
+//! Real of package Standard1.
 class CSLib1
 {
 public:

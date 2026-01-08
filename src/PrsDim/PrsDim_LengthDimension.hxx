@@ -39,7 +39,7 @@ DEFINE_STANDARD_HANDLE(PrsDim_LengthDimension, PrsDim_Dimension)
 //!
 //! Please note that if the inappropriate geometry is defined
 //! or the distance between measured points is less than
-//! Precision::Confusion(), the dimension is invalid and its
+//! Precision1::Confusion(), the dimension is invalid and its
 //! presentation can not be computed.
 class PrsDim_LengthDimension : public PrsDim_Dimension
 {
@@ -100,7 +100,7 @@ public:
 public:
   //! Measure distance between two points.
   //! The dimension will become invalid if the new distance between
-  //! attachment points is less than Precision::Confusion().
+  //! attachment points is less than Precision1::Confusion().
   //! @param[in] theFirstPoint  the first point.
   //! @param[in] theSecondPoint  the second point.
   //! @param[in] thePlane  the user-defined plane
@@ -110,14 +110,14 @@ public:
 
   //! Measure length of edge.
   //! The dimension will become invalid if the new length of edge
-  //! is less than Precision::Confusion().
+  //! is less than Precision1::Confusion().
   //! @param[in] theEdge  the edge to measure.
   //! @param[in] thePlane  the user-defined plane
   Standard_EXPORT void SetMeasuredGeometry(const TopoEdge& theEdge, const gp_Pln& thePlane);
 
   //! Measure distance between two faces.
   //! The dimension will become invalid if the distance can not
-  //! be measured or it is less than Precision::Confusion().
+  //! be measured or it is less than Precision1::Confusion().
   //! @param[in] theFirstFace  the first face (first shape).
   //! @param[in] theSecondFace  the second face (second shape).
   Standard_EXPORT void SetMeasuredGeometry(const TopoFace& theFirstFace,
@@ -125,7 +125,7 @@ public:
 
   //! Measure distance between face and edge.
   //! The dimension will become invalid if the distance can not
-  //! be measured or it is less than Precision::Confusion().
+  //! be measured or it is less than Precision1::Confusion().
   //! @param[in] theFace  the face (first shape).
   //! @param[in] theEdge  the edge (second shape).
   Standard_EXPORT void SetMeasuredGeometry(const TopoFace& theFace, const TopoEdge& theEdge);

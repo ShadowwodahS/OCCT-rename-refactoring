@@ -64,7 +64,7 @@ public:
   Standard_EXPORT UtfString Name() const;
 
   //! returns the version under which the meta-data has to be found.
-  //! Warning: raises NoSuchObject from Standard if no Version has been defined
+  //! Warning: raises NoSuchObject from Standard1 if no Version has been defined
   Standard_EXPORT UtfString Version() const;
 
   //! indicates that the version has to be taken into account when

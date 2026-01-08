@@ -121,7 +121,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
 
   if (!ouvert)
   {
-    if (Abs(Dis1 - Dis2 * sincon) > Precision::Confusion())
+    if (Abs(Dis1 - Dis2 * sincon) > Precision1::Confusion())
     {
       Standard_Real abscos = Abs(Dis2 - Dis1 * sincon);
       angle                = ATan((Dis1 * Cos(angcon)) / abscos);
@@ -214,7 +214,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
 
   if (dedans) {
     ChamfRad = Spine.Radius() - Dis1;
-    if ( Abs(ChamfRad)<=Precision::Confusion() ) pointu = Standard_True;
+    if ( Abs(ChamfRad)<=Precision1::Confusion() ) pointu = Standard_True;
     if( ChamfRad < 0 ) {
 #ifdef OCCT_DEBUG
       std::cout<<"le chanfrein ne passe pas"<<std::endl;
@@ -364,7 +364,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
           Or.Y()+Rad*Dx.Y(),
           Or.Z()+Rad*Dx.Z());
   ElSLib1::Parameters(Con,Pt ,u,v);
-  Standard_Real tol = Precision::PConfusion();
+  Standard_Real tol = Precision1::PConfusion();
   if(u >= 2*M_PI - tol && u <= 2*M_PI) u = 0.;
   if(u >= fu - tol && u < fu) u = fu;
   if(u <= lu + tol && u > lu) u = lu;

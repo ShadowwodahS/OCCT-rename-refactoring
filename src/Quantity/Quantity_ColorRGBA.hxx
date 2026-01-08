@@ -17,7 +17,7 @@
 #include <Quantity_Color.hxx>
 #include <Standard_Assert.hxx>
 
-//! The pair of Quantity_Color and Alpha component (1.0 opaque, 0.0 transparent).
+//! The pair of Color1 and Alpha component (1.0 opaque, 0.0 transparent).
 class Quantity_ColorRGBA
 {
 public:
@@ -28,14 +28,14 @@ public:
   }
 
   //! Creates the color with specified RGB value.
-  explicit Quantity_ColorRGBA(const Quantity_Color& theRgb)
+  explicit Quantity_ColorRGBA(const Color1& theRgb)
       : myRgb(theRgb),
         myAlpha(1.0f)
   {
   }
 
   //! Creates the color with specified RGBA values.
-  Quantity_ColorRGBA(const Quantity_Color& theRgb, float theAlpha)
+  Quantity_ColorRGBA(const Color1& theRgb, float theAlpha)
       : myRgb(theRgb),
         myAlpha(theAlpha)
   {
@@ -63,13 +63,13 @@ public:
   }
 
   //! Return RGB color value.
-  const Quantity_Color& GetRGB() const { return myRgb; }
+  const Color1& GetRGB() const { return myRgb; }
 
   //! Modify RGB color components without affecting alpha value.
-  Quantity_Color& ChangeRGB() { return myRgb; }
+  Color1& ChangeRGB() { return myRgb; }
 
   //! Assign RGB color components without affecting alpha value.
-  void SetRGB(const Quantity_Color& theRgb) { myRgb = theRgb; }
+  void SetRGB(const Color1& theRgb) { myRgb = theRgb; }
 
   //! Return alpha value (1.0 means opaque, 0.0 means fully transparent).
   Standard_ShortReal Alpha() const { return myAlpha; }
@@ -84,7 +84,7 @@ public:
   bool IsDifferent(const Quantity_ColorRGBA& theOther) const
   {
     return myRgb.IsDifferent(theOther.GetRGB())
-           || Abs(myAlpha - theOther.myAlpha) > (float)Quantity_Color::Epsilon();
+           || Abs(myAlpha - theOther.myAlpha) > (float)Color1::Epsilon();
   }
 
   //! Returns true if the distance between colors is greater than Epsilon().
@@ -94,7 +94,7 @@ public:
   bool IsEqual(const Quantity_ColorRGBA& theOther) const
   {
     return myRgb.IsEqual(theOther.GetRGB())
-           && Abs(myAlpha - theOther.myAlpha) <= (float)Quantity_Color::Epsilon();
+           && Abs(myAlpha - theOther.myAlpha) <= (float)Color1::Epsilon();
   }
 
   //! Two colors are considered to be equal if their distance is no greater than Epsilon().
@@ -111,7 +111,7 @@ public:
                                         Quantity_ColorRGBA&    theColor)
   {
     Quantity_ColorRGBA aColor;
-    if (!Quantity_Color::ColorFromName(theColorNameString, aColor.ChangeRGB()))
+    if (!Color1::ColorFromName(theColorNameString, aColor.ChangeRGB()))
     {
       return false;
     }
@@ -153,18 +153,18 @@ public:
   //! Convert linear RGB components into sRGB using OpenGL specs formula.
   static NCollection_Vec4<float> Convert_LinearRGB_To_sRGB(const NCollection_Vec4<float>& theRGB)
   {
-    return NCollection_Vec4<float>(Quantity_Color::Convert_LinearRGB_To_sRGB(theRGB.r()),
-                                   Quantity_Color::Convert_LinearRGB_To_sRGB(theRGB.g()),
-                                   Quantity_Color::Convert_LinearRGB_To_sRGB(theRGB.b()),
+    return NCollection_Vec4<float>(Color1::Convert_LinearRGB_To_sRGB(theRGB.r()),
+                                   Color1::Convert_LinearRGB_To_sRGB(theRGB.g()),
+                                   Color1::Convert_LinearRGB_To_sRGB(theRGB.b()),
                                    theRGB.a());
   }
 
   //! Convert sRGB components into linear RGB using OpenGL specs formula.
   static NCollection_Vec4<float> Convert_sRGB_To_LinearRGB(const NCollection_Vec4<float>& theRGB)
   {
-    return NCollection_Vec4<float>(Quantity_Color::Convert_sRGB_To_LinearRGB(theRGB.r()),
-                                   Quantity_Color::Convert_sRGB_To_LinearRGB(theRGB.g()),
-                                   Quantity_Color::Convert_sRGB_To_LinearRGB(theRGB.b()),
+    return NCollection_Vec4<float>(Color1::Convert_sRGB_To_LinearRGB(theRGB.r()),
+                                   Color1::Convert_sRGB_To_LinearRGB(theRGB.g()),
+                                   Color1::Convert_sRGB_To_LinearRGB(theRGB.b()),
                                    theRGB.a());
   }
 
@@ -177,7 +177,7 @@ public:
                                                 Standard_Integer&       theStreamPos);
 
 private:
-  static void myTestSize3() { Standard_STATIC_ASSERT(sizeof(float) * 3 == sizeof(Quantity_Color)); }
+  static void myTestSize3() { Standard_STATIC_ASSERT(sizeof(float) * 3 == sizeof(Color1)); }
 
   static void myTestSize4()
   {
@@ -185,7 +185,7 @@ private:
   }
 
 private:
-  Quantity_Color     myRgb;
+  Color1     myRgb;
   Standard_ShortReal myAlpha;
 };
 
@@ -196,7 +196,7 @@ struct hash<Quantity_ColorRGBA>
 {
   std::size_t operator()(const Quantity_ColorRGBA& theColor) const noexcept
   {
-    const Quantity_Color& anRGB       = theColor.GetRGB();
+    const Color1& anRGB       = theColor.GetRGB();
     unsigned char         aByteArr[4] = {static_cast<unsigned char>(100 * theColor.Alpha()),
                                          static_cast<unsigned char>(255 * anRGB.Red()),
                                          static_cast<unsigned char>(255 * anRGB.Green()),

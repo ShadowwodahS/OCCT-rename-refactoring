@@ -49,7 +49,7 @@ public:
   //! Returns CPP-style name of the type
   Standard_EXPORT virtual const AsciiString1 CPPName() const Standard_OVERRIDE;
 
-  //! Return True if type is defined in package Standard
+  //! Return True if type is defined in package Standard1
   Standard_EXPORT virtual Standard_Boolean IsStandard() const Standard_OVERRIDE;
 
   //! Return True if type is simple (not a class)

@@ -55,7 +55,7 @@ Handle(Graphic3d_ShaderObject) Graphic3d_ShaderObject::CreateFromFile(
     return NULL;
   }
 
-  aFile.Open(OSD_ReadOnly, OSD_Protection());
+  aFile.Open(OSD_ReadOnly, Protection1());
   aFile.Read(aShader->mySource, (int)aFile.Size());
   aFile.Close();
 

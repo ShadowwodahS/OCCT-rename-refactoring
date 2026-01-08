@@ -35,7 +35,7 @@ const Handle(RefObject)& BinTObjDrivers1::Factory(const Standard_GUID& aGUID)
   if (aGUID == BinStorageDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "BinTObjDrivers1 : Storage Plugin" << std::endl;
+    std::cout << "BinTObjDrivers1 : Storage1 Plugin1" << std::endl;
 #endif
     static Handle(RefObject) model_sd = new BinTObjDrivers_DocumentStorageDriver;
     return model_sd;
@@ -44,7 +44,7 @@ const Handle(RefObject)& BinTObjDrivers1::Factory(const Standard_GUID& aGUID)
   if (aGUID == BinRetrievalDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "BinTObjDrivers1 : Retrieval Plugin" << std::endl;
+    std::cout << "BinTObjDrivers1 : Retrieval Plugin1" << std::endl;
 #endif
     static Handle(RefObject) model_rd = new BinTObjDrivers_DocumentRetrievalDriver;
     return model_rd;

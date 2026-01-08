@@ -175,7 +175,7 @@ static Standard_Integer DrawDim_CENTER(DrawInterpreter& di, Standard_Integer nb,
       TopoVertex vc;
       //      = BRepBuilderAPI_MakeVertex (center);
       ShapeBuilder B;
-      B.MakeVertex(vc, center, Precision::Confusion());
+      B.MakeVertex(vc, center, Precision1::Confusion());
       DBRep1::Set(arg[1], vc);
       return 0;
     }

@@ -396,11 +396,11 @@ void ShadedShapeConverter::ComputeNormal(const TopoFace&  aFace,
       U = T->UVNode(i).X();
       V = T->UVNode(i).Y();
       S.D1(U, V, P, D1U, D1V);
-      CSLib1::Normal(D1U, D1V, Precision::Angular(), aStatus, Nor(i));
+      CSLib1::Normal(D1U, D1V, Precision1::Angular(), aStatus, Nor(i));
       if (aStatus != CSLib_Done)
       {
         S.D2(U, V, P, D1U, D1V, D2U, D2V, D2UV);
-        CSLib1::Normal(D1U, D1V, D2U, D2V, D2UV, Precision::Angular(), OK, NStat, Nor(i));
+        CSLib1::Normal(D1U, D1V, D2U, D2V, D2UV, Precision1::Angular(), OK, NStat, Nor(i));
       }
       if (aFace.Orientation() == TopAbs_REVERSED)
         (Nor(i)).Reverse();

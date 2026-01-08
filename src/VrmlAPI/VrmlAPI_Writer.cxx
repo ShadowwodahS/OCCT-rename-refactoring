@@ -99,9 +99,9 @@ void VrmlAPI_Writer::ResetToDefaults()
   //
   //
   Handle(Quantity_HArray1OfColor) Col2 =
-    new Quantity_HArray1OfColor(1, 1, Quantity_Color(0.75, 0.75, 0.75, Quantity_TOC_sRGB));
+    new Quantity_HArray1OfColor(1, 1, Color1(0.75, 0.75, 0.75, Quantity_TOC_sRGB));
   Handle(Quantity_HArray1OfColor) Col3 =
-    new Quantity_HArray1OfColor(1, 1, Quantity_Color(0.82, 0.79, 0.42, Quantity_TOC_sRGB));
+    new Quantity_HArray1OfColor(1, 1, Color1(0.82, 0.79, 0.42, Quantity_TOC_sRGB));
   myUisoMaterial->SetDiffuseColor(Col2);
   myVisoMaterial->SetDiffuseColor(Col2);
   myFreeBoundsMaterial->SetDiffuseColor(Col2);

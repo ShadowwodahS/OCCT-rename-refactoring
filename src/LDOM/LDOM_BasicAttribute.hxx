@@ -43,9 +43,9 @@ public:
 
   const char* GetName() const { return myName; }
 
-  const LDOMBasicString& GetValue() const { return myValue; }
+  const LDOMBasicString1& GetValue() const { return myValue; }
 
-  void SetValue(const LDOMBasicString& aValue, const Handle(LDOM_MemManager)& aDoc)
+  void SetValue(const LDOMBasicString1& aValue, const Handle(LDOM_MemManager)& aDoc)
   {
     myValue = LDOMString(aValue, aDoc);
   }
@@ -59,7 +59,7 @@ private:
 
   // ---------- PRIVATE METHODS ----------
 
-  LDOM_BasicAttribute(const LDOMBasicString& aName)
+  LDOM_BasicAttribute(const LDOMBasicString1& aName)
       : BasicNode(LDOM_Node::ATTRIBUTE_NODE),
         myName(aName.GetString())
   {
@@ -67,7 +67,7 @@ private:
 
   //    Constructor
 
-  static LDOM_BasicAttribute& Create(const LDOMBasicString&         theName,
+  static LDOM_BasicAttribute& Create(const LDOMBasicString1&         theName,
                                      const Handle(LDOM_MemManager)& theDoc,
                                      Standard_Integer&              theHashIndex);
 
@@ -76,9 +76,9 @@ private:
 private:
   // ---------- PRIVATE FIELDS ----------
 
-  //  LDOMBasicString       myName;
+  //  LDOMBasicString1       myName;
   const char*     myName;
-  LDOMBasicString myValue;
+  LDOMBasicString1 myValue;
 };
 
 #endif

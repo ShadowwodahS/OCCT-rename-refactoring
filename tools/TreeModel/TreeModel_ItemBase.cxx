@@ -177,7 +177,7 @@ int TreeModel_ItemBase::initStreamRowCount()
   {
     Standard_SStream aStream;
     initStream(aStream);
-    if (!Standard_Dump::Text(aStream).IsEmpty())
+    if (!DumpTool::Text(aStream).IsEmpty())
     {
       if (!myProperties)
       {

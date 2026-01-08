@@ -186,7 +186,7 @@ static Standard_Boolean ComputeAttach(const gp_Circ& thecirc,
 
   // Case of confusion between the current position and the center
   // of the circle -> we move the current position
-  constexpr Standard_Real confusion(Precision::Confusion());
+  constexpr Standard_Real confusion(Precision1::Confusion());
   Point3d                  aCenter = thecirc.Location();
   if (aCenter.Distance(curpos) <= confusion)
   {
@@ -254,7 +254,7 @@ static Standard_Boolean ComputeAttach(const gp_Elips& theEll,
 
   // Case of confusion between the current position and the center
   // of the circle -> we move the current position
-  constexpr Standard_Real confusion(Precision::Confusion());
+  constexpr Standard_Real confusion(Precision1::Confusion());
   Point3d                  aCenter = theEll.Location();
   if (aCenter.Distance(curpos) <= confusion)
   {
@@ -388,7 +388,7 @@ void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectionContainer)& 
   Handle(Select3D_SensitiveSegment) seg;
   // attachment point of the segment linking position to the curve
   Point3d                  attach;
-  constexpr Standard_Real confusion(Precision::Confusion());
+  constexpr Standard_Real confusion(Precision1::Confusion());
 
   if (myFAttach.IsEqual(mySAttach, confusion))
   {
@@ -453,7 +453,7 @@ void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectionContainer)& 
         // attach = projection of Position1() on the curve;
         Vector3d v1(myFAttach, mySAttach);
         Vector3d v2(myFAttach, myPosition);
-        if (v1.IsParallel(v2, Precision::Angular()))
+        if (v1.IsParallel(v2, Precision1::Angular()))
         {
           attach = mySAttach;
         }
@@ -719,7 +719,7 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
       Standard_Real           dist    = thelin->Lin().Distance(curpos);
       Point3d                  proj    = ElCLib1::Value(pcurpos, thelin->Lin());
       Vector3d                  trans;
-      constexpr Standard_Real confusion(Precision::Confusion());
+      constexpr Standard_Real confusion(Precision1::Confusion());
       if (dist >= confusion)
       {
         trans = Vector3d(proj, curpos);
@@ -768,7 +768,7 @@ void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Pr
                                                            const Point3d&              firstp2,
                                                            const Point3d&              lastp2)
 {
-  constexpr Standard_Real confusion(Precision::Confusion());
+  constexpr Standard_Real confusion(Precision1::Confusion());
 
   // Searching of complete circles
   Standard_Boolean circ1complete = (firstp1.IsEqual(lastp1, confusion));
@@ -1053,7 +1053,7 @@ void PrsDim_IdenticRelation::ComputeNotAutoCircPresentation(const Handle(GeomCir
 
   // Case of confusion between the current position and the center
   // of the circle -> we move the current position
-  constexpr Standard_Real confusion(Precision::Confusion());
+  constexpr Standard_Real confusion(Precision1::Confusion());
   if (myCenter.Distance(curpos) <= confusion)
   {
     Vector3d vprec(myCenter, myFAttach);
@@ -1128,7 +1128,7 @@ void PrsDim_IdenticRelation::ComputeTwoEllipsesPresentation(const Handle(Prs3d_P
                                                             const Point3d&               firstp2,
                                                             const Point3d&               lastp2)
 {
-  constexpr Standard_Real confusion(Precision::Confusion());
+  constexpr Standard_Real confusion(Precision1::Confusion());
 
   // Searching of complete ellipses
   Standard_Boolean circ1complete = (firstp1.IsEqual(lastp1, confusion));
@@ -1414,7 +1414,7 @@ void PrsDim_IdenticRelation::ComputeNotAutoElipsPresentation(const Handle(Geom_E
 
   // Case of confusion between the current position and the center
   // of the ellipse -> we move the current position
-  constexpr Standard_Real confusion(Precision::Confusion());
+  constexpr Standard_Real confusion(Precision1::Confusion());
   if (myCenter.Distance(curpos) <= confusion)
   {
     Vector3d vprec(myCenter, myFAttach);
@@ -1507,7 +1507,7 @@ void PrsDim_IdenticRelation::ComputeTwoVerticesPresentation(const Handle(Prs3d_P
   {
     // Computation of the size of the symbol
     Standard_Real symbsize = ComputeSegSize();
-    if (symbsize <= Precision::Confusion())
+    if (symbsize <= Precision1::Confusion())
       symbsize = 1.;
     symbsize *= 5;
     // Computation of the direction of the segment of the presentation
@@ -1539,7 +1539,7 @@ void PrsDim_IdenticRelation::ComputeTwoVerticesPresentation(const Handle(Prs3d_P
 
       // computation of the segment direction like average
       // of the 2 computed directions.
-      if (dF.IsParallel(dS, Precision::Angular()))
+      if (dF.IsParallel(dS, Precision1::Angular()))
       {
         myDir = dF.Crossed(myPlane->Pln().Axis().Direction());
       }
@@ -1640,7 +1640,7 @@ Standard_Boolean PrsDim_IdenticRelation::ComputeDirection(const TopoWire&   aWir
     else
       return Standard_False;
 
-    if (!d1.IsParallel(d2, Precision::Angular()))
+    if (!d1.IsParallel(d2, Precision1::Angular()))
       dF.SetXYZ((d1.XYZ() + d2.XYZ()) / 2);
     else
     {
@@ -1683,7 +1683,7 @@ Dir3d PrsDim_IdenticRelation::ComputeLineDirection(const Handle(GeomLine)& lin,
 {
   Dir3d dir;
   dir = lin->Lin().Direction();
-  if (!myFAttach.IsEqual(firstP, Precision::Confusion()))
+  if (!myFAttach.IsEqual(firstP, Precision1::Confusion()))
     dir.Reverse();
   return dir;
 }

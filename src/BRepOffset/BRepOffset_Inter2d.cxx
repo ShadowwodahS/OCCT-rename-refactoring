@@ -489,7 +489,7 @@ static void EdgeInter(const TopoFace&                         F,
     {
       Standard_Real aT1 = ResParamsOnE1(i); // ponc1.Parameter();
       Standard_Real aT2 = ResParamsOnE2(i); // ponc2.Parameter();
-      if (Precision::IsInfinite(aT1) || Precision::IsInfinite(aT2))
+      if (Precision1::IsInfinite(aT1) || Precision1::IsInfinite(aT2))
       {
 #ifdef OCCT_DEBUG
         std::cout << "Inter2d : Solution rejected due to infinite parameter" << std::endl;
@@ -794,7 +794,7 @@ static void RefEdgeInter(const TopoFace&                         F,
   {
     Standard_Real aT1 = ResParamsOnE1(i); // ponc1.Parameter();
     Standard_Real aT2 = ResParamsOnE2(i); // ponc2.Parameter();
-    if (Precision::IsInfinite(aT1) || Precision::IsInfinite(aT2))
+    if (Precision1::IsInfinite(aT1) || Precision1::IsInfinite(aT2))
     {
 #ifdef OCCT_DEBUG
       std::cout << "Inter2d : Solution rejected due to infinite parameter" << std::endl;
@@ -1097,7 +1097,7 @@ static Standard_Boolean ExtendPCurve(const Handle(GeomCurve2d)& aPCurve,
   Handle(Geom2d_Line)                   aLin;
   Handle(Geom2d_TrimmedCurve)           aSegment;
   Geom2dConvert_CompCurveToBSplineCurve aCompCurve(aTrCurve, Convert_RationalC1);
-  constexpr Standard_Real               aTol   = Precision::Confusion();
+  constexpr Standard_Real               aTol   = Precision1::Confusion();
   Standard_Real                         aDelta = Max(a2Offset, 1.);
 
   if (FirstPar > anEf - a2Offset)
@@ -1204,22 +1204,22 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
       Standard_Real        Umin, Umax, Vmin, Vmax;
       theSurf->Bounds(Umin, Umax, Vmin, Vmax);
       TColGeom2d_SequenceOfCurve BoundLines;
-      if (!Precision::IsInfinite(Vmin))
+      if (!Precision1::IsInfinite(Vmin))
       {
         Handle(Geom2d_Line) aLine = new Geom2d_Line(gp_Pnt2d(0., Vmin), gp_Dir2d(1., 0.));
         BoundLines.Append(aLine);
       }
-      if (!Precision::IsInfinite(Umin))
+      if (!Precision1::IsInfinite(Umin))
       {
         Handle(Geom2d_Line) aLine = new Geom2d_Line(gp_Pnt2d(Umin, 0.), gp_Dir2d(0., 1.));
         BoundLines.Append(aLine);
       }
-      if (!Precision::IsInfinite(Vmax))
+      if (!Precision1::IsInfinite(Vmax))
       {
         Handle(Geom2d_Line) aLine = new Geom2d_Line(gp_Pnt2d(0., Vmax), gp_Dir2d(1., 0.));
         BoundLines.Append(aLine);
       }
-      if (!Precision::IsInfinite(Umax))
+      if (!Precision1::IsInfinite(Umax))
       {
         Handle(Geom2d_Line) aLine = new Geom2d_Line(gp_Pnt2d(Umax, 0.), gp_Dir2d(0., 1.));
         BoundLines.Append(aLine);
@@ -1231,7 +1231,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
       for (i = 1; i <= BoundLines.Length(); i++)
       {
         Geom2dAdaptor_Curve GAline(BoundLines(i));
-        IntCC.Perform(GAcurve, GAline, Precision::PConfusion(), Precision::PConfusion());
+        IntCC.Perform(GAcurve, GAline, Precision1::PConfusion(), Precision1::PConfusion());
         if (IntCC.IsDone())
         {
           for (j = 1; j <= IntCC.NbPoints(); j++)
@@ -1344,7 +1344,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
         f = FirstParOnPC;
         l = LastParOnPC;
         GeomAPI_ProjectPointOnCurve Projector;
-        if (!Precision::IsInfinite(FirstParOnPC))
+        if (!Precision1::IsInfinite(FirstParOnPC))
         {
           gp_Pnt2d P2d1 = MinPC->Value(FirstParOnPC);
           Point3d   P1   = MinSurf->Value(P2d1.X(), P2d1.Y());
@@ -1357,7 +1357,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
             std::cout << "ProjectPointOnCurve not done" << std::endl;
 #endif
         }
-        if (!Precision::IsInfinite(LastParOnPC))
+        if (!Precision1::IsInfinite(LastParOnPC))
         {
           gp_Pnt2d P2d2 = MinPC->Value(LastParOnPC);
           Point3d   P2   = MinSurf->Value(P2d2.X(), P2d2.Y());
@@ -1372,14 +1372,14 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
         }
       }
       BB.Range(NE, f, l);
-      if (!Precision::IsInfinite(f) && !Precision::IsInfinite(l))
-        BRepLib1::SameParameter(NE, Precision::Confusion(), Standard_True);
+      if (!Precision1::IsInfinite(f) && !Precision1::IsInfinite(l))
+        BRepLib1::SameParameter(NE, Precision1::Confusion(), Standard_True);
     }
     else if (!BRepInspector::Degenerated(E)) // no 3d curve
     {
       MinSurf = Handle(GeomSurface)::DownCast(MinSurf->Transformed(MinLoc.Transformation()));
       Standard_Real max_deviation = 0.;
-      if (Precision::IsInfinite(FirstParOnPC) || Precision::IsInfinite(LastParOnPC))
+      if (Precision1::IsInfinite(FirstParOnPC) || Precision1::IsInfinite(LastParOnPC))
       {
         if (MinPC->IsInstance(STANDARD_TYPE(Geom2d_Line)))
         {
@@ -1391,7 +1391,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
           {
             Handle(Geom2d_Line) theLine = Handle(Geom2d_Line)::DownCast(MinPC);
             gp_Dir2d            LineDir = theLine->Direction();
-            if (LineDir.IsParallel(gp1::DY2d(), Precision::Angular()))
+            if (LineDir.IsParallel(gp1::DY2d(), Precision1::Angular()))
               IsLine = Standard_True;
           }
           if (IsLine)
@@ -1415,7 +1415,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
         GeomAbs_Shape                    Continuity = GeomAbs_C1;
         Standard_Integer                 MaxDegree  = 14;
         Standard_Integer                 MaxSegment = evaluateMaxSegment(ConS);
-        GeomLib1::BuildCurve3d(Precision::Confusion(),
+        GeomLib1::BuildCurve3d(Precision1::Confusion(),
                               ConS,
                               FirstParOnPC,
                               LastParOnPC,
@@ -1430,7 +1430,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
       // BB.Range( NE, FirstParOnPC, LastParOnPC );
       Standard_Boolean ProjectionSuccess = Standard_True;
       if (NbPCurves > 1)
-        // BRepLib1::SameParameter( NE, Precision::Confusion(), Standard_True );
+        // BRepLib1::SameParameter( NE, Precision1::Confusion(), Standard_True );
         for (itr.Initialize((Handle(BRep_TEdge)::DownCast(NE.TShape()))->ChangeCurves());
              itr.More();
              itr.Next())
@@ -1446,8 +1446,8 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
               continue;
             FirstPar = (Handle(BRep_GCurve)::DownCast(CurveRep))->First();
             LastPar  = (Handle(BRep_GCurve)::DownCast(CurveRep))->Last();
-            if (Abs(FirstPar - FirstParOnPC) > Precision::PConfusion()
-                || Abs(LastPar - LastParOnPC) > Precision::PConfusion())
+            if (Abs(FirstPar - FirstParOnPC) > Precision1::PConfusion()
+                || Abs(LastPar - LastParOnPC) > Precision1::PConfusion())
             {
               theLoc = E.Location() * theLoc;
               theSurf =
@@ -1457,18 +1457,18 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
                   && theSurf->IsKind(STANDARD_TYPE(Geom_BoundedSurface)))
               {
                 gp_Dir2d theDir = Handle(Geom2d_Line)::DownCast(theCurve)->Direction();
-                if (theDir.IsParallel(gp1::DX2d(), Precision::Angular())
-                    || theDir.IsParallel(gp1::DY2d(), Precision::Angular()))
+                if (theDir.IsParallel(gp1::DX2d(), Precision1::Angular())
+                    || theDir.IsParallel(gp1::DY2d(), Precision1::Angular()))
                 {
                   Standard_Real U1, U2, V1, V2;
                   theSurf->Bounds(U1, U2, V1, V2);
                   gp_Pnt2d Origin = Handle(Geom2d_Line)::DownCast(theCurve)->Location();
-                  if (Abs(Origin.X() - U1) <= Precision::Confusion()
-                      || Abs(Origin.X() - U2) <= Precision::Confusion()
-                      || Abs(Origin.Y() - V1) <= Precision::Confusion()
-                      || Abs(Origin.Y() - V2) <= Precision::Confusion())
+                  if (Abs(Origin.X() - U1) <= Precision1::Confusion()
+                      || Abs(Origin.X() - U2) <= Precision1::Confusion()
+                      || Abs(Origin.Y() - V1) <= Precision1::Confusion()
+                      || Abs(Origin.Y() - V2) <= Precision1::Confusion())
                   {
-                    BRepLib1::SameParameter(NE, Precision::Confusion(), Standard_True);
+                    BRepLib1::SameParameter(NE, Precision1::Confusion(), Standard_True);
                     break;
                   }
                 }
@@ -1494,7 +1494,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
       else
       {
         BB.Range(NE, FirstParOnPC, LastParOnPC, Standard_True);
-        BRepLib1::SameParameter(NE, Precision::Confusion(), Standard_True);
+        BRepLib1::SameParameter(NE, Precision1::Confusion(), Standard_True);
       }
     }
   }
@@ -1517,7 +1517,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
       Handle(GeomLine)                   aLin;
       Handle(Geom_TrimmedCurve)           aSegment;
       GeomConvert_CompCurveToBSplineCurve aCompCurve(aTrCurve, Convert_RationalC1);
-      constexpr Standard_Real             aTol   = Precision::Confusion();
+      constexpr Standard_Real             aTol   = Precision1::Confusion();
       Standard_Real                       aDelta = Max(a2Offset, 1.);
 
       if (FirstPar > anEf - a2Offset)
@@ -1546,7 +1546,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
       C3d      = aCompCurve.BSplineCurve();
       FirstPar = C3d->FirstParameter();
       LastPar  = C3d->LastParameter();
-      BB.UpdateEdge(NE, C3d, Precision::Confusion());
+      BB.UpdateEdge(NE, C3d, Precision1::Confusion());
     }
     else if (C3d->IsPeriodic())
     {
@@ -1579,7 +1579,7 @@ static Standard_Boolean UpdateVertex(const TopoVertex& V,
   Standard_Real           Nf     = NC.FirstParameter();
   Standard_Real           Nl     = NC.LastParameter();
   Standard_Real           U      = 0.;
-  constexpr Standard_Real ParTol = Precision::PConfusion();
+  constexpr Standard_Real ParTol = Precision1::PConfusion();
   Point3d                  P      = BRepInspector::Pnt(V);
   Standard_Boolean        OK     = Standard_False;
 

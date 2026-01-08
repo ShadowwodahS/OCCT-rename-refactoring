@@ -172,7 +172,7 @@ Standard_Boolean XmlObjMgt1::GetTagEntryString(const XmlObjMgt_DOMString& theSou
     return Standard_False;
 
   //    Begin aTagEntry string
-  char* aTagEntry    = (char*)Standard::Allocate(strlen(aSource) / 2); // quite enough to hold it
+  char* aTagEntry    = (char*)Standard1::Allocate(strlen(aSource) / 2); // quite enough to hold it
   char* aTagEntryPtr = aTagEntry + 1;
   *aTagEntry         = '0';
   aSource += aPrefixSize;
@@ -208,7 +208,7 @@ Standard_Boolean XmlObjMgt1::GetTagEntryString(const XmlObjMgt_DOMString& theSou
   }
   aTagEntryPtr[0] = '\0';
   theTagEntry     = aTagEntry;
-  Standard::Free(aTagEntry);
+  Standard1::Free(aTagEntry);
   return Standard_True;
 }
 
@@ -236,7 +236,7 @@ void XmlObjMgt1::SetTagEntryString(XmlObjMgt_DOMString&           theTarget,
   const size_t anElem1Size = sizeof(aRefElem1) - 1;
   const size_t anElem2Size = sizeof(aRefElem2) - 1;
   char*        aTarget =
-    (char*)Standard::Allocate(sizeof(aRefPrefix) + aTagCount * (anElem1Size + anElem2Size + 12));
+    (char*)Standard1::Allocate(sizeof(aRefPrefix) + aTagCount * (anElem1Size + anElem2Size + 12));
   memcpy(aTarget, aRefPrefix, sizeof(aRefPrefix) - 1);
   char* aTargetPtr = aTarget + (sizeof(aRefPrefix) - 1);
 
@@ -266,7 +266,7 @@ void XmlObjMgt1::SetTagEntryString(XmlObjMgt_DOMString&           theTarget,
   }
   *aTargetPtr = '\0';
   theTarget   = aTarget;
-  Standard::Free(aTarget);
+  Standard1::Free(aTarget);
 }
 
 //=================================================================================================
@@ -376,9 +376,9 @@ Standard_Boolean XmlObjMgt1::GetReal(const XmlObjMgt_DOMString& theString, Stand
 {
   switch (theString.Type())
   {
-    case LDOMBasicString::LDOM_NULL:
+    case LDOMBasicString1::LDOM_NULL:
       return Standard_False;
-    case LDOMBasicString::LDOM_Integer: {
+    case LDOMBasicString1::LDOM_Integer: {
       Standard_Integer anIntValue;
       theString.GetInteger(anIntValue);
       theValue = Standard_Real(anIntValue);

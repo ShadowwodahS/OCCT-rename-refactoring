@@ -177,7 +177,7 @@ void NewtonMinimum::Perform(math_MultipleVarFunctionWithHessian& F,
 
       if (aMult != RealLast())
       {
-        if (aMult > Precision::PConfusion())
+        if (aMult > Precision1::PConfusion())
         {
           // Project point into param space.
           TheStep *= aMult;
@@ -188,9 +188,9 @@ void NewtonMinimum::Perform(math_MultipleVarFunctionWithHessian& F,
           // Nullify corresponding TheStep indexes.
           for (Standard_Integer anIdx = 1; anIdx <= myLeft.Upper(); anIdx++)
           {
-            if ((Abs(precedent->Value(anIdx) - myRight(anIdx)) < Precision::PConfusion()
+            if ((Abs(precedent->Value(anIdx) - myRight(anIdx)) < Precision1::PConfusion()
                  && TheStep(anIdx) < 0.0)
-                || (Abs(precedent->Value(anIdx) - myLeft(anIdx)) < Precision::PConfusion()
+                || (Abs(precedent->Value(anIdx) - myLeft(anIdx)) < Precision1::PConfusion()
                     && TheStep(anIdx) > 0.0))
             {
               TheStep(anIdx) = 0.0;

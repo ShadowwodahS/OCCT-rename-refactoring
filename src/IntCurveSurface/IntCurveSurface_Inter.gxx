@@ -604,7 +604,7 @@ void IntCurveSurface_Inter::InternalPerform(const TheCurve&       curve,
     
     //-- Tri
     Standard_Real su=0,sv=0,sw=0,ptol;
-    ptol = 10*Precision::PConfusion();
+    ptol = 10*Precision1::PConfusion();
     
     //-- Tri suivant la variable W 
     Standard_Boolean Triok;
@@ -748,7 +748,7 @@ void IntCurveSurface_Inter::InternalPerform(const TheCurve&       curve,
     
     //-- Tri
     Standard_Real su=0,sv=0,sw=0,ptol;
-    ptol = 10*Precision::PConfusion();
+    ptol = 10*Precision1::PConfusion();
     
     //-- Tri suivant la variable W 
     Standard_Boolean Triok;
@@ -956,7 +956,7 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Lin&   Line,
     }
   case GeomAbs_Cone:
     {
-      constexpr Standard_Real correction = 1.E+5*Precision::Angular();
+      constexpr Standard_Real correction = 1.E+5*Precision1::Angular();
       Cone1 cn = TheSurfaceTool::Cone(surface);
       if(Abs(cn.SemiAngle()) < M_PI/2.0 - correction) {
         ConicQuadIntersection LinCone(Line, cn);
@@ -975,10 +975,10 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Lin&   Line,
     nbsu = TheSurfaceTool::NbSamplesU(surface,U1,U2);
     nbsv = TheSurfaceTool::NbSamplesV(surface,V1,V2);
 
-    Standard_Boolean U1inf = Precision::IsInfinite(U1);
-    Standard_Boolean U2inf = Precision::IsInfinite(U2);
-    Standard_Boolean V1inf = Precision::IsInfinite(V1);
-    Standard_Boolean V2inf = Precision::IsInfinite(V2);
+    Standard_Boolean U1inf = Precision1::IsInfinite(U1);
+    Standard_Boolean U2inf = Precision1::IsInfinite(U2);
+    Standard_Boolean V1inf = Precision1::IsInfinite(V1);
+    Standard_Boolean V2inf = Precision1::IsInfinite(V2);
 
     Standard_Real U1new=U1, U2new=U2, V1new=V1, V2new=V2;
 
@@ -1790,13 +1790,13 @@ void EstLimForInfRevl(const gp_Lin&   Line,
   Handle(Adaptor3d_Curve) aBasisCurve = TheSurfaceTool::BasisCurve(surface);
   Axis3d aRevAx = TheSurfaceTool::AxeOfRevolution(surface);
   Vector3d aXVec = aRevAx.Direction();
-  constexpr Standard_Real aTolAng = Precision::Angular();
+  constexpr Standard_Real aTolAng = Precision1::Angular();
 
   // make plane to project a basis curve
   Point3d O = aRevAx.Location();
   Standard_Real aU = 0.;
   Point3d P = aBasisCurve->Value(aU);
-  while (O.SquareDistance(P) <= Precision::PConfusion() ||
+  while (O.SquareDistance(P) <= Precision1::PConfusion() ||
 	 aXVec.IsParallel( Vector3d(O,P), aTolAng)) {
     aU += 1.;
     P = aBasisCurve->Value(aU);
@@ -1828,7 +1828,7 @@ void EstLimForInfRevl(const gp_Lin&   Line,
   // make plane to project Line
   if (aXVec.IsParallel( Line.Direction(), aTolAng)) {
     P = Line.Location();
-    while (O.SquareDistance(P) <= Precision::PConfusion()) {
+    while (O.SquareDistance(P) <= Precision1::PConfusion()) {
       aU += 1.;
       P = Point3d(aU, aU+1, aU+2); // any not on aXVec
     }

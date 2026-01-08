@@ -71,10 +71,10 @@ public:
   //! The first part is replaced by the product.
   //! The other parts are removed.
   //! The history of the merged shapes is presented by equal ways.
-  template <typename TCollection>
-  void Merge(const TCollection& theParts, const TopoShape& theProduct)
+  template <typename TCollection1>
+  void Merge(const TCollection1& theParts, const TopoShape& theProduct)
   {
-    typename TCollection::Iterator aPIt(theParts);
+    typename TCollection1::Iterator aPIt(theParts);
 
     if (aPIt.More())
     {

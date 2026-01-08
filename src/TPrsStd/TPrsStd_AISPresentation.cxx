@@ -329,7 +329,7 @@ void TPrsStd_AISPresentation::SetColor(const Quantity_NameOfColor theColor)
   {
     if (!myAIS.IsNull() && myAIS->HasColor())
     {
-      Quantity_Color aColor;
+      Color1 aColor;
       myAIS->Color(aColor);
       if (aColor.Name() == theColor)
       {
@@ -347,7 +347,7 @@ void TPrsStd_AISPresentation::SetColor(const Quantity_NameOfColor theColor)
   {
     if (myAIS->HasColor())
     {
-      Quantity_Color aColor;
+      Color1 aColor;
       myAIS->Color(aColor);
       if (aColor.Name() == theColor)
       {
@@ -755,7 +755,7 @@ void TPrsStd_AISPresentation::AISUpdate()
     if (HasOwnColor())
     {
       Quantity_NameOfColor aColor = Color();
-      Quantity_Color       aPrsColor;
+      Color1       aPrsColor;
       myAIS->Color(aPrsColor);
       if (!(myAIS->HasColor()) || (myAIS->HasColor() && aPrsColor.Name() != aColor))
       {

@@ -150,7 +150,7 @@ static Standard_Integer CommandCmd(ClientData       theClientData,
     OCC_CATCH_SIGNALS
 
     // get exception if control-break has been pressed
-    OSD::ControlBreak();
+    OSD1::ControlBreak();
 
     Standard_Integer fres = aCallback->Invoke(di, argc, argv /*anArgs.GetArgv()*/);
     if (fres != 0)
@@ -546,7 +546,7 @@ void DrawInterpreter::SetDoLog(Standard_Boolean doLog)
     tmpnam(tmpfile);
     myFDLog = open(tmpfile, O_RDWR | O_CREAT | O_EXCL | O_TEMPORARY, S_IREAD | S_IWRITE);
 #else
-    // according to Linux Filesystem Hierarchy Standard, 3.17,
+    // according to Linux Filesystem Hierarchy Standard1, 3.17,
     // /tmp/ is the right directory for temporary files
     char tmpfile[256] = "/tmp/occt_draw_XXXXXX";
     myFDLog           = mkstemp(tmpfile);

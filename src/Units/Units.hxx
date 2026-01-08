@@ -33,7 +33,7 @@ class Units_Dimensions;
 //! and question a dictionary of  units,  and also  to
 //! manipulate measurements which are real values with
 //! units.
-class Units
+class Units2
 {
 public:
   DEFINE_STANDARD_ALLOC

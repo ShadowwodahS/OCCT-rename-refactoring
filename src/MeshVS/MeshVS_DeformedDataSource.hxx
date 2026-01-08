@@ -71,9 +71,9 @@ public:
                                                              Standard_Integer&        NbNodes) const
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const TColStd_PackedMapOfInteger& GetAllNodes() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const PackedIntegerMap& GetAllNodes() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const TColStd_PackedMapOfInteger& GetAllElements() const
+  Standard_EXPORT virtual const PackedIntegerMap& GetAllElements() const
     Standard_OVERRIDE;
 
   //! This method returns map of nodal displacement vectors
@@ -103,7 +103,7 @@ public:
 protected:
 private:
   Handle(MeshVS_DataSource)     myNonDeformedDataSource;
-  TColStd_PackedMapOfInteger    myEmptyMap;
+  PackedIntegerMap    myEmptyMap;
   MeshVS_DataMapOfIntegerVector myVectors;
   Standard_Real                 myMagnify;
 };

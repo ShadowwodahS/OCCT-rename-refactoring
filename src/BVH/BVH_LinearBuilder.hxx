@@ -280,7 +280,7 @@ public:
 
       if (!aList.empty())
       {
-        OSD_Parallel::ForEach(aList.begin(),
+        Parallel1::ForEach(aList.begin(),
                               aList.end(),
                               UpdateBoundTask<T, N>(myIsParallel),
                               !myIsParallel);

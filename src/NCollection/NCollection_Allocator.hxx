@@ -19,7 +19,7 @@
 
 #include <utility>
 
-//! Implements allocator requirements as defined in ISO C++ Standard 2003, section 20.1.5.
+//! Implements allocator requirements as defined in ISO C++ Standard1 2003, section 20.1.5.
 /*! The allocator uses a standard OCCT mechanism for memory
   allocation and deallocation. It can be used with standard
   containers (std::vector, std::map, etc.) to take advantage of OCCT memory optimizations.
@@ -52,7 +52,7 @@ public:
 
   //! Constructor.
   //! Creates an object using the default Open CASCADE allocation mechanism, i.e., which uses
-  //! Standard::Allocate() and Standard::Free() underneath.
+  //! Standard1::Allocate() and Standard1::Free() underneath.
   NCollection_Allocator() noexcept {}
 
   //! Constructor.
@@ -67,7 +67,7 @@ public:
 
   //! Constructor.
   //! Creates an object using the default Open CASCADE allocation mechanism, i.e., which uses
-  //! Standard::Allocate() and Standard::Free() underneath.
+  //! Standard1::Allocate() and Standard1::Free() underneath.
   template <typename OtherType>
   NCollection_Allocator(const NCollection_Allocator<OtherType>&) noexcept
   {
@@ -82,19 +82,19 @@ public:
   //! Allocates memory for theSize objects.
   pointer allocate(const size_type theSize, const void* /*hint*/ = 0) const
   {
-    return static_cast<pointer>(Standard::AllocateOptimal(theSize * sizeof(ItemType)));
+    return static_cast<pointer>(Standard1::AllocateOptimal(theSize * sizeof(ItemType)));
   }
 
   //! Frees previously allocated memory.
   void deallocate(pointer thePnt, const size_type) const
   {
-    Standard::Free(static_cast<Standard_Address>(thePnt));
+    Standard1::Free(static_cast<Standard_Address>(thePnt));
   }
 
   //! Reallocates memory for theSize objects.
   pointer reallocate(pointer thePnt, const size_type theSize) const
   {
-    return static_cast<pointer>(Standard::Reallocate(thePnt, theSize * sizeof(ItemType)));
+    return static_cast<pointer>(Standard1::Reallocate(thePnt, theSize * sizeof(ItemType)));
   }
 
   //! Constructs an object.

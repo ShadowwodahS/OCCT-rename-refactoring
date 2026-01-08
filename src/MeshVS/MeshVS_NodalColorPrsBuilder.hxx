@@ -61,8 +61,8 @@ public:
 
   //! Builds presentation of nodes with assigned color.
   Standard_EXPORT virtual void Build(const Handle(Prs3d_Presentation)& Prs,
-                                     const TColStd_PackedMapOfInteger& IDs,
-                                     TColStd_PackedMapOfInteger&       IDsToExclude,
+                                     const PackedIntegerMap& IDs,
+                                     PackedIntegerMap&       IDsToExclude,
                                      const Standard_Boolean            IsElement,
                                      const Standard_Integer DisplayMode) const Standard_OVERRIDE;
 
@@ -77,10 +77,10 @@ public:
 
   //! Returns color assigned to single node
   Standard_EXPORT Standard_Boolean GetColor(const Standard_Integer ID,
-                                            Quantity_Color&        theColor) const;
+                                            Color1&        theColor) const;
 
   //! Sets color assigned to single node
-  Standard_EXPORT void SetColor(const Standard_Integer ID, const Quantity_Color& theColor);
+  Standard_EXPORT void SetColor(const Standard_Integer ID, const Color1& theColor);
 
   //! Specify whether texture must be used to build presentation
   Standard_EXPORT void UseTexture(const Standard_Boolean theToUse);
@@ -97,11 +97,11 @@ public:
 
   //! Set color representing invalid texture coordinate
   //! (laying outside range [0, 1])
-  Standard_EXPORT void SetInvalidColor(const Quantity_Color& theInvalidColor);
+  Standard_EXPORT void SetInvalidColor(const Color1& theInvalidColor);
 
   //! Return color representing invalid texture coordinate
   //! (laying outside range [0, 1])
-  Standard_EXPORT Quantity_Color GetInvalidColor() const;
+  Standard_EXPORT Color1 GetInvalidColor() const;
 
   //! Specify correspondence between node IDs and texture coordinates (range [0, 1])
   Standard_EXPORT void SetTextureCoords(const TColStd_DataMapOfIntegerReal& theMap);
@@ -136,7 +136,7 @@ private:
   Standard_Boolean             myUseTexture;
   Aspect_SequenceOfColor       myTextureColorMap;
   TColStd_DataMapOfIntegerReal myTextureCoords;
-  Quantity_Color               myInvalidColor;
+  Color1               myInvalidColor;
 };
 
 #endif // _MeshVS_NodalColorPrsBuilder_HeaderFile

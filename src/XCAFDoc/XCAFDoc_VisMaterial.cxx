@@ -139,12 +139,12 @@ XCAFDoc_VisMaterialCommon XCAFDoc_VisMaterial::ConvertToCommonMaterial()
   aComMat.IsDefined      = true;
   aComMat.DiffuseTexture = myPbrMat.BaseColorTexture;
   aComMat.DiffuseColor   = myPbrMat.BaseColor.GetRGB();
-  aComMat.SpecularColor  = Quantity_Color(myPbrMat.BaseColor.GetRGB().Rgb() * myPbrMat.Metallic);
+  aComMat.SpecularColor  = Color1(myPbrMat.BaseColor.GetRGB().Rgb() * myPbrMat.Metallic);
   aComMat.Transparency   = 1.0f - myPbrMat.BaseColor.Alpha();
   aComMat.Shininess      = 1.0f - myPbrMat.Roughness;
   if (myPbrMat.EmissiveTexture.IsNull())
   {
-    aComMat.EmissiveColor = Quantity_Color(myPbrMat.EmissiveFactor.cwiseMin(Graphic3d_Vec3(1.0f)));
+    aComMat.EmissiveColor = Color1(myPbrMat.EmissiveFactor.cwiseMin(Graphic3d_Vec3(1.0f)));
   }
   return aComMat;
 }
@@ -215,7 +215,7 @@ void XCAFDoc_VisMaterial::FillMaterialAspect(Graphic3d_MaterialAspect& theAspect
       theAspect.SetDiffuseColor(myPbrMat.BaseColor.GetRGB());
       theAspect.SetAlpha(myPbrMat.BaseColor.Alpha());
       theAspect.SetSpecularColor(
-        Quantity_Color(myPbrMat.BaseColor.GetRGB().Rgb() * myPbrMat.Metallic));
+        Color1(myPbrMat.BaseColor.GetRGB().Rgb() * myPbrMat.Metallic));
       theAspect.SetShininess(1.0f - myPbrMat.Roughness);
       if (theAspect.Shininess() < 0.01f)
       {
@@ -223,7 +223,7 @@ void XCAFDoc_VisMaterial::FillMaterialAspect(Graphic3d_MaterialAspect& theAspect
         theAspect.SetShininess(0.01f);
       }
       theAspect.SetEmissiveColor(
-        Quantity_Color(myPbrMat.EmissiveFactor.cwiseMin(Graphic3d_Vec3(1.0f))));
+        Color1(myPbrMat.EmissiveFactor.cwiseMin(Graphic3d_Vec3(1.0f))));
     }
 
     Graphic3d_PBRMaterial aPbr;

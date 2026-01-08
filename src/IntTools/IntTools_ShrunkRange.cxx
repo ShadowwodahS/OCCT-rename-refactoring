@@ -109,10 +109,10 @@ void IntTools_ShrunkRange::Perform()
   myIsDone       = Standard_False;
   myIsSplittable = Standard_False;
   //
-  // default tolerance - Precision::Confusion()
-  Standard_Real aDTol = Precision::Confusion();
-  // default parametric tolerance - Precision::PConfusion()
-  Standard_Real aPDTol = Precision::PConfusion();
+  // default tolerance - Precision1::Confusion()
+  Standard_Real aDTol = Precision1::Confusion();
+  // default parametric tolerance - Precision1::PConfusion()
+  Standard_Real aPDTol = Precision1::PConfusion();
   //
   if (myT2 - myT1 < aPDTol)
   {
@@ -137,7 +137,7 @@ void IntTools_ShrunkRange::Perform()
   }
   //
   // to have correspondence with intersection precision
-  // the tolerances of vertices are increased on Precision::Confusion()
+  // the tolerances of vertices are increased on Precision1::Confusion()
   aTolV1 += aDTol;
   aTolV2 += aDTol;
 
@@ -177,10 +177,10 @@ void IntTools_ShrunkRange::Perform()
   myIsDone = Standard_True;
   //
   // check the shrunk range to have the length not less than
-  // 2*aTolE+2*Precision::Confusion()
+  // 2*aTolE+2*Precision1::Confusion()
   // for the edge to have possibility to be split at least once:
   // 2*TolE - minimal diameter of tolerance sphere of splitting vertex
-  // 2*Precision::Confusion() - minimal length of the new edges
+  // 2*Precision1::Confusion() - minimal length of the new edges
   if (myLength > (2 * aTolE + 2 * aDTol))
   {
     myIsSplittable = Standard_True;

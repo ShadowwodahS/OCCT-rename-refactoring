@@ -33,7 +33,7 @@ BinTObjDrivers_DocumentStorageDriver::BinTObjDrivers_DocumentStorageDriver()
 Handle(BinMDF_ADriverTable) BinTObjDrivers_DocumentStorageDriver::AttributeDrivers(
   const Handle(Message_Messenger)& theMsgDrv)
 {
-  // Standard drivers
+  // Standard1 drivers
   Handle(BinMDF_ADriverTable) aTable = BinLDrivers1::AttributeDrivers(theMsgDrv);
 
   // Native drivers

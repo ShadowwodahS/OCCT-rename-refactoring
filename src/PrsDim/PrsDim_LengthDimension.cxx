@@ -194,10 +194,10 @@ Standard_Boolean PrsDim_LengthDimension::CheckPlane(const gp_Pln& thePlane) cons
 {
   Standard_Boolean anIsFaultyNormal =
     thePlane.Axis().Direction().IsParallel(gce_MakeDir(myFirstPoint, mySecondPoint),
-                                           Precision::Angular());
+                                           Precision1::Angular());
 
-  if ((!thePlane.Contains(myFirstPoint, Precision::Confusion())
-       && !thePlane.Contains(mySecondPoint, Precision::Confusion()))
+  if ((!thePlane.Contains(myFirstPoint, Precision1::Confusion())
+       && !thePlane.Contains(mySecondPoint, Precision1::Confusion()))
       || anIsFaultyNormal)
   {
     return Standard_False;
@@ -331,7 +331,7 @@ void PrsDim_LengthDimension::ComputeFlyoutSelection(
 Standard_Boolean PrsDim_LengthDimension::IsValidPoints(const Point3d& theFirstPoint,
                                                        const Point3d& theSecondPoint) const
 {
-  return theFirstPoint.Distance(theSecondPoint) > Precision::Confusion();
+  return theFirstPoint.Distance(theSecondPoint) > Precision1::Confusion();
 }
 
 //=======================================================================
@@ -365,7 +365,7 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoEdgesLength(const TopoEdge& theF
   if (!aFirstLine.IsNull() && !aSecondLine.IsNull())
   {
     if (!aFirstLine->Lin().Direction().IsParallel(aSecondLine->Lin().Direction(),
-                                                  Precision::Angular()))
+                                                  Precision1::Angular()))
     {
       return Standard_False;
     }
@@ -590,7 +590,7 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoShapesPoints(const TopoShape& th
         if (aFirstSurfKind == PrsDim_KOS_Plane)
         {
           if (!aFirstPlane.Axis().Direction().IsParallel(aSecondPlane.Axis().Direction(),
-                                                         Precision::Angular()))
+                                                         Precision1::Angular()))
           {
             return Standard_False;
           }
@@ -612,7 +612,7 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoShapesPoints(const TopoShape& th
           Standard_Real anU, aV;
           ElSLib1::Parameters(aSecondPlane, mySecondPoint, anU, aV);
 
-          BRepTopAdaptor_FClass2d aClassifier(aSecondFace, Precision::Confusion());
+          BRepTopAdaptor_FClass2d aClassifier(aSecondFace, Precision1::Confusion());
           TopAbs_State            aState = aClassifier.Perform(gp_Pnt2d(anU, aV), Standard_False);
 
           if (aState == TopAbs_OUT || aState == TopAbs_UNKNOWN)
@@ -794,7 +794,7 @@ Standard_Boolean PrsDim_LengthDimension::InitOneShapePoints(const TopoShape& the
     return Standard_False;
   }
 
-  Standard_Boolean isInfinite = (Precision::IsInfinite(aFirst) || Precision::IsInfinite(aLast));
+  Standard_Boolean isInfinite = (Precision1::IsInfinite(aFirst) || Precision1::IsInfinite(aLast));
   if (isInfinite)
   {
     return Standard_False;

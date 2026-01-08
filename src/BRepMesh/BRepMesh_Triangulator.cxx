@@ -179,8 +179,8 @@ Standard_Boolean BRepMesh_Triangulator::checkCondition(const int (&theNodes)[4],
 
   const Coords3d aCross1 = aV0.Crossed(aV1);
   const Coords3d aCross2 = aV0.Crossed(aV2);
-  return (aCross1.SquareModulus() < Precision::SquareConfusion()
-          || aCross2.SquareModulus() < Precision::SquareConfusion()
+  return (aCross1.SquareModulus() < Precision1::SquareConfusion()
+          || aCross2.SquareModulus() < Precision1::SquareConfusion()
           || Dir3d(aCross1).IsEqual(Dir3d(aCross2), 0.01));
 }
 

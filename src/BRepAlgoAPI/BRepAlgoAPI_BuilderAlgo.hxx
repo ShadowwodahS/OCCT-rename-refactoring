@@ -131,10 +131,10 @@ public: //! @name Result simplification
   //! @param theUnifyEdges Controls the edges unification. TRUE by default.
   //! @param theUnifyFaces Controls the faces unification. TRUE by default.
   //! @param theAngularTol Angular criteria for tangency of edges and faces.
-  //!                      Precision::Angular() by default.
+  //!                      Precision1::Angular() by default.
   Standard_EXPORT void SimplifyResult(const Standard_Boolean theUnifyEdges = Standard_True,
                                       const Standard_Boolean theUnifyFaces = Standard_True,
-                                      const Standard_Real    theAngularTol = Precision::Angular());
+                                      const Standard_Real    theAngularTol = Precision1::Angular());
 
 public: //! @name History support
   //! Returns the shapes modified from the shape <theS>.

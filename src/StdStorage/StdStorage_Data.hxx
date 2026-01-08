@@ -30,7 +30,7 @@ class StdStorage_RootData;
 //! -   persistent data which are read from a container.
 //! A StdStorage_Data object is used in both the
 //! storage and retrieval operations:
-//! -   Storage mechanism: create an empty
+//! -   Storage1 mechanism: create an empty
 //! StdStorage_Data object, then add successively
 //! persistent objects (roots) to be stored using
 //! the StdStorage_RootData's function AddRoot. When the set of

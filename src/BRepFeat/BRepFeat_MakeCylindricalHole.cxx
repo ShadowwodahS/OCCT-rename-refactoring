@@ -766,11 +766,11 @@ Standard_Boolean GetOffset(const LocOpe_PntFace& PntInfo,
   FFA.D1(Up, Vp, PP, D1U, D1V);
   Dir3d             NormF;
   CSLib_NormalStatus stat;
-  CSLib1::Normal(D1U, D1V, Precision::Angular(), stat, NormF);
+  CSLib1::Normal(D1U, D1V, Precision1::Angular(), stat, NormF);
   if (stat != CSLib_Defined)
     return Standard_False;
   Standard_Real angle = Axis.Direction().Angle(NormF);
-  if (Abs(M_PI / 2. - angle) < Precision::Angular())
+  if (Abs(M_PI / 2. - angle) < Precision1::Angular())
     return Standard_False;
   outOff = Radius * Abs(tan(angle));
   return Standard_True;

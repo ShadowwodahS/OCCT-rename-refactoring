@@ -279,7 +279,7 @@ Standard_Boolean SelectMgr_BaseIntersector::RayCircleIntersection(
 
     const Standard_Real aK = aX1 * aX1 + anY1 * anY1;
     if ((theIsFilled && aK <= theRadius * theRadius)
-        || (!theIsFilled && Abs(sqrt(aK) - theRadius) <= Precision::Confusion()))
+        || (!theIsFilled && Abs(sqrt(aK) - theRadius) <= Precision1::Confusion()))
     {
       theTime = aTime;
       return true;

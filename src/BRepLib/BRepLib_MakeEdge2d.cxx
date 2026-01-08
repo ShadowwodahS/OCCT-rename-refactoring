@@ -403,11 +403,11 @@ void BRepLib_MakeEdge2d::Init(const Handle(GeomCurve2d)& C, const gp_Pnt2d& P1, 
 {
   ShapeBuilder  B;
   TopoVertex V1, V2;
-  B.MakeVertex(V1, Point(P1), Precision::Confusion());
-  if (P1.Distance(P2) < Precision::Confusion())
+  B.MakeVertex(V1, Point(P1), Precision1::Confusion());
+  if (P1.Distance(P2) < Precision1::Confusion())
     V2 = V1;
   else
-    B.MakeVertex(V2, Point(P2), Precision::Confusion());
+    B.MakeVertex(V2, Point(P2), Precision1::Confusion());
   Init(C, V1, V2);
 }
 
@@ -450,11 +450,11 @@ void BRepLib_MakeEdge2d::Init(const Handle(GeomCurve2d)& C,
   ShapeBuilder B;
 
   TopoVertex V1, V2;
-  B.MakeVertex(V1, Point(P1), Precision::Confusion());
-  if (P1.Distance(P2) < Precision::Confusion())
+  B.MakeVertex(V1, Point(P1), Precision1::Confusion());
+  if (P1.Distance(P2) < Precision1::Confusion())
     V2 = V1;
   else
-    B.MakeVertex(V2, Point(P2), Precision::Confusion());
+    B.MakeVertex(V2, Point(P2), Precision1::Confusion());
 
   Init(C, V1, V2, p1, p2);
 }
@@ -484,7 +484,7 @@ void BRepLib_MakeEdge2d::Init(const Handle(GeomCurve2d)& CC,
   Standard_Real           p2       = pp2;
   Standard_Real           cf       = C->FirstParameter();
   Standard_Real           cl       = C->LastParameter();
-  constexpr Standard_Real epsilon  = Precision::Confusion();
+  constexpr Standard_Real epsilon  = Precision1::Confusion();
   Standard_Boolean        periodic = C->IsPeriodic();
 
   TopoVertex V1, V2;
@@ -521,15 +521,15 @@ void BRepLib_MakeEdge2d::Init(const Handle(GeomCurve2d)& CC,
   }
 
   // compute points on the curve
-  Standard_Boolean p1inf = Precision::IsNegativeInfinite(p1);
-  Standard_Boolean p2inf = Precision::IsPositiveInfinite(p2);
+  Standard_Boolean p1inf = Precision1::IsNegativeInfinite(p1);
+  Standard_Boolean p2inf = Precision1::IsPositiveInfinite(p2);
   gp_Pnt2d         P1, P2;
   if (!p1inf)
     P1 = C->Value(p1);
   if (!p2inf)
     P2 = C->Value(p2);
 
-  constexpr Standard_Real preci = Precision::Confusion();
+  constexpr Standard_Real preci = Precision1::Confusion();
   ShapeBuilder            B;
 
   // check for closed curve

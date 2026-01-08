@@ -37,7 +37,7 @@ public:
   //! Tries to convert the Curve to the Periodic form
   //! Returns the resulting curve
   //! Works only if the Curve is BSpline and is closed with
-  //! Precision::Confusion()
+  //! Precision1::Confusion()
   //! Else, or in case of failure, returns a Null Handle
   Standard_EXPORT Handle(GeomCurve3d) ConvertToPeriodic(const Standard_Boolean substitute,
                                                        const Standard_Real    preci = -1);

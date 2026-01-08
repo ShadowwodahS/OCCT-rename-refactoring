@@ -15,7 +15,7 @@
 // commercial license or contractual agreement.
 
 // pdn 11.01.99 #144 bm1_pe_t4 protection of exceptions in draw
-//     abv 13.04.99 S4136: eliminate BRepAPI::Precision()
+//     abv 13.04.99 S4136: eliminate BRepAPI::Precision1()
 
 #include <BRep_Builder.hxx>
 #include <BRepTools.hxx>
@@ -171,7 +171,7 @@ Standard_Boolean GeometricTool::IsLikeSeam(
                                       - line2->Dir()->Orientation()->DirectionRatiosValue(2));
 
         // clang-format off
-        Standard_Real preci2d = Precision::PConfusion(); //:S4136: Parametric(BRepAPI::Precision(),10);
+        Standard_Real preci2d = Precision1::PConfusion(); //:S4136: Parametric(BRepAPI::Precision1(),10);
         // clang-format on
 
         if ((DeltaX < preci2d) || (DeltaY < preci2d))
@@ -255,7 +255,7 @@ Standard_Boolean GeometricTool::UpdateParam3d(const Handle(GeomCurve3d)& theCurv
   if (theCurve->IsPeriodic())
   {
     // clang-format off
-    ElCLib1::AdjustPeriodic(cf, cl, Precision::PConfusion(), w1, w2); //:a7 abv 11 Feb 98: preci -> PConfusion()
+    ElCLib1::AdjustPeriodic(cf, cl, Precision1::PConfusion(), w1, w2); //:a7 abv 11 Feb 98: preci -> PConfusion()
     // clang-format on
   }
   else if (theCurve->IsClosed())
@@ -265,12 +265,12 @@ Standard_Boolean GeometricTool::UpdateParam3d(const Handle(GeomCurve3d)& theCurv
     // DANGER precision 3d applique a une espace 1d
 
     // w2 = cf au lieu de w2 = cl
-    if (Abs(w2 - cf) < Precision::PConfusion() /*preci*/)
+    if (Abs(w2 - cf) < Precision1::PConfusion() /*preci*/)
     {
       w2 = cl;
     }
     // w1 = cl au lieu de w1 = cf
-    else if (Abs(w1 - cl) < Precision::PConfusion() /*preci*/)
+    else if (Abs(w1 - cl) < Precision1::PConfusion() /*preci*/)
     {
       w1 = cf;
     }
@@ -288,7 +288,7 @@ Standard_Boolean GeometricTool::UpdateParam3d(const Handle(GeomCurve3d)& theCurv
       {
         w2 = cl;
       }
-      if (fabs(w2 - w1) < Precision::PConfusion())
+      if (fabs(w2 - w1) < Precision1::PConfusion())
       {
         w1 = cf;
         w2 = cl;
@@ -311,18 +311,18 @@ Standard_Boolean GeometricTool::UpdateParam3d(const Handle(GeomCurve3d)& theCurv
     Handle(BSplineCurve3d) aBSpline = Handle(BSplineCurve3d)::DownCast(theCurve);
     if (aBSpline->StartPoint().Distance(aBSpline->EndPoint()) <= preci)
     {
-      //: S4136	<= BRepAPI::Precision()) {
+      //: S4136	<= BRepAPI::Precision1()) {
       // l'un des points projecte se trouve sur l'origine du parametrage
       // de la courbe 3D. L algo a donne cl +- preci au lieu de cf ou vice-versa
       // DANGER precision 3d applique a une espace 1d
 
       // w2 = cf au lieu de w2 = cl
-      if (Abs(w2 - cf) < Precision::PConfusion())
+      if (Abs(w2 - cf) < Precision1::PConfusion())
       {
         w2 = cl;
       }
       // w1 = cl au lieu de w1 = cf
-      else if (Abs(w1 - cl) < Precision::PConfusion())
+      else if (Abs(w1 - cl) < Precision1::PConfusion())
       {
         w1 = cf;
       }
@@ -379,8 +379,8 @@ Standard_Boolean GeometricTool::UpdateParam3d(const Handle(GeomCurve3d)& theCurv
     // pdn 11.01.99 #144 bm1_pe_t4 protection of exceptions in draw
     if (w1 == w2)
     {
-      w1 -= Precision::PConfusion();
-      w2 += Precision::PConfusion();
+      w1 -= Precision1::PConfusion();
+      w2 += Precision1::PConfusion();
     }
     return Standard_False;
   }

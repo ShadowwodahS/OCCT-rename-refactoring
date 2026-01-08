@@ -246,7 +246,7 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewCurve2d(const TopoEdge&    E,
         Point3d P0;
         SR->D0(U1, V1, P0);
         Handle(ShapeAnalysis_Surface) sas = new ShapeAnalysis_Surface(NS);
-        gp_Pnt2d                      p2d = sas->ValueOfUV(P0, Precision::Confusion());
+        gp_Pnt2d                      p2d = sas->ValueOfUV(P0, Precision1::Confusion());
         gp_Vec2d                      shift(p2d.X() - U1, p2d.Y() - V1);
         C->Translate(shift);
       }

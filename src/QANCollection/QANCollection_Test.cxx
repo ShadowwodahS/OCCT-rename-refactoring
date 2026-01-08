@@ -643,7 +643,7 @@ static void TestIndexedDataMap(QANCollection_IDMapFunc& theM)
   Random(aKey);
   aM.Substitute(1, aKey, anItem);
   if (!aM.Contains(aKey) || aM.FindIndex(aKey) != 1
-      || !aM.FindFromKey(aKey).IsEqual(anItem, Precision::Confusion()))
+      || !aM.FindFromKey(aKey).IsEqual(anItem, Precision1::Confusion()))
   {
     printf("Error   : map does not contain valid key and item after substitute");
   }
@@ -651,7 +651,7 @@ static void TestIndexedDataMap(QANCollection_IDMapFunc& theM)
   Random(anItem);
   aM.Substitute(1, aKey, anItem);
   if (!aM.Contains(aKey) || aM.FindIndex(aKey) != 1
-      || !aM.FindFromKey(aKey).IsEqual(anItem, Precision::Confusion()))
+      || !aM.FindFromKey(aKey).IsEqual(anItem, Precision1::Confusion()))
   {
     printf("Error   : map does not contain valid key and item after substitute");
   }

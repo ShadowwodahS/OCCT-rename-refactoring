@@ -115,7 +115,7 @@ static Standard_Real FillBox(Box2&               B,
   C.D0(first, P1);
   B.Add(P1);
   Standard_Real p = first, dp = last - first, tol = 0.;
-  if (Abs(dp) > Precision::PConfusion())
+  if (Abs(dp) > Precision1::PConfusion())
   {
     Standard_Integer i;
     dp /= 2 * N;
@@ -190,8 +190,8 @@ void Add3dCurve::Add(const Adaptor3d_Curve& C,
     }
     case GeomAbs_BSplineCurve: {
       Handle(BSplineCurve3d) Bs = C.BSpline();
-      if (Abs(Bs->FirstParameter() - U1) > Precision::Parametric(Tol)
-          || Abs(Bs->LastParameter() - U2) > Precision::Parametric(Tol))
+      if (Abs(Bs->FirstParameter() - U1) > Precision1::Parametric(Tol)
+          || Abs(Bs->LastParameter() - U2) > Precision1::Parametric(Tol))
       {
 
         Handle(Geom_Geometry)     G = Bs->Copy();
@@ -201,7 +201,7 @@ void Add3dCurve::Add(const Adaptor3d_Curve& C,
         if (Bsaux->IsPeriodic())
           ElCLib1::AdjustPeriodic(Bsaux->FirstParameter(),
                                  Bsaux->LastParameter(),
-                                 Precision::PConfusion(),
+                                 Precision1::PConfusion(),
                                  u1,
                                  u2);
         else
@@ -215,7 +215,7 @@ void Add3dCurve::Add(const Adaptor3d_Curve& C,
             u2 = Bsaux->LastParameter();
           //  modified by NIZHNY-EAP Fri Dec  3 14:29:18 1999 ___END___
         }
-        Standard_Real aSegmentTol = 2. * Precision::PConfusion();
+        Standard_Real aSegmentTol = 2. * Precision1::PConfusion();
         if (Abs(u2 - u1) < aSegmentTol)
           aSegmentTol = Abs(u2 - u1) * 0.01;
         Bsaux->Segment1(u1, u2, aSegmentTol);
@@ -362,7 +362,7 @@ void Add3dCurve::AddGenCurv(const Adaptor3d_Curve& C,
   }
   //
   // Adjusting minmax
-  Standard_Real eps = Max(Tol, Precision::Confusion());
+  Standard_Real eps = Max(Tol, Precision1::Confusion());
   for (k = 0; k < 3; ++k)
   {
     Standard_Real d = DeflMax[k];
@@ -515,7 +515,7 @@ Standard_Real AdjustExtr(const Adaptor3d_Curve& C,
   Standard_Real aSign = IsMin ? 1. : -1.;
   Standard_Real extr  = aSign * Extr0;
   //
-  Standard_Real uTol = Max(C.Resolution(Tol), Precision::PConfusion());
+  Standard_Real uTol = Max(C.Resolution(Tol), Precision1::PConfusion());
   Standard_Real Du   = (C.LastParameter() - C.FirstParameter());
   //
   Standard_Real reltol = uTol / Max(Abs(UMin), Abs(UMax));

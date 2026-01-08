@@ -237,7 +237,7 @@ void DNaming_Line3DDriver::LoadNamingDS(const DataLabel&              theResultL
       TopExp1::Vertices(anE, aV1, aV2);
       Point3d aPE1 = BRepInspector::Pnt(aV1);
       Point3d aPE2 = BRepInspector::Pnt(aV2);
-      if (aP1.IsEqual(aPE1, Precision::Confusion()) && aP2.IsEqual(aPE2, Precision::Confusion()))
+      if (aP1.IsEqual(aPE1, Precision1::Confusion()) && aP2.IsEqual(aPE2, Precision1::Confusion()))
       {
         anArE.SetValue(i, anE);
         aFound = Standard_True;
@@ -262,7 +262,7 @@ void DNaming_Line3DDriver::LoadNamingDS(const DataLabel&              theResultL
       TopExp1::Vertices(anE, aV1, aV2);
       Point3d aPE1 = BRepInspector::Pnt(aV1);
       Point3d aPE2 = BRepInspector::Pnt(aV2);
-      if (aP1.IsEqual(aPE1, Precision::Confusion()) && aP2.IsEqual(aPE2, Precision::Confusion()))
+      if (aP1.IsEqual(aPE1, Precision1::Confusion()) && aP2.IsEqual(aPE2, Precision1::Confusion()))
       {
         anArE.SetValue(aLength, anE);
         aFound = Standard_True;

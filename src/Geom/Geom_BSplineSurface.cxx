@@ -528,7 +528,7 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
   if (uperiodic)
   {
     Standard_Real aUPeriod = uknots->Last() - uknots->First();
-    if (deltaU - aUPeriod > Precision::PConfusion())
+    if (deltaU - aUPeriod > Precision1::PConfusion())
       throw Standard_DomainError("Geom_BSplineSurface::Segment1");
     if (deltaU > aUPeriod)
       deltaU = aUPeriod;
@@ -538,7 +538,7 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
   if (vperiodic)
   {
     Standard_Real aVPeriod = vknots->Last() - vknots->First();
-    if (deltaV - aVPeriod > Precision::PConfusion())
+    if (deltaV - aVPeriod > Precision1::PConfusion())
       throw Standard_DomainError("Geom_BSplineSurface::Segment1");
     if (deltaV > aVPeriod)
       deltaV = aVPeriod;

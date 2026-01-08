@@ -112,21 +112,21 @@ public:
 
   //! Returns True if the point of  parameter <V> on the
   //! meridian is on the Axis. Default implementation is
-  //! Abs(MeridianValue(V).X()) < Precision::Confusion()
+  //! Abs(MeridianValue(V).X()) < Precision1::Confusion()
   Standard_EXPORT virtual Standard_Boolean MeridianOnAxis(const Standard_Real V) const;
 
   //! Returns True  if the  meridian is  closed. Default
   //! implementation                                  is
   //! MeridianValue(VMin).IsEqual(MeridianValue(VMax),
-  //! Precision::Confusion())
+  //! Precision1::Confusion())
   Standard_EXPORT virtual Standard_Boolean MeridianClosed() const;
 
   //! Returns  True   if  VMax    is  infinite.  Default
-  //! Precision::IsPositiveInfinite(VMax);
+  //! Precision1::IsPositiveInfinite(VMax);
   Standard_EXPORT virtual Standard_Boolean VMaxInfinite() const;
 
   //! Returns  True   if  VMin    is  infinite.  Default
-  //! Precision::IsNegativeInfinite(VMax);
+  //! Precision1::IsNegativeInfinite(VMax);
   Standard_EXPORT virtual Standard_Boolean VMinInfinite() const;
 
   //! Returns True if  there is  a top  face.
@@ -145,7 +145,7 @@ public:
 
   //! Returns True if  there are Start   and  End faces.
   //!
-  //! That is : 2*PI  - Angle > Precision::Angular()
+  //! That is : 2*PI  - Angle > Precision1::Angular()
   Standard_EXPORT virtual Standard_Boolean HasSides() const;
 
   //! Returns the Shell containing all the  Faces of the

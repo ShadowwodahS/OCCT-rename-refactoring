@@ -91,7 +91,7 @@ TopoFace BRepPrim_Cylinder::MakeEmptyLateralFace() const
 {
   Handle(Geom_CylindricalSurface) C = new Geom_CylindricalSurface(Axes(), myRadius);
   TopoFace                     F;
-  myBuilder.Builder().MakeFace(F, C, Precision::Confusion());
+  myBuilder.Builder().MakeFace(F, C, Precision1::Confusion());
   return F;
 }
 

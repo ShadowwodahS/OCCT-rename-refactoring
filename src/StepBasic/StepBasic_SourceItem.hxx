@@ -36,7 +36,7 @@ public:
   Standard_EXPORT StepBasic_SourceItem();
 
   //! Recognizes a kind of SourceItem select type
-  //! 1 -> HAsciiString from TCollection
+  //! 1 -> HAsciiString from TCollection1
   //! 0 else
   Standard_EXPORT Standard_Integer
     CaseNum(const Handle(RefObject)& ent) const Standard_OVERRIDE;

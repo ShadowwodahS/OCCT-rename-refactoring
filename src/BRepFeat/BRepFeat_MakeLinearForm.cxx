@@ -133,7 +133,7 @@ void BRepFeat_MakeLinearForm::Init(const TopoShape&       Sbase,
 #endif
 
   // ---Determine Tolerance : max tolerance on parameters
-  myTol = Precision::Confusion();
+  myTol = Precision1::Confusion();
 
   ShapeExplorer exx;
   exx.Init(myWire, TopAbs_VERTEX);
@@ -323,7 +323,7 @@ void BRepFeat_MakeLinearForm::Init(const TopoShape&       Sbase,
     }
   }
 
-  if (!myDir1.IsEqual(nulldir, Precision::Confusion(), Precision::Confusion()))
+  if (!myDir1.IsEqual(nulldir, Precision1::Confusion(), Precision1::Confusion()))
   {
     if (Sliding)
     {
@@ -931,7 +931,7 @@ void BRepFeat_MakeLinearForm::Perform()
 
   LocOpe_LinearForm theForm;
 
-  if (myDir1.IsEqual(nulldir, Precision::Confusion(), Precision::Confusion()))
+  if (myDir1.IsEqual(nulldir, Precision1::Confusion(), Precision1::Confusion()))
     theForm.Perform(myPbase, V, myFirstPnt, myLastPnt);
   else
     theForm.Perform(myPbase, V, myDir1, myFirstPnt, myLastPnt);

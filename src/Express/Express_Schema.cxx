@@ -228,7 +228,7 @@ void Express_Schema::Prepare()
       const Handle(Express_Alias) anAlias = Handle(Express_Alias)::DownCast(anItem);
       PrepareType(anAlias->Type());
       // for aliases, define package to avoid warnings
-      anAlias->SetPackageName("Standard");
+      anAlias->SetPackageName("Standard1");
       continue;
     }
     else if (anItem->IsKind(STANDARD_TYPE(Express_Select)))

@@ -317,7 +317,7 @@ static bool dumpShaderSource(const AsciiString1& theFileName,
                              bool                           theToBeautify)
 {
   SystemFile aFile(theFileName);
-  aFile.Build(OSD_WriteOnly, OSD_Protection());
+  aFile.Build(OSD_WriteOnly, Protection1());
   AsciiString1 aSource = theSource;
   if (theToBeautify)
   {
@@ -346,7 +346,7 @@ static bool restoreShaderSource(AsciiString1&       theSource,
                                 const AsciiString1& theFileName)
 {
   SystemFile aFile(theFileName);
-  aFile.Open(OSD_ReadOnly, OSD_Protection());
+  aFile.Open(OSD_ReadOnly, Protection1());
   if (!aFile.IsOpen())
   {
     Message1::SendFail(AsciiString1("File '") + theFileName
@@ -380,7 +380,7 @@ Standard_Boolean OpenGl_ShaderObject::updateDebugDump(const Handle(OpenGl_Contex
     SystemFile aFile(aFileName);
     if (aFile.Exists())
     {
-      const Quantity_Date aDate = aFile.AccessMoment();
+      const Date2 aDate = aFile.AccessMoment();
       if (aDate > myDumpDate)
       {
         AsciiString1 aNewSource;

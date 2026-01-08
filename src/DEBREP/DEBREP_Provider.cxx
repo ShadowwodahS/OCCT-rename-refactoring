@@ -102,7 +102,7 @@ bool DEBREP_Provider::Write(const AsciiString1&  thePath,
   {
     Message1::SendWarning()
       << "Warning in the DEBREP_Provider during writing the file " << thePath
-      << "\t: Target Units for writing were changed, but current format doesn't support scaling";
+      << "\t: Target Units2 for writing were changed, but current format doesn't support scaling";
   }
 
   if (aLabels.Length() == 1)
@@ -215,7 +215,7 @@ bool DEBREP_Provider::Write(const AsciiString1& thePath,
   {
     Message1::SendWarning()
       << "Warning in the DEBREP_Provider during writing the file " << thePath
-      << "\t: Target Units for writing were changed, but current format doesn't support scaling";
+      << "\t: Target Units2 for writing were changed, but current format doesn't support scaling";
   }
   if (aNode->InternalParameters.WriteBinary)
   {

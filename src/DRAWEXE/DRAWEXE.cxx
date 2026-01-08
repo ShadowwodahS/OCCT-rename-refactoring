@@ -95,7 +95,7 @@ public:
   {
   #if defined(__EMSCRIPTEN_PTHREADS__)
     std::string* aCmdPtr = new std::string(theCommand);
-    OSD_Thread   aThread(&evalAsyncEntry);
+    Thread   aThread(&evalAsyncEntry);
     aThread.Run(aCmdPtr);
   #else
     // fallback synchronous implementation
@@ -109,7 +109,7 @@ private:
   //! Thread entry for async command execution.
   static Standard_Address evalAsyncEntry(Standard_Address theData)
   {
-    OSD::SetSignal(false);
+    OSD1::SetSignal(false);
     std::string*      aCmdPtr = (std::string*)theData;
     const std::string aCmd    = *aCmdPtr;
     delete aCmdPtr;
@@ -292,7 +292,7 @@ void Draw_InitAppli(DrawInterpreter& theDI)
             "pload [[Key1] [Key2] ...]: Loads Draw1 plugins",
             __FILE__,
             Pload,
-            "Draw1 Plugin");
+            "Draw1 Plugin1");
 #endif
 }
 

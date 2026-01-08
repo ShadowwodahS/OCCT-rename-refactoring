@@ -104,7 +104,7 @@ Standard_Boolean ShapeFix_Wireframe::FixWireGaps()
     myShape = Context()->Apply(shape);
   }
 
-  Standard_Real                prec = (Precision() > 0.) ? Precision() : Precision::Confusion();
+  Standard_Real                prec = (Precision1() > 0.) ? Precision1() : Precision1::Confusion();
   TopTools_DataMapOfShapeShape cont;
   if (myShape.ShapeType() == TopAbs_COMPOUND)
   {
@@ -521,7 +521,7 @@ Standard_Boolean ShapeFix_Wireframe::CheckSmallEdges(
       TopoWire                  aW = TopoDS::Wire(itw.Value());
       Handle(ShapeExtend_WireData) aswd =
         new ShapeExtend_WireData(aW, Standard_True, Standard_False);
-      SAW.Init(aswd, face, Precision());
+      SAW.Init(aswd, face, Precision1());
       // pnd protection on seam edges
       TopTools_DataMapOfShapeInteger EdgeMap;
       Standard_Integer               i;
@@ -557,7 +557,7 @@ Standard_Boolean ShapeFix_Wireframe::CheckSmallEdges(
         // Check if current edge is small
         if (theSmallEdges.Contains(edge))
           theEdgeList.Append(edge);
-        else if (SAW.CheckSmall(i, Precision()))
+        else if (SAW.CheckSmall(i, Precision1()))
         {
           theSmallEdges.Add(edge);
           theEdgeList.Append(edge);
@@ -575,7 +575,7 @@ Standard_Boolean ShapeFix_Wireframe::CheckSmallEdges(
   //=========================================================================
   for (ShapeExplorer expw1(myShape, TopAbs_WIRE, TopAbs_FACE); expw1.More(); expw1.Next())
   {
-    SAW.SetPrecision(Precision());
+    SAW.SetPrecision(Precision1());
     TopTools_DataMapOfShapeInteger EdgeMap;
     Standard_Integer               i;
     TopoWire                    theWire = TopoDS::Wire(expw1.Current());
@@ -607,7 +607,7 @@ Standard_Boolean ShapeFix_Wireframe::CheckSmallEdges(
       // Check if current edge is small
       if (theSmallEdges.Contains(edge))
         theEdgeList.Append(edge);
-      else if (SAW.CheckSmall(i, Precision()))
+      else if (SAW.CheckSmall(i, Precision1()))
       {
         theSmallEdges.Add(edge);
         theEdgeList.Append(edge);
@@ -732,7 +732,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                     Vec1.Reverse();
                   if (edge2.Orientation() == TopAbs_REVERSED)
                     Vec2.Reverse();
-                  constexpr Standard_Real tol2 = Precision::SquareConfusion();
+                  constexpr Standard_Real tol2 = Precision1::SquareConfusion();
                   if (Vec1.SquareMagnitude() < tol2 || Vec2.SquareMagnitude() < tol2)
                     Ang1 = M_PI / 2.;
                   else
@@ -799,7 +799,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                 if (same_set1 && same_set2)
                 {
                   same_set = Standard_True;
-                  if (fabs(Ang2 - Ang1) > Precision::Angular())
+                  if (fabs(Ang2 - Ang1) > Precision1::Angular())
                     take_next = (Ang2 < Ang1);
                   if (take_next)
                   {
@@ -923,7 +923,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                     // Check for small resulting edge
                     Standard_Boolean   newsmall = Standard_False;
                     ShapeAnalysis_Wire SAW;
-                    SAW.Init(SFW->WireData(), face, Precision());
+                    SAW.Init(SFW->WireData(), face, Precision1());
                     // Make changes in WireData and Context
                     if (ReplaceFirst)
                     {
@@ -940,12 +940,12 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                     if (take_next)
                     {
                       SFW->WireData()->Set(edge3, next);
-                      newsmall = SAW.CheckSmall(next, Precision());
+                      newsmall = SAW.CheckSmall(next, Precision1());
                     }
                     else
                     {
                       SFW->WireData()->Set(edge3, prev);
-                      newsmall = SAW.CheckSmall(prev, Precision());
+                      newsmall = SAW.CheckSmall(prev, Precision1());
                     }
                     SFW->WireData()->Remove(index);
                     // Process changes in maps
@@ -998,7 +998,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                   tempWire->Remove(index);
                   tempSaw.Load(tempWire);
                   Standard_Integer newindex = (index <= tempSaw.NbEdges() ? index : 1);
-                  tempSaw.CheckConnected(newindex, Precision());
+                  tempSaw.CheckConnected(newindex, Precision1());
                   if (!tempSaw.LastCheckStatus(ShapeExtend_FAIL))
                   {
                     SFW->WireData()->Remove(index);
@@ -1011,7 +1011,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                     ShapeList aL2;
                     if (theEdgeToFaces.IsBound(tmpedge2))
                       aL2 = theEdgeToFaces.Find(tmpedge2);
-                    SFW->FixConnected(newindex <= SFW->NbEdges() ? newindex : 1, Precision());
+                    SFW->FixConnected(newindex <= SFW->NbEdges() ? newindex : 1, Precision1());
                     SFW->FixDegenerated(newindex <= SFW->NbEdges() ? newindex : 1);
                     TopoShape aTmpShape = Context()->Apply(tmpedge1); // for porting
                     TopoEdge  anewedge1 = TopoDS::Edge(aTmpShape);
@@ -1216,7 +1216,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
               Vec1.Reverse();
             if (edge2.Orientation() == TopAbs_REVERSED)
               Vec2.Reverse();
-            constexpr Standard_Real tol2 = Precision::SquareConfusion();
+            constexpr Standard_Real tol2 = Precision1::SquareConfusion();
             if (Vec1.SquareMagnitude() < tol2 || Vec2.SquareMagnitude() < tol2)
               Ang1 = M_PI / 2.;
             else
@@ -1281,7 +1281,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
           if (same_set1 && same_set2)
           {
             same_set = Standard_True;
-            if (fabs(Ang2 - Ang1) > Precision::Angular())
+            if (fabs(Ang2 - Ang1) > Precision1::Angular())
               take_next = (Ang2 < Ang1);
             if (take_next)
             {
@@ -1402,7 +1402,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
               Standard_Boolean   newsmall = Standard_False;
               ShapeAnalysis_Wire SAW;
               SAW.Load(SFW->WireData());
-              SAW.SetPrecision(Precision());
+              SAW.SetPrecision(Precision1());
               // Make changes in WireData and Context
               if (ReplaceFirst)
               {
@@ -1419,12 +1419,12 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
               if (take_next)
               {
                 SFW->WireData()->Set(edge3, next);
-                newsmall = SAW.CheckSmall(next, Precision());
+                newsmall = SAW.CheckSmall(next, Precision1());
               }
               else
               {
                 SFW->WireData()->Set(edge3, prev);
-                newsmall = SAW.CheckSmall(prev, Precision());
+                newsmall = SAW.CheckSmall(prev, Precision1());
               }
               SFW->WireData()->Remove(index);
               // Process changes in maps
@@ -1477,7 +1477,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
             tempWire->Remove(index);
             tempSaw.Load(tempWire);
             Standard_Integer newindex = (index <= tempSaw.NbEdges() ? index : 1);
-            tempSaw.CheckConnected(newindex, Precision());
+            tempSaw.CheckConnected(newindex, Precision1());
             if (!tempSaw.LastCheckStatus(ShapeExtend_FAIL))
             {
               SFW->WireData()->Remove(index);
@@ -1490,7 +1490,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
               ShapeList aL2;
               if (theEdgeToFaces.IsBound(tmpedge2))
                 aL2 = theEdgeToFaces.Find(tmpedge2);
-              SFW->FixConnected(newindex <= SFW->NbEdges() ? newindex : 1, Precision());
+              SFW->FixConnected(newindex <= SFW->NbEdges() ? newindex : 1, Precision1());
               SFW->FixDegenerated(newindex <= SFW->NbEdges() ? newindex : 1);
               TopoShape aTmpShape = Context()->Apply(tmpedge1); // for porting
               TopoEdge  anewedge1 = TopoDS::Edge(aTmpShape);

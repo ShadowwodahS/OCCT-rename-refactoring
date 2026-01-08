@@ -14,7 +14,7 @@
 
 //============================================================================
 //==== Title: Standard_Character.hxx
-//==== Role : The header file of primitive type "Character" from package "Standard"
+//==== Role : The header file of primitive type "Character" from package "Standard1"
 //====
 //==== Implementation:  This is a primitive type implemented as typedef
 //====        typedef char Standard_Character

@@ -24,12 +24,12 @@
 #include <Standard_Boolean.hxx>
 class AsciiString1;
 
-class Resource_LexicalCompare
+class LexicalCompare
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Resource_LexicalCompare();
+  Standard_EXPORT LexicalCompare();
 
   //! Returns True if <Left> is lower than <Right>.
   Standard_EXPORT Standard_Boolean IsLower(const AsciiString1& Left,

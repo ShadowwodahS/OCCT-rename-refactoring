@@ -134,7 +134,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     if (dedans)
     {
       ChamfRad = Spine.Radius() - Dis;
-      if (Abs(ChamfRad) < Precision::Confusion())
+      if (Abs(ChamfRad) < Precision1::Confusion())
         pointu = Standard_True;
       if (ChamfRad < 0)
       {
@@ -153,7 +153,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
 
     if (ouvert)
     {
-      if (Abs(angCon) - Abs(SemiAngl) > -Precision::Confusion())
+      if (Abs(angCon) - Abs(SemiAngl) > -Precision1::Confusion())
       {
 #ifdef OCCT_DEBUG
         std::cout << "wrong choice of angle for the chamfer" << std::endl;
@@ -170,7 +170,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     {
       SemiAngl = Abs(angCon) + Angle;
 
-      if ((M_PI / 2. - SemiAngl) < Precision::Confusion())
+      if ((M_PI / 2. - SemiAngl) < Precision1::Confusion())
       {
 #ifdef OCCT_DEBUG
         std::cout << "wrong choice of angle for the chamfer" << std::endl;
@@ -186,7 +186,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     {
       SemiAngl = Abs(angCon) - Angle;
 
-      if (Abs(SemiAngl) < Precision::Confusion())
+      if (Abs(SemiAngl) < Precision1::Confusion())
       {
         iscylinder = Standard_True;
         Dis1       = Dis * Abs(Sin(angCon));
@@ -196,7 +196,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
         Dis1 = Dis * Abs(Sin(angCon)) - move * Tan(SemiAngl);
       }
 
-      if (SemiAngl > Precision::Confusion())
+      if (SemiAngl > Precision1::Confusion())
         isConPar = Standard_True;
 
       if (dedans)
@@ -208,7 +208,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     {
       ChamfRad = Spine.Radius() - Dis1;
 
-      if (Abs(ChamfRad) < Precision::Confusion())
+      if (Abs(ChamfRad) < Precision1::Confusion())
         pointu = Standard_True;
       if (ChamfRad < 0)
       {
@@ -363,7 +363,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     // pcurve on cone
     Pt.SetCoord(Or.X() + Rad * Dx.X(), Or.Y() + Rad * Dx.Y(), Or.Z() + Rad * Dx.Z());
     ElSLib1::Parameters(Con, Pt, u, v);
-    Standard_Real tol = Precision::PConfusion();
+    Standard_Real tol = Precision1::PConfusion();
     if (u >= 2 * M_PI - tol && u <= 2 * M_PI)
       u = 0.;
     if (u >= fu - tol && u < fu)
@@ -386,7 +386,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     Dir3d norcon = deru.Crossed(derv);
 
     Dir3d DirCon = (Con.Axis()).Direction();
-    if (angCon > Precision::Confusion())
+    if (angCon > Precision1::Confusion())
       DirCon.Reverse();
     Standard_Boolean torevcon = (norcon.Dot(DirCon) < 0.);
 
@@ -560,7 +560,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
 
     Pt.SetCoord(Or.X() + Rad * Dx.X(), Or.Y() + Rad * Dx.Y(), Or.Z() + Rad * Dx.Z());
     ElSLib1::Parameters(Con, Pt, u, v);
-    Standard_Real tol = Precision::PConfusion();
+    Standard_Real tol = Precision1::PConfusion();
     if (u >= 2 * M_PI - tol && u <= 2 * M_PI)
       u = 0.;
     if (u >= fu - tol && u < fu)
@@ -584,9 +584,9 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
 
     Dir3d DirCon   = (Con.Axis()).Direction();
     Dir3d DirChamf = (gcon->Axis()).Direction();
-    if (angCon > Precision::Confusion())
+    if (angCon > Precision1::Confusion())
       DirCon.Reverse();
-    if (SemiAngl > Precision::Confusion())
+    if (SemiAngl > Precision1::Confusion())
       DirChamf.Reverse();
 
     Standard_Boolean torevcon = (norcon.Dot(DirCon) > 0.);

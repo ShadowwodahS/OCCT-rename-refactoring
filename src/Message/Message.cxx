@@ -103,30 +103,30 @@ Standard_Boolean Message1::MetricFromString(const Standard_CString theString,
 //=================================================================================================
 
 Standard_Boolean Message1::ToOSDMetric(const Message_MetricType theMetric,
-                                      OSD_MemInfo::Counter&    theMemInfo)
+                                      MemoryInfo::Counter&    theMemInfo)
 {
   switch (theMetric)
   {
     case Message_MetricType_MemPrivate:
-      theMemInfo = OSD_MemInfo::MemPrivate;
+      theMemInfo = MemoryInfo::MemPrivate;
       break;
     case Message_MetricType_MemVirtual:
-      theMemInfo = OSD_MemInfo::MemVirtual;
+      theMemInfo = MemoryInfo::MemVirtual;
       break;
     case Message_MetricType_MemWorkingSet:
-      theMemInfo = OSD_MemInfo::MemWorkingSet;
+      theMemInfo = MemoryInfo::MemWorkingSet;
       break;
     case Message_MetricType_MemWorkingSetPeak:
-      theMemInfo = OSD_MemInfo::MemWorkingSetPeak;
+      theMemInfo = MemoryInfo::MemWorkingSetPeak;
       break;
     case Message_MetricType_MemSwapUsage:
-      theMemInfo = OSD_MemInfo::MemSwapUsage;
+      theMemInfo = MemoryInfo::MemSwapUsage;
       break;
     case Message_MetricType_MemSwapUsagePeak:
-      theMemInfo = OSD_MemInfo::MemSwapUsagePeak;
+      theMemInfo = MemoryInfo::MemSwapUsagePeak;
       break;
     case Message_MetricType_MemHeapUsage:
-      theMemInfo = OSD_MemInfo::MemHeapUsage;
+      theMemInfo = MemoryInfo::MemHeapUsage;
       break;
     default:
       return Standard_False;
@@ -136,30 +136,30 @@ Standard_Boolean Message1::ToOSDMetric(const Message_MetricType theMetric,
 
 //=================================================================================================
 
-Standard_Boolean Message1::ToMessageMetric(const OSD_MemInfo::Counter theMemInfo,
+Standard_Boolean Message1::ToMessageMetric(const MemoryInfo::Counter theMemInfo,
                                           Message_MetricType&        theMetric)
 {
   switch (theMemInfo)
   {
-    case OSD_MemInfo::MemPrivate:
+    case MemoryInfo::MemPrivate:
       theMetric = Message_MetricType_MemPrivate;
       break;
-    case OSD_MemInfo::MemVirtual:
+    case MemoryInfo::MemVirtual:
       theMetric = Message_MetricType_MemVirtual;
       break;
-    case OSD_MemInfo::MemWorkingSet:
+    case MemoryInfo::MemWorkingSet:
       theMetric = Message_MetricType_MemWorkingSet;
       break;
-    case OSD_MemInfo::MemWorkingSetPeak:
+    case MemoryInfo::MemWorkingSetPeak:
       theMetric = Message_MetricType_MemWorkingSetPeak;
       break;
-    case OSD_MemInfo::MemSwapUsage:
+    case MemoryInfo::MemSwapUsage:
       theMetric = Message_MetricType_MemSwapUsage;
       break;
-    case OSD_MemInfo::MemSwapUsagePeak:
+    case MemoryInfo::MemSwapUsagePeak:
       theMetric = Message_MetricType_MemSwapUsagePeak;
       break;
-    case OSD_MemInfo::MemHeapUsage:
+    case MemoryInfo::MemHeapUsage:
       theMetric = Message_MetricType_MemHeapUsage;
       break;
     default:

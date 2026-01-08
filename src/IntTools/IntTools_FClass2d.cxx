@@ -95,7 +95,7 @@ void IntTools_FClass2d::Init(const TopoFace& aFace, const Standard_Real TolUV)
   TColgp_SequenceOfVec2d          aD1Prev;
   TColgp_SequenceOfVec2d          aD1Next;
   //
-  aPrCf    = Precision::Confusion();
+  aPrCf    = Precision1::Confusion();
   aPrCf2   = aPrCf * aPrCf;
   myIsHole = Standard_True;
   //
@@ -198,12 +198,12 @@ void IntTools_FClass2d::Init(const TopoFace& aFace, const Standard_Real TolUV)
       if (!degenerated)
       {
         // check that whole curve is located in vicinity of its middle point
-        // (within sphere of Precision::Confusion() diameter)
+        // (within sphere of Precision1::Confusion() diameter)
         C3d.Initialize(edge, Face);
         Point3d P3da           = C3d.Value(0.5 * (pfbid + plbid));
         du                    = plbid - pfbid;
         const int     NBSTEPS = 10;
-        Standard_Real aPrec2  = 0.25 * Precision::Confusion() * Precision::Confusion();
+        Standard_Real aPrec2  = 0.25 * Precision1::Confusion() * Precision1::Confusion();
         degenerated           = Standard_True;
         for (Standard_Integer i = 0; i <= NBSTEPS; i++)
         {
@@ -509,7 +509,7 @@ void IntTools_FClass2d::Init(const TopoFace& aFace, const Standard_Real TolUV)
         TabClass.Append(
           (void*)new Class2d(SeqPnt2d, FlecheU, FlecheV, Umin, Vmin, Umax, Vmax));
         //
-        if (Abs(aS) < Precision::SquareConfusion())
+        if (Abs(aS) < Precision1::SquareConfusion())
         {
           BadWire = 1;
           TabOrien.Append(-1);

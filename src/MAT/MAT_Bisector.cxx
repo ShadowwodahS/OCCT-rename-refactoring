@@ -25,8 +25,8 @@ IMPLEMENT_STANDARD_RTTIEXT(MAT_Bisector, RefObject)
 MAT_Bisector::MAT_Bisector()
 {
   thebisectornumber  = -1;
-  thefirstparameter  = Precision::Infinite();
-  thesecondparameter = Precision::Infinite();
+  thefirstparameter  = Precision1::Infinite();
+  thesecondparameter = Precision1::Infinite();
   thelistofbisectors = new MAT_ListOfBisector();
 }
 

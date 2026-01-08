@@ -23,7 +23,7 @@
 #include <TColgp_Array1OfPnt.hxx>
 
 class MeshVS_Mesh;
-class Quantity_Color;
+class Color1;
 class MeshVS_DataSource;
 class Transform3d;
 class Graphic3d_ArrayOfPrimitives;
@@ -41,7 +41,7 @@ public:
   Standard_EXPORT MeshVS_VectorPrsBuilder(
     const Handle(MeshVS_Mesh)&       Parent,
     const Standard_Real              MaxLength,
-    const Quantity_Color&            VectorColor,
+    const Color1&            VectorColor,
     const MeshVS_DisplayModeFlags&   Flags       = MeshVS_DMF_VectorDataPrs,
     const Handle(MeshVS_DataSource)& DS          = 0,
     const Standard_Integer           Id          = -1,
@@ -50,8 +50,8 @@ public:
 
   //! Builds vector data presentation
   Standard_EXPORT virtual void Build(const Handle(Prs3d_Presentation)& Prs,
-                                     const TColStd_PackedMapOfInteger& IDs,
-                                     TColStd_PackedMapOfInteger&       IDsToExclude,
+                                     const PackedIntegerMap& IDs,
+                                     PackedIntegerMap&       IDsToExclude,
                                      const Standard_Boolean            IsElement,
                                      const Standard_Integer theDisplayMode) const Standard_OVERRIDE;
 

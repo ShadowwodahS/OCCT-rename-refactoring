@@ -27,8 +27,8 @@ static char typeval[30]; // une seule reponse a la fois ...
 IGESSelect_IGESTypeForm::IGESSelect_IGESTypeForm(const Standard_Boolean withform)
     // JR/Hp
     : IFSelect_Signature(
-        (Standard_CString)(withform ? "IGES Type & Form Numbers" : "IGES Type Number"))
-//: IFSelect_Signature (withform ? "IGES Type & Form Numbers" : "IGES Type Number")
+        (Standard_CString)(withform ? "IGES Type & Form Numbers1" : "IGES Type Number"))
+//: IFSelect_Signature (withform ? "IGES Type & Form Numbers1" : "IGES Type Number")
 {
   theform = withform;
 }
@@ -39,11 +39,11 @@ void IGESSelect_IGESTypeForm::SetForm(const Standard_Boolean withform)
   thename.Clear();
   // JR/Hp
   Standard_CString astr =
-    (Standard_CString)(withform ? "IGES Type & Form Numbers" : "IGES Type Number");
+    (Standard_CString)(withform ? "IGES Type & Form Numbers1" : "IGES Type Number");
   thename.AssignCat(astr);
 }
 
-//         thename.AssignCat (withform ? "IGES Type & Form Numbers" : "IGES Type Number") ;
+//         thename.AssignCat (withform ? "IGES Type & Form Numbers1" : "IGES Type Number") ;
 
 Standard_CString IGESSelect_IGESTypeForm::Value(
   const Handle(RefObject)& ent,

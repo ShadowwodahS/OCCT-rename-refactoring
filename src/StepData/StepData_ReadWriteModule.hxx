@@ -35,7 +35,7 @@ DEFINE_STANDARD_HANDLE(StepData_ReadWriteModule, Interface_ReaderModule)
 //! That is : ReaderModule (Recognize & Read) + Write for
 //! StepWriter (for a more centralized description)
 //! Warning : A sub-class of ReadWriteModule, which belongs to a particular
-//! Protocol, must use the same definition for Case Numbers (give
+//! Protocol, must use the same definition for Case Numbers1 (give
 //! the same Value for a StepType defined as a String from a File
 //! as the Protocol does for the corresponding Entity)
 class StepData_ReadWriteModule : public Interface_ReaderModule
@@ -52,7 +52,7 @@ public:
   Standard_EXPORT Standard_Integer CaseNum(const Handle(Interface_FileReaderData)& data,
                                            const Standard_Integer num) const Standard_OVERRIDE;
 
-  //! Defines Case Numbers corresponding to the recognized Types
+  //! Defines Case Numbers1 corresponding to the recognized Types
   //! Called by CaseNum (data,num) above for a Simple Type Entity
   //! Warning : CaseStep must give the same Value as Protocol does for the
   //! Entity type which corresponds to this Type given as a String

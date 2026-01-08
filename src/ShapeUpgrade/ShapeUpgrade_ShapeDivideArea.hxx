@@ -43,7 +43,7 @@ public:
   Standard_Integer& NbParts();
 
   //! Set fixed numbers of splits in U and V directions.
-  //! Only for "Splitting By Numbers" mode
+  //! Only for "Splitting By Numbers1" mode
   void SetNumbersUVSplits(const Standard_Integer theNbUsplits, const Standard_Integer theNbVsplits);
 
   //! Set splitting mode

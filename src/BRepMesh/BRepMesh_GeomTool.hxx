@@ -60,7 +60,7 @@ public:
                                     const Standard_Real      theLinDeflection,
                                     const Standard_Real      theAngDeflection,
                                     const Standard_Integer   theMinPointsNb = 2,
-                                    const Standard_Real      theMinSize = Precision::Confusion());
+                                    const Standard_Real      theMinSize = Precision1::Confusion());
 
   //! Constructor.
   //! Initiates discretization of geometric curve corresponding
@@ -81,7 +81,7 @@ public:
                                     const Standard_Real                theLinDeflection,
                                     const Standard_Real                theAngDeflection,
                                     const Standard_Integer             theMinPointsNb = 2,
-                                    const Standard_Real theMinSize = Precision::Confusion());
+                                    const Standard_Real theMinSize = Precision1::Confusion());
 
   //! Adds point to already calculated points (or replaces existing).
   //! @param thePoint point to be added.
@@ -185,7 +185,7 @@ public: //! @name static API
                                                  const Point3d& theMidPoint)
   {
     // 23.03.2010 skl for OCC21645 - change precision for comparison
-    if (theFirstPoint.SquareDistance(theLastPoint) > Precision::SquareConfusion())
+    if (theFirstPoint.SquareDistance(theLastPoint) > Precision1::SquareConfusion())
     {
       gp_Lin aLin(theFirstPoint, Dir3d(Vector3d(theFirstPoint, theLastPoint)));
       return aLin.SquareDistance(theMidPoint);

@@ -23,7 +23,7 @@
 enum PCDM_StoreStatus
 {
   PCDM_SS_OK,                 //!< Document is saved successfully
-  PCDM_SS_DriverFailure,      //!< Storage driver is not found
+  PCDM_SS_DriverFailure,      //!< Storage1 driver is not found
   PCDM_SS_WriteFailure,       //!< Attempt to write a file on disk failed
   PCDM_SS_Failure,            //!< A general error occurred (unexpected)
   PCDM_SS_Doc_IsNull,         //!< Attempt to save a null document

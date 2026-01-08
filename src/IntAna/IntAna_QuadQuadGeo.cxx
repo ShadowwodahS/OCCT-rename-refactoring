@@ -72,7 +72,7 @@ public:
   AxeOperator(const Axis3d&       A1,
               const Axis3d&       A2,
               const Standard_Real theEpsDistance = 1.e-14,
-              const Standard_Real theEpsAxesPara = Precision::Angular());
+              const Standard_Real theEpsAxesPara = Precision1::Angular());
 
   void Distance(Standard_Real& dist, Standard_Real& Param1, Standard_Real& Param2);
 
@@ -262,14 +262,14 @@ Frame3d DirToAx2(const Point3d& P, const Dir3d& D)
 Standard_Real EstimDist(const Cone1& theCon1, const Cone1& theCon2)
 {
   // It is supposed that axes of cones are coplanar and
-  // distance between them > Precision::Confusion()
+  // distance between them > Precision1::Confusion()
   Point3d aPA1 = theCon1.Apex(), aPA2 = theCon2.Apex();
 
   Point3d aP3 = aPA1.Translated(theCon1.Position1().Direction());
 
   gce_MakePln aMkPln(aPA1, aPA2, aP3);
   if (!aMkPln.IsDone())
-    return Precision::Infinite();
+    return Precision1::Infinite();
 
   const gp_Pln& aPln = aMkPln.Value();
 
@@ -294,7 +294,7 @@ Standard_Real EstimDist(const Cone1& theCon1, const Cone1& theCon2)
   Handle(Geom2d_Line) L21 = new Geom2d_Line(Lines2[1]);
 #endif
 
-  Standard_Real            aMinDist[2] = {Precision::Infinite(), Precision::Infinite()};
+  Standard_Real            aMinDist[2] = {Precision1::Infinite(), Precision1::Infinite()};
   Standard_Integer         i, j, k;
   AnalyticIntersection2d anInter;
   for (i = 0; i < 2; ++i)
@@ -350,11 +350,11 @@ QuadQuadGeoIntersection::QuadQuadGeoIntersection(void)
 void QuadQuadGeoIntersection::InitTolerances()
 {
   myEPSILON_DISTANCE                = 1.0e-14;
-  myEPSILON_ANGLE_CONE              = Precision::Angular();
-  myEPSILON_MINI_CIRCLE_RADIUS      = 0.01 * Precision::Confusion();
+  myEPSILON_ANGLE_CONE              = Precision1::Angular();
+  myEPSILON_MINI_CIRCLE_RADIUS      = 0.01 * Precision1::Confusion();
   myEPSILON_CYLINDER_DELTA_RADIUS   = 1.0e-13;
-  myEPSILON_CYLINDER_DELTA_DISTANCE = Precision::Confusion();
-  myEPSILON_AXES_PARA               = Precision::Angular();
+  myEPSILON_CYLINDER_DELTA_DISTANCE = Precision1::Confusion();
+  myEPSILON_AXES_PARA               = Precision1::Angular();
 }
 
 //=================================================================================================
@@ -1801,7 +1801,7 @@ void QuadQuadGeoIntersection::Perform(const Cone1& Con1, const Cone1& Con2, cons
 
     Dir3d aD2(aD1.Crossed(aGen.Direction()));
 
-    if (aD1.IsParallel(aGen2.Direction(), Precision::Angular()))
+    if (aD1.IsParallel(aGen2.Direction(), Precision1::Angular()))
     {
       aN = aD1.Crossed(aD2);
     }

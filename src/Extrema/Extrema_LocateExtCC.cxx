@@ -27,8 +27,8 @@ Extrema_LocateExtCC::Extrema_LocateExtCC(const Adaptor3d_Curve& C1,
                                          const Standard_Real    V0)
     : mySqDist(RealLast())
 {
-  Standard_Real   TolU = C1.Resolution(Precision::Confusion());
-  Standard_Real   TolV = C2.Resolution(Precision::Confusion());
+  Standard_Real   TolU = C1.Resolution(Precision1::Confusion());
+  Standard_Real   TolV = C2.Resolution(Precision1::Confusion());
   PointOnCurve1 P1, P2;
 
   // Non implemente pour l instant: l appel a Extrema_ELCC.

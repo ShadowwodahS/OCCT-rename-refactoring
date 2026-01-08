@@ -168,7 +168,7 @@ class Message_ProgressIndicator;
 //!   for (Standard_Integer i = 0; i < aData.size(); ++i)
 //!     aTasks.push_back (Task (aData[i], aPS.Next()));
 //!
-//!   OSD_Parallel::ForEach (aTasks.begin(), aTasks.end(), Functor());
+//!   Parallel1::ForEach (aTasks.begin(), aTasks.end(), Functor());
 //! }
 //! @endcode
 //!
@@ -268,14 +268,14 @@ public:             //! @name Preparation methods
   {
     if (myIsOwnName)
     {
-      Standard::Free(myName);
+      Standard1::Free(myName);
       myIsOwnName = false;
     }
     myName = NULL;
     if (!theName.IsEmpty())
     {
       myIsOwnName = true;
-      myName = (char*)Standard::AllocateOptimal(Standard_Size(theName.Length()) + Standard_Size(1));
+      myName = (char*)Standard1::AllocateOptimal(Standard_Size(theName.Length()) + Standard_Size(1));
       char* aName = (char*)myName;
       memcpy(aName, theName.ToCString(), theName.Length());
       aName[theName.Length()] = '\0';
@@ -291,7 +291,7 @@ public:             //! @name Preparation methods
   {
     if (myIsOwnName)
     {
-      Standard::Free(myName);
+      Standard1::Free(myName);
       myIsOwnName = false;
     }
     myName = theName;
@@ -352,7 +352,7 @@ public: //! @name Destruction, allocation
     Close();
     if (myIsOwnName)
     {
-      Standard::Free(myName);
+      Standard1::Free(myName);
       myIsOwnName = false;
       myName      = NULL;
     }
@@ -509,7 +509,7 @@ inline void Message_ProgressScope::Close()
 
   // Advance indicator to the end of the scope
   Standard_Real aCurr  = localToGlobal(myValue);
-  myValue              = (myIsInfinite ? Precision::Infinite() : myMax);
+  myValue              = (myIsInfinite ? Precision1::Infinite() : myMax);
   Standard_Real aDelta = myPortion - aCurr;
   if (aDelta > 0.)
   {
@@ -592,7 +592,7 @@ inline Standard_Real Message_ProgressScope::Value() const
 {
   if (!myIsActive)
   {
-    return myIsInfinite ? Precision::Infinite() : myMax;
+    return myIsInfinite ? Precision1::Infinite() : myMax;
   }
 
   // get current progress on the global scale counted
@@ -605,13 +605,13 @@ inline Standard_Real Message_ProgressScope::Value() const
 
   // if at end of the scope (or behind), report the maximum
   Standard_Real aDist = myPortion - aVal;
-  if (aDist <= Precision::Confusion())
-    return myIsInfinite ? Precision::Infinite() : myMax;
+  if (aDist <= Precision1::Confusion())
+    return myIsInfinite ? Precision1::Infinite() : myMax;
 
   // map the value to the range of this scope [0, Max],
   // rounding up to integer, with small correction applied
   // to avoid rounding errors
-  return std::ceil(myMax * aVal / (myIsInfinite ? aDist : myPortion) - Precision::Confusion());
+  return std::ceil(myMax * aVal / (myIsInfinite ? aDist : myPortion) - Precision1::Confusion());
 }
 
 #endif // _Message_ProgressScope_HeaderFile

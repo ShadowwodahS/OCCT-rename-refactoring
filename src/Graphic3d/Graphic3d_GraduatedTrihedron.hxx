@@ -38,8 +38,8 @@ public:
   {
   public:
     AxisAspect(const UtfString theName            = "",
-               const Quantity_Color             theNameColor       = Quantity_NOC_BLACK,
-               const Quantity_Color             theColor           = Quantity_NOC_BLACK,
+               const Color1             theNameColor       = Quantity_NOC_BLACK,
+               const Color1             theColor           = Quantity_NOC_BLACK,
                const Standard_Integer           theValuesOffset    = 10,
                const Standard_Integer           theNameOffset      = 30,
                const Standard_Integer           theTickmarksNumber = 5,
@@ -77,15 +77,15 @@ public:
 
     void SetDrawValues(const Standard_Boolean theToDraw) { myToDrawValues = theToDraw; }
 
-    const Quantity_Color& NameColor() const { return myNameColor; }
+    const Color1& NameColor() const { return myNameColor; }
 
-    void SetNameColor(const Quantity_Color& theColor) { myNameColor = theColor; }
+    void SetNameColor(const Color1& theColor) { myNameColor = theColor; }
 
     //! Color of axis and values
-    const Quantity_Color& Color() const { return myColor; }
+    const Color1& Color() const { return myColor; }
 
     //! Sets color of axis and values
-    void SetColor(const Quantity_Color& theColor) { myColor = theColor; }
+    void SetColor(const Color1& theColor) { myColor = theColor; }
 
     Standard_Integer TickmarksNumber() const { return myTickmarksNumber; }
 
@@ -110,11 +110,11 @@ public:
     Standard_Boolean myToDrawTickmarks;
     Standard_Boolean myToDrawValues;
 
-    Quantity_Color myNameColor;
+    Color1 myNameColor;
 
     Standard_Integer myTickmarksNumber; //!< Number of splits along axes
     Standard_Integer myTickmarksLength; //!< Length of tickmarks
-    Quantity_Color   myColor;           //!< Color of axis and values
+    Color1   myColor;           //!< Color of axis and values
 
     Standard_Integer myValuesOffset; //!< Offset for drawing values
     Standard_Integer myNameOffset;   //!< Offset for drawing name of axis
@@ -133,7 +133,7 @@ public:
                                const Font_FontAspect&         theValuesStyle  = Font_FA_Regular,
                                const Standard_Integer         theValuesSize   = 12,
                                const Standard_ShortReal       theArrowsLength = 30.0f,
-                               const Quantity_Color           theGridColor    = Quantity_NOC_WHITE,
+                               const Color1           theGridColor    = Quantity_NOC_WHITE,
                                const Standard_Boolean         theToDrawGrid   = Standard_True,
                                const Standard_Boolean         theToDrawAxes   = Standard_True)
       : myCubicAxesCallback(NULL),
@@ -187,9 +187,9 @@ public:
 
   void SetArrowsLength(const Standard_ShortReal theValue) { myArrowsLength = theValue; }
 
-  const Quantity_Color& GridColor() const { return myGridColor; }
+  const Color1& GridColor() const { return myGridColor; }
 
-  void SetGridColor(const Quantity_Color& theColor) { myGridColor = theColor; }
+  void SetGridColor(const Color1& theColor) { myGridColor = theColor; }
 
   Standard_Boolean ToDrawGrid() const { return myToDrawGrid; }
 
@@ -240,7 +240,7 @@ public:
 
 protected:
   // clang-format off
-  MinMaxValuesCallback myCubicAxesCallback; //!< Callback function to define boundary box of displayed objects
+  MinMaxValuesCallback myCubicAxesCallback; //!< Callback1 function to define boundary box of displayed objects
 
   AsciiString1 myNamesFont;  //!< Font name of names of axes: Courier, Arial, ...
   Font_FontAspect         myNamesStyle; //!< Style of names of axes: OSD_FA_Regular, OSD_FA_Bold,..
@@ -254,7 +254,7 @@ protected:
 
 protected:
   Standard_ShortReal myArrowsLength;
-  Quantity_Color     myGridColor;
+  Color1     myGridColor;
 
   Standard_Boolean myToDrawGrid;
   Standard_Boolean myToDrawAxes;

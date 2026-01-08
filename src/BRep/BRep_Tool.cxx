@@ -134,7 +134,7 @@ Standard_Real BRepInspector::Tolerance(const TopoFace& F)
 {
   const BRep_TFace*       TF   = static_cast<const BRep_TFace*>(F.TShape().get());
   Standard_Real           p    = TF->Tolerance();
-  constexpr Standard_Real pMin = Precision::Confusion();
+  constexpr Standard_Real pMin = Precision1::Confusion();
   if (p > pMin)
     return p;
   else
@@ -820,7 +820,7 @@ Standard_Real BRepInspector::Tolerance(const TopoEdge& E)
 {
   const BRep_TEdge*       TE   = static_cast<const BRep_TEdge*>(E.TShape().get());
   Standard_Real           p    = TE->Tolerance();
-  constexpr Standard_Real pMin = Precision::Confusion();
+  constexpr Standard_Real pMin = Precision1::Confusion();
   if (p > pMin)
     return p;
   else
@@ -1262,7 +1262,7 @@ Standard_Real BRepInspector::Tolerance(const TopoVertex& V)
   }
 
   Standard_Real           p    = aTVert->Tolerance();
-  constexpr Standard_Real pMin = Precision::Confusion();
+  constexpr Standard_Real pMin = Precision1::Confusion();
   if (p > pMin)
     return p;
   else
@@ -1355,12 +1355,12 @@ Standard_Boolean BRepInspector::Parameter(const TopoVertex& theV,
           if (!C.IsNull())
           {
             // Closed curves RLE 16 june 94
-            if (Precision::IsNegativeInfinite(f))
+            if (Precision1::IsNegativeInfinite(f))
             {
               theParam = pr->Parameter(); // p;
               return Standard_True;
             };
-            if (Precision::IsPositiveInfinite(l))
+            if (Precision1::IsPositiveInfinite(l))
             {
               theParam = pr->Parameter(); // p;
               return Standard_True;
@@ -1537,9 +1537,9 @@ Standard_Real BRepInspector::Parameter(const TopoVertex&        V,
         if (!C.IsNull())
         {
           // Closed curves RLE 16 june 94
-          if (Precision::IsNegativeInfinite(f))
+          if (Precision1::IsNegativeInfinite(f))
             return res;
-          if (Precision::IsPositiveInfinite(l))
+          if (Precision1::IsPositiveInfinite(l))
             return res;
           Point3d        Pf  = C->Value(f).Transformed(L1.Transformation());
           Point3d        Pl  = C->Value(l).Transformed(L1.Transformation());

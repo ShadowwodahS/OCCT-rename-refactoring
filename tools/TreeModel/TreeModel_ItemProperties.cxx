@@ -48,8 +48,8 @@ void TreeModel_ItemProperties::Init()
 void TreeModel_ItemProperties::InitByStream(const Standard_SStream& aStream)
 {
   NCollection_IndexedDataMap<AsciiString1, Standard_DumpValue> aValues;
-  AsciiString1 aStreamText = Standard_Dump::Text(aStream);
-  Standard_Dump::SplitJson(aStreamText, aValues);
+  AsciiString1 aStreamText = DumpTool::Text(aStream);
+  DumpTool::SplitJson(aStreamText, aValues);
 
   TreeModel_ItemStreamPtr aStreamParent = itemDynamicCast<TreeModel_ItemStream>(Item());
   AsciiString1 aKey;
@@ -83,13 +83,13 @@ void TreeModel_ItemProperties::InitByStream(const Standard_SStream& aStream)
     myStreamValue = aKeyValue;
 
     aValues.Clear();
-    Standard_Dump::SplitJson(myStreamValue.myValue, aValues);
+    DumpTool::SplitJson(myStreamValue.myValue, aValues);
   }
 
   for (Standard_Integer anIndex = 1; anIndex <= aValues.Size(); anIndex++)
   {
     Standard_DumpValue aValue = aValues.FindFromIndex(anIndex);
-    if (Standard_Dump::HasChildKey(aValue.myValue))
+    if (DumpTool::HasChildKey(aValue.myValue))
       myChildren.Add(aValues.FindKey(anIndex), aValue);
     else
     {
@@ -101,7 +101,7 @@ void TreeModel_ItemProperties::InitByStream(const Standard_SStream& aStream)
   }
   if (myRowValues.Size() == 1)
   {
-    Quantity_Color aColor;
+    Color1 aColor;
     if (Convert_Tools::ConvertStreamToColor(aStream, aColor))
     {
       Standard_Real aRed, aGreen, aBlue;
@@ -190,7 +190,7 @@ ViewControl_EditType TreeModel_ItemProperties::EditType(const int, const int the
   if (theColumn == 0)
     return ViewControl_EditType_None;
 
-  Quantity_Color aColor;
+  Color1 aColor;
   if (Convert_Tools::ConvertStreamToColor(Item()->Stream(), aColor))
   {
     return ViewControl_EditType_Color;
@@ -242,7 +242,7 @@ bool TreeModel_ItemProperties::SetData(const int       theRow,
   {
     AsciiString1 aStreamValue(theValue.toString().toStdString().c_str());
     NCollection_IndexedDataMap<AsciiString1, Standard_DumpValue> aKeyToValues;
-    if (Standard_Dump::SplitJson(aStreamValue, aKeyToValues))
+    if (DumpTool::SplitJson(aStreamValue, aKeyToValues))
     {
       Standard_SStream aStream;
       aStream << aStreamValue.ToCString();
@@ -270,7 +270,7 @@ bool TreeModel_ItemProperties::SetData(const int       theRow,
     if (ReplaceValue(aFromValue, aStreamValue, myStreamValue))
     {
       aStreamValue = myStreamValue.myValue;
-      if (Standard_Dump::SplitJson(aStreamValue, aKeyToValues))
+      if (DumpTool::SplitJson(aStreamValue, aKeyToValues))
       {
         Standard_DumpValue aValue            = aKeyToValues.FindFromIndex(1);
         myRowValues.ChangeFromIndex(1).Value = aValue.myValue.ToCString();

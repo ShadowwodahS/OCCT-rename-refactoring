@@ -35,7 +35,7 @@ void StepRepr_GlobalUnitAssignedContext::SetUnits(
   units = aUnits;
 }
 
-Handle(StepBasic_HArray1OfNamedUnit) StepRepr_GlobalUnitAssignedContext::Units() const
+Handle(StepBasic_HArray1OfNamedUnit) StepRepr_GlobalUnitAssignedContext::Units2() const
 {
   return units;
 }

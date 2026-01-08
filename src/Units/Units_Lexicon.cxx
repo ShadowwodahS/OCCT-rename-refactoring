@@ -36,11 +36,11 @@ struct LexiconItem
 
 //! Lexicon table.
 //!
-//! Original table (UnitsAPI/Lexi_Expr.dat) used symbols from extended ASCII,
+//! Original table (UnitsAPI1/Lexi_Expr.dat) used symbols from extended ASCII,
 //! which should not be used within UTF-8 text.
 //!
 //! This table preserves these codes for compatibility.
-//! UTF-8 items might be uncommented after updating UnitsAPI/Units.dat
+//! UTF-8 items might be uncommented after updating UnitsAPI1/Units2.dat
 //! and analysis of further consequences.
 static const LexiconItem THE_LEXICON[] = {
   // scope

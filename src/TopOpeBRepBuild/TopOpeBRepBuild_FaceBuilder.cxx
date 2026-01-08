@@ -152,7 +152,7 @@ Standard_Integer FUN_AnalyzemapVon1E(const TopTools_IndexedDataMapOfShapeShape& 
     // Finding among all vertices,couple of vertices falling on same
     // geometry.
     // Filling up map <mapVV>,with (vi,vj),vi and vj are on same point.
-    Standard_Real tol = Precision::Confusion();
+    Standard_Real tol = Precision1::Confusion();
     for (Standard_Integer i = 1; i <= nV; i++)
     {
       const TopoVertex& vi = TopoDS::Vertex(mapVon1E.FindKey(i));

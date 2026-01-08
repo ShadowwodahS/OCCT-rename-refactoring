@@ -113,13 +113,13 @@ public:
 
   //! Returns the value of the first parameter.
   //! Warnings :
-  //! It can be RealFirst from package Standard
+  //! It can be RealFirst from package Standard1
   //! if the curve is infinite
   Standard_EXPORT virtual Standard_Real FirstParameter() const = 0;
 
   //! Returns the value of the last parameter.
   //! Warnings :
-  //! It can be RealLast from package Standard
+  //! It can be RealLast from package Standard1
   //! if the curve is infinite
   Standard_EXPORT virtual Standard_Real LastParameter() const = 0;
 

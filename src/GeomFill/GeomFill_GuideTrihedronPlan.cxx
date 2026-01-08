@@ -535,7 +535,7 @@ void GeomFill_GuideTrihedronPlan::Intervals(TColStd_Array1OfReal& TT, const Geom
 
 void GeomFill_GuideTrihedronPlan::SetInterval(const Standard_Real First, const Standard_Real Last)
 {
-  myTrimmed = myCurve->Trim(First, Last, Precision::Confusion());
+  myTrimmed = myCurve->Trim(First, Last, Precision1::Confusion());
 }
 
 //=================================================================================================

@@ -377,7 +377,7 @@ static Standard_Integer project(DrawInterpreter& di, Standard_Integer n, const c
   if (GC.IsNull())
     return 1;
 
-  Standard_Real tolerance = Precision::Confusion();
+  Standard_Real tolerance = Precision1::Confusion();
 
   Standard_Real U1, U2, V1, V2;
   GS->Bounds(U1, U2, V1, V2);
@@ -907,7 +907,7 @@ Standard_Real CompLocalDev(const Adaptor3d_Curve& theCurve,
     return Sqrt(-dmin);
   }
 
-  BrentMinimumSolver anOptLoc(Precision::PConfusion());
+  BrentMinimumSolver anOptLoc(Precision1::PConfusion());
   anOptLoc.Perform(aFunc1, x1, aT(1), x2);
 
   if (anOptLoc.IsDone())
@@ -999,7 +999,7 @@ static Standard_Integer crvpoints(DrawInterpreter& di, Standard_Integer /*n*/, c
 static Standard_Integer crvtpoints(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   Standard_Integer i, nbp, aMinPntsNb = 2;
-  Standard_Real    defl, angle = Precision::Angular();
+  Standard_Real    defl, angle = Precision1::Angular();
 
   Handle(Adaptor3d_Curve) aHCurve;
   Handle(GeomCurve3d)      C = DrawTrSurf1::GetCurve(a[2]);
@@ -1101,12 +1101,12 @@ static Standard_Integer uniformAbscissa(DrawInterpreter& di, Standard_Integer n,
 
   try
   {
-    GeomLProp_CLProps Prop(ellip, 2, Precision::Intersection());
+    GeomLProp_CLProps Prop(ellip, 2, Precision1::Intersection());
     Prop.SetCurve(ellip);
 
     GeomAdaptor_Curve GAC(ellip);
     di << "Type Of curve: " << GAC.GetType() << "\n";
-    constexpr Standard_Real Tol = Precision::Confusion();
+    constexpr Standard_Real Tol = Precision1::Confusion();
     Standard_Real           L;
 
     L = GCPnts_AbscissaPoint::Length(GAC, GAC.FirstParameter(), GAC.LastParameter(), Tol);
@@ -1125,7 +1125,7 @@ static Standard_Integer uniformAbscissa(DrawInterpreter& di, Standard_Integer n,
 
   catch (ExceptionBase const&)
   {
-    di << " Standard Failure  \n";
+    di << " Standard1 Failure  \n";
   }
   return 0;
 }
@@ -1174,17 +1174,17 @@ static Standard_Integer EllipsUniformAbscissa(DrawInterpreter& di,
 
   catch (ExceptionBase const&)
   {
-    di << " Standard Failure  \n";
+    di << " Standard1 Failure  \n";
   }
 
   try
   {
-    GeomLProp_CLProps Prop(ellip, 2, Precision::Intersection());
+    GeomLProp_CLProps Prop(ellip, 2, Precision1::Intersection());
     Prop.SetCurve(ellip);
 
     GeomAdaptor_Curve GAC(ellip);
     di << "Type Of curve: " << GAC.GetType() << "\n";
-    constexpr Standard_Real Tol = Precision::Confusion();
+    constexpr Standard_Real Tol = Precision1::Confusion();
     Standard_Real           L;
 
     L = GCPnts_AbscissaPoint::Length(GAC, GAC.FirstParameter(), GAC.LastParameter(), Tol);
@@ -1203,7 +1203,7 @@ static Standard_Integer EllipsUniformAbscissa(DrawInterpreter& di,
 
   catch (ExceptionBase const&)
   {
-    di << " Standard Failure  \n";
+    di << " Standard1 Failure  \n";
   }
   return 0;
 }
@@ -1274,7 +1274,7 @@ static Standard_Integer discrCurve(DrawInterpreter& di,
   }
 
   GeomAdaptor_Curve      aCurveAdaptor(aCurve);
-  GCPnts_UniformAbscissa aSplitter(aCurveAdaptor, aSrcNbPnts, Precision::Confusion());
+  GCPnts_UniformAbscissa aSplitter(aCurveAdaptor, aSrcNbPnts, Precision1::Confusion());
   if (!aSplitter.IsDone())
   {
     di << "Error: Invalid result.\n";
@@ -1526,7 +1526,7 @@ static Standard_Integer intersection(DrawInterpreter& di, Standard_Integer n, co
     return 1;
 
   //
-  Standard_Real tol = Precision::Confusion();
+  Standard_Real tol = Precision1::Confusion();
   if (n == 5 || n == 9 || n == 13 || n == 17)
     tol = Draw1::Atof(a[n - 1]);
 

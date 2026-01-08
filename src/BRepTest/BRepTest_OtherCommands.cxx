@@ -317,7 +317,7 @@ Standard_Integer brepintcs(DrawInterpreter& di, Standard_Integer n, const char**
   if (indshape < n - 1)
   {
     Standard_Real preci = atof(a[n - 1]);
-    if (preci >= Precision::Confusion())
+    if (preci >= Precision1::Confusion())
       tol = preci;
   }
   int             nbpi = 0;
@@ -582,7 +582,7 @@ TopoFace NextFaceForPrism(const TopoShape& shape,
     {
       Standard_Integer        no = 1, IndFrom, IndTo;
       TopAbs_Orientation      theOr;
-      constexpr Standard_Real min = 1.e-04, Tol = -Precision::Confusion();
+      constexpr Standard_Real min = 1.e-04, Tol = -Precision1::Confusion();
       if (ASI.LocalizeAfter(no, min, Tol, theOr, IndFrom, IndTo))
       {
         nextFace = ASI.Point(no, IndFrom).Face();

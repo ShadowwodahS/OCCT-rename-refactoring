@@ -388,7 +388,7 @@ public:
   //! This function retrieves information from GL about free GPU memory that is:
   //!  - OS-dependent. On some OS it is per-process and on others - for entire system.
   //!  - Vendor-dependent. Currently available only on NVIDIA and AMD/ATi drivers only.
-  //!  - Numbers meaning may vary.
+  //!  - Numbers1 meaning may vary.
   //! You should use this info only for diagnostics purposes.
   //! @return free GPU dedicated memory in bytes.
   Standard_EXPORT Standard_Size AvailableMemory() const;
@@ -585,7 +585,7 @@ public:
   }
 
   //! Convert Quantity_ColorRGBA into vec4.
-  //! Quantity_Color is expected to be linear RGB, hence conversion is NOT required
+  //! Color1 is expected to be linear RGB, hence conversion is NOT required
   const OpenGl_Vec4& Vec4LinearFromQuantityColor(const OpenGl_Vec4& theColor) const
   {
     return theColor;
@@ -709,7 +709,7 @@ public:
     return ::Message1::DefaultMessenger();
   }
 
-  //! Callback for GL_ARB_debug_output extension
+  //! Callback1 for GL_ARB_debug_output extension
   //! @param theSource   message source   within GL_DEBUG_SOURCE_   enumeration
   //! @param theType     message type     within GL_DEBUG_TYPE_     enumeration
   //! @param theId       message ID       within source
@@ -1209,7 +1209,7 @@ private:                                           //! @name fields tracking cur
   Standard_Boolean              myIsSRgbWindow;    //!< indicates that window buffer is sRGB-ready
   Standard_Boolean              myIsSRgbActive;    //!< flag indicating GL_FRAMEBUFFER_SRGB state
   AsciiString1       myVendor;          //!< Graphics Driver's vendor
-  TColStd_PackedMapOfInteger    myFilters[6];      //!< messages suppressing filter (for sources from GL_DEBUG_SOURCE_API_ARB to GL_DEBUG_SOURCE_OTHER_ARB)
+  PackedIntegerMap    myFilters[6];      //!< messages suppressing filter (for sources from GL_DEBUG_SOURCE_API_ARB to GL_DEBUG_SOURCE_OTHER_ARB)
   unsigned int                  myResolution;      //!< Pixels density (PPI), defines scaling factor for parameters like text size
   Standard_ShortReal            myResolutionRatio; //!< scaling factor for parameters like text size
                                                    //!  to be properly displayed on device (screen / printer)

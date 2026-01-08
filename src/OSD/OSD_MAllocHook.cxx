@@ -34,7 +34,7 @@
 
 #define MAX_STR 80
 
-static OSD_MAllocHook::Callback* MypCurrentCallback = NULL;
+static MemoryAllocHook::Callback1* MypCurrentCallback = NULL;
 
 namespace
 {
@@ -51,14 +51,14 @@ inline void place_for_breakpoint()
 
 //=================================================================================================
 
-OSD_MAllocHook::Callback* OSD_MAllocHook::GetCallback()
+MemoryAllocHook::Callback1* MemoryAllocHook::GetCallback()
 {
   return MypCurrentCallback;
 }
 
 //=================================================================================================
 
-OSD_MAllocHook::LogFileHandler* OSD_MAllocHook::GetLogFileHandler()
+MemoryAllocHook::LogFileHandler* MemoryAllocHook::GetLogFileHandler()
 {
   static LogFileHandler MyHandler;
   return &MyHandler;
@@ -66,7 +66,7 @@ OSD_MAllocHook::LogFileHandler* OSD_MAllocHook::GetLogFileHandler()
 
 //=================================================================================================
 
-OSD_MAllocHook::CollectBySize* OSD_MAllocHook::GetCollectBySize()
+MemoryAllocHook::CollectBySize* MemoryAllocHook::GetCollectBySize()
 {
   static CollectBySize MyHandler;
   return &MyHandler;
@@ -158,7 +158,7 @@ int __cdecl MyAllocHook(int    nAllocType,
 
 //=================================================================================================
 
-void OSD_MAllocHook::SetCallback(Callback* theCB)
+void MemoryAllocHook::SetCallback(Callback1* theCB)
 {
   MypCurrentCallback = theCB;
   if (theCB == NULL)
@@ -171,7 +171,7 @@ void OSD_MAllocHook::SetCallback(Callback* theCB)
 
 // Not yet implemented for non-WNT platform
 
-void OSD_MAllocHook::SetCallback(Callback* theCB)
+void MemoryAllocHook::SetCallback(Callback1* theCB)
 {
   MypCurrentCallback = theCB;
 }
@@ -184,7 +184,7 @@ void OSD_MAllocHook::SetCallback(Callback* theCB)
 
 //=================================================================================================
 
-OSD_MAllocHook::LogFileHandler::LogFileHandler()
+MemoryAllocHook::LogFileHandler::LogFileHandler()
     : myBreakSize(0)
 {
   myLogFile.imbue(std::locale("C"));
@@ -192,14 +192,14 @@ OSD_MAllocHook::LogFileHandler::LogFileHandler()
 
 //=================================================================================================
 
-OSD_MAllocHook::LogFileHandler::~LogFileHandler()
+MemoryAllocHook::LogFileHandler::~LogFileHandler()
 {
   Close();
 }
 
 //=================================================================================================
 
-Standard_Boolean OSD_MAllocHook::LogFileHandler::Open(const char* theFileName)
+Standard_Boolean MemoryAllocHook::LogFileHandler::Open(const char* theFileName)
 {
   Close();
   myLogFile.open(theFileName);
@@ -215,7 +215,7 @@ Standard_Boolean OSD_MAllocHook::LogFileHandler::Open(const char* theFileName)
 
 //=================================================================================================
 
-void OSD_MAllocHook::LogFileHandler::Close()
+void MemoryAllocHook::LogFileHandler::Close()
 {
   if (myLogFile.is_open())
   {
@@ -248,7 +248,7 @@ struct StorageInfo
 };
 } // namespace
 
-Standard_Boolean OSD_MAllocHook::LogFileHandler::MakeReport(const char*            theLogFile,
+Standard_Boolean MemoryAllocHook::LogFileHandler::MakeReport(const char*            theLogFile,
                                                             const char*            theOutFile,
                                                             const Standard_Boolean theIncludeAlive)
 {
@@ -381,7 +381,7 @@ Standard_Boolean OSD_MAllocHook::LogFileHandler::MakeReport(const char*         
 
 //=================================================================================================
 
-void OSD_MAllocHook::LogFileHandler::AllocEvent(size_t theSize, long theRequestNum)
+void MemoryAllocHook::LogFileHandler::AllocEvent(size_t theSize, long theRequestNum)
 {
   if (myLogFile.is_open())
   {
@@ -396,7 +396,7 @@ void OSD_MAllocHook::LogFileHandler::AllocEvent(size_t theSize, long theRequestN
 
 //=================================================================================================
 
-void OSD_MAllocHook::LogFileHandler::FreeEvent(void* /*theData*/,
+void MemoryAllocHook::LogFileHandler::FreeEvent(void* /*theData*/,
                                                size_t theSize,
                                                long   theRequestNum)
 {
@@ -414,7 +414,7 @@ void OSD_MAllocHook::LogFileHandler::FreeEvent(void* /*theData*/,
 
 //=================================================================================================
 
-OSD_MAllocHook::CollectBySize::CollectBySize()
+MemoryAllocHook::CollectBySize::CollectBySize()
     : myArray(NULL),
       myTotalLeftSize(0),
       myTotalPeakSize(0),
@@ -426,7 +426,7 @@ OSD_MAllocHook::CollectBySize::CollectBySize()
 
 //=================================================================================================
 
-OSD_MAllocHook::CollectBySize::~CollectBySize()
+MemoryAllocHook::CollectBySize::~CollectBySize()
 {
   if (myArray != NULL)
     delete[] myArray;
@@ -435,17 +435,17 @@ OSD_MAllocHook::CollectBySize::~CollectBySize()
 //=================================================================================================
 
 #define MAX_ALLOC_SIZE 2000000
-const size_t OSD_MAllocHook::CollectBySize::myMaxAllocSize = MAX_ALLOC_SIZE;
+const size_t MemoryAllocHook::CollectBySize::myMaxAllocSize = MAX_ALLOC_SIZE;
 
-void OSD_MAllocHook::CollectBySize::Reset()
+void MemoryAllocHook::CollectBySize::Reset()
 {
   myMutex.Lock();
   if (myArray == NULL)
-    myArray = new Numbers[MAX_ALLOC_SIZE];
+    myArray = new Numbers1[MAX_ALLOC_SIZE];
   else
   {
     for (int i = 0; i < MAX_ALLOC_SIZE; i++)
-      myArray[i] = Numbers();
+      myArray[i] = Numbers1();
   }
   myTotalLeftSize = 0;
   myTotalPeakSize = 0;
@@ -454,7 +454,7 @@ void OSD_MAllocHook::CollectBySize::Reset()
 
 //=================================================================================================
 
-Standard_Boolean OSD_MAllocHook::CollectBySize::MakeReport(const char* theOutFile)
+Standard_Boolean MemoryAllocHook::CollectBySize::MakeReport(const char* theOutFile)
 {
   // print the report
   std::ofstream aRepFile(theOutFile);
@@ -499,7 +499,7 @@ Standard_Boolean OSD_MAllocHook::CollectBySize::MakeReport(const char* theOutFil
 
 //=================================================================================================
 
-void OSD_MAllocHook::CollectBySize::AllocEvent(size_t theSize, long /*theRequestNum*/)
+void MemoryAllocHook::CollectBySize::AllocEvent(size_t theSize, long /*theRequestNum*/)
 {
   if (myBreakSize == theSize)
     place_for_breakpoint();
@@ -530,7 +530,7 @@ void OSD_MAllocHook::CollectBySize::AllocEvent(size_t theSize, long /*theRequest
 
 //=================================================================================================
 
-void OSD_MAllocHook::CollectBySize::FreeEvent(void* /*theData*/,
+void MemoryAllocHook::CollectBySize::FreeEvent(void* /*theData*/,
                                               size_t theSize,
                                               long /*theRequestNum*/)
 {

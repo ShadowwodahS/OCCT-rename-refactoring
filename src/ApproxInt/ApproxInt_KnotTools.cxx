@@ -63,7 +63,7 @@ static Standard_Real EvalCurv(const Standard_Real  dim,
     q += V1[i] * V1[i];
   }
 
-  if (q < 1 / Precision::Infinite())
+  if (q < 1 / Precision1::Infinite())
   {
     // Indeed, if q is small then we can
     // obtain equivocation of "0/0" type.
@@ -72,13 +72,13 @@ static Standard_Real EvalCurv(const Standard_Real  dim,
     // However, it is good solution to insert
     // knot in the place with such singularity.
     // Therefore, we need imitation of curvature
-    // jumping. Return of Precision::Infinite() is
+    // jumping. Return of Precision1::Infinite() is
     // enough for it.
 
-    return Precision::Infinite();
+    return Precision1::Infinite();
   }
 
-  q = Min(q, Precision::Infinite());
+  q = Min(q, Precision1::Infinite());
   q *= q * q;
 
   //
@@ -193,7 +193,7 @@ void KnotTools::ComputeKnotInds(const NCollection_LocalArray<Standard_Real>& the
 #endif
 
   theInds.Append(aCurv.Lower());
-  if (aMaxCurv <= Precision::Confusion())
+  if (aMaxCurv <= Precision1::Confusion())
   {
     // Linear case.
     theInds.Append(aCurv.Upper());
@@ -201,7 +201,7 @@ void KnotTools::ComputeKnotInds(const NCollection_LocalArray<Standard_Real>& the
   }
 
   // II: Find extremas of curvature.
-  // Not used Precision::PConfusion, by different from "param space" eps nature.
+  // Not used Precision1::PConfusion, by different from "param space" eps nature.
   Standard_Real eps = 1.0e-9, eps1 = 1.0e3 * eps;
   for (i = aCurv.Lower() + 1; i < aCurv.Upper(); ++i)
   {
@@ -477,7 +477,7 @@ Standard_Boolean KnotTools::InsKnotBefI(
 
     // I: Curvature change criteria:
     // Non-null curvature.
-    if (theCurv(j) > Precision::Confusion() && theCurv(anInd) > Precision::Confusion())
+    if (theCurv(j) > Precision1::Confusion() && theCurv(anInd) > Precision1::Confusion())
     {
       if (theCurv(j) / theCurv(anInd) > aLimitCurvatureChange
           || theCurv(j) / theCurv(anInd) < 1.0 / aLimitCurvatureChange)
@@ -769,7 +769,7 @@ Approx_ParametrizationType KnotTools::DefineParType(const Handle(IntPatch_WLine)
   Standard_Real        aMaxCurv = 0.;
   BuildCurvature(aCoords, aDim, aPars, aCurv, aMaxCurv);
 
-  if (aMaxCurv < Precision::PConfusion() || Precision::IsPositiveInfinite(aMaxCurv))
+  if (aMaxCurv < Precision1::PConfusion() || Precision1::IsPositiveInfinite(aMaxCurv))
   {
     // Linear case
     return aParType;

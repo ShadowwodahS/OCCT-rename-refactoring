@@ -158,7 +158,7 @@ BRepMesh_GeomTool::BRepMesh_GeomTool(const BRepAdaptor_Curve& theCurve,
                            theAngDeflection,
                            theLinDeflection,
                            theMinPointsNb,
-                           Precision::PConfusion(),
+                           Precision1::PConfusion(),
                            theMinSize);
 }
 
@@ -184,7 +184,7 @@ BRepMesh_GeomTool::BRepMesh_GeomTool(const Handle(BRepAdaptor_Surface)& theSurfa
                            theAngDeflection,
                            theLinDeflection,
                            theMinPointsNb,
-                           Precision::PConfusion(),
+                           Precision1::PConfusion(),
                            theMinSize);
 }
 
@@ -251,7 +251,7 @@ Standard_Boolean BRepMesh_GeomTool::Normal(const Handle(BRepAdaptor_Surface)& th
   theSurface->D1(theParamU, theParamV, thePoint, aD1U, aD1V);
 
   CSLib_DerivativeStatus aStatus;
-  CSLib1::Normal(aD1U, aD1V, Precision::Angular(), aStatus, theNormal);
+  CSLib1::Normal(aD1U, aD1V, Precision1::Angular(), aStatus, theNormal);
   if (aStatus != CSLib_Done)
   {
     Vector3d aD2U, aD2V, aD2UV;
@@ -262,7 +262,7 @@ Standard_Boolean BRepMesh_GeomTool::Normal(const Handle(BRepAdaptor_Surface)& th
                   aD2U,
                   aD2V,
                   aD2UV,
-                  Precision::Angular(),
+                  Precision1::Angular(),
                   isOK,
                   aNormalStatus,
                   theNormal);
@@ -408,7 +408,7 @@ BRepMesh_GeomTool::IntFlag BRepMesh_GeomTool::IntSegSeg(
 
   // Cross
   // Intersection is out of segments ranges
-  constexpr Standard_Real aPrec    = Precision::PConfusion();
+  constexpr Standard_Real aPrec    = Precision1::PConfusion();
   const Standard_Real     aEndPrec = 1 - aPrec;
   for (Standard_Integer i = 0; i < 2; ++i)
   {
@@ -476,7 +476,7 @@ Standard_Integer BRepMesh_GeomTool::classifyPoint(const Coords2d& thePoint1,
   Coords2d aP1 = thePoint2 - thePoint1;
   Coords2d aP2 = thePointToCheck - thePoint1;
 
-  constexpr Standard_Real aPrec   = Precision::PConfusion();
+  constexpr Standard_Real aPrec   = Precision1::PConfusion();
   const Standard_Real     aSqPrec = aPrec * aPrec;
   Standard_Real           aDist   = Abs(aP1 ^ aP2);
   if (aDist > aPrec)

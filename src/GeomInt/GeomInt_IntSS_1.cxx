@@ -57,7 +57,7 @@ static void AdjustUPeriodic(const Handle(GeomSurface)& aS, const Handle(GeomCurv
   if (aC2D.IsNull() || !aS->IsUPeriodic())
     return;
   //
-  constexpr Standard_Real aEps     = Precision::PConfusion(); // 1.e-9
+  constexpr Standard_Real aEps     = Precision1::PConfusion(); // 1.e-9
   const Standard_Real     aEpsilon = Epsilon(10.);            // 1.77e-15
   //
   Standard_Real umin, umax, vmin, vmax;
@@ -234,7 +234,7 @@ static Standard_Boolean isDegenerated(const Handle(GeomAdaptor_Surface)& theGAHS
                                       const Standard_Real                theFirstPar,
                                       const Standard_Real                theLastPar)
 {
-  constexpr Standard_Real aSqTol = Precision::Confusion() * Precision::Confusion();
+  constexpr Standard_Real aSqTol = Precision1::Confusion() * Precision1::Confusion();
   gp_Pnt2d                aP2d;
   Point3d                  aP1, aP2;
 
@@ -333,7 +333,7 @@ void GeomInt_IntSS::MakeCurve(const Standard_Integer             Index,
       {
         myLConstruct.Part(i, fprm, lprm);
 
-        if (!Precision::IsNegativeInfinite(fprm) && !Precision::IsPositiveInfinite(lprm))
+        if (!Precision1::IsNegativeInfinite(fprm) && !Precision1::IsPositiveInfinite(lprm))
         {
           Handle(Geom_TrimmedCurve) aCT3D = new Geom_TrimmedCurve(newc, fprm, lprm);
           sline.Append(aCT3D);
@@ -368,7 +368,7 @@ void GeomInt_IntSS::MakeCurve(const Standard_Integer             Index,
           {
             slineS2.Append(H1);
           }
-        } // if (!Precision::IsNegativeInfinite(fprm) &&  !Precision::IsPositiveInfinite(lprm))
+        } // if (!Precision1::IsNegativeInfinite(fprm) &&  !Precision1::IsPositiveInfinite(lprm))
 
         else
         {
@@ -387,8 +387,8 @@ void GeomInt_IntSS::MakeCurve(const Standard_Integer             Index,
           Standard_Real    aTestPrm, dT = 100.;
           Standard_Real    u1, v1, u2, v2, TolX;
           //
-          bFNIt = Precision::IsNegativeInfinite(fprm);
-          bLPIt = Precision::IsPositiveInfinite(lprm);
+          bFNIt = Precision1::IsNegativeInfinite(fprm);
+          bLPIt = Precision1::IsPositiveInfinite(lprm);
 
           aTestPrm = 0.;
 
@@ -403,7 +403,7 @@ void GeomInt_IntSS::MakeCurve(const Standard_Integer             Index,
           //
           Point3d ptref(newc->Value(aTestPrm));
           //
-          TolX = Precision::Confusion();
+          TolX = Precision1::Confusion();
           Parameters(myHS1, myHS2, ptref, u1, v1, u2, v2);
           ok = (dom1->Classify(gp_Pnt2d(u1, v1), TolX) != TopAbs_OUT);
           if (ok)
@@ -542,7 +542,7 @@ void GeomInt_IntSS::MakeCurve(const Standard_Integer             Index,
           for (j = 0; j <= 17; j++)
           {
             Point3d ptref(newc->Value(j * aTwoPIdiv17));
-            TolX = Precision::Confusion();
+            TolX = Precision1::Confusion();
 
             Parameters(myHS1, myHS2, ptref, u1, v1, u2, v2);
             ok = (dom1->Classify(gp_Pnt2d(u1, v1), TolX) != TopAbs_OUT);
@@ -1022,7 +1022,7 @@ void GeomInt_IntSS::MakeCurve(const Standard_Integer             Index,
         const Standard_Real aParF = anArrayOfParameters(anInd),
                             aParL = anArrayOfParameters(anInd + 1);
 
-        if ((aParL - aParF) <= Precision::PConfusion())
+        if ((aParL - aParF) <= Precision1::PConfusion())
           continue;
 
         const Standard_Real aPar = 0.5 * (aParF + aParL);
@@ -1114,14 +1114,14 @@ void GeomInt_IntSS::TreatRLine(const Handle(IntPatch_RLine)&      theRL,
   // approximation of curve on surface.
   Standard_Integer      aMaxDeg = 8;
   Standard_Integer      aMaxSeg = 1000;
-  Approx_CurveOnSurface anApp(anAHC2d, aGAHS, tf, tl, Precision::Confusion());
+  Approx_CurveOnSurface anApp(anAHC2d, aGAHS, tf, tl, Precision1::Confusion());
   anApp.Perform(aMaxSeg, aMaxDeg, GeomAbs_C1, Standard_True, Standard_False);
   if (!anApp.HasResult())
     return;
 
   theC3d             = anApp.Curve3d();
   theTolReached      = anApp.MaxError3d();
-  Standard_Real aTol = Precision::Confusion();
+  Standard_Real aTol = Precision1::Confusion();
   if (theRL->IsArcOnS1())
   {
     Handle(GeomSurface) aS = GeomAdaptor1::MakeSurface(*theHS2);
@@ -1168,7 +1168,7 @@ void GeomInt_IntSS::BuildPCurves(const Standard_Real         theFirst,
     if (theCurve2d.IsNull())
     {
       // proj. a circle that goes through the pole on a sphere to the sphere
-      theTol += Precision::Confusion();
+      theTol += Precision1::Confusion();
       theCurve2d = GeomProjLib1::Curve2d(theCurve, theFirst, theLast, theSurface, theTol);
     }
     const Handle(TypeInfo)& aType = theCurve2d->DynamicType();
@@ -1178,8 +1178,8 @@ void GeomInt_IntSS::BuildPCurves(const Standard_Real         theFirst,
       // First, last knots can differ from f, l because of numerical error
       // of projection and approximation
       // The same checking as in Geom2d_TrimmedCurve
-      if ((theCurve2d->FirstParameter() - theFirst > Precision::PConfusion())
-          || (theLast - theCurve2d->LastParameter() > Precision::PConfusion()))
+      if ((theCurve2d->FirstParameter() - theFirst > Precision1::PConfusion())
+          || (theLast - theCurve2d->LastParameter() > Precision1::PConfusion()))
       {
         Handle(Geom2d_BSplineCurve) aBspl = Handle(Geom2d_BSplineCurve)::DownCast(theCurve2d);
         TColStd_Array1OfReal        aKnots(1, aBspl->NbKnots());
@@ -1210,8 +1210,8 @@ void GeomInt_IntSS::BuildPCurves(const Standard_Real         theFirst,
                         theUmax,
                         theVmin,
                         theVmax,
-                        Precision::Confusion(),
-                        Precision::Confusion());
+                        Precision1::Confusion(),
+                        Precision1::Confusion());
       anExtr.Perform(aP3d1);
 
       if (ParametersOfNearestPointOnSurface(anExtr, aU, aV))
@@ -1256,7 +1256,7 @@ void GeomInt_IntSS::BuildPCurves(const Standard_Real         theFirst,
     Standard_Real    aTm, U0, aEps, period, du, U0x;
     Standard_Boolean bAdjust;
     //
-    aEps   = Precision::PConfusion();
+    aEps   = Precision1::PConfusion();
     period = theSurface->UPeriod();
     //
     aTm         = .5 * (theFirst + theLast);
@@ -1320,18 +1320,18 @@ void GeomInt_IntSS::TrimILineOnSurfBoundaries(const Handle(GeomCurve2d)& theC2d1
   Standard_Real aDelta = aV1l - aV1f;
   if (Abs(aDelta) > RealSmall())
   {
-    if (!Precision::IsInfinite(aU1f))
+    if (!Precision1::IsInfinite(aU1f))
     {
       aCurS1Bounds[0] = new Geom2d_Line(gp_Pnt2d(aU1f, aV1f), gp_Dir2d(0.0, 1.0));
 
-      if (!Precision::IsInfinite(aDelta))
+      if (!Precision1::IsInfinite(aDelta))
         aCurS1Bounds[0] = new Geom2d_TrimmedCurve(aCurS1Bounds[0], 0, aDelta);
     }
 
-    if (!Precision::IsInfinite(aU1l))
+    if (!Precision1::IsInfinite(aU1l))
     {
       aCurS1Bounds[1] = new Geom2d_Line(gp_Pnt2d(aU1l, aV1f), gp_Dir2d(0.0, 1.0));
-      if (!Precision::IsInfinite(aDelta))
+      if (!Precision1::IsInfinite(aDelta))
         aCurS1Bounds[1] = new Geom2d_TrimmedCurve(aCurS1Bounds[1], 0, aDelta);
     }
   }
@@ -1339,17 +1339,17 @@ void GeomInt_IntSS::TrimILineOnSurfBoundaries(const Handle(GeomCurve2d)& theC2d1
   aDelta = aU1l - aU1f;
   if (Abs(aDelta) > RealSmall())
   {
-    if (!Precision::IsInfinite(aV1f))
+    if (!Precision1::IsInfinite(aV1f))
     {
       aCurS1Bounds[2] = new Geom2d_Line(gp_Pnt2d(aU1f, aV1f), gp_Dir2d(1.0, 0.0));
-      if (!Precision::IsInfinite(aDelta))
+      if (!Precision1::IsInfinite(aDelta))
         aCurS1Bounds[2] = new Geom2d_TrimmedCurve(aCurS1Bounds[2], 0, aDelta);
     }
 
-    if (!Precision::IsInfinite(aV1l))
+    if (!Precision1::IsInfinite(aV1l))
     {
       aCurS1Bounds[3] = new Geom2d_Line(gp_Pnt2d(aU1l, aV1l), gp_Dir2d(1.0, 0.0));
-      if (!Precision::IsInfinite(aDelta))
+      if (!Precision1::IsInfinite(aDelta))
         aCurS1Bounds[3] = new Geom2d_TrimmedCurve(aCurS1Bounds[3], 0, aDelta);
     }
   }
@@ -1357,17 +1357,17 @@ void GeomInt_IntSS::TrimILineOnSurfBoundaries(const Handle(GeomCurve2d)& theC2d1
   aDelta = aV2l - aV2f;
   if (Abs(aDelta) > RealSmall())
   {
-    if (!Precision::IsInfinite(aU2f))
+    if (!Precision1::IsInfinite(aU2f))
     {
       aCurS2Bounds[0] = new Geom2d_Line(gp_Pnt2d(aU2f, aV2f), gp_Dir2d(0.0, 1.0));
-      if (!Precision::IsInfinite(aDelta))
+      if (!Precision1::IsInfinite(aDelta))
         aCurS2Bounds[0] = new Geom2d_TrimmedCurve(aCurS2Bounds[0], 0, aDelta);
     }
 
-    if (!Precision::IsInfinite(aU2l))
+    if (!Precision1::IsInfinite(aU2l))
     {
       aCurS2Bounds[1] = new Geom2d_Line(gp_Pnt2d(aU2l, aV2f), gp_Dir2d(0.0, 1.0));
-      if (!Precision::IsInfinite(aDelta))
+      if (!Precision1::IsInfinite(aDelta))
         aCurS2Bounds[1] = new Geom2d_TrimmedCurve(aCurS2Bounds[1], 0, aDelta);
     }
   }
@@ -1375,22 +1375,22 @@ void GeomInt_IntSS::TrimILineOnSurfBoundaries(const Handle(GeomCurve2d)& theC2d1
   aDelta = aU2l - aU2f;
   if (Abs(aDelta) > RealSmall())
   {
-    if (!Precision::IsInfinite(aV2f))
+    if (!Precision1::IsInfinite(aV2f))
     {
       aCurS2Bounds[2] = new Geom2d_Line(gp_Pnt2d(aU2f, aV2f), gp_Dir2d(1.0, 0.0));
-      if (!Precision::IsInfinite(aDelta))
+      if (!Precision1::IsInfinite(aDelta))
         aCurS2Bounds[2] = new Geom2d_TrimmedCurve(aCurS2Bounds[2], 0, aDelta);
     }
 
-    if (!Precision::IsInfinite(aV2l))
+    if (!Precision1::IsInfinite(aV2l))
     {
       aCurS2Bounds[3] = new Geom2d_Line(gp_Pnt2d(aU2l, aV2l), gp_Dir2d(1.0, 0.0));
-      if (!Precision::IsInfinite(aDelta))
+      if (!Precision1::IsInfinite(aDelta))
         aCurS2Bounds[3] = new Geom2d_TrimmedCurve(aCurS2Bounds[3], 0, aDelta);
     }
   }
 
-  constexpr Standard_Real anIntTol = 10.0 * Precision::Confusion();
+  constexpr Standard_Real anIntTol = 10.0 * Precision1::Confusion();
 
   IntersectCurveAndBoundary(theC2d1, aCurS1Bounds, aNumberOfCurves, anIntTol, theArrayOfParameters);
 

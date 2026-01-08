@@ -377,7 +377,7 @@ private:
 inline void Frame3d::SetAxis(const Axis3d& theA1)
 {
   Standard_Real a = theA1.Direction() * vxdir;
-  if (Abs(Abs(a) - 1.) <= Precision::Angular())
+  if (Abs(Abs(a) - 1.) <= Precision1::Angular())
   {
     if (a > 0.)
     {
@@ -406,7 +406,7 @@ inline void Frame3d::SetAxis(const Axis3d& theA1)
 inline void Frame3d::SetDirection(const Dir3d& theV)
 {
   Standard_Real a = theV * vxdir;
-  if (Abs(Abs(a) - 1.) <= Precision::Angular())
+  if (Abs(Abs(a) - 1.) <= Precision1::Angular())
   {
     if (a > 0.)
     {

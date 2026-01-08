@@ -21,7 +21,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Prs3d_PointAspect, Prs3d_BasicAspect)
 //=================================================================================================
 
 Prs3d_PointAspect::Prs3d_PointAspect(const Aspect_TypeOfMarker theType,
-                                     const Quantity_Color&     theColor,
+                                     const Color1&     theColor,
                                      const Standard_Real       theScale)
     : myAspect(new Graphic3d_AspectMarker3d(theType, theColor, theScale))
 {
@@ -30,7 +30,7 @@ Prs3d_PointAspect::Prs3d_PointAspect(const Aspect_TypeOfMarker theType,
 
 //=================================================================================================
 
-Prs3d_PointAspect::Prs3d_PointAspect(const Quantity_Color&                theColor,
+Prs3d_PointAspect::Prs3d_PointAspect(const Color1&                theColor,
                                      const Standard_Integer               theWidth,
                                      const Standard_Integer               theHeight,
                                      const Handle(TColStd_HArray1OfByte)& theTexture)

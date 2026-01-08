@@ -191,5 +191,5 @@ GeomAbs_Shape GeomLProp1::Continuity(const Handle(GeomCurve3d)& C1,
                                     const Standard_Boolean    r1,
                                     const Standard_Boolean    r2)
 {
-  return Continuity(C1, C2, u1, u2, r1, r2, Precision::Confusion(), Precision::Angular());
+  return Continuity(C1, C2, u1, u2, r1, r2, Precision1::Confusion(), Precision1::Angular());
 }

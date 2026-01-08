@@ -99,7 +99,7 @@
 static Standard_Real PreciseUpar(const Standard_Real                anUpar,
                                  const Handle(Geom_BSplineSurface)& aSurface)
 {
-  constexpr Standard_Real Tol = Precision::PConfusion();
+  constexpr Standard_Real Tol = Precision1::PConfusion();
   Standard_Integer        i1, i2;
 
   aSurface->LocateU(anUpar, Tol, i1, i2);
@@ -228,7 +228,7 @@ static TopoSolid MakeSolid(TopoShell&       shell,
 
   // verify the orientation the solid
   BRepClass3d_SolidClassifier clas3d(solid);
-  clas3d.PerformInfinitePoint(Precision::Confusion());
+  clas3d.PerformInfinitePoint(Precision1::Confusion());
   if (clas3d.State() == TopAbs_IN)
   {
     BB.MakeSolid(solid);
@@ -548,7 +548,7 @@ void BRepOffsetAPI_ThruSections::CreateRuled()
 
       // verify the orientation of the solid
       BRepClass3d_SolidClassifier clas3d(solid);
-      clas3d.PerformInfinitePoint(Precision::Confusion());
+      clas3d.PerformInfinitePoint(Precision1::Confusion());
       if (clas3d.State() == TopAbs_IN)
       {
         B.MakeSolid(solid);
@@ -805,7 +805,7 @@ void BRepOffsetAPI_ThruSections::CreateSmoothed()
       TopExp1::Vertices(edge, v2l, v2f);
 
     // make the face
-    B.MakeFace(face, surface, Precision::Confusion());
+    B.MakeFace(face, surface, Precision1::Confusion());
 
     // make the wire
     B.MakeWire(W);
@@ -825,7 +825,7 @@ void BRepOffsetAPI_ThruSections::CreateSmoothed()
     }
     else
     {
-      B.MakeEdge(edge1, surface->VIso(f2), Precision::Confusion());
+      B.MakeEdge(edge1, surface->VIso(f2), Precision1::Confusion());
     }
     v1f.Orientation(TopAbs_FORWARD);
     B.Add(edge1, v1f);
@@ -852,7 +852,7 @@ void BRepOffsetAPI_ThruSections::CreateSmoothed()
       }
       else
       {
-        B.MakeEdge(edge2, surface->VIso(l2), Precision::Confusion());
+        B.MakeEdge(edge2, surface->VIso(l2), Precision1::Confusion());
       }
       v2f.Orientation(TopAbs_FORWARD);
       B.Add(edge2, v2f);
@@ -865,7 +865,7 @@ void BRepOffsetAPI_ThruSections::CreateSmoothed()
     // --- edge 3
     if (i == 1)
     {
-      B.MakeEdge(edge3, surface->UIso(f1), Precision::Confusion());
+      B.MakeEdge(edge3, surface->UIso(f1), Precision1::Confusion());
       v1f.Orientation(TopAbs_FORWARD);
       B.Add(edge3, v1f);
       v2f.Orientation(TopAbs_REVERSED);
@@ -889,7 +889,7 @@ void BRepOffsetAPI_ThruSections::CreateSmoothed()
     }
     else
     {
-      B.MakeEdge(edge4, surface->UIso(l1), Precision::Confusion());
+      B.MakeEdge(edge4, surface->UIso(l1), Precision1::Confusion());
       v1l.Orientation(TopAbs_FORWARD);
       B.Add(edge4, v1l);
       v2l.Orientation(TopAbs_REVERSED);
@@ -909,7 +909,7 @@ void BRepOffsetAPI_ThruSections::CreateSmoothed()
                    new Geom2d_Line(gp_Pnt2d(0, f2), gp_Dir2d(1, 0)),
                    new Geom2d_Line(gp_Pnt2d(0, l2), gp_Dir2d(1, 0)),
                    face,
-                   Precision::Confusion());
+                   Precision1::Confusion());
       B.Range(edge1, face, f1, l1);
     }
     else
@@ -917,12 +917,12 @@ void BRepOffsetAPI_ThruSections::CreateSmoothed()
       B.UpdateEdge(edge1,
                    new Geom2d_Line(gp_Pnt2d(0, f2), gp_Dir2d(1, 0)),
                    face,
-                   Precision::Confusion());
+                   Precision1::Confusion());
       B.Range(edge1, face, f1, l1);
       B.UpdateEdge(edge2,
                    new Geom2d_Line(gp_Pnt2d(0, l2), gp_Dir2d(1, 0)),
                    face,
-                   Precision::Confusion());
+                   Precision1::Confusion());
       B.Range(edge2, face, f1, l1);
     }
 
@@ -932,7 +932,7 @@ void BRepOffsetAPI_ThruSections::CreateSmoothed()
                    new Geom2d_Line(gp_Pnt2d(l1, 0), gp_Dir2d(0, 1)),
                    new Geom2d_Line(gp_Pnt2d(f1, 0), gp_Dir2d(0, 1)),
                    face,
-                   Precision::Confusion());
+                   Precision1::Confusion());
       B.Range(edge3, face, f2, l2);
     }
     else
@@ -940,12 +940,12 @@ void BRepOffsetAPI_ThruSections::CreateSmoothed()
       B.UpdateEdge(edge3,
                    new Geom2d_Line(gp_Pnt2d(f1, 0), gp_Dir2d(0, 1)),
                    face,
-                   Precision::Confusion());
+                   Precision1::Confusion());
       B.Range(edge3, face, f2, l2);
       B.UpdateEdge(edge4,
                    new Geom2d_Line(gp_Pnt2d(l1, 0), gp_Dir2d(0, 1)),
                    face,
-                   Precision::Confusion());
+                   Precision1::Confusion());
       B.Range(edge4, face, f2, l2);
     }
     B.Add(face, W);
@@ -978,7 +978,7 @@ void BRepOffsetAPI_ThruSections::CreateSmoothed()
 
       // verify the orientation the solid
       BRepClass3d_SolidClassifier clas3d(solid);
-      clas3d.PerformInfinitePoint(Precision::Confusion());
+      clas3d.PerformInfinitePoint(Precision1::Confusion());
       if (clas3d.State() == TopAbs_IN)
       {
         B.MakeSolid(solid);
@@ -1112,7 +1112,7 @@ static Handle(BSplineCurve3d) EdgeToBSpline(const TopoEdge& theEdge)
     if (aTrimCurve->BasisCurve()->IsKind(STANDARD_TYPE(Geom_Conic)))
     {
       const Handle(GeomCurve3d)& aCurveTrimmed = aTrimCurve; // to avoid ambiguity
-      GeomConvert_ApproxCurve   anAppr(aCurveTrimmed, Precision::Confusion(), GeomAbs_C1, 16, 14);
+      GeomConvert_ApproxCurve   anAppr(aCurveTrimmed, Precision1::Confusion(), GeomAbs_C1, 16, 14);
       if (anAppr.HasResult())
         aBSCurve = anAppr.Curve();
     }
@@ -1206,7 +1206,7 @@ Handle(Geom_BSplineSurface) BRepOffsetAPI_ThruSections::TotalSurf(
       {
         // read the edge
         TopoEdge   aNextEdge = TopoDS::Edge(shapes((j - 1) * NbEdges + i));
-        Standard_Real aTolV     = Precision::Confusion();
+        Standard_Real aTolV     = Precision1::Confusion();
         TopExp1::Vertices(aNextEdge, vf, vl);
         aTolV  = Max(aTolV, BRepInspector::Tolerance(vf));
         aTolV  = Max(aTolV, BRepInspector::Tolerance(vl));
@@ -1250,7 +1250,7 @@ Handle(Geom_BSplineSurface) BRepOffsetAPI_ThruSections::TotalSurf(
     section.AddCurve(BSPoint);
   }
 
-  section.Perform(Precision::PConfusion());
+  section.Perform(Precision1::PConfusion());
   Handle(GeomFill_Line) line = new GeomFill_Line(NbSects);
 
   Standard_Integer nbIt = 3;

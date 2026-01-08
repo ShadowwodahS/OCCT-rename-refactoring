@@ -14,7 +14,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-//:   gka 09.04.99: S4136: eliminate BRepAPI::Precision()
+//:   gka 09.04.99: S4136: eliminate BRepAPI::Precision1()
 
 #include <BRep_Builder.hxx>
 #include <StdFail_NotDone.hxx>
@@ -72,7 +72,7 @@ void StepToTopoDS_TranslateVertexLoop::Init(const Handle(StepShape_VertexLoop)& 
     ShapeBuilder                      B;
     Handle(Transfer_TransientProcess) TP = aTool.TransientProcess();
 
-    //: S4136    Standard_Real preci = BRepAPI::Precision();
+    //: S4136    Standard_Real preci = BRepAPI::Precision1();
     Handle(StepShape_Vertex) Vtx;
     TopoVertex            V1, V2;
     TopoEdge              E;

@@ -39,7 +39,7 @@ GeomFill_GuideTrihedronAC::GeomFill_GuideTrihedronAC(const Handle(Adaptor3d_Curv
   myTrimG   = guide;
   myGuideAC = new (Approx_CurvlinFunc)(myGuide, 1.e-7);
   Lguide    = myGuideAC->GetLength();
-  UTol = STol = Precision::PConfusion();
+  UTol = STol = Precision1::PConfusion();
   Orig1       = 0; // origines pour le cas path multi-edges
   Orig2       = 1;
 }

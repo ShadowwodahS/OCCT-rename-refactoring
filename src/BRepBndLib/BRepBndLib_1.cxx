@@ -253,7 +253,7 @@ static Standard_Integer PointsForOBB(const TopoShape&    theS,
 //=======================================================================
 static Standard_Integer IsWCS(const Dir3d& theDir)
 {
-  constexpr Standard_Real aToler = Precision::Angular() * Precision::Angular();
+  constexpr Standard_Real aToler = Precision1::Angular() * Precision1::Angular();
 
   const Standard_Real aX = theDir.X(), aY = theDir.Y(), aZ = theDir.Z();
 

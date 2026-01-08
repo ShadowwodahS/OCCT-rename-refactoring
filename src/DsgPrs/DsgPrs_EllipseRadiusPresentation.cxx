@@ -98,7 +98,7 @@ void EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
     Vector3d        Vpnt(aCenter, ElCLib1::Value(uFirst, anEllipse));
     Dir3d        dir(Vpnt ^ Vapex);
     Standard_Real parFirst =
-      anEllipse.Position1().Direction().IsOpposite(dir, Precision::Angular()) ? uLast : uFirst;
+      anEllipse.Position1().Direction().IsOpposite(dir, Precision1::Angular()) ? uLast : uFirst;
     const Standard_Integer NodeNumber = Max(4, Standard_Integer(50. * Alpha / M_PI));
     const Standard_Real    delta      = Alpha / (NodeNumber - 1);
 
@@ -157,7 +157,7 @@ void EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
     Vector3d        Vpnt(aCenter, p1);
     Dir3d        dir(Vpnt ^ Vapex);
     Standard_Real parFirst =
-      aCurve->Direction().IsOpposite(dir, Precision::Angular()) ? uLast : uFirst;
+      aCurve->Direction().IsOpposite(dir, Precision1::Angular()) ? uLast : uFirst;
     const Standard_Integer NodeNumber = Max(4, Standard_Integer(50. * Alpha / M_PI));
     const Standard_Real    delta      = Alpha / (NodeNumber - 1);
 

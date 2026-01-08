@@ -182,7 +182,7 @@ private:
 
 //=================================================================================================
 
-Standard_Boolean Standard::StackTrace(char*     theBuffer,
+Standard_Boolean Standard1::StackTrace(char*     theBuffer,
                                       const int theBufferSize,
                                       const int theNbTraces = 10,
                                       void*     theContext,
@@ -203,14 +203,14 @@ Standard_Boolean Standard::StackTrace(char*     theBuffer,
                                   theBufferSize)
          > 0;
 #elif defined(__ANDROID__)
-  Message1::SendTrace("Standard::StackTrace() is not implemented for this platform");
+  Message1::SendTrace("Standard1::StackTrace() is not implemented for this platform");
   return false;
 #elif defined(__QNX__)
   // bt_get_backtrace()
-  Message1::SendTrace("Standard::StackTrace() is not implemented for this platform");
+  Message1::SendTrace("Standard1::StackTrace() is not implemented for this platform");
   return false;
 #elif defined(OCCT_UWP) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
-  Message1::SendTrace("Standard::StackTrace() is not implemented for this platform");
+  Message1::SendTrace("Standard1::StackTrace() is not implemented for this platform");
   return false;
 #elif defined(_WIN32)
   // Each CPU architecture requires manual stack frame setup,
@@ -317,7 +317,7 @@ Standard_Boolean Standard::StackTrace(char*     theBuffer,
   aDbgHelp.SymCleanup(anHProcess);
   return true;
   #else
-  Message1::SendTrace("Standard::StackTrace() is not implemented for this CPU architecture");
+  Message1::SendTrace("Standard1::StackTrace() is not implemented for this CPU architecture");
   return false;
   #endif
 #else

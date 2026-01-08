@@ -177,7 +177,7 @@ Standard_Boolean ApproxInt_PrmPrmSvSurfaces::Compute( Standard_Real& u1
   TgTU = Tg.Dot(TU);
   TgTV = Tg.Dot(TV);
   DIS  = TUTU * TVTV - TUTV * TUTV;
-  if(fabs(DIS)<Precision::Angular()) { 
+  if(fabs(DIS)<Precision1::Angular()) { 
     MyIsTangent=Standard_False;
     MyHasBeenComputed = MyHasBeenComputedbis = Standard_False;
     return(Standard_False); 
@@ -199,7 +199,7 @@ Standard_Boolean ApproxInt_PrmPrmSvSurfaces::Compute( Standard_Real& u1
   TgTU = Tg.Dot(TU);
   TgTV = Tg.Dot(TV);
   DIS  = TUTU * TVTV - TUTV * TUTV;
-  if(fabs(DIS)<Precision::Angular()) { 
+  if(fabs(DIS)<Precision1::Angular()) { 
     MyIsTangent=Standard_False;
     MyHasBeenComputed = MyHasBeenComputedbis = Standard_False;
     return(Standard_False); 

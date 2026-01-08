@@ -375,8 +375,8 @@ void Draw_Appli(int argc, char** argv, const FDraw_InitAppli Draw_InitAppli)
   // *****************************************************************
   // set signals
   // *****************************************************************
-  OSD::SetSignal(Standard_False);
-  // OSD::SetSignalStackTraceLength (10);
+  OSD1::SetSignal(Standard_False);
+  // OSD1::SetSignalStackTraceLength (10);
 
 #ifdef _WIN32
   // in interactive mode, force Windows to report dll loading problems interactively
@@ -722,7 +722,7 @@ void Draw1::Load(DrawInterpreter&              theDI,
 #else
     aPluginLibrary += ".so";
 #endif
-    OSD_SharedLibrary aSharedLibrary(aPluginLibrary.ToCString());
+    SharedLibrary aSharedLibrary(aPluginLibrary.ToCString());
     if (!aSharedLibrary.DlOpen(OSD_RTLD_LAZY))
     {
       const AsciiString1 anError(aSharedLibrary.DlError());

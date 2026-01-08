@@ -25,7 +25,7 @@ struct RawMaterial
   const char*           StringName;
   Graphic3d_BSDF        BSDF;
   Graphic3d_PBRMaterial PBRMaterial;
-  Quantity_Color        Colors[Graphic3d_TypeOfReflection_NB];
+  Color1        Colors[Graphic3d_TypeOfReflection_NB];
   Standard_ShortReal    TransparencyCoef;
   Standard_ShortReal    RefractionIndex;
   Standard_ShortReal    Shininess;
@@ -88,10 +88,10 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
       MaterialType = Graphic3d_MATERIAL_ASPECT;
 
       Shininess                      = 0.0078125f;
-      Colors[Graphic3d_TOR_AMBIENT]  = Quantity_Color(Graphic3d_Vec3(0.25f));
-      Colors[Graphic3d_TOR_DIFFUSE]  = Quantity_Color(Graphic3d_Vec3(0.24f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.004896f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+      Colors[Graphic3d_TOR_AMBIENT]  = Color1(Graphic3d_Vec3(0.25f));
+      Colors[Graphic3d_TOR_DIFFUSE]  = Color1(Graphic3d_Vec3(0.24f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.004896f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
 
       BSDF.Kd = Graphic3d_Vec3(0.2f);
       BSDF.Ks = Graphic3d_Vec4(0.00784314f, 0.00784314f, 0.00784314f, 0.25f);
@@ -102,10 +102,10 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
       MaterialType = Graphic3d_MATERIAL_ASPECT;
 
       Shininess                      = 1.00f;
-      Colors[Graphic3d_TOR_AMBIENT]  = Quantity_Color(Graphic3d_Vec3(0.22f));
-      Colors[Graphic3d_TOR_DIFFUSE]  = Quantity_Color(Graphic3d_Vec3(0.50f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(1.0f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+      Colors[Graphic3d_TOR_AMBIENT]  = Color1(Graphic3d_Vec3(0.22f));
+      Colors[Graphic3d_TOR_DIFFUSE]  = Color1(Graphic3d_Vec3(0.50f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(1.0f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
 
       BSDF.Kd = Graphic3d_Vec3(0.2f);
       BSDF.Ks = Graphic3d_Vec4(0.145f, 0.145f, 0.145f, 0.17f);
@@ -115,10 +115,10 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
       MaterialType = Graphic3d_MATERIAL_ASPECT;
 
       Shininess                      = 0.09375f;
-      Colors[Graphic3d_TOR_AMBIENT]  = Quantity_Color(Graphic3d_Vec3(0.165f));
-      Colors[Graphic3d_TOR_DIFFUSE]  = Quantity_Color(Graphic3d_Vec3(0.40f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.162647f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+      Colors[Graphic3d_TOR_AMBIENT]  = Color1(Graphic3d_Vec3(0.165f));
+      Colors[Graphic3d_TOR_DIFFUSE]  = Color1(Graphic3d_Vec3(0.40f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.162647f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
 
       BSDF.Kd = Graphic3d_Vec3(0.2f);
       BSDF.Ks = Graphic3d_Vec4(0.6f);
@@ -128,10 +128,10 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
       MaterialType = Graphic3d_MATERIAL_ASPECT;
 
       Shininess                      = 0.05f;
-      Colors[Graphic3d_TOR_AMBIENT]  = Quantity_Color(Graphic3d_Vec3(0.0f));
-      Colors[Graphic3d_TOR_DIFFUSE]  = Quantity_Color(Graphic3d_Vec3(1.0f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.342392f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(1.0f));
+      Colors[Graphic3d_TOR_AMBIENT]  = Color1(Graphic3d_Vec3(0.0f));
+      Colors[Graphic3d_TOR_DIFFUSE]  = Color1(Graphic3d_Vec3(1.0f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.342392f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(1.0f));
 
       BSDF.Kd          = Graphic3d_Vec3(0.0f);
       BSDF.Ks          = Graphic3d_Vec4(0.5f, 0.5f, 0.5f, 0.f);
@@ -142,10 +142,10 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
       MaterialType = Graphic3d_MATERIAL_ASPECT;
 
       Shininess                      = 0.13f;
-      Colors[Graphic3d_TOR_AMBIENT]  = Quantity_Color(Graphic3d_Vec3(0.0f));
-      Colors[Graphic3d_TOR_DIFFUSE]  = Quantity_Color(Graphic3d_Vec3(0.47f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.170645f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+      Colors[Graphic3d_TOR_AMBIENT]  = Color1(Graphic3d_Vec3(0.0f));
+      Colors[Graphic3d_TOR_DIFFUSE]  = Color1(Graphic3d_Vec3(0.47f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.170645f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
 
       BSDF = Graphic3d_BSDF::CreateMetallic(Graphic3d_Vec3(0.985f, 0.985f, 0.985f),
                                             Fresnel::CreateSchlick(Graphic3d_Vec3(0.2f)),
@@ -161,11 +161,11 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       Shininess = 0.65f;
       Colors[Graphic3d_TOR_AMBIENT] =
-        Quantity_Color(Graphic3d_Vec3(0.088428f, 0.041081f, 0.002090f));
+        Color1(Graphic3d_Vec3(0.088428f, 0.041081f, 0.002090f));
       Colors[Graphic3d_TOR_DIFFUSE] =
-        Quantity_Color(Graphic3d_Vec3(0.570482f, 0.283555f, 0.012335f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.992f, 0.941f, 0.808f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+        Color1(Graphic3d_Vec3(0.570482f, 0.283555f, 0.012335f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.992f, 0.941f, 0.808f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
       break;
     case Graphic3d_NameOfMaterial_Bronze:
       MaterialType = Graphic3d_MATERIAL_PHYSIC;
@@ -177,11 +177,11 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       Shininess = 0.65f;
       Colors[Graphic3d_TOR_AMBIENT] =
-        Quantity_Color(Graphic3d_Vec3(0.037301f, 0.014931f, 0.004305f));
+        Color1(Graphic3d_Vec3(0.037301f, 0.014931f, 0.004305f));
       Colors[Graphic3d_TOR_DIFFUSE] =
-        Quantity_Color(Graphic3d_Vec3(0.468185f, 0.153344f, 0.027491f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.590f, 0.408f, 0.250f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+        Color1(Graphic3d_Vec3(0.468185f, 0.153344f, 0.027491f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.590f, 0.408f, 0.250f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
       break;
     case Graphic3d_NameOfMaterial_Copper:
       MaterialType = Graphic3d_MATERIAL_PHYSIC;
@@ -193,11 +193,11 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       Shininess = 0.65f;
       Colors[Graphic3d_TOR_AMBIENT] =
-        Quantity_Color(Graphic3d_Vec3(0.030370f, 0.006451f, 0.001780f));
+        Color1(Graphic3d_Vec3(0.030370f, 0.006451f, 0.001780f));
       Colors[Graphic3d_TOR_DIFFUSE] =
-        Quantity_Color(Graphic3d_Vec3(0.323236f, 0.059254f, 0.007584f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.950f, 0.640f, 0.540f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+        Color1(Graphic3d_Vec3(0.323236f, 0.059254f, 0.007584f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.950f, 0.640f, 0.540f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
       break;
     case Graphic3d_NameOfMaterial_Gold:
       MaterialType = Graphic3d_MATERIAL_PHYSIC;
@@ -209,11 +209,11 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       Shininess = 0.80f;
       Colors[Graphic3d_TOR_AMBIENT] =
-        Quantity_Color(Graphic3d_Vec3(0.073239f, 0.043234f, 0.009264f));
+        Color1(Graphic3d_Vec3(0.073239f, 0.043234f, 0.009264f));
       Colors[Graphic3d_TOR_DIFFUSE] =
-        Quantity_Color(Graphic3d_Vec3(0.525643f, 0.295700f, 0.010023f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(1.000f, 0.710f, 0.290f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+        Color1(Graphic3d_Vec3(0.525643f, 0.295700f, 0.010023f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(1.000f, 0.710f, 0.290f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
       break;
     case Graphic3d_NameOfMaterial_Pewter:
       MaterialType = Graphic3d_MATERIAL_PHYSIC;
@@ -224,20 +224,20 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       Shininess = 0.50f;
       Colors[Graphic3d_TOR_AMBIENT] =
-        Quantity_Color(Graphic3d_Vec3(0.010979f, 0.004795f, 0.012335f));
+        Color1(Graphic3d_Vec3(0.010979f, 0.004795f, 0.012335f));
       Colors[Graphic3d_TOR_DIFFUSE] =
-        Quantity_Color(Graphic3d_Vec3(0.152583f, 0.188174f, 0.253972f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.333f, 0.333f, 0.522f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+        Color1(Graphic3d_Vec3(0.152583f, 0.188174f, 0.253972f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.333f, 0.333f, 0.522f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
       break;
     case Graphic3d_NameOfMaterial_Plastered:
       MaterialType = Graphic3d_MATERIAL_ASPECT;
 
       Shininess                      = 0.01f;
-      Colors[Graphic3d_TOR_AMBIENT]  = Quantity_Color(Graphic3d_Vec3(0.13f));
-      Colors[Graphic3d_TOR_DIFFUSE]  = Quantity_Color(Graphic3d_Vec3(0.75f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.003936f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+      Colors[Graphic3d_TOR_AMBIENT]  = Color1(Graphic3d_Vec3(0.13f));
+      Colors[Graphic3d_TOR_DIFFUSE]  = Color1(Graphic3d_Vec3(0.75f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.003936f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
 
       BSDF.Kd = Graphic3d_Vec3(0.482353f, 0.482353f, 0.482353f);
 
@@ -252,11 +252,11 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       Shininess = 0.75f;
       Colors[Graphic3d_TOR_AMBIENT] =
-        Quantity_Color(Graphic3d_Vec3(0.061465f, 0.061465f, 0.050876f));
+        Color1(Graphic3d_Vec3(0.061465f, 0.061465f, 0.050876f));
       Colors[Graphic3d_TOR_DIFFUSE] =
-        Quantity_Color(Graphic3d_Vec3(0.354692f, 0.354692f, 0.354692f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.950f, 0.930f, 0.880f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+        Color1(Graphic3d_Vec3(0.354692f, 0.354692f, 0.354692f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.950f, 0.930f, 0.880f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
       break;
     case Graphic3d_NameOfMaterial_Steel:
       MaterialType = Graphic3d_MATERIAL_PHYSIC;
@@ -269,11 +269,11 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       Shininess = 0.90f;
       Colors[Graphic3d_TOR_AMBIENT] =
-        Quantity_Color(Graphic3d_Vec3(0.019607f, 0.019607f, 0.027212f));
+        Color1(Graphic3d_Vec3(0.019607f, 0.019607f, 0.027212f));
       Colors[Graphic3d_TOR_DIFFUSE] =
-        Quantity_Color(Graphic3d_Vec3(0.214041f, 0.223414f, 0.233022f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.560f, 0.570f, 0.580f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+        Color1(Graphic3d_Vec3(0.214041f, 0.223414f, 0.233022f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.560f, 0.570f, 0.580f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
       break;
     case Graphic3d_NameOfMaterial_Stone:
       MaterialType = Graphic3d_MATERIAL_PHYSIC;
@@ -284,11 +284,11 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       Shininess = 0.17f;
       Colors[Graphic3d_TOR_AMBIENT] =
-        Quantity_Color(Graphic3d_Vec3(0.030074f, 0.020069f, 0.013011f));
+        Color1(Graphic3d_Vec3(0.030074f, 0.020069f, 0.013011f));
       Colors[Graphic3d_TOR_DIFFUSE] =
-        Quantity_Color(Graphic3d_Vec3(0.522522f, 0.318547f, 0.183064f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.98f, 1.0f, 0.60f) * 0.08f);
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+        Color1(Graphic3d_Vec3(0.522522f, 0.318547f, 0.183064f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.98f, 1.0f, 0.60f) * 0.08f);
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
 
       BSDF.Kd = Graphic3d_Vec3(0.243137f, 0.243137f, 0.243137f);
       BSDF.Ks = Graphic3d_Vec4(0.00392157f, 0.00392157f, 0.00392157f, 0.5f);
@@ -304,11 +304,11 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       Shininess = 0.90f;
       Colors[Graphic3d_TOR_AMBIENT] =
-        Quantity_Color(Graphic3d_Vec3(0.033105f, 0.033105f, 0.041436f));
+        Color1(Graphic3d_Vec3(0.033105f, 0.033105f, 0.041436f));
       Colors[Graphic3d_TOR_DIFFUSE] =
-        Quantity_Color(Graphic3d_Vec3(0.263273f, 0.263273f, 0.263273f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.975f, 0.975f, 0.975f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+        Color1(Graphic3d_Vec3(0.263273f, 0.263273f, 0.263273f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.975f, 0.975f, 0.975f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
       break;
     case Graphic3d_NameOfMaterial_Aluminum:
       MaterialType = Graphic3d_MATERIAL_PHYSIC;
@@ -320,20 +320,20 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       Shininess = 0.75f;
       Colors[Graphic3d_TOR_AMBIENT] =
-        Quantity_Color(Graphic3d_Vec3(0.073239f, 0.073239f, 0.073239f));
+        Color1(Graphic3d_Vec3(0.073239f, 0.073239f, 0.073239f));
       Colors[Graphic3d_TOR_DIFFUSE] =
-        Quantity_Color(Graphic3d_Vec3(0.318547f, 0.318547f, 0.318547f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.910f, 0.920f, 0.920f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+        Color1(Graphic3d_Vec3(0.318547f, 0.318547f, 0.318547f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.910f, 0.920f, 0.920f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
       break;
     case Graphic3d_NameOfMaterial_Neon:
       MaterialType = Graphic3d_MATERIAL_PHYSIC;
 
       Shininess                      = 0.05f;
-      Colors[Graphic3d_TOR_AMBIENT]  = Quantity_Color(Graphic3d_Vec3(0.0f));
-      Colors[Graphic3d_TOR_DIFFUSE]  = Quantity_Color(Graphic3d_Vec3(0.0f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.62f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f, 0.787412f, 0.142892f));
+      Colors[Graphic3d_TOR_AMBIENT]  = Color1(Graphic3d_Vec3(0.0f));
+      Colors[Graphic3d_TOR_DIFFUSE]  = Color1(Graphic3d_Vec3(0.0f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.62f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f, 0.787412f, 0.142892f));
 
       BSDF.Kd          = Graphic3d_Vec3(0.0f);
       BSDF.Ks          = Graphic3d_Vec4(0.5f, 0.5f, 0.5f, 0.f);
@@ -345,11 +345,11 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       Shininess = 0.3f;
       Colors[Graphic3d_TOR_AMBIENT] =
-        Quantity_Color(Graphic3d_Vec3(0.004305f, 0.003936f, 0.005532f));
+        Color1(Graphic3d_Vec3(0.004305f, 0.003936f, 0.005532f));
       Colors[Graphic3d_TOR_DIFFUSE] =
-        Quantity_Color(Graphic3d_Vec3(0.028053f, 0.024515f, 0.041436f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.333f, 0.329f, 0.346f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+        Color1(Graphic3d_Vec3(0.028053f, 0.024515f, 0.041436f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.333f, 0.329f, 0.346f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
 
       BSDF.Kd = Graphic3d_Vec3(0.023f, 0.f, 0.023f);
       BSDF.Ks = Graphic3d_Vec4(0.0156863f, 0.0156863f, 0.0156863f, 0.1f);
@@ -359,11 +359,11 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       Shininess = 0.10f;
       Colors[Graphic3d_TOR_AMBIENT] =
-        Quantity_Color(Graphic3d_Vec3(0.016338f, 0.040729f, 0.021493f));
+        Color1(Graphic3d_Vec3(0.016338f, 0.040729f, 0.021493f));
       Colors[Graphic3d_TOR_DIFFUSE] =
-        Quantity_Color(Graphic3d_Vec3(0.252950f, 0.767769f, 0.354692f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.316f, 0.316f, 0.316f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+        Color1(Graphic3d_Vec3(0.252950f, 0.767769f, 0.354692f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.316f, 0.316f, 0.316f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
 
       BSDF.FresnelBase = Fresnel::CreateDielectric(1.5f);
       BSDF.Kd          = Graphic3d_Vec3(0.208658f, 0.415686f, 0.218401f);
@@ -373,10 +373,10 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
       MaterialType = Graphic3d_MATERIAL_PHYSIC;
 
       Shininess                      = 0.01f;
-      Colors[Graphic3d_TOR_AMBIENT]  = Quantity_Color(Graphic3d_Vec3(0.003936f));
-      Colors[Graphic3d_TOR_DIFFUSE]  = Quantity_Color(Graphic3d_Vec3(0.019607f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.0f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+      Colors[Graphic3d_TOR_AMBIENT]  = Color1(Graphic3d_Vec3(0.003936f));
+      Colors[Graphic3d_TOR_DIFFUSE]  = Color1(Graphic3d_Vec3(0.019607f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.0f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
 
       BSDF.Kd = Graphic3d_Vec3(0.02f, 0.02f, 0.02f);
       BSDF.Ks = Graphic3d_Vec4(0.1f, 0.1f, 0.1f, 0.3f);
@@ -393,11 +393,11 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       Shininess = 0.90f;
       Colors[Graphic3d_TOR_AMBIENT] =
-        Quantity_Color(Graphic3d_Vec3(0.170645f, 0.170645f, 0.191627f));
+        Color1(Graphic3d_Vec3(0.170645f, 0.170645f, 0.191627f));
       Colors[Graphic3d_TOR_DIFFUSE] =
-        Quantity_Color(Graphic3d_Vec3(0.003936f, 0.003936f, 0.006571f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.380f, 0.380f, 0.380f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+        Color1(Graphic3d_Vec3(0.003936f, 0.003936f, 0.006571f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.380f, 0.380f, 0.380f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
       break;
     case Graphic3d_NameOfMaterial_Glass:
       MaterialType = Graphic3d_MATERIAL_PHYSIC;
@@ -411,11 +411,11 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       Shininess = 0.50f;
       Colors[Graphic3d_TOR_AMBIENT] =
-        Quantity_Color(Graphic3d_Vec3(0.263273f, 0.290143f, 0.290143f));
+        Color1(Graphic3d_Vec3(0.263273f, 0.290143f, 0.290143f));
       Colors[Graphic3d_TOR_DIFFUSE] =
-        Quantity_Color(Graphic3d_Vec3(0.003936f, 0.006571f, 0.006571f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.920f, 0.920f, 0.920f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+        Color1(Graphic3d_Vec3(0.003936f, 0.006571f, 0.006571f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.920f, 0.920f, 0.920f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
       break;
     case Graphic3d_NameOfMaterial_Diamond:
       MaterialType = Graphic3d_MATERIAL_PHYSIC;
@@ -428,10 +428,10 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
       TransparencyCoef = 0.80f;
 
       Shininess                      = 0.90f;
-      Colors[Graphic3d_TOR_AMBIENT]  = Quantity_Color(Graphic3d_Vec3(0.263273f));
-      Colors[Graphic3d_TOR_DIFFUSE]  = Quantity_Color(Graphic3d_Vec3(0.010023f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.970f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+      Colors[Graphic3d_TOR_AMBIENT]  = Color1(Graphic3d_Vec3(0.263273f));
+      Colors[Graphic3d_TOR_DIFFUSE]  = Color1(Graphic3d_Vec3(0.010023f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.970f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
       break;
 
     case Graphic3d_NameOfMaterial_Transparent:
@@ -445,25 +445,25 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
       TransparencyCoef = 0.80f;
 
       Shininess                      = 0.90f;
-      Colors[Graphic3d_TOR_AMBIENT]  = Quantity_Color(Graphic3d_Vec3(0.263273f));
-      Colors[Graphic3d_TOR_DIFFUSE]  = Quantity_Color(Graphic3d_Vec3(0.010023f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.970f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+      Colors[Graphic3d_TOR_AMBIENT]  = Color1(Graphic3d_Vec3(0.263273f));
+      Colors[Graphic3d_TOR_DIFFUSE]  = Color1(Graphic3d_Vec3(0.010023f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.970f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
       break;
     case Graphic3d_NameOfMaterial_UserDefined:
       MaterialType                   = Graphic3d_MATERIAL_PHYSIC;
-      Colors[Graphic3d_TOR_AMBIENT]  = Quantity_Color(Graphic3d_Vec3(0.1f));
-      Colors[Graphic3d_TOR_DIFFUSE]  = Quantity_Color(Graphic3d_Vec3(0.6f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.2f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+      Colors[Graphic3d_TOR_AMBIENT]  = Color1(Graphic3d_Vec3(0.1f));
+      Colors[Graphic3d_TOR_DIFFUSE]  = Color1(Graphic3d_Vec3(0.6f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.2f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
       break;
     case Graphic3d_NameOfMaterial_DEFAULT:
       MaterialType = Graphic3d_MATERIAL_ASPECT;
 
-      Colors[Graphic3d_TOR_AMBIENT]  = Quantity_Color(Graphic3d_Vec3(0.15f));
-      Colors[Graphic3d_TOR_DIFFUSE]  = Quantity_Color(Graphic3d_Vec3(0.65f));
-      Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.0f));
-      Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
+      Colors[Graphic3d_TOR_AMBIENT]  = Color1(Graphic3d_Vec3(0.15f));
+      Colors[Graphic3d_TOR_DIFFUSE]  = Color1(Graphic3d_Vec3(0.65f));
+      Colors[Graphic3d_TOR_SPECULAR] = Color1(Graphic3d_Vec3(0.0f));
+      Colors[Graphic3d_TOR_EMISSION] = Color1(Graphic3d_Vec3(0.0f));
       break;
   }
   PBRMaterial.SetBSDF(BSDF);
@@ -530,7 +530,7 @@ void Graphic3d_MaterialAspect::SetMaterialType(const Graphic3d_TypeOfMaterial th
 
 //=================================================================================================
 
-void Graphic3d_MaterialAspect::SetColor(const Quantity_Color& theColor)
+void Graphic3d_MaterialAspect::SetColor(const Color1& theColor)
 {
   if (myMaterialType == Graphic3d_MATERIAL_ASPECT)
   {
@@ -540,8 +540,8 @@ void Graphic3d_MaterialAspect::SetColor(const Quantity_Color& theColor)
   myPBRMaterial.SetColor(theColor);
 
   const RawMaterial&   aSrcMat = THE_MATERIALS[myRequestedMaterialName];
-  const Quantity_Color anAmbient((Graphic3d_Vec3)theColor * aSrcMat.AmbientCoef);
-  const Quantity_Color aDiffuse((Graphic3d_Vec3)theColor * aSrcMat.DiffuseCoef);
+  const Color1 anAmbient((Graphic3d_Vec3)theColor * aSrcMat.AmbientCoef);
+  const Color1 aDiffuse((Graphic3d_Vec3)theColor * aSrcMat.DiffuseCoef);
   if (myMaterialName != Graphic3d_NameOfMaterial_UserDefined
       && (!myColors[Graphic3d_TOR_AMBIENT].IsEqual(anAmbient)
           || !myColors[Graphic3d_TOR_DIFFUSE].IsEqual(aDiffuse)))
@@ -554,7 +554,7 @@ void Graphic3d_MaterialAspect::SetColor(const Quantity_Color& theColor)
 
 //=================================================================================================
 
-void Graphic3d_MaterialAspect::SetAmbientColor(const Quantity_Color& theColor)
+void Graphic3d_MaterialAspect::SetAmbientColor(const Color1& theColor)
 {
   if (myMaterialType == Graphic3d_MATERIAL_PHYSIC
       && myMaterialName != Graphic3d_NameOfMaterial_UserDefined
@@ -567,7 +567,7 @@ void Graphic3d_MaterialAspect::SetAmbientColor(const Quantity_Color& theColor)
 
 //=================================================================================================
 
-void Graphic3d_MaterialAspect::SetDiffuseColor(const Quantity_Color& theColor)
+void Graphic3d_MaterialAspect::SetDiffuseColor(const Color1& theColor)
 {
   if (myMaterialType == Graphic3d_MATERIAL_PHYSIC
       && myMaterialName != Graphic3d_NameOfMaterial_UserDefined
@@ -580,7 +580,7 @@ void Graphic3d_MaterialAspect::SetDiffuseColor(const Quantity_Color& theColor)
 
 //=================================================================================================
 
-void Graphic3d_MaterialAspect::SetSpecularColor(const Quantity_Color& theColor)
+void Graphic3d_MaterialAspect::SetSpecularColor(const Color1& theColor)
 {
   if (myMaterialType == Graphic3d_MATERIAL_PHYSIC
       && myMaterialName != Graphic3d_NameOfMaterial_UserDefined
@@ -593,7 +593,7 @@ void Graphic3d_MaterialAspect::SetSpecularColor(const Quantity_Color& theColor)
 
 //=================================================================================================
 
-void Graphic3d_MaterialAspect::SetEmissiveColor(const Quantity_Color& theColor)
+void Graphic3d_MaterialAspect::SetEmissiveColor(const Color1& theColor)
 {
   if (myMaterialType == Graphic3d_MATERIAL_PHYSIC
       && myMaterialName != Graphic3d_NameOfMaterial_UserDefined

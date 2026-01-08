@@ -47,11 +47,11 @@ public:
 
   //! Fixes gaps between ends of curves of adjacent edges
   //! (both 3d and pcurves) in wires
-  //! If precision is 0.0, uses Precision::Confusion().
+  //! If precision is 0.0, uses Precision1::Confusion().
   Standard_EXPORT Standard_Boolean FixWireGaps();
 
   //! Fixes small edges in shape by merging adjacent edges
-  //! If precision is 0.0, uses Precision::Confusion().
+  //! If precision is 0.0, uses Precision1::Confusion().
   Standard_EXPORT Standard_Boolean FixSmallEdges();
 
   //! Auxiliary tool for FixSmallEdges which checks for small edges and fills the maps.

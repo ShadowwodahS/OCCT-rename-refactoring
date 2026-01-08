@@ -254,7 +254,7 @@ Handle(Geom2d_BSplineCurve) Geom2dConvert1::CurveToBSplineCurve(
 
           Geom2dConvert_CompCurveToBSplineCurve CCTBSpl(TheCurve1, Parameterisation);
 
-          CCTBSpl.Add(TheCurve2, Precision::PConfusion(), Standard_True);
+          CCTBSpl.Add(TheCurve2, Precision1::PConfusion(), Standard_True);
 
           TheCurve = CCTBSpl.BSplineCurve();
         }
@@ -293,7 +293,7 @@ Handle(Geom2d_BSplineCurve) Geom2dConvert1::CurveToBSplineCurve(
 
           Geom2dConvert_CompCurveToBSplineCurve CCTBSpl(TheCurve1, Parameterisation);
 
-          CCTBSpl.Add(TheCurve2, Precision::PConfusion(), Standard_True);
+          CCTBSpl.Add(TheCurve2, Precision1::PConfusion(), Standard_True);
 
           TheCurve = CCTBSpl.BSplineCurve();
         }
@@ -605,14 +605,14 @@ static Standard_Boolean NeedToBeTreated(const Handle(Geom2d_BSplineCurve)& BS)
   {
     BS->Weights(tabWeights);
     if ((BSplCLib1::IsRational(tabWeights, 1, BS->NbPoles()))
-        && ((BS->Weight(1) < (1 - Precision::Confusion()))
-            || (BS->Weight(1) > (1 + Precision::Confusion()))
-            || (BS->Weight(2) < (1 - Precision::Confusion()))
-            || (BS->Weight(2) > (1 + Precision::Confusion()))
-            || (BS->Weight(BS->NbPoles() - 1) < (1 - Precision::Confusion()))
-            || (BS->Weight(BS->NbPoles() - 1) > (1 + Precision::Confusion()))
-            || (BS->Weight(BS->NbPoles()) < (1 - Precision::Confusion()))
-            || (BS->Weight(BS->NbPoles()) > (1 + Precision::Confusion()))))
+        && ((BS->Weight(1) < (1 - Precision1::Confusion()))
+            || (BS->Weight(1) > (1 + Precision1::Confusion()))
+            || (BS->Weight(2) < (1 - Precision1::Confusion()))
+            || (BS->Weight(2) > (1 + Precision1::Confusion()))
+            || (BS->Weight(BS->NbPoles() - 1) < (1 - Precision1::Confusion()))
+            || (BS->Weight(BS->NbPoles() - 1) > (1 + Precision1::Confusion()))
+            || (BS->Weight(BS->NbPoles()) < (1 - Precision1::Confusion()))
+            || (BS->Weight(BS->NbPoles()) > (1 + Precision1::Confusion()))))
       return Standard_True;
     else
       return Standard_False;
@@ -641,8 +641,8 @@ static Standard_Boolean Need2DegRepara(const TColGeom2d_Array1OfBSplineCurve& ta
     tab(i)->D1(tab(i)->LastParameter(), Pint, Vec2);
     Rapport = Rapport * Vec2.Magnitude() / Vec1.Magnitude();
   }
-  if ((Rapport <= (1.0e0 + Precision::Confusion()))
-      && (Rapport >= (1.0e0 - Precision::Confusion())))
+  if ((Rapport <= (1.0e0 + Precision1::Confusion()))
+      && (Rapport >= (1.0e0 - Precision1::Confusion())))
     return Standard_False;
   else
     return Standard_True;
@@ -866,7 +866,7 @@ static GeomAbs_Shape Continuity(const Handle(GeomCurve2d)& C1,
                                 const Standard_Boolean      r1,
                                 const Standard_Boolean      r2)
 {
-  return Continuity(C1, C2, u1, u2, r1, r2, Precision::Confusion(), Precision::Angular());
+  return Continuity(C1, C2, u1, u2, r1, r2, Precision1::Confusion(), Precision1::Angular());
 }
 
 //=================================================================================================
@@ -1102,7 +1102,7 @@ void Geom2dConvert1::ConcatG1(TColGeom2d_Array1OfBSplineCurve&          ArrayOfC
     Curve2->SetPeriodic(); // 1 seule courbe C1
     Curve2->RemoveKnot(Curve2->LastUKnotIndex(),
                        Curve2->Multiplicity(Curve2->LastUKnotIndex()) - 1,
-                       Precision::Confusion());
+                       Precision1::Confusion());
     ArrayOfConcatenated->SetValue(0, Curve2);
   }
 
@@ -1147,7 +1147,7 @@ void Geom2dConvert1::ConcatC1(TColGeom2d_Array1OfBSplineCurve&          ArrayOfC
            ArrayOfConcatenated,
            ClosedFlag,
            ClosedTolerance,
-           Precision::Angular());
+           Precision1::Angular());
 }
 
 //=================================================================================================
@@ -1353,7 +1353,7 @@ void Geom2dConvert1::ConcatC1(TColGeom2d_Array1OfBSplineCurve&          ArrayOfC
     Curve2->SetPeriodic(); // 1 seule courbe C1
     Curve2->RemoveKnot(Curve2->LastUKnotIndex(),
                        Curve2->Multiplicity(Curve2->LastUKnotIndex()) - 1,
-                       Precision::Confusion());
+                       Precision1::Confusion());
     ArrayOfConcatenated->SetValue(0, Curve2);
   }
 
@@ -1496,7 +1496,7 @@ void Geom2dConvert1::C0BSplineToArrayOfC1BSplineCurve(
   Handle(TColGeom2d_HArray1OfBSplineCurve)& tabBS,
   const Standard_Real                       tolerance)
 {
-  C0BSplineToArrayOfC1BSplineCurve(BS, tabBS, tolerance, Precision::Angular());
+  C0BSplineToArrayOfC1BSplineCurve(BS, tabBS, tolerance, Precision1::Angular());
 }
 
 //=================================================================================================

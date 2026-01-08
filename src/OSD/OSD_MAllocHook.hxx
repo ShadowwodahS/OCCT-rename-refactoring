@@ -25,13 +25,13 @@
  * On MS Windows, it works only in Debug builds. It relies on the
  * debug CRT function _CrtSetAllocHook (see MSDN for help).
  */
-class OSD_MAllocHook
+class MemoryAllocHook
 {
 public:
   /**
    * Interface of a class that should handle allocation/deallocation events
    */
-  class Callback
+  class Callback1
   {
   public:
     //! Allocation event handler
@@ -62,7 +62,7 @@ public:
    * to the log file. It contains the method to generate the report
    * from the log file.
    */
-  class LogFileHandler : public Callback
+  class LogFileHandler : public Callback1
   {
   public:
     //! Constructor
@@ -103,7 +103,7 @@ public:
    * Implementation of the handler that collects numbers of
    * allocations/deallocations for each block size directly in the memory.
    */
-  class CollectBySize : public Callback
+  class CollectBySize : public Callback1
   {
   public:
     //! Constructor
@@ -122,13 +122,13 @@ public:
     Standard_EXPORT virtual void FreeEvent(void*, size_t, long);
 
   public:
-    struct Numbers
+    struct Numbers1
     {
       int nbAlloc;
       int nbFree;
       int nbLeftPeak;
 
-      Numbers()
+      Numbers1()
           : nbAlloc(0),
             nbFree(0),
             nbLeftPeak(0)
@@ -139,7 +139,7 @@ public:
     static const size_t myMaxAllocSize; //!< maximum tracked size
 
     Standard_Mutex myMutex;         //!< used for thread-safe access
-    Numbers*       myArray;         //!< indexed from 0 to myMaxAllocSize-1
+    Numbers1*       myArray;         //!< indexed from 0 to myMaxAllocSize-1
     ptrdiff_t      myTotalLeftSize; //!< currently remained allocated size
     size_t         myTotalPeakSize; //!< maximum cumulative allocated size
                                     // clang-format off
@@ -155,10 +155,10 @@ public:
    * is returned by GetLogFileHandler().
    * To clear the handler, pass NULL here.
    */
-  Standard_EXPORT static void SetCallback(Callback* theCB);
+  Standard_EXPORT static void SetCallback(Callback1* theCB);
 
   //! Get current handler of allocation/deallocation events
-  Standard_EXPORT static Callback* GetCallback();
+  Standard_EXPORT static Callback1* GetCallback();
 
   //! Get static instance of LogFileHandler handler
   Standard_EXPORT static LogFileHandler* GetLogFileHandler();

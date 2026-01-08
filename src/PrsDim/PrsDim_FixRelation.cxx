@@ -259,10 +259,10 @@ Point3d PrsDim_FixRelation::ComputePosition(const Handle(GeomCurve3d)& curv1,
     Vector3d vec1(firstp1, lastp1);
     Vector3d vec2(firstp2, lastp2);
 
-    if (!vec1.IsParallel(vec2, Precision::Angular()))
+    if (!vec1.IsParallel(vec2, Precision1::Angular()))
     {
       Dir3d                  dir;
-      constexpr Standard_Real conf = Precision::Confusion();
+      constexpr Standard_Real conf = Precision1::Confusion();
       if (lastp1.IsEqual(firstp2, conf) || firstp1.IsEqual(lastp2, conf))
         dir.SetXYZ(vec1.XYZ() - vec2.XYZ());
       else

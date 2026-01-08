@@ -47,7 +47,7 @@ public:
 
   //! \brief Type definition for graph adjacency matrix.
   //! This is how parent-component links are realized in the assembly graph.
-  typedef NCollection_DataMap<Standard_Integer, TColStd_PackedMapOfInteger> AdjacencyMap;
+  typedef NCollection_DataMap<Standard_Integer, PackedIntegerMap> AdjacencyMap;
 
 public:
   //! \brief Graph iterator.
@@ -94,7 +94,7 @@ public:
 
   //! \brief Returns IDs of the root nodes.
   //! \return IDs of the root nodes.
-  const TColStd_PackedMapOfInteger& GetRoots() const { return myRoots; }
+  const PackedIntegerMap& GetRoots() const { return myRoots; }
 
   //! \brief Checks whether the assembly graph contains (n1, n2) directed link.
   //! \param[in]  theNode1 - one-based ID of the first node.
@@ -114,7 +114,7 @@ public:
   //! \brief Returns IDs of child nodes for the given node.
   //! \param[in]  theNode - one-based node ID.
   //! \return set of child IDs.
-  const TColStd_PackedMapOfInteger& GetChildren(const Standard_Integer theNode) const
+  const PackedIntegerMap& GetChildren(const Standard_Integer theNode) const
   {
     return myAdjacencyMap(theNode);
   }
@@ -173,7 +173,7 @@ private:
 
 private:
   Handle(XCAFDoc_ShapeTool)  myShapeTool;                         //!< Document shape tool.
-  TColStd_PackedMapOfInteger myRoots;                             //!< IDs of the root nodes.
+  PackedIntegerMap myRoots;                             //!< IDs of the root nodes.
                                                                   // clang-format off
   TDF_LabelIndexedMap                             myNodes;        //!< Maps assembly/part entries to graph node IDs.
                                                                   // clang-format on

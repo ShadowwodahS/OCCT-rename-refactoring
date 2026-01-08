@@ -280,7 +280,7 @@ void PrsDim_MinRadiusDimension::ComputeSelection(const Handle(SelectionContainer
       Vector3d Vapex(center, ElCLib1::Value(parEnd, myEllipse));
       Vector3d Vpnt(center, ElCLib1::Value(par, myEllipse));
       Dir3d dir(Vpnt ^ Vapex);
-      if (myEllipse.Position1().Direction().IsOpposite(dir, Precision::Angular()))
+      if (myEllipse.Position1().Direction().IsOpposite(dir, Precision1::Angular()))
       {
         parStart = parEnd;
         parEnd   = par;

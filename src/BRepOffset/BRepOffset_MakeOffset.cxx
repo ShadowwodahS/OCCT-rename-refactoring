@@ -116,7 +116,7 @@ Standard_Integer       NbAF        = 0;
 Standard_Integer       NVP         = 0;
 Standard_Integer       NVM         = 0;
 Standard_Integer       NVN         = 0;
-static OSD_Chronometer Clock;
+static Chronometer Clock;
 char                   name[100];
 
 //=================================================================================================
@@ -178,7 +178,7 @@ static void DEBVerticesControl(const TopTools_IndexedMapOfShape& NewEdges,
   ShapeBuilder                       B;
   TopTools_ListIteratorOfListOfShape it1(LVP);
   Standard_Real                      TolConf = 1.e-5;
-  Standard_Real                      Tol     = Precision::Confusion();
+  Standard_Real                      Tol     = Precision1::Confusion();
   // Standard_Integer                   i = 1;
 
   i = 1;
@@ -186,7 +186,7 @@ static void DEBVerticesControl(const TopTools_IndexedMapOfShape& NewEdges,
   {
     TopoShape                       V1      = it1.Value();
     Point3d                             P1      = BRepInspector::Pnt(TopoDS::Vertex(V1));
-    Standard_Real                      distmin = Precision::Infinite();
+    Standard_Real                      distmin = Precision1::Infinite();
     TopTools_ListIteratorOfListOfShape it2(LVP);
     Standard_Integer                   j = 1;
 
@@ -447,13 +447,13 @@ static Standard_Boolean FindParameter(const TopoVertex& V,
           if (!C.IsNull())
           {
             // Closed curves RLE 16 june 94
-            if (Precision::IsNegativeInfinite(f))
+            if (Precision1::IsNegativeInfinite(f))
             {
               // return pr->Parameter();//p;
               U = pr->Parameter();
               return Standard_True;
             }
-            if (Precision::IsPositiveInfinite(l))
+            if (Precision1::IsPositiveInfinite(l))
             {
               // return pr->Parameter();//p;
               U = pr->Parameter();
@@ -886,7 +886,7 @@ void BRepOffset_MakeOffset::MakeOffsetShape(const Message_ProgressRange& theRang
   // ------------
   EvalMax(myShape, myTol);
   // There are possible second variant: analytical continuation of arcsin.
-  Standard_Real TolAngleCoeff = Min(myTol / (Abs(myOffset * 0.5) + Precision::Confusion()), 1.0);
+  Standard_Real TolAngleCoeff = Min(myTol / (Abs(myOffset * 0.5) + Precision1::Confusion()), 1.0);
   Standard_Real TolAngle      = 4 * ASin(TolAngleCoeff);
   if ((myJoin == GeomAbs_Intersection) && myInter && myIsPlanar)
   {
@@ -2504,7 +2504,7 @@ void BRepOffset_MakeOffset::CorrectConicalFaces()
       TopoVertex v1, v2, FirstVert, EndVert;
       TopExp1::Vertices(CurEdge, v1, v2);
       FirstVert = CurFirstVertex;
-      if (lPnt.Distance(FirstPoint) <= Precision::Confusion())
+      if (lPnt.Distance(FirstPoint) <= Precision1::Confusion())
         EndVert = theFirstVertex;
       else
         EndVert = BRepLib_MakeVertex(lPnt);
@@ -2517,14 +2517,14 @@ void BRepOffset_MakeOffset::CorrectConicalFaces()
       Standard_Real Uf, Vf, Ul, Vl;
       ElSLib1::Parameters(theSphere, fPnt, Uf, Vf);
       ElSLib1::Parameters(theSphere, lPnt, Ul, Vl);
-      if (Abs(Ul) <= Precision::Confusion())
+      if (Abs(Ul) <= Precision1::Confusion())
         Ul = 2. * M_PI;
       Handle(GeomCurve3d) aCurv = aSphSurf->VIso(Vf);
       /*
         if (!isFirstFace)
         {
         gp_Circ aCircle = (Handle(GeomCircle)::DownCast(aCurv))->Circ();
-        if (Abs(Uf - f) > Precision::Confusion())
+        if (Abs(Uf - f) > Precision1::Confusion())
         {
         aCircle.Rotate(aCircle.Axis(), f - Uf);
         aCurv = new GeomCircle(aCircle);
@@ -2532,11 +2532,11 @@ void BRepOffset_MakeOffset::CorrectConicalFaces()
         }
       */
       Handle(Geom_TrimmedCurve) aTrimCurv = new Geom_TrimmedCurve(aCurv, Uf, Ul);
-      BB.UpdateEdge(CurEdge, aTrimCurv, Precision::Confusion());
+      BB.UpdateEdge(CurEdge, aTrimCurv, Precision1::Confusion());
       BB.Range(CurEdge, Uf, Ul, Standard_True);
       Handle(Geom2d_Line)         theLin2d     = new Geom2d_Line(gp_Pnt2d(0., Vf), gp1::DX2d());
       Handle(Geom2d_TrimmedCurve) theTrimLin2d = new Geom2d_TrimmedCurve(theLin2d, Uf, Ul);
-      BB.UpdateEdge(CurEdge, theTrimLin2d, aSphSurf, L, Precision::Confusion());
+      BB.UpdateEdge(CurEdge, theTrimLin2d, aSphSurf, L, Precision1::Confusion());
       BB.Range(CurEdge, aSphSurf, L, Uf, Ul);
       BRepLib1::SameParameter(CurEdge);
       BB.Add(SphereWire, CurEdge);
@@ -2574,14 +2574,14 @@ void BRepOffset_MakeOffset::CorrectConicalFaces()
         if (V1.IsSame(v1))
         {
           TopoVertex NewV =
-            (p2d1.Distance(fPnt2d) <= Precision::Confusion()) ? FirstVert : EndVert;
+            (p2d1.Distance(fPnt2d) <= Precision1::Confusion()) ? FirstVert : EndVert;
           BB.Remove(Eforward, V1);
           BB.Add(Eforward, NewV.Oriented(TopAbs_FORWARD));
         }
         else
         {
           TopoVertex NewV =
-            (p2d2.Distance(fPnt2d) <= Precision::Confusion()) ? FirstVert : EndVert;
+            (p2d2.Distance(fPnt2d) <= Precision1::Confusion()) ? FirstVert : EndVert;
           BB.Remove(Eforward, V2);
           BB.Add(Eforward, NewV.Oriented(TopAbs_REVERSED));
         }
@@ -2622,7 +2622,7 @@ void BRepOffset_MakeOffset::CorrectConicalFaces()
       Handle(GeomCurve2d) aC2d = BRepInspector::CurveOnSurface(FirstEdge, aSphSurf, L, f, l);
       p2d1                      = aC2d->Value(f);
       p2d2                      = aC2d->Value(l);
-      if (Abs(p2d1.X() - Ufirst) <= Precision::Confusion())
+      if (Abs(p2d1.X() - Ufirst) <= Precision1::Confusion())
       {
         EdgesOfWire.Remove(itl);
         break;
@@ -2659,7 +2659,7 @@ void BRepOffset_MakeOffset::CorrectConicalFaces()
       Vlast  = p2d1.Y();
     }
     TopoFace NewSphericalFace =
-      BRepLib_MakeFace(aSphSurf, Ufirst, Ulast, Vfirst, Vlast, Precision::Confusion());
+      BRepLib_MakeFace(aSphSurf, Ufirst, Ulast, Vfirst, Vlast, Precision1::Confusion());
     TopoEdge OldEdge, DegEdge;
     for (Explo.Init(NewSphericalFace, TopAbs_EDGE); Explo.More(); Explo.Next())
     {
@@ -3161,7 +3161,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
         Point3d        aPntF  = BRepInspector::Pnt(V1);
         Point3d        aPntL  = BRepInspector::Pnt(V2);
         Standard_Real aDistE = aPntF.SquareDistance(aPntL);
-        if (aDistE < Precision::SquareConfusion())
+        if (aDistE < Precision1::SquareConfusion())
         {
           // Bad case: non closed, but vertexes mapped to same 3d point.
           continue;
@@ -3266,17 +3266,17 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
         gp_Circ aCircOE = BAcurveOE.Circle();
         gp_Lin  anAxisLine(aCirc.Axis());
         Dir3d  CircAxisDir = aCirc.Axis().Direction();
-        if (aCirc.Axis().IsParallel(aCircOE.Axis(), Precision::Confusion())
-            && anAxisLine.Contains(aCircOE.Location(), Precision::Confusion()))
+        if (aCirc.Axis().IsParallel(aCircOE.Axis(), Precision1::Confusion())
+            && anAxisLine.Contains(aCircOE.Location(), Precision1::Confusion()))
         { // cylinder, plane or cone
-          if (Abs(aCirc.Radius() - aCircOE.Radius()) <= Precision::Confusion()) // case of cylinder
+          if (Abs(aCirc.Radius() - aCircOE.Radius()) <= Precision1::Confusion()) // case of cylinder
             theSurf = GC_MakeCylindricalSurface(aCirc).Value();
-          else if (aCirc.Location().Distance(aCircOE.Location()) <= Precision::Confusion())
+          else if (aCirc.Location().Distance(aCircOE.Location()) <= Precision1::Confusion())
           { // case of plane
             IsPlanar = Standard_True;
             //
             Point3d PonEL = BAcurve.Value(lpar);
-            if (PonEL.Distance(PonE) <= Precision::PConfusion())
+            if (PonEL.Distance(PonE) <= Precision1::PConfusion())
             {
               Standard_Boolean   bIsHole;
               TopoEdge        aE1, aE2;
@@ -3307,9 +3307,9 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
                 TopoEdge& aE = (i == 0) ? aE1 : aE2;
                 //
                 TopoFace aFace;
-                BB.MakeFace(aFace, aPL, Precision::Confusion());
+                BB.MakeFace(aFace, aPL, Precision1::Confusion());
                 BB.Add(aFace, aW);
-                aClsf.Init(aFace, Precision::Confusion());
+                aClsf.Init(aFace, Precision1::Confusion());
                 bIsHole = aClsf.IsHole();
                 if ((bIsHole && !i) || (!bIsHole && i))
                 {
@@ -3319,7 +3319,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
                 }
               }
               //
-              BB.MakeFace(NewFace, aPL, Precision::Confusion());
+              BB.MakeFace(NewFace, aPL, Precision1::Confusion());
               BB.Add(NewFace, aW1);
               BB.Add(NewFace, aW2);
             }
@@ -3341,19 +3341,19 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
           {
             TopLoc_Location Loc;
             EdgeLine2d = new Geom2d_Line(gp_Pnt2d(0., 0.), gp_Dir2d(1., 0.));
-            BB.UpdateEdge(anEdge, EdgeLine2d, theSurf, Loc, Precision::Confusion());
+            BB.UpdateEdge(anEdge, EdgeLine2d, theSurf, Loc, Precision1::Confusion());
             Standard_Real Coeff = (OffsetDir * CircAxisDir > 0.) ? 1. : -1.;
             OELine2d = new Geom2d_Line(gp_Pnt2d(0., OffsetVal * Coeff), gp_Dir2d(1., 0.));
-            BB.UpdateEdge(OE, OELine2d, theSurf, Loc, Precision::Confusion());
+            BB.UpdateEdge(OE, OELine2d, theSurf, Loc, Precision1::Confusion());
             aLine2d  = new Geom2d_Line(gp_Pnt2d(ParV2, 0.), gp_Dir2d(0., Coeff));
             aLine2d2 = new Geom2d_Line(gp_Pnt2d(ParV1, 0.), gp_Dir2d(0., Coeff));
             if (E3.IsSame(E4))
             {
               if (Coeff > 0.)
-                BB.UpdateEdge(E3, aLine2d, aLine2d2, theSurf, Loc, Precision::Confusion());
+                BB.UpdateEdge(E3, aLine2d, aLine2d2, theSurf, Loc, Precision1::Confusion());
               else
               {
-                BB.UpdateEdge(E3, aLine2d2, aLine2d, theSurf, Loc, Precision::Confusion());
+                BB.UpdateEdge(E3, aLine2d2, aLine2d, theSurf, Loc, Precision1::Confusion());
                 theWire.Nullify();
                 BB.MakeWire(theWire);
                 BB.Add(theWire, anEdge.Oriented(TopAbs_REVERSED));
@@ -3369,9 +3369,9 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
               BB.SameRange(E3, Standard_False);
               BB.SameParameter(E4, Standard_False);
               BB.SameRange(E4, Standard_False);
-              BB.UpdateEdge(E3, aLine2d, theSurf, Loc, Precision::Confusion());
+              BB.UpdateEdge(E3, aLine2d, theSurf, Loc, Precision1::Confusion());
               BB.Range(E3, theSurf, Loc, 0., OffsetVal);
-              BB.UpdateEdge(E4, aLine2d2, theSurf, Loc, Precision::Confusion());
+              BB.UpdateEdge(E4, aLine2d2, theSurf, Loc, Precision1::Confusion());
               BB.Range(E4, theSurf, Loc, 0., OffsetVal);
             }
             NewFace = BRepLib_MakeFace(theSurf, theWire);
@@ -3422,24 +3422,24 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
           GeomFill_Generator ThrusecGenerator;
           ThrusecGenerator.AddCurve(TrEdgeCurve);
           ThrusecGenerator.AddCurve(TrOffsetCurve);
-          ThrusecGenerator.Perform(Precision::PConfusion());
+          ThrusecGenerator.Perform(Precision1::PConfusion());
           theSurf = ThrusecGenerator.Surface();
           Standard_Real Uf, Ul, Vf, Vl;
           theSurf->Bounds(Uf, Ul, Vf, Vl);
           TopLoc_Location Loc;
           EdgeLine2d = new Geom2d_Line(gp_Pnt2d(0., Vf), gp_Dir2d(1., 0.));
-          BB.UpdateEdge(anEdge, EdgeLine2d, theSurf, Loc, Precision::Confusion());
+          BB.UpdateEdge(anEdge, EdgeLine2d, theSurf, Loc, Precision1::Confusion());
           OELine2d = new Geom2d_Line(gp_Pnt2d(0., Vl), gp_Dir2d(1., 0.));
-          BB.UpdateEdge(OE, OELine2d, theSurf, Loc, Precision::Confusion());
+          BB.UpdateEdge(OE, OELine2d, theSurf, Loc, Precision1::Confusion());
           Standard_Real UonV1 = (ToReverse) ? Ul : Uf;
           Standard_Real UonV2 = (ToReverse) ? Uf : Ul;
           aLine2d             = new Geom2d_Line(gp_Pnt2d(UonV2, 0.), gp_Dir2d(0., 1.));
           aLine2d2            = new Geom2d_Line(gp_Pnt2d(UonV1, 0.), gp_Dir2d(0., 1.));
           if (E3.IsSame(E4))
           {
-            BB.UpdateEdge(E3, aLine2d, aLine2d2, theSurf, Loc, Precision::Confusion());
+            BB.UpdateEdge(E3, aLine2d, aLine2d2, theSurf, Loc, Precision1::Confusion());
             Handle(GeomCurve3d) BSplC34 = theSurf->UIso(Uf);
-            BB.UpdateEdge(E3, BSplC34, Precision::Confusion());
+            BB.UpdateEdge(E3, BSplC34, Precision1::Confusion());
             BB.Range(E3, Vf, Vl);
           }
           else
@@ -3448,15 +3448,15 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
             BB.SameRange(E3, Standard_False);
             BB.SameParameter(E4, Standard_False);
             BB.SameRange(E4, Standard_False);
-            BB.UpdateEdge(E3, aLine2d, theSurf, Loc, Precision::Confusion());
+            BB.UpdateEdge(E3, aLine2d, theSurf, Loc, Precision1::Confusion());
             BB.Range(E3, theSurf, Loc, Vf, Vl);
-            BB.UpdateEdge(E4, aLine2d2, theSurf, Loc, Precision::Confusion());
+            BB.UpdateEdge(E4, aLine2d2, theSurf, Loc, Precision1::Confusion());
             BB.Range(E4, theSurf, Loc, Vf, Vl);
             Handle(GeomCurve3d) BSplC3 = theSurf->UIso(UonV2);
-            BB.UpdateEdge(E3, BSplC3, Precision::Confusion());
+            BB.UpdateEdge(E3, BSplC3, Precision1::Confusion());
             BB.Range(E3, Vf, Vl, Standard_True); // only for 3d curve
             Handle(GeomCurve3d) BSplC4 = theSurf->UIso(UonV1);
-            BB.UpdateEdge(E4, BSplC4, Precision::Confusion());
+            BB.UpdateEdge(E4, BSplC4, Precision1::Confusion());
             BB.Range(E4, Vf, Vl, Standard_True); // only for 3d curve
           }
           NewFace = BRepLib_MakeFace(theSurf, theWire);
@@ -3467,7 +3467,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
         Standard_Real   fparOE = BAcurveOE.FirstParameter();
         Standard_Real   lparOE = BAcurveOE.LastParameter();
         TopLoc_Location Loc;
-        if (Abs(fpar - fparOE) > Precision::Confusion())
+        if (Abs(fpar - fparOE) > Precision1::Confusion())
         {
           const TopoEdge& anE4   = (ToReverse) ? E3 : E4;
           gp_Pnt2d           fp2d   = EdgeLine2d->Value(fpar);
@@ -3481,7 +3481,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
           Handle(GeomAdaptor_Surface) HSurf = new GeomAdaptor_Surface(GAsurf);
           Adaptor3d_CurveOnSurface    ConS(HC2d, HSurf);
           Standard_Real               max_deviation = 0., average_deviation;
-          GeomLib1::BuildCurve3d(Precision::Confusion(),
+          GeomLib1::BuildCurve3d(Precision1::Confusion(),
                                 ConS,
                                 FirstPar,
                                 LastPar,
@@ -3492,7 +3492,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
           BB.UpdateEdge(anE4, aLine2d2, theSurf, Loc, max_deviation);
           BB.Range(anE4, FirstPar, LastPar);
         }
-        if (Abs(lpar - lparOE) > Precision::Confusion())
+        if (Abs(lpar - lparOE) > Precision1::Confusion())
         {
           const TopoEdge& anE3   = (ToReverse) ? E4 : E3;
           gp_Pnt2d           lp2d   = EdgeLine2d->Value(lpar);
@@ -3506,7 +3506,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
           Handle(GeomAdaptor_Surface) HSurf = new GeomAdaptor_Surface(GAsurf);
           Adaptor3d_CurveOnSurface    ConS(HC2d, HSurf);
           Standard_Real               max_deviation = 0., average_deviation;
-          GeomLib1::BuildCurve3d(Precision::Confusion(),
+          GeomLib1::BuildCurve3d(Precision1::Confusion(),
                                 ConS,
                                 FirstPar,
                                 LastPar,
@@ -4072,10 +4072,10 @@ Standard_Real ComputeMaxDist(const gp_Pln&             thePlane,
   {
     aPrm = ((NCONTROL - 1 - i) * theFirst + i * theLast) / (NCONTROL - 1);
     aP   = theCrv->Value(aPrm);
-    if (Precision::IsInfinite(aP.X()) || Precision::IsInfinite(aP.Y())
-        || Precision::IsInfinite(aP.Z()))
+    if (Precision1::IsInfinite(aP.X()) || Precision1::IsInfinite(aP.Y())
+        || Precision1::IsInfinite(aP.Z()))
     {
-      return Precision::Infinite();
+      return Precision1::Infinite();
     }
     aDist2 = thePlane.SquareDistance(aP);
     if (aDist2 > aMaxDist)
@@ -4216,7 +4216,7 @@ void CorrectSolid(TopoSolid& theSol, ShapeList& theSolList)
     aVols.Append(aVProps.Mass());
   }
   //
-  if (Abs(anOuterVol) < Precision::Confusion())
+  if (Abs(anOuterVol) < Precision1::Confusion())
   {
     return;
   }
@@ -4476,13 +4476,13 @@ BRepOffset_Error checkSinglePoint(const Standard_Real               theUParam,
   Vector3d aD1U, aD1V;
   theSurf->D1(theUParam, theVParam, aPnt, aD1U, aD1V);
 
-  if (aD1U.SquareMagnitude() < Precision::SquareConfusion()
-      || aD1V.SquareMagnitude() < Precision::SquareConfusion())
+  if (aD1U.SquareMagnitude() < Precision1::SquareConfusion()
+      || aD1V.SquareMagnitude() < Precision1::SquareConfusion())
   {
     Standard_Boolean isKnownBadPnt = Standard_False;
     for (Standard_Integer anIdx = theBadPoints.Lower(); anIdx <= theBadPoints.Upper(); ++anIdx)
     {
-      if (aPnt.SquareDistance(theBadPoints(anIdx)) < Precision::SquareConfusion())
+      if (aPnt.SquareDistance(theBadPoints(anIdx)) < Precision1::SquareConfusion())
       {
         isKnownBadPnt = Standard_True;
         break;
@@ -4497,9 +4497,9 @@ BRepOffset_Error checkSinglePoint(const Standard_Real               theUParam,
     {
       return BRepOffset_NoError;
     }
-  } //  if (aD1U.SquareMagnitude() < Precision::SquareConfusion() ||
+  } //  if (aD1U.SquareMagnitude() < Precision1::SquareConfusion() ||
 
-  if (aD1U.IsParallel(aD1V, Precision::Confusion()))
+  if (aD1U.IsParallel(aD1V, Precision1::Confusion()))
   {
     // Isolines are collinear.
     return BRepOffset_BadNormalsOnGeometry;
@@ -4810,10 +4810,10 @@ Standard_Boolean TrimEdge(TopoEdge&                  NE,
   AlgoTools::MakeSplitEdge(NE, V1, aT1, V2, aT2, aSourceEdge);
   //
   //
-  constexpr Standard_Real aSameParTol = Precision::Confusion();
+  constexpr Standard_Real aSameParTol = Precision1::Confusion();
 
   Standard_Real U    = 0.;
-  Standard_Real UMin = Precision::Infinite();
+  Standard_Real UMin = Precision1::Infinite();
   Standard_Real UMax = -UMin;
 
   const ShapeList& LE = AsDes2d->Descendant(NE);
@@ -5308,13 +5308,13 @@ Standard_Boolean BRepOffset_MakeOffset::IsPlanar()
 
       // try to linearize
       Handle(GeomSurface)    aSurf = BRepInspector::Surface(aF);
-      PlanarSurfaceChecker aPlanarityChecker(aSurf, Precision::Confusion());
+      PlanarSurfaceChecker aPlanarityChecker(aSurf, Precision1::Confusion());
       if (aPlanarityChecker.IsPlanar())
       {
         gp_Pln        aPln = aPlanarityChecker.Plan();
         Standard_Real u1, u2, v1, v2, um, vm;
         aSurf->Bounds(u1, u2, v1, v2);
-        Standard_Boolean isInf1 = Precision::IsInfinite(u1), isInf2 = Precision::IsInfinite(u2);
+        Standard_Boolean isInf1 = Precision1::IsInfinite(u1), isInf2 = Precision1::IsInfinite(u2);
         if (!isInf1 && !isInf2)
         {
           um = (u1 + u2) / 2.;
@@ -5331,7 +5331,7 @@ Standard_Boolean BRepOffset_MakeOffset::IsPlanar()
         {
           um = 0.;
         }
-        isInf1 = Precision::IsInfinite(v1), isInf2 = Precision::IsInfinite(v2);
+        isInf1 = Precision1::IsInfinite(v1), isInf2 = Precision1::IsInfinite(v2);
         if (!isInf1 && !isInf2)
         {
           vm = (v1 + v2) / 2.;

@@ -40,7 +40,7 @@ public:
   }
 
   //! Setup color of entire text.
-  Standard_EXPORT virtual void SetColor(const Quantity_Color& theColor) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetColor(const Color1& theColor) Standard_OVERRIDE;
 
   //! Setup transparency within [0, 1] range.
   Standard_EXPORT virtual void SetTransparency(const Standard_Real theValue) Standard_OVERRIDE;
@@ -126,7 +126,7 @@ public:
 
   //! Modifies the colour of the subtitle for the TODT_SUBTITLE TextDisplayType
   //! and the colour of backgroubd for the TODT_DEKALE TextDisplayType.
-  Standard_EXPORT void SetColorSubTitle(const Quantity_Color& theColor);
+  Standard_EXPORT void SetColorSubTitle(const Color1& theColor);
 
   //! Returns text presentation formatter; NULL by default, which means standard text formatter will
   //! be used.

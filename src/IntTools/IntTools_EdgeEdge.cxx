@@ -121,7 +121,7 @@ void IntTools_EdgeEdge::Prepare()
       Standard_Real aC1, aC2;
       //
       aC2 = CurveDeflection(myCurve2, myRange2);
-      aC1 = (aC2 > Precision::Confusion()) ? CurveDeflection(myCurve1, myRange1) : 1.;
+      aC1 = (aC2 > Precision1::Confusion()) ? CurveDeflection(myCurve1, myRange1) : 1.;
       //
       if (aC1 < aC2)
       {
@@ -832,7 +832,7 @@ void IntTools_EdgeEdge::FindBestSolution(const Standard_Real aT11,
   GeomAPI_ProjectPointOnCurve aProjPC;
   IntTools_SequenceOfRanges   aRanges;
   //
-  aDMin                          = Precision::Infinite();
+  aDMin                          = Precision1::Infinite();
   aSolCriteria                   = 5.e-16;
   aTouchCriteria                 = 5.e-13;
   Standard_Boolean bTouch        = Standard_False;
@@ -914,7 +914,7 @@ void IntTools_EdgeEdge::ComputeLineLine()
   Dir3d aD2 = aL2.Direction();
 
   Standard_Real    anAngle    = aD1.Angle(aD2);
-  Standard_Boolean IsCoincide = anAngle < Precision::Angular();
+  Standard_Boolean IsCoincide = anAngle < Precision1::Angular();
   if (IsCoincide)
   {
     if (aL1.SquareDistance(aL2.Location()) > aTol)
@@ -931,7 +931,7 @@ void IntTools_EdgeEdge::ComputeLineLine()
   if (!IsCoincide)
   {
     Point3d O2(aL2.Location());
-    if (!Precision::IsInfinite(aT21) && !Precision::IsInfinite(aT22))
+    if (!Precision1::IsInfinite(aT21) && !Precision1::IsInfinite(aT22))
       O2 = ElCLib1::Value((aT21 + aT22) / 2., aL2);
 
     Vector3d aVec1 = Vector3d(O2, aP11).Crossed(aD2);
@@ -1096,10 +1096,10 @@ Standard_Boolean IntTools_EdgeEdge::IsIntersection(const Standard_Real aT11,
     Standard_Real anAngle1 = 0.0, anAngle2 = 0.0;
     //
     anAngleCriteria = 5.e-3;
-    if (aV11.SquareMagnitude() > Precision::SquareConfusion()
-        && aV12.SquareMagnitude() > Precision::SquareConfusion()
-        && aV21.SquareMagnitude() > Precision::SquareConfusion()
-        && aV22.SquareMagnitude() > Precision::SquareConfusion())
+    if (aV11.SquareMagnitude() > Precision1::SquareConfusion()
+        && aV12.SquareMagnitude() > Precision1::SquareConfusion()
+        && aV21.SquareMagnitude() > Precision1::SquareConfusion()
+        && aV22.SquareMagnitude() > Precision1::SquareConfusion())
     {
       if (bSmall_11_21 && bSmall_12_22)
       {
@@ -1120,7 +1120,7 @@ Standard_Boolean IntTools_EdgeEdge::IsIntersection(const Standard_Real aT11,
       Standard_Integer            iErr;
       Standard_Real               aD, aT1Min, aT2Min;
       //
-      aD = Precision::Infinite();
+      aD = Precision1::Infinite();
       aProjPC.Init(myGeom2, aT21, aT22);
       iErr =
         FindDistPC(aT11, aT12, myGeom1, myTol, myRes1, aProjPC, aD, aT1Min, aT2Min, Standard_False);

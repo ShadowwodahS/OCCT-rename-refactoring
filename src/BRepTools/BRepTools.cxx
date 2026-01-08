@@ -204,7 +204,7 @@ void BRepTools1::AddUVBounds(const TopoFace& aF, const TopoEdge& aE, Bnd_Box2d& 
     // points.
     if (aS->DynamicType() == STANDARD_TYPE(Geom_BSplineSurface) && (aXmin < aUmin || aXmax > aUmax))
     {
-      constexpr Standard_Real aTol2 = 100 * Precision::Confusion() * Precision::Confusion();
+      constexpr Standard_Real aTol2 = 100 * Precision1::Confusion() * Precision1::Confusion();
       isUPeriodic                   = Standard_True;
       Point3d P1, P2;
       // 1. Verify that the surface is U-closed
@@ -285,7 +285,7 @@ void BRepTools1::AddUVBounds(const TopoFace& aF, const TopoEdge& aE, Bnd_Box2d& 
     // points.
     if (aS->DynamicType() == STANDARD_TYPE(Geom_BSplineSurface) && (aYmin < aVmin || aYmax > aVmax))
     {
-      constexpr Standard_Real aTol2 = 100 * Precision::Confusion() * Precision::Confusion();
+      constexpr Standard_Real aTol2 = 100 * Precision1::Confusion() * Precision1::Confusion();
       isVPeriodic                   = Standard_True;
       Point3d P1, P2;
       // 1. Verify that the surface is V-closed
@@ -560,10 +560,10 @@ TopoWire BRepTools1::OuterWire(const TopoFace& F)
       {
         const TopoWire& W = TopoDS::Wire(expw.Current());
         BRepTools1::UVBounds(F, W, umin, umax, vmin, vmax);
-        if (((umin - UMin) <= Precision::PConfusion())
-            && ((umax - UMax) >= -Precision::PConfusion())
-            && ((vmin - VMin) <= Precision::PConfusion())
-            && ((vmax - VMax) >= -Precision::PConfusion()))
+        if (((umin - UMin) <= Precision1::PConfusion())
+            && ((umax - UMax) >= -Precision1::PConfusion())
+            && ((vmin - VMin) <= Precision1::PConfusion())
+            && ((vmax - VMax) >= -Precision1::PConfusion()))
         {
           Wres = W;
           UMin = umin;
@@ -1257,7 +1257,7 @@ Standard_Real BRepTools1::EvalAndUpdateTol(const TopoEdge&          theE,
       // Try to estimate by sample points
       Standard_Integer nbint = 22;
       Standard_Real    dt    = (last - first) / nbint;
-      dt                     = Max(dt, Precision::Confusion());
+      dt                     = Max(dt, Precision1::Confusion());
       Standard_Real    d, dmax = 0.;
       gp_Pnt2d         aP2d;
       Point3d           aPC, aPS;

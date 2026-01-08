@@ -274,7 +274,7 @@ bool MyAisOwner::HandleMouseClick(const Graphic3d_Vec2i& thePoint,
   (void)theIsDoubleClick;
   {
     static BullardGenerator aRandGen;
-    Quantity_Color               aRandColor(float(aRandGen.NextInt() % 256) / 255.0f,
+    Color1               aRandColor(float(aRandGen.NextInt() % 256) / 255.0f,
                                             float(aRandGen.NextInt() % 256) / 255.0f,
                                             float(aRandGen.NextInt() % 256) / 255.0f,
                                             Quantity_TOC_sRGB);

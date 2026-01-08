@@ -84,7 +84,7 @@ AIS_ColoredShape::AIS_ColoredShape(const Handle(VisualShape)& theShape)
   }
   if (theShape->HasColor())
   {
-    Quantity_Color aColor;
+    Color1 aColor;
     theShape->Color(aColor);
     SetColor(aColor);
   }
@@ -147,7 +147,7 @@ void AIS_ColoredShape::UnsetCustomAspects(const TopoShape&    theShape,
 
 //=================================================================================================
 
-void AIS_ColoredShape::SetCustomColor(const TopoShape& theShape, const Quantity_Color& theColor)
+void AIS_ColoredShape::SetCustomColor(const TopoShape& theShape, const Color1& theColor)
 {
   if (theShape.IsNull())
   {
@@ -191,7 +191,7 @@ void AIS_ColoredShape::SetCustomWidth(const TopoShape& theShape,
 
 //=================================================================================================
 
-void AIS_ColoredShape::SetColor(const Quantity_Color& theColor)
+void AIS_ColoredShape::SetColor(const Color1& theColor)
 {
   for (AIS_DataMapOfShapeDrawer::Iterator anIter(myShapeColors); anIter.More(); anIter.Next())
   {
@@ -446,7 +446,7 @@ void AIS_ColoredShape::ComputeSelection(const Handle(SelectionContainer)& theSel
   const Standard_Real aDeviationAngle = myDrawer->DeviationAngle();
   const Standard_Integer aPriority =
     BRepSelectionTool::GetStandardPriority(myshape, aTypOfSel);
-  if (myDrawer->IsAutoTriangulation() && !BRepTools1::Triangulation(myshape, Precision::Infinite()))
+  if (myDrawer->IsAutoTriangulation() && !BRepTools1::Triangulation(myshape, Precision1::Infinite()))
   {
     MeshGenerator aMesher(myshape, aDeflection, Standard_False, aDeviationAngle);
   }

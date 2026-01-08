@@ -236,7 +236,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
   Standard_Boolean        thesense = Standard_False, sense;
   Standard_Real           distancemini;
   Standard_Integer        nbsolution;
-  constexpr Standard_Real PreConf = Precision::Confusion();
+  constexpr Standard_Real PreConf = Precision1::Confusion();
 
   Handle(TypeInfo) type1 = afirstcurve->DynamicType();
   Handle(TypeInfo) type2 = asecondcurve->DynamicType();
@@ -398,7 +398,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
         //  Modified by skv - Tue Feb 15 17:51:29 2005 Integration End
         Handle(GeomCurve2d) bisectorcurve = new Geom2d_Line(line);
         if (!sense)
-          thebisector = new Geom2d_TrimmedCurve(bisectorcurve, parameter, -Precision::Infinite());
+          thebisector = new Geom2d_TrimmedCurve(bisectorcurve, parameter, -Precision1::Infinite());
         else
         {
           Standard_Real parameter2;
@@ -453,7 +453,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
 
       Circle2dBisector Bisector1(circle1, circle2);
 
-      distancemini = Precision::Infinite();
+      distancemini = Precision1::Infinite();
 
       if (Bisector1.IsDone())
       {
@@ -519,9 +519,9 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
             gp_Lin2d gpline = TheSol->Line();
             bisectorcurve   = new Geom2d_Line(gpline);
 
-            Standard_Real secondparameter = Precision::Infinite();
+            Standard_Real secondparameter = Precision1::Infinite();
             if (!thesense)
-              secondparameter = -Precision::Infinite();
+              secondparameter = -Precision1::Infinite();
 
             if (oncurve)
             {
@@ -604,10 +604,10 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
             bisectorcurve = new Geom2d_Hyperbola(TheSol->Hyperbola());
             if (!thesense)
               thebisector =
-                new Geom2d_TrimmedCurve(bisectorcurve, firstparameter, -Precision::Infinite());
+                new Geom2d_TrimmedCurve(bisectorcurve, firstparameter, -Precision1::Infinite());
             else
               thebisector =
-                new Geom2d_TrimmedCurve(bisectorcurve, firstparameter, Precision::Infinite());
+                new Geom2d_TrimmedCurve(bisectorcurve, firstparameter, Precision1::Infinite());
           }
           else if (type == GccInt_Ell)
           {
@@ -650,7 +650,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
 
       CircleLine2dBisector Bisector1(circle1, line2);
 
-      distancemini = Precision::Infinite();
+      distancemini = Precision1::Infinite();
 
       if (Bisector1.IsDone())
       {
@@ -725,7 +725,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
             {
               if (secondparameter > firstparameter)
               {
-                secondparameter = -Precision::Infinite();
+                secondparameter = -Precision1::Infinite();
               }
               else
               {
@@ -736,7 +736,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
             {
               if (secondparameter < firstparameter)
               {
-                secondparameter = Precision::Infinite();
+                secondparameter = Precision1::Infinite();
               }
               else
               {
@@ -753,7 +753,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
             gp_Pnt2d            firstpnt        = bisectorcurve->Value(firstparameter);
             Standard_Real       ChordLen        = apex.Distance(firstpnt);
             const Standard_Real TolPar          = 1.e-5;
-            Standard_Real       secondparameter = Precision::Infinite();
+            Standard_Real       secondparameter = Precision1::Infinite();
             if (!thesense)
             {
               if (ajointype == GeomAbs_Intersection && TolPar < firstparameter
@@ -784,7 +784,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
       gp_Dir2d Direc1(line1.Direction());
       gp_Dir2d Direc2(line2.Direction());
       gp_Lin2d line;
-      distancemini = Precision::Infinite();
+      distancemini = Precision1::Infinite();
 
       //  Modified by Sergey KHROMOV - Tue Sep 10 15:58:43 2002 Begin
       //  Change to the same criterion as in MAT2d_Circuit.cxx:
@@ -793,7 +793,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
       if (Direc1.IsParallel(Direc2, 1.e-8))
       {
         //  Modified by Sergey KHROMOV - Tue Sep 10 15:58:45 2002 End
-        if (line1.Distance(line2.Location()) / 2. <= Precision::Confusion())
+        if (line1.Distance(line2.Location()) / 2. <= Precision1::Confusion())
           line = gp_Lin2d(apoint, gp_Dir2d(-line1.Direction().Y(), line1.Direction().X()));
         else
           line = gp_Lin2d(apoint, line2.Direction());
@@ -831,10 +831,10 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
         bisectorcurve = new Geom2d_Line(line);
         if (!sense)
           thebisector =
-            new Geom2d_TrimmedCurve(bisectorcurve, firstparameter, -Precision::Infinite());
+            new Geom2d_TrimmedCurve(bisectorcurve, firstparameter, -Precision1::Infinite());
         else
           thebisector =
-            new Geom2d_TrimmedCurve(bisectorcurve, firstparameter, Precision::Infinite());
+            new Geom2d_TrimmedCurve(bisectorcurve, firstparameter, Precision1::Infinite());
         // 	}
         //       }
         //  Modified by skv - Wed Jul  7 17:21:09 2004 IDEM(Airbus) End
@@ -873,9 +873,9 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
         Handle(GeomCurve2d) bisectorcurve;
         bisectorcurve = new Geom2d_Line(TheSol->Line());
         if (!thesense)
-          thebisector = new Geom2d_TrimmedCurve(bisectorcurve, 0., -Precision::Infinite());
+          thebisector = new Geom2d_TrimmedCurve(bisectorcurve, 0., -Precision1::Infinite());
         else
-          thebisector = new Geom2d_TrimmedCurve(bisectorcurve, 0., Precision::Infinite());
+          thebisector = new Geom2d_TrimmedCurve(bisectorcurve, 0., Precision1::Infinite());
       }
     }
     break;
@@ -959,7 +959,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
       //=============================================================================
     case 1: {
       CirclePoint2dBisector Bisector1(circle, asecondpoint->Pnt2d(), tolerance);
-      Standard_Real         distancemini = Precision::Infinite();
+      Standard_Real         distancemini = Precision1::Infinite();
       if (Bisector1.IsDone())
       {
         Standard_Integer nbsolution = Bisector1.NbSolutions();
@@ -1010,7 +1010,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
             {
               if (secondparameter > firstparameter)
               {
-                secondparameter = -Precision::Infinite();
+                secondparameter = -Precision1::Infinite();
               }
               else
               {
@@ -1021,7 +1021,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
             {
               if (secondparameter < firstparameter)
               {
-                secondparameter = Precision::Infinite();
+                secondparameter = Precision1::Infinite();
               }
               else
               {
@@ -1050,10 +1050,10 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
             bisectorcurve = new Geom2d_Hyperbola(TheSol->Hyperbola());
             if (!thesense)
               thebisector =
-                new Geom2d_TrimmedCurve(bisectorcurve, firstparameter, -Precision::Infinite());
+                new Geom2d_TrimmedCurve(bisectorcurve, firstparameter, -Precision1::Infinite());
             else
               thebisector =
-                new Geom2d_TrimmedCurve(bisectorcurve, firstparameter, Precision::Infinite());
+                new Geom2d_TrimmedCurve(bisectorcurve, firstparameter, Precision1::Infinite());
           }
           else if (aSolType == GccInt_Ell)
           {
@@ -1117,9 +1117,9 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
 
       if (!thesense)
         thebisector =
-          new Geom2d_TrimmedCurve(bisectorcurve, firstparameter, -Precision::Infinite());
+          new Geom2d_TrimmedCurve(bisectorcurve, firstparameter, -Precision1::Infinite());
       else
-        thebisector = new Geom2d_TrimmedCurve(bisectorcurve, firstparameter, Precision::Infinite());
+        thebisector = new Geom2d_TrimmedCurve(bisectorcurve, firstparameter, Precision1::Infinite());
     }
     break;
 
@@ -1201,9 +1201,9 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Point)& afirstpoint,
   {
     Handle(GeomCurve2d) bisectorcurve = new Geom2d_Line(line);
     if (!sense)
-      thebisector = new Geom2d_TrimmedCurve(bisectorcurve, parameter, -Precision::Infinite());
+      thebisector = new Geom2d_TrimmedCurve(bisectorcurve, parameter, -Precision1::Infinite());
     else
-      thebisector = new Geom2d_TrimmedCurve(bisectorcurve, parameter, Precision::Infinite());
+      thebisector = new Geom2d_TrimmedCurve(bisectorcurve, parameter, Precision1::Infinite());
   }
 }
 
@@ -1318,11 +1318,11 @@ void Bisector_BisecAna::SetTrim(const Handle(GeomCurve2d)&)
     }
     else if (Type == STANDARD_TYPE(Geom2d_Line)) {
       gpLine = LineCu->Lin2d();
-      if (UFirst > - Precision::Infinite()){
+      if (UFirst > - Precision1::Infinite()){
         P          = LineCu->Value(UFirst - Epsilon1);
         FirstLimit = new Geom2d_Line(gpLine.Normal(P)) ;
       }
-      if (ULast < Precision::Infinite()) {
+      if (ULast < Precision1::Infinite()) {
         P         = LineCu->Value(ULast + Epsilon1);
         LastLimit = new Geom2d_Line(gpLine.Normal(P));
       }
@@ -1373,7 +1373,7 @@ void Bisector_BisecAna::SetTrim(const Handle(GeomCurve2d)&)
 
     // Intersection Bisectrice avec FirstLimit => UBisInt1.
     // ----------------------------------------------------
-    UBisInt1 = Precision::Infinite();
+    UBisInt1 = Precision1::Infinite();
     if (!FirstLimit.IsNull()) {
       Geom2dAdaptor_Curve AdapBis    (thebisector);
       Geom2dAdaptor_Curve AFirstLimit(FirstLimit);
@@ -1393,7 +1393,7 @@ void Bisector_BisecAna::SetTrim(const Handle(GeomCurve2d)&)
     }
     // Intersection Bisectrice avec LastLimit => UBisInt2.
     // ---------------------------------------------------
-    UBisInt2 = Precision::Infinite();
+    UBisInt2 = Precision1::Infinite();
     if (!LastLimit.IsNull()) {
       Geom2dAdaptor_Curve AdapBis    (thebisector);
       Geom2dAdaptor_Curve ALastLimit (LastLimit);

@@ -135,10 +135,10 @@ public:
   //! For a hyperbola, the returned value is: -U.
   Standard_EXPORT Standard_Real ReversedParameter(const Standard_Real U) const Standard_OVERRIDE;
 
-  //! Returns RealFirst from Standard.
+  //! Returns RealFirst from Standard1.
   Standard_EXPORT Standard_Real FirstParameter() const Standard_OVERRIDE;
 
-  //! returns RealLast from Standard.
+  //! returns RealLast from Standard1.
   Standard_EXPORT Standard_Real LastParameter() const Standard_OVERRIDE;
 
   //! Returns False.

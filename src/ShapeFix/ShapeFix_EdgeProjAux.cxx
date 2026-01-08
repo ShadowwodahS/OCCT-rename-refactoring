@@ -12,7 +12,7 @@
 // commercial license or contractual agreement.
 
 //: r5 abv 06.04.99: ec_turbine-A.stp, #4313: protect against null curve
-//    abv 09.04.99  S4136: add parameter preci (to eliminate BRepAPI::Precision)
+//    abv 09.04.99  S4136: add parameter preci (to eliminate BRepAPI::Precision1)
 
 #include <ShapeFix_EdgeProjAux.hxx>
 
@@ -143,10 +143,10 @@ Standard_Boolean ShapeFix_EdgeProjAux::IsIso(const Handle(GeomCurve2d)& /*theCur
       gp_Dir2d dir1(0.,1.);
       gp_Dir2d dir2(0.,-1.);
 
-      return (theDir2d.IsEqual(dir1,Precision::Angular()) ||
-          theDir2d.IsEqual(dir2,Precision::Angular()) ||
-          theDir2d.IsNormal(dir1,Precision::Angular()) ||
-          theDir2d.IsNormal(dir2,Precision::Angular()) );
+      return (theDir2d.IsEqual(dir1,Precision1::Angular()) ||
+          theDir2d.IsEqual(dir2,Precision1::Angular()) ||
+          theDir2d.IsNormal(dir1,Precision1::Angular()) ||
+          theDir2d.IsNormal(dir2,Precision1::Angular()) );
     }
   */
   return Standard_False;
@@ -231,7 +231,7 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
     Pt1 = BRepInspector::Pnt(V1);
     Pt2 = BRepInspector::Pnt(V2);
   }
-  //: S4136  Standard_Real preci = BRepAPI::Precision();
+  //: S4136  Standard_Real preci = BRepAPI::Precision1();
   // pdn to manage degenerated case
   if (V1.IsSame(V2))
   {
@@ -266,7 +266,7 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
   cf = theCurve2d->FirstParameter();
   cl = theCurve2d->LastParameter();
   // pdn cutting pcurve by surface bounds
-  if (Precision::IsInfinite(cf) || Precision::IsInfinite(cl))
+  if (Precision1::IsInfinite(cf) || Precision1::IsInfinite(cl))
   {
     if (theCurve2d->IsKind(STANDARD_TYPE(Geom2d_Line)))
     {
@@ -290,8 +290,8 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
           vl = Min(vl, 23.);
         }
       }
-      if (!Precision::IsInfinite(uf) && !Precision::IsInfinite(ul) && !Precision::IsInfinite(vf)
-          && !Precision::IsInfinite(vl))
+      if (!Precision1::IsInfinite(uf) && !Precision1::IsInfinite(ul) && !Precision1::IsInfinite(vf)
+          && !Precision1::IsInfinite(vl))
       {
         Standard_Real       cfi, cli;
         Handle(Geom2d_Line) lin = Handle(Geom2d_Line)::DownCast(theCurve2d);
@@ -338,7 +338,7 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
           cl = cfi;
         }
       }
-      else if (!Precision::IsInfinite(uf) && !Precision::IsInfinite(ul))
+      else if (!Precision1::IsInfinite(uf) && !Precision1::IsInfinite(ul))
       {
         Handle(Geom2d_Line) lin = Handle(Geom2d_Line)::DownCast(theCurve2d);
         gp_Dir2d            dir = lin->Direction();
@@ -415,7 +415,7 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
   Point3d              pnt;
   Standard_Real       dist = sac.Project(COnS, Pt1, preci, pnt, w1, Standard_False);
   // if distance is infinite then projection is not performed
-  if (Precision::IsInfinite(dist))
+  if (Precision1::IsInfinite(dist))
     return;
 
   myFirstDone  = Standard_True;
@@ -423,13 +423,13 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
 
   dist = sac.Project(COnS, Pt2, preci, pnt, w2, Standard_False);
 
-  if (Precision::IsInfinite(dist))
+  if (Precision1::IsInfinite(dist))
     return;
 
   myLastDone  = Standard_True;
   myLastParam = w2;
 
-  if (fabs(w1 - w2) < Precision::PConfusion())
+  if (fabs(w1 - w2) < Precision1::PConfusion())
   {
     if (!theSurface->IsUPeriodic() && !theSurface->IsVPeriodic())
       return;
@@ -448,15 +448,15 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
     return;
   }
   //: abv 29.08.01: SAT: fix for closed case
-  if (COnS.Value(Uinf).Distance(COnS.Value(Usup)) < Precision::Confusion())
+  if (COnS.Value(Uinf).Distance(COnS.Value(Usup)) < Precision1::Confusion())
   {
-    // 18.11.2002 SKL OCC630 compare values with tolerance Precision::PConfusion() instead of "=="
-    if (Abs(myFirstParam - Uinf) < ::Precision::PConfusion()
-        && Abs(myLastParam - Uinf) < ::Precision::PConfusion())
+    // 18.11.2002 SKL OCC630 compare values with tolerance Precision1::PConfusion() instead of "=="
+    if (Abs(myFirstParam - Uinf) < ::Precision1::PConfusion()
+        && Abs(myLastParam - Uinf) < ::Precision1::PConfusion())
       myLastParam = w2 = Usup;
-    // 18.11.2002 SKL OCC630 compare values with tolerance Precision::PConfusion() instead of "=="
-    else if (Abs(myFirstParam - Usup) < ::Precision::PConfusion()
-             && Abs(myLastParam - Usup) < ::Precision::PConfusion())
+    // 18.11.2002 SKL OCC630 compare values with tolerance Precision1::PConfusion() instead of "=="
+    else if (Abs(myFirstParam - Usup) < ::Precision1::PConfusion()
+             && Abs(myLastParam - Usup) < ::Precision1::PConfusion())
       myFirstParam = w1 = Uinf;
   }
 
@@ -541,7 +541,7 @@ void ShapeFix_EdgeProjAux::Init3d(const Standard_Real preci)
 
   Adaptor3d_CurveOnSurface COnS = Adaptor3d_CurveOnSurface(myHCur, myHSur);
 
-  //: S4136  Standard_Real preci = BRepAPI::Precision();
+  //: S4136  Standard_Real preci = BRepAPI::Precision1();
   Standard_Real Uinf = theCurve2d->FirstParameter();
   Standard_Real Usup = theCurve2d->LastParameter();
 
@@ -573,7 +573,7 @@ void ShapeFix_EdgeProjAux::Init3d(const Standard_Real preci)
   Standard_Real w1 = COnS.FirstParameter();
   Standard_Real w2 = COnS.LastParameter();
 
-  if ((!Precision::IsInfinite(w1) && !Precision::IsInfinite(w2)
+  if ((!Precision1::IsInfinite(w1) && !Precision1::IsInfinite(w2)
        && theCurve2d->Continuity() != GeomAbs_C0)
       || IsIso(theCurve2d))
   {
@@ -601,8 +601,8 @@ void ShapeFix_EdgeProjAux::UpdateParam2d(const Handle(GeomCurve2d)& theCurve2d)
 
   Standard_Real cf = theCurve2d->FirstParameter();
   Standard_Real cl = theCurve2d->LastParameter();
-  //: S4136  Standard_Real preci = BRepAPI::Precision();
-  constexpr Standard_Real preci2d = Precision::PConfusion(); //: S4136: Parametric(preci, 0.01);
+  //: S4136  Standard_Real preci = BRepAPI::Precision1();
+  constexpr Standard_Real preci2d = Precision1::PConfusion(); //: S4136: Parametric(preci, 0.01);
 
   // 15.11.2002 PTV OCC966
   if (Curve2::IsPeriodic(theCurve2d))

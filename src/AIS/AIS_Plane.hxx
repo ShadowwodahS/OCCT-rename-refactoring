@@ -166,7 +166,7 @@ public:
   Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
-  Standard_EXPORT void SetColor(const Quantity_Color& aColor) Standard_OVERRIDE;
+  Standard_EXPORT void SetColor(const Color1& aColor) Standard_OVERRIDE;
 
   Standard_EXPORT void UnsetColor() Standard_OVERRIDE;
 

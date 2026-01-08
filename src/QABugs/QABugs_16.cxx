@@ -377,7 +377,7 @@ static Standard_Integer OCC295(DrawInterpreter& di, Standard_Integer argc, const
   bsplc1->SetPole(bsplc1->NbPoles(), pmid);
   bsplc2->SetPole(1, pmid);
   GeomConvert_CompCurveToBSplineCurve connect3d(bsplc1);
-  if (!connect3d.Add(bsplc2, Precision::Confusion(), After, Standard_False))
+  if (!connect3d.Add(bsplc2, Precision1::Confusion(), After, Standard_False))
     return 1;
   EdgeMaker MkEdge(connect3d.BSplineCurve());
   if (MkEdge.IsDone())
@@ -515,15 +515,15 @@ static Standard_Integer OCC405(DrawInterpreter& di, Standard_Integer argc, const
   Handle(BSplineCurve3d) bsplc2 = Handle(BSplineCurve3d)::DownCast(ac2);
   if (bsplc1.IsNull() || bsplc2.IsNull())
     return 1;
-  if (bsplc1->FirstParameter() < f1 - Precision::PConfusion()
-      || bsplc1->LastParameter() > l1 + Precision::PConfusion())
+  if (bsplc1->FirstParameter() < f1 - Precision1::PConfusion()
+      || bsplc1->LastParameter() > l1 + Precision1::PConfusion())
   {
     Handle(BSplineCurve3d) aBstmp = Handle(BSplineCurve3d)::DownCast(bsplc1->Copy());
     aBstmp->Segment1(f1, l1);
     bsplc1 = aBstmp;
   }
-  if (bsplc2->FirstParameter() < f2 - Precision::PConfusion()
-      || bsplc2->LastParameter() > l2 + Precision::PConfusion())
+  if (bsplc2->FirstParameter() < f2 - Precision1::PConfusion()
+      || bsplc2->LastParameter() > l2 + Precision1::PConfusion())
   {
     Handle(BSplineCurve3d) aBstmp = Handle(BSplineCurve3d)::DownCast(bsplc2->Copy());
     aBstmp->Segment1(f2, l2);
@@ -533,7 +533,7 @@ static Standard_Integer OCC405(DrawInterpreter& di, Standard_Integer argc, const
   bsplc1->SetPole(bsplc1->NbPoles(), pmid);
   bsplc2->SetPole(1, pmid);
   GeomConvert_CompCurveToBSplineCurve connect3d(bsplc1);
-  if (!connect3d.Add(bsplc2, Precision::Confusion(), After, Standard_False))
+  if (!connect3d.Add(bsplc2, Precision1::Confusion(), After, Standard_False))
     return 1;
   EdgeMaker MkEdge(connect3d.BSplineCurve());
   if (MkEdge.IsDone())
@@ -589,7 +589,7 @@ static Standard_Integer OCC395(DrawInterpreter& di, Standard_Integer argc, const
   bsplc1->SetPole(bsplc1->NbPoles(), pmid);
   bsplc2->SetPole(1, pmid);
   GeomConvert_CompCurveToBSplineCurve connect3d(bsplc1);
-  if (!connect3d.Add(bsplc2, Precision::Confusion(), After, Standard_False))
+  if (!connect3d.Add(bsplc2, Precision1::Confusion(), After, Standard_False))
     return 1;
   EdgeMaker MkEdge(connect3d.BSplineCurve());
   if (MkEdge.IsDone())

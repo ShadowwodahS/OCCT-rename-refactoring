@@ -375,9 +375,9 @@ Standard_Real XSDRAW1::GetLengthUnit(const Handle(AppDocument)& theDoc)
   }
   if (ExchangeConfig::IsPresent("xstep.cascade.unit"))
   {
-    UnitsMethods::SetCasCadeLengthUnit(ExchangeConfig::IVal("xstep.cascade.unit"));
+    UnitsMethods1::SetCasCadeLengthUnit(ExchangeConfig::IVal("xstep.cascade.unit"));
   }
-  return UnitsMethods::GetCasCadeLengthUnit();
+  return UnitsMethods1::GetCasCadeLengthUnit();
 }
 
 //=================================================================================================

@@ -180,7 +180,7 @@ private:
       const Vertex& aVertex = myStructure->GetNode(thePoint);
       const Standard_Real    aDist =
         (aVertex.Coord() - aLocation).SquareModulus() - (aRadius * aRadius);
-      return (aDist < Precision::SquareConfusion());
+      return (aDist < Precision1::SquareConfusion());
     }
 
     return Standard_False;

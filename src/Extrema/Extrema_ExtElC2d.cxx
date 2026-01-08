@@ -67,7 +67,7 @@ Method:
 
   gp_Vec2d D1(C1.Direction());
   gp_Vec2d D2(C2.Direction());
-  if (D1.IsParallel(D2, Precision::Angular()))
+  if (D1.IsParallel(D2, Precision1::Angular()))
   {
     myIsPar     = Standard_True;
     mySqDist[0] = C2.SquareDistance(C1.Location());
@@ -312,7 +312,7 @@ ExtElC2d::ExtElC2d(const gp_Circ2d& C1, const gp_Circ2d& C2)
 
   gp_Vec2d            DO1O2(O1, O2);
   const Standard_Real aSqDCenters = DO1O2.SquareMagnitude();
-  if (aSqDCenters < Precision::SquareConfusion())
+  if (aSqDCenters < Precision1::SquareConfusion())
   {
     myIsPar                 = Standard_True;
     myNbExt                 = 1;
@@ -367,7 +367,7 @@ ExtElC2d::ExtElC2d(const gp_Circ2d& C1, const gp_Elips2d& C2)
 
   Standard_Integer i, j;
 
-  PointElCCurveExtrema2d ExtElip(C1.Location(), C2, Precision::Confusion(), 0.0, 2.0 * M_PI);
+  PointElCCurveExtrema2d ExtElip(C1.Location(), C2, Precision1::Confusion(), 0.0, 2.0 * M_PI);
 
   if (ExtElip.IsDone())
   {
@@ -375,7 +375,7 @@ ExtElC2d::ExtElC2d(const gp_Circ2d& C1, const gp_Elips2d& C2)
     {
       PointElCCurveExtrema2d ExtCirc(ExtElip.Point(i).Value(),
                                 C1,
-                                Precision::Confusion(),
+                                Precision1::Confusion(),
                                 0.0,
                                 2.0 * M_PI);
       if (ExtCirc.IsDone())
@@ -407,7 +407,7 @@ ExtElC2d::ExtElC2d(const gp_Circ2d& C1, const gp_Hypr2d& C2)
 
   Standard_Integer i, j;
 
-  PointElCCurveExtrema2d ExtHyp(C1.Location(), C2, Precision::Confusion(), RealFirst(), RealLast());
+  PointElCCurveExtrema2d ExtHyp(C1.Location(), C2, Precision1::Confusion(), RealFirst(), RealLast());
 
   if (ExtHyp.IsDone())
   {
@@ -415,7 +415,7 @@ ExtElC2d::ExtElC2d(const gp_Circ2d& C1, const gp_Hypr2d& C2)
     {
       PointElCCurveExtrema2d ExtCirc(ExtHyp.Point(i).Value(),
                                 C1,
-                                Precision::Confusion(),
+                                Precision1::Confusion(),
                                 0.0,
                                 2.0 * M_PI);
       if (ExtCirc.IsDone())
@@ -447,7 +447,7 @@ ExtElC2d::ExtElC2d(const gp_Circ2d& C1, const gp_Parab2d& C2)
 
   Standard_Integer i, j;
 
-  PointElCCurveExtrema2d ExtParab(C1.Location(), C2, Precision::Confusion(), RealFirst(), RealLast());
+  PointElCCurveExtrema2d ExtParab(C1.Location(), C2, Precision1::Confusion(), RealFirst(), RealLast());
 
   if (ExtParab.IsDone())
   {
@@ -455,7 +455,7 @@ ExtElC2d::ExtElC2d(const gp_Circ2d& C1, const gp_Parab2d& C2)
     {
       PointElCCurveExtrema2d ExtCirc(ExtParab.Point(i).Value(),
                                 C1,
-                                Precision::Confusion(),
+                                Precision1::Confusion(),
                                 0.0,
                                 2.0 * M_PI);
       if (ExtCirc.IsDone())

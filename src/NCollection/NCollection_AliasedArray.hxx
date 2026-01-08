@@ -56,7 +56,7 @@ public:
     {
       throw Standard_RangeError("NCollection_AliasedArray, stride and length should be positive");
     }
-    myData = (Standard_Byte*)Standard::AllocateAligned(SizeBytes(), MyAlignSize);
+    myData = (Standard_Byte*)Standard1::AllocateAligned(SizeBytes(), MyAlignSize);
     if (myData == NULL)
     {
       throw Standard_OutOfMemory("NCollection_AliasedArray, allocation failed");
@@ -73,7 +73,7 @@ public:
     if (mySize != 0)
     {
       myDeletable = true;
-      myData      = (Standard_Byte*)Standard::AllocateAligned(SizeBytes(), MyAlignSize);
+      myData      = (Standard_Byte*)Standard1::AllocateAligned(SizeBytes(), MyAlignSize);
       if (myData == NULL)
       {
         throw Standard_OutOfMemory("NCollection_AliasedArray, allocation failed");
@@ -163,7 +163,7 @@ public:
     {
       if (myDeletable)
       {
-        Standard::FreeAligned(myData);
+        Standard1::FreeAligned(myData);
       }
       myStride             = theOther.myStride;
       mySize               = theOther.mySize;
@@ -207,9 +207,9 @@ public:
     mySize                           = theLength;
     if (!theToCopyData && myDeletable)
     {
-      Standard::FreeAligned(myData);
+      Standard1::FreeAligned(myData);
     }
-    myData = (Standard_Byte*)Standard::AllocateAligned(SizeBytes(), MyAlignSize);
+    myData = (Standard_Byte*)Standard1::AllocateAligned(SizeBytes(), MyAlignSize);
     if (myData == NULL)
     {
       throw Standard_OutOfMemory("NCollection_AliasedArray, allocation failed");
@@ -224,7 +224,7 @@ public:
     memcpy(myData, anOldData, aLenCopy);
     if (myDeletable)
     {
-      Standard::FreeAligned(anOldData);
+      Standard1::FreeAligned(anOldData);
     }
     myDeletable = true;
   }
@@ -234,7 +234,7 @@ public:
   {
     if (myDeletable)
     {
-      Standard::FreeAligned(myData);
+      Standard1::FreeAligned(myData);
     }
   }
 

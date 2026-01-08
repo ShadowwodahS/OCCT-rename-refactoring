@@ -74,7 +74,7 @@ void StepToTopoDS_TranslateShell::Init(const Handle(StepShape_ConnectedFaceSet)&
     Handle(StepShape_Face) StepFace;
 
     StepToTopoDS_TranslateFace myTranFace;
-    myTranFace.SetPrecision(Precision()); // gka
+    myTranFace.SetPrecision(Precision1()); // gka
     myTranFace.SetMaxTol(MaxTol());
 
     Message_ProgressScope PS(theProgress, "Face", NbFc);
@@ -162,7 +162,7 @@ void StepToTopoDS_TranslateShell::Init(const Handle(StepVisual_TessellatedShell)
   }
 
   StepToTopoDS_TranslateFace aTranTF;
-  aTranTF.SetPrecision(Precision());
+  aTranTF.SetPrecision(Precision1());
   aTranTF.SetMaxTol(MaxTol());
 
   for (Standard_Integer i = 1; i <= aNb && aPS.More(); i++, aPS.Next())

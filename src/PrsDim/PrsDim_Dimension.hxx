@@ -648,7 +648,7 @@ protected:                                //! @name Fixed text position properti
   Point3d           myFixedTextPosition;   //!< Stores text position fixed by user.
   Standard_Boolean myIsTextPositionFixed; //!< Is the text label position fixed by user.
 
-protected:                                            //! @name Units properties
+protected:                                            //! @name Units2 properties
   Standard_ExtCharacter       mySpecialSymbol;        //!< Special symbol.
   PrsDim_DisplaySpecialSymbol myDisplaySpecialSymbol; //!< Special symbol display options.
 

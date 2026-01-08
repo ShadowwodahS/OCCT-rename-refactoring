@@ -66,7 +66,7 @@ public:
   Standard_EXPORT virtual void SetPrecision(const Standard_Real preci);
 
   //! Returns basic precision value
-  Standard_Real Precision() const;
+  Standard_Real Precision1() const;
 
   //! Sets minimal allowed tolerance
   Standard_EXPORT virtual void SetMinTolerance(const Standard_Real mintol);

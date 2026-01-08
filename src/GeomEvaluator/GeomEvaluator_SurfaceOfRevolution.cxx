@@ -70,7 +70,7 @@ void GeomEvaluator_SurfaceOfRevolution::D1(const Standard_Real theU,
   theD1U     = Vector3d(myRotAxis.Direction().XYZ().Crossed(aCQ));
   // If the point is placed on the axis of revolution then derivatives on U are undefined.
   // Manually set them to zero.
-  if (theD1U.SquareMagnitude() < Precision::SquareConfusion())
+  if (theD1U.SquareMagnitude() < Precision1::SquareConfusion())
     theD1U.SetCoord(0.0, 0.0, 0.0);
 
   Transform3d aRotation;
@@ -100,7 +100,7 @@ void GeomEvaluator_SurfaceOfRevolution::D2(const Standard_Real theU,
   theD1U             = Vector3d(aDir.Crossed(aCQ));
   // If the point is placed on the axis of revolution then derivatives on U are undefined.
   // Manually set them to zero.
-  if (theD1U.SquareMagnitude() < Precision::SquareConfusion())
+  if (theD1U.SquareMagnitude() < Precision1::SquareConfusion())
     theD1U.SetCoord(0.0, 0.0, 0.0);
   theD2U  = Vector3d(aDir.Dot(aCQ) * aDir - aCQ);
   theD2UV = Vector3d(aDir.Crossed(theD1V.XYZ()));
@@ -139,7 +139,7 @@ void GeomEvaluator_SurfaceOfRevolution::D3(const Standard_Real theU,
   theD1U             = Vector3d(aDir.Crossed(aCQ));
   // If the point is placed on the axis of revolution then derivatives on U are undefined.
   // Manually set them to zero.
-  if (theD1U.SquareMagnitude() < Precision::SquareConfusion())
+  if (theD1U.SquareMagnitude() < Precision1::SquareConfusion())
     theD1U.SetCoord(0.0, 0.0, 0.0);
   theD2U   = Vector3d(aDir.Dot(aCQ) * aDir - aCQ);
   theD2UV  = Vector3d(aDir.Crossed(theD1V.XYZ()));

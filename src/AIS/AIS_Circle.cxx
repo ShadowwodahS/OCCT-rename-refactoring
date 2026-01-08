@@ -114,7 +114,7 @@ void AIS_Circle::replaceWithNewLineAspect(const Handle(Prs3d_LineAspect)& theAsp
 
 //=================================================================================================
 
-void AIS_Circle::SetColor(const Quantity_Color& aCol)
+void AIS_Circle::SetColor(const Color1& aCol)
 {
   hasOwnColor = Standard_True;
   myDrawer->SetColor(aCol);
@@ -142,7 +142,7 @@ void AIS_Circle::SetWidth(const Standard_Real aValue)
 
   if (!myDrawer->HasOwnLineAspect())
   {
-    Quantity_Color CC = Quantity_NOC_YELLOW;
+    Color1 CC = Quantity_NOC_YELLOW;
     if (HasColor())
       CC = myDrawer->Color();
     else if (myDrawer->HasLink())
@@ -168,7 +168,7 @@ void AIS_Circle::UnsetColor()
   }
   else
   {
-    Quantity_Color CC = Quantity_NOC_YELLOW;
+    Color1 CC = Quantity_NOC_YELLOW;
     if (HasColor())
       CC = myDrawer->Color();
     else if (myDrawer->HasLink())

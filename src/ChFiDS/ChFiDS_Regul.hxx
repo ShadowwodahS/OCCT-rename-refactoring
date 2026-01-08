@@ -23,7 +23,7 @@
 
 #include <Standard_Boolean.hxx>
 
-//! Storage of  a curve  and its 2 faces or surfaces of  support.
+//! Storage1 of  a curve  and its 2 faces or surfaces of  support.
 class Regularity
 {
 public:

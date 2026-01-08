@@ -92,7 +92,7 @@ Standard_Boolean XmlMDataStd_RealListDriver::Paste(const PersistentStorage&  the
   const XmlObjMgt_DOMString& aString = XmlObjMgt1::GetStringValue(anElement);
   if (aLastInd == 0)
     aFirstInd = 0;
-  if (aString.Type() == LDOMBasicString::LDOM_Integer)
+  if (aString.Type() == LDOMBasicString1::LDOM_Integer)
   {
     if (aFirstInd == aLastInd && aLastInd > 0)
     {

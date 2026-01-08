@@ -40,10 +40,10 @@ void add(TopTools_MapOfShape& theMap, const ShapeList& theList)
 // function : add
 // purpose  : Adds the elements of the collection to the list.
 //==============================================================================
-template <typename TCollection>
-void add(ShapeList& theList, const TCollection& theCollection)
+template <typename TCollection1>
+void add(ShapeList& theList, const TCollection1& theCollection)
 {
-  for (typename TCollection::Iterator aSIt(theCollection); aSIt.More(); aSIt.Next())
+  for (typename TCollection1::Iterator aSIt(theCollection); aSIt.More(); aSIt.Next())
   {
     theList.Append(aSIt.Value());
   }

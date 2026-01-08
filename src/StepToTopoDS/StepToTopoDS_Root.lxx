@@ -27,11 +27,11 @@ inline Standard_Boolean Root2::IsDone() const
 }
 
 //=======================================================================
-// function : Precision
+// function : Precision1
 // purpose  :
 //=======================================================================
 
-inline Standard_Real Root2::Precision() const
+inline Standard_Real Root2::Precision1() const
 {
   return myPrecision;
 }

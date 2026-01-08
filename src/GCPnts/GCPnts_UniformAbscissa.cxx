@@ -146,7 +146,7 @@ static Standard_Boolean Perform(TColStd_Array1OfReal& theParameters,
       isLocalDone = Standard_False;
       isNotDone   = Standard_True;
       aDelta -= aDelta / 10;
-      if (aDelta <= Precision::PConfusion())
+      if (aDelta <= Precision1::PConfusion())
       {
         break;
       }
@@ -385,9 +385,9 @@ void GCPnts_UniformAbscissa::initialize(const TheCurve&     theC,
   myNbPoints = 0;
   myDone     = Standard_False;
 
-  const Standard_Real anEPSILON = theC.Resolution(Max(theTol, Precision::Confusion()));
+  const Standard_Real anEPSILON = theC.Resolution(Max(theTol, Precision1::Confusion()));
   const Standard_Real aL        = GCPnts_AbscissaPoint::Length(theC, theU1, theU2, anEPSILON);
-  if (aL <= Precision::Confusion())
+  if (aL <= Precision1::Confusion())
   {
     return;
   }
@@ -499,11 +499,11 @@ void GCPnts_UniformAbscissa::initialize(const TheCurve&        theC,
   myNbPoints = 0;
   myDone     = Standard_False;
 
-  const Standard_Real anEPSILON = theC.Resolution(Max(theTol, Precision::Confusion()));
+  const Standard_Real anEPSILON = theC.Resolution(Max(theTol, Precision1::Confusion()));
   // although very similar to Initialize with Abscissa this avoid
   // the computation of the total length of the curve twice
   const Standard_Real aL = GCPnts_AbscissaPoint::Length(theC, theU1, theU2, anEPSILON);
-  if (aL <= Precision::Confusion())
+  if (aL <= Precision1::Confusion())
   {
     return;
   }

@@ -32,7 +32,7 @@
 
 GeomConvert_CompCurveToBSplineCurve::GeomConvert_CompCurveToBSplineCurve(
   const Convert_ParameterisationType theParameterisation)
-    : myTol(Precision::Confusion()),
+    : myTol(Precision1::Confusion()),
       myType(theParameterisation)
 {
   //
@@ -43,7 +43,7 @@ GeomConvert_CompCurveToBSplineCurve::GeomConvert_CompCurveToBSplineCurve(
 GeomConvert_CompCurveToBSplineCurve::GeomConvert_CompCurveToBSplineCurve(
   const Handle(Geom_BoundedCurve)&   BasisCurve,
   const Convert_ParameterisationType Parameterisation)
-    : myTol(Precision::Confusion()),
+    : myTol(Precision1::Confusion()),
       myType(Parameterisation)
 {
   Handle(BSplineCurve3d) Bs = Handle(BSplineCurve3d)::DownCast(BasisCurve);
@@ -158,11 +158,11 @@ void GeomConvert_CompCurveToBSplineCurve::Add(Handle(BSplineCurve3d)& FirstCurve
     L1 = FirstCurve->DN(FirstCurve->LastParameter(), 1).Magnitude();
     L2 = SecondCurve->DN(SecondCurve->FirstParameter(), 1).Magnitude();
 
-    if ((L1 > Precision::Confusion()) && (L2 > Precision::Confusion()))
+    if ((L1 > Precision1::Confusion()) && (L2 > Precision1::Confusion()))
     {
       Ratio = L1 / L2;
     }
-    if ((Ratio < Precision::Confusion()) || (Ratio > 1 / Precision::Confusion()))
+    if ((Ratio < Precision1::Confusion()) || (Ratio > 1 / Precision1::Confusion()))
     {
       Ratio = 1;
     }

@@ -56,7 +56,7 @@ public:
   //! raises exception if UnitNum <= 0 or UnitNum > NbUnits()
   Standard_EXPORT Handle(TCollection_HAsciiString) UnitType(const Standard_Integer UnitNum) const;
 
-  //! returns the Units of the UnitNum'th unit being defined
+  //! returns the Units2 of the UnitNum'th unit being defined
   //! raises exception if UnitNum <= 0 or UnitNum > NbUnits()
   Standard_EXPORT Handle(TCollection_HAsciiString) UnitValue(const Standard_Integer UnitNum) const;
 

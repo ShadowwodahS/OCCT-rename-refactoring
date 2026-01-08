@@ -206,7 +206,7 @@ Standard_Integer DNaming_RevolutionDriver::Execute(Handle(TFunction_Logbook)& th
     {
       GeometricProperties aGProp;
       BRepGProp1::VolumeProperties(aResult, aGProp);
-      if (aGProp.Mass() <= Precision::Confusion())
+      if (aGProp.Mass() <= Precision1::Confusion())
       {
         aFunction->SetFailure(RESULT_NOT_VALID);
         return -1;
@@ -221,7 +221,7 @@ Standard_Integer DNaming_RevolutionDriver::Execute(Handle(TFunction_Logbook)& th
   else if (aFunction->GetDriverGUID() == SECREVOL_GUID)
   {
     Standard_Real anANGLE = DNaming1::GetReal(aFunction, REVOL_ANGLE)->Get();
-    if (anANGLE <= Precision::Confusion())
+    if (anANGLE <= Precision1::Confusion())
     {
       aFunction->SetFailure(WRONG_ARGUMENT);
       return -1;
@@ -258,7 +258,7 @@ Standard_Integer DNaming_RevolutionDriver::Execute(Handle(TFunction_Logbook)& th
     {
       GeometricProperties aGProp;
       BRepGProp1::VolumeProperties(aResult, aGProp);
-      if (aGProp.Mass() <= Precision::Confusion())
+      if (aGProp.Mass() <= Precision1::Confusion())
       {
         aFunction->SetFailure(RESULT_NOT_VALID);
         return -1;

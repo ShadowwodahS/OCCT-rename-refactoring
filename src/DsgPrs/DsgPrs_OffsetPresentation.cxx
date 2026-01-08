@@ -51,7 +51,7 @@ void OffsetPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Point3d           Proj2 = ElCLib1::Value(ElCLib1::Parameter(L2, OffsetPoint), L2);
   gp_Lin           L3, L4;
   Standard_Boolean DimNulle = Standard_False;
-  if (!Proj1.IsEqual(Proj2, Precision::Confusion() * 100.))
+  if (!Proj1.IsEqual(Proj2, Precision1::Confusion() * 100.))
   {
     L3 = gce_MakeLin(Proj1, Proj2);
   }
@@ -131,7 +131,7 @@ void OffsetPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
     aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
     // ball 1 : 3eme groupe
-    Quantity_Color                   aColor = LA->LineAspect()->Aspect()->Color();
+    Color1                   aColor = LA->LineAspect()->Aspect()->Color();
     Handle(Graphic3d_AspectMarker3d) aMarkerAsp =
       new Graphic3d_AspectMarker3d(Aspect_TOM_O, aColor, 1.0);
     aPresentation->CurrentGroup()->SetPrimitivesAspect(aMarkerAsp);
@@ -175,7 +175,7 @@ void OffsetPresentation::AddAxes(const Handle(Prs3d_Presentation)& aPresentation
   Point3d Proj2 = ElCLib1::Value(ElCLib1::Parameter(L2, OffsetPoint), L2);
 
   Handle(Prs3d_DimensionAspect) LA     = aDrawer->DimensionAspect();
-  Quantity_Color                acolor = LA->LineAspect()->Aspect()->Color();
+  Color1                acolor = LA->LineAspect()->Aspect()->Color();
   Aspect_TypeOfLine             atype  = LA->LineAspect()->Aspect()->Type();
   Standard_Real                 awidth = LA->LineAspect()->Aspect()->Width();
 
@@ -211,7 +211,7 @@ void OffsetPresentation::AddAxes(const Handle(Prs3d_Presentation)& aPresentation
   Handle(Graphic3d_AspectMarker3d) MarkerAsp = new Graphic3d_AspectMarker3d();
   MarkerAsp->SetType(Aspect_TOM_O);
   MarkerAsp->SetScale(4.);
-  // MarkerAsp->SetColor(Quantity_Color(Quantity_NOC_RED));
+  // MarkerAsp->SetColor(Color1(Quantity_NOC_RED));
   MarkerAsp->SetColor(acolor);
   aPresentation->CurrentGroup()->SetPrimitivesAspect(MarkerAsp);
   aPresentation->CurrentGroup()->AddPrimitiveArray(anArrayOfPoints);
@@ -220,7 +220,7 @@ void OffsetPresentation::AddAxes(const Handle(Prs3d_Presentation)& aPresentation
   Handle(Graphic3d_AspectMarker3d) Marker2Asp = new Graphic3d_AspectMarker3d();
   Marker2Asp->SetType(Aspect_TOM_O);
   Marker2Asp->SetScale(2.);
-  // Marker2Asp->SetColor(Quantity_Color(Quantity_NOC_GREEN));
+  // Marker2Asp->SetColor(Color1(Quantity_NOC_GREEN));
   Marker2Asp->SetColor(acolor);
   aPresentation->CurrentGroup()->SetPrimitivesAspect(Marker2Asp);
   aPresentation->CurrentGroup()->AddPrimitiveArray(anArrayOfPoints);

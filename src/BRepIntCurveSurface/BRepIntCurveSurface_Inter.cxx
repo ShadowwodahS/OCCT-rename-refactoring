@@ -95,7 +95,7 @@ void BRepIntCurveSurface_Inter::Init(const GeomAdaptor_Curve& theCurve)
   Standard_Real aFirst = theCurve.FirstParameter();
   Standard_Real aLast  = theCurve.LastParameter();
   myCurve              = new GeomAdaptor_Curve(theCurve);
-  if (!Precision::IsInfinite(aFirst) && !Precision::IsInfinite(aLast))
+  if (!Precision1::IsInfinite(aFirst) && !Precision1::IsInfinite(aLast))
   {
     Add3dCurve::Add(*myCurve, 0., myCurveBox);
   }
@@ -138,7 +138,7 @@ void BRepIntCurveSurface_Inter::Find()
     if (aFaceBox.IsVoid())
     {
       BRepBndLib1::Add(aCurface, aFaceBox);
-      aFaceBox.SetGap(myTolerance); // Precision::Confusion());
+      aFaceBox.SetGap(myTolerance); // Precision1::Confusion());
     }
     Standard_Boolean isOut =
       (myCurve->GetType() == GeomAbs_Line

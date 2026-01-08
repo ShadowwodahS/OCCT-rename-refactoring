@@ -136,7 +136,7 @@ void CullingTool::SetCullingDistance(CullingContext1& theCtx,
   theCtx.DistCull = -1.0;
   if (!myIsProjectionParallel)
   {
-    theCtx.DistCull = theDistance > 0.0 && !Precision::IsInfinite(theDistance) ? theDistance : -1.0;
+    theCtx.DistCull = theDistance > 0.0 && !Precision1::IsInfinite(theDistance) ? theDistance : -1.0;
   }
 }
 
@@ -145,7 +145,7 @@ void CullingTool::SetCullingDistance(CullingContext1& theCtx,
 void CullingTool::SetCullingSize(CullingContext1& theCtx, Standard_Real theSize) const
 {
   theCtx.SizeCull2 = -1.0;
-  if (theSize > 0.0 && !Precision::IsInfinite(theSize))
+  if (theSize > 0.0 && !Precision1::IsInfinite(theSize))
   {
     theCtx.SizeCull2 = myPixelSize * theSize;
     theCtx.SizeCull2 *= myCamScale;

@@ -50,7 +50,7 @@ typedef NCollection_DataMap<AsciiString1, AsciiString1>
 //
 Storage_Bucket::~Storage_Bucket()
 {
-  Standard::Free(mySpace);
+  Standard1::Free(mySpace);
   mySpace     = 0L;
   mySpaceSize = 0;
   Clear();
@@ -86,7 +86,7 @@ Storage_BucketOfPersistent::Storage_BucketOfPersistent(const Standard_Integer th
       myNumberOfBucketAllocated(theBucketNumber),
       myBucketSize(theBucketSize)
 {
-  myBuckets       = (Storage_Bucket**)Standard::Allocate(sizeof(Storage_Bucket*) * theBucketNumber);
+  myBuckets       = (Storage_Bucket**)Standard1::Allocate(sizeof(Storage_Bucket*) * theBucketNumber);
   myBuckets[0]    = new Storage_Bucket(myBucketSize);
   myCurrentBucket = myBuckets[0];
   myLength        = 0;
@@ -115,7 +115,7 @@ Storage_BucketOfPersistent::~Storage_BucketOfPersistent()
 {
   Clear();
   delete myBuckets[0];
-  Standard::Free(myBuckets);
+  Standard1::Free(myBuckets);
   myBuckets = 0L;
 }
 
@@ -150,7 +150,7 @@ void Storage_BucketOfPersistent::Append(const Handle(DbObject)& sp)
   if (myNumberOfBucket > myNumberOfBucketAllocated)
   {
     Standard_Size e = sizeof(Storage_Bucket*) * myNumberOfBucketAllocated;
-    myBuckets       = (Storage_Bucket**)Standard::Reallocate(myBuckets, e * 2);
+    myBuckets       = (Storage_Bucket**)Standard1::Reallocate(myBuckets, e * 2);
     myNumberOfBucketAllocated *= 2;
   }
 
@@ -344,7 +344,7 @@ void Storage_Schema::Write(const Handle(Storage_BaseDriver)& theDriver,
   Standard_Integer i, len;
 
   aData->HeaderData()->SetCreationDate(ICreationDate());
-  aData->HeaderData()->SetStorageVersion(Storage::Version());
+  aData->HeaderData()->SetStorageVersion(Storage1::Version());
   aData->HeaderData()->SetNumberOfObjects(iData->myPtoA.Length());
   aData->HeaderData()->SetSchemaName(myName);
   aData->HeaderData()->SetSchemaVersion(myVersion);
@@ -580,7 +580,7 @@ void Storage_Schema::SetDefaultCallBack(const Handle(Storage_CallBack)& f)
 
 //=======================================================================
 // function : ResetDefaultCallBack
-// purpose  : reset  the  default  function  defined  by Storage
+// purpose  : reset  the  default  function  defined  by Storage1
 //           package.
 //=======================================================================
 
@@ -714,7 +714,7 @@ Standard_Boolean Storage_Schema::CheckTypeMigration(const AsciiString1& oldName,
     aFile.SetPath(aPath);
     if (aFile.Exists())
     {
-      OSD_Protection aProt(OSD_R, OSD_R, OSD_R, OSD_R);
+      Protection1 aProt(OSD_R, OSD_R, OSD_R, OSD_R);
       aFile.Open(OSD_ReadOnly, aProt);
       if (aFile.IsOpen() && aFile.IsReadable())
       {
@@ -809,7 +809,7 @@ AsciiString1 Storage_Schema::ICreationDate()
   if (time(&nowbin) == (time_t)-1)
   {
 #ifdef OCCT_DEBUG
-    std::cerr << "Storage ERROR : Could not get time of day from time()" << std::endl;
+    std::cerr << "Storage1 ERROR : Could not get time of day from time()" << std::endl;
 #endif
   }
 
@@ -818,7 +818,7 @@ AsciiString1 Storage_Schema::ICreationDate()
   if (strftime(nowstr, SLENGTH, "%m/%d/%Y", nowstruct) == (size_t)0)
   {
 #ifdef OCCT_DEBUG
-    std::cerr << "Storage ERROR : Could not get string from strftime()" << std::endl;
+    std::cerr << "Storage1 ERROR : Could not get string from strftime()" << std::endl;
 #endif
   }
 

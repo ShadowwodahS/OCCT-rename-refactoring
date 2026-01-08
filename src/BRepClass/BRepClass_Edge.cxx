@@ -24,7 +24,7 @@
 //=================================================================================================
 
 BRepClass_Edge::BRepClass_Edge()
-    : myMaxTolerance(Precision::Infinite()),
+    : myMaxTolerance(Precision1::Infinite()),
       myUseBndBox(Standard_False)
 {
 }
@@ -62,7 +62,7 @@ void BRepClass_Edge::SetNextEdge(const TopTools_IndexedDataMapOfShapeListOfShape
 BRepClass_Edge::BRepClass_Edge(const TopoEdge& E, const TopoFace& F)
     : myEdge(E),
       myFace(F),
-      myMaxTolerance(Precision::Infinite()),
+      myMaxTolerance(Precision1::Infinite()),
       myUseBndBox(Standard_False)
 {
 }

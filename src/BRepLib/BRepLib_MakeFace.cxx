@@ -70,7 +70,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const TopoFace& F)
 BRepLib_MakeFace::BRepLib_MakeFace(const gp_Pln& P)
 {
   Handle(GeomPlane) GP = new GeomPlane(P);
-  Init(GP, Standard_True, Precision::Confusion());
+  Init(GP, Standard_True, Precision1::Confusion());
 }
 
 //=================================================================================================
@@ -78,7 +78,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const gp_Pln& P)
 BRepLib_MakeFace::BRepLib_MakeFace(const Cylinder1& C)
 {
   Handle(Geom_CylindricalSurface) GC = new Geom_CylindricalSurface(C);
-  Init(GC, Standard_True, Precision::Confusion());
+  Init(GC, Standard_True, Precision1::Confusion());
 }
 
 //=================================================================================================
@@ -86,7 +86,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const Cylinder1& C)
 BRepLib_MakeFace::BRepLib_MakeFace(const Cone1& C)
 {
   Handle(Geom_ConicalSurface) GC = new Geom_ConicalSurface(C);
-  Init(GC, Standard_True, Precision::Confusion());
+  Init(GC, Standard_True, Precision1::Confusion());
 }
 
 //=================================================================================================
@@ -94,7 +94,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const Cone1& C)
 BRepLib_MakeFace::BRepLib_MakeFace(const Sphere3& S)
 {
   Handle(Geom_SphericalSurface) GS = new Geom_SphericalSurface(S);
-  Init(GS, Standard_True, Precision::Confusion());
+  Init(GS, Standard_True, Precision1::Confusion());
 }
 
 //=================================================================================================
@@ -102,7 +102,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const Sphere3& S)
 BRepLib_MakeFace::BRepLib_MakeFace(const gp_Torus& T)
 {
   Handle(Geom_ToroidalSurface) GT = new Geom_ToroidalSurface(T);
-  Init(GT, Standard_True, Precision::Confusion());
+  Init(GT, Standard_True, Precision1::Confusion());
 }
 
 //=================================================================================================
@@ -121,7 +121,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const gp_Pln&       P,
                                    const Standard_Real VMax)
 {
   Handle(GeomPlane) GP = new GeomPlane(P);
-  Init(GP, UMin, UMax, VMin, VMax, Precision::Confusion());
+  Init(GP, UMin, UMax, VMin, VMax, Precision1::Confusion());
 }
 
 //=================================================================================================
@@ -133,7 +133,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const Cylinder1&  C,
                                    const Standard_Real VMax)
 {
   Handle(Geom_CylindricalSurface) GC = new Geom_CylindricalSurface(C);
-  Init(GC, UMin, UMax, VMin, VMax, Precision::Confusion());
+  Init(GC, UMin, UMax, VMin, VMax, Precision1::Confusion());
 }
 
 //=================================================================================================
@@ -145,7 +145,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const Cone1&      C,
                                    const Standard_Real VMax)
 {
   Handle(Geom_ConicalSurface) GC = new Geom_ConicalSurface(C);
-  Init(GC, UMin, UMax, VMin, VMax, Precision::Confusion());
+  Init(GC, UMin, UMax, VMin, VMax, Precision1::Confusion());
 }
 
 //=================================================================================================
@@ -157,7 +157,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const Sphere3&    S,
                                    const Standard_Real VMax)
 {
   Handle(Geom_SphericalSurface) GS = new Geom_SphericalSurface(S);
-  Init(GS, UMin, UMax, VMin, VMax, Precision::Confusion());
+  Init(GS, UMin, UMax, VMin, VMax, Precision1::Confusion());
 }
 
 //=================================================================================================
@@ -169,7 +169,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const gp_Torus&     T,
                                    const Standard_Real VMax)
 {
   Handle(Geom_ToroidalSurface) GT = new Geom_ToroidalSurface(T);
-  Init(GT, UMin, UMax, VMin, VMax, Precision::Confusion());
+  Init(GT, UMin, UMax, VMin, VMax, Precision1::Confusion());
 }
 
 //=================================================================================================
@@ -262,7 +262,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const gp_Pln&          P,
                                    const Standard_Boolean Inside)
 {
   Handle(GeomPlane) Pl = new GeomPlane(P);
-  Init(Pl, Standard_False, Precision::Confusion());
+  Init(Pl, Standard_False, Precision1::Confusion());
   Add(W);
   if (Inside && BRepInspector::IsClosed(W))
     CheckInside();
@@ -275,7 +275,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const Cylinder1&     C,
                                    const Standard_Boolean Inside)
 {
   Handle(Geom_CylindricalSurface) GC = new Geom_CylindricalSurface(C);
-  Init(GC, Standard_False, Precision::Confusion());
+  Init(GC, Standard_False, Precision1::Confusion());
   Add(W);
   if (Inside && BRepInspector::IsClosed(W))
     CheckInside();
@@ -288,7 +288,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const Cone1&         C,
                                    const Standard_Boolean Inside)
 {
   Handle(Geom_ConicalSurface) GC = new Geom_ConicalSurface(C);
-  Init(GC, Standard_False, Precision::Confusion());
+  Init(GC, Standard_False, Precision1::Confusion());
   Add(W);
   if (Inside && BRepInspector::IsClosed(W))
     CheckInside();
@@ -301,7 +301,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const Sphere3&       S,
                                    const Standard_Boolean Inside)
 {
   Handle(Geom_SphericalSurface) GS = new Geom_SphericalSurface(S);
-  Init(GS, Standard_False, Precision::Confusion());
+  Init(GS, Standard_False, Precision1::Confusion());
   Add(W);
   if (Inside && BRepInspector::IsClosed(W))
     CheckInside();
@@ -314,7 +314,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const gp_Torus&        T,
                                    const Standard_Boolean Inside)
 {
   Handle(Geom_ToroidalSurface) GT = new Geom_ToroidalSurface(T);
-  Init(GT, Standard_False, Precision::Confusion());
+  Init(GT, Standard_False, Precision1::Confusion());
   Add(W);
   if (Inside && BRepInspector::IsClosed(W))
     CheckInside();
@@ -326,7 +326,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const Handle(GeomSurface)& S,
                                    const TopoWire&          W,
                                    const Standard_Boolean      Inside)
 {
-  Init(S, Standard_False, Precision::Confusion());
+  Init(S, Standard_False, Precision1::Confusion());
   Add(W);
   if (Inside && BRepInspector::IsClosed(W))
     CheckInside();
@@ -373,7 +373,7 @@ void BRepLib_MakeFace::Init(const Handle(GeomSurface)& S,
   else
   {
     ShapeBuilder B;
-    B.MakeFace(TopoDS::Face(myShape), S, Precision::Confusion());
+    B.MakeFace(TopoDS::Face(myShape), S, Precision1::Confusion());
   }
   ShapeBuilder B;
   B.NaturalRestriction(TopoDS::Face(myShape), Standard_True);
@@ -390,7 +390,7 @@ Standard_Boolean BRepLib_MakeFace::IsDegenerated(const Handle(GeomCurve3d)& theC
                                                  Standard_Real&            theActTol)
 {
   GeomAdaptor_Curve AC(theCurve);
-  Standard_Real     aConfusion = Precision::Confusion();
+  Standard_Real     aConfusion = Precision1::Confusion();
   theActTol                    = aConfusion;
   GeomAbs_CurveType Type       = AC.GetType();
 
@@ -471,7 +471,7 @@ void BRepLib_MakeFace::Init(const Handle(GeomSurface)& SS,
 
   // adjust periodical surface or reordonate
   // check if the values are in the natural range
-  constexpr Standard_Real epsilon = Precision::PConfusion();
+  constexpr Standard_Real epsilon = Precision1::PConfusion();
 
   BS->Bounds(umin, umax, vmin, vmax);
 
@@ -482,14 +482,14 @@ void BRepLib_MakeFace::Init(const Handle(GeomSurface)& SS,
 
     if (Base->DynamicType() == STANDARD_TYPE(Geom_SurfaceOfLinearExtrusion))
     {
-      if (Precision::IsInfinite(umin) || Precision::IsInfinite(umax))
+      if (Precision1::IsInfinite(umin) || Precision1::IsInfinite(umax))
         S = new Geom_RectangularTrimmedSurface(OS, UMin, UMax, VMin, VMax);
       else
         S = new Geom_RectangularTrimmedSurface(OS, VMin, VMax, Standard_False);
     }
     else if (Base->DynamicType() == STANDARD_TYPE(Geom_SurfaceOfRevolution))
     {
-      if (Precision::IsInfinite(vmin) || Precision::IsInfinite(vmax))
+      if (Precision1::IsInfinite(vmin) || Precision1::IsInfinite(vmax))
         S = new Geom_RectangularTrimmedSurface(OS, VMin, VMax, Standard_False);
     }
   }
@@ -527,10 +527,10 @@ void BRepLib_MakeFace::Init(const Handle(GeomSurface)& SS,
   }
 
   // compute infinite flags
-  Standard_Boolean umininf = Precision::IsNegativeInfinite(UMin);
-  Standard_Boolean umaxinf = Precision::IsPositiveInfinite(UMax);
-  Standard_Boolean vmininf = Precision::IsNegativeInfinite(VMin);
-  Standard_Boolean vmaxinf = Precision::IsPositiveInfinite(VMax);
+  Standard_Boolean umininf = Precision1::IsNegativeInfinite(UMin);
+  Standard_Boolean umaxinf = Precision1::IsPositiveInfinite(UMax);
+  Standard_Boolean vmininf = Precision1::IsNegativeInfinite(VMin);
+  Standard_Boolean vmaxinf = Precision1::IsPositiveInfinite(VMax);
 
   // closed flag
   Standard_Boolean uclosed =
@@ -544,8 +544,8 @@ void BRepLib_MakeFace::Init(const Handle(GeomSurface)& SS,
   Handle(GeomCurve3d) Cumin, Cumax, Cvmin, Cvmax;
   Standard_Boolean   Dumin, Dumax, Dvmin, Dvmax;
   Dumin = Dumax = Dvmin = Dvmax = Standard_False;
-  Standard_Real uminTol = Precision::Confusion(), umaxTol = Precision::Confusion(),
-                vminTol = Precision::Confusion(), vmaxTol = Precision::Confusion();
+  Standard_Real uminTol = Precision1::Confusion(), umaxTol = Precision1::Confusion(),
+                vminTol = Precision1::Confusion(), vmaxTol = Precision1::Confusion();
 
   if (!umininf)
   {
@@ -622,7 +622,7 @@ void BRepLib_MakeFace::Init(const Handle(GeomSurface)& SS,
 
   // make the face
   TopoFace& F = TopoDS::Face(myShape);
-  B.MakeFace(F, S, Precision::Confusion());
+  B.MakeFace(F, S, Precision1::Confusion());
 
   // make the edges
   TopoEdge eumin, eumax, evmin, evmax;
@@ -776,10 +776,10 @@ void BRepLib_MakeFace::Init(const Handle(GeomSurface)& SS,
 
   if (OffsetSurface)
   {
-    // Les Isos sont Approximees a Precision::Approximation()
-    // et on code Precision::Confusion() dans l'arete.
+    // Les Isos sont Approximees a Precision1::Approximation()
+    // et on code Precision1::Confusion() dans l'arete.
     // ==> Un petit passage dans SamePrameter pour regler les tolerances.
-    BRepLib1::SameParameter(F, Precision::Confusion(), Standard_True);
+    BRepLib1::SameParameter(F, Precision1::Confusion(), Standard_True);
   }
 
   Done();

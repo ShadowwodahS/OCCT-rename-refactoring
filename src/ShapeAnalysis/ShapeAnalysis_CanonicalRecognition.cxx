@@ -284,7 +284,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsCylinder(const Standard_R
     return Standard_True;
   }
 
-  if (aParams(1) > Precision::Infinite())
+  if (aParams(1) > Precision1::Infinite())
   {
     // Sample cylinder does not seem to be set, least square method is not applicable.
     return Standard_False;
@@ -334,7 +334,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsCone(const Standard_Real 
     return Standard_True;
   }
 
-  if (aParams(2) > Precision::Infinite())
+  if (aParams(2) > Precision1::Infinite())
   {
     // Sample cone does not seem to be set, least square method is not applicable.
     return Standard_False;
@@ -383,7 +383,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsSphere(const Standard_Rea
     return Standard_True;
   }
   //
-  if (aParams(1) > Precision::Infinite())
+  if (aParams(1) > Precision1::Infinite())
   {
     // Sample sphere does not seem to be set, least square method is not applicable.
     return Standard_False;
@@ -841,7 +841,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::GetSurfaceByLS(
   FillSolverData(theTarget, thePos, theParams, aStartPoint, aFBnd, aLBnd, aRelDev);
 
   //
-  constexpr Standard_Real        aTol = Precision::Confusion();
+  constexpr Standard_Real        aTol = Precision1::Confusion();
   MultipleVarFunction*      aPFunc;
   GeomConvert_FuncSphereLSDist   aFuncSph(aPoints);
   GeomConvert_FuncCylinderLSDist aFuncCyl(aPoints, thePos.Direction());
@@ -1059,7 +1059,7 @@ Standard_Boolean CompareConicParams(const GeomAbs_CurveType     theTarget,
   Standard_Real anAngTol = theTol / (2. * M_PI);
   Standard_Real aTol     = theTol;
   if (theTarget == GeomAbs_Line)
-    aTol = Precision::Infinite();
+    aTol = Precision1::Infinite();
 
   const Axis3d& aRef     = theRefPos.Axis();
   const Axis3d& anAx1    = thePos.Axis();
@@ -1152,7 +1152,7 @@ Standard_Boolean CompareSurfParams(const GeomAbs_SurfaceType   theTarget,
   Standard_Real aTol     = theTol;
   if (theTarget == GeomAbs_Cylinder || theTarget == GeomAbs_Cone)
   {
-    aTol = Precision::Infinite();
+    aTol = Precision1::Infinite();
   }
 
   const Axis3d& aRef     = theRefPos.Axis();
@@ -1355,7 +1355,7 @@ void FillSolverData(const GeomAbs_SurfaceType   theTarget,
     theStartPoint(4)  = theParams(1); // SemiAngle
     theStartPoint(5)  = theParams(2); // Radius
     Standard_Real aDR = theRelDev * theParams(2);
-    if (aDR < Precision::Confusion())
+    if (aDR < Precision1::Confusion())
     {
       aDR = 0.1;
     }

@@ -51,7 +51,7 @@ Standard_Boolean Coords3d::InitFromJson(const Standard_SStream& theSStream,
                                       Standard_Integer&       theStreamPos)
 {
   Standard_Integer aPos = theStreamPos;
-  OCCT_INIT_VECTOR_CLASS(Standard_Dump::Text(theSStream), "Coords3d", aPos, 3, &x, &y, &z)
+  OCCT_INIT_VECTOR_CLASS(DumpTool::Text(theSStream), "Coords3d", aPos, 3, &x, &y, &z)
 
   theStreamPos = aPos;
   return Standard_True;

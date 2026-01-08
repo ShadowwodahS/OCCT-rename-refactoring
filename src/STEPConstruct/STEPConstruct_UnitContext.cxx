@@ -70,7 +70,7 @@ void STEPConstruct_UnitContext::Init(const Standard_Real               Tol3d,
   Handle(TCollection_HAsciiString) contextType =
     new TCollection_HAsciiString("3D Context with UNIT and UNCERTAINTY");
 
-  // Units : LengthUnit and PlaneAngleUnit (no SolidAngleUnit applicable)
+  // Units2 : LengthUnit and PlaneAngleUnit (no SolidAngleUnit applicable)
 
   Handle(StepBasic_NamedUnit) lengthUnit;
   Standard_CString            uName   = 0;
@@ -298,7 +298,7 @@ Standard_Integer STEPConstruct_UnitContext::ComputeFactors(
   }
 
   // Start Computation
-  Handle(StepBasic_HArray1OfNamedUnit) theUnits = aContext->Units();
+  Handle(StepBasic_HArray1OfNamedUnit) theUnits = aContext->Units2();
   Standard_Integer                     nbU      = aContext->NbUnits();
 
   for (Standard_Integer i = 1; i <= nbU; i++)
@@ -513,7 +513,7 @@ Standard_Integer STEPConstruct_UnitContext::ComputeTolerance(
     if (aUMWU.IsNull())
     {
 #ifdef OCCT_DEBUG
-      std::cout << "BAD Uncertainty Measure with Units, n0." << un << std::endl;
+      std::cout << "BAD Uncertainty Measure with Units2, n0." << un << std::endl;
 #endif
       continue;
     }

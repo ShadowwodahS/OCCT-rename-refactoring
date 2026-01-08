@@ -23,20 +23,20 @@ struct Graphic3d_PolygonOffset
 {
   Aspect_PolygonOffsetMode Mode;
   Standard_ShortReal       Factor;
-  Standard_ShortReal       Units;
+  Standard_ShortReal       Units2;
 
   //! Empty constructor.
   Graphic3d_PolygonOffset()
       : Mode(Aspect_POM_Fill),
         Factor(1.0f),
-        Units(1.0f)
+        Units2(1.0f)
   {
   }
 
   //! Equality comparison.
   bool operator==(const Graphic3d_PolygonOffset& theOther) const
   {
-    return Mode == theOther.Mode && Factor == theOther.Factor && Units == theOther.Units;
+    return Mode == theOther.Mode && Factor == theOther.Factor && Units2 == theOther.Units2;
   }
 
   //! Dumps the content of me into the stream

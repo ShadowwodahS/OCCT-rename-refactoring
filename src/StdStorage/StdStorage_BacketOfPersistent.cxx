@@ -16,7 +16,7 @@
 
 StdStorage_Bucket::~StdStorage_Bucket()
 {
-  Standard::Free(mySpace);
+  Standard1::Free(mySpace);
   mySpace     = 0L;
   mySpaceSize = 0;
   Clear();
@@ -52,7 +52,7 @@ StdStorage_BucketOfPersistent::StdStorage_BucketOfPersistent(const Standard_Inte
       myNumberOfBucketAllocated(theBucketNumber),
       myBucketSize(theBucketSize)
 {
-  myBuckets = (StdStorage_Bucket**)Standard::Allocate(sizeof(StdStorage_Bucket*) * theBucketNumber);
+  myBuckets = (StdStorage_Bucket**)Standard1::Allocate(sizeof(StdStorage_Bucket*) * theBucketNumber);
   myBuckets[0]          = new StdStorage_Bucket(myBucketSize);
   myCurrentBucket       = myBuckets[0];
   myLength              = 0;
@@ -81,7 +81,7 @@ StdStorage_BucketOfPersistent::~StdStorage_BucketOfPersistent()
 {
   Clear();
   delete myBuckets[0];
-  Standard::Free(myBuckets);
+  Standard1::Free(myBuckets);
   myBuckets = 0L;
 }
 
@@ -116,7 +116,7 @@ void StdStorage_BucketOfPersistent::Append(const Handle(StdObjMgt_Persistent)& s
   if (myNumberOfBucket > myNumberOfBucketAllocated)
   {
     Standard_Size e = sizeof(StdStorage_Bucket*) * myNumberOfBucketAllocated;
-    myBuckets       = (StdStorage_Bucket**)Standard::Reallocate(myBuckets, e * 2);
+    myBuckets       = (StdStorage_Bucket**)Standard1::Reallocate(myBuckets, e * 2);
     myNumberOfBucketAllocated *= 2;
   }
 

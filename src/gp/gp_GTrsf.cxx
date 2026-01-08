@@ -152,7 +152,7 @@ void GeneralTransform::PreMultiply(const GeneralTransform& T)
 
 void GeneralTransform::SetForm()
 {
-  Standard_Real tol = 1.e-12; // Precision::Angular();
+  Standard_Real tol = 1.e-12; // Precision1::Angular();
   //
   // don t trust the initial values !
   //

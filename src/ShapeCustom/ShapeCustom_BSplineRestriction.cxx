@@ -296,9 +296,9 @@ ShapeCustom_BSplineRestriction::ShapeCustom_BSplineRestriction()
   myContinuity2d      = GeomAbs_C2;
   myMaxDegree         = 9;
   myNbMaxSeg          = 10000;
-  mySurfaceError      = Precision::Confusion();
-  myCurve3dError      = Precision::Confusion();
-  myCurve2dError      = Precision::PConfusion();
+  mySurfaceError      = Precision1::Confusion();
+  myCurve3dError      = Precision1::Confusion();
+  myCurve2dError      = Precision1::PConfusion();
   myNbOfSpan          = 0;
   myConvert           = Standard_False;
   myDeg               = Standard_True;
@@ -328,9 +328,9 @@ ShapeCustom_BSplineRestriction::ShapeCustom_BSplineRestriction(
   myContinuity3d      = aContinuity3d;
   myContinuity2d      = aContinuity2d;
   myNbMaxSeg          = aNbMaxSeg;
-  mySurfaceError      = Precision::Confusion();
-  myCurve3dError      = Precision::Confusion();
-  myCurve2dError      = Precision::PConfusion();
+  mySurfaceError      = Precision1::Confusion();
+  myCurve3dError      = Precision1::Confusion();
+  myCurve2dError      = Precision1::PConfusion();
   myNbOfSpan          = 0;
   myConvert           = Standard_False;
   myDeg               = Deg;
@@ -361,9 +361,9 @@ ShapeCustom_BSplineRestriction::ShapeCustom_BSplineRestriction(
   myContinuity3d      = aContinuity3d;
   myContinuity2d      = aContinuity2d;
   myNbMaxSeg          = aNbMaxSeg;
-  mySurfaceError      = Precision::Confusion();
-  myCurve3dError      = Precision::Confusion();
-  myCurve2dError      = Precision::PConfusion();
+  mySurfaceError      = Precision1::Confusion();
+  myCurve3dError      = Precision1::Confusion();
+  myCurve2dError      = Precision1::PConfusion();
   myNbOfSpan          = 0;
   myConvert           = Standard_False;
   myDeg               = Deg;
@@ -404,12 +404,12 @@ Standard_Boolean ShapeCustom_BSplineRestriction::NewSurface(const TopoFace&    F
   }
   else
   {
-    if (Precision::IsInfinite(UF) || Precision::IsInfinite(UL))
+    if (Precision1::IsInfinite(UF) || Precision1::IsInfinite(UL))
     {
       UF = Umin;
       UL = Umax;
     }
-    if (Precision::IsInfinite(VF) || Precision::IsInfinite(VL))
+    if (Precision1::IsInfinite(VF) || Precision1::IsInfinite(VL))
     {
       VF = Vmin;
       VL = Vmax;
@@ -417,7 +417,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::NewSurface(const TopoFace&    F
   }
 
   Standard_Boolean IsConv = ConvertSurface(aSurface, S, UF, UL, VF, VL, IsOf);
-  Tol                     = Precision::Confusion(); // mySurfaceError;
+  Tol                     = Precision1::Confusion(); // mySurfaceError;
 
   if (IsConv)
   {
@@ -533,7 +533,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertSurface(
     Handle(Geom_SurfaceOfRevolution) Surface  = Handle(Geom_SurfaceOfRevolution)::DownCast(aSurf);
     Handle(GeomCurve3d)               BasCurve = Surface->BasisCurve();
     Handle(GeomCurve3d)               ResCurve;
-    Standard_Real                    TolS = Precision::Confusion();
+    Standard_Real                    TolS = Precision1::Confusion();
     if (myParameters->ConvertRevolutionSurf())
     {
       if (BasCurve->IsKind(STANDARD_TYPE(Geom_OffsetCurve)))
@@ -580,7 +580,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertSurface(
       Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(aSurf);
     Handle(GeomCurve3d) BasCurve = Surface->BasisCurve();
     Handle(GeomCurve3d) ResCurve;
-    Standard_Real      TolS = Precision::Confusion();
+    Standard_Real      TolS = Precision1::Confusion();
     if (myParameters->ConvertExtrusionSurf())
     {
       GeomAbs_Shape cnt = Surface->Continuity();
@@ -731,8 +731,8 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertSurface(
   Standard_Real    u1, u2, v1, v2;
   aSurf->Bounds(u1, u2, v1, v2);
   Standard_Real ShiftU = 0, ShiftV = 0;
-  if (Abs(u1 - UF) > Precision::PConfusion() || Abs(u2 - UL) > Precision::PConfusion()
-      || Abs(v1 - VF) > Precision::PConfusion() || Abs(v2 - VL) > Precision::PConfusion())
+  if (Abs(u1 - UF) > Precision1::PConfusion() || Abs(u2 - UL) > Precision1::PConfusion()
+      || Abs(v1 - VF) > Precision1::PConfusion() || Abs(v2 - VL) > Precision1::PConfusion())
   {
     /*if(aSurf->IsUPeriodic() ) {
     Standard_Real aDelta = (UL > UF ? UL - UF : UF - UL );
@@ -821,7 +821,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertSurface(
             myConvert      = Standard_True;
             myNbOfSpan     = myNbOfSpan + nbOfSpan;
             mySurfaceError = Max(mySurfaceError, anApprox.MaxError());
-            if (Abs(ShiftU) > Precision::PConfusion())
+            if (Abs(ShiftU) > Precision1::PConfusion())
             {
               Standard_Integer     nb = Bsc->NbUKnots();
               TColStd_Array1OfReal uknots(1, nb);
@@ -830,7 +830,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertSurface(
                 uknots(j) += ShiftU;
               Bsc->SetUKnots(uknots);
             }
-            if (Abs(ShiftV) > Precision::PConfusion())
+            if (Abs(ShiftV) > Precision1::PConfusion())
             {
               Standard_Integer     nb = Bsc->NbVKnots();
               TColStd_Array1OfReal vknots(1, nb);
@@ -995,7 +995,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(GeomC
                                                               Standard_Real&            TolCur,
                                                               const Standard_Boolean    IsOf)
 {
-  //  TolCur =  Precision::Confusion();
+  //  TolCur =  Precision1::Confusion();
   if (aCurve->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
   {
     Handle(Geom_TrimmedCurve) tmp = Handle(Geom_TrimmedCurve)::DownCast(aCurve);
@@ -1018,7 +1018,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(GeomC
       if (IsConvert)
       {
         C      = Handle(GeomCurve3d)::DownCast(aCurve->Copy());
-        TolCur = Precision::Confusion();
+        TolCur = Precision1::Confusion();
         return Standard_True;
       }
 
@@ -1049,7 +1049,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(GeomC
     Handle(GeomCurve3d) tcurve = new Geom_TrimmedCurve(aCurve,First,Last); //protection against parabols ets
     // clang-format on
     GeomConvert_ApproxCurve approx(tcurve,
-                                   myTol3d /*Precision::Approximation()*/,
+                                   myTol3d /*Precision1::Approximation()*/,
                                    myContinuity2d,
                                    myNbMaxSeg,
                                    6);
@@ -1059,7 +1059,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(GeomC
       aBSpline = GeomConvert1::CurveToBSplineCurve(tcurve, Convert_QuasiAngular);
 
     Standard_Real Shift = First - aBSpline->FirstParameter();
-    if (Abs(Shift) > Precision::PConfusion())
+    if (Abs(Shift) > Precision1::PConfusion())
     {
       Standard_Integer     nbKnots = aBSpline->NbKnots();
       TColStd_Array1OfReal newKnots(1, nbKnots);
@@ -1077,7 +1077,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(GeomC
     else
     {
       C      = aBSpline;
-      TolCur = Precision::PConfusion();
+      TolCur = Precision1::PConfusion();
       return Standard_True;
     }
   }
@@ -1094,7 +1094,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(GeomC
     else
     {
       C      = aBSpline;
-      TolCur = Precision::PConfusion();
+      TolCur = Precision1::PConfusion();
       return Standard_True;
     }
   }
@@ -1118,7 +1118,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(GeomC
         if (IsConvert)
         {
           C      = Handle(GeomCurve3d)::DownCast(aCurve->Copy());
-          TolCur = Precision::Confusion();
+          TolCur = Precision1::Confusion();
           return Standard_True;
         }
         return Standard_False;
@@ -1129,7 +1129,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(GeomC
       if (IsConvert)
       {
         C      = Handle(GeomCurve3d)::DownCast(aCurve->Copy());
-        TolCur = Precision::Confusion();
+        TolCur = Precision1::Confusion();
         return Standard_True;
       }
       return Standard_False;
@@ -1151,7 +1151,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(GeomC
         if (IsConvert)
         {
           C      = Handle(GeomCurve3d)::DownCast(aCurve->Copy());
-          TolCur = Precision::Confusion();
+          TolCur = Precision1::Confusion();
           return Standard_True;
         }
         else
@@ -1168,7 +1168,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(GeomC
         if (IsConvert)
         {
           C      = Handle(GeomCurve3d)::DownCast(aCurve->Copy());
-          TolCur = Precision::Confusion();
+          TolCur = Precision1::Confusion();
           return Standard_True;
         }
         else
@@ -1180,7 +1180,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(GeomC
     // 15.11.2002 PTV OCC966
     if (Curve2::IsPeriodic(aCurve) && (First != Last))
       aCurve1 = new Geom_TrimmedCurve(aCurve, First, Last);
-    else if (pf < (First - Precision::PConfusion()) || pl > (Last + Precision::PConfusion()))
+    else if (pf < (First - Precision1::PConfusion()) || pl > (Last + Precision1::PConfusion()))
     {
       Standard_Real F = Max(First, pf), L = Min(Last, pl);
       if (F != L)
@@ -1228,7 +1228,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(GeomC
               if (IsConvert)
               {
                 C      = Handle(GeomCurve3d)::DownCast(aCurve->Copy());
-                TolCur = Precision::Confusion();
+                TolCur = Precision1::Confusion();
                 return Standard_True;
               }
             }
@@ -1251,7 +1251,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(GeomC
               if (IsConvert)
               {
                 C      = Handle(GeomCurve3d)::DownCast(aCurve->Copy());
-                TolCur = Precision::Confusion();
+                TolCur = Precision1::Confusion();
                 return Standard_True;
               }
             }
@@ -1281,7 +1281,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(GeomC
     if (IsConvert)
     {
       C      = Handle(GeomCurve3d)::DownCast(aCurve->Copy());
-      TolCur = Precision::Confusion();
+      TolCur = Precision1::Confusion();
       return Standard_True;
     }
     return Standard_False;
@@ -1372,7 +1372,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
                                                                 Standard_Real&         TolCur,
                                                                 const Standard_Boolean IsOf)
 {
-  // TolCur = Precision::PConfusion();
+  // TolCur = Precision1::PConfusion();
   if (aCurve->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve)))
   {
     Handle(Geom2d_TrimmedCurve) tmp = Handle(Geom2d_TrimmedCurve)::DownCast(aCurve);
@@ -1394,7 +1394,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
       if (IsConvert)
       {
         C      = Handle(GeomCurve2d)::DownCast(aCurve->Copy());
-        TolCur = Precision::PConfusion();
+        TolCur = Precision1::PConfusion();
         return Standard_True;
       }
       else
@@ -1431,7 +1431,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
       aBSpline2d = Geom2dConvert1::CurveToBSplineCurve(tcurve, Convert_QuasiAngular);
 
     Standard_Real Shift = First - aBSpline2d->FirstParameter();
-    if (Abs(Shift) > Precision::PConfusion())
+    if (Abs(Shift) > Precision1::PConfusion())
     {
       Standard_Integer     nbKnots = aBSpline2d->NbKnots();
       TColStd_Array1OfReal newKnots(1, nbKnots);
@@ -1449,7 +1449,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
     else
     {
       C      = aBSpline2d;
-      TolCur = Precision::PConfusion();
+      TolCur = Precision1::PConfusion();
       return Standard_True;
     }
   }
@@ -1467,7 +1467,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
     else
     {
       C      = aBSpline2d;
-      TolCur = Precision::PConfusion();
+      TolCur = Precision1::PConfusion();
       return Standard_True;
     }
   }
@@ -1491,7 +1491,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
         if (IsConvert)
         {
           C      = Handle(GeomCurve2d)::DownCast(aCurve->Copy());
-          TolCur = Precision::PConfusion();
+          TolCur = Precision1::PConfusion();
           return Standard_True;
         }
         else
@@ -1503,7 +1503,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
       if (IsConvert)
       {
         C      = Handle(GeomCurve2d)::DownCast(aCurve->Copy());
-        TolCur = Precision::PConfusion();
+        TolCur = Precision1::PConfusion();
         return Standard_True;
       }
       else
@@ -1526,7 +1526,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
         if (IsConvert)
         {
           C      = Handle(GeomCurve2d)::DownCast(aCurve->Copy());
-          TolCur = Precision::PConfusion();
+          TolCur = Precision1::PConfusion();
           return Standard_True;
         }
         else
@@ -1543,7 +1543,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
         if (IsConvert)
         {
           C      = Handle(GeomCurve2d)::DownCast(aCurve->Copy());
-          TolCur = Precision::PConfusion();
+          TolCur = Precision1::PConfusion();
           return Standard_True;
         }
         else
@@ -1555,8 +1555,8 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
     // 15.11.2002 PTV OCC966
     if (Curve2::IsPeriodic(aCurve) && (First != Last))
       aCurve1 = new Geom2d_TrimmedCurve(aCurve, First, Last);
-    else if (aCurve->FirstParameter() < (First - Precision::PConfusion())
-             || aCurve->LastParameter() > (Last + Precision::PConfusion()))
+    else if (aCurve->FirstParameter() < (First - Precision1::PConfusion())
+             || aCurve->LastParameter() > (Last + Precision1::PConfusion()))
     {
       Standard_Real F = Max(First, pf), L = Min(Last, pl);
       if (F != L)
@@ -1605,7 +1605,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
               if (IsConvert)
               {
                 C      = Handle(GeomCurve2d)::DownCast(aCurve->Copy());
-                TolCur = Precision::PConfusion();
+                TolCur = Precision1::PConfusion();
                 return Standard_True;
               }
             }
@@ -1628,7 +1628,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
               if (IsConvert)
               {
                 C      = Handle(GeomCurve2d)::DownCast(aCurve->Copy());
-                TolCur = Precision::PConfusion();
+                TolCur = Precision1::PConfusion();
                 return Standard_True;
               }
             }
@@ -1658,7 +1658,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
     if (IsConvert)
     {
       C      = Handle(GeomCurve2d)::DownCast(aCurve->Copy());
-      TolCur = Precision::PConfusion();
+      TolCur = Precision1::PConfusion();
       return Standard_True;
     }
     else

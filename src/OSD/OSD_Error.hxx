@@ -24,21 +24,21 @@
 #include <TCollection_AsciiString.hxx>
 #include <OSD_WhoAmI.hxx>
 
-//! Accurate management of OSD specific errors.
+//! Accurate management of OSD1 specific errors.
 class OSD_Error
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Initializes Error to be without any Error.
-  //! This is only used by OSD, not by programmer.
+  //! This is only used by OSD1, not by programmer.
   Standard_EXPORT OSD_Error();
 
   //! Raises OSD_Error with accurate error message.
   Standard_EXPORT void Perror();
 
   //! Instantiates error
-  //! This is only used by OSD methods to instantiates an error code.
+  //! This is only used by OSD1 methods to instantiates an error code.
   //! No description is done for the programmer.
   Standard_EXPORT void SetValue(const Standard_Integer         Errcode,
                                 const Standard_Integer         From,

@@ -151,12 +151,12 @@ static bool readVec3(const XmlObjMgt_Element&   theElement,
 //! Decode vec3.
 static bool readColor(const XmlObjMgt_Element&   theElement,
                       const XmlObjMgt_DOMString& theName,
-                      Quantity_Color&            theColor)
+                      Color1&            theColor)
 {
   Graphic3d_Vec3 aVec3;
   if (readVec3(theElement, theName, aVec3))
   {
-    theColor = Quantity_Color(aVec3);
+    theColor = Color1(aVec3);
     return true;
   }
   return false;
@@ -345,7 +345,7 @@ Standard_Boolean XmlMXCAFDoc_VisMaterialDriver::Paste(const PersistentStorage&  
     aMat->SetPbrMaterial(aPbrMat);
   }
 
-  Quantity_Color aDiffColor;
+  Color1 aDiffColor;
   if (readColor(theSource, ::DiffuseColor(), aDiffColor))
   {
     XCAFDoc_VisMaterialCommon aComMat;

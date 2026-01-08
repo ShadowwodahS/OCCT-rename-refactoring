@@ -296,7 +296,7 @@ static Standard_Boolean FindCircle(const Axis3d& Ax, const Point3d& Pt, gp_Circ&
   Point3d        prj(Ax.Location().XYZ().Added(prm * Dax.XYZ()));
   Vector3d        axx(prj, Pt);
   Standard_Real Radius = axx.Magnitude();
-  if (Radius < Precision::Confusion())
+  if (Radius < Precision1::Confusion())
   {
     return Standard_False;
   }

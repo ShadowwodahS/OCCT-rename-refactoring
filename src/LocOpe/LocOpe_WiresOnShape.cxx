@@ -280,10 +280,10 @@ void LocOpe_WiresOnShape::BindAll()
 
       gp_Pnt2d p2d =
         (!BAcurve2d.Curve().IsNull() ? BAcurve2d.Value(vtx_param)
-                                     : gp_Pnt2d(Precision::Infinite(), Precision::Infinite()));
+                                     : gp_Pnt2d(Precision1::Infinite(), Precision1::Infinite()));
 
       TopoEdge      Epro;
-      Standard_Real    prm         = Precision::Infinite();
+      Standard_Real    prm         = Precision1::Infinite();
       Standard_Boolean isProjected = myMap.IsBound(vtx);
 
       // if vertex was already projected on the current edge on the previous face
@@ -316,8 +316,8 @@ void LocOpe_WiresOnShape::BindAll()
             Standard_Real aF1, aL1;
             BRepInspector::Range(Epro, fac, aF1, aL1);
             if (!BRepInspector::Degenerated(Epro)
-                && (Abs(prm - aF1) <= Precision::PConfusion()
-                    || Abs(prm - aL1) <= Precision::PConfusion()))
+                && (Abs(prm - aF1) <= Precision1::PConfusion()
+                    || Abs(prm - aL1) <= Precision1::PConfusion()))
             {
               myMap.Bind(vtx, vtx2);
               theMap.Add(vtx);
@@ -488,19 +488,19 @@ Standard_Boolean Project(const TopoVertex& V,
       const TopoEdge& edg = TopoDS::Edge(exp.Current());
       Standard_Real      f, l;
       Handle(GeomCurve3d) C        = BRepInspector::Curve(edg, f, l);
-      Standard_Real      aCurDist = Precision::Infinite();
-      Standard_Real      aCurPar  = Precision::Infinite();
+      Standard_Real      aCurDist = Precision1::Infinite();
+      Standard_Real      aCurPar  = Precision1::Infinite();
       if (!C.IsNull())
       {
         aCurPar = Project(V, edg);
-        if (Precision::IsInfinite(aCurPar))
+        if (Precision1::IsInfinite(aCurPar))
           continue;
         Point3d aCurPBound;
         C->D0(aCurPar, aCurPBound);
         aCurDist = aCurPBound.SquareDistance(toproj);
       }
 
-      else if (!Precision::IsInfinite(p2d.X()))
+      else if (!Precision1::IsInfinite(p2d.X()))
       {
         // Geom2dAPI_ProjectPointOnCurve proj;
         Handle(GeomCurve2d) aC2d = BRepInspector::CurveOnSurface(edg, F, f, l);
@@ -508,7 +508,7 @@ Standard_Boolean Project(const TopoVertex& V,
           continue;
 
         aCurPar = Project(V, p2d, edg, F);
-        if (Precision::IsInfinite(aCurPar))
+        if (Precision1::IsInfinite(aCurPar))
           continue;
         Handle(GeomCurve2d) PC = BRepInspector::CurveOnSurface(edg, F, f, l);
         gp_Pnt2d             aPProj;
@@ -529,7 +529,7 @@ Standard_Boolean Project(const TopoVertex& V,
     if (theEdge.IsNull())
       return Standard_False;
   }
-  else if (Precision::IsInfinite(param))
+  else if (Precision1::IsInfinite(param))
   {
     Standard_Real      f, l;
     Handle(GeomCurve3d) C = BRepInspector::Curve(theEdge, f, l);
@@ -572,7 +572,7 @@ Standard_Boolean Project(const TopoVertex& V,
           ShapeAnalysis1::AdjustToPeriod(aX2, adSurf.FirstUParameter(), adSurf.LastUParameter());
         aX2 += aShift;
         dumin = Abs(aX2 - aX1);
-        if (dumin > dumax && (Abs(dumin - adSurf.UPeriod()) < Precision::PConfusion()))
+        if (dumin > dumax && (Abs(dumin - adSurf.UPeriod()) < Precision1::PConfusion()))
         {
           aX2   = aX1;
           dumin = 0.;
@@ -592,7 +592,7 @@ Standard_Boolean Project(const TopoVertex& V,
           ShapeAnalysis1::AdjustToPeriod(aY2, adSurf.FirstVParameter(), adSurf.LastVParameter());
         aY2 += aShift;
         dvmin = Abs(aY1 - aY2);
-        if (dvmin > dvmax && (Abs(dvmin - adSurf.VPeriod()) < Precision::Confusion()))
+        if (dvmin > dvmax && (Abs(dvmin - adSurf.VPeriod()) < Precision1::Confusion()))
         {
           aY2   = aY1;
           dvmin = 0.;
@@ -662,7 +662,7 @@ Standard_Real Project(const TopoVertex& V, const TopoEdge& theEdge)
   }
   proj.Init(toproj, C, f, l);
 
-  return (proj.NbPoints() > 0 ? proj.LowerDistanceParameter() : Precision::Infinite());
+  return (proj.NbPoints() > 0 ? proj.LowerDistanceParameter() : Precision1::Infinite());
 }
 
 //=================================================================================================
@@ -683,7 +683,7 @@ Standard_Real Project(const TopoVertex&,
 
   proj.Init(p2d, PC, f, l);
 
-  return proj.NbPoints() > 0 ? proj.LowerDistanceParameter() : Precision::Infinite();
+  return proj.NbPoints() > 0 ? proj.LowerDistanceParameter() : Precision1::Infinite();
 }
 
 //=================================================================================================
@@ -718,9 +718,9 @@ void PutPCurve(const TopoEdge& Edg, const TopoFace& Fac)
     gp_Pnt2d p2d;
     aC2d->D0((f + l) * 0.5, p2d);
     Standard_Boolean IsIn = Standard_True;
-    if ((p2d.X() < Umin - Precision::PConfusion()) || (p2d.X() > Umax + Precision::PConfusion()))
+    if ((p2d.X() < Umin - Precision1::PConfusion()) || (p2d.X() > Umax + Precision1::PConfusion()))
       IsIn = Standard_False;
-    if ((p2d.Y() < Vmin - Precision::PConfusion()) || (p2d.Y() > Vmax + Precision::PConfusion()))
+    if ((p2d.Y() < Vmin - Precision1::PConfusion()) || (p2d.Y() > Vmax + Precision1::PConfusion()))
       IsIn = Standard_False;
 
     if (IsIn)
@@ -750,7 +750,7 @@ void PutPCurve(const TopoEdge& Edg, const TopoFace& Fac)
   if (!V2.IsNull())
     TolLast = BRepInspector::Tolerance(V2);
 
-  constexpr Standard_Real              tol2d = Precision::Confusion();
+  constexpr Standard_Real              tol2d = Precision1::Confusion();
   Handle(GeomCurve2d)                 C2d;
   ShapeConstruct_ProjectCurveOnSurface aToolProj;
   aToolProj.Init(S, tol2d);
@@ -801,7 +801,7 @@ void PutPCurve(const TopoEdge& Edg, const TopoFace& Fac)
   if (S->IsUPeriodic())
   {
     Standard_Real           up      = S->UPeriod();
-    constexpr Standard_Real tolu    = Precision::PConfusion(); // Epsilon(up);
+    constexpr Standard_Real tolu    = Precision1::PConfusion(); // Epsilon(up);
     Standard_Integer        nbtra   = 0;
     Standard_Real           theUmin = Min(pf.X(), pl.X());
     Standard_Real           theUmax = Max(pf.X(), pl.X());
@@ -832,7 +832,7 @@ void PutPCurve(const TopoEdge& Edg, const TopoFace& Fac)
   if (S->IsVPeriodic())
   {
     Standard_Real           vp      = S->VPeriod();
-    constexpr Standard_Real tolv    = Precision::PConfusion(); // Epsilon(vp);
+    constexpr Standard_Real tolv    = Precision1::PConfusion(); // Epsilon(vp);
     Standard_Integer        nbtra   = 0;
     Standard_Real           theVmin = Min(pf.Y(), pl.Y());
     Standard_Real           theVmax = Max(pf.Y(), pl.Y());
@@ -961,7 +961,7 @@ void PutPCurves(const TopoEdge& Efrom, const TopoEdge& Eto, const TopoShape& myS
       if (S->IsUPeriodic())
       {
         Standard_Real           up      = S->UPeriod();
-        constexpr Standard_Real tolu    = Precision::PConfusion(); // Epsilon(up);
+        constexpr Standard_Real tolu    = Precision1::PConfusion(); // Epsilon(up);
         Standard_Integer        nbtra   = 0;
         Standard_Real           theUmin = Min(pf.X(), pl.X());
         Standard_Real           theUmax = Max(pf.X(), pl.X());
@@ -1007,7 +1007,7 @@ void PutPCurves(const TopoEdge& Efrom, const TopoEdge& Eto, const TopoShape& myS
       if (S->IsVPeriodic())
       {
         Standard_Real           vp      = S->VPeriod();
-        constexpr Standard_Real tolv    = Precision::PConfusion(); // Epsilon(vp);
+        constexpr Standard_Real tolv    = Precision1::PConfusion(); // Epsilon(vp);
         Standard_Integer        nbtra   = 0;
         Standard_Real           theVmin = Min(pf.Y(), pl.Y());
         Standard_Real           theVmax = Max(pf.Y(), pl.Y());
@@ -1258,7 +1258,7 @@ void FindInternalIntersections(const TopoEdge&                         theEdge,
                                TopTools_IndexedDataMapOfShapeListOfShape& Splits,
                                Standard_Boolean&                          isOverlapped)
 {
-  constexpr Standard_Real TolExt = Precision::PConfusion();
+  constexpr Standard_Real TolExt = Precision1::PConfusion();
   Standard_Integer        i, j;
 
   BRepAdaptor_Surface    anAdSurf(theFace, Standard_False);
@@ -1288,9 +1288,9 @@ void FindInternalIntersections(const TopoEdge&                         theEdge,
   const Handle(GeomCurve3d)& theCurve = BRepInspector::Curve(theEdge, thePar[0], thePar[1]);
   GeomAdaptor_Curve         theGAcurve(theCurve, thePar[0], thePar[1]);
   Standard_Real aTolV2d[2] = {theGAcurve.Resolution(aTolV[0]), theGAcurve.Resolution(aTolV[1])};
-  aTolV2d[0]               = Max(aTolV2d[0], Precision::PConfusion());
-  aTolV2d[1]               = Max(aTolV2d[1], Precision::PConfusion());
-  Standard_Real   aDistMax = Precision::Confusion() * Precision::Confusion();
+  aTolV2d[0]               = Max(aTolV2d[0], Precision1::PConfusion());
+  aTolV2d[1]               = Max(aTolV2d[1], Precision1::PConfusion());
+  Standard_Real   aDistMax = Precision1::Confusion() * Precision1::Confusion();
   ShapeExplorer Explo(theFace, TopAbs_EDGE);
   for (; Explo.More(); Explo.Next())
   {
@@ -1385,7 +1385,7 @@ void FindInternalIntersections(const TopoEdge&                         theEdge,
   {
     Point3d Pnt1 = theCurve->Value(SplitPars(i));
     Point3d Pnt2 = theCurve->Value(SplitPars(i + 1));
-    if (Pnt1.SquareDistance(Pnt2) <= Precision::Confusion() * Precision::Confusion())
+    if (Pnt1.SquareDistance(Pnt2) <= Precision1::Confusion() * Precision1::Confusion())
       SplitPars.Remove(i + 1);
     else
       i++;
@@ -1470,7 +1470,7 @@ Standard_Boolean LocOpe_WiresOnShape::Add(const TopTools_SequenceOfShape& theEdg
   }
   ShapeExplorer            anExpFaces(myShape, TopAbs_FACE);
   Standard_Integer           numF = 1;
-  TColStd_PackedMapOfInteger anUsedEdges;
+  PackedIntegerMap anUsedEdges;
   for (; anExpFaces.More(); anExpFaces.Next(), numF++)
   {
     const TopoFace& aCurF = TopoDS::Face(anExpFaces.Current());
@@ -1501,12 +1501,12 @@ Standard_Boolean LocOpe_WiresOnShape::Add(const TopTools_SequenceOfShape& theEdg
         continue;
       }
       Point3d        aP = aC->Value((aF + aL) * 0.5);
-      Extrema_ExtPS anExtr(aP, anAdF, Precision::Confusion(), Precision::Confusion());
+      Extrema_ExtPS anExtr(aP, anAdF, Precision1::Confusion(), Precision1::Confusion());
 
       if (!anExtr.IsDone() || !anExtr.NbExt())
         continue;
       Standard_Real    aTolE = BRepInspector::Tolerance(TopoDS::Edge(aCurE));
-      Standard_Real    aTol2 = (aTolE + Precision::Confusion()) * (aTolE + Precision::Confusion());
+      Standard_Real    aTol2 = (aTolE + Precision1::Confusion()) * (aTolE + Precision1::Confusion());
       Standard_Integer n     = 1;
       for (; n <= anExtr.NbExt(); n++)
       {
@@ -1519,7 +1519,7 @@ Standard_Boolean LocOpe_WiresOnShape::Add(const TopTools_SequenceOfShape& theEdg
 
         if (aCheckStateTool.IsNull())
         {
-          aCheckStateTool = new BRepTopAdaptor_FClass2d(aCurF, Precision::PConfusion());
+          aCheckStateTool = new BRepTopAdaptor_FClass2d(aCurF, Precision1::PConfusion());
         }
         if (aCheckStateTool->Perform(gp_Pnt2d(aU, aV)) == TopAbs_IN)
         {

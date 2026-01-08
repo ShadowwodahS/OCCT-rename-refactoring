@@ -125,9 +125,9 @@ Standard_Boolean BndBoxTreeSelectorLine::Accept(const Standard_Integer& theObj)
     // Vertex-Line interference.
     PointElCCurveExtrema ExtPL(BRepInspector::Pnt(V),
                           myL,
-                          Precision::Confusion(),
-                          -Precision::Infinite(),
-                          Precision::Infinite());
+                          Precision1::Confusion(),
+                          -Precision1::Infinite(),
+                          Precision1::Infinite());
     if (ExtPL.IsDone() && ExtPL.NbExt() > 0)
       if (ExtPL.SquareDistance(1) < VertTSq)
       {

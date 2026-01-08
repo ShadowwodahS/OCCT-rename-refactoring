@@ -349,7 +349,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
     i1 = i2 + 1;
   }
   //
-  aTolAdd          = Max(theFuzz, Precision::Confusion()) * 0.5;
+  aTolAdd          = Max(theFuzz, Precision1::Confusion()) * 0.5;
   myNbSourceShapes = NbShapes1();
   //
   // 2 Bounding Boxes
@@ -404,8 +404,8 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
         aEx.Orientation(TopAbs_FORWARD);
         //
         aC3D  = BRepInspector::Curve(aEx, aT1, aT2);
-        bInf1 = Precision::IsNegativeInfinite(aT1);
-        bInf2 = Precision::IsPositiveInfinite(aT2);
+        bInf1 = Precision1::IsNegativeInfinite(aT1);
+        bInf2 = Precision1::IsPositiveInfinite(aT2);
         //
         if (bInf1)
         {
@@ -1851,7 +1851,7 @@ Standard_Boolean BOPDS_DS::CheckCoincidence(const Handle(BOPDS_PaveBlock)& aPB1,
     //
     aTol = BRepInspector::MaxTolerance(aE1, TopAbs_VERTEX);
     aTol =
-      aTol + BRepInspector::MaxTolerance(aE2, TopAbs_VERTEX) + Max(theFuzz, Precision::Confusion());
+      aTol + BRepInspector::MaxTolerance(aE2, TopAbs_VERTEX) + Max(theFuzz, Precision1::Confusion());
     if (aD < aTol)
     {
       aT2x = aPPC.LowerDistanceParameter();
@@ -2232,7 +2232,7 @@ Standard_Boolean BOPDS_DS::IsValidShrunkData(const Handle(BOPDS_PaveBlock)& theP
   for (Standard_Integer i = 0; i < 2; ++i)
   {
     const TopoVertex& aV   = TopoDS::Vertex(Shape(nV[i]));
-    Standard_Real        aTol = BRepInspector::Tolerance(aV) + Precision::Confusion();
+    Standard_Real        aTol = BRepInspector::Tolerance(aV) + Precision1::Confusion();
     // Bounding point
     Point3d aP = BRepInspector::Pnt(aV);
     //

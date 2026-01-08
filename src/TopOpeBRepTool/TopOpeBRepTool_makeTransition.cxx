@@ -54,7 +54,7 @@
 
 static Standard_Real FUN_tolang()
 {
-  return Precision::Angular() * 1.e6; //=1.e-6 NYITOLXPU
+  return Precision1::Angular() * 1.e6; //=1.e-6 NYITOLXPU
 }
 
 //=================================================================================================
@@ -139,7 +139,7 @@ Standard_Boolean TopOpeBRepTool_makeTransition::HasRest() const
 
 static Standard_Boolean FUN_nullcurv(const Standard_Real curv)
 {
-  Standard_Real tol = Precision::Confusion() * 1.e+2; // NYITOLXPU
+  Standard_Real tol = Precision1::Confusion() * 1.e+2; // NYITOLXPU
   return (curv < tol);
 }
 

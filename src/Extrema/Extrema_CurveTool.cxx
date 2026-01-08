@@ -52,7 +52,7 @@ Handle(TColStd_HArray1OfReal) CurveTool4::DeflCurvIntervals(const Adaptor3d_Curv
   }
   //
   Standard_Real dLdt = L / (tl - tf);
-  if (L <= Precision::Confusion() || dLdt < epsd
+  if (L <= Precision1::Confusion() || dLdt < epsd
       || (tl - tf) > 10000.) // To avoid problemwith GCPnts
   {
     nbpnts    = 2;
@@ -72,8 +72,8 @@ Handle(TColStd_HArray1OfReal) CurveTool4::DeflCurvIntervals(const Adaptor3d_Curv
     return Intervals;
   }
   //
-  Standard_Real aMinLen = Max(.00001 * L, Precision::Confusion());
-  Standard_Real aTol    = Max(0.00001 * (tl - tf), Precision::PConfusion());
+  Standard_Real aMinLen = Max(.00001 * L, Precision1::Confusion());
+  Standard_Real aTol    = Max(0.00001 * (tl - tf), Precision1::PConfusion());
   //
   TangentialDeflectionSampler aPntGen(C, M_PI / 6, aDefl, 2, aTol, aMinLen);
   nbpnts    = aPntGen.NbPoints();

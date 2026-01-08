@@ -79,7 +79,7 @@ void RWObj_ObjMaterialMap::DefineMaterial(const XCAFPrs_Style&           theStyl
   const XCAFDoc_VisMaterialCommon aDefMat     = !myDefaultStyle.Material().IsNull()
                                                   ? myDefaultStyle.Material()->ConvertToCommonMaterial()
                                                   : XCAFDoc_VisMaterialCommon();
-  Quantity_Color                  anAmbQ(aDefMat.AmbientColor), aDiffQ(aDefMat.DiffuseColor),
+  Color1                  anAmbQ(aDefMat.AmbientColor), aDiffQ(aDefMat.DiffuseColor),
     aSpecQ(aDefMat.SpecularColor);
   Standard_ShortReal aTransp   = 0.0f;
   Standard_ShortReal aSpecular = aDefMat.Shininess * 1000.0f;
@@ -97,7 +97,7 @@ void RWObj_ObjMaterialMap::DefineMaterial(const XCAFPrs_Style&           theStyl
   {
     hasMaterial = true;
     aDiffQ      = theStyle.GetColorSurf();
-    anAmbQ      = Quantity_Color((Graphic3d_Vec3)theStyle.GetColorSurf() * 0.25f);
+    anAmbQ      = Color1((Graphic3d_Vec3)theStyle.GetColorSurf() * 0.25f);
     if (theStyle.GetColorSurfRGBA().Alpha() < 1.0f)
     {
       aTransp = 1.0f - theStyle.GetColorSurfRGBA().Alpha();

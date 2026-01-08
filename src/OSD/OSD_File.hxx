@@ -24,7 +24,7 @@
 #include <OSD_OpenMode.hxx>
 
 class SystemPath;
-class OSD_Protection;
+class Protection1;
 
 //! Basic tools to manage files
 //! Warning: 'ProgramError' is raised when somebody wants to use the methods
@@ -45,18 +45,18 @@ public:
   //! an existing file.
   //! After 'Build', the file is open.
   //! If no name was given, ProgramError is raised.
-  Standard_EXPORT void Build(const OSD_OpenMode Mode, const OSD_Protection& Protect);
+  Standard_EXPORT void Build(const OSD_OpenMode Mode, const Protection1& Protect);
 
   //! Opens a File with specific attributes
   //! This works only on already existing file.
   //! If no name was given, ProgramError is raised.
-  Standard_EXPORT void Open(const OSD_OpenMode Mode, const OSD_Protection& Protect);
+  Standard_EXPORT void Open(const OSD_OpenMode Mode, const Protection1& Protect);
 
   //! Appends data to an existing file.
   //! If file doesn't exist, creates it first.
   //! After 'Append', the file is open.
   //! If no name was given, ProgramError is raised.
-  Standard_EXPORT void Append(const OSD_OpenMode Mode, const OSD_Protection& Protect);
+  Standard_EXPORT void Append(const OSD_OpenMode Mode, const Protection1& Protect);
 
   //! Attempts to read Nbyte bytes from the file associated with
   //! the object file.

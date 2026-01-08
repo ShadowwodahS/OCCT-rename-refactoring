@@ -29,7 +29,7 @@ class Storage_BaseDriver;
 class StdStorage_TypeData;
 DEFINE_STANDARD_HANDLE(StdStorage_TypeData, RefObject)
 
-//! Storage type data section keeps association between
+//! Storage1 type data section keeps association between
 //! persistent textual types and their numbers
 class StdStorage_TypeData : public RefObject
 {

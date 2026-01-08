@@ -100,7 +100,7 @@ public:
     myProjector.Initialize(myCurveAdaptor,
                            myCurveAdaptor.FirstParameter(),
                            myCurveAdaptor.LastParameter(),
-                           Precision::PConfusion());
+                           Precision1::PConfusion());
   }
 
   //! Returns parameter according to SameParameter flag of the edge.

@@ -877,7 +877,7 @@ void TopOpeBRepBuild_Builder1::SplitEdge(const TopoShape&               anEdge,
     if (delta < resol)
     {
       Standard_Real dist = BRepInspector::Pnt(aV1).Distance(BRepInspector::Pnt(aV2));
-      if (dist < tolMax || delta < Precision::PConfusion())
+      if (dist < tolMax || delta < Precision1::PConfusion())
       {
 
         TopOpeBRepDS_Kind IntType1 = aPave1->InterferenceType();

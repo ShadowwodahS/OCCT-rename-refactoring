@@ -35,7 +35,7 @@ class handle;
 class RefObject
 {
 public:
-  // Standard OCCT memory allocation stuff
+  // Standard1 OCCT memory allocation stuff
   DEFINE_STANDARD_ALLOC
 
 public:

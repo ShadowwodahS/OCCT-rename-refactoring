@@ -68,8 +68,8 @@ void OpenGl_BackgroundArray::SetTextureFillMethod(const Aspect_FillMethod theFil
 // method  : SetGradientParameters
 // purpose :
 // =======================================================================
-void OpenGl_BackgroundArray::SetGradientParameters(const Quantity_Color&           theColor1,
-                                                   const Quantity_Color&           theColor2,
+void OpenGl_BackgroundArray::SetGradientParameters(const Color1&           theColor1,
+                                                   const Color1&           theColor2,
                                                    const Aspect_GradientFillMethod theType)
 {
   if (myType != Graphic3d_TOB_GRADIENT)

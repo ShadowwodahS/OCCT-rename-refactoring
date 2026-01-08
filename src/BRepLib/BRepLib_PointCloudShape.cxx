@@ -54,8 +54,8 @@ BRepLib_PointCloudShape::~BRepLib_PointCloudShape()
 Standard_Integer BRepLib_PointCloudShape::NbPointsByDensity(const Standard_Real theDensity)
 {
   clear();
-  Standard_Real aDensity = (theDensity < Precision::Confusion() ? computeDensity() : theDensity);
-  if (aDensity < Precision::Confusion())
+  Standard_Real aDensity = (theDensity < Precision1::Confusion() ? computeDensity() : theDensity);
+  if (aDensity < Precision1::Confusion())
   {
     return 0;
   }
@@ -134,7 +134,7 @@ Standard_Real BRepLib_PointCloudShape::faceArea(const TopoShape& theShape)
 Standard_Real BRepLib_PointCloudShape::computeDensity()
 {
   // at first step find the face with smallest area
-  Standard_Real anAreaMin = Precision::Infinite();
+  Standard_Real anAreaMin = Precision1::Infinite();
   for (ShapeExplorer aExpF(myShape, TopAbs_FACE); aExpF.More(); aExpF.Next())
   {
     Standard_Real anArea = faceArea(aExpF.Current());
@@ -186,7 +186,7 @@ Standard_Boolean BRepLib_PointCloudShape::addDensityPoints(const TopoShape& theF
   TopoFace   aFace  = TopoDS::Face(theFace);
   Standard_Real anUMin = 0.0, anUMax = 0.0, aVMin = 0.0, aVMax = 0.0;
   BRepTools1::UVBounds(aFace, anUMin, anUMax, aVMin, aVMax);
-  BRepTopAdaptor_FClass2d aClassifier(aFace, Precision::Confusion());
+  BRepTopAdaptor_FClass2d aClassifier(aFace, Precision1::Confusion());
 
   const TopLoc_Location& aLoc  = theFace.Location();
   const Transform3d&         aTrsf = aLoc.Transformation();
@@ -227,7 +227,7 @@ Standard_Boolean BRepLib_PointCloudShape::addDensityPoints(const TopoShape& theF
     {
       aNorm /= aNormMod;
     }
-    if (myDist > Precision::Confusion())
+    if (myDist > Precision1::Confusion())
     {
       std::uniform_real_distribution<> aDistanceDistrib(0.0, myDist);
       Coords3d aDeflPoint = aP1.XYZ() + aNorm.XYZ() * aDistanceDistrib(aRandomGenerator);

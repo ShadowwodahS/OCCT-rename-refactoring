@@ -147,7 +147,7 @@ void BSplineSurfaceTool::ReadOwnParams(const Handle(IGESGeom_BSplineSurface)& en
         // st = PR.ReadReal(PR.Current(), "Weights", tempVal);
         if (PR.ReadReal(PR.Current(), tempVal))
         {
-          if (tempVal < Precision::PConfusion())
+          if (tempVal < Precision1::PConfusion())
           { // skl for OCC2821 11.06.2003
             BadWeigth = Standard_True;
           }
@@ -402,7 +402,7 @@ void BSplineSurfaceTool::OwnCheck(const Handle(IGESGeom_BSplineSurface)& ent,
 
   // Standard_Real eps = 1.E-04;    // Tolerance des tests ?? //szv#4:S4163:12Mar99 not needed
 
-  // modified by rln 18/12/97 check of flag PROP2 according to IGES Standard
+  // modified by rln 18/12/97 check of flag PROP2 according to IGES Standard1
   // The same as in BSplineCurveTool::OwnCheck()
   // It is possible to compare U(0) and U(1) only if UStartingParameter = UFirstKnot
   // and UEndingParameter = ULastKnot and the same for V(0),V(1)

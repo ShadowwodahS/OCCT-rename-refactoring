@@ -117,10 +117,10 @@ Standard_Boolean ChFi2d_FilletAPI::IsAnalytical(const TopoEdge& theEdge1,
     Point3d p12 = AC1.Value(AC1.LastParameter());
     Point3d p21 = AC2.Value(AC2.FirstParameter());
     Point3d p22 = AC2.Value(AC2.LastParameter());
-    if (p11.SquareDistance(p21) < Precision::SquareConfusion()
-        || p11.SquareDistance(p22) < Precision::SquareConfusion()
-        || p12.SquareDistance(p21) < Precision::SquareConfusion()
-        || p12.SquareDistance(p22) < Precision::SquareConfusion())
+    if (p11.SquareDistance(p21) < Precision1::SquareConfusion()
+        || p11.SquareDistance(p22) < Precision1::SquareConfusion()
+        || p12.SquareDistance(p21) < Precision1::SquareConfusion()
+        || p12.SquareDistance(p22) < Precision1::SquareConfusion())
     {
       ret = Standard_True;
     }

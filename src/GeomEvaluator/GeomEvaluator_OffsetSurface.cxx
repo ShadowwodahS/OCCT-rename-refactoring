@@ -36,7 +36,7 @@ const Standard_Real the_D1MagTol = 1.e-9;
 // of the parametric space of the surface, in the hope that derivatives
 // are better defined there.
 //
-// This shift is iterative, starting with Precision::PConfusion()
+// This shift is iterative, starting with Precision1::PConfusion()
 // and increasing by multiple of 2 on each step.
 //
 // NB: temporarily this is made as static function and not class method,
@@ -82,11 +82,11 @@ static Standard_Boolean shiftPoint(const Standard_Real                theUStart,
   Standard_Real aDist = Sqrt(aDirU * aDirU + aDirV * aDirV);
 
   // shift current point from its current position towards center, by value of twice
-  // current distance from it to start (but not less than Precision::PConfusion());
+  // current distance from it to start (but not less than Precision1::PConfusion());
   // fail if center is overpassed.
   Standard_Real aDU   = theU - theUStart;
   Standard_Real aDV   = theV - theVStart;
-  Standard_Real aStep = Max(2. * Sqrt(aDU * aDU + aDV * aDV), Precision::PConfusion());
+  Standard_Real aStep = Max(2. * Sqrt(aDU * aDU + aDV * aDV), Precision1::PConfusion());
   if (aStep >= aDist)
   {
     return Standard_False;
@@ -219,8 +219,8 @@ static void derivatives(Standard_Integer                   theMaxOrder,
 
 inline Standard_Boolean IsInfiniteCoord(const Vector3d& theVec)
 {
-  return Precision::IsInfinite(theVec.X()) || Precision::IsInfinite(theVec.Y())
-         || Precision::IsInfinite(theVec.Z());
+  return Precision1::IsInfinite(theVec.X()) || Precision1::IsInfinite(theVec.Y())
+         || Precision1::IsInfinite(theVec.Z());
 }
 
 inline void CheckInfinite(const Vector3d& theVecU, const Vector3d& theVecV)
@@ -248,7 +248,7 @@ GeomEvaluator_OffsetSurface::GeomEvaluator_OffsetSurface(
   // Create osculating surface for B-spline and Besier surfaces only
   if (myBaseSurf->IsKind(STANDARD_TYPE(Geom_BSplineSurface))
       || myBaseSurf->IsKind(STANDARD_TYPE(Geom_BezierSurface)))
-    myOscSurf = new Geom_OsculatingSurface(myBaseSurf, Precision::Confusion());
+    myOscSurf = new Geom_OsculatingSurface(myBaseSurf, Precision1::Confusion());
 }
 
 GeomEvaluator_OffsetSurface::GeomEvaluator_OffsetSurface(
@@ -1123,13 +1123,13 @@ Standard_Boolean GeomEvaluator_OffsetSurface::ReplaceDerivative(
       aSurfAdapt = new GeomAdaptor_Surface(myBaseSurf);
     if (isReplaceDV)
     {
-      aStep = Precision::Confusion() * theDU.Magnitude();
+      aStep = Precision1::Confusion() * theDU.Magnitude();
       if (aStep > aUMax - aUMin)
         aStep = (aUMax - aUMin) / 100.;
     }
     else
     {
-      aStep = Precision::Confusion() * theDV.Magnitude();
+      aStep = Precision1::Confusion() * theDV.Magnitude();
       if (aStep > aVMax - aVMin)
         aStep = (aVMax - aVMin) / 100.;
     }

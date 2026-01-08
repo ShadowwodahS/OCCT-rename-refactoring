@@ -307,8 +307,8 @@ static Standard_Boolean CompareVerticesOnSurf(const IntPatch_Point&  vtx1,
     vtx1.ParametersOnS2(u1, v1);
     vtx2.ParametersOnS2(u2, v2);
   }
-  tolU = Precision::PConfusion();
-  tolV = Precision::PConfusion();
+  tolU = Precision1::PConfusion();
+  tolV = Precision1::PConfusion();
   return (Abs(u1 - u2) <= tolU && Abs(v1 - v2) <= tolV);
 }
 
@@ -594,7 +594,7 @@ void IntPatch_WLine::ComputeVertexParameters(const Standard_Real RTol)
 
   //----------------------------------------------------
   //-- On detecte les points confondus dans la LineOn2S
-  constexpr Standard_Real dmini = Precision::SquareConfusion();
+  constexpr Standard_Real dmini = Precision1::SquareConfusion();
   for (i = 2; (i <= nbponline) && (nbponline > 2); i++)
   {
     const PointOn2Surfaces& aPnt1 = curv->Value(i - 1);
@@ -977,7 +977,7 @@ void IntPatch_WLine::ComputeVertexParameters(const Standard_Real RTol)
       const IntPatch_Point& V = svtx.Value(i);
       // jgv: to avoid loops
       // Standard_Real vTol = V.Tolerance();
-      if (CompareVertexAndPoint(V.Value(), curv->Value(1).Value(), Precision::Confusion() /*vTol*/))
+      if (CompareVertexAndPoint(V.Value(), curv->Value(1).Value(), Precision1::Confusion() /*vTol*/))
       {
         vtx = V;
         vtx.SetParameters(pu1, pv1, pu2, pv2);
@@ -1008,7 +1008,7 @@ void IntPatch_WLine::ComputeVertexParameters(const Standard_Real RTol)
       // Standard_Real vTol = V.Tolerance();
       if (CompareVertexAndPoint(V.Value(),
                                 curv->Value(nbponline).Value(),
-                                Precision::Confusion() /*vTol*/))
+                                Precision1::Confusion() /*vTol*/))
       {
         vtx = V;
         vtx.SetParameters(pu1, pv1, pu2, pv2);

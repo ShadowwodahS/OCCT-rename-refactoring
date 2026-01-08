@@ -140,7 +140,7 @@ public:
    * @return
    *   Color value (RGB); if the color is indefinite then returns (0., 0., 0.)
    */
-  Standard_EXPORT Quantity_Color GetColor(const Standard_Integer iFace,
+  Standard_EXPORT Color1 GetColor(const Standard_Integer iFace,
                                           const Standard_Integer iVertex);
 
   /**

@@ -113,9 +113,9 @@ void PrsDim_EqualRadiusRelation::Compute(const Handle(PrsMgr_PresentationManager
       aPar += 2 * M_PI * IntegerPart(0.5 * LastPar1 / M_PI);
     Standard_Real aRadius = FirstCirc.Radius();
 
-    if (Abs(myFirstPoint.Distance(myFirstCenter) - aRadius) >= Precision::Confusion())
+    if (Abs(myFirstPoint.Distance(myFirstCenter) - aRadius) >= Precision1::Confusion())
       myFirstPoint = ElCLib1::Value(aPar, FirstCirc);
-    if (FirstPoint1.Distance(LastPoint1) > Precision::Confusion())
+    if (FirstPoint1.Distance(LastPoint1) > Precision1::Confusion())
     {
       // check where is myFirstPoint
       if (aPar > LastPar1 || aPar < FirstPar1)
@@ -133,9 +133,9 @@ void PrsDim_EqualRadiusRelation::Compute(const Handle(PrsMgr_PresentationManager
       aPar += 2 * M_PI * IntegerPart(0.5 * LastPar2 / M_PI);
 
     aRadius = SecondCirc.Radius();
-    if (Abs(mySecondPoint.Distance(mySecondCenter) - aRadius) >= Precision::Confusion())
+    if (Abs(mySecondPoint.Distance(mySecondCenter) - aRadius) >= Precision1::Confusion())
       mySecondPoint = ElCLib1::Value(aPar, SecondCirc);
-    if (FirstPoint2.Distance(LastPoint2) > Precision::Confusion())
+    if (FirstPoint2.Distance(LastPoint2) > Precision1::Confusion())
     {
       if (aPar > LastPar2 || aPar < FirstPar2)
       { // mySecondPoint is out of Arc of mySecondCircle
@@ -204,8 +204,8 @@ void PrsDim_EqualRadiusRelation::ComputeSelection(const Handle(SelectionContaine
 
 void PrsDim_EqualRadiusRelation::ComputeRadiusPosition()
 {
-  if (myAutomaticPosition || myFirstCenter.Distance(myPosition) < Precision::Confusion()
-      || mySecondCenter.Distance(myPosition) < Precision::Confusion())
+  if (myAutomaticPosition || myFirstCenter.Distance(myPosition) < Precision1::Confusion()
+      || mySecondCenter.Distance(myPosition) < Precision1::Confusion())
     return;
 
   Point3d aPosition;

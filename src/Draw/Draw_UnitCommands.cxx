@@ -39,7 +39,7 @@ static Standard_Integer parsing(DrawInterpreter& di, Standard_Integer argc, cons
   Standard_Integer        nbIter = 1;
   if (argc > 2)
     nbIter = Draw1::Atoi(argv[2]);
-  UnitsAPI::SetLocalSystem();
+  UnitsAPI1::SetLocalSystem();
   Handle(Units_Token) atoken;
   Units_UnitSentence  aUnitSent(aStrTok.ToCString());
 
@@ -69,9 +69,9 @@ static Standard_Integer unitsdico(DrawInterpreter& /* di */,
                                   Standard_Integer /*argc*/,
                                   const char** /*argv*/)
 {
-  UnitsAPI::SetLocalSystem();
+  UnitsAPI1::SetLocalSystem();
   Standard_Integer mode = 2;
-  Units::DictionaryOfUnits(Standard_False)->Dump(mode);
+  Units2::DictionaryOfUnits(Standard_False)->Dump(mode);
   return 0;
 }
 
@@ -88,7 +88,7 @@ static Standard_Integer converttoSI(DrawInterpreter& di, Standard_Integer argc, 
   Standard_Real    aData = Draw1::Atof(argv[1]);
   Standard_CString aUnit = argv[2];
 
-  Standard_Real res = UnitsAPI::AnyToSI(aData, aUnit);
+  Standard_Real res = UnitsAPI1::AnyToSI(aData, aUnit);
   di << "result: " << res << "\n";
 
   return 0;
@@ -109,8 +109,8 @@ static Standard_Integer converttoMDTV(DrawInterpreter& di,
   Standard_Real    aData = Draw1::Atof(argv[1]);
   Standard_CString aUnit = argv[2];
 
-  UnitsAPI::SetLocalSystem(UnitsAPI_MDTV);
-  Standard_Real res = UnitsAPI::AnyToLS(aData, aUnit);
+  UnitsAPI1::SetLocalSystem(UnitsAPI_MDTV);
+  Standard_Real res = UnitsAPI1::AnyToLS(aData, aUnit);
   di << "result: " << res << "\n";
 
   return 0;
@@ -122,7 +122,7 @@ static Standard_Integer unit(DrawInterpreter& di, Standard_Integer n, const char
 {
   if (n == 4)
   {
-    di << Units::Convert(Draw1::Atof(a[1]), a[2], a[3]);
+    di << Units2::Convert(Draw1::Atof(a[1]), a[2], a[3]);
     return 0;
   }
   else

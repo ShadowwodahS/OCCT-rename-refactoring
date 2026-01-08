@@ -39,7 +39,7 @@ public:
 
   //! This method is used to set the fields of the class
   //! DefinitionLevel
-  //! - allLevelNumbers : Values of Level Numbers
+  //! - allLevelNumbers : Values of Level Numbers1
   Standard_EXPORT void Init(const Handle(TColStd_HArray1OfInteger)& allLevelNumbers);
 
   //! returns the number of property values in <me>

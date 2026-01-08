@@ -72,7 +72,7 @@ static gp_Pnt2d EvalPnt2d(const Vector3d& Ve, const gp_Torus& To)
   Standard_Real Y = Ve.Dot(Vector3d(To.Position1().YDirection()));
   Standard_Real U, V;
 
-  if (Abs(X) > Precision::PConfusion() || Abs(Y) > Precision::PConfusion())
+  if (Abs(X) > Precision1::PConfusion() || Abs(Y) > Precision1::PConfusion())
   {
     U = ATan2(Y, X);
   }
@@ -99,12 +99,12 @@ void ProjLib_Torus::Project(const gp_Circ& C)
   Vector3d Zt(myTorus.Position1().Direction());
   Vector3d OC(myTorus.Location(), C.Location());
 
-  //  if (OC.Magnitude() < Precision::Confusion()      ||
+  //  if (OC.Magnitude() < Precision1::Confusion()      ||
   //      OC.IsParallel(myTorus.Position1().Direction(),
-  //		    Precision::Angular())) {
+  //		    Precision1::Angular())) {
 
-  if (OC.Magnitude() < Precision::Confusion()
-      || C.Position1().Direction().IsParallel(myTorus.Position1().Direction(), Precision::Angular()))
+  if (OC.Magnitude() < Precision1::Confusion()
+      || C.Position1().Direction().IsParallel(myTorus.Position1().Direction(), Precision1::Angular()))
   {
     // Iso V
     gp_Pnt2d      P1 = EvalPnt2d(Xc, myTorus); // evaluate U1

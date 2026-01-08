@@ -1241,7 +1241,7 @@ static Standard_Integer setFlags(DrawInterpreter&, Standard_Integer n, const cha
 //=======================================================================
 static Standard_Integer purgemmgt(DrawInterpreter&, Standard_Integer, const char**)
 {
-  Standard::Purge();
+  Standard1::Purge();
   return 0;
 }
 

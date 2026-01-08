@@ -29,7 +29,7 @@ Graphic3d_AspectText3d::Graphic3d_AspectText3d()
 
 //=================================================================================================
 
-Graphic3d_AspectText3d::Graphic3d_AspectText3d(const Quantity_Color& theColor,
+Graphic3d_AspectText3d::Graphic3d_AspectText3d(const Color1& theColor,
                                                Standard_CString      theFont,
                                                Standard_Real,
                                                Standard_Real,

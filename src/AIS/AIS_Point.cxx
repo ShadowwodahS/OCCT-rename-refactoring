@@ -99,7 +99,7 @@ void VisualPoint::ComputeSelection(const Handle(SelectionContainer)& aSelection,
 
 //=================================================================================================
 
-void VisualPoint::SetColor(const Quantity_Color& theCol)
+void VisualPoint::SetColor(const Color1& theCol)
 {
   hasOwnColor = Standard_True;
   myDrawer->SetColor(theCol);
@@ -178,7 +178,7 @@ void VisualPoint::UpdatePointValues()
     return;
   }
 
-  Quantity_Color      aCol(Quantity_NOC_YELLOW);
+  Color1      aCol(Quantity_NOC_YELLOW);
   Aspect_TypeOfMarker aTOM   = Aspect_TOM_PLUS;
   Standard_Real       aScale = 1.0;
   if (myDrawer->HasLink())

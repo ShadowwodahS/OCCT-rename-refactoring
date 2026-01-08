@@ -33,7 +33,7 @@ NCollection_AccAllocator::~NCollection_AccAllocator()
 {
   for (Block1* aBlock = mypLastBlock; aBlock; aBlock = aBlock->prevBlock)
   {
-    Standard::Free(aBlock->address);
+    Standard1::Free(aBlock->address);
   }
 }
 
@@ -105,7 +105,7 @@ void NCollection_AccAllocator::Free(void* theAddress)
     // Deallocate and remove the free block if there are more blocks
     if (myBlocks.Size() > 1)
     {
-      Standard::Free(anAddress);
+      Standard1::Free(anAddress);
       Block1** appBlock;
       for (appBlock = &mypLastBlock; *appBlock != 0L; appBlock = &(*appBlock)->prevBlock)
       {
@@ -121,7 +121,7 @@ void NCollection_AccAllocator::Free(void* theAddress)
     else
     {
       const Standard_Size aRoundSize  = (myBlockSize + 3) & ~0x3;
-      Standard_Address    aNewAddress = Standard::Reallocate(anAddress, aRoundSize);
+      Standard_Address    aNewAddress = Standard1::Reallocate(anAddress, aRoundSize);
       if (aNewAddress == anAddress)
       {
         // Normally, the reallocation keeps the block at the same address
@@ -189,8 +189,8 @@ NCollection_AccAllocator::Block1* NCollection_AccAllocator::allocateNewBlock(
   const Standard_Size theSize)
 {
   const Standard_Size aRoundSize = (theSize + 3) & ~0x3;
-  Standard_Address    anAddress  = Standard::Allocate(aRoundSize);
-  // we depend on the fact that Standard::Allocate always returns
+  Standard_Address    anAddress  = Standard1::Allocate(aRoundSize);
+  // we depend on the fact that Standard1::Allocate always returns
   // a pointer aligned to a 4 byte boundary
   mypLastBlock = myBlocks.Bound(getKey(anAddress), Block1(anAddress, theSize, mypLastBlock));
 #ifdef OCCT_DEBUG_FINDBLOCK

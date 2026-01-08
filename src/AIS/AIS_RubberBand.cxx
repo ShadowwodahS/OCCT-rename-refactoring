@@ -50,7 +50,7 @@ AIS_RubberBand::AIS_RubberBand()
 
 //=================================================================================================
 
-AIS_RubberBand::AIS_RubberBand(const Quantity_Color&   theLineColor,
+AIS_RubberBand::AIS_RubberBand(const Color1&   theLineColor,
                                const Aspect_TypeOfLine theLineType,
                                const Standard_Real     theWidth,
                                const Standard_Boolean  theIsPolygonClosed)
@@ -71,9 +71,9 @@ AIS_RubberBand::AIS_RubberBand(const Quantity_Color&   theLineColor,
 
 //=================================================================================================
 
-AIS_RubberBand::AIS_RubberBand(const Quantity_Color&   theLineColor,
+AIS_RubberBand::AIS_RubberBand(const Color1&   theLineColor,
                                const Aspect_TypeOfLine theLineType,
-                               const Quantity_Color    theFillColor,
+                               const Color1    theFillColor,
                                const Standard_Real     theTransparency,
                                const Standard_Real     theLineWidth,
                                const Standard_Boolean  theIsPolygonClosed)
@@ -138,28 +138,28 @@ const NCollection_Sequence<Graphic3d_Vec2i>& AIS_RubberBand::Points() const
 
 //=================================================================================================
 
-Quantity_Color AIS_RubberBand::LineColor() const
+Color1 AIS_RubberBand::LineColor() const
 {
   return myDrawer->LineAspect()->Aspect()->Color();
 }
 
 //=================================================================================================
 
-void AIS_RubberBand::SetLineColor(const Quantity_Color& theColor)
+void AIS_RubberBand::SetLineColor(const Color1& theColor)
 {
   myDrawer->LineAspect()->SetColor(theColor);
 }
 
 //=================================================================================================
 
-Quantity_Color AIS_RubberBand::FillColor() const
+Color1 AIS_RubberBand::FillColor() const
 {
   return myDrawer->ShadingAspect()->Color();
 }
 
 //=================================================================================================
 
-void AIS_RubberBand::SetFillColor(const Quantity_Color& theColor)
+void AIS_RubberBand::SetFillColor(const Color1& theColor)
 {
   myDrawer->ShadingAspect()->SetColor(theColor);
 }
@@ -216,7 +216,7 @@ void AIS_RubberBand::SetFilling(const Standard_Boolean theIsFilling)
 
 //=================================================================================================
 
-void AIS_RubberBand::SetFilling(const Quantity_Color theColor, const Standard_Real theTransparency)
+void AIS_RubberBand::SetFilling(const Color1 theColor, const Standard_Real theTransparency)
 {
   SetFilling(Standard_True);
   SetFillTransparency(theTransparency);

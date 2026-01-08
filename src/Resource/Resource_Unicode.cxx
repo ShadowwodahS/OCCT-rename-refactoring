@@ -43,7 +43,7 @@ static inline Standard_Boolean isshift(unsigned int c)
   return c >= 0x80 && c <= 0xff;
 }
 
-void Resource_Unicode::ConvertSJISToUnicode(const Standard_CString      fromstr,
+void UnicodeTools::ConvertSJISToUnicode(const Standard_CString      fromstr,
                                             UtfString& tostr)
 {
   tostr.Clear();
@@ -78,7 +78,7 @@ void Resource_Unicode::ConvertSJISToUnicode(const Standard_CString      fromstr,
   }
 }
 
-void Resource_Unicode::ConvertEUCToUnicode(const Standard_CString      fromstr,
+void UnicodeTools::ConvertEUCToUnicode(const Standard_CString      fromstr,
                                            UtfString& tostr)
 {
   tostr.Clear();
@@ -113,7 +113,7 @@ void Resource_Unicode::ConvertEUCToUnicode(const Standard_CString      fromstr,
   }
 }
 
-void Resource_Unicode::ConvertGBToUnicode(const Standard_CString      fromstr,
+void UnicodeTools::ConvertGBToUnicode(const Standard_CString      fromstr,
                                           UtfString& tostr)
 {
   tostr.Clear();
@@ -148,7 +148,7 @@ void Resource_Unicode::ConvertGBToUnicode(const Standard_CString      fromstr,
   }
 }
 
-Standard_Boolean Resource_Unicode::ConvertGBKToUnicode(const Standard_CString      fromstr,
+Standard_Boolean UnicodeTools::ConvertGBKToUnicode(const Standard_CString      fromstr,
                                                        UtfString& tostr)
 {
   tostr.Clear();
@@ -267,7 +267,7 @@ Standard_Boolean Resource_Unicode::ConvertGBKToUnicode(const Standard_CString   
   return Standard_True;
 }
 
-Standard_Boolean Resource_Unicode::ConvertBig5ToUnicode(const Standard_CString      fromstr,
+Standard_Boolean UnicodeTools::ConvertBig5ToUnicode(const Standard_CString      fromstr,
                                                         UtfString& tostr)
 {
   tostr.Clear();
@@ -375,7 +375,7 @@ Standard_Boolean Resource_Unicode::ConvertBig5ToUnicode(const Standard_CString  
   return Standard_True;
 }
 
-Standard_Boolean Resource_Unicode::ConvertUnicodeToSJIS(const UtfString& fromstr,
+Standard_Boolean UnicodeTools::ConvertUnicodeToSJIS(const UtfString& fromstr,
                                                         Standard_PCharacter&              tostr,
                                                         const Standard_Integer            maxsize)
 {
@@ -430,7 +430,7 @@ Standard_Boolean Resource_Unicode::ConvertUnicodeToSJIS(const UtfString& fromstr
   return Standard_True;
 }
 
-Standard_Boolean Resource_Unicode::ConvertUnicodeToEUC(const UtfString& fromstr,
+Standard_Boolean UnicodeTools::ConvertUnicodeToEUC(const UtfString& fromstr,
                                                        Standard_PCharacter&              tostr,
                                                        const Standard_Integer            maxsize)
 {
@@ -485,7 +485,7 @@ Standard_Boolean Resource_Unicode::ConvertUnicodeToEUC(const UtfString& fromstr,
   return Standard_True;
 }
 
-Standard_Boolean Resource_Unicode::ConvertUnicodeToGB(const UtfString& fromstr,
+Standard_Boolean UnicodeTools::ConvertUnicodeToGB(const UtfString& fromstr,
                                                       Standard_PCharacter&              tostr,
                                                       const Standard_Integer            maxsize)
 {
@@ -540,7 +540,7 @@ Standard_Boolean Resource_Unicode::ConvertUnicodeToGB(const UtfString& fromstr,
   return Standard_True;
 }
 
-Standard_Boolean Resource_Unicode::ConvertUnicodeToANSI(const UtfString& fromstr,
+Standard_Boolean UnicodeTools::ConvertUnicodeToANSI(const UtfString& fromstr,
                                                         Standard_PCharacter&              tostr,
                                                         const Standard_Integer            maxsize)
 {
@@ -620,24 +620,24 @@ static Resource_FormatType& Resource_Current_Format()
   return theformat;
 }
 
-void Resource_Unicode::SetFormat(const Resource_FormatType typecode)
+void UnicodeTools::SetFormat(const Resource_FormatType typecode)
 {
   AlreadyRead               = Standard_True;
   Resource_Current_Format() = typecode;
 }
 
-Resource_FormatType Resource_Unicode::GetFormat()
+Resource_FormatType UnicodeTools::GetFormat()
 {
   return Resource_Current_Format();
 }
 
-void Resource_Unicode::ReadFormat()
+void UnicodeTools::ReadFormat()
 {
   AlreadyRead = Standard_False;
-  Resource_Unicode::GetFormat();
+  UnicodeTools::GetFormat();
 }
 
-void Resource_Unicode::ConvertFormatToUnicode(const Resource_FormatType   theFormat,
+void UnicodeTools::ConvertFormatToUnicode(const Resource_FormatType   theFormat,
                                               const Standard_CString      theFromStr,
                                               UtfString& theToStr)
 {
@@ -715,7 +715,7 @@ void Resource_Unicode::ConvertFormatToUnicode(const Resource_FormatType   theFor
   }
 }
 
-Standard_Boolean Resource_Unicode::ConvertUnicodeToFormat(
+Standard_Boolean UnicodeTools::ConvertUnicodeToFormat(
   const Resource_FormatType         theFormat,
   const UtfString& theFromStr,
   Standard_PCharacter&              theToStr,
@@ -805,7 +805,7 @@ Standard_Boolean Resource_Unicode::ConvertUnicodeToFormat(
     }
     case Resource_FormatType_GBK:
     case Resource_FormatType_Big5: {
-      throw Standard_NotImplemented("Resource_Unicode::ConvertUnicodeToFormat - convert from GBK "
+      throw Standard_NotImplemented("UnicodeTools::ConvertUnicodeToFormat - convert from GBK "
                                     "and Big5 to Unocode is not implemented");
     }
   }

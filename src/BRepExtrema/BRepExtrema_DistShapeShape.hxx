@@ -38,7 +38,7 @@ public:
 
   //! create tool and computation of the minimum distance (value and pair of points)
   //! using default deflection in single thread mode. <br>
-  //! Default deflection value is Precision::Confusion(). <br>
+  //! Default deflection value is Precision1::Confusion(). <br>
   //! @param Shape1 - the first shape for distance computation
   //! @param Shape2 - the second shape for distance computation
   //! @param F and @param A are not used in computation and are obsolete.
@@ -51,7 +51,7 @@ public:
     const Message_ProgressRange& theRange = Message_ProgressRange());
   //! create tool and computation of the minimum distance
   //! (value and pair of points) in single thread mode. <br>
-  //! Default deflection value is Precision::Confusion(). <br>
+  //! Default deflection value is Precision1::Confusion(). <br>
   //! @param Shape1 - the first shape for distance computation
   //! @param Shape2 - the second shape for distance computation
   //! @param theDeflection - the presition of distance computation

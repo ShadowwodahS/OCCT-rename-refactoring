@@ -152,7 +152,7 @@ public: //! @name argument parsing tools
   //! @return number of handled arguments (1 or 3) or 0 on syntax error.
   static Standard_Integer ParseColor(const Standard_Integer   theArgNb,
                                      const char* const* const theArgVec,
-                                     Quantity_Color&          theColor)
+                                     Color1&          theColor)
   {
     Quantity_ColorRGBA     anRgba;
     const Standard_Integer aNbParsed = parseColor(theArgNb, theArgVec, anRgba, false);

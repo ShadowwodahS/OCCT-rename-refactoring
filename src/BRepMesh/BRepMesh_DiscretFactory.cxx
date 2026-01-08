@@ -113,7 +113,7 @@ Standard_Boolean BRepMesh_DiscretFactory::SetDefault(const AsciiString1& theName
   {
     AsciiString1 aLibName;
     MakeLibName(theName, aLibName);
-    OSD_SharedLibrary aSL(aLibName.ToCString());
+    SharedLibrary aSL(aLibName.ToCString());
     if (!aSL.DlOpen(OSD_RTLD_LAZY))
     {
       // library is not found

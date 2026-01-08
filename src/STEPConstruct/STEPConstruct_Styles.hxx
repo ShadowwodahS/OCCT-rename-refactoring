@@ -38,7 +38,7 @@ class StepVisual_MechanicalDesignGeometricPresentationRepresentation;
 class StepShape_ContextDependentShapeRepresentation;
 class StepRepr_ProductDefinitionShape;
 class StepVisual_Colour;
-class Quantity_Color;
+class Color1;
 
 //! Provides a mechanism for reading and writing shape styles
 //! (such as color) to and from the STEP file
@@ -160,25 +160,25 @@ public:
                                              Standard_Real&    theRenderTransparency,
                                              Standard_Boolean& theIsComponent) const;
 
-  //! Create STEP color entity by given Quantity_Color
+  //! Create STEP color entity by given Color1
   //! The analysis is performed for whether the color corresponds to
   //! one of standard colors predefined in STEP. In that case,
   //! PredefinedColour entity is created instead of RGBColour
-  Standard_EXPORT static Handle(StepVisual_Colour) EncodeColor(const Quantity_Color& Col);
+  Standard_EXPORT static Handle(StepVisual_Colour) EncodeColor(const Color1& Col);
 
-  //! Create STEP color entity by given Quantity_Color
+  //! Create STEP color entity by given Color1
   //! The analysis is performed for whether the color corresponds to
   //! one of standard colors predefined in STEP. In that case,
   //! PredefinedColour entity is created instead of RGBColour
   Standard_EXPORT static Handle(StepVisual_Colour) EncodeColor(
-    const Quantity_Color&                        Col,
+    const Color1&                        Col,
     STEPConstruct_DataMapOfAsciiStringTransient& DPDCs,
     STEPConstruct_DataMapOfPointTransient&       ColRGBs);
 
-  //! Decodes STEP color and fills the Quantity_Color.
+  //! Decodes STEP color and fills the Color1.
   //! Returns True if OK or False if color is not recognized
   Standard_EXPORT static Standard_Boolean DecodeColor(const Handle(StepVisual_Colour)& Colour,
-                                                      Quantity_Color&                  Col);
+                                                      Color1&                  Col);
 
 private:
   TColStd_IndexedDataMapOfTransientTransient myMapOfStyles;

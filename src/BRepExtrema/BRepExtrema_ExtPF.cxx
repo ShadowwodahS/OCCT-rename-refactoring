@@ -50,10 +50,10 @@ void BRepExtrema_ExtPF::Initialize(const TopoFace&    TheFace,
   if (mySurf.GetType() == GeomAbs_OtherSurface)
     return; // protect against non-geometric type (e.g. triangulation)
 
-  Standard_Real Tol = Min(BRepInspector::Tolerance(TheFace), Precision::Confusion());
+  Standard_Real Tol = Min(BRepInspector::Tolerance(TheFace), Precision1::Confusion());
   Standard_Real aTolU, aTolV;
-  aTolU = Max(mySurf.UResolution(Tol), Precision::PConfusion());
-  aTolV = Max(mySurf.VResolution(Tol), Precision::PConfusion());
+  aTolU = Max(mySurf.UResolution(Tol), Precision1::PConfusion());
+  aTolV = Max(mySurf.VResolution(Tol), Precision1::PConfusion());
   Standard_Real U1, U2, V1, V2;
   BRepTools1::UVBounds(TheFace, U1, U2, V1, V2);
   myExtPS.SetFlag(TheFlag);

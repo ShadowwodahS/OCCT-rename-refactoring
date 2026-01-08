@@ -162,7 +162,7 @@ Handle(Graphic3d_ClipPlane) Graphic3d_ClipPlane::Clone() const
 
 //=================================================================================================
 
-void Graphic3d_ClipPlane::SetCappingColor(const Quantity_Color& theColor)
+void Graphic3d_ClipPlane::SetCappingColor(const Color1& theColor)
 {
   myAspect->SetInteriorColor(theColor);
   myAspect->ChangeFrontMaterial().SetColor(theColor);

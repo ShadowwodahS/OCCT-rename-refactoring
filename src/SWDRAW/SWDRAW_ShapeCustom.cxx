@@ -118,7 +118,7 @@ static Standard_Integer ckeckKnots(const TColStd_Array1OfReal& theKnots,
     if (!aNum)
     {
       Standard_Real aDF = theKnots(i) - theFirst;
-      if (fabs(aDF) <= Precision::PConfusion() || aDF > Precision::PConfusion())
+      if (fabs(aDF) <= Precision1::PConfusion() || aDF > Precision1::PConfusion())
       {
         aNum++;
         continue;
@@ -127,7 +127,7 @@ static Standard_Integer ckeckKnots(const TColStd_Array1OfReal& theKnots,
     else
     {
       Standard_Real aDL = theKnots(i) - theLast;
-      if (fabs(aDL) <= Precision::PConfusion() || aDL > Precision::PConfusion())
+      if (fabs(aDL) <= Precision1::PConfusion() || aDL > Precision1::PConfusion())
         break;
       aNum++;
     }

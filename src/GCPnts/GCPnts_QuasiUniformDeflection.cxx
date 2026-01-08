@@ -593,7 +593,7 @@ void QuasiUniformDeflectionSampler::initialize(const TheCurve&     theC,
   myParams.Clear();
   myPoints.Clear();
 
-  const Standard_Real         anEPSILON = Min(theC.Resolution(Precision::Confusion()), 1.e50);
+  const Standard_Real         anEPSILON = Min(theC.Resolution(Precision1::Confusion()), 1.e50);
   const GCPnts_DeflectionType aType     = GetDefType(theC);
   const Standard_Real         aU1       = Min(theU1, theU2);
   const Standard_Real         aU2       = Max(theU1, theU2);

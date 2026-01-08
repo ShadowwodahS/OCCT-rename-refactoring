@@ -86,8 +86,8 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedLine& Qualified1,
   //   Processing of boundary cases.                                          +
   //=========================================================================
 
-  if (dirL1.IsEqual(OnLine.Direction(), Precision::Confusion())
-      && OnLine.Distance(originL1) < Precision::Confusion())
+  if (dirL1.IsEqual(OnLine.Direction(), Precision1::Confusion())
+      && OnLine.Distance(originL1) < Precision1::Confusion())
   {
     // POP : l2s 2 straight line are identic : no Sol
     NbrSol = 0;

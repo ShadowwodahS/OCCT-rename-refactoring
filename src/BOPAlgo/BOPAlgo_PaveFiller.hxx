@@ -520,7 +520,7 @@ protected:
   //! To avoid re-computation of the bounding box for the same Pave Block1
   //! it will be saved in the map <thePBBox>.
   //! Returns FALSE in case the PB's range is less than the
-  //! Precision::PConfusion(), otherwise returns TRUE.
+  //! Precision1::PConfusion(), otherwise returns TRUE.
   Standard_EXPORT Standard_Boolean GetPBBox(const TopoEdge&                theE,
                                             const Handle(BOPDS_PaveBlock)&    thePB,
                                             BOPAlgo_DataMapOfPaveBlockBndBox& thePBBox,

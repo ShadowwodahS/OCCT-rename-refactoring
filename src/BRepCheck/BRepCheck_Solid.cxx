@@ -70,7 +70,7 @@ public:
   BRepCheck_ToolSolid()
   {
     myIsHole = Standard_False;
-    myPntTol = Precision::Confusion();
+    myPntTol = Precision1::Confusion();
     myPnt.SetCoord(-1., -1., -1.);
   };
 

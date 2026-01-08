@@ -88,7 +88,7 @@ LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord(Standard_IStream& theIStre
   myError.Clear();
   ParserState      aState     = STATE_WAITING;
   const char *     aStartData = NULL, *aNameEnd = NULL, *aPtr;
-  LDOMBasicString  anAttrName, anAttrValue;
+  LDOMBasicString1  anAttrName, anAttrValue;
   char             anAttDelimiter = '\0';
   Standard_Boolean aHasRead       = Standard_False;
 
@@ -548,14 +548,14 @@ LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord(Standard_IStream& theIStre
             {
               if (theData.Length() == 0)
                 anAttrName =
-                  LDOMBasicString(myPtr, (Standard_Integer)(aNameEnd - myPtr), myDocument);
+                  LDOMBasicString1(myPtr, (Standard_Integer)(aNameEnd - myPtr), myDocument);
               else
               {
                 theData.rdbuf()->sputn(myPtr, aNameEnd - myPtr);
               attr_name:
                 char* aDataString = (char*)theData.str();
                 theData.Clear();
-                anAttrName = LDOMBasicString(aDataString, myDocument);
+                anAttrName = LDOMBasicString1(aDataString, myDocument);
                 delete[] aDataString;
               }
               aStartData = NULL;
@@ -629,10 +629,10 @@ LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord(Standard_IStream& theIStre
               if (IsDigit(aDataString[0]))
               {
                 if (getInteger(anAttrValue, aDataString, ePtr))
-                  anAttrValue = LDOMBasicString(aDataString, aDataLen, myDocument);
+                  anAttrValue = LDOMBasicString1(aDataString, aDataLen, myDocument);
               }
               else
-                anAttrValue = LDOMBasicString(aDataString, aDataLen, myDocument);
+                anAttrValue = LDOMBasicString1(aDataString, aDataLen, myDocument);
 
               if (theData.Length() > 0)
               {
@@ -742,7 +742,7 @@ void LDOM_XmlReader::CreateElement(const char* theName, const Standard_Integer t
 // purpose  : Try to initialize theValue as Integer1; return False on success
 //=======================================================================
 
-Standard_Boolean LDOM_XmlReader::getInteger(LDOMBasicString& theValue,
+Standard_Boolean LDOM_XmlReader::getInteger(LDOMBasicString1& theValue,
                                             const char*      theStart,
                                             const char*      theEnd)
 {

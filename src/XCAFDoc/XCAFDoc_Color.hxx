@@ -23,7 +23,7 @@
 #include <Quantity_NameOfColor.hxx>
 class Standard_GUID;
 class DataLabel;
-class Quantity_Color;
+class Color1;
 class TDF_RelocationTable;
 
 class XCAFDoc_Color;
@@ -38,7 +38,7 @@ public:
 
   Standard_EXPORT static const Standard_GUID& GetID();
 
-  Standard_EXPORT static Handle(XCAFDoc_Color) Set(const DataLabel& label, const Quantity_Color& C);
+  Standard_EXPORT static Handle(XCAFDoc_Color) Set(const DataLabel& label, const Color1& C);
 
   Standard_EXPORT static Handle(XCAFDoc_Color) Set(const DataLabel&          label,
                                                    const Quantity_ColorRGBA& C);
@@ -54,7 +54,7 @@ public:
                                                    const Standard_Real B,
                                                    const Standard_Real alpha = 1.0);
 
-  Standard_EXPORT void Set(const Quantity_Color& C);
+  Standard_EXPORT void Set(const Color1& C);
 
   Standard_EXPORT void Set(const Quantity_ColorRGBA& C);
 
@@ -65,7 +65,7 @@ public:
                            const Standard_Real B,
                            const Standard_Real alpha = 1.0);
 
-  Standard_EXPORT const Quantity_Color& GetColor() const;
+  Standard_EXPORT const Color1& GetColor() const;
 
   Standard_EXPORT const Quantity_ColorRGBA& GetColorRGBA() const;
 

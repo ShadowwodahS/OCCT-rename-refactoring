@@ -319,9 +319,9 @@ inline static void fillParams(const TColStd_Array1OfReal&    theKnots,
   aParams.Append(aPrevPar);
   // calculation the array of parametric points depending on the knots array variation and degree of
   // given surface
-  for (; i < theKnots.Length() && theKnots(i) < (theParMax - Precision::PConfusion()); i++)
+  for (; i < theKnots.Length() && theKnots(i) < (theParMax - Precision1::PConfusion()); i++)
   {
-    if (theKnots(i + 1) < theParMin + Precision::PConfusion())
+    if (theKnots(i + 1) < theParMin + Precision1::PConfusion())
       continue;
 
     Standard_Real    aStep = (theKnots(i + 1) - theKnots(i)) / Max(theDegree, 2);
@@ -329,9 +329,9 @@ inline static void fillParams(const TColStd_Array1OfReal&    theKnots,
     for (; k <= theDegree; k++)
     {
       Standard_Real aPar = theKnots(i) + k * aStep;
-      if (aPar > theParMax - Precision::PConfusion())
+      if (aPar > theParMax - Precision1::PConfusion())
         break;
-      if (aPar > aPrevPar + Precision::PConfusion())
+      if (aPar > aPrevPar + Precision1::PConfusion())
       {
         aParams.Append(aPar);
         aPrevPar = aPar;

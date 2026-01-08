@@ -139,7 +139,7 @@ IFSelect_ReturnStatus StepFileWriter::Transfer(const TopoShape&             sh,
   if (!Model()->IsInitializedUnit())
   {
     XSAlgo_ShapeProcessor::PrepareForTransfer(); // update unit info
-    Model()->SetLocalLengthUnit(UnitsMethods::GetCasCadeLengthUnit());
+    Model()->SetLocalLengthUnit(UnitsMethods1::GetCasCadeLengthUnit());
   }
   Model()->InternalParameters = theParams;
   APIHeaderSection_MakeHeader aHeaderMaker;

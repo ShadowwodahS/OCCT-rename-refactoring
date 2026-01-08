@@ -162,7 +162,7 @@ void StdPrs_WFShape::Add(const Handle(Prs3d_Presentation)& thePresentation,
                                                aFaces,
                                                theDrawer,
                                                aShapeDeflection);
-        OSD_Parallel::For(0, aNbFaces, anIsoFunctor, aNbFaces < 2);
+        Parallel1::For(0, aNbFaces, anIsoFunctor, aNbFaces < 2);
       }
     }
 

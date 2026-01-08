@@ -153,16 +153,16 @@ IGESSelect_EditHeader::IGESSelect_EditHeader()
     new Interface_TypedValue("Integer1 Binary Bits", Interface_ParamInteger);
   SetValue(8, intbits, "G7:IntBits");
   Handle(Interface_TypedValue) pow10s =
-    new Interface_TypedValue("Single Precision Magnitude", Interface_ParamInteger);
+    new Interface_TypedValue("Single Precision1 Magnitude", Interface_ParamInteger);
   SetValue(9, pow10s, "G8:SingleMag");
   Handle(Interface_TypedValue) dig10s =
-    new Interface_TypedValue("Single Precision Significance", Interface_ParamInteger);
+    new Interface_TypedValue("Single Precision1 Significance", Interface_ParamInteger);
   SetValue(10, dig10s, "G9:SingDigits");
   Handle(Interface_TypedValue) pow10d =
-    new Interface_TypedValue("Double Precision Magnitude", Interface_ParamInteger);
+    new Interface_TypedValue("Double Precision1 Magnitude", Interface_ParamInteger);
   SetValue(11, pow10d, "G10:DoubleMag");
   Handle(Interface_TypedValue) dig10d =
-    new Interface_TypedValue("Double Precision Significance", Interface_ParamInteger);
+    new Interface_TypedValue("Double Precision1 Significance", Interface_ParamInteger);
   SetValue(12, dig10d, "G11:DoubDigits");
 
   Handle(Interface_TypedValue) recname = new Interface_TypedValue("Receiver Product Id");
@@ -173,13 +173,13 @@ IGESSelect_EditHeader::IGESSelect_EditHeader()
   SetValue(14, scale, "G13:Scale", IFSelect_Optional);
 
   Handle(Interface_TypedValue) unitflag =
-    new Interface_TypedValue("Units Flag", Interface_ParamInteger);
+    new Interface_TypedValue("Units2 Flag", Interface_ParamInteger);
   unitflag->SetIntegerLimit(Standard_False, 1);
   unitflag->SetIntegerLimit(Standard_True, 11);
   SetValue(15, unitflag, "G14:UnitFlag", IFSelect_Optional);
   //  On prend a la source ...  Mieux vaudrait "recopier" les definitions ...
   Handle(Interface_TypedValue) unitname =
-    new Interface_TypedValue("Units Name", Interface_ParamEnum);
+    new Interface_TypedValue("Units2 Name", Interface_ParamEnum);
   unitname->StartEnum(1);
   for (i = 1; i <= 11; i++)
     unitname->AddEnumValue(IGESData_BasicEditor::UnitFlagName(i), i);
@@ -226,13 +226,13 @@ IGESSelect_EditHeader::IGESSelect_EditHeader()
   SetValue(26, versname, "V23:VersionName");
 
   Handle(Interface_TypedValue) draft =
-    new Interface_TypedValue("Drafting Standard Flag", Interface_ParamInteger);
+    new Interface_TypedValue("Drafting Standard1 Flag", Interface_ParamInteger);
   nb = IGESData_BasicEditor::DraftingMax();
   draft->SetIntegerLimit(Standard_False, 0);
   draft->SetIntegerLimit(Standard_True, nb);
   SetValue(27, draft, "G24:Drafting");
   Handle(Interface_TypedValue) draftname =
-    new Interface_TypedValue("Drafting Standard Name", Interface_ParamEnum);
+    new Interface_TypedValue("Drafting Standard1 Name", Interface_ParamEnum);
   draftname->StartEnum(0);
   for (i = 0; i <= nb; i++)
     draftname->AddEnumValue(IGESData_BasicEditor::DraftingName(i), i);

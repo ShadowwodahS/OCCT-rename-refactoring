@@ -213,7 +213,7 @@ Standard_Boolean ProximityDistTool::Accept(const Standard_Integer theTrgIdx,
   BVH_Vec3d     aDirect     = myObject - aNearestPnt;
   Standard_Real aSqDistance = aDirect.Dot(aDirect);
 
-  if (aSqDistance > Precision::SquareConfusion()) // point belongs to triangle
+  if (aSqDistance > Precision1::SquareConfusion()) // point belongs to triangle
   {
     const BVH_Vec3d aAB = aTrgVert2 - aTrgVert1;
 
@@ -234,10 +234,10 @@ Standard_Boolean ProximityDistTool::Accept(const Standard_Integer theTrgIdx,
     // check if the distance is under perpendicular
     const BVH_Vec3d aCrossCross      = BVH_Vec3d::Cross(aDirect, aNorm);
     Standard_Real   aCrossCrossSqLen = aCrossCross.Dot(aCrossCross);
-    if (aCrossCrossSqLen > Precision::SquareConfusion() * aSqDistance * aNormSqLen)
+    if (aCrossCrossSqLen > Precision1::SquareConfusion() * aSqDistance * aNormSqLen)
     {
       // the distance is not under perpendicular
-      if (myMinDistance - sqrt(aSqDistance) > Precision::Confusion())
+      if (myMinDistance - sqrt(aSqDistance) > Precision1::Confusion())
       {
         myMinDistance  = sqrt(aSqDistance);
         myMinDistPoint = aNearestPnt;
@@ -249,7 +249,7 @@ Standard_Boolean ProximityDistTool::Accept(const Standard_Integer theTrgIdx,
   }
 
   // the distance is under perpendicular
-  if (myDistance - sqrt(aSqDistance) > Precision::Confusion())
+  if (myDistance - sqrt(aSqDistance) > Precision1::Confusion())
   {
     myDistance     = sqrt(aSqDistance);
     myExtremaPoint = aNearestPnt;
@@ -377,7 +377,7 @@ void ProximityDistTool::defineStatusProxPnt1()
     Standard_Integer   aVtxSize   = (Standard_Integer)aVertices1.size();
     Standard_Integer   aLastIdx   = aVtxSize - 1;
 
-    if ((aVertices1[0] - aVertices1[aLastIdx]).Modulus() < Precision::Confusion()) // if closed
+    if ((aVertices1[0] - aVertices1[aLastIdx]).Modulus() < Precision1::Confusion()) // if closed
     {
       myPntStatus1 = ProxPnt_Status_MIDDLE;
       return;
@@ -432,7 +432,7 @@ void ProximityDistTool::defineStatusProxPnt2()
       Standard_Integer   aVtxSize   = (Standard_Integer)aVertices2.size();
       Standard_Integer   aLastIdx   = aVtxSize - 1;
 
-      if ((aVertices2[0] - aVertices2[aLastIdx]).Modulus() < Precision::Confusion()) // if closed
+      if ((aVertices2[0] - aVertices2[aLastIdx]).Modulus() < Precision1::Confusion()) // if closed
       {
         myPntStatus2 = ProxPnt_Status_MIDDLE;
         return;

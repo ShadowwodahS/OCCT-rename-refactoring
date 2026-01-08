@@ -51,10 +51,10 @@ public:
   const Quantity_ColorRGBA& ColorRGBA() const { return myBasicColor; }
 
   //! Returns basic presentation color, Quantity_NOC_WHITE by default.
-  const Quantity_Color& Color() const { return myBasicColor.GetRGB(); }
+  const Color1& Color() const { return myBasicColor.GetRGB(); }
 
   //! Sets basic presentation color (RGB components, does not modifies transparency).
-  virtual void SetColor(const Quantity_Color& theColor) { myBasicColor.ChangeRGB() = theColor; }
+  virtual void SetColor(const Color1& theColor) { myBasicColor.ChangeRGB() = theColor; }
 
   //! Returns basic presentation transparency (0 - opaque, 1 - fully transparent), 0 by default
   //! (opaque).

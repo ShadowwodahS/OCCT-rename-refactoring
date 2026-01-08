@@ -27,7 +27,7 @@
 // are considered as having a potential zone of tangency.
 namespace
 {
-static const Standard_Real PRCANG = Precision::Angular();
+static const Standard_Real PRCANG = Precision1::Angular();
 }
 
 //=======================================================================
@@ -323,7 +323,7 @@ void Intf_InterferencePolygon2d::Intersect(const Standard_Integer iObje1,
   // Direction of parsing of segments
   Standard_Real sigPS = (segO * segT) > 0.0 ? 1.0 : -1.0;
 
-  // Precision of calculation
+  // Precision1 of calculation
   Standard_Real floatgap = Epsilon(lgO + lgT);
 
   // Angle between two straight lines and radius of interference

@@ -769,7 +769,7 @@ Standard_Boolean BSplineCurve3d::IsEqual(const Handle(BSplineCurve3d)& theOther,
 
   for (; i <= knots->Length(); i++)
   {
-    if (fabs(knots->Value(i) - theOther->Knot(i)) > Precision::Parametric(thePreci))
+    if (fabs(knots->Value(i) - theOther->Knot(i)) > Precision1::Parametric(thePreci))
       return Standard_False;
   }
 

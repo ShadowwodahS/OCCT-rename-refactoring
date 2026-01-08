@@ -1008,11 +1008,11 @@ public: //! @name common object display attributes
 
   //! Returns the color of the Object in the interactive context.
   Standard_EXPORT void Color(const Handle(VisualEntity)& aniobj,
-                             Quantity_Color&                      acolor) const;
+                             Color1&                      acolor) const;
 
   //! Sets the color of the selected entity.
   Standard_EXPORT void SetColor(const Handle(VisualEntity)& theIObj,
-                                const Quantity_Color&                theColor,
+                                const Color1&                theColor,
                                 const Standard_Boolean               theToUpdateViewer);
 
   //! Removes the color selection for the selected entity.
@@ -1445,7 +1445,7 @@ public: //! @name sub-intensity management (deprecated)
   //! manner of selection highlight, but without actual selection (e.g., global status and owner's
   //! selection state will not be updated). The method returns the color of such highlighting. By
   //! default, it is Quantity_NOC_GRAY40.
-  const Quantity_Color& SubIntensityColor() const
+  const Color1& SubIntensityColor() const
   {
     return myStyles[Prs3d_TypeOfHighlight_SubIntensity]->Color();
   }
@@ -1454,7 +1454,7 @@ public: //! @name sub-intensity management (deprecated)
   //! manner of selection highlight, but without actual selection (e.g., global status and owner's
   //! selection state will not be updated). The method sets up the color for such highlighting. By
   //! default, this is Quantity_NOC_GRAY40.
-  void SetSubIntensityColor(const Quantity_Color& theColor)
+  void SetSubIntensityColor(const Color1& theColor)
   {
     myStyles[Prs3d_TypeOfHighlight_SubIntensity]->SetColor(theColor);
   }

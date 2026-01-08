@@ -417,7 +417,7 @@ static Standard_Integer noteCreateBinData(DrawInterpreter& di,
   {
     SystemPath aPath(aFilename);
     SystemFile aFile(aPath);
-    aFile.Open(OSD_ReadOnly, OSD_Protection());
+    aFile.Open(OSD_ReadOnly, Protection1());
     aNote = aNotesTool->CreateBinData(aUsername, aTimestamp, aTitle, aMIMEtype, aFile);
   }
   else if (aFromData)

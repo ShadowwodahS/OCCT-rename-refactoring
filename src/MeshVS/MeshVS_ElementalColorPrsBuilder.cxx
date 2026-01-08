@@ -57,8 +57,8 @@ MeshVS_ElementalColorPrsBuilder::MeshVS_ElementalColorPrsBuilder(
 //=================================================================================================
 
 void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
-                                            const TColStd_PackedMapOfInteger& IDs,
-                                            TColStd_PackedMapOfInteger&       IDsToExclude,
+                                            const PackedIntegerMap& IDs,
+                                            PackedIntegerMap&       IDsToExclude,
                                             const Standard_Boolean            IsElement,
                                             const Standard_Integer            DisplayMode) const
 {
@@ -89,7 +89,7 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
     return;
 
   // subtract the hidden elements and ids to exclude (to minimise allocated memory)
-  TColStd_PackedMapOfInteger anIDs;
+  PackedIntegerMap anIDs;
   anIDs.Assign(IDs);
   Handle(TColStd_HPackedMapOfInteger) aHiddenElems = myParentMesh->GetHiddenElems();
   if (!aHiddenElems.IsNull())
@@ -104,7 +104,7 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
   {
     Standard_Integer aKey   = anIter.Key1();
     TwoColors aValue = anIter.Value();
-    Quantity_Color   aCol1, aCol2;
+    Color1   aCol1, aCol2;
     ExtractColors(aValue, aCol1, aCol2);
     if (aCol1 == aCol2)
     {
@@ -172,8 +172,8 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
   Aspect_TypeOfLine anEdgeType  = Aspect_TOL_SOLID;
   Aspect_TypeOfLine aLineType   = Aspect_TOL_SOLID;
   Standard_Real     anEdgeWidth = 1.0, aLineWidth = 1.0;
-  Quantity_Color    anInteriorColor;
-  Quantity_Color    anEdgeColor, aLineColor;
+  Color1    anInteriorColor;
+  Color1    anEdgeColor, aLineColor;
   Standard_Boolean  anEdgeOn = Standard_True, IsReflect = Standard_False,
                    IsMeshSmoothShading = Standard_False;
   Standard_Boolean toSupressBackFaces  = Standard_False;
@@ -237,8 +237,8 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
       // those in the color scale most exactly (the sum of all reflection
       // coefficients is equal to 1). See also MeshVS_NodalColorPrsBuilder
       // class for more explanations.
-      aMaterial[i].SetAmbientColor(Quantity_Color(Graphic3d_Vec3(0.5f)));
-      aMaterial[i].SetDiffuseColor(Quantity_Color(Graphic3d_Vec3(0.5f)));
+      aMaterial[i].SetAmbientColor(Color1(Graphic3d_Vec3(0.5f)));
+      aMaterial[i].SetDiffuseColor(Color1(Graphic3d_Vec3(0.5f)));
     }
   }
 
@@ -281,7 +281,7 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
       continue;
     }
 
-    TColStd_PackedMapOfInteger aCustomElements;
+    PackedIntegerMap aCustomElements;
 
     Standard_Integer aNbFacePrimitives = 0;
     Standard_Integer aNbVolmPrimitives = 0;
@@ -524,7 +524,7 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
       // to have different materials for front and back sides!
       // Instead, trying to make material color "nondirectional" with
       // only ambient component on.
-      aMaterial2[i].SetAmbientColor(Quantity_Color(Graphic3d_Vec3(1.0f)));
+      aMaterial2[i].SetAmbientColor(Color1(Graphic3d_Vec3(1.0f)));
       aMaterial2[i].SetDiffuseColor(Quantity_NOC_BLACK);
     }
     else
@@ -534,8 +534,8 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
       // those in the color scale most exactly (the sum of all reflection
       // coefficients is equal to 1). See also MeshVS_NodalColorPrsBuilder
       // class for more explanations.
-      aMaterial2[i].SetAmbientColor(Quantity_Color(Graphic3d_Vec3(0.5f)));
-      aMaterial2[i].SetDiffuseColor(Quantity_Color(Graphic3d_Vec3(0.5f)));
+      aMaterial2[i].SetAmbientColor(Color1(Graphic3d_Vec3(0.5f)));
+      aMaterial2[i].SetDiffuseColor(Color1(Graphic3d_Vec3(0.5f)));
     }
   }
 
@@ -593,7 +593,7 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
       new Graphic3d_ArrayOfSegments(aNbEdgePrimitives * 2);
 
     TwoColors aTC = aColIter2.Key1();
-    Quantity_Color   aMyIntColor, aMyBackColor;
+    Color1   aMyIntColor, aMyBackColor;
     ExtractColors(aTC, aMyIntColor, aMyBackColor);
 
     // OCC20644 NOTE: aMyIntColor color is then scaled by TelUpdateMaterial() in OpenGl_attri.c
@@ -708,7 +708,7 @@ Standard_Boolean MeshVS_ElementalColorPrsBuilder::HasColors1() const
 //=================================================================================================
 
 Standard_Boolean MeshVS_ElementalColorPrsBuilder::GetColor1(const Standard_Integer ID,
-                                                            Quantity_Color&        theColor) const
+                                                            Color1&        theColor) const
 {
   Standard_Boolean aRes = myElemColorMap1.IsBound(ID);
   if (aRes)
@@ -720,7 +720,7 @@ Standard_Boolean MeshVS_ElementalColorPrsBuilder::GetColor1(const Standard_Integ
 //=================================================================================================
 
 void MeshVS_ElementalColorPrsBuilder::SetColor1(const Standard_Integer theID,
-                                                const Quantity_Color&  theCol)
+                                                const Color1&  theCol)
 {
   Standard_Boolean aRes = myElemColorMap1.IsBound(theID);
   if (aRes)
@@ -766,8 +766,8 @@ Standard_Boolean MeshVS_ElementalColorPrsBuilder::GetColor2(const Standard_Integ
 //=================================================================================================
 
 Standard_Boolean MeshVS_ElementalColorPrsBuilder::GetColor2(const Standard_Integer ID,
-                                                            Quantity_Color&        theColor1,
-                                                            Quantity_Color&        theColor2) const
+                                                            Color1&        theColor1,
+                                                            Color1&        theColor2) const
 {
   TwoColors aTC;
   Standard_Boolean aRes = GetColor2(ID, aTC);
@@ -779,8 +779,8 @@ Standard_Boolean MeshVS_ElementalColorPrsBuilder::GetColor2(const Standard_Integ
 //=================================================================================================
 
 void MeshVS_ElementalColorPrsBuilder::SetColor2(const Standard_Integer theID,
-                                                const Quantity_Color&  theCol1,
-                                                const Quantity_Color&  theCol2)
+                                                const Color1&  theCol1,
+                                                const Color1&  theCol2)
 {
   SetColor2(theID, BindTwoColors(theCol1, theCol2));
 }

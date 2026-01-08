@@ -27,7 +27,7 @@ typedef size_t Standard_Size;
  * of block allocation, items creation / deletion etc.
  */
 
-class NCollection_SparseArrayBase
+class SparseArrayBase
 {
 public:
   //!@name Type-independent public interface
@@ -62,7 +62,7 @@ private:
    * The Block1 structure provides a logical view on the block,
    * and provides methods to work with bit map.
    *
-   * Note that NCollection_SparseArrayBase class takes responsibility
+   * Note that SparseArrayBase class takes responsibility
    * for correct allocation/deallocation of all the data.
    */
 
@@ -164,16 +164,16 @@ public:
     // Methods for descendant
 
     //! Empty constructor
-    Standard_EXPORT Iterator(const NCollection_SparseArrayBase* theArray = 0);
+    Standard_EXPORT Iterator(const SparseArrayBase* theArray = 0);
 
     //! Initialize by the specified array
-    Standard_EXPORT void init(const NCollection_SparseArrayBase* theArray);
+    Standard_EXPORT void init(const SparseArrayBase* theArray);
 
     //! Returns address of the current item
     Standard_Address value() const { return myArr->getItem(myBlock, myInd); }
 
   private:
-    const NCollection_SparseArrayBase* myArr;
+    const SparseArrayBase* myArr;
     Standard_Boolean                   myHasMore;
     Standard_Size                      myIBlock;
     Standard_Size                      myInd;
@@ -183,14 +183,14 @@ public:
 
 private:
   // Copy constructor and assignment operator are private thus not accessible
-  NCollection_SparseArrayBase(const NCollection_SparseArrayBase&);
-  void operator=(const NCollection_SparseArrayBase&);
+  SparseArrayBase(const SparseArrayBase&);
+  void operator=(const SparseArrayBase&);
 
 protected:
   // Object life
 
   //! Constructor; initialized by size of item and of block (in items)
-  NCollection_SparseArrayBase(Standard_Size theItemSize, Standard_Size theBlockSize)
+  SparseArrayBase(Standard_Size theItemSize, Standard_Size theBlockSize)
       : myItemSize(theItemSize),
         myBlockSize(theBlockSize),
         myNbBlocks(0),
@@ -200,7 +200,7 @@ protected:
   }
 
   //! Destructor
-  virtual ~NCollection_SparseArrayBase() { Clear(); }
+  virtual ~SparseArrayBase() { Clear(); }
 
 protected:
   // Data access interface for descendants
@@ -234,11 +234,11 @@ protected:
 
   //! Copy contents of theOther to this;
   //! assumes that this and theOther have exactly the same type of arguments
-  Standard_EXPORT void assign(const NCollection_SparseArrayBase& theOther);
+  Standard_EXPORT void assign(const SparseArrayBase& theOther);
 
   //! Exchange contents of theOther and this;
   //! assumes that this and theOther have exactly the same type of arguments
-  Standard_EXPORT void exchange(NCollection_SparseArrayBase& theOther);
+  Standard_EXPORT void exchange(SparseArrayBase& theOther);
 
 protected:
   // Methods to be provided by descendant

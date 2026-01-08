@@ -74,7 +74,7 @@ static Standard_Boolean CoPlanar(const Point3d& PntA,
 
   Standard_Real Alpha = nor2AB * nor2AC - ProABAC * ProABAC;
 
-  if (Alpha < Precision::Confusion())
+  if (Alpha < Precision1::Confusion())
   {
     return Standard_True;
   }
@@ -85,7 +85,7 @@ static Standard_Boolean CoPlanar(const Point3d& PntA,
   Standard_Real Alpha2  = ProACAD * nor2AB - ProABAC * ProABAD;
   Vector3d        vecDABC = Alpha1 * vecAB + Alpha2 * vecAC - Alpha * vecAD;
 
-  return (vecDABC.Magnitude() / Alpha) < Precision::Confusion();
+  return (vecDABC.Magnitude() / Alpha) < Precision1::Confusion();
 }
 
 //=======================================================================
@@ -669,7 +669,7 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
       BRepAdaptor_Surface  facebid(face[pivot]);
       Handle(GeomSurface) surfbid =
         Handle(GeomSurface)::DownCast(facebid.Surface().Surface()->Transformed(facebid.Trsf()));
-      inter.Perform(gpl, surfbid, Precision::Intersection());
+      inter.Perform(gpl, surfbid, Precision1::Intersection());
       if (inter.IsDone())
       {
         Standard_Integer nbl = inter.NbLines();

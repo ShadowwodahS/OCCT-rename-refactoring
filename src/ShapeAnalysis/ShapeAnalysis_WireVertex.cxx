@@ -32,7 +32,7 @@
 ShapeAnalysis_WireVertex::ShapeAnalysis_WireVertex()
 {
   myDone  = Standard_False;
-  myPreci = Precision::Confusion();
+  myPreci = Precision1::Confusion();
 }
 
 //=================================================================================================
@@ -231,7 +231,7 @@ Standard_Boolean ShapeAnalysis_WireVertex::IsDone() const
 
 //=================================================================================================
 
-Standard_Real ShapeAnalysis_WireVertex::Precision() const
+Standard_Real ShapeAnalysis_WireVertex::Precision1() const
 {
   return myPreci;
 }

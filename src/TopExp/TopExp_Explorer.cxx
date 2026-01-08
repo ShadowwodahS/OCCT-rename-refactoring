@@ -41,7 +41,7 @@ ShapeExplorer::ShapeExplorer()
       toAvoid(TopAbs_SHAPE),
       hasMore(Standard_False)
 {
-  myStack = (TopoDS_Iterator*)Standard::Allocate(theStackSize * sizeof(TopoDS_Iterator));
+  myStack = (TopoDS_Iterator*)Standard1::Allocate(theStackSize * sizeof(TopoDS_Iterator));
 }
 
 //=================================================================================================
@@ -56,7 +56,7 @@ ShapeExplorer::ShapeExplorer(const TopoShape&    theS,
       toAvoid(theToAvoid),
       hasMore(Standard_False)
 {
-  myStack = (TopoDS_Iterator*)Standard::Allocate(theStackSize * sizeof(TopoDS_Iterator));
+  myStack = (TopoDS_Iterator*)Standard1::Allocate(theStackSize * sizeof(TopoDS_Iterator));
 
   Init(theS, theToFind, theToAvoid);
 }
@@ -159,14 +159,14 @@ void ShapeExplorer::Next()
       {
         NewSize = mySizeOfStack + theStackSize;
         TopExp_Stack newStack =
-          (TopoDS_Iterator*)Standard::Allocate(NewSize * sizeof(TopoDS_Iterator));
+          (TopoDS_Iterator*)Standard1::Allocate(NewSize * sizeof(TopoDS_Iterator));
         Standard_Integer i;
         for (i = 0; i < myTop; i++)
         {
           new (&newStack[i]) TopoDS_Iterator(myStack[i]);
           myStack[i].~TopoDS_Iterator();
         }
-        Standard::Free(myStack);
+        Standard1::Free(myStack);
         mySizeOfStack = NewSize;
         myStack       = newStack;
       }
@@ -193,14 +193,14 @@ void ShapeExplorer::Next()
         {
           NewSize = mySizeOfStack + theStackSize;
           TopExp_Stack newStack =
-            (TopoDS_Iterator*)Standard::Allocate(NewSize * sizeof(TopoDS_Iterator));
+            (TopoDS_Iterator*)Standard1::Allocate(NewSize * sizeof(TopoDS_Iterator));
           Standard_Integer i;
           for (i = 0; i < myTop; i++)
           {
             new (&newStack[i]) TopoDS_Iterator(myStack[i]);
             myStack[i].~TopoDS_Iterator();
           }
-          Standard::Free(myStack);
+          Standard1::Free(myStack);
           mySizeOfStack = NewSize;
           myStack       = newStack;
         }
@@ -237,7 +237,7 @@ ShapeExplorer::~ShapeExplorer()
   Clear();
   if (myStack)
   {
-    Standard::Free(myStack);
+    Standard1::Free(myStack);
   }
   mySizeOfStack = 0;
   myStack       = 0L;

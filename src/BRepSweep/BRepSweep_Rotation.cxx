@@ -91,10 +91,10 @@ static Standard_Real ComputeTolerance(TopoEdge&                E,
     Point3d        Pc3d  = c3d->Value(u);
     gp_Pnt2d      UV    = C->Value(u);
     Point3d        Pcons = surf->Value(UV.X(), UV.Y());
-    if (Precision::IsInfinite(Pcons.X()) || Precision::IsInfinite(Pcons.Y())
-        || Precision::IsInfinite(Pcons.Z()))
+    if (Precision1::IsInfinite(Pcons.X()) || Precision1::IsInfinite(Pcons.Y())
+        || Precision1::IsInfinite(Pcons.Z()))
     {
-      d2 = Precision::Infinite();
+      d2 = Precision1::Infinite();
       break;
     }
     Standard_Real temp = Pc3d.SquareDistance(Pcons);
@@ -144,7 +144,7 @@ BRepSweep_Rotation::BRepSweep_Rotation(const TopoShape&    S,
       myAxe(A)
 
 {
-  Standard_ConstructionError_Raise_if(D < Precision::Angular(), "BRepSweep_Rotation::Constructor");
+  Standard_ConstructionError_Raise_if(D < Precision1::Angular(), "BRepSweep_Rotation::Constructor");
   Init();
 }
 
@@ -160,7 +160,7 @@ TopoShape BRepSweep_Rotation::MakeEmptyVertex(const TopoShape&   aGenV,
   if (aDirV.Index() == 2)
     P.Transform(myLocation.Transformation());
   ////// modified by jgv, 1.10.01, for buc61005 //////
-  // myBuilder.Builder().MakeVertex(V,P,Precision::Confusion());
+  // myBuilder.Builder().MakeVertex(V,P,Precision1::Confusion());
   myBuilder.Builder().MakeVertex(V, P, BRepInspector::Tolerance(TopoDS::Vertex(aGenV)));
   ////////////////////////////////////////////////////
   if (aDirV.Index() == 1 && IsInvariant(aGenV) && myDirShapeTool.NbShapes1() == 3)
@@ -182,7 +182,7 @@ TopoShape BRepSweep_Rotation::MakeEmptyDirectingEdge(const TopoShape& aGenV,
   Vector3d      V(Dirz);
   Point3d      O(myAxe.Location());
   O.Translate(V.Dot(Vector3d(O, P)) * V);
-  if (O.IsEqual(P, Precision::Confusion()))
+  if (O.IsEqual(P, Precision1::Confusion()))
   {
     // make a degenerated edge
     // temporary make 3D curve null so that
@@ -252,7 +252,7 @@ void BRepSweep_Rotation::SetParameters(const TopoShape& aNewFace,
                                    pnt2d.X(),
                                    pnt2d.Y(),
                                    TopoDS::Face(aNewFace),
-                                   Precision::PConfusion());
+                                   Precision1::PConfusion());
 }
 
 //=================================================================================================
@@ -272,7 +272,7 @@ void BRepSweep_Rotation::SetDirectingParameter(const TopoShape& aNewEdge,
   }
   TopoVertex V_wnt = TopoDS::Vertex(aNewVertex);
   V_wnt.Orientation(ori);
-  myBuilder.Builder().UpdateVertex(V_wnt, param, TopoDS::Edge(aNewEdge), Precision::PConfusion());
+  myBuilder.Builder().UpdateVertex(V_wnt, param, TopoDS::Edge(aNewEdge), Precision1::PConfusion());
 }
 
 //=================================================================================================
@@ -288,7 +288,7 @@ void BRepSweep_Rotation::SetGeneratingParameter(const TopoShape& aNewEdge,
   myBuilder.Builder().UpdateVertex(vbid,
                                    BRepInspector::Parameter(TopoDS::Vertex(aGenV), TopoDS::Edge(aGenE)),
                                    TopoDS::Edge(aNewEdge),
-                                   Precision::PConfusion());
+                                   Precision1::PConfusion());
 }
 
 //=================================================================================================
@@ -434,7 +434,7 @@ void BRepSweep_Rotation::SetGeneratingPCurve(const TopoShape& aNewFace,
     BRepAdaptor_Curve BC(TopoDS::Edge(aNewEdge));
     Standard_Real     U = BC.FirstParameter();
     point               = BC.Value(U);
-    if (point.Distance(tor.Location()) < Precision::Confusion())
+    if (point.Distance(tor.Location()) < Precision1::Confusion())
     {
       v = M_PI;
       //  modified by NIZHNY-EAP Wed Mar  1 17:49:29 2000 ___BEGIN___
@@ -446,17 +446,17 @@ void BRepSweep_Rotation::SetGeneratingPCurve(const TopoShape& aNewFace,
     }
     //    u = 0.;
     v = ElCLib1::InPeriod(v, 0., 2 * M_PI);
-    if ((2 * M_PI - v) <= Precision::PConfusion())
+    if ((2 * M_PI - v) <= Precision1::PConfusion())
       v -= 2 * M_PI;
     if (aDirV.Index() == 2)
     {
       Standard_Real uLeft = u - myAng;
-      ElCLib1::AdjustPeriodic(-M_PI, M_PI, Precision::PConfusion(), uLeft, u);
+      ElCLib1::AdjustPeriodic(-M_PI, M_PI, Precision1::PConfusion(), uLeft, u);
     }
     else
     {
       Standard_Real uRight = u + myAng;
-      ElCLib1::AdjustPeriodic(-M_PI, M_PI, Precision::PConfusion(), u, uRight);
+      ElCLib1::AdjustPeriodic(-M_PI, M_PI, Precision1::PConfusion(), u, uRight);
     }
     //  modified by NIZHNY-EAP Wed Mar  1 17:49:32 2000 ___END___
     pnt2d.SetCoord(u, v - U);
@@ -549,7 +549,7 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoShape& aNewFace,
       gp_Torus          tor = AS.Torus();
       BRepAdaptor_Curve BC(TopoDS::Edge(aGenE));
       p1 = BC.Value(BC.FirstParameter());
-      if (p1.Distance(tor.Location()) < Precision::Confusion())
+      if (p1.Distance(tor.Location()) < Precision1::Confusion())
       {
         v1 = M_PI;
         //  modified by NIZHNY-EAP Thu Mar  2 09:43:26 2000 ___BEGIN___
@@ -561,7 +561,7 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoShape& aNewFace,
         ElSLib1::TorusParameters(tor.Position1(), tor.MajorRadius(), tor.MinorRadius(), p1, u1, v1);
       }
       p2 = BC.Value(BC.LastParameter());
-      if (p2.Distance(tor.Location()) < Precision::Confusion())
+      if (p2.Distance(tor.Location()) < Precision1::Confusion())
       {
         v2 = M_PI;
       }
@@ -569,10 +569,10 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoShape& aNewFace,
       {
         ElSLib1::TorusParameters(tor.Position1(), tor.MajorRadius(), tor.MinorRadius(), p2, u2, v2);
       }
-      ElCLib1::AdjustPeriodic(0., 2 * M_PI, Precision::PConfusion(), v1, v2);
+      ElCLib1::AdjustPeriodic(0., 2 * M_PI, Precision1::PConfusion(), v1, v2);
       //  modified by NIZHNY-EAP Thu Mar  2 15:29:04 2000 ___BEGIN___
       u2 = u1 + myAng;
-      ElCLib1::AdjustPeriodic(-M_PI, M_PI, Precision::PConfusion(), u1, u2);
+      ElCLib1::AdjustPeriodic(-M_PI, M_PI, Precision1::PConfusion(), u1, u2);
       if (aGenV.Orientation() == TopAbs_FORWARD)
       {
         p22d.SetCoord(u1, v1);
@@ -614,7 +614,7 @@ TopAbs_Orientation BRepSweep_Rotation::DirectSolid(const TopoShape& aGenS, const
   Vector3d              du, dv;
   BRepAdaptor_Surface surf(TopoDS::Face(aGenS));
   //
-  aTol2 = Precision::Confusion();
+  aTol2 = Precision1::Confusion();
   aTol2 = aTol2 * aTol2;
   //
   const Point3d& aPAxeLoc = myAxe.Location();
@@ -714,7 +714,7 @@ Standard_Boolean BRepSweep_Rotation::GDDShapeIsToAdd(const TopoShape&   aNewShap
       && aGenS.ShapeType() == TopAbs_FACE && aDirS.Type() == TopAbs_EDGE
       && aSubDirS.Type() == TopAbs_VERTEX)
   {
-    return (Abs(myAng - 2 * M_PI) > Precision::Angular());
+    return (Abs(myAng - 2 * M_PI) > Precision1::Angular());
   }
   else if (aNewShape.ShapeType() == TopAbs_FACE && aNewSubShape.ShapeType() == TopAbs_EDGE
            && aGenS.ShapeType() == TopAbs_EDGE && aDirS.Type() == TopAbs_EDGE
@@ -724,7 +724,7 @@ Standard_Boolean BRepSweep_Rotation::GDDShapeIsToAdd(const TopoShape&   aNewShap
     GeomAdaptor_Surface AS(BRepInspector::Surface(TopoDS::Face(aNewShape), Loc));
     if (AS.GetType() == GeomAbs_Plane)
     {
-      return (Abs(myAng - 2 * M_PI) > Precision::Angular());
+      return (Abs(myAng - 2 * M_PI) > Precision1::Angular());
     }
     else
     {
@@ -753,7 +753,7 @@ Standard_Boolean BRepSweep_Rotation::SeparatedWires(const TopoShape&   aNewShape
     GeomAdaptor_Surface AS(BRepInspector::Surface(TopoDS::Face(aNewShape), Loc));
     if (AS.GetType() == GeomAbs_Plane)
     {
-      return (Abs(myAng - 2 * M_PI) <= Precision::Angular());
+      return (Abs(myAng - 2 * M_PI) <= Precision1::Angular());
     }
     else
     {

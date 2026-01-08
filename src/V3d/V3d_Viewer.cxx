@@ -492,7 +492,7 @@ void ViewManager::DisplayPrivilegedPlane(const Standard_Boolean theOnOff,
   aGroup->SetGroupPrimitivesAspect(aLineAttrib);
 
   Handle(Graphic3d_AspectText3d) aTextAttrib = new Graphic3d_AspectText3d();
-  aTextAttrib->SetColor(Quantity_Color(Quantity_NOC_ROYALBLUE1));
+  aTextAttrib->SetColor(Color1(Quantity_NOC_ROYALBLUE1));
   aGroup->SetGroupPrimitivesAspect(aTextAttrib);
 
   Handle(Graphic3d_ArrayOfSegments) aPrims = new Graphic3d_ArrayOfSegments(6);
@@ -538,8 +538,8 @@ Handle(Aspect_Grid) ViewManager::Grid(Aspect_GridType theGridType, bool theToCre
       if (myCGrid.IsNull() && theToCreate)
       {
         myCGrid = new V3d_CircularGrid(this,
-                                       Quantity_Color(Quantity_NOC_GRAY50),
-                                       Quantity_Color(Quantity_NOC_GRAY70));
+                                       Color1(Quantity_NOC_GRAY50),
+                                       Color1(Quantity_NOC_GRAY70));
       }
       return Handle(Aspect_Grid)(myCGrid);
     }
@@ -547,8 +547,8 @@ Handle(Aspect_Grid) ViewManager::Grid(Aspect_GridType theGridType, bool theToCre
       if (myRGrid.IsNull() && theToCreate)
       {
         myRGrid = new V3d_RectangularGrid(this,
-                                          Quantity_Color(Quantity_NOC_GRAY50),
-                                          Quantity_Color(Quantity_NOC_GRAY70));
+                                          Color1(Quantity_NOC_GRAY50),
+                                          Color1(Quantity_NOC_GRAY70));
       }
       return Handle(Aspect_Grid)(myRGrid);
     }
@@ -775,7 +775,7 @@ void ViewManager::ShowGridEcho(const Handle(ViewWindow)& theView, const Vertex1&
     myGridEchoGroup     = myGridEchoStructure->NewGroup();
 
     myGridEchoAspect =
-      new Graphic3d_AspectMarker3d(Aspect_TOM_STAR, Quantity_Color(Quantity_NOC_GRAY90), 3.0);
+      new Graphic3d_AspectMarker3d(Aspect_TOM_STAR, Color1(Quantity_NOC_GRAY90), 3.0);
     myGridEchoGroup->SetPrimitivesAspect(myGridEchoAspect);
   }
 

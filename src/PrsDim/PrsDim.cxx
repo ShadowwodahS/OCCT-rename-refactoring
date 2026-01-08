@@ -73,7 +73,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopoDS_Vertex.hxx>
 
-const Standard_Real SquareTolerance = Precision::SquareConfusion();
+const Standard_Real SquareTolerance = Precision1::SquareConfusion();
 
 //=================================================================================================
 
@@ -230,7 +230,7 @@ Standard_Boolean PrsDim1::ComputeGeometry(const TopoEdge&  theEdge,
 
   const Standard_Real aFirst = anAdaptor.FirstParameter();
   const Standard_Real aLast  = anAdaptor.LastParameter();
-  theIsInfinite              = (Precision::IsInfinite(aFirst) || Precision::IsInfinite(aLast));
+  theIsInfinite              = (Precision1::IsInfinite(aFirst) || Precision1::IsInfinite(aLast));
 
   if (theCurve->IsInstance(STANDARD_TYPE(Geom_TrimmedCurve)))
   {
@@ -278,7 +278,7 @@ Standard_Boolean PrsDim1::ComputeGeometry(const TopoEdge&        theEdge,
   theExtCurve                = theCurve;
   const Standard_Real aFirst = aCurveAdaptor.FirstParameter();
   const Standard_Real aLast  = aCurveAdaptor.LastParameter();
-  theIsInfinite              = (Precision::IsInfinite(aFirst) || Precision::IsInfinite(aLast));
+  theIsInfinite              = (Precision1::IsInfinite(aFirst) || Precision1::IsInfinite(aLast));
 
   // Checks that the projected curve is not in the plane.
   theIsOnPlane = Standard_True;
@@ -290,13 +290,13 @@ Standard_Boolean PrsDim1::ComputeGeometry(const TopoEdge&        theEdge,
   if (Handle(GeomLine) aLine = Handle(GeomLine)::DownCast(theExtCurve))
   {
     theIsOnPlane =
-      thePlane->Pln().Contains(aLine->Lin(), Precision::Confusion(), Precision::Angular());
+      thePlane->Pln().Contains(aLine->Lin(), Precision1::Confusion(), Precision1::Angular());
   }
   else if (Handle(GeomCircle) aCircle = Handle(GeomCircle)::DownCast(theExtCurve))
   {
     Ax3 aCircPos(aCircle->Position1());
     theIsOnPlane =
-      aCircPos.IsCoplanar(thePlane->Pln().Position1(), Precision::Confusion(), Precision::Angular());
+      aCircPos.IsCoplanar(thePlane->Pln().Position1(), Precision1::Confusion(), Precision1::Angular());
   }
 
   if (theIsOnPlane)
@@ -598,12 +598,12 @@ Standard_Boolean PrsDim1::ComputeGeometry(const TopoEdge&        theFirstEdge,
     return Standard_False;
   }
 
-  if (Precision::IsInfinite(aFirst1) || Precision::IsInfinite(aLast1))
+  if (Precision1::IsInfinite(aFirst1) || Precision1::IsInfinite(aLast1))
   {
     theIsInfinite1 = Standard_True;
     theExtIndex    = 1;
   }
-  if (Precision::IsInfinite(aFirst2) || Precision::IsInfinite(aLast2))
+  if (Precision1::IsInfinite(aFirst2) || Precision1::IsInfinite(aLast2))
   {
     theIsInfinite2 = Standard_True;
     theExtIndex    = 2;
@@ -674,7 +674,7 @@ Standard_Boolean PrsDim1::ComputeGeomCurve(Handle(GeomCurve3d)&       aCurve,
   isOnPlane                         = Standard_True;
   const Standard_Integer NodeNumber = 20;
   Standard_Real          Delta      = (last1 - first1) / (NodeNumber - 1);
-  if (Delta <= Precision::PConfusion())
+  if (Delta <= Precision1::PConfusion())
   {
     Delta = last1 - first1;
   }
@@ -692,7 +692,7 @@ Standard_Boolean PrsDim1::ComputeGeomCurve(Handle(GeomCurve3d)&       aCurve,
     CurPar += Delta;
   }
 
-  if (!Precision::IsInfinite(first1) && !Precision::IsInfinite(last1))
+  if (!Precision1::IsInfinite(first1) && !Precision1::IsInfinite(last1))
   {
     FirstPnt1 = aCurve->Value(first1);
     LastPnt1  = aCurve->Value(last1);
@@ -707,7 +707,7 @@ Standard_Boolean PrsDim1::ComputeGeomCurve(Handle(GeomCurve3d)&       aCurve,
     {
       aCurve = Handle(Geom_TrimmedCurve)::DownCast(aCurve)->BasisCurve();
     }
-    if (!Precision::IsInfinite(first1) && !Precision::IsInfinite(last1))
+    if (!Precision1::IsInfinite(first1) && !Precision1::IsInfinite(last1))
     {
       FirstPnt1 = PrsDim1::ProjectPointOnPlane(FirstPnt1, aPlane->Pln());
       LastPnt1  = PrsDim1::ProjectPointOnPlane(LastPnt1, aPlane->Pln());
@@ -729,7 +729,7 @@ Standard_Boolean PrsDim1::ComputeGeometry(const TopoVertex&      aVertex,
                                          Standard_Boolean&         isOnPlane)
 {
   point     = BRepInspector::Pnt(aVertex);
-  isOnPlane = aPlane->Pln().Contains(point, Precision::Confusion());
+  isOnPlane = aPlane->Pln().Contains(point, Precision1::Confusion());
   if (!isOnPlane)
   {
     point = PrsDim1::ProjectPointOnPlane(point, aPlane->Pln());
@@ -863,7 +863,7 @@ void PrsDim1::InitFaceLength(const TopoFace&    theFace,
                             Standard_Real&        theOffset)
 {
   if (PrsDim1::GetPlaneFromFace(theFace, thePlane, theSurface, theSurfaceType, theOffset)
-      && Abs(theOffset) > Precision::Confusion())
+      && Abs(theOffset) > Precision1::Confusion())
   {
     theSurface = new Geom_OffsetSurface(theSurface, theOffset);
     theOffset  = 0.0e0;
@@ -882,7 +882,7 @@ Standard_Boolean PrsDim1::InitAngleBetweenPlanarFaces(const TopoFace&     theFir
   Handle(GeomPlane) aFirstPlane  = Handle(GeomPlane)::DownCast(BRepInspector::Surface(theFirstFace));
   Handle(GeomPlane) aSecondPlane = Handle(GeomPlane)::DownCast(BRepInspector::Surface(theSecondFace));
 
-  SurfaceIntersector aPlaneIntersector(aFirstPlane, aSecondPlane, Precision::Confusion());
+  SurfaceIntersector aPlaneIntersector(aFirstPlane, aSecondPlane, Precision1::Confusion());
 
   // Fails if two planes haven't only one intersection line.
   if (!aPlaneIntersector.IsDone())
@@ -968,7 +968,7 @@ Standard_Boolean PrsDim1::InitAngleBetweenCurvilinearFaces(
   Handle(GeomSurface) aSecondSurf = BRepInspector::Surface(theSecondFace);
 
   // Find intersection curve between two surfaces.
-  SurfaceIntersector aSurfaceIntersector(aFirstSurf, aSecondSurf, Precision::Confusion());
+  SurfaceIntersector aSurfaceIntersector(aFirstSurf, aSecondSurf, Precision1::Confusion());
 
   // Fails if two planes haven't only one intersection line.
   if (!aSurfaceIntersector.IsDone())
@@ -1026,8 +1026,8 @@ Standard_Boolean PrsDim1::InitAngleBetweenCurvilinearFaces(
     Standard_Real aSecondU = anXdirection.Angle(aToFirstAttach);
 
     // Check sign
-    if (!anXdirection.IsEqual(aToFirstAttach, Precision::Angular())
-        && !anXdirection.IsOpposite(aToFirstAttach, Precision::Angular())
+    if (!anXdirection.IsEqual(aToFirstAttach, Precision1::Angular())
+        && !anXdirection.IsOpposite(aToFirstAttach, Precision1::Angular())
         && (anXdirection ^ aToFirstAttach) * aCone->Cone().Axis().Direction() < 0.0)
     {
       aSecondU = 2 * M_PI - aSecondU;
@@ -1040,9 +1040,9 @@ Standard_Boolean PrsDim1::InitAngleBetweenCurvilinearFaces(
   }
 
   // If angle can be computed between two lines.
-  if (!(aFirstLine->Lin().Direction().IsEqual(aSecondLine->Lin().Direction(), Precision::Angular()))
+  if (!(aFirstLine->Lin().Direction().IsEqual(aSecondLine->Lin().Direction(), Precision1::Angular()))
       && !(aFirstLine->Lin().Direction().IsOpposite(aSecondLine->Lin().Direction(),
-                                                    Precision::Angular())))
+                                                    Precision1::Angular())))
   {
     GeomAPI_ExtremaCurveCurve anIntersector(aFirstLine, aSecondLine);
     anIntersector.Points(1, theCenter, theCenter);
@@ -1157,7 +1157,7 @@ void PrsDim1::InitLengthBetweenCurvilinearFaces(const TopoFace&    theFirstFace,
         ? Dir3d(Vector3d(theFirstAttach, aProjector.Point(aPointIt)))
         : Dir3d(aD1U ^ aD1V);
 
-    if (aFirstSurfN.IsParallel(aLocalDir, Precision::Angular())
+    if (aFirstSurfN.IsParallel(aLocalDir, Precision1::Angular())
         && aProjector.Distance(aPointIt) < aMinDist)
     {
       aBestPointIndex = aPointIt;
@@ -1175,7 +1175,7 @@ void PrsDim1::InitLengthBetweenCurvilinearFaces(const TopoFace&    theFirstFace,
     aProjector.Parameters(aBestPointIndex, aPU, aPV);
 
     // Now there is projection of FirstAttach onto SecondSurf in aProjector
-    BRepTopAdaptor_FClass2d aClassifier(theSecondFace, Precision::Confusion());
+    BRepTopAdaptor_FClass2d aClassifier(theSecondFace, Precision1::Confusion());
 
     TopAbs_State aState =
       aClassifier.Perform(gp_Pnt2d(aPU, aPV),
@@ -1207,7 +1207,7 @@ Point3d PrsDim1::TranslatePointToBound(const Point3d&  aPoint,
     aDir.Coord(Dir(1), Dir(2), Dir(3));
 
     Box2 EnlargedBox = aBndBox;
-    EnlargedBox.Enlarge(aBndBox.GetGap() + Precision::Confusion());
+    EnlargedBox.Enlarge(aBndBox.GetGap() + Precision1::Confusion());
 
     Standard_Boolean IsFound = Standard_False;
     for (Standard_Integer i = 1; i <= 3; i++)
@@ -1381,7 +1381,7 @@ void PrsDim1::ComputeProjEdgePresentation(const Handle(Prs3d_Presentation)& aPre
   Handle(GeomCurve3d) curve;
   Standard_Boolean   isInfinite;
   curve      = BRepInspector::Curve(anEdge, loc, pf, pl);
-  isInfinite = (Precision::IsInfinite(pf) || Precision::IsInfinite(pl));
+  isInfinite = (Precision1::IsInfinite(pf) || Precision1::IsInfinite(pl));
 
   TopoEdge E;
 
@@ -1500,7 +1500,7 @@ void PrsDim1::ComputeProjVertexPresentation(const Handle(Prs3d_Presentation)& aP
   }
 
   // If the points are not mixed...
-  if (!ProjPoint.IsEqual(BRepInspector::Pnt(aVertex), Precision::Confusion()))
+  if (!ProjPoint.IsEqual(BRepInspector::Pnt(aVertex), Precision1::Confusion()))
   {
     // calculate the lines of recall
     EdgeMaker MakEd(ProjPoint, BRepInspector::Pnt(aVertex));

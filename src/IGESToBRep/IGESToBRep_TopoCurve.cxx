@@ -146,7 +146,7 @@ TopoVertex IGESToBRep_TopoCurve::TransferPoint(const Handle(IGESGeom_Point)& sta
     point = start->Value();
 
   point.Scale(Point3d(0, 0, 0), GetUnitFactor());
-  B.MakeVertex(V1, point, Precision::Confusion()); // S4135: GetEpsGeom()*GetUnitFactor()
+  B.MakeVertex(V1, point, Precision1::Confusion()); // S4135: GetEpsGeom()*GetUnitFactor()
 
   // szv#9:PRO19565:04Oct99
   if (GetModeTransfer() && start->HasTransf())
@@ -188,7 +188,7 @@ TopoVertex IGESToBRep_TopoCurve::Transfer2dPoint(const Handle(IGESGeom_Point)& s
   else
     point = Point3d(start->Value().X(), start->Value().Y(), 0.);
 
-  B.MakeVertex(V1, point, Precision::Confusion()); // S4135: GetEpsCoeff()
+  B.MakeVertex(V1, point, Precision1::Confusion()); // S4135: GetEpsCoeff()
   return V1;
 }
 
@@ -1012,7 +1012,7 @@ TopoShape IGESToBRep_TopoCurve::TransferTopoBasicCurve(const Handle(IGESData_IGE
         mycurve                       = tmp->BasisCurve();
       }
       EdgeMaker ME(mycurve, a, b);
-      if (!ME.IsDone() || (Precision::IsInfinite(a) || Precision::IsInfinite(b)))
+      if (!ME.IsDone() || (Precision1::IsInfinite(a) || Precision1::IsInfinite(b)))
       {
         Message_Msg Msg1005("IGES_1005");
         SendFail(start, Msg1005);

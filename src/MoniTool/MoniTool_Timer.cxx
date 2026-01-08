@@ -29,7 +29,7 @@ void MoniTool_Timer::Dump(Standard_OStream& ostr)
   Standard_Real    seconds, CPUtime, user, system;
 
   myTimer.Show(seconds, minutes, hours, CPUtime);
-  myTimer.OSD_Chronometer::Show(user, system);
+  myTimer.Chronometer::Show(user, system);
 
   Standard_Real elapsed = seconds + minutes * 60 + hours * 3600;
 

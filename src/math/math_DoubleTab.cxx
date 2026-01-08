@@ -26,7 +26,7 @@ void DoubleTab::Allocate()
   Standard_Integer ColNumber = UppC - LowC + 1;
 
   if (isAllocated)
-    Addr = (Standard_Real*)Standard::Allocate(RowNumber * ColNumber * sizeof(Standard_Real));
+    Addr = (Standard_Real*)Standard1::Allocate(RowNumber * ColNumber * sizeof(Standard_Real));
 }
 
 DoubleTab::DoubleTab(const Standard_Integer LowerRow,
@@ -84,7 +84,7 @@ void DoubleTab::Free()
   // free the data
   if (isAllocated)
   {
-    Standard::Free(Addr);
+    Standard1::Free(Addr);
   }
 
   Addr = 0;

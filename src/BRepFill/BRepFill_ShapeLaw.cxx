@@ -65,7 +65,7 @@ BRepFill_ShapeLaw::BRepFill_ShapeLaw(const TopoVertex& V, const Standard_Boolean
     //    Point3d Origine;
     Dir3d                    D(1, 0, 0); // Following the normal
     Handle(GeomLine)         L    = new (GeomLine)(BRepInspector::Pnt(V), D);
-    Standard_Real             Last = 2 * BRepInspector::Tolerance(V) + Precision::PConfusion();
+    Standard_Real             Last = 2 * BRepInspector::Tolerance(V) + Precision1::PConfusion();
     Handle(Geom_TrimmedCurve) TC   = new (Geom_TrimmedCurve)(L, 0, Last);
 
     myLaws->ChangeValue(1) = new (GeomFill_UniformSection)(TC);
@@ -159,7 +159,7 @@ void BRepFill_ShapeLaw::Init(const Standard_Boolean Build)
           }
 
           Standard_Boolean IsClosed = BRepInspector::IsClosed(E);
-          if (IsClosed && Abs(C->FirstParameter() - First) > Precision::PConfusion())
+          if (IsClosed && Abs(C->FirstParameter() - First) > Precision1::PConfusion())
             IsClosed = Standard_False; // trimmed curve differs
 
           if ((ii > 1) || !IsClosed)
@@ -284,7 +284,7 @@ TopoVertex BRepFill_ShapeLaw::Vertex(const Standard_Integer Index,
 Standard_Real BRepFill_ShapeLaw::VertexTol(const Standard_Integer Index,
                                            const Standard_Real    Param) const
 {
-  Standard_Real    Tol = Precision::Confusion();
+  Standard_Real    Tol = Precision1::Confusion();
   Standard_Integer I1, I2;
   if ((Index == 0) || (Index == myEdges->Length()))
   {
@@ -377,7 +377,7 @@ Handle(GeomFill_SectionLaw) BRepFill_ShapeLaw::ConcatenedLaw() const
           epsV = BRepInspector::Tolerance(V);
         }
         else
-          epsV = 10 * Precision::PConfusion();
+          epsV = 10 * Precision1::PConfusion();
         Bof = Concat.Add(TC, epsV, Standard_True, Standard_False, 20);
         if (!Bof)
           Bof = Concat.Add(TC, 200 * epsV, Standard_True, Standard_False, 20);

@@ -115,7 +115,7 @@ public:
   //! Handle KeyPress event.
   Standard_EXPORT void ProcessKeyPress(Aspect_VKey theKey);
 
-  //! Callback called on Selection of another (sub)view.
+  //! Callback1 called on Selection of another (sub)view.
   //! This method is expected to be called from rendering thread.
   Standard_EXPORT virtual void OnSubviewChanged(const Handle(VisualContext)& theCtx,
                                                 const Handle(ViewWindow)&               theOldView,
@@ -160,7 +160,7 @@ protected:
 
 private:
 #if defined(__EMSCRIPTEN__)
-  //! Callback flushing events and redrawing the WebGL canvas.
+  //! Callback1 flushing events and redrawing the WebGL canvas.
   static void onWasmRedrawView(void*);
 #endif
 

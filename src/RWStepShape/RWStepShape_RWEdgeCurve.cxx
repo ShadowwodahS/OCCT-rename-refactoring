@@ -76,7 +76,7 @@ Standard_Boolean GetFaceBoundOrientation(const Handle(StepShape_OrientedEdge)& t
 // Function : GetFaceBoundOrientation
 // Purpose  : Returns true if start and end points of theEdgeCurve
 //            are valid points of the different vertices and are
-//            equal to each other within Precision::Confusion().
+//            equal to each other within Precision1::Confusion().
 // ================================================================
 Standard_Boolean AreEndsMatch(const Handle(StepShape_EdgeCurve)& theEdgeCurve)
 {
@@ -105,7 +105,7 @@ Standard_Boolean AreEndsMatch(const Handle(StepShape_EdgeCurve)& theEdgeCurve)
              * (aStartPoint->CoordinatesValue(2) - anEndPoint->CoordinatesValue(2))
          + (aStartPoint->CoordinatesValue(3) - anEndPoint->CoordinatesValue(3))
              * (aStartPoint->CoordinatesValue(3) - anEndPoint->CoordinatesValue(3)));
-  return aDistance < Precision::Confusion();
+  return aDistance < Precision1::Confusion();
 }
 } // namespace
 

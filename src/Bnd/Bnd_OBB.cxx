@@ -420,7 +420,7 @@ OBBTool::OBBTool(const TColgp_Array1OfPnt&   theL,
     for (Standard_Integer iP = theL.Lower(); iP <= theL.Upper(); ++iP)
     {
       const Point3d&             aP   = theL(iP);
-      Standard_Real             aTol = theLT ? theLT->Value(iP) : Precision::Confusion();
+      Standard_Real             aTol = theLT ? theLT->Value(iP) : Precision1::Confusion();
       BVH_Box<Standard_Real, 3> aBox(BVH_Vec3d(aP.X() - aTol, aP.Y() - aTol, aP.Z() - aTol),
                                      BVH_Vec3d(aP.X() + aTol, aP.Y() + aTol, aP.Z() + aTol));
       myPointBoxSet->Add(aP.XYZ(), aBox);
@@ -560,10 +560,10 @@ void OBBTool::FillToTriangle5(const Coords3d& theNormal, const Coords3d& theBarr
   }
 
   // The points must be in the different sides of the triangle plane.
-  if (id3 >= 0 && aParams[0] < -Precision::Confusion())
+  if (id3 >= 0 && aParams[0] < -Precision1::Confusion())
     myTriIdx[3] = id3;
 
-  if (id4 >= 0 && aParams[1] > Precision::Confusion())
+  if (id4 >= 0 && aParams[1] > Precision1::Confusion())
     myTriIdx[4] = id4;
 }
 
@@ -592,7 +592,7 @@ void OBBTool::ProcessTriangle(const Standard_Integer theIdx1,
 
   Standard_Real aSqMod = aZAxis.SquareModulus();
 
-  if (aSqMod < Precision::SquareConfusion())
+  if (aSqMod < Precision1::SquareConfusion())
     return;
 
   aZAxis /= Sqrt(aSqMod);
@@ -686,7 +686,7 @@ void OBBTool::BuildBox(OrientedBox& theBox)
 {
   theBox.SetVoid();
 
-  // In fact, use Precision::SquareConfusion().
+  // In fact, use Precision1::SquareConfusion().
   const Standard_Boolean isOBB =
     myAxes[0].SquareModulus() * myAxes[1].SquareModulus() * myAxes[2].SquareModulus() > 1.0e-14;
 
@@ -781,10 +781,10 @@ void OrientedBox::ReBuild(const TColgp_Array1OfPnt&   theListOfPoints,
       myIsAABox                = Standard_False;
       myHDims[1] = myHDims[2] = Max(aTol1, aTol2);
 
-      if (aDPm < Precision::Confusion())
+      if (aDPm < Precision1::Confusion())
       {
         ProcessOnePoint(aP1);
-        Enlarge(myHDims[1] + Precision::Confusion());
+        Enlarge(myHDims[1] + Precision1::Confusion());
         return;
       }
 

@@ -49,8 +49,8 @@ static Standard_Integer WritePly(DrawInterpreter& theDI,
   AsciiString1     aShapeName, aFileName;
 
   Standard_Real aDist     = 0.0;
-  Standard_Real aDens     = Precision::Infinite();
-  Standard_Real aTol      = Precision::Confusion();
+  Standard_Real aDens     = Precision1::Infinite();
+  Standard_Real aTol      = Precision1::Confusion();
   bool          hasColors = true, hasNormals = true, hasTexCoords = false, hasPartId = true,
        hasFaceId                                = false;
   bool                                 isPntSet = false, isDensityPoints = false;
@@ -100,7 +100,7 @@ static Standard_Integer WritePly(DrawInterpreter& theDI,
         theDI << "Syntax error: -distance value should be >= 0.0";
         return 1;
       }
-      aDist = Max(aDist, Precision::Confusion());
+      aDist = Max(aDist, Precision1::Confusion());
     }
     else if ((anArg == "-dens" || anArg == "-density") && anArgIter + 1 < theNbArgs
              && Draw1::ParseReal(theArgVec[anArgIter + 1], aDens))
@@ -119,9 +119,9 @@ static Standard_Integer WritePly(DrawInterpreter& theDI,
     {
       ++anArgIter;
       isPntSet = true;
-      if (aTol < Precision::Confusion())
+      if (aTol < Precision1::Confusion())
       {
-        theDI << "Syntax error: -tol value should be >= " << Precision::Confusion();
+        theDI << "Syntax error: -tol value should be >= " << Precision1::Confusion();
         return 1;
       }
     }
@@ -325,7 +325,7 @@ Generate point cloud out of the shape and write it into PLY file.
  -pointCloud write point cloud instead without triangulation indices
  -distance   sets distance from shape into the range [0, Value];
  -density    sets density of points to generate randomly on surface;
- -tolerance  sets tolerance; default value is Precision::Confusion();
+ -tolerance  sets tolerance; default value is Precision1::Confusion();
 )",
             __FILE__,
             WritePly,

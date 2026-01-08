@@ -529,7 +529,7 @@ void AIS_Trihedron::computePresentation(const Handle(PrsMgr_PresentationManager)
 //=================================================================================================
 
 void AIS_Trihedron::SetDatumPartColor(const Prs3d_DatumParts thePart,
-                                      const Quantity_Color&  theColor)
+                                      const Color1&  theColor)
 {
   setOwnDatumAspect();
 
@@ -542,7 +542,7 @@ void AIS_Trihedron::SetDatumPartColor(const Prs3d_DatumParts thePart,
 
 //=================================================================================================
 
-void AIS_Trihedron::SetTextColor(const Prs3d_DatumParts thePart, const Quantity_Color& theColor)
+void AIS_Trihedron::SetTextColor(const Prs3d_DatumParts thePart, const Color1& theColor)
 {
   setOwnDatumAspect();
   myDrawer->DatumAspect()->TextAspect(thePart)->SetColor(theColor);
@@ -550,7 +550,7 @@ void AIS_Trihedron::SetTextColor(const Prs3d_DatumParts thePart, const Quantity_
 
 //=================================================================================================
 
-void AIS_Trihedron::SetTextColor(const Quantity_Color& theColor)
+void AIS_Trihedron::SetTextColor(const Color1& theColor)
 {
   setOwnDatumAspect();
   myDrawer->DatumAspect()->TextAspect(Prs3d_DatumParts_XAxis)->SetColor(theColor);
@@ -560,7 +560,7 @@ void AIS_Trihedron::SetTextColor(const Quantity_Color& theColor)
 
 //=================================================================================================
 
-Quantity_Color AIS_Trihedron::DatumPartColor(Prs3d_DatumParts thePart)
+Color1 AIS_Trihedron::DatumPartColor(Prs3d_DatumParts thePart)
 {
   if (myTrihDispMode == Prs3d_DM_Shaded)
   {
@@ -574,7 +574,7 @@ Quantity_Color AIS_Trihedron::DatumPartColor(Prs3d_DatumParts thePart)
 
 //=================================================================================================
 
-void AIS_Trihedron::SetOriginColor(const Quantity_Color& theColor)
+void AIS_Trihedron::SetOriginColor(const Color1& theColor)
 {
   if (myTrihDispMode == Prs3d_DM_Shaded)
   {
@@ -584,28 +584,28 @@ void AIS_Trihedron::SetOriginColor(const Quantity_Color& theColor)
 
 //=================================================================================================
 
-void AIS_Trihedron::SetXAxisColor(const Quantity_Color& theColor)
+void AIS_Trihedron::SetXAxisColor(const Color1& theColor)
 {
   SetDatumPartColor(Prs3d_DatumParts_XAxis, theColor);
 }
 
 //=================================================================================================
 
-void AIS_Trihedron::SetYAxisColor(const Quantity_Color& theColor)
+void AIS_Trihedron::SetYAxisColor(const Color1& theColor)
 {
   SetDatumPartColor(Prs3d_DatumParts_YAxis, theColor);
 }
 
 //=================================================================================================
 
-void AIS_Trihedron::SetAxisColor(const Quantity_Color& theColor)
+void AIS_Trihedron::SetAxisColor(const Color1& theColor)
 {
   SetDatumPartColor(Prs3d_DatumParts_ZAxis, theColor);
 }
 
 //=================================================================================================
 
-void AIS_Trihedron::SetColor(const Quantity_Color& theColor)
+void AIS_Trihedron::SetColor(const Color1& theColor)
 {
   hasOwnColor = Standard_True;
   myDrawer->SetColor(theColor);
@@ -618,7 +618,7 @@ void AIS_Trihedron::SetColor(const Quantity_Color& theColor)
 
 //=================================================================================================
 
-void AIS_Trihedron::SetArrowColor(const Prs3d_DatumParts thePart, const Quantity_Color& theColor)
+void AIS_Trihedron::SetArrowColor(const Prs3d_DatumParts thePart, const Color1& theColor)
 {
   setOwnDatumAspect();
   myHasOwnArrowColor                 = Standard_True;
@@ -629,7 +629,7 @@ void AIS_Trihedron::SetArrowColor(const Prs3d_DatumParts thePart, const Quantity
 
 //=================================================================================================
 
-void AIS_Trihedron::SetArrowColor(const Quantity_Color& theColor)
+void AIS_Trihedron::SetArrowColor(const Color1& theColor)
 {
   setOwnDatumAspect();
 
@@ -645,14 +645,14 @@ void AIS_Trihedron::SetArrowColor(const Quantity_Color& theColor)
 
 //=================================================================================================
 
-Quantity_Color AIS_Trihedron::TextColor() const
+Color1 AIS_Trihedron::TextColor() const
 {
   return myDrawer->DatumAspect()->TextAspect(Prs3d_DatumParts_XAxis)->Aspect()->Color();
 }
 
 //=================================================================================================
 
-Quantity_Color AIS_Trihedron::ArrowColor() const
+Color1 AIS_Trihedron::ArrowColor() const
 {
   return myDrawer->DatumAspect()->ArrowAspect()->Aspect()->Color();
 }
@@ -662,7 +662,7 @@ Quantity_Color AIS_Trihedron::ArrowColor() const
 void AIS_Trihedron::UnsetColor()
 {
   hasOwnColor = Standard_False;
-  Quantity_Color aDefaultColor(Quantity_NOC_LIGHTSTEELBLUE4);
+  Color1 aDefaultColor(Quantity_NOC_LIGHTSTEELBLUE4);
   SetColor(aDefaultColor);
   if (HasTextColor())
   {

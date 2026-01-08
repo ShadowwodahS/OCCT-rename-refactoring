@@ -112,7 +112,7 @@ void Units_UnitsSystem::Specify(const Standard_CString aquantity, const Standard
     }
   }
 
-  quantity = Units::Quantity(aquantity);
+  quantity = Units2::Quantity(aquantity);
 
   //  Units_NoSuchType_Raise_if(quantity.IsNull(),aquantity);
   if (quantity.IsNull())
@@ -319,7 +319,7 @@ Standard_Real Units_UnitsSystem::ConvertSIValueToUserSystem(const Standard_CStri
     }
   }
 
-  quantity = Units::Quantity(aquantity);
+  quantity = Units2::Quantity(aquantity);
 
   Units_NoSuchType_Raise_if(quantity.IsNull(), aquantity);
 
@@ -369,7 +369,7 @@ Standard_Real Units_UnitsSystem::ConvertUserSystemValueToSI(const Standard_CStri
     }
   }
 
-  quantity = Units::Quantity(aquantity);
+  quantity = Units2::Quantity(aquantity);
 
   Units_NoSuchType_Raise_if(quantity.IsNull(), aquantity);
 

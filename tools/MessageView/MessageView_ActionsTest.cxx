@@ -298,9 +298,9 @@ void MessageView_ActionsTest::OnTestMessenger()
     aColor.DumpJson(sout);
     sout.Flush(Standard_True);
   }
-  // Quantity_Color
+  // Color1
   {
-    Quantity_Color aColor(0.8, 0.8, 0.8, Quantity_TOC_RGB);
+    Color1 aColor(0.8, 0.8, 0.8, Quantity_TOC_RGB);
     aColor.DumpJson(sout);
     sout.Flush(Standard_True);
   }

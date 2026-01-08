@@ -111,5 +111,5 @@ GeomAbs_Shape BRepLProp1::Continuity(const BRepAdaptor_Curve& C1,
                                     const Standard_Real      u1,
                                     const Standard_Real      u2)
 {
-  return Continuity(C1, C2, u1, u2, Precision::Confusion(), Precision::Angular());
+  return Continuity(C1, C2, u1, u2, Precision1::Confusion(), Precision1::Angular());
 }

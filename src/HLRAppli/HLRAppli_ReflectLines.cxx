@@ -71,7 +71,7 @@ void HLRAppli_ReflectLines::Perform()
 
   myCompound = aHLRToShape.OutLineVCompound3d();
 
-  BRepLib1::SameParameter(myCompound,Precision::PConfusion(),Standard_False);
+  BRepLib1::SameParameter(myCompound,Precision1::PConfusion(),Standard_False);
   */
 }
 
@@ -85,7 +85,7 @@ TopoShape HLRAppli_ReflectLines::GetCompoundOf3dEdges(const HLRBRep_TypeOfResult
 
   TopoShape theCompound = aHLRToShape.CompoundOfEdges(type, visible, In3d);
 
-  BRepLib1::SameParameter(theCompound, Precision::PConfusion(), Standard_False);
+  BRepLib1::SameParameter(theCompound, Precision1::PConfusion(), Standard_False);
 
   return theCompound;
 }

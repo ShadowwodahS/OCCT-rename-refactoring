@@ -21,7 +21,7 @@ IMPLEMENT_STANDARD_RTTIEXT(V3d_SpotLight, V3d_PositionLight)
 
 V3d_SpotLight::V3d_SpotLight(const Point3d&               thePos,
                              const V3d_TypeOfOrientation theDirection,
-                             const Quantity_Color&       theColor)
+                             const Color1&       theColor)
     : V3d_PositionLight(Graphic3d_TypeOfLightSource_Spot)
 {
   SetColor(theColor);
@@ -33,7 +33,7 @@ V3d_SpotLight::V3d_SpotLight(const Point3d&               thePos,
 
 V3d_SpotLight::V3d_SpotLight(const Point3d&         thePos,
                              const Dir3d&         theDirection,
-                             const Quantity_Color& theColor)
+                             const Color1& theColor)
     : V3d_PositionLight(Graphic3d_TypeOfLightSource_Spot)
 {
   SetColor(theColor);

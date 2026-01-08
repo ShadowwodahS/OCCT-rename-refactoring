@@ -37,19 +37,19 @@ static NCollection_List<CreatorData>& Creators()
 }
 
 //! Global map of the string-type of derived attribute -> instance of such attribute
-static NCollection_DataMap<Standard_CString, Handle(TDF_Attribute), Standard_CStringHasher>&
+static NCollection_DataMap<Standard_CString, Handle(TDF_Attribute), CStringHasher>&
   Attributes()
 {
-  static NCollection_DataMap<Standard_CString, Handle(TDF_Attribute), Standard_CStringHasher>
+  static NCollection_DataMap<Standard_CString, Handle(TDF_Attribute), CStringHasher>
     THE_DERIVED;
   return THE_DERIVED;
 }
 
 //! Global map of the string-type of derived attribute -> type name to identify this attribute
-static NCollection_DataMap<Standard_CString, AsciiString1*, Standard_CStringHasher>&
+static NCollection_DataMap<Standard_CString, AsciiString1*, CStringHasher>&
   Types()
 {
-  static NCollection_DataMap<Standard_CString, AsciiString1*, Standard_CStringHasher>
+  static NCollection_DataMap<Standard_CString, AsciiString1*, CStringHasher>
     THE_DERIVED_TYPES;
   return THE_DERIVED_TYPES;
 }
@@ -160,7 +160,7 @@ void DerivedAttribute::Attributes(NCollection_List<Handle(TDF_Attribute)>& theLi
 {
   Standard_Mutex::Sentry aSentry(TDF_DerivedAttributeGlobals::Mutex());
   Initialize();
-  NCollection_DataMap<Standard_CString, Handle(TDF_Attribute), Standard_CStringHasher>::Iterator
+  NCollection_DataMap<Standard_CString, Handle(TDF_Attribute), CStringHasher>::Iterator
     anAttrIter;
   for (anAttrIter.Initialize(TDF_DerivedAttributeGlobals::Attributes()); anAttrIter.More();
        anAttrIter.Next())

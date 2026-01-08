@@ -132,14 +132,14 @@ Standard_Real Geom2d_Hyperbola::ReversedParameter(const Standard_Real U) const
 
 Standard_Real Geom2d_Hyperbola::FirstParameter() const
 {
-  return -Precision::Infinite();
+  return -Precision1::Infinite();
 }
 
 //=================================================================================================
 
 Standard_Real Geom2d_Hyperbola::LastParameter() const
 {
-  return Precision::Infinite();
+  return Precision1::Infinite();
 }
 
 //=================================================================================================

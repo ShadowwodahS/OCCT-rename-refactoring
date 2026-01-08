@@ -32,7 +32,7 @@ public:
 
   //! Constructor initialized by shape
   Standard_EXPORT BRepLib_PointCloudShape(const TopoShape& theShape = TopoShape(),
-                                          const Standard_Real theTol   = Precision::Confusion());
+                                          const Standard_Real theTol   = Precision1::Confusion());
 
   //! Virtual destructor
   Standard_EXPORT virtual ~BRepLib_PointCloudShape();

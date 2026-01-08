@@ -144,7 +144,7 @@ Standard_Integer DNaming_PrismDriver::Execute(Handle(TFunction_Logbook)& theLog)
 
   // Height
   Standard_Real aHeight = DNaming1::GetReal(aFunction, PRISM_HEIGHT)->Get();
-  if (aHeight <= Precision::Confusion())
+  if (aHeight <= Precision1::Confusion())
   {
     aFunction->SetFailure(WRONG_ARGUMENT);
     return -1;
@@ -197,7 +197,7 @@ Standard_Integer DNaming_PrismDriver::Execute(Handle(TFunction_Logbook)& theLog)
   {
     GeometricProperties aGProp;
     BRepGProp1::VolumeProperties(aResult, aGProp);
-    if (aGProp.Mass() <= Precision::Confusion())
+    if (aGProp.Mass() <= Precision1::Confusion())
     {
       aFunction->SetFailure(RESULT_NOT_VALID);
       return -1;

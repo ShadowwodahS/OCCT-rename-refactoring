@@ -21,7 +21,7 @@
 #include <IntRes2d_Domain.hxx>
 #include <Precision.hxx>
 
-const Standard_Real infVal = Precision::Infinite();
+const Standard_Real infVal = Precision1::Infinite();
 
 //=================================================================================================
 

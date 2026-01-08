@@ -135,7 +135,7 @@ bool DEGLTF_Provider::Write(const AsciiString1&  thePath,
     aConverter.SetInputLengthUnit(aNode->GlobalParameters.SystemUnit / 1000.);
     Message1::SendWarning()
       << "Warning in the DEGLTF_Provider during writing the file " << thePath
-      << "\t: The document has no information on Units. Using global parameter as initial Unit.";
+      << "\t: The document has no information on Units2. Using global parameter as initial Unit.";
   }
   aConverter.SetInputCoordinateSystem(aNode->InternalParameters.SystemCS);
   if (aNode->GlobalParameters.LengthUnit != 1000.)

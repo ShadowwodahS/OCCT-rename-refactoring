@@ -117,7 +117,7 @@ public:
 
   //! Defines the default background colour of views
   //! attached to the viewer by supplying the color object
-  void SetDefaultBackgroundColor(const Quantity_Color& theColor)
+  void SetDefaultBackgroundColor(const Color1& theColor)
   {
     myBackground.SetColor(theColor);
   }
@@ -128,8 +128,8 @@ public:
   //! Defines the default gradient background colours of views
   //! attached to the viewer by supplying the colour objects
   void SetDefaultBgGradientColors(
-    const Quantity_Color&           theColor1,
-    const Quantity_Color&           theColor2,
+    const Color1&           theColor1,
+    const Color1&           theColor2,
     const Aspect_GradientFillMethod theFillStyle = Aspect_GradientFillMethod_Horizontal)
   {
     myGradientBackground.SetColors(theColor1, theColor2, theFillStyle);
@@ -177,10 +177,10 @@ public:
   void SetDefaultTypeOfView(const V3d_TypeOfView theType) { myDefaultTypeOfView = theType; }
 
   //! Returns the default background colour object.
-  Quantity_Color DefaultBackgroundColor() const { return myBackground.Color(); }
+  Color1 DefaultBackgroundColor() const { return myBackground.Color(); }
 
   //! Returns the gradient background colour objects of the view.
-  void DefaultBgGradientColors(Quantity_Color& theColor1, Quantity_Color& theColor2) const
+  void DefaultBgGradientColors(Color1& theColor1, Color1& theColor2) const
   {
     myGradientBackground.Colors(theColor1, theColor2);
   }

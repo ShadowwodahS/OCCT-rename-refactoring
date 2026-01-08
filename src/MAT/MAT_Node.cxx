@@ -132,7 +132,7 @@ Standard_Boolean MAT_Node::OnBasicElt() const
 
 Standard_Boolean MAT_Node::Infinite() const
 {
-  return (Distance() == Precision::Infinite());
+  return (Distance() == Precision1::Infinite());
 }
 
 //=================================================================================================

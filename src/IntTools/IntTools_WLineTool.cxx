@@ -419,7 +419,7 @@ static Standard_Boolean FindPoint(const gp_Pnt2d&     theFirstPoint,
     RefineVector(anormvec);
     Standard_Real adot1 = anormvec.Dot(anOtherVecNormal);
 
-    if (fabs(adot1) < Precision::Angular())
+    if (fabs(adot1) < Precision1::Angular())
       continue;
     Standard_Real    adist  = 0.;
     Standard_Boolean bIsOut = Standard_False;
@@ -449,7 +449,7 @@ static Standard_Boolean FindPoint(const gp_Pnt2d&     theFirstPoint,
       aDotX    = aVec.Dot(acurvec);
       anAngleX = aVec.Angle(acurvec);
       //
-      if (aDotX > 0. && fabs(anAngleX) < Precision::PConfusion())
+      if (aDotX > 0. && fabs(anAngleX) < Precision1::PConfusion())
       {
         if ((i % 2) == 0)
         {
@@ -516,7 +516,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
 
   //
   nblines                = 0;
-  aTol                   = Precision::Confusion();
+  aTol                   = Precision1::Confusion();
   aTol                   = 0.5 * aTol;
   bIsPrevPointOnBoundary = Standard_False;
   bIsPointOnBoundary     = Standard_False;
@@ -800,7 +800,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
             Standard_Real    anewU = (bIsUBoundary) ? anotherPar : U;
             Standard_Real    anewV = (bIsUBoundary) ? V : anotherPar;
 
-            if (((adist1 - adist2) > Precision::PConfusion()) && (adist2 < (aPeriod / 4.)))
+            if (((adist1 - adist2) > Precision1::PConfusion()) && (adist2 < (aPeriod / 4.)))
             {
               bCheckAngle1 = Standard_True;
               aNewVec      = gp_Vec2d(gp_Pnt2d(nU1, nV1), gp_Pnt2d(anewU, anewV));

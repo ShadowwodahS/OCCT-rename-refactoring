@@ -46,7 +46,7 @@ public:
 
   //! Initializes the tool.
   //! @param theReservedSize size to be reserved for vector of circles.
-  void Init(const Standard_Integer /*theReservedSize*/) { myTolerance = Precision::PConfusion(); }
+  void Init(const Standard_Integer /*theReservedSize*/) { myTolerance = Precision1::PConfusion(); }
 
   //! Sets new size for cell filter.
   //! @param theSize cell size to be set for X and Y dimensions.

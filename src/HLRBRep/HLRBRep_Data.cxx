@@ -613,7 +613,7 @@ void HLRBRep_Data::Update(const HLRAlgoProjector& P)
   HLRAlgo_EdgesBlock::MinMaxIndices1 EdgeMin, EdgeMax;
   HLRAlgo_EdgesBlock::MinMaxIndices1 MinMaxEdge;
   Standard_Real                     TotMin[16], TotMax[16];
-  HLRAlgo1::InitMinMax(Precision::Infinite(), TotMin, TotMax);
+  HLRAlgo1::InitMinMax(Precision1::Infinite(), TotMin, TotMax);
 
   // compute the global MinMax
   // *************************
@@ -630,7 +630,7 @@ void HLRBRep_Data::Update(const HLRAlgoProjector& P)
   }
   HLRAlgo1::EnlargeMinMax(tolMinMax, TotMin, TotMax);
   Standard_Real d[16];
-  Standard_Real precad = -Precision::Infinite();
+  Standard_Real precad = -Precision1::Infinite();
 
   for (i = 0; i <= 15; i++)
   {
@@ -659,7 +659,7 @@ void HLRBRep_Data::Update(const HLRAlgoProjector& P)
 
     HLRBRep_EdgeData& ed = myEData.ChangeValue(edge);
     HLRBRep_Curve&    EC = ed.ChangeGeometry();
-    HLRAlgo1::InitMinMax(Precision::Infinite(), TotMin, TotMax);
+    HLRAlgo1::InitMinMax(Precision1::Infinite(), TotMin, TotMax);
     tolMinMax = EC.UpdateMinMax(TotMin, TotMax);
     tol       = (Standard_Real)(ed.Tolerance());
     ed.Vertical(TotMax[0] - TotMin[0] < tol && TotMax[1] - TotMin[1] < tol
@@ -1008,7 +1008,7 @@ void HLRBRep_Data::InitEdge(const Standard_Integer FI, BRepTopAdaptor_MapOfShape
   }
   else
   {
-    BRepTopAdaptor_Tool BRT(topodsface, Precision::PConfusion());
+    BRepTopAdaptor_Tool BRT(topodsface, Precision1::PConfusion());
     MST.Bind(topodsface, BRT);
     myClassifier = BRT.GetTopolTool();
   }
@@ -1477,7 +1477,7 @@ void HLRBRep_Data::LocalLEGeometry2D(const Standard_Real Param,
     throw ExceptionBase("HLRBRep_Data::LocalGeometry2D");
   myLLProps.Tangent(Tg);
   Cu = myLLProps.Curvature();
-  if (Cu > Epsilon(1.) && !Precision::IsInfinite(Cu))
+  if (Cu > Epsilon(1.) && !Precision1::IsInfinite(Cu))
     myLLProps.Normal(Nm);
   else
     Nm = gp_Dir2d(-Tg.Y(), Tg.X());
@@ -1498,7 +1498,7 @@ void HLRBRep_Data::LocalFEGeometry2D(const Standard_Integer FE,
     throw ExceptionBase("HLRBRep_Data::LocalGeometry2D");
   myFLProps.Tangent(Tg);
   Cu = myFLProps.Curvature();
-  if (Cu > Epsilon(1.) && !Precision::IsInfinite(Cu))
+  if (Cu > Epsilon(1.) && !Precision1::IsInfinite(Cu))
     myFLProps.Normal(Nm);
   else
     Nm = gp_Dir2d(-Tg.Y(), Tg.X());
@@ -1919,7 +1919,7 @@ TopAbs_State HLRBRep_Data::Classify(const Standard_Integer  E,
 
     //-- les rejections sont faites dans l intersecteur a moindre frais
     //-- puisque la surface sera chargee
-    HLRAlgo1::InitMinMax(Precision::Infinite(), TotMin, TotMax);
+    HLRAlgo1::InitMinMax(Precision1::Infinite(), TotMin, TotMax);
     HLRAlgo1::UpdateMinMax(xsta, ysta, zsta, TotMin, TotMax);
     HLRAlgo1::EnlargeMinMax(tol, TotMin, TotMax);
     REJECT1(myDeca, TotMin, TotMax, mySurD, VertMin, VertMax);
@@ -1951,7 +1951,7 @@ TopAbs_State HLRBRep_Data::Classify(const Standard_Integer  E,
 
     //-- les rejections sont faites dans l intersecteur a moindre frais
     //-- puisque la surface sera chargee
-    HLRAlgo1::InitMinMax(Precision::Infinite(), TotMin, TotMax);
+    HLRAlgo1::InitMinMax(Precision1::Infinite(), TotMin, TotMax);
     HLRAlgo1::UpdateMinMax(xsta, ysta, zsta, TotMin, TotMax);
     HLRAlgo1::EnlargeMinMax(tol, TotMin, TotMax);
 
@@ -1979,7 +1979,7 @@ TopAbs_State HLRBRep_Data::Classify(const Standard_Integer  E,
     end = EC.Parameter3d(EC.LastParameter());
     myProj.Project(EC.Value3D(end), xend, yend, zend);
 
-    HLRAlgo1::InitMinMax(Precision::Infinite(), TotMin, TotMax);
+    HLRAlgo1::InitMinMax(Precision1::Infinite(), TotMin, TotMax);
     HLRAlgo1::UpdateMinMax(xend, yend, zend, TotMin, TotMax);
     HLRAlgo1::EnlargeMinMax(tol, TotMin, TotMax);
 
@@ -2009,7 +2009,7 @@ TopAbs_State HLRBRep_Data::Classify(const Standard_Integer  E,
 
     //-- les rejections sont faites dans l intersecteur a moindre frais
     //-- puisque la surface sera chargee
-    HLRAlgo1::InitMinMax(Precision::Infinite(), TotMin, TotMax);
+    HLRAlgo1::InitMinMax(Precision1::Infinite(), TotMin, TotMax);
     HLRAlgo1::UpdateMinMax(xsta, ysta, zsta, TotMin, TotMax);
     HLRAlgo1::EnlargeMinMax(tol, TotMin, TotMax);
     REJECT1(myDeca, TotMin, TotMax, mySurD, VertMin, VertMax);
@@ -2142,7 +2142,7 @@ q1,(q2>32768)? (32768-q2) : q2,q&0x80008000);
             GeomInt1::AdjustPeriodic(v, VMin, VMax, PeriodV, v, aDummyShift);
 
           gp_Pnt2d pnt2d(u, v);
-          if (myClassifier->Classify(pnt2d, Precision::PConfusion()) != TopAbs_OUT)
+          if (myClassifier->Classify(pnt2d, Precision1::PConfusion()) != TopAbs_OUT)
           {
             state = TopAbs_IN;
             Level++;
@@ -2185,7 +2185,7 @@ TopAbs_State HLRBRep_Data::SimplClassify(const Standard_Integer /*E*/,
 
     //-- les rejections sont faites dans l intersecteur a moindre frais
     //-- puisque la surface sera chargee
-    HLRAlgo1::InitMinMax(Precision::Infinite(), TotMin, TotMax);
+    HLRAlgo1::InitMinMax(Precision1::Infinite(), TotMin, TotMax);
     HLRAlgo1::UpdateMinMax(xsta, ysta, zsta, TotMin, TotMax);
     HLRAlgo1::EnlargeMinMax(tol, TotMin, TotMax);
     REJECT1(myDeca, TotMin, TotMax, mySurD, VertMin, VertMax);

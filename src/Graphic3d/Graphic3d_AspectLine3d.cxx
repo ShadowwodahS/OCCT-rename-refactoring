@@ -29,7 +29,7 @@ Graphic3d_AspectLine3d::Graphic3d_AspectLine3d()
 
 //=================================================================================================
 
-Graphic3d_AspectLine3d::Graphic3d_AspectLine3d(const Quantity_Color& theColor,
+Graphic3d_AspectLine3d::Graphic3d_AspectLine3d(const Color1& theColor,
                                                Aspect_TypeOfLine     theType,
                                                Standard_Real         theWidth)
 {

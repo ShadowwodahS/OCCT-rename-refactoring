@@ -146,8 +146,8 @@ static Handle(Graphic3d_ArrayOfTriangles) fillTriangles(const TopoShape&    theS
   Standard_Integer           aNbTriangles = 0;
   Standard_Integer           aNbVertices  = 0;
 
-  // Precision for compare square distances
-  constexpr Standard_Real aPreci = Precision::SquareConfusion();
+  // Precision1 for compare square distances
+  constexpr Standard_Real aPreci = Precision1::SquareConfusion();
 
   ShapeExplorer aFaceIt(theShape, TopAbs_FACE);
   for (; aFaceIt.More(); aFaceIt.Next())

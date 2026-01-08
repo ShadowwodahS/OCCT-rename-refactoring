@@ -77,14 +77,14 @@ public:
   Standard_EXPORT void SetBackground(const Aspect_Background& theBack);
 
   //! Modifies the window background.
-  Standard_EXPORT void SetBackground(const Quantity_Color& theColor);
+  Standard_EXPORT void SetBackground(const Color1& theColor);
 
   //! Modifies the window gradient background.
   Standard_EXPORT void SetBackground(const Aspect_GradientBackground& theBackground);
 
   //! Modifies the window gradient background.
-  Standard_EXPORT void SetBackground(const Quantity_Color&           theFirstColor,
-                                     const Quantity_Color&           theSecondColor,
+  Standard_EXPORT void SetBackground(const Color1&           theFirstColor,
+                                     const Color1&           theSecondColor,
                                      const Aspect_GradientFillMethod theFillMethod);
 
 public:

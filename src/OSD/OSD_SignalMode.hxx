@@ -14,7 +14,7 @@
 #ifndef _OSD_SignalMode_HeaderFile
 #define _OSD_SignalMode_HeaderFile
 
-//! Mode of operation for OSD::SetSignal() function
+//! Mode of operation for OSD1::SetSignal() function
 enum OSD_SignalMode
 {
   OSD_SignalMode_AsIs,         //!< Do not set or remove signal handlers

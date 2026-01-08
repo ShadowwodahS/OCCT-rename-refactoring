@@ -96,7 +96,7 @@ void ShapeUpgrade_SplitSurface::Init(const Handle(GeomSurface)& S,
 
   Standard_Real U1, U2, V1, V2;
   mySurface->Bounds(U1, U2, V1, V2);
-  constexpr Standard_Real precision = Precision::PConfusion();
+  constexpr Standard_Real precision = Precision1::PConfusion();
   if (mySurface->IsUPeriodic() && ULast - UFirst <= U2 - U1 + precision)
   {
     U1 = UFirst;
@@ -172,7 +172,7 @@ void ShapeUpgrade_SplitSurface::SetUSplitValues(const Handle(TColStd_HSequenceOf
 {
   if (UValues.IsNull())
     return;
-  constexpr Standard_Real precision = Precision::PConfusion();
+  constexpr Standard_Real precision = Precision1::PConfusion();
   Standard_Real           UFirst    = myUSplitValues->Value(1),
                 ULast               = myUSplitValues->Value(myUSplitValues->Length());
   Standard_Integer i                = 1;
@@ -199,7 +199,7 @@ void ShapeUpgrade_SplitSurface::SetVSplitValues(const Handle(TColStd_HSequenceOf
 {
   if (VValues.IsNull())
     return;
-  constexpr Standard_Real precision = Precision::PConfusion();
+  constexpr Standard_Real precision = Precision1::PConfusion();
   Standard_Real           VFirst    = myVSplitValues->Value(1),
                 VLast               = myVSplitValues->Value(myVSplitValues->Length());
   Standard_Integer i                = 1;
@@ -434,8 +434,8 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment1)
   {
     mySurface->Bounds(U1, U2, V1, V2);
     Standard_Boolean filled = Standard_True;
-    if (Abs(U1 - UFirst) < Precision::PConfusion() && Abs(U2 - ULast) < Precision::PConfusion()
-        && Abs(V1 - VFirst) < Precision::PConfusion() && Abs(V2 - VLast) < Precision::PConfusion())
+    if (Abs(U1 - UFirst) < Precision1::PConfusion() && Abs(U2 - ULast) < Precision1::PConfusion()
+        && Abs(V1 - VFirst) < Precision1::PConfusion() && Abs(V2 - VLast) < Precision1::PConfusion())
       Surfaces->SetValue(1, 1, mySurface);
     else if (!Segment1 || !mySurface->IsKind(STANDARD_TYPE(Geom_BSplineSurface))
              || !Status(ShapeExtend_DONE2))
@@ -467,9 +467,9 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment1)
       Standard_Real spval = myUSplitValues->Value(ii);
       for (; j <= LastInd; j++)
       {
-        if (spval > BsSurface->UKnot(j) + Precision::PConfusion())
+        if (spval > BsSurface->UKnot(j) + Precision1::PConfusion())
           continue;
-        if (spval < BsSurface->UKnot(j) - Precision::PConfusion())
+        if (spval < BsSurface->UKnot(j) - Precision1::PConfusion())
           break;
         myUSplitValues->ChangeValue(ii) = BsSurface->UKnot(j);
       }
@@ -483,9 +483,9 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment1)
       Standard_Real spval = myVSplitValues->Value(ii1);
       for (; j <= LastInd; j++)
       {
-        if (spval > BsSurface->VKnot(j) + Precision::PConfusion())
+        if (spval > BsSurface->VKnot(j) + Precision1::PConfusion())
           continue;
-        if (spval < BsSurface->VKnot(j) - Precision::PConfusion())
+        if (spval < BsSurface->VKnot(j) - Precision1::PConfusion())
           break;
         myVSplitValues->ChangeValue(ii1) = BsSurface->VKnot(j);
       }

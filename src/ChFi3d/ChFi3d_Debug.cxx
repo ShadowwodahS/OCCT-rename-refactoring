@@ -38,7 +38,7 @@
 
 #ifdef OCCT_DEBUG
   #include <OSD_Chronometer.hxx>
-OSD_Chronometer simul, elspine, chemine;
+Chronometer simul, elspine, chemine;
 #endif
 
 //*********************************
@@ -242,13 +242,13 @@ Standard_Boolean ChFi3d_GetcontextNOOPT()
 // ***********************************************
 //    initialization and result of a chrono
 //************************************************
-Standard_EXPORT void ChFi3d_InitChron(OSD_Chronometer& ch)
+Standard_EXPORT void ChFi3d_InitChron(Chronometer& ch)
 {
   ch.Reset();
   ch.Start();
 }
 
-Standard_EXPORT void ChFi3d_ResultChron(OSD_Chronometer& ch, Standard_Real& time)
+Standard_EXPORT void ChFi3d_ResultChron(Chronometer& ch, Standard_Real& time)
 {
   Standard_Real tch;
   ch.Stop();

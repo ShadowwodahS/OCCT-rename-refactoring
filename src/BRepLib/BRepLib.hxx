@@ -52,12 +52,12 @@ public:
 
   //! Computes the max distance between edge
   //! and its 2d representation on the face.
-  //! Sets the default precision.  The current Precision
+  //! Sets the default precision.  The current Precision1
   //! is returned.
-  Standard_EXPORT static void Precision(const Standard_Real P);
+  Standard_EXPORT static void Precision1(const Standard_Real P);
 
   //! Returns the default precision.
-  Standard_EXPORT static Standard_Real Precision();
+  Standard_EXPORT static Standard_Real Precision1();
 
   //! Sets the current plane to P.
   Standard_EXPORT static void Plane1(const Handle(GeomPlane)& P);

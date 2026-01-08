@@ -353,7 +353,7 @@ static Standard_Integer setcolor(DrawInterpreter& theDI,
       Standard_Real aGreen = Draw1::Atof(theArgVec[3]);
       Standard_Real aBlue  = Draw1::Atof(theArgVec[4]);
       aMesh->GetDrawer()->SetColor((MeshVS_DrawerAttribute)theParam,
-                                   Quantity_Color(aRed, aGreen, aBlue, Quantity_TOC_RGB));
+                                   Color1(aRed, aGreen, aBlue, Quantity_TOC_RGB));
 
       Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
 
@@ -720,8 +720,8 @@ static Standard_Integer meshcolors(DrawInterpreter& theDI,
     if (!aMesh.IsNull())
     {
       AsciiString1 aMode = AsciiString1(theArgVec[2]);
-      Quantity_Color          aColor1(Quantity_NOC_BLUE1);
-      Quantity_Color          aColor2(Quantity_NOC_RED1);
+      Color1          aColor1(Quantity_NOC_BLUE1);
+      Color1          aColor2(Quantity_NOC_RED1);
       if (aMode.IsEqual("elem1") || aMode.IsEqual("elem2") || aMode.IsEqual("nodal")
           || aMode.IsEqual("nodaltex") || aMode.IsEqual("none"))
       {
@@ -745,18 +745,18 @@ static Standard_Integer meshcolors(DrawInterpreter& theDI,
             aMesh,
             MeshVS_DMF_ElementalColorDataPrs | MeshVS_DMF_OCCMask);
           // Color
-          const TColStd_PackedMapOfInteger& anAllElements =
+          const PackedIntegerMap& anAllElements =
             aMesh->GetDataSource()->GetAllElements();
 
           if (aMode.IsEqual("elem1"))
-            for (TColStd_PackedMapOfInteger::Iterator anIter(anAllElements); anIter.More();
+            for (PackedIntegerMap::Iterator anIter(anAllElements); anIter.More();
                  anIter.Next())
             {
-              Quantity_Color aColor((Quantity_NameOfColor)(anIter.Key1() % Quantity_NOC_WHITE));
+              Color1 aColor((Quantity_NameOfColor)(anIter.Key1() % Quantity_NOC_WHITE));
               aBuilder->SetColor1(anIter.Key1(), aColor);
             }
           else
-            for (TColStd_PackedMapOfInteger::Iterator anIter(anAllElements); anIter.More();
+            for (PackedIntegerMap::Iterator anIter(anAllElements); anIter.More();
                  anIter.Next())
             {
               aBuilder->SetColor2(anIter.Key1(), aColor1, aColor2);
@@ -773,11 +773,11 @@ static Standard_Integer meshcolors(DrawInterpreter& theDI,
           aMesh->AddBuilder(aBuilder, Standard_True);
 
           // Color
-          const TColStd_PackedMapOfInteger& anAllNodes = aMesh->GetDataSource()->GetAllNodes();
-          for (TColStd_PackedMapOfInteger::Iterator anIter(anAllNodes); anIter.More();
+          const PackedIntegerMap& anAllNodes = aMesh->GetDataSource()->GetAllNodes();
+          for (PackedIntegerMap::Iterator anIter(anAllNodes); anIter.More();
                anIter.Next())
           {
-            Quantity_Color aColor((Quantity_NameOfColor)(anIter.Key1() % Quantity_NOC_WHITE));
+            Color1 aColor((Quantity_NameOfColor)(anIter.Key1() % Quantity_NOC_WHITE));
             aBuilder->SetColor(anIter.Key1(), aColor);
           }
           aMesh->AddBuilder(aBuilder, Standard_True);
@@ -814,8 +814,8 @@ static Standard_Integer meshcolors(DrawInterpreter& theDI,
           MeshVS_EntityType            aType;
 
           // iterate nodes
-          const TColStd_PackedMapOfInteger& anAllNodes = aMesh->GetDataSource()->GetAllNodes();
-          for (TColStd_PackedMapOfInteger::Iterator anIter(anAllNodes); anIter.More();
+          const PackedIntegerMap& anAllNodes = aMesh->GetDataSource()->GetAllNodes();
+          for (PackedIntegerMap::Iterator anIter(anAllNodes); anIter.More();
                anIter.Next())
           {
             // get node coordinates to aCoord variable
@@ -897,7 +897,7 @@ static Standard_Integer meshvectors(DrawInterpreter& theDI,
   AsciiString1 aParam;
   AsciiString1 aMode("none");
   Standard_Real           aMaxlen(1.0);
-  Quantity_Color          aColor(Quantity_NOC_ORANGE);
+  Color1          aColor(Quantity_NOC_ORANGE);
   Standard_Real           anArrowPart(0.1);
   Standard_Boolean        isSimplePrs(Standard_False);
 
@@ -915,7 +915,7 @@ static Standard_Integer meshvectors(DrawInterpreter& theDI,
       }
       else if (aParam == "-color")
       {
-        if (!Quantity_Color::ColorFromName(theArgVec[anIdx], aColor))
+        if (!Color1::ColorFromName(theArgVec[anIdx], aColor))
         {
           theDI << "Syntax error at " << aParam << "\n";
           return 1;
@@ -961,7 +961,7 @@ static Standard_Integer meshvectors(DrawInterpreter& theDI,
                                                                            isSimplePrs);
 
     Standard_Boolean                  anIsElement = aMode.IsEqual("elem");
-    const TColStd_PackedMapOfInteger& anAllIDs    = anIsElement
+    const PackedIntegerMap& anAllIDs    = anIsElement
                                                       ? aMesh->GetDataSource()->GetAllElements()
                                                       : aMesh->GetDataSource()->GetAllNodes();
 
@@ -970,7 +970,7 @@ static Standard_Integer meshvectors(DrawInterpreter& theDI,
 
     TColStd_Array1OfReal aCoords(1, 3);
     aCoords.Init(0.);
-    for (TColStd_PackedMapOfInteger::Iterator anIter(anAllIDs); anIter.More(); anIter.Next())
+    for (PackedIntegerMap::Iterator anIter(anAllIDs); anIter.More(); anIter.Next())
     {
       Standard_Boolean IsValidData = Standard_False;
       if (anIsElement)
@@ -1119,12 +1119,12 @@ static Standard_Integer meshdeform(DrawInterpreter& theDI,
   Handle(MeshVS_DeformedDataSource) aDefDS =
     new MeshVS_DeformedDataSource(aMesh->GetDataSource(), aScale);
 
-  const TColStd_PackedMapOfInteger& anAllIDs = aMesh->GetDataSource()->GetAllNodes();
+  const PackedIntegerMap& anAllIDs = aMesh->GetDataSource()->GetAllNodes();
 
   Standard_Integer  aNbNodes;
   MeshVS_EntityType aEntType;
 
-  for (TColStd_PackedMapOfInteger::Iterator anIter(anAllIDs); anIter.More(); anIter.Next())
+  for (PackedIntegerMap::Iterator anIter(anAllIDs); anIter.More(); anIter.Next())
   {
     TColStd_Array1OfReal aCoords(1, 3);
     aMesh->GetDataSource()->GetGeom(anIter.Key1(), Standard_False, aCoords, aNbNodes, aEntType);
@@ -1226,8 +1226,8 @@ static Standard_Integer meshinfo(DrawInterpreter& theDI,
     Handle(XSDRAWSTL_DataSource)::DownCast(aMesh->GetDataSource());
   if (!stlMeshSource.IsNull())
   {
-    const TColStd_PackedMapOfInteger& nodes = stlMeshSource->GetAllNodes();
-    const TColStd_PackedMapOfInteger& tris  = stlMeshSource->GetAllElements();
+    const PackedIntegerMap& nodes = stlMeshSource->GetAllNodes();
+    const PackedIntegerMap& tris  = stlMeshSource->GetAllElements();
 
     theDI << "Nb nodes = " << nodes.Extent() << "\n";
     theDI << "Nb triangles = " << tris.Extent() << "\n";

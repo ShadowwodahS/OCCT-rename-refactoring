@@ -163,7 +163,7 @@ void DFBrowserPane_TNamingNamedShape::Init(const Handle(TDF_Attribute)& theAttri
 
   TopoShape            aShape = aShapeAttr->Get();
   AsciiString1 aShapeInfo =
-    !aShape.IsNull() ? Standard_Dump::GetPointerInfo(aShape.TShape()) : "";
+    !aShape.IsNull() ? DumpTool::GetPointerInfo(aShape.TShape()) : "";
   aValues << "Shape" << aShapeInfo.ToCString() << DFBrowserPane_Tools::ShapeTypeInfo(aShape) << ""
           << "";
   aShapes.Append(aShape);
@@ -172,7 +172,7 @@ void DFBrowserPane_TNamingNamedShape::Init(const Handle(TDF_Attribute)& theAttri
 
   TopoShape            aCurrentShape = Tool11::CurrentShape(aShapeAttr);
   AsciiString1 aCurrentShapeInfo =
-    !aCurrentShape.IsNull() ? Standard_Dump::GetPointerInfo(aCurrentShape.TShape()) : "";
+    !aCurrentShape.IsNull() ? DumpTool::GetPointerInfo(aCurrentShape.TShape()) : "";
   aValues << "CurrentShape" << aCurrentShapeInfo.ToCString()
           << DFBrowserPane_Tools::ShapeTypeInfo(aCurrentShape) << "" << "";
   aShapes.Append(aCurrentShape);
@@ -181,7 +181,7 @@ void DFBrowserPane_TNamingNamedShape::Init(const Handle(TDF_Attribute)& theAttri
 
   TopoShape            anOriginalShape = Tool11::OriginalShape(aShapeAttr);
   AsciiString1 anOriginalShapeInfo =
-    !anOriginalShape.IsNull() ? Standard_Dump::GetPointerInfo(anOriginalShape.TShape()) : "";
+    !anOriginalShape.IsNull() ? DumpTool::GetPointerInfo(anOriginalShape.TShape()) : "";
   aValues << "OriginalShape" << anOriginalShapeInfo.ToCString()
           << DFBrowserPane_Tools::ShapeTypeInfo(anOriginalShape) << "" << "";
   aShapes.Append(anOriginalShape);
@@ -240,13 +240,13 @@ void DFBrowserPane_TNamingNamedShape::Init(const Handle(TDF_Attribute)& theAttri
         aLabelInfo = QString(DFBrowserPane_Tools::GetEntry(anOldLabel).ToCString());
     }
     if (!aNewShape.IsNull())
-      aValues << Standard_Dump::GetPointerInfo(aNewShape.TShape()->This()).ToCString()
+      aValues << DumpTool::GetPointerInfo(aNewShape.TShape()->This()).ToCString()
               << DFBrowserPane_Tools::ShapeTypeInfo(aNewShape) << "";
     else
       aValues << "-" << "-" << "";
     aValues << "Old:";
     if (!anOldShape.IsNull())
-      aValues << Standard_Dump::GetPointerInfo(anOldShape.TShape()->This()).ToCString()
+      aValues << DumpTool::GetPointerInfo(anOldShape.TShape()->This()).ToCString()
               << DFBrowserPane_Tools::ShapeTypeInfo(anOldShape) << aLabelInfo << "";
     else
       aValues << "-" << "-" << "-" << "";

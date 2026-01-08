@@ -134,7 +134,7 @@ void SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Standard_Boolean Cross = Standard_False;
   Vector3d           Attch1_PjAttch1(AttachmentPoint1, PjAttachPnt1);
   Vector3d           v(P1, ProjOffsetPoint);
-  if (v.IsOpposite((Attch1_PjAttch1), Precision::Confusion()))
+  if (v.IsOpposite((Attch1_PjAttch1), Precision1::Confusion()))
   {
     Cross = Standard_True;
     Point3d PntTempo;
@@ -471,7 +471,7 @@ void SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Point3d ProjOffsetPoint = ElCLib1::Value(ElCLib1::Parameter(aAxis, OffsetPnt), aAxis);
   Point3d ProjCenter1     = ElCLib1::Value(ElCLib1::Parameter(aAxis, Center1), aAxis);
   Vector3d Vp(ProjCenter1, Center1);
-  if (Vp.Magnitude() <= Precision::Confusion())
+  if (Vp.Magnitude() <= Precision1::Confusion())
     Vp = Vector3d(aAxis.Direction()) ^ aCircle1.Position1().Direction();
 
   Standard_Real Dt, R, h;
@@ -575,7 +575,7 @@ void SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Standard_Real ParamPAttach2 = ElCLib1::Parameter(aCircle2, AttachmentPoint2);
 
   alpha = fabs(ParamP2 - ParamPAttach2);
-  if (alpha <= Precision::Confusion())
+  if (alpha <= Precision1::Confusion())
     alpha = 1.e-5;
   if (ParamP2 < ParamPAttach2)
   {
@@ -733,13 +733,13 @@ void SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
-  if (AttachmentPoint1.IsEqual(AttachmentPoint2, Precision::Confusion()))
+  if (AttachmentPoint1.IsEqual(AttachmentPoint2, Precision1::Confusion()))
   {
     //==============================================================
     //  SYMMETRY WHEN THE REFERENCE POINT IS ON THE AXIS OF SYM.:
     //==============================================================
     // Marker of localisation of the face
-    Quantity_Color                   aColor = LA->LineAspect()->Aspect()->Color();
+    Color1                   aColor = LA->LineAspect()->Aspect()->Color();
     Handle(Graphic3d_AspectMarker3d) aMarkerAsp =
       new Graphic3d_AspectMarker3d(Aspect_TOM_O, aColor, 1.0);
     aPresentation->CurrentGroup()->SetPrimitivesAspect(aMarkerAsp);
@@ -872,7 +872,7 @@ void SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
     aPresentation->NewGroup();
     aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
-    Quantity_Color                   aColor = LA->LineAspect()->Aspect()->Color();
+    Color1                   aColor = LA->LineAspect()->Aspect()->Color();
     Handle(Graphic3d_AspectMarker3d) aMarkerAspAtt =
       new Graphic3d_AspectMarker3d(Aspect_TOM_O, aColor, 1.0);
     aPresentation->CurrentGroup()->SetPrimitivesAspect(aMarkerAspAtt);

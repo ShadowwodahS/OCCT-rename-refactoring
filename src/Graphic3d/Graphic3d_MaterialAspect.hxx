@@ -102,12 +102,12 @@ public:
   //! Returns the diffuse color of the surface.
   //! WARNING! This method does NOT return color for Graphic3d_MATERIAL_ASPECT material (color is
   //! defined by Graphic3d_Aspects::InteriorColor()).
-  const Quantity_Color& Color() const { return myColors[Graphic3d_TOR_DIFFUSE]; }
+  const Color1& Color() const { return myColors[Graphic3d_TOR_DIFFUSE]; }
 
   //! Modifies the ambient and diffuse color of the surface.
   //! WARNING! Has no effect for Graphic3d_MATERIAL_ASPECT material (color should be set to
   //! Graphic3d_Aspects::SetInteriorColor()).
-  Standard_EXPORT void SetColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetColor(const Color1& theColor);
 
   //! Returns the transparency coefficient of the surface (1.0 - Alpha); 0.0 means opaque.
   Standard_ShortReal Transparency() const { return myTransparencyCoef; }
@@ -129,28 +129,28 @@ public:
   void SetAlpha(Standard_ShortReal theValue) { SetTransparency(1.0f - theValue); }
 
   //! Returns the ambient color of the surface.
-  const Quantity_Color& AmbientColor() const { return myColors[Graphic3d_TOR_AMBIENT]; }
+  const Color1& AmbientColor() const { return myColors[Graphic3d_TOR_AMBIENT]; }
 
   //! Modifies the ambient color of the surface.
-  Standard_EXPORT void SetAmbientColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetAmbientColor(const Color1& theColor);
 
   //! Returns the diffuse color of the surface.
-  const Quantity_Color& DiffuseColor() const { return myColors[Graphic3d_TOR_DIFFUSE]; }
+  const Color1& DiffuseColor() const { return myColors[Graphic3d_TOR_DIFFUSE]; }
 
   //! Modifies the diffuse color of the surface.
-  Standard_EXPORT void SetDiffuseColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetDiffuseColor(const Color1& theColor);
 
   //! Returns the specular color of the surface.
-  const Quantity_Color& SpecularColor() const { return myColors[Graphic3d_TOR_SPECULAR]; }
+  const Color1& SpecularColor() const { return myColors[Graphic3d_TOR_SPECULAR]; }
 
   //! Modifies the specular color of the surface.
-  Standard_EXPORT void SetSpecularColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetSpecularColor(const Color1& theColor);
 
   //! Returns the emissive color of the surface.
-  const Quantity_Color& EmissiveColor() const { return myColors[Graphic3d_TOR_EMISSION]; }
+  const Color1& EmissiveColor() const { return myColors[Graphic3d_TOR_EMISSION]; }
 
   //! Modifies the emissive color of the surface.
-  Standard_EXPORT void SetEmissiveColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetEmissiveColor(const Color1& theColor);
 
   //! Returns the luminosity of the surface.
   Standard_ShortReal Shininess() const { return myShininess; }
@@ -286,7 +286,7 @@ private:
   Graphic3d_BSDF          myBSDF;
   Graphic3d_PBRMaterial   myPBRMaterial;
   AsciiString1 myStringName;
-  Quantity_Color          myColors[Graphic3d_TypeOfReflection_NB];
+  Color1          myColors[Graphic3d_TypeOfReflection_NB];
   Standard_ShortReal      myTransparencyCoef;
   Standard_ShortReal      myRefractionIndex;
   Standard_ShortReal      myShininess;

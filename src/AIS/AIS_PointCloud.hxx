@@ -90,7 +90,7 @@ public:
 public:
   //! Setup custom color. Affects presentation only when no per-point color attribute has been
   //! assigned.
-  Standard_EXPORT virtual void SetColor(const Quantity_Color& theColor) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetColor(const Color1& theColor) Standard_OVERRIDE;
 
   //! Restore default color.
   Standard_EXPORT virtual void UnsetColor() Standard_OVERRIDE;

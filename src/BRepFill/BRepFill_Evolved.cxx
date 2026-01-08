@@ -967,7 +967,7 @@ void BRepFill_Evolved::ElementaryPerform(const TopoFace&              Sp,
         }
 #endif
         //-------------------------------------------
-        // Storage of the edge for each of faces.
+        // Storage1 of the edge for each of faces.
         //-------------------------------------------
         for (k = 0; k <= 1; k++)
         {
@@ -1001,7 +1001,7 @@ void BRepFill_Evolved::ElementaryPerform(const TopoFace&              Sp,
       }
 
       //----------------------------------------------
-      // Storage of vertices on parallel edges.
+      // Storage1 of vertices on parallel edges.
       // fill MapBis and MapVerPar.
       // VOnF for E[0] and E[2].
       // VOnL for E[1] and E[3].
@@ -3155,8 +3155,8 @@ void CutEdgeProf(const TopoEdge&            E,
   // Calculate the extrema with the straight line
   TColStd_SequenceOfReal Seq;
 
-  Standard_Real U1 = -Precision::Infinite();
-  Standard_Real U2 = Precision::Infinite();
+  Standard_Real U1 = -Precision1::Infinite();
+  Standard_Real U2 = Precision1::Infinite();
   f                = C2d->FirstParameter();
   l                = C2d->LastParameter();
 
@@ -3183,7 +3183,7 @@ void CutEdgeProf(const TopoEdge&            E,
 
   // On calcule les intersection avec Oy.
   Geom2dAdaptor_Curve     ALine(Line);
-  constexpr Standard_Real Tol  = Precision::Intersection();
+  constexpr Standard_Real Tol  = Precision1::Intersection();
   Standard_Real           TolC = 0.;
 
   Geom2dInt_GInter Intersector(ALine, AC2d, TolC, Tol);

@@ -112,8 +112,8 @@ Standard_Boolean ShapeUpgrade_FaceDivide::SplitSurface(const Standard_Real theAr
   Standard_Real Uf, Ul, Vf, Vl;
   //  BRepTools1::UVBounds(myFace,Uf,Ul,Vf,Vl);
   ShapeAnalysis1::GetFaceUVBounds(face, Uf, Ul, Vf, Vl);
-  if (Precision::IsInfinite(Uf) || Precision::IsInfinite(Ul) || Precision::IsInfinite(Vf)
-      || Precision::IsInfinite(Vl))
+  if (Precision1::IsInfinite(Uf) || Precision1::IsInfinite(Ul) || Precision1::IsInfinite(Vf)
+      || Precision1::IsInfinite(Vl))
     return Standard_False;
 
   // make little extension to ensure all pcurves fit inside new surface bounds
@@ -159,7 +159,7 @@ Standard_Boolean ShapeUpgrade_FaceDivide::SplitSurface(const Standard_Real theAr
   Handle(ShapeExtend_CompositeSurface) Grid = SplitSurf->ResSurfaces();
 
   ShapeFix_ComposeShell CompShell;
-  CompShell.Init(Grid, L, face, Precision());
+  CompShell.Init(Grid, L, face, Precision1());
   CompShell.SetContext(Context());
   CompShell.SetMaxTolerance(MaxTolerance());
   Handle(ShapeUpgrade_WireDivide) SplitWire = GetWireDivideTool();

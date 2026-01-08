@@ -167,7 +167,7 @@ static Standard_Boolean Project(const Handle(GeomCurve2d)& C,
     if (index != 0)
     {
       PointOnCurve1 POC = extrema.Point(index);
-      if (P.SquareDistance(POC.Value()) <= Precision::SquareConfusion())
+      if (P.SquareDistance(POC.Value()) <= Precision1::SquareConfusion())
       {
         p = POC.Parameter();
         return Standard_True;
@@ -528,7 +528,7 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve3d)& C,
 
 void BRepLib_MakeEdge::Init(const Handle(GeomCurve3d)& C, const Point3d& P1, const Point3d& P2)
 {
-  Standard_Real Tol = BRepLib1::Precision();
+  Standard_Real Tol = BRepLib1::Precision1();
 
   ShapeBuilder  B;
   TopoVertex V1, V2;
@@ -577,7 +577,7 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve3d)& C,
                             const Standard_Real       p1,
                             const Standard_Real       p2)
 {
-  Standard_Real Tol = BRepLib1::Precision();
+  Standard_Real Tol = BRepLib1::Precision1();
   ShapeBuilder  B;
 
   TopoVertex V1, V2;
@@ -615,7 +615,7 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve3d)& CC,
   Standard_Real           p2       = pp2;
   Standard_Real           cf       = C->FirstParameter();
   Standard_Real           cl       = C->LastParameter();
-  constexpr Standard_Real epsilon  = Precision::PConfusion();
+  constexpr Standard_Real epsilon  = Precision1::PConfusion();
   Standard_Boolean        periodic = C->IsPeriodic();
   GeomAdaptor_Curve       aCA(C);
 
@@ -660,15 +660,15 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve3d)& CC,
   }
 
   // compute points on the curve
-  Standard_Boolean p1inf = Precision::IsNegativeInfinite(p1);
-  Standard_Boolean p2inf = Precision::IsPositiveInfinite(p2);
+  Standard_Boolean p1inf = Precision1::IsNegativeInfinite(p1);
+  Standard_Boolean p2inf = Precision1::IsPositiveInfinite(p2);
   Point3d           P1, P2;
   if (!p1inf)
     P1 = aCA.Value(p1);
   if (!p2inf)
     P2 = aCA.Value(p2);
 
-  Standard_Real preci = BRepLib1::Precision();
+  Standard_Real preci = BRepLib1::Precision1();
   ShapeBuilder  B;
 
   // check for closed curve
@@ -806,7 +806,7 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve2d)& C,
                             const Point3d&               P1,
                             const Point3d&               P2)
 {
-  Standard_Real Tol = BRepLib1::Precision();
+  Standard_Real Tol = BRepLib1::Precision1();
 
   ShapeBuilder  B;
   TopoVertex V1, V2;
@@ -857,7 +857,7 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve2d)& C,
                             const Standard_Real         p1,
                             const Standard_Real         p2)
 {
-  Standard_Real Tol = BRepLib1::Precision();
+  Standard_Real Tol = BRepLib1::Precision1();
   ShapeBuilder  B;
 
   TopoVertex V1, V2;
@@ -896,7 +896,7 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve2d)& CC,
   Standard_Real           p2       = pp2;
   Standard_Real           cf       = C->FirstParameter();
   Standard_Real           cl       = C->LastParameter();
-  constexpr Standard_Real epsilon  = Precision::PConfusion();
+  constexpr Standard_Real epsilon  = Precision1::PConfusion();
   Standard_Boolean        periodic = C->IsPeriodic();
 
   TopoVertex    V1, V2;
@@ -936,8 +936,8 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve2d)& CC,
   }
 
   // compute points on the curve
-  Standard_Boolean p1inf = Precision::IsNegativeInfinite(p1);
-  Standard_Boolean p2inf = Precision::IsPositiveInfinite(p2);
+  Standard_Boolean p1inf = Precision1::IsNegativeInfinite(p1);
+  Standard_Boolean p2inf = Precision1::IsPositiveInfinite(p2);
   Point3d           P1, P2;
   gp_Pnt2d         P2d1, P2d2;
   if (!p1inf)
@@ -951,7 +951,7 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve2d)& CC,
     P2   = S->Value(P2d2.X(), P2d2.Y());
   }
 
-  Standard_Real preci = BRepLib1::Precision();
+  Standard_Real preci = BRepLib1::Precision1();
   ShapeBuilder  B;
 
   // check for closed curve

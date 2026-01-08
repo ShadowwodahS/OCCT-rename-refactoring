@@ -20,7 +20,7 @@
 #include <UnitsMethods_LengthUnit.hxx>
 
 //! Class for using global units variables
-class UnitsMethods
+class UnitsMethods1
 {
 public:
   DEFINE_STANDARD_ALLOC

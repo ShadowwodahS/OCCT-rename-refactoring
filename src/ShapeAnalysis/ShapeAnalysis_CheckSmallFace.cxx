@@ -113,8 +113,8 @@ static Standard_Boolean MinMaxSmall(const Standard_Real minx,
   Standard_Real dy = maxy - miny;
   Standard_Real dz = maxz - minz;
 
-  if ((dx > toler && !Precision::IsInfinite(dx)) || (dy > toler && !Precision::IsInfinite(dy))
-      || (dz > toler && !Precision::IsInfinite(dz)))
+  if ((dx > toler && !Precision1::IsInfinite(dx)) || (dy > toler && !Precision1::IsInfinite(dy))
+      || (dz > toler && !Precision1::IsInfinite(dz)))
     return Standard_False;
   return Standard_True;
 }
@@ -149,8 +149,8 @@ Standard_Integer ShapeAnalysis_CheckSmallFace::IsSpotFace(const TopoFace&  F,
   if (!isWir)
     return Standard_True;
   Standard_Integer nbv  = 0;
-  Standard_Real    minx = 0, miny = 0, minz = 0, maxx = Precision::Infinite(),
-                maxy = Precision::Infinite(), maxz = Precision::Infinite();
+  Standard_Real    minx = 0, miny = 0, minz = 0, maxx = Precision1::Infinite(),
+                maxy = Precision1::Infinite(), maxz = Precision1::Infinite();
   TopoVertex    V0;
   Standard_Boolean same = Standard_True;
   for (ShapeExplorer iv(F, TopAbs_VERTEX); iv.More(); iv.Next())
@@ -954,13 +954,13 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinFace(const TopoFace&     
     newedges->Append(sbwd->Edge(wi.Ordered(i)));
   for (i = 1; i <= nb; i++)
     sbwd->Set(TopoDS::Edge(newedges->Value(i)), i);
-  // sfw.Init(theCurWire,  F, Precision::Confusion());
+  // sfw.Init(theCurWire,  F, Precision1::Confusion());
   // sfw.FixReorder();
   // theCurWire = sfw.Wire();
   theCurWire            = sbwd->Wire();
   i                     = 1;
   Standard_Boolean done = Standard_False;
-  Standard_Real    tol  = Precision::Confusion();
+  Standard_Real    tol  = Precision1::Confusion();
   TopoEdge      theFirstEdge, theSecondEdge;
   Standard_Real    d1 = 0, d2 = 0;
   for (ShapeExplorer exp_e(F, TopAbs_EDGE); exp_e.More(); exp_e.Next())

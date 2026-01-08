@@ -26,7 +26,7 @@ class GeomCurve3d;
 class GeomSurface;
 class Prs3d_DimensionAspect;
 
-//! Describes Standard Presentations for DsgIHM objects
+//! Describes Standard1 Presentations for DsgIHM objects
 class DsgPrs1
 {
 public:

@@ -31,9 +31,9 @@ void BRepPreviewAPI_MakeBox::Build(const Message_ProgressRange& /*theRange*/)
                       anLocation.Y() + myWedge.GetYMax(),
                       anLocation.Z() + myWedge.GetZMax());
 
-  Standard_Boolean aThinOnX = Abs(aFirstPoint.X() - aSecondPoint.X()) < Precision::Confusion();
-  Standard_Boolean aThinOnY = Abs(aFirstPoint.Y() - aSecondPoint.Y()) < Precision::Confusion();
-  Standard_Boolean aThinOnZ = Abs(aFirstPoint.Z() - aSecondPoint.Z()) < Precision::Confusion();
+  Standard_Boolean aThinOnX = Abs(aFirstPoint.X() - aSecondPoint.X()) < Precision1::Confusion();
+  Standard_Boolean aThinOnY = Abs(aFirstPoint.Y() - aSecondPoint.Y()) < Precision1::Confusion();
+  Standard_Boolean aThinOnZ = Abs(aFirstPoint.Z() - aSecondPoint.Z()) < Precision1::Confusion();
 
   Standard_Integer aPreviewType = (int)aThinOnX + (int)aThinOnY + (int)aThinOnZ;
 

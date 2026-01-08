@@ -57,8 +57,8 @@ void Tool1::Lin2dBox(const gp_Lin2d& L2d, const Bnd_Box2d& domain, Bnd_Box2d& bo
     boxLin.Set(L2d.Location(), L2d.Direction());
     boxLin.Add(L2d.Direction().Reversed());
     nbSeg           = 1;
-    beginOnCurve[0] = -Precision::Infinite();
-    endOnCurve[0]   = Precision::Infinite();
+    beginOnCurve[0] = -Precision1::Infinite();
+    endOnCurve[0]   = Precision1::Infinite();
     return;
   }
   else if (domain.IsVoid())
@@ -66,8 +66,8 @@ void Tool1::Lin2dBox(const gp_Lin2d& L2d, const Bnd_Box2d& domain, Bnd_Box2d& bo
 
   Standard_Real    xmin, xmax, ymin, ymax;
   Standard_Real    Xmin = 0, Xmax = 0, Ymin = 0, Ymax = 0;
-  Standard_Real    parmin = -Precision::Infinite();
-  Standard_Real    parmax = Precision::Infinite();
+  Standard_Real    parmin = -Precision1::Infinite();
+  Standard_Real    parmax = Precision1::Infinite();
   Standard_Real    parcur, par1, par2;
   Standard_Boolean xToSet, yToSet;
 
@@ -76,11 +76,11 @@ void Tool1::Lin2dBox(const gp_Lin2d& L2d, const Bnd_Box2d& domain, Bnd_Box2d& bo
   if (L2d.Direction().XY().X() > 0.)
   {
     if (domain.IsOpenXmin())
-      parmin = -Precision::Infinite();
+      parmin = -Precision1::Infinite();
     else
       parmin = (xmin - L2d.Location().XY().X()) / L2d.Direction().XY().X();
     if (domain.IsOpenXmax())
-      parmax = Precision::Infinite();
+      parmax = Precision1::Infinite();
     else
       parmax = (xmax - L2d.Location().XY().X()) / L2d.Direction().XY().X();
     xToSet = Standard_True;
@@ -88,11 +88,11 @@ void Tool1::Lin2dBox(const gp_Lin2d& L2d, const Bnd_Box2d& domain, Bnd_Box2d& bo
   else if (L2d.Direction().XY().X() < 0.)
   {
     if (domain.IsOpenXmax())
-      parmin = -Precision::Infinite();
+      parmin = -Precision1::Infinite();
     else
       parmin = (xmax - L2d.Location().XY().X()) / L2d.Direction().XY().X();
     if (domain.IsOpenXmin())
-      parmax = Precision::Infinite();
+      parmax = Precision1::Infinite();
     else
       parmax = (xmin - L2d.Location().XY().X()) / L2d.Direction().XY().X();
     xToSet = Standard_True;
@@ -109,12 +109,12 @@ void Tool1::Lin2dBox(const gp_Lin2d& L2d, const Bnd_Box2d& domain, Bnd_Box2d& bo
   if (L2d.Direction().XY().Y() > 0.)
   {
     if (domain.IsOpenYmin())
-      parcur = -Precision::Infinite();
+      parcur = -Precision1::Infinite();
     else
       parcur = (ymin - L2d.Location().XY().Y()) / L2d.Direction().XY().Y();
     parmin = Max(parmin, parcur);
     if (domain.IsOpenYmax())
-      parcur = Precision::Infinite();
+      parcur = Precision1::Infinite();
     else
       parcur = (ymax - L2d.Location().XY().Y()) / L2d.Direction().XY().Y();
     parmax = Min(parmax, parcur);
@@ -123,12 +123,12 @@ void Tool1::Lin2dBox(const gp_Lin2d& L2d, const Bnd_Box2d& domain, Bnd_Box2d& bo
   else if (L2d.Direction().XY().Y() < 0.)
   {
     if (domain.IsOpenYmax())
-      parcur = -Precision::Infinite();
+      parcur = -Precision1::Infinite();
     else
       parcur = (ymax - L2d.Location().XY().Y()) / L2d.Direction().XY().Y();
     parmin = Max(parmin, parcur);
     if (domain.IsOpenYmin())
-      parcur = Precision::Infinite();
+      parcur = Precision1::Infinite();
     else
       parcur = (ymin - L2d.Location().XY().Y()) / L2d.Direction().XY().Y();
     parmax = Min(parmax, parcur);
@@ -176,8 +176,8 @@ void Tool1::Hypr2dBox(const gp_Hypr2d& theHypr2d, const Bnd_Box2d& domain, Bnd_B
   {
     boxHypr2d.SetWhole();
     nbSeg           = 1;
-    beginOnCurve[0] = -Precision::Infinite();
-    endOnCurve[0]   = Precision::Infinite();
+    beginOnCurve[0] = -Precision1::Infinite();
+    endOnCurve[0]   = Precision1::Infinite();
     return;
   }
   else if (domain.IsVoid())
@@ -243,7 +243,7 @@ void Tool1::Hypr2dBox(const gp_Hypr2d& theHypr2d, const Bnd_Box2d& domain, Bnd_B
           sinan = Coords2d(0., 1.) ^ Tan.XY();
           break;
       }
-      if (Abs(sinan) > Precision::Angular())
+      if (Abs(sinan) > Precision1::Angular())
       {
         if (sinan > 0.)
         {
@@ -255,7 +255,7 @@ void Tool1::Hypr2dBox(const gp_Hypr2d& theHypr2d, const Bnd_Box2d& domain, Bnd_B
         {
           if (out)
           {
-            beginOnCurve[nbSeg] = -Precision::Infinite();
+            beginOnCurve[nbSeg] = -Precision1::Infinite();
             nbSeg++;
           }
           endOnCurve[nbSeg - 1] = parint[npi];
@@ -295,8 +295,8 @@ void Tool1::Hypr2dBox(const gp_Hypr2d& theHypr2d, const Bnd_Box2d& domain, Bnd_B
   else if (!domain.IsOut(ElCLib1::Value(0., theHypr2d)))
   {
     boxHypr2d       = domain;
-    beginOnCurve[0] = -Precision::Infinite();
-    endOnCurve[0]   = Precision::Infinite();
+    beginOnCurve[0] = -Precision1::Infinite();
+    endOnCurve[0]   = Precision1::Infinite();
     nbSeg           = 1;
   }
 }
@@ -417,8 +417,8 @@ void Tool1::Parab2dBox(const gp_Parab2d& theParab2d,
   {
     boxParab2d.SetWhole();
     nbSeg           = 1;
-    beginOnCurve[0] = -Precision::Infinite();
-    endOnCurve[0]   = Precision::Infinite();
+    beginOnCurve[0] = -Precision1::Infinite();
+    endOnCurve[0]   = Precision1::Infinite();
     return;
   }
   else if (domain.IsVoid())
@@ -484,7 +484,7 @@ void Tool1::Parab2dBox(const gp_Parab2d& theParab2d,
           sinan = Coords2d(0., 1.) ^ Tan.XY();
           break;
       }
-      if (Abs(sinan) > Precision::Angular())
+      if (Abs(sinan) > Precision1::Angular())
       {
         if (sinan > 0.)
         {
@@ -496,7 +496,7 @@ void Tool1::Parab2dBox(const gp_Parab2d& theParab2d,
         {
           if (out)
           {
-            beginOnCurve[nbSeg] = -Precision::Infinite();
+            beginOnCurve[nbSeg] = -Precision1::Infinite();
             nbSeg++;
           }
           endOnCurve[nbSeg - 1] = parint[npi];
@@ -536,8 +536,8 @@ void Tool1::Parab2dBox(const gp_Parab2d& theParab2d,
   else if (!domain.IsOut(ElCLib1::Value(0., theParab2d)))
   {
     boxParab2d      = domain;
-    beginOnCurve[0] = -Precision::Infinite();
-    endOnCurve[0]   = Precision::Infinite();
+    beginOnCurve[0] = -Precision1::Infinite();
+    endOnCurve[0]   = Precision1::Infinite();
     nbSeg           = 1;
   }
 }
@@ -657,8 +657,8 @@ void Tool1::LinBox(const gp_Lin& L, const Box2& domain, Box2& boxLin)
     boxLin.Set(L.Location(), L.Direction());
     boxLin.Add(L.Direction().Reversed());
     nbSeg           = 1;
-    beginOnCurve[0] = -Precision::Infinite();
-    endOnCurve[0]   = Precision::Infinite();
+    beginOnCurve[0] = -Precision1::Infinite();
+    endOnCurve[0]   = Precision1::Infinite();
     return;
   }
   else if (domain.IsVoid())
@@ -666,8 +666,8 @@ void Tool1::LinBox(const gp_Lin& L, const Box2& domain, Box2& boxLin)
 
   Standard_Real    xmin, xmax, ymin, ymax, zmin, zmax;
   Standard_Real    Xmin = 0, Xmax = 0, Ymin = 0, Ymax = 0, Zmin = 0, Zmax = 0;
-  Standard_Real    parmin = -Precision::Infinite();
-  Standard_Real    parmax = Precision::Infinite();
+  Standard_Real    parmin = -Precision1::Infinite();
+  Standard_Real    parmax = Precision1::Infinite();
   Standard_Real    parcur, par1, par2;
   Standard_Boolean xToSet, yToSet, zToSet;
 
@@ -676,11 +676,11 @@ void Tool1::LinBox(const gp_Lin& L, const Box2& domain, Box2& boxLin)
   if (L.Direction().XYZ().X() > 0.)
   {
     if (domain.IsOpenXmin())
-      parmin = -Precision::Infinite();
+      parmin = -Precision1::Infinite();
     else
       parmin = (xmin - L.Location().XYZ().X()) / L.Direction().XYZ().X();
     if (domain.IsOpenXmax())
-      parmax = Precision::Infinite();
+      parmax = Precision1::Infinite();
     else
       parmax = (xmax - L.Location().XYZ().X()) / L.Direction().XYZ().X();
     xToSet = Standard_True;
@@ -688,11 +688,11 @@ void Tool1::LinBox(const gp_Lin& L, const Box2& domain, Box2& boxLin)
   else if (L.Direction().XYZ().X() < 0.)
   {
     if (domain.IsOpenXmax())
-      parmin = -Precision::Infinite();
+      parmin = -Precision1::Infinite();
     else
       parmin = (xmax - L.Location().XYZ().X()) / L.Direction().XYZ().X();
     if (domain.IsOpenXmin())
-      parmax = Precision::Infinite();
+      parmax = Precision1::Infinite();
     else
       parmax = (xmin - L.Location().XYZ().X()) / L.Direction().XYZ().X();
     xToSet = Standard_True;
@@ -709,12 +709,12 @@ void Tool1::LinBox(const gp_Lin& L, const Box2& domain, Box2& boxLin)
   if (L.Direction().XYZ().Y() > 0.)
   {
     if (domain.IsOpenYmin())
-      parcur = -Precision::Infinite();
+      parcur = -Precision1::Infinite();
     else
       parcur = (ymin - L.Location().XYZ().Y()) / L.Direction().XYZ().Y();
     parmin = Max(parmin, parcur);
     if (domain.IsOpenYmax())
-      parcur = Precision::Infinite();
+      parcur = Precision1::Infinite();
     else
       parcur = (ymax - L.Location().XYZ().Y()) / L.Direction().XYZ().Y();
     parmax = Min(parmax, parcur);
@@ -723,12 +723,12 @@ void Tool1::LinBox(const gp_Lin& L, const Box2& domain, Box2& boxLin)
   else if (L.Direction().XYZ().Y() < 0.)
   {
     if (domain.IsOpenYmax())
-      parcur = -Precision::Infinite();
+      parcur = -Precision1::Infinite();
     else
       parcur = (ymax - L.Location().XYZ().Y()) / L.Direction().XYZ().Y();
     parmin = Max(parmin, parcur);
     if (domain.IsOpenYmin())
-      parcur = Precision::Infinite();
+      parcur = Precision1::Infinite();
     else
       parcur = (ymin - L.Location().XYZ().Y()) / L.Direction().XYZ().Y();
     parmax = Min(parmax, parcur);
@@ -746,12 +746,12 @@ void Tool1::LinBox(const gp_Lin& L, const Box2& domain, Box2& boxLin)
   if (L.Direction().XYZ().Z() > 0.)
   {
     if (domain.IsOpenZmin())
-      parcur = -Precision::Infinite();
+      parcur = -Precision1::Infinite();
     else
       parcur = (zmin - L.Location().XYZ().Z()) / L.Direction().XYZ().Z();
     parmin = Max(parmin, parcur);
     if (domain.IsOpenZmax())
-      parcur = Precision::Infinite();
+      parcur = Precision1::Infinite();
     else
       parcur = (zmax - L.Location().XYZ().Z()) / L.Direction().XYZ().Z();
     parmax = Min(parmax, parcur);
@@ -760,12 +760,12 @@ void Tool1::LinBox(const gp_Lin& L, const Box2& domain, Box2& boxLin)
   else if (L.Direction().XYZ().Z() < 0.)
   {
     if (domain.IsOpenZmax())
-      parcur = -Precision::Infinite();
+      parcur = -Precision1::Infinite();
     else
       parcur = (zmax - L.Location().XYZ().Z()) / L.Direction().XYZ().Z();
     parmin = Max(parmin, parcur);
     if (domain.IsOpenZmin())
-      parcur = Precision::Infinite();
+      parcur = Precision1::Infinite();
     else
       parcur = (zmin - L.Location().XYZ().Z()) / L.Direction().XYZ().Z();
     parmax = Min(parmax, parcur);
@@ -822,8 +822,8 @@ void Tool1::HyprBox(const gp_Hypr& theHypr, const Box2& domain, Box2& boxHypr)
   {
     boxHypr.SetWhole();
     nbSeg = 1;
-    // beginOnCurve[0]=-Precision::Infinite();
-    // endOnCurve[0]=Precision::Infinite();
+    // beginOnCurve[0]=-Precision1::Infinite();
+    // endOnCurve[0]=Precision1::Infinite();
     beginOnCurve[0] = -100.;
     endOnCurve[0]   = 100.;
     return;
@@ -883,7 +883,7 @@ void Tool1::HyprBox(const gp_Hypr& theHypr, const Box2& domain, Box2& boxHypr)
           sinan = Coords3d(0., 0., -1.) * Tan.XYZ();
           break;
       }
-      if (Abs(sinan) > Precision::Angular())
+      if (Abs(sinan) > Precision1::Angular())
       {
         if (sinan > 0.)
         {
@@ -900,7 +900,7 @@ void Tool1::HyprBox(const gp_Hypr& theHypr, const Box2& domain, Box2& boxHypr)
           {
             // modified by NIZNHY-PKV Fri Jul 11 13:59:10 2008f
             beginOnCurve[nbSeg] = -10.;
-            // beginOnCurve[nbSeg]=-Precision::Infinite();
+            // beginOnCurve[nbSeg]=-Precision1::Infinite();
             // modified by NIZNHY-PKV Fri Jul 11 13:59:13 2008t
             nbSeg++;
           }
@@ -959,8 +959,8 @@ void Tool1::HyprBox(const gp_Hypr& theHypr, const Box2& domain, Box2& boxHypr)
   else if (!domain.IsOut(ElCLib1::Value(0., theHypr)))
   {
     boxHypr = domain;
-    // beginOnCurve[0]=-Precision::Infinite();
-    // endOnCurve[0]=Precision::Infinite();
+    // beginOnCurve[0]=-Precision1::Infinite();
+    // endOnCurve[0]=Precision1::Infinite();
     beginOnCurve[0] = -100.;
     endOnCurve[0]   = 100.;
     nbSeg           = 1;
@@ -979,7 +979,7 @@ Standard_Integer Tool1::Inters3d(const gp_Hypr& theCurv, const Box2& Domain)
 
   if (!Domain.IsOpenXmin())
   {
-    ConicQuadIntersection Inters1(theCurv, gp_Pln(1., 0., 0., -xmin), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(1., 0., 0., -xmin), Precision1::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1002,7 +1002,7 @@ Standard_Integer Tool1::Inters3d(const gp_Hypr& theCurv, const Box2& Domain)
 
   if (!Domain.IsOpenYmin())
   {
-    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 1., 0., -ymin), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 1., 0., -ymin), Precision1::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1025,7 +1025,7 @@ Standard_Integer Tool1::Inters3d(const gp_Hypr& theCurv, const Box2& Domain)
 
   if (!Domain.IsOpenZmin())
   {
-    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 0., 1., -zmin), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 0., 1., -zmin), Precision1::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1048,7 +1048,7 @@ Standard_Integer Tool1::Inters3d(const gp_Hypr& theCurv, const Box2& Domain)
 
   if (!Domain.IsOpenXmax())
   {
-    ConicQuadIntersection Inters1(theCurv, gp_Pln(-1., 0., 0., xmax), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(-1., 0., 0., xmax), Precision1::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1071,7 +1071,7 @@ Standard_Integer Tool1::Inters3d(const gp_Hypr& theCurv, const Box2& Domain)
 
   if (!Domain.IsOpenYmax())
   {
-    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., -1., 0., ymax), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., -1., 0., ymax), Precision1::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1094,7 +1094,7 @@ Standard_Integer Tool1::Inters3d(const gp_Hypr& theCurv, const Box2& Domain)
 
   if (!Domain.IsOpenZmax())
   {
-    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 0., -1., zmax), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 0., -1., zmax), Precision1::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1162,7 +1162,7 @@ Standard_Integer Tool1::Inters3d(const gp_Parab& theCurv, const Box2& Domain)
 
   if (!Domain.IsOpenXmin())
   {
-    ConicQuadIntersection Inters1(theCurv, gp_Pln(1., 0., 0., -xmin), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(1., 0., 0., -xmin), Precision1::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1185,7 +1185,7 @@ Standard_Integer Tool1::Inters3d(const gp_Parab& theCurv, const Box2& Domain)
 
   if (!Domain.IsOpenYmin())
   {
-    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 1., 0., -ymin), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 1., 0., -ymin), Precision1::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1208,7 +1208,7 @@ Standard_Integer Tool1::Inters3d(const gp_Parab& theCurv, const Box2& Domain)
 
   if (!Domain.IsOpenZmin())
   {
-    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 0., 1., -zmin), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 0., 1., -zmin), Precision1::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1231,7 +1231,7 @@ Standard_Integer Tool1::Inters3d(const gp_Parab& theCurv, const Box2& Domain)
 
   if (!Domain.IsOpenXmax())
   {
-    ConicQuadIntersection Inters1(theCurv, gp_Pln(-1., 0., 0., xmax), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(-1., 0., 0., xmax), Precision1::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1254,7 +1254,7 @@ Standard_Integer Tool1::Inters3d(const gp_Parab& theCurv, const Box2& Domain)
 
   if (!Domain.IsOpenYmax())
   {
-    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., -1., 0., ymax), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., -1., 0., ymax), Precision1::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1277,7 +1277,7 @@ Standard_Integer Tool1::Inters3d(const gp_Parab& theCurv, const Box2& Domain)
 
   if (!Domain.IsOpenZmax())
   {
-    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 0., -1., zmax), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 0., -1., zmax), Precision1::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1343,8 +1343,8 @@ void Tool1::ParabBox(const gp_Parab& theParab, const Box2& domain, Box2& boxPara
   {
     boxParab.SetWhole();
     nbSeg           = 1;
-    beginOnCurve[0] = -Precision::Infinite();
-    endOnCurve[0]   = Precision::Infinite();
+    beginOnCurve[0] = -Precision1::Infinite();
+    endOnCurve[0]   = Precision1::Infinite();
     return;
   }
   else if (domain.IsVoid())
@@ -1400,7 +1400,7 @@ void Tool1::ParabBox(const gp_Parab& theParab, const Box2& domain, Box2& boxPara
           sinan = Coords3d(0., 0., -1.) * Tan.XYZ();
           break;
       }
-      if (Abs(sinan) > Precision::Angular())
+      if (Abs(sinan) > Precision1::Angular())
       {
         if (sinan > 0.)
         {
@@ -1412,7 +1412,7 @@ void Tool1::ParabBox(const gp_Parab& theParab, const Box2& domain, Box2& boxPara
         {
           if (out)
           {
-            beginOnCurve[nbSeg] = -Precision::Infinite();
+            beginOnCurve[nbSeg] = -Precision1::Infinite();
             nbSeg++;
           }
           endOnCurve[nbSeg - 1] = parint[npi];
@@ -1448,8 +1448,8 @@ void Tool1::ParabBox(const gp_Parab& theParab, const Box2& domain, Box2& boxPara
   else if (!domain.IsOut(ElCLib1::Value(0., theParab)))
   {
     boxParab        = domain;
-    beginOnCurve[0] = -Precision::Infinite();
-    endOnCurve[0]   = Precision::Infinite();
+    beginOnCurve[0] = -Precision1::Infinite();
+    endOnCurve[0]   = Precision1::Infinite();
     nbSeg           = 1;
   }
 }

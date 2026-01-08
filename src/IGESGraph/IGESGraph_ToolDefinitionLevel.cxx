@@ -115,7 +115,7 @@ void DefinitionLevelTool::OwnDump(const Handle(IGESGraph_DefinitionLevel)& ent,
                                             const Standard_Integer level) const
 {
   S << "IGESGraph_DefinitionLevel\n"
-    << "Level Numbers : ";
+    << "Level Numbers1 : ";
   IGESData_DumpVals(S, level, 1, ent->NbPropertyValues(), ent->LevelNumber);
   S << std::endl;
 }

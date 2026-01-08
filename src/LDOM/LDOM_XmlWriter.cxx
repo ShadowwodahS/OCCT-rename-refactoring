@@ -329,11 +329,11 @@ void XmlWriter::Write(Standard_OStream& theOStream, const LDOM_Node& theNode)
 // function :
 // purpose  : Stream out an LDOMString
 //=======================================================================
-void XmlWriter::Write(Standard_OStream& theOStream, const LDOMBasicString& theString)
+void XmlWriter::Write(Standard_OStream& theOStream, const LDOMBasicString1& theString)
 {
   switch (theString.Type())
   {
-    case LDOMBasicString::LDOM_Integer: {
+    case LDOMBasicString1::LDOM_Integer: {
       Standard_Integer aValue;
       theString.GetInteger(aValue);
 
@@ -342,8 +342,8 @@ void XmlWriter::Write(Standard_OStream& theOStream, const LDOMBasicString& theSt
 
       break;
     }
-    case LDOMBasicString::LDOM_AsciiHashed: // attr names and element tags
-    case LDOMBasicString::LDOM_AsciiDocClear: {
+    case LDOMBasicString1::LDOM_AsciiHashed: // attr names and element tags
+    case LDOMBasicString1::LDOM_AsciiDocClear: {
       const char* aStr = theString.GetString();
       if (aStr)
       {
@@ -355,8 +355,8 @@ void XmlWriter::Write(Standard_OStream& theOStream, const LDOMBasicString& theSt
       }
     }
     break;
-    case LDOMBasicString::LDOM_AsciiFree:
-    case LDOMBasicString::LDOM_AsciiDoc: {
+    case LDOMBasicString1::LDOM_AsciiFree:
+    case LDOMBasicString1::LDOM_AsciiDoc: {
       const char* aStr = theString.GetString();
       if (aStr)
       {
@@ -411,7 +411,7 @@ void XmlWriter::WriteAttribute(Standard_OStream& theOStream, const LDOM_Node& th
   int aLength = 0;
 
   // Integer1 attribute value
-  if (aValueStr.Type() == LDOMBasicString::LDOM_Integer)
+  if (aValueStr.Type() == LDOMBasicString1::LDOM_Integer)
   {
     Standard_Integer anIntValue;
     aValueStr.GetInteger(anIntValue);
@@ -441,7 +441,7 @@ void XmlWriter::WriteAttribute(Standard_OStream& theOStream, const LDOM_Node& th
   {
     char*       encStr;
     const char* aValue = aValueStr.GetString();
-    if (aValueStr.Type() == LDOMBasicString::LDOM_AsciiDocClear)
+    if (aValueStr.Type() == LDOMBasicString1::LDOM_AsciiDocClear)
     {
       encStr  = (char*)aValue;
       aLength = (Standard_Integer)(4 + strlen(aValue) + strlen(aName));

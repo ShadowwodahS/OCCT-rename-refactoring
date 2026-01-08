@@ -17,7 +17,7 @@
 #include <OSD_WhoAmI.hxx>
 #include <errno.h>
 
-// List of OSD error codes
+// List of OSD1 error codes
 
 #define ERR_SURPRISE -2
 // Error message management didn't follow code evolution

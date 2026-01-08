@@ -167,7 +167,7 @@ static void CheckPCurves(TopoWire&           aWire,
     {
       Standard_Real u1, u2, v1, v2;
       mySurf->Bounds(u1, u2, v1, v2);
-      ElCLib1::AdjustPeriodic(u1, u2, Min(Abs(w2 - w1) / 2, Precision::PConfusion()), w1, w2);
+      ElCLib1::AdjustPeriodic(u1, u2, Min(Abs(w2 - w1) / 2, Precision1::PConfusion()), w1, w2);
       B.Range(myEdge, aFace, w1, w2);
     }
 
@@ -236,7 +236,7 @@ void StepToTopoDS_TranslateEdgeLoop::Init(const Handle(StepShape_FaceBound)& Fac
   Standard_Integer modepcurve = aStepModel->InternalParameters.ReadSurfaceCurveMode;
   //  0,1 : suivre le code,  2 : ne prendre que pcurve,  3 : ne prendre que C3D
 
-  Standard_Real preci = Precision();
+  Standard_Real preci = Precision1();
   TopoWire   W;
   TopoEdge   E;
   TopoVertex V;
@@ -375,7 +375,7 @@ void StepToTopoDS_TranslateEdgeLoop::Init(const Handle(StepShape_FaceBound)& Fac
       V2        = TopoDS::Vertex(myTranVertex2.Value());
       Point3d p1 = BRepInspector::Pnt(V1);
       Point3d p2 = BRepInspector::Pnt(V2);
-      if (p1.Distance(p2) <= Precision::Confusion())
+      if (p1.Distance(p2) <= Precision1::Confusion())
       { //: S4136: preci) {
         Standard_Boolean Fixed = Standard_True;
         if (!iseV)
@@ -780,7 +780,7 @@ void StepToTopoDS_TranslateEdgeLoop::Init(const Handle(StepShape_FaceBound)& Fac
       myEdgePro->Compute(preci);
       if (myEdgePro->IsFirstDone() && myEdgePro->IsLastDone())
       {
-        if (Abs(myEdgePro->FirstParam() - myEdgePro->LastParam()) < Precision::PConfusion())
+        if (Abs(myEdgePro->FirstParam() - myEdgePro->LastParam()) < Precision1::PConfusion())
           continue;
         B.Range(edge, Face, myEdgePro->FirstParam(), myEdgePro->LastParam());
       }

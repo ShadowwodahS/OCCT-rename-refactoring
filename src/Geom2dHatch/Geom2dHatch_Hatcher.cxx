@@ -845,7 +845,7 @@ Standard_Boolean Geom2dHatch_Hatcher::GlobalTransition(HatchGen_PointOnHatching&
   myIntersector.LocalGeometry(CurveH.Curve(), Point.Parameter(), Tangente2d, Normale2d, Courbure);
 
   Tangente.SetCoord(Tangente2d.X(), Tangente2d.Y(), 0.0);
-  if (Courbure < Precision::Confusion())
+  if (Courbure < Precision1::Confusion())
   {
     Normale.SetCoord(-Tangente2d.Y(), Tangente2d.X(), 0.0);
   }
@@ -1035,7 +1035,7 @@ Standard_Boolean Geom2dHatch_Hatcher::GlobalTransition(HatchGen_PointOnHatching&
            str2);
 #endif
 
-    ComplexTransition.Compare(Precision::Angular(),
+    ComplexTransition.Compare(Precision1::Angular(),
                               Tangente,
                               Normale,
                               Courbure,

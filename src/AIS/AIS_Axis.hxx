@@ -98,7 +98,7 @@ public:
     return AIS_KindOfInteractive_Datum;
   }
 
-  Standard_EXPORT void SetColor(const Quantity_Color& aColor) Standard_OVERRIDE;
+  Standard_EXPORT void SetColor(const Color1& aColor) Standard_OVERRIDE;
 
   Standard_EXPORT void SetWidth(const Standard_Real aValue) Standard_OVERRIDE;
 

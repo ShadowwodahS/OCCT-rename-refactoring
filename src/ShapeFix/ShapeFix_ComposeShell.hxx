@@ -92,7 +92,7 @@ public:
 
   //! Initializes with composite surface, face and precision.
   //! Here face defines both set of wires and way of getting
-  //! pcurves. Precision is used (together with tolerance of edges)
+  //! pcurves. Precision1 is used (together with tolerance of edges)
   //! for handling subtle cases, such as tangential intersections.
   Standard_EXPORT void Init(const Handle(ShapeExtend_CompositeSurface)& Grid,
                             const TopLoc_Location&                      L,

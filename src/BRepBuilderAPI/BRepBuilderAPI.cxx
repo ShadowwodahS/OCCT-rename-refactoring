@@ -39,14 +39,14 @@ const Handle(GeomPlane)& BRepBuilderAPI1::Plane1()
 
 //=================================================================================================
 
-void BRepBuilderAPI1::Precision(const Standard_Real P)
+void BRepBuilderAPI1::Precision1(const Standard_Real P)
 {
-  BRepLib1::Precision(P);
+  BRepLib1::Precision1(P);
 }
 
 //=================================================================================================
 
-Standard_Real BRepBuilderAPI1::Precision()
+Standard_Real BRepBuilderAPI1::Precision1()
 {
-  return BRepLib1::Precision();
+  return BRepLib1::Precision1();
 }

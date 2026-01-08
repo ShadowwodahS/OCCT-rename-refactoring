@@ -139,7 +139,7 @@ public:
     Standard_OVERRIDE;
 
   //! The CylindricalSurface is infinite in the V direction so
-  //! V1 = Realfirst, V2 = RealLast from package Standard.
+  //! V1 = Realfirst, V2 = RealLast from package Standard1.
   //! U1 = 0 and U2 = 2*PI.
   Standard_EXPORT void Bounds(Standard_Real& U1,
                               Standard_Real& U2,

@@ -174,7 +174,7 @@ void BRepBuilderAPI_FindPlane::Init(const TopoShape& S, const Standard_Real Tol)
         if (p0.SquareDistance(p2) > tol2)
         {
           Dir3d D1(V1), D2(Vector3d(p0, p2));
-          if (!D1.IsParallel(D2, Precision::Angular()))
+          if (!D1.IsParallel(D2, Precision1::Angular()))
           {
             P     = new GeomPlane(Ax3(p0, D1.Crossed(D2), D1));
             found = Standard_True;

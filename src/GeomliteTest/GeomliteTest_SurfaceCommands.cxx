@@ -609,7 +609,7 @@ static Standard_Integer tocanon(DrawInterpreter& di, Standard_Integer n, const c
     }
   }
 
-  Standard_Real tol = Precision::Confusion();
+  Standard_Real tol = Precision1::Confusion();
   if (n > 3)
   {
     tol = Draw1::Atof(a[3]);
@@ -689,7 +689,7 @@ static Standard_Integer tobezier(DrawInterpreter& di, Standard_Integer n, const 
         U2 = Draw1::Atof(a[4]);
         V1 = Draw1::Atof(a[5]);
         V2 = Draw1::Atof(a[6]);
-        GeomConvert_BSplineSurfaceToBezierSurface Conv(S, U1, U2, V1, V2, Precision::PConfusion());
+        GeomConvert_BSplineSurfaceToBezierSurface Conv(S, U1, U2, V1, V2, Precision1::PConfusion());
         NbU = Conv.NbUPatches();
         NbV = Conv.NbVPatches();
         di << NbU << " X " << NbV << " patches in the result\n";
@@ -727,7 +727,7 @@ static Standard_Integer tobezier(DrawInterpreter& di, Standard_Integer n, const 
         Standard_Real U1, U2;
         U1 = Draw1::Atof(a[3]);
         U2 = Draw1::Atof(a[4]);
-        GeomConvert_BSplineCurveToBezierCurve Conv(C3d, U1, U2, Precision::PConfusion());
+        GeomConvert_BSplineCurveToBezierCurve Conv(C3d, U1, U2, Precision1::PConfusion());
         NbArc = Conv.NbArcs();
         di << NbArc << " arcs in the result\n";
         for (i = 1; i <= NbArc; i++)
@@ -758,7 +758,7 @@ static Standard_Integer tobezier(DrawInterpreter& di, Standard_Integer n, const 
       Standard_Real U1, U2;
       U1 = Draw1::Atof(a[3]);
       U2 = Draw1::Atof(a[4]);
-      Geom2dConvert_BSplineCurveToBezierCurve Conv(C2d, U1, U2, Precision::PConfusion());
+      Geom2dConvert_BSplineCurveToBezierCurve Conv(C2d, U1, U2, Precision1::PConfusion());
       NbArc = Conv.NbArcs();
       di << NbArc << " arcs in the result\n";
       for (i = 1; i <= NbArc; i++)
@@ -793,7 +793,7 @@ static Standard_Integer convbz(DrawInterpreter& di, Standard_Integer n, const ch
     return 1;
 
   Standard_Integer ii, jj, kk = 0, NbU, NbV;
-  Standard_Real    Tol = Precision::Confusion();
+  Standard_Real    Tol = Precision1::Confusion();
 
   NbU = Draw1::Atoi(a[2]);
   Handle(GeomCurve3d) aCurve(Handle(GeomCurve3d)::DownCast(DrawTrSurf1::Get(a[3])));
@@ -1303,11 +1303,11 @@ static Standard_Integer insertknot(DrawInterpreter&, Standard_Integer n, const c
 
   if (!strcasecmp(a[0], "insertuknot"))
   {
-    GBs->InsertUKnot(knot, mult, Precision::PConfusion());
+    GBs->InsertUKnot(knot, mult, Precision1::PConfusion());
   }
   else if (!strcasecmp(a[0], "insertvknot"))
   {
-    GBs->InsertVKnot(knot, mult, Precision::PConfusion());
+    GBs->InsertVKnot(knot, mult, Precision1::PConfusion());
   }
   else if (!strcasecmp(a[0], "remuknot"))
   {
@@ -1599,8 +1599,8 @@ static Standard_Integer segsur(DrawInterpreter&, Standard_Integer n, const char*
     if (GBs.IsNull())
       return 1;
 
-    Standard_Real aUTolerance = Precision::PConfusion();
-    Standard_Real aVTolerance = Precision::PConfusion();
+    Standard_Real aUTolerance = Precision1::PConfusion();
+    Standard_Real aVTolerance = Precision1::PConfusion();
     if (n >= 7)
       aUTolerance = aVTolerance = Draw1::Atof(a[6]);
     if (n == 8)
@@ -1664,7 +1664,7 @@ static Standard_Integer compBsplSur(DrawInterpreter&, Standard_Integer n, const 
       Point3d        aP1   = GBs1->Value(aU, aV);
       Point3d        aP2   = GBs2->Value(aU, aV);
       Standard_Real aDist = aP1.SquareDistance(aP2);
-      if (aDist > Precision::SquareConfusion())
+      if (aDist > Precision1::SquareConfusion())
       {
         Standard_Real aD = sqrt(aDist);
         std::cout << "Surfaces differ for U,V,Dist: " << aU << " " << aV << " " << aD << std::endl;

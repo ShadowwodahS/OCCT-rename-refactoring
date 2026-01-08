@@ -53,7 +53,7 @@ GeomFill_EvolvedSection::GeomFill_EvolvedSection(const Handle(GeomCurve3d)&   C,
     if (myCurve->IsPeriodic())
     {
       Standard_Integer M = myCurve->Degree() / 2 + 1;
-      myCurve->RemoveKnot(1, M, Precision::Confusion());
+      myCurve->RemoveKnot(1, M, Precision1::Confusion());
     }
   }
 
@@ -224,7 +224,7 @@ Standard_Boolean GeomFill_EvolvedSection::IsUPeriodic() const
 //=======================================================
 Standard_Boolean GeomFill_EvolvedSection::IsVPeriodic() const
 {
-  return (Abs(myLaw->Value(First) - myLaw->Value(Last)) < Precision::Confusion());
+  return (Abs(myLaw->Value(First) - myLaw->Value(Last)) < Precision1::Confusion());
 }
 
 //=======================================================
@@ -248,7 +248,7 @@ void GeomFill_EvolvedSection::Intervals(TColStd_Array1OfReal& T, const GeomAbs_S
 //=======================================================
 void GeomFill_EvolvedSection::SetInterval(const Standard_Real F, const Standard_Real L)
 {
-  TLaw = myLaw->Trim(F, L, Precision::PConfusion());
+  TLaw = myLaw->Trim(F, L, Precision1::PConfusion());
 }
 
 //=======================================================

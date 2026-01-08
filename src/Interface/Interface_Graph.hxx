@@ -51,7 +51,7 @@ class Interface_EntityIterator;
 //! by any caller
 //!
 //! Also, it is bound with two lists : a list of Shared
-//! Entities (in fact, their Numbers in the Model) which is
+//! Entities (in fact, their Numbers1 in the Model) which is
 //! filled by a ShareTool, and a list of Sharing Entities,
 //! computed by deduction from the Shared Lists
 //!

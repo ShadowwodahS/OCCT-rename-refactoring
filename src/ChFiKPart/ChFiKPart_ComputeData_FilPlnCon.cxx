@@ -85,7 +85,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   Point3d PtSp;
   Vector3d DSp;
   ElCLib1::D1(First, Spine, PtSp, DSp);
-  QuadQuadGeoIntersection CInt(Pln, Con, Precision::Angular(), Precision::Confusion());
+  QuadQuadGeoIntersection CInt(Pln, Con, Precision1::Angular(), Precision1::Confusion());
   Point3d             Pv;
   if (CInt.IsDone())
   {
@@ -132,7 +132,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
       Dz.Reverse();
     }
     Rad = Maxrad - Rabio;
-    if (Abs(Rad) <= Precision::Confusion())
+    if (Abs(Rad) <= Precision1::Confusion())
     {
       c1sphere = Standard_True;
     }
@@ -267,7 +267,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   lin2dFil.SetLocation(p2dFil);
   Handle(Geom2d_Line) GLin2dFil2 = new Geom2d_Line(lin2dFil);
   ElSLib1::Parameters(Con, P, u, v);
-  Standard_Real    tol           = Precision::PConfusion();
+  Standard_Real    tol           = Precision1::PConfusion();
   Standard_Boolean careaboutsens = 0;
   if (Abs(lu - fu - 2 * M_PI) < tol)
     careaboutsens = 1;

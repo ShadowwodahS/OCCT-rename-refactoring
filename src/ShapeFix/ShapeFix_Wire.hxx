@@ -78,7 +78,7 @@ DEFINE_STANDARD_HANDLE(WireHealer, ShapeFix_Root)
 //! following data:
 //! a) Wire (ether TopoWire or ShapeExtend_Wire)
 //! b) Face or surface
-//! c) Precision
+//! c) Precision1
 //! d) Maximal tail angle and width
 //! This can be done either by calling corresponding methods
 //! (LoadWire, SetFace or SetSurface, SetPrecision, SetMaxTailAngle
@@ -309,7 +309,7 @@ public:
   //! flag ClosedMode is True
   //! If <force> is False (default), test for connectness is done with
   //! precision of vertex between edges, else it is done with minimal
-  //! value of vertex tolerance and Analyzer.Precision().
+  //! value of vertex tolerance and Analyzer.Precision1().
   //! Hence, <force> will lead to inserting lacking edges in replacement
   //! of vertices which have big tolerances.
   Standard_EXPORT Standard_Boolean FixLacking(const Standard_Boolean force = Standard_False);

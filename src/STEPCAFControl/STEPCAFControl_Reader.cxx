@@ -515,7 +515,7 @@ void STEPCAFControl_Reader::prepareUnits(const Handle(StepData_StepModel)& theMo
                                            UnitsMethods_LengthUnit_Millimeter))
   {
     XSAlgo_ShapeProcessor::PrepareForTransfer(); // update unit info
-    aScaleFactorMM = UnitsMethods::GetCasCadeLengthUnit();
+    aScaleFactorMM = UnitsMethods1::GetCasCadeLengthUnit();
     // Sets length unit to the document
     XCAFDoc_DocumentTool::SetLengthUnit(theDoc, aScaleFactorMM, UnitsMethods_LengthUnit_Millimeter);
   }
@@ -1105,7 +1105,7 @@ static void SetAssemblyComponentStyle(
 
   if (!aSurfCol.IsNull() || !aBoundCol.IsNull() || !aCurveCol.IsNull() || !aRenderCol.IsNull())
   {
-    Quantity_Color     aSCol, aBCol, aCCol, aRCol;
+    Color1     aSCol, aBCol, aCCol, aRCol;
     Quantity_ColorRGBA aFullSCol;
     if (!aSurfCol.IsNull())
     {
@@ -1279,7 +1279,7 @@ static void SetStyle(const Handle(ExchangeSession)&        theWS,
       Standard_Boolean isFound = theSTool->SearchUsingMap(aS, aL, Standard_False, Standard_True);
       if (!aSurfCol.IsNull() || !aBoundCol.IsNull() || !aCurveCol.IsNull() || !aRenderCol.IsNull())
       {
-        Quantity_Color     aSCol, aBCol, aCCol, aRCol;
+        Color1     aSCol, aBCol, aCCol, aRCol;
         Quantity_ColorRGBA aFullSCol;
         if (!aSurfCol.IsNull())
         {
@@ -2058,7 +2058,7 @@ Standard_Boolean STEPCAFControl_Reader::ReadSHUOs(
       // now set the style to the SHUO main label.
       if (!SurfCol.IsNull() || !RenderCol.IsNull())
       {
-        Quantity_Color     col;
+        Color1     col;
         Quantity_ColorRGBA colRGBA;
         if (!SurfCol.IsNull())
         {
@@ -2074,13 +2074,13 @@ Standard_Boolean STEPCAFControl_Reader::ReadSHUOs(
       }
       if (!BoundCol.IsNull())
       {
-        Quantity_Color col;
+        Color1 col;
         Styles.DecodeColor(BoundCol, col);
         CTool->SetColor(aLabelForStyle, col, XCAFDoc_ColorCurv);
       }
       if (!CurveCol.IsNull())
       {
-        Quantity_Color col;
+        Color1 col;
         Styles.DecodeColor(CurveCol, col);
         CTool->SetColor(aLabelForStyle, col, XCAFDoc_ColorCurv);
       }
@@ -2351,10 +2351,10 @@ Standard_Boolean readPMIPresentation(const Handle(RefObject)&       thePresentEn
           const Ax3 anAx3Orig = gp1::XOY();
           const Ax3 anAx3Targ(aLocation->Ax2());
           if (anAx3Targ.Location().SquareDistance(anAx3Orig.Location())
-                >= Precision::SquareConfusion()
-              || !anAx3Targ.Direction().IsEqual(anAx3Orig.Direction(), Precision::Angular())
-              || !anAx3Targ.XDirection().IsEqual(anAx3Orig.XDirection(), Precision::Angular())
-              || !anAx3Targ.YDirection().IsEqual(anAx3Orig.YDirection(), Precision::Angular()))
+                >= Precision1::SquareConfusion()
+              || !anAx3Targ.Direction().IsEqual(anAx3Orig.Direction(), Precision1::Angular())
+              || !anAx3Targ.XDirection().IsEqual(anAx3Orig.XDirection(), Precision1::Angular())
+              || !anAx3Targ.YDirection().IsEqual(anAx3Orig.YDirection(), Precision1::Angular()))
           {
             aTransf.SetTransformation(anAx3Targ, anAx3Orig);
           }
@@ -3976,7 +3976,7 @@ void convertAngleValue(const STEPConstruct_UnitContext& anUnitCtx, Standard_Real
   Standard_Real aFact = anUnitCtx.PlaneAngleFactor() * 180 / M_PI;
   // in order to avoid inaccuracy of calculation perform conversion
   // only if aFact not equal 1 with some precision
-  if (fabs(1. - aFact) > Precision::Confusion())
+  if (fabs(1. - aFact) > Precision1::Confusion())
   {
     aVal = aVal * aFact;
   }

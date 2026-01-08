@@ -43,7 +43,7 @@ DEFINE_STANDARD_HANDLE(ShapeAnalysis_Surface, RefObject)
 //!
 //! * The spatial closure
 //! The check for spatial closure is performed with given precision
-//! (default value is Precision::Confusion).
+//! (default value is Precision1::Confusion).
 //! If GeomSurface says that the surface is closed, this class
 //! also says this. Otherwise additional analysis is performed.
 //!
@@ -222,7 +222,7 @@ public:
   Standard_EXPORT Handle(GeomCurve3d) VIso(const Standard_Real V);
 
   //! Tells if the Surface is spatially closed in U with given
-  //! precision. If <preci> < 0 then Precision::Confusion is used.
+  //! precision. If <preci> < 0 then Precision1::Confusion is used.
   //! If GeomSurface says that the surface is U-closed, this method
   //! also says this. Otherwise additional analysis is performed,
   //! comparing given precision with the following distances:
@@ -239,7 +239,7 @@ public:
   Standard_EXPORT Standard_Boolean IsUClosed(const Standard_Real preci = -1);
 
   //! Tells if the Surface is spatially closed in V with given
-  //! precision. If <preci> < 0 then Precision::Confusion is used.
+  //! precision. If <preci> < 0 then Precision1::Confusion is used.
   //! If GeomSurface says that the surface is V-closed, this method
   //! also says this. Otherwise additional analysis is performed,
   //! comparing given precision with the following distances:

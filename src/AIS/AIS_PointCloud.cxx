@@ -120,7 +120,7 @@ void AIS_PointCloudOwner::HilightWithColor(const Handle(PrsMgr_PresentationManag
   }
 
   Handle(Graphic3d_ArrayOfPoints) aPoints = new Graphic3d_ArrayOfPoints(aMap->Map().Extent());
-  for (TColStd_PackedMapOfInteger::Iterator aPntIter(aMap->Map()); aPntIter.More(); aPntIter.Next())
+  for (PackedIntegerMap::Iterator aPntIter(aMap->Map()); aPntIter.More(); aPntIter.Next())
   {
     const Point3d aPnt = anAllPoints->Vertice(aPntIter.Key1() + 1);
     aPoints->AddVertex(aPnt);
@@ -258,7 +258,7 @@ void AIS_PointCloud::SetPoints(const Handle(TColgp_HArray1OfPnt)&     theCoords,
 
 //=================================================================================================
 
-void AIS_PointCloud::SetColor(const Quantity_Color& theColor)
+void AIS_PointCloud::SetColor(const Color1& theColor)
 {
   VisualEntity::SetColor(theColor);
 
@@ -279,7 +279,7 @@ void AIS_PointCloud::UnsetColor()
   {
     Graphic3d_MaterialAspect aDefaultMat(Graphic3d_NameOfMaterial_Brass);
     Graphic3d_MaterialAspect aMat   = aDefaultMat;
-    Quantity_Color           aColor = aDefaultMat.Color();
+    Color1           aColor = aDefaultMat.Color();
     if (myDrawer->HasLink())
     {
       aColor = myDrawer->Link1()->ShadingAspect()->Color(myCurrentFacingModel);

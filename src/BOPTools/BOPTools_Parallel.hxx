@@ -63,13 +63,13 @@ class BooleanParallelTools
     //! Binds main thread context
     void SetContext(const opencascade::handle<TypeContext>& theContext)
     {
-      myContextMap.Bind(OSD_Thread::Current(), theContext);
+      myContextMap.Bind(Thread::Current(), theContext);
     }
 
     //! Returns current thread context
     const opencascade::handle<TypeContext>& GetThreadContext() const
     {
-      const Standard_ThreadId aThreadID = OSD_Thread::Current();
+      const Standard_ThreadId aThreadID = Thread::Current();
       if (const opencascade::handle<TypeContext>* aContextPtr = myContextMap.Seek(aThreadID))
       {
         if (!aContextPtr->IsNull())
@@ -156,7 +156,7 @@ public:
   static void Perform(Standard_Boolean theIsRunParallel, TypeSolverVector& theSolverVector)
   {
     Functor<TypeSolverVector> aFunctor(theSolverVector);
-    OSD_Parallel::For(0, theSolverVector.Length(), aFunctor, !theIsRunParallel);
+    Parallel1::For(0, theSolverVector.Length(), aFunctor, !theIsRunParallel);
   }
 
   //! Context dependent version
@@ -165,7 +165,7 @@ public:
                       TypeSolverVector&                 theSolverVector,
                       opencascade::handle<TypeContext>& theContext)
   {
-    if (OSD_Parallel::ToUseOcctThreads())
+    if (Parallel1::ToUseOcctThreads())
     {
       const Handle(OSD_ThreadPool)&                  aThreadPool = OSD_ThreadPool::DefaultPool();
       OSD_ThreadPool::Launcher                       aPoolLauncher(*aThreadPool,
@@ -178,7 +178,7 @@ public:
     {
       ContextFunctor<TypeSolverVector, TypeContext> aFunctor(theSolverVector);
       aFunctor.SetContext(theContext);
-      OSD_Parallel::For(0, theSolverVector.Length(), aFunctor, !theIsRunParallel);
+      Parallel1::For(0, theSolverVector.Length(), aFunctor, !theIsRunParallel);
     }
   }
 };

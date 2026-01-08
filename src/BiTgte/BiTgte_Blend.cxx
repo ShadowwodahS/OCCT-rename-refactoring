@@ -91,8 +91,8 @@
 // variables for performance
 Standard_Real t_mkcurve;
 #ifdef OCCT_DEBUG
-extern void ChFi3d_InitChron(OSD_Chronometer& ch);
-extern void ChFi3d_ResultChron(OSD_Chronometer& ch, Standard_Real& time);
+extern void ChFi3d_InitChron(Chronometer& ch);
+extern void ChFi3d_ResultChron(Chronometer& ch, Standard_Real& time);
 #endif
 #ifdef DRAW
 static Standard_Boolean Affich = Standard_False;
@@ -220,7 +220,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
   // if not found call BRepLib1::BuildCurve3d
 
   TopLoc_Location         Loc;
-  constexpr Standard_Real Tol = Precision::Confusion();
+  constexpr Standard_Real Tol = Precision1::Confusion();
 
   // Search only isos on analytical surfaces.
   Geom2dAdaptor_Curve C(Curve);
@@ -234,12 +234,12 @@ static void KPartCurve3d(const TopoEdge&   Edge,
     if (CTy == GeomAbs_Line)
     {
       gp_Dir2d D = C.Line().Direction();
-      if (D.IsParallel(gp1::DX2d(), Precision::Angular()))
+      if (D.IsParallel(gp1::DX2d(), Precision1::Angular()))
       { // Iso V.
         if (STy == GeomAbs_Sphere)
         {
           gp_Pnt2d P = C.Line().Location();
-          if (Abs(Abs(P.Y()) - M_PI / 2.) < Precision::PConfusion())
+          if (Abs(Abs(P.Y()) - M_PI / 2.) < Precision1::PConfusion())
           {
             TheBuilder.Degenerated(Edge, Standard_True);
           }
@@ -252,7 +252,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
             Axis3d    AxeRev(Axis.Location(), DRev);
             Ci.Rotate(AxeRev, P.X());
             Handle(GeomCircle) Circle = new GeomCircle(Ci);
-            if (D.IsOpposite(gp1::DX2d(), Precision::Angular()))
+            if (D.IsOpposite(gp1::DX2d(), Precision1::Angular()))
               Circle->Reverse();
             TheBuilder.UpdateEdge(Edge, Circle, Loc, Tol);
           }
@@ -267,7 +267,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
           Axis3d      AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
           Handle(GeomCircle) Circle = new GeomCircle(Ci);
-          if (D.IsOpposite(gp1::DX2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DX2d(), Precision1::Angular()))
             Circle->Reverse();
           TheBuilder.UpdateEdge(Edge, Circle, Loc, Tol);
         }
@@ -281,7 +281,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
           Axis3d   AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
           Handle(GeomCircle) Circle = new GeomCircle(Ci);
-          if (D.IsOpposite(gp1::DX2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DX2d(), Precision1::Angular()))
             Circle->Reverse();
           TheBuilder.UpdateEdge(Edge, Circle, Loc, Tol);
         }
@@ -295,12 +295,12 @@ static void KPartCurve3d(const TopoEdge&   Edge,
           Axis3d   AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
           Handle(GeomCircle) Circle = new GeomCircle(Ci);
-          if (D.IsOpposite(gp1::DX2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DX2d(), Precision1::Angular()))
             Circle->Reverse();
           TheBuilder.UpdateEdge(Edge, Circle, Loc, Tol);
         }
       }
-      else if (D.IsParallel(gp1::DY2d(), Precision::Angular()))
+      else if (D.IsParallel(gp1::DY2d(), Precision1::Angular()))
       { // Iso U.
         if (STy == GeomAbs_Sphere)
         {
@@ -321,7 +321,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
           Ci.Rotate(AxeRev, P.X());
           Handle(GeomCircle) Circle = new GeomCircle(Ci);
 
-          if (D.IsOpposite(gp1::DY2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DY2d(), Precision1::Angular()))
             Circle->Reverse();
           TheBuilder.UpdateEdge(Edge, Circle, Loc, Tol);
         }
@@ -334,7 +334,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
           Tr.Multiply(P.Y());
           L.Translate(Tr);
           Handle(GeomLine) Line = new GeomLine(L);
-          if (D.IsOpposite(gp1::DY2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DY2d(), Precision1::Angular()))
             Line->Reverse();
           TheBuilder.UpdateEdge(Edge, Line, Loc, Tol);
         }
@@ -347,7 +347,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
           Tr.Multiply(P.Y());
           L.Translate(Tr);
           Handle(GeomLine) Line = new GeomLine(L);
-          if (D.IsOpposite(gp1::DY2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DY2d(), Precision1::Angular()))
             Line->Reverse();
           TheBuilder.UpdateEdge(Edge, Line, Loc, Tol);
         }
@@ -403,7 +403,7 @@ Handle(GeomCurve3d) MakeCurve(const BiTgte_CurveOnEdge& HC)
   Handle(GeomCurve3d) C;
 
 #ifdef OCCT_DEBUG
-  OSD_Chronometer ch;
+  Chronometer ch;
   ChFi3d_InitChron(ch);
 #endif
 
@@ -417,7 +417,7 @@ Handle(GeomCurve3d) MakeCurve(const BiTgte_CurveOnEdge& HC)
     MakeCurve_Function F(HC);
     Standard_Integer   Deg1, Deg2;
     Deg1 = Deg2                 = 8;
-    constexpr Standard_Real Tol = Precision::Approximation();
+    constexpr Standard_Real Tol = Precision1::Approximation();
     Approx_FitAndDivide     Fit(F, Deg1, Deg2, Tol, Tol, Standard_True);
     Standard_Integer        i;
     Standard_Integer        NbCurves = Fit.NbMultiCurves();
@@ -533,7 +533,7 @@ static TopoVertex FindVertex(const Point3d&              P,
 static TopoEdge MakeDegeneratedEdge(const Handle(GeomCurve3d)& CC, const TopoVertex& VfOnE)
 {
   ShapeBuilder            B;
-  constexpr Standard_Real Tol = Precision::Confusion();
+  constexpr Standard_Real Tol = Precision1::Confusion();
   // kill trimmed curves
   Handle(GeomCurve3d)        C  = CC;
   Handle(Geom_TrimmedCurve) CT = Handle(Geom_TrimmedCurve)::DownCast(C);
@@ -962,7 +962,7 @@ void BiTgte_Blend::Perform(const Standard_Boolean BuildShape)
   // end Sewing for false free borders.
 
 #ifdef OCCT_DEBUG
-  OSD_Chronometer cl_total, ch;
+  Chronometer cl_total, ch;
   Standard_Real   t_total, t_center, t_surface, t_shape;
 
   t_total   = 0;
@@ -1034,7 +1034,7 @@ void BiTgte_Blend::Perform(const Standard_Boolean BuildShape)
 
   // Finally construct curves 3d from edges to be transferred
   // since the partition is provided ( A Priori);
-  BRepLib1::BuildCurves3d(myResult, Precision::Confusion());
+  BRepLib1::BuildCurves3d(myResult, Precision1::Confusion());
 
 #ifdef OCCT_DEBUG
   ChFi3d_ResultChron(cl_total, t_total);

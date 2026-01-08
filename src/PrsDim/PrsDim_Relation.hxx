@@ -50,7 +50,7 @@ class PrsDim_Relation : public VisualEntity
 public:
   //! Allows you to provide settings for the color theColor
   //! of the lines representing the relation between the two shapes.
-  Standard_EXPORT void SetColor(const Quantity_Color& theColor) Standard_OVERRIDE;
+  Standard_EXPORT void SetColor(const Color1& theColor) Standard_OVERRIDE;
 
   //! Allows you to remove settings for the color of the
   //! lines representing the relation between the two shapes.
@@ -170,7 +170,7 @@ public:
   //! FirstP2  : Pnt                  from gp1;
   //! LastP2   : Pnt                  from gp1;
   //! aColor   : NameOfColor          from Quantity = Quantity_NOC_PURPLE;
-  //! aWidth   : Real                 from Standard = 2;
+  //! aWidth   : Real                 from Standard1 = 2;
   //! aProjTOL : TypeOfLine           from Aspect   = Aspect_TOL_DASH;
   //! aCallTOL : TypeOfLine           from Aspect   = Aspect_TOL_DOT)
   virtual Standard_Boolean AcceptDisplayMode(const Standard_Integer theMode) const Standard_OVERRIDE

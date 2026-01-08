@@ -24,7 +24,7 @@
 class BinMDF_ADriverTable;
 class Message_Messenger;
 
-//! Storage/Retrieval drivers for TNaming1 attributes
+//! Storage1/Retrieval drivers for TNaming1 attributes
 class BinMNaming1
 {
 public:

@@ -36,11 +36,11 @@ inline Standard_Boolean ShapeAnalysis_Wire::IsReady() const
 }
 
 //=======================================================================
-// function : Precision
+// function : Precision1
 // purpose  :
 //=======================================================================
 
-inline Standard_Real ShapeAnalysis_Wire::Precision() const
+inline Standard_Real ShapeAnalysis_Wire::Precision1() const
 {
   return myPrecision;
 }

@@ -24,7 +24,7 @@ IMPLEMENT_STANDARD_RTTIEXT(AppStd_Application, AppManager)
 
 Standard_CString AppStd_Application::ResourcesName()
 {
-  const Standard_CString aRes = "Standard";
+  const Standard_CString aRes = "Standard1";
   return aRes;
 }
 

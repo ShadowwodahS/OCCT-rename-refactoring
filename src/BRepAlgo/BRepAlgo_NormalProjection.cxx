@@ -47,19 +47,19 @@
 #ifdef OCCT_DEBUG_CHRONO
   #include <OSD_Timer.hxx>
 
-OSD_Chronometer chr_total, chr_init, chr_approx, chr_booltool;
+Chronometer chr_total, chr_init, chr_approx, chr_booltool;
 
 Standard_Real                    t_total, t_init, t_approx, t_booltool;
 Standard_IMPORT Standard_Real    t_init_point, t_dicho_bound;
 Standard_IMPORT Standard_Integer init_point_count, dicho_bound_count;
 
-void InitChron(OSD_Chronometer& ch)
+void InitChron(Chronometer& ch)
 {
   ch.Reset();
   ch.Start();
 }
 
-void ResultChron(OSD_Chronometer& ch, Standard_Real& time)
+void ResultChron(Chronometer& ch, Standard_Real& time)
 {
   Standard_Real tch;
   ch.Stop();
@@ -466,7 +466,7 @@ void BRepAlgo_NormalProjection::Build()
               {
                 // if the common operation has failed, try to classify the part
                 BRepTopAdaptor_FClass2d classifier(TopoDS::Face(Faces->Value(j)),
-                                                   Precision::Confusion());
+                                                   Precision1::Confusion());
                 gp_Pnt2d                Puv;
                 Standard_Real           f    = PCur2d->FirstParameter();
                 Standard_Real           l    = PCur2d->LastParameter();
@@ -490,7 +490,7 @@ void BRepAlgo_NormalProjection::Build()
 #endif
 
               BRepTopAdaptor_FClass2d classifier(TopoDS::Face(Faces->Value(j)),
-                                                 Precision::Confusion());
+                                                 Precision1::Confusion());
               gp_Pnt2d                Puv;
               Standard_Real           f    = PCur2d->FirstParameter();
               Standard_Real           l    = PCur2d->LastParameter();

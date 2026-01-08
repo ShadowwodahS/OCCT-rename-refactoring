@@ -208,7 +208,7 @@ void BRepFeat_MakeRevol::Perform(const Standard_Real Angle)
   myGluedF.Clear();
   myPerfSelection = BRepFeat_NoSelection;
   PerfSelectionValid();
-  Standard_Boolean RevolComp = (2 * M_PI - Abs(Angle) <= Precision::Angular());
+  Standard_Boolean RevolComp = (2 * M_PI - Abs(Angle) <= Precision1::Angular());
   LocOpe_Revol     theRevol;
   Standard_Real    angledec = 0.;
   ShapeExplorer  exp;
@@ -362,7 +362,7 @@ void BRepFeat_MakeRevol::Perform(const TopoShape& Until)
   ShapeUntilValid();
 
   // Do systematically almost complete revolution
-  // BRepSweep_Revol theRevol(myPbase,myAxis,2.*M_PI-10.*Precision::Angular());
+  // BRepSweep_Revol theRevol(myPbase,myAxis,2.*M_PI-10.*Precision1::Angular());
   LocOpe_Revol theRevol;
   if (!TourComplet)
   {
@@ -686,7 +686,7 @@ void BRepFeat_MakeRevol::PerformUntilAngle(const TopoShape& Until, const Standar
   ShapeUntilValid();
 
   // Produce systematicallt an almost complete revolution
-  //  BRepSweep_Revol theRevol(myPbase,myAxis,2.*M_PI-10.*Precision::Angular());
+  //  BRepSweep_Revol theRevol(myPbase,myAxis,2.*M_PI-10.*Precision1::Angular());
   LocOpe_Revol theRevol;
   theRevol.Perform(myPbase, myAxis, Angle);
   TopoShape VraiRevol = theRevol.Shape();
@@ -923,8 +923,8 @@ Standard_Boolean ToFuse(const TopoFace& F1, const TopoFace& F2)
   Handle(GeomSurface)    S1, S2;
   TopLoc_Location         loc1, loc2;
   Handle(TypeInfo)   typS1, typS2;
-  constexpr Standard_Real tollin = Precision::Confusion();
-  constexpr Standard_Real tolang = Precision::Angular();
+  constexpr Standard_Real tollin = Precision1::Confusion();
+  constexpr Standard_Real tolang = Precision1::Angular();
 
   S1 = BRepInspector::Surface(F1, loc1);
   S2 = BRepInspector::Surface(F2, loc2);

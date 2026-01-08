@@ -39,10 +39,10 @@ public:
   void SetRole(Aspect_XRTrackedDeviceRole theRole) { myRole = theRole; }
 
   //! Return laser color.
-  const Quantity_Color& LaserColor() const { return myLaserColor; }
+  const Color1& LaserColor() const { return myLaserColor; }
 
   //! Set laser color.
-  Standard_EXPORT void SetLaserColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetLaserColor(const Color1& theColor);
 
   //! Return laser length.
   Standard_ShortReal LaserLength() const { return myLaserLength; }
@@ -83,7 +83,7 @@ private:
   Handle(Graphic3d_Group) myRayGroup;
 
   Handle(Graphic3d_ArrayOfTriangles) myTris;
-  Quantity_Color                     myLaserColor;
+  Color1                     myLaserColor;
   Standard_ShortReal                 myLaserLength;
   Standard_ShortReal                 myUnitFactor;
   Aspect_XRTrackedDeviceRole         myRole;

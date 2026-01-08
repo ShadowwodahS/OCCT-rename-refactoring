@@ -156,7 +156,7 @@ bool RWObj_CafWriter::Perform(const Handle(AppDocument)&             theDocument
     aMatFileNameShort.Clear();
   }
 
-  Standard_CLocaleSentry aLocaleSentry;
+  CLocaleSentry aLocaleSentry;
   RWObj_ObjWriterContext anObjFile(myFile);
   RWObj_ObjMaterialMap   aMatMgr(aMatFileNameFull);
   aMatMgr.SetDefaultStyle(myDefaultStyle);

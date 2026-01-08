@@ -208,7 +208,7 @@ void LabelDisplayTool::OwnDump(const Handle(IGESDraw_LabelDisplay)& ent,
     << "View Entities       :\n"
     << "Text Locations      :\n"
     << "Leader Entities     :\n"
-    << "Label Level Numbers :\n"
+    << "Label Level Numbers1 :\n"
     << "Displayed Entities  : "
     << "Count = " << ent->NbLabels() << "\n";
   if (level > 4) // Level = 4 : no Dump. Level = 5 & 6 : same Dump

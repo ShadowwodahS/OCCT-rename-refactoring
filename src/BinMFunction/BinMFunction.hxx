@@ -23,7 +23,7 @@
 class BinMDF_ADriverTable;
 class Message_Messenger;
 
-//! Storage and Retrieval drivers for TFunction modelling attributes.
+//! Storage1 and Retrieval drivers for TFunction modelling attributes.
 class BinMFunction1
 {
 public:

@@ -259,10 +259,10 @@ void CSLib1::Normal(const Standard_Integer    MaxOrder,
 
         // Creation of the domain of definition depending on the position
         // of a single point (medium, border, corner).
-        FU = (Abs(U - Umin) < Precision::PConfusion());
-        LU = (Abs(U - Umax) < Precision::PConfusion());
-        FV = (Abs(V - Vmin) < Precision::PConfusion());
-        LV = (Abs(V - Vmax) < Precision::PConfusion());
+        FU = (Abs(U - Umin) < Precision1::PConfusion());
+        LU = (Abs(U - Umax) < Precision1::PConfusion());
+        FV = (Abs(V - Vmin) < Precision1::PConfusion());
+        LV = (Abs(V - Vmax) < Precision1::PConfusion());
         if (LU)
         {
           inf = M_PI / 2;
@@ -305,7 +305,7 @@ void CSLib1::Normal(const Standard_Integer    MaxOrder,
         CSLib_NormalPolyDef Poly1(Order, Ratio);
         // Find zeros of SAPS
         FunctionRootsSolver
-          FindRoots(Poly1, inf, sup, 200, 1e-5, Precision::Confusion(), Precision::Confusion());
+          FindRoots(Poly1, inf, sup, 200, 1e-5, Precision1::Confusion(), Precision1::Confusion());
         // If there are zeros
         if (FindRoots.IsDone() && FindRoots.NbSolutions() > 0)
         {
@@ -334,7 +334,7 @@ void CSLib1::Normal(const Standard_Integer    MaxOrder,
           Standard_Integer ifirst = 0;
           for (i = 0; i <= FindRoots.NbSolutions(); i++)
           {
-            if (Abs(Sol0(i + 1) - Sol0(i)) > Precision::PConfusion())
+            if (Abs(Sol0(i + 1) - Sol0(i)) > Precision1::PConfusion())
             {
               Poly1.Value((Sol0(i) + Sol0(i + 1)) / 2.0, Vsuiv);
               if (ifirst == 0)

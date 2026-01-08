@@ -23,5 +23,5 @@ void Graphic3d_PolygonOffset::DumpJson(Standard_OStream& theOStream, Standard_In
 
   OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, Mode)
   OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, Factor)
-  OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, Units)
+  OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, Units2)
 }

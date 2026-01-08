@@ -573,7 +573,7 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::Transfer(const Handle(Transfer_F
   if (!model->IsInitializedUnit())
   {
     XSAlgo_ShapeProcessor::PrepareForTransfer(); // update unit info
-    model->SetLocalLengthUnit(UnitsMethods::GetCasCadeLengthUnit());
+    model->SetLocalLengthUnit(UnitsMethods1::GetCasCadeLengthUnit());
   }
   Standard_Real aLFactor = model->WriteLengthUnit();
   aLFactor /= model->LocalLengthUnit();

@@ -200,7 +200,7 @@ struct hash<Handle(VrmlData_Node)>
     {
       return 1;
     }
-    return Standard_CStringHasher{}(theNode->Name());
+    return CStringHasher{}(theNode->Name());
   }
 };
 

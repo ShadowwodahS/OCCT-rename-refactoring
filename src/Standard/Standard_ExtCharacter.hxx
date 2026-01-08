@@ -14,7 +14,7 @@
 
 //============================================================================
 //==== Title: Standard_ExtCharacter.hxx
-//==== Role : The headr file of primitive type "ExtCharacter" from package "Standard"
+//==== Role : The headr file of primitive type "ExtCharacter" from package "Standard1"
 //====
 //==== Implementation:  This is a primitive type implemented with typedef
 //====                  Excepting "Unicod encoding"

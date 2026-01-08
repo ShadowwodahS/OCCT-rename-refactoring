@@ -40,7 +40,7 @@ public:
   //! @param theStream stream to open
   //! @param thePtsStartBase PTS start in seconds
   //! @param theNbThreads amount of threads to use for AVMEDIA_TYPE_VIDEO stream;
-  //!                     -1 means OSD_Parallel::NbLogicalProcessors(),
+  //!                     -1 means Parallel1::NbLogicalProcessors(),
   //!                      0 means auto by FFmpeg itself
   //!                     >0 means specified number of threads (decoder should support
   //!                     multi-threading to take effect)
@@ -52,7 +52,7 @@ public:
   //! @param theStream stream to open
   //! @param thePtsStartBase PTS start in seconds
   //! @param theNbThreads amount of threads to use for AVMEDIA_TYPE_VIDEO stream;
-  //!                     -1 means OSD_Parallel::NbLogicalProcessors(),
+  //!                     -1 means Parallel1::NbLogicalProcessors(),
   //!                      0 means auto by FFmpeg itself
   //!                     >0 means specified number of threads (decoder should support
   //!                     multi-threading to take effect)

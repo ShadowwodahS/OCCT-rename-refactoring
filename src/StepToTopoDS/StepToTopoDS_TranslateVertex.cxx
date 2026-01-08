@@ -14,7 +14,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-//:   gka 09.04.99: S4136: eliminate BRepAPI::Precision()
+//:   gka 09.04.99: S4136: eliminate BRepAPI::Precision1()
 
 #include <BRep_Builder.hxx>
 #include <Geom_CartesianPoint.hxx>
@@ -97,7 +97,7 @@ void StepToTopoDS_TranslateVertex::Init(const Handle(StepShape_Vertex)& aVertex,
     }
     // [END] Proceed with I-DEAS-like STP (ssv; 15.11.2010)
 
-    //: S4136    Standard_Real preci = BRepAPI::Precision();
+    //: S4136    Standard_Real preci = BRepAPI::Precision1();
     const Handle(StepShape_VertexPoint) VP = Handle(StepShape_VertexPoint)::DownCast(aVertex);
     const Handle(StepGeom_Point)        P  = VP->VertexGeometry();
     if (P.IsNull())
@@ -110,7 +110,7 @@ void StepToTopoDS_TranslateVertex::Init(const Handle(StepShape_Vertex)& aVertex,
     Handle(Geom_CartesianPoint)           P2 = StepToGeom1::MakeCartesianPoint(P1, theLocalFactors);
     ShapeBuilder                          B;
     TopoVertex                         V;
-    B.MakeVertex(V, P2->Pnt(), Precision::Confusion()); //: S4136: preci
+    B.MakeVertex(V, P2->Pnt(), Precision1::Confusion()); //: S4136: preci
     aTool.Bind(aVertex, V);
 
     // Register Vertex in NM tool (ssv; 14.11.2010)

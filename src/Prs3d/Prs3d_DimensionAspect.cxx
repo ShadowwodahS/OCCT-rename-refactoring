@@ -52,7 +52,7 @@ Prs3d_DimensionAspect::Prs3d_DimensionAspect()
 // purpose  : Sets the same color for all parts of dimension:
 //           lines, arrows and text.
 //=======================================================================
-void Prs3d_DimensionAspect::SetCommonColor(const Quantity_Color& theColor)
+void Prs3d_DimensionAspect::SetCommonColor(const Color1& theColor)
 {
   myLineAspect->SetColor(theColor);
   myTextAspect->SetColor(theColor);

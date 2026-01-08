@@ -271,7 +271,7 @@ TopAbs_State TopOpeBRepBuild_WireEdgeClassifier::CompareShapes(const TopoShape& 
         Vector3d           tg1       = FUN_tgINE(vshared, vl1, e1);
         Vector3d           tg        = FUN_tgINE(vshared, vl, E);
         Standard_Real    dot       = tg1.Dot(tg);
-        Standard_Real    tol       = Precision::Angular() * 1.e4; // nyixpu
+        Standard_Real    tol       = Precision1::Angular() * 1.e4; // nyixpu
         Standard_Boolean undecided = (Abs(1 + dot) < tol);
         if (undecided)
         {
@@ -478,7 +478,7 @@ Standard_Boolean TopOpeBRepBuild_WireEdgeClassifier::CompareElement(const TopoSh
     gp_Vec2d      v2d(myPoint2d, p2d);
     gp_Lin2d      l2d(myPoint2d, v2d);
     Standard_Real dist  = myPoint2d.Distance(p2d);
-    Standard_Real tol2d = Precision::PConfusion(); // NYI : a voir
+    Standard_Real tol2d = Precision1::PConfusion(); // NYI : a voir
     myFPC.Reset(l2d, dist, tol2d);
     myFirstCompare = Standard_False;
   }

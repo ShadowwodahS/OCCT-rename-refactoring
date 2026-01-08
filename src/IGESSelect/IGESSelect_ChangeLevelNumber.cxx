@@ -105,6 +105,6 @@ AsciiString1 IGESSelect_ChangeLevelNumber::Label() const
   if (yaold)
     sprintf(labl, "Changes Level Number %d to %d", oldl, newl);
   else
-    sprintf(labl, "Changes all Level Numbers positive and zero to %d", newl);
+    sprintf(labl, "Changes all Level Numbers1 positive and zero to %d", newl);
   return AsciiString1(labl);
 }

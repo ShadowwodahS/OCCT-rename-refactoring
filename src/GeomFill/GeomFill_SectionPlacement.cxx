@@ -58,7 +58,7 @@ static void Tangente(const Adaptor3d_Curve& Path,
   Path.D1(Param, P, Tang);
   Standard_Real Norm = Tang.Magnitude();
 
-  for (Standard_Integer ii = 2; (ii < 12) && (Norm < Precision::Confusion()); ii++)
+  for (Standard_Integer ii = 2; (ii < 12) && (Norm < Precision1::Confusion()); ii++)
   {
     Tang = Path.DN(Param, ii);
     Norm = Tang.Magnitude();
@@ -187,7 +187,7 @@ GeomFill_SectionPlacement::GeomFill_SectionPlacement(const Handle(GeomFill_Locat
   Standard_Real DZ = aZmax - aZmin;
   Gabarit          = Sqrt(DX * DX + DY * DY + DZ * DZ) / 2.;
 
-  Gabarit += Precision::Confusion(); // Cas des toute petite
+  Gabarit += Precision1::Confusion(); // Cas des toute petite
 
   // Initialisation de TheAxe pour les cas singulier
   if (!myIsPoint)
@@ -254,9 +254,9 @@ GeomFill_SectionPlacement::GeomFill_SectionPlacement(const Handle(GeomFill_Locat
         Standard_Real aPeriod = aCurve->Period();
         Standard_Real U1      = Ufirst + Floor((first - Ufirst) / aPeriod) * aPeriod;
         Standard_Real U2      = U1 + aPeriod;
-        if (Abs(first - U1) <= Precision::PConfusion())
+        if (Abs(first - U1) <= Precision1::PConfusion())
           first = U1;
-        if (Abs(last - U2) <= Precision::PConfusion())
+        if (Abs(last - U2) <= Precision1::PConfusion())
           last = U2;
       }
       Standard_Real t, delta;
@@ -264,8 +264,8 @@ GeomFill_SectionPlacement::GeomFill_SectionPlacement(const Handle(GeomFill_Locat
       {
         Handle(BSplineCurve3d) BC = Handle(BSplineCurve3d)::DownCast(myAdpSection.Curve());
         Standard_Integer          I1, I2, I3, I4;
-        BC->LocateU(first, Precision::Confusion(), I1, I2);
-        BC->LocateU(last, Precision::Confusion(), I3, I4);
+        BC->LocateU(first, Precision1::Confusion(), I1, I2);
+        BC->LocateU(last, Precision1::Confusion(), I3, I4);
         Standard_Integer NbKnots = I3 - I2 + 1;
 
         Standard_Integer NbLocalPnts = 10;
@@ -331,7 +331,7 @@ GeomFill_SectionPlacement::GeomFill_SectionPlacement(const Handle(GeomFill_Locat
 
       Standard_Boolean issing;
       Frame3d           axe;
-      GeomLib1::AxeOfInertia(Pnts->Array1(), axe, issing, Precision::Confusion());
+      GeomLib1::AxeOfInertia(Pnts->Array1(), axe, issing, Precision1::Confusion());
       if (!issing)
       {
         isplan = Standard_True;
@@ -343,7 +343,7 @@ GeomFill_SectionPlacement::GeomFill_SectionPlacement(const Handle(GeomFill_Locat
     myExt.Initialize(myAdpSection,
                      myAdpSection.FirstParameter(),
                      myAdpSection.LastParameter(),
-                     Precision::Confusion());
+                     Precision1::Confusion());
   }
 }
 
@@ -373,11 +373,11 @@ void GeomFill_SectionPlacement::Perform(const Handle(Adaptor3d_Curve)& Path,
                                         const Standard_Real            Tol)
 {
   Standard_Real IntTol     = 1.e-5;
-  Standard_Real DistCenter = Precision::Infinite();
+  Standard_Real DistCenter = Precision1::Infinite();
 
   if (myIsPoint)
   {
-    Extrema_ExtPC Projector(myPoint, *Path, Precision::Confusion());
+    Extrema_ExtPC Projector(myPoint, *Path, Precision1::Confusion());
     DistMini(Projector, *Path, Dist, PathParam);
     AngleMax = M_PI / 2;
   }
@@ -466,8 +466,8 @@ void GeomFill_SectionPlacement::Perform(const Handle(Adaptor3d_Curve)& Path,
         Standard_Real firstDistance = plane.SquareDistance(firstPoint);
         Standard_Real lastDistance  = plane.SquareDistance(lastPoint);
 
-        if (((Abs(firstDistance) < Precision::SquareConfusion())
-             && Abs(lastDistance) < Precision::SquareConfusion())
+        if (((Abs(firstDistance) < Precision1::SquareConfusion())
+             && Abs(lastDistance) < Precision1::SquareConfusion())
             || firstDistance < lastDistance)
         {
           PathParam = Path->FirstParameter();
@@ -647,7 +647,7 @@ void GeomFill_SectionPlacement::Perform(const Handle(Adaptor3d_Curve)& Path,
           PExt.Initialize(*Path,
                           Path->FirstParameter(),
                           Path->LastParameter(),
-                          Precision::Confusion());
+                          Precision1::Confusion());
           PExt.Perform(PonSec);
           if (PExt.IsDone())
           {
@@ -794,7 +794,7 @@ Transform3d GeomFill_SectionPlacement::Transformation(const Standard_Boolean Wit
     Dir3d ProfileNormal = TheAxe.Direction();
     Dir3d SpineStartDir = Paxe.Direction();
 
-    if (!ProfileNormal.IsParallel(SpineStartDir, Precision::Angular()))
+    if (!ProfileNormal.IsParallel(SpineStartDir, Precision1::Angular()))
     {
       Dir3d DirAxeOfRotation = ProfileNormal ^ SpineStartDir;
       angle                   = ProfileNormal.AngleWithRef(SpineStartDir, DirAxeOfRotation);
@@ -831,7 +831,7 @@ Transform3d GeomFill_SectionPlacement::Transformation(const Standard_Boolean Wit
 
     //     Dir3d ProfileNormal = TheAxe.Direction();
     //     Dir3d SpineStartDir = Paxe.Direction();
-    //     if (! ProfileNormal.IsParallel( SpineStartDir, Precision::Angular() ))
+    //     if (! ProfileNormal.IsParallel( SpineStartDir, Precision1::Angular() ))
     //       {
     // 	Dir3d DirAxeOfRotation = ProfileNormal ^ SpineStartDir;
     // 	angle = ProfileNormal.AngleWithRef( SpineStartDir, DirAxeOfRotation );

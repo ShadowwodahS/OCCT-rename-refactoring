@@ -27,7 +27,7 @@ Vrml_SpotLight::Vrml_SpotLight()
 
 Vrml_SpotLight::Vrml_SpotLight(const Standard_Boolean aOnOff,
                                const Standard_Real    aIntensity,
-                               const Quantity_Color&  aColor,
+                               const Color1&  aColor,
                                const Vector3d&          aLocation,
                                const Vector3d&          aDirection,
                                const Standard_Real    aDropOffRate,
@@ -70,12 +70,12 @@ Standard_Real Vrml_SpotLight::Intensity() const
   return myIntensity;
 }
 
-void Vrml_SpotLight::SetColor(const Quantity_Color& aColor)
+void Vrml_SpotLight::SetColor(const Color1& aColor)
 {
   myColor = aColor;
 }
 
-Quantity_Color Vrml_SpotLight::Color() const
+Color1 Vrml_SpotLight::Color() const
 {
   return myColor;
 }

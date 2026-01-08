@@ -369,7 +369,7 @@ inline void Ax3::SetAxis(const Axis3d& theA1)
 inline void Ax3::SetDirection(const Dir3d& theV)
 {
   Standard_Real aDot = theV.Dot(vxdir);
-  if (1. - Abs(aDot) <= Precision::Angular())
+  if (1. - Abs(aDot) <= Precision1::Angular())
   {
     if (aDot > 0)
     {
@@ -405,7 +405,7 @@ inline void Ax3::SetDirection(const Dir3d& theV)
 inline void Ax3::SetXDirection(const Dir3d& theVx)
 {
   Standard_Real aDot = theVx.Dot(axis.Direction());
-  if (1. - Abs(aDot) <= Precision::Angular())
+  if (1. - Abs(aDot) <= Precision1::Angular())
   {
     if (aDot > 0)
     {
@@ -440,7 +440,7 @@ inline void Ax3::SetXDirection(const Dir3d& theVx)
 inline void Ax3::SetYDirection(const Dir3d& theVy)
 {
   Standard_Real aDot = theVy.Dot(axis.Direction());
-  if (1. - Abs(aDot) <= Precision::Angular())
+  if (1. - Abs(aDot) <= Precision1::Angular())
   {
     if (aDot > 0)
     {

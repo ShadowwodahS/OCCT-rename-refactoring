@@ -151,7 +151,7 @@ static Standard_Integer Cirtang(DrawInterpreter& theDI,
     return 1;
   }
 
-  Standard_Real        aTol = Precision::Confusion();
+  Standard_Real        aTol = Precision1::Confusion();
   Handle(GeomCurve2d) aC[3];
   gp_Pnt2d             aP[3];
   Standard_Real        aRadius = -1.0;
@@ -352,7 +352,7 @@ static Standard_Integer lintang(DrawInterpreter& di, Standard_Integer n, const c
     Standard_Real         ang = Draw1::Atof(a[4]) * (M_PI / 180.0);
     Lin2dTanObl1 ct3(Geom2dGcc1::Unqualified(C1),
                               L->Lin2d(),
-                              Precision::Angular(),
+                              Precision1::Angular(),
                               (C1->FirstParameter() + C1->LastParameter()) / 2.,
                               ang);
     if (ct3.IsDone())
@@ -373,7 +373,7 @@ static Standard_Integer lintang(DrawInterpreter& di, Standard_Integer n, const c
   {
     Lin2d2Tan1 ct3(Geom2dGcc1::Unqualified(C1),
                             Geom2dGcc1::Unqualified(C2),
-                            Precision::Angular(),
+                            Precision1::Angular(),
                             (C1->FirstParameter() + C1->LastParameter()) / 2.,
                             (C2->FirstParameter() + C2->LastParameter()) / 2.);
     if (ct3.IsDone())

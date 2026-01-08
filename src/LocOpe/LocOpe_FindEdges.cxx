@@ -88,7 +88,7 @@ void LocOpe_FindEdges::Set(const TopoShape& FFrom, const TopoShape& FTo)
         continue;
       }
       // On a presomption de confusion
-      Standard_Real Tol = Precision::Confusion();
+      Standard_Real Tol = Precision1::Confusion();
       if (Tt == STANDARD_TYPE(GeomLine))
       {
         gp_Lin        lif  = Handle(GeomLine)::DownCast(Cf)->Lin();
@@ -128,7 +128,7 @@ void LocOpe_FindEdges::Set(const TopoShape& FFrom, const TopoShape& FTo)
           p2 = ElCLib1::Value(lf, cif);
 
           Standard_Real prm1  = ElCLib1::Parameter(cit, p1);
-          Standard_Real Tol2d = Precision::PConfusion();
+          Standard_Real Tol2d = Precision1::PConfusion();
           if (Abs(prm1 - ft) <= Tol2d)
             prm1 = ft;
           prm1 = ElCLib1::InPeriod(prm1, ft, ft + 2. * M_PI);
@@ -144,7 +144,7 @@ void LocOpe_FindEdges::Set(const TopoShape& FFrom, const TopoShape& FTo)
           }
           else
           {
-            if (Abs(prm1 - ft) <= Precision::Angular())
+            if (Abs(prm1 - ft) <= Precision1::Angular())
             {
               prm1 += 2. * M_PI;
             }
@@ -203,7 +203,7 @@ void LocOpe_FindEdges::Set(const TopoShape& FFrom, const TopoShape& FTo)
           }
           else
           {
-            if (Abs(prm1 - ft) <= Precision::Angular())
+            if (Abs(prm1 - ft) <= Precision1::Angular())
             {
               prm1 += 2. * M_PI;
             }

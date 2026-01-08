@@ -86,10 +86,10 @@ public:
   //! adding/removing the period to/from the value U1, then
   //! -   sets U2 in the range [ U1, U1 + period ] by
   //! adding/removing the period to/from the value U2.
-  //! Precision is used to test the equalities.
+  //! Precision1 is used to test the equalities.
   Standard_EXPORT static void AdjustPeriodic(const Standard_Real UFirst,
                                              const Standard_Real ULast,
-                                             const Standard_Real Precision,
+                                             const Standard_Real Precision1,
                                              Standard_Real&      U1,
                                              Standard_Real&      U2);
 

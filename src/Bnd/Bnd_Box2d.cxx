@@ -20,7 +20,7 @@
 #include <Standard_ConstructionError.hxx>
 #include <Standard_Stream.hxx>
 
-//-- #include <Precision.hxx> Precision::Infinite() -> 1e+100
+//-- #include <Precision.hxx> Precision1::Infinite() -> 1e+100
 //=================================================================================================
 
 void Bnd_Box2d::Update(const Standard_Real x,
@@ -80,7 +80,7 @@ void Bnd_Box2d::Get(Standard_Real& x, Standard_Real& y, Standard_Real& Xm, Stand
 {
   if (Flags & VoidMask)
     throw Standard_ConstructionError("Box2 is void");
-  Standard_Real pinf = 1e+100; //-- Precision::Infinite();
+  Standard_Real pinf = 1e+100; //-- Precision1::Infinite();
   if (Flags & XminMask)
     x = -pinf;
   else

@@ -297,7 +297,7 @@ Standard_Boolean ShapeAnalysis_FreeBoundsProperties::CheckNotches(const TopoWire
                                                                   Standard_Real&         distMax,
                                                                   const Standard_Real /*prec*/)
 {
-  Standard_Real                tol = Max(myTolerance, Precision::Confusion());
+  Standard_Real                tol = Max(myTolerance, Precision1::Confusion());
   Handle(ShapeExtend_WireData) wdt = new ShapeExtend_WireData(wire);
   ShapeBuilder                 B;
   B.MakeWire(notch);

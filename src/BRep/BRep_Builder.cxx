@@ -106,7 +106,7 @@ static void UpdateCurves(BRep_ListOfCurveRepresentation& lcr,
   BRep_ListIteratorOfListOfCurveRepresentation itcr(lcr);
   Handle(BRep_CurveRepresentation)             cr;
   Handle(BRep_GCurve)                          GC;
-  Standard_Real f = -Precision::Infinite(), l = Precision::Infinite();
+  Standard_Real f = -Precision1::Infinite(), l = Precision1::Infinite();
   // search the range of the 3d curve
   // and remove any existing representation
 
@@ -148,12 +148,12 @@ static void UpdateCurves(BRep_ListOfCurveRepresentation& lcr,
     Handle(BRep_CurveOnSurface) COS   = new BRep_CurveOnSurface(C, S, L);
     Standard_Real               aFCur = 0.0, aLCur = 0.0;
     COS->Range(aFCur, aLCur);
-    if (!Precision::IsInfinite(f))
+    if (!Precision1::IsInfinite(f))
     {
       aFCur = f;
     }
 
-    if (!Precision::IsInfinite(l))
+    if (!Precision1::IsInfinite(l))
     {
       aLCur = l;
     }
@@ -179,7 +179,7 @@ static void UpdateCurves(BRep_ListOfCurveRepresentation& lcr,
   BRep_ListIteratorOfListOfCurveRepresentation itcr(lcr);
   Handle(BRep_CurveRepresentation)             cr;
   Handle(BRep_GCurve)                          GC;
-  Standard_Real f = -Precision::Infinite(), l = Precision::Infinite();
+  Standard_Real f = -Precision1::Infinite(), l = Precision1::Infinite();
 
   // search the range of the 3d curve
   // and remove any existing representation
@@ -222,12 +222,12 @@ static void UpdateCurves(BRep_ListOfCurveRepresentation& lcr,
     Handle(BRep_CurveOnSurface) COS   = new BRep_CurveOnSurface(C, S, L);
     Standard_Real               aFCur = 0.0, aLCur = 0.0;
     COS->Range(aFCur, aLCur);
-    if (!Precision::IsInfinite(f))
+    if (!Precision1::IsInfinite(f))
     {
       aFCur = f;
     }
 
-    if (!Precision::IsInfinite(l))
+    if (!Precision1::IsInfinite(l))
     {
       aLCur = l;
     }
@@ -254,7 +254,7 @@ static void UpdateCurves(BRep_ListOfCurveRepresentation& lcr,
   BRep_ListIteratorOfListOfCurveRepresentation itcr(lcr);
   Handle(BRep_CurveRepresentation)             cr;
   Handle(BRep_GCurve)                          GC;
-  Standard_Real f = -Precision::Infinite(), l = Precision::Infinite();
+  Standard_Real f = -Precision1::Infinite(), l = Precision1::Infinite();
 
   while (itcr.More())
   {
@@ -285,12 +285,12 @@ static void UpdateCurves(BRep_ListOfCurveRepresentation& lcr,
     Handle(BRep_CurveOnClosedSurface) COS = new BRep_CurveOnClosedSurface(C1, C2, S, L, GeomAbs_C0);
     Standard_Real                     aFCur = 0.0, aLCur = 0.0;
     COS->Range(aFCur, aLCur);
-    if (!Precision::IsInfinite(f))
+    if (!Precision1::IsInfinite(f))
     {
       aFCur = f;
     }
 
-    if (!Precision::IsInfinite(l))
+    if (!Precision1::IsInfinite(l))
     {
       aLCur = l;
     }
@@ -317,7 +317,7 @@ static void UpdateCurves(BRep_ListOfCurveRepresentation& lcr,
   BRep_ListIteratorOfListOfCurveRepresentation itcr(lcr);
   Handle(BRep_CurveRepresentation)             cr;
   Handle(BRep_GCurve)                          GC;
-  Standard_Real f = -Precision::Infinite(), l = Precision::Infinite();
+  Standard_Real f = -Precision1::Infinite(), l = Precision1::Infinite();
 
   while (itcr.More())
   {
@@ -348,12 +348,12 @@ static void UpdateCurves(BRep_ListOfCurveRepresentation& lcr,
     Handle(BRep_CurveOnClosedSurface) COS = new BRep_CurveOnClosedSurface(C1, C2, S, L, GeomAbs_C0);
     Standard_Real                     aFCur = 0.0, aLCur = 0.0;
     COS->Range(aFCur, aLCur);
-    if (!Precision::IsInfinite(f))
+    if (!Precision1::IsInfinite(f))
     {
       aFCur = f;
     }
 
-    if (!Precision::IsInfinite(l))
+    if (!Precision1::IsInfinite(l))
     {
       aLCur = l;
     }
@@ -1196,7 +1196,7 @@ void ShapeBuilder::UpdateVertex(const TopoVertex& V,
                                 const TopoEdge&   E,
                                 const Standard_Real  Tol) const
 {
-  if (Precision::IsPositiveInfinite(Par) || Precision::IsNegativeInfinite(Par))
+  if (Precision1::IsPositiveInfinite(Par) || Precision1::IsNegativeInfinite(Par))
     throw Standard_DomainError("ShapeBuilder::Infinite parameter");
 
   const Handle(BRep_TVertex)& TV = *((Handle(BRep_TVertex)*)&V.TShape());
@@ -1285,7 +1285,7 @@ void ShapeBuilder::UpdateVertex(const TopoVertex&        V,
                                 const TopLoc_Location&      L,
                                 const Standard_Real         Tol) const
 {
-  if (Precision::IsPositiveInfinite(Par) || Precision::IsNegativeInfinite(Par))
+  if (Precision1::IsPositiveInfinite(Par) || Precision1::IsNegativeInfinite(Par))
     throw Standard_DomainError("ShapeBuilder::Infinite parameter");
 
   // Find the curve representation

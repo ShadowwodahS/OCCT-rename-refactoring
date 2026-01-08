@@ -581,7 +581,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFa
 
   TopoFace  aResultFace;
   ShapeBuilder aFaceBuilder;
-  aFaceBuilder.MakeFace(aResultFace, aGeomSurface, Precision::Confusion());
+  aFaceBuilder.MakeFace(aResultFace, aGeomSurface, Precision1::Confusion());
 
   // ----------------------------------
   // Iterate on each FaceBounds (Wires)
@@ -630,7 +630,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFa
         // surface shall be closed (e.g. a spherical_surface.)"
         // - natural bounds are applied only in case if VertexLoop is only the one defined face
         // bound.
-        FaceMaker anAuxiliaryFaceBuilder(aGeomSurface, Precision());
+        FaceMaker anAuxiliaryFaceBuilder(aGeomSurface, Precision1());
         for (TopoDS_Iterator aFaceIt(anAuxiliaryFaceBuilder); aFaceIt.More(); aFaceIt.Next())
         {
           aFaceBuilder.Add(aResultFace, aFaceIt.Value());
@@ -651,7 +651,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFa
       }
 
       StepToTopoDS_TranslateVertexLoop aVertexLoopTranslator;
-      aVertexLoopTranslator.SetPrecision(Precision()); // gka
+      aVertexLoopTranslator.SetPrecision(Precision1()); // gka
       aVertexLoopTranslator.SetMaxTol(MaxTol());
       aVertexLoopTranslator.Init(aVertexLoop, theTopoDSTool, theTopoDSToolNM, theLocalFactors);
       if (aVertexLoopTranslator.IsDone())
@@ -671,7 +671,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFa
       Handle(StepShape_PolyLoop) aPolyLoop = Handle(StepShape_PolyLoop)::DownCast(aFaceLoop);
       aResultFace.Orientation(theFaceSurface->SameSense() ? TopAbs_FORWARD : TopAbs_REVERSED);
       StepToTopoDS_TranslatePolyLoop aPolyLoopTranslator;
-      aPolyLoopTranslator.SetPrecision(Precision()); // gka
+      aPolyLoopTranslator.SetPrecision(Precision1()); // gka
       aPolyLoopTranslator.SetMaxTol(MaxTol());
       aPolyLoopTranslator.Init(aPolyLoop,
                                theTopoDSTool,
@@ -695,7 +695,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFa
     else if (aFaceLoop->IsKind(STANDARD_TYPE(StepShape_EdgeLoop)))
     {
       StepToTopoDS_TranslateEdgeLoop anEdgeLoopTranslator;
-      anEdgeLoopTranslator.SetPrecision(Precision()); // gka
+      anEdgeLoopTranslator.SetPrecision(Precision1()); // gka
       anEdgeLoopTranslator.SetMaxTol(MaxTol());
       anEdgeLoopTranslator.Init(aFaceBound,
                                 aResultFace,

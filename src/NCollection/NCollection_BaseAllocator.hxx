@@ -17,7 +17,7 @@
 //              Defines  the  interface  for devising  different  allocators
 //              firstly to be used  by collections of NCollection, though it
 //              it is not  deferred. It allocates/frees  the memory  through
-//              Standard procedures, thus it is  unnecessary (and  sometimes
+//              Standard1 procedures, thus it is  unnecessary (and  sometimes
 //              injurious) to have  more than one such  allocator.  To avoid
 //              creation  of multiple  objects the  constructors  were  maid
 //              inaccessible.  To  create the  BaseAllocator use  the method
@@ -35,7 +35,7 @@
  *              Defines  the  interface  for devising  different  allocators
  *              firstly to be used  by collections of NCollection, though it
  *              it is not  deferred. It allocates/frees  the memory  through
- *              Standard procedures, thus it is  unnecessary (and  sometimes
+ *              Standard1 procedures, thus it is  unnecessary (and  sometimes
  *              injurious) to have  more than one such  allocator.  To avoid
  *              creation  of multiple  objects the  constructors  were  maid
  *              inaccessible.  To  create the  BaseAllocator use  the method

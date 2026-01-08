@@ -103,7 +103,7 @@ bool OpenGl_ShadowMap::UpdateCamera(const Graphic3d_CView& theView, const Coords
       myShadowCamera->SetZeroToOneDepth(theView.Camera()->IsZeroToOneDepth());
       myShadowCamera->SetProjectionType(CameraOn3d::Projection_Orthographic);
       myShadowCamera->SetDirection(Dir3d(aDir.x(), aDir.y(), aDir.z()));
-      myShadowCamera->SetUp(!myShadowCamera->Direction().IsParallel(gp1::DY(), Precision::Angular())
+      myShadowCamera->SetUp(!myShadowCamera->Direction().IsParallel(gp1::DY(), Precision1::Angular())
                               ? gp1::DY()
                               : gp1::DX());
       myShadowCamera->OrthogonalizeUp();
@@ -112,7 +112,7 @@ bool OpenGl_ShadowMap::UpdateCamera(const Graphic3d_CView& theView, const Coords
       // More reliable approach would be putting a center to a current eye position and limiting
       // maximum range, so that shadow range will be limited to some reasonable distance from
       // current eye.
-      if (myShadowCamera->FitMinMax(aMinMaxBox, 10.0 * Precision::Confusion(), false))
+      if (myShadowCamera->FitMinMax(aMinMaxBox, 10.0 * Precision1::Confusion(), false))
       {
         // clang-format off
         myShadowCamera->SetScale (Max (myShadowCamera->ViewDimensions().X() * 1.1, myShadowCamera->ViewDimensions().Y() * 1.1)); // add margin
@@ -156,7 +156,7 @@ bool OpenGl_ShadowMap::UpdateCamera(const Graphic3d_CView& theView, const Coords
       myShadowCamera->SetDistance(aDistance);
       myShadowCamera->MoveEyeTo(aLightPos);
       myShadowCamera->SetDirectionFromEye(myShadowLight->Direction());
-      myShadowCamera->SetUp(!myShadowCamera->Direction().IsParallel(gp1::DY(), Precision::Angular())
+      myShadowCamera->SetUp(!myShadowCamera->Direction().IsParallel(gp1::DY(), Precision1::Angular())
                               ? gp1::DY()
                               : gp1::DX());
       myShadowCamera->OrthogonalizeUp();

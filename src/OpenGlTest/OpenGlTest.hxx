@@ -25,7 +25,7 @@ public:
   //! Adds Draw1 commands to the draw interpreter.
   Standard_EXPORT static void Commands(DrawInterpreter& theDI);
 
-  //! Plugin entry point function.
+  //! Plugin1 entry point function.
   Standard_EXPORT static void Factory(DrawInterpreter& theDI);
 };
 

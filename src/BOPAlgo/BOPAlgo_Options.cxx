@@ -48,7 +48,7 @@ BOPAlgo_Options::BOPAlgo_Options()
     : myAllocator(NCollection_BaseAllocator::CommonBaseAllocator()),
       myReport(new Message_Report),
       myRunParallel(myGlobalRunParallel),
-      myFuzzyValue(Precision::Confusion()),
+      myFuzzyValue(Precision1::Confusion()),
       myUseOBB(Standard_False)
 {
   BOPAlgo_LoadMessages();
@@ -60,7 +60,7 @@ BOPAlgo_Options::BOPAlgo_Options(const Handle(NCollection_BaseAllocator)& theAll
     : myAllocator(theAllocator),
       myReport(new Message_Report),
       myRunParallel(myGlobalRunParallel),
-      myFuzzyValue(Precision::Confusion()),
+      myFuzzyValue(Precision1::Confusion()),
       myUseOBB(Standard_False)
 {
   BOPAlgo_LoadMessages();
@@ -102,7 +102,7 @@ Standard_Boolean BOPAlgo_Options::GetParallelMode()
 
 void BOPAlgo_Options::SetFuzzyValue(const Standard_Real theFuzz)
 {
-  myFuzzyValue = Max(theFuzz, Precision::Confusion());
+  myFuzzyValue = Max(theFuzz, Precision1::Confusion());
 }
 
 Standard_Boolean BOPAlgo_Options::UserBreak(const Message_ProgressScope& thePS)

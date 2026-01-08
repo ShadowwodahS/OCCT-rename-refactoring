@@ -299,7 +299,7 @@ GeomLib_CheckCurveOnSurface::GeomLib_CheckCurveOnSurface()
     : myErrorStatus(0),
       myMaxDistance(RealLast()),
       myMaxParameter(0.),
-      myTolRange(Precision::PConfusion()),
+      myTolRange(Precision1::PConfusion()),
       myIsParallel(Standard_False)
 {
 }
@@ -325,7 +325,7 @@ void GeomLib_CheckCurveOnSurface::Init()
   myErrorStatus  = 0;
   myMaxDistance  = RealLast();
   myMaxParameter = 0.0;
-  myTolRange     = Precision::PConfusion();
+  myTolRange     = Precision1::PConfusion();
 }
 
 //=================================================================================================
@@ -588,7 +588,7 @@ Standard_Integer FillSubIntervals(const Handle(Adaptor3d_Curve)&   theCurve3d,
                           aVal2D = anArrKnots2D->Value(anIndex2D);
       const Standard_Real aDelta = aVal3D - aVal2D;
 
-      if (aDelta < Precision::PConfusion())
+      if (aDelta < Precision1::PConfusion())
       { // aVal3D <= aVal2D
         if ((aVal3D > theFirst) && (aVal3D < theLast))
         {
@@ -600,7 +600,7 @@ Standard_Integer FillSubIntervals(const Handle(Adaptor3d_Curve)&   theCurve3d,
 
         anIndex3D++;
 
-        if (-aDelta < Precision::PConfusion())
+        if (-aDelta < Precision1::PConfusion())
         { // aVal3D == aVal2D
           anIndex2D++;
         }
@@ -659,7 +659,7 @@ Standard_Boolean PSO_Perform(GeomLib_CheckCurveOnSurface_TargetFunc& theFunction
                              math_Vector&                            theOutputParam)
 {
   const Standard_Real aDeltaParam = theParSup(1) - theParInf(1);
-  if (aDeltaParam < Precision::PConfusion())
+  if (aDeltaParam < Precision1::PConfusion())
     return Standard_False;
 
   math_Vector aStepPar(1, 1);
@@ -734,7 +734,7 @@ Standard_Boolean MinComputing(GeomLib_CheckCurveOnSurface_TargetFunc& theFunctio
     theBestParameter = anOutputParam(1);
 
     // Here, anOutputParam contains parameter, which is near to optimal.
-    // It needs to be more precise. Precision is made by NewtonMinimum.
+    // It needs to be more precise. Precision1 is made by NewtonMinimum.
     NewtonMinimum aMinSol(theFunction);
     aMinSol.Perform(theFunction, anOutputParam);
 

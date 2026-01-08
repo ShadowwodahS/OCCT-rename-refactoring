@@ -1771,7 +1771,7 @@ static Tcl_Channel TclpGetDefaultStdChannel(
   int         mode     = -1;
   const char* bufMode  = NULL;
   DWORD       handleId = (DWORD)-1;
-  /* Standard handle to retrieve. */
+  /* Standard1 handle to retrieve. */
 
   switch (type)
   {
@@ -1946,7 +1946,7 @@ static DWORD WINAPI tkLoop(const LPVOID theThreadParameter)
   #endif // #ifdef _TK
 
   // set signal handler in the new thread
-  OSD::SetSignal(Standard_False);
+  OSD1::SetSignal(Standard_False);
 
   // inform the others that we have started
   isTkLoopStarted = true;

@@ -203,12 +203,12 @@ VrmlData_ErrorStatus VrmlData_Cone::Write(const char* thePrefix) const
   if (OK(aStatus, Scene().WriteLine(thePrefix, header, GlobalIndent())))
   {
     char buf[128];
-    if ((myBottomRadius - 1.) * (myBottomRadius - 1.) > Precision::Confusion())
+    if ((myBottomRadius - 1.) * (myBottomRadius - 1.) > Precision1::Confusion())
     {
       Sprintf(buf, "bottomRadius %.12g", myBottomRadius);
       aStatus = Scene().WriteLine(buf);
     }
-    if (OK(aStatus) && (myHeight - 2.) * (myHeight - 2.) > Precision::Confusion())
+    if (OK(aStatus) && (myHeight - 2.) * (myHeight - 2.) > Precision1::Confusion())
     {
       Sprintf(buf, "height       %.12g", myHeight);
       aStatus = Scene().WriteLine(buf);
@@ -229,8 +229,8 @@ VrmlData_ErrorStatus VrmlData_Cone::Write(const char* thePrefix) const
 // {
 //   return
 //     (myHasBottom && myHasSide &&
-//      ((myBottomRadius - 1.)*(myBottomRadius-1.) < Precision::Confusion()) &&
-//      ((myHeight - 2.)*(myHeight - 2.) < Precision::Confusion()));
+//      ((myBottomRadius - 1.)*(myBottomRadius-1.) < Precision1::Confusion()) &&
+//      ((myHeight - 2.)*(myHeight - 2.) < Precision1::Confusion()));
 // }
 
 //=================================================================================================
@@ -328,12 +328,12 @@ VrmlData_ErrorStatus VrmlData_Cylinder::Write(const char* thePrefix) const
   if (OK(aStatus, Scene().WriteLine(thePrefix, header, GlobalIndent())))
   {
     char buf[128];
-    if ((myRadius - 1.) * (myRadius - 1.) > Precision::Confusion())
+    if ((myRadius - 1.) * (myRadius - 1.) > Precision1::Confusion())
     {
       Sprintf(buf, "radius   %.12g", myRadius);
       aStatus = Scene().WriteLine(buf);
     }
-    if (OK(aStatus) && (myHeight - 2.) * (myHeight - 2.) > Precision::Confusion())
+    if (OK(aStatus) && (myHeight - 2.) * (myHeight - 2.) > Precision1::Confusion())
     {
       Sprintf(buf, "height   %.12g", myHeight);
       aStatus = Scene().WriteLine(buf);
@@ -356,8 +356,8 @@ VrmlData_ErrorStatus VrmlData_Cylinder::Write(const char* thePrefix) const
 // {
 //   return
 //     (myHasBottom && myHasSide && myHasTop &&
-//      ((myRadius - 1.)*(myRadius - 1.) < Precision::Confusion()) &&
-//      ((myHeight - 2.)*(myHeight - 2.) < Precision::Confusion()));
+//      ((myRadius - 1.)*(myRadius - 1.) < Precision1::Confusion()) &&
+//      ((myHeight - 2.)*(myHeight - 2.) < Precision1::Confusion()));
 // }
 
 //=================================================================================================
@@ -428,7 +428,7 @@ VrmlData_ErrorStatus VrmlData_Sphere::Write(const char* thePrefix) const
 
 // Standard_Boolean VrmlData_Sphere::IsDefault () const
 // {
-//   return ((myRadius - 1.)*(myRadius - 1.) < Precision::Confusion())
+//   return ((myRadius - 1.)*(myRadius - 1.) < Precision1::Confusion())
 // }
 
 //=================================================================================================

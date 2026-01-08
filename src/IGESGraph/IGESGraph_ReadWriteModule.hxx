@@ -40,7 +40,7 @@ public:
   //! Creates a ReadWriteModule & puts it into ReaderLib & WriterLib
   Standard_EXPORT IGESGraph_ReadWriteModule();
 
-  //! Defines Case Numbers for Entities of IGESGraph1
+  //! Defines Case Numbers1 for Entities of IGESGraph1
   Standard_EXPORT Standard_Integer CaseIGES(const Standard_Integer typenum,
                                             const Standard_Integer formnum) const Standard_OVERRIDE;
 

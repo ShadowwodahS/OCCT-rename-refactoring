@@ -38,7 +38,7 @@
 //!
 //! Second approach:
 //! Compute the proximity value between two shapes (handles only edge/edge or face/face cases)
-//! if the tolerance is not defined (Precision::Infinite()).
+//! if the tolerance is not defined (Precision1::Infinite()).
 //! In this case the proximity value is a minimal thickness of a layer containing both shapes.
 //!
 //! For the both approaches the high performance is achieved through the use of existing
@@ -51,13 +51,13 @@ class BRepExtrema_ShapeProximity
 public:
   //! Creates empty proximity tool.
   Standard_EXPORT BRepExtrema_ShapeProximity(
-    const Standard_Real theTolerance = Precision::Infinite());
+    const Standard_Real theTolerance = Precision1::Infinite());
 
   //! Creates proximity tool for the given two shapes.
   Standard_EXPORT BRepExtrema_ShapeProximity(
     const TopoShape& theShape1,
     const TopoShape& theShape2,
-    const Standard_Real theTolerance = Precision::Infinite());
+    const Standard_Real theTolerance = Precision1::Infinite());
 
 public:
   //! Returns tolerance value for overlap test (distance between shapes).

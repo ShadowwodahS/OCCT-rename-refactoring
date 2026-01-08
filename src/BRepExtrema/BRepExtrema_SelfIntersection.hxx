@@ -76,7 +76,7 @@ public:
 
 #ifdef OVERLAP_TOOL_OUTPUT_TRIANGLES
   //! Returns set of overlapped mesh elements (only triangles).
-  const TColStd_PackedMapOfInteger& OverlapTriangles() const
+  const PackedIntegerMap& OverlapTriangles() const
   {
     return myOverlapTool.OverlapTriangles1();
   }

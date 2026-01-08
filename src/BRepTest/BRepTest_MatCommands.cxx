@@ -227,7 +227,7 @@ void DrawCurve(const Handle(GeomCurve2d)& aCurve, const Standard_Integer Indice)
     Standard_Real delta = 400;
 
     // PB of representation of semi_infinite curves.
-    if (aCurve->LastParameter() == Precision::Infinite())
+    if (aCurve->LastParameter() == Precision1::Infinite())
     {
 
       if (type == STANDARD_TYPE(Geom2d_Parabola))
@@ -249,7 +249,7 @@ void DrawCurve(const Handle(GeomCurve2d)& aCurve, const Standard_Integer Indice)
         Standard_Real Val2  = Log(Valu2 + Sqrt(Valu2 * Valu2 + 1));
         delta               = (Val1 <= Val2 ? Val1 : Val2);
       }
-      if (aCurve->FirstParameter() == -Precision::Infinite())
+      if (aCurve->FirstParameter() == -Precision1::Infinite())
         CurveDraw = new Geom2d_TrimmedCurve(aCurve, -delta, delta);
       else
         CurveDraw = new Geom2d_TrimmedCurve(aCurve,

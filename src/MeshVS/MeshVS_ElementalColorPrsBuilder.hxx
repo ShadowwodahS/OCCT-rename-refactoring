@@ -25,7 +25,7 @@
 
 class MeshVS_Mesh;
 class MeshVS_DataSource;
-class Quantity_Color;
+class Color1;
 
 class MeshVS_ElementalColorPrsBuilder;
 DEFINE_STANDARD_HANDLE(MeshVS_ElementalColorPrsBuilder, MeshVS_PrsBuilder)
@@ -47,8 +47,8 @@ public:
 
   //! Builds presentation of elements with assigned colors.
   Standard_EXPORT virtual void Build(const Handle(Prs3d_Presentation)& Prs,
-                                     const TColStd_PackedMapOfInteger& IDs,
-                                     TColStd_PackedMapOfInteger&       IDsToExclude,
+                                     const PackedIntegerMap& IDs,
+                                     PackedIntegerMap&       IDsToExclude,
                                      const Standard_Boolean            IsElement,
                                      const Standard_Integer DisplayMode) const Standard_OVERRIDE;
 
@@ -63,10 +63,10 @@ public:
 
   //! Returns color assigned with element number ID
   Standard_EXPORT Standard_Boolean GetColor1(const Standard_Integer ID,
-                                             Quantity_Color&        theColor) const;
+                                             Color1&        theColor) const;
 
   //! Sets color assigned with element number ID
-  Standard_EXPORT void SetColor1(const Standard_Integer ID, const Quantity_Color& theColor);
+  Standard_EXPORT void SetColor1(const Standard_Integer ID, const Color1& theColor);
 
   //! Returns map of different colors for front and back side of face
   Standard_EXPORT const MeshVS_DataMapOfIntegerTwoColors& GetColors2() const;
@@ -85,8 +85,8 @@ public:
   //! theColor1 is the front element color
   //! theColor2 is the back element color
   Standard_EXPORT Standard_Boolean GetColor2(const Standard_Integer ID,
-                                             Quantity_Color&        theColor1,
-                                             Quantity_Color&        theColor2) const;
+                                             Color1&        theColor1,
+                                             Color1&        theColor2) const;
 
   //! Sets colors assigned with element number ID
   Standard_EXPORT void SetColor2(const Standard_Integer ID, const TwoColors& theTwoColors);
@@ -95,8 +95,8 @@ public:
   //! theColor1 is the front element color
   //! theColor2 is the back element color
   Standard_EXPORT void SetColor2(const Standard_Integer ID,
-                                 const Quantity_Color&  theColor1,
-                                 const Quantity_Color&  theColor2);
+                                 const Color1&  theColor1,
+                                 const Color1&  theColor2);
 
   DEFINE_STANDARD_RTTIEXT(MeshVS_ElementalColorPrsBuilder, MeshVS_PrsBuilder)
 

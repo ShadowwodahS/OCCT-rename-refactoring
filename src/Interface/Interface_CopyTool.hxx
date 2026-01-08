@@ -78,7 +78,7 @@ public:
   Standard_EXPORT Handle(Interface_InterfaceModel) Model() const;
 
   //! Changes the Map of Result for another one. This allows to work
-  //! with a more sophisticated Mapping Control than the Standard
+  //! with a more sophisticated Mapping Control than the Standard1
   //! one which is CopyMap (e.g. TransferProcess from Transfer)
   Standard_EXPORT void SetControl(const Handle(Interface_CopyControl)& othermap);
 

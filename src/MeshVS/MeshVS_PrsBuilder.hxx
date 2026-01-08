@@ -44,8 +44,8 @@ public:
   //! IsElement indicates, IDs is identificators of nodes or elements.
   //! DisplayMode is numeric constant describing display mode (see MeshVS_DisplayModeFlags.hxx)
   Standard_EXPORT virtual void Build(const Handle(Prs3d_Presentation)& Prs,
-                                     const TColStd_PackedMapOfInteger& IDs,
-                                     TColStd_PackedMapOfInteger&       IDsToExclude,
+                                     const PackedIntegerMap& IDs,
+                                     PackedIntegerMap&       IDsToExclude,
                                      const Standard_Boolean            IsElement,
                                      const Standard_Integer            DisplayMode) const = 0;
 
@@ -55,8 +55,8 @@ public:
   //! has been excluded, it is not processed by other builders.
   //! DisplayMode is numeric constant describing display mode (see MeshVS_DisplayModeFlags.hxx)
   Standard_EXPORT virtual void CustomBuild(const Handle(Prs3d_Presentation)& Prs,
-                                           const TColStd_PackedMapOfInteger& IDs,
-                                           TColStd_PackedMapOfInteger&       IDsToExclude,
+                                           const PackedIntegerMap& IDs,
+                                           PackedIntegerMap&       IDsToExclude,
                                            const Standard_Integer            DisplayMode) const;
 
   //! This method is called to build sensitive of custom elements ( they have MeshVS_ET_0D type )

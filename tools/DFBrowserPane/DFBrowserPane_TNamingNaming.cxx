@@ -128,7 +128,7 @@ void DFBrowserPane_TNamingNaming::GetValues(const Handle(TDF_Attribute)& theAttr
   TopoShape aShape = aNamingName.Shape();
   theValues.append("Shape(TShape)");
   theValues.append(
-    !aShape.IsNull() ? Standard_Dump::GetPointerInfo(aShape.TShape()->This()).ToCString() : "");
+    !aShape.IsNull() ? DumpTool::GetPointerInfo(aShape.TShape()->This()).ToCString() : "");
   DataLabel aContextLabel = aNamingName.ContextLabel();
   theValues.append("ContextLabel");
   theValues.append(

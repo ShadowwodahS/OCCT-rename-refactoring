@@ -88,7 +88,7 @@ Standard_Boolean GeomFill_ConstantBiNormal::D0(const Standard_Real Param,
 
   frenet->D0(Param, Tangent, Normal, BiNormal);
   BiNormal = BN;
-  if (BiNormal.Crossed(Tangent).Magnitude() > Precision::Confusion())
+  if (BiNormal.Crossed(Tangent).Magnitude() > Precision1::Confusion())
   {
     Normal  = BiNormal.Crossed(Tangent).Normalized();
     Tangent = Normal.Crossed(BiNormal);
@@ -118,7 +118,7 @@ Standard_Boolean GeomFill_ConstantBiNormal::D1(const Standard_Real Param,
   frenet->D1(Param, Tangent, DTangent, Normal, DNormal, BiNormal, DBiNormal);
   BiNormal  = BN;
   DBiNormal = Vector3d(0, 0, 0);
-  if (BiNormal.Crossed(Tangent).Magnitude() > Precision::Confusion())
+  if (BiNormal.Crossed(Tangent).Magnitude() > Precision1::Confusion())
   {
     F       = BiNormal.Crossed(Tangent);
     DF      = BiNormal.Crossed(DTangent);
@@ -182,7 +182,7 @@ Standard_Boolean GeomFill_ConstantBiNormal::D2(const Standard_Real Param,
   BiNormal   = BN;
   DBiNormal  = Vector3d(0, 0, 0);
   D2BiNormal = Vector3d(0, 0, 0);
-  if (BiNormal.Crossed(Tangent).Magnitude() > Precision::Confusion())
+  if (BiNormal.Crossed(Tangent).Magnitude() > Precision1::Confusion())
   {
     F        = BiNormal.Crossed(Tangent);
     DF       = BiNormal.Crossed(DTangent);
@@ -236,7 +236,7 @@ void GeomFill_ConstantBiNormal::GetAverageLaw(Vector3d& ATangent, Vector3d& ANor
 {
   frenet->GetAverageLaw(ATangent, ANormal, ABiNormal);
   ABiNormal = BN;
-  if (ABiNormal.Crossed(ATangent).Magnitude() > Precision::Confusion())
+  if (ABiNormal.Crossed(ATangent).Magnitude() > Precision1::Confusion())
   {
     ANormal  = ABiNormal.Crossed(ATangent).Normalized();
     ATangent = ANormal.Crossed(ABiNormal);
@@ -279,7 +279,7 @@ Standard_Boolean GeomFill_ConstantBiNormal::IsOnlyBy3dCurve() const
     case GeomAbs_Line: { // La normale du plan de la courbe est il perpendiculaire a la BiNormale ?
       Vector3d V;
       V.SetXYZ(myCurve->Line().Direction().XYZ());
-      return V.IsNormal(BN, Precision::Angular());
+      return V.IsNormal(BN, Precision1::Angular());
     }
     default:
       return Standard_False; // pas de risques
@@ -288,5 +288,5 @@ Standard_Boolean GeomFill_ConstantBiNormal::IsOnlyBy3dCurve() const
   // La normale du plan de la courbe est il // a la BiNormale ?
   Vector3d V;
   V.SetXYZ(TheAxe.Direction().XYZ());
-  return V.IsParallel(BN, Precision::Angular());
+  return V.IsParallel(BN, Precision1::Angular());
 }

@@ -113,7 +113,7 @@ Standard_Boolean BRepClass3d_SolidExplorer::FindAPointInTheFace(const TopoFace& 
     {
       T.SetCoord(y, -x);
     }
-    Standard_Real    ParamInit   = Precision::Infinite();
+    Standard_Real    ParamInit   = Precision1::Infinite();
     Standard_Real    TolInit     = 0.00001;
     Standard_Boolean APointExist = Standard_False;
 
@@ -167,7 +167,7 @@ Standard_Boolean BRepClass3d_SolidExplorer::FindAPointInTheFace(const TopoFace& 
       v_ = P.Y() + ParamInit * T.Y();
 
       // Additional check
-      BRepTopAdaptor_FClass2d Classifier(face, Precision::Confusion());
+      BRepTopAdaptor_FClass2d Classifier(face, Precision1::Confusion());
       gp_Pnt2d                aPnt2d(u_, v_);
       TopAbs_State            StateOfResultingPoint = Classifier.Perform(aPnt2d);
       if (StateOfResultingPoint != TopAbs_IN)
@@ -180,7 +180,7 @@ Standard_Boolean BRepClass3d_SolidExplorer::FindAPointInTheFace(const TopoFace& 
       if (theVecD1U.CrossMagnitude(theVecD1V) > gp1::Resolution())
         return Standard_True;
 
-      if (ParamInit < Precision::PConfusion())
+      if (ParamInit < Precision1::PConfusion())
         return Standard_False;
     }
   }
@@ -281,7 +281,7 @@ Standard_Boolean BRepClass3d_SolidExplorer::PointInTheFace(const TopoFace& Face,
       {
         Point3d aPnt;
         surf->D1(u_, v_, aPnt, theVecD1U, theVecD1V);
-        if (aPnt.SquareDistance(APoint_) < Precision::Confusion() * Precision::Confusion())
+        if (aPnt.SquareDistance(APoint_) < Precision1::Confusion() * Precision1::Confusion())
           return Standard_True;
       }
 
@@ -424,10 +424,10 @@ static void LimitInfiniteUV(Standard_Real& U1,
                             Standard_Real& U2,
                             Standard_Real& V2)
 {
-  Standard_Boolean infU1 = Precision::IsNegativeInfinite(U1),
-                   infV1 = Precision::IsNegativeInfinite(V1),
-                   infU2 = Precision::IsPositiveInfinite(U2),
-                   infV2 = Precision::IsPositiveInfinite(V2);
+  Standard_Boolean infU1 = Precision1::IsNegativeInfinite(U1),
+                   infV1 = Precision1::IsNegativeInfinite(V1),
+                   infU2 = Precision1::IsPositiveInfinite(U2),
+                   infV2 = Precision1::IsPositiveInfinite(V2);
 
   if (infU1)
     U1 = -1e10;
@@ -448,16 +448,16 @@ static Standard_Integer IsInfiniteUV(Standard_Real& U1,
 {
   Standard_Integer aVal = 0;
 
-  if (Precision::IsInfinite(U1))
+  if (Precision1::IsInfinite(U1))
     aVal |= 1;
 
-  if (Precision::IsInfinite(V1))
+  if (Precision1::IsInfinite(V1))
     aVal |= 2;
 
-  if (Precision::IsInfinite(U2))
+  if (Precision1::IsInfinite(U2))
     aVal |= 4;
 
-  if (Precision::IsInfinite(V2))
+  if (Precision1::IsInfinite(V2))
     aVal |= 8;
 
   return aVal;
@@ -479,7 +479,7 @@ Standard_Integer BRepClass3d_SolidExplorer::OtherSegment(const Point3d&  P,
                                                          gp_Lin&        L,
                                                          Standard_Real& _Par)
 {
-  constexpr Standard_Real TolU = Precision::PConfusion();
+  constexpr Standard_Real TolU = Precision1::PConfusion();
   const Standard_Real     TolV = TolU;
 
   TopoFace      face;
@@ -515,7 +515,7 @@ Standard_Integer BRepClass3d_SolidExplorer::OtherSegment(const Point3d&  P,
       Handle(BRepAdaptor_Surface) surf = new BRepAdaptor_Surface();
       if (aTestInvert)
       {
-        BRepTopAdaptor_FClass2d aClass(face, Precision::Confusion());
+        BRepTopAdaptor_FClass2d aClass(face, Precision1::Confusion());
         if (aClass.PerformInfinitePoint() == TopAbs_IN)
         {
           aRestr = Standard_False;
@@ -523,7 +523,7 @@ Standard_Integer BRepClass3d_SolidExplorer::OtherSegment(const Point3d&  P,
           {
             myMapOfInter.UnBind(face);
             void* ptr = (void*)(new IntCurvesFace_Intersector(face,
-                                                              Precision::Confusion(),
+                                                              Precision1::Confusion(),
                                                               aRestr,
                                                               Standard_False));
             myMapOfInter.Bind(face, ptr);
@@ -543,7 +543,7 @@ Standard_Integer BRepClass3d_SolidExplorer::OtherSegment(const Point3d&  P,
       face.Orientation(TopAbs_FORWARD);
       //
       // avoid process faces from uncorrected shells
-      constexpr Standard_Real eps  = Precision::PConfusion();
+      constexpr Standard_Real eps  = Precision1::PConfusion();
       Standard_Real           epsU = Max(eps * Max(Abs(U2), Abs(U1)), eps);
       Standard_Real           epsV = Max(eps * Max(Abs(V2), Abs(V1)), eps);
       if (Abs(U2 - U1) < epsU || Abs(V2 - V1) < epsV)
@@ -604,7 +604,7 @@ Standard_Integer BRepClass3d_SolidExplorer::OtherSegment(const Point3d&  P,
 
             gp_Pnt2d aPuv(aU, aV);
 
-            classifier2d.Perform(face, aPuv, Precision::PConfusion());
+            classifier2d.Perform(face, aPuv, Precision1::PConfusion());
 
             TopAbs_State aState = classifier2d.State();
 
@@ -900,7 +900,7 @@ void BRepClass3d_SolidExplorer::InitShape(const TopoShape& S)
   {
     const TopoFace Face = TopoDS::Face(Expl.Current());
     void*             ptr  = (void*)(new IntCurvesFace_Intersector(Face,
-                                                      Precision::Confusion(),
+                                                      Precision1::Confusion(),
                                                       Standard_True,
                                                       Standard_False));
     myMapOfInter.Bind(Face, ptr);

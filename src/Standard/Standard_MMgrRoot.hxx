@@ -23,11 +23,11 @@
  * Defines only abstract interface functions.
  */
 
-class Standard_MMgrRoot
+class MemoryManagerRoot
 {
 public:
   //! Virtual destructor; required for correct inheritance
-  Standard_EXPORT virtual ~Standard_MMgrRoot();
+  Standard_EXPORT virtual ~MemoryManagerRoot();
 
   //! Allocate specified number of bytes.
   //! The actually allocated space should be rounded up to

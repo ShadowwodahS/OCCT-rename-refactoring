@@ -32,12 +32,12 @@ NCollection_AlignedAllocator::NCollection_AlignedAllocator(const size_t theAlign
 //=======================================================================
 void* NCollection_AlignedAllocator::Allocate(const size_t theSize)
 {
-  return Standard::AllocateAligned(theSize, myAlignment);
+  return Standard1::AllocateAligned(theSize, myAlignment);
 }
 
 //=================================================================================================
 
 void NCollection_AlignedAllocator::Free(void* thePtr)
 {
-  Standard::FreeAligned(thePtr);
+  Standard1::FreeAligned(thePtr);
 }

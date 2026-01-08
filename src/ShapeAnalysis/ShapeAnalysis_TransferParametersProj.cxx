@@ -49,7 +49,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeAnalysis_TransferParametersProj, ShapeAnalysis_T
 ShapeAnalysis_TransferParametersProj::ShapeAnalysis_TransferParametersProj()
     : myPrecision(0.0)
 {
-  myMaxTolerance = 1; // Precision::Infinite(); ?? pdn
+  myMaxTolerance = 1; // Precision1::Infinite(); ?? pdn
   myForceProj    = Standard_False;
   myInitOK       = Standard_False;
 }
@@ -59,7 +59,7 @@ ShapeAnalysis_TransferParametersProj::ShapeAnalysis_TransferParametersProj()
 ShapeAnalysis_TransferParametersProj::ShapeAnalysis_TransferParametersProj(const TopoEdge& E,
                                                                            const TopoFace& F)
 {
-  myMaxTolerance = 1; // Precision::Infinite(); ?? pdn
+  myMaxTolerance = 1; // Precision1::Infinite(); ?? pdn
   myForceProj    = Standard_False;
   Init(E, F);
 }
@@ -72,7 +72,7 @@ void ShapeAnalysis_TransferParametersProj::Init(const TopoEdge& E, const TopoFac
   ShapeAnalysis_TransferParameters::Init(E, F);
   myEdge      = E;
   myPrecision = BRepInspector::Tolerance(E); // it is better - skl OCC2851
-  // myPrecision = Precision::Confusion();
+  // myPrecision = Precision1::Confusion();
 
   myCurve = BRepInspector::Curve(E, myFirst, myLast);
   if (myCurve.IsNull())
@@ -114,7 +114,7 @@ Handle(TColStd_HSequenceOfReal) ShapeAnalysis_TransferParametersProj::Perform(
   Handle(TColStd_HSequenceOfReal) resKnots = new TColStd_HSequenceOfReal;
 
   Standard_Integer        len   = Knots->Length();
-  constexpr Standard_Real preci = 2 * Precision::PConfusion();
+  constexpr Standard_Real preci = 2 * Precision1::PConfusion();
 
   Standard_Real first   = (To2d ? myAC3d.FirstParameter() : myFirst);
   Standard_Real last    = (To2d ? myAC3d.LastParameter() : myLast);
@@ -240,7 +240,7 @@ static Standard_Real CorrectParameter(const Handle(GeomCurve2d)& crv, const Stan
     for (Standard_Integer j = bspline->FirstUKnotIndex(); j <= bspline->LastUKnotIndex(); j++)
     {
       Standard_Real valknot = bspline->Knot(j);
-      if (Abs(valknot - param) < Precision::PConfusion())
+      if (Abs(valknot - param) < Precision1::PConfusion())
         return valknot;
     }
   }
@@ -268,7 +268,7 @@ void ShapeAnalysis_TransferParametersProj::TransferRange(TopoEdge&           new
   Point3d                  p1;
   Point3d                  p2;
   Standard_Real           alpha = 0, beta = 1;
-  constexpr Standard_Real preci = Precision::PConfusion();
+  constexpr Standard_Real preci = Precision1::PConfusion();
   Standard_Real           firstPar, lastPar;
   if (prevPar < currPar)
   {
@@ -283,15 +283,15 @@ void ShapeAnalysis_TransferParametersProj::TransferRange(TopoEdge&           new
   if (Is2d)
   {
     p1 = myAC3d.Value(firstPar).Transformed(myLocation);
-    if (Precision::IsInfinite(p1.X()) || Precision::IsInfinite(p1.Y())
-        || Precision::IsInfinite(p1.Z()))
+    if (Precision1::IsInfinite(p1.X()) || Precision1::IsInfinite(p1.Y())
+        || Precision1::IsInfinite(p1.Z()))
     {
       B.SameRange(newEdge, Standard_False);
       return;
     }
     p2 = myAC3d.Value(lastPar).Transformed(myLocation);
-    if (Precision::IsInfinite(p2.X()) || Precision::IsInfinite(p2.Y())
-        || Precision::IsInfinite(p2.Z()))
+    if (Precision1::IsInfinite(p2.X()) || Precision1::IsInfinite(p2.Y())
+        || Precision1::IsInfinite(p2.Z()))
     {
       B.SameRange(newEdge, Standard_False);
       return;
@@ -306,15 +306,15 @@ void ShapeAnalysis_TransferParametersProj::TransferRange(TopoEdge&           new
   else
   {
     p1 = myCurve->Value(firstPar);
-    if (Precision::IsInfinite(p1.X()) || Precision::IsInfinite(p1.Y())
-        || Precision::IsInfinite(p1.Z()))
+    if (Precision1::IsInfinite(p1.X()) || Precision1::IsInfinite(p1.Y())
+        || Precision1::IsInfinite(p1.Z()))
     {
       B.SameRange(newEdge, Standard_False);
       return;
     }
     p2 = myCurve->Value(lastPar);
-    if (Precision::IsInfinite(p2.X()) || Precision::IsInfinite(p2.Y())
-        || Precision::IsInfinite(p2.Z()))
+    if (Precision1::IsInfinite(p2.X()) || Precision1::IsInfinite(p2.Y())
+        || Precision1::IsInfinite(p2.Z()))
     {
       B.SameRange(newEdge, Standard_False);
       return;
@@ -395,8 +395,8 @@ void ShapeAnalysis_TransferParametersProj::TransferRange(TopoEdge&           new
         }
       }
       toGC->SetRange(ppar1, ppar2);
-      // if(fabs(ppar1- firstPar) > Precision::PConfusion() ||
-      //     fabs(ppar2 - lastPar) >Precision::PConfusion()) // by LSS
+      // if(fabs(ppar1- firstPar) > Precision1::PConfusion() ||
+      //     fabs(ppar2 - lastPar) >Precision1::PConfusion()) // by LSS
       if (ppar1 != firstPar || ppar2 != lastPar)
         samerange = Standard_False;
     }
@@ -424,9 +424,9 @@ void ShapeAnalysis_TransferParametersProj::TransferRange(TopoEdge&           new
       Standard_Real dist1    = sac1.NextProject(linFirst, Ad1, ploc1, myPrecision, pproj, ppar1);
       Standard_Real dist2    = sac1.NextProject(linLast, Ad1, ploc2, myPrecision, pproj, ppar2);
 
-      Standard_Boolean isFirstOnEnd = (ppar1 - first) / len < Precision::PConfusion();
-      Standard_Boolean isLastOnEnd  = (last - ppar2) / len < Precision::PConfusion();
-      Standard_Boolean useLinear    = Abs(ppar1 - ppar2) < Precision::PConfusion();
+      Standard_Boolean isFirstOnEnd = (ppar1 - first) / len < Precision1::PConfusion();
+      Standard_Boolean isLastOnEnd  = (last - ppar2) / len < Precision1::PConfusion();
+      Standard_Boolean useLinear    = Abs(ppar1 - ppar2) < Precision1::PConfusion();
       if (isFirstOnEnd && !localLinearFirst)
         localLinearFirst = Standard_True;
       if (isLastOnEnd && !localLinearLast)
@@ -462,8 +462,8 @@ void ShapeAnalysis_TransferParametersProj::TransferRange(TopoEdge&           new
         }
       }
       toGC->SetRange(ppar1, ppar2);
-      // if(fabs(ppar1 - firstPar) > Precision::PConfusion() ||
-      //    fabs(ppar2 -lastPar) > Precision::PConfusion())// by LSS
+      // if(fabs(ppar1 - firstPar) > Precision1::PConfusion() ||
+      //    fabs(ppar2 -lastPar) > Precision1::PConfusion())// by LSS
       if (ppar1 != firstPar || ppar2 != lastPar)
         samerange = Standard_False;
     }
@@ -585,11 +585,11 @@ TopoVertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoVertex& 
   Standard_Real apar = aOldPar;
   Standard_Real aTol = BRepInspector::Tolerance(theV);
   if (!hasRepr
-      || (fabs(f1 - f2) > Precision::PConfusion() || fabs(l1 - l2) > Precision::PConfusion()))
+      || (fabs(f1 - f2) > Precision1::PConfusion() || fabs(l1 - l2) > Precision1::PConfusion()))
   {
     Point3d              projP;
     Curve2 sae;
-    Standard_Real       adist = sae.Project(C2, apv, Precision::Confusion(), projP, apar);
+    Standard_Real       adist = sae.Project(C2, apv, Precision1::Confusion(), projP, apar);
     if (aTol < adist)
       aTol = adist;
   }
@@ -697,12 +697,12 @@ TopoVertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoVertex& 
   {
     Handle(GeomSurface)          aS        = BRepInspector::Surface(toFace);
     Handle(ShapeAnalysis_Surface) aSurfTool = new ShapeAnalysis_Surface(aS);
-    gp_Pnt2d                      aP2d      = aSurfTool->ValueOfUV(apv, Precision::Confusion());
+    gp_Pnt2d                      aP2d      = aSurfTool->ValueOfUV(apv, Precision1::Confusion());
     apar1                                   = aP2d.X();
     apar2                                   = aP2d.Y();
 
     if (aTol < aSurfTool->Gap())
-      aTol = aSurfTool->Gap() + 0.1 * Precision::Confusion();
+      aTol = aSurfTool->Gap() + 0.1 * Precision1::Confusion();
     // Handle(BRep_PointOnSurface) aPS = new BRep_PointOnSurface(aP2d.X(),aP2d.Y(),toSurf,toLoc);
     // alistrep.Append(aPS);
   }

@@ -27,9 +27,9 @@
 //! Example:These rights are treated in a system dependent manner :
 //! On UNIX you have User,Group and Other rights
 //! On VMS  you have Owner,Group,World and System rights
-//! An automatic conversion is done between OSD and UNIX/VMS.
+//! An automatic conversion is done between OSD1 and UNIX/VMS.
 //!
-//! OSD	VMS	UNIX
+//! OSD1	VMS	UNIX
 //! User     Owner   User
 //! Group    Group   Group
 //! World    World   Other
@@ -42,7 +42,7 @@
 //!
 //! This choice comes from the fact that ROOT can't be considered
 //! as member of the group nor as user. So it is considered as Other.
-class OSD_Protection
+class Protection1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -53,10 +53,10 @@ public:
   //! System : Read Write
   //! Group  : Read
   //! World  : Read
-  Standard_EXPORT OSD_Protection();
+  Standard_EXPORT Protection1();
 
   //! Sets values of fields
-  Standard_EXPORT OSD_Protection(const OSD_SingleProtection System,
+  Standard_EXPORT Protection1(const OSD_SingleProtection System,
                                  const OSD_SingleProtection User,
                                  const OSD_SingleProtection Group,
                                  const OSD_SingleProtection World);

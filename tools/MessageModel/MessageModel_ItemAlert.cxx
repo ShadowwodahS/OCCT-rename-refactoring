@@ -124,7 +124,7 @@ QVariant MessageModel_ItemAlert::initValue(const int theRole) const
     {
       Standard_Real aCumulativeMetric =
         anAttribute->StopValue(aMetricType) - anAttribute->StartValue(aMetricType);
-      if (fabs(aCumulativeMetric) < Precision::Confusion())
+      if (fabs(aCumulativeMetric) < Precision1::Confusion())
         return QVariant();
 
       if (aPosition == 0)
@@ -133,7 +133,7 @@ QVariant MessageModel_ItemAlert::initValue(const int theRole) const
       {
         Standard_Real aReportCumulativeMetric =
           MessageModel_ItemReport::CumulativeMetric(aReport, aMetricType);
-        if (fabs(aReportCumulativeMetric) > Precision::Confusion())
+        if (fabs(aReportCumulativeMetric) > Precision1::Confusion())
           return 100. * aCumulativeMetric / aReportCumulativeMetric;
         else
           return QVariant();
@@ -147,7 +147,7 @@ QVariant MessageModel_ItemAlert::initValue(const int theRole) const
       {
         Standard_Real aCumulativeMetric =
           anAttribute->StopValue(aMetricType) - anAttribute->StartValue(aMetricType);
-        if (fabs(aCumulativeMetric) < Precision::Confusion())
+        if (fabs(aCumulativeMetric) < Precision1::Confusion())
           return QVariant();
         else
           return aCumulativeMetric;
@@ -236,9 +236,9 @@ bool MessageModel_ItemAlert::SetStream(const Standard_SStream& theSStream,
 
   Handle(Message_AttributeStream) anAttributeStream =
     Handle(Message_AttributeStream)::DownCast(anExtendedAlert->Attribute());
-  AsciiString1 aStreamValue = Standard_Dump::Text(anAttributeStream->Stream());
+  AsciiString1 aStreamValue = DumpTool::Text(anAttributeStream->Stream());
 
-  AsciiString1 aNewValue = Standard_Dump::Text(theSStream);
+  AsciiString1 aNewValue = DumpTool::Text(theSStream);
 
   Standard_SStream aStream;
   aStream << aStreamValue.SubString(1, theStartPos - 1);

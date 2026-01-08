@@ -167,7 +167,7 @@ Standard_Boolean Dir3d::InitFromJson(const Standard_SStream& theSStream,
 {
   Standard_Integer aPos = theStreamPos;
 
-  OCCT_INIT_VECTOR_CLASS(Standard_Dump::Text(theSStream),
+  OCCT_INIT_VECTOR_CLASS(DumpTool::Text(theSStream),
                          "Dir3d",
                          aPos,
                          3,

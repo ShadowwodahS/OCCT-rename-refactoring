@@ -590,7 +590,7 @@ TopoEdge ChFi2d_Builder::BuildNewEdge(const TopoEdge&   E1,
   TopExp1::Vertices(E1, firstVertex, lastVertex);
   Point3d           Pnew         = BRepInspector::Pnt(NewExtr);
   Standard_Boolean PonctualEdge = Standard_False;
-  Standard_Real    Tol          = Precision::Confusion();
+  Standard_Real    Tol          = Precision1::Confusion();
   //  syntax wrong on NT
   //      const Handle(GeomCurve3d)& curve =
   //	BRepInspector::Curve(E1, first, last);
@@ -820,7 +820,7 @@ TopoEdge ChFi2d_Builder::BuildFilletEdge(const TopoVertex& V,
   Ve4                 = Ve2;
 
   // processing of tangency or downcast point
-  if (Ve1.IsParallel(Ve2, Precision::Angular()))
+  if (Ve1.IsParallel(Ve2, Precision1::Angular()))
   {
     // Ve1 and Ve2 are parallel : cross at 0
     cross = 0.;
@@ -833,7 +833,7 @@ TopoEdge ChFi2d_Builder::BuildFilletEdge(const TopoVertex& V,
       Ve4 = -Ve2;
     }
 
-    if (!Ve4.IsOpposite(Ve3, Precision::Angular()))
+    if (!Ve4.IsOpposite(Ve3, Precision1::Angular()))
     {
       // There is a true tangency point and the calculation is stopped
       status = ChFi2d_TangencyError;
@@ -914,7 +914,7 @@ TopoEdge ChFi2d_Builder::BuildFilletEdge(const TopoVertex& V,
     }
   } // else ...
 
-  Standard_Real           Tol = Precision::Confusion();
+  Standard_Real           Tol = Precision1::Confusion();
   Circ2d2TanRad1 Fillet(Geom2dGcc_QualifiedCurve(basisC1, Qual1),
                                  Geom2dGcc_QualifiedCurve(basisC2, Qual2),
                                  Radius,
@@ -1023,22 +1023,22 @@ TopoEdge ChFi2d_Builder::BuildFilletEdge(const TopoVertex& V,
     Point3d p2 = Adaptor3dSurface.Value(Ptg2.X(), Ptg2.Y());
     B.MakeVertex(Vertex1, p1, Tol);
     NewExtr1 = Vertex1;
-    if (Abs(U2 - ufirst1) <= Precision::PConfusion())
+    if (Abs(U2 - ufirst1) <= Precision1::PConfusion())
     {
       NewExtr1 = V1;
     }
-    if (Abs(U2 - ulast1) <= Precision::PConfusion())
+    if (Abs(U2 - ulast1) <= Precision1::PConfusion())
     {
       NewExtr1 = V2;
     }
 
     B.MakeVertex(Vertex2, p2, Tol);
     NewExtr2 = Vertex2;
-    if (Abs(Vv2 - ufirst2) <= Precision::PConfusion())
+    if (Abs(Vv2 - ufirst2) <= Precision1::PConfusion())
     {
       NewExtr2 = V3;
     }
-    if (Abs(Vv2 - ulast2) <= Precision::PConfusion())
+    if (Abs(Vv2 - ulast2) <= Precision1::PConfusion())
     {
       NewExtr2 = V4;
     }
@@ -1093,7 +1093,7 @@ TopoEdge ChFi2d_Builder::BuildFilletEdge(const TopoVertex& V,
     Standard_Boolean Sense = (vec1 * vec) > 0.;
     if (U1 > Vv1 && U1 > 2. * M_PI)
     {
-      ElCLib1::AdjustPeriodic(0., 2. * M_PI, Precision::Confusion(), U1, Vv1);
+      ElCLib1::AdjustPeriodic(0., 2. * M_PI, Precision1::Confusion(), U1, Vv1);
     } // if (U1 ...
     if ((O1 == TopAbs_FORWARD && OE1 == TopAbs_FORWARD)
         || (O1 == TopAbs_REVERSED && OE1 == TopAbs_REVERSED))

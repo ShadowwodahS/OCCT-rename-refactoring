@@ -211,7 +211,7 @@ static Standard_Integer XSHAPE_ssolid(DrawInterpreter& di,
   B.Add(solid, sh);
   //   Pas encore fini : il faut une bonne orientation
   BRepClass3d_SolidClassifier bsc3d(solid);
-  bsc3d.PerformInfinitePoint(BRepBuilderAPI1::Precision());
+  bsc3d.PerformInfinitePoint(BRepBuilderAPI1::Precision1());
   if (bsc3d.State() == TopAbs_IN)
   {
     //         Ensuite, inverser C-A-D REPRENDRE LES SHELLS
@@ -241,7 +241,7 @@ static Standard_Integer samerange(DrawInterpreter& di, Standard_Integer argc, co
     for (ShapeExplorer exp(Shape, TopAbs_EDGE); exp.More(); exp.Next())
     {
       TopoEdge edge = TopoDS::Edge(exp.Current());
-      BRepLib1::SameRange(edge, Precision::PConfusion());
+      BRepLib1::SameRange(edge, Precision1::PConfusion());
     }
   }
   else if (argc == 7)
@@ -257,7 +257,7 @@ static Standard_Integer samerange(DrawInterpreter& di, Standard_Integer argc, co
     Standard_Real           oldLast       = Draw1::Atof(argv[4]);
     Standard_Real           current_first = Draw1::Atof(argv[5]);
     Standard_Real           current_last  = Draw1::Atof(argv[6]);
-    constexpr Standard_Real Tol           = Precision::PConfusion();
+    constexpr Standard_Real Tol           = Precision1::PConfusion();
     Handle(GeomCurve2d)    NewC2d;
     GeomLib1::SameRange(Tol, C, oldFirst, oldLast, current_first, current_last, NewC2d);
     DrawTrSurf1::Set(argv[1], NewC2d);

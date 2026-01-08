@@ -14,7 +14,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// gka,abv 14.09.99: S4136: eliminate BRepAPI::Precision()
+// gka,abv 14.09.99: S4136: eliminate BRepAPI::Precision1()
 
 #include <BRep_Builder.hxx>
 #include <ElSLib.hxx>
@@ -82,7 +82,7 @@ void StepToTopoDS_TranslatePolyLoop::Init(const Handle(StepShape_PolyLoop)& PL,
     ShapeBuilder                      B;
     Handle(Transfer_TransientProcess) TP = aTool.TransientProcess();
 
-    //: S4136    Standard_Real preci = BRepAPI::Precision();
+    //: S4136    Standard_Real preci = BRepAPI::Precision1();
     Standard_Integer                i;
     Handle(StepGeom_CartesianPoint) P1, P2;
     Handle(Geom_CartesianPoint)     GP1, GP2;
@@ -114,7 +114,7 @@ void StepToTopoDS_TranslatePolyLoop::Init(const Handle(StepShape_PolyLoop)& PL,
     }
     else
     {
-      B.MakeVertex(V1, GP1->Pnt(), Precision::Confusion()); //: S4136: preci
+      B.MakeVertex(V1, GP1->Pnt(), Precision1::Confusion()); //: S4136: preci
       aTool.BindVertex(P1, V1);
     }
     B.MakeWire(W);
@@ -135,12 +135,12 @@ void StepToTopoDS_TranslatePolyLoop::Init(const Handle(StepShape_PolyLoop)& PL,
         }
         else
         {
-          B.MakeVertex(V2, GP2->Pnt(), Precision::Confusion()); //: S4136: preci
+          B.MakeVertex(V2, GP2->Pnt(), Precision1::Confusion()); //: S4136: preci
           aTool.BindVertex(P2, V2);
         }
         V = Vector3d(GP1->Pnt(), GP2->Pnt());
         L = new GeomLine(GP1->Pnt(), Dir3d(V));
-        B.MakeEdge(E, L, Precision::Confusion()); //: S4136: preci
+        B.MakeEdge(E, L, Precision1::Confusion()); //: S4136: preci
         V1.Orientation(TopAbs_FORWARD);
         V2.Orientation(TopAbs_REVERSED);
         B.Add(E, V1);
@@ -160,8 +160,8 @@ void StepToTopoDS_TranslatePolyLoop::Init(const Handle(StepShape_PolyLoop)& PL,
           E.Reverse();
         V2 = aTool.FindVertex(P2);
       }
-      gp_Pnt2d V2p1 = STSU->ValueOfUV(GP1->Pnt(), Precision());
-      gp_Pnt2d V2p2 = STSU->ValueOfUV(GP2->Pnt(), Precision());
+      gp_Pnt2d V2p1 = STSU->ValueOfUV(GP1->Pnt(), Precision1());
+      gp_Pnt2d V2p2 = STSU->ValueOfUV(GP2->Pnt(), Precision1());
       if (E.Orientation() == TopAbs_FORWARD)
       {
         V2d = gp_Vec2d(V2p1, V2p2);

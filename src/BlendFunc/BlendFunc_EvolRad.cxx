@@ -41,7 +41,7 @@ static void FusionneIntervalles(const TColStd_Array1OfReal& I1,
                                 TColStd_SequenceOfReal&     Seq)
 {
   Standard_Integer ind1 = 1, ind2 = 1;
-  Standard_Real    Epspar = Precision::PConfusion() * 0.99;
+  Standard_Real    Epspar = Precision1::PConfusion() * 0.99;
   // supposed that positioning works with PConfusion()/2
   Standard_Real v1, v2;
   // Initialisation : IND1 and IND2 point at the 1st element
@@ -187,7 +187,7 @@ void BlendFunc_EvolRad::Set(const BlendFunc_SectionShape TypeSection)
 // purpose  : OBLIGATORY passage for all computations
 //           This method manages the positioning on Surfaces and Curves
 //           Partial calculation of equations and their derivatives
-//           Storage of some intermediary results in fields to be
+//           Storage1 of some intermediary results in fields to be
 //           used in other methods.
 //=======================================================================
 
@@ -874,7 +874,7 @@ void BlendFunc_EvolRad::GetBounds(math_Vector& InfBound, math_Vector& SupBound) 
 
   for (Standard_Integer i = 1; i <= 4; i++)
   {
-    if (!Precision::IsInfinite(InfBound(i)) && !Precision::IsInfinite(SupBound(i)))
+    if (!Precision1::IsInfinite(InfBound(i)) && !Precision1::IsInfinite(SupBound(i)))
     {
       Standard_Real range = (SupBound(i) - InfBound(i));
       InfBound(i) -= range;
@@ -1166,8 +1166,8 @@ void BlendFunc_EvolRad::Section(const Standard_Real Param,
     C.SetPosition(Frame3d(Center, np, ns1));
     Pfin = ElCLib1::Parameter(C, pts2);
   }
-  if (Pfin < Precision::PConfusion())
-    Pfin += Precision::PConfusion();
+  if (Pfin < Precision1::PConfusion())
+    Pfin += Precision1::PConfusion();
 }
 
 //=================================================================================================

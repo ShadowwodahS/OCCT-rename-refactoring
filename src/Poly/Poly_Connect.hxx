@@ -163,7 +163,7 @@ private:
   Standard_Integer           myothernode;
   Standard_Boolean           mysense;
   Standard_Boolean           mymore;
-  TColStd_PackedMapOfInteger myPassedTr;
+  PackedIntegerMap myPassedTr;
 };
 
 #endif // _Poly_Connect_HeaderFile

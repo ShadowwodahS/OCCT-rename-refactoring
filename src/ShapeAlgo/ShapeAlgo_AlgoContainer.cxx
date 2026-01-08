@@ -83,7 +83,7 @@ Standard_Boolean ShapeAlgo_AlgoContainer::ConnectNextWire(
   Standard_Real tailhead, tailtail, headtail, headhead;
   saw->CheckShapeConnect(tailhead, tailtail, headtail, headhead, nextsewd->Wire(), maxtol);
   distmin                 = tailhead;
-  Standard_Real precision = saw->Precision();
+  Standard_Real precision = saw->Precision1();
 
   if (tailhead > precision && tailtail > precision
       && (saw->LastCheckStatus(ShapeExtend_DONE4) || saw->LastCheckStatus(ShapeExtend_DONE3)))
@@ -154,7 +154,7 @@ void ShapeAlgo_AlgoContainer::ApproxBSplineCurve(const Handle(BSplineCurve3d)& b
   I1        = 1;
   for (Standard_Integer ipole = 1; ipole < NbPoles; ipole++)
   {
-    if (Poles(ipole).IsEqual(Poles(ipole + 1), Precision::Confusion()))
+    if (Poles(ipole).IsEqual(Poles(ipole + 1), Precision1::Confusion()))
     {
       if (jpole == 1)
       {
@@ -220,7 +220,7 @@ void ShapeAlgo_AlgoContainer::ApproxBSplineCurve(const Handle(BSplineCurve3d)& b
         R->Add(POn2S);
       }
       WireLineApproximation        theapp3d;
-      constexpr Standard_Real Tol = Precision::Approximation();
+      constexpr Standard_Real Tol = Precision1::Approximation();
       theapp3d.SetParameters(Tol, Tol, 4, 8, 0, 30, Standard_True);
       Handle(IntPatch_WLine) WL        = new IntPatch_WLine(R, Standard_False);
       Standard_Integer       indicemin = 1;
@@ -298,7 +298,7 @@ void ShapeAlgo_AlgoContainer::ApproxBSplineCurve(const Handle(Geom2d_BSplineCurv
   I1        = 1;
   for (Standard_Integer ipole = 1; ipole < NbPoles; ipole++)
   {
-    if (Poles(ipole).IsEqual(Poles(ipole + 1), Precision::PConfusion()))
+    if (Poles(ipole).IsEqual(Poles(ipole + 1), Precision1::PConfusion()))
     {
       if (jpole == 1)
       {
@@ -364,7 +364,7 @@ void ShapeAlgo_AlgoContainer::ApproxBSplineCurve(const Handle(Geom2d_BSplineCurv
         R->Add(POn2S);
       }
       WireLineApproximation        theapp3d;
-      constexpr Standard_Real Tol = Precision::PApproximation();
+      constexpr Standard_Real Tol = Precision1::PApproximation();
       theapp3d.SetParameters(Tol, Tol, 4, 8, 0, 30, Standard_True);
       Handle(IntPatch_WLine) WL        = new IntPatch_WLine(R, Standard_False);
       Standard_Integer       indicemin = 1;
@@ -426,7 +426,7 @@ Handle(Geom_BSplineSurface) ShapeAlgo_AlgoContainer::ConvertSurfaceToBSpline(
                                                  UL,
                                                  VF,
                                                  VL,
-                                                 Precision::Confusion(),
+                                                 Precision1::Confusion(),
                                                  GeomAbs_C1,
                                                  100,
                                                  Geom_BSplineSurface::MaxDegree());
@@ -485,7 +485,7 @@ Standard_Boolean ShapeAlgo_AlgoContainer::HomoWires(const TopoWire& wireIn1,
     crv2  = BRepInspector::Curve(edge2, loc2, first2, last2);
     length2 += last2 - first2;
   }
-  Standard_Real epsilon = Precision::PConfusion() * (length1 + length2);
+  Standard_Real epsilon = Precision1::PConfusion() * (length1 + length2);
   if (nEdges1 == 1 && nEdges2 == 1)
   {
     wireOut1 = wireIn11;

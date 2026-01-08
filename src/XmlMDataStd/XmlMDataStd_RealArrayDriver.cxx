@@ -101,7 +101,7 @@ Standard_Boolean XmlMDataStd_RealArrayDriver::Paste(const PersistentStorage&  th
 
   // Check the type of LDOMString
   const XmlObjMgt_DOMString& aString = XmlObjMgt1::GetStringValue(anElement);
-  if (aString.Type() == LDOMBasicString::LDOM_Integer)
+  if (aString.Type() == LDOMBasicString1::LDOM_Integer)
   {
     if (aFirstInd == aLastInd)
     {

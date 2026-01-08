@@ -97,7 +97,7 @@ void DrawDim_Angle::DrawOn(DrawDisplay&) const
     return;
   if (!DrawDim1::Pln(myPlane2, pln2))
     return;
-  QuadQuadGeoIntersection ip(pln1, pln2, Precision::Confusion(), Precision::Angular());
+  QuadQuadGeoIntersection ip(pln1, pln2, Precision1::Confusion(), Precision1::Angular());
   if (!ip.IsDone())
     return;
 
@@ -124,7 +124,7 @@ void DrawDim_Angle::DrawOn(DrawDisplay&) const
     curpos                 = myFAttach.Rotated(AxePos, myVal / 2.);
     myCenter               = ElCLib1::Value(ElCLib1::Parameter(theaxis, curpos), theaxis);
     Standard_Real thedista = myCenter.Distance(myFAttach);
-    if (thedista > Precision::Confusion())
+    if (thedista > Precision1::Confusion())
     {
       curpos.Scale(myCenter, 1.05);
     }

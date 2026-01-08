@@ -19,6 +19,6 @@
 #include <Quantity_Color.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Quantity_Color> Aspect_SequenceOfColor;
+typedef NCollection_Sequence<Color1> Aspect_SequenceOfColor;
 
 #endif

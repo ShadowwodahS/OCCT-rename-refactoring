@@ -58,7 +58,7 @@ Standard_EXPORT void FUN_draw(const gp_Pnt2d& p)
 Standard_EXPORT void FUN_draw(const Handle(GeomCurve2d) c, const Standard_Real dpar)
 {
   char* nnn = AsciiString1("c2d").ToCString();
-  if (dpar <= Precision::Confusion())
+  if (dpar <= Precision1::Confusion())
   {
     DrawTrSurf1::Set(nnn, c);
     return;

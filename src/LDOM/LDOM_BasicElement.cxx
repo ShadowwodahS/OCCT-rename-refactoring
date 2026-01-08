@@ -13,7 +13,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// AGV 140202: Replace(const char *) for (LDOMBasicString)=>myTagName
+// AGV 140202: Replace(const char *) for (LDOMBasicString1)=>myTagName
 
 #include <LDOM_BasicElement.hxx>
 #include <LDOM_BasicAttribute.hxx>
@@ -139,7 +139,7 @@ const BasicNode* LDOM_BasicElement::GetLastChild() const
 
 //=================================================================================================
 
-const LDOM_BasicAttribute& LDOM_BasicElement::GetAttribute(const LDOMBasicString& aName,
+const LDOM_BasicAttribute& LDOM_BasicElement::GetAttribute(const LDOMBasicString1& aName,
                                                            const BasicNode*  aLastCh) const
 {
   const BasicNode* aNode;
@@ -209,8 +209,8 @@ const LDOM_BasicAttribute* LDOM_BasicElement::GetFirstAttribute(
 // purpose  : Add or replace an attribute
 //=======================================================================
 
-const BasicNode* LDOM_BasicElement::AddAttribute(const LDOMBasicString&         anAttrName,
-                                                      const LDOMBasicString&         anAttrValue,
+const BasicNode* LDOM_BasicElement::AddAttribute(const LDOMBasicString1&         anAttrName,
+                                                      const LDOMBasicString1&         anAttrValue,
                                                       const Handle(LDOM_MemManager)& aDocument,
                                                       const BasicNode*          aLastCh)
 {
@@ -266,7 +266,7 @@ const BasicNode* LDOM_BasicElement::AddAttribute(const LDOMBasicString&         
 // purpose  : Find and delete an attribute from list
 //=======================================================================
 
-const BasicNode* LDOM_BasicElement::RemoveAttribute(const LDOMBasicString& aName,
+const BasicNode* LDOM_BasicElement::RemoveAttribute(const LDOMBasicString1& aName,
                                                          const BasicNode*  aLastCh) const
 {
   //  Check attribute hash value against the current mask
@@ -357,7 +357,7 @@ void LDOM_BasicElement::AppendChild(const BasicNode*  aChild,
 //=======================================================================
 
 void LDOM_BasicElement::AddElementsByTagName(LDOM_NodeList&         aList,
-                                             const LDOMBasicString& aTagName) const
+                                             const LDOMBasicString1& aTagName) const
 {
   const BasicNode* aNode      = myFirstChild;
   const char*           aTagString = aTagName.GetString();

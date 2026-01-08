@@ -127,14 +127,14 @@ Standard_Real Geom2d_Parabola::ReversedParameter(const Standard_Real U) const
 
 Standard_Real Geom2d_Parabola::FirstParameter() const
 {
-  return -Precision::Infinite();
+  return -Precision1::Infinite();
 }
 
 //=================================================================================================
 
 Standard_Real Geom2d_Parabola::LastParameter() const
 {
-  return Precision::Infinite();
+  return Precision1::Infinite();
 }
 
 //=================================================================================================
@@ -239,7 +239,7 @@ void Geom2d_Parabola::Transform(const Trsf2d& T)
 
 Standard_Real Geom2d_Parabola::TransformedParameter(const Standard_Real U, const Transform2d& T) const
 {
-  if (Precision::IsInfinite(U))
+  if (Precision1::IsInfinite(U))
     return U;
   return U * Abs(T.ScaleFactor());
 }

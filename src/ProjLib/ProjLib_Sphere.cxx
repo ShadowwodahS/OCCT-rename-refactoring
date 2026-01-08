@@ -79,7 +79,7 @@ static gp_Pnt2d EvalPnt2d(const Vector3d& P, const Sphere3& Sp)
   Standard_Real Z = P.Dot(Vector3d(Sp.Position1().Direction()));
   Standard_Real U, V;
 
-  if (Abs(X) > Precision::PConfusion() || Abs(Y) > Precision::PConfusion())
+  if (Abs(X) > Precision1::PConfusion() || Abs(Y) > Precision1::PConfusion())
   {
     Standard_Real UU = ATan2(Y, X);
     U                = ElCLib1::InPeriod(UU, 0., 2 * M_PI);
@@ -119,7 +119,7 @@ void ProjLib_Sphere::Project(const gp_Circ& C)
   Zs = mySphere.Position1().Direction();
 
   Standard_Boolean        isIsoU, isIsoV;
-  constexpr Standard_Real Tol = Precision::Confusion();
+  constexpr Standard_Real Tol = Precision1::Confusion();
 
   isIsoU = Zc.IsNormal(Zs, Tol) && O.IsEqual(C.Location(), Tol);
   isIsoV = Xc.IsNormal(Zs, Tol) && Yc.IsNormal(Zs, Tol);
@@ -135,14 +135,14 @@ void ProjLib_Sphere::Project(const gp_Circ& C)
     P2d2 = EvalPnt2d(Vector3d(Yc), mySphere);
 
     if (isIsoU
-        && (Abs(P2d1.Y() - M_PI / 2.) < Precision::PConfusion()
-            || Abs(P2d1.Y() + M_PI / 2.) < Precision::PConfusion()))
+        && (Abs(P2d1.Y() - M_PI / 2.) < Precision1::PConfusion()
+            || Abs(P2d1.Y() + M_PI / 2.) < Precision1::PConfusion()))
     {
       // then P1 is on the apex of the sphere and U is undefined
       // The value of U is given by P2d2.Y() .
       P2d1.SetX(P2d2.X());
     }
-    else if (Abs(Abs(P2d1.X() - P2d2.X()) - M_PI) < Precision::PConfusion())
+    else if (Abs(Abs(P2d1.X() - P2d2.X()) - M_PI) < Precision1::PConfusion())
     {
       // then we have U2 = U1 + PI; V2;
       // we have to assume that U1 = U2

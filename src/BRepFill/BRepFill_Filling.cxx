@@ -595,7 +595,7 @@ void BRepFill_Filling::Build()
     Handle(BRepAdaptor_Surface) HSurf = new BRepAdaptor_Surface();
     HSurf->Initialize(CurFace);
     Handle(GeomSurface) CurSurface = BRepInspector::Surface(HSurf->Face());
-    // BRepTopAdaptor_FClass2d Classifier( CurFace, Precision::Confusion() );
+    // BRepTopAdaptor_FClass2d Classifier( CurFace, Precision1::Confusion() );
 
     for (i = 1; i <= VerSeq.Length(); i += 2)
     {
@@ -604,7 +604,7 @@ void BRepFill_Filling::Build()
 
       Point3d FirstPnt = BRepInspector::Pnt(FirstVtx);
       Projector.Init(FirstPnt, CurSurface);
-      if (Projector.LowerDistance() > Precision::Confusion())
+      if (Projector.LowerDistance() > Precision1::Confusion())
         continue;
       Projector.LowerDistanceParameters(U1, V1);
 
@@ -616,7 +616,7 @@ void BRepFill_Filling::Build()
 
       Point3d LastPnt = BRepInspector::Pnt(LastVtx);
       Projector.Init(LastPnt, CurSurface);
-      if (Projector.LowerDistance() > Precision::Confusion())
+      if (Projector.LowerDistance() > Precision1::Confusion())
         continue;
       Projector.LowerDistanceParameters(U2, V2);
 

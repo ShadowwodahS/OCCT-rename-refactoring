@@ -336,7 +336,7 @@ Standard_Boolean Font_TextFormatter::GlyphBoundingBox(const Standard_Integer the
   }
 
   const NCollection_Vec2<Standard_ShortReal>& aNextLeftCorner = BottomLeft(theIndex + 1);
-  if (Abs(aLeftCorner.y() - aNextLeftCorner.y()) < Precision::Confusion()) // in the same row
+  if (Abs(aLeftCorner.y() - aNextLeftCorner.y()) < Precision1::Confusion()) // in the same row
   {
     theBndBox.Right = aNextLeftCorner.x();
   }
@@ -371,7 +371,7 @@ Standard_Boolean Font_TextFormatter::IsLFSymbol(const Standard_Integer theIndex)
     return Standard_False;
   }
 
-  return Abs(aBndBox.Right - aBndBox.Left) < Precision::Confusion();
+  return Abs(aBndBox.Right - aBndBox.Left) < Precision1::Confusion();
 }
 
 //=================================================================================================

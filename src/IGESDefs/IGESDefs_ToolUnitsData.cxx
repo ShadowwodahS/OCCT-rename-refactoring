@@ -45,7 +45,7 @@ void UnitsDataTool::ReadOwnParams(const Handle(IGESDefs_UnitsData)& ent,
   Handle(Interface_HArray1OfHAsciiString) unitValues;
   Handle(TColStd_HArray1OfReal)           unitScales;
 
-  Standard_Boolean st = PR.ReadInteger(PR.Current(), "Number of Units", nbval);
+  Standard_Boolean st = PR.ReadInteger(PR.Current(), "Number of Units2", nbval);
   if (st && nbval > 0)
   {
     unitTypes  = new Interface_HArray1OfHAsciiString(1, nbval);
@@ -53,7 +53,7 @@ void UnitsDataTool::ReadOwnParams(const Handle(IGESDefs_UnitsData)& ent,
     unitScales = new TColStd_HArray1OfReal(1, nbval);
   }
   else
-    PR.AddFail("Number of Units: Less than or Equal or zero");
+    PR.AddFail("Number of Units2: Less than or Equal or zero");
 
   if (!unitTypes.IsNull())
     for (Standard_Integer i = 1; i <= nbval; i++)
@@ -154,7 +154,7 @@ void UnitsDataTool::OwnDump(const Handle(IGESDefs_UnitsData)& ent,
                                      const Standard_Integer level) const
 {
   S << "IGESDefs_UnitsData\n"
-    << "Number of Units : " << ent->NbUnits() << "\n"
+    << "Number of Units2 : " << ent->NbUnits() << "\n"
     << "Type of Unit :\n"
     << "Value of Unit :\n"
     << "Scale Factor :\n";
@@ -162,7 +162,7 @@ void UnitsDataTool::OwnDump(const Handle(IGESDefs_UnitsData)& ent,
   S << "\n";
   if (level > 4)
   {
-    S << "Details of the Units\n";
+    S << "Details of the Units2\n";
     Standard_Integer upper = ent->NbUnits();
     for (Standard_Integer i = 1; i <= upper; i++)
     {

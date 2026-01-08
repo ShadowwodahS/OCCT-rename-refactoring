@@ -24,7 +24,7 @@
 #include <OSD_Error.hxx>
 #include <TCollection_AsciiString.hxx>
 
-class Quantity_Date;
+class Date2;
 class SystemPath;
 
 // undefine SetCurrentDirectory that can be #defined by previous inclusion of windows.h
@@ -52,7 +52,7 @@ public:
   Standard_EXPORT void TerminalType(AsciiString1& Name);
 
   //! Gets system date.
-  Standard_EXPORT Quantity_Date SystemDate();
+  Standard_EXPORT Date2 SystemDate();
 
   //! Returns the user name.
   Standard_EXPORT AsciiString1 UserName();

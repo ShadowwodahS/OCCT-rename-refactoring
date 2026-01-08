@@ -383,7 +383,7 @@ void BRepClass3d_SClassifier::Perform(BRepClass3d_SolidExplorer& SolidExplorer,
                 {
                   // Check distance between surface and point
                   BRepAdaptor_Surface aBAS(f, Standard_False);
-                  Extrema_ExtPS aProj(P, aBAS, Precision::PConfusion(), Precision::PConfusion());
+                  Extrema_ExtPS aProj(P, aBAS, Precision1::PConfusion(), Precision1::PConfusion());
                   if (aProj.IsDone() && aProj.NbExt() > 0)
                   {
                     Standard_Integer i, indmin = 0;
@@ -419,7 +419,7 @@ void BRepClass3d_SClassifier::Perform(BRepClass3d_SolidExplorer& SolidExplorer,
               }
               for (Standard_Integer i = 1; i <= Intersector3d.NbPnt(); i++)
               {
-                if (Abs(Intersector3d.WParameter(i)) < Abs(parmin) - Precision::PConfusion())
+                if (Abs(Intersector3d.WParameter(i)) < Abs(parmin) - Precision1::PConfusion())
                 {
                   parmin              = Intersector3d.WParameter(i);
                   TopAbs_State aState = Intersector3d.State(i);
@@ -479,7 +479,7 @@ void BRepClass3d_SClassifier::Perform(BRepClass3d_SolidExplorer& SolidExplorer,
         myState = 1;
     } //-- Exploration of the shells
 
-    if (NearFaultPar != RealLast() && Abs(parmin) >= Abs(NearFaultPar) - Precision::PConfusion())
+    if (NearFaultPar != RealLast() && Abs(parmin) >= Abs(NearFaultPar) - Precision1::PConfusion())
     {
       isFaultyLine = Standard_True;
     }
@@ -629,21 +629,21 @@ static Standard_Integer GetTransi(const TopoFace&                 f1,
 
   const Dir3d& LDir = L.Direction();
 
-  if (Abs(LDir.Dot(nf1)) < Precision::Angular() || Abs(LDir.Dot(nf2)) < Precision::Angular())
+  if (Abs(LDir.Dot(nf1)) < Precision1::Angular() || Abs(LDir.Dot(nf2)) < Precision1::Angular())
   {
     // line is orthogonal to normal(s)
     // trans = IntCurveSurface_Tangent;
     return -1;
   }
 
-  if (nf1.IsParallel(nf2, Precision::Angular()))
+  if (nf1.IsParallel(nf2, Precision1::Angular()))
   {
     Standard_Real angD = nf1.Dot(LDir);
-    if (Abs(angD) < Precision::Angular())
+    if (Abs(angD) < Precision1::Angular())
       return -1;
     else if (angD > 0)
       trans = IntCurveSurface_Out;
-    else // angD < -Precision::Angular())
+    else // angD < -Precision1::Angular())
       trans = IntCurveSurface_In;
     return 1;
   }
@@ -656,9 +656,9 @@ static Standard_Integer GetTransi(const TopoFace&                 f1,
   Standard_Real fAD = nf1.Dot(ProjL);
   Standard_Real sAD = nf2.Dot(ProjL);
 
-  if (fAD < -Precision::Angular() && sAD < -Precision::Angular())
+  if (fAD < -Precision1::Angular() && sAD < -Precision1::Angular())
     trans = IntCurveSurface_In;
-  else if (fAD > Precision::Angular() && sAD > Precision::Angular())
+  else if (fAD > Precision1::Angular() && sAD > Precision1::Angular())
     trans = IntCurveSurface_Out;
   else
     return 0;

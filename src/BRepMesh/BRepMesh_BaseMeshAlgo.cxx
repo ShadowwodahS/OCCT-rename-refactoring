@@ -197,7 +197,7 @@ TopAbs_Orientation BRepMesh_BaseMeshAlgo::fixSeamEdgeOrientation(
         Min(aPnt1_1.SquareDistance(aPnt1_2), aPnt1_1.SquareDistance(aPnt2_2));
       const Standard_Real aSqDist2 =
         Min(aPnt2_1.SquareDistance(aPnt1_2), aPnt2_1.SquareDistance(aPnt2_2));
-      if (aSqDist1 < Precision::SquareConfusion() && aSqDist2 < Precision::SquareConfusion())
+      if (aSqDist1 < Precision1::SquareConfusion() && aSqDist2 < Precision1::SquareConfusion())
       {
         return TopAbs_INTERNAL;
       }

@@ -173,12 +173,12 @@ void MeshVS_Mesh::Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
     return;
   }
 
-  const TColStd_PackedMapOfInteger& aNodes      = aDS->GetAllNodes();
-  const TColStd_PackedMapOfInteger& aElems      = aDS->GetAllElements();
+  const PackedIntegerMap& aNodes      = aDS->GetAllNodes();
+  const PackedIntegerMap& aElems      = aDS->GetAllElements();
   const Standard_Boolean            hasNodes    = !aNodes.IsEmpty();
   const Standard_Boolean            hasElements = !aElems.IsEmpty();
 
-  TColStd_PackedMapOfInteger aNodesToExclude, aElemsToExclude;
+  PackedIntegerMap aNodesToExclude, aElemsToExclude;
   for (MeshVS_SequenceOfPrsBuilder::Iterator aBuilderIter(myBuilders); aBuilderIter.More();
        aBuilderIter.Next())
   {
@@ -210,9 +210,9 @@ void MeshVS_Mesh::Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
 
 //=================================================================================================
 
-void MeshVS_Mesh::scanFacesForSharedNodes(const TColStd_PackedMapOfInteger& theAllElements,
+void MeshVS_Mesh::scanFacesForSharedNodes(const PackedIntegerMap& theAllElements,
                                           const Standard_Integer            theNbMaxFaceNodes,
-                                          TColStd_PackedMapOfInteger&       theSharedNodes) const
+                                          PackedIntegerMap&       theSharedNodes) const
 {
   theSharedNodes.Clear();
   MeshVS_EntityType    aType;
@@ -281,8 +281,8 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelectio
   NCollection_Array1<Point3d> aPntArray(aCoordsBuf, 1, aMaxFaceNodes);
   TColStd_Array1OfReal       aPntArrayAsCoordArray(aCoordsBuf, 1, 3 * aMaxFaceNodes);
 
-  const TColStd_PackedMapOfInteger& anAllNodesMap    = aSource->GetAllNodes();
-  const TColStd_PackedMapOfInteger& anAllElementsMap = aSource->GetAllElements();
+  const PackedIntegerMap& anAllNodesMap    = aSource->GetAllNodes();
+  const PackedIntegerMap& anAllElementsMap = aSource->GetAllElements();
   if (aSource->IsAdvancedSelectionEnabled())
   {
     Handle(MeshVS_MeshOwner) anOwner;
@@ -374,7 +374,7 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelectio
 
             // since MeshVS_Mesh objects can contain free edges and vertices, it is necessary to
             // create separate sensitive entity for each of them
-            TColStd_PackedMapOfInteger aSharedNodes;
+            PackedIntegerMap aSharedNodes;
             scanFacesForSharedNodes(anAllElementsMap, aMaxFaceNodes, aSharedNodes);
 
             // create sensitive entities for free edges, if there are any
@@ -451,7 +451,7 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelectio
       case MeshVS_SMF_Group: {
         myGroupOwners.Clear();
 
-        TColStd_PackedMapOfInteger anAllGroupsMap;
+        PackedIntegerMap anAllGroupsMap;
         aSource->GetAllGroups(anAllGroupsMap);
 
         Handle(MeshVS_HArray1OfSequenceOfInteger) aTopo;
@@ -460,7 +460,7 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelectio
         {
           const Standard_Integer     aKeyGroup  = anIter.Key1();
           MeshVS_EntityType          aGroupType = MeshVS_ET_NONE;
-          TColStd_PackedMapOfInteger aGroupMap;
+          PackedIntegerMap aGroupMap;
           if (!myDataSource->GetGroup(aKeyGroup, aGroupType, aGroupMap))
           {
             continue;
@@ -701,7 +701,7 @@ Standard_Integer MeshVS_Mesh::GetBuildersCount() const
 
 Standard_Integer MeshVS_Mesh::GetFreeId() const
 {
-  TColStd_PackedMapOfInteger Ids;
+  PackedIntegerMap Ids;
   Standard_Integer           i, len = myBuilders.Length(), curId;
 
   for (i = 1; i <= len; i++)
@@ -944,7 +944,7 @@ void MeshVS_Mesh::HilightSelected(const Handle(PrsMgr_PresentationManager)& theP
   Standard_Integer len = theOwners.Length(), i;
 
   Handle(MeshVS_MeshEntityOwner) anOwner;
-  TColStd_PackedMapOfInteger     aSelNodes, aSelElements;
+  PackedIntegerMap     aSelNodes, aSelElements;
 
   for (i = 1; i <= len; i++)
   {
@@ -963,7 +963,7 @@ void MeshVS_Mesh::HilightSelected(const Handle(PrsMgr_PresentationManager)& theP
       if (anOwner->IsGroup())
       {
         MeshVS_EntityType          aGroupType;
-        TColStd_PackedMapOfInteger aGroupMap;
+        PackedIntegerMap aGroupMap;
         if (GetDataSource()->GetGroup(anOwner->ID(), aGroupType, aGroupMap))
         {
           if (aGroupType == MeshVS_ET_Node)
@@ -1026,12 +1026,12 @@ void MeshVS_Mesh::HilightSelected(const Handle(PrsMgr_PresentationManager)& theP
 
   if (aSelNodes.Extent() > 0)
   {
-    TColStd_PackedMapOfInteger tmp;
+    PackedIntegerMap tmp;
     myHilighter->Build(aSelectionPrs, aSelNodes, tmp, Standard_False, MeshVS_DMF_SelectionPrs);
   }
   if (aSelElements.Extent() > 0)
   {
-    TColStd_PackedMapOfInteger tmp;
+    PackedIntegerMap tmp;
     myHilighter->Build(aSelectionPrs, aSelElements, tmp, Standard_True, MeshVS_DMF_SelectionPrs);
   }
 
@@ -1070,7 +1070,7 @@ void MeshVS_Mesh::HilightOwnerWithColor(const Handle(PrsMgr_PresentationManager)
   if (theOwner.IsNull())
     return;
 
-  const Quantity_Color& aColor = theStyle->Color();
+  const Color1& aColor = theStyle->Color();
   if (theOwner == GlobalSelOwner())
   {
     Standard_Integer aHiMode = HasHilightMode() ? HilightMode() : 0;
@@ -1118,10 +1118,10 @@ void MeshVS_Mesh::HilightOwnerWithColor(const Handle(PrsMgr_PresentationManager)
     if (theAISOwner->IsGroup())
     {
       MeshVS_EntityType          aGroupType;
-      TColStd_PackedMapOfInteger aGroupMap;
+      PackedIntegerMap aGroupMap;
       if (myDataSource->GetGroup(anID, aGroupType, aGroupMap))
       {
-        TColStd_PackedMapOfInteger tmp;
+        PackedIntegerMap tmp;
         myHilighter->Build(aHilightPrs,
                            aGroupMap,
                            tmp,
@@ -1131,7 +1131,7 @@ void MeshVS_Mesh::HilightOwnerWithColor(const Handle(PrsMgr_PresentationManager)
     }
     else
     {
-      TColStd_PackedMapOfInteger anOne, tmp;
+      PackedIntegerMap anOne, tmp;
       anOne.Add(anID);
       myHilighter->Build(aHilightPrs,
                          anOne,
@@ -1144,7 +1144,7 @@ void MeshVS_Mesh::HilightOwnerWithColor(const Handle(PrsMgr_PresentationManager)
   {
     if (!GetDataSource().IsNull())
     {
-      TColStd_PackedMapOfInteger tmp;
+      PackedIntegerMap tmp;
       myHilighter->Build(aHilightPrs,
                          GetDataSource()->GetAllElements(),
                          tmp,
@@ -1162,7 +1162,7 @@ void MeshVS_Mesh::HilightOwnerWithColor(const Handle(PrsMgr_PresentationManager)
       // hilight detected entities
       if (!aNodes.IsNull())
       {
-        TColStd_PackedMapOfInteger tmp;
+        PackedIntegerMap tmp;
         myHilighter->Build(aHilightPrs,
                            aNodes->Map(),
                            tmp,
@@ -1171,7 +1171,7 @@ void MeshVS_Mesh::HilightOwnerWithColor(const Handle(PrsMgr_PresentationManager)
       }
       if (!aElems.IsNull())
       {
-        TColStd_PackedMapOfInteger tmp;
+        PackedIntegerMap tmp;
         myHilighter->Build(aHilightPrs,
                            aElems->Map(),
                            tmp,

@@ -48,8 +48,8 @@ public:
   //! The edges are not drawn.
   //! Polygon offset parameters: mode = Aspect_POM_None, factor = 1., units = 0.
   Standard_EXPORT Graphic3d_AspectFillArea3d(const Aspect_InteriorStyle      theInterior,
-                                             const Quantity_Color&           theInteriorColor,
-                                             const Quantity_Color&           theEdgeColor,
+                                             const Color1&           theInteriorColor,
+                                             const Color1&           theEdgeColor,
                                              const Aspect_TypeOfLine         theEdgeLineType,
                                              const Standard_Real             theEdgeWidth,
                                              const Graphic3d_MaterialAspect& theFrontMaterial,

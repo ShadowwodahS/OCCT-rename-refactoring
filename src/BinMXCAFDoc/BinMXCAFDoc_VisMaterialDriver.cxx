@@ -117,11 +117,11 @@ static void readVec3(const BinObjMgt_Persistent& theSource, Graphic3d_Vec3& theV
 }
 
 //! Decode vec3.
-static void readColor(const BinObjMgt_Persistent& theSource, Quantity_Color& theColor)
+static void readColor(const BinObjMgt_Persistent& theSource, Color1& theColor)
 {
   Graphic3d_Vec3 aVec3;
   readVec3(theSource, aVec3);
-  theColor = Quantity_Color(aVec3);
+  theColor = Color1(aVec3);
 }
 
 //! Decode vec4.

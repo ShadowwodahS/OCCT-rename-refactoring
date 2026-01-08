@@ -481,12 +481,12 @@ static Standard_Boolean IsDistanceIn2DTolerance(
   Standard_Real vm = (thePnt.Y() + thePntRef.Y()) / 2.;
   aFaceSurface.D1(um, vm, aP, aDU, aDV);
   Standard_Real aMDU = aDU.Magnitude();
-  if (aMDU > Precision::Confusion())
+  if (aMDU > Precision1::Confusion())
   {
     dumax = Max((aTol3d / aMDU), dumax);
   }
   Standard_Real aMDV = aDV.Magnitude();
-  if (aMDV > Precision::Confusion())
+  if (aMDV > Precision1::Confusion())
   {
     dvmax = Max((aTol3d / aMDV), dvmax);
   }
@@ -623,15 +623,15 @@ BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoFace& theFace, const Standar
 
   anOri = aFirstEdge.Orientation();
   BRepInspector::Range(aFirstEdge, aF, aL);
-  if ((anOri == TopAbs_FORWARD && Precision::IsNegativeInfinite(aF))
-      || (anOri == TopAbs_REVERSED && Precision::IsPositiveInfinite(aL)))
+  if ((anOri == TopAbs_FORWARD && Precision1::IsNegativeInfinite(aF))
+      || (anOri == TopAbs_REVERSED && Precision1::IsPositiveInfinite(aL)))
     isFirstInfinite = Standard_True;
 
   anOri = aLastEdge.Orientation();
   BRepInspector::Range(aLastEdge, aF, aL);
 
-  if ((anOri == TopAbs_FORWARD && Precision::IsPositiveInfinite(aL))
-      || (anOri == TopAbs_REVERSED && Precision::IsNegativeInfinite(aF)))
+  if ((anOri == TopAbs_FORWARD && Precision1::IsPositiveInfinite(aL))
+      || (anOri == TopAbs_REVERSED && Precision1::IsNegativeInfinite(aF)))
     isLastInfinite = Standard_True;
 
   if (isFirstInfinite && isLastInfinite)
@@ -1137,7 +1137,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
       BRepInspector::UVPoints(E1, F, pfirst1, plast1);
       myDomain1.SetValues(pfirst1, first1, tolint, plast1, last1, tolint);
       //
-      Add2dCurve::Add(C1, first1, last1, Precision::PConfusion(), boxes(i));
+      Add2dCurve::Add(C1, first1, last1, Precision1::PConfusion(), boxes(i));
     } // if (i == 1) {
     else
     {
@@ -1242,7 +1242,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
           BRepInspector::UVPoints(E2, F, pfirst2, plast2);
           tabDom[j - 1].SetValues(pfirst2, first2, tolint, plast2, last2, tolint);
 
-          Add2dCurve::Add(C2, first2, last2, Precision::PConfusion(), boxes(j));
+          Add2dCurve::Add(C2, first2, last2, Precision1::PConfusion(), boxes(j));
         }
         else
         {
@@ -1329,10 +1329,10 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
             const Handle(GeomCurve3d) ConS  = BRepInspector::Curve(E1, L, f1, l1);
             const Handle(GeomCurve3d) ConS2 = BRepInspector::Curve(E2, L2, f2, l2);
             // gka protect against working out of edge range
-            if (f1 - IP_ParamOnFirst > ::Precision::PConfusion()
-                || IP_ParamOnFirst - l1 > ::Precision::PConfusion()
-                || f2 - IP_ParamOnSecond > ::Precision::PConfusion()
-                || IP_ParamOnSecond - l2 > ::Precision::PConfusion())
+            if (f1 - IP_ParamOnFirst > ::Precision1::PConfusion()
+                || IP_ParamOnFirst - l1 > ::Precision1::PConfusion()
+                || f2 - IP_ParamOnSecond > ::Precision1::PConfusion()
+                || IP_ParamOnSecond - l2 > ::Precision1::PConfusion())
               continue;
             Standard_Real tolvtt = 0.;
             //  Modified by Sergey KHROMOV - Mon Apr 15 12:34:22 2002 Begin
@@ -1620,7 +1620,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
                     {
                       const gp_Dir2d& aDir1 = aL1.Direction();
                       const gp_Dir2d& aDir2 = aL2.Direction();
-                      if (aDir1.IsParallel(aDir2, Precision::Angular()))
+                      if (aDir1.IsParallel(aDir2, Precision1::Angular()))
                       {
                         localok = Standard_False;
                         break; // from for (k = 0; k < 2; ++k){...

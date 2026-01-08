@@ -62,7 +62,7 @@ TopoFace BRepPrim_Sphere::MakeEmptyLateralFace() const
 {
   Handle(Geom_SphericalSurface) S = new Geom_SphericalSurface(Axes(), myRadius);
   TopoFace                   F;
-  myBuilder.Builder().MakeFace(F, S, Precision::Confusion());
+  myBuilder.Builder().MakeFace(F, S, Precision1::Confusion());
   return F;
 }
 

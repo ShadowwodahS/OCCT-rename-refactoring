@@ -43,8 +43,8 @@ public:
   Standard_EXPORT void Translate(const Standard_Real aDx, const Standard_Real aDy);
 
   //! Change the colors of the grid
-  Standard_EXPORT virtual void SetColors(const Quantity_Color& aColor,
-                                         const Quantity_Color& aTenthColor);
+  Standard_EXPORT virtual void SetColors(const Color1& aColor,
+                                         const Color1& aTenthColor);
 
   //! returns the point of the grid the closest to the point X,Y
   //! if the grid is active. If the grid is not active returns
@@ -82,7 +82,7 @@ public:
   Standard_Boolean IsActive() const { return myIsActive; }
 
   //! Returns the colors of the grid.
-  Standard_EXPORT void Colors(Quantity_Color& aColor, Quantity_Color& aTenthColor) const;
+  Standard_EXPORT void Colors(Color1& aColor, Color1& aTenthColor) const;
 
   //! Change the grid aspect.
   Standard_EXPORT void SetDrawMode(const Aspect_GridDrawMode aDrawMode);
@@ -110,8 +110,8 @@ protected:
   Standard_EXPORT Aspect_Grid(const Standard_Real   theXOrigin       = 0.0,
                               const Standard_Real   theYOrigin       = 0.0,
                               const Standard_Real   theRotationAngle = 0,
-                              const Quantity_Color& theColor         = Quantity_NOC_GRAY50,
-                              const Quantity_Color& theTenthColor    = Quantity_NOC_GRAY70);
+                              const Color1& theColor         = Quantity_NOC_GRAY50,
+                              const Color1& theTenthColor    = Quantity_NOC_GRAY70);
 
   //! Updates the grid parameters.
   Standard_EXPORT virtual void UpdateDisplay() = 0;
@@ -120,8 +120,8 @@ protected:
   Standard_Real       myRotationAngle;
   Standard_Real       myXOrigin;
   Standard_Real       myYOrigin;
-  Quantity_Color      myColor;
-  Quantity_Color      myTenthColor;
+  Color1      myColor;
+  Color1      myTenthColor;
   Standard_Boolean    myIsActive;
   Aspect_GridDrawMode myDrawMode;
 };

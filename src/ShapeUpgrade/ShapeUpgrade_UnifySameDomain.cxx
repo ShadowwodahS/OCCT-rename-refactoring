@@ -258,7 +258,7 @@ static Standard_Boolean TryMakeLine(const Handle(GeomCurve2d)& thePCurve,
   gp_Vec2d      aVec(aFirstPnt, aLastPnt);
   Standard_Real aSqLen      = aVec.SquareMagnitude();
   Standard_Real aSqParamLen = (theLast - theFirst) * (theLast - theFirst);
-  if (Abs(aSqLen - aSqParamLen) > Precision::Confusion())
+  if (Abs(aSqLen - aSqParamLen) > Precision1::Confusion())
     return Standard_False;
 
   gp_Dir2d aDir     = aVec;
@@ -274,7 +274,7 @@ static Standard_Boolean TryMakeLine(const Handle(GeomCurve2d)& thePCurve,
     Standard_Real aParam = theFirst + i * aDelta;
     gp_Pnt2d      aPnt   = thePCurve->Value(aParam);
     Standard_Real aDist  = aLin.Distance(aPnt);
-    if (aDist > Precision::Confusion())
+    if (aDist > Precision1::Confusion())
       return Standard_False;
   }
 
@@ -380,7 +380,7 @@ static Standard_Boolean FindCoordBounds(const TopTools_SequenceOfShape&         
       UpdateBoundaries(aPCurve, fpar, lpar, theIndCoord, aMinCoord, aMaxCoord);
     }
 
-    if (Precision::IsInfinite(aMinCoord) || Precision::IsInfinite(aMaxCoord))
+    if (Precision1::IsInfinite(aMinCoord) || Precision1::IsInfinite(aMaxCoord))
       continue;
 
     if (aMaxCoord > aSimpleMax)
@@ -638,7 +638,7 @@ static void InsertWiresIntoFaces(const TopTools_SequenceOfShape& theWires,
     for (Standard_Integer jj = 1; jj <= theFaces.Length(); jj++)
     {
       const TopoFace&      aFace = TopoDS::Face(theFaces(jj));
-      BRepTopAdaptor_FClass2d Classifier(aFace, Precision::Confusion());
+      BRepTopAdaptor_FClass2d Classifier(aFace, Precision1::Confusion());
       TopAbs_State            aStatus = Classifier.Perform(aPnt2d);
       if (aStatus == TopAbs_IN)
       {
@@ -834,10 +834,10 @@ static Standard_Boolean SameSurf(const Handle(GeomSurface)& theS1,
   Standard_Real uf1, ul1, vf1, vl1, uf2, ul2, vf2, vl2;
   theS1->Bounds(uf1, ul1, vf1, vl1);
   theS2->Bounds(uf2, ul2, vf2, vl2);
-  constexpr Standard_Real aPTol = Precision::PConfusion();
-  if (Precision::IsNegativeInfinite(uf1))
+  constexpr Standard_Real aPTol = Precision1::PConfusion();
+  if (Precision1::IsNegativeInfinite(uf1))
   {
-    if (!Precision::IsNegativeInfinite(uf2))
+    if (!Precision1::IsNegativeInfinite(uf2))
     {
       return Standard_False;
     }
@@ -848,7 +848,7 @@ static Standard_Boolean SameSurf(const Handle(GeomSurface)& theS1,
   }
   else
   {
-    if (Precision::IsNegativeInfinite(uf2))
+    if (Precision1::IsNegativeInfinite(uf2))
     {
       return Standard_False;
     }
@@ -861,9 +861,9 @@ static Standard_Boolean SameSurf(const Handle(GeomSurface)& theS1,
     }
   }
   //
-  if (Precision::IsNegativeInfinite(vf1))
+  if (Precision1::IsNegativeInfinite(vf1))
   {
-    if (!Precision::IsNegativeInfinite(vf2))
+    if (!Precision1::IsNegativeInfinite(vf2))
     {
       return Standard_False;
     }
@@ -874,7 +874,7 @@ static Standard_Boolean SameSurf(const Handle(GeomSurface)& theS1,
   }
   else
   {
-    if (Precision::IsNegativeInfinite(vf2))
+    if (Precision1::IsNegativeInfinite(vf2))
     {
       return Standard_False;
     }
@@ -887,9 +887,9 @@ static Standard_Boolean SameSurf(const Handle(GeomSurface)& theS1,
     }
   }
   //
-  if (Precision::IsPositiveInfinite(ul1))
+  if (Precision1::IsPositiveInfinite(ul1))
   {
-    if (!Precision::IsPositiveInfinite(ul2))
+    if (!Precision1::IsPositiveInfinite(ul2))
     {
       return Standard_False;
     }
@@ -900,7 +900,7 @@ static Standard_Boolean SameSurf(const Handle(GeomSurface)& theS1,
   }
   else
   {
-    if (Precision::IsPositiveInfinite(ul2))
+    if (Precision1::IsPositiveInfinite(ul2))
     {
       return Standard_False;
     }
@@ -913,9 +913,9 @@ static Standard_Boolean SameSurf(const Handle(GeomSurface)& theS1,
     }
   }
   //
-  if (Precision::IsPositiveInfinite(vl1))
+  if (Precision1::IsPositiveInfinite(vl1))
   {
-    if (!Precision::IsPositiveInfinite(vl2))
+    if (!Precision1::IsPositiveInfinite(vl2))
     {
       return Standard_False;
     }
@@ -926,7 +926,7 @@ static Standard_Boolean SameSurf(const Handle(GeomSurface)& theS1,
   }
   else
   {
-    if (Precision::IsPositiveInfinite(vl2))
+    if (Precision1::IsPositiveInfinite(vl2))
     {
       return Standard_False;
     }
@@ -993,7 +993,7 @@ static void TransformPCurves(const TopoFace&   theRefFace,
 
     Standard_Real aParam = ElCLib1::LineParameter(AxisOfSurfFace.Axis(), OriginRefSurf);
 
-    if (Abs(aParam) > Precision::PConfusion())
+    if (Abs(aParam) > Precision1::PConfusion())
       aTranslation = -aParam;
 
     Dir3d VdirSurfFace = AxisOfSurfFace.Direction();
@@ -1020,9 +1020,9 @@ static void TransformPCurves(const TopoFace&   theRefFace,
     else
       anAngle = XdirRefSurf.Angle(XdirSurfFace);
 
-    ToRotate = (Abs(anAngle) > Precision::PConfusion());
+    ToRotate = (Abs(anAngle) > Precision1::PConfusion());
 
-    ToTranslate = (Abs(aTranslation) > Precision::PConfusion());
+    ToTranslate = (Abs(aTranslation) > Precision1::PConfusion());
 
     ToModify = ToTranslate || ToRotate || X_Reverse || Y_Reverse;
   }
@@ -1077,7 +1077,7 @@ static void TransformPCurves(const TopoFace&   theRefFace,
         Handle(GeomCurve3d) aC3d = BRepInspector::Curve(anEdge, fpar, lpar);
         aC3d                    = new Geom_TrimmedCurve(aC3d, fpar, lpar);
         Standard_Real tol       = BRepInspector::Tolerance(anEdge);
-        tol                     = Min(tol, Precision::Approximation());
+        tol                     = Min(tol, Precision1::Approximation());
         NewPCurves[ii]          = GeomProjLib1::Curve2d(aC3d, RefSurf);
       }
       else
@@ -1245,7 +1245,7 @@ static Standard_Boolean getCylinder(Handle(GeomSurface)& theInSurface, Cylinder1
       Handle(GeomLine) aBasisLine = Handle(GeomLine)::DownCast(aBasis);
       Dir3d            aDir       = aRS->Direction();
       Dir3d            aBasisDir  = aBasisLine->Position1().Direction();
-      if (aBasisDir.IsParallel(aDir, Precision::Angular()))
+      if (aBasisDir.IsParallel(aDir, Precision1::Angular()))
       {
         // basis line is parallel to the revolution axis: it is a cylinder
         Point3d        aLoc = aRS->Location();
@@ -1274,7 +1274,7 @@ static Standard_Boolean getCylinder(Handle(GeomSurface)& theInSurface, Cylinder1
       Handle(GeomCircle) aBasisCircle = Handle(GeomCircle)::DownCast(aBasis);
       Dir3d              aDir         = aLES->Direction();
       Dir3d              aBasisDir    = aBasisCircle->Position1().Direction();
-      if (aBasisDir.IsParallel(aDir, Precision::Angular()))
+      if (aBasisDir.IsParallel(aDir, Precision1::Angular()))
       {
         // basis circle is normal to the extrusion axis: it is a cylinder
         Point3d        aLoc = aBasisCircle->Location();
@@ -1361,7 +1361,7 @@ static Standard_Boolean GetNormalToSurface(const TopoFace&  theFace,
   //
   // compute normal
   Vector3d aVNormal = aDU.Crossed(aDV);
-  if (aVNormal.Magnitude() < Precision::Confusion())
+  if (aVNormal.Magnitude() < Precision1::Confusion())
   {
     return Standard_False;
   }
@@ -1477,13 +1477,13 @@ static Standard_Boolean IsSameDomain(
       {
         Dir3d aDir1 = aCyl1.Position1().Direction();
         Dir3d aDir2 = aCyl2.Position1().Direction();
-        if (aDir1.IsParallel(aDir2, Precision::Angular()))
+        if (aDir1.IsParallel(aDir2, Precision1::Angular()))
         {
           Point3d aLoc1 = aCyl1.Location();
           Point3d aLoc2 = aCyl2.Location();
           Vector3d aVec12(aLoc1, aLoc2);
           if (aVec12.SquareMagnitude() < theLinTol * theLinTol
-              || aVec12.IsParallel(aDir1, Precision::Angular()))
+              || aVec12.IsParallel(aDir1, Precision1::Angular()))
           {
             return Standard_True;
           }
@@ -1576,7 +1576,7 @@ static TopoEdge GlueEdgesWithPCurves(const TopTools_SequenceOfShape& aChain,
     Handle(GeomCurve3d)        aCurve   = BRepInspector::Curve(anEdge, fpar, lpar);
     Handle(Geom_TrimmedCurve) aTrCurve = new Geom_TrimmedCurve(aCurve, fpar, lpar);
     tab_c3d(i - 1)                     = GeomConvert1::CurveToBSplineCurve(aTrCurve);
-    GeomConvert1::C0BSplineToC1BSplineCurve(tab_c3d(i - 1), Precision::Confusion());
+    GeomConvert1::C0BSplineToC1BSplineCurve(tab_c3d(i - 1), Precision1::Confusion());
     if (ToReverse)
       tab_c3d(i - 1)->Reverse();
     PrevVertex = (ToReverse) ? VF : VL;
@@ -1590,7 +1590,7 @@ static TopoEdge GlueEdgesWithPCurves(const TopTools_SequenceOfShape& aChain,
                         ArrayOfIndices,
                         concatcurve,
                         closed_flag,
-                        Precision::Confusion()); // C1 concatenation
+                        Precision1::Confusion()); // C1 concatenation
 
   if (concatcurve->Length() > 1)
   {
@@ -1623,7 +1623,7 @@ static TopoEdge GlueEdgesWithPCurves(const TopTools_SequenceOfShape& aChain,
         continue;
       Handle(Geom2d_TrimmedCurve) aTrPCurve = new Geom2d_TrimmedCurve(aPCurve, fpar, lpar);
       tab_c2d(i - 1)                        = Geom2dConvert1::CurveToBSplineCurve(aTrPCurve);
-      Geom2dConvert1::C0BSplineToC1BSplineCurve(tab_c2d(i - 1), Precision::Confusion());
+      Geom2dConvert1::C0BSplineToC1BSplineCurve(tab_c2d(i - 1), Precision1::Confusion());
       if (ToReverse)
         tab_c2d(i - 1)->Reverse();
       PrevVertex = (ToReverse) ? VF : VL;
@@ -1637,7 +1637,7 @@ static TopoEdge GlueEdgesWithPCurves(const TopTools_SequenceOfShape& aChain,
                             ArrayOfInd2d,
                             concatc2d,
                             closed_flag,
-                            Precision::Confusion()); // C1 concatenation
+                            Precision1::Confusion()); // C1 concatenation
 
     if (concatc2d->Length() > 1)
     {
@@ -1809,8 +1809,8 @@ void ShapeUpgrade_UnifySameDomain::UnionPCurves(const TopTools_SequenceOfShape& 
             gp_Lin2d aPrevLin  = aPrevAdaptor.Line();
             gp_Pnt2d aFirstP2d = aPCurve->Value(aFirst);
             gp_Pnt2d aLastP2d  = aPCurve->Value(aLast);
-            if (aPrevLin.Contains(aFirstP2d, Precision::Confusion())
-                && aPrevLin.Contains(aLastP2d, Precision::Confusion()))
+            if (aPrevLin.Contains(aFirstP2d, Precision1::Confusion())
+                && aPrevLin.Contains(aLastP2d, Precision1::Confusion()))
             {
               isSameCurve = Standard_True;
               gp_Pnt2d p1 = anAdaptor.Value(aFirst);
@@ -1829,8 +1829,8 @@ void ShapeUpgrade_UnifySameDomain::UnionPCurves(const TopTools_SequenceOfShape& 
           case GeomAbs_Circle: {
             gp_Circ2d aCirc     = anAdaptor.Circle();
             gp_Circ2d aPrevCirc = aPrevAdaptor.Circle();
-            if (aCirc.Location().Distance(aPrevCirc.Location()) <= Precision::Confusion()
-                && Abs(aCirc.Radius() - aPrevCirc.Radius()) <= Precision::Confusion())
+            if (aCirc.Location().Distance(aPrevCirc.Location()) <= Precision1::Confusion()
+                && Abs(aCirc.Radius() - aPrevCirc.Radius()) <= Precision1::Confusion())
             {
               isSameCurve = Standard_True;
               gp_Pnt2d p1 = anAdaptor.Value(aFirst);
@@ -1905,7 +1905,7 @@ void ShapeUpgrade_UnifySameDomain::UnionPCurves(const TopTools_SequenceOfShape& 
           aTrPCurve->Reverse();
         }
         tab_c2d(i - 1) = Geom2dConvert1::CurveToBSplineCurve(aTrPCurve);
-        Geom2dConvert1::C0BSplineToC1BSplineCurve(tab_c2d(i - 1), Precision::Confusion());
+        Geom2dConvert1::C0BSplineToC1BSplineCurve(tab_c2d(i - 1), Precision1::Confusion());
       }
 
       TColStd_Array1OfReal tabtolvertex(0, aTolVerSeq.Length() - 1);
@@ -1925,7 +1925,7 @@ void ShapeUpgrade_UnifySameDomain::UnionPCurves(const TopTools_SequenceOfShape& 
                               ArrayOfInd2d,
                               concatc2d,
                               aClosedFlag,
-                              Precision::Confusion()); // C1 concatenation
+                              Precision1::Confusion()); // C1 concatenation
 
       if (concatc2d->Length() > 1)
       {
@@ -1966,7 +1966,7 @@ void ShapeUpgrade_UnifySameDomain::UnionPCurves(const TopTools_SequenceOfShape& 
       Handle(GeomSurface)                 aSurf = BRepInspector::Surface(aFace);
       Handle(ShapeAnalysis_Surface)        aSAS  = new ShapeAnalysis_Surface(aSurf);
       ShapeConstruct_ProjectCurveOnSurface aToolProj;
-      aToolProj.Init(aSAS, Precision::Confusion());
+      aToolProj.Init(aSAS, Precision1::Confusion());
       Handle(GeomCurve2d) aNewPCurve;
       if (aToolProj.Perform(aCurve, aFirst3d, aLast3d, aNewPCurve))
         ResPCurves(ii) = aNewPCurve;
@@ -2117,7 +2117,7 @@ Standard_Boolean ShapeUpgrade_UnifySameDomain::MergeSubSeq(
 
       TopoEdge NewEdge;
       B.MakeEdge(NewEdge);
-      B.UpdateEdge(NewEdge, aLine, CommonFace, Precision::Confusion());
+      B.UpdateEdge(NewEdge, aLine, CommonFace, Precision1::Confusion());
       B.Range(NewEdge, 0., StartPoint.Distance(EndPoint));
       B.Add(NewEdge, StartVertex);
       B.Add(NewEdge, EndVertex);
@@ -2161,7 +2161,7 @@ Standard_Boolean ShapeUpgrade_UnifySameDomain::MergeSubSeq(
       Handle(GeomCircle) C2  = Handle(GeomCircle)::DownCast(c3d2);
       Point3d              P01 = C1->Location();
       Point3d              P02 = C2->Location();
-      if (P01.Distance(P02) > Precision::Confusion())
+      if (P01.Distance(P02) > Precision1::Confusion())
         IsUnionOfCirclesPossible = Standard_False;
     }
     else
@@ -2197,7 +2197,7 @@ Standard_Boolean ShapeUpgrade_UnifySameDomain::MergeSubSeq(
     Standard_Real             dist = PV1.Distance(PV2);
     Handle(Geom_TrimmedCurve) tc   = new Geom_TrimmedCurve(L, 0.0, dist);
     TopoEdge               E;
-    B.MakeEdge(E, tc, Precision::Confusion());
+    B.MakeEdge(E, tc, Precision1::Confusion());
     B.Add(E, V[0]);
     B.Add(E, V[1]);
     B.UpdateVertex(V[0], 0., E, 0.);
@@ -2255,9 +2255,9 @@ Standard_Boolean ShapeUpgrade_UnifySameDomain::MergeSubSeq(
         FP = adef.LastParameter();
         LP = adef.FirstParameter();
       }
-      if (Abs(FP) < Precision::PConfusion())
+      if (Abs(FP) < Precision1::PConfusion())
       {
-        B.MakeEdge(E, Cir, Precision::Confusion());
+        B.MakeEdge(E, Cir, Precision1::Confusion());
         B.Add(E, V[0]);
         B.Add(E, V[1]);
         E.Orientation(FE.Orientation());
@@ -2269,7 +2269,7 @@ Standard_Boolean ShapeUpgrade_UnifySameDomain::MergeSubSeq(
           Cir1 = MC1.Value();
         else
           return Standard_False;
-        B.MakeEdge(E, Cir1, Precision::Confusion());
+        B.MakeEdge(E, Cir1, Precision1::Confusion());
         B.Add(E, V[0]);
         B.Add(E, V[1]);
       }
@@ -2313,7 +2313,7 @@ Standard_Boolean ShapeUpgrade_UnifySameDomain::MergeSubSeq(
         lpar += 2 * M_PI;
 
       Handle(Geom_TrimmedCurve) tc = new Geom_TrimmedCurve(aNewCircle, 0., lpar);
-      B.MakeEdge(E, tc, Precision::Confusion());
+      B.MakeEdge(E, tc, Precision1::Confusion());
       B.Add(E, V[0]);
       B.Add(E, V[1]);
       B.UpdateVertex(V[0], 0., E, 0.);
@@ -2409,7 +2409,7 @@ static Standard_Boolean IsMergingPossible(const TopoEdge&         edge1,
                            PointsOnEdge2))
       return Standard_False;
 
-    if (MinSqDist <= Precision::SquareConfusion())
+    if (MinSqDist <= Precision1::SquareConfusion())
       return Standard_True;
 
     return Standard_False;
@@ -2429,7 +2429,7 @@ static Standard_Boolean IsMergingPossible(const TopoEdge&         edge1,
 
   if (t1 == GeomAbs_Circle && t2 == GeomAbs_Circle)
   {
-    if (ade1.Circle().Location().Distance(ade2.Circle().Location()) > Precision::Confusion())
+    if (ade1.Circle().Location().Distance(ade2.Circle().Location()) > Precision1::Confusion())
       return Standard_False;
   }
 
@@ -2750,8 +2750,8 @@ static void CheckSharedVertices(const TopTools_SequenceOfShape&                 
 //=================================================================================================
 
 ShapeUpgrade_UnifySameDomain::ShapeUpgrade_UnifySameDomain()
-    : myLinTol(Precision::Confusion()),
-      myAngTol(Precision::Angular()),
+    : myLinTol(Precision1::Confusion()),
+      myAngTol(Precision1::Angular()),
       myUnifyFaces(Standard_True),
       myUnifyEdges(Standard_True),
       myConcatBSplines(Standard_False),
@@ -2769,8 +2769,8 @@ ShapeUpgrade_UnifySameDomain::ShapeUpgrade_UnifySameDomain(const TopoShape&    a
                                                            const Standard_Boolean UnifyFaces,
                                                            const Standard_Boolean ConcatBSplines)
     : myInitShape(aShape),
-      myLinTol(Precision::Confusion()),
-      myAngTol(Precision::Angular()),
+      myLinTol(Precision1::Confusion()),
+      myAngTol(Precision1::Angular()),
       myUnifyFaces(UnifyFaces),
       myUnifyEdges(UnifyEdges),
       myConcatBSplines(ConcatBSplines),
@@ -3116,7 +3116,7 @@ void ShapeUpgrade_UnifySameDomain::IntUnifyFaces(
       {
         const Handle(GeomPlane)& aPlane = myFacePlaneMap(faces(1));
         TopLoc_Location           aLoc;
-        BB.UpdateFace(RefFace, aPlane, aLoc, Precision::Confusion());
+        BB.UpdateFace(RefFace, aPlane, aLoc, Precision1::Confusion());
       }
       // Add correct pcurves for the reference surface to the edges of other faces
       TopoFace F_RefFace = RefFace;
@@ -3274,11 +3274,11 @@ void ShapeUpgrade_UnifySameDomain::IntUnifyFaces(
     // all faces collected in the sequence. Perform union of faces
     if (faces.Length() > 1)
     {
-      Standard_Real       CoordTol = Precision::Confusion();
+      Standard_Real       CoordTol = Precision1::Confusion();
       TopTools_MapOfShape edgesMap;
       CoordTol = ComputeMinEdgeSize(edges, F_RefFace, edgesMap);
       CoordTol /= 10.;
-      CoordTol = Max(CoordTol, Precision::Confusion());
+      CoordTol = Max(CoordTol, Precision1::Confusion());
 
       TopTools_IndexedDataMapOfShapeListOfShape VEmap;
       for (Standard_Integer ind = 1; ind <= edges.Length(); ind++)
@@ -3470,10 +3470,10 @@ void ShapeUpgrade_UnifySameDomain::IntUnifyFaces(
               }
 
               if (NewCoordMax - NewCoordMin < aPeriods[ii] - CoordTol
-                  && !(-Precision::Confusion() < NewCoordMin
-                       && NewCoordMin < aPeriods[ii] + Precision::Confusion()
-                       && -Precision::Confusion() < NewCoordMax
-                       && NewCoordMax < aPeriods[ii] + Precision::Confusion()))
+                  && !(-Precision1::Confusion() < NewCoordMin
+                       && NewCoordMin < aPeriods[ii] + Precision1::Confusion()
+                       && -Precision1::Confusion() < NewCoordMax
+                       && NewCoordMax < aPeriods[ii] + Precision1::Confusion()))
               {
                 // we can build a face without seam edge:
                 // update the edges with earlier computed relocated pcurves
@@ -3984,7 +3984,7 @@ void ShapeUpgrade_UnifySameDomain::UnifyEdges()
   }
 
   // fix changed faces and replace them in the local context
-  constexpr Standard_Real aPrec = Precision::Confusion();
+  constexpr Standard_Real aPrec = Precision1::Confusion();
   for (Standard_Integer i = 1; i <= aChangedFaces.Extent(); i++)
   {
     TopoFace aFace = TopoDS::Face(myContext->Apply(aChangedFaces.FindKey(i)));

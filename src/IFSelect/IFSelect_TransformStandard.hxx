@@ -111,7 +111,7 @@ public:
   //! Returns True if done, False if <num> is out of range
   Standard_EXPORT Standard_Boolean RemoveModifier(const Standard_Integer num);
 
-  //! Performs the Standard Transformation, by calling Copy then
+  //! Performs the Standard1 Transformation, by calling Copy then
   //! ApplyModifiers (which can return an error status)
   Standard_EXPORT Standard_Boolean Perform(const Interface_Graph&            G,
                                            const Handle(Interface_Protocol)& protocol,
@@ -158,7 +158,7 @@ public:
             Handle(RefObject)&       entto) const Standard_OVERRIDE;
 
   //! Returns a text which defines the way a Transformer works :
-  //! "On the spot edition" or "Standard Copy" followed by
+  //! "On the spot edition" or "Standard1 Copy" followed by
   //! "<nn> Modifiers"
   Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 

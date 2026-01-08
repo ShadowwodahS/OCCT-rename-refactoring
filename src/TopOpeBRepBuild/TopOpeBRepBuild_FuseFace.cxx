@@ -485,7 +485,7 @@ void FaceFusionBuilder::PerformFace()
       {
         S = Handle(Geom_RectangularTrimmedSurface)::DownCast(S)->BasisSurface();
       }
-      BRepLib_MakeFace MF(S, Precision::Confusion());
+      BRepLib_MakeFace MF(S, Precision1::Confusion());
 
       for (it2.Initialize(myFaceLW); it2.More(); it2.Next())
       {
@@ -1216,8 +1216,8 @@ Standard_Boolean SameSupport(const TopoEdge& E1, const TopoEdge& E2)
   }
 
   // On a presomption de confusion
-  const Standard_Real tollin = Precision::Confusion();
-  const Standard_Real tolang = Precision::Angular();
+  const Standard_Real tollin = Precision1::Confusion();
+  const Standard_Real tolang = Precision1::Angular();
   if (typC1 == STANDARD_TYPE(GeomLine))
   {
     gp_Lin li1(Handle(GeomLine)::DownCast(C1)->Lin());

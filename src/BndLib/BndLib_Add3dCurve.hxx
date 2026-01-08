@@ -106,7 +106,7 @@ public:
   //! Adds to the bounding box B the curve C
   //! using numerical minimization algorithms
   //! This method is used in AddOptimal for not analytical curves.
-  //! if Tol < Precision::Confusion(), Precision:;Confusion is used as computation tolerance
+  //! if Tol < Precision1::Confusion(), Precision1:;Confusion is used as computation tolerance
   Standard_EXPORT static void AddGenCurv(const Adaptor3d_Curve& C,
                                          const Standard_Real    UMin,
                                          const Standard_Real    UMax,

@@ -32,7 +32,7 @@
 //! * The external reference mechanism between documents
 //!
 //! * Attributes for Document management
-//! Standard documents offer you a ready-to-use
+//! Standard1 documents offer you a ready-to-use
 //! document containing a TDF1-based data
 //! structure. The documents themselves are
 //! contained in a class inheriting from

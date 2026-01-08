@@ -204,7 +204,7 @@ Standard_Boolean OpenGl_RaytraceGeometry::ProcessAcceleration()
   aTimer.Start();
 #endif
 
-  OSD_Parallel::For(0, Size(), OpenGL_BVHParallelBuilder(this));
+  Parallel1::For(0, Size(), OpenGL_BVHParallelBuilder(this));
 
   myBotLevelTreeDepth = 1;
 

@@ -352,7 +352,7 @@ Standard_Boolean GeomFill_DraftTrihedron::IsOnlyBy3dCurve() const
     case GeomAbs_Line: { // La normale du plan de la courbe est il perpendiculaire a la BiNormale ?
       Vector3d V;
       V.SetXYZ(myCurve->Line().Direction().XYZ());
-      return V.IsParallel(B, Precision::Angular());
+      return V.IsParallel(B, Precision1::Angular());
     }
     default:
       return Standard_False; // pas de risques
@@ -361,5 +361,5 @@ Standard_Boolean GeomFill_DraftTrihedron::IsOnlyBy3dCurve() const
   // La normale du plan de la courbe est il // a la BiNormale ?
   Vector3d V;
   V.SetXYZ(TheAxe.Direction().XYZ());
-  return V.IsParallel(B, Precision::Angular());
+  return V.IsParallel(B, Precision1::Angular());
 }

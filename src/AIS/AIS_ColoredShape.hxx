@@ -49,7 +49,7 @@ public: //! @name sub-shape aspects
                                           const Standard_Boolean theToUnregister = Standard_False);
 
   //! Customize color of specified sub-shape
-  Standard_EXPORT void SetCustomColor(const TopoShape& theShape, const Quantity_Color& theColor);
+  Standard_EXPORT void SetCustomColor(const TopoShape& theShape, const Color1& theColor);
 
   //! Customize transparency of specified sub-shape
   Standard_EXPORT void SetCustomTransparency(const TopoShape& theShape,
@@ -67,7 +67,7 @@ public: //! @name sub-shape aspects
 
 public: //! @name global aspects
   //! Setup color of entire shape.
-  Standard_EXPORT virtual void SetColor(const Quantity_Color& theColor) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetColor(const Color1& theColor) Standard_OVERRIDE;
 
   //! Setup line width of entire shape.
   Standard_EXPORT virtual void SetWidth(const Standard_Real theLineWidth) Standard_OVERRIDE;

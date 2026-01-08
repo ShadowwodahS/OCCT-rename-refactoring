@@ -179,7 +179,7 @@ static Standard_Integer STATIC_ishell = 0;
 TopAbs_State TopOpeBRepBuild_ShellFaceClassifier::State()
 {
   TopAbs_State  state;
-  Standard_Real tol3d = Precision::Confusion();
+  Standard_Real tol3d = Precision1::Confusion();
 
 #ifdef OCCT_DEBUG
   if (TopOpeBRepBuild_GettraceCHK())

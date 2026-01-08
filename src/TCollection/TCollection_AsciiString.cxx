@@ -409,7 +409,7 @@ void AsciiString1::Move(AsciiString1&& theOther)
   }
   if (mystring != THE_DEFAULT_CHAR_STRING)
   {
-    Standard::Free(mystring);
+    Standard1::Free(mystring);
   }
   mystring          = theOther.mystring;
   mylength          = theOther.mylength;
@@ -1341,7 +1341,7 @@ void AsciiString1::allocate(const int theLength)
   else
   {
     const Standard_Size aRoundSize = (theLength + 4) & ~0x3;
-    mystring           = static_cast<Standard_PCharacter>(Standard::AllocateOptimal(aRoundSize));
+    mystring           = static_cast<Standard_PCharacter>(Standard1::AllocateOptimal(aRoundSize));
     mystring[mylength] = '\0';
   }
 }
@@ -1355,11 +1355,11 @@ void AsciiString1::reallocate(const int theLength)
     if (mystring == THE_DEFAULT_CHAR_STRING)
     {
       const Standard_Size aRoundSize = (theLength + 4) & ~0x3;
-      mystring = static_cast<Standard_PCharacter>(Standard::AllocateOptimal(aRoundSize));
+      mystring = static_cast<Standard_PCharacter>(Standard1::AllocateOptimal(aRoundSize));
     }
     else
     {
-      mystring = static_cast<Standard_PCharacter>(Standard::Reallocate(mystring, theLength + 1));
+      mystring = static_cast<Standard_PCharacter>(Standard1::Reallocate(mystring, theLength + 1));
     }
     mystring[theLength] = '\0';
   }
@@ -1376,7 +1376,7 @@ void AsciiString1::deallocate()
 {
   if (mystring != THE_DEFAULT_CHAR_STRING)
   {
-    Standard::Free(mystring);
+    Standard1::Free(mystring);
   }
   mylength = 0;
   mystring = THE_DEFAULT_CHAR_STRING;

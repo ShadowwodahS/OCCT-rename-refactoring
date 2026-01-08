@@ -55,7 +55,7 @@ OSD_Directory::OSD_Directory(const SystemPath& theName)
 
 //=================================================================================================
 
-void OSD_Directory::Build(const OSD_Protection& theProtect)
+void OSD_Directory::Build(const Protection1& theProtect)
 {
 #ifdef _WIN32
   AsciiString1 aDirName;
@@ -151,7 +151,7 @@ OSD_Directory OSD_Directory::BuildTemporary()
   SystemPath                aDirPath(aTmpName);
   OSD_Directory           aDir;
   aDir.SetPath(aDirPath);
-  aDir.Build(OSD_Protection());
+  aDir.Build(Protection1());
   return aDir;
 #else
   // create a temporary directory with 0700 permissions

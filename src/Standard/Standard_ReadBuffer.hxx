@@ -19,11 +19,11 @@
 #include <iostream>
 
 //! Auxiliary tool for buffered reading from input stream within chunks of constant size.
-class Standard_ReadBuffer
+class ReadBuffer
 {
 public:
   //! Constructor with initialization.
-  Standard_ReadBuffer(int64_t theDataLen, size_t theChunkLen, bool theIsPartialPayload = false)
+  ReadBuffer(int64_t theDataLen, size_t theChunkLen, bool theIsPartialPayload = false)
       : myBufferPtr(NULL),
         myBufferEnd(NULL),
         myDataLen(0),

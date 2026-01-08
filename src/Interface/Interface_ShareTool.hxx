@@ -107,7 +107,7 @@ public:
         const Standard_Boolean            rootlast = Standard_True) const;
 
   //! Utility method which Prints the content of an iterator
-  //! (by their Numbers)
+  //! (by their Numbers1)
   Standard_EXPORT void Print(const Interface_EntityIterator& iter, Standard_OStream& S) const;
 
 protected:

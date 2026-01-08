@@ -74,10 +74,10 @@ void EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentatio
   UtfString aText("==");
 
   Standard_Real Dist = FirstCenter.Distance(SecondCenter);
-  if (Dist > Precision::Confusion())
+  if (Dist > Precision1::Confusion())
   {
     SmallDist = Dist * 0.05; // take 1/20 part of length;
-    if (SmallDist <= Precision::Confusion())
+    if (SmallDist <= Precision1::Confusion())
       SmallDist = Dist;
     Dir3d LineDir = gce_MakeDir(FirstCenter, SecondCenter);
     Dir3d OrtDir  = Plane1->Pln().Axis().Direction() ^ LineDir;
@@ -92,7 +92,7 @@ void EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentatio
     Standard_Real Rad = Max(FirstCenter.Distance(FirstPoint), SecondCenter.Distance(SecondPoint));
 
     SmallDist = Rad * 0.05; // take 1/20 part of length;
-    if (SmallDist <= Precision::Confusion())
+    if (SmallDist <= Precision1::Confusion())
       SmallDist = Rad;
 
     Vector3d aVec(SmallDist, SmallDist, SmallDist);

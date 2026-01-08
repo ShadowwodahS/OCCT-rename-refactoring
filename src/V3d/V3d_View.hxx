@@ -184,13 +184,13 @@ public:
                                           const Standard_Real        theV3);
 
   //! Defines the background color of the view.
-  Standard_EXPORT void SetBackgroundColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetBackgroundColor(const Color1& theColor);
 
   //! Defines the gradient background colors of the view by supplying the colors
   //! and the fill method (horizontal by default).
   Standard_EXPORT void SetBgGradientColors(
-    const Quantity_Color&           theColor1,
-    const Quantity_Color&           theColor2,
+    const Color1&           theColor1,
+    const Color1&           theColor2,
     const Aspect_GradientFillMethod theFillStyle = Aspect_GradientFillMethod_Horizontal,
     const Standard_Boolean          theToUpdate  = Standard_False);
 
@@ -307,9 +307,9 @@ public:
   //! position comes out of the view
   //! AxisDiametr - diameter relatively to axis length
   //! NbFacettes - number of facets of cylinders and cones
-  Standard_EXPORT void ZBufferTriedronSetup(const Quantity_Color&  theXColor = Quantity_NOC_RED,
-                                            const Quantity_Color&  theYColor = Quantity_NOC_GREEN,
-                                            const Quantity_Color&  theZColor = Quantity_NOC_BLUE1,
+  Standard_EXPORT void ZBufferTriedronSetup(const Color1&  theXColor = Quantity_NOC_RED,
+                                            const Color1&  theYColor = Quantity_NOC_GREEN,
+                                            const Color1&  theZColor = Quantity_NOC_BLUE1,
                                             const Standard_Real    theSizeRatio   = 0.8,
                                             const Standard_Real    theAxisDiametr = 0.05,
                                             const Standard_Integer theNbFacettes  = 12);
@@ -319,7 +319,7 @@ public:
   //! The scale is a percent of the window width.
   Standard_EXPORT void TriedronDisplay(
     const Aspect_TypeOfTriedronPosition thePosition = Aspect_TOTP_CENTER,
-    const Quantity_Color&               theColor    = Quantity_NOC_WHITE,
+    const Color1&               theColor    = Quantity_NOC_WHITE,
     const Standard_Real                 theScale    = 0.02,
     const V3d_TypeOfVisualization       theMode     = V3d_WIREFRAME);
 
@@ -750,11 +750,11 @@ public:
                                        Standard_Real&             V3) const;
 
   //! Returns the Background color object of the view.
-  Standard_EXPORT Quantity_Color BackgroundColor() const;
+  Standard_EXPORT Color1 BackgroundColor() const;
 
   //! Returns the gradient background colors of the view.
-  Standard_EXPORT void GradientBackgroundColors(Quantity_Color& theColor1,
-                                                Quantity_Color& theColor2) const;
+  Standard_EXPORT void GradientBackgroundColors(Color1& theColor1,
+                                                Color1& theColor2) const;
 
   //! Returns the gradient background of the view.
   Standard_EXPORT Aspect_GradientBackground GradientBackground() const;
@@ -907,7 +907,7 @@ public:
   Standard_EXPORT void Rotation(const Standard_Integer X, const Standard_Integer Y);
 
   //! Change View Plane1 Distance for Perspective Views
-  //! Warning! raises TypeMismatch from Standard if the view
+  //! Warning! raises TypeMismatch from Standard1 if the view
   //! is not a perspective view.
   Standard_EXPORT void SetFocale(const Standard_Real Focale);
 

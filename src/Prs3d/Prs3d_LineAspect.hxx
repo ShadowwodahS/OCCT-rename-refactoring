@@ -38,7 +38,7 @@ public:
   //! -   the type of line aType and
   //! -   the line thickness aWidth.
   //! Type of line refers to whether the line is solid or dotted, for example.
-  Standard_EXPORT Prs3d_LineAspect(const Quantity_Color&   theColor,
+  Standard_EXPORT Prs3d_LineAspect(const Color1&   theColor,
                                    const Aspect_TypeOfLine theType,
                                    const Standard_Real     theWidth);
 
@@ -49,7 +49,7 @@ public:
 
   //! Sets the line color defined at the time of construction.
   //! Default value: Quantity_NOC_YELLOW
-  void SetColor(const Quantity_Color& theColor) { myAspect->SetColor(theColor); }
+  void SetColor(const Color1& theColor) { myAspect->SetColor(theColor); }
 
   //! Sets the type of line defined at the time of construction.
   //! This could, for example, be solid, dotted or made up of dashes.

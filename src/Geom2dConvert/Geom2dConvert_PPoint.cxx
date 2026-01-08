@@ -35,7 +35,7 @@ ParameterPoint::ParameterPoint(const Standard_Real      theParameter,
 
 Standard_Boolean ParameterPoint::operator==(const ParameterPoint& theOther) const
 {
-  return (fabs(myParameter - theOther.Parameter()) <= Precision::PConfusion());
+  return (fabs(myParameter - theOther.Parameter()) <= Precision1::PConfusion());
 }
 
 //=======================================================================
@@ -45,5 +45,5 @@ Standard_Boolean ParameterPoint::operator==(const ParameterPoint& theOther) cons
 
 Standard_Boolean ParameterPoint::operator!=(const ParameterPoint& theOther) const
 {
-  return (fabs(myParameter - theOther.Parameter()) > Precision::PConfusion());
+  return (fabs(myParameter - theOther.Parameter()) > Precision1::PConfusion());
 }

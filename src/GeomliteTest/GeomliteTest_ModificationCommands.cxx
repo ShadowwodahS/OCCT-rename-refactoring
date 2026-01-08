@@ -123,7 +123,7 @@ static Standard_Integer samerange(DrawInterpreter& /*di*/, Standard_Integer n, c
   rf = Draw1::Atof(a[5]);
   rl = Draw1::Atof(a[6]);
 
-  GeomLib1::SameRange(Precision::PConfusion(), C, f, l, rf, rl, Res);
+  GeomLib1::SameRange(Precision1::PConfusion(), C, f, l, rf, rl, Res);
 
   DrawTrSurf1::Set(a[1], Res);
 

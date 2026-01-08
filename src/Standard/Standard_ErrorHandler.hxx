@@ -34,7 +34,7 @@
 //!
 //! If macro OCC_CONVERT_SIGNALS is defined, this enables macro OCC_CATCH_SIGNALS
 //! that can be used in the code (often inside try {} blocks) to convert C-style
-//! signals to standard C++ exceptions. This works only when OSD::SetSignal()
+//! signals to standard C++ exceptions. This works only when OSD1::SetSignal()
 //! is called to set appropriate signal handler. In the case of signal (like
 //! access violation, division by zero, etc.) it will jump to the nearest
 //! OCC_CATCH_SIGNALS in the call stack, which will then throw a C++ exception.
@@ -50,7 +50,7 @@
   // Exceptions are raied as usual, signal cause jumps in the nearest
   // OCC_CATCH_SIGNALS and then thrown as exceptions.
   #define OCC_CATCH_SIGNALS                                                                        \
-    Standard_ErrorHandler _aHandler;                                                               \
+    ErrorHandler _aHandler;                                                               \
     if (setjmp(_aHandler.Label()))                                                                 \
     {                                                                                              \
       _aHandler.Catches(STANDARD_TYPE(ExceptionBase));                                          \
@@ -79,20 +79,20 @@ class ExceptionBase;
 //! The active handlers are stored in the global stack, which is used
 //! to find appropriate handler when signal is raised.
 
-class Standard_ErrorHandler
+class ErrorHandler
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Create a ErrorHandler (to be used with try{}catch(){}).
   //! It uses the "setjmp" and "longjmp" routines.
-  Standard_EXPORT Standard_ErrorHandler();
+  Standard_EXPORT ErrorHandler();
 
   //! Unlinks and checks if there is a raised exception.
   Standard_EXPORT void Destroy();
 
   //! Destructor
-  ~Standard_ErrorHandler() { Destroy(); }
+  ~ErrorHandler() { Destroy(); }
 
   //! Removes handler from the handlers list
   Standard_EXPORT void Unlink();
@@ -146,7 +146,7 @@ public:
   //!
   //! Note that you must ensure that your object has life span longer than
   //! that of the try {} block in which it calls Register().
-  class Callback
+  class Callback1
   {
   public:
     DEFINE_STANDARD_ALLOC
@@ -169,7 +169,7 @@ public:
 #if defined(OCC_CONVERT_SIGNALS)
     Standard_EXPORT
 #endif
-      virtual ~Callback();
+      virtual ~Callback1();
 
     //! The callback function to perform necessary callback action.
     //! Called by the exception handler when it is being destroyed but
@@ -181,14 +181,14 @@ public:
 #if defined(OCC_CONVERT_SIGNALS)
     Standard_EXPORT
 #endif
-      Callback();
+      Callback1();
 
   private:
     Standard_Address myHandler;
     Standard_Address myPrev;
     Standard_Address myNext;
 
-    friend class Standard_ErrorHandler;
+    friend class ErrorHandler;
   };
 
 private:
@@ -197,7 +197,7 @@ private:
   Standard_JmpBuf          myLabel;
   Standard_HandlerStatus   myStatus;
   Standard_ThreadId        myThread;
-  Callback*                myCallbackPtr;
+  Callback1*                myCallbackPtr;
 
   friend class ExceptionBase;
 };
@@ -205,25 +205,25 @@ private:
 // If OCC_CONVERT_SIGNALS is not defined,
 // provide empty inline implementation
 #if !defined(OCC_CONVERT_SIGNALS)
-inline Standard_ErrorHandler::Callback::Callback()
+inline ErrorHandler::Callback1::Callback1()
     : myHandler(0),
       myPrev(0),
       myNext(0)
 {
 }
 
-inline Standard_ErrorHandler::Callback::~Callback()
+inline ErrorHandler::Callback1::~Callback1()
 {
   (void)myHandler;
   (void)myPrev;
 }
 
-inline void Standard_ErrorHandler::Callback::RegisterCallback() {}
+inline void ErrorHandler::Callback1::RegisterCallback() {}
 
-inline void Standard_ErrorHandler::Callback::UnregisterCallback() {}
+inline void ErrorHandler::Callback1::UnregisterCallback() {}
 #endif
 
 // Definition of the old name "Standard_ErrorHandlerCallback" was kept for compatibility
-typedef Standard_ErrorHandler::Callback Standard_ErrorHandlerCallback;
+typedef ErrorHandler::Callback1 Standard_ErrorHandlerCallback;
 
 #endif // _Standard_ErrorHandler_HeaderFile

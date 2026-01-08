@@ -31,7 +31,7 @@ LDOM_BasicText::LDOM_BasicText(const LDOM_CharacterData& aText)
 //=======================================================================
 
 LDOM_BasicText& LDOM_BasicText::Create(const LDOM_Node::NodeType      aType,
-                                       const LDOMBasicString&         aData,
+                                       const LDOMBasicString1&         aData,
                                        const Handle(LDOM_MemManager)& aDoc)
 {
   void*           aMem     = aDoc->Allocate(sizeof(LDOM_BasicText));

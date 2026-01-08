@@ -32,7 +32,7 @@ Standard_Boolean Poly2::Distance(const TopoShape& S1,
                                             Point3d&             P2,
                                             Standard_Real&      dist)
 {
-  dist = Precision::Infinite();
+  dist = Precision1::Infinite();
 
   TopLoc_Location            L;
   Handle(MeshTriangulation) Tr;

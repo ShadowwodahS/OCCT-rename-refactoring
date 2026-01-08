@@ -236,7 +236,7 @@ static Standard_Boolean PlaneOfWire(const TopoWire& W, gp_Pln& P)
     // wire not plane !
     GProp_PrincipalProps Pp = GP.PrincipalProperties();
     Vector3d               Vec;
-    Standard_Real        R1, R2, R3, Tol = Precision::Confusion();
+    Standard_Real        R1, R2, R3, Tol = Precision1::Confusion();
     Pp.RadiusOfGyration(R1, R2, R3);
     Standard_Real RMax = Max(Max(R1, R2), R3);
     if ((Abs(RMax - R1) < Tol && Abs(RMax - R2) < Tol)
@@ -332,7 +332,7 @@ static void WireContinuity(const TopoWire& W, GeomAbs_Shape& contW)
 
       if (testconti)
       {
-        cont = BRepLProp1::Continuity(Curve1, Curve2, U1, U2, Eps, Precision::Angular());
+        cont = BRepLProp1::Continuity(Curve1, Curve2, U1, U2, Eps, Precision1::Angular());
         if (cont <= contW)
           contW = cont;
       }
@@ -367,7 +367,7 @@ static void TrimEdge(const TopoEdge&            CurrentEdge,
     {
       // piece of edge
       m1 = (CutValues.Value(j) - t0) * (last - first) / (t1 - t0) + first;
-      if (Abs(m0 - m1) < Precision::Confusion())
+      if (Abs(m0 - m1) < Precision1::Confusion())
       {
         return;
       }
@@ -379,7 +379,7 @@ static void TrimEdge(const TopoEdge&            CurrentEdge,
       if (j == ndec)
       {
         // last piece
-        if (Abs(m0 - last) < Precision::Confusion())
+        if (Abs(m0 - last) < Precision1::Confusion())
         {
           return;
         }
@@ -398,7 +398,7 @@ static void TrimEdge(const TopoEdge&            CurrentEdge,
     {
       // piece of edge
       m0 = (CutValues.Value(j) - t0) * (last - first) / (t1 - t0) + first;
-      if (Abs(m0 - m1) < Precision::Confusion())
+      if (Abs(m0 - m1) < Precision1::Confusion())
       {
         return;
       }
@@ -410,7 +410,7 @@ static void TrimEdge(const TopoEdge&            CurrentEdge,
       if (j == 1)
       {
         // last piece
-        if (Abs(first - m1) < Precision::Confusion())
+        if (Abs(first - m1) < Precision1::Confusion())
         {
           return;
         }
@@ -508,7 +508,7 @@ static Standard_Boolean EdgeIntersectOnWire(const Point3d&                      
   //             but there is a bug in BRepExtrema_DistShapeShape
   //             it is enough to take 100 * distance between P1 and P2
   //             hoping that it is enough until the bug is corrected
-  //  Standard_Real dernierparam = Precision::Infinite();
+  //  Standard_Real dernierparam = Precision1::Infinite();
   // ATTENTION : return !!
   //             100 is better than 10 but it is too much !
   //             finally, nothing is better than a blocking box
@@ -550,7 +550,7 @@ static Standard_Boolean EdgeIntersectOnWire(const Point3d&                      
     if (NewVertex)
     {
       TopoEdge   E   = TopoDS::Edge(DSS.SupportOnShape2(isol));
-      Standard_Real tol = Precision::PConfusion();
+      Standard_Real tol = Precision1::PConfusion();
       Standard_Real first, last, param;
       BRepInspector::Range(E, first, last);
       tol = Max(tol, percent * Abs(last - first));
@@ -1074,7 +1074,7 @@ void CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean WithRotatio
       Standard_Boolean NewVertex;
       TopoVertex    Vsol;
       TopoWire      newwire;
-      if (Pnew.Distance(Pos->Value(i - 1)) > Precision::Confusion())
+      if (Pnew.Distance(Pos->Value(i - 1)) > Precision1::Confusion())
       {
         Standard_Real percent = myPercent;
         NewVertex             = EdgeIntersectOnWire(Pos->Value(i - 1),
@@ -1179,7 +1179,7 @@ void CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean WithRotatio
         Standard_Boolean NewVertex;
         TopoVertex    Vsol;
         TopoWire      newwire;
-        if (Pnew.Distance(Pos->Value(i + 1)) > Precision::Confusion())
+        if (Pnew.Distance(Pos->Value(i + 1)) > Precision1::Confusion())
         {
           Standard_Real percent = myPercent;
           NewVertex             = EdgeIntersectOnWire(Pos->Value(i + 1),
@@ -1514,7 +1514,7 @@ void CompatibleWires::SameNumberByACR(const Standard_Boolean report)
         for (i = 1; i <= nbSects; i++)
         {
           Standard_Real EdgeLen = (Knot2 - Knot1) * WireLen(i);
-          if (EdgeLen > Precision::Confusion())
+          if (EdgeLen > Precision1::Confusion())
           {
             AllLengthsNull = Standard_False;
             break;
@@ -1535,7 +1535,7 @@ void CompatibleWires::SameNumberByACR(const Standard_Boolean report)
       for (i = 1; i <= nbSects; i++)
       {
         const TopoWire& oldwire = TopoDS::Wire(myWork(i));
-        Standard_Real      tol     = Precision::Confusion();
+        Standard_Real      tol     = Precision1::Confusion();
         if (WireLen(i) > gp1::Resolution())
           tol /= WireLen(i);
         TopoWire            newwire = BRepFill1::InsertACR(oldwire, dec3, tol);
@@ -1766,7 +1766,7 @@ void CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
       SeqEdges.Append(anExp.Current());
     }
 
-    Standard_Real    MinSumDist = Precision::Infinite();
+    Standard_Real    MinSumDist = Precision1::Infinite();
     Standard_Integer jmin       = 1, j, k, n;
     Standard_Boolean forward    = Standard_False;
     if (i == myWork.Length() && myDegen2)
@@ -2070,7 +2070,7 @@ void CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
       if (!polar)
       {
         // choix du vertex le plus proche comme origine
-        distmini = Precision::Infinite();
+        distmini = Precision1::Infinite();
         for (Standard_Integer ii = 1; ii <= SeqV.Length(); ii++)
         {
           P1   = BRepInspector::Pnt(TopoDS::Vertex(SeqV.Value(ii)));
@@ -2088,16 +2088,16 @@ void CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
       {
 
         // recherche du vertex correspondant a la projection conique
-        Standard_Real angmin, angV, eta = Precision::Angular();
+        Standard_Real angmin, angV, eta = Precision1::Angular();
         TopoVertex Vopti;
         angmin   = M_PI / 2;
-        distmini = Precision::Infinite();
+        distmini = Precision1::Infinite();
         Dir3d dir0(Vector3d(Pnew, P.Location()));
         for (Standard_Integer ii = 1; ii <= SeqV.Length(); ii++)
         {
           P1   = BRepInspector::Pnt(TopoDS::Vertex(SeqV.Value(ii)));
           dist = Pnew.Distance(P1);
-          if (dist < Precision::Confusion())
+          if (dist < Precision1::Confusion())
           {
             angV = 0.0;
           }
@@ -2130,7 +2130,7 @@ void CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
         Vmini = Vopti;
       }
 
-      distmini = Precision::Infinite();
+      distmini = Precision1::Infinite();
       for (anExp.Init(wire); anExp.More(); anExp.Next())
       {
         TopoEdge   Ecur = anExp.Current();
@@ -2203,7 +2203,7 @@ void CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
           U2 = 0.25 * (3 * BRepInspector::Parameter(V1, E2) + BRepInspector::Parameter(V2, E2));
         }
 
-        if (Abs(Pbout.Distance(P1) - Pbout.Distance(P2)) < Precision::Confusion())
+        if (Abs(Pbout.Distance(P1) - Pbout.Distance(P2)) < Precision1::Confusion())
         {
           // cas limite ; on se decale un peu
           Pbout = PPn;
@@ -2400,7 +2400,7 @@ void CompatibleWires::SearchOrigin()
             ang = M_PI - ang;
           if (ang < -M_PI/2.0)
             ang = -M_PI - ang;
-          if (Abs(ang-M_PI/2.0)<Precision::Angular()) {
+          if (Abs(ang-M_PI/2.0)<Precision1::Angular()) {
             // cas d'ambiguite
             Vector3d Vtrans(P0.Location(),P.Location()),Vsign;
             Standard_Real alpha,beta,sign=1;
@@ -2417,11 +2417,11 @@ void CompatibleWires::SearchOrigin()
             Standard_Real dist = Pnew.Distance(P1);
             parcours = (dist<Pnew.Distance(P2));
       */
-      if (P1.IsEqual(P2, Precision::Confusion()) || P1o.IsEqual(P2o, Precision::Confusion()))
+      if (P1.IsEqual(P2, Precision1::Confusion()) || P1o.IsEqual(P2o, Precision1::Confusion()))
       {
         BRepAdaptor_Curve Curve0(E0), Curve(E);
-        Curve0.D0(Curve0.FirstParameter() + Precision::Confusion(), P2o);
-        Curve.D0(Curve.FirstParameter() + Precision::Confusion(), P2);
+        Curve0.D0(Curve0.FirstParameter() + Precision1::Confusion(), P2o);
+        Curve.D0(Curve.FirstParameter() + Precision1::Confusion(), P2);
       };
       Vector3d        VDebFin0(P1o, P2o), VDebFin(P1, P2);
       Standard_Real AStraight = VDebFin0.Angle(VDebFin);

@@ -124,7 +124,7 @@ private:
   //! Reference1-counted string,
   //! Memory block is allocated with an extra 4-byte header (int representing number of references)
   //! using low-level malloc() to avoid exceptions.
-  struct StringRef
+  struct StringRef1
   {
     Standard_Integer   Counter;
     Standard_Character Message1[1];
@@ -133,18 +133,18 @@ private:
     Standard_CString GetMessage() const { return (Standard_CString)&Message1[0]; }
 
     //! Allocate reference-counted message string.
-    static StringRef* allocate_message(Standard_CString theString);
+    static StringRef1* allocate_message(Standard_CString theString);
 
     //! Copy reference-counted message string.
-    static StringRef* copy_message(StringRef* theString);
+    static StringRef1* copy_message(StringRef1* theString);
 
     //! Release reference-counted message string.
-    static void deallocate_message(StringRef* theString);
+    static void deallocate_message(StringRef1* theString);
   };
 
 private:
-  StringRef* myMessage;
-  StringRef* myStackTrace;
+  StringRef1* myMessage;
+  StringRef1* myStackTrace;
 };
 
 // =======================================================================

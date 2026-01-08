@@ -34,7 +34,7 @@
 
 #ifdef OCCT_DEBUG_MESH
   #include <OSD_Chronometer.hxx>
-extern OSD_Chronometer FFaceTimer1, FFaceTimer2, FFaceTimer3, FFaceTimer4;
+extern Chronometer FFaceTimer1, FFaceTimer2, FFaceTimer3, FFaceTimer4;
 #endif
 
 //=================================================================================================
@@ -46,8 +46,8 @@ static void FindLimits(const Adaptor3d_Curve& aCurve,
 {
   First                     = Max(aCurve.FirstParameter(), First);
   Last                      = Min(aCurve.LastParameter(), Last);
-  Standard_Boolean firstInf = Precision::IsNegativeInfinite(First);
-  Standard_Boolean lastInf  = Precision::IsPositiveInfinite(Last);
+  Standard_Boolean firstInf = Precision1::IsNegativeInfinite(First);
+  Standard_Boolean lastInf  = Precision1::IsPositiveInfinite(Last);
 
   if (firstInf || lastInf)
   {
@@ -188,13 +188,13 @@ void StdPrs_WFDeflectionRestrictedFace::Add(const Handle(Prs3d_Presentation)&  a
       // to overcome it ensure that distance U2-U1 is not greater than aLimit*2,
       // if greater then choose an origin and use aLimit to define U1 and U2 anew
       Standard_Real aOrigin = 0.;
-      if (!Precision::IsNegativeInfinite(U1) || !Precision::IsPositiveInfinite(U2))
+      if (!Precision1::IsNegativeInfinite(U1) || !Precision1::IsPositiveInfinite(U2))
       {
-        if (Precision::IsNegativeInfinite(U1))
+        if (Precision1::IsNegativeInfinite(U1))
         {
           aOrigin = U2 - aLimit;
         }
-        else if (Precision::IsPositiveInfinite(U2))
+        else if (Precision1::IsPositiveInfinite(U2))
         {
           aOrigin = U1 + aLimit;
         }
@@ -239,7 +239,7 @@ void StdPrs_WFDeflectionRestrictedFace::Add(const Handle(Prs3d_Presentation)&  a
 
   // Compute the hatching tolerance.
   aHatchingTol *= 0.1;
-  aHatchingTol = Max(Precision::Confusion(), aHatchingTol);
+  aHatchingTol = Max(Precision1::Confusion(), aHatchingTol);
   aHatchingTol = Min(1.e-5, aHatchingTol);
 
   // load the isos
@@ -338,7 +338,7 @@ void StdPrs_WFDeflectionRestrictedFace::Add(const Handle(Prs3d_Presentation)&  a
 
         GeomAdaptor_Curve GC(BC);
         FindLimits(GC, aLimit, b1, b2);
-        if (b2 - b1 > Precision::Confusion())
+        if (b2 - b1 > Precision1::Confusion())
         {
           Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
           StdPrs_DeflectionCurve::Add(aPresentation,
@@ -364,7 +364,7 @@ void StdPrs_WFDeflectionRestrictedFace::Add(const Handle(Prs3d_Presentation)&  a
         }
 
         FindLimits(anIso, aLimit, b1, b2);
-        if (b2 - b1 > Precision::Confusion())
+        if (b2 - b1 > Precision1::Confusion())
         {
           Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
           StdPrs_DeflectionCurve::Add(aPresentation,

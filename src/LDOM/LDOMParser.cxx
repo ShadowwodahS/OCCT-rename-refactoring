@@ -303,7 +303,7 @@ Standard_Boolean LDOMParser::ParseElement(Standard_IStream& theIStream,
   for (;;)
   {
     LDOM_Node::NodeType        aLocType;
-    LDOMBasicString            aTextValue;
+    LDOMBasicString1            aTextValue;
     char*                      aTextStr;
     LDOM_XmlReader::RecordType aType =
       ReadRecord(*myReader, theIStream, myCurrentData, theDocStart);
@@ -364,10 +364,10 @@ Standard_Boolean LDOMParser::ParseElement(Standard_IStream& theIStream,
           if (IsDigit(aTextStr[0]))
           {
             if (LDOM_XmlReader::getInteger(aTextValue, aTextStr, aTextStr + aTextLen))
-              aTextValue = LDOMBasicString(aTextStr, aTextLen, myDocument);
+              aTextValue = LDOMBasicString1(aTextStr, aTextLen, myDocument);
           }
           else
-            aTextValue = LDOMBasicString(aTextStr, aTextLen, myDocument);
+            aTextValue = LDOMBasicString1(aTextStr, aTextLen, myDocument);
         }
         goto create_text_node;
       case LDOM_XmlReader::XML_COMMENT:
@@ -375,13 +375,13 @@ Standard_Boolean LDOMParser::ParseElement(Standard_IStream& theIStream,
         {
           Standard_Integer aTextLen;
           aTextStr   = CharReference::Decode((char*)myCurrentData.str(), aTextLen);
-          aTextValue = LDOMBasicString(aTextStr, aTextLen, myDocument);
+          aTextValue = LDOMBasicString1(aTextStr, aTextLen, myDocument);
         }
         goto create_text_node;
       case LDOM_XmlReader::XML_CDATA:
         aLocType   = LDOM_Node::CDATA_SECTION_NODE;
         aTextStr   = (char*)myCurrentData.str();
-        aTextValue = LDOMBasicString(aTextStr, myCurrentData.Length(), myDocument);
+        aTextValue = LDOMBasicString1(aTextStr, myCurrentData.Length(), myDocument);
       create_text_node: {
         BasicNode& aTextNode = LDOM_BasicText::Create(aLocType, aTextValue, myDocument);
         aParent->AppendChild(&aTextNode, aLastChild);

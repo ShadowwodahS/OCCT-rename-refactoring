@@ -24,7 +24,7 @@ Standard_Boolean AdvApprox_DichoCutting::Value(const Standard_Real a,
                                                Standard_Real&      cuttingvalue) const
 {
   //  longueur minimum d'un intervalle pour F(U,V) : EPS1=1.e-9 (cf.MEPS1)
-  constexpr Standard_Real lgmin = 10 * Precision::PConfusion();
+  constexpr Standard_Real lgmin = 10 * Precision1::PConfusion();
   cuttingvalue                  = (a + b) / 2;
   return (Abs(b - a) >= 2 * lgmin);
 }

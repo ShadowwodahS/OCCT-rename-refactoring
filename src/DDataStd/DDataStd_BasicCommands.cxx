@@ -1624,11 +1624,11 @@ static Standard_Integer DDataStd_GetUTFtoFile(DrawInterpreter& di,
     unsigned char prefix[4] = {0xEF, 0xBB, 0xBF, 0x00};
     anOS.write((char*)&prefix[0], 3);
     Standard_Integer    n     = aES.LengthOfCString();
-    Standard_PCharacter aCstr = (Standard_PCharacter)Standard::Allocate(n + 1);
+    Standard_PCharacter aCstr = (Standard_PCharacter)Standard1::Allocate(n + 1);
     n                         = aES.ToUTF8CString(aCstr);
     anOS.write((char*)&aCstr[0], n);
     anOS.close();
-    Standard::Free(aCstr);
+    Standard1::Free(aCstr);
     return 0;
   }
   di << "GetUTF : Data is not extracted to the specified file \n";
@@ -3194,7 +3194,7 @@ static Standard_Integer DDataStd_SetIntPackedMap(DrawInterpreter& di,
     }
 
     Standard_Integer           j = 4;
-    TColStd_PackedMapOfInteger aMap;
+    PackedIntegerMap aMap;
     for (Standard_Integer i = 1; i <= aNum; i++)
     {
       aMap.Add(Draw1::Atoi(arg[j]));
@@ -3232,7 +3232,7 @@ static Standard_Integer DDataStd_GetIntPackedMap(DrawInterpreter& di,
       return 1;
     }
     //
-    const TColStd_PackedMapOfInteger&       aMap = anAtt->GetMap();
+    const PackedIntegerMap&       aMap = anAtt->GetMap();
     TColStd_MapIteratorOfPackedMapOfInteger itr(aMap);
     for (Standard_Integer j = 1; itr.More(); itr.Next(), j++)
     {
@@ -3419,7 +3419,7 @@ static Standard_Integer DDataStd_SetIntPHugeMap(DrawInterpreter& di,
       return 1;
     }
 
-    TColStd_PackedMapOfInteger aMap;
+    PackedIntegerMap aMap;
     for (Standard_Integer i = 1; i <= aNum; i++)
     {
       aMap.Add(i);
@@ -4779,7 +4779,7 @@ void DDataStd1::BasicCommands(DrawInterpreter& theCommands)
     return;
   done = Standard_True;
 
-  const char* g = "DData : Standard Attribute Commands";
+  const char* g = "DData : Standard1 Attribute Commands";
 
   // SET
 

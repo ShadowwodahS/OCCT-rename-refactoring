@@ -37,8 +37,8 @@
 #include <TopoDS_Face.hxx>
 
 // Providing consistency with intersection tolerance for the linear curves
-static Standard_Real IntersectorConfusion = Precision::PConfusion();
-static Standard_Real IntersectorTangency  = Precision::PConfusion();
+static Standard_Real IntersectorConfusion = Precision1::PConfusion();
+static Standard_Real IntersectorTangency  = Precision1::PConfusion();
 static Standard_Real HatcherConfusion2d   = 1.e-8;
 static Standard_Real HatcherConfusion3d   = 1.e-8;
 
@@ -75,10 +75,10 @@ DBRep_IsoBuilder::DBRep_IsoBuilder(const TopoFace&     TopologicalFace,
   //-----------------------------------------------------------------------
 
   BRepTools1::UVBounds(TopologicalFace, myUMin, myUMax, myVMin, myVMax);
-  Standard_Boolean InfiniteUMin = Precision::IsNegativeInfinite(myUMin);
-  Standard_Boolean InfiniteUMax = Precision::IsPositiveInfinite(myUMax);
-  Standard_Boolean InfiniteVMin = Precision::IsNegativeInfinite(myVMin);
-  Standard_Boolean InfiniteVMax = Precision::IsPositiveInfinite(myVMax);
+  Standard_Boolean InfiniteUMin = Precision1::IsNegativeInfinite(myUMin);
+  Standard_Boolean InfiniteUMax = Precision1::IsPositiveInfinite(myUMax);
+  Standard_Boolean InfiniteVMin = Precision1::IsNegativeInfinite(myVMin);
+  Standard_Boolean InfiniteVMax = Precision1::IsPositiveInfinite(myVMax);
   if (InfiniteUMin && InfiniteUMax)
   {
     myUMin = -Infinite;
@@ -136,8 +136,8 @@ DBRep_IsoBuilder::DBRep_IsoBuilder(const TopoFace&     TopologicalFace,
     }
 
     //-- Test if a TrimmedCurve is necessary
-    if (Abs(PCurve->FirstParameter() - U1) <= Precision::PConfusion()
-        && Abs(PCurve->LastParameter() - U2) <= Precision::PConfusion())
+    if (Abs(PCurve->FirstParameter() - U1) <= Precision1::PConfusion()
+        && Abs(PCurve->LastParameter() - U2) <= Precision1::PConfusion())
     {
       anEdgePCurveMap.Add(TopologicalEdge, PCurve);
     }
@@ -148,10 +148,10 @@ DBRep_IsoBuilder::DBRep_IsoBuilder(const TopoFace&     TopologicalFace,
         Handle(Geom2d_TrimmedCurve) TrimPCurve = Handle(Geom2d_TrimmedCurve)::DownCast(PCurve);
         if (!TrimPCurve.IsNull())
         {
-          if (TrimPCurve->BasisCurve()->FirstParameter() - U1 > Precision::PConfusion()
-              || TrimPCurve->BasisCurve()->FirstParameter() - U2 > Precision::PConfusion()
-              || U1 - TrimPCurve->BasisCurve()->LastParameter() > Precision::PConfusion()
-              || U2 - TrimPCurve->BasisCurve()->LastParameter() > Precision::PConfusion())
+          if (TrimPCurve->BasisCurve()->FirstParameter() - U1 > Precision1::PConfusion()
+              || TrimPCurve->BasisCurve()->FirstParameter() - U2 > Precision1::PConfusion()
+              || U1 - TrimPCurve->BasisCurve()->LastParameter() > Precision1::PConfusion()
+              || U2 - TrimPCurve->BasisCurve()->LastParameter() > Precision1::PConfusion())
           {
 #ifdef OCCT_DEBUG
             std::cout << "DBRep_IsoBuilder TrimPCurve : parameters out of range\n";
@@ -163,7 +163,7 @@ DBRep_IsoBuilder::DBRep_IsoBuilder(const TopoFace&     TopologicalFace,
         }
         else
         {
-          if (PCurve->FirstParameter() - U1 > Precision::PConfusion())
+          if (PCurve->FirstParameter() - U1 > Precision1::PConfusion())
           {
 #ifdef OCCT_DEBUG
             std::cout << "DBRep_IsoBuilder PCurve : parameters out of range\n";
@@ -171,7 +171,7 @@ DBRep_IsoBuilder::DBRep_IsoBuilder(const TopoFace&     TopologicalFace,
 #endif
             U1 = PCurve->FirstParameter();
           }
-          if (PCurve->FirstParameter() - U2 > Precision::PConfusion())
+          if (PCurve->FirstParameter() - U2 > Precision1::PConfusion())
           {
 #ifdef OCCT_DEBUG
             std::cout << "DBRep_IsoBuilder PCurve : parameters out of range\n";
@@ -179,7 +179,7 @@ DBRep_IsoBuilder::DBRep_IsoBuilder(const TopoFace&     TopologicalFace,
 #endif
             U2 = PCurve->FirstParameter();
           }
-          if (U1 - PCurve->LastParameter() > Precision::PConfusion())
+          if (U1 - PCurve->LastParameter() > Precision1::PConfusion())
           {
 #ifdef OCCT_DEBUG
             std::cout << "DBRep_IsoBuilder PCurve : parameters out of range\n";
@@ -187,7 +187,7 @@ DBRep_IsoBuilder::DBRep_IsoBuilder(const TopoFace&     TopologicalFace,
 #endif
             U1 = PCurve->LastParameter();
           }
-          if (U2 - PCurve->LastParameter() > Precision::PConfusion())
+          if (U2 - PCurve->LastParameter() > Precision1::PConfusion())
           {
 #ifdef OCCT_DEBUG
             std::cout << "DBRep_IsoBuilder PCurve : parameters out of range\n";
@@ -199,7 +199,7 @@ DBRep_IsoBuilder::DBRep_IsoBuilder(const TopoFace&     TopologicalFace,
       }
 
       // if U1 and U2 coincide-->do nothing
-      if (Abs(U1 - U2) <= Precision::PConfusion())
+      if (Abs(U1 - U2) <= Precision1::PConfusion())
         continue;
       Handle(Geom2d_TrimmedCurve) TrimPCurve = new Geom2d_TrimmedCurve(PCurve, U1, U2);
       anEdgePCurveMap.Add(TopologicalEdge, TrimPCurve);
@@ -507,7 +507,7 @@ void DBRep_IsoBuilder::FillGaps(const TopoFace& theFace, DataMapOfEdgePCurve& th
       Point3d        aPV    = BRepInspector::Pnt(aCVOnPrev);
       // There is no need to check the distance if the tolerance
       // of vertex is infinite (like in the test case sewing/tol_1/R2)
-      if (aTolV2 < Precision::Infinite())
+      if (aTolV2 < Precision1::Infinite())
       {
         aTolV2 *= aTolV2;
 
@@ -530,7 +530,7 @@ void DBRep_IsoBuilder::FillGaps(const TopoFace& theFace, DataMapOfEdgePCurve& th
       gp_Vec2d      aV2d(aPrevP2d, aCurrP2d);
       Standard_Real aSegmLen = aV2d.Magnitude();
       // Do not add too small segments
-      Standard_Boolean bAddSegment = (aSegmLen > Precision::PConfusion());
+      Standard_Boolean bAddSegment = (aSegmLen > Precision1::PConfusion());
       // Check for periodic surfaces
       if (bAddSegment)
       {
@@ -548,8 +548,8 @@ void DBRep_IsoBuilder::FillGaps(const TopoFace& theFace, DataMapOfEdgePCurve& th
         Geom2dAdaptor_Curve aPrevGC(aPrevC2d, fp, lp), aCurrGC(aCurrC2d, fc, lc);
         Geom2dInt_GInter    anInter(aPrevGC,
                                  aCurrGC,
-                                 Precision::PConfusion(),
-                                 Precision::PConfusion());
+                                 Precision1::PConfusion(),
+                                 Precision1::PConfusion());
         if (anInter.IsDone() && !anInter.IsEmpty())
         {
           // Collect intersection points
@@ -624,7 +624,7 @@ void DBRep_IsoBuilder::FillGaps(const TopoFace& theFace, DataMapOfEdgePCurve& th
               // Check that the intersection point is covered by vertex tolerance
               gp_Pnt2d     aPInt = aPrevC2d->Value(aTPrevClosest);
               const Point3d aPOnS = aBASurf.Value(aPInt.X(), aPInt.Y());
-              if (aTolV2 > Precision::Infinite() || aPOnS.SquareDistance(aPV) < aTolV2)
+              if (aTolV2 > Precision1::Infinite() || aPOnS.SquareDistance(aPV) < aTolV2)
               {
                 Standard_Real f, l;
 
@@ -643,7 +643,7 @@ void DBRep_IsoBuilder::FillGaps(const TopoFace& theFace, DataMapOfEdgePCurve& th
                 }
 
                 // Trim previous p-curve
-                if (l - f > Precision::PConfusion())
+                if (l - f > Precision1::PConfusion())
                   aPrevC2d = new Geom2d_TrimmedCurve(aPrevC2d, f, l);
 
                 // Prepare trimming parameters for current p-curve
@@ -659,7 +659,7 @@ void DBRep_IsoBuilder::FillGaps(const TopoFace& theFace, DataMapOfEdgePCurve& th
                 }
 
                 // Trim current p-curve
-                if (l - f > Precision::PConfusion())
+                if (l - f > Precision1::PConfusion())
                   aCurrC2d = new Geom2d_TrimmedCurve(aCurrC2d, f, l);
 
                 // Do not create the segment, as we performed the trimming

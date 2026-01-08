@@ -647,21 +647,21 @@ Standard_Boolean HLRBRep_PolyAlgo::Normal(const Standard_Integer                
                                           HLRAlgo_Array1OfPINod&                 thePINod,
                                           const Standard_Boolean                 theToOrient) const
 {
-  if (theNod1RValues.Normal.SquareModulus() < Precision::Confusion())
+  if (theNod1RValues.Normal.SquareModulus() < Precision1::Confusion())
   {
     Vector3d                 aD1U, aD1V;
     Point3d                 aPnt;
     CSLib_DerivativeStatus aStatus = CSLib_D1IsNull;
     myBSurf.D1(theNod1RValues.UV.X(), theNod1RValues.UV.Y(), aPnt, aD1U, aD1V);
     Dir3d aNorm;
-    CSLib1::Normal(aD1U, aD1V, Precision::Angular(), aStatus, aNorm);
+    CSLib1::Normal(aD1U, aD1V, Precision1::Angular(), aStatus, aNorm);
     if (aStatus != CSLib_Done)
     {
       Vector3d             aD2U, aD2V, aD2UV;
       bool               isOK = false;
       CSLib_NormalStatus aNromStatus;
       myBSurf.D2(theNod1RValues.UV.X(), theNod1RValues.UV.Y(), aPnt, aD1U, aD1V, aD2U, aD2V, aD2UV);
-      CSLib1::Normal(aD1U, aD1V, aD2U, aD2V, aD2UV, Precision::Angular(), isOK, aNromStatus, aNorm);
+      CSLib1::Normal(aD1U, aD1V, aD2U, aD2V, aD2UV, Precision1::Angular(), isOK, aNromStatus, aNorm);
       if (!isOK)
       {
         return false;

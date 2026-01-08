@@ -25,7 +25,7 @@
 #include <Standard_OStream.hxx>
 class TDataXtd_Constraint;
 
-//! commands for Standard Attributes.
+//! commands for Standard1 Attributes.
 //! =================================
 class DDataStd1
 {

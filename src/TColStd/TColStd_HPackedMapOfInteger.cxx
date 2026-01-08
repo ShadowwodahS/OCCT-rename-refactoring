@@ -24,7 +24,7 @@ TColStd_HPackedMapOfInteger::TColStd_HPackedMapOfInteger(const Standard_Integer 
 }
 
 //! Constructor from already existing map; performs copying
-TColStd_HPackedMapOfInteger::TColStd_HPackedMapOfInteger(const TColStd_PackedMapOfInteger& theOther)
+TColStd_HPackedMapOfInteger::TColStd_HPackedMapOfInteger(const PackedIntegerMap& theOther)
 {
   myMap.Assign(theOther);
 }

@@ -125,7 +125,7 @@ static void CutEdge(const TopoEdge&   CurrentEdge,
   Standard_Real      first, last;
   Handle(GeomCurve3d) C = BRepInspector::Curve(CurrentEdge, first, last);
   TopoVertex      Vf, Vl, Vi;
-  B.MakeVertex(Vi, C->Value(Param), Precision::Confusion());
+  B.MakeVertex(Vi, C->Value(Param), Precision1::Confusion());
   TopExp1::Vertices(CurrentEdge, Vf, Vl);
   if (VRef.IsSame(Vf))
   {
@@ -237,8 +237,8 @@ TopoFace BRepFill1::Face(const TopoEdge& Edge1, const TopoEdge& Edge2)
   TopoVertex V1f, V1l, V2f, V2l;
 
   // create a new Handle
-  if (Abs(f1 - C1->FirstParameter()) > Precision::PConfusion()
-      || Abs(l1 - C1->LastParameter()) > Precision::PConfusion())
+  if (Abs(f1 - C1->FirstParameter()) > Precision1::PConfusion()
+      || Abs(l1 - C1->LastParameter()) > Precision1::PConfusion())
   {
     C1 = new Geom_TrimmedCurve(C1, f1, l1);
   }
@@ -263,8 +263,8 @@ TopoFace BRepFill1::Face(const TopoEdge& Edge1, const TopoEdge& Edge2)
   }
 
   // a new Handle is created
-  if (Abs(f2 - C2->FirstParameter()) > Precision::PConfusion()
-      || Abs(l2 - C2->LastParameter()) > Precision::PConfusion())
+  if (Abs(f2 - C2->FirstParameter()) > Precision1::PConfusion()
+      || Abs(l2 - C2->LastParameter()) > Precision1::PConfusion())
   {
     C2 = new Geom_TrimmedCurve(C2, f2, l2);
   }
@@ -294,12 +294,12 @@ TopoFace BRepFill1::Face(const TopoEdge& Edge1, const TopoEdge& Edge2)
   GeomFill_Generator Generator;
   Generator.AddCurve(C1);
   Generator.AddCurve(C2);
-  Generator.Perform(Precision::PConfusion());
+  Generator.Perform(Precision1::PConfusion());
 
   Handle(GeomSurface) Surf = Generator.Surface();
   Handle(GeomCurve3d)   Iso;
 
-  B.MakeFace(Face, Surf, Precision::Confusion());
+  B.MakeFace(Face, Surf, Precision1::Confusion());
 
   // make the missing edges
   Surf->Bounds(f1, l1, f2, l2);
@@ -310,7 +310,7 @@ TopoFace BRepFill1::Face(const TopoEdge& Edge1, const TopoEdge& Edge2)
   Tol = Max(BRepInspector::Tolerance(V1f), BRepInspector::Tolerance(V2f));
   if (Iso->Value(f2).Distance(Iso->Value(l2)) > Tol)
   {
-    B.MakeEdge(Edge3, Iso, Precision::Confusion());
+    B.MakeEdge(Edge3, Iso, Precision1::Confusion());
   }
   else
   {
@@ -333,7 +333,7 @@ TopoFace BRepFill1::Face(const TopoEdge& Edge1, const TopoEdge& Edge2)
     Tol = Max(BRepInspector::Tolerance(V1l), BRepInspector::Tolerance(V2l));
     if (Iso->Value(l2).Distance(Iso->Value(f2)) > Tol)
     {
-      B.MakeEdge(Edge4, Iso, Precision::Confusion());
+      B.MakeEdge(Edge4, Iso, Precision1::Confusion());
     }
     else
     {
@@ -363,7 +363,7 @@ TopoFace BRepFill1::Face(const TopoEdge& Edge1, const TopoEdge& Edge2)
 
   // set the pcurves
 
-  Standard_Real T = Precision::Confusion();
+  Standard_Real T = Precision1::Confusion();
 
   if (Edge1.Orientation() == TopAbs_REVERSED)
   {
@@ -472,8 +472,8 @@ TopoShell BRepFill1::Shell(const TopoWire& Wire1, const TopoWire& Wire2)
 
     TopoVertex V1f, V1l, V2f, V2l;
 
-    if (Abs(f1 - C1->FirstParameter()) > Precision::PConfusion()
-        || Abs(l1 - C1->LastParameter()) > Precision::PConfusion())
+    if (Abs(f1 - C1->FirstParameter()) > Precision1::PConfusion()
+        || Abs(l1 - C1->LastParameter()) > Precision1::PConfusion())
     {
       C1 = new Geom_TrimmedCurve(C1, f1, l1);
     }
@@ -493,8 +493,8 @@ TopoShell BRepFill1::Shell(const TopoWire& Wire1, const TopoWire& Wire2)
     else
       TopExp1::Vertices(Edge1, V1f, V1l);
 
-    if (Abs(f2 - C2->FirstParameter()) > Precision::PConfusion()
-        || Abs(l2 - C2->LastParameter()) > Precision::PConfusion())
+    if (Abs(f2 - C2->FirstParameter()) > Precision1::PConfusion()
+        || Abs(l2 - C2->LastParameter()) > Precision1::PConfusion())
     {
       C2 = new Geom_TrimmedCurve(C2, f2, l2);
     }
@@ -517,12 +517,12 @@ TopoShell BRepFill1::Shell(const TopoWire& Wire1, const TopoWire& Wire2)
     GeomFill_Generator Generator;
     Generator.AddCurve(C1);
     Generator.AddCurve(C2);
-    Generator.Perform(Precision::PConfusion());
+    Generator.Perform(Precision1::PConfusion());
 
     Handle(GeomSurface) Surf = Generator.Surface();
     Handle(GeomCurve3d)   Iso;
 
-    B.MakeFace(Face, Surf, Precision::Confusion());
+    B.MakeFace(Face, Surf, Precision1::Confusion());
 
     // make the missing edges
     Surf->Bounds(f1, l1, f2, l2);
@@ -534,7 +534,7 @@ TopoShell BRepFill1::Shell(const TopoWire& Wire1, const TopoWire& Wire2)
       Tol = Max(BRepInspector::Tolerance(V1f), BRepInspector::Tolerance(V2f));
       if (Iso->Value(f2).Distance(Iso->Value(l2)) > Tol)
       {
-        B.MakeEdge(Edge3, Iso, Precision::Confusion());
+        B.MakeEdge(Edge3, Iso, Precision1::Confusion());
       }
       else
       {
@@ -570,7 +570,7 @@ TopoShell BRepFill1::Shell(const TopoWire& Wire1, const TopoWire& Wire2)
       Tol = Max(BRepInspector::Tolerance(V1l), BRepInspector::Tolerance(V2l));
       if (Iso->Value(l2).Distance(Iso->Value(f2)) > Tol)
       {
-        B.MakeEdge(Edge4, Iso, Precision::Confusion());
+        B.MakeEdge(Edge4, Iso, Precision1::Confusion());
       }
       else
       {
@@ -604,7 +604,7 @@ TopoShell BRepFill1::Shell(const TopoWire& Wire1, const TopoWire& Wire2)
 
     // set the pcurves
 
-    Standard_Real T = Precision::Confusion();
+    Standard_Real T = Precision1::Confusion();
 
     if (Edge1.Orientation() == TopAbs_REVERSED)
     {
@@ -708,7 +708,7 @@ void BRepFill1::Axe(const TopoShape& Spine,
   Normal = Handle(GeomPlane)::DownCast(S)->Pln().Axis().Direction();
 
   // Find vertex of the profile closest to the spine.
-  Standard_Real DistMin = Precision::Infinite();
+  Standard_Real DistMin = Precision1::Infinite();
   Standard_Real Dist;
   //  Standard_Real     Tol2 = Tol*Tol;
   Standard_Real     Tol2 = 1.e-10;
@@ -816,7 +816,7 @@ void BRepFill1::Axe(const TopoShape& Spine,
       BE.Initialize(E);
       for (PE.Init(Profile, TopAbs_VERTEX); PE.More(); PE.Next())
       {
-        Dist                   = Precision::Infinite();
+        Dist                   = Precision1::Infinite();
         const TopoVertex& V = TopoDS::Vertex(PE.Current());
         BE.Perform(V);
         if (BE.IsDone())
@@ -1015,7 +1015,7 @@ void BRepFill1::ComputeACR(const TopoWire& wire, TColStd_Array1OfReal& ACR)
   ACR(0) = ACR(nbEdges);
 
   // reduced curvilinear abscisses
-  if (ACR(0) > Precision::Confusion())
+  if (ACR(0) > Precision1::Confusion())
   {
     for (i = 1; i <= nbEdges; i++)
     {

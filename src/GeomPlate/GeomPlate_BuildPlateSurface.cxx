@@ -266,8 +266,8 @@ Handle(GeomCurve2d) GeomPlate_BuildPlateSurface::ProjectCurve(const Handle(Adapt
   UfinCheck = Curv->LastParameter();
   HProjector->Bounds(1, ProjUdeb, ProjUfin);
 
-  if (HProjector->NbCurves() != 1 || Abs(UdebCheck - ProjUdeb) > Precision::PConfusion()
-      || Abs(UfinCheck - ProjUfin) > Precision::PConfusion())
+  if (HProjector->NbCurves() != 1 || Abs(UdebCheck - ProjUdeb) > Precision1::PConfusion()
+      || Abs(UfinCheck - ProjUfin) > Precision1::PConfusion())
   {
     if (HProjector->IsSinglePnt(1, P2d))
     {
@@ -336,7 +336,7 @@ Handle(Adaptor2d_Curve2d) GeomPlate_BuildPlateSurface::ProjectedCurve(Handle(Ada
     if (Abs(First1 - First2) <= Max(myTolU, myTolV) && Abs(Last1 - Last2) <= Max(myTolU, myTolV))
     {
       HProjector = Handle(ProjLib_HCompProjectedCurve)::DownCast(
-        HProjector->Trim(First2, Last2, Precision::PConfusion()));
+        HProjector->Trim(First2, Last2, Precision1::PConfusion()));
     }
     else
     {
@@ -444,7 +444,7 @@ void GeomPlate_BuildPlateSurface::Perform(const Message_ProgressRange& theProgre
 {
 #ifdef OCCT_DEBUG
   // Timing
-  OSD_Chronometer Chrono;
+  Chronometer Chrono;
   Chrono.Reset();
   Chrono.Start();
 #endif
@@ -1890,13 +1890,13 @@ void GeomPlate_BuildPlateSurface::Intersect(Handle(GeomPlate_HArray1OfSequenceOf
                 coin               = Ci.Resolution(Tol);
                 Standard_Real Par1 = int2d.ParamOnFirst() - coin,
                               Par2 = int2d.ParamOnFirst() + coin;
-                // Storage of the interval for curve i
+                // Storage1 of the interval for curve i
                 PntG1G1->ChangeValue(i).Append(Par1);
                 PntG1G1->ChangeValue(i).Append(Par2);
                 coin = Cj.Resolution(Tol);
                 Par1 = int2d.ParamOnSecond() - coin;
                 Par2 = int2d.ParamOnSecond() + coin;
-                // Storage of the interval for curve j
+                // Storage1 of the interval for curve j
                 PntG1G1->ChangeValue(j).Append(Par1);
                 PntG1G1->ChangeValue(j).Append(Par2);
               }
@@ -1951,7 +1951,7 @@ void GeomPlate_BuildPlateSurface::Intersect(Handle(GeomPlate_HArray1OfSequenceOf
 #endif
                   Standard_Real Par1 = int2d.ParamOnFirst() - coin;
                   Standard_Real Par2 = int2d.ParamOnFirst() + coin;
-                  // Storage of the interval for curve i
+                  // Storage1 of the interval for curve i
                   PntG1G1->ChangeValue(i).Append(Par1);
                   PntG1G1->ChangeValue(i).Append(Par2);
                 }
@@ -1964,7 +1964,7 @@ void GeomPlate_BuildPlateSurface::Intersect(Handle(GeomPlate_HArray1OfSequenceOf
 #endif
                   Standard_Real Par1 = int2d.ParamOnSecond() - coin;
                   Standard_Real Par2 = int2d.ParamOnSecond() + coin;
-                  // Storage of the interval for curve j
+                  // Storage1 of the interval for curve j
                   PntG1G1->ChangeValue(j).Append(Par1);
                   PntG1G1->ChangeValue(j).Append(Par2);
                 }

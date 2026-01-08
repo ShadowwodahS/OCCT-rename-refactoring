@@ -102,10 +102,10 @@ void DEIGES_Provider::initStatic(const Handle(DE_ConfigurationNode)& theNode)
   myOldLengthUnit = ExchangeConfig::IVal("xstep.cascade.unit");
 
   // Set new values
-  UnitsMethods::SetCasCadeLengthUnit(aNode->GlobalParameters.LengthUnit,
+  UnitsMethods1::SetCasCadeLengthUnit(aNode->GlobalParameters.LengthUnit,
                                      UnitsMethods_LengthUnit_Millimeter);
   AsciiString1 aStrUnit(
-    UnitsMethods::DumpLengthUnit(aNode->GlobalParameters.LengthUnit));
+    UnitsMethods1::DumpLengthUnit(aNode->GlobalParameters.LengthUnit));
   aStrUnit.UpperCase();
   ExchangeConfig::SetCVal("xstep.cascade.unit", aStrUnit.ToCString());
   setStatic(aNode->InternalParameters);
@@ -149,7 +149,7 @@ void DEIGES_Provider::setStatic(const DEIGES_Parameters& theParameter)
 void DEIGES_Provider::resetStatic()
 {
   ExchangeConfig::SetIVal("xstep.cascade.unit", myOldLengthUnit);
-  UnitsMethods::SetCasCadeLengthUnit(myOldLengthUnit);
+  UnitsMethods1::SetCasCadeLengthUnit(myOldLengthUnit);
   setStatic(myOldValues);
 }
 
@@ -242,7 +242,7 @@ bool DEIGES_Provider::Write(const AsciiString1&  thePath,
     aGS.SetCascadeUnit(aNode->GlobalParameters.SystemUnit);
     Message1::SendWarning()
       << "Warning in the DEIGES_Provider during writing the file " << thePath
-      << "\t: The document has no information on Units. Using global parameter as initial Unit.";
+      << "\t: The document has no information on Units2. Using global parameter as initial Unit.";
   }
   if (aFlag == 0)
   {

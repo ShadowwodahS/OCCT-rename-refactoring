@@ -52,7 +52,7 @@ public:
     AcceptDisplayMode(const Standard_Integer aMode) const Standard_OVERRIDE;
 
   //! Allows you to provide settings for the Color.
-  Standard_EXPORT virtual void SetColor(const Quantity_Color& theColor) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetColor(const Color1& theColor) Standard_OVERRIDE;
 
   //! Allows you to remove color settings.
   Standard_EXPORT virtual void UnsetColor() Standard_OVERRIDE;

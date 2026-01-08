@@ -26,10 +26,10 @@ class Graphic3d_MaterialAspect;
 struct XCAFDoc_VisMaterialCommon
 {
   Handle(Image_Texture) DiffuseTexture; //!< image defining diffuse color
-  Quantity_Color        AmbientColor;   //!< ambient  color
-  Quantity_Color        DiffuseColor;   //!< diffuse  color
-  Quantity_Color        SpecularColor;  //!< specular color
-  Quantity_Color        EmissiveColor;  //!< emission color
+  Color1        AmbientColor;   //!< ambient  color
+  Color1        DiffuseColor;   //!< diffuse  color
+  Color1        SpecularColor;  //!< specular color
+  Color1        EmissiveColor;  //!< emission color
   Standard_ShortReal    Shininess;      //!< shininess value
                                         // clang-format off
   Standard_ShortReal      Transparency;    //!< transparency value within [0, 1] range with 0 meaning opaque

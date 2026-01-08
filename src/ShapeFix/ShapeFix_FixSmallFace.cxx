@@ -54,7 +54,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_FixSmallFace, ShapeFix_Root)
 ShapeFix_FixSmallFace::ShapeFix_FixSmallFace()
 {
   myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
-  SetPrecision(Precision::Confusion());
+  SetPrecision(Precision1::Confusion());
 }
 
 void ShapeFix_FixSmallFace::Init(const TopoShape& S)
@@ -89,9 +89,9 @@ TopoShape ShapeFix_FixSmallFace::FixSpotFace()
       TopoFace  F       = TopoDS::Face(tmpFace);
       if (F.IsNull())
         continue;
-      if (myAnalyzer.CheckSpotFace(F, Precision()))
+      if (myAnalyzer.CheckSpotFace(F, Precision1()))
       {
-        ReplaceVerticesInCaseOfSpot(F, Precision());
+        ReplaceVerticesInCaseOfSpot(F, Precision1());
         RemoveFacesInCaseOfSpot(F);
         myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
         done     = Standard_True;
@@ -105,12 +105,12 @@ TopoShape ShapeFix_FixSmallFace::FixSpotFace()
         return myShape;
       /*WireHealer sfw;
       sfw.SetContext(Context());
-      sfw.SetPrecision(Precision::Confusion());
+      sfw.SetPrecision(Precision1::Confusion());
       if (myShape.IsNull()) return myShape;
       for (ShapeExplorer itfw (myShape,TopAbs_FACE); itfw.More(); itfw.Next()) {
         for (ShapeExplorer itw (myShape,TopAbs_WIRE); itw.More(); itw.Next()) {
           TopoWire w = TopoDS::Wire(itw.Current());
-          sfw.Init(w, TopoDS::Face(itfw.Current()), Precision::Confusion());
+          sfw.Init(w, TopoDS::Face(itfw.Current()), Precision1::Confusion());
           sfw->FixNotchedEdgesMode() = 0;
           if(sfw.Perform())
           Context()->Replace(w, sfw.Wire());
@@ -244,9 +244,9 @@ TopoShape ShapeFix_FixSmallFace::FixStripFace(const Standard_Boolean wasdone)
         continue;
       // Standard_Real dmax = 1;
       TopoEdge E1, E2;
-      if (myAnalyzer.CheckStripFace(F, E1, E2, Precision()))
+      if (myAnalyzer.CheckStripFace(F, E1, E2, Precision1()))
       {
-        if (ReplaceInCaseOfStrip(F, E1, E2, Precision()))
+        if (ReplaceInCaseOfStrip(F, E1, E2, Precision1()))
           RemoveFacesInCaseOfStrip(F);
         myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
         done     = Standard_True;
@@ -526,13 +526,13 @@ TopoEdge ShapeFix_FixSmallFace::ComputeSharedEdgeForStripFace(const TopoFace& /*
   {
     the2dcurve1 = BRepInspector::CurveOnSurface(E1, F1, fp1, lp1);
     if (!the2dcurve1.IsNull() && fp1 != f && lp1 != l)
-      GeomLib1::SameRange(Precision::Confusion(), the2dcurve1, fp1, lp1, f, l, thenew1);
+      GeomLib1::SameRange(Precision1::Confusion(), the2dcurve1, fp1, lp1, f, l, thenew1);
   }
 
   /* if (!F2.IsNull())
      {
        the2dcurve2 = BRepInspector::CurveOnSurface(E2, F2, fp2, lp2);
-       if(!the2dcurve2.IsNull()) GeomLib1::SameRange(Precision::Confusion(), the2dcurve2, fp2, lp2,
+       if(!the2dcurve2.IsNull()) GeomLib1::SameRange(Precision1::Confusion(), the2dcurve2, fp2, lp2,
      f, l, thenew2);
      }*/
 
@@ -652,13 +652,13 @@ Standard_Boolean ShapeFix_FixSmallFace::SplitOneFace(TopoFace&     F,
         if (dist <= vt)
         {
           theBuilder.MakeVertex(theNewVertex);
-          theBuilder.UpdateVertex(theNewVertex, proj, Precision::Confusion());
+          theBuilder.UpdateVertex(theNewVertex, proj, Precision1::Confusion());
           theBuilder.MakeEdge(theFirstEdge);
           theBuilder.MakeEdge(theSecondEdge);
           Standard_Real      f, l;
           Handle(GeomCurve3d) the3dcurve = BRepInspector::Curve(E, f, l);
-          theBuilder.UpdateEdge(theFirstEdge, the3dcurve, Precision::Confusion());
-          theBuilder.UpdateEdge(theSecondEdge, the3dcurve, Precision::Confusion());
+          theBuilder.UpdateEdge(theFirstEdge, the3dcurve, Precision1::Confusion());
+          theBuilder.UpdateEdge(theSecondEdge, the3dcurve, Precision1::Confusion());
           if (V1.Orientation() == TopAbs_FORWARD)
           {
             theBuilder.Add(theFirstEdge, V1);
@@ -701,7 +701,7 @@ Standard_Boolean ShapeFix_FixSmallFace::SplitOneFace(TopoFace&     F,
       Standard_Real      lastparam  = ElCLib1::Parameter(lin, proj);
       Handle(GeomLine)  L          = new GeomLine(vp, Vector3d(vp, proj));
       Handle(GeomCurve3d) the3dc     = L;
-      theBuilder.MakeEdge(theSplitEdge, the3dc, Precision::Confusion());
+      theBuilder.MakeEdge(theSplitEdge, the3dc, Precision1::Confusion());
       theBuilder.Add(theSplitEdge, V.Oriented(TopAbs_FORWARD));
       theBuilder.Add(theSplitEdge, theNewVertex.Oriented(TopAbs_REVERSED));
       theBuilder.Range(theSplitEdge, firstparam, lastparam);
@@ -717,7 +717,7 @@ Standard_Boolean ShapeFix_FixSmallFace::SplitOneFace(TopoFace&     F,
       if (itw.More())
         return Standard_False; // if face contains more than one wire
       Handle(WireHealer) sfw = new WireHealer;
-      sfw->Init(wireonface, F, Precision::Confusion());
+      sfw->Init(wireonface, F, Precision1::Confusion());
       sfw->FixReorder();
       wireonface = sfw->Wire();
 
@@ -736,7 +736,7 @@ Standard_Boolean ShapeFix_FixSmallFace::SplitOneFace(TopoFace&     F,
           theBuilder.Add(wireonface, theSecondEdge.Oriented(TopAbs_FORWARD));
         }
       }
-      sfw->Init(wireonface, F, Precision::Confusion());
+      sfw->Init(wireonface, F, Precision1::Confusion());
       sfw->FixReorder();
       wireonface = sfw->Wire();
 
@@ -769,8 +769,8 @@ Standard_Boolean ShapeFix_FixSmallFace::SplitOneFace(TopoFace&     F,
       // Create two new faces and replace old one
       TopoFace F1;
       TopoFace F2;
-      theBuilder.MakeFace(F1, BRepInspector::Surface(F), Precision::Confusion());
-      theBuilder.MakeFace(F2, BRepInspector::Surface(F), Precision::Confusion());
+      theBuilder.MakeFace(F1, BRepInspector::Surface(F), Precision1::Confusion());
+      theBuilder.MakeFace(F2, BRepInspector::Surface(F), Precision1::Confusion());
       theBuilder.Add(F1, w1);
       theBuilder.Add(F2, w2);
       TopoCompound tf;
@@ -800,7 +800,7 @@ TopoFace ShapeFix_FixSmallFace::FixFace(const TopoFace& F)
   // for (ShapeExplorer exp_w (F,TopAbs_WIRE); exp_w.More(); exp_w.Next()) {
   //   TopoWire theCurWire = TopoDS::Wire (exp_w.Current());
 
-  //   sfw->Init(theCurWire,  F, Precision::Confusion());
+  //   sfw->Init(theCurWire,  F, Precision1::Confusion());
   //   if(sfw->NbEdges() == 0) continue;
   //   sfw->FixNotchedEdgesMode() = 0;
   //   sfw->Perform();
@@ -825,7 +825,7 @@ TopoShape ShapeFix_FixSmallFace::FixShape()
   /*ShapeFix_Shape sfs;
   sfs.SetContext(Context());
 
-  sfs.SetPrecision(Precision::Confusion());
+  sfs.SetPrecision(Precision1::Confusion());
   sfs.Init(myShape);
   sfs.Perform();
   FixSh = sfs.Shape();*/

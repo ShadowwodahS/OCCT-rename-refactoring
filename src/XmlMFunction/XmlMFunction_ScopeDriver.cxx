@@ -189,7 +189,7 @@ Standard_Boolean XmlMFunction_ScopeDriver::Paste(const PersistentStorage&  theSo
   if (nbIDs != nbLabels)
   {
     UtfString aMessage =
-      UtfString("Numbers of IDs & Labels are different");
+      UtfString("Numbers1 of IDs & Labels are different");
     myMessageDriver->Send(aMessage, Message_Fail);
     return Standard_False;
   }

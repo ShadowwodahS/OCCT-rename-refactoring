@@ -459,7 +459,7 @@ void ToolsDraw::Factory(DrawInterpreter& theDI)
   ToolsDraw::Commands(theDI);
 
 #ifdef OCCT_DEBUG
-  theDI << "Draw1 Plugin : OCC Tools commands are loaded\n";
+  theDI << "Draw1 Plugin1 : OCC Tools commands are loaded\n";
 #endif
 }
 

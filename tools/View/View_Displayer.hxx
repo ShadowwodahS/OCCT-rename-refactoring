@@ -159,7 +159,7 @@ public:
   //! Stores color for type of presentation. During display of presentation of the given type, the
   //! color is used \param theColor a presentation color \param theType presentation type
   Standard_EXPORT void SetAttributeColor(
-    const Quantity_Color&       theColor,
+    const Color1&       theColor,
     const View_PresentationType theType = View_PresentationType_Main);
 
   //! Returns container of displayed presentations for the given type
@@ -213,7 +213,7 @@ private:
 
   NCollection_DataMap<View_PresentationType, NCollection_Shared<AIS_ListOfInteractive>>
     myDisplayed; //!< visualized presentations
-  NCollection_DataMap<View_PresentationType, Quantity_Color>
+  NCollection_DataMap<View_PresentationType, Color1>
     myColorAttributes; //!< color properties of presentations
 
   bool myIsKeepPresentations; //!< flag if previously shown presentations stays in the context by

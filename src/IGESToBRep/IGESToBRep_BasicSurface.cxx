@@ -322,7 +322,7 @@ Handle(Geom_CylindricalSurface) IGESToBRep_BasicSurface::TransferRigthCylindrica
     // Direction Reading Error : Null IGESEntity
     return res;
   }
-  if (radius < Precision::Confusion())
+  if (radius < Precision1::Confusion())
   {
     return res;
   }
@@ -337,7 +337,7 @@ Handle(Geom_CylindricalSurface) IGESToBRep_BasicSurface::TransferRigthCylindrica
     Handle(IGESGeom_Direction) refdir = start->ReferenceDir();
     Dir3d                     Dir    = Dir3d(refdir->Value());
     Dir3d                     vc     = Dir ^ ax;
-    if (vc.XYZ().Modulus() < Precision::Confusion())
+    if (vc.XYZ().Modulus() < Precision1::Confusion())
     {
 
       return res;
@@ -381,7 +381,7 @@ Handle(Geom_ConicalSurface) IGESToBRep_BasicSurface::TransferRigthConicalSurface
     // Direction Reading Error : Null IGESEntity
     return res;
   }
-  if (angle < Precision::Confusion() || angle > M_PI / 2.)
+  if (angle < Precision1::Confusion() || angle > M_PI / 2.)
   {
     return res;
   }
@@ -389,7 +389,7 @@ Handle(Geom_ConicalSurface) IGESToBRep_BasicSurface::TransferRigthConicalSurface
   {
     return res;
   }
-  if (radius < Precision::Confusion())
+  if (radius < Precision1::Confusion())
     radius = 0.;
 
   Point3d Pt = Point->Value();
@@ -402,7 +402,7 @@ Handle(Geom_ConicalSurface) IGESToBRep_BasicSurface::TransferRigthConicalSurface
     Handle(IGESGeom_Direction) refdir = start->ReferenceDir();
     Dir3d                     Dir    = Dir3d(refdir->Value());
     Dir3d                     vc     = Dir ^ ax;
-    if (vc.XYZ().Modulus() < Precision::Confusion())
+    if (vc.XYZ().Modulus() < Precision1::Confusion())
     {
 
       return res;
@@ -444,7 +444,7 @@ Handle(Geom_SphericalSurface) IGESToBRep_BasicSurface::TransferSphericalSurface(
     // Direction Reading Error : Null IGESEntity
     return res;
   }
-  if (radius < Precision::Confusion())
+  if (radius < Precision1::Confusion())
   {
 
     return res;
@@ -460,7 +460,7 @@ Handle(Geom_SphericalSurface) IGESToBRep_BasicSurface::TransferSphericalSurface(
     Handle(IGESGeom_Direction) refdir = start->ReferenceDir();
     Dir3d                     Dir    = Dir3d(refdir->Value());
     Dir3d                     vc     = Dir ^ ax;
-    if (vc.XYZ().Modulus() < Precision::Confusion())
+    if (vc.XYZ().Modulus() < Precision1::Confusion())
     {
 
       return res;
@@ -503,7 +503,7 @@ Handle(Geom_ToroidalSurface) IGESToBRep_BasicSurface::TransferToroidalSurface(
     // Direction Reading Error : Null IGESEntity
     return res;
   }
-  if (major < Precision::Confusion() || minor < Precision::Confusion())
+  if (major < Precision1::Confusion() || minor < Precision1::Confusion())
   {
 
     return res;
@@ -519,7 +519,7 @@ Handle(Geom_ToroidalSurface) IGESToBRep_BasicSurface::TransferToroidalSurface(
     Handle(IGESGeom_Direction) refdir = start->ReferenceDir();
     Dir3d                     Dir    = Dir3d(refdir->Value());
     Dir3d                     vc     = Dir ^ ax;
-    if (vc.XYZ().Modulus() < Precision::Confusion())
+    if (vc.XYZ().Modulus() < Precision1::Confusion())
     {
 
       return res;
@@ -899,7 +899,7 @@ Handle(Geom_BSplineSurface) IGESToBRep_BasicSurface::TransferBSplineSurface(
           (Abs(start->Weight(i, j) - WeightReference) <= Epsilon(WeightReference)) && polynomial;
         //: 39 by abv 15.12.97
         Standard_Real weight = start->Weight(i, j);
-        if (weight < Precision::PConfusion())
+        if (weight < Precision1::PConfusion())
         {
           Message_Msg msg1215("IGES_1215");
           SendFail(start, msg1215); // Some weights are not positive.

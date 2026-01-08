@@ -242,7 +242,7 @@ static Standard_Real LocalFirstParameter(const Handle(IntPatch_Line)& L)
       }
       else
       {
-        firstp = -Precision::Infinite(); // a voir selon le type de la ligne 2d
+        firstp = -Precision1::Infinite(); // a voir selon le type de la ligne 2d
       }
       return firstp;
     }
@@ -273,7 +273,7 @@ static Standard_Real LocalFirstParameter(const Handle(IntPatch_Line)& L)
           case IntPatch_Lin:
           case IntPatch_Parabola:
           case IntPatch_Hyperbola:
-            firstp = -Precision::Infinite();
+            firstp = -Precision1::Infinite();
             break;
 
           case IntPatch_Circle:
@@ -326,7 +326,7 @@ static Standard_Real LocalLastParameter(const Handle(IntPatch_Line)& L)
       }
       else
       {
-        lastp = Precision::Infinite(); // a voir selon le type de la ligne 2d
+        lastp = Precision1::Infinite(); // a voir selon le type de la ligne 2d
       }
       return lastp;
     }
@@ -358,7 +358,7 @@ static Standard_Real LocalLastParameter(const Handle(IntPatch_Line)& L)
           case IntPatch_Lin:
           case IntPatch_Parabola:
           case IntPatch_Hyperbola:
-            lastp = Precision::Infinite();
+            lastp = Precision1::Infinite();
             break;
 
           case IntPatch_Circle:
@@ -469,7 +469,7 @@ static Standard_Integer AppendSameVertexG(Handle(IntPatch_GLine)&       glig,
       {
         p1 = Vtxindex.ParameterOnLine();
         p2 = Vtxi.ParameterOnLine();
-        if (Abs(p1 - p2) < Precision::PConfusion())
+        if (Abs(p1 - p2) < Precision1::PConfusion())
         {
           aajouter = Standard_True;
         }
@@ -656,7 +656,7 @@ static void AddLine(const Handle(IntPatch_Line)& L,
       wlig->SetFirstPoint(IndexFirstVertex);
       wlig->SetLastPoint(IndexLastVertex);
       wlig->SetPeriod(WLine->U1Period(), WLine->V1Period(), WLine->U2Period(), WLine->V2Period());
-      wlig->ComputeVertexParameters(Precision::Confusion());
+      wlig->ComputeVertexParameters(Precision1::Confusion());
       slin.Append(wlig);
       //-- **********************************************************************
 
@@ -700,7 +700,7 @@ static void AddLine(const Handle(IntPatch_Line)& L,
       }
       rlig->SetFirstPoint(IndexFirstVertex);
       rlig->SetLastPoint(IndexLastVertex);
-      rlig->ComputeVertexParameters(Precision::Confusion());
+      rlig->ComputeVertexParameters(Precision1::Confusion());
       slin.Append(rlig);
       break;
     }
@@ -1312,7 +1312,7 @@ void LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinref,
   Standard_Integer i = 1, nbvtx;
   Standard_Real    firstp, lastp;
   // clang-format off
-  Standard_Real Tol = Precision::PConfusion()*100.; // JMB le 13 Jan 2000. Report de la correction du PRO19653
+  Standard_Real Tol = Precision1::PConfusion()*100.; // JMB le 13 Jan 2000. Report de la correction du PRO19653
   // clang-format on
   GeomAbs_SurfaceType typs1 = mySurf1->GetType();
   GeomAbs_SurfaceType typs2 = mySurf2->GetType();
@@ -1576,7 +1576,7 @@ void LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinref,
     {
       firstp = GLine->Vertex(i).ParameterOnLine();
       lastp  = GLine->Vertex(i + 1).ParameterOnLine();
-      if (Abs(firstp - lastp) > Precision::PConfusion())
+      if (Abs(firstp - lastp) > Precision1::PConfusion())
       {
         intrvtested        = Standard_True;
         Standard_Real pmid = (firstp + lastp) * 0.5;
@@ -1659,7 +1659,7 @@ void LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinref,
       }
       if (acadr >= cadrinf && acadr <= cadrsup)
       {
-        if (Abs(firstp - lastp) > Precision::PConfusion())
+        if (Abs(firstp - lastp) > Precision1::PConfusion())
         {
           intrvtested        = Standard_True;
           Standard_Real pmid = (firstp + lastp) * 0.5;
@@ -1755,7 +1755,7 @@ void LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinref,
       { //-- On na classifie pas sur 1
         Standard_Real u0 = Vtx1.ParameterOnLine();
         Standard_Real u1 = Vtx2.ParameterOnLine();
-        if (Abs(u1 - u0) > Precision::PConfusion())
+        if (Abs(u1 - u0) > Precision1::PConfusion())
         {
           Standard_Real u = (999.0 * u0 + u1) * 0.001;
 
@@ -1845,7 +1845,7 @@ void LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinref,
       {
         Standard_Real u0 = Vtx1.ParameterOnLine();
         Standard_Real u1 = Vtx2.ParameterOnLine();
-        if (Abs(u1 - u0) > Precision::PConfusion())
+        if (Abs(u1 - u0) > Precision1::PConfusion())
         {
           Standard_Real u = (999.0 * u0 + u1) * 0.001;
 

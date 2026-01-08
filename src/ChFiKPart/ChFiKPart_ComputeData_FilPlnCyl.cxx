@@ -95,7 +95,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   }
   // intersection of the parallel plane and of the parallel cylinder.
   Cylinder1        CylOffset(Cyl.Position1(), ROff);
-  QuadQuadGeoIntersection LInt(PlanOffset, CylOffset, Precision::Angular(), Precision::Confusion());
+  QuadQuadGeoIntersection LInt(PlanOffset, CylOffset, Precision1::Angular(), Precision1::Confusion());
   Point3d             OrSpine = ElCLib1::Value(First, Spine);
   Point3d             OrFillet;
   Dir3d             DirFillet;
@@ -133,7 +133,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
 
   Standard_Real UOnCyl, VOnCyl, UOnPln, VOnPln;
   ElSLib1::Parameters(Cyl, OrFillet, UOnCyl, VOnCyl);
-  constexpr Standard_Real tesp = Precision::Confusion();
+  constexpr Standard_Real tesp = Precision1::Confusion();
   if (UOnCyl < fu - tesp || UOnCyl > lu + tesp)
     UOnCyl = ElCLib1::InPeriod(UOnCyl, fu, fu + 2 * M_PI);
   ElSLib1::Parameters(Pln, OrFillet, UOnPln, VOnPln);
@@ -341,7 +341,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
       Dz.Reverse();
     }
     Rad = cylrad - Radius;
-    if (Abs(Rad) <= Precision::Confusion())
+    if (Abs(Rad) <= Precision1::Confusion())
     {
       c1sphere = Standard_True;
     }
@@ -511,7 +511,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   lin2dFil.SetLocation(p2dFil);
   Handle(Geom2d_Line) GLin2dFil2 = new Geom2d_Line(lin2dFil);
   ElSLib1::Parameters(Cyl, P, u, v);
-  Standard_Real    tol           = Precision::PConfusion();
+  Standard_Real    tol           = Precision1::PConfusion();
   Standard_Boolean careaboutsens = 0;
   if (Abs(lu - fu - 2 * M_PI) < tol)
     careaboutsens = 1;

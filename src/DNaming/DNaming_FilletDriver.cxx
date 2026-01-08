@@ -87,11 +87,11 @@ Standard_Integer DNaming_FilletDriver::Execute(Handle(TFunction_Logbook)& theLog
   const ChFi3d_FilletShape aSurfaceType =
     (ChFi3d_FilletShape)DNaming1::GetInteger(aFunction, FILLET_SURFTYPE)->Get();
 
-  if (aRadius < Precision::Confusion())
+  if (aRadius < Precision1::Confusion())
   {
     aFunction->SetFailure(WRONG_ARGUMENT);
 #ifdef OCCT_DEBUG
-    std::cout << "FilletDriver:: Radius < Precision::Confusion" << std::endl;
+    std::cout << "FilletDriver:: Radius < Precision1::Confusion" << std::endl;
 #endif
     return -1;
   }

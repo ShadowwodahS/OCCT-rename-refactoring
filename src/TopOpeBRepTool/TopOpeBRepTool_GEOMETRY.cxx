@@ -56,8 +56,8 @@ Standard_EXPORT Standard_Boolean FUN_tool_IsUViso(const Handle(GeomCurve2d)& PC,
 
   Handle(Geom2d_Line) L = Handle(Geom2d_Line)::DownCast(LLL);
   d2d = L->Direction();
-  isoU = (Abs(d2d.X()) < Precision::Parametric(Precision::Confusion()));
-  isoV = (Abs(d2d.Y()) < Precision::Parametric(Precision::Confusion()));
+  isoU = (Abs(d2d.X()) < Precision1::Parametric(Precision1::Confusion()));
+  isoV = (Abs(d2d.Y()) < Precision1::Parametric(Precision1::Confusion()));
   Standard_Boolean isoUV = isoU || isoV;
   if (!isoUV) return Standard_False;
 
@@ -80,7 +80,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_onapex(const gp_Pnt2d& p2d, const Hand
 {
   Standard_Boolean    isapex = Standard_False;
   GeomAdaptor_Surface GS(S);
-  Standard_Real       tol   = Precision::Confusion();
+  Standard_Real       tol   = Precision1::Confusion();
   GeomAbs_SurfaceType ST    = GS.GetType();
   Standard_Real       toluv = 1.e-8;
   if (ST == GeomAbs_Cone)
@@ -114,7 +114,7 @@ Standard_EXPORT Dir3d FUN_tool_ngS(const gp_Pnt2d& p2d, const Handle(GeomSurface
 
   Standard_Real    du    = d1u.Magnitude();
   Standard_Real    dv    = d1v.Magnitude();
-  Standard_Real    tol   = Precision::Confusion();
+  Standard_Real    tol   = Precision1::Confusion();
   Standard_Boolean kpart = (du < tol) || (dv < tol);
   if (kpart)
   {

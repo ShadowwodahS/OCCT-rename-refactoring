@@ -38,7 +38,7 @@ public:
       : myDynData(0)
   {
     if (theSize > MeshVS_BufSize)
-      myDynData = Standard::Allocate(theSize);
+      myDynData = Standard1::Allocate(theSize);
   }
 
   //! Destructor
@@ -46,7 +46,7 @@ public:
   {
     if (myDynData)
     {
-      Standard::Free(myDynData);
+      Standard1::Free(myDynData);
       myDynData = 0;
     }
   }

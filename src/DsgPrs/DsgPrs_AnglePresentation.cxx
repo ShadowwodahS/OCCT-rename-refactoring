@@ -140,7 +140,7 @@ void AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   //-------------------------- Compute angle ------------------------
   if (txt.Length() == 0)
   {
-    Standard_Real angle = UnitsAPI::CurrentFromLS(Abs(OppParam), "PLANE ANGLE");
+    Standard_Real angle = UnitsAPI1::CurrentFromLS(Abs(OppParam), "PLANE ANGLE");
     char          res[80];
     sprintf(res, "%g", angle);
     txt = UtfString(res);
@@ -311,7 +311,7 @@ void AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Text::Draw1(aGroup, LA->TextAspect(), aText, OffsetPoint);
 
   Standard_Real length = LA->ArrowAspect()->Length();
-  if (length < Precision::Confusion())
+  if (length < Precision1::Confusion())
     length = 1.e-04;
 
   Vector3d vecarr;
@@ -404,7 +404,7 @@ void AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
 
   // Creating the angle's arc or line if null angle
   Handle(Graphic3d_ArrayOfPrimitives) aPrims;
-  if (theval > Precision::Angular() && Abs(M_PI - theval) > Precision::Angular())
+  if (theval > Precision1::Angular() && Abs(M_PI - theval) > Precision1::Angular())
   {
     const Standard_Real    Alpha      = Abs(LastParAngleCirc - FirstParAngleCirc);
     const Standard_Integer NodeNumber = Max(4, Standard_Integer(50. * Alpha / M_PI));
@@ -447,7 +447,7 @@ void AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   // Line or arc from AttachmentPoint2 to its "projection"
-  if (AttachmentPoint2.Distance(ProjAttachPoint2) > Precision::Confusion())
+  if (AttachmentPoint2.Distance(ProjAttachPoint2) > Precision1::Confusion())
   {
     if (isPlane)
     {
@@ -495,7 +495,7 @@ void AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
   Dir3d Norm;
-  if (!dir1.IsParallel(dir2, Precision::Angular()))
+  if (!dir1.IsParallel(dir2, Precision1::Angular()))
   {
     Norm = dir1.Crossed(dir2);
   }
@@ -562,7 +562,7 @@ void AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, OffsetPoint);
 
   Standard_Real length = LA->ArrowAspect()->Length();
-  if (length < Precision::Confusion())
+  if (length < Precision1::Confusion())
     length = 1.e-04;
 
   Vector3d vecarr;
@@ -688,7 +688,7 @@ void AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, OffsetPoint);
 
   Standard_Real length = LA->ArrowAspect()->Length();
-  if (length < Precision::Confusion())
+  if (length < Precision1::Confusion())
     length = 1.e-04;
 
   // Lines of recall
@@ -811,7 +811,7 @@ void AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, OffsetPoint);
 
   Standard_Real length = LA->ArrowAspect()->Length();
-  if (length < Precision::Confusion())
+  if (length < Precision1::Confusion())
     length = 1.e-04;
 
   Vector3d vecarr;
@@ -884,7 +884,7 @@ void AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Standard_Real uc2 = ElCLib1::Parameter(cer, AttachmentPoint1.Rotated(theAxe, theval));
 
   Standard_Real length = LA->ArrowAspect()->Length();
-  if (length < Precision::Confusion())
+  if (length < Precision1::Confusion())
     length = 1.e-04;
 
   Vector3d vecarr;

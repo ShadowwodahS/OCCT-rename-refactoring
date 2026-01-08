@@ -474,13 +474,13 @@ public: //! @name simplified presentation properties API
   Standard_Boolean HasColor() const { return hasOwnColor; }
 
   //! Returns the color setting of the Interactive Object.
-  virtual void Color(Quantity_Color& theColor) const { theColor = myDrawer->Color(); }
+  virtual void Color(Color1& theColor) const { theColor = myDrawer->Color(); }
 
   //! Only the interactive object knowns which Drawer attribute is affected by the color, if any
   //! (ex: for a wire,it's the wireaspect field of the drawer, but for a vertex, only the point
   //! aspect field is affected by the color). WARNING : Do not forget to set the corresponding
   //! fields here (hasOwnColor and myDrawer->SetColor())
-  virtual void SetColor(const Quantity_Color& theColor)
+  virtual void SetColor(const Color1& theColor)
   {
     myDrawer->SetColor(theColor);
     hasOwnColor = Standard_True;

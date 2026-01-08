@@ -64,7 +64,7 @@ VrmlData_ErrorStatus VrmlData_Faceted::readData(InputBuffer& theBuffer)
     Standard_Real anAngle;
     if (OK(aStatus, Scene().ReadReal(theBuffer, anAngle, Standard_False, Standard_False)))
     {
-      if (anAngle < -Precision::Confusion() * 0.001)
+      if (anAngle < -Precision1::Confusion() * 0.001)
         aStatus = VrmlData_IrrelevantNumber;
       else
         myCreaseAngle = anAngle;
@@ -132,7 +132,7 @@ const Handle(TopoDS_TShape)& VrmlData_IndexedFaceSet::TShape()
       Coords3d S   = aV1.Crossed(aV2);
       aSum += S;
     }
-    if (aSum.Modulus() < Precision::Confusion())
+    if (aSum.Modulus() < Precision1::Confusion())
     {
       // degenerate polygon
       continue;
@@ -446,7 +446,7 @@ VrmlData_ErrorStatus VrmlData_IndexedFaceSet::Write(const char* thePrefix) const
       aStatus = aScene.WriteLine("solid       FALSE");
     if (OK(aStatus) && IsConvex() == Standard_False)
       aStatus = aScene.WriteLine("convex      FALSE");
-    if (OK(aStatus) && CreaseAngle() > Precision::Confusion())
+    if (OK(aStatus) && CreaseAngle() > Precision1::Confusion())
     {
       char buf[64];
       Sprintf(buf, "%.9g", CreaseAngle());
@@ -484,7 +484,7 @@ VrmlData_ErrorStatus VrmlData_IndexedFaceSet::Write(const char* thePrefix) const
 
 //=================================================================================================
 
-Quantity_Color VrmlData_IndexedFaceSet::GetColor(const Standard_Integer /*iFace*/,
+Color1 VrmlData_IndexedFaceSet::GetColor(const Standard_Integer /*iFace*/,
                                                  const Standard_Integer /*iVertex*/)
 {
   // TODO

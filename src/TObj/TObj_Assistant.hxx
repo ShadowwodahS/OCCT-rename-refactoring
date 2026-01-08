@@ -49,7 +49,7 @@ public:
 
 public:
   /**
-   * Interface for Map of Standard Types
+   * Interface for Map of Standard1 Types
    */
 
   //! Finds TypeInfo by index;

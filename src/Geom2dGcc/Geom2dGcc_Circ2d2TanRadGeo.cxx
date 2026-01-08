@@ -630,7 +630,7 @@ static void PrecRoot(const Adaptor2d_OffsetCurve& theC1,
       (x_{1}(u)-x_{2}(v))*{x_{2}(v)}'+(y_{1}(u)-y_{2}(v))*{y_{2}(v)}'=0
       \end{matrix}\right.
 
-  Precision of any 2*2-system (two equation and two variables)
+  Precision1 of any 2*2-system (two equation and two variables)
 
       \left\{\begin{matrix}
       S_{1}(u,v)=0\\
@@ -950,17 +950,17 @@ Circle2dTwoTangentRadiusGeo::Circle2dTwoTangentRadiusGeo(const Geom2dGcc_QCurve&
           if (!Intp.IsEmpty())
           {
             constexpr Standard_Real aSQApproxTol =
-              Precision::Approximation() * Precision::Approximation();
+              Precision1::Approximation() * Precision1::Approximation();
             for (Standard_Integer i = 1; i <= Intp.NbPoints() && NbrSol < aNbSolMAX; i++)
             {
               Standard_Real aU0 = Intp.Point(i).ParamOnFirst();
               Standard_Real aV0 = Intp.Point(i).ParamOnSecond();
 
-              Standard_Real aU1 = aU0 - Precision::PApproximation();
-              Standard_Real aV1 = aV0 - Precision::PApproximation();
+              Standard_Real aU1 = aU0 - Precision1::PApproximation();
+              Standard_Real aV1 = aV0 - Precision1::PApproximation();
 
-              Standard_Real aU2 = aU0 + Precision::PApproximation();
-              Standard_Real aV2 = aV0 + Precision::PApproximation();
+              Standard_Real aU2 = aU0 + Precision1::PApproximation();
+              Standard_Real aV2 = aV0 + Precision1::PApproximation();
 
               gp_Pnt2d P11 = C1.Value(aU1);
               gp_Pnt2d P12 = C2.Value(aV1);

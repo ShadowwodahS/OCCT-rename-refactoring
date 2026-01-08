@@ -107,7 +107,7 @@ bool Media_CodecContext::Init(const AVStream& theStream,
   if (theStream.codecpar->codec_type == AVMEDIA_TYPE_VIDEO)
   {
     myCodecCtx->thread_count =
-      theNbThreads <= -1 ? OSD_Parallel::NbLogicalProcessors() : theNbThreads;
+      theNbThreads <= -1 ? Parallel1::NbLogicalProcessors() : theNbThreads;
   }
 
   if (avcodec_open2(myCodecCtx, myCodec, &anOpts) < 0)

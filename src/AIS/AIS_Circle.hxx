@@ -77,7 +77,7 @@ public:
     myCircleIsArc = Standard_True;
   }
 
-  Standard_EXPORT void SetColor(const Quantity_Color& aColor) Standard_OVERRIDE;
+  Standard_EXPORT void SetColor(const Color1& aColor) Standard_OVERRIDE;
 
   //! Assigns the width aValue to the solid line boundary of the circle datum.
   Standard_EXPORT void SetWidth(const Standard_Real aValue) Standard_OVERRIDE;

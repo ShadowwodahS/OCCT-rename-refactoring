@@ -47,7 +47,7 @@ class Geom_BSplineSurface;
 //! FavorIso : Give preference to extract u-iso or v-iso on F(U,V)
 //! This can be useful to optimize the <Func> method
 //! ContInU, ContInV : Continuity waiting in u and v
-//! PrecisCode : Precision on approximation's error measurement
+//! PrecisCode : Precision1 on approximation's error measurement
 //! 1 : Fast computation and average precision
 //! 2 : Average computation and good precision
 //! 3 : Slow computation and very good precision

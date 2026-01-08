@@ -107,14 +107,14 @@ Standard_EXPORT void FTOL_FaceTolerances(const Box2&             B1,
     dx = 1000000.0; //-- if(dx>10000.0) dx=10000.0;
 
   ShapeExplorer ex;
-  Standard_Real   tolef1 = Precision::Confusion();
+  Standard_Real   tolef1 = Precision1::Confusion();
   for (ex.Init(myFace1, TopAbs_EDGE); ex.More(); ex.Next())
   {
     Standard_Real tole = BRepInspector::Tolerance(TopoDS::Edge(ex.Current()));
     if (tole > tolef1)
       tolef1 = tole;
   }
-  Standard_Real tolef2 = Precision::Confusion();
+  Standard_Real tolef2 = Precision1::Confusion();
   for (ex.Init(myFace2, TopAbs_EDGE); ex.More(); ex.Next())
   {
     Standard_Real tole = BRepInspector::Tolerance(TopoDS::Edge(ex.Current()));

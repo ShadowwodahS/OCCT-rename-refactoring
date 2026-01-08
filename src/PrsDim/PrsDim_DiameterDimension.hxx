@@ -46,7 +46,7 @@ DEFINE_STANDARD_HANDLE(PrsDim_DiameterDimension, PrsDim_Dimension)
 //!
 //! The dimension is considered as invalid if the user-defined plane
 //! does not include th enachor point and th ecircle center,
-//! if the diameter of the circle is less than Precision::Confusion().
+//! if the diameter of the circle is less than Precision1::Confusion().
 //! In case if the dimension is built on the arbitrary shape, it can be considered
 //! as invalid if the shape does not contain circle geometry.
 class PrsDim_DiameterDimension : public PrsDim_Dimension
@@ -90,13 +90,13 @@ public:
   //! The actual dimension plane is used for determining anchor points
   //! on the circle to attach the dimension lines to.
   //! The dimension will become invalid if the diameter of the circle
-  //! is less than Precision::Confusion().
+  //! is less than Precision1::Confusion().
   //! @param[in] theCircle  the circle to measure.
   Standard_EXPORT void SetMeasuredGeometry(const gp_Circ& theCircle);
 
   //! Measure diameter on the passed shape, if applicable.
   //! The dimension will become invalid if the passed shape is not
-  //! measurable or if measured diameter value is less than Precision::Confusion().
+  //! measurable or if measured diameter value is less than Precision1::Confusion().
   //! @param[in] theShape  the shape to measure.
   Standard_EXPORT void SetMeasuredGeometry(const TopoShape& theShape);
 

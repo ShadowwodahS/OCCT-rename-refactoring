@@ -31,7 +31,7 @@
 // 0 <= mis
 // 0 <= mics
 // -----------------------------------------------------------
-Standard_Boolean Quantity_Period::IsValid(const Standard_Integer dd,
+Standard_Boolean TimePeriod::IsValid(const Standard_Integer dd,
                                           const Standard_Integer hh,
                                           const Standard_Integer mn,
                                           const Standard_Integer ss,
@@ -49,7 +49,7 @@ Standard_Boolean Quantity_Period::IsValid(const Standard_Integer dd,
 // 0 <= ss
 // 0 <= mics
 // -------------------------------------------------------------
-Standard_Boolean Quantity_Period::IsValid(const Standard_Integer ss, const Standard_Integer mics)
+Standard_Boolean TimePeriod::IsValid(const Standard_Integer ss, const Standard_Integer mics)
 {
 
   return ((ss < 0 || mics < 0) ? Standard_False : Standard_True);
@@ -60,7 +60,7 @@ Standard_Boolean Quantity_Period::IsValid(const Standard_Integer ss, const Stand
 // ~~~~~~   and microseconds.
 //
 // -------------------------------------------------------------
-Quantity_Period::Quantity_Period(const Standard_Integer dd,
+TimePeriod::TimePeriod(const Standard_Integer dd,
                                  const Standard_Integer hh,
                                  const Standard_Integer mn,
                                  const Standard_Integer ss,
@@ -78,7 +78,7 @@ Quantity_Period::Quantity_Period(const Standard_Integer dd,
 // ~~~~~~   and microseconds.
 //
 // -------------------------------------------------------------
-Quantity_Period::Quantity_Period(const Standard_Integer ss, const Standard_Integer mics)
+TimePeriod::TimePeriod(const Standard_Integer ss, const Standard_Integer mics)
     : mySec(0),
       myUSec(0)
 {
@@ -90,7 +90,7 @@ Quantity_Period::Quantity_Period(const Standard_Integer ss, const Standard_Integ
 // Values : Returns a period with the number of days,hours,
 // ~~~~~~   minutes,seconds,milliseconds and microseconds.
 // -------------------------------------------------------------
-void Quantity_Period::Values(Standard_Integer& dd,
+void TimePeriod::Values(Standard_Integer& dd,
                              Standard_Integer& hh,
                              Standard_Integer& mn,
                              Standard_Integer& ss,
@@ -113,7 +113,7 @@ void Quantity_Period::Values(Standard_Integer& dd,
 // Values : Returns a period with the number of seconds and
 // ~~~~~~   microseconds.
 // -------------------------------------------------------------
-void Quantity_Period::Values(Standard_Integer& ss, Standard_Integer& mics) const
+void TimePeriod::Values(Standard_Integer& ss, Standard_Integer& mics) const
 {
 
   ss   = mySec;
@@ -124,7 +124,7 @@ void Quantity_Period::Values(Standard_Integer& ss, Standard_Integer& mics) const
 // SetValues : Sets a period with a number of days,hours,minutes,
 // ~~~~~~~~~   seconds and microseconds.
 // -------------------------------------------------------------
-void Quantity_Period::SetValues(const Standard_Integer dd,
+void TimePeriod::SetValues(const Standard_Integer dd,
                                 const Standard_Integer hh,
                                 const Standard_Integer mn,
                                 const Standard_Integer ss,
@@ -138,11 +138,11 @@ void Quantity_Period::SetValues(const Standard_Integer dd,
 // SetValues : Sets a period with a number of seconds and
 // ~~~~~~~~~   microseconds.
 // -------------------------------------------------------------
-void Quantity_Period::SetValues(const Standard_Integer ss, const Standard_Integer mics)
+void TimePeriod::SetValues(const Standard_Integer ss, const Standard_Integer mics)
 {
 
-  if (!Quantity_Period::IsValid(ss, mics))
-    throw Quantity_PeriodDefinitionError("Quantity_Period::SetValues invalid parameters");
+  if (!TimePeriod::IsValid(ss, mics))
+    throw Quantity_PeriodDefinitionError("TimePeriod::SetValues invalid parameters");
 
   mySec  = ss;
   myUSec = mics;
@@ -157,9 +157,9 @@ void Quantity_Period::SetValues(const Standard_Integer ss, const Standard_Intege
 // Subtract : Subtracts a period to another period
 // ~~~~~~~~
 // -------------------------------------------------------------
-Quantity_Period Quantity_Period::Subtract(const Quantity_Period& OtherPeriod) const
+TimePeriod TimePeriod::Subtract(const TimePeriod& OtherPeriod) const
 {
-  Quantity_Period result(mySec, myUSec);
+  TimePeriod result(mySec, myUSec);
 
   result.mySec -= OtherPeriod.mySec;
   result.myUSec -= OtherPeriod.myUSec;
@@ -190,10 +190,10 @@ Quantity_Period Quantity_Period::Subtract(const Quantity_Period& OtherPeriod) co
 // Add : Adds a period to another period
 // ~~~
 // -------------------------------------------------------------
-Quantity_Period Quantity_Period::Add(const Quantity_Period& OtherPeriod) const
+TimePeriod TimePeriod::Add(const TimePeriod& OtherPeriod) const
 {
 
-  Quantity_Period result(mySec, myUSec);
+  TimePeriod result(mySec, myUSec);
   result.mySec += OtherPeriod.mySec;
   result.myUSec += OtherPeriod.myUSec;
   if (result.myUSec > 1000000)
@@ -208,7 +208,7 @@ Quantity_Period Quantity_Period::Add(const Quantity_Period& OtherPeriod) const
 // IsEqual : returns true if two periods are equal
 // ~~~~~~~
 // -------------------------------------------------------------
-Standard_Boolean Quantity_Period::IsEqual(const Quantity_Period& OtherPeriod) const
+Standard_Boolean TimePeriod::IsEqual(const TimePeriod& OtherPeriod) const
 {
 
   return ((mySec == OtherPeriod.mySec && myUSec == OtherPeriod.myUSec) ? Standard_True
@@ -219,7 +219,7 @@ Standard_Boolean Quantity_Period::IsEqual(const Quantity_Period& OtherPeriod) co
 // IsShorter : returns true if a date is shorter then an other
 // ~~~~~~~~~   date
 // -------------------------------------------------------------
-Standard_Boolean Quantity_Period::IsShorter(const Quantity_Period& OtherPeriod) const
+Standard_Boolean TimePeriod::IsShorter(const TimePeriod& OtherPeriod) const
 {
 
   if (mySec < OtherPeriod.mySec)
@@ -234,7 +234,7 @@ Standard_Boolean Quantity_Period::IsShorter(const Quantity_Period& OtherPeriod) 
 // IsLonger : returns true if a date is longer then an other
 // ~~~~~~~~   date
 // -------------------------------------------------------------
-Standard_Boolean Quantity_Period::IsLonger(const Quantity_Period& OtherPeriod) const
+Standard_Boolean TimePeriod::IsLonger(const TimePeriod& OtherPeriod) const
 {
 
   if (mySec > OtherPeriod.mySec)

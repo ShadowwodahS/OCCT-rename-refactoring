@@ -31,7 +31,7 @@
 //! operations on the constituent elements of shapes -
 //! vertices, edges, faces etc - in an open local context.
 //! The selection modes specific to "Shape" type objects
-//! are referred to as Standard Activation Mode. These
+//! are referred to as Standard1 Activation Mode. These
 //! modes are only taken into account in open local
 //! context and only act on Interactive Objects which
 //! have redefined the virtual method
@@ -152,7 +152,7 @@ public:
   //! Prs3d_Drawer_SeenLineAspect
   //! -   hidden line color in hidden line mode:
   //! Prs3d_Drawer_HiddenLineAspect.
-  Standard_EXPORT virtual void SetColor(const Quantity_Color& theColor) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetColor(const Color1& theColor) Standard_OVERRIDE;
 
   //! Removes settings for color in the reconstructed compound shape.
   Standard_EXPORT virtual void UnsetColor() Standard_OVERRIDE;
@@ -187,7 +187,7 @@ public:
 
   //! Returns the Color attributes of the shape accordingly to
   //! the current facing model;
-  Standard_EXPORT virtual void Color(Quantity_Color& aColor) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Color(Color1& aColor) const Standard_OVERRIDE;
 
   //! Returns the NameOfMaterial attributes of the shape accordingly to
   //! the current facing model;
@@ -306,7 +306,7 @@ protected:
   //! Create own aspects (if they do not exist) and set color to them.
   //! @return TRUE if new aspects have been created
   Standard_EXPORT bool setColor(const Handle(StyleDrawer)& theDrawer,
-                                const Quantity_Color&       theColor) const;
+                                const Color1&       theColor) const;
 
   //! Create own aspects (if they do not exist) and set width to them.
   //! @return TRUE if new aspects have been created

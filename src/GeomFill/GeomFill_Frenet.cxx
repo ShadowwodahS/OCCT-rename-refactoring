@@ -142,7 +142,7 @@ void GeomFill_Frenet::Init()
   constexpr Standard_Real TolF = 1.0e-10;
   constexpr Standard_Real Tol  = 10 * TolF;
   constexpr Standard_Real Tol2 = Tol * Tol;
-  constexpr Standard_Real PTol = Precision::PConfusion();
+  constexpr Standard_Real PTol = Precision1::PConfusion();
 
   // We want to determine if the curve has linear segments
   Standard_Integer                 NbIntC2  = myCurve->NbIntervals(GeomAbs_C2);
@@ -359,7 +359,7 @@ Standard_Boolean GeomFill_Frenet::RotateTrihedron(Vector3d&       Tangent,
                                                   Vector3d&       BiNormal,
                                                   const Vector3d& NewTangent) const
 {
-  const Standard_Real anInfCOS = cos(Precision::Angular()); // 0.99999995
+  const Standard_Real anInfCOS = cos(Precision1::Angular()); // 0.99999995
   const Standard_Real aTol     = gp1::Resolution();
 
   Vector3d              anAxis = Tangent.Crossed(NewTangent);
@@ -713,7 +713,7 @@ Standard_Integer GeomFill_Frenet::NbIntervals(const GeomAbs_Shape S) const
   myCurve->Intervals(TrimInt, tmpS);
 
   TColStd_SequenceOfReal Fusion;
-  GeomLib1::FuseIntervals(TrimInt, mySngl->Array1(), Fusion, Precision::PConfusion(), Standard_True);
+  GeomLib1::FuseIntervals(TrimInt, mySngl->Array1(), Fusion, Precision1::PConfusion(), Standard_True);
 
   return Fusion.Length() - 1;
 }
@@ -752,7 +752,7 @@ void GeomFill_Frenet::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) 
   myCurve->Intervals(TrimInt, tmpS);
 
   TColStd_SequenceOfReal Fusion;
-  GeomLib1::FuseIntervals(TrimInt, mySngl->Array1(), Fusion, Precision::PConfusion(), Standard_True);
+  GeomLib1::FuseIntervals(TrimInt, mySngl->Array1(), Fusion, Precision1::PConfusion(), Standard_True);
 
   for (Standard_Integer i = 1; i <= Fusion.Length(); i++)
     T.ChangeValue(i) = Fusion.Value(i);
@@ -844,7 +844,7 @@ Standard_Boolean GeomFill_Frenet::DoSingular(const Standard_Real    U,
   for (i = 1; i <= MaxN; i++)
   {
     Tangent = myTrimmed->DN(U, i);
-    if (Tangent.Magnitude() > Precision::Confusion())
+    if (Tangent.Magnitude() > Precision1::Confusion())
       break;
   }
   if (i > MaxN)
@@ -857,7 +857,7 @@ Standard_Boolean GeomFill_Frenet::DoSingular(const Standard_Real    U,
   {
     BiNormal           = Tangent.Crossed(myTrimmed->DN(U, i));
     Standard_Real magn = BiNormal.Magnitude();
-    if (magn > Precision::Confusion())
+    if (magn > Precision1::Confusion())
     {
       // modified by jgv, 12.08.03 for OCC605 ////
       Vector3d NextBiNormal = Tangent.Crossed(myTrimmed->DN(U, i + 1));

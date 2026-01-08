@@ -138,7 +138,7 @@ public:
   //! reading an unknown type).
   Standard_EXPORT void SetDefaultCallBack(const Handle(Storage_CallBack)& f);
 
-  //! reset  the  default  function  defined  by Storage
+  //! reset  the  default  function  defined  by Storage1
   //! package.
   Standard_EXPORT void ResetDefaultCallBack();
 

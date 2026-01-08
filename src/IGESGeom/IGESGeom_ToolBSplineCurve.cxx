@@ -351,7 +351,7 @@ void BSplineCurveTool::OwnCheck(const Handle(IGESGeom_BSplineCurve)& ent,
   Standard_Real eps = 1.E-04; // Tolerance des tests ??
                               //  Standard_Real norm = ent->Normal().SquareModulus();
 
-  // modified by rln 17/12/97 check of flag PROP2 according to IGES Standard
+  // modified by rln 17/12/97 check of flag PROP2 according to IGES Standard1
   // It is possible to compare V(0) and V(1) only if StartingParameter = FirstKnot
   // and EndingParameter = LastKnot (else we must build real geometrical curve)
   // The fail is replaced with warning because it is not a serious problem

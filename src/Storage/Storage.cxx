@@ -16,7 +16,7 @@
 
 #include <TCollection_AsciiString.hxx>
 
-AsciiString1 Storage::Version()
+AsciiString1 Storage1::Version()
 {
   AsciiString1 v("1.3");
 

@@ -132,13 +132,13 @@ void BlendFunc_CSCircular::GetBounds(math_Vector& InfBound, math_Vector& SupBoun
   SupBound(1) = surf->LastUParameter();
   SupBound(2) = surf->LastVParameter();
 
-  if (!Precision::IsInfinite(InfBound(1)) && !Precision::IsInfinite(SupBound(1)))
+  if (!Precision1::IsInfinite(InfBound(1)) && !Precision1::IsInfinite(SupBound(1)))
   {
     const Standard_Real range = (SupBound(1) - InfBound(1));
     InfBound(1) -= range;
     SupBound(1) += range;
   }
-  if (!Precision::IsInfinite(InfBound(2)) && !Precision::IsInfinite(SupBound(2)))
+  if (!Precision1::IsInfinite(InfBound(2)) && !Precision1::IsInfinite(SupBound(2)))
   {
     const Standard_Real range = (SupBound(2) - InfBound(2));
     InfBound(2) -= range;

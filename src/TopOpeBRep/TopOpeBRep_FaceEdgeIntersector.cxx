@@ -381,7 +381,7 @@ Standard_Real TopOpeBRep_FaceEdgeIntersector::ToleranceMax(const TopoShape&    S
 {
   ShapeExplorer e(S, T);
   if (!e.More())
-    return Precision::Intersection();
+    return Precision1::Intersection();
   else
   {
     Standard_Real tol = RealFirst();

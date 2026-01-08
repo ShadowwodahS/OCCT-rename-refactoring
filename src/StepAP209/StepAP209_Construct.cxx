@@ -869,7 +869,7 @@ Standard_Boolean StepAP209_Construct::CreateFeaStructure(
     Handle(StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx) GeoUnitCtxNS =
       Handle(StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx)::DownCast(RC);
     GeoCtx  = GeoUnitCtxNS->GeometricRepresentationContext();
-    OldHANU = GeoUnitCtxNS->GlobalUnitAssignedContext()->Units();
+    OldHANU = GeoUnitCtxNS->GlobalUnitAssignedContext()->Units2();
   }
   if (RC->IsKind(
         STANDARD_TYPE(StepGeom_GeometricRepresentationContextAndGlobalUnitAssignedContext)))
@@ -877,7 +877,7 @@ Standard_Boolean StepAP209_Construct::CreateFeaStructure(
     Handle(StepGeom_GeometricRepresentationContextAndGlobalUnitAssignedContext) GeoUnitCtxNS =
       Handle(StepGeom_GeometricRepresentationContextAndGlobalUnitAssignedContext)::DownCast(RC);
     GeoCtx  = GeoUnitCtxNS->GeometricRepresentationContext();
-    OldHANU = GeoUnitCtxNS->GlobalUnitAssignedContext()->Units();
+    OldHANU = GeoUnitCtxNS->GlobalUnitAssignedContext()->Units2();
   }
   Handle(StepBasic_HArray1OfNamedUnit) NewHANU =
     new StepBasic_HArray1OfNamedUnit(1, OldHANU->Length() + 3);
@@ -1109,7 +1109,7 @@ Standard_Boolean StepAP209_Construct::CreateAddingEntities(
   smodel->SetIdentLabel(ASCA, smodel->Number(ASCA));
 
   OSD_Process   sys;
-  Quantity_Date date = sys.SystemDate();
+  Date2 date = sys.SystemDate();
 
   Handle(StepBasic_CalendarDate) CDate = new StepBasic_CalendarDate;
   CDate->Init(date.Year(), date.Day(), date.Month());

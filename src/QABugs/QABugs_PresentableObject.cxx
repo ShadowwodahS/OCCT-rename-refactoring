@@ -49,35 +49,35 @@ void QABugs_PresentableObject::Compute(const Handle(PrsMgr_PresentationManager)&
   switch (theMode)
   {
     case 0: {
-      aPrims->AddVertex(Point3d(0.0, 0.0, 0.0), Quantity_Color(Quantity_NOC_RED));
-      aPrims->AddVertex(Point3d(0.0, 5.0, 1.0), Quantity_Color(Quantity_NOC_BLUE1));
-      aPrims->AddVertex(Point3d(5.0, 0.0, 1.0), Quantity_Color(Quantity_NOC_YELLOW));
+      aPrims->AddVertex(Point3d(0.0, 0.0, 0.0), Color1(Quantity_NOC_RED));
+      aPrims->AddVertex(Point3d(0.0, 5.0, 1.0), Color1(Quantity_NOC_BLUE1));
+      aPrims->AddVertex(Point3d(5.0, 0.0, 1.0), Color1(Quantity_NOC_YELLOW));
 
-      aPrims->AddVertex(Point3d(0.0, 5.0, 1.0), Quantity_Color(Quantity_NOC_BLUE1));
-      aPrims->AddVertex(Point3d(5.0, 5.0, -1.0), Quantity_Color(Quantity_NOC_GREEN));
-      aPrims->AddVertex(Point3d(5.0, 0.0, 1.0), Quantity_Color(Quantity_NOC_YELLOW));
+      aPrims->AddVertex(Point3d(0.0, 5.0, 1.0), Color1(Quantity_NOC_BLUE1));
+      aPrims->AddVertex(Point3d(5.0, 5.0, -1.0), Color1(Quantity_NOC_GREEN));
+      aPrims->AddVertex(Point3d(5.0, 0.0, 1.0), Color1(Quantity_NOC_YELLOW));
       break;
     }
     case 1: {
       aPrims->AddVertex(Point3d(5.0, 0.0, 0.0),
                         Dir3d(0.0, 0.0, 1.0),
-                        Quantity_Color(Quantity_NOC_RED));
+                        Color1(Quantity_NOC_RED));
       aPrims->AddVertex(Point3d(5.0, 5.0, 1.0),
                         Dir3d(1.0, 1.0, 1.0),
-                        Quantity_Color(Quantity_NOC_BLUE1));
+                        Color1(Quantity_NOC_BLUE1));
       aPrims->AddVertex(Point3d(10.0, 0.0, 1.0),
                         Dir3d(0.0, 1.0, 1.0),
-                        Quantity_Color(Quantity_NOC_YELLOW));
+                        Color1(Quantity_NOC_YELLOW));
 
       aPrims->AddVertex(Point3d(5.0, 5.0, 1.0),
                         Dir3d(1.0, 1.0, 1.0),
-                        Quantity_Color(Quantity_NOC_BLUE1));
+                        Color1(Quantity_NOC_BLUE1));
       aPrims->AddVertex(Point3d(10.0, 5.0, -1.0),
                         Dir3d(0.0, 0.0, -1.0),
-                        Quantity_Color(Quantity_NOC_GREEN));
+                        Color1(Quantity_NOC_GREEN));
       aPrims->AddVertex(Point3d(10.0, 0.0, 1.0),
                         Dir3d(0.0, 1.0, 1.0),
-                        Quantity_Color(Quantity_NOC_YELLOW));
+                        Color1(Quantity_NOC_YELLOW));
     }
     break;
   }

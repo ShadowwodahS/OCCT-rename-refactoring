@@ -48,7 +48,7 @@ public:
                                                   const Standard_Real       ta);
 
   //! The  same  as  preceding   but   using  the   standard
-  //! tolerances from package Precision.
+  //! tolerances from package Precision1.
   Standard_EXPORT static GeomAbs_Shape Continuity(const Handle(GeomCurve3d)& C1,
                                                   const Handle(GeomCurve3d)& C2,
                                                   const Standard_Real       u1,

@@ -37,7 +37,7 @@ IMPLEMENT_STANDARD_RTTIEXT(MeshVS_TextPrsBuilder, MeshVS_PrsBuilder)
 
 MeshVS_TextPrsBuilder::MeshVS_TextPrsBuilder(const Handle(MeshVS_Mesh)&       Parent,
                                              const Standard_Real              Height,
-                                             const Quantity_Color&            Color,
+                                             const Color1&            Color,
                                              const MeshVS_DisplayModeFlags&   Flags,
                                              const Handle(MeshVS_DataSource)& DS,
                                              const Standard_Integer           Id,
@@ -121,8 +121,8 @@ void MeshVS_TextPrsBuilder::SetText(const Standard_Boolean         IsElement,
 //=================================================================================================
 
 void MeshVS_TextPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
-                                  const TColStd_PackedMapOfInteger& IDs,
-                                  TColStd_PackedMapOfInteger&       IDsToExclude,
+                                  const PackedIntegerMap& IDs,
+                                  PackedIntegerMap&       IDsToExclude,
                                   const Standard_Boolean            IsElement,
                                   const Standard_Integer            theDisplayMode) const
 {
@@ -140,7 +140,7 @@ void MeshVS_TextPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
 
   Handle(Graphic3d_Group) aTextGroup = Prs->NewGroup();
 
-  Quantity_Color           AColor           = Quantity_NOC_YELLOW;
+  Color1           AColor           = Quantity_NOC_YELLOW;
   Standard_CString         AFont            = Font_NOF_ASCII_MONO;
   Standard_Real            AExpansionFactor = 1.0;
   Standard_Real            ASpace           = 0.0;
@@ -179,12 +179,12 @@ void MeshVS_TextPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
   Standard_Integer           NbNodes;
   AsciiString1    aStr;
   MeshVS_EntityType          aType;
-  TColStd_PackedMapOfInteger aCustomElements;
+  PackedIntegerMap aCustomElements;
 
   Standard_Real X, Y, Z;
 
   // subtract the hidden elements and ids to exclude (to minimise allocated memory)
-  TColStd_PackedMapOfInteger anIDs;
+  PackedIntegerMap anIDs;
   anIDs.Assign(IDs);
   if (IsElement)
   {

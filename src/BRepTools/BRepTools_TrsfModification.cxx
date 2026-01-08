@@ -205,7 +205,7 @@ Standard_Boolean BRepTools_TrsfModification::NewPolygon(const TopoEdge&      the
     if (!aCurve.IsNull())
     {
       Standard_Real aReparametrization = aCurve->ParametricTransformation(aTrsf);
-      if (Abs(aReparametrization - 1.0) > Precision::PConfusion())
+      if (Abs(aReparametrization - 1.0) > Precision1::PConfusion())
       {
         TColStd_Array1OfReal& aParams = theP->ChangeParameters();
         for (Standard_Integer anInd = aParams.Lower(); anInd <= aParams.Upper(); ++anInd)
@@ -354,17 +354,17 @@ Standard_Boolean BRepTools_TrsfModification::NewCurve2d(const TopoEdge& E,
 
   if (!NewC->IsPeriodic())
   {
-    if (fc - f > Precision::PConfusion())
+    if (fc - f > Precision1::PConfusion())
       f = fc;
-    if (l - lc > Precision::PConfusion())
+    if (l - lc > Precision1::PConfusion())
       l = lc;
-    if (Abs(l - f) < Precision::PConfusion())
+    if (Abs(l - f) < Precision1::PConfusion())
     {
-      if (Abs(f - fc) < Precision::PConfusion() && !Precision::IsInfinite(lc))
+      if (Abs(f - fc) < Precision1::PConfusion() && !Precision1::IsInfinite(lc))
       {
         l = lc;
       }
-      else if (!Precision::IsInfinite(fc))
+      else if (!Precision1::IsInfinite(fc))
       {
         f = fc;
       }
@@ -398,7 +398,7 @@ Standard_Boolean BRepTools_TrsfModification::NewCurve2d(const TopoEdge& E,
   Standard_Real aTolV;
   NewParameter(V1, EFOR, f, aTolV);
   NewParameter(V2, EFOR, l, aTolV);
-  GeomLib1::SameRange(Precision::PConfusion(), NewC, newf, newl, f, l, C);
+  GeomLib1::SameRange(Precision1::PConfusion(), NewC, newf, newl, f, l, C);
 
   return Standard_True;
 }

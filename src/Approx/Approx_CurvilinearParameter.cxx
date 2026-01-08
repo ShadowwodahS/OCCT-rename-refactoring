@@ -40,17 +40,17 @@
 
 #ifdef OCCT_DEBUG_CHRONO
   #include <OSD_Timer.hxx>
-static OSD_Chronometer chr_total, chr_init, chr_approx;
+static Chronometer chr_total, chr_init, chr_approx;
 
 Standard_Real t_total, t_init, t_approx;
 
-void InitChron(OSD_Chronometer& ch)
+void InitChron(Chronometer& ch)
 {
   ch.Reset();
   ch.Start();
 }
 
-void ResultChron(OSD_Chronometer& ch, Standard_Real& time)
+void ResultChron(Chronometer& ch, Standard_Real& time)
 {
   Standard_Real tch;
   ch.Stop();
@@ -113,7 +113,7 @@ void Approx_CurvilinearParameter_EvalCurv::Evaluate(Standard_Integer* Dimension,
 
   if (StartEnd[0] != StartEndSav[0] || StartEnd[1] != StartEndSav[1])
   {
-    fonct->Trim(StartEnd[0], StartEnd[1], Precision::Confusion());
+    fonct->Trim(StartEnd[0], StartEnd[1], Precision1::Confusion());
     StartEndSav[0] = StartEnd[0];
     StartEndSav[1] = StartEnd[1];
   }
@@ -266,7 +266,7 @@ void Approx_CurvilinearParameter_EvalCurvOnSurf::Evaluate(Standard_Integer* Dime
 
   if (StartEnd[0] != StartEndSav[0] || StartEnd[1] != StartEndSav[1])
   {
-    fonct->Trim(StartEnd[0], StartEnd[1], Precision::Confusion());
+    fonct->Trim(StartEnd[0], StartEnd[1], Precision1::Confusion());
     StartEndSav[0] = StartEnd[0];
     StartEndSav[1] = StartEnd[1];
   }
@@ -441,7 +441,7 @@ void Approx_CurvilinearParameter_EvalCurvOn2Surf::Evaluate(Standard_Integer* Dim
 
   /*  if(StartEnd[0] != StartEndSav[0] || StartEnd[1]!= StartEndSav[1])
       {
-        fonct->Trim(StartEnd[0],StartEnd[1], Precision::Confusion());
+        fonct->Trim(StartEnd[0],StartEnd[1], Precision1::Confusion());
         StartEndSav[0]=StartEnd[0];
         StartEndSav[1]=StartEnd[1];
       }

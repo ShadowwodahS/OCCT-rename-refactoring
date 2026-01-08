@@ -132,7 +132,7 @@ TypeInfo* TypeInfo::Register(const std::type_info&        theInfo,
 
   // Allocate memory block for TypeInfo and the two strings
   char* aMemoryBlock =
-    static_cast<char*>(Standard::AllocateOptimal(sizeof(TypeInfo) + anInfoNameLen + aNameLen));
+    static_cast<char*>(Standard1::AllocateOptimal(sizeof(TypeInfo) + anInfoNameLen + aNameLen));
 
   // Pointers to the locations for the deep copies of the strings
   char* anInfoNameCopy = aMemoryBlock + sizeof(TypeInfo);

@@ -80,8 +80,8 @@ public:
   //! planar faces to close the shape.(two rectangles in the
   //! planes u = 0 and u = Angle).
   //! Exceptions Standard_DomainError if:
-  //! -   R is less than or equal to Precision::Confusion(), or
-  //! -   H is less than or equal to Precision::Confusion().
+  //! -   R is less than or equal to Precision1::Confusion(), or
+  //! -   H is less than or equal to Precision1::Confusion().
   Standard_EXPORT CylinderMaker(const Frame3d&       Axes,
                                            const Standard_Real R,
                                            const Standard_Real H,

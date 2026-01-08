@@ -137,7 +137,7 @@ Method:
   Standard_Real Usol[2];
   Usol[0] = C.XAxis().Direction().AngleWithRef(OPp, Axe); // -M_PI<U1<M_PI
 
-  constexpr Standard_Real aAngTol = Precision::Angular();
+  constexpr Standard_Real aAngTol = Precision1::Angular();
   if (Usol[0] + M_PI < aAngTol)
     Usol[0] = -M_PI;
   else if (Usol[0] - M_PI > -aAngTol)
@@ -149,7 +149,7 @@ Method:
   // Standard_Real TolU = Tol*C.Radius();
   Standard_Real TolU, aR;
   aR   = C.Radius();
-  TolU = Precision::Infinite();
+  TolU = Precision1::Infinite();
   if (aR > gp1::Resolution())
   {
     TolU = Tol / aR;
@@ -452,7 +452,7 @@ Method:
       DejaEnr = Standard_False;
       for (NoExt = 0; NoExt < myNbExt; NoExt++)
       {
-        if (TbExt[NoExt].SquareDistance(Cu) < Precision::SquareConfusion())
+        if (TbExt[NoExt].SquareDistance(Cu) < Precision1::SquareConfusion())
         {
           DejaEnr = Standard_True;
           break;

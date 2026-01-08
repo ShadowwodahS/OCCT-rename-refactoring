@@ -38,7 +38,7 @@ public:
   //! @param[in] theStyle  font style
   //! @param[in] theDisplayType  display mode
   Standard_EXPORT Graphic3d_AspectText3d(
-    const Quantity_Color&    theColor,
+    const Color1&    theColor,
     Standard_CString         theFont,
     Standard_Real            theExpansionFactor,
     Standard_Real            theSpace,
@@ -46,13 +46,13 @@ public:
     Aspect_TypeOfDisplayText theDisplayType = Aspect_TODT_NORMAL);
 
   //! Return the text color.
-  const Quantity_Color& Color() const { return myInteriorColor.GetRGB(); }
+  const Color1& Color() const { return myInteriorColor.GetRGB(); }
 
   //! Return the text color.
   const Quantity_ColorRGBA& ColorRGBA() const { return myInteriorColor; }
 
   //! Modifies the color.
-  void SetColor(const Quantity_Color& theColor) { myInteriorColor.SetRGB(theColor); }
+  void SetColor(const Color1& theColor) { myInteriorColor.SetRGB(theColor); }
 
   //! Modifies the color.
   void SetColor(const Quantity_ColorRGBA& theColor) { myInteriorColor = theColor; }

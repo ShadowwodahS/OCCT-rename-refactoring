@@ -74,8 +74,8 @@ Standard_Boolean ShapeUpgrade_ClosedFaceDivide::SplitSurface(const Standard_Real
   Standard_Real Uf, Ul, Vf, Vl;
   ShapeAnalysis1::GetFaceUVBounds(myFace, Uf, Ul, Vf, Vl);
   // 01.10.99 pdn Porting on DEC
-  if (::Precision::IsInfinite(Uf) || ::Precision::IsInfinite(Ul) || ::Precision::IsInfinite(Vf)
-      || ::Precision::IsInfinite(Vl))
+  if (::Precision1::IsInfinite(Uf) || ::Precision1::IsInfinite(Ul) || ::Precision1::IsInfinite(Vf)
+      || ::Precision1::IsInfinite(Vl))
     return Standard_False;
 
   TopLoc_Location      L;
@@ -164,20 +164,20 @@ Standard_Boolean ShapeUpgrade_ClosedFaceDivide::SplitSurface(const Standard_Real
   {
     // pdn try to define geometric closure.
     Handle(ShapeAnalysis_Surface) sas     = new ShapeAnalysis_Surface(surf);
-    Standard_Boolean              uclosed = sas->IsUClosed(Precision());
-    Standard_Boolean              vclosed = sas->IsVClosed(Precision());
+    Standard_Boolean              uclosed = sas->IsUClosed(Precision1());
+    Standard_Boolean              vclosed = sas->IsVClosed(Precision1());
     Standard_Real                 U1, U2, V1, V2;
     if (uclosed)
     {
       surf->Bounds(U1, U2, V1, V2);
       GeomAdaptor_Surface GAS(surf);
-      Standard_Real       toler = GAS.UResolution(Precision());
+      Standard_Real       toler = GAS.UResolution(Precision1());
       if ((U2 - U1) - (Ul - Uf) < toler)
       {
         Handle(Geom_RectangularTrimmedSurface) rts =
           new Geom_RectangularTrimmedSurface(surf, U1, (U2 + U1) / 2, Standard_True);
         Handle(ShapeAnalysis_Surface) sast = new ShapeAnalysis_Surface(rts);
-        if (!sast->IsUClosed(Precision()))
+        if (!sast->IsUClosed(Precision1()))
         {
           doSplit            = Standard_True;
           Standard_Real step = (Ul - Uf) / (myNbSplit + 1);
@@ -196,13 +196,13 @@ Standard_Boolean ShapeUpgrade_ClosedFaceDivide::SplitSurface(const Standard_Real
     {
       surf->Bounds(U1, U2, V1, V2);
       GeomAdaptor_Surface GAS(surf);
-      Standard_Real       toler = GAS.VResolution(Precision());
+      Standard_Real       toler = GAS.VResolution(Precision1());
       if ((V2 - V1) - (Vl - Vf) < toler)
       {
         Handle(Geom_RectangularTrimmedSurface) rts =
           new Geom_RectangularTrimmedSurface(surf, V1, (V2 + V1) / 2, Standard_False);
         Handle(ShapeAnalysis_Surface) sast = new ShapeAnalysis_Surface(rts);
-        if (!sast->IsVClosed(Precision()))
+        if (!sast->IsVClosed(Precision1()))
         {
           doSplit            = Standard_True;
           Standard_Real step = (Vl - Vf) / (myNbSplit + 1);
@@ -234,7 +234,7 @@ Standard_Boolean ShapeUpgrade_ClosedFaceDivide::SplitSurface(const Standard_Real
   Handle(ShapeExtend_CompositeSurface) Grid = SplitSurf->ResSurfaces();
 
   ShapeFix_ComposeShell CompShell;
-  CompShell.Init(Grid, L, face, Precision());
+  CompShell.Init(Grid, L, face, Precision1());
   CompShell.SetMaxTolerance(MaxTolerance());
   CompShell.SetContext(Context());
   CompShell.Perform();

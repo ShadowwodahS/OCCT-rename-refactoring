@@ -965,7 +965,7 @@ public:
   //! Computes a List of entities from two alphanums,
   //! first and second, as follows :
   //! if <first> is a Number or Label of an entity : this entity
-  //! if <first> is a list of Numbers/Labels : the list of entities
+  //! if <first> is a list of Numbers1/Labels : the list of entities
   //! if <first> is the name of a Selection in <WS>, and <second>
   //! not defined, the standard result of this Selection
   //! else, let's consider "first second" : this whole phrase is

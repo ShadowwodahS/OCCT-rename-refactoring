@@ -783,8 +783,8 @@ void BRepFeat_Form::GlobalPerform()
     theBuilder.PartsOfTool(lshape);
     //
     Standard_Real      pbmin = RealLast(), pbmax = RealFirst();
-    Standard_Real      prmin = RealLast() - 2 * Precision::Confusion();
-    Standard_Real      prmax = RealFirst() + 2 * Precision::Confusion();
+    Standard_Real      prmin = RealLast() - 2 * Precision1::Confusion();
+    Standard_Real      prmax = RealFirst() + 2 * Precision1::Confusion();
     Standard_Boolean   flag1 = Standard_False;
     Handle(GeomCurve3d) C;
 
@@ -901,7 +901,7 @@ void BRepFeat_Form::GlobalPerform()
       // intersects Shapes From and Until
       //       case of several intersections (keep PartsOfTool according to the selection)
       //       position of the face of intersection in PartsOfTool (before or after)
-      constexpr Standard_Real delta = Precision::Confusion();
+      constexpr Standard_Real delta = Precision1::Confusion();
 
       if (myPerfSelection != BRepFeat_NoSelection)
       {

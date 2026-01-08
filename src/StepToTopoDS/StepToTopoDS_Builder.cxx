@@ -100,7 +100,7 @@ static void ResetPreci(Handle(StepData_StepModel)& theStepModel,
   if (modetol)
   {
     ShapeTolerance1 STU;
-    STU.LimitTolerance(S, Precision::Confusion(), maxtol);
+    STU.LimitTolerance(S, Precision1::Confusion(), maxtol);
   }
 }
 
@@ -136,7 +136,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_ManifoldSolidBrep)& theMa
   const Handle(StepShape_ConnectedFaceSet) aShell = theManifoldSolid->Outer();
 
   StepToTopoDS_TranslateShell myTranShell;
-  myTranShell.SetPrecision(Precision());
+  myTranShell.SetPrecision(Precision1());
   myTranShell.SetMaxTol(MaxTol());
 
   NamingTool2 dummyNMTool;
@@ -201,7 +201,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_BrepWithVoids)&   theBRep
 
   StepToTopoDS_TranslateShell aTranShell;
 
-  aTranShell.SetPrecision(Precision()); // gka
+  aTranShell.SetPrecision(Precision1()); // gka
   aTranShell.SetMaxTol(MaxTol());
   // OuterBound
 
@@ -290,7 +290,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_FacetedBrep)&     theFB,
     Handle(StepShape_ClosedShell)::DownCast(theFB->Outer());
 
   StepToTopoDS_TranslateShell aTranShell;
-  aTranShell.SetPrecision(Precision()); // gka
+  aTranShell.SetPrecision(Precision1()); // gka
   aTranShell.SetMaxTol(MaxTol());
   // Non-manifold topology is not referenced by FacetedBrep (ss; 14.11.2010)
   NamingTool2 aDummyNMTool;
@@ -337,7 +337,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_FacetedBrepAndBrepWithVoi
   Message_ProgressScope aPSRoot(theProgress, NULL, 2);
 
   StepToTopoDS_TranslateShell aTranShell;
-  aTranShell.SetPrecision(Precision()); // gka
+  aTranShell.SetPrecision(Precision1()); // gka
   aTranShell.SetMaxTol(MaxTol());
   // Non-manifold topology is not referenced by FacetedBrepAndBrepWithVoids (ss; 14.11.2010)
   NamingTool2 aDummyNMTool;
@@ -411,7 +411,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_ShellBasedSurfaceModel)& 
   B.MakeCompound(S);
   StepToTopoDS_TranslateShell myTranShell;
 
-  myTranShell.SetPrecision(Precision());
+  myTranShell.SetPrecision(Precision1());
   myTranShell.SetMaxTol(MaxTol());
 
   Message_ProgressScope PS(theProgress, "Shell", Nb);
@@ -503,7 +503,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_EdgeBasedWireframeModel)&
   myTool.Init(aMap, TP);
 
   StepToTopoDS_TranslateEdge myTranEdge;
-  myTranEdge.SetPrecision(Precision());
+  myTranEdge.SetPrecision(Precision1());
   myTranEdge.SetMaxTol(MaxTol());
 
   TopoCompound C;
@@ -576,7 +576,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_FaceBasedSurfaceModel)& a
   myTool.Init(aMap, TP);
 
   StepToTopoDS_TranslateFace myTranFace;
-  myTranFace.SetPrecision(Precision());
+  myTranFace.SetPrecision(Precision1());
   myTranFace.SetMaxTol(MaxTol());
 
   TopoCompound C;
@@ -679,7 +679,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_GeometricSet)&           
   B.MakeCompound(S);
   TopoEdge           theEdge;
   Standard_Integer      i;
-  Standard_Real         preci  = Precision(); // gka
+  Standard_Real         preci  = Precision1(); // gka
   Standard_Real         maxtol = MaxTol();
   Standard_Integer      nbElem = GCS->NbElements();
   Message_ProgressScope aPS(theProgress, NULL, nbElem);
@@ -855,7 +855,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepVisual_TessellatedSolid)& theTS
                                 const Message_ProgressRange& theProgress)
 {
   StepToTopoDS_TranslateSolid aTranSolid;
-  aTranSolid.SetPrecision(Precision());
+  aTranSolid.SetPrecision(Precision1());
   aTranSolid.SetMaxTol(MaxTol());
 
   StepToTopoDS_Tool         aTool;
@@ -897,7 +897,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepVisual_TessellatedShell)& theTS
                                 const Message_ProgressRange& theProgress)
 {
   StepToTopoDS_TranslateShell aTranShell;
-  aTranShell.SetPrecision(Precision());
+  aTranShell.SetPrecision(Precision1());
   aTranShell.SetMaxTol(MaxTol());
 
   StepToTopoDS_Tool         aTool;
@@ -937,7 +937,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepVisual_TessellatedFace)& theTF,
                                 const ConversionFactors& theLocalFactors)
 {
   StepToTopoDS_TranslateFace aTranFace;
-  aTranFace.SetPrecision(Precision());
+  aTranFace.SetPrecision(Precision1());
   aTranFace.SetMaxTol(MaxTol());
 
   StepToTopoDS_Tool         aTool;
@@ -974,7 +974,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepVisual_TessellatedSurfaceSet)& 
                                 const ConversionFactors&                         theLocalFactors)
 {
   StepToTopoDS_TranslateFace aTranFace;
-  aTranFace.SetPrecision(Precision());
+  aTranFace.SetPrecision(Precision1());
   aTranFace.SetMaxTol(MaxTol());
 
   StepToTopoDS_Tool         aTool;

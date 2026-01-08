@@ -44,7 +44,7 @@ public:
                                                   const Standard_Real      tl,
                                                   const Standard_Real      ta);
 
-  //! The same as preceding but using the standard tolerances from package Precision.
+  //! The same as preceding but using the standard tolerances from package Precision1.
   Standard_EXPORT static GeomAbs_Shape Continuity(const BRepAdaptor_Curve& C1,
                                                   const BRepAdaptor_Curve& C2,
                                                   const Standard_Real      u1,

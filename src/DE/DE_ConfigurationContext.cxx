@@ -180,7 +180,7 @@ Standard_Boolean DE_ConfigurationContext::LoadFile(const AsciiString1& theFile)
   SystemPath                aPath(theFile);
   SystemFile                aFile    = aPath;
   AsciiString1 FileName = aPath.Name();
-  aFile.Open(OSD_ReadOnly, OSD_Protection());
+  aFile.Open(OSD_ReadOnly, Protection1());
   if (aFile.Failed())
   {
     Message1::SendFail("Error: DE Context loading is stopped. Can't open the file");

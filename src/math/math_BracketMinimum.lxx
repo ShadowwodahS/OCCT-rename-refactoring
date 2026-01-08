@@ -24,8 +24,8 @@ inline BracketMinimum::BracketMinimum(const Standard_Real A, const Standard_Real
       FAx(0.),
       FBx(0.),
       FCx(0.),
-      myLeft(-Precision::Infinite()),
-      myRight(Precision::Infinite()),
+      myLeft(-Precision1::Infinite()),
+      myRight(Precision1::Infinite()),
       myIsLimited(Standard_False),
       myFA(Standard_False),
       myFB(Standard_False)

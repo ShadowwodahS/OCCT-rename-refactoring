@@ -764,7 +764,7 @@ void BRepFeat_MakePrism::PerformFromEnd(const TopoShape& Until)
       {
         S = Handle(Geom_RectangularTrimmedSurface)::DownCast(S)->BasisSurface();
       }
-      BRepLib_MakeFace fac(S, Precision::Confusion());
+      BRepLib_MakeFace fac(S, Precision1::Confusion());
       mySFrom = fac.Face();
       Trf     = TransformShapeFU(0);
       FFrom   = TopoDS::Face(mySFrom);
@@ -1084,8 +1084,8 @@ Standard_Integer SensOfPrism(const Handle(GeomCurve3d)& C, const TopoShape& Unti
   Standard_Integer sens = 1;
   if (ASI1.IsDone() && ASI1.NbPoints(1) >= 1)
   {
-    if (ASI1.Point(1, 1).Parameter() + Precision::Confusion() < 0.
-        && ASI1.Point(1, ASI1.NbPoints(1)).Parameter() + Precision::Confusion() < 0.)
+    if (ASI1.Point(1, 1).Parameter() + Precision1::Confusion() < 0.
+        && ASI1.Point(1, ASI1.NbPoints(1)).Parameter() + Precision1::Confusion() < 0.)
     {
       sens = -1;
     }
@@ -1182,8 +1182,8 @@ static Standard_Boolean ToFuse(const TopoFace& F1, const TopoFace& F2)
   Handle(GeomSurface)    S1, S2;
   TopLoc_Location         loc1, loc2;
   Handle(TypeInfo)   typS1, typS2;
-  constexpr Standard_Real tollin = Precision::Confusion();
-  constexpr Standard_Real tolang = Precision::Angular();
+  constexpr Standard_Real tollin = Precision1::Confusion();
+  constexpr Standard_Real tolang = Precision1::Angular();
 
   S1 = BRepInspector::Surface(F1, loc1);
   S2 = BRepInspector::Surface(F2, loc2);

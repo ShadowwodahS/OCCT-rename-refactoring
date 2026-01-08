@@ -61,7 +61,7 @@ public:
   //! Sets type of arrows.
   void MakeArrows3d(const Standard_Boolean theIsArrows3d) { myIsArrows3d = theIsArrows3d; }
 
-  //! Shows if Units are to be displayed along with dimension value.
+  //! Shows if Units2 are to be displayed along with dimension value.
   Standard_Boolean IsUnitsDisplayed() const { return myToDisplayUnits; }
 
   //! Specifies whether the units string should be displayed
@@ -106,7 +106,7 @@ public:
   void SetArrowAspect(const Handle(Prs3d_ArrowAspect)& theAspect) { myArrowAspect = theAspect; }
 
   //! Sets the same color for all parts of dimension: lines, arrows and text.
-  Standard_EXPORT void SetCommonColor(const Quantity_Color& theColor);
+  Standard_EXPORT void SetCommonColor(const Color1& theColor);
 
   //! Sets extension size.
   void SetExtensionSize(const Standard_Real theSize) { myExtensionSize = theSize; }

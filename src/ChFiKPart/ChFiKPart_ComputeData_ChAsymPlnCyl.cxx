@@ -146,7 +146,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   if (dedans)
   {
     Rad = Cyl.Radius() - dis1;
-    if (Abs(Rad) <= Precision::Confusion())
+    if (Abs(Rad) <= Precision1::Confusion())
       pointu = Standard_True;
     if (Rad < 0)
     {
@@ -289,7 +289,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
 
   Pt.SetCoord(Or.X() + ConRad * Dx.X(), Or.Y() + ConRad * Dx.Y(), Or.Z() + ConRad * Dx.Z());
   ElSLib1::Parameters(Cyl, Pt, u, v);
-  Standard_Real    tol           = Precision::PConfusion();
+  Standard_Real    tol           = Precision1::PConfusion();
   Standard_Boolean careaboutsens = 0;
   if (Abs(lu - fu - 2 * M_PI) < tol)
     careaboutsens = 1;

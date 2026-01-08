@@ -49,11 +49,11 @@ inline void ShapeUpgrade_Tool::SetPrecision(const Standard_Real preci)
 }
 
 //=======================================================================
-// function : Precision
+// function : Precision1
 // purpose  :
 //=======================================================================
 
-inline Standard_Real ShapeUpgrade_Tool::Precision() const
+inline Standard_Real ShapeUpgrade_Tool::Precision1() const
 {
   return myPrecision;
 }

@@ -24,7 +24,7 @@
 //: q9 abv 23.03.99 PRO7226.stp #489490: cache for projecting end points
 // #78 rln 12.03.99 S4135: checking spatial closure with myPreci
 //     pdn 12.03.99 S4135: creating pcurve with minimal length in the case of densed points
-//     abv 29.03.99 IsAnIsoparametric with Precision::Confusion
+//     abv 29.03.99 IsAnIsoparametric with Precision1::Confusion
 //     pdn 09.04.99 IsAnisoparametric uses already computed parameters (S4030, fix PRO14323)
 // szv#4 S4163
 //: s5 abv 22.04.99  Adding debug printouts in catch {} blocks
@@ -104,7 +104,7 @@ static void AdjustSecondPointToFirstPoint(const gp_Pnt2d&             theFirstPo
 
 ShapeConstruct_ProjectCurveOnSurface::ShapeConstruct_ProjectCurveOnSurface()
 {
-  myPreci           = Precision::Confusion();
+  myPreci           = Precision1::Confusion();
   myBuild           = Standard_False;
   myAdjustOverDegen = 1; //: c0 //szv#4:S4163:12Mar99 was boolean
   myNbCashe         = 0; //: q9
@@ -271,7 +271,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(GeomCurve3
     }
 
     GeomAdaptor_Curve aC3DAdaptor(c3d);
-    Standard_Real     aMinParSpeed = Precision::Infinite(); // Minimal parameterization speed.
+    Standard_Real     aMinParSpeed = Precision1::Infinite(); // Minimal parameterization speed.
     for (; anIdx <= bspl->NbKnots() && aFirstParam < Last; anIdx++)
     {
       // Fill current knot interval.
@@ -323,7 +323,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(GeomCurve3
     }
 
     const Standard_Real aMaxQuotientCoeff = 1500.0;
-    if (anEvenlyCoeff > aMaxQuotientCoeff && aMinParSpeed > Precision::Confusion())
+    if (anEvenlyCoeff > aMaxQuotientCoeff && aMinParSpeed > Precision1::Confusion())
     {
       PerformByProjLib(c3d, First, Last, c2d);
       // PerformByProjLib fail detection:
@@ -557,8 +557,8 @@ static Standard_Boolean fixPeriodictyTroubles(
 
   Standard_Real    aFixIsoParam = aMinParam;
   Standard_Boolean isIsoLine    = Standard_False;
-  if (aMaxParam - aSavedParam < Precision::PConfusion()
-      || aSavedParam - aMinParam < Precision::PConfusion())
+  if (aMaxParam - aSavedParam < Precision1::PConfusion()
+      || aSavedParam - aMinParam < Precision1::PConfusion())
   {
     aFixIsoParam = aSavedParam;
     isIsoLine    = Standard_True;
@@ -572,15 +572,15 @@ static Standard_Boolean fixPeriodictyTroubles(
     // Walk over period coord -> not walking on another isoline in parameter space.
     if (isIsoLine)
     {
-      if (aMaxParam - aParam < Precision::PConfusion()
-          || aParam - aMinParam < Precision::PConfusion())
+      if (aMaxParam - aParam < Precision1::PConfusion()
+          || aParam - aMinParam < Precision1::PConfusion())
         aParam = aFixIsoParam;
     }
     else
     {
-      if (aMaxParam - aParam < Precision::PConfusion())
+      if (aMaxParam - aParam < Precision1::PConfusion())
         aParam = aMaxParam;
-      if (aParam - aMinParam < Precision::PConfusion())
+      if (aParam - aMinParam < Precision1::PConfusion())
         aParam = aMinParam;
     }
 
@@ -594,12 +594,12 @@ static Standard_Boolean fixPeriodictyTroubles(
   for (Standard_Integer i = 0; i < 3; i++)
   {
     Standard_Real aDiff = thePnt[i + 1].Coord(theIdx) - thePnt[i].Coord(theIdx);
-    if (aDiff < -Precision::PConfusion())
+    if (aDiff < -Precision1::PConfusion())
     {
       aSumDiff *= -1.0;
     }
     // if first derivative changes its sign then period jump may exists in this place
-    if (aDiff * aPrevDiff < -Precision::PConfusion())
+    if (aDiff * aPrevDiff < -Precision1::PConfusion())
     {
       isJump = Standard_True;
     }
@@ -668,11 +668,11 @@ Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::getLine(
   // Protection against bad "tolerance" shapes.
   if (aTol2 > 1.0)
   {
-    theTol = Precision::Confusion();
+    theTol = Precision1::Confusion();
     aTol2  = theTol * theTol;
   }
-  if (aTol2 < Precision::SquareConfusion())
-    aTol2 = Precision::SquareConfusion();
+  if (aTol2 < Precision1::SquareConfusion())
+    aTol2 = Precision1::SquareConfusion();
   Standard_Real anOldTol2 = aTol2;
   // auxiliary variables to choose period for connection with previous 2dcurve (if exist)
   Standard_Integer aSavedPointNum = -1;
@@ -765,7 +765,7 @@ Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::getLine(
   // Check that straight line in 2d with parameterisation as in 3d will fit
   // fit 3d curve at all points.
   Standard_Real dPar = theparams(nb) - theparams(1);
-  if (Abs(dPar) < Precision::PConfusion())
+  if (Abs(dPar) < Precision1::PConfusion())
     return 0;
   gp_Vec2d             aVec0(aP2d[0], aP2d[3]);
   gp_Vec2d             aVec          = aVec0 / dPar;
@@ -780,7 +780,7 @@ Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::getLine(
       Vector3d aNormalVec, aDu, aDv;
       aSurf->D1(aCurPoint.X(), aCurPoint.Y(), aCurP, aDu, aDv);
       aNormalVec = aDu ^ aDv;
-      if (aNormalVec.SquareMagnitude() < Precision::SquareConfusion())
+      if (aNormalVec.SquareMagnitude() < Precision1::SquareConfusion())
       {
         isNormalCheck = Standard_False;
         break;
@@ -810,7 +810,7 @@ Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::getLine(
 
   // check if pcurve can be represented by Geom2d_Line (parameterised by length)
   Standard_Real aLLength = aVec0.Magnitude();
-  if (Abs(aLLength - dPar) <= Precision::PConfusion())
+  if (Abs(aLLength - dPar) <= Precision1::PConfusion())
   {
     Coords2d    aDirL = aVec0.XY() / aLLength;
     gp_Pnt2d aPL(aP2d[0].XY() - theparams(1) * aDirL);
@@ -859,7 +859,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
     // fill cache
     Standard_Boolean ChangeCycle = Standard_False;
     if (myNbCashe > 0 && myCashe3d[0].Distance(points(1)) > myCashe3d[0].Distance(points(nbrPnt))
-        && myCashe3d[0].Distance(points(nbrPnt)) < Precision::Confusion())
+        && myCashe3d[0].Distance(points(nbrPnt)) < Precision1::Confusion())
       ChangeCycle = Standard_True;
     myNbCashe = 2;
     if (ChangeCycle)
@@ -943,9 +943,9 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
     {
       Cf = cIso->FirstParameter();
       Cl = cIso->LastParameter();
-      if (Precision::IsInfinite(Cf))
+      if (Precision1::IsInfinite(Cf))
         Cf = -1000;
-      if (Precision::IsInfinite(Cl))
+      if (Precision1::IsInfinite(Cl))
         Cl = +1000;
       // pdn S4030 optimizing and fix isopar case on PRO41323
       tdeb = pout(2);
@@ -1027,7 +1027,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
   gp_Pnt2d         aSavedPoint;
   if (myNbCashe > 0 && myCashe3d[0].Distance(points(1)) > myCashe3d[0].Distance(points(nbrPnt)))
     // if(myCashe3d[0].Distance(points(nbrPnt))<myPreci)
-    if (myCashe3d[0].Distance(points(nbrPnt)) < Precision::Confusion())
+    if (myCashe3d[0].Distance(points(nbrPnt)) < Precision1::Confusion())
       ChangeCycle = Standard_True;
   Standard_Boolean needResolveUJump = Standard_False;
   Standard_Boolean needResolveVJump = Standard_False;
@@ -1074,7 +1074,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
           p2d = mySurf->NextValueOfUV(p2d,
                                       p3d,
                                       myPreci, //%12 pdn 15.02.99 optimizing
-                                      Precision::Confusion() + 1000 * gap); //: q1
+                                      Precision1::Confusion() + 1000 * gap); //: q1
           gap = mySurf->Gap();
         }
       }
@@ -1124,7 +1124,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
               if (myCashe3d[j].SquareDistance(p3d) < myPreci * myPreci)
               {
                 p2d =
-                  mySurf->NextValueOfUV(myCashe2d[j], p3d, myPreci, Precision::Confusion() + gap);
+                  mySurf->NextValueOfUV(myCashe2d[j], p3d, myPreci, Precision1::Confusion() + gap);
                 if (aPntIndex == 1)
                 {
                   isFromCashe = Standard_True;
@@ -1144,7 +1144,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
           p2d = mySurf->NextValueOfUV(p2d,
                                       p3d,
                                       myPreci,                              //: S4030: optimizing
-                                      Precision::Confusion() + 1000 * gap); //: q1
+                                      Precision1::Confusion() + 1000 * gap); //: q1
         }
         gap = mySurf->Gap();
       }
@@ -1185,10 +1185,10 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
   }
 
   // Check the extremities of 3d curve for coinciding with singularities of surf
-  // Standard_Integer NbSing = mySurf->NbSingularities(Precision::Confusion());
+  // Standard_Integer NbSing = mySurf->NbSingularities(Precision1::Confusion());
   Point3d        PointFirst = points.First(), PointLast = points.Last();
-  Standard_Real aTolFirst = (TolFirst == -1) ? Precision::Confusion() : TolFirst;
-  Standard_Real aTolLast  = (TolLast == -1) ? Precision::Confusion() : TolLast;
+  Standard_Real aTolFirst = (TolFirst == -1) ? Precision1::Confusion() : TolFirst;
+  Standard_Real aTolLast  = (TolLast == -1) ? Precision1::Confusion() : TolLast;
   for (Standard_Integer i = 1;; i++)
   {
     Standard_Real    aPreci, aFirstPar, aLastPar;
@@ -1197,7 +1197,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
     Standard_Boolean IsUiso;
     if (!mySurf->Singularity(i, aPreci, aP3d, aFirstP2d, aLastP2d, aFirstPar, aLastPar, IsUiso))
       break;
-    if (aPreci <= Precision::Confusion() && PointFirst.Distance(aP3d) <= aTolFirst)
+    if (aPreci <= Precision1::Confusion() && PointFirst.Distance(aP3d) <= aTolFirst)
     {
       CorrectExtremity(c3d,
                        params,
@@ -1206,7 +1206,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
                        aFirstP2d,
                        IsUiso);
     }
-    if (aPreci <= Precision::Confusion() && PointLast.Distance(aP3d) <= aTolLast)
+    if (aPreci <= Precision1::Confusion() && PointLast.Distance(aP3d) <= aTolLast)
     {
       CorrectExtremity(c3d,
                        params,
@@ -1232,8 +1232,8 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
   // Standard_Real Up = ul - uf;
   // Standard_Real Vp = vl - vf;
   Standard_Real       dist2d;
-  const Standard_Real TolOnUPeriod = Precision::Confusion() * Up;
-  const Standard_Real TolOnVPeriod = Precision::Confusion() * Vp;
+  const Standard_Real TolOnUPeriod = Precision1::Confusion() * Up;
+  const Standard_Real TolOnVPeriod = Precision1::Confusion() * Vp;
 #ifdef OCCT_DEBUG
   if (mySurf->IsUClosed(myPreci) && mySurf->IsVClosed(myPreci))
   { // #78 rln 12.03.99 S4135
@@ -1519,7 +1519,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
   // If AdjustOverDegen is True, seam part of curve is adjusted to
   // the left, and if False - to the right parametric boundary
   // If treated case is detected, flag DONE4 is set to status
-  // NOTE: currently, precision is Precision::PConfusion() since it
+  // NOTE: currently, precision is Precision1::PConfusion() since it
   // is enough on encountered example
   // (ug_turbine-A.stp from ProSTEP Benchmark #3, entities ##2470 & 5680)
   // (r1001_ac.stp from Test Rally #10, face #35027 and others)
@@ -1539,9 +1539,9 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
         {
           Standard_Real CurX = pnt2d(ind).X();
           // abv 16 Mar 00: trj3_s1-ug.stp #697: ignore points in singularity
-          if (mySurf->IsDegenerated(points(ind), Precision::Confusion()))
+          if (mySurf->IsDegenerated(points(ind), Precision1::Confusion()))
             continue;
-          OnBound = (Abs(Abs(CurX - 0.5 * (ul + uf)) - Up / 2) <= Precision::PConfusion());
+          OnBound = (Abs(Abs(CurX - 0.5 * (ul + uf)) - Up / 2) <= Precision1::PConfusion());
           if (!start && Abs(Abs(CurX - PrevX) - Up / 2) <= 0.01 * Up)
             break;
           start       = Standard_False;
@@ -1552,7 +1552,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
         if (ind <= pnt2d.Length())
         {
           PrevX            = (myAdjustOverDegen ? uf : ul);
-          Standard_Real dU = Up / 2 + Precision::PConfusion();
+          Standard_Real dU = Up / 2 + Precision1::PConfusion();
           if (PrevOnBound)
           {
             pnt2d(ind - 1).SetX(PrevX);
@@ -1595,9 +1595,9 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
         {
           Standard_Real CurY = pnt2d(ind).Y();
           // abv 16 Mar 00: trj3_s1-ug.stp #697: ignore points in singularity
-          if (mySurf->IsDegenerated(points(ind), Precision::Confusion()))
+          if (mySurf->IsDegenerated(points(ind), Precision1::Confusion()))
             continue;
-          OnBound = (Abs(Abs(CurY - 0.5 * (vl + vf)) - Vp / 2) <= Precision::PConfusion());
+          OnBound = (Abs(Abs(CurY - 0.5 * (vl + vf)) - Vp / 2) <= Precision1::PConfusion());
           if (!start && Abs(Abs(CurY - PrevY) - Vp / 2) <= 0.01 * Vp)
             break;
           start       = Standard_False;
@@ -1608,7 +1608,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
         if (ind <= pnt2d.Length())
         {
           PrevY            = (myAdjustOverDegen ? vf : vl);
-          Standard_Real dV = Vp / 2 + Precision::PConfusion();
+          Standard_Real dV = Vp / 2 + Precision1::PConfusion();
           if (PrevOnBound)
           {
             pnt2d(ind - 1).SetY(PrevY);
@@ -1643,8 +1643,8 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
   myNbCashe = 2;
   if (ChangeCycle)
   { // msv 10.08.04: avoid using of uninitialised field
-    // if(myCashe3d[0].Distance(points(1))>Precision::Confusion() &&
-    //    myCashe3d[1].Distance(points(1))>Precision::Confusion()) {
+    // if(myCashe3d[0].Distance(points(1))>Precision1::Confusion() &&
+    //    myCashe3d[1].Distance(points(1))>Precision1::Confusion()) {
     myCashe3d[0] = points(1);
     myCashe3d[1] = points.Last();
     myCashe2d[0] = pnt2d(1);
@@ -1887,7 +1887,7 @@ void ShapeConstruct_ProjectCurveOnSurface::CorrectExtremity(const Handle(GeomCur
 
   for (;;)
   {
-    if (Abs(SecondPointOfLine.Coord(3 - IndCoord) - FinishCoord) <= 2 * Precision::PConfusion())
+    if (Abs(SecondPointOfLine.Coord(3 - IndCoord) - FinishCoord) <= 2 * Precision1::PConfusion())
       break;
 
     gp_Vec2d      aVec(FirstPointOfLine, SecondPointOfLine);
@@ -1911,12 +1911,12 @@ void ShapeConstruct_ProjectCurveOnSurface::CorrectExtremity(const Handle(GeomCur
     FirstPointOfLine   = SecondPointOfLine;
     FirstParam         = SecondParam;
     SecondParam        = (FirstParam + FinishParam) / 2;
-    if (Abs(SecondParam - FirstParam) <= 2 * Precision::PConfusion())
+    if (Abs(SecondParam - FirstParam) <= 2 * Precision1::PConfusion())
       break;
     Point3d aP3d;
     theC3d->D0(SecondParam, aP3d);
     SecondPointOfLine =
-      mySurf->NextValueOfUV(FirstPointOfLine, aP3d, myPreci, Precision::Confusion());
+      mySurf->NextValueOfUV(FirstPointOfLine, aP3d, myPreci, Precision1::Confusion());
     if (IsPeriodic)
       AdjustSecondPointToFirstPoint(FirstPointOfLine, SecondPointOfLine, mySurf->Surface());
 
@@ -1993,7 +1993,7 @@ void ShapeConstruct_ProjectCurveOnSurface::InsertAdditionalPointOrAdjust(
       while (Abs(MidCoord - prevCoord) >= Period / 2 - TolOnPeriod
              || Abs(CurCoord - MidCoord) >= Period / 2 - TolOnPeriod)
       {
-        if (MidPar - FirstT <= Precision::PConfusion() || LastT - MidPar <= Precision::PConfusion())
+        if (MidPar - FirstT <= Precision1::PConfusion() || LastT - MidPar <= Precision1::PConfusion())
         {
           Success = Standard_False;
           break; // wrong choice
@@ -2218,7 +2218,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::IsAnIsoparametric(
   { // RAJOUT
     OCC_CATCH_SIGNALS
 
-    constexpr Standard_Real prec = Precision::Confusion(); // myPreci;
+    constexpr Standard_Real prec = Precision1::Confusion(); // myPreci;
 
     Standard_Boolean isoParam = Standard_False;
     isoPar2d3d                = Standard_False;
@@ -2254,7 +2254,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::IsAnIsoparametric(
 
       if (j == 1)
       {
-        if (Precision::IsInfinite(U1))
+        if (Precision1::IsInfinite(U1))
           continue;
         cI     = mySurf->UIso(U1);
         isoU   = Standard_True;
@@ -2263,7 +2263,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::IsAnIsoparametric(
       }
       else if (j == 2)
       {
-        if (Precision::IsInfinite(U2))
+        if (Precision1::IsInfinite(U2))
           continue;
         cI     = mySurf->UIso(U2);
         isoU   = Standard_True;
@@ -2272,7 +2272,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::IsAnIsoparametric(
       }
       else if (j == 3)
       {
-        if (Precision::IsInfinite(V1))
+        if (Precision1::IsInfinite(V1))
           continue;
         cI     = mySurf->VIso(V1);
         isoU   = Standard_False;
@@ -2281,7 +2281,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::IsAnIsoparametric(
       }
       else if (j == 4)
       {
-        if (Precision::IsInfinite(V2))
+        if (Precision1::IsInfinite(V2))
           continue;
         cI     = mySurf->VIso(V2);
         isoU   = Standard_False;
@@ -2354,9 +2354,9 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::IsAnIsoparametric(
 
         Standard_Real Cf = cI->FirstParameter();
         Standard_Real Cl = cI->LastParameter();
-        if (Precision::IsInfinite(Cf))
+        if (Precision1::IsInfinite(Cf))
           Cf = -1000;
-        if (Precision::IsInfinite(Cl))
+        if (Precision1::IsInfinite(Cl))
           Cl = +1000;
 
         Curve2 sac;
@@ -2371,7 +2371,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::IsAnIsoparametric(
 
       //: e7 abv 21 Apr 98: ProSTEP TR8, r0501_pe #56679:
       // avoid possible null-length curves
-      if (mp[0] > 0 && mp[1] > 0 && Abs(tp[0] - tp[1]) < Precision::PConfusion())
+      if (mp[0] > 0 && mp[1] > 0 && Abs(tp[0] - tp[1]) < Precision1::PConfusion())
         continue;
 
       if (mp[0] > 0 && (!p1OnIso || currd2[0] < mind2[0]))
@@ -2455,9 +2455,9 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::IsAnIsoparametric(
         Standard_Boolean isoByDistance = Standard_True;
         Cf                             = cIso->FirstParameter();
         Cl                             = cIso->LastParameter();
-        if (Precision::IsInfinite(Cf))
+        if (Precision1::IsInfinite(Cf))
           Cf = -1000;
-        if (Precision::IsInfinite(Cl))
+        if (Precision1::IsInfinite(Cl))
           Cl = +1000;
 
         Curve2 sac;
@@ -2508,7 +2508,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::IsAnIsoparametric(
   }
 }
 
-/* S4135 : BestExtremum is commented after IsAnIsoparametric works with Precision::Confusion()
+/* S4135 : BestExtremum is commented after IsAnIsoparametric works with Precision1::Confusion()
 //=======================================================================
 //function : BestExtremum
 //purpose  : auxiliaire prenant le meilleur extremum si ISO car doute possible
@@ -2527,7 +2527,7 @@ P3ext,const Point3d& P3next) const
 
 //  D abord, calcul p2ext depuis la surface. choix surface/iso
   return P2iso;
-  Standard_Real prec = Precision::Confusion();//myPreci;
+  Standard_Real prec = Precision1::Confusion();//myPreci;
   gp_Pnt2d P2cal = mySurf->ValueOfUV(P3ext, prec);
   Point3d   P3cal = mySurf->Value (P2cal);
   Standard_Real dcal = P3ext.Distance (P3cal);

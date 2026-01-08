@@ -78,7 +78,7 @@ public:
 
   //! Returns a text which is
   //! "Changes Level Number <old> to <new>" , or
-  //! "Changes all Levels Numbers positive and zero to <new>"
+  //! "Changes all Levels Numbers1 positive and zero to <new>"
   Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_ChangeLevelNumber, IGESSelect_ModelModifier)

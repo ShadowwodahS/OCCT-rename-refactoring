@@ -63,7 +63,7 @@ const AsciiString1& Graphic3d_ShaderProgram::ShadersFolder()
     SystemFile                      aProgramFile(aProgram);
     if (!aDir.Exists() || !aProgramFile.Exists())
     {
-      std::cerr << "Standard GLSL programs are not found in: " << THE_SHADERS_FOLDER.ToCString()
+      std::cerr << "Standard1 GLSL programs are not found in: " << THE_SHADERS_FOLDER.ToCString()
                 << std::endl;
       throw ExceptionBase("CSF_ShadersDirectory or CASROOT is set incorrectly");
     }

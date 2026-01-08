@@ -46,8 +46,8 @@ public:
         myTriangles(0L),
         myIndex(-1)
   {
-    myUV[0] = Precision::Infinite();
-    myUV[1] = Precision::Infinite();
+    myUV[0] = Precision1::Infinite();
+    myUV[1] = Precision1::Infinite();
   }
 
   /**
@@ -58,8 +58,8 @@ public:
         myTriangles(0L),
         myIndex(-1)
   {
-    myUV[0]     = Precision::Infinite();
-    myUV[1]     = Precision::Infinite();
+    myUV[0]     = Precision1::Infinite();
+    myUV[1]     = Precision1::Infinite();
     myNormal[0] = 0.f;
     myNormal[1] = 0.f;
     myNormal[2] = 0.f;
@@ -95,7 +95,7 @@ public:
   inline Standard_Boolean HasNormal() const
   {
     return ((myNormal[0] * myNormal[0] + myNormal[1] * myNormal[1] + myNormal[2] * myNormal[2])
-            > Precision::Confusion());
+            > Precision1::Confusion());
   }
 
   /**

@@ -316,7 +316,7 @@ void TangentialDeflectionSampler::EvaluateDu(const TheCurve&     theC,
   Vector3d T, N;
   D2(theC, theU, theP, T, N);
   Standard_Real           Lt   = T.Magnitude();
-  constexpr Standard_Real LTol = Precision::Confusion();
+  constexpr Standard_Real LTol = Precision1::Confusion();
   if (Lt > LTol && N.Magnitude() > LTol)
   {
     Standard_Real Lc = N.CrossMagnitude(T);
@@ -401,7 +401,7 @@ void TangentialDeflectionSampler::initialize(const TheCurve&        theC,
                                              const Standard_Real    theMinLen)
 {
   Standard_ConstructionError_Raise_if(
-    theCurvatureDeflection < Precision::Confusion() || theAngularDeflection < Precision::Angular(),
+    theCurvatureDeflection < Precision1::Confusion() || theAngularDeflection < Precision1::Angular(),
     "TangentialDeflectionSampler::Initialize - Zero Deflection") myParameters.Clear();
   myPoints.Clear();
   if (theFirstParameter < theLastParameter)
@@ -418,7 +418,7 @@ void TangentialDeflectionSampler::initialize(const TheCurve&        theC,
   myAngularDeflection   = theAngularDeflection;
   myCurvatureDeflection = theCurvatureDeflection;
   myMinNbPnts           = Max(theMinimumOfPoints, 2);
-  myMinLen              = Max(theMinLen, Precision::Confusion());
+  myMinLen              = Max(theMinLen, Precision1::Confusion());
 
   switch (theC.GetType())
   {
@@ -459,7 +459,7 @@ Standard_Integer TangentialDeflectionSampler::AddPoint(const Point3d&          t
                                                        const Standard_Real    theParam,
                                                        const Standard_Boolean theIsReplace)
 {
-  constexpr Standard_Real tol   = Precision::PConfusion();
+  constexpr Standard_Real tol   = Precision1::PConfusion();
   Standard_Integer        index = -1;
   const Standard_Integer  nb    = myParameters.Length();
   for (Standard_Integer i = 1; index == -1 && i <= nb; i++)
@@ -499,7 +499,7 @@ Standard_Real TangentialDeflectionSampler::ArcAngularStep(const Standard_Real th
 {
   Standard_ConstructionError_Raise_if(theRadius < 0.0, "Negative radius");
 
-  constexpr Standard_Real aPrecision = Precision::Confusion();
+  constexpr Standard_Real aPrecision = Precision1::Confusion();
 
   Standard_Real Du = 0.0, aMinSizeAng = 0.0;
   if (theRadius > aPrecision)
@@ -526,7 +526,7 @@ void TangentialDeflectionSampler::PerformCurve(const TheCurve& theC)
   Standard_Real    Du, Dusave, MiddleU, L1, L2;
 
   Standard_Real           U1   = myFirstu;
-  constexpr Standard_Real LTol = Precision::Confusion(); // protection longueur nulle
+  constexpr Standard_Real LTol = Precision1::Confusion(); // protection longueur nulle
   Standard_Real           ATol = 1.e-2 * myAngularDeflection;
   if (ATol > 1.e-2)
   {
@@ -796,7 +796,7 @@ void TangentialDeflectionSampler::PerformCurve(const TheCurve& theC)
       {
         if (Coef >= 1.5)
         {
-          if (!aPrevPoint.IsEqual(myPoints.Last(), Precision::Confusion()))
+          if (!aPrevPoint.IsEqual(myPoints.Last(), Precision1::Confusion()))
           {
             myParameters.Append(U1);
             myPoints.Append(aPrevPoint);
@@ -866,7 +866,7 @@ void TangentialDeflectionSampler::PerformCurve(const TheCurve& theC)
   // Recalage avant dernier point :
   i = myPoints.Length() - 1;
   //  Real d = myPoints (i).Distance (myPoints (i+1));
-  // if (Abs(myParameters (i) - myParameters (i+1))<= 0.000001 || d < Precision::Confusion()) {
+  // if (Abs(myParameters (i) - myParameters (i+1))<= 0.000001 || d < Precision1::Confusion()) {
   //    cout<<"deux points confondus"<<endl;
   //    myParameters.Remove (i+1);
   //    myPoints.Remove (i+1);

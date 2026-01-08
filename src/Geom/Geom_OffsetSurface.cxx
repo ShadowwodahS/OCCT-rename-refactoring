@@ -64,7 +64,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Geom_OffsetSurface, GeomSurface)
 
-static const Standard_Real MyAngularToleranceForG1 = Precision::Angular();
+static const Standard_Real MyAngularToleranceForG1 = Precision1::Angular();
 
 //=================================================================================================
 
@@ -208,7 +208,7 @@ void Geom_OffsetSurface::SetBasisSurface(const Handle(GeomSurface)& S,
     // et la mettre en champ, on pourrait utiliser par exemple pour l'extraction d'iso
     // et aussi pour les singularite. Pour les surfaces osculatrices, on l'utilise pour
     // detecter si une iso est degeneree.
-    constexpr Standard_Real Tol = Precision::Confusion(); // 0.0001;
+    constexpr Standard_Real Tol = Precision1::Confusion(); // 0.0001;
     myOscSurf                   = new Geom_OsculatingSurface(aCheckingSurf, Tol);
   }
 
@@ -518,7 +518,7 @@ Handle(GeomCurve3d) Geom_OffsetSurface::UIso(const Standard_Real UU) const
     if (aGAsurf.GetType() == GeomAbs_SurfaceOfExtrusion)
     {
       Handle(GeomCurve3d) aL = basisSurf->UIso(UU);
-      GeomLProp_SLProps  aSurfProps(basisSurf, UU, 0., 2, Precision::Confusion());
+      GeomLProp_SLProps  aSurfProps(basisSurf, UU, 0., 2, Precision1::Confusion());
 
       Vector3d aDir;
       aDir = aSurfProps.Normal();
@@ -529,7 +529,7 @@ Handle(GeomCurve3d) Geom_OffsetSurface::UIso(const Standard_Real UU) const
     }
     const Standard_Integer        Num1 = 0, Num2 = 0, Num3 = 1;
     Handle(TColStd_HArray1OfReal) T1, T2, T3               = new TColStd_HArray1OfReal(1, Num3);
-    T3->Init(Precision::Approximation());
+    T3->Init(Precision1::Approximation());
     Standard_Real U1, U2, V1, V2;
     Bounds(U1, U2, V1, V2);
     const GeomAbs_Shape    Cont   = GeomAbs_C1;
@@ -567,7 +567,7 @@ Handle(GeomCurve3d) Geom_OffsetSurface::VIso(const Standard_Real VV) const
   {
     const Standard_Integer        Num1 = 0, Num2 = 0, Num3 = 1;
     Handle(TColStd_HArray1OfReal) T1, T2, T3               = new TColStd_HArray1OfReal(1, Num3);
-    T3->Init(Precision::Approximation());
+    T3->Init(Precision1::Approximation());
     Standard_Real U1, U2, V1, V2;
     Bounds(U1, U2, V1, V2);
     const GeomAbs_Shape    Cont   = GeomAbs_C1;
@@ -784,7 +784,7 @@ Handle(GeomSurface) Geom_OffsetSurface::Surface() const
   if (offsetValue == 0.0)
     return basisSurf; // Cas direct
 
-  constexpr Standard_Real Tol = Precision::Confusion();
+  constexpr Standard_Real Tol = Precision1::Confusion();
   Handle(GeomSurface)    Result, Base;
   Result.Nullify();
   Handle(TypeInfo) TheType = basisSurf->DynamicType();

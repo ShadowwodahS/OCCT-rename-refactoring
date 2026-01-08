@@ -51,9 +51,9 @@ Vrml_Material::Vrml_Material(const Handle(Quantity_HArray1OfColor)& aAmbientColo
 Vrml_Material::Vrml_Material()
 {
   myAmbientColor =
-    new Quantity_HArray1OfColor(1, 1, Quantity_Color(0.2, 0.2, 0.2, Quantity_TOC_sRGB));
+    new Quantity_HArray1OfColor(1, 1, Color1(0.2, 0.2, 0.2, Quantity_TOC_sRGB));
   myDiffuseColor =
-    new Quantity_HArray1OfColor(1, 1, Quantity_Color(0.8, 0.8, 0.8, Quantity_TOC_sRGB));
+    new Quantity_HArray1OfColor(1, 1, Color1(0.8, 0.8, 0.8, Quantity_TOC_sRGB));
   mySpecularColor = new Quantity_HArray1OfColor(1, 1, Quantity_NOC_BLACK);
   myEmissiveColor = new Quantity_HArray1OfColor(1, 1, Quantity_NOC_BLACK);
 

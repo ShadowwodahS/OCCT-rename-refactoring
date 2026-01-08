@@ -123,8 +123,8 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
   PCurve.SetAccuracy(20);
   Inter.SetReversedParameters(ReversedParameters());
 
-  Standard_Real binf   = Precision::Infinite();
-  Standard_Real bsup   = -Precision::Infinite();
+  Standard_Real binf   = Precision1::Infinite();
+  Standard_Real bsup   = -Precision1::Infinite();
   Standard_Real maxtol = (Tol > TolConf) ? Tol : TolConf;
   if (maxtol < 1.e-7)
     maxtol = 1.e-7;
@@ -241,7 +241,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
 
   Inter.SetReversedParameters(ReversedParameters());
 
-  Standard_Real binf = Precision::Infinite(), bsup = -Precision::Infinite(), maxtol;
+  Standard_Real binf = Precision1::Infinite(), bsup = -Precision1::Infinite(), maxtol;
   gp_Pnt2d      Pntinf, Pntsup;
   if (Tol > TolConf)
     maxtol = Tol;
@@ -349,7 +349,7 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       C,
     D.SetEquivalentParameters(DC.FirstParameter(), DC.FirstParameter() + M_PI + M_PI);
   }
 
-  Standard_Real binf = Precision::Infinite(), bsup = -Precision::Infinite(), maxtol;
+  Standard_Real binf = Precision1::Infinite(), bsup = -Precision1::Infinite(), maxtol;
   gp_Pnt2d      Pntinf, Pntsup;
   maxtol = C.Radius() / 10.0;
   gp_Circ2d Cp(C);
@@ -501,7 +501,7 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       C,
   {
     D.SetEquivalentParameters(DC.FirstParameter(), DC.FirstParameter() + M_PI + M_PI);
   }
-  Standard_Real binf = Precision::Infinite(), bsup = -Precision::Infinite(), maxtol;
+  Standard_Real binf = Precision1::Infinite(), bsup = -Precision1::Infinite(), maxtol;
   gp_Pnt2d      Pntinf, Pntsup;
   maxtol = C.Radius() / 10.0;
   gp_Vec2d  Offset(maxtol * H.XAxis().Direction().X(), maxtol * H.XAxis().Direction().Y());
@@ -597,7 +597,7 @@ void IntCurve_IntConicConic::Perform(const gp_Parab2d&      P1,
   PCurve.SetAccuracy(20);
   Inter.SetReversedParameters(ReversedParameters());
 
-  Standard_Real binf = Precision::Infinite(), bsup = -Precision::Infinite(), maxtol;
+  Standard_Real binf = Precision1::Infinite(), bsup = -Precision1::Infinite(), maxtol;
   gp_Pnt2d      Pntinf, Pntsup;
   if (Tol > TolConf)
     maxtol = Tol;
@@ -708,7 +708,7 @@ void IntCurve_IntConicConic::Perform(const gp_Elips2d&      E,
 
   //-- std::cout<<" Parab Elips "<<std::endl;
 
-  Standard_Real binf = Precision::Infinite(), bsup = -Precision::Infinite(), maxtol;
+  Standard_Real binf = Precision1::Infinite(), bsup = -Precision1::Infinite(), maxtol;
   gp_Pnt2d      Pntinf, Pntsup;
   if (Tol > TolConf)
     maxtol = Tol;
@@ -815,7 +815,7 @@ void IntCurve_IntConicConic::Perform(const gp_Parab2d&      P,
   ParametricConic     PCurve(H);
   Inter.SetReversedParameters(ReversedParameters());
 
-  Standard_Real binf = Precision::Infinite(), bsup = -Precision::Infinite(), maxtol;
+  Standard_Real binf = Precision1::Infinite(), bsup = -Precision1::Infinite(), maxtol;
   gp_Pnt2d      Pntinf, Pntsup;
   if (Tol > TolConf)
     maxtol = Tol;
@@ -973,7 +973,7 @@ void IntCurve_IntConicConic::Perform(const gp_Elips2d&      E,
     DEModif.SetEquivalentParameters(DE.FirstParameter(), DE.FirstParameter() + M_PI + M_PI);
   }
 
-  Standard_Real binf = Precision::Infinite(), bsup = -Precision::Infinite(), maxtol;
+  Standard_Real binf = Precision1::Infinite(), bsup = -Precision1::Infinite(), maxtol;
   gp_Pnt2d      Pntinf, Pntsup;
   maxtol = E.MinorRadius() / 10.0;
   gp_Vec2d  Offset(maxtol * H.XAxis().Direction().X(), maxtol * H.XAxis().Direction().Y());
@@ -1076,7 +1076,7 @@ void IntCurve_IntConicConic::Perform(const gp_Hypr2d&       H1,
 
   Inter.SetReversedParameters(ReversedParameters());
 
-  Standard_Real binf = Precision::Infinite(), bsup = -Precision::Infinite(), maxtol;
+  Standard_Real binf = Precision1::Infinite(), bsup = -Precision1::Infinite(), maxtol;
   gp_Pnt2d      Pntinf, Pntsup;
   if (Tol > TolConf)
     maxtol = Tol;

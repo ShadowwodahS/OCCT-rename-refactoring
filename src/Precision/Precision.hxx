@@ -21,7 +21,7 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Real.hxx>
 
-//! The Precision package offers a set of functions defining precision criteria
+//! The Precision1 package offers a set of functions defining precision criteria
 //! for use in conventional situations when comparing two numbers.
 //! Generalities
 //! It is not advisable to use floating number equality. Instead, the difference
@@ -32,37 +32,37 @@
 //! If ( x1 == x2 ) ...
 //! should not be used and must be written as indicated below:
 //! Standard_Real x1, x2 ;
-//! Standard_Real Precision = ...
+//! Standard_Real Precision1 = ...
 //! x1 = ...
 //! x2 = ...
-//! If ( Abs ( x1 - x2 ) < Precision ) ...
+//! If ( Abs ( x1 - x2 ) < Precision1 ) ...
 //! Likewise, when ordering floating numbers, you must take the following into account :
 //! Standard_Real x1, x2 ;
-//! Standard_Real Precision = ...
+//! Standard_Real Precision1 = ...
 //! x1 = ...       ! a large number
 //! x2 = ...       ! another large number
-//! If ( x1 < x2 - Precision ) ...
+//! If ( x1 < x2 - Precision1 ) ...
 //! is incorrect when x1 and x2 are large numbers ; it is better to write :
 //! Standard_Real x1, x2 ;
-//! Standard_Real Precision = ...
+//! Standard_Real Precision1 = ...
 //! x1 = ...       ! a large number
 //! x2 = ...       ! another large number
-//! If ( x2 - x1 > Precision ) ...
-//! Precision in Cas.Cade
+//! If ( x2 - x1 > Precision1 ) ...
+//! Precision1 in Cas.Cade
 //! Generally speaking, the precision criterion is not implicit in Cas.Cade. Low-level geometric
 //! algorithms accept precision criteria as arguments. As a rule, they should not refer directly to
-//! the precision criteria provided by the Precision package. On the other hand, high-level modeling
+//! the precision criteria provided by the Precision1 package. On the other hand, high-level modeling
 //! algorithms have to provide the low-level geometric algorithms that they call, with a precision
 //! criteria. One way of doing this is to use the above precision criteria. Alternatively, the
 //! high-level algorithms can have their own system for precision management. For example, the
 //! Topology Data Structure stores precision criteria for each elementary shape (as a vertex, an
 //! edge or a face). When a new topological object is constructed, the precision criteria are taken
-//! from those provided by the Precision package, and stored in the related data structure. Later, a
+//! from those provided by the Precision1 package, and stored in the related data structure. Later, a
 //! topological algorithm which analyses these objects will work with the values stored in the data
 //! structure. Also, if this algorithm is to build a new topological object, from these precision
 //! criteria, it will compute a new precision criterion for the new topological object, and write it
 //! into the data structure of the new topological object. The different precision criteria offered
-//! by the Precision package, cover the most common requirements of geometric algorithms, such as
+//! by the Precision1 package, cover the most common requirements of geometric algorithms, such as
 //! intersections, approximations, and so on. The choice of precision depends on the algorithm and
 //! on the geometric space. The geometric space may be :
 //! -   a "real" 2D or 3D space, where the lengths are measured in meters, millimeters, microns,
@@ -77,7 +77,7 @@
 //! the inequation : Distance ( P(t2) , P(t1) ) < RealPrecision means that the points P(t1) and
 //! P(t2) are considered to be coincident. It seems to be the same idea, and it would be wonderful
 //! if these two inequations were equivalent. Note that this is rarely the case ! What is provided
-//! in this package? The Precision package provides :
+//! in this package? The Precision1 package provides :
 //! -   a set of real space precision criteria for the algorithms, in view of checking distances and
 //! angles,
 //! -   a set of parametric space precision criteria for the algorithms, in view of checking both :
@@ -96,7 +96,7 @@
 //! They must next decide which precision factor will give the best answer to the current problem.
 //! Within an application environment, it is crucial to master precision even though this process
 //! may take a great deal of time.
-class Precision
+class Precision1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -104,12 +104,12 @@ public:
   //! Returns the recommended precision value
   //! when checking the equality of two angles (given in radians).
   //! Standard_Real Angle1 = ... , Angle2 = ... ;
-  //! If ( Abs( Angle2 - Angle1 ) < Precision::Angular() ) ...
+  //! If ( Abs( Angle2 - Angle1 ) < Precision1::Angular() ) ...
   //! The tolerance of angular equality may be used to check the parallelism of two vectors :
   //! Vector3d V1, V2 ;
   //! V1 = ...
   //! V2 = ...
-  //! If ( V1.IsParallel (V2, Precision::Angular() ) ) ...
+  //! If ( V1.IsParallel (V2, Precision1::Angular() ) ) ...
   //! The tolerance of angular equality is equal to 1.e-12.
   //! Note : The tolerance of angular equality can be used when working with scalar products or
   //! cross products since sines and angles are equivalent for small angles. Therefore, in order to
@@ -118,7 +118,7 @@ public:
   //! D1 = ...
   //! D2 = ...
   //! you can use :
-  //! If ( Abs( D1.D2 ) < Precision::Angular() ) ...
+  //! If ( Abs( D1.D2 ) < Precision1::Angular() ) ...
   //! (although the function IsNormal does exist).
   static constexpr Standard_Real Angular() { return 1.e-12; }
 
@@ -131,12 +131,12 @@ public:
   //! Point3d P1, P2 ;
   //! P1 = ...
   //! P2 = ...
-  //! if ( P1.IsEqual ( P2 , Precision::Confusion() ) )
+  //! if ( P1.IsEqual ( P2 , Precision1::Confusion() ) )
   //! then ...
   //! -   A vector is considered to be null if it has a null length :
   //! Vector3d V ;
   //! V = ...
-  //! if ( V.Magnitude() < Precision::Confusion() ) then ...
+  //! if ( V.Magnitude() < Precision1::Confusion() ) then ...
   //! The tolerance of confusion is equal to 1.e-7.
   //! The value of the tolerance of confusion is also used to
   //! define :
@@ -188,7 +188,7 @@ public:
   //! be large enough to minimize the time required by the
   //! process to converge to a solution.
   //! The tolerance of intersection is equal to :
-  //! Precision::Confusion() / 100.
+  //! Precision1::Confusion() / 100.
   //! (that is, 1.e-9).
   static constexpr Standard_Real Intersection() { return Confusion() * 0.01; }
 
@@ -201,7 +201,7 @@ public:
   //! approximation process. That is why the tolerance of
   //! approximation is greater than the tolerance of confusion.
   //! The tolerance of approximation is equal to :
-  //! Precision::Confusion() * 10.
+  //! Precision1::Confusion() * 10.
   //! (that is, 1.e-6).
   //! You may use a smaller tolerance in an approximation
   //! algorithm, but this option might be costly.
@@ -228,7 +228,7 @@ public:
   //! isoparametric curve of a surface) generates a segment
   //! whose length is equal to 100. (default value), or T.
   //! The parametric tolerance of confusion is equal to :
-  //! -   Precision::Confusion() / 100., or Precision::Confusion() / T.
+  //! -   Precision1::Confusion() / 100., or Precision1::Confusion() / T.
   //! The value of the parametric tolerance of confusion is also used to define :
   //! -   the parametric tolerance of intersection, and
   //! -   the parametric tolerance of approximation.
@@ -282,7 +282,7 @@ public:
   //! (or an isoparametric curve of a surface) generates a
   //! segment whose length is equal to 100. (default value), or T.
   //! The parametric tolerance of intersection is equal to :
-  //! -   Precision::Intersection() / 100., or Precision::Intersection() / T.
+  //! -   Precision1::Intersection() / 100., or Precision1::Intersection() / T.
   static constexpr Standard_Real PIntersection(const Standard_Real T)
   {
     return Parametric(Intersection(), T);
@@ -300,7 +300,7 @@ public:
   //! (or an isoparametric curve of a surface) generates a
   //! segment whose length is equal to 100. (default value), or T.
   //! The parametric tolerance of intersection is equal to :
-  //! -   Precision::Approximation() / 100., or Precision::Approximation() / T.
+  //! -   Precision1::Approximation() / 100., or Precision1::Approximation() / T.
   static constexpr Standard_Real PApproximation(const Standard_Real T)
   {
     return Parametric(Approximation(), T);
@@ -315,40 +315,40 @@ public:
   //! Used  to test distances  in parametric  space on a
   //! default curve.
   //!
-  //! This is Precision::Parametric(Precision::Confusion())
+  //! This is Precision1::Parametric(Precision1::Confusion())
   static constexpr Standard_Real PConfusion() { return Confusion() * 0.01; }
 
   //! Used for Intersections  in parametric  space  on a
   //! default curve.
   //!
-  //! This is Precision::Parametric(Precision::Intersection())
+  //! This is Precision1::Parametric(Precision1::Intersection())
   static constexpr Standard_Real PIntersection() { return Intersection() * 0.01; }
 
   //! Used for  Approximations  in parametric space on a
   //! default curve.
   //!
-  //! This is Precision::Parametric(Precision::Approximation())
+  //! This is Precision1::Parametric(Precision1::Approximation())
   static constexpr Standard_Real PApproximation() { return Approximation() * 0.01; }
 
   //! Returns True if R may be considered as an infinite
   //! number. Currently Abs(R) > 1e100
   static inline Standard_Boolean IsInfinite(const Standard_Real R)
   {
-    return Abs(R) >= (0.5 * Precision::Infinite());
+    return Abs(R) >= (0.5 * Precision1::Infinite());
   }
 
   //! Returns True if R may be considered as  a positive
   //! infinite number. Currently R > 1e100
   static constexpr Standard_Boolean IsPositiveInfinite(const Standard_Real R)
   {
-    return R >= (0.5 * Precision::Infinite());
+    return R >= (0.5 * Precision1::Infinite());
   }
 
   //! Returns True if R may  be considered as a negative
   //! infinite number. Currently R < -1e100
   static constexpr Standard_Boolean IsNegativeInfinite(const Standard_Real R)
   {
-    return R <= -(0.5 * Precision::Infinite());
+    return R <= -(0.5 * Precision1::Infinite());
   }
 
   //! Returns a  big number that  can  be  considered as

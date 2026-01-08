@@ -46,7 +46,7 @@ Handle(GeomSurface) BRepOffset1::Surface(const Handle(GeomSurface)& Surface,
                                          BRepOffset_Status&          theStatus,
                                          Standard_Boolean            allowC0)
 {
-  constexpr Standard_Real Tol = Precision::Confusion();
+  constexpr Standard_Real Tol = Precision1::Confusion();
 
   theStatus = BRepOffset_Good;
   Handle(GeomSurface) Result;

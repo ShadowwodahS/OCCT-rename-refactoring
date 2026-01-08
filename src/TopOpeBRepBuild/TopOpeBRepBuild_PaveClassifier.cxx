@@ -215,7 +215,7 @@ void TopOpeBRepBuild_PaveClassifier::AdjustOnPeriodic()
   Standard_Real p1 = myP1, p2 = myP2;
 #endif
 
-  Standard_Real tol = Precision::PConfusion();
+  Standard_Real tol = Precision1::PConfusion();
 
   if (mySameParameters)
   {

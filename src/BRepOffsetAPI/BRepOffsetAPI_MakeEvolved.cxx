@@ -70,7 +70,7 @@ BRepOffsetAPI_MakeEvolved::BRepOffsetAPI_MakeEvolved(const TopoShape&    Spine,
     if (!AxeProf)
     {
       Standard_Boolean POS;
-      BRepFill1::Axe(Spine, Profil, Axis, POS, Max(Tol, Precision::Confusion()));
+      BRepFill1::Axe(Spine, Profil, Axis, POS, Max(Tol, Precision1::Confusion()));
       if (ProfOnSpine && !POS)
         return;
     }

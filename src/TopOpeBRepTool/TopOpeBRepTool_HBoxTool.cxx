@@ -119,7 +119,7 @@ void TopOpeBRepTool_HBoxTool::ComputeBoxOnVertices(const TopoShape& S, Box2& B)
     B.Update(-1.e5, -1.e5, -1.e5, 1.e5, 1.e5, 1.e5);
     return;
   }
-  Standard_Real tol = Precision::Confusion();
+  Standard_Real tol = Precision1::Confusion();
   for (; ex.More(); ex.Next())
   {
     Standard_Real x, y, z;

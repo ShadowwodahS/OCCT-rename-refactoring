@@ -231,7 +231,7 @@ Handle(MeshTriangulation) RWStl1::ReadAscii(const SystemPath&              theFi
   aStream->seekg(0, aStream->beg);
 
   Reader                  aReader;
-  Standard_ReadLineBuffer aBuffer(THE_BUFFER_SIZE);
+  ReadLineBuffer aBuffer(THE_BUFFER_SIZE);
   if (!aReader.ReadAscii(*aStream, aBuffer, theEnd, theProgress))
   {
     return Handle(MeshTriangulation)();

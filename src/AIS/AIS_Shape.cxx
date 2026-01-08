@@ -330,7 +330,7 @@ void VisualShape::ComputeSelection(const Handle(SelectionContainer)& aSelection,
   StdSelect1::SetDrawerForBRepOwner(aSelection, myDrawer);
 }
 
-void VisualShape::Color(Quantity_Color& theColor) const
+void VisualShape::Color(Color1& theColor) const
 {
   if (const Handle(Prs3d_ShadingAspect)& aShading = myDrawer->ShadingAspect())
   {
@@ -354,7 +354,7 @@ Standard_Real VisualShape::Transparency() const
 //=================================================================================================
 
 bool VisualShape::setColor(const Handle(StyleDrawer)& theDrawer,
-                         const Quantity_Color&       theColor) const
+                         const Color1&       theColor) const
 {
   bool toRecompute = false;
   toRecompute      = theDrawer->SetupOwnShadingAspect() || toRecompute;
@@ -375,7 +375,7 @@ bool VisualShape::setColor(const Handle(StyleDrawer)& theDrawer,
 
 //=================================================================================================
 
-void VisualShape::SetColor(const Quantity_Color& theColor)
+void VisualShape::SetColor(const Color1& theColor)
 {
   const bool toRecompute = setColor(myDrawer, theColor);
   myDrawer->SetColor(theColor);
@@ -403,7 +403,7 @@ void VisualShape::UnsetColor()
 
   hasOwnColor = Standard_False;
   myDrawer->SetColor(myDrawer->HasLink() ? myDrawer->Link1()->Color()
-                                         : Quantity_Color(Quantity_NOC_WHITE));
+                                         : Color1(Quantity_NOC_WHITE));
 
   Graphic3d_MapOfAspectsToAspects aReplaceMap;
   if (!HasWidth())
@@ -423,7 +423,7 @@ void VisualShape::UnsetColor()
   }
   else
   {
-    Quantity_Color aColor = Quantity_NOC_YELLOW;
+    Color1 aColor = Quantity_NOC_YELLOW;
     if (myDrawer->HasLink())
     {
       GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Line, aColor);
@@ -468,7 +468,7 @@ void VisualShape::UnsetColor()
   {
     const Graphic3d_MaterialAspect aDefaultMat(Graphic3d_NameOfMaterial_Brass);
     Graphic3d_MaterialAspect       mat                 = aDefaultMat;
-    Quantity_Color                 anInteriorColors[2] = {Quantity_NOC_CYAN1, Quantity_NOC_CYAN1};
+    Color1                 anInteriorColors[2] = {Quantity_NOC_CYAN1, Quantity_NOC_CYAN1};
     if (myDrawer->HasLink())
     {
       anInteriorColors[0] = myDrawer->Link1()->ShadingAspect()->Aspect()->InteriorColor();
@@ -483,7 +483,7 @@ void VisualShape::UnsetColor()
     }
     if (HasMaterial())
     {
-      const Quantity_Color aColor =
+      const Color1 aColor =
         myDrawer->HasLink() ? myDrawer->Link1()->ShadingAspect()->Color(myCurrentFacingModel)
                             : aDefaultMat.AmbientColor();
       mat.SetColor(aColor);
@@ -602,7 +602,7 @@ void VisualShape::setMaterial(const Handle(StyleDrawer)&     theDrawer,
 {
   theDrawer->SetupOwnShadingAspect();
 
-  const Quantity_Color aColor  = theDrawer->ShadingAspect()->Color(myCurrentFacingModel);
+  const Color1 aColor  = theDrawer->ShadingAspect()->Color(myCurrentFacingModel);
   const Standard_Real  aTransp = theDrawer->ShadingAspect()->Transparency(myCurrentFacingModel);
   theDrawer->ShadingAspect()->SetMaterial(theMaterial, myCurrentFacingModel);
 

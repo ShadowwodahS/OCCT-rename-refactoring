@@ -100,9 +100,9 @@ struct Material4
   //! Initialize material
   void Init(const OpenGl_Context&           theCtx,
             const Graphic3d_MaterialAspect& theFront,
-            const Quantity_Color&           theFrontColor,
+            const Color1&           theFrontColor,
             const Graphic3d_MaterialAspect& theBack,
-            const Quantity_Color&           theBackColor);
+            const Color1&           theBackColor);
 
   //! Check this material for equality with another material (without tolerance!).
   bool IsEqual(const Material4& theOther) const
@@ -134,7 +134,7 @@ private:
   //! Initialize material
   void init(const OpenGl_Context&           theCtx,
             const Graphic3d_MaterialAspect& theMat,
-            const Quantity_Color&           theColor,
+            const Color1&           theColor,
             const Standard_Integer          theIndex);
 };
 

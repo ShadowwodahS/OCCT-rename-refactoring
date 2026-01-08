@@ -122,9 +122,9 @@ Handle(BRep_CurveRepresentation) BRep_CurveOnClosedSurface::Copy() const
 
 void BRep_CurveOnClosedSurface::Update()
 {
-  if (!Precision::IsNegativeInfinite(First()))
+  if (!Precision1::IsNegativeInfinite(First()))
     myPCurve2->D0(First(), myUV21);
-  if (!Precision::IsPositiveInfinite(Last()))
+  if (!Precision1::IsPositiveInfinite(Last()))
     myPCurve2->D0(Last(), myUV22);
   BRep_CurveOnSurface::Update();
 }

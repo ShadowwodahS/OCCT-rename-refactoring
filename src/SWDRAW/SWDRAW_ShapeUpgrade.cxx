@@ -1070,7 +1070,7 @@ static Standard_Integer splitface(DrawInterpreter& di, Standard_Integer argc, co
     Uf = Umin;
   else if (Uf > Umin)
   {
-    if (Precision::IsInfinite(Umin))
+    if (Precision1::IsInfinite(Umin))
       Uf -= 100;
     else
       Uf = Umin;
@@ -1079,7 +1079,7 @@ static Standard_Integer splitface(DrawInterpreter& di, Standard_Integer argc, co
     Vf = Vmin;
   else if (Vf > Vmin)
   {
-    if (Precision::IsInfinite(Vmin))
+    if (Precision1::IsInfinite(Vmin))
       Vf -= 100;
     else
       Vf = Vmin;
@@ -1088,7 +1088,7 @@ static Standard_Integer splitface(DrawInterpreter& di, Standard_Integer argc, co
     Ul = Umax;
   else if (Ul < Umax)
   {
-    if (Precision::IsInfinite(Umax))
+    if (Precision1::IsInfinite(Umax))
       Ul += 100;
     else
       Ul = Umax;
@@ -1097,7 +1097,7 @@ static Standard_Integer splitface(DrawInterpreter& di, Standard_Integer argc, co
     Vl = Vmax;
   else if (Vl < Vmax)
   {
-    if (Precision::IsInfinite(Vmax))
+    if (Precision1::IsInfinite(Vmax))
       Vl += 100;
     else
       Vl = Vmax;
@@ -1118,13 +1118,13 @@ static Standard_Integer splitface(DrawInterpreter& di, Standard_Integer argc, co
     {
       Standard_Real           val  = Draw1::Atof(argv[i]);
       TColStd_SequenceOfReal& vals = (byV ? vval : uval);
-      if (vals.Length() > 0 && val - vals.Last() < Precision::PConfusion())
+      if (vals.Length() > 0 && val - vals.Last() < Precision1::PConfusion())
       {
         di << "Values should be sorted in increasing order; skipped\n";
         continue;
       }
-      if ((byV && (val < Vf + Precision::PConfusion() || val > Vl - Precision::PConfusion()))
-          || (!byV && (val < Uf + Precision::PConfusion() || val > Ul - Precision::PConfusion())))
+      if ((byV && (val < Vf + Precision1::PConfusion() || val > Vl - Precision1::PConfusion()))
+          || (!byV && (val < Uf + Precision1::PConfusion() || val > Ul - Precision1::PConfusion())))
       {
         di << "Values should be inside range of surface; skipped\n";
         continue;
@@ -1196,7 +1196,7 @@ static Standard_Integer splitface(DrawInterpreter& di, Standard_Integer argc, co
 
   ShapeFix_ComposeShell SUCS;
   TopLoc_Location       l;
-  SUCS.Init(Grid, l, face, Precision::Confusion());
+  SUCS.Init(Grid, l, face, Precision1::Confusion());
   Handle(ShapeBuild_ReShape) RS = new ShapeBuild_ReShape;
   SUCS.SetContext(RS);
   SUCS.Perform();
@@ -1510,8 +1510,8 @@ static Standard_Integer unifysamedom(DrawInterpreter& di, Standard_Integer n, co
   Standard_Boolean    anConBS         = Standard_False;
   Standard_Boolean    isAllowInternal = Standard_False;
   Standard_Boolean    isSafeInputMode = Standard_True;
-  Standard_Real       aLinTol         = Precision::Confusion();
-  Standard_Real       aAngTol         = Precision::Angular();
+  Standard_Real       aLinTol         = Precision1::Confusion();
+  Standard_Real       aAngTol         = Precision1::Angular();
   TopoShape        aKeepShape;
   TopTools_MapOfShape aMapOfShapes;
 

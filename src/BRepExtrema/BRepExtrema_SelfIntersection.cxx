@@ -141,7 +141,7 @@ ElementFilter::FilterResult BRepExtrema_SelfIntersection::isRegularSharedVertex(
   Standard_Integer anX;
   Standard_Integer anY;
 
-  if (aCrossLine.SquareModulus() < Precision::SquareConfusion()) // coplanar case
+  if (aCrossLine.SquareModulus() < Precision1::SquareConfusion()) // coplanar case
   {
     getProjectionAxes(aTrng0Normal, anX, anY);
 
@@ -211,7 +211,7 @@ ElementFilter::FilterResult BRepExtrema_SelfIntersection::isRegularSharedEdge(
 
   BVH_Vec3d aCrossLine = BVH_Vec3d::Cross(aTrng0Normal, aTrng1Normal);
 
-  if (aCrossLine.SquareModulus() > Precision::SquareConfusion()) // non-coplanar case
+  if (aCrossLine.SquareModulus() > Precision1::SquareConfusion()) // non-coplanar case
   {
     return ElementFilter::NoCheck;
   }
@@ -252,7 +252,7 @@ ElementFilter::FilterResult BRepExtrema_SelfIntersection::PreCheckElements(
     for (Standard_Integer aVertIdx2 = 0; aVertIdx2 < 3; ++aVertIdx2)
     {
       if ((aTrng0Vtxs[aVertIdx1] - aTrng1Vtxs[aVertIdx2]).SquareModulus()
-          < Precision::SquareConfusion())
+          < Precision1::SquareConfusion())
       {
         aSharedVtxs.push_back(std::pair<Standard_Integer, Standard_Integer>(aVertIdx1, aVertIdx2));
 

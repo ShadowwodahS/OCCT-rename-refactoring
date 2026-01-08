@@ -351,7 +351,7 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferConicArc(const Handle(IGESGeo
     // The dimensions should be also obliged:
     //[a]=[b]=[c]=L^-2
     // if ( (Abs(a-c) <= GetEpsGeom()) && (Abs(b) < GetEpsCoeff()))
-    constexpr Standard_Real eps2 = Precision::PConfusion() * Precision::PConfusion();
+    constexpr Standard_Real eps2 = Precision1::PConfusion() * Precision1::PConfusion();
     if ((Abs(a - c) <= eps2) && (Abs(b) < eps2))
     {
 
@@ -368,9 +368,9 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferConicArc(const Handle(IGESGeo
 
         t1 = ElCLib1::Parameter(circ, startPoint);
         t2 = ElCLib1::Parameter(circ, endPoint);
-        if (t1 > t2 && (t1 - t2) > Precision::Confusion())
+        if (t1 > t2 && (t1 - t2) > Precision1::Confusion())
           t2 += 2. * M_PI;
-        if (Abs(t1 - t2) <= Precision::Confusion())
+        if (Abs(t1 - t2) <= Precision1::Confusion())
         { // t1 = t2
           Message_Msg msg1160("IGES_1160");
           SendWarning(st, msg1160);
@@ -402,7 +402,7 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferConicArc(const Handle(IGESGeo
 
     t1 = ElCLib1::Parameter(parab, startPoint);
     t2 = ElCLib1::Parameter(parab, endPoint);
-    if (Abs(t1 - t2) <= Precision::Confusion())
+    if (Abs(t1 - t2) <= Precision1::Confusion())
     { // t1 = t2
       Message_Msg msg1160("IGES_1160");
       SendWarning(st, msg1160);
@@ -431,9 +431,9 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferConicArc(const Handle(IGESGeo
 
       t1 = ElCLib1::Parameter(elips, startPoint);
       t2 = ElCLib1::Parameter(elips, endPoint);
-      if (t2 < t1 && (t1 - t2) > Precision::Confusion())
+      if (t2 < t1 && (t1 - t2) > Precision1::Confusion())
         t2 += 2. * M_PI;
-      if (Abs(t1 - t2) <= Precision::Confusion())
+      if (Abs(t1 - t2) <= Precision1::Confusion())
       { // t1 = t2
         Message_Msg msg1160("IGES_1160");
         SendWarning(st, msg1160);
@@ -454,7 +454,7 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferConicArc(const Handle(IGESGeo
     res = new Geom_Hyperbola(frame, majorRadius, minorRadius);
 
     // pdn taking PConfusion for parameters.
-    if (Abs(t1 - t2) <= Precision::PConfusion())
+    if (Abs(t1 - t2) <= Precision1::PConfusion())
     { // t1 = t2
       Message_Msg msg1160("IGES_1160");
       SendWarning(st, msg1160);
@@ -531,7 +531,7 @@ Handle(GeomCurve2d) IGESToBRep_BasicCurve::Transfer2dConicArc(const Handle(IGESG
 
     // #60 rln 29.12.98 PRO17015
     // if ( (Abs(a-c) <= GetEpsGeom()) && (Abs(b) < GetEpsCoeff()))
-    constexpr Standard_Real eps2 = Precision::PConfusion() * Precision::PConfusion();
+    constexpr Standard_Real eps2 = Precision1::PConfusion() * Precision1::PConfusion();
     if ((Abs(a - c) <= eps2) && (Abs(b) < eps2))
     {
 
@@ -553,9 +553,9 @@ Handle(GeomCurve2d) IGESToBRep_BasicCurve::Transfer2dConicArc(const Handle(IGESG
         t1 = ElCLib1::Parameter(circ, startPoint);
         t2 = ElCLib1::Parameter(circ, endPoint);
 
-        if (t2 < t1 && (t1 - t2) > Precision::PConfusion())
+        if (t2 < t1 && (t1 - t2) > Precision1::PConfusion())
           t2 += 2. * M_PI;
-        if (Abs(t1 - t2) <= Precision::PConfusion())
+        if (Abs(t1 - t2) <= Precision1::PConfusion())
         { // t1 = t2
           Message_Msg msg1160("IGES_1160");
           SendWarning(st, msg1160);
@@ -589,7 +589,7 @@ Handle(GeomCurve2d) IGESToBRep_BasicCurve::Transfer2dConicArc(const Handle(IGESG
 
     t1 = ElCLib1::Parameter(parab, startPoint);
     t2 = ElCLib1::Parameter(parab, endPoint);
-    if (Abs(t1 - t2) <= Precision::PConfusion())
+    if (Abs(t1 - t2) <= Precision1::PConfusion())
     { // t1 = t2
       Message_Msg msg1160("IGES_1160");
       SendWarning(st, msg1160);
@@ -624,9 +624,9 @@ Handle(GeomCurve2d) IGESToBRep_BasicCurve::Transfer2dConicArc(const Handle(IGESG
 
       t1 = ElCLib1::Parameter(elips, startPoint);
       t2 = ElCLib1::Parameter(elips, endPoint);
-      if (t2 < t1 && (t1 - t2) > Precision::PConfusion())
+      if (t2 < t1 && (t1 - t2) > Precision1::PConfusion())
         t2 += 2. * M_PI;
-      if (Abs(t1 - t2) <= Precision::PConfusion())
+      if (Abs(t1 - t2) <= Precision1::PConfusion())
       { // t1 = t2
         Message_Msg msg1160("IGES_1160");
         SendWarning(st, msg1160);
@@ -650,7 +650,7 @@ Handle(GeomCurve2d) IGESToBRep_BasicCurve::Transfer2dConicArc(const Handle(IGESG
     t1 = ElCLib1::Parameter(hpr, startPoint);
     t2 = ElCLib1::Parameter(hpr, endPoint);
 
-    if (Abs(t1 - t2) <= Precision::PConfusion())
+    if (Abs(t1 - t2) <= Precision1::PConfusion())
     { // t1 = t2
       Message_Msg msg1160("IGES_1160");
       SendWarning(st, msg1160);
@@ -721,7 +721,7 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferCircularArc(
 
   if (st->IsClosed() && t1 >= GetEpsGeom())
     t2 = t1 + 2. * M_PI;
-  if (!st->IsClosed() && fabs(t1 - t2) <= Precision::PConfusion())
+  if (!st->IsClosed() && fabs(t1 - t2) <= Precision1::PConfusion())
   {
     // micro-arc
     // cky 27 Aout 1996 : t2-t1 vaut distance(start,end)/rayon
@@ -800,7 +800,7 @@ Handle(GeomCurve2d) IGESToBRep_BasicCurve::Transfer2dCircularArc(
 
   if (st->IsClosed() && t1 >= GetEpsGeom())
     t2 = t1 + 2. * M_PI;
-  if (!st->IsClosed() && fabs(t1 - t2) <= Precision::PConfusion())
+  if (!st->IsClosed() && fabs(t1 - t2) <= Precision1::PConfusion())
   {
     // micro-arc
     // cky 27 Aout 1996 : t2-t1 vaut distance(start,end)/rayon
@@ -866,7 +866,7 @@ Handle(BSplineCurve3d) IGESToBRep_BasicCurve::TransferSplineCurve(
   //  Checking C2 and C1 continuity :
   //  ===============================
   IGESConvGeom1::IncreaseCurveContinuity(resconv,
-                                        Min(Precision::Confusion(), epsgeom),
+                                        Min(Precision1::Confusion(), epsgeom),
                                         GetContinuity());
   return resconv;
 }
@@ -888,7 +888,7 @@ Handle(Geom2d_BSplineCurve) IGESToBRep_BasicCurve::Transfer2dSplineCurve(
   // =================
   // The same Presision as in BSpline 2d is used
   Standard_Real epsGeom = GetEpsGeom();
-  SetEpsGeom(Precision::PConfusion());
+  SetEpsGeom(Precision1::PConfusion());
   Handle(BSplineCurve3d) res3d = TransferSplineCurve(st);
   SetEpsGeom(epsGeom);
   if (res3d.IsNull())
@@ -1094,7 +1094,7 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferBSplineCurve(
         Abs(start->Weight(i) - WeightReference) <= Epsilon(WeightReference) && polynomial;
       //: 39 by abv 15.12.97
       Standard_Real weight = start->Weight(i);
-      if (weight < Precision::PConfusion())
+      if (weight < Precision1::PConfusion())
       {
         Message_Msg msg1215("IGES_1215");
         SendFail(start, msg1215);
@@ -1162,23 +1162,23 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferBSplineCurve(
   Standard_Real Udeb  = start->UMin();
   Standard_Real Ufin  = start->UMax();
   //%11 pdn 12.01.98 CTS22023
-  // if ( (Udeb-First) > Precision::PConfusion() || (Last-Ufin) > Precision::PConfusion() )
+  // if ( (Udeb-First) > Precision1::PConfusion() || (Last-Ufin) > Precision1::PConfusion() )
   //  BSplineRes->Segment1(Udeb, Ufin);
   // res = BSplineRes;
 
-  //  IGESConvGeom1::IncreaseCurveContinuity (BSplineRes,Min(Precision::Confusion(),GetEpsGeom()),
+  //  IGESConvGeom1::IncreaseCurveContinuity (BSplineRes,Min(Precision1::Confusion(),GetEpsGeom()),
   //  GetContinuity());
 
   // skl 21.02.2002 (exception in OCC133 and for file
   //                 "/dn04/OS/USINOR/UIdev/src/IsoLim/dat/igs/ps1002-v5.igs")
   Handle(BSplineCurve3d) BSplineRes2 = BSplineRes;
-  if (((Udeb - First) > -Precision::PConfusion() && (Last - Ufin) > -Precision::PConfusion())
+  if (((Udeb - First) > -Precision1::PConfusion() && (Last - Ufin) > -Precision1::PConfusion())
       && Udeb <= Ufin)
   {
     try
     {
       OCC_CATCH_SIGNALS
-      if (Abs(Ufin - Udeb) > Precision::PConfusion())
+      if (Abs(Ufin - Udeb) > Precision1::PConfusion())
         BSplineRes->Segment1(Udeb, Ufin);
       res = BSplineRes;
     }
@@ -1215,7 +1215,7 @@ Handle(GeomCurve2d) IGESToBRep_BasicCurve::Transfer2dBSplineCurve(
   //  3d transfer first :
   //  ===================
   //  Standard_Real epsGeom = GetEpsGeom();
-  //  SetEpsGeom(Precision::PConfusion());
+  //  SetEpsGeom(Precision1::PConfusion());
   Handle(GeomCurve3d) res3d = TransferBSplineCurve(start);
   //  SetEpsGeom(epsGeom);
   if (res3d.IsNull())
@@ -1319,16 +1319,16 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferLine(const Handle(IGESGeom_Li
 
   // modif du 15/10/97  : test moins severe
   // beaucoup de points confondus a GetEpsGeom()*GetUnitFactor()
-  if (!Ps.IsEqual(Pe, Precision::Confusion()))
+  if (!Ps.IsEqual(Pe, Precision1::Confusion()))
   { //: l3 abv 11 Jan 99: GetEpsGeom()*GetUnitFactor()/10.)) {
     gp_Lin            line(Ps, Dir3d(Vector3d(Ps, Pe)));
     Standard_Real     t1    = ElCLib1::Parameter(line, Ps);
     Standard_Real     t2    = ElCLib1::Parameter(line, Pe);
     Handle(GeomLine) Gline = new GeomLine(line);
-    if (Precision::IsNegativeInfinite(t1))
-      t1 = -Precision::Infinite();
-    if (Precision::IsPositiveInfinite(t2))
-      t2 = Precision::Infinite();
+    if (Precision1::IsNegativeInfinite(t1))
+      t1 = -Precision1::Infinite();
+    if (Precision1::IsPositiveInfinite(t2))
+      t2 = Precision1::Infinite();
     res = new Geom_TrimmedCurve(Gline, t1, t2);
   }
   else
@@ -1366,16 +1366,16 @@ Handle(GeomCurve2d) IGESToBRep_BasicCurve::Transfer2dLine(const Handle(IGESGeom_
     end.SetCoord(start->EndPoint().X(), start->EndPoint().Y());
   }
 
-  if (!beg.IsEqual(end, Precision::PConfusion()))
+  if (!beg.IsEqual(end, Precision1::PConfusion()))
   { //: l3 abv 11 Jan 99: GetEpsCoeff())) {
     gp_Lin2d            line2d(beg, gp_Dir2d(gp_Vec2d(beg, end)));
     Standard_Real       t1      = ElCLib1::Parameter(line2d, beg);
     Standard_Real       t2      = ElCLib1::Parameter(line2d, end);
     Handle(Geom2d_Line) Gline2d = new Geom2d_Line(line2d);
-    if (Precision::IsNegativeInfinite(t1))
-      t1 = -Precision::Infinite();
-    if (Precision::IsPositiveInfinite(t2))
-      t2 = Precision::Infinite();
+    if (Precision1::IsNegativeInfinite(t1))
+      t1 = -Precision1::Infinite();
+    if (Precision1::IsPositiveInfinite(t2))
+      t2 = Precision1::Infinite();
     res = new Geom2d_TrimmedCurve(Gline2d, t1, t2);
   }
   // added by rln 18/12/97 CSR# CTS18544 entity 25168 and 31273
@@ -1517,7 +1517,7 @@ Handle(BSplineCurve3d) IGESToBRep_BasicCurve::TransferCopiousData(
   res = new BSplineCurve3d(Pole, Knot, Mult, Degree);
 
   IGESConvGeom1::IncreaseCurveContinuity(res,
-                                        Max(GetEpsGeom() / 10., Precision::Confusion()),
+                                        Max(GetEpsGeom() / 10., Precision1::Confusion()),
                                         GetContinuity());
   return res;
 }
@@ -1625,7 +1625,7 @@ Handle(Geom2d_BSplineCurve) IGESToBRep_BasicCurve::Transfer2dCopiousData(
   Standard_Real anUVResolution = GetUVResolution();
 
   IGESConvGeom1::IncreaseCurveContinuity(res,
-                                        Max(Precision::Confusion(), epsGeom * anUVResolution),
+                                        Max(Precision1::Confusion(), epsGeom * anUVResolution),
                                         GetContinuity());
   return res;
 }

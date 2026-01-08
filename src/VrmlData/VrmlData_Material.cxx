@@ -28,7 +28,7 @@ IMPLEMENT_STANDARD_RTTIEXT(VrmlData_Material, VrmlData_Node)
 
 namespace
 {
-static const Standard_Real THE_MAT_PREC = 0.001 * Precision::Confusion();
+static const Standard_Real THE_MAT_PREC = 0.001 * Precision1::Confusion();
 
 //=================================================================================================
 
@@ -253,7 +253,7 @@ VrmlData_ErrorStatus VrmlData_Material::Write(const char* thePrefix) const
     char                       buf[128];
     Standard_Real              val[3];
     const Quantity_TypeOfColor bidType = Quantity_TOC_sRGB;
-    constexpr Standard_Real    aConf(0.001 * Precision::Confusion());
+    constexpr Standard_Real    aConf(0.001 * Precision1::Confusion());
 
     if (OK(aStatus) && fabs(myAmbientIntensity - 0.2) > aConf)
     {
@@ -309,7 +309,7 @@ VrmlData_ErrorStatus VrmlData_Material::Write(const char* thePrefix) const
 
 Standard_Boolean VrmlData_Material::IsDefault() const
 {
-  constexpr Standard_Real aConf(0.001 * Precision::Confusion());
+  constexpr Standard_Real aConf(0.001 * Precision1::Confusion());
   Standard_Boolean        aResult(Standard_False);
   if (fabs(myAmbientIntensity - 0.2) < aConf && fabs(myShininess - 0.2) < aConf
       && myTransparency < aConf)

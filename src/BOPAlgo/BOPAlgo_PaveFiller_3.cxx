@@ -377,7 +377,7 @@ void BooleanPaveFiller::PerformEE(const Message_ProgressRange& theRange)
           IntToolsRange   aCR1, aCR2;
           //
           Tools2::VertexParameters(aCPart, aT1, aT2);
-          aTol = Precision::Confusion();
+          aTol = Precision1::Confusion();
           aCR1 = aCPart.Range1();
           aCR2 = aCPart.Ranges2()(1);
           //
@@ -425,7 +425,7 @@ void BooleanPaveFiller::PerformEE(const Message_ProgressRange& theRange)
             // intersection point.
             const Point3d aPOnE1 = BRepAdaptor_Curve(aE1).Value(aT1);
             const Point3d aPOnE2 = BRepAdaptor_Curve(aE2).Value(aT2);
-            if (aPOnE1.Distance(aPOnE2) > Precision::Intersection())
+            if (aPOnE1.Distance(aPOnE2) > Precision1::Intersection())
               // No intersection point
               continue;
 
@@ -898,7 +898,7 @@ Standard_Boolean BooleanPaveFiller::GetPBBox(const TopoEdge&                theE
 {
   thePB->Range(theFirst, theLast);
   // check the validity of PB's range
-  Standard_Boolean bValid = theLast - theFirst > Precision::PConfusion();
+  Standard_Boolean bValid = theLast - theFirst > Precision1::PConfusion();
   if (!bValid)
   {
     return bValid;
@@ -923,7 +923,7 @@ Standard_Boolean BooleanPaveFiller::GetPBBox(const TopoEdge&                theE
   {
     // build bounding box
     BRepAdaptor_Curve aBAC(theE);
-    Standard_Real     aTol = BRepInspector::Tolerance(theE) + Precision::Confusion();
+    Standard_Real     aTol = BRepInspector::Tolerance(theE) + Precision1::Confusion();
     Add3dCurve::Add(aBAC, theSFirst, theSLast, aTol, theBox);
     thePBBox.Bind(thePB, theBox);
   }

@@ -336,7 +336,7 @@ protected:
   //! prepares lists of optional data, set values to defaults
   Standard_EXPORT IGESData_IGESEntity();
 
-  //! Initializes Type and Form Numbers to new values. Reserved for
+  //! Initializes Type and Form Numbers1 to new values. Reserved for
   //! special uses
   Standard_EXPORT void InitTypeAndForm(const Standard_Integer typenum,
                                        const Standard_Integer formnum);

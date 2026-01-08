@@ -37,7 +37,7 @@ void OSD_ThreadPool::EnumeratedThread::Free()
 
 //=================================================================================================
 
-void OSD_ThreadPool::EnumeratedThread::WakeUp(JobInterface* theJob, bool theToCatchFpe)
+void OSD_ThreadPool::EnumeratedThread::WakeUp(JobInterface1* theJob, bool theToCatchFpe)
 {
   myJob        = theJob;
   myToCatchFpe = theToCatchFpe;
@@ -109,7 +109,7 @@ bool OSD_ThreadPool::IsInUse()
 void OSD_ThreadPool::Init(int theNbThreads)
 {
   const int aNbThreads =
-    Max(0, (theNbThreads > 0 ? theNbThreads : OSD_Parallel::NbLogicalProcessors()) - 1);
+    Max(0, (theNbThreads > 0 ? theNbThreads : Parallel1::NbLogicalProcessors()) - 1);
   if (myThreads.Size() == aNbThreads)
   {
     return;
@@ -188,7 +188,7 @@ void OSD_ThreadPool::release()
 
 //=================================================================================================
 
-void OSD_ThreadPool::Launcher::perform(JobInterface& theJob)
+void OSD_ThreadPool::Launcher::perform(JobInterface1& theJob)
 {
   run(theJob);
   wait();
@@ -196,9 +196,9 @@ void OSD_ThreadPool::Launcher::perform(JobInterface& theJob)
 
 //=================================================================================================
 
-void OSD_ThreadPool::Launcher::run(JobInterface& theJob)
+void OSD_ThreadPool::Launcher::run(JobInterface1& theJob)
 {
-  bool toCatchFpe = OSD::ToCatchFloatingSignals();
+  bool toCatchFpe = OSD1::ToCatchFloatingSignals();
   for (NCollection_Array1<EnumeratedThread*>::Iterator aThreadIter(myThreads);
        aThreadIter.More() && aThreadIter.Value() != NULL;
        aThreadIter.Next())
@@ -254,7 +254,7 @@ void OSD_ThreadPool::Launcher::wait()
 //=================================================================================================
 
 void OSD_ThreadPool::performJob(Handle(ExceptionBase)&     theFailure,
-                                OSD_ThreadPool::JobInterface* theJob,
+                                OSD_ThreadPool::JobInterface1* theJob,
                                 int                           theThreadIndex)
 {
   try
@@ -284,7 +284,7 @@ void OSD_ThreadPool::performJob(Handle(ExceptionBase)&     theFailure,
 
 void OSD_ThreadPool::EnumeratedThread::performThread()
 {
-  OSD::SetThreadLocalSignal(OSD::SignalMode(), false);
+  OSD1::SetThreadLocalSignal(OSD1::SignalMode(), false);
   for (;;)
   {
     myWakeEvent.Wait();
@@ -297,7 +297,7 @@ void OSD_ThreadPool::EnumeratedThread::performThread()
     myFailure.Nullify();
     if (myJob != NULL)
     {
-      OSD::SetThreadLocalSignal(OSD::SignalMode(), myToCatchFpe);
+      OSD1::SetThreadLocalSignal(OSD1::SignalMode(), myToCatchFpe);
       OSD_ThreadPool::performJob(myFailure, myJob, myThreadIndex);
       myJob = NULL;
     }

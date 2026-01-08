@@ -190,8 +190,8 @@ static Standard_Integer BUC60727(DrawInterpreter& di,
                                  const char** /*argv*/)
 {
   di << "Program Test\n";
-  UnitsAPI::SetLocalSystem(UnitsAPI_MDTV);                          // length is mm
-  di << "AnyToLS (3,mm) = " << UnitsAPI::AnyToLS(3., "mm") << "\n"; // result was WRONG.
+  UnitsAPI1::SetLocalSystem(UnitsAPI_MDTV);                          // length is mm
+  di << "AnyToLS (3,mm) = " << UnitsAPI1::AnyToLS(3., "mm") << "\n"; // result was WRONG.
 
   return 0;
 }
@@ -315,7 +315,7 @@ static Standard_Integer BUC60811(DrawInterpreter& di, Standard_Integer argc, con
   array1.SetValue(3, 2, Point3d(200, 300, 0));
   array1.SetValue(3, 3, Point3d(400, 300, 0));
   BZ1 = new Geom_BezierSurface(array1);
-  FaceMaker bzf1(BZ1, Precision::Confusion());
+  FaceMaker bzf1(BZ1, Precision1::Confusion());
   TopoFace             F1 = bzf1.Face();
   ais1                       = new VisualShape(F1);
   DBRep1::Set("F1", F1);
@@ -364,7 +364,7 @@ static Standard_Integer BUC60811(DrawInterpreter& di, Standard_Integer argc, con
   // step 2. offsetting the surface.
   Handle(Geom_OffsetSurface) offsurf;
   offsurf = new Geom_OffsetSurface(BZ1, -100);
-  FaceMaker bzf2(offsurf, Precision::Confusion());
+  FaceMaker bzf2(offsurf, Precision1::Confusion());
   const TopoFace&      F2    = bzf2.Face();
   Handle(VisualShape)       ais22 = new VisualShape(F2);
   aContext->Display(ais22, Standard_False);
@@ -508,13 +508,13 @@ static Standard_Integer BUC60856(DrawInterpreter& di, Standard_Integer /*argc*/,
   double                                 R1 = 8, R2 = 16;
   Point3d                                 P0(0, 0, 0), P1(0, 0, 20), P2(0, 0, 45);
   Handle(Geom_RectangularTrimmedSurface) S = GC_MakeTrimmedCone(P1, P2, R1, R2).Value();
-  TopoShape      myshape = FaceMaker(S, Precision::Confusion()).Shape();
+  TopoShape      myshape = FaceMaker(S, Precision1::Confusion()).Shape();
   Handle(VisualShape) ais1    = new VisualShape(myshape);
   aContext->Display(ais1, Standard_False);
   aContext->SetColor(ais1, Quantity_NOC_BLUE1, Standard_False);
 
   Handle(Geom_RectangularTrimmedSurface) S2 = GC_MakeTrimmedCone(P1, P2, R1, 0).Value();
-  TopoShape      myshape2 = FaceMaker(S2, Precision::Confusion()).Shape();
+  TopoShape      myshape2 = FaceMaker(S2, Precision1::Confusion()).Shape();
   Handle(VisualShape) ais2     = new VisualShape(myshape2);
   aContext->Display(ais2, Standard_False);
   aContext->SetColor(ais2, Quantity_NOC_RED, Standard_False);

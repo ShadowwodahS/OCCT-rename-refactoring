@@ -113,7 +113,7 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
 {
   Standard_Integer        i, nbvtx;
   Standard_Real           firstp, lastp;
-  constexpr Standard_Real Tol = Precision::PConfusion() * 35.0;
+  constexpr Standard_Real Tol = Precision1::PConfusion() * 35.0;
 
   const IntPatch_IType typl = L->ArcType();
   if (typl == IntPatch_Analytic)
@@ -349,7 +349,7 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
     {
       firstp = LineTool2::Vertex(L, i).ParameterOnLine();
       lastp  = LineTool2::Vertex(L, i + 1).ParameterOnLine();
-      if (Abs(firstp - lastp) > Precision::PConfusion())
+      if (Abs(firstp - lastp) > Precision1::PConfusion())
       {
         intrvtested              = Standard_True;
         const Standard_Real pmid = (firstp + lastp) * 0.5;
@@ -921,10 +921,10 @@ Standard_Boolean RejectMicroCircle(const Handle(IntPatch_GLine)& aGLine,
 //=======================================================================
 void RejectDuplicates(NCollection_Array1<GeomInt_Vertex>& theVtxArr)
 {
-  // About the value aTolPC=1000.*Precision::PConfusion(),
+  // About the value aTolPC=1000.*Precision1::PConfusion(),
   // see IntPatch_GLine::ComputeVertexParameters(...)
   // for more details;
-  constexpr Standard_Real aTolPC = 1000. * Precision::PConfusion();
+  constexpr Standard_Real aTolPC = 1000. * Precision1::PConfusion();
 
   // Find duplicates in a slice of the array [LowerBound, UpperBound-1].
   // If a duplicate has been found, the element with greater index will be rejected.

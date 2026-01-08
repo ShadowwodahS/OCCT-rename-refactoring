@@ -174,7 +174,7 @@ static Standard_Real ProjPOnC(const Pnt& theP,
 Extrema_GenExtCC::Extrema_GenExtCC()
 : myIsFindSingleSolution(Standard_False),
   myParallel(Standard_False),
-  myCurveMinTol(Precision::PConfusion()),
+  myCurveMinTol(Precision1::PConfusion()),
   myLowBorder(1,2),
   myUppBorder(1,2),
   myDone(Standard_False)
@@ -190,7 +190,7 @@ Extrema_GenExtCC::Extrema_GenExtCC(const Curve1& C1,
                                    const Curve2& C2)
 : myIsFindSingleSolution(Standard_False),
   myParallel(Standard_False),
-  myCurveMinTol(Precision::PConfusion()),
+  myCurveMinTol(Precision1::PConfusion()),
   myLowBorder(1,2),
   myUppBorder(1,2),
   myDone(Standard_False)
@@ -215,7 +215,7 @@ Extrema_GenExtCC::Extrema_GenExtCC(const Curve1& C1,
                                    const Standard_Real Vsup)
 : myIsFindSingleSolution(Standard_False),
   myParallel(Standard_False),
-  myCurveMinTol(Precision::PConfusion()),
+  myCurveMinTol(Precision1::PConfusion()),
   myLowBorder(1,2),
   myUppBorder(1,2),
   myDone(Standard_False)
@@ -283,8 +283,8 @@ void Extrema_GenExtCC::Perform()
   Standard_Real anL[2];
   Standard_Integer indmax = -1, indmin = -1;
   const Standard_Real mult = 20.;
-  if (!(Precision::IsInfinite(C1.FirstParameter()) || Precision::IsInfinite(C1.LastParameter()) ||
-        Precision::IsInfinite(C2.FirstParameter()) || Precision::IsInfinite(C2.LastParameter())))
+  if (!(Precision1::IsInfinite(C1.FirstParameter()) || Precision1::IsInfinite(C1.LastParameter()) ||
+        Precision1::IsInfinite(C2.FirstParameter()) || Precision1::IsInfinite(C2.LastParameter())))
   {
     anL[0] = GCPnts_AbscissaPoint::Length(C1);
     anL[1] = GCPnts_AbscissaPoint::Length(C2);
@@ -441,8 +441,8 @@ void Extrema_GenExtCC::Perform()
   // Size computed to have cell index inside of int32 value.
   const Standard_Real aCellSize = Max(Max(anIntervals1->Last() - anIntervals1->First(),
                                       anIntervals2->Last() - anIntervals2->First())
-                                      * Precision::PConfusion() / (2.0 * Sqrt(2.0)),
-                                      Precision::PConfusion());
+                                      * Precision1::PConfusion() / (2.0 * Sqrt(2.0)),
+                                      Precision1::PConfusion());
   Extrema_CCPointsInspector anInspector(aCellSize);
   NCollection_CellFilter<Extrema_CCPointsInspector> aFilter(aCellSize);
   NCollection_Vector<Coords2d> aPnts;
@@ -564,7 +564,7 @@ void Extrema_GenExtCC::Perform()
     aVec(2) = (aCurrent.Y() + aNext.Y()) * 0.5;
 
     aFunc.Value(aVec, aVal);
-    if (Abs(aVal - aF) < Precision::Confusion())
+    if (Abs(aVal - aF) < Precision1::Confusion())
     {
       // It seems the parallel segment is found.
       // Save only extreme solutions on that segment.
@@ -627,7 +627,7 @@ void Extrema_GenExtCC::Perform()
     {
       Standard_Real aDist1 = ProjPOnC(C1.Value(aT1[iT]), anExtPC2);
       Standard_Real aDist2 = ProjPOnC(C2.Value(aT2[iT]), anExtPC1);
-      isParallel = (Abs(Min(aDist1, aDist2) - aF * aF) < Precision::Confusion());
+      isParallel = (Abs(Min(aDist1, aDist2) - aF * aF) < Precision1::Confusion());
     }
   }
 

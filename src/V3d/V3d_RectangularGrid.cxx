@@ -60,8 +60,8 @@ private:
 /*----------------------------------------------------------------------*/
 
 V3d_RectangularGrid::V3d_RectangularGrid(const V3d_ViewerPointer& aViewer,
-                                         const Quantity_Color&    aColor,
-                                         const Quantity_Color&    aTenthColor)
+                                         const Color1&    aColor,
+                                         const Color1&    aTenthColor)
     : Aspect_RectangularGrid(1., 1.),
       myViewer(aViewer),
       myCurAreDefined(Standard_False),
@@ -96,7 +96,7 @@ V3d_RectangularGrid::~V3d_RectangularGrid()
   }
 }
 
-void V3d_RectangularGrid::SetColors(const Quantity_Color& aColor, const Quantity_Color& aTenthColor)
+void V3d_RectangularGrid::SetColors(const Color1& aColor, const Color1& aTenthColor)
 {
   if (myColor != aColor || myTenthColor != aTenthColor)
   {

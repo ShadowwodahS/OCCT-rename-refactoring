@@ -157,7 +157,7 @@ public:
   //! Adds a vertice and vertex color in the vertex array.
   //! Warning: theColor is ignored when the hasVColors constructor parameter is FALSE
   //! @return the actual vertex number
-  Standard_Integer AddVertex(const Point3d& theVertex, const Quantity_Color& theColor)
+  Standard_Integer AddVertex(const Point3d& theVertex, const Color1& theColor)
   {
     const Standard_Integer anIndex = AddVertex(theVertex);
     SetVertexColor(anIndex, theColor.Red(), theColor.Green(), theColor.Blue());
@@ -240,7 +240,7 @@ public:
   //! @return the actual vertex number
   Standard_Integer AddVertex(const Point3d&         theVertex,
                              const Dir3d&         theNormal,
-                             const Quantity_Color& theColor)
+                             const Color1& theColor)
   {
     const Standard_Integer anIndex = AddVertex(theVertex, theNormal);
     SetVertexColor(anIndex, theColor.Red(), theColor.Green(), theColor.Blue());
@@ -400,7 +400,7 @@ public:
   //! Change the vertex color in the array.
   //! @param[in] theIndex node index within [1, VertexNumberAllocated()] range
   //! @param[in] theColor node color
-  void SetVertexColor(const Standard_Integer theIndex, const Quantity_Color& theColor)
+  void SetVertexColor(const Standard_Integer theIndex, const Color1& theColor)
   {
     SetVertexColor(theIndex, theColor.Red(), theColor.Green(), theColor.Blue());
   }
@@ -554,11 +554,11 @@ public:
   //! Returns the vertex color at rank theRank from the vertex table if defined.
   //! @param[in] theRank node index within [1, VertexNumber()] range
   //! @return node color RGB value
-  Quantity_Color VertexColor(const Standard_Integer theRank) const
+  Color1 VertexColor(const Standard_Integer theRank) const
   {
     Standard_Real anRGB[3];
     VertexColor(theRank, anRGB[0], anRGB[1], anRGB[2]);
-    return Quantity_Color(anRGB[0], anRGB[1], anRGB[2], Quantity_TOC_RGB);
+    return Color1(anRGB[0], anRGB[1], anRGB[2], Quantity_TOC_RGB);
   }
 
   //! Returns the vertex color from the vertex table if defined.
@@ -860,11 +860,11 @@ public: //! @name optional array of Bounds/Subgroups within primitive array (e.g
   }
 
   //! Returns the bound color at rank theRank from the bound table if defined.
-  Quantity_Color BoundColor(const Standard_Integer theRank) const
+  Color1 BoundColor(const Standard_Integer theRank) const
   {
     Standard_Real anRGB[3] = {0.0, 0.0, 0.0};
     BoundColor(theRank, anRGB[0], anRGB[1], anRGB[2]);
-    return Quantity_Color(anRGB[0], anRGB[1], anRGB[2], Quantity_TOC_RGB);
+    return Color1(anRGB[0], anRGB[1], anRGB[2], Quantity_TOC_RGB);
   }
 
   //! Returns the bound color values at rank theRank from the bound table if defined.
@@ -889,7 +889,7 @@ public: //! @name optional array of Bounds/Subgroups within primitive array (e.g
   //! Adds a bound of length theEdgeNumber and bound color theBColor in the bound array.
   //! Warning: theBColor is ignored when the hasBColors constructor parameter is FALSE
   //! @return the actual bounds number
-  Standard_Integer AddBound(const Standard_Integer theEdgeNumber, const Quantity_Color& theBColor)
+  Standard_Integer AddBound(const Standard_Integer theEdgeNumber, const Color1& theBColor)
   {
     return AddBound(theEdgeNumber, theBColor.Red(), theBColor.Green(), theBColor.Blue());
   }
@@ -903,7 +903,7 @@ public: //! @name optional array of Bounds/Subgroups within primitive array (e.g
                                             const Standard_Real    theB);
 
   //! Change the bound color of rank theIndex in the array.
-  void SetBoundColor(const Standard_Integer theIndex, const Quantity_Color& theColor)
+  void SetBoundColor(const Standard_Integer theIndex, const Color1& theColor)
   {
     SetBoundColor(theIndex, theColor.Red(), theColor.Green(), theColor.Blue());
   }

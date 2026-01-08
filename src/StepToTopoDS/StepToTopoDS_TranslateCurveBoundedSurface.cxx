@@ -84,14 +84,14 @@ Standard_Boolean StepToTopoDS_TranslateCurveBoundedSurface::Init(
 
   // create face
   ShapeBuilder B;
-  B.MakeFace(myFace, Surf, Precision::Confusion());
+  B.MakeFace(myFace, Surf, Precision1::Confusion());
 
   // add natural bound if implicit
   if (CBS->ImplicitOuter())
   {
     if (Surf->IsKind(STANDARD_TYPE(Geom_BoundedSurface)))
     {
-      FaceMaker mf(Surf, Precision::Confusion());
+      FaceMaker mf(Surf, Precision1::Confusion());
       myFace = mf.Face();
     }
     else

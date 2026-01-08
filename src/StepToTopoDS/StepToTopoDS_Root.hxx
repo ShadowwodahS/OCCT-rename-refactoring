@@ -32,7 +32,7 @@ public:
   Standard_Boolean IsDone() const;
 
   //! Returns the value of "MyPrecision"
-  Standard_Real Precision() const;
+  Standard_Real Precision1() const;
 
   //! Sets the value of "MyPrecision"
   void SetPrecision(const Standard_Real preci);

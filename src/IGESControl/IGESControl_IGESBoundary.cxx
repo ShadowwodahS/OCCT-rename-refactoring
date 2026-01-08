@@ -367,7 +367,7 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
 #ifdef OCCT_DEBUG
             std::cout << "Warning: IGESToBRep_IGESBoundary: Deviation = " << maxdev << std::endl;
 #endif
-            ShapeTolerance1().SetTolerance(edge3d, Precision::Confusion());
+            ShapeTolerance1().SetTolerance(edge3d, Precision1::Confusion());
             for (Standard_Integer ie = 1; ie <= iedge; ie++)
               Edge2().RemovePCurve(Lsewd3d->Edge(ie), myface);
             if (Preferred3d)

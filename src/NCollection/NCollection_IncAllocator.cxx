@@ -114,7 +114,7 @@ void* NCollection_IncAllocator::AllocateOptimal(const size_t theSize)
     {
       myBlockSize = static_cast<unsigned>(theSize);
     }
-    void* aBufferBlock       = Standard::AllocateOptimal(myBlockSize + sizeof(IBlock1));
+    void* aBufferBlock       = Standard1::AllocateOptimal(myBlockSize + sizeof(IBlock1));
     aBlock                   = new (aBufferBlock) IBlock1(aBufferBlock, myBlockSize);
     aBlock->NextBlock        = myAllocationHeap;
     aBlock->NextOrderedBlock = myOrderedBlocks;
@@ -174,7 +174,7 @@ void NCollection_IncAllocator::clean()
   {
     IBlock1* aCur = aHeapIter;
     aHeapIter    = aHeapIter->NextOrderedBlock;
-    Standard::Free(aCur);
+    Standard1::Free(aCur);
   }
   myOrderedBlocks  = nullptr;
   myAllocationHeap = nullptr;

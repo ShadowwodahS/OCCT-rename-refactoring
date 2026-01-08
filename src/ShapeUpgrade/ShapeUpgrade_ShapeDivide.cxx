@@ -44,8 +44,8 @@
 ShapeUpgrade_ShapeDivide::ShapeUpgrade_ShapeDivide()
     : myStatus(0)
 {
-  myPrecision = myMinTol = Precision::Confusion();
-  myMaxTol               = 1; // Precision::Infinite() ?? pdn
+  myPrecision = myMinTol = Precision1::Confusion();
+  myMaxTol               = 1; // Precision1::Infinite() ?? pdn
   mySplitFaceTool        = new ShapeUpgrade_FaceDivide;
   myContext              = new ShapeBuild_ReShape;
   // myMsgReg = new ShapeExtend_BasicMsgRegistrator;
@@ -58,8 +58,8 @@ ShapeUpgrade_ShapeDivide::ShapeUpgrade_ShapeDivide()
 ShapeUpgrade_ShapeDivide::ShapeUpgrade_ShapeDivide(const TopoShape& S)
     : myStatus(0)
 {
-  myPrecision = myMinTol = Precision::Confusion();
-  myMaxTol               = 1; // Precision::Infinite() ?? pdn
+  myPrecision = myMinTol = Precision1::Confusion();
+  myMaxTol               = 1; // Precision1::Infinite() ?? pdn
   mySplitFaceTool        = new ShapeUpgrade_FaceDivide;
   myContext              = new ShapeBuild_ReShape;
   mySegmentMode          = Standard_True;

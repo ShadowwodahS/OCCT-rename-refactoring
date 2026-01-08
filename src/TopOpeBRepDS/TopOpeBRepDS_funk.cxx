@@ -164,10 +164,10 @@ Standard_EXPORT void FUN_UNKFstasta(const TopoFace&              FF,
     BRepTools1::UVBounds(FFx, EEx, EUMin, EUMax, EVMin, EVMax);
   }
 
-  //  Standard_Boolean EisoU = (abs(EVMax-EVMin) < Precision::Confusion());
-  Standard_Boolean EisoU = (fabs(EVMax - EVMin) < Precision::Confusion());
-  //  Standard_Boolean EisoV = (abs(EUMax-EUMin) < Precision::Confusion());
-  Standard_Boolean EisoV = (fabs(EUMax - EUMin) < Precision::Confusion());
+  //  Standard_Boolean EisoU = (abs(EVMax-EVMin) < Precision1::Confusion());
+  Standard_Boolean EisoU = (fabs(EVMax - EVMin) < Precision1::Confusion());
+  //  Standard_Boolean EisoV = (abs(EUMax-EUMin) < Precision1::Confusion());
+  Standard_Boolean EisoV = (fabs(EUMax - EUMin) < Precision1::Confusion());
   // xpu161098 : bad analysis : we should choose smaller factor
   //   cto009C1 (FF3,FS10,EG9)
   Standard_Real ttu  = 1.e-2; // Standard_Real ttu = 0.1;

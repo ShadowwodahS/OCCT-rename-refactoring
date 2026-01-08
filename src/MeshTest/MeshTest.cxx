@@ -69,10 +69,10 @@ Standard_IMPORT DrawViewer dout;
 #ifdef OCCT_DEBUG_MESH_CHRONO
   #include <OSD_Chronometer.hxx>
 Standard_Integer D0Control, D0Internal, D0Unif, D0Edges, NbControls;
-OSD_Chronometer  chTotal, chInternal, chControl, chUnif, chAddPoint;
-OSD_Chronometer  chEdges, chMaillEdges, chEtuInter, chLastControl, chStock;
-OSD_Chronometer  chAdd11, chAdd12, chAdd2, chUpdate, chPointValid;
-OSD_Chronometer  chIsos, chPointsOnIsos;
+Chronometer  chTotal, chInternal, chControl, chUnif, chAddPoint;
+Chronometer  chEdges, chMaillEdges, chEtuInter, chLastControl, chStock;
+Chronometer  chAdd11, chAdd12, chAdd2, chUpdate, chPointValid;
+Chronometer  chIsos, chPointsOnIsos;
 #endif
 
 //=================================================================================================
@@ -167,7 +167,7 @@ static Standard_Integer incrementalmesh(DrawInterpreter& theDI,
              && anArgIter + 1 < theNbArgs)
     {
       Standard_Real aVal = Draw1::Atof(theArgVec[++anArgIter]) * M_PI / 180.;
-      if (aVal <= Precision::Angular())
+      if (aVal <= Precision1::Angular())
       {
         theDI << "Syntax error: invalid input parameter '" << theArgVec[anArgIter] << "'";
         return 1;
@@ -178,7 +178,7 @@ static Standard_Integer incrementalmesh(DrawInterpreter& theDI,
     else if (aNameCase == "-ai" && anArgIter + 1 < theNbArgs)
     {
       Standard_Real aVal = Draw1::Atof(theArgVec[++anArgIter]) * M_PI / 180.;
-      if (aVal <= Precision::Angular())
+      if (aVal <= Precision1::Angular())
       {
         theDI << "Syntax error: invalid input parameter '" << theArgVec[anArgIter] << "'";
         return 1;
@@ -188,7 +188,7 @@ static Standard_Integer incrementalmesh(DrawInterpreter& theDI,
     else if (aNameCase == "-min" && anArgIter + 1 < theNbArgs)
     {
       Standard_Real aVal = Draw1::Atof(theArgVec[++anArgIter]);
-      if (aVal <= Precision::Confusion())
+      if (aVal <= Precision1::Confusion())
       {
         theDI << "Syntax error: invalid input parameter '" << theArgVec[anArgIter] << "'";
         return 1;
@@ -198,7 +198,7 @@ static Standard_Integer incrementalmesh(DrawInterpreter& theDI,
     else if (aNameCase == "-di" && anArgIter + 1 < theNbArgs)
     {
       Standard_Real aVal = Draw1::Atof(theArgVec[++anArgIter]);
-      if (aVal <= Precision::Confusion())
+      if (aVal <= Precision1::Confusion())
       {
         theDI << "Syntax error: invalid input parameter '" << theArgVec[anArgIter] << "'";
         return 1;
@@ -207,8 +207,8 @@ static Standard_Integer incrementalmesh(DrawInterpreter& theDI,
     }
     else if (aNameCase.IsRealValue(true) && !hasDefl)
     {
-      aMeshParams.Deflection = Max(Draw1::Atof(theArgVec[anArgIter]), Precision::Confusion());
-      if (aMeshParams.DeflectionInterior < Precision::Confusion())
+      aMeshParams.Deflection = Max(Draw1::Atof(theArgVec[anArgIter]), Precision1::Confusion());
+      if (aMeshParams.DeflectionInterior < Precision1::Confusion())
       {
         aMeshParams.DeflectionInterior = aMeshParams.Deflection;
       }
@@ -372,14 +372,14 @@ static Standard_Integer tessellate(DrawInterpreter& /*di*/,
 
     BRepTools1::UVBounds(aFace, aUMin, aUMax, aVMin, aVMax);
   }
-  if (Precision::IsInfinite(aUMin) || Precision::IsInfinite(aUMax) || Precision::IsInfinite(aVMin)
-      || Precision::IsInfinite(aVMax))
+  if (Precision1::IsInfinite(aUMin) || Precision1::IsInfinite(aUMax) || Precision1::IsInfinite(aVMin)
+      || Precision1::IsInfinite(aVMax))
   {
     Message1::SendFail() << "Error: surface has infinite parametric range, aborting";
     return 1;
   }
 
-  FaceMaker aFaceMaker(aSurf, aUMin, aUMax, aVMin, aVMax, Precision::Confusion());
+  FaceMaker aFaceMaker(aSurf, aUMin, aUMax, aVMin, aVMax, Precision1::Confusion());
   if (!aFaceMaker.IsDone())
   {
     Message1::SendFail() << "Error: cannot build face with natural bounds, aborting";
@@ -1394,11 +1394,11 @@ static Standard_Integer wavefront(DrawInterpreter&, Standard_Integer nbarg, cons
           V = Tr->UVNode(i).Y();
 
           BS.D1(U, V, P, D1U, D1V);
-          CSLib1::Normal(D1U, D1V, Precision::Angular(), aStatus, Nor);
+          CSLib1::Normal(D1U, D1V, Precision1::Angular(), aStatus, Nor);
           if (aStatus != CSLib_Done)
           {
             BS.D2(U, V, P, D1U, D1V, D2U, D2V, D2UV);
-            CSLib1::Normal(D1U, D1V, D2U, D2V, D2UV, Precision::Angular(), OK, NStat, Nor);
+            CSLib1::Normal(D1U, D1V, D2U, D2V, D2UV, Precision1::Angular(), OK, NStat, Nor);
           }
           if (F.Orientation() == TopAbs_REVERSED)
             Nor.Reverse();

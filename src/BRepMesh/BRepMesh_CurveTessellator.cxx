@@ -77,8 +77,8 @@ void BRepMesh_CurveTessellator::init()
     aPreciseLinDef *= 0.5;
   }
 
-  aPreciseLinDef = Max(aPreciseLinDef, Precision::Confusion());
-  aPreciseAngDef = Max(aPreciseAngDef, Precision::Angular());
+  aPreciseLinDef = Max(aPreciseLinDef, Precision1::Confusion());
+  aPreciseAngDef = Max(aPreciseAngDef, Precision1::Angular());
 
   Standard_Real aMinSize = myParameters.MinSize;
   if (myParameters.AdjustMinSize)
@@ -118,7 +118,7 @@ void BRepMesh_CurveTessellator::init()
                            aPreciseAngDef,
                            aPreciseLinDef,
                            aMinPntNb,
-                           Precision::PConfusion(),
+                           Precision1::PConfusion(),
                            aMinSize);
 
   if (myCurve.IsCurveOnSurface())
@@ -126,7 +126,7 @@ void BRepMesh_CurveTessellator::init()
     const Adaptor3d_CurveOnSurface&  aCurve   = myCurve.CurveOnSurface();
     const Handle(Adaptor3d_Surface)& aSurface = aCurve.GetSurface();
 
-    constexpr Standard_Real aTol = Precision::Confusion();
+    constexpr Standard_Real aTol = Precision1::Confusion();
     const Standard_Real     aDu  = aSurface->UResolution(aTol);
     const Standard_Real     aDv  = aSurface->VResolution(aTol);
 
@@ -286,13 +286,13 @@ void BRepMesh_CurveTessellator::splitSegment(const Handle(GeomSurface)& theSurf,
   Point3d        P3dF, P3dL, midP3d, midP3dFromSurf;
   Standard_Real midpar;
 
-  if (Abs(theLast - theFirst) < 2 * Precision::PConfusion())
+  if (Abs(theLast - theFirst) < 2 * Precision1::PConfusion())
   {
     return;
   }
 
-  if ((theCurve2d->FirstParameter() - theFirst > Precision::PConfusion())
-      || (theLast - theCurve2d->LastParameter() > Precision::PConfusion()))
+  if ((theCurve2d->FirstParameter() - theFirst > Precision1::PConfusion())
+      || (theLast - theCurve2d->LastParameter() > Precision1::PConfusion()))
   {
     // E.g. test bugs moddata_3 bug30133
     return;

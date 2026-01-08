@@ -63,7 +63,7 @@ public:
     const Standard_Integer                  modetrans = 0,
     const Message_ProgressRange& theProgress = Message_ProgressRange()) const Standard_OVERRIDE;
 
-  //! Standard Initialisation. It creates a Controller for STEP
+  //! Standard1 Initialisation. It creates a Controller for STEP
   //! and records it to various names, available to select it later
   //! Returns True when done, False if could not be done
   Standard_EXPORT static Standard_Boolean Init();

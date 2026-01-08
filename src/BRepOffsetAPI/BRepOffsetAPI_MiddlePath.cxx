@@ -133,7 +133,7 @@ static Standard_Boolean IsValidEdge(const TopoEdge& theEdge, const TopoFace& the
   TopoVertex V1, V2;
   TopExp1::Vertices(theEdge, V1, V2);
 
-  constexpr Standard_Real Tol = Precision::Confusion();
+  constexpr Standard_Real Tol = Precision1::Confusion();
   Standard_Integer        i;
 
   ShapeExplorer Explo(theFace, TopAbs_EDGE);

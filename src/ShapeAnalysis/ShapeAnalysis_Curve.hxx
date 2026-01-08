@@ -177,7 +177,7 @@ public:
                                                           TColgp_SequenceOfPnt&     seq);
 
   //! Tells if the Curve is closed with given precision.
-  //! If <preci> < 0 then Precision::Confusion is used.
+  //! If <preci> < 0 then Precision1::Confusion is used.
   Standard_EXPORT static Standard_Boolean IsClosed(const Handle(GeomCurve3d)& curve,
                                                    const Standard_Real       preci = -1);
 

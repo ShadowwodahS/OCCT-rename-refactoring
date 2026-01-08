@@ -67,12 +67,12 @@ static Standard_Boolean isCW(const BRepAdaptor_Curve& AC)
 // Equality of points computed through square distance between the points.
 static Standard_Boolean IsEqual(const Point3d& p1, const Point3d& p2)
 {
-  return p1.SquareDistance(p2) < Precision::SquareConfusion();
+  return p1.SquareDistance(p2) < Precision1::SquareConfusion();
 }
 
 static Standard_Boolean IsEqual(const gp_Pnt2d& p1, const gp_Pnt2d& p2)
 {
-  return p1.SquareDistance(p2) < Precision::SquareConfusion();
+  return p1.SquareDistance(p2) < Precision1::SquareConfusion();
 }
 
 // An empty constructor.
@@ -293,7 +293,7 @@ void ChFi2d_AnaFilletAlgo::Init(const TopoEdge& theEdge1,
 Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
 {
   Standard_Boolean bRet(false);
-  if (e1.IsNull() || e2.IsNull() || radius < Precision::Confusion())
+  if (e1.IsNull() || e2.IsNull() || radius < Precision1::Confusion())
   {
     return bRet;
   }
@@ -318,7 +318,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
       if (mkFace.IsDone())
       {
         const TopoFace& F = mkFace.Face();
-        ShapeAnalysis_Wire analyzer(W, F, Precision::Confusion());
+        ShapeAnalysis_Wire analyzer(W, F, Precision1::Confusion());
         if (analyzer.CheckSelfIntersection() == Standard_True)
         {
           // Cut the edges at the point of intersection.
@@ -371,7 +371,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
   {
     // Check a case when a neighbour edge almost disappears:
     // try to reduce the fillet radius for a little (1.e-5 mm).
-    const Standard_Real little = 100.0 * Precision::Confusion();
+    const Standard_Real little = 100.0 * Precision1::Confusion();
     const Standard_Real d1     = fabs(start - delta1);
     const Standard_Real d2     = fabs(end - delta2);
     if (d1 < little || d2 < little)
@@ -554,7 +554,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::SegmentFilletSegment(const Standard_Real 
   gp_Vec2d bisec = 0.5 * (v1 + v2);
 
   // Check bisectrissa.
-  if (bisec.SquareMagnitude() < Precision::SquareConfusion())
+  if (bisec.SquareMagnitude() < Precision1::SquareConfusion())
     return Standard_False;
 
   // Normalize the bisectrissa.
@@ -614,7 +614,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::SegmentFilletArc(const Standard_Real radi
   // If vectors coincide (segment and arc are tangent),
   // the algorithm doesn't work...
   Standard_Real angle = v1.Angle(v2);
-  if (fabs(angle) < Precision::Angular())
+  if (fabs(angle) < Precision1::Angular())
     return Standard_False;
 
   // Make a bissectrisa of vectors at p12.
@@ -696,7 +696,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::SegmentFilletArc(const Standard_Real radi
     const gp_Pnt2d&          p    = intp.Value();
 
     const Standard_Real d2 = p.SquareDistance(pc);
-    if (fabs(d2 - Rf2) < Precision::Confusion())
+    if (fabs(d2 - Rf2) < Precision1::Confusion())
     {
       p.Coord(xend, yend);
       break;
@@ -744,7 +744,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::ArcFilletSegment(const Standard_Real radi
   // If vectors coincide (segment and arc are tangent),
   // the algorithm doesn't work...
   Standard_Real angle = v1.Angle(v2);
-  if (fabs(angle) < Precision::Angular())
+  if (fabs(angle) < Precision1::Angular())
     return Standard_False;
 
   // Make a bisectrissa of vectors at p12.
@@ -826,7 +826,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::ArcFilletSegment(const Standard_Real radi
     const gp_Pnt2d&          p    = intp.Value();
 
     const Standard_Real d2 = p.SquareDistance(pc);
-    if (fabs(d2 - Rf2) < Precision::SquareConfusion())
+    if (fabs(d2 - Rf2) < Precision1::SquareConfusion())
     {
       p.Coord(xstart, ystart);
       break;
@@ -919,7 +919,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::ArcFilletArc(const Standard_Real radius,
 
   // Orientation of fillet.
   Standard_Real angle = v1.Angle(v2);
-  if (fabs(angle) < Precision::Angular())
+  if (fabs(angle) < Precision1::Angular())
   {
     angle = gp_Vec2d(pc, pc1).Angle(gp_Vec2d(pc, pc2));
     cw    = angle < 0.0;
@@ -953,11 +953,11 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Cut(const gp_Pln& thePlane,
     for (i = 1; i <= nb; ++i)
     {
       const Standard_Real d = extrema.Distance(i);
-      if (d < Precision::Confusion())
+      if (d < Precision1::Confusion())
       {
         extrema.Parameters(i, param1, param2);
-        if (fabs(l1 - param1) > Precision::Confusion()
-            && fabs(f2 - param2) > Precision::Confusion())
+        if (fabs(l1 - param1) > Precision1::Confusion()
+            && fabs(f2 - param2) > Precision1::Confusion())
         {
           found = Standard_True;
           extrema.Points(i, p, p);

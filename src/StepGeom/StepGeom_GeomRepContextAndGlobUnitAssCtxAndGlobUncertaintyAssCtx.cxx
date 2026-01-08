@@ -203,9 +203,9 @@ void StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx::SetUnits(
 // --------------------------------------------------------------------------------------------------
 
 Handle(StepBasic_HArray1OfNamedUnit)
-  StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx::Units() const
+  StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx::Units2() const
 {
-  return globalUnitAssignedContext->Units();
+  return globalUnitAssignedContext->Units2();
 }
 
 // --------------------------------------------------------------------------------------------------

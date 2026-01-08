@@ -22,7 +22,7 @@
   #include <Standard_OStream.hxx>
 
 // POP pour NT
-class TOPKRO : public OSD_Chronometer
+class TOPKRO : public Chronometer
 {
 public:
   TOPKRO(const AsciiString1& n)
@@ -36,12 +36,12 @@ public:
   virtual void Start()
   {
     mystart = 1;
-    OSD_Chronometer::Start();
+    Chronometer::Start();
   }
 
   virtual void Stop()
   {
-    OSD_Chronometer::Stop();
+    Chronometer::Stop();
     mystop = 1;
   }
 
