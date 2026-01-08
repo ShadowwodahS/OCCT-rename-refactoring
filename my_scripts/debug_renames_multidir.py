@@ -14,7 +14,7 @@ TARGET_SCAN_DIRS = [
     r"..\tools",
 ]
 
-REFACTOR_SCRIPT_PATH = r"..\my_scripts\content_refactor.py"
+REFACTOR_SCRIPT_PATH = r"..\my_scripts\content_refactor_batch.py"
 CSV_PATH = r"..\my_docs\occt_renaming_map.csv"
 
 # 编译命令 (开启 /p:StopOnFirstFailure=true)
