@@ -58,8 +58,7 @@ def count_csv_rows(filepath):
 
 def run_command(cmd, desc, stop_on_error=False):
     """
-    返回: (success: bool, captured_line: str, error_type: str)
-    error_type: "COMPILER" | "LINKER" | "FATAL" | "NONE"
+    运行命令 (修复版：确保读完所有残余日志)
     """
     print(f"  [执行] {desc}...", end="", flush=True)
     start_time = time.time()
@@ -82,13 +81,15 @@ def run_command(cmd, desc, stop_on_error=False):
     error_detected = False
     
     while True:
-        if process.poll() is not None: break
-        
+        # 优先读取数据
         line = process.stdout.readline()
+        
+        # 如果读到了数据，处理它
         if line:
             log_buffer.append(line)
             if stop_on_error:
                 line_lower = line.lower()
+                
                 is_compiler = "error c" in line_lower
                 is_linker = "lnk" in line_lower
                 is_fatal = "fatal error" in line_lower
@@ -96,15 +97,25 @@ def run_command(cmd, desc, stop_on_error=False):
                 if ": error" in line_lower or is_compiler or is_linker or is_fatal:
                     error_detected = True
                     captured_error_line = line.strip()
+                    
                     if is_linker: error_type = "LINKER"
                     elif is_fatal: error_type = "FATAL"
                     else: error_type = "COMPILER"
+
                     print(f"\n\n{'!'*20} 捕获 {error_type} 错误 {'!'*20}")
                     print(f"信息: {captured_error_line}")
                     print(f"{'!'*54}\n")
+                    
                     process.kill()
-                    break
-        time.sleep(0.05)
+                    break # 确实捕获到了，可以退出了
+        
+        # 如果没读到数据 (EOF)，且进程已经结束，才退出
+        elif process.poll() is not None:
+            break
+            
+        # 没读到数据但进程还在跑，稍微等一下避免CPU空转
+        else:
+            time.sleep(0.05)
 
     if process and process.poll() is None: process.wait()
 
@@ -115,10 +126,23 @@ def run_command(cmd, desc, stop_on_error=False):
         print(f" -> ✅ 成功 ({duration:.2f}s)")
     else:
         print(f" -> 🛑 失败 ({duration:.2f}s)")
+        # 如果不是我们主动捕获并 Kill 掉的，说明漏掉了日志或者非Error退出
+        # 打印最后日志帮助排查
         if not stop_on_error and process.returncode != 0:
             print("\n" + "="*20 + " 错误日志 " + "="*20)
             print("".join(log_buffer[-20:]))
             print("="*50 + "\n")
+        
+        # 【新增】如果是 StopOnError 模式但没捕获到关键字（比如上面的情况）
+        # 补救措施：尝试在 log_buffer 里回溯一下
+        if stop_on_error and not error_detected and process.returncode != 0:
+             print("\n[警告] 编译失败但未实时捕获关键词，回溯日志中...")
+             for saved_line in reversed(log_buffer):
+                 l_low = saved_line.lower()
+                 if ": error" in l_low or "error c" in l_low or "fatal error" in l_low:
+                     captured_error_line = saved_line.strip()
+                     print(f"  >>> 回溯发现错误: {captured_error_line}")
+                     break
         
     return success, captured_error_line, error_type
 
