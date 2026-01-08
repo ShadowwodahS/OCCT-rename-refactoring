@@ -18,7 +18,7 @@
 #include <DE_PluginHolder.hxx>
 #include <NCollection_Buffer.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DESTL_ConfigurationNode, DE_ConfigurationNode)
+IMPLEMENT_STANDARD_RTTIEXT(DESTL_ConfigurationNode, ConfigurationNode)
 
 namespace
 {
@@ -35,21 +35,21 @@ DE_PluginHolder<DESTL_ConfigurationNode> THE_OCCT_STL_COMPONENT_PLUGIN;
 //=================================================================================================
 
 DESTL_ConfigurationNode::DESTL_ConfigurationNode()
-    : DE_ConfigurationNode()
+    : ConfigurationNode()
 {
 }
 
 //=================================================================================================
 
 DESTL_ConfigurationNode::DESTL_ConfigurationNode(const Handle(DESTL_ConfigurationNode)& theNode)
-    : DE_ConfigurationNode(theNode)
+    : ConfigurationNode(theNode)
 {
   InternalParameters = theNode->InternalParameters;
 }
 
 //=================================================================================================
 
-bool DESTL_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theResource)
+bool DESTL_ConfigurationNode::Load(const Handle(ConfigurationContext)& theResource)
 {
   AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor();
@@ -106,7 +106,7 @@ AsciiString1 DESTL_ConfigurationNode::Save() const
 
 //=================================================================================================
 
-Handle(DE_ConfigurationNode) DESTL_ConfigurationNode::Copy() const
+Handle(ConfigurationNode) DESTL_ConfigurationNode::Copy() const
 {
   return new DESTL_ConfigurationNode(*this);
 }

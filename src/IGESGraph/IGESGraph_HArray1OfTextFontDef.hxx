@@ -20,6 +20,6 @@
 #include <IGESGraph_Array1OfTextFontDef.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(IGESGraph_HArray1OfTextFontDef, IGESGraph_Array1OfTextFontDef)
+DEFINE_HARRAY1(HArray1OfTextFontDef, IGESGraph_Array1OfTextFontDef)
 
 #endif

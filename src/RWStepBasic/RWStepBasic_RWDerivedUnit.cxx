@@ -35,13 +35,13 @@ void RWStepBasic_RWDerivedUnit::ReadStep(const Handle(StepData_StepReaderData)& 
 
   // --- own field : elements ---
 
-  Handle(StepBasic_HArray1OfDerivedUnitElement) elts;
+  Handle(HArray1OfDerivedUnitElement) elts;
   Handle(StepBasic_DerivedUnitElement)          anelt;
   Standard_Integer                              nsub1;
   if (data->ReadSubList(num, 1, "elements", ach, nsub1))
   {
     Standard_Integer nb1 = data->NbParams(nsub1);
-    elts                 = new StepBasic_HArray1OfDerivedUnitElement(1, nb1);
+    elts                 = new HArray1OfDerivedUnitElement(1, nb1);
     for (Standard_Integer i1 = 1; i1 <= nb1; i1++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean st1 =` not needed

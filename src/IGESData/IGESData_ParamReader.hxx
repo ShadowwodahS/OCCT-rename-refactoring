@@ -353,7 +353,7 @@ public:
   Standard_EXPORT Standard_Boolean ReadEnts(const Handle(IGESData_IGESReaderData)& IR,
                                             const ParameterCursor&            PC,
                                             const Message_Msg&                     amsg,
-                                            Handle(IGESData_HArray1OfIGESEntity)&  val,
+                                            Handle(HArray1OfIGESEntity)&  val,
                                             const Standard_Integer                 index = 1);
 
   //! Reads a list of Entities defined by PC
@@ -368,7 +368,7 @@ public:
   Standard_EXPORT Standard_Boolean ReadEnts(const Handle(IGESData_IGESReaderData)& IR,
                                             const ParameterCursor&            PC,
                                             const Standard_CString                 mess,
-                                            Handle(IGESData_HArray1OfIGESEntity)&  val,
+                                            Handle(HArray1OfIGESEntity)&  val,
                                             const Standard_Integer                 index = 1);
 
   Standard_EXPORT Standard_Boolean ReadEntList(const Handle(IGESData_IGESReaderData)& IR,

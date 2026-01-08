@@ -43,7 +43,7 @@ void PlanarTool::ReadOwnParams(const Handle(IGESDraw_Planar)&         ent,
 
   Standard_Integer                      nbMatrices;
   Handle(IGESGeom_TransformationMatrix) transformationMatrix;
-  Handle(IGESData_HArray1OfIGESEntity)  entities;
+  Handle(HArray1OfIGESEntity)  entities;
 
   // Reading nbMatrices(Integer1)
   st = PR.ReadInteger(PR.Current(), "No. of Transformation matrices", nbMatrices);
@@ -69,7 +69,7 @@ void PlanarTool::ReadOwnParams(const Handle(IGESDraw_Planar)&         ent,
     st = PR.ReadEnts(IR, PR.CurrentList(nbval), "Planar Entities", entities);
   /*
       {
-        entities = new IGESData_HArray1OfIGESEntity(1, nbval);
+        entities = new HArray1OfIGESEntity(1, nbval);
         // Reading entities(HArray1OfIGESEntity)
         Handle(IGESData_IGESEntity) tempEntity;
         for (Standard_Integer i = 1; i <= nbval; i++)
@@ -112,7 +112,7 @@ void PlanarTool::OwnCopy(const Handle(IGESDraw_Planar)& another,
 {
   Standard_Integer                     nbval;
   Standard_Integer                     nbMatrices;
-  Handle(IGESData_HArray1OfIGESEntity) entities;
+  Handle(HArray1OfIGESEntity) entities;
 
   nbval      = another->NbEntities();
   nbMatrices = another->NbMatrices();
@@ -120,7 +120,7 @@ void PlanarTool::OwnCopy(const Handle(IGESDraw_Planar)& another,
                  transformationMatrix,
                  TC.Transferred(another->TransformMatrix()));
 
-  entities = new IGESData_HArray1OfIGESEntity(1, nbval);
+  entities = new HArray1OfIGESEntity(1, nbval);
   for (Standard_Integer i = 1; i <= nbval; i++)
   {
     DeclareAndCast(IGESData_IGESEntity, tempEntity, TC.Transferred(another->Entity(i)));
@@ -136,7 +136,7 @@ Standard_Boolean PlanarTool::OwnCorrect(const Handle(IGESDraw_Planar)& ent) cons
     return Standard_False;
   //  Forcer NbMNatrices a 1 -> Reconstruire
   Standard_Integer                     nb   = ent->NbEntities();
-  Handle(IGESData_HArray1OfIGESEntity) ents = new IGESData_HArray1OfIGESEntity(1, nb);
+  Handle(HArray1OfIGESEntity) ents = new HArray1OfIGESEntity(1, nb);
   for (Standard_Integer i = 1; i <= nb; i++)
     ents->SetValue(i, ent->Entity(i));
   ent->Init(1, ent->TransformMatrix(), ents);

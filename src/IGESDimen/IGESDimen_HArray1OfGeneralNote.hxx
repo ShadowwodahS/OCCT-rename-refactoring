@@ -20,6 +20,6 @@
 #include <IGESDimen_Array1OfGeneralNote.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(IGESDimen_HArray1OfGeneralNote, IGESDimen_Array1OfGeneralNote)
+DEFINE_HARRAY1(HArray1OfGeneralNote, IGESDimen_Array1OfGeneralNote)
 
 #endif

@@ -22,7 +22,7 @@ void StepBasic_ProductRelatedProductCategory::Init(
   const Handle(TCollection_HAsciiString)&   aName,
   const Standard_Boolean                    hasAdescription,
   const Handle(TCollection_HAsciiString)&   aDescription,
-  const Handle(StepBasic_HArray1OfProduct)& aProducts)
+  const Handle(HArray1OfProduct)& aProducts)
 {
   // --- classe own fields ---
   products = aProducts;
@@ -31,12 +31,12 @@ void StepBasic_ProductRelatedProductCategory::Init(
 }
 
 void StepBasic_ProductRelatedProductCategory::SetProducts(
-  const Handle(StepBasic_HArray1OfProduct)& aProducts)
+  const Handle(HArray1OfProduct)& aProducts)
 {
   products = aProducts;
 }
 
-Handle(StepBasic_HArray1OfProduct) StepBasic_ProductRelatedProductCategory::Products() const
+Handle(HArray1OfProduct) StepBasic_ProductRelatedProductCategory::Products() const
 {
   return products;
 }

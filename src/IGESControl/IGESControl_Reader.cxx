@@ -367,7 +367,7 @@ void IgesFileReader::PrintTransferInfo(const IFSelect_PrintFail  failsonly,
 
 ShapeFixParameters IgesFileReader::GetDefaultShapeFixParameters() const
 {
-  return DEIGES_Parameters::GetDefaultShapeFixParameters();
+  return Parameters1::GetDefaultShapeFixParameters();
 }
 
 //=================================================================================================

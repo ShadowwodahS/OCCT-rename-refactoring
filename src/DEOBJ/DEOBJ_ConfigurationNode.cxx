@@ -17,7 +17,7 @@
 #include <DE_ConfigurationContext.hxx>
 #include <DE_PluginHolder.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DEOBJ_ConfigurationNode, DE_ConfigurationNode)
+IMPLEMENT_STANDARD_RTTIEXT(DEOBJ_ConfigurationNode, ConfigurationNode)
 
 namespace
 {
@@ -34,21 +34,21 @@ DE_PluginHolder<DEOBJ_ConfigurationNode> THE_OCCT_OBJ_COMPONENT_PLUGIN;
 //=================================================================================================
 
 DEOBJ_ConfigurationNode::DEOBJ_ConfigurationNode()
-    : DE_ConfigurationNode()
+    : ConfigurationNode()
 {
 }
 
 //=================================================================================================
 
 DEOBJ_ConfigurationNode::DEOBJ_ConfigurationNode(const Handle(DEOBJ_ConfigurationNode)& theNode)
-    : DE_ConfigurationNode(theNode)
+    : ConfigurationNode(theNode)
 {
   InternalParameters = theNode->InternalParameters;
 }
 
 //=================================================================================================
 
-bool DEOBJ_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theResource)
+bool DEOBJ_ConfigurationNode::Load(const Handle(ConfigurationContext)& theResource)
 {
   AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor();
@@ -187,7 +187,7 @@ AsciiString1 DEOBJ_ConfigurationNode::Save() const
 
 //=================================================================================================
 
-Handle(DE_ConfigurationNode) DEOBJ_ConfigurationNode::Copy() const
+Handle(ConfigurationNode) DEOBJ_ConfigurationNode::Copy() const
 {
   return new DEOBJ_ConfigurationNode(*this);
 }

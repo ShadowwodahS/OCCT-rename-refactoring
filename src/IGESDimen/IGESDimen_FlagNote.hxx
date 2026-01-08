@@ -49,7 +49,7 @@ public:
   Standard_EXPORT void Init(const Coords3d&                                 leftCorner,
                             const Standard_Real                           anAngle,
                             const Handle(IGESDimen_GeneralNote)&          aNote,
-                            const Handle(IGESDimen_HArray1OfLeaderArrow)& someLeaders);
+                            const Handle(HArray1OfLeaderArrow)& someLeaders);
 
   //! returns Lower Left coordinate of Flag as Pnt from package gp1
   Standard_EXPORT Point3d LowerLeftCorner() const;
@@ -97,7 +97,7 @@ private:
   Coords3d                                 theLowerLeftcorner;
   Standard_Real                          theAngle;
   Handle(IGESDimen_GeneralNote)          theNote;
-  Handle(IGESDimen_HArray1OfLeaderArrow) theLeaders;
+  Handle(HArray1OfLeaderArrow) theLeaders;
 };
 
 #endif // _IGESDimen_FlagNote_HeaderFile

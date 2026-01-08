@@ -25,14 +25,14 @@
 #include <IGESData_HArray1OfIGESEntity.hxx>
 #include <Standard_Integer.hxx>
 
-class IGESBasic_HArray1OfHArray1OfIGESEntity;
-DEFINE_STANDARD_HANDLE(IGESBasic_HArray1OfHArray1OfIGESEntity, RefObject)
+class HArray1OfHArray1OfEntity;
+DEFINE_STANDARD_HANDLE(HArray1OfHArray1OfEntity, RefObject)
 
-class IGESBasic_HArray1OfHArray1OfIGESEntity : public RefObject
+class HArray1OfHArray1OfEntity : public RefObject
 {
 
 public:
-  Standard_EXPORT IGESBasic_HArray1OfHArray1OfIGESEntity(const Standard_Integer low,
+  Standard_EXPORT HArray1OfHArray1OfEntity(const Standard_Integer low,
                                                          const Standard_Integer up);
 
   Standard_EXPORT Standard_Integer Lower() const;
@@ -42,11 +42,11 @@ public:
   Standard_EXPORT Standard_Integer Length() const;
 
   Standard_EXPORT void SetValue(const Standard_Integer                      num,
-                                const Handle(IGESData_HArray1OfIGESEntity)& val);
+                                const Handle(HArray1OfIGESEntity)& val);
 
-  Standard_EXPORT Handle(IGESData_HArray1OfIGESEntity) Value(const Standard_Integer num) const;
+  Standard_EXPORT Handle(HArray1OfIGESEntity) Value(const Standard_Integer num) const;
 
-  DEFINE_STANDARD_RTTI_INLINE(IGESBasic_HArray1OfHArray1OfIGESEntity, RefObject)
+  DEFINE_STANDARD_RTTI_INLINE(HArray1OfHArray1OfEntity, RefObject)
 
 protected:
 private:

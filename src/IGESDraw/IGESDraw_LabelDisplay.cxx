@@ -28,11 +28,11 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESDraw_LabelDisplay, IGESData_LabelDisplayEntity)
 
 IGESDraw_LabelDisplay::IGESDraw_LabelDisplay() {}
 
-void IGESDraw_LabelDisplay::Init(const Handle(IGESDraw_HArray1OfViewKindEntity)& allViews,
+void IGESDraw_LabelDisplay::Init(const Handle(HArray1OfViewKindEntity)& allViews,
                                  const Handle(TColgp_HArray1OfXYZ)&              allTextLocations,
-                                 const Handle(IGESDimen_HArray1OfLeaderArrow)&   allLeaderEntities,
+                                 const Handle(HArray1OfLeaderArrow)&   allLeaderEntities,
                                  const Handle(TColStd_HArray1OfInteger)&         allLabelLevels,
-                                 const Handle(IGESData_HArray1OfIGESEntity)& allDisplayedEntities)
+                                 const Handle(HArray1OfIGESEntity)& allDisplayedEntities)
 {
   Standard_Integer Ln = allViews->Length();
   if (allViews->Lower() != 1 || (allTextLocations->Lower() != 1 || allTextLocations->Length() != Ln)

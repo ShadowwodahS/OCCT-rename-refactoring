@@ -20,6 +20,6 @@
 #include <STEPSelections_SequenceOfAssemblyLink.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(STEPSelections_HSequenceOfAssemblyLink, STEPSelections_SequenceOfAssemblyLink)
+DEFINE_HSEQUENCE(HSequenceOfAssemblyLink, STEPSelections_SequenceOfAssemblyLink)
 
 #endif

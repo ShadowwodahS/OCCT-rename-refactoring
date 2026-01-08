@@ -21,7 +21,7 @@ StepRepr_GlobalUnitAssignedContext::StepRepr_GlobalUnitAssignedContext() {}
 void StepRepr_GlobalUnitAssignedContext::Init(
   const Handle(TCollection_HAsciiString)&     aContextIdentifier,
   const Handle(TCollection_HAsciiString)&     aContextType,
-  const Handle(StepBasic_HArray1OfNamedUnit)& aUnits)
+  const Handle(HArray1OfNamedUnit)& aUnits)
 {
   // --- classe own fields ---
   units = aUnits;
@@ -30,12 +30,12 @@ void StepRepr_GlobalUnitAssignedContext::Init(
 }
 
 void StepRepr_GlobalUnitAssignedContext::SetUnits(
-  const Handle(StepBasic_HArray1OfNamedUnit)& aUnits)
+  const Handle(HArray1OfNamedUnit)& aUnits)
 {
   units = aUnits;
 }
 
-Handle(StepBasic_HArray1OfNamedUnit) StepRepr_GlobalUnitAssignedContext::Units2() const
+Handle(HArray1OfNamedUnit) StepRepr_GlobalUnitAssignedContext::Units2() const
 {
   return units;
 }

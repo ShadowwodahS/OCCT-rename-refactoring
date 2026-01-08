@@ -27,7 +27,7 @@ IGESGeom_TrimmedSurface::IGESGeom_TrimmedSurface() {}
 void IGESGeom_TrimmedSurface::Init(const Handle(IGESData_IGESEntity)&              aSurface,
                                    const Standard_Integer                          aFlag,
                                    const Handle(IGESGeom_CurveOnSurface)&          anOuter,
-                                   const Handle(IGESGeom_HArray1OfCurveOnSurface)& anInner)
+                                   const Handle(HArray1OfCurveOnSurface)& anInner)
 {
   if (!anInner.IsNull())
     if (anInner->Lower() != 1)

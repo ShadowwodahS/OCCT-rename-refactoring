@@ -60,7 +60,7 @@ public:
                             const Standard_Integer                        aTypeFlag,
                             const Handle(TCollection_HAsciiString)&       aDesignator,
                             const Handle(IGESGraph_TextDisplayTemplate)&  aTemplate,
-                            const Handle(IGESDraw_HArray1OfConnectPoint)& allConnectPoints);
+                            const Handle(HArray1OfConnectPoint)& allConnectPoints);
 
   //! returns Network Subfigure Definition Entity specified by this entity
   Standard_EXPORT Handle(IGESDraw_NetworkSubfigureDef) SubfigureDefinition() const;
@@ -111,7 +111,7 @@ private:
   Standard_Integer                       theTypeFlag;
   Handle(TCollection_HAsciiString)       theDesignator;
   Handle(IGESGraph_TextDisplayTemplate)  theDesignatorTemplate;
-  Handle(IGESDraw_HArray1OfConnectPoint) theConnectPoints;
+  Handle(HArray1OfConnectPoint) theConnectPoints;
 };
 
 #endif // _IGESDraw_NetworkSubfigure_HeaderFile

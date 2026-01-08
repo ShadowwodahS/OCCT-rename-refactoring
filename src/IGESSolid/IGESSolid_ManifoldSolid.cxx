@@ -27,7 +27,7 @@ IGESSolid_ManifoldSolid::IGESSolid_ManifoldSolid() {}
 
 void IGESSolid_ManifoldSolid::Init(const Handle(IGESSolid_Shell)&          aShell,
                                    const Standard_Boolean                  Shellflag,
-                                   const Handle(IGESSolid_HArray1OfShell)& VoidShells,
+                                   const Handle(HArray1OfShell)& VoidShells,
                                    const Handle(TColStd_HArray1OfInteger)& VoidShellFlags)
 {
   if (!VoidShells.IsNull())

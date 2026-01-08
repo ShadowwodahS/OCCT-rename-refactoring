@@ -42,13 +42,13 @@ void RWStepAP214_RWAutoDesignGroupAssignment::ReadStep(
 
   // --- own field : items ---
 
-  Handle(StepAP214_HArray1OfAutoDesignGroupedItem) aItems;
+  Handle(HArray1OfAutoDesignGroupedItem) aItems;
   StepAP214_AutoDesignGroupedItem                  aItemsItem;
   Standard_Integer                                 nsub2;
   if (data->ReadSubList(num, 2, "items", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aItems               = new StepAP214_HArray1OfAutoDesignGroupedItem(1, nb2);
+    aItems               = new HArray1OfAutoDesignGroupedItem(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       Standard_Boolean stat2 = data->ReadEntity(nsub2, i2, "items", ach, aItemsItem);

@@ -22,7 +22,7 @@
 #include <StepAP214_HArray1OfDateItem.hxx>
 #include <StepBasic_DateAssignment.hxx>
 #include <Standard_Integer.hxx>
-class StepBasic_Date;
+class Date1;
 class StepBasic_DateRole;
 class StepAP214_DateItem;
 
@@ -36,13 +36,13 @@ public:
   //! Returns a AppliedDateAssignment
   Standard_EXPORT StepAP214_AppliedDateAssignment();
 
-  Standard_EXPORT void Init(const Handle(StepBasic_Date)&              aAssignedDate,
+  Standard_EXPORT void Init(const Handle(Date1)&              aAssignedDate,
                             const Handle(StepBasic_DateRole)&          aRole,
-                            const Handle(StepAP214_HArray1OfDateItem)& aItems);
+                            const Handle(HArray1OfDateItem)& aItems);
 
-  Standard_EXPORT void SetItems(const Handle(StepAP214_HArray1OfDateItem)& aItems);
+  Standard_EXPORT void SetItems(const Handle(HArray1OfDateItem)& aItems);
 
-  Standard_EXPORT Handle(StepAP214_HArray1OfDateItem) Items() const;
+  Standard_EXPORT Handle(HArray1OfDateItem) Items() const;
 
   Standard_EXPORT StepAP214_DateItem ItemsValue(const Standard_Integer num) const;
 
@@ -52,7 +52,7 @@ public:
 
 protected:
 private:
-  Handle(StepAP214_HArray1OfDateItem) items;
+  Handle(HArray1OfDateItem) items;
 };
 
 #endif // _StepAP214_AppliedDateAssignment_HeaderFile

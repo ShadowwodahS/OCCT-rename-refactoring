@@ -31,7 +31,7 @@ RWObj_CafReader::RWObj_CafReader()
 
 void RWObj_CafReader::BindNamedShape(const TopoShape&            theShape,
                                      const AsciiString1& theName,
-                                     const RWObj_Material*          theMaterial,
+                                     const Material1*          theMaterial,
                                      const Standard_Boolean         theIsRootShape)
 {
   if (theShape.IsNull())

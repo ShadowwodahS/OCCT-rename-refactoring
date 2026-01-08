@@ -24,15 +24,15 @@
 
 LDOM_Document::LDOM_Document()
 {
-  myMemManager = new LDOM_MemManager(MEMORY_GRANULE);
+  myMemManager = new MemoryManager(MEMORY_GRANULE);
 }
 
 //=======================================================================
 // function : LDOM_Document
-// purpose  : Constructor to be used in LDOM_MemManager::Doc()
+// purpose  : Constructor to be used in MemoryManager::Doc()
 //=======================================================================
 
-LDOM_Document::LDOM_Document(const LDOM_MemManager& aMemManager)
+LDOM_Document::LDOM_Document(const MemoryManager& aMemManager)
 {
   myMemManager = &aMemManager;
 }
@@ -45,7 +45,7 @@ LDOM_Document::~LDOM_Document() {}
 
 Standard_Boolean LDOM_Document::isNull() const
 {
-  const LDOM_BasicElement* const aRootElement = myMemManager->RootElement();
+  const BasicElement* const aRootElement = myMemManager->RootElement();
   if (aRootElement == NULL)
     return Standard_True;
   return aRootElement->isNull();
@@ -63,7 +63,7 @@ LDOM_Element LDOM_Document::getDocumentElement() const
 LDOM_NodeList LDOM_Document::getElementsByTagName(const LDOMString& theTagName) const
 {
   LDOM_NodeList      aList(myMemManager);
-  LDOM_BasicElement* anElem     = (LDOM_BasicElement*)myMemManager->RootElement();
+  BasicElement* anElem     = (BasicElement*)myMemManager->RootElement();
   const char*        aTagString = theTagName.GetString();
   if (anElem)
   {
@@ -84,7 +84,7 @@ LDOM_Document LDOM_Document::createDocument(const LDOMString& theQualifiedName)
   if (strlen(aString) == 0)
     aString = "document";
   aDoc.myMemManager->myRootElement =
-    &LDOM_BasicElement::Create(aString, (Standard_Integer)strlen(aString), aDoc.myMemManager);
+    &BasicElement::Create(aString, (Standard_Integer)strlen(aString), aDoc.myMemManager);
   return aDoc;
 }
 
@@ -93,8 +93,8 @@ LDOM_Document LDOM_Document::createDocument(const LDOMString& theQualifiedName)
 LDOM_Element LDOM_Document::createElement(const LDOMString& theTagName)
 {
   const char*        aTagString = theTagName.GetString();
-  LDOM_BasicElement& aBasicElem =
-    LDOM_BasicElement::Create(aTagString, (Standard_Integer)strlen(aTagString), myMemManager);
+  BasicElement& aBasicElem =
+    BasicElement::Create(aTagString, (Standard_Integer)strlen(aTagString), myMemManager);
   return LDOM_Element(aBasicElem, myMemManager);
 }
 
@@ -102,8 +102,8 @@ LDOM_Element LDOM_Document::createElement(const LDOMString& theTagName)
 
 LDOM_Text LDOM_Document::createTextNode(const LDOMString& theData)
 {
-  LDOM_BasicText& aBasicText =
-    LDOM_BasicText::Create(LDOM_Node::TEXT_NODE, LDOMString(theData, myMemManager), myMemManager);
+  BasicText& aBasicText =
+    BasicText::Create(LDOM_Node::TEXT_NODE, LDOMString(theData, myMemManager), myMemManager);
   return LDOM_Text(aBasicText, myMemManager);
 }
 
@@ -111,7 +111,7 @@ LDOM_Text LDOM_Document::createTextNode(const LDOMString& theData)
 
 LDOM_CDATASection LDOM_Document::createCDATASection(const LDOMString& theData)
 {
-  LDOM_BasicText&         aBasicText = LDOM_BasicText::Create(LDOM_Node::CDATA_SECTION_NODE,
+  BasicText&         aBasicText = BasicText::Create(LDOM_Node::CDATA_SECTION_NODE,
                                                       LDOMString(theData, myMemManager),
                                                       myMemManager);
   const LDOM_CDATASection aNewNode(aBasicText, myMemManager);
@@ -123,7 +123,7 @@ LDOM_CDATASection LDOM_Document::createCDATASection(const LDOMString& theData)
 
 LDOM_Comment LDOM_Document::createComment(const LDOMString& theData)
 {
-  LDOM_BasicText& aBasicText = LDOM_BasicText::Create(LDOM_Node::COMMENT_NODE,
+  BasicText& aBasicText = BasicText::Create(LDOM_Node::COMMENT_NODE,
                                                       LDOMString(theData, myMemManager),
                                                       myMemManager);
   return LDOM_Comment(aBasicText, myMemManager);
@@ -136,7 +136,7 @@ LDOM_Comment LDOM_Document::createComment(const LDOMString& theData)
 
 LDOM_Document& LDOM_Document::operator=(const LDOM_NullPtr*)
 {
-  myMemManager = new LDOM_MemManager(MEMORY_GRANULE);
+  myMemManager = new MemoryManager(MEMORY_GRANULE);
   return *this;
 }
 

@@ -42,7 +42,7 @@ void CompositeCurveTool::ReadOwnParams(const Handle(IGESGeom_CompositeCurve)& en
   // MGE 28/07/98
   // Building of messages
   // Standard_Boolean st; //szv#4:S4163:12Mar99 moved down
-  Handle(IGESData_HArray1OfIGESEntity) tempEntities;
+  Handle(HArray1OfIGESEntity) tempEntities;
 
   Standard_Integer num; // szv#4:S4163:12Mar99 i not needed
 
@@ -90,7 +90,7 @@ void CompositeCurveTool::OwnCopy(const Handle(IGESGeom_CompositeCurve)& another,
                                           Interface_CopyTool&                    TC) const
 {
   Standard_Integer                     i, num = another->NbCurves();
-  Handle(IGESData_HArray1OfIGESEntity) tempEntities = new IGESData_HArray1OfIGESEntity(1, num);
+  Handle(HArray1OfIGESEntity) tempEntities = new HArray1OfIGESEntity(1, num);
   for (i = 1; i <= num; i++)
   {
     DeclareAndCast(IGESData_IGESEntity, new_ent, TC.Transferred(another->Curve(i)));

@@ -88,9 +88,9 @@ void IGESSelect_RebuildDrawings::Performing(IFSelect_ContextModif&            ct
     {
       DeclareAndCast(IGESDraw_Drawing, draw, item);
       Standard_Integer                         nbv = draw->NbViews();
-      Handle(IGESDraw_HArray1OfViewKindEntity) views;
+      Handle(HArray1OfViewKindEntity) views;
       if (nbv > 0)
-        views = new IGESDraw_HArray1OfViewKindEntity(1, nbv);
+        views = new HArray1OfViewKindEntity(1, nbv);
       //  Passer ses vues : toutes
       //  Aussi les positions des vues
       Handle(TColgp_HArray1OfXY) origs;
@@ -104,7 +104,7 @@ void IGESSelect_RebuildDrawings::Performing(IFSelect_ContextModif&            ct
         origs->SetValue(iv, draw->ViewOrigin(iv).XY());
       }
       //  Frame : passer ce qui a ete transfere
-      Handle(IGESData_HArray1OfIGESEntity) frame;
+      Handle(HArray1OfIGESEntity) frame;
       Standard_Integer                     nba = draw->NbAnnotations();
       Interface_EntityIterator             framelist;
       Standard_Integer                     ia; // svv Jan11 2000 : porting on DEC
@@ -117,7 +117,7 @@ void IGESSelect_RebuildDrawings::Performing(IFSelect_ContextModif&            ct
       nba = framelist.NbEntities();
       ia  = 0;
       if (nba > 0)
-        frame = new IGESData_HArray1OfIGESEntity(1, nba);
+        frame = new HArray1OfIGESEntity(1, nba);
       for (framelist.Start(); framelist.More(); framelist.Next())
       {
         ia++;
@@ -134,9 +134,9 @@ void IGESSelect_RebuildDrawings::Performing(IFSelect_ContextModif&            ct
     {
       DeclareAndCast(IGESDraw_DrawingWithRotation, draw, item);
       Standard_Integer                         nbv = draw->NbViews();
-      Handle(IGESDraw_HArray1OfViewKindEntity) views;
+      Handle(HArray1OfViewKindEntity) views;
       if (nbv > 0)
-        views = new IGESDraw_HArray1OfViewKindEntity(1, nbv);
+        views = new HArray1OfViewKindEntity(1, nbv);
       //  Passer ses vues : toutes
       //  Aussi les positions des vues .. et les rotations
       Handle(TColgp_HArray1OfXY) origs;
@@ -158,7 +158,7 @@ void IGESSelect_RebuildDrawings::Performing(IFSelect_ContextModif&            ct
         origs->SetValue(iv, draw->ViewOrigin(iv).XY());
       }
       //  Frame : passer ce qui a ete transfere
-      Handle(IGESData_HArray1OfIGESEntity) frame;
+      Handle(HArray1OfIGESEntity) frame;
       Standard_Integer                     nba = draw->NbAnnotations();
       Interface_EntityIterator             framelist;
       Standard_Integer                     ia; // svv Jan11 2000 : porting on DEC
@@ -171,7 +171,7 @@ void IGESSelect_RebuildDrawings::Performing(IFSelect_ContextModif&            ct
       nba = framelist.NbEntities();
       ia  = 0;
       if (nba > 0)
-        frame = new IGESData_HArray1OfIGESEntity(1, nba);
+        frame = new HArray1OfIGESEntity(1, nba);
       for (framelist.Start(); framelist.More(); framelist.Next())
       {
         ia++;

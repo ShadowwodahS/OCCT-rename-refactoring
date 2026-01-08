@@ -359,7 +359,7 @@ IFSelect_ReturnStatus STEPCAFControl_Reader::ReadFile(const Standard_CString the
 //=================================================================================================
 
 IFSelect_ReturnStatus STEPCAFControl_Reader::ReadFile(const Standard_CString   theFileName,
-                                                      const DESTEP_Parameters& theParams)
+                                                      const Parameters2& theParams)
 {
   return myReader.ReadFile(theFileName, theParams);
 }
@@ -415,7 +415,7 @@ Standard_Boolean STEPCAFControl_Reader::Perform(const Standard_CString          
 
 Standard_Boolean STEPCAFControl_Reader::Perform(const Standard_CString          filename,
                                                 const Handle(AppDocument)& doc,
-                                                const DESTEP_Parameters&        theParams,
+                                                const Parameters2&        theParams,
                                                 const Message_ProgressRange&    theProgress)
 {
   if (ReadFile(filename, theParams) != IFSelect_RetDone)
@@ -442,7 +442,7 @@ Standard_Boolean STEPCAFControl_Reader::Perform(const AsciiString1&  filename,
 
 Standard_Boolean STEPCAFControl_Reader::Perform(const AsciiString1&  filename,
                                                 const Handle(AppDocument)& doc,
-                                                const DESTEP_Parameters&        theParams,
+                                                const Parameters2&        theParams,
                                                 const Message_ProgressRange&    theProgress)
 {
   if (ReadFile(filename.ToCString(), theParams) != IFSelect_RetDone)

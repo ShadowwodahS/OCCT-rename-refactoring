@@ -46,12 +46,12 @@ void ExternalRefFileIndexTool::ReadOwnParams(
   // Standard_Boolean st; //szv#4:S4163:12Mar99 moved down
   Standard_Integer                        num, i;
   Handle(Interface_HArray1OfHAsciiString) tempNames;
-  Handle(IGESData_HArray1OfIGESEntity)    tempEntities;
+  Handle(HArray1OfIGESEntity)    tempEntities;
   Standard_Boolean st = PR.ReadInteger(PR.Current(), "Number of index entries", num);
   if (st && num > 0)
   {
     tempNames    = new Interface_HArray1OfHAsciiString(1, num);
-    tempEntities = new IGESData_HArray1OfIGESEntity(1, num);
+    tempEntities = new HArray1OfIGESEntity(1, num);
   }
   else
     PR.AddFail("Number of index entries: Not Positive");
@@ -103,7 +103,7 @@ void ExternalRefFileIndexTool::OwnCopy(
 {
   Standard_Integer                        num       = another->NbEntries();
   Handle(Interface_HArray1OfHAsciiString) tempNames = new Interface_HArray1OfHAsciiString(1, num);
-  Handle(IGESData_HArray1OfIGESEntity)    tempEntities = new IGESData_HArray1OfIGESEntity(1, num);
+  Handle(HArray1OfIGESEntity)    tempEntities = new HArray1OfIGESEntity(1, num);
   for (Standard_Integer i = 1; i <= num; i++)
   {
     tempNames->SetValue(i, new TCollection_HAsciiString(another->Name(i)));

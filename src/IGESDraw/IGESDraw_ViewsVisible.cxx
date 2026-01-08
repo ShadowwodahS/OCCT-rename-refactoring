@@ -26,8 +26,8 @@ IGESDraw_ViewsVisible::IGESDraw_ViewsVisible() {}
 
 // This class inherits from IGESData_ViewKindEntity
 
-void IGESDraw_ViewsVisible::Init(const Handle(IGESDraw_HArray1OfViewKindEntity)& allViewEntities,
-                                 const Handle(IGESData_HArray1OfIGESEntity)&     allDisplayEntity)
+void IGESDraw_ViewsVisible::Init(const Handle(HArray1OfViewKindEntity)& allViewEntities,
+                                 const Handle(HArray1OfIGESEntity)&     allDisplayEntity)
 {
   if (!allDisplayEntity.IsNull())
     if (allDisplayEntity->Lower() != 1)
@@ -41,7 +41,7 @@ void IGESDraw_ViewsVisible::Init(const Handle(IGESDraw_HArray1OfViewKindEntity)&
 }
 
 void IGESDraw_ViewsVisible::InitImplied(
-  const Handle(IGESData_HArray1OfIGESEntity)& allDisplayEntity)
+  const Handle(HArray1OfIGESEntity)& allDisplayEntity)
 {
   if (!allDisplayEntity.IsNull())
     if (allDisplayEntity->Lower() != 1)

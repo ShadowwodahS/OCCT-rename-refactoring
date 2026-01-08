@@ -26,8 +26,8 @@
 
 #define TheObject Handle(IGESData_IGESEntity)
 #define TheObject_hxx <IGESData_IGESEntity.hxx>
-#define Handle_TheModule Handle(IGESData_SpecificModule)
-#define TheModule IGESData_SpecificModule
+#define Handle_TheModule Handle(SpecificModule)
+#define TheModule SpecificModule
 #define TheModule_hxx <IGESData_SpecificModule.hxx>
 #define Handle_TheProtocol Handle(IGESData_Protocol)
 #define TheProtocol IGESData_Protocol

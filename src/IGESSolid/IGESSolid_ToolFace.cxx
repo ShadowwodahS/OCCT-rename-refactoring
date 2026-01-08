@@ -58,7 +58,7 @@ void FaceTool::ReadOwnParams(const Handle(IGESSolid_Face)&          ent,
   Handle(IGESSolid_Loop)          aloop;
   Handle(IGESData_IGESEntity)     tempSurface;
   Standard_Integer                nbloops;
-  Handle(IGESSolid_HArray1OfLoop) tempLoops;
+  Handle(HArray1OfLoop) tempLoops;
   IGESData_Status                 aStatus;
 
   if (!PR.ReadEntity(IR, PR.Current(), aStatus, tempSurface))
@@ -92,7 +92,7 @@ void FaceTool::ReadOwnParams(const Handle(IGESSolid_Face)&          ent,
     st = PR.ReadInteger(PR.Current(), "Number of loops", nbloops);
   */
   if (st && nbloops > 0)
-    tempLoops = new IGESSolid_HArray1OfLoop(1, nbloops);
+    tempLoops = new HArray1OfLoop(1, nbloops);
   else
     PR.SendFail(Msg197);
 
@@ -175,7 +175,7 @@ void FaceTool::OwnCopy(const Handle(IGESSolid_Face)& another,
   Standard_Integer nbloops       = another->NbLoops();
   Standard_Boolean outerLoopFlag = another->HasOuterLoop();
 
-  Handle(IGESSolid_HArray1OfLoop) tempLoops = new IGESSolid_HArray1OfLoop(1, nbloops);
+  Handle(HArray1OfLoop) tempLoops = new HArray1OfLoop(1, nbloops);
   for (Standard_Integer i = 1; i <= nbloops; i++)
   {
     DeclareAndCast(IGESSolid_Loop, anent, TC.Transferred(another->Loop(i)));

@@ -39,7 +39,7 @@ public:
 
   Standard_EXPORT void Init(const Standard_Integer                      nbDims,
                             const Handle(IGESData_IGESEntity)&          aDimension,
-                            const Handle(IGESData_HArray1OfIGESEntity)& entities);
+                            const Handle(HArray1OfIGESEntity)& entities);
 
   //! returns the number of dimensions
   Standard_EXPORT Standard_Integer NbDimensions() const;
@@ -60,7 +60,7 @@ protected:
 private:
   Standard_Integer                     theNbDimensions;
   Handle(IGESData_IGESEntity)          theDimension;
-  Handle(IGESData_HArray1OfIGESEntity) theGeometryEntities;
+  Handle(HArray1OfIGESEntity) theGeometryEntities;
 };
 
 #endif // _IGESDimen_DimensionedGeometry_HeaderFile

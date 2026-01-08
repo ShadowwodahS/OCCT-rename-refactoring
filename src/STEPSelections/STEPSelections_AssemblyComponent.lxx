@@ -30,7 +30,7 @@ inline Handle(StepShape_ShapeDefinitionRepresentation) STEPSelections_AssemblyCo
 // purpose  :
 //=======================================================================
 
-inline Handle(STEPSelections_HSequenceOfAssemblyLink) STEPSelections_AssemblyComponent::GetList()
+inline Handle(HSequenceOfAssemblyLink) STEPSelections_AssemblyComponent::GetList()
   const
 {
   return myList;
@@ -48,7 +48,7 @@ inline void STEPSelections_AssemblyComponent::SetSDR(
 }
 
 inline void STEPSelections_AssemblyComponent::SetList(
-  const Handle(STEPSelections_HSequenceOfAssemblyLink)& list)
+  const Handle(HSequenceOfAssemblyLink)& list)
 {
   myList = list;
 }

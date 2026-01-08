@@ -20,7 +20,7 @@
 #include <StepAP214_Array1OfAutoDesignDateAndTimeItem.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepAP214_HArray1OfAutoDesignDateAndTimeItem,
+DEFINE_HARRAY1(HArray1OfAutoDesignDateTime,
                StepAP214_Array1OfAutoDesignDateAndTimeItem)
 
 #endif

@@ -20,6 +20,6 @@
 #include <StepBasic_Array1OfApproval.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepBasic_HArray1OfApproval, StepBasic_Array1OfApproval)
+DEFINE_HARRAY1(HArray1OfApproval, StepBasic_Array1OfApproval)
 
 #endif

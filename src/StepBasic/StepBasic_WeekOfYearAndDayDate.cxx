@@ -14,7 +14,7 @@
 #include <Standard_Type.hxx>
 #include <StepBasic_WeekOfYearAndDayDate.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_WeekOfYearAndDayDate, StepBasic_Date)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_WeekOfYearAndDayDate, Date1)
 
 StepBasic_WeekOfYearAndDayDate::StepBasic_WeekOfYearAndDayDate() {}
 
@@ -28,7 +28,7 @@ void StepBasic_WeekOfYearAndDayDate::Init(const Standard_Integer aYearComponent,
   hasDayComponent = hasAdayComponent;
   dayComponent    = aDayComponent;
   // --- classe inherited fields ---
-  StepBasic_Date::Init(aYearComponent);
+  Date1::Init(aYearComponent);
 }
 
 void StepBasic_WeekOfYearAndDayDate::SetWeekComponent(const Standard_Integer aWeekComponent)

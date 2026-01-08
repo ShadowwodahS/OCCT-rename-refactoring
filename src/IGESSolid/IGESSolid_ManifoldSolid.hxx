@@ -48,7 +48,7 @@ public:
   //! do not match
   Standard_EXPORT void Init(const Handle(IGESSolid_Shell)&          aShell,
                             const Standard_Boolean                  shellflag,
-                            const Handle(IGESSolid_HArray1OfShell)& voidShells,
+                            const Handle(HArray1OfShell)& voidShells,
                             const Handle(TColStd_HArray1OfInteger)& voidShellFlags);
 
   //! returns the Shell entity which is being referred
@@ -74,7 +74,7 @@ protected:
 private:
   Handle(IGESSolid_Shell)          theShell;
   Standard_Boolean                 theOrientationFlag;
-  Handle(IGESSolid_HArray1OfShell) theVoidShells;
+  Handle(HArray1OfShell) theVoidShells;
   Handle(TColStd_HArray1OfInteger) theOrientFlags;
 };
 

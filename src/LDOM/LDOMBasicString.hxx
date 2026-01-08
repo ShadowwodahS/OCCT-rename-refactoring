@@ -20,7 +20,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-class LDOM_MemManager;
+class MemoryManager;
 class LDOM_NullPtr;
 class AsciiString1;
 class UtfString;
@@ -30,7 +30,7 @@ class UtfString;
 
 class LDOMBasicString1
 {
-  friend class LDOM_MemManager;
+  friend class MemoryManager;
   friend class LDOM_Node;
 
 public:
@@ -107,12 +107,12 @@ public:
   Standard_EXPORT LDOMBasicString1(const char* aValue);
   //    Create LDOM_AsciiFree
 
-  Standard_EXPORT LDOMBasicString1(const char* aValue, const Handle(LDOM_MemManager)& aDoc);
+  Standard_EXPORT LDOMBasicString1(const char* aValue, const Handle(MemoryManager)& aDoc);
   //    Create LDOM_AsciiDoc
 
   Standard_EXPORT LDOMBasicString1(const char*                    aValue,
                                   const Standard_Integer         aLen,
-                                  const Handle(LDOM_MemManager)& aDoc);
+                                  const Handle(MemoryManager)& aDoc);
   //    Create LDOM_AsciiDoc
 
 protected:

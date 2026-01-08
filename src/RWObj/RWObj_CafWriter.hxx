@@ -28,7 +28,7 @@ class RWMesh_FaceIterator;
 class AppDocument;
 
 class Message_LazyProgressScope;
-class RWObj_ObjWriterContext;
+class OBJWriterContext;
 class RWObj_ObjMaterialMap;
 
 //! OBJ writer context from XCAF document.
@@ -113,7 +113,7 @@ protected:
   //! @param[in] theParentTrsf   parent node transformation
   //! @param[in] theParentStyle  parent node style
   //! @param[in] theName     node name
-  Standard_EXPORT virtual bool writeShape(RWObj_ObjWriterContext&        theWriter,
+  Standard_EXPORT virtual bool writeShape(OBJWriterContext&        theWriter,
                                           RWObj_ObjMaterialMap&          theMatMgr,
                                           Message_LazyProgressScope&     thePSentry,
                                           const DataLabel&               theLabel,
@@ -126,7 +126,7 @@ protected:
   //! @param[in] thePSentry  progress sentry
   //! @param[in] theFace     current face
   //! @return FALSE on writing file error
-  Standard_EXPORT virtual bool writePositions(RWObj_ObjWriterContext&    theWriter,
+  Standard_EXPORT virtual bool writePositions(OBJWriterContext&    theWriter,
                                               Message_LazyProgressScope& thePSentry,
                                               const RWMesh_FaceIterator& theFace);
 
@@ -135,7 +135,7 @@ protected:
   //! @param[in] thePSentry  progress sentry
   //! @param[in] theFace     current face
   //! @return FALSE on writing file error
-  Standard_EXPORT virtual bool writeNormals(RWObj_ObjWriterContext&    theWriter,
+  Standard_EXPORT virtual bool writeNormals(OBJWriterContext&    theWriter,
                                             Message_LazyProgressScope& thePSentry,
                                             const RWMesh_FaceIterator& theFace);
 
@@ -144,7 +144,7 @@ protected:
   //! @param[in] thePSentry  progress sentry
   //! @param[in] theFace     current face
   //! @return FALSE on writing file error
-  Standard_EXPORT virtual bool writeTextCoords(RWObj_ObjWriterContext&    theWriter,
+  Standard_EXPORT virtual bool writeTextCoords(OBJWriterContext&    theWriter,
                                                Message_LazyProgressScope& thePSentry,
                                                const RWMesh_FaceIterator& theFace);
 
@@ -153,7 +153,7 @@ protected:
   //! @param[in] thePSentry  progress sentry
   //! @param[in] theFace     current face
   //! @return FALSE on writing file error
-  Standard_EXPORT virtual bool writeIndices(RWObj_ObjWriterContext&    theWriter,
+  Standard_EXPORT virtual bool writeIndices(OBJWriterContext&    theWriter,
                                             Message_LazyProgressScope& thePSentry,
                                             const RWMesh_FaceIterator& theFace);
 

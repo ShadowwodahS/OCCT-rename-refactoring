@@ -480,7 +480,7 @@ static Standard_Integer WriteGltf(DrawInterpreter& theDI,
 
   const Standard_Real aScaleFactorM = XSDRAW1::GetLengthUnit(aDoc) / 1000;
 
-  RWGltf_CafWriter aWriter(aGltfFilePath, anExt.EndsWith(".glb"));
+  GLTFCafWriter aWriter(aGltfFilePath, anExt.EndsWith(".glb"));
   aWriter.SetTransformationFormat(aTrsfFormat);
   aWriter.SetNodeNameFormat(aNodeNameFormat);
   aWriter.SetMeshNameFormat(aMeshNameFormat);

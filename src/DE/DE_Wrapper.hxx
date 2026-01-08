@@ -25,7 +25,7 @@ class TopoShape;
 class ExchangeSession;
 class AppDocument;
 
-typedef NCollection_IndexedDataMap<AsciiString1, Handle(DE_ConfigurationNode)>
+typedef NCollection_IndexedDataMap<AsciiString1, Handle(ConfigurationNode)>
   DE_ConfigurationVendorMap;
 typedef NCollection_DataMap<AsciiString1, DE_ConfigurationVendorMap>
   DE_ConfigurationFormatMap;
@@ -51,26 +51,26 @@ typedef NCollection_DataMap<AsciiString1, DE_ConfigurationVendorMap>
 //!   3.2) Configuration can change the priority of Vendors
 //! 4) Initiate the transfer process by calling "::Write" or "::Read" methods
 //! 5) Validate the transfer process output
-class DE_Wrapper : public RefObject
+class DataExchangeWrapper : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(DE_Wrapper, RefObject)
+  DEFINE_STANDARD_RTTIEXT(DataExchangeWrapper, RefObject)
 
 public:
   //! Initializes all field by default
-  Standard_EXPORT DE_Wrapper();
+  Standard_EXPORT DataExchangeWrapper();
 
   //! Copies values of all fields
   //! @param[in] theWrapper object to copy
-  Standard_EXPORT DE_Wrapper(const Handle(DE_Wrapper)& theWrapper);
+  Standard_EXPORT DataExchangeWrapper(const Handle(DataExchangeWrapper)& theWrapper);
 
   //! Gets global configuration singleton.
   //! If wrapper is not set, create it by default as base class object.
   //! @return point to global configuration
-  Standard_EXPORT static const Handle(DE_Wrapper)& GlobalWrapper();
+  Standard_EXPORT static const Handle(DataExchangeWrapper)& GlobalWrapper();
 
   //! Sets global configuration singleton
   //! @param[in] theWrapper object to set as global configuration
-  Standard_EXPORT static void SetGlobalWrapper(const Handle(DE_Wrapper)& theWrapper);
+  Standard_EXPORT static void SetGlobalWrapper(const Handle(DataExchangeWrapper)& theWrapper);
 
   Standard_EXPORT static Standard_Mutex& GlobalLoadMutex();
 
@@ -175,7 +175,7 @@ public:
   //! @param[in] theResource input resource to use
   //! @param[in] theIsRecursive flag to update all nodes
   //! @return true if theResource has loaded correctly
-  Standard_EXPORT Standard_Boolean Load(const Handle(DE_ConfigurationContext)& theResource,
+  Standard_EXPORT Standard_Boolean Load(const Handle(ConfigurationContext)& theResource,
                                         const Standard_Boolean theIsRecursive = Standard_True);
 
   //! Writes configuration to the resource file
@@ -203,12 +203,12 @@ public:
   //! Creates new node copy and adds to the map
   //! @param[in] theNode input node to copy
   //! @return Standard_True if binded
-  Standard_EXPORT Standard_Boolean Bind(const Handle(DE_ConfigurationNode)& theNode);
+  Standard_EXPORT Standard_Boolean Bind(const Handle(ConfigurationNode)& theNode);
 
   //! Removes node with the same type from the map
   //! @param[in] theNode input node to remove the same
   //! @return Standard_True if removed
-  Standard_EXPORT Standard_Boolean UnBind(const Handle(DE_ConfigurationNode)& theNode);
+  Standard_EXPORT Standard_Boolean UnBind(const Handle(ConfigurationNode)& theNode);
 
   //! Finds a node associated with input format and vendor
   //! @param[in] theFormat input node CAD format
@@ -217,7 +217,7 @@ public:
   //! @return Standard_True if the node is found
   Standard_EXPORT Standard_Boolean Find(const AsciiString1& theFormat,
                                         const AsciiString1& theVendor,
-                                        Handle(DE_ConfigurationNode)&  theNode) const;
+                                        Handle(ConfigurationNode)&  theNode) const;
 
   //! Changes provider priority to one format if it exists
   //! @param[in] theFormat input node CAD format
@@ -260,18 +260,18 @@ public:
 
   //! Copies values of all fields
   //! @return new object with the same field values
-  Standard_EXPORT virtual Handle(DE_Wrapper) Copy() const;
+  Standard_EXPORT virtual Handle(DataExchangeWrapper) Copy() const;
 
 protected:
   //! Sorts the vendors according to the priority to work
   //! Formats omitted from the resource are not modified
   //! Vendors omitted from the format scope are disabled
   //! @param[in] theResource resource to get priority
-  void sort(const Handle(DE_ConfigurationContext)& theResource);
+  void sort(const Handle(ConfigurationContext)& theResource);
 
 public:
   // clang-format off
-  DE_ConfigurationNode::GlobalSection2 GlobalParameters; //!< Internal parameters for the all translators
+  ConfigurationNode::GlobalSection2 GlobalParameters; //!< Internal parameters for the all translators
 
 private:
   Standard_Boolean myKeepUpdates; //!< Flag that keeps changes on configuration nodes which are being updated

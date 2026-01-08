@@ -20,6 +20,6 @@
 #include <IGESBasic_Array2OfHArray1OfReal.hxx>
 #include <NCollection_DefineHArray2.hxx>
 
-DEFINE_HARRAY2(IGESBasic_HArray2OfHArray1OfReal, IGESBasic_Array2OfHArray1OfReal)
+DEFINE_HARRAY2(HArray2OfHArray1OfReal, IGESBasic_Array2OfHArray1OfReal)
 
 #endif

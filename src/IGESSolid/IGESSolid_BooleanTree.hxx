@@ -42,7 +42,7 @@ public:
   //! BooleanTree
   //! - operands   : Array containing pointer to DE of operands
   //! - operations : Array containing integer type for operations
-  Standard_EXPORT void Init(const Handle(IGESData_HArray1OfIGESEntity)& operands,
+  Standard_EXPORT void Init(const Handle(HArray1OfIGESEntity)& operands,
                             const Handle(TColStd_HArray1OfInteger)&     operations);
 
   //! returns the length of the post-order list
@@ -67,7 +67,7 @@ public:
 
 protected:
 private:
-  Handle(IGESData_HArray1OfIGESEntity) theOperands;
+  Handle(HArray1OfIGESEntity) theOperands;
   Handle(TColStd_HArray1OfInteger)     theOperations;
 };
 

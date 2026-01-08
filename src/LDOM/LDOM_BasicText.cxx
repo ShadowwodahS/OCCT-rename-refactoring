@@ -19,7 +19,7 @@
 
 //=================================================================================================
 
-LDOM_BasicText::LDOM_BasicText(const LDOM_CharacterData& aText)
+BasicText::BasicText(const LDOM_CharacterData& aText)
     : BasicNode(aText.Origin()),
       myValue(aText.getData())
 {
@@ -30,12 +30,12 @@ LDOM_BasicText::LDOM_BasicText(const LDOM_CharacterData& aText)
 // purpose  : construction in the Document's data pool
 //=======================================================================
 
-LDOM_BasicText& LDOM_BasicText::Create(const LDOM_Node::NodeType      aType,
+BasicText& BasicText::Create(const LDOM_Node::NodeType      aType,
                                        const LDOMBasicString1&         aData,
-                                       const Handle(LDOM_MemManager)& aDoc)
+                                       const Handle(MemoryManager)& aDoc)
 {
-  void*           aMem     = aDoc->Allocate(sizeof(LDOM_BasicText));
-  LDOM_BasicText* aNewText = new (aMem) LDOM_BasicText(aType, aData);
+  void*           aMem     = aDoc->Allocate(sizeof(BasicText));
+  BasicText* aNewText = new (aMem) BasicText(aType, aData);
   return *aNewText;
 }
 
@@ -44,7 +44,7 @@ LDOM_BasicText& LDOM_BasicText::Create(const LDOM_Node::NodeType      aType,
 // purpose  : Assignment to NULL
 //=======================================================================
 
-LDOM_BasicText& LDOM_BasicText::operator=(const LDOM_NullPtr* aNull)
+BasicText& BasicText::operator=(const LDOM_NullPtr* aNull)
 {
   myValue = aNull;
   BasicNode::operator=(aNull);

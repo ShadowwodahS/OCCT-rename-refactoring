@@ -28,8 +28,8 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESDimen_GeneralSymbol, IGESData_IGESEntity)
 IGESDimen_GeneralSymbol::IGESDimen_GeneralSymbol() {}
 
 void IGESDimen_GeneralSymbol::Init(const Handle(IGESDimen_GeneralNote)&          aNote,
-                                   const Handle(IGESData_HArray1OfIGESEntity)&   allGeoms,
-                                   const Handle(IGESDimen_HArray1OfLeaderArrow)& allLeaders)
+                                   const Handle(HArray1OfIGESEntity)&   allGeoms,
+                                   const Handle(HArray1OfLeaderArrow)& allLeaders)
 {
   if (!allGeoms.IsNull() && allGeoms->Lower() != 1)
     throw Standard_DimensionMismatch("IGESDimen_GeneralSymbol : Init");

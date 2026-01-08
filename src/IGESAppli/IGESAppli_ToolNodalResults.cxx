@@ -47,7 +47,7 @@ void NodalResultsTool::ReadOwnParams(const Handle(IGESAppli_NodalResults)&  ent,
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
   Handle(IGESDimen_GeneralNote)    tempNote;
   Handle(TColStd_HArray2OfReal)    tempData;
-  Handle(IGESAppli_HArray1OfNode)  tempNodes;
+  Handle(HArray1OfNode)  tempNodes;
   Handle(TColStd_HArray1OfInteger) tempNodeIdentifiers;
 
   // szv#4:S4163:12Mar99 `st=` not needed
@@ -63,7 +63,7 @@ void NodalResultsTool::ReadOwnParams(const Handle(IGESAppli_NodalResults)&  ent,
   if (PR.ReadInteger(PR.Current(), "No. of nodes", nbnodes))
   {
     tempData            = new TColStd_HArray2OfReal(1, nbnodes, 1, nbval);
-    tempNodes           = new IGESAppli_HArray1OfNode(1, nbnodes);
+    tempNodes           = new HArray1OfNode(1, nbnodes);
     tempNodeIdentifiers = new TColStd_HArray1OfInteger(1, nbnodes);
     for (Standard_Integer i = 1; i <= nbnodes; i++)
     {
@@ -127,7 +127,7 @@ void NodalResultsTool::OwnCopy(const Handle(IGESAppli_NodalResults)& another,
   Standard_Integer                 nbnodes          = another->NbNodes();
   Standard_Integer                 nbval            = another->NbData();
   Handle(TColStd_HArray1OfInteger) aNodeIdentifiers = new TColStd_HArray1OfInteger(1, nbnodes);
-  Handle(IGESAppli_HArray1OfNode)  aNodes           = new IGESAppli_HArray1OfNode(1, nbnodes);
+  Handle(HArray1OfNode)  aNodes           = new HArray1OfNode(1, nbnodes);
   Handle(TColStd_HArray2OfReal)    aData = new TColStd_HArray2OfReal(1, nbnodes, 1, nbval);
 
   for (Standard_Integer i = 1; i <= nbnodes; i++)

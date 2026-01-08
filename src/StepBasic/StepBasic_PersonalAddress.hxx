@@ -60,12 +60,12 @@ public:
                             const Handle(TCollection_HAsciiString)&  aElectronicMailAddress,
                             const Standard_Boolean                   hasAtelexNumber,
                             const Handle(TCollection_HAsciiString)&  aTelexNumber,
-                            const Handle(StepBasic_HArray1OfPerson)& aPeople,
+                            const Handle(HArray1OfPerson)& aPeople,
                             const Handle(TCollection_HAsciiString)&  aDescription);
 
-  Standard_EXPORT void SetPeople(const Handle(StepBasic_HArray1OfPerson)& aPeople);
+  Standard_EXPORT void SetPeople(const Handle(HArray1OfPerson)& aPeople);
 
-  Standard_EXPORT Handle(StepBasic_HArray1OfPerson) People() const;
+  Standard_EXPORT Handle(HArray1OfPerson) People() const;
 
   Standard_EXPORT Handle(StepBasic_Person) PeopleValue(const Standard_Integer num) const;
 
@@ -79,7 +79,7 @@ public:
 
 protected:
 private:
-  Handle(StepBasic_HArray1OfPerson) people;
+  Handle(HArray1OfPerson) people;
   Handle(TCollection_HAsciiString)  description;
 };
 

@@ -20,6 +20,6 @@
 #include <StepAP203_Array1OfChangeRequestItem.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepAP203_HArray1OfChangeRequestItem, StepAP203_Array1OfChangeRequestItem)
+DEFINE_HARRAY1(HArray1OfChangeRequestItem, StepAP203_Array1OfChangeRequestItem)
 
 #endif

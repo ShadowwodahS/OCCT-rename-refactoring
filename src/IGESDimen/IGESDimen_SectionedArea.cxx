@@ -32,7 +32,7 @@ void IGESDimen_SectionedArea::Init(const Handle(IGESData_IGESEntity)&          a
                                    const Coords3d&                               aPoint,
                                    const Standard_Real                         aDistance,
                                    const Standard_Real                         anAngle,
-                                   const Handle(IGESData_HArray1OfIGESEntity)& someIslands)
+                                   const Handle(HArray1OfIGESEntity)& someIslands)
 {
   if (!someIslands.IsNull())
     if (someIslands->Lower() != 1)

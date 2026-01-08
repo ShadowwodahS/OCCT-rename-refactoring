@@ -18,7 +18,7 @@
 #include <TCollection_AsciiString.hxx>
 
 //! Sub-mesh definition for OBJ reader.
-struct RWObj_SubMesh
+struct OBJSubMesh
 {
   AsciiString1 Object;      //!< name of active object
   AsciiString1 Group;       //!< name of active group

@@ -21,7 +21,7 @@ StepAP214_AppliedApprovalAssignment::StepAP214_AppliedApprovalAssignment() {}
 
 void StepAP214_AppliedApprovalAssignment::Init(
   const Handle(StepBasic_Approval)&              aAssignedApproval,
-  const Handle(StepAP214_HArray1OfApprovalItem)& aItems)
+  const Handle(HArray1OfApprovalItem)& aItems)
 {
   // --- classe own fields ---
   items = aItems;
@@ -30,12 +30,12 @@ void StepAP214_AppliedApprovalAssignment::Init(
 }
 
 void StepAP214_AppliedApprovalAssignment::SetItems(
-  const Handle(StepAP214_HArray1OfApprovalItem)& aItems)
+  const Handle(HArray1OfApprovalItem)& aItems)
 {
   items = aItems;
 }
 
-Handle(StepAP214_HArray1OfApprovalItem) StepAP214_AppliedApprovalAssignment::Items() const
+Handle(HArray1OfApprovalItem) StepAP214_AppliedApprovalAssignment::Items() const
 {
   return items;
 }

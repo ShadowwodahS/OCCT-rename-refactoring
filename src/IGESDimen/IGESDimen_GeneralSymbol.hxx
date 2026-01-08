@@ -47,8 +47,8 @@ public:
   //! - allGeoms   : Geometric Entities
   //! - allLeaders : Leader Arrows
   Standard_EXPORT void Init(const Handle(IGESDimen_GeneralNote)&          aNote,
-                            const Handle(IGESData_HArray1OfIGESEntity)&   allGeoms,
-                            const Handle(IGESDimen_HArray1OfLeaderArrow)& allLeaders);
+                            const Handle(HArray1OfIGESEntity)&   allGeoms,
+                            const Handle(HArray1OfLeaderArrow)& allLeaders);
 
   //! Changes FormNumber (indicates the Nature of the Symbol)
   //! Error if not in ranges [0-3] or [> 5000]
@@ -79,8 +79,8 @@ public:
 protected:
 private:
   Handle(IGESDimen_GeneralNote)          theNote;
-  Handle(IGESData_HArray1OfIGESEntity)   theGeoms;
-  Handle(IGESDimen_HArray1OfLeaderArrow) theLeaders;
+  Handle(HArray1OfIGESEntity)   theGeoms;
+  Handle(HArray1OfLeaderArrow) theLeaders;
 };
 
 #endif // _IGESDimen_GeneralSymbol_HeaderFile

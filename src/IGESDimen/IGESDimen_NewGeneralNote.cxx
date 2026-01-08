@@ -48,7 +48,7 @@ void IGESDimen_NewGeneralNote::Init(
   const Handle(TColStd_HArray1OfReal)&           boxWidths,
   const Handle(TColStd_HArray1OfReal)&           boxHeights,
   const Handle(TColStd_HArray1OfInteger)&        charSetCodes,
-  const Handle(IGESData_HArray1OfIGESEntity)&    charSetEntities,
+  const Handle(HArray1OfIGESEntity)&    charSetEntities,
   const Handle(TColStd_HArray1OfReal)&           slAngles,
   const Handle(TColStd_HArray1OfReal)&           rotAngles,
   const Handle(TColStd_HArray1OfInteger)&        mirrorFlags,

@@ -27,7 +27,7 @@ StepBasic_ConversionBasedUnitAndMassUnit::StepBasic_ConversionBasedUnitAndMassUn
 //=================================================================================================
 
 void StepBasic_ConversionBasedUnitAndMassUnit::Init(
-  const Handle(StepBasic_DimensionalExponents)& aDimensions,
+  const Handle(DimensionalExponents)& aDimensions,
   const Handle(TCollection_HAsciiString)&       aName,
   const Handle(StepBasic_MeasureWithUnit)&      aConversionFactor)
 {

@@ -22,27 +22,27 @@
 #include <Standard_Type.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(PCDM_RetrievalDriver, PCDM_Reader)
+IMPLEMENT_STANDARD_RTTIEXT(PCDM_RetrievalDriver, Reader1)
 
 void PCDM_RetrievalDriver::References(const UtfString& aFileName,
                                       PCDM_SequenceOfReference&         theReferences,
                                       const Handle(Message_Messenger)&  theMsgDriver)
 {
-  PCDM_ReadWriter::Reader(aFileName)->ReadReferences(aFileName, theReferences, theMsgDriver);
+  ReadWriter::Reader(aFileName)->ReadReferences(aFileName, theReferences, theMsgDriver);
 }
 
 Standard_Integer PCDM_RetrievalDriver::DocumentVersion(
   const UtfString& aFileName,
   const Handle(Message_Messenger)&  theMsgDriver)
 {
-  return PCDM_ReadWriter::Reader(aFileName)->ReadDocumentVersion(aFileName, theMsgDriver);
+  return ReadWriter::Reader(aFileName)->ReadDocumentVersion(aFileName, theMsgDriver);
 }
 
 Standard_Integer PCDM_RetrievalDriver::ReferenceCounter(
   const UtfString& aFileName,
   const Handle(Message_Messenger)&  theMsgDriver)
 {
-  return PCDM_ReadWriter::Reader(aFileName)->ReadReferenceCounter(aFileName, theMsgDriver);
+  return ReadWriter::Reader(aFileName)->ReadReferenceCounter(aFileName, theMsgDriver);
 }
 
 void PCDM_RetrievalDriver::SetFormat(const UtfString& aformat)

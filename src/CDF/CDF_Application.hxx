@@ -28,7 +28,7 @@
 
 class Standard_GUID;
 class CDM_Document;
-class PCDM_Reader;
+class Reader1;
 class CDM_MetaData;
 class PCDM_RetrievalDriver;
 class PCDM_StorageDriver;
@@ -98,7 +98,7 @@ public:
     const UtfString& aFolder,
     const UtfString& aName,
     const Standard_Boolean            UseStorageConfiguration = Standard_True,
-    const Handle(PCDM_ReaderFilter)&  theFilter               = Handle(PCDM_ReaderFilter)(),
+    const Handle(ReaderFilter)&  theFilter               = Handle(ReaderFilter)(),
     const Message_ProgressRange&      theRange                = Message_ProgressRange());
 
   //! This method retrieves  a  document from the database.
@@ -120,7 +120,7 @@ public:
     const UtfString& aName,
     const UtfString& aVersion,
     const Standard_Boolean            UseStorageConfiguration = Standard_True,
-    const Handle(PCDM_ReaderFilter)&  theFilter               = Handle(PCDM_ReaderFilter)(),
+    const Handle(ReaderFilter)&  theFilter               = Handle(ReaderFilter)(),
     const Message_ProgressRange&      theRange                = Message_ProgressRange());
 
   Standard_EXPORT PCDM_ReaderStatus CanRetrieve(const UtfString& theFolder,
@@ -140,7 +140,7 @@ public:
   Standard_EXPORT void Read(
     Standard_IStream&                theIStream,
     Handle(CDM_Document)&            theDocument,
-    const Handle(PCDM_ReaderFilter)& theFilter = Handle(PCDM_ReaderFilter)(),
+    const Handle(ReaderFilter)& theFilter = Handle(ReaderFilter)(),
     const Message_ProgressRange&     theRange  = Message_ProgressRange());
 
   //! Returns instance of read driver for specified format.
@@ -155,7 +155,7 @@ public:
   //!
   //! In case if reader is not available, will raise Standard_NoSuchObject
   //! or other exception if raised by plugin loader.
-  Standard_EXPORT virtual Handle(PCDM_Reader) ReaderFromFormat(
+  Standard_EXPORT virtual Handle(Reader1) ReaderFromFormat(
     const UtfString& aFormat);
 
   //! Returns instance of storage driver for specified format.
@@ -211,14 +211,14 @@ private:
   Standard_EXPORT Handle(CDM_Document) Retrieve(
     const Handle(CDM_MetaData)&      aMetaData,
     const Standard_Boolean           UseStorageConfiguration,
-    const Handle(PCDM_ReaderFilter)& theFilter = Handle(PCDM_ReaderFilter)(),
+    const Handle(ReaderFilter)& theFilter = Handle(ReaderFilter)(),
     const Message_ProgressRange&     theRange  = Message_ProgressRange()) Standard_OVERRIDE;
 
   Standard_EXPORT Handle(CDM_Document) Retrieve(
     const Handle(CDM_MetaData)&      aMetaData,
     const Standard_Boolean           UseStorageConfiguration,
     const Standard_Boolean           IsComponent,
-    const Handle(PCDM_ReaderFilter)& theFilter = Handle(PCDM_ReaderFilter)(),
+    const Handle(ReaderFilter)& theFilter = Handle(ReaderFilter)(),
     const Message_ProgressRange&     theRange  = Message_ProgressRange());
 
   Standard_EXPORT Standard_Integer DocumentVersion(const Handle(CDM_MetaData)& theMetaData)

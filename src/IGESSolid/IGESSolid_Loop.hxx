@@ -24,8 +24,8 @@
 #include <IGESData_HArray1OfIGESEntity.hxx>
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_Integer.hxx>
-class IGESBasic_HArray1OfHArray1OfInteger;
-class IGESBasic_HArray1OfHArray1OfIGESEntity;
+class HArray1OfHArray1OfInt;
+class HArray1OfHArray1OfEntity;
 
 class IGESSolid_Loop;
 DEFINE_STANDARD_HANDLE(IGESSolid_Loop, IGESData_IGESEntity)
@@ -59,12 +59,12 @@ public:
   //! nbParameterCurves do not match or the length of
   //! isoparametricFlags and curves do not match
   Standard_EXPORT void Init(const Handle(TColStd_HArray1OfInteger)&            types,
-                            const Handle(IGESData_HArray1OfIGESEntity)&        edges,
+                            const Handle(HArray1OfIGESEntity)&        edges,
                             const Handle(TColStd_HArray1OfInteger)&            index,
                             const Handle(TColStd_HArray1OfInteger)&            orient,
                             const Handle(TColStd_HArray1OfInteger)&            nbParameterCurves,
-                            const Handle(IGESBasic_HArray1OfHArray1OfInteger)& isoparametricFlags,
-                            const Handle(IGESBasic_HArray1OfHArray1OfIGESEntity)& curves);
+                            const Handle(HArray1OfHArray1OfInt)& isoparametricFlags,
+                            const Handle(HArray1OfHArray1OfEntity)& curves);
 
   //! Tells if a Loop is a Bound (FN 1) else it is free (FN 0)
   Standard_EXPORT Standard_Boolean IsBound() const;
@@ -112,12 +112,12 @@ public:
 protected:
 private:
   Handle(TColStd_HArray1OfInteger)               theTypes;
-  Handle(IGESData_HArray1OfIGESEntity)           theEdges;
+  Handle(HArray1OfIGESEntity)           theEdges;
   Handle(TColStd_HArray1OfInteger)               theIndex;
   Handle(TColStd_HArray1OfInteger)               theOrientationFlags;
   Handle(TColStd_HArray1OfInteger)               theNbParameterCurves;
-  Handle(IGESBasic_HArray1OfHArray1OfInteger)    theIsoparametricFlags;
-  Handle(IGESBasic_HArray1OfHArray1OfIGESEntity) theCurves;
+  Handle(HArray1OfHArray1OfInt)    theIsoparametricFlags;
+  Handle(HArray1OfHArray1OfEntity) theCurves;
 };
 
 #endif // _IGESSolid_Loop_HeaderFile

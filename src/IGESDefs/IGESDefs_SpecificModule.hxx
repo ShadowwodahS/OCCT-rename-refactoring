@@ -26,10 +26,10 @@ class IGESData_IGESEntity;
 class IGESData_IGESDumper;
 
 class IGESDefs_SpecificModule;
-DEFINE_STANDARD_HANDLE(IGESDefs_SpecificModule, IGESData_SpecificModule)
+DEFINE_STANDARD_HANDLE(IGESDefs_SpecificModule, SpecificModule)
 
 //! Defines Services attached to IGES Entities : Dump, for IGESDefs1
-class IGESDefs_SpecificModule : public IGESData_SpecificModule
+class IGESDefs_SpecificModule : public SpecificModule
 {
 
 public:
@@ -43,7 +43,7 @@ public:
                                Standard_OStream&                  S,
                                const Standard_Integer             own) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(IGESDefs_SpecificModule, IGESData_SpecificModule)
+  DEFINE_STANDARD_RTTIEXT(IGESDefs_SpecificModule, SpecificModule)
 
 protected:
 private:

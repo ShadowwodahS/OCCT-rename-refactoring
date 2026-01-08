@@ -19,7 +19,7 @@
 #include <LDOM_Attr.hxx>
 #include <LDOM_NodeList.hxx>
 
-class LDOM_BasicElement;
+class BasicElement;
 
 //  Class LDOM_Element
 //
@@ -83,7 +83,7 @@ protected:
   friend class LDOMParser;
   // ---------- PROTECTED METHODS ----------
 
-  LDOM_Element(const LDOM_BasicElement& anElem, const Handle(LDOM_MemManager)& aDoc);
+  LDOM_Element(const BasicElement& anElem, const Handle(MemoryManager)& aDoc);
 
 private:
   // ---------- PRIVATE FIELDS ----------

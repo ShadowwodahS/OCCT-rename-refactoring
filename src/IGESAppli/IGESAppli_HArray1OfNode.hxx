@@ -20,6 +20,6 @@
 #include <IGESAppli_Array1OfNode.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(IGESAppli_HArray1OfNode, IGESAppli_Array1OfNode)
+DEFINE_HARRAY1(HArray1OfNode, IGESAppli_Array1OfNode)
 
 #endif

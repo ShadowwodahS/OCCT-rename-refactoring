@@ -27,7 +27,7 @@ void StepBasic_SiUnitAndPlaneAngleUnit::Init(const Standard_Boolean     hasApref
   // --- classe inherited fields ---
   // --- ANDOR component fields ---
   planeAngleUnit = new StepBasic_PlaneAngleUnit();
-  Handle(StepBasic_DimensionalExponents) aDimensions;
+  Handle(DimensionalExponents) aDimensions;
   aDimensions.Nullify();
   planeAngleUnit->Init(aDimensions);
 

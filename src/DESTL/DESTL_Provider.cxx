@@ -31,7 +31,7 @@ DESTL_Provider::DESTL_Provider() {}
 
 //=================================================================================================
 
-DESTL_Provider::DESTL_Provider(const Handle(DE_ConfigurationNode)& theNode)
+DESTL_Provider::DESTL_Provider(const Handle(ConfigurationNode)& theNode)
     : DE_Provider(theNode)
 {
 }

@@ -39,11 +39,11 @@ public:
 
   Standard_EXPORT void Init(const Handle(StepBasic_DateAndTime)&  aAssignedDateAndTime,
                             const Handle(StepBasic_DateTimeRole)& aRole,
-                            const Handle(StepAP214_HArray1OfAutoDesignDateAndTimeItem)& aItems);
+                            const Handle(HArray1OfAutoDesignDateTime)& aItems);
 
-  Standard_EXPORT void SetItems(const Handle(StepAP214_HArray1OfAutoDesignDateAndTimeItem)& aItems);
+  Standard_EXPORT void SetItems(const Handle(HArray1OfAutoDesignDateTime)& aItems);
 
-  Standard_EXPORT Handle(StepAP214_HArray1OfAutoDesignDateAndTimeItem) Items() const;
+  Standard_EXPORT Handle(HArray1OfAutoDesignDateTime) Items() const;
 
   Standard_EXPORT StepAP214_AutoDesignDateAndTimeItem ItemsValue(const Standard_Integer num) const;
 
@@ -54,7 +54,7 @@ public:
 
 protected:
 private:
-  Handle(StepAP214_HArray1OfAutoDesignDateAndTimeItem) items;
+  Handle(HArray1OfAutoDesignDateTime) items;
 };
 
 #endif // _StepAP214_AutoDesignActualDateAndTimeAssignment_HeaderFile

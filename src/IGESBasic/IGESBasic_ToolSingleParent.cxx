@@ -53,7 +53,7 @@ void SingleParentTool::ReadOwnParams(const Handle(IGESBasic_SingleParent)&  ent,
   Handle(IGESData_IGESEntity) tempParent;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
   Standard_Integer                     nbval = 0;
-  Handle(IGESData_HArray1OfIGESEntity) tempChildren;
+  Handle(HArray1OfIGESEntity) tempChildren;
   IGESData_Status                      aStatus;
 
   if (!PR.ReadInteger(PR.Current(), tempNbParentEntities))
@@ -129,7 +129,7 @@ void SingleParentTool::OwnCopy(const Handle(IGESBasic_SingleParent)& another,
   Standard_Integer aNbParentEntities = another->NbParentEntities();
   DeclareAndCast(IGESData_IGESEntity, aparent, TC.Transferred(another->SingleParent()));
   Standard_Integer                     upper    = another->NbChildren();
-  Handle(IGESData_HArray1OfIGESEntity) EntArray = new IGESData_HArray1OfIGESEntity(1, upper);
+  Handle(HArray1OfIGESEntity) EntArray = new HArray1OfIGESEntity(1, upper);
   for (Standard_Integer i = 1; i <= upper; i++)
   {
     DeclareAndCast(IGESData_IGESEntity, myentity, TC.Transferred(another->Child(i)));
@@ -144,7 +144,7 @@ Standard_Boolean SingleParentTool::OwnCorrect(
   if (ent->NbParentEntities() == 1)
     return Standard_False;
   Standard_Integer                     nb       = ent->NbChildren();
-  Handle(IGESData_HArray1OfIGESEntity) EntArray = new IGESData_HArray1OfIGESEntity(1, nb);
+  Handle(HArray1OfIGESEntity) EntArray = new HArray1OfIGESEntity(1, nb);
   for (Standard_Integer i = 1; i <= nb; i++)
     EntArray->SetValue(i, ent->Child(i));
   ent->Init(1, ent->SingleParent(), EntArray);

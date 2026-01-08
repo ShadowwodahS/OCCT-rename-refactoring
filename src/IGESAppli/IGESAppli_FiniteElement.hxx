@@ -44,7 +44,7 @@ public:
   //! - allNodes : List of Nodes defining the element
   //! - aName    : Element type name
   Standard_EXPORT void Init(const Standard_Integer                  aType,
-                            const Handle(IGESAppli_HArray1OfNode)&  allNodes,
+                            const Handle(HArray1OfNode)&  allNodes,
                             const Handle(TCollection_HAsciiString)& aName);
 
   //! returns Topology type
@@ -65,7 +65,7 @@ public:
 protected:
 private:
   Standard_Integer                 theTopology;
-  Handle(IGESAppli_HArray1OfNode)  theNodes;
+  Handle(HArray1OfNode)  theNodes;
   Handle(TCollection_HAsciiString) theName;
 };
 

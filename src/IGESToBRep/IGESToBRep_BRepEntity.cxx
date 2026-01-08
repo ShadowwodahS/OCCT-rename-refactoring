@@ -389,7 +389,7 @@ TopoShape IGESToBRep_BRepEntity::TransferLoop(const Handle(IGESSolid_Loop)& star
 
         //  traitement des courbes 2d.
         //  -------------------------
-        Handle(IGESData_HArray1OfIGESEntity) Curves2d;
+        Handle(HArray1OfIGESEntity) Curves2d;
 
         // Current limitation:
         // 2D representation is not translated if:
@@ -401,7 +401,7 @@ TopoShape IGESToBRep_BRepEntity::TransferLoop(const Handle(IGESSolid_Loop)& star
             && IGESToBRep1::IGESCurveToSequenceOfIGESCurve(start->ParametricCurve(iedge, 1), seq2d)
                  == 1)
         {
-          Curves2d = new IGESData_HArray1OfIGESEntity(1, nbparam);
+          Curves2d = new HArray1OfIGESEntity(1, nbparam);
           for (Standard_Integer i = 1; i <= nbparam; i++)
             Curves2d->SetValue(i, start->ParametricCurve(iedge, i));
         }

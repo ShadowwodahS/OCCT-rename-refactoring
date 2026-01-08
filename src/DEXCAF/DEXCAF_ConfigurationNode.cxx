@@ -18,7 +18,7 @@
 #include <DE_PluginHolder.hxx>
 #include <NCollection_Buffer.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DEXCAF_ConfigurationNode, DE_ConfigurationNode)
+IMPLEMENT_STANDARD_RTTIEXT(DEXCAF_ConfigurationNode, ConfigurationNode)
 
 namespace
 {
@@ -35,27 +35,27 @@ DE_PluginHolder<DEXCAF_ConfigurationNode> THE_OCCT_XCAF_COMPONENT_PLUGIN;
 //=================================================================================================
 
 DEXCAF_ConfigurationNode::DEXCAF_ConfigurationNode()
-    : DE_ConfigurationNode()
+    : ConfigurationNode()
 {
 }
 
 //=================================================================================================
 
 DEXCAF_ConfigurationNode::DEXCAF_ConfigurationNode(const Handle(DEXCAF_ConfigurationNode)& theNode)
-    : DE_ConfigurationNode(theNode)
+    : ConfigurationNode(theNode)
 {
   InternalParameters = theNode->InternalParameters;
 }
 
 //=================================================================================================
 
-bool DEXCAF_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theResource)
+bool DEXCAF_ConfigurationNode::Load(const Handle(ConfigurationContext)& theResource)
 {
   AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor();
 
   InternalParameters.ReadAppendMode =
-    (PCDM_ReaderFilter::AppendMode)theResource->IntegerVal("read.append.mode",
+    (ReaderFilter::AppendMode)theResource->IntegerVal("read.append.mode",
                                                            InternalParameters.ReadAppendMode,
                                                            aScope);
   theResource->GetStringSeq("read.skip.values", InternalParameters.ReadSkipValues, aScope);
@@ -117,7 +117,7 @@ AsciiString1 DEXCAF_ConfigurationNode::Save() const
 
 //=================================================================================================
 
-Handle(DE_ConfigurationNode) DEXCAF_ConfigurationNode::Copy() const
+Handle(ConfigurationNode) DEXCAF_ConfigurationNode::Copy() const
 {
   return new DEXCAF_ConfigurationNode(*this);
 }

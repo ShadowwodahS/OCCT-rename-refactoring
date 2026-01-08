@@ -6726,7 +6726,7 @@ void RWStepAP214_ReadWriteModule::ReadStep(const Standard_Integer               
 
     break;
     case 80: {
-      DeclareAndCast(StepBasic_CoordinatedUniversalTimeOffset, anent, ent);
+      DeclareAndCast(TimeOffset, anent, ent);
       RWStepBasic_RWCoordinatedUniversalTimeOffset tool;
       tool.ReadStep(data, num, ach, anent);
     }
@@ -6796,7 +6796,7 @@ void RWStepAP214_ReadWriteModule::ReadStep(const Standard_Integer               
 
     break;
     case 91: {
-      DeclareAndCast(StepBasic_Date, anent, ent);
+      DeclareAndCast(Date1, anent, ent);
       RWStepBasic_RWDate tool;
       tool.ReadStep(data, num, ach, anent);
     }
@@ -6852,7 +6852,7 @@ void RWStepAP214_ReadWriteModule::ReadStep(const Standard_Integer               
 
     break;
     case 104: {
-      DeclareAndCast(StepBasic_DimensionalExponents, anent, ent);
+      DeclareAndCast(DimensionalExponents, anent, ent);
       RWStepBasic_RWDimensionalExponents tool;
       tool.ReadStep(data, num, ach, anent);
     }
@@ -11405,7 +11405,7 @@ void RWStepAP214_ReadWriteModule::WriteStep(const Standard_Integer            CN
 
     break;
     case 80: {
-      DeclareAndCast(StepBasic_CoordinatedUniversalTimeOffset, anent, ent);
+      DeclareAndCast(TimeOffset, anent, ent);
       RWStepBasic_RWCoordinatedUniversalTimeOffset tool;
       //      if (anent.IsNull()) return;
       tool.WriteStep(SW, anent);
@@ -11485,7 +11485,7 @@ void RWStepAP214_ReadWriteModule::WriteStep(const Standard_Integer            CN
 
     break;
     case 91: {
-      DeclareAndCast(StepBasic_Date, anent, ent);
+      DeclareAndCast(Date1, anent, ent);
       RWStepBasic_RWDate tool;
       //      if (anent.IsNull()) return;
       tool.WriteStep(SW, anent);
@@ -11549,7 +11549,7 @@ void RWStepAP214_ReadWriteModule::WriteStep(const Standard_Integer            CN
 
     break;
     case 104: {
-      DeclareAndCast(StepBasic_DimensionalExponents, anent, ent);
+      DeclareAndCast(DimensionalExponents, anent, ent);
       RWStepBasic_RWDimensionalExponents tool;
       //      if (anent.IsNull()) return;
       tool.WriteStep(SW, anent);

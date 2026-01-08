@@ -104,7 +104,7 @@ public:
   //! Returns True if translation is OK
   Standard_EXPORT Standard_Boolean
     Transfer(const Handle(AppDocument)& theDoc,
-             const DESTEP_Parameters&        theParams,
+             const Parameters2&        theParams,
              const STEPControl_StepModelType theMode     = STEPControl_AsIs,
              const Standard_CString          theIsMulti  = 0,
              const Message_ProgressRange&    theProgress = Message_ProgressRange());
@@ -121,7 +121,7 @@ public:
   //! initialization from ExchangeConfig
   Standard_EXPORT Standard_Boolean
     Transfer(const DataLabel&                theLabel,
-             const DESTEP_Parameters&        theParams,
+             const Parameters2&        theParams,
              const STEPControl_StepModelType theMode     = STEPControl_AsIs,
              const Standard_CString          theIsMulti  = 0,
              const Message_ProgressRange&    theProgress = Message_ProgressRange());
@@ -140,7 +140,7 @@ public:
   //! initialization from ExchangeConfig
   Standard_EXPORT Standard_Boolean
     Transfer(const TDF_LabelSequence&        theLabelSeq,
-             const DESTEP_Parameters&        theParams,
+             const Parameters2&        theParams,
              const STEPControl_StepModelType theMode     = STEPControl_AsIs,
              const Standard_CString          theIsMulti  = 0,
              const Message_ProgressRange&    theProgress = Message_ProgressRange());
@@ -164,7 +164,7 @@ public:
   Standard_EXPORT Standard_Boolean
     Perform(const Handle(AppDocument)& theDoc,
             const Standard_CString          theFileName,
-            const DESTEP_Parameters&        theParams,
+            const Parameters2&        theParams,
             const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Returns data on external files

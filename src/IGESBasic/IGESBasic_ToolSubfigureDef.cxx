@@ -55,7 +55,7 @@ void SubfigureDefTool::ReadOwnParams(const Handle(IGESBasic_SubfigureDef)&  ent,
   Handle(TCollection_HAsciiString) tempName;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
   Standard_Integer                     nbval = 0;
-  Handle(IGESData_HArray1OfIGESEntity) EntArray;
+  Handle(HArray1OfIGESEntity) EntArray;
 
   if (!PR.ReadInteger(PR.Current(), tempDepth))
   { // szv#4:S4163:12Mar99 `st=` not needed
@@ -108,7 +108,7 @@ void SubfigureDefTool::OwnCopy(const Handle(IGESBasic_SubfigureDef)& another,
 
   lower                                         = 1;
   upper                                         = another->NbEntities();
-  Handle(IGESData_HArray1OfIGESEntity) EntArray = new IGESData_HArray1OfIGESEntity(lower, upper);
+  Handle(HArray1OfIGESEntity) EntArray = new HArray1OfIGESEntity(lower, upper);
   for (Standard_Integer i = lower; i <= upper; i++)
   {
     DeclareAndCast(IGESData_IGESEntity, myentity, TC.Transferred(another->AssociatedEntity(i)));

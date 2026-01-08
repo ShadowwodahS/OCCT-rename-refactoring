@@ -62,12 +62,12 @@ void LoopTool::ReadOwnParams(const Handle(IGESSolid_Loop)&          ent,
   Standard_Integer                               anint;
   Handle(IGESData_IGESEntity)                    anent;
   Handle(TColStd_HArray1OfInteger)               tempTypes;
-  Handle(IGESData_HArray1OfIGESEntity)           tempEdges;
+  Handle(HArray1OfIGESEntity)           tempEdges;
   Handle(TColStd_HArray1OfInteger)               tempIndex;
   Handle(TColStd_HArray1OfInteger)               tempOrientation;
   Handle(TColStd_HArray1OfInteger)               nbParameterCurves;
-  Handle(IGESBasic_HArray1OfHArray1OfInteger)    isoparametricFlags;
-  Handle(IGESBasic_HArray1OfHArray1OfIGESEntity) tempCurves;
+  Handle(HArray1OfHArray1OfInt)    isoparametricFlags;
+  Handle(HArray1OfHArray1OfEntity) tempCurves;
   IGESData_Status                                aStatus;
 
   // st = PR.ReadInteger(PR.Current(),Msg184, nbedges); //szv#4:S4163:12Mar99 moved in if
@@ -80,12 +80,12 @@ void LoopTool::ReadOwnParams(const Handle(IGESSolid_Loop)&          ent,
     Message_Msg Msg190("XSTEP_190");
 
     tempTypes          = new TColStd_HArray1OfInteger(1, nbedges);
-    tempEdges          = new IGESData_HArray1OfIGESEntity(1, nbedges);
+    tempEdges          = new HArray1OfIGESEntity(1, nbedges);
     tempIndex          = new TColStd_HArray1OfInteger(1, nbedges);
     tempOrientation    = new TColStd_HArray1OfInteger(1, nbedges);
     nbParameterCurves  = new TColStd_HArray1OfInteger(1, nbedges);
-    isoparametricFlags = new IGESBasic_HArray1OfHArray1OfInteger(1, nbedges);
-    tempCurves         = new IGESBasic_HArray1OfHArray1OfIGESEntity(1, nbedges);
+    isoparametricFlags = new HArray1OfHArray1OfInt(1, nbedges);
+    tempCurves         = new HArray1OfHArray1OfEntity(1, nbedges);
 
     for (i = 1; i <= nbedges; i++)
     {
@@ -151,7 +151,7 @@ void LoopTool::ReadOwnParams(const Handle(IGESSolid_Loop)&          ent,
       {
         Message_Msg Msg195("XSTEP_195");
         nbParameterCurves->SetValue(i, anint);
-        Handle(IGESData_HArray1OfIGESEntity) tmpents = new IGESData_HArray1OfIGESEntity(1, anint);
+        Handle(HArray1OfIGESEntity) tmpents = new HArray1OfIGESEntity(1, anint);
         Handle(TColStd_HArray1OfInteger)     tmpints = new TColStd_HArray1OfInteger(1, anint);
         for (j = 1; j <= anint; j++)
         {
@@ -262,14 +262,14 @@ void LoopTool::OwnCopy(const Handle(IGESSolid_Loop)& another,
   Standard_Integer anint;
 
   Handle(TColStd_HArray1OfInteger)     tempTypes = new TColStd_HArray1OfInteger(1, nbedges);
-  Handle(IGESData_HArray1OfIGESEntity) tempEdges = new IGESData_HArray1OfIGESEntity(1, nbedges);
+  Handle(HArray1OfIGESEntity) tempEdges = new HArray1OfIGESEntity(1, nbedges);
   Handle(TColStd_HArray1OfInteger)     tempIndex = new TColStd_HArray1OfInteger(1, nbedges);
   Handle(TColStd_HArray1OfInteger)     tempOrientation   = new TColStd_HArray1OfInteger(1, nbedges);
   Handle(TColStd_HArray1OfInteger)     nbParameterCurves = new TColStd_HArray1OfInteger(1, nbedges);
-  Handle(IGESBasic_HArray1OfHArray1OfInteger) isoparametricFlags =
-    new IGESBasic_HArray1OfHArray1OfInteger(1, nbedges);
-  Handle(IGESBasic_HArray1OfHArray1OfIGESEntity) tempCurves =
-    new IGESBasic_HArray1OfHArray1OfIGESEntity(1, nbedges);
+  Handle(HArray1OfHArray1OfInt) isoparametricFlags =
+    new HArray1OfHArray1OfInt(1, nbedges);
+  Handle(HArray1OfHArray1OfEntity) tempCurves =
+    new HArray1OfHArray1OfEntity(1, nbedges);
 
   for (i = 1; i <= nbedges; i++)
   {
@@ -285,9 +285,9 @@ void LoopTool::OwnCopy(const Handle(IGESSolid_Loop)& another,
     anint = another->NbParameterCurves(i);
     nbParameterCurves->SetValue(i, anint);
 
-    Handle(IGESData_HArray1OfIGESEntity) tmpents;
+    Handle(HArray1OfIGESEntity) tmpents;
     if (anint > 0)
-      tmpents = new IGESData_HArray1OfIGESEntity(1, anint);
+      tmpents = new HArray1OfIGESEntity(1, anint);
     Handle(TColStd_HArray1OfInteger) tmpints;
     if (anint > 0)
       tmpints = new TColStd_HArray1OfInteger(1, anint);

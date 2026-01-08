@@ -128,10 +128,10 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferSolid(
   }
 
   Standard_Integer                     nbshells = Seq->Length();
-  Handle(IGESData_HArray1OfIGESEntity) Tab;
+  Handle(HArray1OfIGESEntity) Tab;
   if (nbshells >= 1)
   {
-    Tab = new IGESData_HArray1OfIGESEntity(1, nbshells);
+    Tab = new HArray1OfIGESEntity(1, nbshells);
     for (Standard_Integer itab = 1; itab <= nbshells; itab++)
     {
       Handle(IGESData_IGESEntity) item = GetCasted(IGESData_IGESEntity, Seq->Value(itab));
@@ -192,10 +192,10 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferCompSolid(
   }
 
   Standard_Integer                     nbsolids = Seq->Length();
-  Handle(IGESData_HArray1OfIGESEntity) Tab;
+  Handle(HArray1OfIGESEntity) Tab;
   if (nbsolids >= 1)
   {
-    Tab = new IGESData_HArray1OfIGESEntity(1, nbsolids);
+    Tab = new HArray1OfIGESEntity(1, nbsolids);
     for (Standard_Integer itab = 1; itab <= nbsolids; itab++)
     {
       Handle(IGESData_IGESEntity) item = GetCasted(IGESData_IGESEntity, Seq->Value(itab));
@@ -355,10 +355,10 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferCompound(
 
   // construct the group
   nbshapes = Seq->Length();
-  Handle(IGESData_HArray1OfIGESEntity) Tab;
+  Handle(HArray1OfIGESEntity) Tab;
   if (nbshapes >= 1)
   {
-    Tab = new IGESData_HArray1OfIGESEntity(1, nbshapes);
+    Tab = new HArray1OfIGESEntity(1, nbshapes);
     for (Standard_Integer itab = 1; itab <= nbshapes; itab++)
     {
       Handle(IGESData_IGESEntity) item = GetCasted(IGESData_IGESEntity, Seq->Value(itab));

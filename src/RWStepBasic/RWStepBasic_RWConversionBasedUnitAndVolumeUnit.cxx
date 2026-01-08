@@ -49,12 +49,12 @@ void RWStepBasic_RWConversionBasedUnitAndVolumeUnit::ReadStep(
   num = data->NextForComplex(num);
   if (!data->CheckNbParams(num, 1, ach, "named_unit"))
     return;
-  Handle(StepBasic_DimensionalExponents) aDimensions;
+  Handle(DimensionalExponents) aDimensions;
   data->ReadEntity(num,
                    1,
                    "dimensions",
                    ach,
-                   STANDARD_TYPE(StepBasic_DimensionalExponents),
+                   STANDARD_TYPE(DimensionalExponents),
                    aDimensions);
 
   data->NamedForComplex("VOLUME_UNIT", "VLMUNT", num0, num, ach);

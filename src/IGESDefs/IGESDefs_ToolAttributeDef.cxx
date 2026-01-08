@@ -54,7 +54,7 @@ void AttributeDefTool::ReadOwnParams(const Handle(IGESDefs_AttributeDef)&   ent,
   Handle(TColStd_HArray1OfInteger)                       attrValueDataTypes;
   Handle(TColStd_HArray1OfInteger)                       attrValueCounts;
   Handle(TColStd_HArray1OfTransient)                     attrValues;
-  Handle(IGESDefs_HArray1OfHArray1OfTextDisplayTemplate) attrValuePointers;
+  Handle(HArray1OfHArray1OfTextTemplate) attrValuePointers;
   Standard_Integer                                       nbval;
   Standard_Integer                                       fn = ent->FormNumber();
 
@@ -74,7 +74,7 @@ void AttributeDefTool::ReadOwnParams(const Handle(IGESDefs_AttributeDef)&   ent,
     if (fn > 0)
       attrValues = new TColStd_HArray1OfTransient(1, nbval);
     if (fn > 1)
-      attrValuePointers = new IGESDefs_HArray1OfHArray1OfTextDisplayTemplate(1, nbval);
+      attrValuePointers = new HArray1OfHArray1OfTextTemplate(1, nbval);
   }
   else
     PR.AddFail("Number of Attributes: Not Positive");
@@ -86,7 +86,7 @@ void AttributeDefTool::ReadOwnParams(const Handle(IGESDefs_AttributeDef)&   ent,
       Standard_Integer attrValueDataType;
       Standard_Integer avc;
       //  Value according type
-      Handle(IGESGraph_HArray1OfTextDisplayTemplate) attrValuePointer;
+      Handle(HArray1OfTextDisplayTemplate) attrValuePointer;
 
       // st = PR.ReadInteger(PR.Current(), "Attribute Type", attrType); //szv#4:S4163:12Mar99 moved
       // in if
@@ -106,7 +106,7 @@ void AttributeDefTool::ReadOwnParams(const Handle(IGESDefs_AttributeDef)&   ent,
       {
         attrValueCounts->SetValue(i, avc);
         if (fn > 1)
-          attrValuePointer = new IGESGraph_HArray1OfTextDisplayTemplate(1, avc);
+          attrValuePointer = new HArray1OfTextDisplayTemplate(1, avc);
       }
 
       if (!attrValues.IsNull())
@@ -115,7 +115,7 @@ void AttributeDefTool::ReadOwnParams(const Handle(IGESDefs_AttributeDef)&   ent,
           Handle(TColStd_HArray1OfInteger)        attrInt;
           Handle(TColStd_HArray1OfReal)           attrReal;
           Handle(Interface_HArray1OfHAsciiString) attrStr;
-          Handle(IGESData_HArray1OfIGESEntity)    attrEnt;
+          Handle(HArray1OfIGESEntity)    attrEnt;
           switch (attrValueDataType)
           {
             case 1:
@@ -131,7 +131,7 @@ void AttributeDefTool::ReadOwnParams(const Handle(IGESDefs_AttributeDef)&   ent,
               attrValues->SetValue(i, attrStr);
               break;
             case 4:
-              attrEnt = new IGESData_HArray1OfIGESEntity(1, avc);
+              attrEnt = new HArray1OfIGESEntity(1, avc);
               attrValues->SetValue(i, attrEnt);
               break;
             case 6:
@@ -312,7 +312,7 @@ void AttributeDefTool::OwnCopy(const Handle(IGESDefs_AttributeDef)& another,
   Handle(TColStd_HArray1OfInteger)                       attrValueDataTypes;
   Handle(TColStd_HArray1OfInteger)                       attrValueCounts;
   Handle(TColStd_HArray1OfTransient)                     attrValues;
-  Handle(IGESDefs_HArray1OfHArray1OfTextDisplayTemplate) attrValuePointers;
+  Handle(HArray1OfHArray1OfTextTemplate) attrValuePointers;
   Standard_Integer                                       nbval = another->NbAttributes();
 
   attrTypes          = new TColStd_HArray1OfInteger(1, nbval);
@@ -321,7 +321,7 @@ void AttributeDefTool::OwnCopy(const Handle(IGESDefs_AttributeDef)& another,
   if (another->HasValues())
     attrValues = new TColStd_HArray1OfTransient(1, nbval);
   if (another->HasTextDisplay())
-    attrValuePointers = new IGESDefs_HArray1OfHArray1OfTextDisplayTemplate(1, nbval);
+    attrValuePointers = new HArray1OfHArray1OfTextTemplate(1, nbval);
 
   for (Standard_Integer i = 1; i <= nbval; i++)
   {
@@ -331,17 +331,17 @@ void AttributeDefTool::OwnCopy(const Handle(IGESDefs_AttributeDef)& another,
     attrValueDataTypes->SetValue(i, attrValueDataType);
     Standard_Integer avc = another->AttributeValueCount(i);
     attrValueCounts->SetValue(i, avc);
-    Handle(IGESGraph_HArray1OfTextDisplayTemplate) attrValuePointer;
+    Handle(HArray1OfTextDisplayTemplate) attrValuePointer;
 
     if (another->HasTextDisplay())
-      attrValuePointer = new IGESGraph_HArray1OfTextDisplayTemplate(1, avc);
+      attrValuePointer = new HArray1OfTextDisplayTemplate(1, avc);
 
     if (another->HasValues())
     {
       Handle(TColStd_HArray1OfInteger)        attrInt;
       Handle(TColStd_HArray1OfReal)           attrReal;
       Handle(Interface_HArray1OfHAsciiString) attrStr;
-      Handle(IGESData_HArray1OfIGESEntity)    attrEnt;
+      Handle(HArray1OfIGESEntity)    attrEnt;
       switch (attrValueDataType)
       {
         case 1:
@@ -357,7 +357,7 @@ void AttributeDefTool::OwnCopy(const Handle(IGESDefs_AttributeDef)& another,
           attrValues->SetValue(i, attrStr);
           break;
         case 4:
-          attrEnt = new IGESData_HArray1OfIGESEntity(1, avc);
+          attrEnt = new HArray1OfIGESEntity(1, avc);
           attrValues->SetValue(i, attrEnt);
           break;
         case 6:
@@ -488,7 +488,7 @@ void AttributeDefTool::OwnCheck(const Handle(IGESDefs_AttributeDef)& ent,
         }
         break;
       case 4:
-        if (!list->IsKind(STANDARD_TYPE(IGESData_HArray1OfIGESEntity)))
+        if (!list->IsKind(STANDARD_TYPE(HArray1OfIGESEntity)))
         {
           sprintf(mess, "Attribute List n0.%d (IGES Pointers) badly defined", aty);
         }

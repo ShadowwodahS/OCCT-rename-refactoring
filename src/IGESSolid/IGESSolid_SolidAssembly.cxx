@@ -24,8 +24,8 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESSolid_SolidAssembly, IGESData_IGESEntity)
 
 IGESSolid_SolidAssembly::IGESSolid_SolidAssembly() {}
 
-void IGESSolid_SolidAssembly::Init(const Handle(IGESData_HArray1OfIGESEntity)&           Items,
-                                   const Handle(IGESGeom_HArray1OfTransformationMatrix)& Matrices)
+void IGESSolid_SolidAssembly::Init(const Handle(HArray1OfIGESEntity)&           Items,
+                                   const Handle(HArray1OfTransformationMatrix)& Matrices)
 {
   if (Items->Lower() != 1 || Matrices->Lower() != 1 || Items->Length() != Matrices->Length())
     throw Standard_DimensionError("IGESSolid_SolidAssembly : Init");

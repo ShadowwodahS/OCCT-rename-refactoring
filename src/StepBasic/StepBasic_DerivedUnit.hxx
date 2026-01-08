@@ -35,11 +35,11 @@ class StepBasic_DerivedUnit : public RefObject
 public:
   Standard_EXPORT StepBasic_DerivedUnit();
 
-  Standard_EXPORT void Init(const Handle(StepBasic_HArray1OfDerivedUnitElement)& elements);
+  Standard_EXPORT void Init(const Handle(HArray1OfDerivedUnitElement)& elements);
 
-  Standard_EXPORT void SetElements(const Handle(StepBasic_HArray1OfDerivedUnitElement)& elements);
+  Standard_EXPORT void SetElements(const Handle(HArray1OfDerivedUnitElement)& elements);
 
-  Standard_EXPORT Handle(StepBasic_HArray1OfDerivedUnitElement) Elements() const;
+  Standard_EXPORT Handle(HArray1OfDerivedUnitElement) Elements() const;
 
   Standard_EXPORT Standard_Integer NbElements() const;
 
@@ -50,7 +50,7 @@ public:
 
 protected:
 private:
-  Handle(StepBasic_HArray1OfDerivedUnitElement) theElements;
+  Handle(HArray1OfDerivedUnitElement) theElements;
 };
 
 #endif // _StepBasic_DerivedUnit_HeaderFile

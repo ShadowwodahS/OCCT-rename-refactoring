@@ -20,8 +20,8 @@
 #include <NCollection_DataMap.hxx>
 #include <NCollection_List.hxx>
 
-class PCDM_ReaderFilter;
-DEFINE_STANDARD_HANDLE(PCDM_ReaderFilter, RefObject)
+class ReaderFilter;
+DEFINE_STANDARD_HANDLE(ReaderFilter, RefObject)
 
 //! Class represents a document reading filter.
 //!
@@ -29,7 +29,7 @@ DEFINE_STANDARD_HANDLE(PCDM_ReaderFilter, RefObject)
 //! or attributes that must be retrieved only.
 //! In addition it is possible to define one or several subtrees (by entry) which must be
 //! retrieved during the reading. Other labels are created, but no one attribute on them.
-class PCDM_ReaderFilter : public RefObject
+class ReaderFilter : public RefObject
 {
 public:
   //! Supported modes of appending the file content into existing document
@@ -41,23 +41,23 @@ public:
   };
 
   //! Creates an empty filter, so, all will be retrieved if nothing else is defined.
-  inline PCDM_ReaderFilter()
+  inline ReaderFilter()
       : myAppend(AppendMode_Forbid)
   {
   }
 
   //! Creates a filter to skip only one type of attributes.
-  Standard_EXPORT PCDM_ReaderFilter(const Handle(TypeInfo)& theSkipped);
+  Standard_EXPORT ReaderFilter(const Handle(TypeInfo)& theSkipped);
 
   //! Creates a filter to read only sub-labels of a label-path.
   //! Like, for "0:2" it will read all attributes for labels "0:2", "0:2:1", etc.
-  Standard_EXPORT PCDM_ReaderFilter(const AsciiString1& theEntryToRead);
+  Standard_EXPORT ReaderFilter(const AsciiString1& theEntryToRead);
 
   //! Creates a filter to append the content of file to open to existing document.
-  Standard_EXPORT PCDM_ReaderFilter(const AppendMode theAppend);
+  Standard_EXPORT ReaderFilter(const AppendMode theAppend);
 
   //! Destructor for the filter content
-  Standard_EXPORT ~PCDM_ReaderFilter();
+  Standard_EXPORT ~ReaderFilter();
 
   //! Adds skipped attribute by type.
   Standard_EXPORT void AddSkipped(const Handle(TypeInfo)& theSkipped)
@@ -109,7 +109,7 @@ public:
   //! Returns true if appending to the document is performed.
   Standard_EXPORT Standard_Boolean IsAppendMode()
   {
-    return myAppend != PCDM_ReaderFilter::AppendMode_Forbid;
+    return myAppend != ReaderFilter::AppendMode_Forbid;
   }
 
   //! Starts the tree iterator. It is used for fast searching of passed labels if the whole tree of
@@ -125,7 +125,7 @@ public:
   //! Returns true if some sub-label of the currently iterated label is passed.
   Standard_EXPORT virtual Standard_Boolean IsSubPassed() const;
 
-  DEFINE_STANDARD_RTTIEXT(PCDM_ReaderFilter, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ReaderFilter, RefObject)
 
 private:
   //! Clears the iteration tree

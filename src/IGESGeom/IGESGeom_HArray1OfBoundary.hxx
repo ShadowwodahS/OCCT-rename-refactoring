@@ -20,6 +20,6 @@
 #include <IGESGeom_Array1OfBoundary.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(IGESGeom_HArray1OfBoundary, IGESGeom_Array1OfBoundary)
+DEFINE_HARRAY1(HArray1OfBoundary, IGESGeom_Array1OfBoundary)
 
 #endif

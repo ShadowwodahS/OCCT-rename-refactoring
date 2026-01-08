@@ -93,14 +93,14 @@ Standard_Boolean StepData_Protocol::IsUnknownEntity(const Handle(RefObject)& ent
 
 //  ####    Description pour LateBinding
 
-Standard_Integer StepData_Protocol::DescrNumber(const Handle(StepData_EDescr)& adescr) const
+Standard_Integer StepData_Protocol::DescrNumber(const Handle(EntityDescriptor)& adescr) const
 {
   if (thedscnum.IsBound(adescr))
     return thedscnum.Find(adescr);
   return 0;
 }
 
-void StepData_Protocol::AddDescr(const Handle(StepData_EDescr)& adescr, const Standard_Integer CN)
+void StepData_Protocol::AddDescr(const Handle(EntityDescriptor)& adescr, const Standard_Integer CN)
 {
   Handle(StepData_ESDescr) sd = Handle(StepData_ESDescr)::DownCast(adescr);
   thedscnum.Bind(adescr, CN);
@@ -120,30 +120,30 @@ Standard_Boolean StepData_Protocol::HasDescr() const
   return !thedscnam.IsEmpty();
 }
 
-Handle(StepData_EDescr) StepData_Protocol::Descr(const Standard_Integer num) const
+Handle(EntityDescriptor) StepData_Protocol::Descr(const Standard_Integer num) const
 {
-  Handle(StepData_EDescr) dsc;
+  Handle(EntityDescriptor) dsc;
   if (thedscnam.IsEmpty())
     return dsc;
   char fonom[10];
   sprintf(fonom, "%d", num);
   Handle(RefObject) aTDsc;
   if (thedscnam.Find(fonom, aTDsc))
-    dsc = Handle(StepData_EDescr)::DownCast(aTDsc);
+    dsc = Handle(EntityDescriptor)::DownCast(aTDsc);
   else
     dsc.Nullify();
   return dsc;
 }
 
-Handle(StepData_EDescr) StepData_Protocol::Descr(const Standard_CString name,
+Handle(EntityDescriptor) StepData_Protocol::Descr(const Standard_CString name,
                                                  const Standard_Boolean anylevel) const
 {
-  Handle(StepData_EDescr) sd;
+  Handle(EntityDescriptor) sd;
   if (!thedscnam.IsEmpty())
   {
     Handle(RefObject) aTSd;
     if (thedscnam.Find(name, aTSd))
-      return Handle(StepData_EDescr)::DownCast(aTSd);
+      return Handle(EntityDescriptor)::DownCast(aTSd);
   }
   if (!anylevel)
     return sd;
@@ -245,15 +245,15 @@ void StepData_Protocol::AddBasicDescr(const Handle(StepData_ESDescr)& esdescr)
   thedscbas.Bind(esdescr->TypeName(), esdescr);
 }
 
-Handle(StepData_EDescr) StepData_Protocol::BasicDescr(const Standard_CString name,
+Handle(EntityDescriptor) StepData_Protocol::BasicDescr(const Standard_CString name,
                                                       const Standard_Boolean anylevel) const
 {
-  Handle(StepData_EDescr) sd;
+  Handle(EntityDescriptor) sd;
   if (!thedscbas.IsEmpty())
   {
     Handle(RefObject) aTSd;
     if (thedscbas.Find(name, aTSd))
-      return Handle(StepData_EDescr)::DownCast(aTSd);
+      return Handle(EntityDescriptor)::DownCast(aTSd);
   }
   if (!anylevel)
     return sd;

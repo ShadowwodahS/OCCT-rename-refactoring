@@ -52,9 +52,9 @@ public:
   //! - allAnnotations : Pointers to DEs of Annotation entities
   //! raises exception if Lengths of allViews and allViewOrigins are
   //! not same.
-  Standard_EXPORT void Init(const Handle(IGESDraw_HArray1OfViewKindEntity)& allViews,
+  Standard_EXPORT void Init(const Handle(HArray1OfViewKindEntity)& allViews,
                             const Handle(TColgp_HArray1OfXY)&               allViewOrigins,
-                            const Handle(IGESData_HArray1OfIGESEntity)&     allAnnotations);
+                            const Handle(HArray1OfIGESEntity)&     allAnnotations);
 
   //! returns the number of view pointers in <me>
   Standard_EXPORT Standard_Integer NbViews() const;
@@ -97,9 +97,9 @@ public:
 
 protected:
 private:
-  Handle(IGESDraw_HArray1OfViewKindEntity) theViews;
+  Handle(HArray1OfViewKindEntity) theViews;
   Handle(TColgp_HArray1OfXY)               theViewOrigins;
-  Handle(IGESData_HArray1OfIGESEntity)     theAnnotations;
+  Handle(HArray1OfIGESEntity)     theAnnotations;
 };
 
 #endif // _IGESDraw_Drawing_HeaderFile

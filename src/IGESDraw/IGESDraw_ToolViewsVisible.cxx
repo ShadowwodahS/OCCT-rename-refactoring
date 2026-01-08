@@ -41,8 +41,8 @@ void ViewsVisibleTool::ReadOwnParams(const Handle(IGESDraw_ViewsVisible)&   ent,
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
 
   Standard_Integer                         tempNbViewsVisible, tempNbDisplayedEntities;
-  Handle(IGESDraw_HArray1OfViewKindEntity) tempViewEntities;
-  Handle(IGESData_HArray1OfIGESEntity)     tempDisplayEntity;
+  Handle(HArray1OfViewKindEntity) tempViewEntities;
+  Handle(HArray1OfIGESEntity)     tempDisplayEntity;
 
   // st = PR.ReadInteger(PR.Current(), "Number Of Views Visible",
   // tempNbViewsVisible); //szv#4:S4163:12Mar99 moved in if
@@ -52,7 +52,7 @@ void ViewsVisibleTool::ReadOwnParams(const Handle(IGESDraw_ViewsVisible)&   ent,
     if (tempNbViewsVisible <= 0)
       PR.AddFail("Number Of Views Visible : Not Positive");
     else
-      tempViewEntities = new IGESDraw_HArray1OfViewKindEntity(1, tempNbViewsVisible);
+      tempViewEntities = new HArray1OfViewKindEntity(1, tempNbViewsVisible);
   }
 
   if (PR.DefinedElseSkip())
@@ -96,7 +96,7 @@ void ViewsVisibleTool::ReadOwnParams(const Handle(IGESDraw_ViewsVisible)&   ent,
                 tempDisplayEntity); // szv#4:S4163:12Mar99 `st=` not needed
     /*
         tempDisplayEntity =
-          new IGESData_HArray1OfIGESEntity (1, tempNbDisplayedEntities);
+          new HArray1OfIGESEntity (1, tempNbDisplayedEntities);
 
         Handle(IGESData_IGESEntity) tempEntity2;
         Standard_Integer I;
@@ -150,8 +150,8 @@ void ViewsVisibleTool::OwnCopy(const Handle(IGESDraw_ViewsVisible)& another,
                                         const Handle(IGESDraw_ViewsVisible)& ent,
                                         Interface_CopyTool&                  TC) const
 {
-  Handle(IGESDraw_HArray1OfViewKindEntity) tempViewEntities =
-    new IGESDraw_HArray1OfViewKindEntity(1, another->NbViews());
+  Handle(HArray1OfViewKindEntity) tempViewEntities =
+    new HArray1OfViewKindEntity(1, another->NbViews());
   Standard_Integer I, up;
   up = another->NbViews();
   for (I = 1; I <= up; I++)
@@ -160,7 +160,7 @@ void ViewsVisibleTool::OwnCopy(const Handle(IGESDraw_ViewsVisible)& another,
     tempViewEntities->SetValue(I, tempView);
   }
   //  Displayed -> Implied : mettre une liste vide par defaut
-  Handle(IGESData_HArray1OfIGESEntity) tempDisplayEntities;
+  Handle(HArray1OfIGESEntity) tempDisplayEntities;
   ent->Init(tempViewEntities, tempDisplayEntities);
 }
 
@@ -173,7 +173,7 @@ void ViewsVisibleTool::OwnRenew(const Handle(IGESDraw_ViewsVisible)& another,
   up = another->NbDisplayedEntities();
   if (up == 0)
     return;
-  Handle(IGESData_HArray1OfIGESEntity) tempDisplayEntities;
+  Handle(HArray1OfIGESEntity) tempDisplayEntities;
   Handle(RefObject)           anew;
   for (I = 1; I <= up; I++)
   {
@@ -184,7 +184,7 @@ void ViewsVisibleTool::OwnRenew(const Handle(IGESDraw_ViewsVisible)& another,
   up = newdisp.NbEntities();
   I  = 0;
   if (up > 0)
-    tempDisplayEntities = new IGESData_HArray1OfIGESEntity(1, up);
+    tempDisplayEntities = new HArray1OfIGESEntity(1, up);
   for (newdisp.Start(); newdisp.More(); newdisp.Next())
   {
     I++;
@@ -232,7 +232,7 @@ void ViewsVisibleTool::OwnCheck(const Handle(IGESDraw_ViewsVisible)& ent,
 
 void ViewsVisibleTool::OwnWhenDelete(const Handle(IGESDraw_ViewsVisible)& ent) const
 {
-  Handle(IGESData_HArray1OfIGESEntity) tempDisplayEntities;
+  Handle(HArray1OfIGESEntity) tempDisplayEntities;
   ent->InitImplied(tempDisplayEntities);
 }
 
@@ -265,7 +265,7 @@ Standard_Boolean ViewsVisibleTool::OwnCorrect(
   }
   if (!res)
     return res;
-  Handle(IGESData_HArray1OfIGESEntity) nulDisplayEntities;
+  Handle(HArray1OfIGESEntity) nulDisplayEntities;
   ent->InitImplied(nulDisplayEntities);
   return res;
 }

@@ -454,11 +454,11 @@ void BinLDrivers_DocumentStorageDriver::WriteInfoSection(const Handle(CDM_Docume
 
   // add format
   Handle(Storage_Data) theData = new Storage_Data;
-  PCDM_ReadWriter::WriteFileFormat(theData, theDoc);
-  PCDM_ReadWriter::Writer()->WriteReferenceCounter(theData, theDoc);
-  PCDM_ReadWriter::Writer()->WriteReferences(theData, theDoc, myFileName);
-  PCDM_ReadWriter::Writer()->WriteExtensions(theData, theDoc);
-  PCDM_ReadWriter::Writer()->WriteVersion(theData, theDoc);
+  ReadWriter::WriteFileFormat(theData, theDoc);
+  ReadWriter::Writer()->WriteReferenceCounter(theData, theDoc);
+  ReadWriter::Writer()->WriteReferences(theData, theDoc, myFileName);
+  ReadWriter::Writer()->WriteExtensions(theData, theDoc);
+  ReadWriter::Writer()->WriteVersion(theData, theDoc);
 
   // add the types table
   theData->AddToUserInfo(START_TYPES);

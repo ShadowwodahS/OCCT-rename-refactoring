@@ -47,13 +47,13 @@ void RWStepAP214_RWAutoDesignDocumentReference::ReadStep(
 
   // --- own field : items ---
 
-  Handle(StepAP214_HArray1OfAutoDesignReferencingItem) aItems;
+  Handle(HArray1OfAutoDesignRefItem) aItems;
   StepAP214_AutoDesignReferencingItem                  anItem;
   Standard_Integer                                     nsub3;
   if (data->ReadSubList(num, 3, "items", ach, nsub3))
   {
     Standard_Integer nb3 = data->NbParams(nsub3);
-    aItems               = new StepAP214_HArray1OfAutoDesignReferencingItem(1, nb3);
+    aItems               = new HArray1OfAutoDesignRefItem(1, nb3);
     for (Standard_Integer i3 = 1; i3 <= nb3; i3++)
     {
       Standard_Boolean stat3 = data->ReadEntity(nsub3, i3, "item", ach, anItem);

@@ -22,7 +22,7 @@ StepRepr_GlobalUncertaintyAssignedContext::StepRepr_GlobalUncertaintyAssignedCon
 void StepRepr_GlobalUncertaintyAssignedContext::Init(
   const Handle(TCollection_HAsciiString)&                      aContextIdentifier,
   const Handle(TCollection_HAsciiString)&                      aContextType,
-  const Handle(StepBasic_HArray1OfUncertaintyMeasureWithUnit)& aUncertainty)
+  const Handle(HArray1OfUncertainty)& aUncertainty)
 {
   // --- classe own fields ---
   uncertainty = aUncertainty;
@@ -31,12 +31,12 @@ void StepRepr_GlobalUncertaintyAssignedContext::Init(
 }
 
 void StepRepr_GlobalUncertaintyAssignedContext::SetUncertainty(
-  const Handle(StepBasic_HArray1OfUncertaintyMeasureWithUnit)& aUncertainty)
+  const Handle(HArray1OfUncertainty)& aUncertainty)
 {
   uncertainty = aUncertainty;
 }
 
-Handle(StepBasic_HArray1OfUncertaintyMeasureWithUnit) StepRepr_GlobalUncertaintyAssignedContext::
+Handle(HArray1OfUncertainty) StepRepr_GlobalUncertaintyAssignedContext::
   Uncertainty() const
 {
   return uncertainty;

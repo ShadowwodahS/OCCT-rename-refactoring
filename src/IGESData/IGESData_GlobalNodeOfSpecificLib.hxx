@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 #include <Standard_Transient.hxx>
-class IGESData_SpecificModule;
+class SpecificModule;
 class IGESData_Protocol;
 class IGESData_IGESEntity;
 class IGESData_SpecificLib;
@@ -41,11 +41,11 @@ public:
   //! nothing if already in the list, THAT IS, Same Type (exact
   //! match) and Same State (that is, IsEqual is not required)
   //! Once added, stores its attached Protocol in correspondence
-  Standard_EXPORT void Add(const Handle(IGESData_SpecificModule)& amodule,
+  Standard_EXPORT void Add(const Handle(SpecificModule)& amodule,
                            const Handle(IGESData_Protocol)&       aprotocol);
 
   //! Returns the Module stored in a given GlobalNode
-  Standard_EXPORT const Handle(IGESData_SpecificModule)& Module() const;
+  Standard_EXPORT const Handle(SpecificModule)& Module() const;
 
   //! Returns the attached Protocol stored in a given GlobalNode
   Standard_EXPORT const Handle(IGESData_Protocol)& Protocol() const;
@@ -57,7 +57,7 @@ public:
   DEFINE_STANDARD_RTTI_INLINE(IGESData_GlobalNodeOfSpecificLib, RefObject)
 
 private:
-  Handle(IGESData_SpecificModule)          themod;
+  Handle(SpecificModule)          themod;
   Handle(IGESData_Protocol)                theprot;
   Handle(IGESData_GlobalNodeOfSpecificLib) thenext;
 };

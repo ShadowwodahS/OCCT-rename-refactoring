@@ -20,6 +20,6 @@
 #include <IGESGraph_Array1OfTextDisplayTemplate.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(IGESGraph_HArray1OfTextDisplayTemplate, IGESGraph_Array1OfTextDisplayTemplate)
+DEFINE_HARRAY1(HArray1OfTextDisplayTemplate, IGESGraph_Array1OfTextDisplayTemplate)
 
 #endif

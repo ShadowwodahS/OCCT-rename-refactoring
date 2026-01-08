@@ -54,7 +54,7 @@ protected:
   //! @param theIsRootShape indicates that this is a root object (free shape)
   Standard_EXPORT virtual void BindNamedShape(const TopoShape&            theShape,
                                               const AsciiString1& theName,
-                                              const RWObj_Material*          theMaterial,
+                                              const Material1*          theMaterial,
                                               const Standard_Boolean         theIsRootShape)
     Standard_OVERRIDE;
 

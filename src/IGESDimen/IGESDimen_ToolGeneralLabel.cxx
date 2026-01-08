@@ -44,7 +44,7 @@ void GeneralLabelTool::ReadOwnParams(const Handle(IGESDimen_GeneralLabel)&  ent,
 
   Handle(IGESDimen_GeneralNote)          note;
   Standard_Integer                       nbval;
-  Handle(IGESDimen_HArray1OfLeaderArrow) leaders;
+  Handle(HArray1OfLeaderArrow) leaders;
 
   PR.ReadEntity(IR,
                 PR.Current(),
@@ -54,7 +54,7 @@ void GeneralLabelTool::ReadOwnParams(const Handle(IGESDimen_GeneralLabel)&  ent,
 
   Standard_Boolean st = PR.ReadInteger(PR.Current(), "Number of Leaders", nbval);
   if (st && nbval > 0)
-    leaders = new IGESDimen_HArray1OfLeaderArrow(1, nbval);
+    leaders = new HArray1OfLeaderArrow(1, nbval);
   else
     PR.AddFail("Number of Leaders: Not Positive");
 
@@ -102,7 +102,7 @@ void GeneralLabelTool::OwnCopy(const Handle(IGESDimen_GeneralLabel)& another,
   DeclareAndCast(IGESDimen_GeneralNote, note, TC.Transferred(another->Note()));
   Standard_Integer nbval = another->NbLeaders();
 
-  Handle(IGESDimen_HArray1OfLeaderArrow) leaders = new IGESDimen_HArray1OfLeaderArrow(1, nbval);
+  Handle(HArray1OfLeaderArrow) leaders = new HArray1OfLeaderArrow(1, nbval);
   for (Standard_Integer i = 1; i <= nbval; i++)
   {
     DeclareAndCast(IGESDimen_LeaderArrow, new_ent, TC.Transferred(another->Leader(i)));

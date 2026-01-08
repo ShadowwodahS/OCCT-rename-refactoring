@@ -37,7 +37,7 @@ class StepRepr_PropertyDefinition;
 class StepShape_ShapeRepresentation;
 class StepBasic_SecurityClassification;
 class StepRepr_ConfigurationItem;
-class StepBasic_Date;
+class Date1;
 class StepBasic_Document;
 class StepBasic_Effectivity;
 class StepBasic_Group;
@@ -123,7 +123,7 @@ public:
   Standard_EXPORT virtual Handle(StepRepr_ConfigurationItem) ConfigurationItem() const;
 
   //! returns Value as a Date (Null if another type)
-  Standard_EXPORT virtual Handle(StepBasic_Date) Date() const;
+  Standard_EXPORT virtual Handle(Date1) Date() const;
 
   //! returns Value as a Document (Null if another type)
   Standard_EXPORT virtual Handle(StepBasic_Document) Document() const;

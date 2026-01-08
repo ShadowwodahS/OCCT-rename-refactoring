@@ -30,7 +30,7 @@ void StepBasic_SiUnitAndRatioUnit::Init(const Standard_Boolean     hasAprefix,
 
   // --- ANDOR component fields ---
   ratioUnit = new StepBasic_RatioUnit();
-  Handle(StepBasic_DimensionalExponents) aDimensions;
+  Handle(DimensionalExponents) aDimensions;
   aDimensions.Nullify();
   ratioUnit->Init(aDimensions);
 }

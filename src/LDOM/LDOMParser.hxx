@@ -67,7 +67,7 @@ public:
   // Return text describing a parsing error, or Empty if no error occurred
 
   // Returns the byte order mask defined at the start of a stream
-  Standard_EXPORT LDOM_OSStream::BOMType GetBOM() const;
+  Standard_EXPORT OutputStream::BOMType GetBOM() const;
 
 protected:
   // ---------- PROTECTED METHODS ----------
@@ -100,8 +100,8 @@ private:
   // ---------- PRIVATE FIELDS ----------
 
   LDOM_XmlReader*         myReader;
-  Handle(LDOM_MemManager) myDocument;
-  LDOM_OSStream           myCurrentData;
+  Handle(MemoryManager) myDocument;
+  OutputStream           myCurrentData;
   AsciiString1 myError;
 };
 

@@ -19,7 +19,7 @@
 #include <TCollection_AsciiString.hxx>
 
 //! Material definition for OBJ file format.
-struct RWObj_Material
+struct Material1
 {
   AsciiString1 Name;        //!< material name (identifier) as defined in MTL file
                                        // clang-format off
@@ -33,7 +33,7 @@ struct RWObj_Material
   Standard_ShortReal      Shininess;
   Standard_ShortReal      Transparency;
 
-  RWObj_Material()
+  Material1()
       : AmbientColor(0.1, 0.1, 0.1, Quantity_TOC_sRGB),
         DiffuseColor(0.8, 0.8, 0.8, Quantity_TOC_sRGB),
         SpecularColor(0.2, 0.2, 0.2, Quantity_TOC_sRGB),

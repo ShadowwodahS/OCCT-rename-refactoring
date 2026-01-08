@@ -29,7 +29,7 @@ DEOBJ_Provider::DEOBJ_Provider() {}
 
 //=================================================================================================
 
-DEOBJ_Provider::DEOBJ_Provider(const Handle(DE_ConfigurationNode)& theNode)
+DEOBJ_Provider::DEOBJ_Provider(const Handle(ConfigurationNode)& theNode)
     : DE_Provider(theNode)
 {
 }

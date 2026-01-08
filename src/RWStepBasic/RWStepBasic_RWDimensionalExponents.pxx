@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class StepData_StepReaderData;
 class Interface_Check;
-class StepBasic_DimensionalExponents;
+class DimensionalExponents;
 class StepData_StepWriter;
 
 //! Read & Write Module for DimensionalExponents
@@ -38,10 +38,10 @@ public:
   Standard_HIDDEN void ReadStep(const Handle(StepData_StepReaderData)&        data,
                                 const Standard_Integer                        num,
                                 Handle(Interface_Check)&                      ach,
-                                const Handle(StepBasic_DimensionalExponents)& ent) const;
+                                const Handle(DimensionalExponents)& ent) const;
 
   Standard_HIDDEN void WriteStep(StepData_StepWriter&                          SW,
-                                 const Handle(StepBasic_DimensionalExponents)& ent) const;
+                                 const Handle(DimensionalExponents)& ent) const;
 
 protected:
 private:

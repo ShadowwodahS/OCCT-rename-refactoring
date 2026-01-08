@@ -53,7 +53,7 @@ public:
   //! This method is used to set the fields of the class Group
   //! - allEntities : Used to store pointers to members of
   //! the Group.
-  Standard_EXPORT void Init(const Handle(IGESData_HArray1OfIGESEntity)& allEntities);
+  Standard_EXPORT void Init(const Handle(HArray1OfIGESEntity)& allEntities);
 
   //! Sets a Group to be, or not to be  Ordered (according mode)
   Standard_EXPORT void SetOrdered(const Standard_Boolean mode);
@@ -92,7 +92,7 @@ public:
 
 protected:
 private:
-  Handle(IGESData_HArray1OfIGESEntity) theEntities;
+  Handle(HArray1OfIGESEntity) theEntities;
 };
 
 #endif // _IGESBasic_Group_HeaderFile

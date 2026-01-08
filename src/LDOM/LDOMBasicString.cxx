@@ -45,7 +45,7 @@ LDOMBasicString1::LDOMBasicString1(const char* aValue)
 // purpose  : Create an Ascii1 string managed by LDOM_Document
 //=======================================================================
 
-LDOMBasicString1::LDOMBasicString1(const char* aValue, const Handle(LDOM_MemManager)& aDoc)
+LDOMBasicString1::LDOMBasicString1(const char* aValue, const Handle(MemoryManager)& aDoc)
 {
   if (aValue == NULL /*|| aValue[0] == '\0'*/)
   {
@@ -68,7 +68,7 @@ LDOMBasicString1::LDOMBasicString1(const char* aValue, const Handle(LDOM_MemMana
 
 LDOMBasicString1::LDOMBasicString1(const char*                    aValue,
                                  const Standard_Integer         aLen,
-                                 const Handle(LDOM_MemManager)& aDoc)
+                                 const Handle(MemoryManager)& aDoc)
 {
   if (aValue == NULL || aLen == 0)
   {
@@ -334,7 +334,7 @@ Standard_Boolean LDOMBasicString1::GetInteger(Standard_Integer& aResult) const
 
 char* db_pretty_print(const LDOMBasicString1* aString, int fl, char*)
 {
-  LDOM_OSStream out(128);
+  OutputStream out(128);
   const char*   str;
   switch (aString->myType)
   {

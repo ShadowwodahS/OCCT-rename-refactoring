@@ -24,7 +24,7 @@
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
 class RefObject;
-class StepBasic_Date;
+class Date1;
 class StepBasic_LocalTime;
 class StepBasic_DateAndTime;
 
@@ -44,7 +44,7 @@ public:
   Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a Date (Null if another type)
-  Standard_EXPORT Handle(StepBasic_Date) Date() const;
+  Standard_EXPORT Handle(Date1) Date() const;
 
   //! returns Value as a LocalTime (Null if another type)
   Standard_EXPORT Handle(StepBasic_LocalTime) LocalTime() const;

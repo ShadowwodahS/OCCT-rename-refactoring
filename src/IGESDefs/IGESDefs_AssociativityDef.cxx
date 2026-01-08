@@ -28,7 +28,7 @@ IGESDefs_AssociativityDef::IGESDefs_AssociativityDef() {}
 void IGESDefs_AssociativityDef::Init(const Handle(TColStd_HArray1OfInteger)& requirements,
                                      const Handle(TColStd_HArray1OfInteger)& orders,
                                      const Handle(TColStd_HArray1OfInteger)& numItems,
-                                     const Handle(IGESBasic_HArray1OfHArray1OfInteger)& items)
+                                     const Handle(HArray1OfHArray1OfInt)& items)
 {
   Standard_Integer len = requirements->Length();
   if (requirements->Lower() != 1 || (orders->Lower() != 1 || orders->Length() != len)

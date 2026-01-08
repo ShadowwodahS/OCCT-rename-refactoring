@@ -20,6 +20,6 @@
 #include <StepAP214_Array1OfAutoDesignGroupedItem.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepAP214_HArray1OfAutoDesignGroupedItem, StepAP214_Array1OfAutoDesignGroupedItem)
+DEFINE_HARRAY1(HArray1OfAutoDesignGroupedItem, StepAP214_Array1OfAutoDesignGroupedItem)
 
 #endif

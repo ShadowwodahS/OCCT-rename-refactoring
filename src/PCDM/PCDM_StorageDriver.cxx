@@ -30,7 +30,7 @@
 #include <TCollection_ExtendedString.hxx>
 #include <TColStd_SequenceOfExtendedString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(PCDM_StorageDriver, PCDM_Writer)
+IMPLEMENT_STANDARD_RTTIEXT(PCDM_StorageDriver, Writer1)
 
 #define STORAGE_VERSION "STORAGE_VERSION:"
 
@@ -75,14 +75,14 @@ void PCDM_StorageDriver::Write(const Handle(CDM_Document)&       aDocument,
   }
 
   AsciiString1 ligne(STORAGE_VERSION);
-  ligne += PCDM_ReadWriter::Writer()->Version();
+  ligne += ReadWriter::Writer()->Version();
   theData->AddToUserInfo(ligne);
 
-  PCDM_ReadWriter::WriteFileFormat(theData, aDocument);
-  PCDM_ReadWriter::Writer()->WriteReferenceCounter(theData, aDocument);
-  PCDM_ReadWriter::Writer()->WriteReferences(theData, aDocument, aFileName);
-  PCDM_ReadWriter::Writer()->WriteExtensions(theData, aDocument);
-  PCDM_ReadWriter::Writer()->WriteVersion(theData, aDocument);
+  ReadWriter::WriteFileFormat(theData, aDocument);
+  ReadWriter::Writer()->WriteReferenceCounter(theData, aDocument);
+  ReadWriter::Writer()->WriteReferences(theData, aDocument, aFileName);
+  ReadWriter::Writer()->WriteExtensions(theData, aDocument);
+  ReadWriter::Writer()->WriteVersion(theData, aDocument);
 
   // add document comments
   TColStd_SequenceOfExtendedString aComments;
@@ -94,7 +94,7 @@ void PCDM_StorageDriver::Write(const Handle(CDM_Document)&       aDocument,
   }
 
   Handle(FSD_CmpFile) theFile = new FSD_CmpFile;
-  PCDM_ReadWriter::Open(theFile, aFileName, Storage_VSWrite);
+  ReadWriter::Open(theFile, aFileName, Storage_VSWrite);
   theSchema->Write(theFile, theData);
   theFile->Close();
 

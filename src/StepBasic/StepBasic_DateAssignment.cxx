@@ -18,7 +18,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DateAssignment, RefObject)
 
-void StepBasic_DateAssignment::Init(const Handle(StepBasic_Date)&     aAssignedDate,
+void StepBasic_DateAssignment::Init(const Handle(Date1)&     aAssignedDate,
                                     const Handle(StepBasic_DateRole)& aRole)
 {
   // --- classe own fields ---
@@ -26,12 +26,12 @@ void StepBasic_DateAssignment::Init(const Handle(StepBasic_Date)&     aAssignedD
   role         = aRole;
 }
 
-void StepBasic_DateAssignment::SetAssignedDate(const Handle(StepBasic_Date)& aAssignedDate)
+void StepBasic_DateAssignment::SetAssignedDate(const Handle(Date1)& aAssignedDate)
 {
   assignedDate = aAssignedDate;
 }
 
-Handle(StepBasic_Date) StepBasic_DateAssignment::AssignedDate() const
+Handle(Date1) StepBasic_DateAssignment::AssignedDate() const
 {
   return assignedDate;
 }

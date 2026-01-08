@@ -24,7 +24,7 @@
 #include <IGESData_HArray1OfIGESEntity.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 #include <IGESData_IGESEntity.hxx>
-class IGESBasic_HArray1OfHArray1OfIGESEntity;
+class HArray1OfHArray1OfEntity;
 
 class IGESGeom_Boundary;
 DEFINE_STANDARD_HANDLE(IGESGeom_Boundary, IGESData_IGESEntity)
@@ -55,9 +55,9 @@ public:
     const Standard_Integer                                aType,
     const Standard_Integer                                aPreference,
     const Handle(IGESData_IGESEntity)&                    aSurface,
-    const Handle(IGESData_HArray1OfIGESEntity)&           allModelCurves,
+    const Handle(HArray1OfIGESEntity)&           allModelCurves,
     const Handle(TColStd_HArray1OfInteger)&               allSenses,
-    const Handle(IGESBasic_HArray1OfHArray1OfIGESEntity)& allParameterCurves);
+    const Handle(HArray1OfHArray1OfEntity)& allParameterCurves);
 
   //! returns type of bounded surface representation
   //! 0 = Boundary entities may only reference model space trimming
@@ -98,7 +98,7 @@ public:
   //! returns an array of parameter space curves associated with
   //! a model space curve referred to by the Index
   //! raises exception if Index <= 0 or Index > NbModelSpaceCurves()
-  Standard_EXPORT Handle(IGESData_HArray1OfIGESEntity) ParameterCurves(
+  Standard_EXPORT Handle(HArray1OfIGESEntity) ParameterCurves(
     const Standard_Integer Index) const;
 
   //! returns an individual parameter curve
@@ -113,9 +113,9 @@ private:
   Standard_Integer                               theType;
   Standard_Integer                               thePreference;
   Handle(IGESData_IGESEntity)                    theSurface;
-  Handle(IGESData_HArray1OfIGESEntity)           theModelCurves;
+  Handle(HArray1OfIGESEntity)           theModelCurves;
   Handle(TColStd_HArray1OfInteger)               theSenses;
-  Handle(IGESBasic_HArray1OfHArray1OfIGESEntity) theParameterCurves;
+  Handle(HArray1OfHArray1OfEntity) theParameterCurves;
 };
 
 #endif // _IGESGeom_Boundary_HeaderFile

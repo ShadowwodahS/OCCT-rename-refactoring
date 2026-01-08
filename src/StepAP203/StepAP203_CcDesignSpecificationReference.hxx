@@ -38,19 +38,19 @@ public:
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const Handle(StepBasic_Document)& aDocumentReference_AssignedDocument,
                             const Handle(TCollection_HAsciiString)& aDocumentReference_Source,
-                            const Handle(StepAP203_HArray1OfSpecifiedItem)& aItems);
+                            const Handle(HArray1OfSpecifiedItem)& aItems);
 
   //! Returns field Items
-  Standard_EXPORT Handle(StepAP203_HArray1OfSpecifiedItem) Items() const;
+  Standard_EXPORT Handle(HArray1OfSpecifiedItem) Items() const;
 
   //! Set field Items
-  Standard_EXPORT void SetItems(const Handle(StepAP203_HArray1OfSpecifiedItem)& Items);
+  Standard_EXPORT void SetItems(const Handle(HArray1OfSpecifiedItem)& Items);
 
   DEFINE_STANDARD_RTTIEXT(StepAP203_CcDesignSpecificationReference, StepBasic_DocumentReference)
 
 protected:
 private:
-  Handle(StepAP203_HArray1OfSpecifiedItem) theItems;
+  Handle(HArray1OfSpecifiedItem) theItems;
 };
 
 #endif // _StepAP203_CcDesignSpecificationReference_HeaderFile

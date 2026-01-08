@@ -14,7 +14,7 @@
 #include <Standard_Type.hxx>
 #include <StepBasic_CalendarDate.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_CalendarDate, StepBasic_Date)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_CalendarDate, Date1)
 
 StepBasic_CalendarDate::StepBasic_CalendarDate() {}
 
@@ -26,7 +26,7 @@ void StepBasic_CalendarDate::Init(const Standard_Integer aYearComponent,
   dayComponent   = aDayComponent;
   monthComponent = aMonthComponent;
   // --- classe inherited fields ---
-  StepBasic_Date::Init(aYearComponent);
+  Date1::Init(aYearComponent);
 }
 
 void StepBasic_CalendarDate::SetDayComponent(const Standard_Integer aDayComponent)

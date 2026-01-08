@@ -98,7 +98,7 @@ public:
   Standard_EXPORT IFSelect_ReturnStatus
     Transfer(const TopoShape&             sh,
              const STEPControl_StepModelType mode,
-             const DESTEP_Parameters&        theParams,
+             const Parameters2&        theParams,
              const Standard_Boolean          compgraph   = Standard_True,
              const Message_ProgressRange&    theProgress = Message_ProgressRange());
 

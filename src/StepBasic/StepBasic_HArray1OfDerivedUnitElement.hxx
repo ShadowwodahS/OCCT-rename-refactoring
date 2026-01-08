@@ -20,6 +20,6 @@
 #include <StepBasic_Array1OfDerivedUnitElement.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepBasic_HArray1OfDerivedUnitElement, StepBasic_Array1OfDerivedUnitElement)
+DEFINE_HARRAY1(HArray1OfDerivedUnitElement, StepBasic_Array1OfDerivedUnitElement)
 
 #endif

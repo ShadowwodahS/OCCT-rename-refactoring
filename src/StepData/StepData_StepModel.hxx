@@ -127,7 +127,7 @@ public:
   Standard_Boolean IsInitializedUnit() const { return myReadUnitIsInitialized; }
 
 public:
-  DESTEP_Parameters InternalParameters;
+  Parameters2 InternalParameters;
 
   DEFINE_STANDARD_RTTIEXT(StepData_StepModel, Interface_InterfaceModel)
 

@@ -28,7 +28,7 @@ StepAP214_AppliedGroupAssignment::StepAP214_AppliedGroupAssignment() {}
 
 void StepAP214_AppliedGroupAssignment::Init(
   const Handle(StepBasic_Group)&              aGroupAssignment_AssignedGroup,
-  const Handle(StepAP214_HArray1OfGroupItem)& aItems)
+  const Handle(HArray1OfGroupItem)& aItems)
 {
   StepBasic_GroupAssignment::Init(aGroupAssignment_AssignedGroup);
 
@@ -37,14 +37,14 @@ void StepAP214_AppliedGroupAssignment::Init(
 
 //=================================================================================================
 
-Handle(StepAP214_HArray1OfGroupItem) StepAP214_AppliedGroupAssignment::Items() const
+Handle(HArray1OfGroupItem) StepAP214_AppliedGroupAssignment::Items() const
 {
   return theItems;
 }
 
 //=================================================================================================
 
-void StepAP214_AppliedGroupAssignment::SetItems(const Handle(StepAP214_HArray1OfGroupItem)& aItems)
+void StepAP214_AppliedGroupAssignment::SetItems(const Handle(HArray1OfGroupItem)& aItems)
 {
   theItems = aItems;
 }

@@ -22,7 +22,7 @@ StepBasic_Product::StepBasic_Product() {}
 void StepBasic_Product::Init(const Handle(TCollection_HAsciiString)&          aId,
                              const Handle(TCollection_HAsciiString)&          aName,
                              const Handle(TCollection_HAsciiString)&          aDescription,
-                             const Handle(StepBasic_HArray1OfProductContext)& aFrameOfReference)
+                             const Handle(HArray1OfProductContext)& aFrameOfReference)
 {
   // --- classe own fields ---
   id               = aId;
@@ -62,12 +62,12 @@ Handle(TCollection_HAsciiString) StepBasic_Product::Description() const
 }
 
 void StepBasic_Product::SetFrameOfReference(
-  const Handle(StepBasic_HArray1OfProductContext)& aFrameOfReference)
+  const Handle(HArray1OfProductContext)& aFrameOfReference)
 {
   frameOfReference = aFrameOfReference;
 }
 
-Handle(StepBasic_HArray1OfProductContext) StepBasic_Product::FrameOfReference() const
+Handle(HArray1OfProductContext) StepBasic_Product::FrameOfReference() const
 {
   return frameOfReference;
 }

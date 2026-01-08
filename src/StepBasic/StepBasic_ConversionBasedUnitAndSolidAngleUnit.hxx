@@ -22,7 +22,7 @@
 
 #include <StepBasic_ConversionBasedUnit.hxx>
 class StepBasic_SolidAngleUnit;
-class StepBasic_DimensionalExponents;
+class DimensionalExponents;
 class TCollection_HAsciiString;
 class StepBasic_MeasureWithUnit;
 
@@ -37,7 +37,7 @@ public:
   //! Returns a ConversionBasedUnitAndSolidAngleUnit
   Standard_EXPORT StepBasic_ConversionBasedUnitAndSolidAngleUnit();
 
-  Standard_EXPORT void Init(const Handle(StepBasic_DimensionalExponents)& aDimensions,
+  Standard_EXPORT void Init(const Handle(DimensionalExponents)& aDimensions,
                             const Handle(TCollection_HAsciiString)&       aName,
                             const Handle(StepBasic_MeasureWithUnit)&      aConversionFactor);
 

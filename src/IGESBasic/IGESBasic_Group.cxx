@@ -36,10 +36,10 @@ IGESBasic_Group::IGESBasic_Group(const Standard_Integer nb)
   InitTypeAndForm(402, 1);
   if (nb <= 0)
     return;
-  theEntities = new IGESData_HArray1OfIGESEntity(1, nb);
+  theEntities = new HArray1OfIGESEntity(1, nb);
 }
 
-void IGESBasic_Group::Init(const Handle(IGESData_HArray1OfIGESEntity)& allEntities)
+void IGESBasic_Group::Init(const Handle(HArray1OfIGESEntity)& allEntities)
 {
   // ptv and rln September 14, 2000 BUC60743
   // Protection against empty groups
@@ -113,7 +113,7 @@ void IGESBasic_Group::SetNb(const Standard_Integer nb)
   if (nb == oldnb || nb <= 0)
     return;
 
-  Handle(IGESData_HArray1OfIGESEntity) newents = new IGESData_HArray1OfIGESEntity(1, nb);
+  Handle(HArray1OfIGESEntity) newents = new HArray1OfIGESEntity(1, nb);
   if (oldnb > nb)
     oldnb = nb;
   for (i = 1; i <= oldnb; i++)

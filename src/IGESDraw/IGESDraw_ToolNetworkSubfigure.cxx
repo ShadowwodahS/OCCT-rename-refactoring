@@ -51,7 +51,7 @@ void NetworkSubfigureTool::ReadOwnParams(const Handle(IGESDraw_NetworkSubfigure)
   Standard_Integer                       typeflag;
   Handle(TCollection_HAsciiString)       designator;
   Handle(IGESGraph_TextDisplayTemplate)  textTemplate;
-  Handle(IGESDraw_HArray1OfConnectPoint) connectPoints;
+  Handle(HArray1OfConnectPoint) connectPoints;
 
   Standard_Real scaleX;
   Standard_Real scaleY;
@@ -117,7 +117,7 @@ void NetworkSubfigureTool::ReadOwnParams(const Handle(IGESDraw_NetworkSubfigure)
   if (st && nbval > 0)
   {
     // Reading connectPoints(HArray1OfConnectPoint)
-    connectPoints = new IGESDraw_HArray1OfConnectPoint(1, nbval);
+    connectPoints = new HArray1OfConnectPoint(1, nbval);
     Handle(IGESDraw_ConnectPoint) tempConnectPoint;
     for (Standard_Integer i = 1; i <= nbval; i++)
     {
@@ -181,7 +181,7 @@ void NetworkSubfigureTool::OwnCopy(const Handle(IGESDraw_NetworkSubfigure)& anot
   Coords3d                                 scale;
   Standard_Integer                       typeflag;
   Handle(TCollection_HAsciiString)       designator;
-  Handle(IGESDraw_HArray1OfConnectPoint) connectPoints;
+  Handle(HArray1OfConnectPoint) connectPoints;
 
   nbval = another->NbConnectPoints();
 
@@ -200,7 +200,7 @@ void NetworkSubfigureTool::OwnCopy(const Handle(IGESDraw_NetworkSubfigure)& anot
                  TC.Transferred(another->DesignatorTemplate()));
 
   if (nbval > 0)
-    connectPoints = new IGESDraw_HArray1OfConnectPoint(1, nbval);
+    connectPoints = new HArray1OfConnectPoint(1, nbval);
   for (Standard_Integer i = 1; i <= nbval; i++)
   {
     DeclareAndCast(IGESDraw_ConnectPoint,

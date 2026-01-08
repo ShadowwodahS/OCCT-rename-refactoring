@@ -23,7 +23,7 @@ StepAP214_AutoDesignOrganizationAssignment::StepAP214_AutoDesignOrganizationAssi
 void StepAP214_AutoDesignOrganizationAssignment::Init(
   const Handle(StepBasic_Organization)&                      aAssignedOrganization,
   const Handle(StepBasic_OrganizationRole)&                  aRole,
-  const Handle(StepAP214_HArray1OfAutoDesignGeneralOrgItem)& aItems)
+  const Handle(HArray1OfAutoDesignOrgItem)& aItems)
 {
   // --- classe own fields ---
   items = aItems;
@@ -32,12 +32,12 @@ void StepAP214_AutoDesignOrganizationAssignment::Init(
 }
 
 void StepAP214_AutoDesignOrganizationAssignment::SetItems(
-  const Handle(StepAP214_HArray1OfAutoDesignGeneralOrgItem)& aItems)
+  const Handle(HArray1OfAutoDesignOrgItem)& aItems)
 {
   items = aItems;
 }
 
-Handle(StepAP214_HArray1OfAutoDesignGeneralOrgItem) StepAP214_AutoDesignOrganizationAssignment::
+Handle(HArray1OfAutoDesignOrgItem) StepAP214_AutoDesignOrganizationAssignment::
   Items() const
 {
   return items;

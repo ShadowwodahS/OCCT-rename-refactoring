@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 #include <Standard_Transient.hxx>
-class StepBasic_Date;
+class Date1;
 class StepBasic_DateRole;
 
 class StepBasic_DateAssignment;
@@ -31,12 +31,12 @@ class StepBasic_DateAssignment : public RefObject
 {
 
 public:
-  Standard_EXPORT void Init(const Handle(StepBasic_Date)&     aAssignedDate,
+  Standard_EXPORT void Init(const Handle(Date1)&     aAssignedDate,
                             const Handle(StepBasic_DateRole)& aRole);
 
-  Standard_EXPORT void SetAssignedDate(const Handle(StepBasic_Date)& aAssignedDate);
+  Standard_EXPORT void SetAssignedDate(const Handle(Date1)& aAssignedDate);
 
-  Standard_EXPORT Handle(StepBasic_Date) AssignedDate() const;
+  Standard_EXPORT Handle(Date1) AssignedDate() const;
 
   Standard_EXPORT void SetRole(const Handle(StepBasic_DateRole)& aRole);
 
@@ -46,7 +46,7 @@ public:
 
 protected:
 private:
-  Handle(StepBasic_Date)     assignedDate;
+  Handle(Date1)     assignedDate;
   Handle(StepBasic_DateRole) role;
 };
 

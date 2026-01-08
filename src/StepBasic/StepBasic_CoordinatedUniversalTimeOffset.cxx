@@ -14,11 +14,11 @@
 #include <Standard_Type.hxx>
 #include <StepBasic_CoordinatedUniversalTimeOffset.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_CoordinatedUniversalTimeOffset, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(TimeOffset, RefObject)
 
-StepBasic_CoordinatedUniversalTimeOffset::StepBasic_CoordinatedUniversalTimeOffset() {}
+TimeOffset::TimeOffset() {}
 
-void StepBasic_CoordinatedUniversalTimeOffset::Init(const Standard_Integer        aHourOffset,
+void TimeOffset::Init(const Standard_Integer        aHourOffset,
                                                     const Standard_Boolean        hasAminuteOffset,
                                                     const Standard_Integer        aMinuteOffset,
                                                     const StepBasic_AheadOrBehind aSense)
@@ -30,43 +30,43 @@ void StepBasic_CoordinatedUniversalTimeOffset::Init(const Standard_Integer      
   sense           = aSense;
 }
 
-void StepBasic_CoordinatedUniversalTimeOffset::SetHourOffset(const Standard_Integer aHourOffset)
+void TimeOffset::SetHourOffset(const Standard_Integer aHourOffset)
 {
   hourOffset = aHourOffset;
 }
 
-Standard_Integer StepBasic_CoordinatedUniversalTimeOffset::HourOffset() const
+Standard_Integer TimeOffset::HourOffset() const
 {
   return hourOffset;
 }
 
-void StepBasic_CoordinatedUniversalTimeOffset::SetMinuteOffset(const Standard_Integer aMinuteOffset)
+void TimeOffset::SetMinuteOffset(const Standard_Integer aMinuteOffset)
 {
   minuteOffset    = aMinuteOffset;
   hasMinuteOffset = Standard_True;
 }
 
-void StepBasic_CoordinatedUniversalTimeOffset::UnSetMinuteOffset()
+void TimeOffset::UnSetMinuteOffset()
 {
   hasMinuteOffset = Standard_False;
 }
 
-Standard_Integer StepBasic_CoordinatedUniversalTimeOffset::MinuteOffset() const
+Standard_Integer TimeOffset::MinuteOffset() const
 {
   return minuteOffset;
 }
 
-Standard_Boolean StepBasic_CoordinatedUniversalTimeOffset::HasMinuteOffset() const
+Standard_Boolean TimeOffset::HasMinuteOffset() const
 {
   return hasMinuteOffset;
 }
 
-void StepBasic_CoordinatedUniversalTimeOffset::SetSense(const StepBasic_AheadOrBehind aSense)
+void TimeOffset::SetSense(const StepBasic_AheadOrBehind aSense)
 {
   sense = aSense;
 }
 
-StepBasic_AheadOrBehind StepBasic_CoordinatedUniversalTimeOffset::Sense() const
+StepBasic_AheadOrBehind TimeOffset::Sense() const
 {
   return sense;
 }

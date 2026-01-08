@@ -56,11 +56,11 @@ public:
   //! raises exception if Lengths of allViews, allTextLocations,
   //! allLeaderEntities, allLabelLevels and allDisplayedEntities are
   //! not same.
-  Standard_EXPORT void Init(const Handle(IGESDraw_HArray1OfViewKindEntity)& allViews,
+  Standard_EXPORT void Init(const Handle(HArray1OfViewKindEntity)& allViews,
                             const Handle(TColgp_HArray1OfXYZ)&              allTextLocations,
-                            const Handle(IGESDimen_HArray1OfLeaderArrow)&   allLeaderEntities,
+                            const Handle(HArray1OfLeaderArrow)&   allLeaderEntities,
                             const Handle(TColStd_HArray1OfInteger)&         allLabelLevels,
-                            const Handle(IGESData_HArray1OfIGESEntity)&     allDisplayedEntities);
+                            const Handle(HArray1OfIGESEntity)&     allDisplayedEntities);
 
   //! returns the number of label placements in <me>
   Standard_EXPORT Standard_Integer NbLabels() const;
@@ -98,11 +98,11 @@ public:
 
 protected:
 private:
-  Handle(IGESDraw_HArray1OfViewKindEntity) theViews;
+  Handle(HArray1OfViewKindEntity) theViews;
   Handle(TColgp_HArray1OfXYZ)              theTextLocations;
-  Handle(IGESDimen_HArray1OfLeaderArrow)   theLeaderEntities;
+  Handle(HArray1OfLeaderArrow)   theLeaderEntities;
   Handle(TColStd_HArray1OfInteger)         theLabelLevels;
-  Handle(IGESData_HArray1OfIGESEntity)     theDisplayedEntities;
+  Handle(HArray1OfIGESEntity)     theDisplayedEntities;
 };
 
 #endif // _IGESDraw_LabelDisplay_HeaderFile

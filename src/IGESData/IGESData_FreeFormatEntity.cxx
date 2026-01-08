@@ -111,7 +111,7 @@ void IGESData_FreeFormatEntity::AddEntity(const Interface_ParamType          pty
   thenegptrs->Append(NbParams());
 }
 
-void IGESData_FreeFormatEntity::AddEntities(const Handle(IGESData_HArray1OfIGESEntity)& ents)
+void IGESData_FreeFormatEntity::AddEntities(const Handle(HArray1OfIGESEntity)& ents)
 {
   if (ents.IsNull())
   {

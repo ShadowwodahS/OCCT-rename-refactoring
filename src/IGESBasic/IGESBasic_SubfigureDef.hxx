@@ -46,7 +46,7 @@ public:
   //! - allAssocEntities : the associated entities
   Standard_EXPORT void Init(const Standard_Integer                      aDepth,
                             const Handle(TCollection_HAsciiString)&     aName,
-                            const Handle(IGESData_HArray1OfIGESEntity)& allAssocEntities);
+                            const Handle(HArray1OfIGESEntity)& allAssocEntities);
 
   //! returns depth of the Subfigure
   //! if theDepth = 0 - No reference to any subfigure instance.
@@ -72,7 +72,7 @@ protected:
 private:
   Standard_Integer                     theDepth;
   Handle(TCollection_HAsciiString)     theName;
-  Handle(IGESData_HArray1OfIGESEntity) theAssocEntities;
+  Handle(HArray1OfIGESEntity) theAssocEntities;
 };
 
 #endif // _IGESBasic_SubfigureDef_HeaderFile

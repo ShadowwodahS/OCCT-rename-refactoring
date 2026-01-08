@@ -17,15 +17,15 @@
 #include <IGESToBRep_ToolContainer.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESToBRep_ToolContainer, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ToolContainer3, RefObject)
 
 //=================================================================================================
 
-IGESToBRep_ToolContainer::IGESToBRep_ToolContainer() {}
+ToolContainer3::ToolContainer3() {}
 
 //=================================================================================================
 
-Handle(IGESToBRep_IGESBoundary) IGESToBRep_ToolContainer::IGESBoundary() const
+Handle(IGESToBRep_IGESBoundary) ToolContainer3::IGESBoundary() const
 {
   return new IGESToBRep_IGESBoundary;
 }

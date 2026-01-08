@@ -58,13 +58,13 @@ public:
   //! allDisplayFlags, allColorValues, allColorDefinitions,
   //! allLineFontValues, allLineFontDefinitions and allLineWeights
   //! are not same.
-  Standard_EXPORT void Init(const Handle(IGESDraw_HArray1OfViewKindEntity)& allViews,
+  Standard_EXPORT void Init(const Handle(HArray1OfViewKindEntity)& allViews,
                             const Handle(TColStd_HArray1OfReal)&            allBreakpointParameters,
                             const Handle(TColStd_HArray1OfInteger)&         allDisplayFlags,
                             const Handle(TColStd_HArray1OfInteger)&         allColorValues,
-                            const Handle(IGESGraph_HArray1OfColor)&         allColorDefinitions,
+                            const Handle(HArray1OfColor)&         allColorDefinitions,
                             const Handle(TColStd_HArray1OfInteger)&         allLineFontValues,
-                            const Handle(IGESBasic_HArray1OfLineFontEntity)& allLineFontDefinitions,
+                            const Handle(HArray1OfLineFontEntity)& allLineFontDefinitions,
                             const Handle(TColStd_HArray1OfInteger)&          allLineWeights);
 
   //! Returns False (for a complex1 view)
@@ -136,13 +136,13 @@ public:
 
 protected:
 private:
-  Handle(IGESDraw_HArray1OfViewKindEntity)  theViews;
+  Handle(HArray1OfViewKindEntity)  theViews;
   Handle(TColStd_HArray1OfReal)             theBreakpointParameters;
   Handle(TColStd_HArray1OfInteger)          theDisplayFlags;
   Handle(TColStd_HArray1OfInteger)          theColorValues;
-  Handle(IGESGraph_HArray1OfColor)          theColorDefinitions;
+  Handle(HArray1OfColor)          theColorDefinitions;
   Handle(TColStd_HArray1OfInteger)          theLineFontValues;
-  Handle(IGESBasic_HArray1OfLineFontEntity) theLineFontDefinitions;
+  Handle(HArray1OfLineFontEntity) theLineFontDefinitions;
   Handle(TColStd_HArray1OfInteger)          theLineWeights;
 };
 

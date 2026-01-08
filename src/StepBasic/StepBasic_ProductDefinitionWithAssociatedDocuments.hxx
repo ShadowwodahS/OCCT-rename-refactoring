@@ -42,11 +42,11 @@ public:
                             const Handle(TCollection_HAsciiString)&             aDescription,
                             const Handle(StepBasic_ProductDefinitionFormation)& aFormation,
                             const Handle(StepBasic_ProductDefinitionContext)&   aFrame,
-                            const Handle(StepBasic_HArray1OfDocument)&          aDocIds);
+                            const Handle(HArray1OfDocument)&          aDocIds);
 
-  Standard_EXPORT Handle(StepBasic_HArray1OfDocument) DocIds() const;
+  Standard_EXPORT Handle(HArray1OfDocument) DocIds() const;
 
-  Standard_EXPORT void SetDocIds(const Handle(StepBasic_HArray1OfDocument)& DocIds);
+  Standard_EXPORT void SetDocIds(const Handle(HArray1OfDocument)& DocIds);
 
   Standard_EXPORT Standard_Integer NbDocIds() const;
 
@@ -60,7 +60,7 @@ public:
 
 protected:
 private:
-  Handle(StepBasic_HArray1OfDocument) theDocIds;
+  Handle(HArray1OfDocument) theDocIds;
 };
 
 #endif // _StepBasic_ProductDefinitionWithAssociatedDocuments_HeaderFile

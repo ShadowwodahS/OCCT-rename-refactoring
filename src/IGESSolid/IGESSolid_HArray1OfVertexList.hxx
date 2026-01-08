@@ -20,6 +20,6 @@
 #include <IGESSolid_Array1OfVertexList.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(IGESSolid_HArray1OfVertexList, IGESSolid_Array1OfVertexList)
+DEFINE_HARRAY1(HArray1OfVertexList, IGESSolid_Array1OfVertexList)
 
 #endif

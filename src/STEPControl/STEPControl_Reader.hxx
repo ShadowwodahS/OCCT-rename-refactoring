@@ -96,11 +96,11 @@ public:
   //! Loads a file and returns the read status
   //! Zero for a Model which compies with the Controller
   Standard_EXPORT IFSelect_ReturnStatus ReadFile(const Standard_CString   filename,
-                                                 const DESTEP_Parameters& theParams);
+                                                 const Parameters2& theParams);
 
   //! Loads a file from stream and returns the read status
   Standard_EXPORT IFSelect_ReturnStatus ReadStream(const Standard_CString   theName,
-                                                   const DESTEP_Parameters& theParams,
+                                                   const Parameters2& theParams,
                                                    std::istream&            theIStream);
 
   //! Transfers a root given its rank in the list of candidate roots

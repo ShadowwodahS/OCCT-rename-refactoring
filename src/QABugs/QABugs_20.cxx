@@ -4958,7 +4958,7 @@ static Standard_Integer OCC33657_2(DrawInterpreter& theDI,
   // Checking readers working in parallel.
   Parallel1::For(0, 100, [&](int) {
     StepFileReader aReader;
-    aReader.ReadFile(theArgV[1], DESTEP_Parameters{});
+    aReader.ReadFile(theArgV[1], Parameters2{});
     aReader.TransferRoots();
   });
 
@@ -4974,7 +4974,7 @@ static Standard_Integer OCC33657_3(DrawInterpreter&, Standard_Integer, const cha
   // Checking writers working in parallel.
   Parallel1::For(0, 100, [&](int) {
     StepFileWriter aWriter;
-    aWriter.Transfer(aShape, STEPControl_StepModelType::STEPControl_AsIs, DESTEP_Parameters{});
+    aWriter.Transfer(aShape, STEPControl_StepModelType::STEPControl_AsIs, Parameters2{});
     std::ostringstream aStream;
     aWriter.WriteStream(aStream);
   });
@@ -4998,7 +4998,7 @@ static Standard_Integer OCC33657_4(DrawInterpreter& theDI,
 
   // Acquire shape to write/read.
   StepFileReader aReader;
-  aReader.ReadFile(theArgV[1], DESTEP_Parameters{});
+  aReader.ReadFile(theArgV[1], Parameters2{});
   aReader.TransferRoots();
   TopoShape aSourceShape = aReader.OneShape();
 
@@ -5021,13 +5021,13 @@ static Standard_Integer OCC33657_4(DrawInterpreter& theDI,
     StepFileWriter aWriter;
     aWriter.Transfer(aSourceShape,
                      STEPControl_StepModelType::STEPControl_AsIs,
-                     DESTEP_Parameters{});
+                     Parameters2{});
     std::stringstream aStream;
     aWriter.WriteStream(aStream);
 
     // Reading.
     StepFileReader aReader;
-    aReader.ReadStream("", DESTEP_Parameters{}, aStream);
+    aReader.ReadStream("", Parameters2{}, aStream);
     aReader.TransferRoots();
     const TopoShape          aResultShape = aReader.OneShape();
     ShapeAnalysis_ShapeContents aResultAnalyzer;

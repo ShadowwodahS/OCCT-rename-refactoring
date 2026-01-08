@@ -20,6 +20,6 @@
 #include <IGESAppli_Array1OfFiniteElement.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(IGESAppli_HArray1OfFiniteElement, IGESAppli_Array1OfFiniteElement)
+DEFINE_HARRAY1(HArray1OfFiniteElement, IGESAppli_Array1OfFiniteElement)
 
 #endif

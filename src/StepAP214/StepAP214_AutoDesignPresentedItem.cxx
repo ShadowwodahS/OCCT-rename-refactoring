@@ -19,19 +19,19 @@ IMPLEMENT_STANDARD_RTTIEXT(StepAP214_AutoDesignPresentedItem, StepVisual_Present
 StepAP214_AutoDesignPresentedItem::StepAP214_AutoDesignPresentedItem() {}
 
 void StepAP214_AutoDesignPresentedItem::Init(
-  const Handle(StepAP214_HArray1OfAutoDesignPresentedItemSelect)& aItems)
+  const Handle(HArray1OfAutoDesignPresentedItem)& aItems)
 {
   // --- classe own fields ---
   items = aItems;
 }
 
 void StepAP214_AutoDesignPresentedItem::SetItems(
-  const Handle(StepAP214_HArray1OfAutoDesignPresentedItemSelect)& aItems)
+  const Handle(HArray1OfAutoDesignPresentedItem)& aItems)
 {
   items = aItems;
 }
 
-Handle(StepAP214_HArray1OfAutoDesignPresentedItemSelect) StepAP214_AutoDesignPresentedItem::Items()
+Handle(HArray1OfAutoDesignPresentedItem) StepAP214_AutoDesignPresentedItem::Items()
   const
 {
   return items;

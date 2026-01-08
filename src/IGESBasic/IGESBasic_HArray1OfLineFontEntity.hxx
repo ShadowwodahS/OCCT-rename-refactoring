@@ -21,6 +21,6 @@
 #include <IGESBasic_Array1OfLineFontEntity.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(IGESBasic_HArray1OfLineFontEntity, IGESBasic_Array1OfLineFontEntity)
+DEFINE_HARRAY1(HArray1OfLineFontEntity, IGESBasic_Array1OfLineFontEntity)
 
 #endif

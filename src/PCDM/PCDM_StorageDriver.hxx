@@ -28,7 +28,7 @@ class PCDM_Document;
 class CDM_Document;
 
 class PCDM_StorageDriver;
-DEFINE_STANDARD_HANDLE(PCDM_StorageDriver, PCDM_Writer)
+DEFINE_STANDARD_HANDLE(PCDM_StorageDriver, Writer1)
 
 //! persistent implementation of storage.
 //!
@@ -44,7 +44,7 @@ DEFINE_STANDARD_HANDLE(PCDM_StorageDriver, PCDM_Writer)
 //! CDMShape_Document.    This  means   that a   client
 //! application will already be able to extract a CDMShape_Document
 //! of the file, if the Shape Schema remains unchanged.
-class PCDM_StorageDriver : public PCDM_Writer
+class PCDM_StorageDriver : public Writer1
 {
 
 public:
@@ -85,7 +85,7 @@ public:
 
   Standard_EXPORT void SetStoreStatus(const PCDM_StoreStatus theStoreStatus);
 
-  DEFINE_STANDARD_RTTIEXT(PCDM_StorageDriver, PCDM_Writer)
+  DEFINE_STANDARD_RTTIEXT(PCDM_StorageDriver, Writer1)
 
 protected:
 private:

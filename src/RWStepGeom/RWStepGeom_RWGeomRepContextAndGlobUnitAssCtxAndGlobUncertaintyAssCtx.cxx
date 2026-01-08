@@ -56,13 +56,13 @@ void RWStepGeom_RWGeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx::ReadS
 
   // --- field : uncertainty ---
 
-  Handle(StepBasic_HArray1OfUncertaintyMeasureWithUnit) aUncertainty;
+  Handle(HArray1OfUncertainty) aUncertainty;
   Handle(StepBasic_UncertaintyMeasureWithUnit)          anent3;
   Standard_Integer                                      nsub3;
   if (data->ReadSubList(num, 1, "uncertainty", ach, nsub3))
   {
     Standard_Integer nb3 = data->NbParams(nsub3);
-    aUncertainty         = new StepBasic_HArray1OfUncertaintyMeasureWithUnit(1, nb3);
+    aUncertainty         = new HArray1OfUncertainty(1, nb3);
     for (Standard_Integer i3 = 1; i3 <= nb3; i3++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat3 =` not needed
@@ -87,13 +87,13 @@ void RWStepGeom_RWGeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx::ReadS
 
   // --- field : units ---
 
-  Handle(StepBasic_HArray1OfNamedUnit) aUnits;
+  Handle(HArray1OfNamedUnit) aUnits;
   Handle(StepBasic_NamedUnit)          anent2;
   Standard_Integer                     nsub2;
   if (data->ReadSubList(num, 1, "units", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aUnits               = new StepBasic_HArray1OfNamedUnit(1, nb2);
+    aUnits               = new HArray1OfNamedUnit(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed

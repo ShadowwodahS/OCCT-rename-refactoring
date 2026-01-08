@@ -51,7 +51,7 @@ public:
     const UtfString& theFileName,
     const Handle(CDM_Document)&       theNewDocument,
     const Handle(CDM_Application)&    theApplication,
-    const Handle(PCDM_ReaderFilter)&  theFilter   = Handle(PCDM_ReaderFilter)(),
+    const Handle(ReaderFilter)&  theFilter   = Handle(ReaderFilter)(),
     const Message_ProgressRange&      theProgress = Message_ProgressRange()) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Read(
@@ -59,7 +59,7 @@ public:
     const Handle(Storage_Data)&      theStorageData,
     const Handle(CDM_Document)&      theDoc,
     const Handle(CDM_Application)&   theApplication,
-    const Handle(PCDM_ReaderFilter)& theFilter   = Handle(PCDM_ReaderFilter)(),
+    const Handle(ReaderFilter)& theFilter   = Handle(ReaderFilter)(),
     const Message_ProgressRange&     theProgress = Message_ProgressRange()) Standard_OVERRIDE;
 
   Standard_EXPORT virtual Handle(AttributeDriverTable) AttributeDrivers(
@@ -72,7 +72,7 @@ protected:
   Standard_EXPORT virtual Standard_Integer ReadSubTree(
     Standard_IStream&                theIS,
     const DataLabel&                 theData,
-    const Handle(PCDM_ReaderFilter)& theFilter,
+    const Handle(ReaderFilter)& theFilter,
     const Standard_Boolean&          theQuickPart,
     const Standard_Boolean           theReadMissing,
     const Message_ProgressRange&     theRanges = Message_ProgressRange());

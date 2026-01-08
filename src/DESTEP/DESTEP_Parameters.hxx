@@ -20,7 +20,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <UnitsMethods_LengthUnit.hxx>
 
-class DESTEP_Parameters
+class Parameters2
 {
 public:
   enum ReadMode_BSplineContinuity
@@ -122,7 +122,7 @@ public:
   };
 
 public:
-  Standard_EXPORT DESTEP_Parameters();
+  Standard_EXPORT Parameters2();
 
   //! Initialize parameters
   Standard_EXPORT void InitFromStatic();

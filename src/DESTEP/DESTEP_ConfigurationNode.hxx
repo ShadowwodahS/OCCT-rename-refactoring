@@ -44,7 +44,7 @@ public:
   //! Updates values according the resource
   //! @param[in] theResource input resource to use
   //! @return true if theResource loading has ended correctly
-  Standard_EXPORT virtual bool Load(const Handle(DE_ConfigurationContext)& theResource)
+  Standard_EXPORT virtual bool Load(const Handle(ConfigurationContext)& theResource)
     Standard_OVERRIDE;
 
   //! Writes configuration to the string
@@ -53,7 +53,7 @@ public:
 
   //! Copies values of all fields
   //! @return new object with the same field values
-  Standard_EXPORT virtual Handle(DE_ConfigurationNode) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(ConfigurationNode) Copy() const Standard_OVERRIDE;
 
   //! Creates new provider for the own format
   //! @return new created provider
@@ -87,7 +87,7 @@ public:
     Standard_OVERRIDE;
 
 public:
-  DESTEP_Parameters InternalParameters;
+  Parameters2 InternalParameters;
 };
 
 #endif // _DESTEP_ConfigurationNode_HeaderFile

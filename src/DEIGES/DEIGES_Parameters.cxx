@@ -17,7 +17,7 @@
 
 //=================================================================================================
 
-void DEIGES_Parameters::InitFromStatic()
+void Parameters1::InitFromStatic()
 {
   ReadBSplineContinuity =
     (ReadMode_BSplineContinuity)ExchangeConfig::IVal("read.iges.bspline.continuity");
@@ -54,14 +54,14 @@ void DEIGES_Parameters::InitFromStatic()
 
 //=================================================================================================
 
-void DEIGES_Parameters::Reset()
+void Parameters1::Reset()
 {
-  *this = DEIGES_Parameters();
+  *this = Parameters1();
 }
 
 //=================================================================================================
 
-ShapeFixParameters DEIGES_Parameters::GetDefaultShapeFixParameters()
+ShapeFixParameters Parameters1::GetDefaultShapeFixParameters()
 {
   ShapeFixParameters aShapeFixParameters;
   aShapeFixParameters.DetalizationLevel   = TopAbs_EDGE;

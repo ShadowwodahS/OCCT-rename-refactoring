@@ -51,7 +51,7 @@ void BoundedSurfaceTool::ReadOwnParams(const Handle(IGESGeom_BoundedSurface)& en
   Standard_Integer                   num, i;
   Standard_Integer                   tempType;
   Handle(IGESData_IGESEntity)        tempSurface;
-  Handle(IGESGeom_HArray1OfBoundary) tempBounds;
+  Handle(HArray1OfBoundary) tempBounds;
   IGESData_Status                    aStatus;
 
   // szv#4:S4163:12Mar99 `st=` not needed
@@ -89,11 +89,11 @@ void BoundedSurfaceTool::ReadOwnParams(const Handle(IGESGeom_BoundedSurface)& en
   */
 
   // szv#4:S4163:12Mar99 optimized
-  // if (st && num > 0)  tempBounds = new IGESGeom_HArray1OfBoundary(1, num);
+  // if (st && num > 0)  tempBounds = new HArray1OfBoundary(1, num);
   // if (st && num <= 0)  PR.SendFail(Msg167);
   if (PR.ReadInteger(PR.Current(), num) && (num > 0))
   {
-    tempBounds = new IGESGeom_HArray1OfBoundary(1, num);
+    tempBounds = new HArray1OfBoundary(1, num);
   }
   else
   {
@@ -177,9 +177,9 @@ void BoundedSurfaceTool::OwnCopy(const Handle(IGESGeom_BoundedSurface)& another,
   Standard_Integer tempType = another->RepresentationType();
   DeclareAndCast(IGESData_IGESEntity, tempSurface, TC.Transferred(another->Surface()));
   num = another->NbBoundaries();
-  Handle(IGESGeom_HArray1OfBoundary) tempBounds;
+  Handle(HArray1OfBoundary) tempBounds;
   if (num > 0)
-    tempBounds = new IGESGeom_HArray1OfBoundary(1, num);
+    tempBounds = new HArray1OfBoundary(1, num);
   for (i = 1; i <= num; i++)
   {
     DeclareAndCast(IGESGeom_Boundary, tempBoundary, TC.Transferred(another->Boundary(i)));

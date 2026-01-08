@@ -30,7 +30,7 @@ void StepBasic_SiUnitAndTimeUnit::Init(const Standard_Boolean     hasAprefix,
 
   // --- ANDOR component fields ---
   timeUnit = new StepBasic_TimeUnit();
-  Handle(StepBasic_DimensionalExponents) aDimensions;
+  Handle(DimensionalExponents) aDimensions;
   aDimensions.Nullify();
   timeUnit->Init(aDimensions);
 }

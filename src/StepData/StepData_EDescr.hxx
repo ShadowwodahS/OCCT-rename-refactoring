@@ -23,12 +23,12 @@
 #include <Standard_Transient.hxx>
 class StepData_Described;
 
-class StepData_EDescr;
-DEFINE_STANDARD_HANDLE(StepData_EDescr, RefObject)
+class EntityDescriptor;
+DEFINE_STANDARD_HANDLE(EntityDescriptor, RefObject)
 
 //! This class is intended to describe the authorized form for an
 //! entity, either Simple or Plex
-class StepData_EDescr : public RefObject
+class EntityDescriptor : public RefObject
 {
 
 public:
@@ -41,7 +41,7 @@ public:
   //! Creates a described entity (i.e. a simple one)
   Standard_EXPORT virtual Handle(StepData_Described) NewEntity() const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(StepData_EDescr, RefObject)
+  DEFINE_STANDARD_RTTIEXT(EntityDescriptor, RefObject)
 
 protected:
 private:

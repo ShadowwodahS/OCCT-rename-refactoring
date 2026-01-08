@@ -38,8 +38,8 @@ void RWStepAP214_RWAppliedDateAssignment::ReadStep(
 
   // --- inherited field : assignedDate ---
 
-  Handle(StepBasic_Date) aAssignedDate;
-  data->ReadEntity(num, 1, "assigned_date", ach, STANDARD_TYPE(StepBasic_Date), aAssignedDate);
+  Handle(Date1) aAssignedDate;
+  data->ReadEntity(num, 1, "assigned_date", ach, STANDARD_TYPE(Date1), aAssignedDate);
 
   // --- inherited field : role ---
 
@@ -48,13 +48,13 @@ void RWStepAP214_RWAppliedDateAssignment::ReadStep(
 
   // --- own field : items ---
 
-  Handle(StepAP214_HArray1OfDateItem) aItems;
+  Handle(HArray1OfDateItem) aItems;
   StepAP214_DateItem                  aItemsItem;
   Standard_Integer                    nsub3;
   if (data->ReadSubList(num, 3, "items", ach, nsub3))
   {
     Standard_Integer nb3 = data->NbParams(nsub3);
-    aItems               = new StepAP214_HArray1OfDateItem(1, nb3);
+    aItems               = new HArray1OfDateItem(1, nb3);
     for (Standard_Integer i3 = 1; i3 <= nb3; i3++)
     {
       Standard_Boolean stat3 = data->ReadEntity(nsub3, i3, "items", ach, aItemsItem);

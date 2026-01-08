@@ -45,9 +45,9 @@ class TDataStd_NamedData;
 class AppDocument;
 
 //! glTF writer context from XCAF document.
-class RWGltf_CafWriter : public RefObject
+class GLTFCafWriter : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(RWGltf_CafWriter, RefObject)
+  DEFINE_STANDARD_RTTIEXT(GLTFCafWriter, RefObject)
 public:
   //! Mesh1
   struct Mesh1
@@ -61,11 +61,11 @@ public:
   //! Main constructor.
   //! @param[in] theFile      path to output glTF file
   //! @param[in] theIsBinary  flag to write into binary glTF format (.glb)
-  Standard_EXPORT RWGltf_CafWriter(const AsciiString1& theFile,
+  Standard_EXPORT GLTFCafWriter(const AsciiString1& theFile,
                                    Standard_Boolean               theIsBinary);
 
   //! Destructor.
-  Standard_EXPORT virtual ~RWGltf_CafWriter();
+  Standard_EXPORT virtual ~GLTFCafWriter();
 
   //! Return transformation from OCCT to glTF coordinate system.
   const RWMesh_CoordinateSystemConverter& CoordinateSystemConverter() const { return myCSTrsf; }
@@ -235,7 +235,7 @@ protected:
     std::ostream&                                  theBinFile,
     const RWMesh_ShapeIterator&                    theShapeIter,
     Standard_Integer&                              theAccessorNb,
-    const std::shared_ptr<RWGltf_CafWriter::Mesh1>& theMesh) const;
+    const std::shared_ptr<GLTFCafWriter::Mesh1>& theMesh) const;
 
   //! Write mesh normals into binary file.
   //! @param[out] theGltfFace  glTF face definition
@@ -248,7 +248,7 @@ protected:
     std::ostream&                                  theBinFile,
     const RWMesh_FaceIterator&                     theFaceIter,
     Standard_Integer&                              theAccessorNb,
-    const std::shared_ptr<RWGltf_CafWriter::Mesh1>& theMesh) const;
+    const std::shared_ptr<GLTFCafWriter::Mesh1>& theMesh) const;
 
   //! Write mesh texture UV coordinates into binary file.
   //! @param[out] theGltfFace  glTF face definition
@@ -261,7 +261,7 @@ protected:
     std::ostream&                                  theBinFile,
     const RWMesh_FaceIterator&                     theFaceIter,
     Standard_Integer&                              theAccessorNb,
-    const std::shared_ptr<RWGltf_CafWriter::Mesh1>& theMesh) const;
+    const std::shared_ptr<GLTFCafWriter::Mesh1>& theMesh) const;
 
   //! Write mesh indexes into binary file.
   //! @param[out] theGltfFace  glTF face definition
@@ -273,7 +273,7 @@ protected:
                                            std::ostream&               theBinFile,
                                            const RWMesh_ShapeIterator& theShapeIter,
                                            Standard_Integer&           theAccessorNb,
-                                           const std::shared_ptr<RWGltf_CafWriter::Mesh1>& theMesh);
+                                           const std::shared_ptr<GLTFCafWriter::Mesh1>& theMesh);
 
   //! Write triangle indexes into binary file.
   //! @param[out] theGltfFace  glTF face definition
@@ -284,7 +284,7 @@ protected:
     RWGltf_GltfFace&                               theGltfFace,
     std::ostream&                                  theBinFile,
     const RWMesh_FaceIterator&                     theFaceIter,
-    const std::shared_ptr<RWGltf_CafWriter::Mesh1>& theMesh);
+    const std::shared_ptr<GLTFCafWriter::Mesh1>& theMesh);
 
   //! Write edge indexes into binary file.
   //! @param[out] theGltfFace  glTF face definition
@@ -437,7 +437,7 @@ protected:
                                         std::ostream&         theBinFile,
                                         RWMesh_ShapeIterator& theShapeIter,
                                         Standard_Integer&     theAccessorNb,
-                                        const std::shared_ptr<RWGltf_CafWriter::Mesh1>& theMesh,
+                                        const std::shared_ptr<GLTFCafWriter::Mesh1>& theMesh,
                                         const RWGltf_GltfArrayType                     theArrType,
                                         const Message_ProgressScope& thePSentryBin);
 

@@ -22,7 +22,7 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESData_DefaultSpecific, IGESData_SpecificModule)
+IMPLEMENT_STANDARD_RTTIEXT(IGESData_DefaultSpecific, SpecificModule)
 
 IGESData_DefaultSpecific::IGESData_DefaultSpecific()
 {

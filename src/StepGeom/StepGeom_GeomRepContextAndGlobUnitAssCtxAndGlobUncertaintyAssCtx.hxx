@@ -53,8 +53,8 @@ public:
     const Handle(TCollection_HAsciiString)&                      aContextIdentifier,
     const Handle(TCollection_HAsciiString)&                      aContextType,
     const Standard_Integer                                       aCoordinateSpaceDimension,
-    const Handle(StepBasic_HArray1OfNamedUnit)&                  aUnits,
-    const Handle(StepBasic_HArray1OfUncertaintyMeasureWithUnit)& anUncertainty);
+    const Handle(HArray1OfNamedUnit)&                  aUnits,
+    const Handle(HArray1OfUncertainty)& anUncertainty);
 
   Standard_EXPORT void SetGeometricRepresentationContext(
     const Handle(StepGeom_GeometricRepresentationContext)& aGeometricRepresentationContext);
@@ -78,18 +78,18 @@ public:
 
   Standard_EXPORT Standard_Integer CoordinateSpaceDimension() const;
 
-  Standard_EXPORT void SetUnits(const Handle(StepBasic_HArray1OfNamedUnit)& aUnits);
+  Standard_EXPORT void SetUnits(const Handle(HArray1OfNamedUnit)& aUnits);
 
-  Standard_EXPORT Handle(StepBasic_HArray1OfNamedUnit) Units2() const;
+  Standard_EXPORT Handle(HArray1OfNamedUnit) Units2() const;
 
   Standard_EXPORT Handle(StepBasic_NamedUnit) UnitsValue(const Standard_Integer num) const;
 
   Standard_EXPORT Standard_Integer NbUnits() const;
 
   Standard_EXPORT void SetUncertainty(
-    const Handle(StepBasic_HArray1OfUncertaintyMeasureWithUnit)& aUncertainty);
+    const Handle(HArray1OfUncertainty)& aUncertainty);
 
-  Standard_EXPORT Handle(StepBasic_HArray1OfUncertaintyMeasureWithUnit) Uncertainty() const;
+  Standard_EXPORT Handle(HArray1OfUncertainty) Uncertainty() const;
 
   Standard_EXPORT Handle(StepBasic_UncertaintyMeasureWithUnit) UncertaintyValue(
     const Standard_Integer num) const;

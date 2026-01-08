@@ -31,7 +31,7 @@ void StepBasic_SiUnitAndMassUnit::Init(const Standard_Boolean     hasAprefix,
   // --- classe inherited fields ---
   // --- ANDOR component fields ---
   massUnit = new StepBasic_MassUnit();
-  Handle(StepBasic_DimensionalExponents) aDimensions;
+  Handle(DimensionalExponents) aDimensions;
   aDimensions.Nullify();
   massUnit->Init(aDimensions);
 

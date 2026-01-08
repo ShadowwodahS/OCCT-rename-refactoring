@@ -353,7 +353,7 @@ Standard_Boolean IGESData_BasicEditor::AutoCorrect(const Handle(IGESData_IGESEnt
     done |= DC.Correct(ent);
   }
 
-  Handle(IGESData_SpecificModule) smod;
+  Handle(SpecificModule) smod;
   if (theslib.Select(ent, smod, CN))
     done |= smod->OwnCorrect(CN, ent);
 

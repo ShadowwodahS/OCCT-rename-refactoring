@@ -61,7 +61,7 @@ public:
                             const Handle(TColStd_HArray1OfReal)&           widths,
                             const Handle(TColStd_HArray1OfReal)&           heights,
                             const Handle(TColStd_HArray1OfInteger)&        fontCodes,
-                            const Handle(IGESGraph_HArray1OfTextFontDef)&  fonts,
+                            const Handle(HArray1OfTextFontDef)&  fonts,
                             const Handle(TColStd_HArray1OfReal)&           slants,
                             const Handle(TColStd_HArray1OfReal)&           rotations,
                             const Handle(TColStd_HArray1OfInteger)&        mirrorFlags,
@@ -148,7 +148,7 @@ private:
   Handle(TColStd_HArray1OfReal)           theBoxWidths;
   Handle(TColStd_HArray1OfReal)           theBoxHeights;
   Handle(TColStd_HArray1OfInteger)        theFontCodes;
-  Handle(IGESGraph_HArray1OfTextFontDef)  theFontEntities;
+  Handle(HArray1OfTextFontDef)  theFontEntities;
   Handle(TColStd_HArray1OfReal)           theSlantAngles;
   Handle(TColStd_HArray1OfReal)           theRotationAngles;
   Handle(TColStd_HArray1OfInteger)        theMirrorFlags;

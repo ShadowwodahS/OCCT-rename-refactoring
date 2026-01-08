@@ -49,8 +49,8 @@ public:
   //! item
   //! raises exception if the length of allItems & allMatrices
   //! do not match
-  Standard_EXPORT void Init(const Handle(IGESData_HArray1OfIGESEntity)&           allItems,
-                            const Handle(IGESGeom_HArray1OfTransformationMatrix)& allMatrices);
+  Standard_EXPORT void Init(const Handle(HArray1OfIGESEntity)&           allItems,
+                            const Handle(HArray1OfTransformationMatrix)& allMatrices);
 
   //! Tells if at least one item is a Brep, from FormNumber
   Standard_EXPORT Standard_Boolean HasBrep() const;
@@ -75,8 +75,8 @@ public:
 
 protected:
 private:
-  Handle(IGESData_HArray1OfIGESEntity)           theItems;
-  Handle(IGESGeom_HArray1OfTransformationMatrix) theMatrices;
+  Handle(HArray1OfIGESEntity)           theItems;
+  Handle(HArray1OfTransformationMatrix) theMatrices;
 };
 
 #endif // _IGESSolid_SolidAssembly_HeaderFile

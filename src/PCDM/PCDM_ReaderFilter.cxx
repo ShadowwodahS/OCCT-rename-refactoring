@@ -13,49 +13,49 @@
 
 #include <PCDM_ReaderFilter.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(PCDM_ReaderFilter, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ReaderFilter, RefObject)
 
-PCDM_ReaderFilter::PCDM_ReaderFilter(const Handle(TypeInfo)& theSkipped)
+ReaderFilter::ReaderFilter(const Handle(TypeInfo)& theSkipped)
     : myAppend(AppendMode_Forbid)
 {
   mySkip.Add(theSkipped->Name());
 }
 
-PCDM_ReaderFilter::PCDM_ReaderFilter(const AsciiString1& theEntryToRead)
+ReaderFilter::ReaderFilter(const AsciiString1& theEntryToRead)
     : myAppend(AppendMode_Forbid)
 {
   mySubTrees.Append(theEntryToRead);
 }
 
-PCDM_ReaderFilter::PCDM_ReaderFilter(const AppendMode theAppend)
+ReaderFilter::ReaderFilter(const AppendMode theAppend)
     : myAppend(theAppend)
 {
 }
 
-void PCDM_ReaderFilter::Clear()
+void ReaderFilter::Clear()
 {
   mySkip.Clear();
   myRead.Clear();
   mySubTrees.Clear();
 }
 
-PCDM_ReaderFilter::~PCDM_ReaderFilter()
+ReaderFilter::~ReaderFilter()
 {
   ClearTree();
 }
 
-Standard_Boolean PCDM_ReaderFilter::IsPassed(const Handle(TypeInfo)& theAttributeID) const
+Standard_Boolean ReaderFilter::IsPassed(const Handle(TypeInfo)& theAttributeID) const
 {
   return IsPassedAttr(theAttributeID->Name());
 }
 
-Standard_Boolean PCDM_ReaderFilter::IsPassedAttr(
+Standard_Boolean ReaderFilter::IsPassedAttr(
   const AsciiString1& theAttributeType) const
 {
   return myRead.IsEmpty() ? !mySkip.Contains(theAttributeType) : myRead.Contains(theAttributeType);
 }
 
-Standard_Boolean PCDM_ReaderFilter::IsPassed(const AsciiString1& theEntry) const
+Standard_Boolean ReaderFilter::IsPassed(const AsciiString1& theEntry) const
 {
   if (mySubTrees.IsEmpty())
     return true;
@@ -74,7 +74,7 @@ Standard_Boolean PCDM_ReaderFilter::IsPassed(const AsciiString1& theEntry) const
   return false;
 }
 
-Standard_Boolean PCDM_ReaderFilter::IsSubPassed(const AsciiString1& theEntry) const
+Standard_Boolean ReaderFilter::IsSubPassed(const AsciiString1& theEntry) const
 {
   if (mySubTrees.IsEmpty() || theEntry.Length() == 2) // root is always passed if any sub is defined
     return true;
@@ -90,12 +90,12 @@ Standard_Boolean PCDM_ReaderFilter::IsSubPassed(const AsciiString1& theEntry) co
   return false;
 }
 
-Standard_Boolean PCDM_ReaderFilter::IsPartTree()
+Standard_Boolean ReaderFilter::IsPartTree()
 {
   return !(mySubTrees.IsEmpty() || (mySubTrees.Size() == 1 && mySubTrees.First().Length() < 3));
 }
 
-void PCDM_ReaderFilter::StartIteration()
+void ReaderFilter::StartIteration()
 {
   myCurrent      = &myTree;
   myCurrentDepth = 0;
@@ -131,7 +131,7 @@ void PCDM_ReaderFilter::StartIteration()
   }
 }
 
-void PCDM_ReaderFilter::Up()
+void ReaderFilter::Up()
 {
   if (myCurrentDepth == 0)
     myCurrent = (TagTree*)myCurrent->Find(-1);
@@ -139,7 +139,7 @@ void PCDM_ReaderFilter::Up()
     myCurrentDepth--;
 }
 
-void PCDM_ReaderFilter::Down(const int& theTag)
+void ReaderFilter::Down(const int& theTag)
 {
   if (myCurrentDepth == 0)
   {
@@ -152,17 +152,17 @@ void PCDM_ReaderFilter::Down(const int& theTag)
     ++myCurrentDepth;
 }
 
-Standard_Boolean PCDM_ReaderFilter::IsPassed() const
+Standard_Boolean ReaderFilter::IsPassed() const
 {
   return myCurrent->IsBound(-2);
 }
 
-Standard_Boolean PCDM_ReaderFilter::IsSubPassed() const
+Standard_Boolean ReaderFilter::IsSubPassed() const
 {
   return myCurrentDepth == 0;
 }
 
-void PCDM_ReaderFilter::ClearSubTree(const Standard_Address theMap)
+void ReaderFilter::ClearSubTree(const Standard_Address theMap)
 {
   if (theMap)
   {
@@ -174,7 +174,7 @@ void PCDM_ReaderFilter::ClearSubTree(const Standard_Address theMap)
   }
 }
 
-void PCDM_ReaderFilter::ClearTree()
+void ReaderFilter::ClearTree()
 {
   for (TagTree::Iterator aTagIter(myTree); aTagIter.More(); aTagIter.Next())
     if (aTagIter.Key1() != -1)

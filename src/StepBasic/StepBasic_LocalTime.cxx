@@ -24,7 +24,7 @@ void StepBasic_LocalTime::Init(const Standard_Integer aHourComponent,
                                const Standard_Integer aMinuteComponent,
                                const Standard_Boolean hasAsecondComponent,
                                const Standard_Real    aSecondComponent,
-                               const Handle(StepBasic_CoordinatedUniversalTimeOffset)& aZone)
+                               const Handle(TimeOffset)& aZone)
 {
   // --- classe own fields ---
   hourComponent      = aHourComponent;
@@ -87,12 +87,12 @@ Standard_Boolean StepBasic_LocalTime::HasSecondComponent() const
   return hasSecondComponent;
 }
 
-void StepBasic_LocalTime::SetZone(const Handle(StepBasic_CoordinatedUniversalTimeOffset)& aZone)
+void StepBasic_LocalTime::SetZone(const Handle(TimeOffset)& aZone)
 {
   zone = aZone;
 }
 
-Handle(StepBasic_CoordinatedUniversalTimeOffset) StepBasic_LocalTime::Zone() const
+Handle(TimeOffset) StepBasic_LocalTime::Zone() const
 {
   return zone;
 }

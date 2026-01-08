@@ -52,13 +52,13 @@ void RWStepAP203_RWStartRequest::ReadStep(const Handle(StepData_StepReaderData)&
 
   // Own fields of StartRequest
 
-  Handle(StepAP203_HArray1OfStartRequestItem) aItems;
+  Handle(HArray1OfStartRequestItem) aItems;
   Standard_Integer                            sub2 = 0;
   if (data->ReadSubList(num, 2, "items", ach, sub2))
   {
     Standard_Integer num2 = sub2;
     Standard_Integer nb0  = data->NbParams(num2);
-    aItems                = new StepAP203_HArray1OfStartRequestItem(1, nb0);
+    aItems                = new HArray1OfStartRequestItem(1, nb0);
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
       StepAP203_StartRequestItem anIt0;

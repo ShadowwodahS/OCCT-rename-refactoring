@@ -35,9 +35,9 @@ void IGESGraph_TextFontDef::Init(const Standard_Integer                  aFontCo
                                  const Handle(TColStd_HArray1OfInteger)& allNextCharX,
                                  const Handle(TColStd_HArray1OfInteger)& allNextCharY,
                                  const Handle(TColStd_HArray1OfInteger)& allPenMotions,
-                                 const Handle(IGESBasic_HArray1OfHArray1OfInteger)& allPenFlags,
-                                 const Handle(IGESBasic_HArray1OfHArray1OfInteger)& allMovePenToX,
-                                 const Handle(IGESBasic_HArray1OfHArray1OfInteger)& allMovePenToY)
+                                 const Handle(HArray1OfHArray1OfInt)& allPenFlags,
+                                 const Handle(HArray1OfHArray1OfInt)& allMovePenToX,
+                                 const Handle(HArray1OfHArray1OfInt)& allMovePenToY)
 {
   Standard_Integer Len = allASCIICodes->Length();
   if (allASCIICodes->Lower() != 1 || (allNextCharX->Lower() != 1 || allNextCharX->Length() != Len)

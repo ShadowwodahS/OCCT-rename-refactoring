@@ -45,7 +45,7 @@ public:
   //! - allFaces  : the faces comprising the shell
   //! - allOrient : the orientation flags of the shell
   //! raises exception if length of allFaces & allOrient do not match
-  Standard_EXPORT void Init(const Handle(IGESSolid_HArray1OfFace)&  allFaces,
+  Standard_EXPORT void Init(const Handle(HArray1OfFace)&  allFaces,
                             const Handle(TColStd_HArray1OfInteger)& allOrient);
 
   //! Tells if a Shell is Closed, i.e. if its FormNumber is 1
@@ -71,7 +71,7 @@ public:
 
 protected:
 private:
-  Handle(IGESSolid_HArray1OfFace)  theFaces;
+  Handle(HArray1OfFace)  theFaces;
   Handle(TColStd_HArray1OfInteger) theOrientation;
 };
 

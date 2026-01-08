@@ -18,7 +18,7 @@
 
 #include <LDOMBasicString.hxx>
 
-class LDOM_MemManager;
+class MemoryManager;
 
 //  Class LDOMString
 //  Represents various object types which can be mapped to XML strings
@@ -65,7 +65,7 @@ public:
 
   //    Create LDOM_AsciiFree
 
-  const LDOM_MemManager& getOwnerDocument() const { return *myPtrDoc; }
+  const MemoryManager& getOwnerDocument() const { return *myPtrDoc; }
 
   LDOMString& operator=(const LDOM_NullPtr* aNull)
   {
@@ -84,13 +84,13 @@ private:
   friend class LDOM_Document;
   friend class LDOM_Node;
   friend class LDOM_Element;
-  friend class LDOM_BasicElement;
-  friend class LDOM_BasicAttribute;
-  friend class LDOM_BasicText;
+  friend class BasicElement;
+  friend class BasicAttribute;
+  friend class BasicText;
 
-  static LDOMString CreateDirectString(const char* aValue, const LDOM_MemManager& aDoc);
+  static LDOMString CreateDirectString(const char* aValue, const MemoryManager& aDoc);
 
-  LDOMString(const LDOMBasicString1& anOther, const LDOM_MemManager& aDoc)
+  LDOMString(const LDOMBasicString1& anOther, const MemoryManager& aDoc)
       : LDOMBasicString1(anOther),
         myPtrDoc(&aDoc)
   {
@@ -98,12 +98,12 @@ private:
 
   //    Plain copy from LDOMBasicString1
 
-  LDOMString(const LDOMBasicString1& anOther, const Handle(LDOM_MemManager)& aDoc);
+  LDOMString(const LDOMBasicString1& anOther, const Handle(MemoryManager)& aDoc);
   //    Copy from another string with allocation in the document space
 
 private:
   // ---------- PRIVATE FIELDS -------------
-  const LDOM_MemManager* myPtrDoc;
+  const MemoryManager* myPtrDoc;
 };
 
 #endif

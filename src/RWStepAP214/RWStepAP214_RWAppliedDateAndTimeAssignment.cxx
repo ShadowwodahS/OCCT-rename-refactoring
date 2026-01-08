@@ -55,13 +55,13 @@ void RWStepAP214_RWAppliedDateAndTimeAssignment::ReadStep(
 
   // --- own field : items ---
 
-  Handle(StepAP214_HArray1OfDateAndTimeItem) aItems;
+  Handle(HArray1OfDateAndTimeItem) aItems;
   StepAP214_DateAndTimeItem                  aItemsItem;
   Standard_Integer                           nsub3;
   if (data->ReadSubList(num, 3, "items", ach, nsub3))
   {
     Standard_Integer nb3 = data->NbParams(nsub3);
-    aItems               = new StepAP214_HArray1OfDateAndTimeItem(1, nb3);
+    aItems               = new HArray1OfDateAndTimeItem(1, nb3);
     for (Standard_Integer i3 = 1; i3 <= nb3; i3++)
     {
       Standard_Boolean stat3 = data->ReadEntity(nsub3, i3, "items", ach, aItemsItem);

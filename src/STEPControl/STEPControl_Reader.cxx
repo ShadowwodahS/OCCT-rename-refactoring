@@ -135,7 +135,7 @@ IFSelect_ReturnStatus StepFileReader::ReadFile(const Standard_CString filename)
 //=================================================================================================
 
 IFSelect_ReturnStatus StepFileReader::ReadFile(const Standard_CString   filename,
-                                                   const DESTEP_Parameters& theParams)
+                                                   const Parameters2& theParams)
 {
   Handle(IFSelect_WorkLibrary) aLibrary  = WS()->WorkLibrary();
   Handle(Interface_Protocol)   aProtocol = WS()->Protocol();
@@ -223,7 +223,7 @@ IFSelect_ReturnStatus StepFileReader::ReadStream(const Standard_CString theName,
 //=================================================================================================
 
 IFSelect_ReturnStatus StepFileReader::ReadStream(const Standard_CString   theName,
-                                                     const DESTEP_Parameters& theParams,
+                                                     const Parameters2& theParams,
                                                      std::istream&            theIStream)
 {
   Handle(IFSelect_WorkLibrary) aLibrary  = WS()->WorkLibrary();
@@ -361,7 +361,7 @@ Standard_Integer StepFileReader::NbRootsForTransfer()
       // determinate roots used ProductDefinitionContext
       if (IsRoot)
       {
-        DESTEP_Parameters::ReadMode_ProductContext aProdContMode =
+        Parameters2::ReadMode_ProductContext aProdContMode =
           aStepModel->InternalParameters.ReadProductContext;
         AsciiString1 str1 = aStepModel->InternalParameters.GetString(aProdContMode);
         Standard_Integer        ICS  = aStepModel->InternalParameters.ReadProductContext;
@@ -754,7 +754,7 @@ inline static AsciiString1 getSiName(const Handle(StepBasic_SiUnit)& theUnit)
 
 ShapeFixParameters StepFileReader::GetDefaultShapeFixParameters() const
 {
-  return DESTEP_Parameters::GetDefaultShapeFixParameters();
+  return Parameters2::GetDefaultShapeFixParameters();
 }
 
 //=================================================================================================
@@ -795,7 +795,7 @@ Standard_Boolean StepFileReader::findUnits(
   if (aContext.IsNull())
     return Standard_False;
   // Start Computation
-  Handle(StepBasic_HArray1OfNamedUnit) anUnits = aContext->Units2();
+  Handle(HArray1OfNamedUnit) anUnits = aContext->Units2();
   Standard_Integer                     nbU     = aContext->NbUnits();
   Standard_Integer                     nbFind  = 0;
   for (Standard_Integer i = 1; i <= nbU; i++)

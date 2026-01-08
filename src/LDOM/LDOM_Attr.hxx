@@ -18,7 +18,7 @@
 
 #include <LDOM_Node.hxx>
 
-class LDOM_BasicAttribute;
+class BasicAttribute;
 
 //  Class LDOM_Attr
 //
@@ -63,7 +63,7 @@ protected:
   friend class LDOM_Element;
   // ---------- PROTECTED METHODS ----------
 
-  LDOM_Attr(const LDOM_BasicAttribute& anAttr, const Handle(LDOM_MemManager)& aDoc);
+  LDOM_Attr(const BasicAttribute& anAttr, const Handle(MemoryManager)& aDoc);
 
 private:
   // ---------- PRIVATE FIELDS ----------

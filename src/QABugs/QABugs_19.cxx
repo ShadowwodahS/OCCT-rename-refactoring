@@ -2321,7 +2321,7 @@ public:
     myResources->SetResource(THE_QATEST_DOC_FORMAT ".FileExtension", "xml");
   }
 
-  virtual Handle(PCDM_Reader) ReaderFromFormat(const UtfString&) Standard_OVERRIDE
+  virtual Handle(Reader1) ReaderFromFormat(const UtfString&) Standard_OVERRIDE
   {
     return new XmlDrivers_DocumentRetrievalDriver();
   }

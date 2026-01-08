@@ -270,7 +270,7 @@ Handle(TypeInfo) StepData_PDescr::Type() const
   return thetype;
 }
 
-Standard_Boolean StepData_PDescr::IsDescr(const Handle(StepData_EDescr)& descr) const
+Standard_Boolean StepData_PDescr::IsDescr(const Handle(EntityDescriptor)& descr) const
 {
   if (descr.IsNull())
     return Standard_False;

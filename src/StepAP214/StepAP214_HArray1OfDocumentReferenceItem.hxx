@@ -20,6 +20,6 @@
 #include <StepAP214_Array1OfDocumentReferenceItem.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepAP214_HArray1OfDocumentReferenceItem, StepAP214_Array1OfDocumentReferenceItem)
+DEFINE_HARRAY1(HArray1OfDocumentRefItem, StepAP214_Array1OfDocumentReferenceItem)
 
 #endif

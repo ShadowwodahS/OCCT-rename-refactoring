@@ -24,9 +24,9 @@
 #include <StepBasic_Date.hxx>
 
 class StepBasic_CalendarDate;
-DEFINE_STANDARD_HANDLE(StepBasic_CalendarDate, StepBasic_Date)
+DEFINE_STANDARD_HANDLE(StepBasic_CalendarDate, Date1)
 
-class StepBasic_CalendarDate : public StepBasic_Date
+class StepBasic_CalendarDate : public Date1
 {
 
 public:
@@ -45,7 +45,7 @@ public:
 
   Standard_EXPORT Standard_Integer MonthComponent() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_CalendarDate, StepBasic_Date)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_CalendarDate, Date1)
 
 protected:
 private:

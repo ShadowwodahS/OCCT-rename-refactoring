@@ -20,6 +20,6 @@
 #include <StepBasic_Array1OfPerson.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepBasic_HArray1OfPerson, StepBasic_Array1OfPerson)
+DEFINE_HARRAY1(HArray1OfPerson, StepBasic_Array1OfPerson)
 
 #endif

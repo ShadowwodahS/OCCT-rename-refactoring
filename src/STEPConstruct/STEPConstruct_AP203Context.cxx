@@ -104,8 +104,8 @@ Handle(StepBasic_DateAndTime) STEPConstruct_AP203Context::DefaultDateAndTime()
     Handle(StepBasic_CalendarDate) aDate = new StepBasic_CalendarDate;
     aDate->Init(date.Year(), date.Day(), date.Month());
 
-    Handle(StepBasic_CoordinatedUniversalTimeOffset) zone =
-      new StepBasic_CoordinatedUniversalTimeOffset;
+    Handle(TimeOffset) zone =
+      new TimeOffset;
 #if defined(_MSC_VER) && _MSC_VER >= 1600
     long shift = 0;
     _get_timezone(&shift);
@@ -464,8 +464,8 @@ void STEPConstruct_AP203Context::InitPart(const STEPConstruct_Part& SDRTool)
   if (myCreator.IsNull())
   {
     myCreator = new StepAP203_CcDesignPersonAndOrganizationAssignment;
-    Handle(StepAP203_HArray1OfPersonOrganizationItem) items =
-      new StepAP203_HArray1OfPersonOrganizationItem(1, 2);
+    Handle(HArray1OfPersonOrgItem1) items =
+      new HArray1OfPersonOrgItem1(1, 2);
     items->ChangeValue(1).SetValue(SDRTool.PDF());
     items->ChangeValue(2).SetValue(SDRTool.PD());
     myCreator->Init(DefaultPersonAndOrganization(), RoleCreator(), items);
@@ -474,8 +474,8 @@ void STEPConstruct_AP203Context::InitPart(const STEPConstruct_Part& SDRTool)
   if (myDesignOwner.IsNull())
   {
     myDesignOwner = new StepAP203_CcDesignPersonAndOrganizationAssignment;
-    Handle(StepAP203_HArray1OfPersonOrganizationItem) items =
-      new StepAP203_HArray1OfPersonOrganizationItem(1, 1);
+    Handle(HArray1OfPersonOrgItem1) items =
+      new HArray1OfPersonOrgItem1(1, 1);
     items->ChangeValue(1).SetValue(SDRTool.Product());
     myDesignOwner->Init(DefaultPersonAndOrganization(), RoleDesignOwner(), items);
   }
@@ -483,8 +483,8 @@ void STEPConstruct_AP203Context::InitPart(const STEPConstruct_Part& SDRTool)
   if (myDesignSupplier.IsNull())
   {
     myDesignSupplier = new StepAP203_CcDesignPersonAndOrganizationAssignment;
-    Handle(StepAP203_HArray1OfPersonOrganizationItem) items =
-      new StepAP203_HArray1OfPersonOrganizationItem(1, 1);
+    Handle(HArray1OfPersonOrgItem1) items =
+      new HArray1OfPersonOrgItem1(1, 1);
     items->ChangeValue(1).SetValue(SDRTool.PDF());
     myDesignSupplier->Init(DefaultPersonAndOrganization(), RoleDesignSupplier(), items);
   }
@@ -492,7 +492,7 @@ void STEPConstruct_AP203Context::InitPart(const STEPConstruct_Part& SDRTool)
   if (myCreationDate.IsNull())
   {
     myCreationDate                                = new StepAP203_CcDesignDateAndTimeAssignment;
-    Handle(StepAP203_HArray1OfDateTimeItem) items = new StepAP203_HArray1OfDateTimeItem(1, 1);
+    Handle(HArray1OfDateTimeItem) items = new HArray1OfDateTimeItem(1, 1);
     items->ChangeValue(1).SetValue(SDRTool.PD());
     myCreationDate->Init(DefaultDateAndTime(), RoleCreationDate(), items);
   }
@@ -506,7 +506,7 @@ void STEPConstruct_AP203Context::InitPart(const STEPConstruct_Part& SDRTool)
     sc->Init(aName, aPurpose, DefaultSecurityClassificationLevel());
 
     mySecurity                                      = new StepAP203_CcDesignSecurityClassification;
-    Handle(StepAP203_HArray1OfClassifiedItem) items = new StepAP203_HArray1OfClassifiedItem(1, 1);
+    Handle(HArray1OfClassifiedItem) items = new HArray1OfClassifiedItem(1, 1);
     items->ChangeValue(1).SetValue(SDRTool.PDF());
     mySecurity->Init(sc, items);
   }
@@ -515,7 +515,7 @@ void STEPConstruct_AP203Context::InitPart(const STEPConstruct_Part& SDRTool)
   if (myApproval.IsNull())
   {
     myApproval                                    = new StepAP203_CcDesignApproval;
-    Handle(StepAP203_HArray1OfApprovedItem) items = new StepAP203_HArray1OfApprovedItem(1, 3);
+    Handle(HArray1OfApprovedItem) items = new HArray1OfApprovedItem(1, 3);
     items->ChangeValue(1).SetValue(SDRTool.PDF());
     items->ChangeValue(2).SetValue(SDRTool.PD());
     items->ChangeValue(3).SetValue(mySecurity->AssignedSecurityClassification());
@@ -550,7 +550,7 @@ void STEPConstruct_AP203Context::InitAssembly(
     sc->Init(aName, aPurpose, DefaultSecurityClassificationLevel());
 
     mySecurity                                      = new StepAP203_CcDesignSecurityClassification;
-    Handle(StepAP203_HArray1OfClassifiedItem) items = new StepAP203_HArray1OfClassifiedItem(1, 1);
+    Handle(HArray1OfClassifiedItem) items = new HArray1OfClassifiedItem(1, 1);
     items->ChangeValue(1).SetValue(NAUO);
     mySecurity->Init(sc, items);
   }
@@ -559,7 +559,7 @@ void STEPConstruct_AP203Context::InitAssembly(
   if (myApproval.IsNull())
   {
     myApproval                                    = new StepAP203_CcDesignApproval;
-    Handle(StepAP203_HArray1OfApprovedItem) items = new StepAP203_HArray1OfApprovedItem(1, 1);
+    Handle(HArray1OfApprovedItem) items = new HArray1OfApprovedItem(1, 1);
     items->ChangeValue(1).SetValue(mySecurity->AssignedSecurityClassification());
     myApproval->Init(DefaultApproval(), items);
   }
@@ -575,8 +575,8 @@ void STEPConstruct_AP203Context::InitSecurityRequisites()
            != mySecurity->AssignedSecurityClassification())
   {
     myClassificationOfficer = new StepAP203_CcDesignPersonAndOrganizationAssignment;
-    Handle(StepAP203_HArray1OfPersonOrganizationItem) items =
-      new StepAP203_HArray1OfPersonOrganizationItem(1, 1);
+    Handle(HArray1OfPersonOrgItem1) items =
+      new HArray1OfPersonOrgItem1(1, 1);
     items->ChangeValue(1).SetValue(mySecurity->AssignedSecurityClassification());
     myClassificationOfficer->Init(DefaultPersonAndOrganization(),
                                   RoleClassificationOfficer(),
@@ -588,7 +588,7 @@ void STEPConstruct_AP203Context::InitSecurityRequisites()
            != mySecurity->AssignedSecurityClassification())
   {
     myClassificationDate                          = new StepAP203_CcDesignDateAndTimeAssignment;
-    Handle(StepAP203_HArray1OfDateTimeItem) items = new StepAP203_HArray1OfDateTimeItem(1, 1);
+    Handle(HArray1OfDateTimeItem) items = new HArray1OfDateTimeItem(1, 1);
     items->ChangeValue(1).SetValue(mySecurity->AssignedSecurityClassification());
     myClassificationDate->Init(DefaultDateAndTime(), RoleClassificationDate(), items);
   }

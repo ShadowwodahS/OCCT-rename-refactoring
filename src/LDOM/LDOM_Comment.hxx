@@ -55,7 +55,7 @@ protected:
 
   // ---------- PROTECTED METHODS ----------
 
-  LDOM_Comment(const LDOM_BasicText& theText, const Handle(LDOM_MemManager)& theDoc)
+  LDOM_Comment(const BasicText& theText, const Handle(MemoryManager)& theDoc)
       : LDOM_CharacterData(theText, theDoc)
   {
   }

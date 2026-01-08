@@ -73,7 +73,7 @@ protected:
   void SetSibling(const BasicNode* anOther) { mySibling = anOther; }
 
 protected:
-  friend class LDOM_BasicElement;
+  friend class BasicElement;
   friend class LDOM_Node;
   friend class LDOMParser;
   // ---------- PROTECTED FIELDSS ----------

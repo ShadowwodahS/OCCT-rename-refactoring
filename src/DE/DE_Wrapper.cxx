@@ -25,7 +25,7 @@
 #include <Standard_ErrorHandler.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DE_Wrapper, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(DataExchangeWrapper, RefObject)
 
 namespace
 {
@@ -35,24 +35,24 @@ static const AsciiString1& THE_CONFIGURATION_SCOPE()
   return aScope;
 }
 
-static Handle(DE_Wrapper)& THE_GLOBAL_CONFIGURATION()
+static Handle(DataExchangeWrapper)& THE_GLOBAL_CONFIGURATION()
 {
-  static Handle(DE_Wrapper) aConf = new DE_Wrapper();
+  static Handle(DataExchangeWrapper) aConf = new DataExchangeWrapper();
   return aConf;
 }
 } // namespace
 
 //=================================================================================================
 
-DE_Wrapper::DE_Wrapper()
+DataExchangeWrapper::DataExchangeWrapper()
     : myKeepUpdates(Standard_False)
 {
 }
 
 //=================================================================================================
 
-DE_Wrapper::DE_Wrapper(const Handle(DE_Wrapper)& theWrapper)
-    : DE_Wrapper()
+DataExchangeWrapper::DataExchangeWrapper(const Handle(DataExchangeWrapper)& theWrapper)
+    : DataExchangeWrapper()
 {
   if (theWrapper.IsNull())
   {
@@ -73,14 +73,14 @@ DE_Wrapper::DE_Wrapper(const Handle(DE_Wrapper)& theWrapper)
 
 //=================================================================================================
 
-const Handle(DE_Wrapper)& DE_Wrapper::GlobalWrapper()
+const Handle(DataExchangeWrapper)& DataExchangeWrapper::GlobalWrapper()
 {
   return THE_GLOBAL_CONFIGURATION();
 }
 
 //=================================================================================================
 
-void DE_Wrapper::SetGlobalWrapper(const Handle(DE_Wrapper)& theWrapper)
+void DataExchangeWrapper::SetGlobalWrapper(const Handle(DataExchangeWrapper)& theWrapper)
 {
   if (!theWrapper.IsNull())
   {
@@ -90,7 +90,7 @@ void DE_Wrapper::SetGlobalWrapper(const Handle(DE_Wrapper)& theWrapper)
 
 //=================================================================================================
 
-Standard_Mutex& DE_Wrapper::GlobalLoadMutex()
+Standard_Mutex& DataExchangeWrapper::GlobalLoadMutex()
 {
   static Standard_Mutex THE_GLOBAL_LOAD_MUTEX;
   return THE_GLOBAL_LOAD_MUTEX;
@@ -98,7 +98,7 @@ Standard_Mutex& DE_Wrapper::GlobalLoadMutex()
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Read(const AsciiString1&  thePath,
+Standard_Boolean DataExchangeWrapper::Read(const AsciiString1&  thePath,
                                   const Handle(AppDocument)& theDocument,
                                   Handle(ExchangeSession)&  theWS,
                                   const Message_ProgressRange&    theProgress)
@@ -121,7 +121,7 @@ Standard_Boolean DE_Wrapper::Read(const AsciiString1&  thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Write(const AsciiString1&  thePath,
+Standard_Boolean DataExchangeWrapper::Write(const AsciiString1&  thePath,
                                    const Handle(AppDocument)& theDocument,
                                    Handle(ExchangeSession)&  theWS,
                                    const Message_ProgressRange&    theProgress)
@@ -144,7 +144,7 @@ Standard_Boolean DE_Wrapper::Write(const AsciiString1&  thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Read(const AsciiString1&  thePath,
+Standard_Boolean DataExchangeWrapper::Read(const AsciiString1&  thePath,
                                   const Handle(AppDocument)& theDocument,
                                   const Message_ProgressRange&    theProgress)
 {
@@ -162,7 +162,7 @@ Standard_Boolean DE_Wrapper::Read(const AsciiString1&  thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Write(const AsciiString1&  thePath,
+Standard_Boolean DataExchangeWrapper::Write(const AsciiString1&  thePath,
                                    const Handle(AppDocument)& theDocument,
                                    const Message_ProgressRange&    theProgress)
 {
@@ -180,7 +180,7 @@ Standard_Boolean DE_Wrapper::Write(const AsciiString1&  thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Read(const AsciiString1& thePath,
+Standard_Boolean DataExchangeWrapper::Read(const AsciiString1& thePath,
                                   TopoShape&                  theShape,
                                   Handle(ExchangeSession)& theWS,
                                   const Message_ProgressRange&   theProgress)
@@ -199,7 +199,7 @@ Standard_Boolean DE_Wrapper::Read(const AsciiString1& thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Write(const AsciiString1& thePath,
+Standard_Boolean DataExchangeWrapper::Write(const AsciiString1& thePath,
                                    const TopoShape&            theShape,
                                    Handle(ExchangeSession)& theWS,
                                    const Message_ProgressRange&   theProgress)
@@ -218,7 +218,7 @@ Standard_Boolean DE_Wrapper::Write(const AsciiString1& thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Read(const AsciiString1& thePath,
+Standard_Boolean DataExchangeWrapper::Read(const AsciiString1& thePath,
                                   TopoShape&                  theShape,
                                   const Message_ProgressRange&   theProgress)
 {
@@ -233,7 +233,7 @@ Standard_Boolean DE_Wrapper::Read(const AsciiString1& thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Write(const AsciiString1& thePath,
+Standard_Boolean DataExchangeWrapper::Write(const AsciiString1& thePath,
                                    const TopoShape&            theShape,
                                    const Message_ProgressRange&   theProgress)
 {
@@ -247,17 +247,17 @@ Standard_Boolean DE_Wrapper::Write(const AsciiString1& thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Load(const AsciiString1& theResource,
+Standard_Boolean DataExchangeWrapper::Load(const AsciiString1& theResource,
                                   const Standard_Boolean         theIsRecursive)
 {
-  Handle(DE_ConfigurationContext) aResource = new DE_ConfigurationContext();
+  Handle(ConfigurationContext) aResource = new ConfigurationContext();
   aResource->Load(theResource);
   return Load(aResource, theIsRecursive);
 }
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Load(const Handle(DE_ConfigurationContext)& theResource,
+Standard_Boolean DataExchangeWrapper::Load(const Handle(ConfigurationContext)& theResource,
                                   const Standard_Boolean                 theIsRecursive)
 {
   GlobalParameters.LengthUnit = theResource->RealVal("general.length.unit",
@@ -284,7 +284,7 @@ Standard_Boolean DE_Wrapper::Load(const Handle(DE_ConfigurationContext)& theReso
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Save(const AsciiString1&   theResourcePath,
+Standard_Boolean DataExchangeWrapper::Save(const AsciiString1&   theResourcePath,
                                   const Standard_Boolean           theIsRecursive,
                                   const TColStd_ListOfAsciiString& theFormats,
                                   const TColStd_ListOfAsciiString& theVendors)
@@ -315,7 +315,7 @@ Standard_Boolean DE_Wrapper::Save(const AsciiString1&   theResourcePath,
 
 //=================================================================================================
 
-AsciiString1 DE_Wrapper::Save(const Standard_Boolean           theIsRecursive,
+AsciiString1 DataExchangeWrapper::Save(const Standard_Boolean           theIsRecursive,
                                          const TColStd_ListOfAsciiString& theFormats,
                                          const TColStd_ListOfAsciiString& theVendors)
 {
@@ -328,7 +328,7 @@ AsciiString1 DE_Wrapper::Save(const Standard_Boolean           theIsRecursive,
   aResult += "!Keys can be nested down to an arbitrary level.\n";
   aResult += "!\n";
   aResult += "!*****************************************************************************\n";
-  aResult += "!DE_Wrapper\n";
+  aResult += "!DataExchangeWrapper\n";
   aResult += "!Priority vendor list. For every CAD format set indexed list of vendors\n";
   for (DE_ConfigurationFormatMap::Iterator aFormatIter(myConfiguration); aFormatIter.More();
        aFormatIter.Next())
@@ -378,7 +378,7 @@ AsciiString1 DE_Wrapper::Save(const Standard_Boolean           theIsRecursive,
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Bind(const Handle(DE_ConfigurationNode)& theNode)
+Standard_Boolean DataExchangeWrapper::Bind(const Handle(ConfigurationNode)& theNode)
 {
   if (theNode.IsNull())
   {
@@ -397,7 +397,7 @@ Standard_Boolean DE_Wrapper::Bind(const Handle(DE_ConfigurationNode)& theNode)
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::UnBind(const Handle(DE_ConfigurationNode)& theNode)
+Standard_Boolean DataExchangeWrapper::UnBind(const Handle(ConfigurationNode)& theNode)
 {
   if (theNode.IsNull())
   {
@@ -417,9 +417,9 @@ Standard_Boolean DE_Wrapper::UnBind(const Handle(DE_ConfigurationNode)& theNode)
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Find(const AsciiString1& theFormat,
+Standard_Boolean DataExchangeWrapper::Find(const AsciiString1& theFormat,
                                   const AsciiString1& theVendor,
-                                  Handle(DE_ConfigurationNode)&  theNode) const
+                                  Handle(ConfigurationNode)&  theNode) const
 {
   const DE_ConfigurationVendorMap* aVendorMap = myConfiguration.Seek(theFormat);
   return aVendorMap != nullptr && aVendorMap->FindFromKey(theVendor, theNode);
@@ -427,7 +427,7 @@ Standard_Boolean DE_Wrapper::Find(const AsciiString1& theFormat,
 
 //=================================================================================================
 
-void DE_Wrapper::ChangePriority(const AsciiString1&   theFormat,
+void DataExchangeWrapper::ChangePriority(const AsciiString1&   theFormat,
                                 const TColStd_ListOfAsciiString& theVendorPriority,
                                 const Standard_Boolean           theToDisable)
 {
@@ -442,7 +442,7 @@ void DE_Wrapper::ChangePriority(const AsciiString1&   theFormat,
        aPriorIter.Next())
   {
     const AsciiString1& aVendorName = aPriorIter.Value();
-    Handle(DE_ConfigurationNode)   aNode;
+    Handle(ConfigurationNode)   aNode;
     if (aVendorMap.FindFromKey(aVendorName, aNode))
     {
       aNode->SetEnabled(Standard_True);
@@ -456,7 +456,7 @@ void DE_Wrapper::ChangePriority(const AsciiString1&   theFormat,
     const AsciiString1& aVendorName = aVendorIter.Key1();
     if (!theVendorPriority.Contains(aVendorName))
     {
-      const Handle(DE_ConfigurationNode)& aNode = aVendorIter.Value();
+      const Handle(ConfigurationNode)& aNode = aVendorIter.Value();
       if (theToDisable)
       {
         aNode->SetEnabled(Standard_False);
@@ -469,7 +469,7 @@ void DE_Wrapper::ChangePriority(const AsciiString1&   theFormat,
 
 //=================================================================================================
 
-void DE_Wrapper::ChangePriority(const TColStd_ListOfAsciiString& theVendorPriority,
+void DataExchangeWrapper::ChangePriority(const TColStd_ListOfAsciiString& theVendorPriority,
                                 const Standard_Boolean           theToDisable)
 {
   for (DE_ConfigurationFormatMap::Iterator aFormatIter(myConfiguration); aFormatIter.More();
@@ -481,21 +481,21 @@ void DE_Wrapper::ChangePriority(const TColStd_ListOfAsciiString& theVendorPriori
 
 //=================================================================================================
 
-const DE_ConfigurationFormatMap& DE_Wrapper::Nodes() const
+const DE_ConfigurationFormatMap& DataExchangeWrapper::Nodes() const
 {
   return myConfiguration;
 }
 
 //=================================================================================================
 
-Handle(DE_Wrapper) DE_Wrapper::Copy() const
+Handle(DataExchangeWrapper) DataExchangeWrapper::Copy() const
 {
-  return new DE_Wrapper(*this);
+  return new DataExchangeWrapper(*this);
 }
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::FindProvider(const AsciiString1& thePath,
+Standard_Boolean DataExchangeWrapper::FindProvider(const AsciiString1& thePath,
                                           const Standard_Boolean         theToImport,
                                           Handle(DE_Provider)&           theProvider) const
 {
@@ -520,7 +520,7 @@ Standard_Boolean DE_Wrapper::FindProvider(const AsciiString1& thePath,
     for (DE_ConfigurationVendorMap::Iterator aVendorIter(aFormatIter.Value()); aVendorIter.More();
          aVendorIter.Next())
     {
-      const Handle(DE_ConfigurationNode)& aNode = aVendorIter.Value();
+      const Handle(ConfigurationNode)& aNode = aVendorIter.Value();
       if (aNode->IsEnabled()
           && ((theToImport && aNode->IsImportSupported())
               || (!theToImport && aNode->IsExportSupported()))
@@ -538,7 +538,7 @@ Standard_Boolean DE_Wrapper::FindProvider(const AsciiString1& thePath,
 
 //=================================================================================================
 
-Standard_EXPORT void DE_Wrapper::UpdateLoad(const Standard_Boolean theToForceUpdate) const
+Standard_EXPORT void DataExchangeWrapper::UpdateLoad(const Standard_Boolean theToForceUpdate) const
 {
   for (DE_ConfigurationFormatMap::Iterator aFormatIter(myConfiguration); aFormatIter.More();
        aFormatIter.Next())
@@ -546,7 +546,7 @@ Standard_EXPORT void DE_Wrapper::UpdateLoad(const Standard_Boolean theToForceUpd
     for (DE_ConfigurationVendorMap::Iterator aVendorIter(aFormatIter.Value()); aVendorIter.More();
          aVendorIter.Next())
     {
-      const Handle(DE_ConfigurationNode)& aNode = aVendorIter.Value();
+      const Handle(ConfigurationNode)& aNode = aVendorIter.Value();
       aNode->UpdateLoad(Standard_True, Standard_True);
       aNode->UpdateLoad(Standard_False, Standard_True);
       if (!theToForceUpdate)
@@ -558,7 +558,7 @@ Standard_EXPORT void DE_Wrapper::UpdateLoad(const Standard_Boolean theToForceUpd
 
 //=================================================================================================
 
-void DE_Wrapper::sort(const Handle(DE_ConfigurationContext)& theResource)
+void DataExchangeWrapper::sort(const Handle(ConfigurationContext)& theResource)
 {
   const AsciiString1 aScope(THE_CONFIGURATION_SCOPE() + '.' + "priority");
   for (DE_ConfigurationFormatMap::Iterator aFormatIter(myConfiguration); aFormatIter.More();

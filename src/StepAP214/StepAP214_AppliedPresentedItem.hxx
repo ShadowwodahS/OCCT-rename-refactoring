@@ -34,11 +34,11 @@ public:
   //! Returns a AutoDesignPresentedItem
   Standard_EXPORT StepAP214_AppliedPresentedItem();
 
-  Standard_EXPORT void Init(const Handle(StepAP214_HArray1OfPresentedItemSelect)& aItems);
+  Standard_EXPORT void Init(const Handle(HArray1OfPresentedItemSelect)& aItems);
 
-  Standard_EXPORT void SetItems(const Handle(StepAP214_HArray1OfPresentedItemSelect)& aItems);
+  Standard_EXPORT void SetItems(const Handle(HArray1OfPresentedItemSelect)& aItems);
 
-  Standard_EXPORT Handle(StepAP214_HArray1OfPresentedItemSelect) Items() const;
+  Standard_EXPORT Handle(HArray1OfPresentedItemSelect) Items() const;
 
   Standard_EXPORT StepAP214_PresentedItemSelect ItemsValue(const Standard_Integer num) const;
 
@@ -48,7 +48,7 @@ public:
 
 protected:
 private:
-  Handle(StepAP214_HArray1OfPresentedItemSelect) items;
+  Handle(HArray1OfPresentedItemSelect) items;
 };
 
 #endif // _StepAP214_AppliedPresentedItem_HeaderFile

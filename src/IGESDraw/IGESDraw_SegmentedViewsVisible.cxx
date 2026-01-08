@@ -26,13 +26,13 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESDraw_SegmentedViewsVisible, IGESData_ViewKindEnti
 IGESDraw_SegmentedViewsVisible::IGESDraw_SegmentedViewsVisible() {}
 
 void IGESDraw_SegmentedViewsVisible::Init(
-  const Handle(IGESDraw_HArray1OfViewKindEntity)&  allViews,
+  const Handle(HArray1OfViewKindEntity)&  allViews,
   const Handle(TColStd_HArray1OfReal)&             allBreakpointParameters,
   const Handle(TColStd_HArray1OfInteger)&          allDisplayFlags,
   const Handle(TColStd_HArray1OfInteger)&          allColorValues,
-  const Handle(IGESGraph_HArray1OfColor)&          allColorDefinitions,
+  const Handle(HArray1OfColor)&          allColorDefinitions,
   const Handle(TColStd_HArray1OfInteger)&          allLineFontValues,
-  const Handle(IGESBasic_HArray1OfLineFontEntity)& allLineFontDefinitions,
+  const Handle(HArray1OfLineFontEntity)& allLineFontDefinitions,
   const Handle(TColStd_HArray1OfInteger)&          allLineWeights)
 {
   Standard_Integer Len = allViews->Length();

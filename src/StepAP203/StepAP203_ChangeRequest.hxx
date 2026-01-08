@@ -37,19 +37,19 @@ public:
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(
     const Handle(StepBasic_VersionedActionRequest)& aActionRequestAssignment_AssignedActionRequest,
-    const Handle(StepAP203_HArray1OfChangeRequestItem)& aItems);
+    const Handle(HArray1OfChangeRequestItem)& aItems);
 
   //! Returns field Items
-  Standard_EXPORT Handle(StepAP203_HArray1OfChangeRequestItem) Items() const;
+  Standard_EXPORT Handle(HArray1OfChangeRequestItem) Items() const;
 
   //! Set field Items
-  Standard_EXPORT void SetItems(const Handle(StepAP203_HArray1OfChangeRequestItem)& Items);
+  Standard_EXPORT void SetItems(const Handle(HArray1OfChangeRequestItem)& Items);
 
   DEFINE_STANDARD_RTTIEXT(StepAP203_ChangeRequest, StepBasic_ActionRequestAssignment)
 
 protected:
 private:
-  Handle(StepAP203_HArray1OfChangeRequestItem) theItems;
+  Handle(HArray1OfChangeRequestItem) theItems;
 };
 
 #endif // _StepAP203_ChangeRequest_HeaderFile

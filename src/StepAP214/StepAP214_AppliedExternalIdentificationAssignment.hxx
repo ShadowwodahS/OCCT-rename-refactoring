@@ -42,20 +42,20 @@ public:
     const Handle(TCollection_HAsciiString)&     aIdentificationAssignment_AssignedId,
     const Handle(StepBasic_IdentificationRole)& aIdentificationAssignment_Role,
     const Handle(StepBasic_ExternalSource)&     aExternalIdentificationAssignment_Source,
-    const Handle(StepAP214_HArray1OfExternalIdentificationItem)& aItems);
+    const Handle(HArray1OfExternalIdItem)& aItems);
 
   //! Returns field Items
-  Standard_EXPORT Handle(StepAP214_HArray1OfExternalIdentificationItem) Items() const;
+  Standard_EXPORT Handle(HArray1OfExternalIdItem) Items() const;
 
   //! Set field Items
-  Standard_EXPORT void SetItems(const Handle(StepAP214_HArray1OfExternalIdentificationItem)& Items);
+  Standard_EXPORT void SetItems(const Handle(HArray1OfExternalIdItem)& Items);
 
   DEFINE_STANDARD_RTTIEXT(StepAP214_AppliedExternalIdentificationAssignment,
                           StepBasic_ExternalIdentificationAssignment)
 
 protected:
 private:
-  Handle(StepAP214_HArray1OfExternalIdentificationItem) theItems;
+  Handle(HArray1OfExternalIdItem) theItems;
 };
 
 #endif // _StepAP214_AppliedExternalIdentificationAssignment_HeaderFile

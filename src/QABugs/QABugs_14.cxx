@@ -774,42 +774,42 @@ static Standard_Integer OCC983(DrawInterpreter& di, Standard_Integer argc, const
       di << "       AttributeValue = " << itemValue2.ToCString() << "\n";
     }
   }
-  if (aParser.GetBOM() != LDOM_OSStream::BOM_UNDEFINED)
+  if (aParser.GetBOM() != OutputStream::BOM_UNDEFINED)
   {
     di << "BOM is ";
     switch (aParser.GetBOM())
     {
-      case LDOM_OSStream::BOM_UTF8:
+      case OutputStream::BOM_UTF8:
         di << "UTF-8";
         break;
-      case LDOM_OSStream::BOM_UTF16BE:
+      case OutputStream::BOM_UTF16BE:
         di << "UTF-16 (BE)";
         break;
-      case LDOM_OSStream::BOM_UTF16LE:
+      case OutputStream::BOM_UTF16LE:
         di << "UTF-16 (LE)";
         break;
-      case LDOM_OSStream::BOM_UTF32BE:
+      case OutputStream::BOM_UTF32BE:
         di << "UTF-32 (BE)";
         break;
-      case LDOM_OSStream::BOM_UTF32LE:
+      case OutputStream::BOM_UTF32LE:
         di << "UTF-32 (LE)";
         break;
-      case LDOM_OSStream::BOM_UTF7:
+      case OutputStream::BOM_UTF7:
         di << "UTF-7";
         break;
-      case LDOM_OSStream::BOM_UTF1:
+      case OutputStream::BOM_UTF1:
         di << "UTF-1";
         break;
-      case LDOM_OSStream::BOM_UTFEBCDIC:
+      case OutputStream::BOM_UTFEBCDIC:
         di << "UTF-EBCDIC";
         break;
-      case LDOM_OSStream::BOM_SCSU:
+      case OutputStream::BOM_SCSU:
         di << "SCSU";
         break;
-      case LDOM_OSStream::BOM_BOCU1:
+      case OutputStream::BOM_BOCU1:
         di << "BOCU-1";
         break;
-      case LDOM_OSStream::BOM_GB18030:
+      case OutputStream::BOM_GB18030:
         di << "GB-18030";
         break;
       default:

@@ -53,7 +53,7 @@ inline
   LDOM_XmlReader::RecordType
   ReadRecord(LDOM_XmlReader&   aReader,
              Standard_IStream& theIStream,
-             LDOM_OSStream&    aData,
+             OutputStream&    aData,
              Standard_Boolean& theDocStart)
 {
 #ifdef LDOM_PARSER_TRACE
@@ -129,11 +129,11 @@ const AsciiString1& LDOMParser::GetError(AsciiString1& aData) const
 // purpose  : Returns the byte order mask defined at the start of a stream
 //=======================================================================
 
-LDOM_OSStream::BOMType LDOMParser::GetBOM() const
+OutputStream::BOMType LDOMParser::GetBOM() const
 {
   if (myReader)
     return myReader->GetBOM();
-  return LDOM_OSStream::BOM_UNDEFINED;
+  return OutputStream::BOM_UNDEFINED;
 }
 
 //=================================================================================================
@@ -143,7 +143,7 @@ Standard_Boolean LDOMParser::parse(std::istream&          anInput,
                                    const Standard_Boolean theWithoutRoot)
 {
   // Open the DOM Document
-  myDocument = new LDOM_MemManager(20000);
+  myDocument = new MemoryManager(20000);
   myError.Clear();
 
   // Create the Reader instance
@@ -298,7 +298,7 @@ Standard_Boolean LDOMParser::ParseElement(Standard_IStream& theIStream,
                                           Standard_Boolean& theDocStart)
 {
   Standard_Boolean         isError    = Standard_False;
-  const LDOM_BasicElement* aParent    = &myReader->GetElement();
+  const BasicElement* aParent    = &myReader->GetElement();
   const BasicNode*    aLastChild = NULL;
   for (;;)
   {
@@ -383,7 +383,7 @@ Standard_Boolean LDOMParser::ParseElement(Standard_IStream& theIStream,
         aTextStr   = (char*)myCurrentData.str();
         aTextValue = LDOMBasicString1(aTextStr, myCurrentData.Length(), myDocument);
       create_text_node: {
-        BasicNode& aTextNode = LDOM_BasicText::Create(aLocType, aTextValue, myDocument);
+        BasicNode& aTextNode = BasicText::Create(aLocType, aTextValue, myDocument);
         aParent->AppendChild(&aTextNode, aLastChild);
       }
         delete[] aTextStr;

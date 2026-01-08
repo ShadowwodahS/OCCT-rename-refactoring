@@ -27,7 +27,7 @@ IGESDraw_Planar::IGESDraw_Planar() {}
 
 void IGESDraw_Planar::Init(const Standard_Integer                       nbMats,
                            const Handle(IGESGeom_TransformationMatrix)& aTransformationMatrix,
-                           const Handle(IGESData_HArray1OfIGESEntity)&  allEntities)
+                           const Handle(HArray1OfIGESEntity)&  allEntities)
 {
   if (!allEntities.IsNull())
     if (allEntities->Lower() != 1)

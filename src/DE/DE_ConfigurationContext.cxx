@@ -21,7 +21,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DE_ConfigurationContext, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ConfigurationContext, RefObject)
 
 enum DE_ConfigurationContext_KindOfLine
 {
@@ -147,11 +147,11 @@ static AsciiString1 MakeName(const AsciiString1& theScope,
 
 //=================================================================================================
 
-DE_ConfigurationContext::DE_ConfigurationContext() {}
+ConfigurationContext::ConfigurationContext() {}
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::Load(const AsciiString1& theConfiguration)
+Standard_Boolean ConfigurationContext::Load(const AsciiString1& theConfiguration)
 {
   SystemPath aPath = theConfiguration;
   SystemFile aFile(aPath);
@@ -174,7 +174,7 @@ Standard_Boolean DE_ConfigurationContext::Load(const AsciiString1& theConfigurat
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::LoadFile(const AsciiString1& theFile)
+Standard_Boolean ConfigurationContext::LoadFile(const AsciiString1& theFile)
 {
   myResource.Clear();
   SystemPath                aPath(theFile);
@@ -200,7 +200,7 @@ Standard_Boolean DE_ConfigurationContext::LoadFile(const AsciiString1& theFile)
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::LoadStr(const AsciiString1& theResource)
+Standard_Boolean ConfigurationContext::LoadStr(const AsciiString1& theResource)
 {
   myResource.Clear();
   AsciiString1 aLine   = "";
@@ -225,7 +225,7 @@ Standard_Boolean DE_ConfigurationContext::LoadStr(const AsciiString1& theResourc
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::IsParamSet(const AsciiString1& theParam,
+Standard_Boolean ConfigurationContext::IsParamSet(const AsciiString1& theParam,
                                                      const AsciiString1& theScope) const
 {
   AsciiString1 aResource(MakeName(theScope, theParam));
@@ -234,7 +234,7 @@ Standard_Boolean DE_ConfigurationContext::IsParamSet(const AsciiString1& thePara
 
 //=================================================================================================
 
-Standard_Real DE_ConfigurationContext::RealVal(const AsciiString1& theParam,
+Standard_Real ConfigurationContext::RealVal(const AsciiString1& theParam,
                                                const Standard_Real            theDefValue,
                                                const AsciiString1& theScope) const
 {
@@ -244,7 +244,7 @@ Standard_Real DE_ConfigurationContext::RealVal(const AsciiString1& theParam,
 
 //=================================================================================================
 
-Standard_Integer DE_ConfigurationContext::IntegerVal(const AsciiString1& theParam,
+Standard_Integer ConfigurationContext::IntegerVal(const AsciiString1& theParam,
                                                      const Standard_Integer         theDefValue,
                                                      const AsciiString1& theScope) const
 {
@@ -254,7 +254,7 @@ Standard_Integer DE_ConfigurationContext::IntegerVal(const AsciiString1& thePara
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::BooleanVal(const AsciiString1& theParam,
+Standard_Boolean ConfigurationContext::BooleanVal(const AsciiString1& theParam,
                                                      const Standard_Boolean         theDefValue,
                                                      const AsciiString1& theScope) const
 {
@@ -264,7 +264,7 @@ Standard_Boolean DE_ConfigurationContext::BooleanVal(const AsciiString1& thePara
 
 //=================================================================================================
 
-AsciiString1 DE_ConfigurationContext::StringVal(
+AsciiString1 ConfigurationContext::StringVal(
   const AsciiString1& theParam,
   const AsciiString1& theDefValue,
   const AsciiString1& theScope) const
@@ -275,7 +275,7 @@ AsciiString1 DE_ConfigurationContext::StringVal(
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::GetReal(const AsciiString1& theParam,
+Standard_Boolean ConfigurationContext::GetReal(const AsciiString1& theParam,
                                                   Standard_Real&                 theValue,
                                                   const AsciiString1& theScope) const
 {
@@ -294,7 +294,7 @@ Standard_Boolean DE_ConfigurationContext::GetReal(const AsciiString1& theParam,
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::GetInteger(const AsciiString1& theParam,
+Standard_Boolean ConfigurationContext::GetInteger(const AsciiString1& theParam,
                                                      Standard_Integer&              theValue,
                                                      const AsciiString1& theScope) const
 {
@@ -313,7 +313,7 @@ Standard_Boolean DE_ConfigurationContext::GetInteger(const AsciiString1& thePara
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::GetBoolean(const AsciiString1& theParam,
+Standard_Boolean ConfigurationContext::GetBoolean(const AsciiString1& theParam,
                                                      Standard_Boolean&              theValue,
                                                      const AsciiString1& theScope) const
 {
@@ -332,7 +332,7 @@ Standard_Boolean DE_ConfigurationContext::GetBoolean(const AsciiString1& thePara
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::GetString(const AsciiString1& theParam,
+Standard_Boolean ConfigurationContext::GetString(const AsciiString1& theParam,
                                                     AsciiString1&       theStr,
                                                     const AsciiString1& theScope) const
 {
@@ -342,7 +342,7 @@ Standard_Boolean DE_ConfigurationContext::GetString(const AsciiString1& theParam
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::GetStringSeq(
+Standard_Boolean ConfigurationContext::GetStringSeq(
   const AsciiString1& theParam,
   TColStd_ListOfAsciiString&     theValue,
   const AsciiString1& theScope) const
@@ -372,7 +372,7 @@ Standard_Boolean DE_ConfigurationContext::GetStringSeq(
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::load(const AsciiString1& theResourceLine)
+Standard_Boolean ConfigurationContext::load(const AsciiString1& theResourceLine)
 {
   if (theResourceLine.IsEmpty())
   {

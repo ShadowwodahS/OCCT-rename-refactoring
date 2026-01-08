@@ -25,7 +25,7 @@
 class IGESData_NodeOfSpecificLib;
 class Standard_NoSuchObject;
 class IGESData_IGESEntity;
-class IGESData_SpecificModule;
+class SpecificModule;
 class IGESData_Protocol;
 class IGESData_GlobalNodeOfSpecificLib;
 class RefObject;
@@ -37,7 +37,7 @@ public:
 
   //! Adds a couple (Module-Protocol) into the global definition set
   //! for this class of Library.
-  Standard_EXPORT static void SetGlobal(const Handle(IGESData_SpecificModule)& amodule,
+  Standard_EXPORT static void SetGlobal(const Handle(SpecificModule)& amodule,
                                         const Handle(IGESData_Protocol)&       aprotocol);
 
   //! Creates a Library which complies with a Protocol, that is :
@@ -71,7 +71,7 @@ public:
   //! If Select has failed, <module> is Null Handle and CN is zero.
   //! (Select can work on any criterium, such as Object DynamicType)
   Standard_EXPORT Standard_Boolean Select(const Handle(IGESData_IGESEntity)& obj,
-                                          Handle(IGESData_SpecificModule)&   module,
+                                          Handle(SpecificModule)&   module,
                                           Standard_Integer&                  CN) const;
 
   //! Starts Iteration on the Modules (sets it on the first one)
@@ -85,7 +85,7 @@ public:
   Standard_EXPORT void Next();
 
   //! Returns the current Module in the Iteration
-  Standard_EXPORT const Handle(IGESData_SpecificModule)& Module() const;
+  Standard_EXPORT const Handle(SpecificModule)& Module() const;
 
   //! Returns the current Protocol in the Iteration
   Standard_EXPORT const Handle(IGESData_Protocol)& Protocol() const;

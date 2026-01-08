@@ -48,8 +48,8 @@ void TabularDataTool::ReadOwnParams(const Handle(IGESDefs_TabularData)& ent,
   Standard_Integer                         nbIndeps;
   Handle(TColStd_HArray1OfInteger)         typesInd;
   Handle(TColStd_HArray1OfInteger)         nbValuesInd;
-  Handle(IGESBasic_HArray1OfHArray1OfReal) valuesInd;
-  Handle(IGESBasic_HArray1OfHArray1OfReal) valuesDep;
+  Handle(HArray1OfHArray1OfReal) valuesInd;
+  Handle(HArray1OfHArray1OfReal) valuesDep;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 moved down
   Standard_Integer i;
 
@@ -61,12 +61,12 @@ void TabularDataTool::ReadOwnParams(const Handle(IGESDefs_TabularData)& ent,
 
   Standard_Boolean st = PR.ReadInteger(PR.Current(), "No. of dependent variables", nbDeps);
   if (st && nbDeps > 0)
-    valuesDep = new IGESBasic_HArray1OfHArray1OfReal(1, nbDeps);
+    valuesDep = new HArray1OfHArray1OfReal(1, nbDeps);
 
   st = PR.ReadInteger(PR.Current(), "No. of Independent variables", nbIndeps);
   if (st && nbIndeps > 0)
   {
-    valuesInd   = new IGESBasic_HArray1OfHArray1OfReal(1, nbIndeps);
+    valuesInd   = new HArray1OfHArray1OfReal(1, nbIndeps);
     typesInd    = new TColStd_HArray1OfInteger(1, nbIndeps);
     nbValuesInd = new TColStd_HArray1OfInteger(1, nbIndeps);
   }
@@ -184,10 +184,10 @@ void TabularDataTool::OwnCopy(const Handle(IGESDefs_TabularData)& another,
   Standard_Integer                         nbIndeps    = another->NbIndependents();
   Handle(TColStd_HArray1OfInteger)         typesInd    = new TColStd_HArray1OfInteger(1, nbIndeps);
   Handle(TColStd_HArray1OfInteger)         nbValuesInd = new TColStd_HArray1OfInteger(1, nbIndeps);
-  Handle(IGESBasic_HArray1OfHArray1OfReal) valuesInd =
-    new IGESBasic_HArray1OfHArray1OfReal(1, nbIndeps);
-  Handle(IGESBasic_HArray1OfHArray1OfReal) valuesDep =
-    new IGESBasic_HArray1OfHArray1OfReal(1, nbDeps);
+  Handle(HArray1OfHArray1OfReal) valuesInd =
+    new HArray1OfHArray1OfReal(1, nbIndeps);
+  Handle(HArray1OfHArray1OfReal) valuesDep =
+    new HArray1OfHArray1OfReal(1, nbDeps);
   Standard_Integer i;
   for (i = 1; i <= nbIndeps; i++)
   {

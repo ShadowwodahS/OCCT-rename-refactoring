@@ -216,13 +216,13 @@ void RWStepBasic_RWPersonalAddress::ReadStep(const Handle(StepData_StepReaderDat
 
   // --- own field : people ---
 
-  Handle(StepBasic_HArray1OfPerson) aPeople;
+  Handle(HArray1OfPerson) aPeople;
   Handle(StepBasic_Person)          anent13;
   Standard_Integer                  nsub13;
   if (data->ReadSubList(num, 13, "people", ach, nsub13))
   {
     Standard_Integer nb13 = data->NbParams(nsub13);
-    aPeople               = new StepBasic_HArray1OfPerson(1, nb13);
+    aPeople               = new HArray1OfPerson(1, nb13);
     for (Standard_Integer i13 = 1; i13 <= nb13; i13++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat13 =` not needed

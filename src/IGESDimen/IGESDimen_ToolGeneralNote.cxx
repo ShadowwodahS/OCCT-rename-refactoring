@@ -56,7 +56,7 @@ void GeneralNoteTool::ReadOwnParams(const Handle(IGESDimen_GeneralNote)&   ent,
   Handle(TColStd_HArray1OfReal)           boxWidths;
   Handle(TColStd_HArray1OfReal)           boxHeights;
   Handle(TColStd_HArray1OfInteger)        fontCodes;
-  Handle(IGESGraph_HArray1OfTextFontDef)  fontEntities;
+  Handle(HArray1OfTextFontDef)  fontEntities;
   Handle(TColStd_HArray1OfReal)           slantAngles;
   Handle(TColStd_HArray1OfReal)           rotationAngles;
   Handle(TColStd_HArray1OfInteger)        mirrorFlags;
@@ -71,7 +71,7 @@ void GeneralNoteTool::ReadOwnParams(const Handle(IGESDimen_GeneralNote)&   ent,
     boxWidths      = new TColStd_HArray1OfReal(1, nbval);
     boxHeights     = new TColStd_HArray1OfReal(1, nbval);
     fontCodes      = new TColStd_HArray1OfInteger(1, nbval);
-    fontEntities   = new IGESGraph_HArray1OfTextFontDef(1, nbval);
+    fontEntities   = new HArray1OfTextFontDef(1, nbval);
     slantAngles    = new TColStd_HArray1OfReal(1, nbval);
     rotationAngles = new TColStd_HArray1OfReal(1, nbval);
     mirrorFlags    = new TColStd_HArray1OfInteger(1, nbval);
@@ -238,7 +238,7 @@ void GeneralNoteTool::OwnCopy(const Handle(IGESDimen_GeneralNote)& another,
   Handle(TColStd_HArray1OfReal)           boxWidths;
   Handle(TColStd_HArray1OfReal)           boxHeights;
   Handle(TColStd_HArray1OfInteger)        fontCodes;
-  Handle(IGESGraph_HArray1OfTextFontDef)  fontEntities;
+  Handle(HArray1OfTextFontDef)  fontEntities;
   Handle(TColStd_HArray1OfReal)           slantAngles;
   Handle(TColStd_HArray1OfReal)           rotationAngles;
   Handle(TColStd_HArray1OfInteger)        mirrorFlags;
@@ -250,7 +250,7 @@ void GeneralNoteTool::OwnCopy(const Handle(IGESDimen_GeneralNote)& another,
   boxWidths      = new TColStd_HArray1OfReal(1, nbval);
   boxHeights     = new TColStd_HArray1OfReal(1, nbval);
   fontCodes      = new TColStd_HArray1OfInteger(1, nbval);
-  fontEntities   = new IGESGraph_HArray1OfTextFontDef(1, nbval);
+  fontEntities   = new HArray1OfTextFontDef(1, nbval);
   slantAngles    = new TColStd_HArray1OfReal(1, nbval);
   rotationAngles = new TColStd_HArray1OfReal(1, nbval);
   mirrorFlags    = new TColStd_HArray1OfInteger(1, nbval);

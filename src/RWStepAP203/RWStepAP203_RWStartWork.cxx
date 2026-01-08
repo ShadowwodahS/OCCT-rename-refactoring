@@ -52,13 +52,13 @@ void RWStepAP203_RWStartWork::ReadStep(const Handle(StepData_StepReaderData)& da
 
   // Own fields of StartWork
 
-  Handle(StepAP203_HArray1OfWorkItem) aItems;
+  Handle(HArray1OfWorkItem) aItems;
   Standard_Integer                    sub2 = 0;
   if (data->ReadSubList(num, 2, "items", ach, sub2))
   {
     Standard_Integer num2 = sub2;
     Standard_Integer nb0  = data->NbParams(num2);
-    aItems                = new StepAP203_HArray1OfWorkItem(1, nb0);
+    aItems                = new HArray1OfWorkItem(1, nb0);
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
       StepAP203_WorkItem anIt0;

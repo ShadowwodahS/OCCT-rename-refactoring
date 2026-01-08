@@ -17,6 +17,6 @@
 #include <DESTEP_Parameters.hxx>
 
 Standard_DEPRECATED("Deprecated alias to moved class")
-typedef DESTEP_Parameters StepData_ConfParameters;
+typedef Parameters2 StepData_ConfParameters;
 
 #endif // _StepData_ConfParameters_HeaderFile

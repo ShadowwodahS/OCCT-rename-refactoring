@@ -73,14 +73,14 @@ void RWStepBasic_RWProductDefinitionWithAssociatedDocuments::ReadStep(
 
   // --- own field : doc_ids ---
 
-  Handle(StepBasic_HArray1OfDocument) aDocIds;
+  Handle(HArray1OfDocument) aDocIds;
   Handle(StepBasic_Document)          anent5;
   Standard_Integer                    nsub5;
   if (data->ReadSubList(num, 5, "frame_of_reference", ach, nsub5))
   {
     Standard_Integer nb5 = data->NbParams(nsub5);
     if (nb5 > 0)
-      aDocIds = new StepBasic_HArray1OfDocument(1, nb5);
+      aDocIds = new HArray1OfDocument(1, nb5);
     for (Standard_Integer i5 = 1; i5 <= nb5; i5++)
     {
       // szv#4:S4163:12Mar `99Standard_Boolean stat5 =` not needed

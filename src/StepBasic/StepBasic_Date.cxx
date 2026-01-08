@@ -14,22 +14,22 @@
 #include <Standard_Type.hxx>
 #include <StepBasic_Date.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Date, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Date1, RefObject)
 
-StepBasic_Date::StepBasic_Date() {}
+Date1::Date1() {}
 
-void StepBasic_Date::Init(const Standard_Integer aYearComponent)
+void Date1::Init(const Standard_Integer aYearComponent)
 {
   // --- classe own fields ---
   yearComponent = aYearComponent;
 }
 
-void StepBasic_Date::SetYearComponent(const Standard_Integer aYearComponent)
+void Date1::SetYearComponent(const Standard_Integer aYearComponent)
 {
   yearComponent = aYearComponent;
 }
 
-Standard_Integer StepBasic_Date::YearComponent() const
+Standard_Integer Date1::YearComponent() const
 {
   return yearComponent;
 }

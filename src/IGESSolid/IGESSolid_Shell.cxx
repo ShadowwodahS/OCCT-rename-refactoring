@@ -24,7 +24,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESSolid_Shell, IGESData_IGESEntity)
 
 IGESSolid_Shell::IGESSolid_Shell() {}
 
-void IGESSolid_Shell::Init(const Handle(IGESSolid_HArray1OfFace)&  Faces,
+void IGESSolid_Shell::Init(const Handle(HArray1OfFace)&  Faces,
                            const Handle(TColStd_HArray1OfInteger)& Orient)
 {
   if (Faces->Lower() != 1 || Orient->Lower() != 1 || Faces->Length() != Orient->Length())

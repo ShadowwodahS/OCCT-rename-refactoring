@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESBasic_ExternalRefFileIndex, IGESData_IGESEntity)
 IGESBasic_ExternalRefFileIndex::IGESBasic_ExternalRefFileIndex() {}
 
 void IGESBasic_ExternalRefFileIndex::Init(const Handle(Interface_HArray1OfHAsciiString)& aNameArray,
-                                          const Handle(IGESData_HArray1OfIGESEntity)& allEntities)
+                                          const Handle(HArray1OfIGESEntity)& allEntities)
 {
   if (aNameArray->Lower() != 1 || allEntities->Lower() != 1
       || aNameArray->Length() != allEntities->Length())

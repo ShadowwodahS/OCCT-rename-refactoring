@@ -52,7 +52,7 @@ DEGLTF_Provider::DEGLTF_Provider() {}
 
 //=================================================================================================
 
-DEGLTF_Provider::DEGLTF_Provider(const Handle(DE_ConfigurationNode)& theNode)
+DEGLTF_Provider::DEGLTF_Provider(const Handle(ConfigurationNode)& theNode)
     : DE_Provider(theNode)
 {
 }
@@ -159,7 +159,7 @@ bool DEGLTF_Provider::Write(const AsciiString1&  thePath,
 
   AsciiString1 anExt = thePath;
   anExt.LowerCase();
-  RWGltf_CafWriter aWriter(thePath, anExt.EndsWith(".glb"));
+  GLTFCafWriter aWriter(thePath, anExt.EndsWith(".glb"));
   aWriter.SetCoordinateSystemConverter(aConverter);
   aWriter.SetTransformationFormat(aNode->InternalParameters.WriteTrsfFormat);
   aWriter.SetNodeNameFormat(aNode->InternalParameters.WriteNodeNameFormat);

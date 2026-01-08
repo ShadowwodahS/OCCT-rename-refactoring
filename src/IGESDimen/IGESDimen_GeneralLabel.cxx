@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESDimen_GeneralLabel, IGESData_IGESEntity)
 IGESDimen_GeneralLabel::IGESDimen_GeneralLabel() {}
 
 void IGESDimen_GeneralLabel::Init(const Handle(IGESDimen_GeneralNote)&          aNote,
-                                  const Handle(IGESDimen_HArray1OfLeaderArrow)& someLeaders)
+                                  const Handle(HArray1OfLeaderArrow)& someLeaders)
 {
   if (someLeaders->Lower() != 1)
     throw Standard_DimensionMismatch("IGESDimen_GeneralLabel : Init");

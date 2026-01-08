@@ -21,9 +21,9 @@ IMPLEMENT_STANDARD_RTTIEXT(StepAP214_AutoDesignActualDateAssignment, StepBasic_D
 StepAP214_AutoDesignActualDateAssignment::StepAP214_AutoDesignActualDateAssignment() {}
 
 void StepAP214_AutoDesignActualDateAssignment::Init(
-  const Handle(StepBasic_Date)&                         aAssignedDate,
+  const Handle(Date1)&                         aAssignedDate,
   const Handle(StepBasic_DateRole)&                     aRole,
-  const Handle(StepAP214_HArray1OfAutoDesignDatedItem)& aItems)
+  const Handle(HArray1OfAutoDesignDatedItem)& aItems)
 {
   // --- classe own fields ---
   items = aItems;
@@ -32,12 +32,12 @@ void StepAP214_AutoDesignActualDateAssignment::Init(
 }
 
 void StepAP214_AutoDesignActualDateAssignment::SetItems(
-  const Handle(StepAP214_HArray1OfAutoDesignDatedItem)& aItems)
+  const Handle(HArray1OfAutoDesignDatedItem)& aItems)
 {
   items = aItems;
 }
 
-Handle(StepAP214_HArray1OfAutoDesignDatedItem) StepAP214_AutoDesignActualDateAssignment::Items()
+Handle(HArray1OfAutoDesignDatedItem) StepAP214_AutoDesignActualDateAssignment::Items()
   const
 {
   return items;

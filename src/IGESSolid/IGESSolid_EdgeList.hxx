@@ -52,10 +52,10 @@ public:
   //! corresponding vertex list
   //! raises exception if size of curves,startVertexList,startVertexIndex,
   //! endVertexList and endVertexIndex do no match
-  Standard_EXPORT void Init(const Handle(IGESData_HArray1OfIGESEntity)&  curves,
-                            const Handle(IGESSolid_HArray1OfVertexList)& startVertexList,
+  Standard_EXPORT void Init(const Handle(HArray1OfIGESEntity)&  curves,
+                            const Handle(HArray1OfVertexList)& startVertexList,
                             const Handle(TColStd_HArray1OfInteger)&      startVertexIndex,
-                            const Handle(IGESSolid_HArray1OfVertexList)& endVertexList,
+                            const Handle(HArray1OfVertexList)& endVertexList,
                             const Handle(TColStd_HArray1OfInteger)&      endVertexIndex);
 
   //! returns the number of edges in the edge list
@@ -87,10 +87,10 @@ public:
 
 protected:
 private:
-  Handle(IGESData_HArray1OfIGESEntity)  theCurves;
-  Handle(IGESSolid_HArray1OfVertexList) theStartVertexList;
+  Handle(HArray1OfIGESEntity)  theCurves;
+  Handle(HArray1OfVertexList) theStartVertexList;
   Handle(TColStd_HArray1OfInteger)      theStartVertexIndex;
-  Handle(IGESSolid_HArray1OfVertexList) theEndVertexList;
+  Handle(HArray1OfVertexList) theEndVertexList;
   Handle(TColStd_HArray1OfInteger)      theEndVertexIndex;
 };
 

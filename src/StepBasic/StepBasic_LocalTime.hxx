@@ -22,7 +22,7 @@
 
 #include <Standard_Integer.hxx>
 #include <Standard_Transient.hxx>
-class StepBasic_CoordinatedUniversalTimeOffset;
+class TimeOffset;
 
 class StepBasic_LocalTime;
 DEFINE_STANDARD_HANDLE(StepBasic_LocalTime, RefObject)
@@ -39,7 +39,7 @@ public:
                             const Standard_Integer aMinuteComponent,
                             const Standard_Boolean hasAsecondComponent,
                             const Standard_Real    aSecondComponent,
-                            const Handle(StepBasic_CoordinatedUniversalTimeOffset)& aZone);
+                            const Handle(TimeOffset)& aZone);
 
   Standard_EXPORT void SetHourComponent(const Standard_Integer aHourComponent);
 
@@ -61,9 +61,9 @@ public:
 
   Standard_EXPORT Standard_Boolean HasSecondComponent() const;
 
-  Standard_EXPORT void SetZone(const Handle(StepBasic_CoordinatedUniversalTimeOffset)& aZone);
+  Standard_EXPORT void SetZone(const Handle(TimeOffset)& aZone);
 
-  Standard_EXPORT Handle(StepBasic_CoordinatedUniversalTimeOffset) Zone() const;
+  Standard_EXPORT Handle(TimeOffset) Zone() const;
 
   DEFINE_STANDARD_RTTIEXT(StepBasic_LocalTime, RefObject)
 
@@ -72,7 +72,7 @@ private:
   Standard_Integer                                 hourComponent;
   Standard_Integer                                 minuteComponent;
   Standard_Real                                    secondComponent;
-  Handle(StepBasic_CoordinatedUniversalTimeOffset) zone;
+  Handle(TimeOffset) zone;
   Standard_Boolean                                 hasMinuteComponent;
   Standard_Boolean                                 hasSecondComponent;
 };

@@ -40,11 +40,11 @@ public:
 
   Standard_EXPORT void Init(
     const Handle(StepBasic_SecurityClassification)& aAssignedSecurityClassification,
-    const Handle(StepBasic_HArray1OfApproval)&      aItems);
+    const Handle(HArray1OfApproval)&      aItems);
 
-  Standard_EXPORT void SetItems(const Handle(StepBasic_HArray1OfApproval)& aItems);
+  Standard_EXPORT void SetItems(const Handle(HArray1OfApproval)& aItems);
 
-  Standard_EXPORT Handle(StepBasic_HArray1OfApproval) Items() const;
+  Standard_EXPORT Handle(HArray1OfApproval) Items() const;
 
   Standard_EXPORT Handle(StepBasic_Approval) ItemsValue(const Standard_Integer num) const;
 
@@ -55,7 +55,7 @@ public:
 
 protected:
 private:
-  Handle(StepBasic_HArray1OfApproval) items;
+  Handle(HArray1OfApproval) items;
 };
 
 #endif // _StepAP214_AutoDesignSecurityClassificationAssignment_HeaderFile

@@ -40,12 +40,12 @@
 //! To use it, create descendant class and implement interface methods.
 //!
 //! Call method Read() to read the file.
-class RWObj_Reader : public RefObject
+class Reader2 : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(RWObj_Reader, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Reader2, RefObject)
 public:
   //! Empty constructor.
-  Standard_EXPORT RWObj_Reader();
+  Standard_EXPORT Reader2();
 
   //! Open stream and pass it to Read method
   //! Returns true if success, false on error.
@@ -157,7 +157,7 @@ protected:
   //! @param theMesh   mesh definition
   //! @param theReason reason to create new sub-mesh
   //! @return TRUE if new sub-mesh should be started since this point
-  virtual Standard_Boolean addMesh(const RWObj_SubMesh&      theMesh,
+  virtual Standard_Boolean addMesh(const OBJSubMesh&      theMesh,
                                    const RWObj_SubMeshReason theReason) = 0;
 
   //! Retrieve sub-mesh node position, added by addNode().
@@ -386,10 +386,10 @@ protected:
   NCollection_Vector<Graphic3d_Vec2> myObjVertsUV; //!< temporary vector of UV parameters
   NCollection_Vector<Graphic3d_Vec3> myObjNorms;   //!< temporary vector of normals
   NCollection_DataMap<Graphic3d_Vec3i, Standard_Integer, ObjVec3iHasher1> myPackedIndices;
-  NCollection_DataMap<AsciiString1, RWObj_Material>
+  NCollection_DataMap<AsciiString1, Material1>
     myMaterials; //!< map of known materials
 
-  RWObj_SubMesh                 myActiveSubMesh; //!< active sub-mesh definition
+  OBJSubMesh                 myActiveSubMesh; //!< active sub-mesh definition
   std::vector<Standard_Integer> myCurrElem;      //!< indices for the current element
 };
 

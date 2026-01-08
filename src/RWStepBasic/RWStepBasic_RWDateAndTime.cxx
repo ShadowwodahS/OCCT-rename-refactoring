@@ -34,9 +34,9 @@ void RWStepBasic_RWDateAndTime::ReadStep(const Handle(StepData_StepReaderData)& 
 
   // --- own field : dateComponent ---
 
-  Handle(StepBasic_Date) aDateComponent;
+  Handle(Date1) aDateComponent;
   // szv#4:S4163:12Mar99 `Standard_Boolean stat1 =` not needed
-  data->ReadEntity(num, 1, "date_component", ach, STANDARD_TYPE(StepBasic_Date), aDateComponent);
+  data->ReadEntity(num, 1, "date_component", ach, STANDARD_TYPE(Date1), aDateComponent);
 
   // --- own field : timeComponent ---
 

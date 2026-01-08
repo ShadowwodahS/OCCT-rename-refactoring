@@ -27,7 +27,7 @@ IGESSolid_Face::IGESSolid_Face() {}
 
 void IGESSolid_Face::Init(const Handle(IGESData_IGESEntity)&     aSurface,
                           const Standard_Boolean                 OuterLoopFlag,
-                          const Handle(IGESSolid_HArray1OfLoop)& Loops)
+                          const Handle(HArray1OfLoop)& Loops)
 {
   if (Loops->Lower() != 1)
     throw Standard_DimensionMismatch("IGESSolid_Face : Init");

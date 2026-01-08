@@ -237,7 +237,7 @@ Standard_Integer AppManager::IsInSession(const UtfString& path) const
 
 PCDM_ReaderStatus AppManager::Open(const UtfString& path,
                                             Handle(AppDocument)&         theDoc,
-                                            const Handle(PCDM_ReaderFilter)&  theFilter,
+                                            const Handle(ReaderFilter)&  theFilter,
                                             const Message_ProgressRange&      theRange)
 {
   PCDM_ReaderStatus          status = PCDM_RS_DriverFailure;
@@ -285,7 +285,7 @@ PCDM_ReaderStatus AppManager::Open(const UtfString& path,
 
 PCDM_ReaderStatus AppManager::Open(Standard_IStream&                theIStream,
                                             Handle(AppDocument)&        theDoc,
-                                            const Handle(PCDM_ReaderFilter)& theFilter,
+                                            const Handle(ReaderFilter)& theFilter,
                                             const Message_ProgressRange&     theRange)
 {
   try

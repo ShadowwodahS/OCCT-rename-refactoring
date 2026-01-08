@@ -146,7 +146,7 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
   const Handle(ShapeExtend_WireData)&         scurve3d,
   const Standard_Boolean                      usescurve,
   const Standard_Boolean                      toreverse3d,
-  const Handle(IGESData_HArray1OfIGESEntity)& curves2d,
+  const Handle(HArray1OfIGESEntity)& curves2d,
   const Standard_Boolean                      toreverse2d,
   const Standard_Integer                      number,
   Handle(ShapeExtend_WireData)&               Gsewd)

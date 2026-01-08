@@ -38,7 +38,7 @@ public:
 
   //! Configure translation process
   //! @param[in] theNode object to copy
-  Standard_EXPORT DESTEP_Provider(const Handle(DE_ConfigurationNode)& theNode);
+  Standard_EXPORT DESTEP_Provider(const Handle(ConfigurationNode)& theNode);
 
 public:
   //! Reads a CAD file, according internal configuration

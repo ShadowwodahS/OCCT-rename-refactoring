@@ -18,8 +18,8 @@
 
 //=================================================================================================
 
-LDOM_CharacterData::LDOM_CharacterData(const LDOM_BasicText&          aText,
-                                       const Handle(LDOM_MemManager)& aDoc)
+LDOM_CharacterData::LDOM_CharacterData(const BasicText&          aText,
+                                       const Handle(MemoryManager)& aDoc)
     : LDOM_Node(aText, aDoc),
       myLength(-1)
 {
@@ -56,7 +56,7 @@ LDOM_CharacterData& LDOM_CharacterData::operator=(const LDOM_CharacterData& theO
 
 void LDOM_CharacterData::setData(const LDOMString& theValue)
 {
-  LDOM_BasicText& aText = (LDOM_BasicText&)Origin();
+  BasicText& aText = (BasicText&)Origin();
   aText.SetData(theValue, myDocument);
   myLength = -1;
 }

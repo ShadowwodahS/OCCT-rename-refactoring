@@ -20,6 +20,6 @@
 #include <StepAP203_Array1OfStartRequestItem.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepAP203_HArray1OfStartRequestItem, StepAP203_Array1OfStartRequestItem)
+DEFINE_HARRAY1(HArray1OfStartRequestItem, StepAP203_Array1OfStartRequestItem)
 
 #endif

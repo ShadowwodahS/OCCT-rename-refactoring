@@ -29,7 +29,7 @@ StepAP203_CcDesignContract::StepAP203_CcDesignContract() {}
 
 void StepAP203_CcDesignContract::Init(
   const Handle(StepBasic_Contract)&                aContractAssignment_AssignedContract,
-  const Handle(StepAP203_HArray1OfContractedItem)& aItems)
+  const Handle(HArray1OfContractedItem)& aItems)
 {
   StepBasic_ContractAssignment::Init(aContractAssignment_AssignedContract);
 
@@ -38,14 +38,14 @@ void StepAP203_CcDesignContract::Init(
 
 //=================================================================================================
 
-Handle(StepAP203_HArray1OfContractedItem) StepAP203_CcDesignContract::Items() const
+Handle(HArray1OfContractedItem) StepAP203_CcDesignContract::Items() const
 {
   return theItems;
 }
 
 //=================================================================================================
 
-void StepAP203_CcDesignContract::SetItems(const Handle(StepAP203_HArray1OfContractedItem)& aItems)
+void StepAP203_CcDesignContract::SetItems(const Handle(HArray1OfContractedItem)& aItems)
 {
   theItems = aItems;
 }

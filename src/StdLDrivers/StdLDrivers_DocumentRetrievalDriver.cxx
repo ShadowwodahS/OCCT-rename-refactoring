@@ -43,7 +43,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StdLDrivers_DocumentRetrievalDriver, PCDM_RetrievalDr
 void StdLDrivers_DocumentRetrievalDriver::Read(const UtfString& theFileName,
                                                const Handle(CDM_Document)&       theNewDocument,
                                                const Handle(CDM_Application)&,
-                                               const Handle(PCDM_ReaderFilter)&,
+                                               const Handle(ReaderFilter)&,
                                                const Message_ProgressRange& /*theRange*/)
 {
   // Read header data and persistent document
@@ -81,7 +81,7 @@ Handle(StdObjMgt_Persistent) StdLDrivers_DocumentRetrievalDriver::read(
   try
   {
     OCC_CATCH_SIGNALS
-    PCDM_ReadWriter::Open(aFileDriver, theFileName, Storage_VSRead);
+    ReadWriter::Open(aFileDriver, theFileName, Storage_VSRead);
     myReaderStatus = PCDM_RS_OK;
   }
   catch (ExceptionBase const& anException)
@@ -241,7 +241,7 @@ void StdLDrivers_DocumentRetrievalDriver::Read(Standard_IStream& /*theIStream*/,
                                                const Handle(Storage_Data)& /*theStorageData*/,
                                                const Handle(CDM_Document)& /*theDoc*/,
                                                const Handle(CDM_Application)& /*theApplication*/,
-                                               const Handle(PCDM_ReaderFilter)& /*theFilter*/,
+                                               const Handle(ReaderFilter)& /*theFilter*/,
                                                const Message_ProgressRange& /*theRange*/)
 {
   throw Standard_NotImplemented(

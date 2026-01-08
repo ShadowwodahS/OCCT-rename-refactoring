@@ -49,9 +49,9 @@ void SplineSurfaceTool::ReadOwnParams(const Handle(IGESGeom_SplineSurface)& ent,
   Standard_Boolean              ubreak = Standard_False, vbreak = Standard_False;
   Handle(TColStd_HArray1OfReal) allUBreakPoints;
   Handle(TColStd_HArray1OfReal) allVBreakPoints;
-  Handle(IGESBasic_HArray2OfHArray1OfReal) allXCoeffs;
-  Handle(IGESBasic_HArray2OfHArray1OfReal) allYCoeffs;
-  Handle(IGESBasic_HArray2OfHArray1OfReal) allZCoeffs;
+  Handle(HArray2OfHArray1OfReal) allXCoeffs;
+  Handle(HArray2OfHArray1OfReal) allYCoeffs;
+  Handle(HArray2OfHArray1OfReal) allZCoeffs;
 
   // Standard_Boolean st; //szv#4:S4163:12Mar99 moved down
 
@@ -108,9 +108,9 @@ void SplineSurfaceTool::ReadOwnParams(const Handle(IGESGeom_SplineSurface)& ent,
 
   if (ubreak && vbreak)
   {
-    allXCoeffs = new IGESBasic_HArray2OfHArray1OfReal(1, allNbUSegments, 1, allNbVSegments);
-    allYCoeffs = new IGESBasic_HArray2OfHArray1OfReal(1, allNbUSegments, 1, allNbVSegments);
-    allZCoeffs = new IGESBasic_HArray2OfHArray1OfReal(1, allNbUSegments, 1, allNbVSegments);
+    allXCoeffs = new HArray2OfHArray1OfReal(1, allNbUSegments, 1, allNbVSegments);
+    allYCoeffs = new HArray2OfHArray1OfReal(1, allNbUSegments, 1, allNbVSegments);
+    allZCoeffs = new HArray2OfHArray1OfReal(1, allNbUSegments, 1, allNbVSegments);
   }
 
   Handle(TColStd_HArray1OfReal) Temp; // = new TColStd_HArray1OfReal(1, 16);
@@ -269,14 +269,14 @@ void SplineSurfaceTool::OwnCopy(const Handle(IGESGeom_SplineSurface)& another,
   for (I = 1; I <= allNbVSegments + 1; I++)
     allVBreakPoints->SetValue(I, another->VBreakPoint(I));
 
-  Handle(IGESBasic_HArray2OfHArray1OfReal) allXCoeffs =
-    new IGESBasic_HArray2OfHArray1OfReal(1, allNbUSegments, 1, allNbVSegments);
+  Handle(HArray2OfHArray1OfReal) allXCoeffs =
+    new HArray2OfHArray1OfReal(1, allNbUSegments, 1, allNbVSegments);
 
-  Handle(IGESBasic_HArray2OfHArray1OfReal) allYCoeffs =
-    new IGESBasic_HArray2OfHArray1OfReal(1, allNbUSegments, 1, allNbVSegments);
+  Handle(HArray2OfHArray1OfReal) allYCoeffs =
+    new HArray2OfHArray1OfReal(1, allNbUSegments, 1, allNbVSegments);
 
-  Handle(IGESBasic_HArray2OfHArray1OfReal) allZCoeffs =
-    new IGESBasic_HArray2OfHArray1OfReal(1, allNbUSegments, 1, allNbVSegments);
+  Handle(HArray2OfHArray1OfReal) allZCoeffs =
+    new HArray2OfHArray1OfReal(1, allNbUSegments, 1, allNbVSegments);
 
   Handle(TColStd_HArray1OfReal) temp = new TColStd_HArray1OfReal(1, 16);
 

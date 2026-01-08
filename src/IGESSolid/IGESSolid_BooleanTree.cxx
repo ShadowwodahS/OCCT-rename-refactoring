@@ -24,7 +24,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESSolid_BooleanTree, IGESData_IGESEntity)
 
 IGESSolid_BooleanTree::IGESSolid_BooleanTree() {}
 
-void IGESSolid_BooleanTree::Init(const Handle(IGESData_HArray1OfIGESEntity)& operands,
+void IGESSolid_BooleanTree::Init(const Handle(HArray1OfIGESEntity)& operands,
                                  const Handle(TColStd_HArray1OfInteger)&     operations)
 {
   if (operands->Lower() != 1 || operations->Lower() != 1

@@ -26,7 +26,7 @@ StepAP214_AutoDesignSecurityClassificationAssignment::
 
 void StepAP214_AutoDesignSecurityClassificationAssignment::Init(
   const Handle(StepBasic_SecurityClassification)& aAssignedSecurityClassification,
-  const Handle(StepBasic_HArray1OfApproval)&      aItems)
+  const Handle(HArray1OfApproval)&      aItems)
 {
   // --- classe own fields ---
   items = aItems;
@@ -35,12 +35,12 @@ void StepAP214_AutoDesignSecurityClassificationAssignment::Init(
 }
 
 void StepAP214_AutoDesignSecurityClassificationAssignment::SetItems(
-  const Handle(StepBasic_HArray1OfApproval)& aItems)
+  const Handle(HArray1OfApproval)& aItems)
 {
   items = aItems;
 }
 
-Handle(StepBasic_HArray1OfApproval) StepAP214_AutoDesignSecurityClassificationAssignment::Items()
+Handle(HArray1OfApproval) StepAP214_AutoDesignSecurityClassificationAssignment::Items()
   const
 {
   return items;

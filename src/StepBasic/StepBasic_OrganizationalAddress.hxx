@@ -61,13 +61,13 @@ public:
                             const Handle(TCollection_HAsciiString)& aElectronicMailAddress,
                             const Standard_Boolean                  hasAtelexNumber,
                             const Handle(TCollection_HAsciiString)& aTelexNumber,
-                            const Handle(StepBasic_HArray1OfOrganization)& aOrganizations,
+                            const Handle(HArray1OfOrganization)& aOrganizations,
                             const Handle(TCollection_HAsciiString)&        aDescription);
 
   Standard_EXPORT void SetOrganizations(
-    const Handle(StepBasic_HArray1OfOrganization)& aOrganizations);
+    const Handle(HArray1OfOrganization)& aOrganizations);
 
-  Standard_EXPORT Handle(StepBasic_HArray1OfOrganization) Organizations() const;
+  Standard_EXPORT Handle(HArray1OfOrganization) Organizations() const;
 
   Standard_EXPORT Handle(StepBasic_Organization) OrganizationsValue(
     const Standard_Integer num) const;
@@ -82,7 +82,7 @@ public:
 
 protected:
 private:
-  Handle(StepBasic_HArray1OfOrganization) organizations;
+  Handle(HArray1OfOrganization) organizations;
   Handle(TCollection_HAsciiString)        description;
 };
 

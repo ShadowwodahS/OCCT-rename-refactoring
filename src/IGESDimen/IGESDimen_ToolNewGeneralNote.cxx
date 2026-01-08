@@ -68,7 +68,7 @@ void NewGeneralNoteTool::ReadOwnParams(const Handle(IGESDimen_NewGeneralNote)& e
   Handle(TColStd_HArray1OfReal)           boxWidths;
   Handle(TColStd_HArray1OfReal)           boxHeights;
   Handle(TColStd_HArray1OfInteger)        charSetCodes;
-  Handle(IGESData_HArray1OfIGESEntity)    charSetEntities;
+  Handle(HArray1OfIGESEntity)    charSetEntities;
   Handle(TColStd_HArray1OfReal)           slantAngles;
   Handle(TColStd_HArray1OfReal)           rotationAngles;
   Handle(TColStd_HArray1OfInteger)        mirrorFlags;
@@ -100,7 +100,7 @@ void NewGeneralNoteTool::ReadOwnParams(const Handle(IGESDimen_NewGeneralNote)& e
     boxWidths          = new TColStd_HArray1OfReal(1, nbval);
     boxHeights         = new TColStd_HArray1OfReal(1, nbval);
     charSetCodes       = new TColStd_HArray1OfInteger(1, nbval);
-    charSetEntities    = new IGESData_HArray1OfIGESEntity(1, nbval);
+    charSetEntities    = new HArray1OfIGESEntity(1, nbval);
     slantAngles        = new TColStd_HArray1OfReal(1, nbval);
     rotationAngles     = new TColStd_HArray1OfReal(1, nbval);
     mirrorFlags        = new TColStd_HArray1OfInteger(1, nbval);
@@ -358,7 +358,7 @@ void NewGeneralNoteTool::OwnCopy(const Handle(IGESDimen_NewGeneralNote)& another
   Handle(TColStd_HArray1OfReal)           boxWidths;
   Handle(TColStd_HArray1OfReal)           boxHeights;
   Handle(TColStd_HArray1OfInteger)        charSetCodes;
-  Handle(IGESData_HArray1OfIGESEntity)    charSetEntities;
+  Handle(HArray1OfIGESEntity)    charSetEntities;
   Handle(TColStd_HArray1OfReal)           slantAngles;
   Handle(TColStd_HArray1OfReal)           rotationAngles;
   Handle(TColStd_HArray1OfInteger)        mirrorFlags;
@@ -378,7 +378,7 @@ void NewGeneralNoteTool::OwnCopy(const Handle(IGESDimen_NewGeneralNote)& another
   boxWidths          = new TColStd_HArray1OfReal(1, nbval);
   boxHeights         = new TColStd_HArray1OfReal(1, nbval);
   charSetCodes       = new TColStd_HArray1OfInteger(1, nbval);
-  charSetEntities    = new IGESData_HArray1OfIGESEntity(1, nbval);
+  charSetEntities    = new HArray1OfIGESEntity(1, nbval);
   slantAngles        = new TColStd_HArray1OfReal(1, nbval);
   rotationAngles     = new TColStd_HArray1OfReal(1, nbval);
   mirrorFlags        = new TColStd_HArray1OfInteger(1, nbval);

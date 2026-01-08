@@ -38,7 +38,7 @@ public:
 
   //! Configure translation process
   //! @param[in] theNode object to copy
-  Standard_EXPORT DEIGES_Provider(const Handle(DE_ConfigurationNode)& theNode);
+  Standard_EXPORT DEIGES_Provider(const Handle(ConfigurationNode)& theNode);
 
 public:
   //! Reads a CAD file, according internal configuration
@@ -145,15 +145,15 @@ private:
   void personizeWS(Handle(ExchangeSession)& theWS);
 
   //! Initialize static variables
-  void initStatic(const Handle(DE_ConfigurationNode)& theNode);
+  void initStatic(const Handle(ConfigurationNode)& theNode);
 
   //! Initialize static variables
-  void setStatic(const DEIGES_Parameters& theParameter);
+  void setStatic(const Parameters1& theParameter);
 
   //! Reset used interface static variables
   void resetStatic();
 
-  DEIGES_Parameters myOldValues;
+  Parameters1 myOldValues;
   int               myOldLengthUnit = 1;
 };
 

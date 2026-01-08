@@ -31,7 +31,7 @@ DEVRML_Provider::DEVRML_Provider() {}
 
 //=================================================================================================
 
-DEVRML_Provider::DEVRML_Provider(const Handle(DE_ConfigurationNode)& theNode)
+DEVRML_Provider::DEVRML_Provider(const Handle(ConfigurationNode)& theNode)
     : DE_Provider(theNode)
 {
 }

@@ -18,10 +18,10 @@
 
 #include <Standard_Type.hxx>
 
-#define Handle_TheKey Handle(IGESGraph_HArray1OfTextDisplayTemplate)
-#define TheKey IGESGraph_HArray1OfTextDisplayTemplate
+#define Handle_TheKey Handle(HArray1OfTextDisplayTemplate)
+#define TheKey HArray1OfTextDisplayTemplate
 #define TheKey_hxx <IGESGraph_HArray1OfTextDisplayTemplate.hxx>
-#define Interface_JaggedArray IGESDefs_HArray1OfHArray1OfTextDisplayTemplate
+#define Interface_JaggedArray HArray1OfHArray1OfTextTemplate
 #define Interface_JaggedArray_hxx <IGESDefs_HArray1OfHArray1OfTextDisplayTemplate.hxx>
-#define Handle_Interface_JaggedArray Handle(IGESDefs_HArray1OfHArray1OfTextDisplayTemplate)
+#define Handle_Interface_JaggedArray Handle(HArray1OfHArray1OfTextTemplate)
 #include "../Interface/Interface_JaggedArray.gxx"

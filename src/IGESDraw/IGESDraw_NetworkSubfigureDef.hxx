@@ -63,11 +63,11 @@ public:
   //! - allPointEntities : Associated Connect Point Entities
   Standard_EXPORT void Init(const Standard_Integer                        aDepth,
                             const Handle(TCollection_HAsciiString)&       aName,
-                            const Handle(IGESData_HArray1OfIGESEntity)&   allEntities,
+                            const Handle(HArray1OfIGESEntity)&   allEntities,
                             const Standard_Integer                        aTypeFlag,
                             const Handle(TCollection_HAsciiString)&       aDesignator,
                             const Handle(IGESGraph_TextDisplayTemplate)&  aTemplate,
-                            const Handle(IGESDraw_HArray1OfConnectPoint)& allPointEntities);
+                            const Handle(HArray1OfConnectPoint)& allPointEntities);
 
   //! returns Depth of Subfigure(indication the amount of nesting)
   //! Note : The Depth is inclusive of both Network Subfigure Definition
@@ -121,11 +121,11 @@ protected:
 private:
   Standard_Integer                       theDepth;
   Handle(TCollection_HAsciiString)       theName;
-  Handle(IGESData_HArray1OfIGESEntity)   theEntities;
+  Handle(HArray1OfIGESEntity)   theEntities;
   Standard_Integer                       theTypeFlag;
   Handle(TCollection_HAsciiString)       theDesignator;
   Handle(IGESGraph_TextDisplayTemplate)  theDesignatorTemplate;
-  Handle(IGESDraw_HArray1OfConnectPoint) thePointEntities;
+  Handle(HArray1OfConnectPoint) thePointEntities;
 };
 
 #endif // _IGESDraw_NetworkSubfigureDef_HeaderFile

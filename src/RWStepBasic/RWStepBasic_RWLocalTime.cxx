@@ -69,13 +69,13 @@ void RWStepBasic_RWLocalTime::ReadStep(const Handle(StepData_StepReaderData)& da
 
   // --- own field : zone ---
 
-  Handle(StepBasic_CoordinatedUniversalTimeOffset) aZone;
+  Handle(TimeOffset) aZone;
   // szv#4:S4163:12Mar99 `Standard_Boolean stat4 =` not needed
   data->ReadEntity(num,
                    4,
                    "zone",
                    ach,
-                   STANDARD_TYPE(StepBasic_CoordinatedUniversalTimeOffset),
+                   STANDARD_TYPE(TimeOffset),
                    aZone);
 
   //--- Initialisation of the read entity ---

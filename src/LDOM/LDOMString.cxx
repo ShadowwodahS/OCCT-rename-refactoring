@@ -21,7 +21,7 @@
 // purpose  : Only for hashed strings!!
 //=======================================================================
 
-LDOMString LDOMString::CreateDirectString(const char* aValue, const LDOM_MemManager& aDoc)
+LDOMString LDOMString::CreateDirectString(const char* aValue, const MemoryManager& aDoc)
 {
   LDOMString aResult;
   aResult.myPtrDoc = &aDoc;
@@ -34,7 +34,7 @@ LDOMString LDOMString::CreateDirectString(const char* aValue, const LDOM_MemMana
 // purpose  : Copy from another string with allocation in the document
 //=======================================================================
 
-LDOMString::LDOMString(const LDOMBasicString1& anOther, const Handle(LDOM_MemManager)& aDoc)
+LDOMString::LDOMString(const LDOMBasicString1& anOther, const Handle(MemoryManager)& aDoc)
     : myPtrDoc(&aDoc->Self())
 {
   myType = anOther.Type();
@@ -50,7 +50,7 @@ LDOMString::LDOMString(const LDOMBasicString1& anOther, const Handle(LDOM_MemMan
     case LDOM_AsciiDoc: {
       const char*      aString = anOther.GetString();
       Standard_Integer aLen    = (Standard_Integer)(strlen(aString) + 1);
-      myVal.ptr                = ((LDOM_MemManager*)myPtrDoc)->Allocate(aLen);
+      myVal.ptr                = ((MemoryManager*)myPtrDoc)->Allocate(aLen);
       memcpy(myVal.ptr, aString, aLen);
     }
     break;

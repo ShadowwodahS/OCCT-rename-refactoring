@@ -55,13 +55,13 @@ void RWStepAP214_RWAutoDesignNominalDateAndTimeAssignment::ReadStep(
 
   // --- own field : items ---
 
-  Handle(StepAP214_HArray1OfAutoDesignDateAndTimeItem) aItems;
+  Handle(HArray1OfAutoDesignDateTime) aItems;
   StepAP214_AutoDesignDateAndTimeItem                  aItemsItem;
   Standard_Integer                                     nsub3;
   if (data->ReadSubList(num, 3, "items", ach, nsub3))
   {
     Standard_Integer nb3 = data->NbParams(nsub3);
-    aItems               = new StepAP214_HArray1OfAutoDesignDateAndTimeItem(1, nb3);
+    aItems               = new HArray1OfAutoDesignDateTime(1, nb3);
     for (Standard_Integer i3 = 1; i3 <= nb3; i3++)
     {
       Standard_Boolean stat3 = data->ReadEntity(nsub3, i3, "items", ach, aItemsItem);

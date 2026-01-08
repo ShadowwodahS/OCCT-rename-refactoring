@@ -20,6 +20,6 @@
 #include <StepAP203_Array1OfPersonOrganizationItem.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepAP203_HArray1OfPersonOrganizationItem, StepAP203_Array1OfPersonOrganizationItem)
+DEFINE_HARRAY1(HArray1OfPersonOrgItem1, StepAP203_Array1OfPersonOrganizationItem)
 
 #endif

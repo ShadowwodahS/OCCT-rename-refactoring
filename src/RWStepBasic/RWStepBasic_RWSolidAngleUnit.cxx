@@ -33,13 +33,13 @@ void RWStepBasic_RWSolidAngleUnit::ReadStep(const Handle(StepData_StepReaderData
 
   // --- inherited field : dimensions ---
 
-  Handle(StepBasic_DimensionalExponents) aDimensions;
+  Handle(DimensionalExponents) aDimensions;
   // szv#4:S4163:12Mar99 `Standard_Boolean stat1 =` not needed
   data->ReadEntity(num,
                    1,
                    "dimensions",
                    ach,
-                   STANDARD_TYPE(StepBasic_DimensionalExponents),
+                   STANDARD_TYPE(DimensionalExponents),
                    aDimensions);
 
   //--- Initialisation of the read entity ---

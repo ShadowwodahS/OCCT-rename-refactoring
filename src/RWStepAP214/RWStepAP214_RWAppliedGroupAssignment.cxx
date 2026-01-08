@@ -53,7 +53,7 @@ void RWStepAP214_RWAppliedGroupAssignment::ReadStep(
 
   // Own fields of AppliedGroupAssignment
 
-  Handle(StepAP214_HArray1OfGroupItem) anItems;
+  Handle(HArray1OfGroupItem) anItems;
   Standard_Integer                     sub2 = 0;
   if (data->ReadSubList(num, 2, "items", ach, sub2))
   {
@@ -61,7 +61,7 @@ void RWStepAP214_RWAppliedGroupAssignment::ReadStep(
     Standard_Integer nb0  = data->NbParams(num2);
     if (nb0)
     {
-      anItems = new StepAP214_HArray1OfGroupItem(1, nb0);
+      anItems = new HArray1OfGroupItem(1, nb0);
       for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
       {
         StepAP214_GroupItem anIt0;

@@ -59,16 +59,16 @@ public:
   //! this associativity
   //! raises exception if Lengths of allViewEntities, allLineFonts,
   //! allColorValues,allColorDefinitions, allLineWeights are not same
-  Standard_EXPORT void Init(const Handle(IGESDraw_HArray1OfViewKindEntity)&  allViewEntities,
+  Standard_EXPORT void Init(const Handle(HArray1OfViewKindEntity)&  allViewEntities,
                             const Handle(TColStd_HArray1OfInteger)&          allLineFonts,
-                            const Handle(IGESBasic_HArray1OfLineFontEntity)& allLineDefinitions,
+                            const Handle(HArray1OfLineFontEntity)& allLineDefinitions,
                             const Handle(TColStd_HArray1OfInteger)&          allColorValues,
-                            const Handle(IGESGraph_HArray1OfColor)&          allColorDefinitions,
+                            const Handle(HArray1OfColor)&          allColorDefinitions,
                             const Handle(TColStd_HArray1OfInteger)&          allLineWeights,
-                            const Handle(IGESData_HArray1OfIGESEntity)&      allDisplayEntities);
+                            const Handle(HArray1OfIGESEntity)&      allDisplayEntities);
 
   //! Changes only the list of Displayed Entities (Null allowed)
-  Standard_EXPORT void InitImplied(const Handle(IGESData_HArray1OfIGESEntity)& allDisplayEntity);
+  Standard_EXPORT void InitImplied(const Handle(HArray1OfIGESEntity)& allDisplayEntity);
 
   //! Returns False (for a complex1 view)
   Standard_EXPORT Standard_Boolean IsSingle() const Standard_OVERRIDE;
@@ -125,13 +125,13 @@ public:
 
 protected:
 private:
-  Handle(IGESDraw_HArray1OfViewKindEntity)  theViewEntities;
+  Handle(HArray1OfViewKindEntity)  theViewEntities;
   Handle(TColStd_HArray1OfInteger)          theLineFonts;
-  Handle(IGESBasic_HArray1OfLineFontEntity) theLineDefinitions;
+  Handle(HArray1OfLineFontEntity) theLineDefinitions;
   Handle(TColStd_HArray1OfInteger)          theColorValues;
-  Handle(IGESGraph_HArray1OfColor)          theColorDefinitions;
+  Handle(HArray1OfColor)          theColorDefinitions;
   Handle(TColStd_HArray1OfInteger)          theLineWeights;
-  Handle(IGESData_HArray1OfIGESEntity)      theDisplayEntities;
+  Handle(HArray1OfIGESEntity)      theDisplayEntities;
 };
 
 #endif // _IGESDraw_ViewsVisibleWithAttr_HeaderFile

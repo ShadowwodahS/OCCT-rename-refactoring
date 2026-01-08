@@ -55,12 +55,12 @@ void RWStepBasic_RWConversionBasedUnitAndPlaneAngleUnit::ReadStep(
   data->NamedForComplex("NAMED_UNIT", "NMDUNT", num0, num, ach);
   if (!data->CheckNbParams(num, 1, ach, "named_unit"))
     return;
-  Handle(StepBasic_DimensionalExponents) aDimensions;
+  Handle(DimensionalExponents) aDimensions;
   data->ReadEntity(num,
                    1,
                    "dimensions",
                    ach,
-                   STANDARD_TYPE(StepBasic_DimensionalExponents),
+                   STANDARD_TYPE(DimensionalExponents),
                    aDimensions);
 
   // PLANE_ANGLE_UNIT

@@ -100,7 +100,7 @@ void STEPSelections_AssemblyExplorer::FillListWithGraph(
   const Handle(STEPSelections_AssemblyComponent)& cmp)
 {
   Handle(StepShape_ShapeDefinitionRepresentation) SDR  = cmp->GetSDR();
-  Handle(STEPSelections_HSequenceOfAssemblyLink)  list = cmp->GetList();
+  Handle(HSequenceOfAssemblyLink)  list = cmp->GetList();
   Handle(StepRepr_ProductDefinitionShape)         pdsh =
     Handle(StepRepr_ProductDefinitionShape)::DownCast(SDR->Definition().PropertyDefinition());
   if (pdsh.IsNull())
@@ -130,8 +130,8 @@ void STEPSelections_AssemblyExplorer::FillListWithGraph(
             Handle(STEPSelections_AssemblyComponent)::DownCast(myMap.FindFromIndex(index)));
         else
         {
-          Handle(STEPSelections_HSequenceOfAssemblyLink) sublist =
-            new STEPSelections_HSequenceOfAssemblyLink;
+          Handle(HSequenceOfAssemblyLink) sublist =
+            new HSequenceOfAssemblyLink;
           Handle(STEPSelections_AssemblyComponent) subCmp =
             new STEPSelections_AssemblyComponent(subSDR, sublist);
           FillListWithGraph(subCmp);
@@ -154,7 +154,7 @@ void STEPSelections_AssemblyExplorer::Init(const Interface_Graph& G)
     {
       Handle(STEPSelections_AssemblyComponent) cmp = new STEPSelections_AssemblyComponent;
       cmp->SetSDR(Handle(StepShape_ShapeDefinitionRepresentation)::DownCast(roots.Value()));
-      cmp->SetList(new STEPSelections_HSequenceOfAssemblyLink);
+      cmp->SetList(new HSequenceOfAssemblyLink);
       FillListWithGraph(cmp);
       myRoots.Append(cmp);
     }

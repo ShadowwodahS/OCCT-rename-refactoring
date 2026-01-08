@@ -20,6 +20,6 @@
 #include <IGESGraph_Array1OfColor.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(IGESGraph_HArray1OfColor, IGESGraph_Array1OfColor)
+DEFINE_HARRAY1(HArray1OfColor, IGESGraph_Array1OfColor)
 
 #endif

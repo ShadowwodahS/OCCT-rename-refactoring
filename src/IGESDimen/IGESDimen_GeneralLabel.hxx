@@ -42,7 +42,7 @@ public:
   //! - aNote       : General Note Entity
   //! - someLeaders : Associated Leader Entities
   Standard_EXPORT void Init(const Handle(IGESDimen_GeneralNote)&          aNote,
-                            const Handle(IGESDimen_HArray1OfLeaderArrow)& someLeaders);
+                            const Handle(HArray1OfLeaderArrow)& someLeaders);
 
   //! returns General Note Entity
   Standard_EXPORT Handle(IGESDimen_GeneralNote) Note() const;
@@ -59,7 +59,7 @@ public:
 protected:
 private:
   Handle(IGESDimen_GeneralNote)          theNote;
-  Handle(IGESDimen_HArray1OfLeaderArrow) theLeaders;
+  Handle(HArray1OfLeaderArrow) theLeaders;
 };
 
 #endif // _IGESDimen_GeneralLabel_HeaderFile

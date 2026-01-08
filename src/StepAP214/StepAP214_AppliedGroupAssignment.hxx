@@ -35,19 +35,19 @@ public:
 
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const Handle(StepBasic_Group)& aGroupAssignment_AssignedGroup,
-                            const Handle(StepAP214_HArray1OfGroupItem)& aItems);
+                            const Handle(HArray1OfGroupItem)& aItems);
 
   //! Returns field Items
-  Standard_EXPORT Handle(StepAP214_HArray1OfGroupItem) Items() const;
+  Standard_EXPORT Handle(HArray1OfGroupItem) Items() const;
 
   //! Set field Items
-  Standard_EXPORT void SetItems(const Handle(StepAP214_HArray1OfGroupItem)& Items);
+  Standard_EXPORT void SetItems(const Handle(HArray1OfGroupItem)& Items);
 
   DEFINE_STANDARD_RTTIEXT(StepAP214_AppliedGroupAssignment, StepBasic_GroupAssignment)
 
 protected:
 private:
-  Handle(StepAP214_HArray1OfGroupItem) theItems;
+  Handle(HArray1OfGroupItem) theItems;
 };
 
 #endif // _StepAP214_AppliedGroupAssignment_HeaderFile

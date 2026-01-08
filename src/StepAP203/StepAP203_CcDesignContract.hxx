@@ -36,19 +36,19 @@ public:
 
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const Handle(StepBasic_Contract)& aContractAssignment_AssignedContract,
-                            const Handle(StepAP203_HArray1OfContractedItem)& aItems);
+                            const Handle(HArray1OfContractedItem)& aItems);
 
   //! Returns field Items
-  Standard_EXPORT Handle(StepAP203_HArray1OfContractedItem) Items() const;
+  Standard_EXPORT Handle(HArray1OfContractedItem) Items() const;
 
   //! Set field Items
-  Standard_EXPORT void SetItems(const Handle(StepAP203_HArray1OfContractedItem)& Items);
+  Standard_EXPORT void SetItems(const Handle(HArray1OfContractedItem)& Items);
 
   DEFINE_STANDARD_RTTIEXT(StepAP203_CcDesignContract, StepBasic_ContractAssignment)
 
 protected:
 private:
-  Handle(StepAP203_HArray1OfContractedItem) theItems;
+  Handle(HArray1OfContractedItem) theItems;
 };
 
 #endif // _StepAP203_CcDesignContract_HeaderFile

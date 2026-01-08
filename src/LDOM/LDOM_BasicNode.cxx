@@ -57,19 +57,19 @@ const BasicNode* BasicNode::GetSibling() const
 
 char* db_pretty_print(const BasicNode* aBNode, int fl, char*)
 {
-  LDOM_OSStream out(128);
+  OutputStream out(128);
   switch (aBNode->getNodeType())
   {
     case LDOM_Node::ELEMENT_NODE: {
-      const LDOM_BasicElement& aBElem = *(const LDOM_BasicElement*)aBNode;
+      const BasicElement& aBElem = *(const BasicElement*)aBNode;
       if ((fl & FLITERAL) == 0)
-        out << "LDOM_BasicElement: ";
+        out << "BasicElement: ";
       out << '<' << aBElem.GetTagName();
       aBNode = aBElem.GetFirstChild();
       while (aBNode)
       {
         if (aBNode->getNodeType() == LDOM_Node::ATTRIBUTE_NODE)
-          out << ' ' << db_pretty_print((const LDOM_BasicAttribute*)aBNode, FLITERAL, 0);
+          out << ' ' << db_pretty_print((const BasicAttribute*)aBNode, FLITERAL, 0);
         aBNode = aBNode->GetSibling();
       }
       out << '>';
@@ -108,18 +108,18 @@ char* db_pretty_print(const BasicNode* aBNode, int fl, char*)
       break;
     }
     case LDOM_Node::ATTRIBUTE_NODE: {
-      const LDOM_BasicAttribute& aBAtt = *(const LDOM_BasicAttribute*)aBNode;
+      const BasicAttribute& aBAtt = *(const BasicAttribute*)aBNode;
       if ((fl & FLITERAL) == 0)
-        out << "LDOM_BasicAttribute: ";
+        out << "BasicAttribute: ";
       out << aBAtt.GetName() << '=' << db_pretty_print(&aBAtt.GetValue(), FLITERAL, 0) << std::ends;
       break;
     }
     case LDOM_Node::TEXT_NODE:
     case LDOM_Node::COMMENT_NODE:
     case LDOM_Node::CDATA_SECTION_NODE: {
-      const LDOM_BasicText& aBText = *(const LDOM_BasicText*)aBNode;
+      const BasicText& aBText = *(const BasicText*)aBNode;
       if ((fl & FLITERAL) == 0)
-        out << "LDOM_BasicText: ";
+        out << "BasicText: ";
       out << db_pretty_print(&aBText.GetData(), FLITERAL, 0) << std::ends;
       break;
     }

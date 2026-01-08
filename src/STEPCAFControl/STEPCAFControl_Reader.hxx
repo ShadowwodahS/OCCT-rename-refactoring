@@ -93,7 +93,7 @@ public:
   //! @param[in] theParams  default configuration parameters
   //! @return read status
   Standard_EXPORT IFSelect_ReturnStatus ReadFile(const Standard_CString   theFileName,
-                                                 const DESTEP_Parameters& theParams);
+                                                 const Parameters2& theParams);
 
   //! Loads a file from stream and returns the read status.
   //! @param[in] theName  auxiliary stream name
@@ -129,7 +129,7 @@ public:
   Standard_EXPORT Standard_Boolean
     Perform(const AsciiString1&  filename,
             const Handle(AppDocument)& doc,
-            const DESTEP_Parameters&        theParams,
+            const Parameters2&        theParams,
             const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Translate STEP file given by filename into the document
@@ -144,7 +144,7 @@ public:
   Standard_EXPORT Standard_Boolean
     Perform(const Standard_CString          filename,
             const Handle(AppDocument)& doc,
-            const DESTEP_Parameters&        theParams,
+            const Parameters2&        theParams,
             const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Returns data on external files

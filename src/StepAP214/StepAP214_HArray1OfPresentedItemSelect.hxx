@@ -20,6 +20,6 @@
 #include <StepAP214_Array1OfPresentedItemSelect.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepAP214_HArray1OfPresentedItemSelect, StepAP214_Array1OfPresentedItemSelect)
+DEFINE_HARRAY1(HArray1OfPresentedItemSelect, StepAP214_Array1OfPresentedItemSelect)
 
 #endif

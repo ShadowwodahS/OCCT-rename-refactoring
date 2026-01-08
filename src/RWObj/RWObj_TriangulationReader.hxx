@@ -30,14 +30,14 @@ public:
   //! @param theIsRootShape indicates that this is a root object (free shape)
   virtual void BindNamedShape(const TopoShape&            theShape,
                               const AsciiString1& theName,
-                              const RWObj_Material*          theMaterial,
+                              const Material1*          theMaterial,
                               const Standard_Boolean         theIsRootShape) = 0;
 };
 
-//! RWObj_Reader implementation dumping OBJ file into MeshTriangulation.
-class RWObj_TriangulationReader : public RWObj_Reader
+//! Reader2 implementation dumping OBJ file into MeshTriangulation.
+class RWObj_TriangulationReader : public Reader2
 {
-  DEFINE_STANDARD_RTTIEXT(RWObj_TriangulationReader, RWObj_Reader)
+  DEFINE_STANDARD_RTTIEXT(RWObj_TriangulationReader, Reader2)
 public:
   //! Constructor.
   RWObj_TriangulationReader()
@@ -60,7 +60,7 @@ public:
 
 protected:
   //! Flush active sub-mesh.
-  Standard_EXPORT virtual Standard_Boolean addMesh(const RWObj_SubMesh&      theMesh,
+  Standard_EXPORT virtual Standard_Boolean addMesh(const OBJSubMesh&      theMesh,
                                                    const RWObj_SubMeshReason theReason)
     Standard_OVERRIDE;
 

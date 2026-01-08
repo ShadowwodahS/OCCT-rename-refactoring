@@ -20,6 +20,6 @@
 #include <PCDM_Reference.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<PCDM_Reference> PCDM_SequenceOfReference;
+typedef NCollection_Sequence<Reference2> PCDM_SequenceOfReference;
 
 #endif

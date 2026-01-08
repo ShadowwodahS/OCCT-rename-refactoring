@@ -20,6 +20,6 @@
 #include <IGESDefs_Array1OfTabularData.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(IGESDefs_HArray1OfTabularData, IGESDefs_Array1OfTabularData)
+DEFINE_HARRAY1(HArray1OfTabularData, IGESDefs_Array1OfTabularData)
 
 #endif

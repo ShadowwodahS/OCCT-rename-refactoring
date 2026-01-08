@@ -25,14 +25,14 @@
 #include <IGESGraph_HArray1OfTextDisplayTemplate.hxx>
 #include <Standard_Integer.hxx>
 
-class IGESDefs_HArray1OfHArray1OfTextDisplayTemplate;
-DEFINE_STANDARD_HANDLE(IGESDefs_HArray1OfHArray1OfTextDisplayTemplate, RefObject)
+class HArray1OfHArray1OfTextTemplate;
+DEFINE_STANDARD_HANDLE(HArray1OfHArray1OfTextTemplate, RefObject)
 
-class IGESDefs_HArray1OfHArray1OfTextDisplayTemplate : public RefObject
+class HArray1OfHArray1OfTextTemplate : public RefObject
 {
 
 public:
-  Standard_EXPORT IGESDefs_HArray1OfHArray1OfTextDisplayTemplate(const Standard_Integer low,
+  Standard_EXPORT HArray1OfHArray1OfTextTemplate(const Standard_Integer low,
                                                                  const Standard_Integer up);
 
   Standard_EXPORT Standard_Integer Lower() const;
@@ -42,12 +42,12 @@ public:
   Standard_EXPORT Standard_Integer Length() const;
 
   Standard_EXPORT void SetValue(const Standard_Integer                                num,
-                                const Handle(IGESGraph_HArray1OfTextDisplayTemplate)& val);
+                                const Handle(HArray1OfTextDisplayTemplate)& val);
 
-  Standard_EXPORT Handle(IGESGraph_HArray1OfTextDisplayTemplate) Value(
+  Standard_EXPORT Handle(HArray1OfTextDisplayTemplate) Value(
     const Standard_Integer num) const;
 
-  DEFINE_STANDARD_RTTI_INLINE(IGESDefs_HArray1OfHArray1OfTextDisplayTemplate, RefObject)
+  DEFINE_STANDARD_RTTI_INLINE(HArray1OfHArray1OfTextTemplate, RefObject)
 
 protected:
 private:

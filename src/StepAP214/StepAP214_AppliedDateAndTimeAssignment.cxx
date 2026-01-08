@@ -23,7 +23,7 @@ StepAP214_AppliedDateAndTimeAssignment::StepAP214_AppliedDateAndTimeAssignment()
 void StepAP214_AppliedDateAndTimeAssignment::Init(
   const Handle(StepBasic_DateAndTime)&              aAssignedDateAndTime,
   const Handle(StepBasic_DateTimeRole)&             aRole,
-  const Handle(StepAP214_HArray1OfDateAndTimeItem)& aItems)
+  const Handle(HArray1OfDateAndTimeItem)& aItems)
 {
   // --- classe own fields ---
   items = aItems;
@@ -32,12 +32,12 @@ void StepAP214_AppliedDateAndTimeAssignment::Init(
 }
 
 void StepAP214_AppliedDateAndTimeAssignment::SetItems(
-  const Handle(StepAP214_HArray1OfDateAndTimeItem)& aItems)
+  const Handle(HArray1OfDateAndTimeItem)& aItems)
 {
   items = aItems;
 }
 
-Handle(StepAP214_HArray1OfDateAndTimeItem) StepAP214_AppliedDateAndTimeAssignment::Items() const
+Handle(HArray1OfDateAndTimeItem) StepAP214_AppliedDateAndTimeAssignment::Items() const
 {
   return items;
 }

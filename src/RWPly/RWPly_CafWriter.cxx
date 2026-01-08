@@ -126,7 +126,7 @@ bool RWPly_CafWriter::Perform(const Handle(AppDocument)&             theDocument
   }
 
   CLocaleSentry aLocaleSentry;
-  RWPly_PlyWriterContext aPlyCtx;
+  PLYWriterContext aPlyCtx;
   aPlyCtx.SetDoublePrecision(myIsDoublePrec);
   aPlyCtx.SetNormals(myHasNormals);
   aPlyCtx.SetColors(myHasColors);
@@ -195,7 +195,7 @@ void RWPly_CafWriter::addFaceInfo(const RWMesh_FaceIterator& theFace,
 
 //=================================================================================================
 
-bool RWPly_CafWriter::writeShape(RWPly_PlyWriterContext&    theWriter,
+bool RWPly_CafWriter::writeShape(PLYWriterContext&    theWriter,
                                  Message_LazyProgressScope& thePSentry,
                                  const Standard_Integer     theWriteStep,
                                  const DataLabel&           theLabel,
@@ -225,7 +225,7 @@ bool RWPly_CafWriter::writeShape(RWPly_PlyWriterContext&    theWriter,
 
 //=================================================================================================
 
-bool RWPly_CafWriter::writeNodes(RWPly_PlyWriterContext&    theWriter,
+bool RWPly_CafWriter::writeNodes(PLYWriterContext&    theWriter,
                                  Message_LazyProgressScope& thePSentry,
                                  const RWMesh_FaceIterator& theFace)
 {
@@ -270,7 +270,7 @@ bool RWPly_CafWriter::writeNodes(RWPly_PlyWriterContext&    theWriter,
 
 //=================================================================================================
 
-bool RWPly_CafWriter::writeIndices(RWPly_PlyWriterContext&    theWriter,
+bool RWPly_CafWriter::writeIndices(PLYWriterContext&    theWriter,
                                    Message_LazyProgressScope& thePSentry,
                                    const RWMesh_FaceIterator& theFace)
 {

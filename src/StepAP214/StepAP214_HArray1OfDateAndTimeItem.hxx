@@ -20,6 +20,6 @@
 #include <StepAP214_Array1OfDateAndTimeItem.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepAP214_HArray1OfDateAndTimeItem, StepAP214_Array1OfDateAndTimeItem)
+DEFINE_HARRAY1(HArray1OfDateAndTimeItem, StepAP214_Array1OfDateAndTimeItem)
 
 #endif

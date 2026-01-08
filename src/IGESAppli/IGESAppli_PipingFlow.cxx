@@ -30,12 +30,12 @@ IGESAppli_PipingFlow::IGESAppli_PipingFlow() {}
 
 void IGESAppli_PipingFlow::Init(const Standard_Integer                         nbContextFlags,
                                 const Standard_Integer                         aFlowType,
-                                const Handle(IGESData_HArray1OfIGESEntity)&    allFlowAssocs,
-                                const Handle(IGESDraw_HArray1OfConnectPoint)&  allConnectPoints,
-                                const Handle(IGESData_HArray1OfIGESEntity)&    allJoins,
+                                const Handle(HArray1OfIGESEntity)&    allFlowAssocs,
+                                const Handle(HArray1OfConnectPoint)&  allConnectPoints,
+                                const Handle(HArray1OfIGESEntity)&    allJoins,
                                 const Handle(Interface_HArray1OfHAsciiString)& allFlowNames,
-                                const Handle(IGESGraph_HArray1OfTextDisplayTemplate)& allTextDisps,
-                                const Handle(IGESData_HArray1OfIGESEntity)& allContFlowAssocs)
+                                const Handle(HArray1OfTextDisplayTemplate)& allTextDisps,
+                                const Handle(HArray1OfIGESEntity)& allContFlowAssocs)
 {
   Standard_Integer num = allFlowAssocs->Length();
   if (allFlowAssocs->Lower() != 1 || allConnectPoints->Lower() != 1

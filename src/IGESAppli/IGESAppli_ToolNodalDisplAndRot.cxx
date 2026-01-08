@@ -49,16 +49,16 @@ void NodalDisplRotTool::ReadOwnParams(const Handle(IGESAppli_NodalDisplAndRot)& 
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
   Standard_Integer                        nbcases = 0;
   Standard_Integer                        nbnodes = 0;
-  Handle(IGESDimen_HArray1OfGeneralNote)  tempNotes;
+  Handle(HArray1OfGeneralNote)  tempNotes;
   Handle(TColStd_HArray1OfInteger)        tempNodeIdentifiers;
-  Handle(IGESAppli_HArray1OfNode)         tempNodes;
-  Handle(IGESBasic_HArray1OfHArray1OfXYZ) tempTransParam;
-  Handle(IGESBasic_HArray1OfHArray1OfXYZ) tempRotParam;
+  Handle(HArray1OfNode)         tempNodes;
+  Handle(HArray1OfHArray1OfXYZ) tempTransParam;
+  Handle(HArray1OfHArray1OfXYZ) tempRotParam;
 
   Standard_Boolean tempFlag = PR.ReadInteger(PR.Current(), "No. of analysis cases", nbcases);
   if (tempFlag)
   {
-    tempNotes = new IGESDimen_HArray1OfGeneralNote(1, nbcases);
+    tempNotes = new HArray1OfGeneralNote(1, nbcases);
     for (Standard_Integer i = 1; i <= nbcases; i++)
     {
       Handle(IGESDimen_GeneralNote) anentity;
@@ -75,9 +75,9 @@ void NodalDisplRotTool::ReadOwnParams(const Handle(IGESAppli_NodalDisplAndRot)& 
   if (PR.ReadInteger(PR.Current(), "No. of nodes", nbnodes))
   {
     tempNodeIdentifiers = new TColStd_HArray1OfInteger(1, nbnodes);
-    tempNodes           = new IGESAppli_HArray1OfNode(1, nbnodes);
-    tempTransParam      = new IGESBasic_HArray1OfHArray1OfXYZ(1, nbnodes);
-    tempRotParam        = new IGESBasic_HArray1OfHArray1OfXYZ(1, nbnodes);
+    tempNodes           = new HArray1OfNode(1, nbnodes);
+    tempTransParam      = new HArray1OfHArray1OfXYZ(1, nbnodes);
+    tempRotParam        = new HArray1OfHArray1OfXYZ(1, nbnodes);
     for (Standard_Integer j = 1; j <= nbnodes; j++)
     {
       Handle(IGESAppli_Node) aNode = new IGESAppli_Node();
@@ -160,13 +160,13 @@ void NodalDisplRotTool::OwnCopy(const Handle(IGESAppli_NodalDisplAndRot)& anothe
 {
   Standard_Integer                       nbcases = another->NbCases();
   Standard_Integer                       nbnodes = another->NbNodes();
-  Handle(IGESDimen_HArray1OfGeneralNote) aNotes  = new IGESDimen_HArray1OfGeneralNote(1, nbcases);
+  Handle(HArray1OfGeneralNote) aNotes  = new HArray1OfGeneralNote(1, nbcases);
   Handle(TColStd_HArray1OfInteger) aNodeIdentifiers = new TColStd_HArray1OfInteger(1, nbnodes);
-  Handle(IGESAppli_HArray1OfNode)  aNodes           = new IGESAppli_HArray1OfNode(1, nbnodes);
-  Handle(IGESBasic_HArray1OfHArray1OfXYZ) aTransParam =
-    new IGESBasic_HArray1OfHArray1OfXYZ(1, nbnodes);
-  Handle(IGESBasic_HArray1OfHArray1OfXYZ) aRotParam =
-    new IGESBasic_HArray1OfHArray1OfXYZ(1, nbnodes);
+  Handle(HArray1OfNode)  aNodes           = new HArray1OfNode(1, nbnodes);
+  Handle(HArray1OfHArray1OfXYZ) aTransParam =
+    new HArray1OfHArray1OfXYZ(1, nbnodes);
+  Handle(HArray1OfHArray1OfXYZ) aRotParam =
+    new HArray1OfHArray1OfXYZ(1, nbnodes);
 
   for (Standard_Integer i = 1; i <= nbnodes; i++)
   {

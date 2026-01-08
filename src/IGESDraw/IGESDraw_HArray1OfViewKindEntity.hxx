@@ -20,6 +20,6 @@
 #include <IGESDraw_Array1OfViewKindEntity.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(IGESDraw_HArray1OfViewKindEntity, IGESDraw_Array1OfViewKindEntity)
+DEFINE_HARRAY1(HArray1OfViewKindEntity, IGESDraw_Array1OfViewKindEntity)
 
 #endif

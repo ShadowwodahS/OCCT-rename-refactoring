@@ -57,13 +57,13 @@ void RWStepAP203_RWCcDesignSpecificationReference::ReadStep(
 
   // Own fields of CcDesignSpecificationReference
 
-  Handle(StepAP203_HArray1OfSpecifiedItem) aItems;
+  Handle(HArray1OfSpecifiedItem) aItems;
   Standard_Integer                         sub3 = 0;
   if (data->ReadSubList(num, 3, "items", ach, sub3))
   {
     Standard_Integer num2 = sub3;
     Standard_Integer nb0  = data->NbParams(num2);
-    aItems                = new StepAP203_HArray1OfSpecifiedItem(1, nb0);
+    aItems                = new HArray1OfSpecifiedItem(1, nb0);
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
       StepAP203_SpecifiedItem anIt0;

@@ -18,7 +18,7 @@
 #include <StepData_Simple.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepData_ESDescr, StepData_EDescr)
+IMPLEMENT_STANDARD_RTTIEXT(StepData_ESDescr, EntityDescriptor)
 
 StepData_ESDescr::StepData_ESDescr(const Standard_CString name)
     : thenom(name)

@@ -28,7 +28,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESAppli_FiniteElement, IGESData_IGESEntity)
 IGESAppli_FiniteElement::IGESAppli_FiniteElement() {}
 
 void IGESAppli_FiniteElement::Init(const Standard_Integer                  aType,
-                                   const Handle(IGESAppli_HArray1OfNode)&  allNodes,
+                                   const Handle(HArray1OfNode)&  allNodes,
                                    const Handle(TCollection_HAsciiString)& aName)
 {
   if (allNodes->Lower() != 1)

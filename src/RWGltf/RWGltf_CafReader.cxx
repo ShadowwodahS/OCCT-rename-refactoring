@@ -281,7 +281,7 @@ Standard_Boolean RWGltf_CafReader::performMesh(std::istream&                  th
 
   AsciiString1 anErrPrefix =
     AsciiString1("File '") + theFile + "' defines invalid glTF!\n";
-  RWGltf_GltfJsonParser aDoc(myRootShapes);
+  GLTFJsonParser aDoc(myRootShapes);
   aDoc.SetFilePath(theFile);
   aDoc.SetProbeHeader(theToProbe);
   aDoc.SetExternalFiles(myExternalFiles);
@@ -320,7 +320,7 @@ Standard_Boolean RWGltf_CafReader::performMesh(std::istream&                  th
       Message1::SendFail(AsciiString1("File '") + theFile + "' is empty");
       return false;
     }
-    AsciiString1 anErrDesc(RWGltf_GltfJsonParser::FormatParseError(aRes.Code()));
+    AsciiString1 anErrDesc(GLTFJsonParser::FormatParseError(aRes.Code()));
     Message1::SendFail(AsciiString1("File '") + theFile
                       + "' defines invalid JSON document!\n" + anErrDesc + " [at offset "
                       + (int)aRes.Offset() + "].");

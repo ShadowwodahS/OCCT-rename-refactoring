@@ -36,13 +36,13 @@ void RWStepAP214_RWAppliedPresentedItem::ReadStep(
 
   // --- own field : items ---
 
-  Handle(StepAP214_HArray1OfPresentedItemSelect) aItems;
+  Handle(HArray1OfPresentedItemSelect) aItems;
   StepAP214_PresentedItemSelect                  anent1;
   Standard_Integer                               nsub1;
   if (data->ReadSubList(num, 1, "items", ach, nsub1))
   {
     Standard_Integer nb1 = data->NbParams(nsub1);
-    aItems               = new StepAP214_HArray1OfPresentedItemSelect(1, nb1);
+    aItems               = new HArray1OfPresentedItemSelect(1, nb1);
     for (Standard_Integer i1 = 1; i1 <= nb1; i1++)
     {
       Standard_Boolean stat1 = data->ReadEntity(nsub1, i1, "items", ach, anent1);

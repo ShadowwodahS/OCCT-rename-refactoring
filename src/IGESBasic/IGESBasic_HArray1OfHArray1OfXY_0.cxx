@@ -21,7 +21,7 @@
 #define Handle_TheKey Handle(TColgp_HArray1OfXY)
 #define TheKey TColgp_HArray1OfXY
 #define TheKey_hxx <TColgp_HArray1OfXY.hxx>
-#define Interface_JaggedArray IGESBasic_HArray1OfHArray1OfXY
+#define Interface_JaggedArray HArray1OfHArray1OfXY
 #define Interface_JaggedArray_hxx <IGESBasic_HArray1OfHArray1OfXY.hxx>
-#define Handle_Interface_JaggedArray Handle(IGESBasic_HArray1OfHArray1OfXY)
+#define Handle_Interface_JaggedArray Handle(HArray1OfHArray1OfXY)
 #include "../Interface/Interface_JaggedArray.gxx"

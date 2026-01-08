@@ -217,13 +217,13 @@ void RWStepBasic_RWOrganizationalAddress::ReadStep(
 
   // --- own field : organizations ---
 
-  Handle(StepBasic_HArray1OfOrganization) aOrganizations;
+  Handle(HArray1OfOrganization) aOrganizations;
   Handle(StepBasic_Organization)          anent13;
   Standard_Integer                        nsub13;
   if (data->ReadSubList(num, 13, "organizations", ach, nsub13))
   {
     Standard_Integer nb13 = data->NbParams(nsub13);
-    aOrganizations        = new StepBasic_HArray1OfOrganization(1, nb13);
+    aOrganizations        = new HArray1OfOrganization(1, nb13);
     for (Standard_Integer i13 = 1; i13 <= nb13; i13++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat13 =` not needed

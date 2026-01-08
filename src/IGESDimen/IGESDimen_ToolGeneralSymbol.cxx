@@ -42,8 +42,8 @@ void GeneralSymbolTool::ReadOwnParams(const Handle(IGESDimen_GeneralSymbol)& ent
 {
   // Standard_Boolean st; //szv#4:S4163:12Mar99 moved down
   Standard_Integer                       i, num;
-  Handle(IGESData_HArray1OfIGESEntity)   tempGeoms;
-  Handle(IGESDimen_HArray1OfLeaderArrow) tempLeaders;
+  Handle(HArray1OfIGESEntity)   tempGeoms;
+  Handle(HArray1OfLeaderArrow) tempLeaders;
   Handle(IGESDimen_GeneralNote)          tempNote;
 
   if ((ent->FormNumber() == 0) && (!PR.IsParamEntity(PR.CurrentNumber())))
@@ -64,7 +64,7 @@ void GeneralSymbolTool::ReadOwnParams(const Handle(IGESDimen_GeneralSymbol)& ent
     PR.ReadEnts (IR,PR.CurrentList(num),"Geometry1 Entities",tempGeoms); //szv#4:S4163:12Mar99 `st=` not needed
     // clang-format on
     /*
-        tempGeoms = new IGESData_HArray1OfIGESEntity(1, num);
+        tempGeoms = new HArray1OfIGESEntity(1, num);
         for ( i = 1; i <= num; i++)
           {
         Handle(IGESData_IGESEntity) tempEnt;
@@ -79,7 +79,7 @@ void GeneralSymbolTool::ReadOwnParams(const Handle(IGESDimen_GeneralSymbol)& ent
   }
   st = PR.ReadInteger(PR.Current(), "Number of Leaders", num);
   if (st && num > 0)
-    tempLeaders = new IGESDimen_HArray1OfLeaderArrow(1, num);
+    tempLeaders = new HArray1OfLeaderArrow(1, num);
   else if (num < 0)
     PR.AddFail("Number of Leaders: Less than zero");
   if (!tempLeaders.IsNull())
@@ -130,18 +130,18 @@ void GeneralSymbolTool::OwnCopy(const Handle(IGESDimen_GeneralSymbol)& another,
 {
   DeclareAndCast(IGESDimen_GeneralNote, tempNote, TC.Transferred(another->Note()));
   Standard_Integer                     num       = another->NbGeomEntities();
-  Handle(IGESData_HArray1OfIGESEntity) tempGeoms = new IGESData_HArray1OfIGESEntity(1, num);
+  Handle(HArray1OfIGESEntity) tempGeoms = new HArray1OfIGESEntity(1, num);
   Standard_Integer                     i;
   for (i = 1; i <= num; i++)
   {
     DeclareAndCast(IGESData_IGESEntity, new_item, TC.Transferred(another->GeomEntity(i)));
     tempGeoms->SetValue(i, new_item);
   }
-  Handle(IGESDimen_HArray1OfLeaderArrow) tempLeaders;
+  Handle(HArray1OfLeaderArrow) tempLeaders;
   num = another->NbLeaders();
   if (num > 0)
   {
-    tempLeaders = new IGESDimen_HArray1OfLeaderArrow(1, num);
+    tempLeaders = new HArray1OfLeaderArrow(1, num);
     for (i = 1; i <= num; i++)
     {
       DeclareAndCast(IGESDimen_LeaderArrow, new_item, TC.Transferred(another->LeaderArrow(i)));

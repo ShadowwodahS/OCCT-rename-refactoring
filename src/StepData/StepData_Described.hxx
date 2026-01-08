@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 #include <Standard_Transient.hxx>
-class StepData_EDescr;
+class EntityDescriptor;
 class StepData_Simple;
 class StepData_Field;
 class Interface_Check;
@@ -37,7 +37,7 @@ class StepData_Described : public RefObject
 
 public:
   //! Returns the Description used to define this entity
-  Standard_EXPORT Handle(StepData_EDescr) Description() const;
+  Standard_EXPORT Handle(EntityDescriptor) Description() const;
 
   //! Tells if a described entity is complex1
   Standard_EXPORT virtual Standard_Boolean IsComplex() const = 0;
@@ -72,10 +72,10 @@ public:
 protected:
   //! Initializes a Described Entity from a Description
   //! (i.e. puts it in a field ...)
-  Standard_EXPORT StepData_Described(const Handle(StepData_EDescr)& descr);
+  Standard_EXPORT StepData_Described(const Handle(EntityDescriptor)& descr);
 
 private:
-  Handle(StepData_EDescr) thedescr;
+  Handle(EntityDescriptor) thedescr;
 };
 
 #endif // _StepData_Described_HeaderFile

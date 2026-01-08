@@ -21,6 +21,6 @@
 #include <StepBasic_Array1OfProductDefinition.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepBasic_HArray1OfProductDefinition, StepBasic_Array1OfProductDefinition)
+DEFINE_HARRAY1(HArray1OfProductDefinition, StepBasic_Array1OfProductDefinition)
 
 #endif

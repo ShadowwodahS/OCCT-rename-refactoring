@@ -149,7 +149,7 @@ void XmlMDataXtd_TriangulationDriver::Paste(const Handle(TDF_Attribute)& theSour
       size = 1;
 
     // Allocate a string stream.
-    LDOM_OSStream stream(size);
+    OutputStream stream(size);
     stream.precision(17);
 
     stream << nbNodes << " " << nbTriangles << " ";

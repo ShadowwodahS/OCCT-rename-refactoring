@@ -20,6 +20,6 @@
 #include <IGESDraw_Array1OfConnectPoint.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(IGESDraw_HArray1OfConnectPoint, IGESDraw_Array1OfConnectPoint)
+DEFINE_HARRAY1(HArray1OfConnectPoint, IGESDraw_Array1OfConnectPoint)
 
 #endif

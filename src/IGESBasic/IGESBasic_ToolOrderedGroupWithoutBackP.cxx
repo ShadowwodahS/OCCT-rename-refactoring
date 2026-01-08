@@ -43,7 +43,7 @@ void OrderedGroupWithoutBackPTool::ReadOwnParams(
 {
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
   Standard_Integer                     nbval = 0;
-  Handle(IGESData_HArray1OfIGESEntity) EntArray;
+  Handle(HArray1OfIGESEntity) EntArray;
 
   if (PR.ReadInteger(PR.Current(), "Count of Entities", nbval))
   { // szv#4:S4163:12Mar99 `st=` not needed
@@ -51,7 +51,7 @@ void OrderedGroupWithoutBackPTool::ReadOwnParams(
     PR.ReadEnts (IR,PR.CurrentList(nbval),"Entities",EntArray); //szv#4:S4163:12Mar99 `st=` not needed
     // clang-format on
     /*
-        EntArray = new IGESData_HArray1OfIGESEntity(1,nbval);
+        EntArray = new HArray1OfIGESEntity(1,nbval);
         for (Standard_Integer i = 1;i <= nbval;i++)
           {
         Handle(IGESData_IGESEntity) anent;
@@ -91,7 +91,7 @@ void OrderedGroupWithoutBackPTool::OwnCopy(
   Standard_Integer lower, upper;
   lower                                         = 1;
   upper                                         = another->NbEntities();
-  Handle(IGESData_HArray1OfIGESEntity) EntArray = new IGESData_HArray1OfIGESEntity(lower, upper);
+  Handle(HArray1OfIGESEntity) EntArray = new HArray1OfIGESEntity(lower, upper);
   for (Standard_Integer i = lower; i <= upper; i++)
   {
     DeclareAndCast(IGESData_IGESEntity, myentity, TC.Transferred(another->Entity(i)));
@@ -115,9 +115,9 @@ Standard_Boolean OrderedGroupWithoutBackPTool::OwnCorrect(
   }
   if (ianul == 0)
     return Standard_False;
-  Handle(IGESData_HArray1OfIGESEntity) EntArray;
+  Handle(HArray1OfIGESEntity) EntArray;
   if (ianul < nb)
-    EntArray = new IGESData_HArray1OfIGESEntity(1, nb - ianul);
+    EntArray = new HArray1OfIGESEntity(1, nb - ianul);
   for (i = 1; i <= nb; i++)
   {
     Handle(IGESData_IGESEntity) val = ent->Entity(i);

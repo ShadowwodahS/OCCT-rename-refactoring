@@ -369,7 +369,7 @@ void XmlMNaming_NamedShapeDriver::WriteShapeSection(XmlObjMgt_Element&    theEle
       myShapeSet.SetFormatNb(TopTools_FormatVersion_VERSION_1);
     }
 
-    LDOM_OSStream aStream(16 * 1024);
+    OutputStream aStream(16 * 1024);
     //    ostrstream aStream;
     //    aStream.rdbuf() -> setbuf (0, 16380);
     Message_ProgressScope aPS(theRange, "Writing shape section", 2);

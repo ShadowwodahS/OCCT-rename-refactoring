@@ -40,7 +40,7 @@ public:
   //! This method is used to set the fields of the class
   //! CompositeCurve
   //! - allEntities : Constituent Entities of the composite curve
-  Standard_EXPORT void Init(const Handle(IGESData_HArray1OfIGESEntity)& allEntities);
+  Standard_EXPORT void Init(const Handle(HArray1OfIGESEntity)& allEntities);
 
   //! returns the number of curves contained in the CompositeCurve
   Standard_EXPORT Standard_Integer NbCurves() const;
@@ -53,7 +53,7 @@ public:
 
 protected:
 private:
-  Handle(IGESData_HArray1OfIGESEntity) theEntities;
+  Handle(HArray1OfIGESEntity) theEntities;
 };
 
 #endif // _IGESGeom_CompositeCurve_HeaderFile

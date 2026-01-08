@@ -23,14 +23,14 @@
 
 #include <TCollection_ExtendedString.hxx>
 
-class PCDM_Reference
+class Reference2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT PCDM_Reference();
+  Standard_EXPORT Reference2();
 
-  Standard_EXPORT PCDM_Reference(const Standard_Integer            aReferenceIdentifier,
+  Standard_EXPORT Reference2(const Standard_Integer            aReferenceIdentifier,
                                  const UtfString& aFileName,
                                  const Standard_Integer            aDocumentVersion);
 

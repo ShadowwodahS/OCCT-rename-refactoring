@@ -131,7 +131,7 @@ private:
   STEPConstruct_AP203Context                      theAP203;
   Handle(StepGeom_Axis2Placement3d)               myAxis;
   ConversionFactors                                myGlobalFactor;
-  DESTEP_Parameters::WriteMode_StepSchema         mySchema;
+  Parameters2::WriteMode_StepSchema         mySchema;
   AsciiString1                         myProductName;
 };
 

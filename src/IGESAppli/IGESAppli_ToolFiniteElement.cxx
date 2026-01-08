@@ -44,12 +44,12 @@ void FiniteElementTool::ReadOwnParams(const Handle(IGESAppli_FiniteElement)& ent
   Handle(TCollection_HAsciiString) tempName;
   Standard_Integer                 nbval = 0;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
-  Handle(IGESAppli_HArray1OfNode) tempData;
+  Handle(HArray1OfNode) tempData;
 
   // szv#4:S4163:12Mar99 `st=` not needed
   PR.ReadInteger(PR.Current(), "Topology type", tempTopology);
   PR.ReadInteger(PR.Current(), "No. of nodes defining element", nbval);
-  tempData = new IGESAppli_HArray1OfNode(1, nbval);
+  tempData = new HArray1OfNode(1, nbval);
   for (Standard_Integer i = 1; i <= nbval; i++)
   {
     Handle(IGESAppli_Node) tempNode;
@@ -93,7 +93,7 @@ void FiniteElementTool::OwnCopy(const Handle(IGESAppli_FiniteElement)& another,
   Standard_Integer                 aTopology = another->Topology();
   Handle(TCollection_HAsciiString) aName     = new TCollection_HAsciiString(another->Name());
   Standard_Integer                 nbval     = another->NbNodes();
-  Handle(IGESAppli_HArray1OfNode)  aList     = new IGESAppli_HArray1OfNode(1, nbval);
+  Handle(HArray1OfNode)  aList     = new HArray1OfNode(1, nbval);
   for (Standard_Integer i = 1; i <= nbval; i++)
   {
     DeclareAndCast(IGESAppli_Node, aEntity, TC.Transferred(another->Node(i)));

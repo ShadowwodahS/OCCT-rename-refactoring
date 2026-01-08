@@ -41,14 +41,14 @@ void SolidAssemblyTool::ReadOwnParams(const Handle(IGESSolid_SolidAssembly)& ent
   Standard_Integer nbitems; // szv#4:S4163:12Mar99 `i` moved in for
   // Handle(IGESData_IGESEntity) anent; //szv#4:S4163:12Mar99 moved down
   // Handle(IGESGeom_TransformationMatrix) amatr; //szv#4:S4163:12Mar99 moved down
-  Handle(IGESData_HArray1OfIGESEntity)           tempItems;
-  Handle(IGESGeom_HArray1OfTransformationMatrix) tempMatrices;
+  Handle(HArray1OfIGESEntity)           tempItems;
+  Handle(HArray1OfTransformationMatrix) tempMatrices;
 
   Standard_Boolean st = PR.ReadInteger(PR.Current(), "Number of Items", nbitems);
   if (st && nbitems > 0)
   {
-    tempItems    = new IGESData_HArray1OfIGESEntity(1, nbitems);
-    tempMatrices = new IGESGeom_HArray1OfTransformationMatrix(1, nbitems);
+    tempItems    = new HArray1OfIGESEntity(1, nbitems);
+    tempMatrices = new HArray1OfTransformationMatrix(1, nbitems);
 
     Handle(IGESData_IGESEntity) anent;
     Standard_Integer            i; // svv Jan 10 2000 : porting on DEC
@@ -114,9 +114,9 @@ void SolidAssemblyTool::OwnCopy(const Handle(IGESSolid_SolidAssembly)& another,
   Handle(IGESData_IGESEntity) anent;
 
   nbitems                                        = another->NbItems();
-  Handle(IGESData_HArray1OfIGESEntity) tempItems = new IGESData_HArray1OfIGESEntity(1, nbitems);
-  Handle(IGESGeom_HArray1OfTransformationMatrix) tempMatrices =
-    new IGESGeom_HArray1OfTransformationMatrix(1, nbitems);
+  Handle(HArray1OfIGESEntity) tempItems = new HArray1OfIGESEntity(1, nbitems);
+  Handle(HArray1OfTransformationMatrix) tempMatrices =
+    new HArray1OfTransformationMatrix(1, nbitems);
 
   for (i = 1; i <= nbitems; i++)
   {

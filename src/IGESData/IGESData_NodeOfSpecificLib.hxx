@@ -23,7 +23,7 @@
 #include <Standard_Transient.hxx>
 class IGESData_GlobalNodeOfSpecificLib;
 class IGESData_IGESEntity;
-class IGESData_SpecificModule;
+class SpecificModule;
 class IGESData_Protocol;
 class IGESData_SpecificLib;
 
@@ -42,7 +42,7 @@ public:
   Standard_EXPORT void AddNode(const Handle(IGESData_GlobalNodeOfSpecificLib)& anode);
 
   //! Returns the Module designated by a precise Node
-  Standard_EXPORT const Handle(IGESData_SpecificModule)& Module() const;
+  Standard_EXPORT const Handle(SpecificModule)& Module() const;
 
   //! Returns the Protocol designated by a precise Node
   Standard_EXPORT const Handle(IGESData_Protocol)& Protocol() const;

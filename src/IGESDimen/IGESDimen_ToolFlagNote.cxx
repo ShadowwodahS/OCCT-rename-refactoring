@@ -47,7 +47,7 @@ void FlagNoteTool::ReadOwnParams(const Handle(IGESDimen_FlagNote)&      ent,
   Standard_Real                          angle;
   Handle(IGESDimen_GeneralNote)          note;
   Standard_Integer                       nbval;
-  Handle(IGESDimen_HArray1OfLeaderArrow) leaders;
+  Handle(HArray1OfLeaderArrow) leaders;
 
   // clang-format off
   PR.ReadXYZ (PR.CurrentList(1, 3), "Lower Left Corner Co-ords", lowerLeft); //szv#4:S4163:12Mar99 `st=` not needed
@@ -64,7 +64,7 @@ void FlagNoteTool::ReadOwnParams(const Handle(IGESDimen_FlagNote)&      ent,
   Standard_Boolean st = PR.ReadInteger(PR.Current(), "Number of Leaders", nbval);
   if (st && nbval > 0)
   {
-    leaders = new IGESDimen_HArray1OfLeaderArrow(1, nbval);
+    leaders = new HArray1OfLeaderArrow(1, nbval);
 
     for (Standard_Integer i = 1; i <= nbval; i++)
     {
@@ -118,11 +118,11 @@ void FlagNoteTool::OwnCopy(const Handle(IGESDimen_FlagNote)& another,
   DeclareAndCast(IGESDimen_GeneralNote, note, TC.Transferred(another->Note()));
   Standard_Integer nbval = another->NbLeaders();
 
-  Handle(IGESDimen_HArray1OfLeaderArrow) leaders;
+  Handle(HArray1OfLeaderArrow) leaders;
 
   if (nbval > 0)
   {
-    leaders = new IGESDimen_HArray1OfLeaderArrow(1, nbval);
+    leaders = new HArray1OfLeaderArrow(1, nbval);
     for (Standard_Integer i = 1; i <= nbval; i++)
     {
       DeclareAndCast(IGESDimen_LeaderArrow, new_ent, TC.Transferred(another->Leader(i)));

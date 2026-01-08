@@ -116,7 +116,7 @@ Handle(IGESData_IGESEntity) IGESDefs_AttributeTable::AttributeAsEntity(
   const Standard_Integer Rownum,
   const Standard_Integer Valuenum) const
 {
-  return GetCasted(IGESData_HArray1OfIGESEntity, theAttributes->Value(Atnum, Rownum))
+  return GetCasted(HArray1OfIGESEntity, theAttributes->Value(Atnum, Rownum))
     ->Value(Valuenum);
 }
 

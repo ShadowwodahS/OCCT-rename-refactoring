@@ -34,7 +34,7 @@
 #include <TColStd_SequenceOfExtendedString.hxx>
 #include <UTL.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(PCDM_ReadWriter_1, PCDM_ReadWriter)
+IMPLEMENT_STANDARD_RTTIEXT(PCDM_ReadWriter_1, ReadWriter)
 
 #define START_REF "START_REF"
 #define END_REF "END_REF"
@@ -247,7 +247,7 @@ Standard_Integer PCDM_ReadWriter_1::ReadReferenceCounter(
   try
   {
     OCC_CATCH_SIGNALS
-    PCDM_ReadWriter::Open(theFileDriver, aFileName, Storage_VSRead);
+    ReadWriter::Open(theFileDriver, aFileName, Storage_VSRead);
     theFileIsOpen = Standard_True;
 
     Handle(Storage_Schema) s = new Storage_Schema;
@@ -340,7 +340,7 @@ void PCDM_ReadWriter_1::ReadReferences(const UtfString& aFileName,
         theMsgDriver->Send(aMsg.ToExtString());
       }
       UtfString aPathW(thePath);
-      theReferences.Append(PCDM_Reference(theReferenceIdentifier, aPathW, theDocumentVersion));
+      theReferences.Append(Reference2(theReferenceIdentifier, aPathW, theDocumentVersion));
     }
   }
 }
@@ -369,7 +369,7 @@ void PCDM_ReadWriter_1::ReadUserInfo(const UtfString& aFileName,
   if (PCDM1::FileDriverType(aFileNameU, theFileDriver) == PCDM_TOFD_Unknown)
     return;
 
-  PCDM_ReadWriter::Open(theFileDriver, aFileName, Storage_VSRead);
+  ReadWriter::Open(theFileDriver, aFileName, Storage_VSRead);
   Handle(Storage_Schema) s = new Storage_Schema;
   Storage_HeaderData     hd;
   hd.Read(theFileDriver);
@@ -414,7 +414,7 @@ Standard_Integer PCDM_ReadWriter_1::ReadDocumentVersion(
   try
   {
     OCC_CATCH_SIGNALS
-    PCDM_ReadWriter::Open(theFileDriver, aFileName, Storage_VSRead);
+    ReadWriter::Open(theFileDriver, aFileName, Storage_VSRead);
     theFileIsOpen            = Standard_True;
     Handle(Storage_Schema) s = new Storage_Schema;
     Storage_HeaderData     hd;

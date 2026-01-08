@@ -23,19 +23,19 @@ StepAP214_AppliedDocumentReference::StepAP214_AppliedDocumentReference() {}
 void StepAP214_AppliedDocumentReference::Init(
   const Handle(StepBasic_Document)&                       aAssignedDocument,
   const Handle(TCollection_HAsciiString)&                 aSource,
-  const Handle(StepAP214_HArray1OfDocumentReferenceItem)& aItems)
+  const Handle(HArray1OfDocumentRefItem)& aItems)
 {
   Init0(aAssignedDocument, aSource);
   items = aItems;
 }
 
-Handle(StepAP214_HArray1OfDocumentReferenceItem) StepAP214_AppliedDocumentReference::Items() const
+Handle(HArray1OfDocumentRefItem) StepAP214_AppliedDocumentReference::Items() const
 {
   return items;
 }
 
 void StepAP214_AppliedDocumentReference::SetItems(
-  const Handle(StepAP214_HArray1OfDocumentReferenceItem)& aItems)
+  const Handle(HArray1OfDocumentRefItem)& aItems)
 {
   items = aItems;
 }

@@ -58,7 +58,7 @@ static void splitLines(const AsciiString1&                   theString,
 
 //=================================================================================================
 
-RWObj_ObjWriterContext::RWObj_ObjWriterContext(const AsciiString1& theName)
+OBJWriterContext::OBJWriterContext(const AsciiString1& theName)
     : NbFaces(0),
       myFile(OSD_OpenFile(theName.ToCString(), "wb")),
       myName(theName),
@@ -77,7 +77,7 @@ RWObj_ObjWriterContext::RWObj_ObjWriterContext(const AsciiString1& theName)
 
 //=================================================================================================
 
-RWObj_ObjWriterContext::~RWObj_ObjWriterContext()
+OBJWriterContext::~OBJWriterContext()
 {
   if (myFile != NULL)
   {
@@ -88,7 +88,7 @@ RWObj_ObjWriterContext::~RWObj_ObjWriterContext()
 
 //=================================================================================================
 
-bool RWObj_ObjWriterContext::Close()
+bool OBJWriterContext::Close()
 {
   bool isOk = ::fclose(myFile) == 0;
   myFile    = NULL;
@@ -97,7 +97,7 @@ bool RWObj_ObjWriterContext::Close()
 
 //=================================================================================================
 
-bool RWObj_ObjWriterContext::WriteHeader(const Standard_Integer                      theNbNodes,
+bool OBJWriterContext::WriteHeader(const Standard_Integer                      theNbNodes,
                                          const Standard_Integer                      theNbElems,
                                          const AsciiString1&              theMatLib,
                                          const TColStd_IndexedDataMapOfStringString& theFileInfo)
@@ -139,7 +139,7 @@ bool RWObj_ObjWriterContext::WriteHeader(const Standard_Integer                 
 
 //=================================================================================================
 
-bool RWObj_ObjWriterContext::WriteActiveMaterial(const AsciiString1& theMaterial)
+bool OBJWriterContext::WriteActiveMaterial(const AsciiString1& theMaterial)
 {
   myActiveMaterial = theMaterial;
   return !theMaterial.IsEmpty() ? Fprintf(myFile, "usemtl %s\n", theMaterial.ToCString()) != 0
@@ -148,7 +148,7 @@ bool RWObj_ObjWriterContext::WriteActiveMaterial(const AsciiString1& theMaterial
 
 //=================================================================================================
 
-bool RWObj_ObjWriterContext::WriteTriangle(const Graphic3d_Vec3i& theTri)
+bool OBJWriterContext::WriteTriangle(const Graphic3d_Vec3i& theTri)
 {
   const Graphic3d_Vec3i aTriPos = theTri + myElemPosFirst.xyz();
   if (myHasNormals)
@@ -204,7 +204,7 @@ bool RWObj_ObjWriterContext::WriteTriangle(const Graphic3d_Vec3i& theTri)
 
 //=================================================================================================
 
-bool RWObj_ObjWriterContext::WriteQuad(const Graphic3d_Vec4i& theQuad)
+bool OBJWriterContext::WriteQuad(const Graphic3d_Vec4i& theQuad)
 {
   const Graphic3d_Vec4i aQPos = theQuad + myElemPosFirst;
   if (myHasNormals)
@@ -267,28 +267,28 @@ bool RWObj_ObjWriterContext::WriteQuad(const Graphic3d_Vec4i& theQuad)
 
 //=================================================================================================
 
-bool RWObj_ObjWriterContext::WriteVertex(const Graphic3d_Vec3& theValue)
+bool OBJWriterContext::WriteVertex(const Graphic3d_Vec3& theValue)
 {
   return Fprintf(myFile, "v %f %f %f\n", theValue.x(), theValue.y(), theValue.z()) != 0;
 }
 
 //=================================================================================================
 
-bool RWObj_ObjWriterContext::WriteNormal(const Graphic3d_Vec3& theValue)
+bool OBJWriterContext::WriteNormal(const Graphic3d_Vec3& theValue)
 {
   return Fprintf(myFile, "vn %f %f %f\n", theValue.x(), theValue.y(), theValue.z()) != 0;
 }
 
 //=================================================================================================
 
-bool RWObj_ObjWriterContext::WriteTexCoord(const Graphic3d_Vec2& theValue)
+bool OBJWriterContext::WriteTexCoord(const Graphic3d_Vec2& theValue)
 {
   return Fprintf(myFile, "vt %f %f\n", theValue.x(), theValue.y()) != 0;
 }
 
 //=================================================================================================
 
-bool RWObj_ObjWriterContext::WriteGroup(const AsciiString1& theValue)
+bool OBJWriterContext::WriteGroup(const AsciiString1& theValue)
 {
   return !theValue.IsEmpty() ? Fprintf(myFile, "g %s\n", theValue.ToCString()) != 0
                              : Fprintf(myFile, "g\n") != 0;
@@ -296,7 +296,7 @@ bool RWObj_ObjWriterContext::WriteGroup(const AsciiString1& theValue)
 
 //=================================================================================================
 
-void RWObj_ObjWriterContext::FlushFace(Standard_Integer theNbNodes)
+void OBJWriterContext::FlushFace(Standard_Integer theNbNodes)
 {
   Graphic3d_Vec4i aShift(theNbNodes, theNbNodes, theNbNodes, theNbNodes);
   myElemPosFirst += aShift;

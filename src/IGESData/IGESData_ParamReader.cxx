@@ -1027,7 +1027,7 @@ Standard_Boolean IGESData_ParamReader::ReadTexts(const ParameterCursor&         
 Standard_Boolean IGESData_ParamReader::ReadEnts(const Handle(IGESData_IGESReaderData)& IR,
                                                 const ParameterCursor&            PC,
                                                 const Message_Msg&                     amsg,
-                                                Handle(IGESData_HArray1OfIGESEntity)&  val,
+                                                Handle(HArray1OfIGESEntity)&  val,
                                                 const Standard_Integer                 index)
 {
   if (!PrepareRead(PC, Standard_True))
@@ -1035,7 +1035,7 @@ Standard_Boolean IGESData_ParamReader::ReadEnts(const Handle(IGESData_IGESReader
   if (thenbitem == 0)
     return Standard_True; // vide : retour Null ...
   Standard_Integer indmax = index + thenbitem * thetermsz - 1;
-  val                     = new IGESData_HArray1OfIGESEntity(index, indmax);
+  val                     = new HArray1OfIGESEntity(index, indmax);
   Standard_Integer ind    = index;
   Standard_Integer nbnul  = 0;
 
@@ -1067,7 +1067,7 @@ Standard_Boolean IGESData_ParamReader::ReadEnts(const Handle(IGESData_IGESReader
   else
   {
     // Trous : ils ont ete elimines, mais le tableau est a retailler
-    Handle(IGESData_HArray1OfIGESEntity) tab = new IGESData_HArray1OfIGESEntity(index, ind - 1);
+    Handle(HArray1OfIGESEntity) tab = new HArray1OfIGESEntity(index, ind - 1);
     for (i = index; i < ind; i++)
       tab->SetValue(i, val->Value(i));
     val = tab;
@@ -1084,7 +1084,7 @@ Standard_Boolean IGESData_ParamReader::ReadEnts(const Handle(IGESData_IGESReader
 Standard_Boolean IGESData_ParamReader::ReadEnts(const Handle(IGESData_IGESReaderData)& IR,
                                                 const ParameterCursor&            PC,
                                                 const Standard_CString                 mess,
-                                                Handle(IGESData_HArray1OfIGESEntity)&  val,
+                                                Handle(HArray1OfIGESEntity)&  val,
                                                 const Standard_Integer                 index)
 {
   if (!PrepareRead(PC, mess, Standard_True))
@@ -1092,7 +1092,7 @@ Standard_Boolean IGESData_ParamReader::ReadEnts(const Handle(IGESData_IGESReader
   if (thenbitem == 0)
     return Standard_True; // vide : retour Null ...
   Standard_Integer indmax = index + thenbitem * thetermsz - 1;
-  val                     = new IGESData_HArray1OfIGESEntity(index, indmax);
+  val                     = new HArray1OfIGESEntity(index, indmax);
   Standard_Integer ind    = index;
   Standard_Integer nbneg = 0, nbnul = 0;
 
@@ -1126,7 +1126,7 @@ Standard_Boolean IGESData_ParamReader::ReadEnts(const Handle(IGESData_IGESReader
   else
   {
     // Trous : ils ont ete elimines, mais le tableau est a retailler
-    Handle(IGESData_HArray1OfIGESEntity) tab = new IGESData_HArray1OfIGESEntity(index, ind - 1);
+    Handle(HArray1OfIGESEntity) tab = new HArray1OfIGESEntity(index, ind - 1);
     for (i = index; i < ind; i++)
       tab->SetValue(i, val->Value(i));
     val = tab;

@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 #include <TColStd_SequenceOfAsciiString.hxx>
 class Interface_InterfaceModel;
-class StepData_EDescr;
+class EntityDescriptor;
 class StepData_ESDescr;
 class StepData_ECDescr;
 class StepData_PDescr;
@@ -89,24 +89,24 @@ public:
   //! an EDescr (late binding)
   //! Warning : TypeNumber and DescrNumber must give together a unique
   //! positive case number for each distinct case, type or descr
-  Standard_EXPORT virtual Standard_Integer DescrNumber(const Handle(StepData_EDescr)& adescr) const;
+  Standard_EXPORT virtual Standard_Integer DescrNumber(const Handle(EntityDescriptor)& adescr) const;
 
   //! Records an EDescr with its case number
   //! Also records its name for an ESDescr (simple type): an ESDescr
   //! is then used, for case number, or for type name
-  Standard_EXPORT void AddDescr(const Handle(StepData_EDescr)& adescr, const Standard_Integer CN);
+  Standard_EXPORT void AddDescr(const Handle(EntityDescriptor)& adescr, const Standard_Integer CN);
 
   //! Tells if a Protocol brings at least one ESDescr, i.e. if it
   //! defines at least one entity description by ESDescr mechanism
   Standard_EXPORT Standard_Boolean HasDescr() const;
 
   //! Returns the description attached to a case number, or null
-  Standard_EXPORT Handle(StepData_EDescr) Descr(const Standard_Integer num) const;
+  Standard_EXPORT Handle(EntityDescriptor) Descr(const Standard_Integer num) const;
 
   //! Returns a description according to its name
   //! <anylevel> True (D) : for <me> and its resources
   //! <anylevel> False : for <me> only
-  Standard_EXPORT Handle(StepData_EDescr) Descr(
+  Standard_EXPORT Handle(EntityDescriptor) Descr(
     const Standard_CString name,
     const Standard_Boolean anylevel = Standard_True) const;
 
@@ -138,7 +138,7 @@ public:
   //! Returns a basic description according to its name
   //! <anylevel> True (D) : for <me> and its resources
   //! <anylevel> False : for <me> only
-  Standard_EXPORT Handle(StepData_EDescr) BasicDescr(
+  Standard_EXPORT Handle(EntityDescriptor) BasicDescr(
     const Standard_CString name,
     const Standard_Boolean anylevel = Standard_True) const;
 

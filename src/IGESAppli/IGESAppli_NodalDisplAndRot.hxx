@@ -24,7 +24,7 @@
 #include <IGESAppli_HArray1OfNode.hxx>
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_Integer.hxx>
-class IGESBasic_HArray1OfHArray1OfXYZ;
+class HArray1OfHArray1OfXYZ;
 class IGESDimen_GeneralNote;
 class IGESAppli_Node;
 class Coords3d;
@@ -56,11 +56,11 @@ public:
   //! allRotParams, and allTransParams are not same
   //! or if length of allNotes and size of each element of allRotParams
   //! and allTransParam are not same
-  Standard_EXPORT void Init(const Handle(IGESDimen_HArray1OfGeneralNote)&  allNotes,
+  Standard_EXPORT void Init(const Handle(HArray1OfGeneralNote)&  allNotes,
                             const Handle(TColStd_HArray1OfInteger)&        allIdentifiers,
-                            const Handle(IGESAppli_HArray1OfNode)&         allNodes,
-                            const Handle(IGESBasic_HArray1OfHArray1OfXYZ)& allRotParams,
-                            const Handle(IGESBasic_HArray1OfHArray1OfXYZ)& allTransParams);
+                            const Handle(HArray1OfNode)&         allNodes,
+                            const Handle(HArray1OfHArray1OfXYZ)& allRotParams,
+                            const Handle(HArray1OfHArray1OfXYZ)& allTransParams);
 
   //! returns the number of analysis cases
   Standard_EXPORT Standard_Integer NbCases() const;
@@ -96,11 +96,11 @@ public:
 
 protected:
 private:
-  Handle(IGESDimen_HArray1OfGeneralNote)  theNotes;
+  Handle(HArray1OfGeneralNote)  theNotes;
   Handle(TColStd_HArray1OfInteger)        theNodeIdentifiers;
-  Handle(IGESAppli_HArray1OfNode)         theNodes;
-  Handle(IGESBasic_HArray1OfHArray1OfXYZ) theTransParam;
-  Handle(IGESBasic_HArray1OfHArray1OfXYZ) theRotParam;
+  Handle(HArray1OfNode)         theNodes;
+  Handle(HArray1OfHArray1OfXYZ) theTransParam;
+  Handle(HArray1OfHArray1OfXYZ) theRotParam;
 };
 
 #endif // _IGESAppli_NodalDisplAndRot_HeaderFile

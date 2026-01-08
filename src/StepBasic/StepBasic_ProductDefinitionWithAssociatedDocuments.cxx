@@ -29,20 +29,20 @@ void StepBasic_ProductDefinitionWithAssociatedDocuments::Init(
   const Handle(TCollection_HAsciiString)&             aDescription,
   const Handle(StepBasic_ProductDefinitionFormation)& aFormation,
   const Handle(StepBasic_ProductDefinitionContext)&   aFrame,
-  const Handle(StepBasic_HArray1OfDocument)&          aDocIds)
+  const Handle(HArray1OfDocument)&          aDocIds)
 {
   StepBasic_ProductDefinition::Init(aId, aDescription, aFormation, aFrame);
   theDocIds = aDocIds;
 }
 
-Handle(StepBasic_HArray1OfDocument) StepBasic_ProductDefinitionWithAssociatedDocuments::DocIds()
+Handle(HArray1OfDocument) StepBasic_ProductDefinitionWithAssociatedDocuments::DocIds()
   const
 {
   return theDocIds;
 }
 
 void StepBasic_ProductDefinitionWithAssociatedDocuments::SetDocIds(
-  const Handle(StepBasic_HArray1OfDocument)& aDocIds)
+  const Handle(HArray1OfDocument)& aDocIds)
 {
   theDocIds = aDocIds;
 }

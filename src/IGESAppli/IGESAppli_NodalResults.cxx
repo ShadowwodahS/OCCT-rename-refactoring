@@ -33,7 +33,7 @@ void IGESAppli_NodalResults::Init(const Handle(IGESDimen_GeneralNote)&    aNote,
                                   const Standard_Integer                  aNumber,
                                   const Standard_Real                     aTime,
                                   const Handle(TColStd_HArray1OfInteger)& allNodeIdentifiers,
-                                  const Handle(IGESAppli_HArray1OfNode)&  allNodes,
+                                  const Handle(HArray1OfNode)&  allNodes,
                                   const Handle(TColStd_HArray2OfReal)&    allData)
 {
   if (allNodes->Lower() != 1 || allNodeIdentifiers->Lower() != 1

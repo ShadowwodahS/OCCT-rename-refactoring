@@ -24,7 +24,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESGeom_CompositeCurve, IGESData_IGESEntity)
 
 IGESGeom_CompositeCurve::IGESGeom_CompositeCurve() {}
 
-void IGESGeom_CompositeCurve::Init(const Handle(IGESData_HArray1OfIGESEntity)& allEntities)
+void IGESGeom_CompositeCurve::Init(const Handle(HArray1OfIGESEntity)& allEntities)
 {
   if (!allEntities.IsNull() && allEntities->Lower() != 1)
     throw Standard_DimensionMismatch("IGESGeom_CompositeCurve : Init");

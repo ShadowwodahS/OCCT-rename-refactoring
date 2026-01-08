@@ -53,7 +53,7 @@ public:
 protected:
   friend class LDOM_Document;
 
-  LDOM_CDATASection(const LDOM_BasicText& theText, const Handle(LDOM_MemManager)& theDoc)
+  LDOM_CDATASection(const BasicText& theText, const Handle(MemoryManager)& theDoc)
       : LDOM_Text(theText, theDoc)
   {
   }

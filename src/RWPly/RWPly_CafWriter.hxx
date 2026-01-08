@@ -28,7 +28,7 @@ class RWMesh_FaceIterator;
 class AppDocument;
 
 class Message_LazyProgressScope;
-class RWPly_PlyWriterContext;
+class PLYWriterContext;
 
 //! PLY writer context from XCAF document.
 class RWPly_CafWriter : public RefObject
@@ -155,7 +155,7 @@ protected:
   //! @param[in] theLabel       document label to process
   //! @param[in] theParentTrsf  parent node transformation
   //! @param[in] theParentStyle parent node style
-  Standard_EXPORT virtual bool writeShape(RWPly_PlyWriterContext&    theWriter,
+  Standard_EXPORT virtual bool writeShape(PLYWriterContext&    theWriter,
                                           Message_LazyProgressScope& thePSentry,
                                           const Standard_Integer     theWriteStep,
                                           const DataLabel&           theLabel,
@@ -167,7 +167,7 @@ protected:
   //! @param[in] thePSentry progress sentry
   //! @param[in] theFace    current face
   //! @return FALSE on writing file error
-  Standard_EXPORT virtual bool writeNodes(RWPly_PlyWriterContext&    theWriter,
+  Standard_EXPORT virtual bool writeNodes(PLYWriterContext&    theWriter,
                                           Message_LazyProgressScope& thePSentry,
                                           const RWMesh_FaceIterator& theFace);
 
@@ -176,7 +176,7 @@ protected:
   //! @param[in] thePSentry progress sentry
   //! @param[in] theFace    current face
   //! @return FALSE on writing file error
-  Standard_EXPORT virtual bool writeIndices(RWPly_PlyWriterContext&    theWriter,
+  Standard_EXPORT virtual bool writeIndices(PLYWriterContext&    theWriter,
                                             Message_LazyProgressScope& thePSentry,
                                             const RWMesh_FaceIterator& theFace);
 

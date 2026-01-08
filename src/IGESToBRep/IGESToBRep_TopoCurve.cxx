@@ -520,7 +520,7 @@ TopoShape IGESToBRep_TopoCurve::TransferCurveOnFace(TopoFace&                   
     filepreference = 2;
   else if (start->PreferenceMode() == 2)
     filepreference = 3;
-  Handle(IGESData_HArray1OfIGESEntity) Curves2d = new IGESData_HArray1OfIGESEntity(1, 1);
+  Handle(HArray1OfIGESEntity) Curves2d = new HArray1OfIGESEntity(1, 1);
   Curves2d->SetValue(1, start->CurveUV());
 
   Handle(IGESToBRep_IGESBoundary) IB = IGESToBRep1::AlgoContainer()->ToolContainer()->IGESBoundary();
@@ -1372,7 +1372,7 @@ TopoShape IGESToBRep_TopoCurve::TransferBoundaryOnFace(TopoFace&                
   IB->Init(*this, start, face, trans, uFact, filepreference);
   for (Standard_Integer i = 1; i <= start->NbModelSpaceCurves(); i++)
   {
-    Handle(IGESData_HArray1OfIGESEntity) Curves2d;
+    Handle(HArray1OfIGESEntity) Curves2d;
     if (start->NbParameterCurves(i) == 0 && start->BoundaryType() == 1)
     {
       Message_Msg Msg1135("IGES_1135");

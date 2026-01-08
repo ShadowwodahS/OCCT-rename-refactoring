@@ -44,7 +44,7 @@ public:
   //! - allEntities           : Pointers to the entities specified
   Standard_EXPORT void Init(const Standard_Integer                       nbMats,
                             const Handle(IGESGeom_TransformationMatrix)& aTransformationMatrix,
-                            const Handle(IGESData_HArray1OfIGESEntity)&  allEntities);
+                            const Handle(HArray1OfIGESEntity)&  allEntities);
 
   //! returns the number of Transformation matrices in <me>
   Standard_EXPORT Standard_Integer NbMatrices() const;
@@ -72,7 +72,7 @@ protected:
 private:
   Standard_Integer                      theNbMatrices;
   Handle(IGESGeom_TransformationMatrix) theTransformationMatrix;
-  Handle(IGESData_HArray1OfIGESEntity)  theEntities;
+  Handle(HArray1OfIGESEntity)  theEntities;
 };
 
 #endif // _IGESDraw_Planar_HeaderFile

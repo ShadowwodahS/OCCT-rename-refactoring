@@ -21,6 +21,6 @@
 #include <IGESAppli_Array1OfFlow.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(IGESAppli_HArray1OfFlow, IGESAppli_Array1OfFlow)
+DEFINE_HARRAY1(HArray1OfFlow, IGESAppli_Array1OfFlow)
 
 #endif

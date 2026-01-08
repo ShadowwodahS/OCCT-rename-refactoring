@@ -45,14 +45,14 @@ void BooleanTreeTool::ReadOwnParams(const Handle(IGESSolid_BooleanTree)&   ent,
   Standard_Integer                     length, intvalue;
   Handle(IGESData_IGESEntity)          entvalue;
   Handle(TColStd_HArray1OfInteger)     tempOperations;
-  Handle(IGESData_HArray1OfIGESEntity) tempOperands;
+  Handle(HArray1OfIGESEntity) tempOperands;
 
   Standard_Boolean st = PR.ReadInteger(PR.Current(), "Length of post-order notation", length);
   if (st && length > 0)
   {
     tempOperations = new TColStd_HArray1OfInteger(1, length);
     tempOperations->Init(0);
-    tempOperands = new IGESData_HArray1OfIGESEntity(1, length);
+    tempOperands = new HArray1OfIGESEntity(1, length);
 
     // Op. 1-2 : Operands
     // st = PR.ReadEntity(IR, PR.Current(), "Operand 1", entvalue); //szv#4:S4163:12Mar99 moved in
@@ -130,7 +130,7 @@ void BooleanTreeTool::OwnCopy(const Handle(IGESSolid_BooleanTree)& another,
 
   Standard_Integer                     length         = another->Length();
   Handle(TColStd_HArray1OfInteger)     tempOperations = new TColStd_HArray1OfInteger(1, length);
-  Handle(IGESData_HArray1OfIGESEntity) tempOperands   = new IGESData_HArray1OfIGESEntity(1, length);
+  Handle(HArray1OfIGESEntity) tempOperands   = new HArray1OfIGESEntity(1, length);
 
   for (i = 1; i <= length; i++)
   {

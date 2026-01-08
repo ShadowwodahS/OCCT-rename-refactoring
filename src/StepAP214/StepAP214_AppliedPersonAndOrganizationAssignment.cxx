@@ -26,7 +26,7 @@ StepAP214_AppliedPersonAndOrganizationAssignment::StepAP214_AppliedPersonAndOrga
 void StepAP214_AppliedPersonAndOrganizationAssignment::Init(
   const Handle(StepBasic_PersonAndOrganization)&              aAssignedPersonAndOrganization,
   const Handle(StepBasic_PersonAndOrganizationRole)&          aRole,
-  const Handle(StepAP214_HArray1OfPersonAndOrganizationItem)& aItems)
+  const Handle(HArray1OfPersonOrgItem2)& aItems)
 {
   // --- classe own fields ---
   items = aItems;
@@ -35,12 +35,12 @@ void StepAP214_AppliedPersonAndOrganizationAssignment::Init(
 }
 
 void StepAP214_AppliedPersonAndOrganizationAssignment::SetItems(
-  const Handle(StepAP214_HArray1OfPersonAndOrganizationItem)& aItems)
+  const Handle(HArray1OfPersonOrgItem2)& aItems)
 {
   items = aItems;
 }
 
-Handle(StepAP214_HArray1OfPersonAndOrganizationItem)
+Handle(HArray1OfPersonOrgItem2)
   StepAP214_AppliedPersonAndOrganizationAssignment::Items() const
 {
   return items;

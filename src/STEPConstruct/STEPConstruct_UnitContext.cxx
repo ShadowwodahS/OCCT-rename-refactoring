@@ -134,7 +134,7 @@ void STEPConstruct_UnitContext::Init(const Standard_Real               Tol3d,
     Unit.SetValue(siUnit);
     measure->Init(val, Unit);
 
-    Handle(StepBasic_DimensionalExponents) theDimExp = new StepBasic_DimensionalExponents;
+    Handle(DimensionalExponents) theDimExp = new DimensionalExponents;
     theDimExp->Init(1., 0., 0., 0., 0., 0., 0.);
 
     Handle(TCollection_HAsciiString) convName = new TCollection_HAsciiString(uName);
@@ -152,7 +152,7 @@ void STEPConstruct_UnitContext::Init(const Standard_Real               Tol3d,
                    StepBasic_spMilli, // the unit is radian, no prefix
                    StepBasic_sunRadian);
 
-  Handle(StepBasic_HArray1OfNamedUnit) units = new StepBasic_HArray1OfNamedUnit(1, 3);
+  Handle(HArray1OfNamedUnit) units = new HArray1OfNamedUnit(1, 3);
 
   Handle(StepBasic_SiUnitAndSolidAngleUnit) sradUnit = new StepBasic_SiUnitAndSolidAngleUnit;
   sradUnit->Init(Standard_False,
@@ -165,8 +165,8 @@ void STEPConstruct_UnitContext::Init(const Standard_Real               Tol3d,
 
   // Uncertainty : 3D confusion Tolerance
 
-  Handle(StepBasic_HArray1OfUncertaintyMeasureWithUnit) Tols =
-    new StepBasic_HArray1OfUncertaintyMeasureWithUnit(1, 1);
+  Handle(HArray1OfUncertainty) Tols =
+    new HArray1OfUncertainty(1, 1);
   Handle(StepBasic_UncertaintyMeasureWithUnit) theTol3d = new StepBasic_UncertaintyMeasureWithUnit;
 
   Handle(TCollection_HAsciiString) TolName =
@@ -298,7 +298,7 @@ Standard_Integer STEPConstruct_UnitContext::ComputeFactors(
   }
 
   // Start Computation
-  Handle(StepBasic_HArray1OfNamedUnit) theUnits = aContext->Units2();
+  Handle(HArray1OfNamedUnit) theUnits = aContext->Units2();
   Standard_Integer                     nbU      = aContext->NbUnits();
 
   for (Standard_Integer i = 1; i <= nbU; i++)
@@ -332,7 +332,7 @@ Standard_Integer STEPConstruct_UnitContext::ComputeFactors(const Handle(StepBasi
   {
     Handle(StepBasic_ConversionBasedUnit) theCBU =
       Handle(StepBasic_ConversionBasedUnit)::DownCast(aUnit);
-    //    Handle(StepBasic_DimensionalExponents) theDimExp = theCBU->Dimensions();
+    //    Handle(DimensionalExponents) theDimExp = theCBU->Dimensions();
     Handle(StepBasic_MeasureWithUnit) theMWU;
     if (!theCBU.IsNull())
     {

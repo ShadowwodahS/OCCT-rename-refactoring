@@ -32,10 +32,10 @@ class UtfString;
 class Message_Messenger;
 class Storage_BaseDriver;
 
-class PCDM_ReadWriter;
-DEFINE_STANDARD_HANDLE(PCDM_ReadWriter, RefObject)
+class ReadWriter;
+DEFINE_STANDARD_HANDLE(ReadWriter, RefObject)
 
-class PCDM_ReadWriter : public RefObject
+class ReadWriter : public RefObject
 {
 
 public:
@@ -80,10 +80,10 @@ public:
                                    const Storage_OpenMode            anOpenMode);
 
   //! returns the convenient Reader for a File.
-  Standard_EXPORT static Handle(PCDM_ReadWriter) Reader(
+  Standard_EXPORT static Handle(ReadWriter) Reader(
     const UtfString& aFileName);
 
-  Standard_EXPORT static Handle(PCDM_ReadWriter) Writer();
+  Standard_EXPORT static Handle(ReadWriter) Writer();
 
   Standard_EXPORT static void WriteFileFormat(const Handle(Storage_Data)& aData,
                                               const Handle(CDM_Document)& aDocument);
@@ -100,7 +100,7 @@ public:
   Standard_EXPORT static UtfString FileFormat(Standard_IStream&     theIStream,
                                                                Handle(Storage_Data)& theData);
 
-  DEFINE_STANDARD_RTTIEXT(PCDM_ReadWriter, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ReadWriter, RefObject)
 
 protected:
 private:

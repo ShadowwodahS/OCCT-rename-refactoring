@@ -60,7 +60,7 @@ Storage_Error StdStorage1::Read(const AsciiString1& theFileName,
   try
   {
     OCC_CATCH_SIGNALS
-    PCDM_ReadWriter::Open(aDriver, theFileName, Storage_VSRead);
+    ReadWriter::Open(aDriver, theFileName, Storage_VSRead);
   }
   catch (ExceptionBase const&)
   {

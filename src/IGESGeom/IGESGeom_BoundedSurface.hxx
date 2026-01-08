@@ -45,7 +45,7 @@ public:
   //! - allBounds : Array of boundary entities
   Standard_EXPORT void Init(const Standard_Integer                    aType,
                             const Handle(IGESData_IGESEntity)&        aSurface,
-                            const Handle(IGESGeom_HArray1OfBoundary)& allBounds);
+                            const Handle(HArray1OfBoundary)& allBounds);
 
   //! returns the type of Bounded surface representation
   //! 0 = The boundary entities may only reference model space curves
@@ -69,7 +69,7 @@ protected:
 private:
   Standard_Integer                   theType;
   Handle(IGESData_IGESEntity)        theSurface;
-  Handle(IGESGeom_HArray1OfBoundary) theBoundaries;
+  Handle(HArray1OfBoundary) theBoundaries;
 };
 
 #endif // _IGESGeom_BoundedSurface_HeaderFile

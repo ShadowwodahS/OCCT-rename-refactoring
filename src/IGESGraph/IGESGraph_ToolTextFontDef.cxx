@@ -55,8 +55,8 @@ void TextFontDefTool::ReadOwnParams(const Handle(IGESGraph_TextFontDef)&   ent,
   Handle(TColStd_HArray1OfInteger)            aSCIICodes;
   Handle(TColStd_HArray1OfInteger)            nextCharX, nextCharY;
   Handle(TColStd_HArray1OfInteger)            penMotions;
-  Handle(IGESBasic_HArray1OfHArray1OfInteger) penFlags;
-  Handle(IGESBasic_HArray1OfHArray1OfInteger) movePenX, movePenY;
+  Handle(HArray1OfHArray1OfInt) penFlags;
+  Handle(HArray1OfHArray1OfInt) movePenX, movePenY;
 
   Standard_Integer tempCode, tempNextX, tempNextY;
   Standard_Integer tempMotion;
@@ -95,9 +95,9 @@ void TextFontDefTool::ReadOwnParams(const Handle(IGESGraph_TextFontDef)&   ent,
     nextCharX  = new TColStd_HArray1OfInteger(1, nbval);
     nextCharY  = new TColStd_HArray1OfInteger(1, nbval);
     penMotions = new TColStd_HArray1OfInteger(1, nbval);
-    penFlags   = new IGESBasic_HArray1OfHArray1OfInteger(1, nbval);
-    movePenX   = new IGESBasic_HArray1OfHArray1OfInteger(1, nbval);
-    movePenY   = new IGESBasic_HArray1OfHArray1OfInteger(1, nbval);
+    penFlags   = new HArray1OfHArray1OfInt(1, nbval);
+    movePenX   = new HArray1OfHArray1OfInt(1, nbval);
+    movePenY   = new HArray1OfHArray1OfInt(1, nbval);
 
     for (Standard_Integer i = 1; i <= nbval; i++)
     {
@@ -231,7 +231,7 @@ void TextFontDefTool::OwnCopy(const Handle(IGESGraph_TextFontDef)& another,
   Standard_Integer                            scale;
   Handle(TColStd_HArray1OfInteger)            aSCIICodes, nextCharX, nextCharY;
   Handle(TColStd_HArray1OfInteger)            penMotions;
-  Handle(IGESBasic_HArray1OfHArray1OfInteger) penFlags, movePenX, movePenY;
+  Handle(HArray1OfHArray1OfInt) penFlags, movePenX, movePenY;
 
   Standard_Integer                 tempMotion;
   Handle(TColStd_HArray1OfInteger) intarray, xarray, yarray;
@@ -241,9 +241,9 @@ void TextFontDefTool::OwnCopy(const Handle(IGESGraph_TextFontDef)& another,
   nextCharX  = new TColStd_HArray1OfInteger(1, nbval);
   nextCharY  = new TColStd_HArray1OfInteger(1, nbval);
   penMotions = new TColStd_HArray1OfInteger(1, nbval);
-  penFlags   = new IGESBasic_HArray1OfHArray1OfInteger(1, nbval);
-  movePenX   = new IGESBasic_HArray1OfHArray1OfInteger(1, nbval);
-  movePenY   = new IGESBasic_HArray1OfHArray1OfInteger(1, nbval);
+  penFlags   = new HArray1OfHArray1OfInt(1, nbval);
+  movePenX   = new HArray1OfHArray1OfInt(1, nbval);
+  movePenY   = new HArray1OfHArray1OfInt(1, nbval);
 
   fontCode = another->FontCode();
   fontName = new TCollection_HAsciiString(another->FontName());

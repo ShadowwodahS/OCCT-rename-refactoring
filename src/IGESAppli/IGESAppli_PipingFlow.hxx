@@ -53,12 +53,12 @@ public:
   //! - allContFlowAssocs : Continuation Flow Associativity Entities
   Standard_EXPORT void Init(const Standard_Integer                                nbContextFlags,
                             const Standard_Integer                                aFlowType,
-                            const Handle(IGESData_HArray1OfIGESEntity)&           allFlowAssocs,
-                            const Handle(IGESDraw_HArray1OfConnectPoint)&         allConnectPoints,
-                            const Handle(IGESData_HArray1OfIGESEntity)&           allJoins,
+                            const Handle(HArray1OfIGESEntity)&           allFlowAssocs,
+                            const Handle(HArray1OfConnectPoint)&         allConnectPoints,
+                            const Handle(HArray1OfIGESEntity)&           allJoins,
                             const Handle(Interface_HArray1OfHAsciiString)&        allFlowNames,
-                            const Handle(IGESGraph_HArray1OfTextDisplayTemplate)& allTextDisps,
-                            const Handle(IGESData_HArray1OfIGESEntity)& allContFlowAssocs);
+                            const Handle(HArray1OfTextDisplayTemplate)& allTextDisps,
+                            const Handle(HArray1OfIGESEntity)& allContFlowAssocs);
 
   //! forces NbContextFalgs to 1, returns True if changed
   Standard_EXPORT Standard_Boolean OwnCorrect();
@@ -121,12 +121,12 @@ protected:
 private:
   Standard_Integer                               theNbContextFlags;
   Standard_Integer                               theTypeOfFlow;
-  Handle(IGESData_HArray1OfIGESEntity)           theFlowAssociativities;
-  Handle(IGESDraw_HArray1OfConnectPoint)         theConnectPoints;
-  Handle(IGESData_HArray1OfIGESEntity)           theJoins;
+  Handle(HArray1OfIGESEntity)           theFlowAssociativities;
+  Handle(HArray1OfConnectPoint)         theConnectPoints;
+  Handle(HArray1OfIGESEntity)           theJoins;
   Handle(Interface_HArray1OfHAsciiString)        theFlowNames;
-  Handle(IGESGraph_HArray1OfTextDisplayTemplate) theTextDisplayTemplates;
-  Handle(IGESData_HArray1OfIGESEntity)           theContFlowAssociativities;
+  Handle(HArray1OfTextDisplayTemplate) theTextDisplayTemplates;
+  Handle(HArray1OfIGESEntity)           theContFlowAssociativities;
 };
 
 #endif // _IGESAppli_PipingFlow_HeaderFile

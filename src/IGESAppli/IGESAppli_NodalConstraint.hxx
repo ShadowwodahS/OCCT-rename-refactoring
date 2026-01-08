@@ -48,7 +48,7 @@ public:
   //! or constraint vector
   Standard_EXPORT void Init(const Standard_Integer                       aType,
                             const Handle(IGESAppli_Node)&                aNode,
-                            const Handle(IGESDefs_HArray1OfTabularData)& allTabData);
+                            const Handle(HArray1OfTabularData)& allTabData);
 
   //! returns total number of cases
   Standard_EXPORT Standard_Integer NbCases() const;
@@ -69,7 +69,7 @@ protected:
 private:
   Standard_Integer                      theType;
   Handle(IGESAppli_Node)                theNode;
-  Handle(IGESDefs_HArray1OfTabularData) theTabularDataProps;
+  Handle(HArray1OfTabularData) theTabularDataProps;
 };
 
 #endif // _IGESAppli_NodalConstraint_HeaderFile

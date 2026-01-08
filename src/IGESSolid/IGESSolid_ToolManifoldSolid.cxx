@@ -53,7 +53,7 @@ void ManifoldSolidTool::ReadOwnParams(const Handle(IGESSolid_ManifoldSolid)& ent
   Handle(TColStd_HArray1OfInteger) voidShellFlags;
   Handle(IGESData_IGESEntity)      shell;
   Handle(IGESSolid_Shell)          ashell;
-  Handle(IGESSolid_HArray1OfShell) voidShells;
+  Handle(HArray1OfShell) voidShells;
   IGESData_Status                  aStatus;
 
   if (!PR.ReadEntity(IR, PR.Current(), aStatus, shell))
@@ -92,7 +92,7 @@ void ManifoldSolidTool::ReadOwnParams(const Handle(IGESSolid_ManifoldSolid)& ent
   */
   if (st && nbshells > 0)
   {
-    voidShells     = new IGESSolid_HArray1OfShell(1, nbshells);
+    voidShells     = new HArray1OfShell(1, nbshells);
     voidShellFlags = new TColStd_HArray1OfInteger(1, nbshells);
     voidShellFlags->Init(0);
     for (i = 1; i <= nbshells; i++)
@@ -177,11 +177,11 @@ void ManifoldSolidTool::OwnCopy(const Handle(IGESSolid_ManifoldSolid)& another,
   Standard_Boolean shellFlag = another->OrientationFlag();
 
   Standard_Integer                 nbshells = another->NbVoidShells();
-  Handle(IGESSolid_HArray1OfShell) voidShells;
+  Handle(HArray1OfShell) voidShells;
   Handle(TColStd_HArray1OfInteger) voidFlags;
   if (nbshells > 0)
   {
-    voidShells = new IGESSolid_HArray1OfShell(1, nbshells);
+    voidShells = new HArray1OfShell(1, nbshells);
     voidFlags  = new TColStd_HArray1OfInteger(1, nbshells);
     for (Standard_Integer i = 1; i <= nbshells; i++)
     {

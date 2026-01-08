@@ -279,7 +279,7 @@ void IGESData_IGESDumper::OwnDump(const Handle(IGESData_IGESEntity)& ent,
                                   Standard_OStream&                  S,
                                   const Standard_Integer             own) const
 {
-  Handle(IGESData_SpecificModule) module;
+  Handle(SpecificModule) module;
   Standard_Integer                CN;
   if (thelib.Select(ent, module, CN))
     module->OwnDump(CN, ent, *this, S, own);

@@ -33,7 +33,7 @@ void IGESDimen_GeneralNote::Init(const Handle(TColStd_HArray1OfInteger)&        
                                  const Handle(TColStd_HArray1OfReal)&           widths,
                                  const Handle(TColStd_HArray1OfReal)&           heights,
                                  const Handle(TColStd_HArray1OfInteger)&        fontCodes,
-                                 const Handle(IGESGraph_HArray1OfTextFontDef)&  fonts,
+                                 const Handle(HArray1OfTextFontDef)&  fonts,
                                  const Handle(TColStd_HArray1OfReal)&           slants,
                                  const Handle(TColStd_HArray1OfReal)&           rotations,
                                  const Handle(TColStd_HArray1OfInteger)&        mirrorFlags,

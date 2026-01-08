@@ -67,7 +67,7 @@ Standard_Integer StepAP214_ApprovalItem::CaseNum(const Handle(RefObject)& ent) c
     return 12;
   if (ent->IsKind(STANDARD_TYPE(StepRepr_ConfigurationItem)))
     return 13;
-  if (ent->IsKind(STANDARD_TYPE(StepBasic_Date)))
+  if (ent->IsKind(STANDARD_TYPE(Date1)))
     return 14;
   if (ent->IsKind(STANDARD_TYPE(StepBasic_Document)))
     return 15;
@@ -155,9 +155,9 @@ Handle(StepRepr_ConfigurationItem) StepAP214_ApprovalItem::ConfigurationItem() c
   return GetCasted(StepRepr_ConfigurationItem, Value());
 }
 
-Handle(StepBasic_Date) StepAP214_ApprovalItem::Date() const
+Handle(Date1) StepAP214_ApprovalItem::Date() const
 {
-  return GetCasted(StepBasic_Date, Value());
+  return GetCasted(Date1, Value());
 }
 
 Handle(StepBasic_Document) StepAP214_ApprovalItem::Document() const

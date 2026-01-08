@@ -43,7 +43,7 @@ void StepBasic_OrganizationalAddress::Init(
   const Handle(TCollection_HAsciiString)&        aElectronicMailAddress,
   const Standard_Boolean                         hasAtelexNumber,
   const Handle(TCollection_HAsciiString)&        aTelexNumber,
-  const Handle(StepBasic_HArray1OfOrganization)& aOrganizations,
+  const Handle(HArray1OfOrganization)& aOrganizations,
   const Handle(TCollection_HAsciiString)&        aDescription)
 {
   // --- classe own fields ---
@@ -77,12 +77,12 @@ void StepBasic_OrganizationalAddress::Init(
 }
 
 void StepBasic_OrganizationalAddress::SetOrganizations(
-  const Handle(StepBasic_HArray1OfOrganization)& aOrganizations)
+  const Handle(HArray1OfOrganization)& aOrganizations)
 {
   organizations = aOrganizations;
 }
 
-Handle(StepBasic_HArray1OfOrganization) StepBasic_OrganizationalAddress::Organizations() const
+Handle(HArray1OfOrganization) StepBasic_OrganizationalAddress::Organizations() const
 {
   return organizations;
 }

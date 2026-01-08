@@ -52,7 +52,7 @@ void IGESSelect_AddGroup::Performing(IFSelect_ContextModif&            ctx,
     ctx.CCheck(0)->AddWarning("Add Group : ONE entity selected");
     return;
   }
-  Handle(IGESData_HArray1OfIGESEntity) arr = new IGESData_HArray1OfIGESEntity(1, nb);
+  Handle(HArray1OfIGESEntity) arr = new HArray1OfIGESEntity(1, nb);
   for (ctx.Start(); ctx.More(); ctx.Next())
   {
     DeclareAndCast(IGESData_IGESEntity, ent, ctx.ValueResult());

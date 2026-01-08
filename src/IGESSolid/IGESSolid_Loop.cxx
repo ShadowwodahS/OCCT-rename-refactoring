@@ -31,12 +31,12 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESSolid_Loop, IGESData_IGESEntity)
 IGESSolid_Loop::IGESSolid_Loop() {}
 
 void IGESSolid_Loop::Init(const Handle(TColStd_HArray1OfInteger)&               Types,
-                          const Handle(IGESData_HArray1OfIGESEntity)&           Edges,
+                          const Handle(HArray1OfIGESEntity)&           Edges,
                           const Handle(TColStd_HArray1OfInteger)&               Index,
                           const Handle(TColStd_HArray1OfInteger)&               Orient,
                           const Handle(TColStd_HArray1OfInteger)&               nbParameterCurves,
-                          const Handle(IGESBasic_HArray1OfHArray1OfInteger)&    IsoparametricFlags,
-                          const Handle(IGESBasic_HArray1OfHArray1OfIGESEntity)& Curves)
+                          const Handle(HArray1OfHArray1OfInt)&    IsoparametricFlags,
+                          const Handle(HArray1OfHArray1OfEntity)& Curves)
 {
   Standard_Integer nb = Types->Length();
 

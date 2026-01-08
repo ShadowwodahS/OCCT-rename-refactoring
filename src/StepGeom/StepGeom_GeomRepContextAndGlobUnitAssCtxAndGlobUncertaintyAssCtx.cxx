@@ -62,8 +62,8 @@ void StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx::Init(
   const Handle(TCollection_HAsciiString)&                      aContextIdentifier,
   const Handle(TCollection_HAsciiString)&                      aContextType,
   const Standard_Integer                                       aCoordinateSpaceDimension,
-  const Handle(StepBasic_HArray1OfNamedUnit)&                  aUnits,
-  const Handle(StepBasic_HArray1OfUncertaintyMeasureWithUnit)& anUncertainty)
+  const Handle(HArray1OfNamedUnit)&                  aUnits,
+  const Handle(HArray1OfUncertainty)& anUncertainty)
 {
   // --- classe inherited fields ---
 
@@ -192,7 +192,7 @@ Standard_Integer StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCt
 // --------------------------------------------------------------------------------------------------
 
 void StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx::SetUnits(
-  const Handle(StepBasic_HArray1OfNamedUnit)& aUnits)
+  const Handle(HArray1OfNamedUnit)& aUnits)
 {
   globalUnitAssignedContext->SetUnits(aUnits);
 }
@@ -202,7 +202,7 @@ void StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx::SetUnits(
 // Purpose :
 // --------------------------------------------------------------------------------------------------
 
-Handle(StepBasic_HArray1OfNamedUnit)
+Handle(HArray1OfNamedUnit)
   StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx::Units2() const
 {
   return globalUnitAssignedContext->Units2();
@@ -239,7 +239,7 @@ Standard_Integer StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCt
 // --------------------------------------------------------------------------------------------------
 
 void StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx::SetUncertainty(
-  const Handle(StepBasic_HArray1OfUncertaintyMeasureWithUnit)& aUncertainty)
+  const Handle(HArray1OfUncertainty)& aUncertainty)
 {
   globalUncertaintyAssignedContext->SetUncertainty(aUncertainty);
 }
@@ -249,7 +249,7 @@ void StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx::SetUncert
 // Purpose :
 // --------------------------------------------------------------------------------------------------
 
-Handle(StepBasic_HArray1OfUncertaintyMeasureWithUnit)
+Handle(HArray1OfUncertainty)
   StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx::Uncertainty() const
 {
   return globalUncertaintyAssignedContext->Uncertainty();

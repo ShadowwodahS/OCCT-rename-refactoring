@@ -27,7 +27,7 @@ IGESBasic_SingleParent::IGESBasic_SingleParent() {}
 
 void IGESBasic_SingleParent::Init(const Standard_Integer                      nbParentEntities,
                                   const Handle(IGESData_IGESEntity)&          aParentEntity,
-                                  const Handle(IGESData_HArray1OfIGESEntity)& allChildren)
+                                  const Handle(HArray1OfIGESEntity)& allChildren)
 {
   if (!allChildren.IsNull() && allChildren->Lower() != 1)
     throw Standard_DimensionMismatch("IGESBasic_SingleParent : Init");

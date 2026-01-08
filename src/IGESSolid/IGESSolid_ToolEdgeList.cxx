@@ -52,10 +52,10 @@ void EdgeListTool::ReadOwnParams(const Handle(IGESSolid_EdgeList)&      ent,
   Standard_Integer                      length, anint;
   Handle(IGESData_IGESEntity)           anent;
   Handle(IGESSolid_VertexList)          avert;
-  Handle(IGESData_HArray1OfIGESEntity)  tempCurves;
-  Handle(IGESSolid_HArray1OfVertexList) tempStartVertexList;
+  Handle(HArray1OfIGESEntity)  tempCurves;
+  Handle(HArray1OfVertexList) tempStartVertexList;
   Handle(TColStd_HArray1OfInteger)      tempStartVertexIndex;
-  Handle(IGESSolid_HArray1OfVertexList) tempEndVertexList;
+  Handle(HArray1OfVertexList) tempEndVertexList;
   Handle(TColStd_HArray1OfInteger)      tempEndVertexIndex;
   IGESData_Status                       aStatus;
 
@@ -68,10 +68,10 @@ void EdgeListTool::ReadOwnParams(const Handle(IGESSolid_EdgeList)&      ent,
   // st = PR.ReadInteger(PR.Current(), "Number of edges", length);
   if (st && length > 0)
   {
-    tempCurves           = new IGESData_HArray1OfIGESEntity(1, length);
-    tempStartVertexList  = new IGESSolid_HArray1OfVertexList(1, length);
+    tempCurves           = new HArray1OfIGESEntity(1, length);
+    tempStartVertexList  = new HArray1OfVertexList(1, length);
     tempStartVertexIndex = new TColStd_HArray1OfInteger(1, length);
-    tempEndVertexList    = new IGESSolid_HArray1OfVertexList(1, length);
+    tempEndVertexList    = new HArray1OfVertexList(1, length);
     tempEndVertexIndex   = new TColStd_HArray1OfInteger(1, length);
     for (Standard_Integer i = 1; i <= length; i++)
     {
@@ -253,12 +253,12 @@ void EdgeListTool::OwnCopy(const Handle(IGESSolid_EdgeList)& another,
   Standard_Integer length;
 
   length                                           = another->NbEdges();
-  Handle(IGESData_HArray1OfIGESEntity)  tempCurves = new IGESData_HArray1OfIGESEntity(1, length);
-  Handle(IGESSolid_HArray1OfVertexList) tempStartVertexList =
-    new IGESSolid_HArray1OfVertexList(1, length);
+  Handle(HArray1OfIGESEntity)  tempCurves = new HArray1OfIGESEntity(1, length);
+  Handle(HArray1OfVertexList) tempStartVertexList =
+    new HArray1OfVertexList(1, length);
   Handle(TColStd_HArray1OfInteger) tempStartVertexIndex = new TColStd_HArray1OfInteger(1, length);
-  Handle(IGESSolid_HArray1OfVertexList) tempEndVertexList =
-    new IGESSolid_HArray1OfVertexList(1, length);
+  Handle(HArray1OfVertexList) tempEndVertexList =
+    new HArray1OfVertexList(1, length);
   Handle(TColStd_HArray1OfInteger) tempEndVertexIndex = new TColStd_HArray1OfInteger(1, length);
 
   for (Standard_Integer i = 1; i <= length; i++)

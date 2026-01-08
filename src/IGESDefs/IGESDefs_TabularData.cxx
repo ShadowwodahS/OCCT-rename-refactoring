@@ -34,8 +34,8 @@ void IGESDefs_TabularData::Init(const Standard_Integer nbProps,
                                 /*     const Standard_Integer nbIndeps, */
                                 const Handle(TColStd_HArray1OfInteger)&         typesInd,
                                 const Handle(TColStd_HArray1OfInteger)&         nbValuesInd,
-                                const Handle(IGESBasic_HArray1OfHArray1OfReal)& valuesInd,
-                                const Handle(IGESBasic_HArray1OfHArray1OfReal)& valuesDep)
+                                const Handle(HArray1OfHArray1OfReal)& valuesInd,
+                                const Handle(HArray1OfHArray1OfReal)& valuesDep)
 {
   Standard_Integer num = typesInd->Length();
   if (typesInd->Lower() != 1 || nbValuesInd->Lower() != 1 || nbValuesInd->Length() != num

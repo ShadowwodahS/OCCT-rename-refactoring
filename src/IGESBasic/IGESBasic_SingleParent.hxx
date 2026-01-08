@@ -45,7 +45,7 @@ public:
   //! - allChildren      : Used to hold the children
   Standard_EXPORT void Init(const Standard_Integer                      nbParentEntities,
                             const Handle(IGESData_IGESEntity)&          aParentEntity,
-                            const Handle(IGESData_HArray1OfIGESEntity)& allChildren);
+                            const Handle(HArray1OfIGESEntity)& allChildren);
 
   //! returns the number of Parent Entities, which should be 1
   Standard_EXPORT Standard_Integer NbParentEntities() const;
@@ -67,7 +67,7 @@ protected:
 private:
   Standard_Integer                     theNbParentEntities;
   Handle(IGESData_IGESEntity)          theParentEntity;
-  Handle(IGESData_HArray1OfIGESEntity) theChildren;
+  Handle(HArray1OfIGESEntity) theChildren;
 };
 
 #endif // _IGESBasic_SingleParent_HeaderFile

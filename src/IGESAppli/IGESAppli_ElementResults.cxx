@@ -37,13 +37,13 @@ void IGESAppli_ElementResults::Init(
   const Standard_Integer                             nbResults,
   const Standard_Integer                             aResRepFlag,
   const Handle(TColStd_HArray1OfInteger)&            allElementIdents,
-  const Handle(IGESAppli_HArray1OfFiniteElement)&    allFiniteElems,
+  const Handle(HArray1OfFiniteElement)&    allFiniteElems,
   const Handle(TColStd_HArray1OfInteger)&            allTopTypes,
   const Handle(TColStd_HArray1OfInteger)&            nbLayers,
   const Handle(TColStd_HArray1OfInteger)&            allDataLayerFlags,
   const Handle(TColStd_HArray1OfInteger)&            allnbResDataLocs,
-  const Handle(IGESBasic_HArray1OfHArray1OfInteger)& allResDataLocs,
-  const Handle(IGESBasic_HArray1OfHArray1OfReal)&    allResults) // UNFINISHED
+  const Handle(HArray1OfHArray1OfInt)& allResDataLocs,
+  const Handle(HArray1OfHArray1OfReal)&    allResults) // UNFINISHED
 {
   // raises exception if sizes are not consistent, (lower = 1 too)
   // but how to check is not clear ??

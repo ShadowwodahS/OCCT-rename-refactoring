@@ -31,11 +31,11 @@ class StepData_PDescr;
 class StepData_Described;
 
 class StepData_ESDescr;
-DEFINE_STANDARD_HANDLE(StepData_ESDescr, StepData_EDescr)
+DEFINE_STANDARD_HANDLE(StepData_ESDescr, EntityDescriptor)
 
 //! This class is intended to describe the authorized form for a
 //! Simple (not Plex) Entity, as a list of fields
-class StepData_ESDescr : public StepData_EDescr
+class StepData_ESDescr : public EntityDescriptor
 {
 
 public:
@@ -100,7 +100,7 @@ public:
   //! Creates a described entity (i.e. a simple one)
   Standard_EXPORT Handle(StepData_Described) NewEntity() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(StepData_ESDescr, StepData_EDescr)
+  DEFINE_STANDARD_RTTIEXT(StepData_ESDescr, EntityDescriptor)
 
 protected:
 private:

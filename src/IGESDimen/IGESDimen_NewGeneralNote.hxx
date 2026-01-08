@@ -92,7 +92,7 @@ public:
                             const Handle(TColStd_HArray1OfReal)&           boxWidths,
                             const Handle(TColStd_HArray1OfReal)&           boxHeights,
                             const Handle(TColStd_HArray1OfInteger)&        charSetCodes,
-                            const Handle(IGESData_HArray1OfIGESEntity)&    charSetEntities,
+                            const Handle(HArray1OfIGESEntity)&    charSetEntities,
                             const Handle(TColStd_HArray1OfReal)&           slAngles,
                             const Handle(TColStd_HArray1OfReal)&           rotAngles,
                             const Handle(TColStd_HArray1OfInteger)&        mirrorFlags,
@@ -277,7 +277,7 @@ private:
   Handle(TColStd_HArray1OfReal)           theBoxWidths;
   Handle(TColStd_HArray1OfReal)           theBoxHeights;
   Handle(TColStd_HArray1OfInteger)        theCharSetCodes;
-  Handle(IGESData_HArray1OfIGESEntity)    theCharSetEntities;
+  Handle(HArray1OfIGESEntity)    theCharSetEntities;
   Handle(TColStd_HArray1OfReal)           theSlantAngles;
   Handle(TColStd_HArray1OfReal)           theRotationAngles;
   Handle(TColStd_HArray1OfInteger)        theMirrorFlags;

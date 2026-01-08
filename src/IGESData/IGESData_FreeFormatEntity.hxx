@@ -115,7 +115,7 @@ public:
   //! Error if an Entity is not an IGESEntity
   //! All these Entities will be interpreted as "Positive Pointers"
   //! by IGESWriter
-  Standard_EXPORT void AddEntities(const Handle(IGESData_HArray1OfIGESEntity)& ents);
+  Standard_EXPORT void AddEntities(const Handle(HArray1OfIGESEntity)& ents);
 
   //! Adds a list of Ranks of Parameters to be noted as Negative
   //! Pointers (this will be taken into account for Parameters

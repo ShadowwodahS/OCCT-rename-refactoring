@@ -28,7 +28,7 @@ StepAP203_StartWork::StepAP203_StartWork() {}
 //=================================================================================================
 
 void StepAP203_StartWork::Init(const Handle(StepBasic_Action)& aActionAssignment_AssignedAction,
-                               const Handle(StepAP203_HArray1OfWorkItem)& aItems)
+                               const Handle(HArray1OfWorkItem)& aItems)
 {
   StepBasic_ActionAssignment::Init(aActionAssignment_AssignedAction);
 
@@ -37,14 +37,14 @@ void StepAP203_StartWork::Init(const Handle(StepBasic_Action)& aActionAssignment
 
 //=================================================================================================
 
-Handle(StepAP203_HArray1OfWorkItem) StepAP203_StartWork::Items() const
+Handle(HArray1OfWorkItem) StepAP203_StartWork::Items() const
 {
   return theItems;
 }
 
 //=================================================================================================
 
-void StepAP203_StartWork::SetItems(const Handle(StepAP203_HArray1OfWorkItem)& aItems)
+void StepAP203_StartWork::SetItems(const Handle(HArray1OfWorkItem)& aItems)
 {
   theItems = aItems;
 }

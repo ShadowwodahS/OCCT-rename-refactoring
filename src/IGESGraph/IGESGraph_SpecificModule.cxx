@@ -45,7 +45,7 @@
 #include <Message_Messenger.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESGraph_SpecificModule, IGESData_SpecificModule)
+IMPLEMENT_STANDARD_RTTIEXT(IGESGraph_SpecificModule, SpecificModule)
 
 //  Each Module is attached to a Protocol : it must interpret Case Numbers1
 //  (arguments <CN> of various methods) in accordance to values returned by

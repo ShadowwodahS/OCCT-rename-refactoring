@@ -23,7 +23,7 @@
 #include <StepBasic_SiPrefix.hxx>
 #include <StepBasic_SiUnitName.hxx>
 #include <StepBasic_NamedUnit.hxx>
-class StepBasic_DimensionalExponents;
+class DimensionalExponents;
 
 class StepBasic_SiUnit;
 DEFINE_STANDARD_HANDLE(StepBasic_SiUnit, StepBasic_NamedUnit)
@@ -52,9 +52,9 @@ public:
   Standard_EXPORT StepBasic_SiUnitName Name() const;
 
   Standard_EXPORT virtual void SetDimensions(
-    const Handle(StepBasic_DimensionalExponents)& aDimensions) Standard_OVERRIDE;
+    const Handle(DimensionalExponents)& aDimensions) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(StepBasic_DimensionalExponents) Dimensions() const
+  Standard_EXPORT virtual Handle(DimensionalExponents) Dimensions() const
     Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(StepBasic_SiUnit, StepBasic_NamedUnit)

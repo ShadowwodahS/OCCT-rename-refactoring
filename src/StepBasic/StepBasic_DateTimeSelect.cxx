@@ -24,7 +24,7 @@ Standard_Integer StepBasic_DateTimeSelect::CaseNum(const Handle(RefObject)& ent)
 {
   if (ent.IsNull())
     return 0;
-  if (ent->IsKind(STANDARD_TYPE(StepBasic_Date)))
+  if (ent->IsKind(STANDARD_TYPE(Date1)))
     return 1;
   if (ent->IsKind(STANDARD_TYPE(StepBasic_LocalTime)))
     return 2;
@@ -33,9 +33,9 @@ Standard_Integer StepBasic_DateTimeSelect::CaseNum(const Handle(RefObject)& ent)
   return 0;
 }
 
-Handle(StepBasic_Date) StepBasic_DateTimeSelect::Date() const
+Handle(Date1) StepBasic_DateTimeSelect::Date() const
 {
-  return GetCasted(StepBasic_Date, Value());
+  return GetCasted(Date1, Value());
 }
 
 Handle(StepBasic_LocalTime) StepBasic_DateTimeSelect::LocalTime() const

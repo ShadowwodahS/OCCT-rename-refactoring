@@ -18,7 +18,7 @@
 #include <DE_PluginHolder.hxx>
 #include <NCollection_Buffer.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DEPLY_ConfigurationNode, DE_ConfigurationNode)
+IMPLEMENT_STANDARD_RTTIEXT(DEPLY_ConfigurationNode, ConfigurationNode)
 
 namespace
 {
@@ -35,21 +35,21 @@ DE_PluginHolder<DEPLY_ConfigurationNode> THE_OCCT_PLY_COMPONENT_PLUGIN;
 //=================================================================================================
 
 DEPLY_ConfigurationNode::DEPLY_ConfigurationNode()
-    : DE_ConfigurationNode()
+    : ConfigurationNode()
 {
 }
 
 //=================================================================================================
 
 DEPLY_ConfigurationNode::DEPLY_ConfigurationNode(const Handle(DEPLY_ConfigurationNode)& theNode)
-    : DE_ConfigurationNode(theNode)
+    : ConfigurationNode(theNode)
 {
   InternalParameters = theNode->InternalParameters;
 }
 
 //=================================================================================================
 
-bool DEPLY_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theResource)
+bool DEPLY_ConfigurationNode::Load(const Handle(ConfigurationContext)& theResource)
 {
   AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor();
@@ -171,7 +171,7 @@ AsciiString1 DEPLY_ConfigurationNode::Save() const
 
 //=================================================================================================
 
-Handle(DE_ConfigurationNode) DEPLY_ConfigurationNode::Copy() const
+Handle(ConfigurationNode) DEPLY_ConfigurationNode::Copy() const
 {
   return new DEPLY_ConfigurationNode(*this);
 }

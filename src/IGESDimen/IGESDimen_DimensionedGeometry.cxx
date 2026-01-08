@@ -26,7 +26,7 @@ IGESDimen_DimensionedGeometry::IGESDimen_DimensionedGeometry() {}
 
 void IGESDimen_DimensionedGeometry::Init(const Standard_Integer                      nbDims,
                                          const Handle(IGESData_IGESEntity)&          aDimension,
-                                         const Handle(IGESData_HArray1OfIGESEntity)& entities)
+                                         const Handle(HArray1OfIGESEntity)& entities)
 {
   if (entities->Lower() != 1)
     throw Standard_DimensionMismatch("IGESDimen_DimensionedGeometry : Init");

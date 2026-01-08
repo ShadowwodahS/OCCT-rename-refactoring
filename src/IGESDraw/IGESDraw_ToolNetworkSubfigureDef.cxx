@@ -45,8 +45,8 @@ void NetworkSubfigureDefTool::ReadOwnParams(
   Standard_Integer                       tempDepth, tempNbEntities1, tempTypeFlag, tempNbEntities2;
   Handle(TCollection_HAsciiString)       tempName, tempDesignator;
   Handle(IGESGraph_TextDisplayTemplate)  tempTemplate;
-  Handle(IGESData_HArray1OfIGESEntity)   tempEntities;
-  Handle(IGESDraw_HArray1OfConnectPoint) tempPointEntities;
+  Handle(HArray1OfIGESEntity)   tempEntities;
+  Handle(HArray1OfConnectPoint) tempPointEntities;
 
   // szv#4:S4163:12Mar99 `st=` not needed
   PR.ReadInteger(PR.Current(), "Depth Of Subfigure", tempDepth);
@@ -62,7 +62,7 @@ void NetworkSubfigureDefTool::ReadOwnParams(
     else if (tempNbEntities1 > 0)
       // clang-format off
       PR.ReadEnts(IR,PR.CurrentList(tempNbEntities1),"Child Entities",tempEntities); //szv#4:S4163:12Mar99 `st=` not needed
-//      tempEntities = new IGESData_HArray1OfIGESEntity (1,tempNbEntities1);
+//      tempEntities = new HArray1OfIGESEntity (1,tempNbEntities1);
     // clang-format on
   }
 
@@ -104,7 +104,7 @@ void NetworkSubfigureDefTool::ReadOwnParams(
     if (tempNbEntities2 < 0)
       PR.AddFail("Number Of Connect Points : Less Than Zero");
     else if (tempNbEntities2 > 0)
-      tempPointEntities = new IGESDraw_HArray1OfConnectPoint(1, tempNbEntities2);
+      tempPointEntities = new HArray1OfConnectPoint(1, tempNbEntities2);
   }
 
   // Read the HArray1 only if its Length was read without any Error
@@ -175,10 +175,10 @@ void NetworkSubfigureDefTool::OwnCopy(const Handle(IGESDraw_NetworkSubfigureDef)
 {
   Standard_Integer                     tempDepth = another->Depth();
   Handle(TCollection_HAsciiString)     tempName  = new TCollection_HAsciiString(another->Name());
-  Handle(IGESData_HArray1OfIGESEntity) tempEntities;
+  Handle(HArray1OfIGESEntity) tempEntities;
   Standard_Integer                     up = another->NbEntities();
   if (up > 0)
-    tempEntities = new IGESData_HArray1OfIGESEntity(1, up);
+    tempEntities = new HArray1OfIGESEntity(1, up);
   Standard_Integer I;
   for (I = 1; I <= up; I++)
   {
@@ -190,9 +190,9 @@ void NetworkSubfigureDefTool::OwnCopy(const Handle(IGESDraw_NetworkSubfigureDef)
   if (!another->Designator().IsNull())
     tempDesignator = new TCollection_HAsciiString(another->Designator());
   up = another->NbPointEntities();
-  Handle(IGESDraw_HArray1OfConnectPoint) tempPointEntities;
+  Handle(HArray1OfConnectPoint) tempPointEntities;
   if (up > 0)
-    tempPointEntities = new IGESDraw_HArray1OfConnectPoint(1, up);
+    tempPointEntities = new HArray1OfConnectPoint(1, up);
   for (I = 1; I <= up; I++)
   {
     if (another->HasPointEntity(I))

@@ -36,7 +36,7 @@ void StepBasic_SiUnitAndThermodynamicTemperatureUnit::Init(const Standard_Boolea
 
   // --- ANDOR component fields ---
   thermodynamicTemperatureUnit = new StepBasic_ThermodynamicTemperatureUnit();
-  Handle(StepBasic_DimensionalExponents) aDimensions;
+  Handle(DimensionalExponents) aDimensions;
   aDimensions.Nullify();
   thermodynamicTemperatureUnit->Init(aDimensions);
 }

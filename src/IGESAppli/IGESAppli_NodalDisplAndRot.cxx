@@ -28,11 +28,11 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESAppli_NodalDisplAndRot, IGESData_IGESEntity)
 
 IGESAppli_NodalDisplAndRot::IGESAppli_NodalDisplAndRot() {}
 
-void IGESAppli_NodalDisplAndRot::Init(const Handle(IGESDimen_HArray1OfGeneralNote)&  allNotes,
+void IGESAppli_NodalDisplAndRot::Init(const Handle(HArray1OfGeneralNote)&  allNotes,
                                       const Handle(TColStd_HArray1OfInteger)&        allIdentifiers,
-                                      const Handle(IGESAppli_HArray1OfNode)&         allNodes,
-                                      const Handle(IGESBasic_HArray1OfHArray1OfXYZ)& allRotParams,
-                                      const Handle(IGESBasic_HArray1OfHArray1OfXYZ)& allTransParams)
+                                      const Handle(HArray1OfNode)&         allNodes,
+                                      const Handle(HArray1OfHArray1OfXYZ)& allRotParams,
+                                      const Handle(HArray1OfHArray1OfXYZ)& allTransParams)
 {
   if (allNodes->Lower() != 1
       || (allIdentifiers->Lower() != 1 || allIdentifiers->Length() != allNodes->Length())

@@ -335,10 +335,10 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferFace(const TopoFace& st
   }
 
   Standard_Integer                         nbent = Seq->Length();
-  Handle(IGESGeom_HArray1OfCurveOnSurface) Tab;
+  Handle(HArray1OfCurveOnSurface) Tab;
   if (nbent >= 1)
   {
-    Tab = new IGESGeom_HArray1OfCurveOnSurface(1, nbent);
+    Tab = new HArray1OfCurveOnSurface(1, nbent);
     for (Standard_Integer itab = 1; itab <= nbent; itab++)
     {
       Handle(IGESGeom_CurveOnSurface) item = GetCasted(IGESGeom_CurveOnSurface, Seq->Value(itab));
@@ -407,10 +407,10 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell::TransferShell(
   }
 
   Standard_Integer                     nbfaces = Seq->Length();
-  Handle(IGESData_HArray1OfIGESEntity) Tab;
+  Handle(HArray1OfIGESEntity) Tab;
   if (nbfaces >= 1)
   {
-    Tab = new IGESData_HArray1OfIGESEntity(1, nbfaces);
+    Tab = new HArray1OfIGESEntity(1, nbfaces);
     for (Standard_Integer itab = 1; itab <= nbfaces; itab++)
     {
       Handle(IGESData_IGESEntity) item = GetCasted(IGESData_IGESEntity, Seq->Value(itab));

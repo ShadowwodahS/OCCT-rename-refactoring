@@ -18,12 +18,12 @@
 #include <IGESToBRep_IGESBoundary.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESControl_ToolContainer, IGESToBRep_ToolContainer)
+IMPLEMENT_STANDARD_RTTIEXT(IGESControl_ToolContainer, ToolContainer3)
 
 //=================================================================================================
 
 IGESControl_ToolContainer::IGESControl_ToolContainer()
-    : IGESToBRep_ToolContainer()
+    : ToolContainer3()
 {
 }
 

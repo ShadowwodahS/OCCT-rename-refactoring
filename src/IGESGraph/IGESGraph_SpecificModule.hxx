@@ -26,11 +26,11 @@ class IGESData_IGESEntity;
 class IGESData_IGESDumper;
 
 class IGESGraph_SpecificModule;
-DEFINE_STANDARD_HANDLE(IGESGraph_SpecificModule, IGESData_SpecificModule)
+DEFINE_STANDARD_HANDLE(IGESGraph_SpecificModule, SpecificModule)
 
 //! Defines Services attached to IGES Entities :
 //! Dump & OwnCorrect, for IGESGraph1
-class IGESGraph_SpecificModule : public IGESData_SpecificModule
+class IGESGraph_SpecificModule : public SpecificModule
 {
 
 public:
@@ -51,7 +51,7 @@ public:
                                                       const Handle(IGESData_IGESEntity)& ent) const
     Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(IGESGraph_SpecificModule, IGESData_SpecificModule)
+  DEFINE_STANDARD_RTTIEXT(IGESGraph_SpecificModule, SpecificModule)
 
 protected:
 private:

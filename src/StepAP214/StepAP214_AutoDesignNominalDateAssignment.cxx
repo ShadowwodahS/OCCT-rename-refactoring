@@ -20,9 +20,9 @@ IMPLEMENT_STANDARD_RTTIEXT(StepAP214_AutoDesignNominalDateAssignment, StepBasic_
 StepAP214_AutoDesignNominalDateAssignment::StepAP214_AutoDesignNominalDateAssignment() {}
 
 void StepAP214_AutoDesignNominalDateAssignment::Init(
-  const Handle(StepBasic_Date)&                         aAssignedDate,
+  const Handle(Date1)&                         aAssignedDate,
   const Handle(StepBasic_DateRole)&                     aRole,
-  const Handle(StepAP214_HArray1OfAutoDesignDatedItem)& aItems)
+  const Handle(HArray1OfAutoDesignDatedItem)& aItems)
 {
   // --- classe own fields ---
   items = aItems;
@@ -31,12 +31,12 @@ void StepAP214_AutoDesignNominalDateAssignment::Init(
 }
 
 void StepAP214_AutoDesignNominalDateAssignment::SetItems(
-  const Handle(StepAP214_HArray1OfAutoDesignDatedItem)& aItems)
+  const Handle(HArray1OfAutoDesignDatedItem)& aItems)
 {
   items = aItems;
 }
 
-Handle(StepAP214_HArray1OfAutoDesignDatedItem) StepAP214_AutoDesignNominalDateAssignment::Items()
+Handle(HArray1OfAutoDesignDatedItem) StepAP214_AutoDesignNominalDateAssignment::Items()
   const
 {
   return items;

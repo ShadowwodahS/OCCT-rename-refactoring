@@ -15,4 +15,4 @@
 #include <StepData_Described.hxx>
 #include <StepData_EDescr.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepData_EDescr, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(EntityDescriptor, RefObject)

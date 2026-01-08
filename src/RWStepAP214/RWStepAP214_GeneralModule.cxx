@@ -5625,7 +5625,7 @@ Standard_Boolean RWStepAP214_GeneralModule::NewVoid(const Standard_Integer      
       ent = new StepBasic_ConversionBasedUnit;
       break;
     case 80:
-      ent = new StepBasic_CoordinatedUniversalTimeOffset;
+      ent = new TimeOffset;
       break;
     case 82:
       ent = new StepShape_CsgShapeRepresentation;
@@ -5655,7 +5655,7 @@ Standard_Boolean RWStepAP214_GeneralModule::NewVoid(const Standard_Integer      
       ent = new StepGeom_CylindricalSurface;
       break;
     case 91:
-      ent = new StepBasic_Date;
+      ent = new Date1;
       break;
     case 92:
       ent = new StepBasic_DateAndTime;
@@ -5679,7 +5679,7 @@ Standard_Boolean RWStepAP214_GeneralModule::NewVoid(const Standard_Integer      
       ent = new StepRepr_DescriptiveRepresentationItem;
       break;
     case 104:
-      ent = new StepBasic_DimensionalExponents;
+      ent = new DimensionalExponents;
       break;
     case 105:
       ent = new StepGeom_Direction;

@@ -33,7 +33,7 @@ DEPLY_Provider::DEPLY_Provider() {}
 
 //=================================================================================================
 
-DEPLY_Provider::DEPLY_Provider(const Handle(DE_ConfigurationNode)& theNode)
+DEPLY_Provider::DEPLY_Provider(const Handle(ConfigurationNode)& theNode)
     : DE_Provider(theNode)
 {
 }

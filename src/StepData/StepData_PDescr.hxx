@@ -25,7 +25,7 @@
 #include <StepData_EnumTool.hxx>
 #include <Standard_Transient.hxx>
 #include <Standard_CString.hxx>
-class StepData_EDescr;
+class EntityDescriptor;
 class StepData_Field;
 class Interface_Check;
 
@@ -172,7 +172,7 @@ public:
   //! Tells if <me> is for a Described entity of a given EDescr
   //! (does this EDescr match description name ?). For late-bnd
   //! (works for <me> + nexts if <me> is a Select)
-  Standard_EXPORT Standard_Boolean IsDescr(const Handle(StepData_EDescr)& descr) const;
+  Standard_EXPORT Standard_Boolean IsDescr(const Handle(EntityDescriptor)& descr) const;
 
   //! Returns the description (type name) to match, for a Described
   //! (else, empty string)

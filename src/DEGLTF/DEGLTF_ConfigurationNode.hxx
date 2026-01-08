@@ -29,9 +29,9 @@
 //! The supported CAD extensions are ".gltf", ".glb"
 //! The import process is supported.
 //! The export process is supported.
-class DEGLTF_ConfigurationNode : public DE_ConfigurationNode
+class DEGLTF_ConfigurationNode : public ConfigurationNode
 {
-  DEFINE_STANDARD_RTTIEXT(DEGLTF_ConfigurationNode, DE_ConfigurationNode)
+  DEFINE_STANDARD_RTTIEXT(DEGLTF_ConfigurationNode, ConfigurationNode)
 public:
   //! Initializes all field by default
   Standard_EXPORT DEGLTF_ConfigurationNode();
@@ -43,7 +43,7 @@ public:
   //! Updates values according the resource
   //! @param[in] theResource input resource to use
   //! @return true if theResource loading has ended correctly
-  Standard_EXPORT virtual bool Load(const Handle(DE_ConfigurationContext)& theResource)
+  Standard_EXPORT virtual bool Load(const Handle(ConfigurationContext)& theResource)
     Standard_OVERRIDE;
 
   //! Writes configuration to the string
@@ -52,7 +52,7 @@ public:
 
   //! Copies values of all fields
   //! @return new object with the same field values
-  Standard_EXPORT virtual Handle(DE_ConfigurationNode) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(ConfigurationNode) Copy() const Standard_OVERRIDE;
 
   //! Creates new provider for the own format
   //! @return new created provider
@@ -80,7 +80,7 @@ public:
   Standard_EXPORT virtual TColStd_ListOfAsciiString GetExtensions() const Standard_OVERRIDE;
 
 public:
-  struct RWGltf_InternalSection
+  struct RWGltf_InternalSection1
   {
     // Common
     // clang-format off

@@ -19,14 +19,14 @@
 #include <TColStd_IndexedDataMapOfStringString.hxx>
 
 //! Auxiliary low-level tool writing OBJ file.
-class RWObj_ObjWriterContext
+class OBJWriterContext
 {
 public:
   //! Main constructor.
-  Standard_EXPORT RWObj_ObjWriterContext(const AsciiString1& theName);
+  Standard_EXPORT OBJWriterContext(const AsciiString1& theName);
 
   //! Destructor, will emit error message if file was not closed.
-  Standard_EXPORT ~RWObj_ObjWriterContext();
+  Standard_EXPORT ~OBJWriterContext();
 
   //! Return true if file has been opened.
   bool IsOpened() const { return myFile != NULL; }

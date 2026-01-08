@@ -29,7 +29,7 @@ IGESBasic_SubfigureDef::IGESBasic_SubfigureDef() {}
 
 void IGESBasic_SubfigureDef::Init(const Standard_Integer                      aDepth,
                                   const Handle(TCollection_HAsciiString)&     aName,
-                                  const Handle(IGESData_HArray1OfIGESEntity)& allAssocEntities)
+                                  const Handle(HArray1OfIGESEntity)& allAssocEntities)
 {
   if (!allAssocEntities.IsNull() && allAssocEntities->Lower() != 1)
     throw Standard_DimensionMismatch("IGESBasic_SubfigureDef : Init");

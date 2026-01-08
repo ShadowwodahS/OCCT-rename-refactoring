@@ -50,13 +50,13 @@ void RWStepAP214_RWAppliedSecurityClassificationAssignment::ReadStep(
 
   // --- own field : items ---
 
-  Handle(StepAP214_HArray1OfSecurityClassificationItem) aItems;
+  Handle(HArray1OfSecurityClassItem) aItems;
   StepAP214_SecurityClassificationItem                  anent2;
   Standard_Integer                                      nsub2;
   if (data->ReadSubList(num, 2, "items", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aItems               = new StepAP214_HArray1OfSecurityClassificationItem(1, nb2);
+    aItems               = new HArray1OfSecurityClassItem(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       Standard_Boolean stat2 = data->ReadEntity(nsub2, i2, "items", ach, anent2);

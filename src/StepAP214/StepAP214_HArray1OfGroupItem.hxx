@@ -20,6 +20,6 @@
 #include <StepAP214_Array1OfGroupItem.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepAP214_HArray1OfGroupItem, StepAP214_Array1OfGroupItem)
+DEFINE_HARRAY1(HArray1OfGroupItem, StepAP214_Array1OfGroupItem)
 
 #endif

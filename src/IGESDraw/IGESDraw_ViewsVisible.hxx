@@ -44,11 +44,11 @@ public:
   //! ViewsVisible
   //! - allViewEntities  : All View kind entities
   //! - allDisplayEntity : All entities whose display is specified
-  Standard_EXPORT void Init(const Handle(IGESDraw_HArray1OfViewKindEntity)& allViewEntities,
-                            const Handle(IGESData_HArray1OfIGESEntity)&     allDisplayEntity);
+  Standard_EXPORT void Init(const Handle(HArray1OfViewKindEntity)& allViewEntities,
+                            const Handle(HArray1OfIGESEntity)&     allDisplayEntity);
 
   //! Changes only the list of Displayed Entities (Null allowed)
-  Standard_EXPORT void InitImplied(const Handle(IGESData_HArray1OfIGESEntity)& allDisplayEntity);
+  Standard_EXPORT void InitImplied(const Handle(HArray1OfIGESEntity)& allDisplayEntity);
 
   //! Returns False (for a complex1 view)
   Standard_EXPORT Standard_Boolean IsSingle() const Standard_OVERRIDE;
@@ -74,8 +74,8 @@ public:
 
 protected:
 private:
-  Handle(IGESDraw_HArray1OfViewKindEntity) theViewEntities;
-  Handle(IGESData_HArray1OfIGESEntity)     theDisplayEntity;
+  Handle(HArray1OfViewKindEntity) theViewEntities;
+  Handle(HArray1OfIGESEntity)     theDisplayEntity;
 };
 
 #endif // _IGESDraw_ViewsVisible_HeaderFile

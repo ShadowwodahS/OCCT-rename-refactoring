@@ -28,13 +28,13 @@ IGESDraw_ViewsVisibleWithAttr::IGESDraw_ViewsVisibleWithAttr() {}
 // This class inherits from IGESData_ViewKindEntity
 
 void IGESDraw_ViewsVisibleWithAttr::Init(
-  const Handle(IGESDraw_HArray1OfViewKindEntity)&  allViewEntities,
+  const Handle(HArray1OfViewKindEntity)&  allViewEntities,
   const Handle(TColStd_HArray1OfInteger)&          allLineFonts,
-  const Handle(IGESBasic_HArray1OfLineFontEntity)& allLineDefinitions,
+  const Handle(HArray1OfLineFontEntity)& allLineDefinitions,
   const Handle(TColStd_HArray1OfInteger)&          allColorValues,
-  const Handle(IGESGraph_HArray1OfColor)&          allColorDefinitions,
+  const Handle(HArray1OfColor)&          allColorDefinitions,
   const Handle(TColStd_HArray1OfInteger)&          allLineWeights,
-  const Handle(IGESData_HArray1OfIGESEntity)&      allDisplayEntities)
+  const Handle(HArray1OfIGESEntity)&      allDisplayEntities)
 {
   if (!allViewEntities.IsNull())
   {
@@ -62,7 +62,7 @@ void IGESDraw_ViewsVisibleWithAttr::Init(
 }
 
 void IGESDraw_ViewsVisibleWithAttr::InitImplied(
-  const Handle(IGESData_HArray1OfIGESEntity)& allDisplayEntity)
+  const Handle(HArray1OfIGESEntity)& allDisplayEntity)
 {
   if (!allDisplayEntity.IsNull())
     if (allDisplayEntity->Lower() != 1)

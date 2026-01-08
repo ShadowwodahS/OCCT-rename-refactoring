@@ -20,6 +20,6 @@
 #include <IGESSolid_Array1OfShell.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(IGESSolid_HArray1OfShell, IGESSolid_Array1OfShell)
+DEFINE_HARRAY1(HArray1OfShell, IGESSolid_Array1OfShell)
 
 #endif

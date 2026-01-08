@@ -25,14 +25,14 @@
 #include <TColStd_HArray1OfReal.hxx>
 #include <Standard_Integer.hxx>
 
-class IGESBasic_HArray1OfHArray1OfReal;
-DEFINE_STANDARD_HANDLE(IGESBasic_HArray1OfHArray1OfReal, RefObject)
+class HArray1OfHArray1OfReal;
+DEFINE_STANDARD_HANDLE(HArray1OfHArray1OfReal, RefObject)
 
-class IGESBasic_HArray1OfHArray1OfReal : public RefObject
+class HArray1OfHArray1OfReal : public RefObject
 {
 
 public:
-  Standard_EXPORT IGESBasic_HArray1OfHArray1OfReal(const Standard_Integer low,
+  Standard_EXPORT HArray1OfHArray1OfReal(const Standard_Integer low,
                                                    const Standard_Integer up);
 
   Standard_EXPORT Standard_Integer Lower() const;
@@ -46,7 +46,7 @@ public:
 
   Standard_EXPORT Handle(TColStd_HArray1OfReal) Value(const Standard_Integer num) const;
 
-  DEFINE_STANDARD_RTTI_INLINE(IGESBasic_HArray1OfHArray1OfReal, RefObject)
+  DEFINE_STANDARD_RTTI_INLINE(HArray1OfHArray1OfReal, RefObject)
 
 protected:
 private:

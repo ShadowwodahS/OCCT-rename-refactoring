@@ -23,7 +23,7 @@
 #include <TColStd_HArray1OfInteger.hxx>
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_Integer.hxx>
-class IGESBasic_HArray1OfHArray1OfInteger;
+class HArray1OfHArray1OfInt;
 
 class IGESDefs_AssociativityDef;
 DEFINE_STANDARD_HANDLE(IGESDefs_AssociativityDef, IGESData_IGESEntity)
@@ -49,7 +49,7 @@ public:
   Standard_EXPORT void Init(const Handle(TColStd_HArray1OfInteger)&            requirements,
                             const Handle(TColStd_HArray1OfInteger)&            orders,
                             const Handle(TColStd_HArray1OfInteger)&            numItems,
-                            const Handle(IGESBasic_HArray1OfHArray1OfInteger)& items);
+                            const Handle(HArray1OfHArray1OfInt)& items);
 
   Standard_EXPORT void SetFormNumber(const Standard_Integer form);
 
@@ -92,7 +92,7 @@ private:
   Handle(TColStd_HArray1OfInteger)            theBackPointerReqs;
   Handle(TColStd_HArray1OfInteger)            theClassOrders;
   Handle(TColStd_HArray1OfInteger)            theNbItemsPerClass;
-  Handle(IGESBasic_HArray1OfHArray1OfInteger) theItems;
+  Handle(HArray1OfHArray1OfInt) theItems;
 };
 
 #endif // _IGESDefs_AssociativityDef_HeaderFile

@@ -20,7 +20,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <UnitsMethods_LengthUnit.hxx>
 
-class DEIGES_Parameters
+class Parameters1
 {
 public:
   enum ReadMode_BSplineContinuity
@@ -78,7 +78,7 @@ public:
   };
 
 public:
-  DEIGES_Parameters() = default;
+  Parameters1() = default;
 
   //! Initialize parameters
   Standard_EXPORT void InitFromStatic();

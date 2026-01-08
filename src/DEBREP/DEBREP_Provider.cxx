@@ -31,7 +31,7 @@ DEBREP_Provider::DEBREP_Provider() {}
 
 //=================================================================================================
 
-DEBREP_Provider::DEBREP_Provider(const Handle(DE_ConfigurationNode)& theNode)
+DEBREP_Provider::DEBREP_Provider(const Handle(ConfigurationNode)& theNode)
     : DE_Provider(theNode)
 {
 }

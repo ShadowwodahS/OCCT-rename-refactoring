@@ -57,7 +57,7 @@ public:
                             const Handle(IGESData_IGESEntity)&          aDimen,
                             const Standard_Integer                      anOrientation,
                             const Standard_Real                         anAngle,
-                            const Handle(IGESData_HArray1OfIGESEntity)& allEntities,
+                            const Handle(HArray1OfIGESEntity)& allEntities,
                             const Handle(TColStd_HArray1OfInteger)&     allLocations,
                             const Handle(TColgp_HArray1OfXYZ)&          allPoints);
 
@@ -100,7 +100,7 @@ private:
   Handle(IGESData_IGESEntity)          theDimensionEntity;
   Standard_Integer                     theDimensionOrientationFlag;
   Standard_Real                        theAngleValue;
-  Handle(IGESData_HArray1OfIGESEntity) theGeometryEntities;
+  Handle(HArray1OfIGESEntity) theGeometryEntities;
   Handle(TColStd_HArray1OfInteger)     theDimensionLocationFlags;
   Handle(TColgp_HArray1OfXYZ)          thePoints;
 };

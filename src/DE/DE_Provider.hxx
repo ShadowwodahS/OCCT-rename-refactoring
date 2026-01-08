@@ -16,7 +16,7 @@
 
 #include <Message_ProgressRange.hxx>
 
-class DE_ConfigurationNode;
+class ConfigurationNode;
 class TopoShape;
 class ExchangeSession;
 class AppDocument;
@@ -50,7 +50,7 @@ public:
 
   //! Configure translation process
   //! @param[in] theNode object to copy
-  Standard_EXPORT DE_Provider(const Handle(DE_ConfigurationNode)& theNode);
+  Standard_EXPORT DE_Provider(const Handle(ConfigurationNode)& theNode);
 
 public:
   //! Reads a CAD file, according internal configuration
@@ -152,14 +152,14 @@ public:
 
   //! Gets internal configuration node
   //! @return configuration node object
-  Handle(DE_ConfigurationNode) GetNode() const { return myNode; }
+  Handle(ConfigurationNode) GetNode() const { return myNode; }
 
   //! Sets internal configuration node
   //! @param[in] theNode configuration node to set
-  void SetNode(const Handle(DE_ConfigurationNode)& theNode) { myNode = theNode; }
+  void SetNode(const Handle(ConfigurationNode)& theNode) { myNode = theNode; }
 
 private:
-  Handle(DE_ConfigurationNode) myNode; //!< Internal configuration for the own format
+  Handle(ConfigurationNode) myNode; //!< Internal configuration for the own format
 };
 
 #endif // _DE_Provider_HeaderFile

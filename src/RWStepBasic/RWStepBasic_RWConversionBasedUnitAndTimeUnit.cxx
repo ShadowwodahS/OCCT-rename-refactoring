@@ -61,13 +61,13 @@ void RWStepBasic_RWConversionBasedUnitAndTimeUnit::ReadStep(
     return;
   // --- field : dimensions ---
 
-  Handle(StepBasic_DimensionalExponents) aDimensions;
+  Handle(DimensionalExponents) aDimensions;
   // szv#4:S4163:12Mar99 `Standard_Boolean stat3 =` not needed
   data->ReadEntity(num,
                    1,
                    "dimensions",
                    ach,
-                   STANDARD_TYPE(StepBasic_DimensionalExponents),
+                   STANDARD_TYPE(DimensionalExponents),
                    aDimensions);
 
   num = data->NextForComplex(num);

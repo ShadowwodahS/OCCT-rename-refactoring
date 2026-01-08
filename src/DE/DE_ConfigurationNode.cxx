@@ -21,18 +21,18 @@
 #include <OSD_Path.hxx>
 #include <OSD_Protection.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DE_ConfigurationNode, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ConfigurationNode, RefObject)
 
 //=================================================================================================
 
-DE_ConfigurationNode::DE_ConfigurationNode()
+ConfigurationNode::ConfigurationNode()
     : myIsEnabled(Standard_True)
 {
 }
 
 //=================================================================================================
 
-DE_ConfigurationNode::DE_ConfigurationNode(const Handle(DE_ConfigurationNode)& theConfigurationNode)
+ConfigurationNode::ConfigurationNode(const Handle(ConfigurationNode)& theConfigurationNode)
 {
   GlobalParameters = theConfigurationNode->GlobalParameters;
   myIsEnabled      = theConfigurationNode->IsEnabled();
@@ -40,16 +40,16 @@ DE_ConfigurationNode::DE_ConfigurationNode(const Handle(DE_ConfigurationNode)& t
 
 //=================================================================================================
 
-bool DE_ConfigurationNode::Load(const AsciiString1& theResourcePath)
+bool ConfigurationNode::Load(const AsciiString1& theResourcePath)
 {
-  Handle(DE_ConfigurationContext) aResource = new DE_ConfigurationContext();
+  Handle(ConfigurationContext) aResource = new ConfigurationContext();
   aResource->LoadFile(theResourcePath);
   return Load(aResource);
 }
 
 //=================================================================================================
 
-bool DE_ConfigurationNode::Save(const AsciiString1& theResourcePath) const
+bool ConfigurationNode::Save(const AsciiString1& theResourcePath) const
 {
   SystemPath       aPath = theResourcePath;
   SystemFile       aFile(aPath);
@@ -79,7 +79,7 @@ bool DE_ConfigurationNode::Save(const AsciiString1& theResourcePath) const
 
 //=================================================================================================
 
-bool DE_ConfigurationNode::UpdateLoad(const Standard_Boolean theToImport,
+bool ConfigurationNode::UpdateLoad(const Standard_Boolean theToImport,
                                       const Standard_Boolean theToKeep)
 {
   (void)theToImport;
@@ -89,21 +89,21 @@ bool DE_ConfigurationNode::UpdateLoad(const Standard_Boolean theToImport,
 
 //=================================================================================================
 
-bool DE_ConfigurationNode::IsImportSupported() const
+bool ConfigurationNode::IsImportSupported() const
 {
   return false;
 }
 
 //=================================================================================================
 
-bool DE_ConfigurationNode::IsExportSupported() const
+bool ConfigurationNode::IsExportSupported() const
 {
   return false;
 }
 
 //=================================================================================================
 
-bool DE_ConfigurationNode::CheckExtension(const AsciiString1& theExtension) const
+bool ConfigurationNode::CheckExtension(const AsciiString1& theExtension) const
 {
   AsciiString1 anExtension(theExtension);
   if (anExtension.IsEmpty())
@@ -127,7 +127,7 @@ bool DE_ConfigurationNode::CheckExtension(const AsciiString1& theExtension) cons
 
 //=================================================================================================
 
-bool DE_ConfigurationNode::CheckContent(const Handle(NCollection_Buffer)& theBuffer) const
+bool ConfigurationNode::CheckContent(const Handle(NCollection_Buffer)& theBuffer) const
 {
   (void)theBuffer;
   return false;

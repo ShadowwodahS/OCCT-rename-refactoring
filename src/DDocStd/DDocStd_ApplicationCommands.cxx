@@ -127,17 +127,17 @@ static Standard_Integer DDocStd_Open(DrawInterpreter& di, Standard_Integer nb, c
     PCDM_ReaderStatus           theStatus;
 
     Standard_Boolean          anUseStream = Standard_False;
-    Handle(PCDM_ReaderFilter) aFilter     = new PCDM_ReaderFilter;
+    Handle(ReaderFilter) aFilter     = new ReaderFilter;
     for (Standard_Integer i = 3; i < nb; i++)
     {
       AsciiString1 anArg(a[i]);
       if (anArg == "-append")
       {
-        aFilter->Mode() = PCDM_ReaderFilter::AppendMode_Protect;
+        aFilter->Mode() = ReaderFilter::AppendMode_Protect;
       }
       else if (anArg == "-overwrite")
       {
-        aFilter->Mode() = PCDM_ReaderFilter::AppendMode_Overwrite;
+        aFilter->Mode() = ReaderFilter::AppendMode_Overwrite;
       }
       else if (anArg == "-stream")
       {

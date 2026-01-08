@@ -37,7 +37,7 @@ static Standard_Integer DumpConfiguration(DrawInterpreter& theDI,
                                           Standard_Integer  theNbArgs,
                                           const char**      theArgVec)
 {
-  Handle(DE_Wrapper)        aConf = DE_Wrapper::GlobalWrapper();
+  Handle(DataExchangeWrapper)        aConf = DataExchangeWrapper::GlobalWrapper();
   AsciiString1   aPath;
   Standard_Boolean          aIsRecursive    = Standard_True;
   Standard_Boolean          isHandleFormat  = Standard_False;
@@ -109,13 +109,13 @@ static Standard_Integer CompareConfiguration(DrawInterpreter& theDI,
     theDI.PrintHelp(theArgVec[0]);
     return 1;
   }
-  Handle(DE_ConfigurationContext) aResourceFirst = new DE_ConfigurationContext();
+  Handle(ConfigurationContext) aResourceFirst = new ConfigurationContext();
   if (!aResourceFirst->Load(theArgVec[1]))
   {
     theDI << "Error: Can't load first configuration\n";
     return 1;
   }
-  Handle(DE_ConfigurationContext) aResourceSecond = new DE_ConfigurationContext();
+  Handle(ConfigurationContext) aResourceSecond = new ConfigurationContext();
   if (!aResourceSecond->Load(theArgVec[2]))
   {
     theDI << "Error: Can't load second configuration\n";
@@ -164,7 +164,7 @@ static Standard_Integer LoadConfiguration(DrawInterpreter& theDI,
     theDI.PrintHelp(theArgVec[0]);
     return 1;
   }
-  Handle(DE_Wrapper)      aConf        = DE_Wrapper::GlobalWrapper();
+  Handle(DataExchangeWrapper)      aConf        = DataExchangeWrapper::GlobalWrapper();
   AsciiString1 aString      = theArgVec[1];
   Standard_Boolean        aIsRecursive = Standard_True;
   if (theNbArgs == 4)
@@ -243,7 +243,7 @@ static Standard_Integer ReadFile(DrawInterpreter& theDI,
     Draw1::Set(theArgVec[1], aDrawDoc);
   }
 
-  Handle(DE_Wrapper)            aConf = DE_Wrapper::GlobalWrapper()->Copy();
+  Handle(DataExchangeWrapper)            aConf = DataExchangeWrapper::GlobalWrapper()->Copy();
   Handle(ExchangeSession) aWS   = XSDRAW1::Session();
   Standard_Boolean              aStat = Standard_True;
   if (!aConfString.IsEmpty())
@@ -321,7 +321,7 @@ static Standard_Integer WriteFile(DrawInterpreter& theDI,
     theDI << "Error: incorrect document\n";
     return 1;
   }
-  Handle(DE_Wrapper)            aConf = DE_Wrapper::GlobalWrapper()->Copy();
+  Handle(DataExchangeWrapper)            aConf = DataExchangeWrapper::GlobalWrapper()->Copy();
   Handle(ExchangeSession) aWS   = XSDRAW1::Session();
   Standard_Boolean              aStat = Standard_True;
   if (!aConfString.IsEmpty())

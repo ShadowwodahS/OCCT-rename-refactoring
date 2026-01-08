@@ -19,25 +19,25 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Type.hxx>
 
-class LDOM_BasicElement;
-class LDOM_MemManager;
+class BasicElement;
+class MemoryManager;
 class LDOMBasicString1;
 
-// Define handle class for LDOM_MemManager
-DEFINE_STANDARD_HANDLE(LDOM_MemManager, RefObject)
+// Define handle class for MemoryManager
+DEFINE_STANDARD_HANDLE(MemoryManager, RefObject)
 
-//  Class LDOM_MemManager (underlying structure of LDOM_Document)
+//  Class MemoryManager (underlying structure of LDOM_Document)
 //
 
-class LDOM_MemManager : public RefObject
+class MemoryManager : public RefObject
 {
 public:
   // ---------- PUBLIC METHODS ----------
 
-  Standard_EXPORT LDOM_MemManager(const Standard_Integer aBlockSize);
+  Standard_EXPORT MemoryManager(const Standard_Integer aBlockSize);
   // Constructor
 
-  Standard_EXPORT ~LDOM_MemManager();
+  Standard_EXPORT ~MemoryManager();
   // Destructor
 
   Standard_EXPORT void* Allocate(const Standard_Integer aSize);
@@ -68,9 +68,9 @@ public:
   //  LDOM_Document           Doc           () const
   //                                { return LDOM_Document (* this); }
 
-  const LDOM_MemManager& Self() const { return *this; }
+  const MemoryManager& Self() const { return *this; }
 
-  const LDOM_BasicElement* RootElement() const { return myRootElement; }
+  const BasicElement* RootElement() const { return myRootElement; }
 
 private:
   friend class LDOM_Document;
@@ -79,7 +79,7 @@ private:
   // ---- CLASS MemBlock1 ----
   class MemBlock1
   {
-    friend class LDOM_MemManager;
+    friend class MemoryManager;
     inline MemBlock1(const Standard_Integer aSize, MemBlock1* aFirst);
     inline void* Allocate(const Standard_Integer aSize);
     void*        AllocateAndCheck(const Standard_Integer aSize, const MemBlock1*&);
@@ -97,9 +97,9 @@ private:
   // ---- CLASS HashTable1 ----
   class HashTable1
   {
-    friend class LDOM_MemManager;
+    friend class MemoryManager;
     HashTable1(/* const Standard_Integer theMask, */
-              LDOM_MemManager& theMemManager);
+              MemoryManager& theMemManager);
     const char*             AddString(const char*            theString,
                                       const Standard_Integer theLen,
                                       Standard_Integer&      theHashIndex);
@@ -111,20 +111,20 @@ private:
       struct TableItem1* next;
     }* myTable;
 
-    LDOM_MemManager& myManager;
+    MemoryManager& myManager;
     void             operator=(const HashTable1&);
   };
 
   // ---- PROHIBITED (PRIVATE) METHODS ----
-  LDOM_MemManager(const LDOM_MemManager& theOther);
+  MemoryManager(const MemoryManager& theOther);
   // Copy constructor
 
-  LDOM_MemManager& operator=(const LDOM_MemManager& theOther);
+  MemoryManager& operator=(const MemoryManager& theOther);
   // Assignment
 
   // ---------- PRIVATE FIELDS ----------
 
-  const LDOM_BasicElement* myRootElement;
+  const BasicElement* myRootElement;
   MemBlock1*                myFirstBlock;
   MemBlock1*                myFirstWithoutRoom;
   Standard_Integer         myBlockSize;
@@ -132,7 +132,7 @@ private:
 
 public:
   // CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(LDOM_MemManager, RefObject)
+  DEFINE_STANDARD_RTTIEXT(MemoryManager, RefObject)
 };
 
 #endif

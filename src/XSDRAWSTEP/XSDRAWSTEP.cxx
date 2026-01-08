@@ -315,7 +315,7 @@ static Standard_Integer testreadstep(DrawInterpreter& theDI,
   STEPControl_Controller::Init();
   XSAlgo_ShapeProcessor::PrepareForTransfer(); // update unit info
   IFSelect_ReturnStatus aReadStat;
-  DESTEP_Parameters     aParameters;
+  Parameters2     aParameters;
   aParameters.InitFromStatic();
   int aNbSubShape = 0;
   Parallel1::For(0, aSize, [&](const Standard_Integer theIndex) {
@@ -552,7 +552,7 @@ static Standard_Integer testwrite(DrawInterpreter& theDI,
     return 1;
   }
 
-  DESTEP_Parameters aParameters;
+  Parameters2 aParameters;
   aParameters.InitFromStatic();
 
   Parallel1::For(0, aSize, [&](const Standard_Integer theIndex) {

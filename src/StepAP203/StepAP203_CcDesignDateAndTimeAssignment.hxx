@@ -39,19 +39,19 @@ public:
   Standard_EXPORT void Init(
     const Handle(StepBasic_DateAndTime)&           aDateAndTimeAssignment_AssignedDateAndTime,
     const Handle(StepBasic_DateTimeRole)&          aDateAndTimeAssignment_Role,
-    const Handle(StepAP203_HArray1OfDateTimeItem)& aItems);
+    const Handle(HArray1OfDateTimeItem)& aItems);
 
   //! Returns field Items
-  Standard_EXPORT Handle(StepAP203_HArray1OfDateTimeItem) Items() const;
+  Standard_EXPORT Handle(HArray1OfDateTimeItem) Items() const;
 
   //! Set field Items
-  Standard_EXPORT void SetItems(const Handle(StepAP203_HArray1OfDateTimeItem)& Items);
+  Standard_EXPORT void SetItems(const Handle(HArray1OfDateTimeItem)& Items);
 
   DEFINE_STANDARD_RTTIEXT(StepAP203_CcDesignDateAndTimeAssignment, StepBasic_DateAndTimeAssignment)
 
 protected:
 private:
-  Handle(StepAP203_HArray1OfDateTimeItem) theItems;
+  Handle(HArray1OfDateTimeItem) theItems;
 };
 
 #endif // _StepAP203_CcDesignDateAndTimeAssignment_HeaderFile

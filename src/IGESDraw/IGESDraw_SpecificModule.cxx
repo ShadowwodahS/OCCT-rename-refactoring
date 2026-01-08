@@ -43,7 +43,7 @@
 #include <Interface_Macros.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESDraw_SpecificModule, IGESData_SpecificModule)
+IMPLEMENT_STANDARD_RTTIEXT(IGESDraw_SpecificModule, SpecificModule)
 
 //  Each Module is attached to a Protocol : it must interpret Case Numbers1
 //  (arguments <CN> of various methods) in accordance to values returned by

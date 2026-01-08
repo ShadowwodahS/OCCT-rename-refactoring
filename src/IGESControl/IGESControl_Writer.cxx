@@ -323,7 +323,7 @@ void IgesFileWriter::InitializeMissingParameters()
 {
   if (GetShapeFixParameters().IsEmpty())
   {
-    SetShapeFixParameters(DEIGES_Parameters::GetDefaultShapeFixParameters());
+    SetShapeFixParameters(Parameters1::GetDefaultShapeFixParameters());
   }
 
   if (!myShapeProcFlags.second)

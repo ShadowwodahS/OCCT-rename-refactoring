@@ -30,7 +30,7 @@
 #include <TColStd_HSequenceOfAsciiString.hxx>
 #include <UTL.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(PCDM_ReadWriter, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ReadWriter, RefObject)
 
 #define FILE_FORMAT "FILE_FORMAT: "
 
@@ -40,7 +40,7 @@ static UtfString TryXmlDriverType(Standard_IStream& theIStream);
 
 //=================================================================================================
 
-void PCDM_ReadWriter::Open(const Handle(Storage_BaseDriver)& aDriver,
+void ReadWriter::Open(const Handle(Storage_BaseDriver)& aDriver,
                            const UtfString& aFileName,
                            const Storage_OpenMode            aMode)
 {
@@ -67,21 +67,21 @@ void PCDM_ReadWriter::Open(const Handle(Storage_BaseDriver)& aDriver,
 
 //=================================================================================================
 
-Handle(PCDM_ReadWriter) PCDM_ReadWriter::Reader(const UtfString&)
+Handle(ReadWriter) ReadWriter::Reader(const UtfString&)
 {
   return (new PCDM_ReadWriter_1);
 }
 
 //=================================================================================================
 
-Handle(PCDM_ReadWriter) PCDM_ReadWriter::Writer()
+Handle(ReadWriter) ReadWriter::Writer()
 {
   return (new PCDM_ReadWriter_1);
 }
 
 //=================================================================================================
 
-void PCDM_ReadWriter::WriteFileFormat(const Handle(Storage_Data)& aData,
+void ReadWriter::WriteFileFormat(const Handle(Storage_Data)& aData,
                                       const Handle(CDM_Document)& aDocument)
 {
   AsciiString1 ligne(FILE_FORMAT);
@@ -92,7 +92,7 @@ void PCDM_ReadWriter::WriteFileFormat(const Handle(Storage_Data)& aData,
 
 //=================================================================================================
 
-UtfString PCDM_ReadWriter::FileFormat(const UtfString& aFileName)
+UtfString ReadWriter::FileFormat(const UtfString& aFileName)
 {
   UtfString theFormat;
 
@@ -144,7 +144,7 @@ UtfString PCDM_ReadWriter::FileFormat(const UtfString& aFileName)
 
 //=================================================================================================
 
-UtfString PCDM_ReadWriter::FileFormat(Standard_IStream&     theIStream,
+UtfString ReadWriter::FileFormat(Standard_IStream&     theIStream,
                                                        Handle(Storage_Data)& theData)
 {
   UtfString aFormat;

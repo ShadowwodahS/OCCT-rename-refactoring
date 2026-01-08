@@ -39,7 +39,7 @@ DEXCAF_Provider::DEXCAF_Provider() {}
 
 //=================================================================================================
 
-DEXCAF_Provider::DEXCAF_Provider(const Handle(DE_ConfigurationNode)& theNode)
+DEXCAF_Provider::DEXCAF_Provider(const Handle(ConfigurationNode)& theNode)
     : DE_Provider(theNode)
 {
 }
@@ -97,8 +97,8 @@ bool DEXCAF_Provider::Read(const AsciiString1&  thePath,
   XmlLDrivers1::DefineFormat(anApp);
   XmlTObjDrivers1::DefineFormat(anApp);
   XmlXCAFDrivers1::DefineFormat(anApp);
-  Handle(PCDM_ReaderFilter) aFilter =
-    new PCDM_ReaderFilter(aNode->InternalParameters.ReadAppendMode);
+  Handle(ReaderFilter) aFilter =
+    new ReaderFilter(aNode->InternalParameters.ReadAppendMode);
   for (TColStd_ListOfAsciiString::Iterator anIt(aNode->InternalParameters.ReadSkipValues);
        anIt.More();
        anIt.Next())

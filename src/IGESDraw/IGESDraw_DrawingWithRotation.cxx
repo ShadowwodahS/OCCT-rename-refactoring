@@ -32,10 +32,10 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESDraw_DrawingWithRotation, IGESData_IGESEntity)
 
 IGESDraw_DrawingWithRotation::IGESDraw_DrawingWithRotation() {}
 
-void IGESDraw_DrawingWithRotation::Init(const Handle(IGESDraw_HArray1OfViewKindEntity)& allViews,
+void IGESDraw_DrawingWithRotation::Init(const Handle(HArray1OfViewKindEntity)& allViews,
                                         const Handle(TColgp_HArray1OfXY)&    allViewOrigins,
                                         const Handle(TColStd_HArray1OfReal)& allOrientationAngles,
-                                        const Handle(IGESData_HArray1OfIGESEntity)& allAnnotations)
+                                        const Handle(HArray1OfIGESEntity)& allAnnotations)
 {
   Standard_Integer Len = allViews->Length();
   if (allViews->Lower() != 1 || (allViewOrigins->Lower() != 1 || allViewOrigins->Length() != Len)

@@ -25,10 +25,10 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESSolid_EdgeList, IGESData_IGESEntity)
 
 IGESSolid_EdgeList::IGESSolid_EdgeList() {}
 
-void IGESSolid_EdgeList::Init(const Handle(IGESData_HArray1OfIGESEntity)&  Curves,
-                              const Handle(IGESSolid_HArray1OfVertexList)& startVertexList,
+void IGESSolid_EdgeList::Init(const Handle(HArray1OfIGESEntity)&  Curves,
+                              const Handle(HArray1OfVertexList)& startVertexList,
                               const Handle(TColStd_HArray1OfInteger)&      startVertexIndex,
-                              const Handle(IGESSolid_HArray1OfVertexList)& endVertexList,
+                              const Handle(HArray1OfVertexList)& endVertexList,
                               const Handle(TColStd_HArray1OfInteger)&      endVertexIndex)
 {
   Standard_Integer nb = (Curves.IsNull() ? 0 : Curves->Length());

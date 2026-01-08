@@ -35,22 +35,22 @@ public:
 
   Standard_EXPORT STEPSelections_AssemblyComponent(
     const Handle(StepShape_ShapeDefinitionRepresentation)& sdr,
-    const Handle(STEPSelections_HSequenceOfAssemblyLink)&  list);
+    const Handle(HSequenceOfAssemblyLink)&  list);
 
   Handle(StepShape_ShapeDefinitionRepresentation) GetSDR() const;
 
-  Handle(STEPSelections_HSequenceOfAssemblyLink) GetList() const;
+  Handle(HSequenceOfAssemblyLink) GetList() const;
 
   void SetSDR(const Handle(StepShape_ShapeDefinitionRepresentation)& sdr);
 
-  void SetList(const Handle(STEPSelections_HSequenceOfAssemblyLink)& list);
+  void SetList(const Handle(HSequenceOfAssemblyLink)& list);
 
   DEFINE_STANDARD_RTTIEXT(STEPSelections_AssemblyComponent, RefObject)
 
 protected:
 private:
   Handle(StepShape_ShapeDefinitionRepresentation) mySDR;
-  Handle(STEPSelections_HSequenceOfAssemblyLink)  myList;
+  Handle(HSequenceOfAssemblyLink)  myList;
 };
 
 #include <STEPSelections_AssemblyComponent.lxx>

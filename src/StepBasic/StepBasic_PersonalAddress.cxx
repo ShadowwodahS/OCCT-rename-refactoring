@@ -42,7 +42,7 @@ void StepBasic_PersonalAddress::Init(const Standard_Boolean                  has
                                      const Handle(TCollection_HAsciiString)& aElectronicMailAddress,
                                      const Standard_Boolean                  hasAtelexNumber,
                                      const Handle(TCollection_HAsciiString)& aTelexNumber,
-                                     const Handle(StepBasic_HArray1OfPerson)& aPeople,
+                                     const Handle(HArray1OfPerson)& aPeople,
                                      const Handle(TCollection_HAsciiString)&  aDescription)
 {
   // --- classe own fields ---
@@ -75,12 +75,12 @@ void StepBasic_PersonalAddress::Init(const Standard_Boolean                  has
                           aTelexNumber);
 }
 
-void StepBasic_PersonalAddress::SetPeople(const Handle(StepBasic_HArray1OfPerson)& aPeople)
+void StepBasic_PersonalAddress::SetPeople(const Handle(HArray1OfPerson)& aPeople)
 {
   people = aPeople;
 }
 
-Handle(StepBasic_HArray1OfPerson) StepBasic_PersonalAddress::People() const
+Handle(HArray1OfPerson) StepBasic_PersonalAddress::People() const
 {
   return people;
 }

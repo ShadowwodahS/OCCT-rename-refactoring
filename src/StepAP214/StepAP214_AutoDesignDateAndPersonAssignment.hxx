@@ -40,12 +40,12 @@ public:
   Standard_EXPORT void Init(
     const Handle(StepBasic_PersonAndOrganization)&                aAssignedPersonAndOrganization,
     const Handle(StepBasic_PersonAndOrganizationRole)&            aRole,
-    const Handle(StepAP214_HArray1OfAutoDesignDateAndPersonItem)& aItems);
+    const Handle(HArray1OfAutoDesignDatePerson)& aItems);
 
   Standard_EXPORT void SetItems(
-    const Handle(StepAP214_HArray1OfAutoDesignDateAndPersonItem)& aItems);
+    const Handle(HArray1OfAutoDesignDatePerson)& aItems);
 
-  Standard_EXPORT Handle(StepAP214_HArray1OfAutoDesignDateAndPersonItem) Items() const;
+  Standard_EXPORT Handle(HArray1OfAutoDesignDatePerson) Items() const;
 
   Standard_EXPORT StepAP214_AutoDesignDateAndPersonItem
     ItemsValue(const Standard_Integer num) const;
@@ -57,7 +57,7 @@ public:
 
 protected:
 private:
-  Handle(StepAP214_HArray1OfAutoDesignDateAndPersonItem) items;
+  Handle(HArray1OfAutoDesignDatePerson) items;
 };
 
 #endif // _StepAP214_AutoDesignDateAndPersonAssignment_HeaderFile

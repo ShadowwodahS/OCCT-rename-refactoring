@@ -844,7 +844,7 @@ StepAP214_Protocol::StepAP214_Protocol()
   types.Bind(STANDARD_TYPE(StepVisual_ContextDependentInvisibility), 77);
   types.Bind(STANDARD_TYPE(StepVisual_ContextDependentOverRidingStyledItem), 78);
   types.Bind(STANDARD_TYPE(StepBasic_ConversionBasedUnit), 79);
-  types.Bind(STANDARD_TYPE(StepBasic_CoordinatedUniversalTimeOffset), 80);
+  types.Bind(STANDARD_TYPE(TimeOffset), 80);
   //  types.Bind (STANDARD_TYPE(StepShape_CsgRepresentation), 81);
   types.Bind(STANDARD_TYPE(StepShape_CsgShapeRepresentation), 82);
   types.Bind(STANDARD_TYPE(StepShape_CsgSolid), 83);
@@ -855,7 +855,7 @@ StepAP214_Protocol::StepAP214_Protocol()
   types.Bind(STANDARD_TYPE(StepVisual_CurveStyleFont), 88);
   types.Bind(STANDARD_TYPE(StepVisual_CurveStyleFontPattern), 89);
   types.Bind(STANDARD_TYPE(StepGeom_CylindricalSurface), 90);
-  types.Bind(STANDARD_TYPE(StepBasic_Date), 91);
+  types.Bind(STANDARD_TYPE(Date1), 91);
   types.Bind(STANDARD_TYPE(StepBasic_DateAndTime), 92);
   types.Bind(STANDARD_TYPE(StepBasic_DateRole), 95);
   types.Bind(STANDARD_TYPE(StepBasic_DateTimeRole), 96);
@@ -866,7 +866,7 @@ StepAP214_Protocol::StepAP214_Protocol()
   types.Bind(STANDARD_TYPE(StepRepr_DescriptiveRepresentationItem), 101);
   //  types.Bind (STANDARD_TYPE(StepVisual_DimensionCurve), 102);
   //  types.Bind (STANDARD_TYPE(StepVisual_DimensionCurveTerminator), 103);
-  types.Bind(STANDARD_TYPE(StepBasic_DimensionalExponents), 104);
+  types.Bind(STANDARD_TYPE(DimensionalExponents), 104);
   types.Bind(STANDARD_TYPE(StepGeom_Direction), 105);
   types.Bind(STANDARD_TYPE(StepVisual_DraughtingAnnotationOccurrence), 106);
   types.Bind(STANDARD_TYPE(StepVisual_DraughtingCallout), 107);
@@ -1585,20 +1585,20 @@ Standard_CString StepAP214_Protocol::SchemaName(
   const Handle(Interface_InterfaceModel)& theModel) const
 {
   Handle(StepData_StepModel) aModel1 = Handle(StepData_StepModel)::DownCast(theModel);
-  const DESTEP_Parameters::WriteMode_StepSchema aSchema =
-    aModel1.IsNull() ? DESTEP_Parameters::WriteMode_StepSchema_AP214IS
+  const Parameters2::WriteMode_StepSchema aSchema =
+    aModel1.IsNull() ? Parameters2::WriteMode_StepSchema_AP214IS
                      : aModel1->InternalParameters.WriteSchema;
   switch (aSchema)
   {
-    case DESTEP_Parameters::WriteMode_StepSchema_AP203:
+    case Parameters2::WriteMode_StepSchema_AP203:
       return schemaAP203;
-    case DESTEP_Parameters::WriteMode_StepSchema_AP214IS:
+    case Parameters2::WriteMode_StepSchema_AP214IS:
       return schemaAP214IS;
-    case DESTEP_Parameters::WriteMode_StepSchema_AP242DIS:
+    case Parameters2::WriteMode_StepSchema_AP242DIS:
       return schemaAP242DIS;
-    case DESTEP_Parameters::WriteMode_StepSchema_AP214CD:
+    case Parameters2::WriteMode_StepSchema_AP214CD:
       return schemaAP214CD;
-    case DESTEP_Parameters::WriteMode_StepSchema_AP214DIS:
+    case Parameters2::WriteMode_StepSchema_AP214DIS:
     default:
       return schemaAP214DIS;
   }

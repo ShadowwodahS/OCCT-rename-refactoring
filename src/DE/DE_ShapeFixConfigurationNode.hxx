@@ -18,12 +18,12 @@
 #include <DE_ShapeFixParameters.hxx>
 #include <TColStd_ListOfAsciiString.hxx>
 
-class DE_ConfigurationContext;
+class ConfigurationContext;
 
 //! Base class to work with shape healing parameters for child classes.
-class DE_ShapeFixConfigurationNode : public DE_ConfigurationNode
+class DE_ShapeFixConfigurationNode : public ConfigurationNode
 {
-  DEFINE_STANDARD_RTTIEXT(DE_ShapeFixConfigurationNode, DE_ConfigurationNode)
+  DEFINE_STANDARD_RTTIEXT(DE_ShapeFixConfigurationNode, ConfigurationNode)
 public:
   //! Initializes all field by default
   Standard_EXPORT DE_ShapeFixConfigurationNode();
@@ -36,7 +36,7 @@ public:
   //! Updates values according the resource
   //! @param[in] theResource input resource to use
   //! @return True if Load was successful
-  Standard_EXPORT virtual bool Load(const Handle(DE_ConfigurationContext)& theResource)
+  Standard_EXPORT virtual bool Load(const Handle(ConfigurationContext)& theResource)
     Standard_OVERRIDE;
 
   //! Writes configuration to the string

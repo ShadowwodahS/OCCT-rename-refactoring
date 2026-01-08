@@ -19,18 +19,18 @@ IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DerivedUnit, RefObject)
 
 StepBasic_DerivedUnit::StepBasic_DerivedUnit() {}
 
-void StepBasic_DerivedUnit::Init(const Handle(StepBasic_HArray1OfDerivedUnitElement)& elements)
+void StepBasic_DerivedUnit::Init(const Handle(HArray1OfDerivedUnitElement)& elements)
 {
   theElements = elements;
 }
 
 void StepBasic_DerivedUnit::SetElements(
-  const Handle(StepBasic_HArray1OfDerivedUnitElement)& elements)
+  const Handle(HArray1OfDerivedUnitElement)& elements)
 {
   theElements = elements;
 }
 
-Handle(StepBasic_HArray1OfDerivedUnitElement) StepBasic_DerivedUnit::Elements() const
+Handle(HArray1OfDerivedUnitElement) StepBasic_DerivedUnit::Elements() const
 {
   return theElements;
 }

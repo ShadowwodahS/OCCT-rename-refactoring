@@ -17,7 +17,7 @@
 #include <DE_ConfigurationContext.hxx>
 #include <DE_PluginHolder.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DEVRML_ConfigurationNode, DE_ConfigurationNode)
+IMPLEMENT_STANDARD_RTTIEXT(DEVRML_ConfigurationNode, ConfigurationNode)
 
 namespace
 {
@@ -34,21 +34,21 @@ DE_PluginHolder<DEVRML_ConfigurationNode> THE_OCCT_VRML_COMPONENT_PLUGIN;
 //=================================================================================================
 
 DEVRML_ConfigurationNode::DEVRML_ConfigurationNode()
-    : DE_ConfigurationNode()
+    : ConfigurationNode()
 {
 }
 
 //=================================================================================================
 
 DEVRML_ConfigurationNode::DEVRML_ConfigurationNode(const Handle(DEVRML_ConfigurationNode)& theNode)
-    : DE_ConfigurationNode(theNode)
+    : ConfigurationNode(theNode)
 {
   InternalParameters = theNode->InternalParameters;
 }
 
 //=================================================================================================
 
-bool DEVRML_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theResource)
+bool DEVRML_ConfigurationNode::Load(const Handle(ConfigurationContext)& theResource)
 {
   AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor();
@@ -144,7 +144,7 @@ AsciiString1 DEVRML_ConfigurationNode::Save() const
 
 //=================================================================================================
 
-Handle(DE_ConfigurationNode) DEVRML_ConfigurationNode::Copy() const
+Handle(ConfigurationNode) DEVRML_ConfigurationNode::Copy() const
 {
   return new DEVRML_ConfigurationNode(*this);
 }

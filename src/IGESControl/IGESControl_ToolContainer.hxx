@@ -23,9 +23,9 @@
 class IGESToBRep_IGESBoundary;
 
 class IGESControl_ToolContainer;
-DEFINE_STANDARD_HANDLE(IGESControl_ToolContainer, IGESToBRep_ToolContainer)
+DEFINE_STANDARD_HANDLE(IGESControl_ToolContainer, ToolContainer3)
 
-class IGESControl_ToolContainer : public IGESToBRep_ToolContainer
+class IGESControl_ToolContainer : public ToolContainer3
 {
 
 public:
@@ -35,7 +35,7 @@ public:
   //! Returns IGESControl_IGESBoundary
   Standard_EXPORT virtual Handle(IGESToBRep_IGESBoundary) IGESBoundary() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(IGESControl_ToolContainer, IGESToBRep_ToolContainer)
+  DEFINE_STANDARD_RTTIEXT(IGESControl_ToolContainer, ToolContainer3)
 
 protected:
 private:

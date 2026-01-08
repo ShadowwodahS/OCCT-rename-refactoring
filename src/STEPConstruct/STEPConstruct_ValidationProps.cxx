@@ -426,8 +426,8 @@ Standard_Boolean STEPConstruct_ValidationProps::AddVolume(const TopoShape& Shape
     Handle(StepBasic_DerivedUnitElement) DUE = new StepBasic_DerivedUnitElement;
     DUE->Init(MM, 3.);
 
-    Handle(StepBasic_HArray1OfDerivedUnitElement) DUElems =
-      new StepBasic_HArray1OfDerivedUnitElement(1, 1);
+    Handle(HArray1OfDerivedUnitElement) DUElems =
+      new HArray1OfDerivedUnitElement(1, 1);
     DUElems->SetValue(1, DUE);
 
     Handle(StepBasic_DerivedUnit) DU = new StepBasic_DerivedUnit;
@@ -462,8 +462,8 @@ Standard_Boolean STEPConstruct_ValidationProps::AddArea(const TopoShape& Shape,
     Handle(StepBasic_DerivedUnitElement) DUE = new StepBasic_DerivedUnitElement;
     DUE->Init(MM, 2.);
 
-    Handle(StepBasic_HArray1OfDerivedUnitElement) DUElems =
-      new StepBasic_HArray1OfDerivedUnitElement(1, 1);
+    Handle(HArray1OfDerivedUnitElement) DUElems =
+      new HArray1OfDerivedUnitElement(1, 1);
     DUElems->SetValue(1, DUE);
 
     Handle(StepBasic_DerivedUnit) DU = new StepBasic_DerivedUnit;

@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 #include <Standard_Transient.hxx>
-class StepBasic_Date;
+class Date1;
 class StepBasic_LocalTime;
 
 class StepBasic_DateAndTime;
@@ -34,12 +34,12 @@ public:
   //! Returns a DateAndTime
   Standard_EXPORT StepBasic_DateAndTime();
 
-  Standard_EXPORT void Init(const Handle(StepBasic_Date)&      aDateComponent,
+  Standard_EXPORT void Init(const Handle(Date1)&      aDateComponent,
                             const Handle(StepBasic_LocalTime)& aTimeComponent);
 
-  Standard_EXPORT void SetDateComponent(const Handle(StepBasic_Date)& aDateComponent);
+  Standard_EXPORT void SetDateComponent(const Handle(Date1)& aDateComponent);
 
-  Standard_EXPORT Handle(StepBasic_Date) DateComponent() const;
+  Standard_EXPORT Handle(Date1) DateComponent() const;
 
   Standard_EXPORT void SetTimeComponent(const Handle(StepBasic_LocalTime)& aTimeComponent);
 
@@ -49,7 +49,7 @@ public:
 
 protected:
 private:
-  Handle(StepBasic_Date)      dateComponent;
+  Handle(Date1)      dateComponent;
   Handle(StepBasic_LocalTime) timeComponent;
 };
 

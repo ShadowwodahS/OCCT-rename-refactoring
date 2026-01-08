@@ -52,7 +52,7 @@ public:
                             const Coords3d&                               aPoint,
                             const Standard_Real                         aDistance,
                             const Standard_Real                         anAngle,
-                            const Handle(IGESData_HArray1OfIGESEntity)& someIslands);
+                            const Handle(HArray1OfIGESEntity)& someIslands);
 
   //! Sets the cross hatches to be inverted or not,
   //! according value of <mode> (corresponds to FormNumber)
@@ -99,7 +99,7 @@ private:
   Coords3d                               thePassingPoint;
   Standard_Real                        theDistance;
   Standard_Real                        theAngle;
-  Handle(IGESData_HArray1OfIGESEntity) theIslandCurves;
+  Handle(HArray1OfIGESEntity) theIslandCurves;
 };
 
 #endif // _IGESDimen_SectionedArea_HeaderFile

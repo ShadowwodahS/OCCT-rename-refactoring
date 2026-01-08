@@ -42,7 +42,7 @@ public:
   //! - loops         : Array of loops bounding the face
   Standard_EXPORT void Init(const Handle(IGESData_IGESEntity)&     aSurface,
                             const Standard_Boolean                 outerLoopFlag,
-                            const Handle(IGESSolid_HArray1OfLoop)& loops);
+                            const Handle(HArray1OfLoop)& loops);
 
   //! returns the underlying surface of the face
   Standard_EXPORT Handle(IGESData_IGESEntity) Surface() const;
@@ -63,7 +63,7 @@ protected:
 private:
   Handle(IGESData_IGESEntity)     theSurface;
   Standard_Boolean                hasOuterLoop;
-  Handle(IGESSolid_HArray1OfLoop) theLoops;
+  Handle(HArray1OfLoop) theLoops;
 };
 
 #endif // _IGESSolid_Face_HeaderFile

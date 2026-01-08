@@ -23,7 +23,7 @@
 #include <StepBasic_NamedUnit.hxx>
 class TCollection_HAsciiString;
 class StepBasic_MeasureWithUnit;
-class StepBasic_DimensionalExponents;
+class DimensionalExponents;
 
 class StepBasic_ConversionBasedUnit;
 DEFINE_STANDARD_HANDLE(StepBasic_ConversionBasedUnit, StepBasic_NamedUnit)
@@ -35,7 +35,7 @@ public:
   //! Returns a ConversionBasedUnit
   Standard_EXPORT StepBasic_ConversionBasedUnit();
 
-  Standard_EXPORT void Init(const Handle(StepBasic_DimensionalExponents)& aDimensions,
+  Standard_EXPORT void Init(const Handle(DimensionalExponents)& aDimensions,
                             const Handle(TCollection_HAsciiString)&       aName,
                             const Handle(StepBasic_MeasureWithUnit)&      aConversionFactor);
 

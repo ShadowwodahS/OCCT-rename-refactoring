@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DateAndTime, RefObject)
 
 StepBasic_DateAndTime::StepBasic_DateAndTime() {}
 
-void StepBasic_DateAndTime::Init(const Handle(StepBasic_Date)&      aDateComponent,
+void StepBasic_DateAndTime::Init(const Handle(Date1)&      aDateComponent,
                                  const Handle(StepBasic_LocalTime)& aTimeComponent)
 {
   // --- classe own fields ---
@@ -28,12 +28,12 @@ void StepBasic_DateAndTime::Init(const Handle(StepBasic_Date)&      aDateCompone
   timeComponent = aTimeComponent;
 }
 
-void StepBasic_DateAndTime::SetDateComponent(const Handle(StepBasic_Date)& aDateComponent)
+void StepBasic_DateAndTime::SetDateComponent(const Handle(Date1)& aDateComponent)
 {
   dateComponent = aDateComponent;
 }
 
-Handle(StepBasic_Date) StepBasic_DateAndTime::DateComponent() const
+Handle(Date1) StepBasic_DateAndTime::DateComponent() const
 {
   return dateComponent;
 }

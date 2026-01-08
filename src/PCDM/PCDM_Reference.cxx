@@ -17,13 +17,13 @@
 #include <PCDM_Reference.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-PCDM_Reference::PCDM_Reference()
+Reference2::Reference2()
     : myReferenceIdentifier(0),
       myDocumentVersion(0)
 {
 }
 
-PCDM_Reference::PCDM_Reference(const Standard_Integer            aReferenceIdentifier,
+Reference2::Reference2(const Standard_Integer            aReferenceIdentifier,
                                const UtfString& aFileName,
                                const Standard_Integer            aDocumentVersion)
     : myReferenceIdentifier(aReferenceIdentifier),
@@ -32,17 +32,17 @@ PCDM_Reference::PCDM_Reference(const Standard_Integer            aReferenceIdent
 {
 }
 
-Standard_Integer PCDM_Reference::ReferenceIdentifier() const
+Standard_Integer Reference2::ReferenceIdentifier() const
 {
   return myReferenceIdentifier;
 }
 
-UtfString PCDM_Reference::FileName() const
+UtfString Reference2::FileName() const
 {
   return myFileName;
 }
 
-Standard_Integer PCDM_Reference::DocumentVersion() const
+Standard_Integer Reference2::DocumentVersion() const
 {
   return myDocumentVersion;
 }

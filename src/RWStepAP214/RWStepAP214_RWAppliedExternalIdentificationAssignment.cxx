@@ -74,13 +74,13 @@ void RWStepAP214_RWAppliedExternalIdentificationAssignment::ReadStep(
 
   // Own fields of AppliedExternalIdentificationAssignment
 
-  Handle(StepAP214_HArray1OfExternalIdentificationItem) aItems;
+  Handle(HArray1OfExternalIdItem) aItems;
   Standard_Integer                                      sub4 = 0;
   if (data->ReadSubList(num, 4, "items", ach, sub4))
   {
     Standard_Integer num2 = sub4;
     Standard_Integer nb0  = data->NbParams(num2);
-    aItems                = new StepAP214_HArray1OfExternalIdentificationItem(1, nb0);
+    aItems                = new HArray1OfExternalIdItem(1, nb0);
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
       StepAP214_ExternalIdentificationItem anIt0;

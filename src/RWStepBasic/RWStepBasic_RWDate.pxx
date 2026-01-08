@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class StepData_StepReaderData;
 class Interface_Check;
-class StepBasic_Date;
+class Date1;
 class StepData_StepWriter;
 
 //! Read & Write Module for Date
@@ -38,9 +38,9 @@ public:
   Standard_HIDDEN void ReadStep(const Handle(StepData_StepReaderData)& data,
                                 const Standard_Integer                 num,
                                 Handle(Interface_Check)&               ach,
-                                const Handle(StepBasic_Date)&          ent) const;
+                                const Handle(Date1)&          ent) const;
 
-  Standard_HIDDEN void WriteStep(StepData_StepWriter& SW, const Handle(StepBasic_Date)& ent) const;
+  Standard_HIDDEN void WriteStep(StepData_StepWriter& SW, const Handle(Date1)& ent) const;
 
 protected:
 private:

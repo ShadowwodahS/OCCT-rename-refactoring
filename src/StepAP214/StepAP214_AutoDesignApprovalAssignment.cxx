@@ -21,7 +21,7 @@ StepAP214_AutoDesignApprovalAssignment::StepAP214_AutoDesignApprovalAssignment()
 
 void StepAP214_AutoDesignApprovalAssignment::Init(
   const Handle(StepBasic_Approval)&                          aAssignedApproval,
-  const Handle(StepAP214_HArray1OfAutoDesignGeneralOrgItem)& aItems)
+  const Handle(HArray1OfAutoDesignOrgItem)& aItems)
 {
   // --- classe own fields ---
   items = aItems;
@@ -30,12 +30,12 @@ void StepAP214_AutoDesignApprovalAssignment::Init(
 }
 
 void StepAP214_AutoDesignApprovalAssignment::SetItems(
-  const Handle(StepAP214_HArray1OfAutoDesignGeneralOrgItem)& aItems)
+  const Handle(HArray1OfAutoDesignOrgItem)& aItems)
 {
   items = aItems;
 }
 
-Handle(StepAP214_HArray1OfAutoDesignGeneralOrgItem) StepAP214_AutoDesignApprovalAssignment::Items()
+Handle(HArray1OfAutoDesignOrgItem) StepAP214_AutoDesignApprovalAssignment::Items()
   const
 {
   return items;

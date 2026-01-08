@@ -38,7 +38,7 @@ DEIGES_ConfigurationNode::DEIGES_ConfigurationNode()
     : DE_ShapeFixConfigurationNode()
 {
   DE_ShapeFixConfigurationNode::ShapeFixParameters =
-    DEIGES_Parameters::GetDefaultShapeFixParameters();
+    Parameters1::GetDefaultShapeFixParameters();
 }
 
 //=================================================================================================
@@ -51,23 +51,23 @@ DEIGES_ConfigurationNode::DEIGES_ConfigurationNode(const Handle(DEIGES_Configura
 
 //=================================================================================================
 
-bool DEIGES_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theResource)
+bool DEIGES_ConfigurationNode::Load(const Handle(ConfigurationContext)& theResource)
 {
   AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor();
 
   InternalParameters.ReadBSplineContinuity =
-    (DEIGES_Parameters::ReadMode_BSplineContinuity)theResource->IntegerVal(
+    (Parameters1::ReadMode_BSplineContinuity)theResource->IntegerVal(
       "read.iges.bspline.continuity",
       InternalParameters.ReadBSplineContinuity,
       aScope);
   InternalParameters.ReadPrecisionMode =
-    (DEIGES_Parameters::ReadMode_Precision)
+    (Parameters1::ReadMode_Precision)
       theResource->IntegerVal("read.precision.mode", InternalParameters.ReadPrecisionMode, aScope);
   InternalParameters.ReadPrecisionVal =
     theResource->RealVal("read.precision.val", InternalParameters.ReadPrecisionVal, aScope);
   InternalParameters.ReadMaxPrecisionMode =
-    (DEIGES_Parameters::ReadMode_MaxPrecision)theResource->IntegerVal(
+    (Parameters1::ReadMode_MaxPrecision)theResource->IntegerVal(
       "read.maxprecision.mode",
       InternalParameters.ReadMaxPrecisionMode,
       aScope);
@@ -78,7 +78,7 @@ bool DEIGES_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theRe
                             InternalParameters.ReadSameParamMode,
                             aScope);
   InternalParameters.ReadSurfaceCurveMode =
-    (DEIGES_Parameters::ReadMode_SurfaceCurve)theResource->IntegerVal(
+    (Parameters1::ReadMode_SurfaceCurve)theResource->IntegerVal(
       "read.surfacecurve.mode",
       InternalParameters.ReadSurfaceCurveMode,
       aScope);
@@ -99,11 +99,11 @@ bool DEIGES_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theRe
     theResource->BooleanVal("read.layer", InternalParameters.ReadLayer, aScope);
 
   InternalParameters.WriteBRepMode =
-    (DEIGES_Parameters::WriteMode_BRep)theResource->IntegerVal("write.brep.mode",
+    (Parameters1::WriteMode_BRep)theResource->IntegerVal("write.brep.mode",
                                                                InternalParameters.WriteBRepMode,
                                                                aScope);
   InternalParameters.WriteConvertSurfaceMode =
-    (DEIGES_Parameters::WriteMode_ConvertSurface)theResource->IntegerVal(
+    (Parameters1::WriteMode_ConvertSurface)theResource->IntegerVal(
       "write.convertsurface.mode",
       InternalParameters.WriteConvertSurfaceMode,
       aScope);
@@ -116,14 +116,14 @@ bool DEIGES_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theRe
   InternalParameters.WriteHeaderReciever =
     theResource->StringVal("write.header.receiver", InternalParameters.WriteHeaderReciever, aScope);
   InternalParameters.WritePrecisionMode =
-    (DEIGES_Parameters::WriteMode_PrecisionMode)theResource->IntegerVal(
+    (Parameters1::WriteMode_PrecisionMode)theResource->IntegerVal(
       "write.precision.mode",
       InternalParameters.WritePrecisionMode,
       aScope);
   InternalParameters.WritePrecisionVal =
     theResource->RealVal("write.precision.val", InternalParameters.WritePrecisionVal, aScope);
   InternalParameters.WritePlaneMode =
-    (DEIGES_Parameters::WriteMode_PlaneMode)
+    (Parameters1::WriteMode_PlaneMode)
       theResource->IntegerVal("write.plane.mode", InternalParameters.WritePlaneMode, aScope);
   InternalParameters.WriteOffsetMode =
     theResource->BooleanVal("write.offset", InternalParameters.WriteOffsetMode, aScope);
@@ -364,7 +364,7 @@ AsciiString1 DEIGES_ConfigurationNode::Save() const
 
 //=================================================================================================
 
-Handle(DE_ConfigurationNode) DEIGES_ConfigurationNode::Copy() const
+Handle(ConfigurationNode) DEIGES_ConfigurationNode::Copy() const
 {
   return new DEIGES_ConfigurationNode(*this);
 }

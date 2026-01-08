@@ -240,17 +240,17 @@ static Standard_Integer openDoc(DrawInterpreter& di, Standard_Integer argc, cons
   AsciiString1 Filename = argv[1];
   Standard_CString        DocName  = argv[2];
 
-  Handle(PCDM_ReaderFilter) aFilter = new PCDM_ReaderFilter;
+  Handle(ReaderFilter) aFilter = new ReaderFilter;
   for (Standard_Integer i = 3; i < argc; i++)
   {
     AsciiString1 anArg(argv[i]);
     if (anArg == "-append")
     {
-      aFilter->Mode() = PCDM_ReaderFilter::AppendMode_Protect;
+      aFilter->Mode() = ReaderFilter::AppendMode_Protect;
     }
     else if (anArg == "-overwrite")
     {
-      aFilter->Mode() = PCDM_ReaderFilter::AppendMode_Overwrite;
+      aFilter->Mode() = ReaderFilter::AppendMode_Overwrite;
     }
     else if (anArg.StartsWith("-skip"))
     {

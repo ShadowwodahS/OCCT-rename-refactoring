@@ -45,21 +45,21 @@ void LabelDisplayTool::ReadOwnParams(const Handle(IGESDraw_LabelDisplay)&   ent,
   // Standard_Boolean st; //szv#4:S4163:12Mar99 moved down
   Standard_Integer nbval;
 
-  Handle(IGESDraw_HArray1OfViewKindEntity) views;
+  Handle(HArray1OfViewKindEntity) views;
   Handle(TColgp_HArray1OfXYZ)              textLocations;
-  Handle(IGESDimen_HArray1OfLeaderArrow)   leaderEntities;
+  Handle(HArray1OfLeaderArrow)   leaderEntities;
   Handle(TColStd_HArray1OfInteger)         labelLevels;
-  Handle(IGESData_HArray1OfIGESEntity)     displayedEntities;
+  Handle(HArray1OfIGESEntity)     displayedEntities;
 
   // Reading nbval(No. of Label placements)
   Standard_Boolean st = PR.ReadInteger(PR.Current(), "No. of Label placements", nbval);
   if (st && nbval > 0)
   {
-    views             = new IGESDraw_HArray1OfViewKindEntity(1, nbval);
+    views             = new HArray1OfViewKindEntity(1, nbval);
     textLocations     = new TColgp_HArray1OfXYZ(1, nbval);
-    leaderEntities    = new IGESDimen_HArray1OfLeaderArrow(1, nbval);
+    leaderEntities    = new HArray1OfLeaderArrow(1, nbval);
     labelLevels       = new TColStd_HArray1OfInteger(1, nbval);
-    displayedEntities = new IGESData_HArray1OfIGESEntity(1, nbval);
+    displayedEntities = new HArray1OfIGESEntity(1, nbval);
 
     Handle(IGESData_ViewKindEntity) tempView;
     Coords3d                          tempXYZ;
@@ -149,18 +149,18 @@ void LabelDisplayTool::OwnCopy(const Handle(IGESDraw_LabelDisplay)& another,
                                         Interface_CopyTool&                  TC) const
 {
   Standard_Integer                         nbval;
-  Handle(IGESDraw_HArray1OfViewKindEntity) views;
+  Handle(HArray1OfViewKindEntity) views;
   Handle(TColgp_HArray1OfXYZ)              textLocations;
-  Handle(IGESDimen_HArray1OfLeaderArrow)   leaderEntities;
+  Handle(HArray1OfLeaderArrow)   leaderEntities;
   Handle(TColStd_HArray1OfInteger)         labelLevels;
-  Handle(IGESData_HArray1OfIGESEntity)     displayedEntities;
+  Handle(HArray1OfIGESEntity)     displayedEntities;
 
   nbval             = another->NbLabels();
-  views             = new IGESDraw_HArray1OfViewKindEntity(1, nbval);
+  views             = new HArray1OfViewKindEntity(1, nbval);
   textLocations     = new TColgp_HArray1OfXYZ(1, nbval);
-  leaderEntities    = new IGESDimen_HArray1OfLeaderArrow(1, nbval);
+  leaderEntities    = new HArray1OfLeaderArrow(1, nbval);
   labelLevels       = new TColStd_HArray1OfInteger(1, nbval);
-  displayedEntities = new IGESData_HArray1OfIGESEntity(1, nbval);
+  displayedEntities = new HArray1OfIGESEntity(1, nbval);
 
   for (Standard_Integer i = 1; i <= nbval; i++)
   {

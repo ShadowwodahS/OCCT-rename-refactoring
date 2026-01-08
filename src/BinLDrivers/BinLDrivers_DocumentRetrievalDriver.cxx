@@ -63,7 +63,7 @@ BinLDrivers_DocumentRetrievalDriver::BinLDrivers_DocumentRetrievalDriver()
 void BinLDrivers_DocumentRetrievalDriver::Read(const UtfString& theFileName,
                                                const Handle(CDM_Document)&       theNewDocument,
                                                const Handle(CDM_Application)&    theApplication,
-                                               const Handle(PCDM_ReaderFilter)&  theFilter,
+                                               const Handle(ReaderFilter)&  theFilter,
                                                const Message_ProgressRange&      theRange)
 {
   const Handle(OSD_FileSystem)& aFileSystem = OSD_FileSystem::DefaultFileSystem();
@@ -73,7 +73,7 @@ void BinLDrivers_DocumentRetrievalDriver::Read(const UtfString& theFileName,
   if (aFileStream.get() != NULL && aFileStream->good())
   {
     Handle(Storage_Data)       dData;
-    UtfString aFormat = PCDM_ReadWriter::FileFormat(*aFileStream, dData);
+    UtfString aFormat = ReadWriter::FileFormat(*aFileStream, dData);
 
     Read(*aFileStream, dData, theNewDocument, theApplication, theFilter, theRange);
     if (!theRange.More())
@@ -100,7 +100,7 @@ void BinLDrivers_DocumentRetrievalDriver::Read(Standard_IStream&                
                                                const Handle(Storage_Data)&      theStorageData,
                                                const Handle(CDM_Document)&      theDoc,
                                                const Handle(CDM_Application)&   theApplication,
-                                               const Handle(PCDM_ReaderFilter)& theFilter,
+                                               const Handle(ReaderFilter)& theFilter,
                                                const Message_ProgressRange&     theRange)
 {
   myReaderStatus = PCDM_RS_DriverFailure;
@@ -399,7 +399,7 @@ void BinLDrivers_DocumentRetrievalDriver::Read(Standard_IStream&                
 Standard_Integer BinLDrivers_DocumentRetrievalDriver::ReadSubTree(
   Standard_IStream&                theIS,
   const DataLabel&                 theLabel,
-  const Handle(PCDM_ReaderFilter)& theFilter,
+  const Handle(ReaderFilter)& theFilter,
   const Standard_Boolean&          theQuickPart,
   const Standard_Boolean           theReadMissing,
   const Message_ProgressRange&     theRange)
@@ -493,12 +493,12 @@ Standard_Integer BinLDrivers_DocumentRetrievalDriver::ReadSubTree(
 
       if (tAtt->Label().IsNull())
       {
-        if (!theFilter.IsNull() && theFilter->Mode() != PCDM_ReaderFilter::AppendMode_Forbid
+        if (!theFilter.IsNull() && theFilter->Mode() != ReaderFilter::AppendMode_Forbid
             && theLabel.IsAttribute(tAtt->ID()))
         {
-          if (theFilter->Mode() == PCDM_ReaderFilter::AppendMode_Protect)
+          if (theFilter->Mode() == ReaderFilter::AppendMode_Protect)
             continue; // do not overwrite the existing attribute
-          if (theFilter->Mode() == PCDM_ReaderFilter::AppendMode_Overwrite)
+          if (theFilter->Mode() == ReaderFilter::AppendMode_Overwrite)
             theLabel.ForgetAttribute(tAtt->ID()); // forget old attribute to write a new one
         }
         try

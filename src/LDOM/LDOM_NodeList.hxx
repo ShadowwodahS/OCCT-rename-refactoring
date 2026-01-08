@@ -55,14 +55,14 @@ public:
 private:
   friend class LDOM_Document;
   friend class LDOM_Element;
-  friend class LDOM_BasicElement;
+  friend class BasicElement;
   // ---------- PRIVATE FIELDS ----------
 
-  Standard_EXPORT LDOM_NodeList(const Handle(LDOM_MemManager)& aDoc);
+  Standard_EXPORT LDOM_NodeList(const Handle(MemoryManager)& aDoc);
 
   Standard_EXPORT void Append(const BasicNode& aNode) const;
 
-  Handle(LDOM_MemManager) myDoc;
+  Handle(MemoryManager) myDoc;
   LDOM_BasicNodeSequence* mySeq;
 };
 

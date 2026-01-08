@@ -51,7 +51,7 @@ void ShellTool::ReadOwnParams(const Handle(IGESSolid_Shell)&         ent,
   // Standard_Boolean abool; //szv#4:S4163:12Mar99 moved down
   Standard_Integer nbfaces = 0; // szv#4:S4163:12Mar99 `i` moved in for
   // Handle(IGESSolid_Face) aface; //szv#4:S4163:12Mar99 moved down
-  Handle(IGESSolid_HArray1OfFace)  tempFaces;
+  Handle(HArray1OfFace)  tempFaces;
   Handle(TColStd_HArray1OfInteger) tempOrientation;
 
   // st = PR.ReadInteger(PR.Current(), Msg200, nbfaces); //szv#4:S4163:12Mar99 moved in if
@@ -63,7 +63,7 @@ void ShellTool::ReadOwnParams(const Handle(IGESSolid_Shell)&         ent,
 
     Standard_Boolean       abool;
     Handle(IGESSolid_Face) aface;
-    tempFaces       = new IGESSolid_HArray1OfFace(1, nbfaces);
+    tempFaces       = new HArray1OfFace(1, nbfaces);
     tempOrientation = new TColStd_HArray1OfInteger(1, nbfaces);
     IGESData_Status aStatus;
     for (Standard_Integer i = 1; i <= nbfaces; i++)
@@ -149,7 +149,7 @@ void ShellTool::OwnCopy(const Handle(IGESSolid_Shell)& another,
 {
   Standard_Integer nbfaces = another->NbFaces();
 
-  Handle(IGESSolid_HArray1OfFace)  tempFaces       = new IGESSolid_HArray1OfFace(1, nbfaces);
+  Handle(HArray1OfFace)  tempFaces       = new HArray1OfFace(1, nbfaces);
   Handle(TColStd_HArray1OfInteger) tempOrientation = new TColStd_HArray1OfInteger(1, nbfaces);
   for (Standard_Integer i = 1; i <= nbfaces; i++)
   {

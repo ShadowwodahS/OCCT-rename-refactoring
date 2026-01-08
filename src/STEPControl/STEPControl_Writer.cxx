@@ -108,7 +108,7 @@ IFSelect_ReturnStatus StepFileWriter::Transfer(const TopoShape&             sh,
 
 IFSelect_ReturnStatus StepFileWriter::Transfer(const TopoShape&             sh,
                                                    const STEPControl_StepModelType mode,
-                                                   const DESTEP_Parameters&        theParams,
+                                                   const Parameters2&        theParams,
                                                    const Standard_Boolean          compgraph,
                                                    const Message_ProgressRange&    theProgress)
 {
@@ -283,7 +283,7 @@ void StepFileWriter::InitializeMissingParameters()
 {
   if (GetShapeFixParameters().IsEmpty())
   {
-    SetShapeFixParameters(DESTEP_Parameters::GetDefaultShapeFixParameters());
+    SetShapeFixParameters(Parameters2::GetDefaultShapeFixParameters());
   }
   if (GetShapeProcessFlags().second == false)
   {

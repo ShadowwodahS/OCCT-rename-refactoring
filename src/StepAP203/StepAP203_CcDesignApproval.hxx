@@ -36,19 +36,19 @@ public:
 
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const Handle(StepBasic_Approval)& aApprovalAssignment_AssignedApproval,
-                            const Handle(StepAP203_HArray1OfApprovedItem)& aItems);
+                            const Handle(HArray1OfApprovedItem)& aItems);
 
   //! Returns field Items
-  Standard_EXPORT Handle(StepAP203_HArray1OfApprovedItem) Items() const;
+  Standard_EXPORT Handle(HArray1OfApprovedItem) Items() const;
 
   //! Set field Items
-  Standard_EXPORT void SetItems(const Handle(StepAP203_HArray1OfApprovedItem)& Items);
+  Standard_EXPORT void SetItems(const Handle(HArray1OfApprovedItem)& Items);
 
   DEFINE_STANDARD_RTTIEXT(StepAP203_CcDesignApproval, StepBasic_ApprovalAssignment)
 
 protected:
 private:
-  Handle(StepAP203_HArray1OfApprovedItem) theItems;
+  Handle(HArray1OfApprovedItem) theItems;
 };
 
 #endif // _StepAP203_CcDesignApproval_HeaderFile

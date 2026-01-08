@@ -51,7 +51,7 @@ void GroupWithoutBackPTool::ReadOwnParams(const Handle(IGESBasic_GroupWithoutBac
 
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
   Standard_Integer                     nbval = 0;
-  Handle(IGESData_HArray1OfIGESEntity) EntArray;
+  Handle(HArray1OfIGESEntity) EntArray;
   //  Msg202.Arg(7);
   // st = PR.ReadInteger( PR.Current(), Msg202, nbval); //szv#4:S4163:12Mar99 not needed
   // st = PR.ReadInteger( PR.Current(), "Count of Entities", nbval);
@@ -97,7 +97,7 @@ void GroupWithoutBackPTool::OwnCopy(const Handle(IGESBasic_GroupWithoutBackP)& a
   Standard_Integer lower, upper;
   lower                                         = 1;
   upper                                         = another->NbEntities();
-  Handle(IGESData_HArray1OfIGESEntity) EntArray = new IGESData_HArray1OfIGESEntity(lower, upper);
+  Handle(HArray1OfIGESEntity) EntArray = new HArray1OfIGESEntity(lower, upper);
   for (Standard_Integer i = lower; i <= upper; i++)
   {
     DeclareAndCast(IGESData_IGESEntity, myentity, TC.Transferred(another->Entity(i)));
@@ -121,9 +121,9 @@ Standard_Boolean GroupWithoutBackPTool::OwnCorrect(
   }
   if (ianul == 0)
     return Standard_False;
-  Handle(IGESData_HArray1OfIGESEntity) EntArray;
+  Handle(HArray1OfIGESEntity) EntArray;
   if (ianul < nb)
-    EntArray = new IGESData_HArray1OfIGESEntity(1, nb - ianul);
+    EntArray = new HArray1OfIGESEntity(1, nb - ianul);
   for (i = 1; i <= nb; i++)
   {
     Handle(IGESData_IGESEntity) val = ent->Entity(i);

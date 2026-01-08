@@ -579,14 +579,14 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferWire(const TopoWire& myw
     AddWarning(mywire, " no Vertex associated to the Wire");
 
   Standard_Integer                     nbedges = Seq->Length();
-  Handle(IGESData_HArray1OfIGESEntity) Tab;
+  Handle(HArray1OfIGESEntity) Tab;
   if (nbedges == 1)
   {
     res = GetCasted(IGESData_IGESEntity, Seq->Value(1));
   }
   else if (nbedges >= 2)
   {
-    Tab = new IGESData_HArray1OfIGESEntity(1, nbedges);
+    Tab = new HArray1OfIGESEntity(1, nbedges);
     for (Standard_Integer itab = 1; itab <= nbedges; itab++)
     {
       Handle(IGESData_IGESEntity) item = GetCasted(IGESData_IGESEntity, Seq->Value(itab));
@@ -670,14 +670,14 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferWire(
 
   // Composite Curve 3D
   Standard_Integer                     nb3d = Seq3d->Length();
-  Handle(IGESData_HArray1OfIGESEntity) Tab3d;
+  Handle(HArray1OfIGESEntity) Tab3d;
   if (nb3d == 1)
   {
     res = ent3d;
   }
   else if (nb3d >= 2)
   {
-    Tab3d = new IGESData_HArray1OfIGESEntity(1, nb3d);
+    Tab3d = new HArray1OfIGESEntity(1, nb3d);
     // Standard_Integer tabval = nb3d; //szv#4:S4163:12Mar99 unused
     for (Standard_Integer itab = 1; itab <= nb3d; itab++)
     {
@@ -691,14 +691,14 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferWire(
 
   // Composite Curve 2D
   Standard_Integer                     nb2d = Seq2d->Length();
-  Handle(IGESData_HArray1OfIGESEntity) Tab2d;
+  Handle(HArray1OfIGESEntity) Tab2d;
   if (nb2d == 1)
   {
     theCurve2d = ent2d;
   }
   else if (nb2d >= 2)
   {
-    Tab2d = new IGESData_HArray1OfIGESEntity(1, nb2d);
+    Tab2d = new HArray1OfIGESEntity(1, nb2d);
     // Standard_Integer tabval = nb2d; //szv#4:S4163:12Mar99 unused
     for (Standard_Integer itab = 1; itab <= nb2d; itab++)
     {

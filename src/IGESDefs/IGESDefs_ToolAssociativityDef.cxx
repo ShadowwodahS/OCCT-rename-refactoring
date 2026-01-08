@@ -43,7 +43,7 @@ void AssociativityDefTool::ReadOwnParams(const Handle(IGESDefs_AssociativityDef)
   Handle(TColStd_HArray1OfInteger)            requirements;
   Handle(TColStd_HArray1OfInteger)            orders;
   Handle(TColStd_HArray1OfInteger)            numItems;
-  Handle(IGESBasic_HArray1OfHArray1OfInteger) items;
+  Handle(HArray1OfHArray1OfInt) items;
   Standard_Integer                            nbval;
 
   Standard_Boolean st = PR.ReadInteger(PR.Current(), "No. of Class definitions", nbval);
@@ -52,7 +52,7 @@ void AssociativityDefTool::ReadOwnParams(const Handle(IGESDefs_AssociativityDef)
     requirements = new TColStd_HArray1OfInteger(1, nbval);
     orders       = new TColStd_HArray1OfInteger(1, nbval);
     numItems     = new TColStd_HArray1OfInteger(1, nbval);
-    items        = new IGESBasic_HArray1OfHArray1OfInteger(1, nbval);
+    items        = new HArray1OfHArray1OfInt(1, nbval);
   }
   else
     PR.AddFail("No. of Class definitions: Not Positive");
@@ -126,14 +126,14 @@ void AssociativityDefTool::OwnCopy(const Handle(IGESDefs_AssociativityDef)& anot
   Handle(TColStd_HArray1OfInteger)            requirements;
   Handle(TColStd_HArray1OfInteger)            orders;
   Handle(TColStd_HArray1OfInteger)            numItems;
-  Handle(IGESBasic_HArray1OfHArray1OfInteger) items;
+  Handle(HArray1OfHArray1OfInt) items;
 
   Standard_Integer nbval = another->NbClassDefs();
 
   requirements = new TColStd_HArray1OfInteger(1, nbval);
   orders       = new TColStd_HArray1OfInteger(1, nbval);
   numItems     = new TColStd_HArray1OfInteger(1, nbval);
-  items        = new IGESBasic_HArray1OfHArray1OfInteger(1, nbval);
+  items        = new HArray1OfHArray1OfInt(1, nbval);
 
   for (Standard_Integer i = 1; i <= nbval; i++)
   {

@@ -46,7 +46,7 @@ public:
   //! raises exception if array lengths are not equal
   //! if size of aNameArray is not equal to size of allEntities
   Standard_EXPORT void Init(const Handle(Interface_HArray1OfHAsciiString)& aNameArray,
-                            const Handle(IGESData_HArray1OfIGESEntity)&    allEntities);
+                            const Handle(HArray1OfIGESEntity)&    allEntities);
 
   //! returns number of index entries
   Standard_EXPORT Standard_Integer NbEntries() const;
@@ -64,7 +64,7 @@ public:
 protected:
 private:
   Handle(Interface_HArray1OfHAsciiString) theNames;
-  Handle(IGESData_HArray1OfIGESEntity)    theEntities;
+  Handle(HArray1OfIGESEntity)    theEntities;
 };
 
 #endif // _IGESBasic_ExternalRefFileIndex_HeaderFile

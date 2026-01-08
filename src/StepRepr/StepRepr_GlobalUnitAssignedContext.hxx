@@ -38,11 +38,11 @@ public:
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&     aContextIdentifier,
                             const Handle(TCollection_HAsciiString)&     aContextType,
-                            const Handle(StepBasic_HArray1OfNamedUnit)& aUnits);
+                            const Handle(HArray1OfNamedUnit)& aUnits);
 
-  Standard_EXPORT void SetUnits(const Handle(StepBasic_HArray1OfNamedUnit)& aUnits);
+  Standard_EXPORT void SetUnits(const Handle(HArray1OfNamedUnit)& aUnits);
 
-  Standard_EXPORT Handle(StepBasic_HArray1OfNamedUnit) Units2() const;
+  Standard_EXPORT Handle(HArray1OfNamedUnit) Units2() const;
 
   Standard_EXPORT Handle(StepBasic_NamedUnit) UnitsValue(const Standard_Integer num) const;
 
@@ -52,7 +52,7 @@ public:
 
 protected:
 private:
-  Handle(StepBasic_HArray1OfNamedUnit) units;
+  Handle(HArray1OfNamedUnit) units;
 };
 
 #endif // _StepRepr_GlobalUnitAssignedContext_HeaderFile

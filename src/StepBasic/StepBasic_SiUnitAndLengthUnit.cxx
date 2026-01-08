@@ -27,7 +27,7 @@ void StepBasic_SiUnitAndLengthUnit::Init(const Standard_Boolean     hasAprefix,
   // --- classe inherited fields ---
   // --- ANDOR component fields ---
   lengthUnit = new StepBasic_LengthUnit();
-  Handle(StepBasic_DimensionalExponents) aDimensions;
+  Handle(DimensionalExponents) aDimensions;
   aDimensions.Nullify();
   lengthUnit->Init(aDimensions);
 

@@ -29,7 +29,7 @@ StepAP203_CcDesignApproval::StepAP203_CcDesignApproval() {}
 
 void StepAP203_CcDesignApproval::Init(
   const Handle(StepBasic_Approval)&              aApprovalAssignment_AssignedApproval,
-  const Handle(StepAP203_HArray1OfApprovedItem)& aItems)
+  const Handle(HArray1OfApprovedItem)& aItems)
 {
   StepBasic_ApprovalAssignment::Init(aApprovalAssignment_AssignedApproval);
 
@@ -38,14 +38,14 @@ void StepAP203_CcDesignApproval::Init(
 
 //=================================================================================================
 
-Handle(StepAP203_HArray1OfApprovedItem) StepAP203_CcDesignApproval::Items() const
+Handle(HArray1OfApprovedItem) StepAP203_CcDesignApproval::Items() const
 {
   return theItems;
 }
 
 //=================================================================================================
 
-void StepAP203_CcDesignApproval::SetItems(const Handle(StepAP203_HArray1OfApprovedItem)& aItems)
+void StepAP203_CcDesignApproval::SetItems(const Handle(HArray1OfApprovedItem)& aItems)
 {
   theItems = aItems;
 }

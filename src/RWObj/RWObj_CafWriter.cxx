@@ -157,7 +157,7 @@ bool RWObj_CafWriter::Perform(const Handle(AppDocument)&             theDocument
   }
 
   CLocaleSentry aLocaleSentry;
-  RWObj_ObjWriterContext anObjFile(myFile);
+  OBJWriterContext anObjFile(myFile);
   RWObj_ObjMaterialMap   aMatMgr(aMatFileNameFull);
   aMatMgr.SetDefaultStyle(myDefaultStyle);
   if (!anObjFile.IsOpened()
@@ -259,7 +259,7 @@ void RWObj_CafWriter::addFaceInfo(const RWMesh_FaceIterator& theFace,
 
 //=================================================================================================
 
-bool RWObj_CafWriter::writeShape(RWObj_ObjWriterContext&        theWriter,
+bool RWObj_CafWriter::writeShape(OBJWriterContext&        theWriter,
                                  RWObj_ObjMaterialMap&          theMatMgr,
                                  Message_LazyProgressScope&     thePSentry,
                                  const DataLabel&               theLabel,
@@ -336,7 +336,7 @@ bool RWObj_CafWriter::writeShape(RWObj_ObjWriterContext&        theWriter,
 
 //=================================================================================================
 
-bool RWObj_CafWriter::writePositions(RWObj_ObjWriterContext&    theWriter,
+bool RWObj_CafWriter::writePositions(OBJWriterContext&    theWriter,
                                      Message_LazyProgressScope& thePSentry,
                                      const RWMesh_FaceIterator& theFace)
 {
@@ -357,7 +357,7 @@ bool RWObj_CafWriter::writePositions(RWObj_ObjWriterContext&    theWriter,
 
 //=================================================================================================
 
-bool RWObj_CafWriter::writeNormals(RWObj_ObjWriterContext&    theWriter,
+bool RWObj_CafWriter::writeNormals(OBJWriterContext&    theWriter,
                                    Message_LazyProgressScope& thePSentry,
                                    const RWMesh_FaceIterator& theFace)
 {
@@ -379,7 +379,7 @@ bool RWObj_CafWriter::writeNormals(RWObj_ObjWriterContext&    theWriter,
 
 //=================================================================================================
 
-bool RWObj_CafWriter::writeTextCoords(RWObj_ObjWriterContext&    theWriter,
+bool RWObj_CafWriter::writeTextCoords(OBJWriterContext&    theWriter,
                                       Message_LazyProgressScope& thePSentry,
                                       const RWMesh_FaceIterator& theFace)
 {
@@ -399,7 +399,7 @@ bool RWObj_CafWriter::writeTextCoords(RWObj_ObjWriterContext&    theWriter,
 
 //=================================================================================================
 
-bool RWObj_CafWriter::writeIndices(RWObj_ObjWriterContext&    theWriter,
+bool RWObj_CafWriter::writeIndices(OBJWriterContext&    theWriter,
                                    Message_LazyProgressScope& thePSentry,
                                    const RWMesh_FaceIterator& theFace)
 {

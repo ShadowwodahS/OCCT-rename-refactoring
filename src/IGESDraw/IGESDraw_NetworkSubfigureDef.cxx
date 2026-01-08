@@ -29,11 +29,11 @@ IGESDraw_NetworkSubfigureDef::IGESDraw_NetworkSubfigureDef() {}
 void IGESDraw_NetworkSubfigureDef::Init(
   const Standard_Integer                        aDepth,
   const Handle(TCollection_HAsciiString)&       aName,
-  const Handle(IGESData_HArray1OfIGESEntity)&   allEntities,
+  const Handle(HArray1OfIGESEntity)&   allEntities,
   const Standard_Integer                        aTypeFlag,
   const Handle(TCollection_HAsciiString)&       aDesignator,
   const Handle(IGESGraph_TextDisplayTemplate)&  aTemplate,
-  const Handle(IGESDraw_HArray1OfConnectPoint)& allPointEntities)
+  const Handle(HArray1OfConnectPoint)& allPointEntities)
 {
   if (!allPointEntities.IsNull())
     if (allPointEntities->Lower() != 1 || allEntities->Lower() != 1)

@@ -22,20 +22,20 @@
 #include <Standard_Transient.hxx>
 class IGESToBRep_IGESBoundary;
 
-class IGESToBRep_ToolContainer;
-DEFINE_STANDARD_HANDLE(IGESToBRep_ToolContainer, RefObject)
+class ToolContainer3;
+DEFINE_STANDARD_HANDLE(ToolContainer3, RefObject)
 
-class IGESToBRep_ToolContainer : public RefObject
+class ToolContainer3 : public RefObject
 {
 
 public:
   //! Empty constructor
-  Standard_EXPORT IGESToBRep_ToolContainer();
+  Standard_EXPORT ToolContainer3();
 
   //! Returns IGESToBRep_IGESBoundary
   Standard_EXPORT virtual Handle(IGESToBRep_IGESBoundary) IGESBoundary() const;
 
-  DEFINE_STANDARD_RTTIEXT(IGESToBRep_ToolContainer, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ToolContainer3, RefObject)
 
 protected:
 private:

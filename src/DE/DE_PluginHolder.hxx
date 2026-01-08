@@ -16,7 +16,7 @@
 
 #include <DE_Wrapper.hxx>
 
-//! Base class to work with DE_Wrapper global registration of components.
+//! Base class to work with DataExchangeWrapper global registration of components.
 //! Control life-time of current configuration node.
 //! In creating stage load into global configuration.
 //! On destroying stage unload from global configuration.
@@ -27,15 +27,15 @@ class DE_PluginHolder
 public:
   DE_PluginHolder()
   {
-    Standard_Mutex::Sentry aLock(DE_Wrapper::GlobalLoadMutex());
+    Standard_Mutex::Sentry aLock(DataExchangeWrapper::GlobalLoadMutex());
     myInternalConfiguration = new TheConfType;
-    DE_Wrapper::GlobalWrapper()->Bind(myInternalConfiguration);
+    DataExchangeWrapper::GlobalWrapper()->Bind(myInternalConfiguration);
   }
 
   ~DE_PluginHolder()
   {
-    Standard_Mutex::Sentry aLock(DE_Wrapper::GlobalLoadMutex());
-    DE_Wrapper::GlobalWrapper()->UnBind(myInternalConfiguration);
+    Standard_Mutex::Sentry aLock(DataExchangeWrapper::GlobalLoadMutex());
+    DataExchangeWrapper::GlobalWrapper()->UnBind(myInternalConfiguration);
   }
 
 private:

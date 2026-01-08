@@ -20,14 +20,14 @@
 #include <NCollection_DataMap.hxx>
 
 //! Reader of mtl files.
-class RWObj_MtlReader
+class MTLReader
 {
 public:
   //! Main constructor.
-  RWObj_MtlReader(NCollection_DataMap<AsciiString1, RWObj_Material>& theMaterials);
+  MTLReader(NCollection_DataMap<AsciiString1, Material1>& theMaterials);
 
   //! Destructor.
-  ~RWObj_MtlReader();
+  ~MTLReader();
 
   //! Read the file.
   bool Read(const AsciiString1& theFolder, const AsciiString1& theFile);
@@ -46,7 +46,7 @@ private:
 private:
   FILE*                                                         myFile;
   AsciiString1                                       myPath;
-  NCollection_DataMap<AsciiString1, RWObj_Material>* myMaterials;
+  NCollection_DataMap<AsciiString1, Material1>* myMaterials;
   int                                                           myNbLines;
 };
 

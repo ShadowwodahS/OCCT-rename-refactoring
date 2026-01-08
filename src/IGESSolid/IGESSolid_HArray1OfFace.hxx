@@ -20,6 +20,6 @@
 #include <IGESSolid_Array1OfFace.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(IGESSolid_HArray1OfFace, IGESSolid_Array1OfFace)
+DEFINE_HARRAY1(HArray1OfFace, IGESSolid_Array1OfFace)
 
 #endif

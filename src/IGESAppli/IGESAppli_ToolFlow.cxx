@@ -49,12 +49,12 @@ void FlowTool::ReadOwnParams(const Handle(IGESAppli_Flow)&          ent,
   Standard_Integer                               tempTypeOfFlow;
   Standard_Integer                               tempFunctionFlag;
   Standard_Integer                               i, nf, nc, nj, nn, nt, np;
-  Handle(IGESData_HArray1OfIGESEntity)           tempFlowAssocs;
-  Handle(IGESDraw_HArray1OfConnectPoint)         tempConnectPoints;
-  Handle(IGESData_HArray1OfIGESEntity)           tempJoins;
+  Handle(HArray1OfIGESEntity)           tempFlowAssocs;
+  Handle(HArray1OfConnectPoint)         tempConnectPoints;
+  Handle(HArray1OfIGESEntity)           tempJoins;
   Handle(Interface_HArray1OfHAsciiString)        tempFlowNames;
-  Handle(IGESGraph_HArray1OfTextDisplayTemplate) tempTextDisplayTemplates;
-  Handle(IGESData_HArray1OfIGESEntity)           tempContFlowAssocs;
+  Handle(HArray1OfTextDisplayTemplate) tempTextDisplayTemplates;
+  Handle(HArray1OfIGESEntity)           tempContFlowAssocs;
 
   // szv#4:S4163:12Mar99 `st=` not needed
   if (PR.DefinedElseSkip())
@@ -66,21 +66,21 @@ void FlowTool::ReadOwnParams(const Handle(IGESAppli_Flow)&          ent,
   if (!PR.ReadInteger(PR.Current(), "Number of Flow Associativities", nf))
     nf = 0;
   if (nf > 0)
-    tempFlowAssocs = new IGESData_HArray1OfIGESEntity(1, nf);
+    tempFlowAssocs = new HArray1OfIGESEntity(1, nf);
   else
     PR.AddFail("Number of Flow Associativities: Not Positive");
 
   if (!PR.ReadInteger(PR.Current(), "Number of Connect Points", nc))
     nc = 0;
   if (nc > 0)
-    tempConnectPoints = new IGESDraw_HArray1OfConnectPoint(1, nc);
+    tempConnectPoints = new HArray1OfConnectPoint(1, nc);
   else
     PR.AddFail("Number of Connect Points: Not Positive");
 
   if (!PR.ReadInteger(PR.Current(), "Number of Joins", nj))
     nj = 0;
   if (nj > 0)
-    tempJoins = new IGESData_HArray1OfIGESEntity(1, nj);
+    tempJoins = new HArray1OfIGESEntity(1, nj);
   else
     PR.AddFail("Number of Joins: Not Positive");
 
@@ -94,14 +94,14 @@ void FlowTool::ReadOwnParams(const Handle(IGESAppli_Flow)&          ent,
   if (!PR.ReadInteger(PR.Current(), "Number of Text Displays", nt))
     nt = 0;
   if (nt > 0)
-    tempTextDisplayTemplates = new IGESGraph_HArray1OfTextDisplayTemplate(1, nt);
+    tempTextDisplayTemplates = new HArray1OfTextDisplayTemplate(1, nt);
   else
     PR.AddFail("Number of Text Displays: Not Positive");
 
   if (!PR.ReadInteger(PR.Current(), "Number of Continuation Flows", np))
     np = 0;
   if (np > 0)
-    tempContFlowAssocs = new IGESData_HArray1OfIGESEntity(1, np);
+    tempContFlowAssocs = new HArray1OfIGESEntity(1, np);
   else
     PR.AddFail("Number of Continuation Flows Not Positive");
 
@@ -230,9 +230,9 @@ void FlowTool::OwnCopy(const Handle(IGESAppli_Flow)& another,
   Standard_Integer i, num;
 
   num = another->NbFlowAssociativities();
-  Handle(IGESData_HArray1OfIGESEntity) tempFlowAssocs;
+  Handle(HArray1OfIGESEntity) tempFlowAssocs;
   if (num > 0)
-    tempFlowAssocs = new IGESData_HArray1OfIGESEntity(1, num);
+    tempFlowAssocs = new HArray1OfIGESEntity(1, num);
   for (i = 1; i <= num; i++)
   {
     DeclareAndCast(IGESData_IGESEntity, new_item, TC.Transferred(another->FlowAssociativity(i)));
@@ -240,9 +240,9 @@ void FlowTool::OwnCopy(const Handle(IGESAppli_Flow)& another,
   }
 
   num = another->NbConnectPoints();
-  Handle(IGESDraw_HArray1OfConnectPoint) tempConnectPoints;
+  Handle(HArray1OfConnectPoint) tempConnectPoints;
   if (num > 0)
-    tempConnectPoints = new IGESDraw_HArray1OfConnectPoint(1, num);
+    tempConnectPoints = new HArray1OfConnectPoint(1, num);
   for (i = 1; i <= num; i++)
   {
     DeclareAndCast(IGESDraw_ConnectPoint, new_item, TC.Transferred(another->ConnectPoint(i)));
@@ -250,9 +250,9 @@ void FlowTool::OwnCopy(const Handle(IGESAppli_Flow)& another,
   }
 
   num = another->NbJoins();
-  Handle(IGESData_HArray1OfIGESEntity) tempJoins;
+  Handle(HArray1OfIGESEntity) tempJoins;
   if (num > 0)
-    tempJoins = new IGESData_HArray1OfIGESEntity(1, num);
+    tempJoins = new HArray1OfIGESEntity(1, num);
   for (i = 1; i <= num; i++)
   {
     DeclareAndCast(IGESData_IGESEntity, new_item, TC.Transferred(another->Join(i)));
@@ -267,9 +267,9 @@ void FlowTool::OwnCopy(const Handle(IGESAppli_Flow)& another,
     tempFlowNames->SetValue(i, new TCollection_HAsciiString(another->FlowName(i)));
 
   num = another->NbTextDisplayTemplates();
-  Handle(IGESGraph_HArray1OfTextDisplayTemplate) tempTextDisplayTemplates;
+  Handle(HArray1OfTextDisplayTemplate) tempTextDisplayTemplates;
   if (num > 0)
-    tempTextDisplayTemplates = new IGESGraph_HArray1OfTextDisplayTemplate(1, num);
+    tempTextDisplayTemplates = new HArray1OfTextDisplayTemplate(1, num);
   for (i = 1; i <= num; i++)
   {
     DeclareAndCast(IGESGraph_TextDisplayTemplate,
@@ -279,9 +279,9 @@ void FlowTool::OwnCopy(const Handle(IGESAppli_Flow)& another,
   }
 
   num = another->NbContFlowAssociativities();
-  Handle(IGESData_HArray1OfIGESEntity) tempContFlowAssocs;
+  Handle(HArray1OfIGESEntity) tempContFlowAssocs;
   if (num > 0)
-    tempContFlowAssocs = new IGESData_HArray1OfIGESEntity(1, num);
+    tempContFlowAssocs = new HArray1OfIGESEntity(1, num);
   for (i = 1; i <= num; i++)
   {
     DeclareAndCast(IGESData_IGESEntity,

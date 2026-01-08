@@ -26,7 +26,7 @@ IGESGeom_BoundedSurface::IGESGeom_BoundedSurface() {}
 
 void IGESGeom_BoundedSurface::Init(const Standard_Integer                    aType,
                                    const Handle(IGESData_IGESEntity)&        aSurface,
-                                   const Handle(IGESGeom_HArray1OfBoundary)& aBoundary)
+                                   const Handle(HArray1OfBoundary)& aBoundary)
 {
   if (aBoundary->Lower() != 1)
     throw Standard_DimensionMismatch("IGESGeom_BoundedSurface : Init");

@@ -28,9 +28,9 @@ void IGESGeom_SplineSurface::Init(const Standard_Integer                        
                                   const Standard_Integer                          aPatchType,
                                   const Handle(TColStd_HArray1OfReal)&            allUBreakPoints,
                                   const Handle(TColStd_HArray1OfReal)&            allVBreakPoints,
-                                  const Handle(IGESBasic_HArray2OfHArray1OfReal)& allXCoeffs,
-                                  const Handle(IGESBasic_HArray2OfHArray1OfReal)& allYCoeffs,
-                                  const Handle(IGESBasic_HArray2OfHArray1OfReal)& allZCoeffs)
+                                  const Handle(HArray2OfHArray1OfReal)& allXCoeffs,
+                                  const Handle(HArray2OfHArray1OfReal)& allYCoeffs,
+                                  const Handle(HArray2OfHArray1OfReal)& allZCoeffs)
 {
   Standard_Integer i, j;
   if (allUBreakPoints->Lower() != 1 || allVBreakPoints->Lower() != 1)
@@ -128,9 +128,9 @@ Handle(TColStd_HArray1OfReal) IGESGeom_SplineSurface::ZPolynomial(
   return (theZCoeffs->Value(Index1, Index2));
 }
 
-void IGESGeom_SplineSurface::Polynomials(Handle(IGESBasic_HArray2OfHArray1OfReal)& allXCoeffs,
-                                         Handle(IGESBasic_HArray2OfHArray1OfReal)& allYCoeffs,
-                                         Handle(IGESBasic_HArray2OfHArray1OfReal)& allZCoeffs) const
+void IGESGeom_SplineSurface::Polynomials(Handle(HArray2OfHArray1OfReal)& allXCoeffs,
+                                         Handle(HArray2OfHArray1OfReal)& allYCoeffs,
+                                         Handle(HArray2OfHArray1OfReal)& allZCoeffs) const
 {
   allXCoeffs = theXCoeffs;
   allYCoeffs = theYCoeffs;

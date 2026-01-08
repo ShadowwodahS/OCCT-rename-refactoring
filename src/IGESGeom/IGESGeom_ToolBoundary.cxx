@@ -57,8 +57,8 @@ void BoundaryTool::ReadOwnParams(const Handle(IGESGeom_Boundary)&       ent,
   Standard_Integer                 tempType, tempPreference;
   Handle(IGESData_IGESEntity)      tempSurface;
   Handle(TColStd_HArray1OfInteger) tempSenses;
-  Handle(IGESData_HArray1OfIGESEntity)           tempModelCurves;
-  Handle(IGESBasic_HArray1OfHArray1OfIGESEntity) tempParameterCurves;
+  Handle(HArray1OfIGESEntity)           tempModelCurves;
+  Handle(HArray1OfHArray1OfEntity) tempParameterCurves;
   IGESData_Status                                aStatus;
 
   // szv#4:S4163:12Mar99 `st=` not needed
@@ -98,8 +98,8 @@ void BoundaryTool::ReadOwnParams(const Handle(IGESGeom_Boundary)&       ent,
   if (PR.ReadInteger(PR.Current(), num) && (num > 0))
   {
     tempSenses          = new TColStd_HArray1OfInteger(1, num);
-    tempModelCurves     = new IGESData_HArray1OfIGESEntity(1, num);
-    tempParameterCurves = new IGESBasic_HArray1OfHArray1OfIGESEntity(1, num);
+    tempModelCurves     = new HArray1OfIGESEntity(1, num);
+    tempParameterCurves = new HArray1OfHArray1OfEntity(1, num);
   }
   else
   {
@@ -158,7 +158,7 @@ void BoundaryTool::ReadOwnParams(const Handle(IGESGeom_Boundary)&       ent,
       /*
               if (st && tempCount >= 0)
             {
-              Handle(IGESData_HArray1OfIGESEntity) tempParCurves;
+              Handle(HArray1OfIGESEntity) tempParCurves;
               if (tempCount > 0)
                 st = PR.ReadEnts (IR,PR.CurrentList(tempCount), Msg130, tempParCurves);
                 //st = PR.ReadEnts (IR,PR.CurrentList(tempCount), "Parameter Space Curves",
@@ -167,7 +167,7 @@ void BoundaryTool::ReadOwnParams(const Handle(IGESGeom_Boundary)&       ent,
       /*
                 {
               tempParCurves = new
-                IGESData_HArray1OfIGESEntity(1, tempCount);
+                HArray1OfIGESEntity(1, tempCount);
               for ( j = 1; j <= tempCount; j++ ) {
                 Handle(IGESData_IGESEntity) tempEnt;
                 st = PR.ReadEntity(IR, PR.Current(),
@@ -184,7 +184,7 @@ void BoundaryTool::ReadOwnParams(const Handle(IGESGeom_Boundary)&       ent,
       */
       if (PR.ReadInteger(PR.Current(), tempCount) && (tempCount >= 0))
       {
-        Handle(IGESData_HArray1OfIGESEntity) tempParCurves;
+        Handle(HArray1OfIGESEntity) tempParCurves;
         if (tempCount > 0)
         {
           Message_Msg Msg130("XTSEP_130");
@@ -221,7 +221,7 @@ void BoundaryTool::WriteOwnParams(const Handle(IGESGeom_Boundary)& ent,
   {
     IW.Send(ent->ModelSpaceCurve(i));
     IW.Send(ent->Sense(i));
-    Handle(IGESData_HArray1OfIGESEntity) curves = ent->ParameterCurves(i);
+    Handle(HArray1OfIGESEntity) curves = ent->ParameterCurves(i);
     Standard_Integer                     nbc    = ent->NbParameterCurves(i);
     IW.Send(nbc);
     if (nbc > 0)
@@ -242,7 +242,7 @@ void BoundaryTool::OwnShared(const Handle(IGESGeom_Boundary)& ent,
   for (num1 = ent->NbModelSpaceCurves(), i = 1; i <= num1; i++)
   {
     iter.GetOneItem(ent->ModelSpaceCurve(i));
-    Handle(IGESData_HArray1OfIGESEntity) curves = ent->ParameterCurves(i);
+    Handle(HArray1OfIGESEntity) curves = ent->ParameterCurves(i);
     if (!curves.IsNull())
     {
       Standard_Integer nbc = curves->Length();
@@ -266,9 +266,9 @@ void BoundaryTool::OwnCopy(const Handle(IGESGeom_Boundary)& another,
   DeclareAndCast(IGESData_IGESEntity, tempSurface, TC.Transferred(another->Surface()));
 
   Handle(TColStd_HArray1OfInteger)     tempSenses      = new TColStd_HArray1OfInteger(1, num1);
-  Handle(IGESData_HArray1OfIGESEntity) tempModelCurves = new IGESData_HArray1OfIGESEntity(1, num1);
-  Handle(IGESBasic_HArray1OfHArray1OfIGESEntity) tempParameterCurves =
-    new IGESBasic_HArray1OfHArray1OfIGESEntity(1, num1);
+  Handle(HArray1OfIGESEntity) tempModelCurves = new HArray1OfIGESEntity(1, num1);
+  Handle(HArray1OfHArray1OfEntity) tempParameterCurves =
+    new HArray1OfHArray1OfEntity(1, num1);
 
   for (i = 1; i <= num1; i++)
   {
@@ -276,10 +276,10 @@ void BoundaryTool::OwnCopy(const Handle(IGESGeom_Boundary)& another,
     tempModelCurves->SetValue(i, tempEnt);
     tempSenses->SetValue(i, another->Sense(i));
     Standard_Integer                     num2      = another->NbParameterCurves(i);
-    Handle(IGESData_HArray1OfIGESEntity) ParCurves = another->ParameterCurves(i);
-    Handle(IGESData_HArray1OfIGESEntity) tempParCurves;
+    Handle(HArray1OfIGESEntity) ParCurves = another->ParameterCurves(i);
+    Handle(HArray1OfIGESEntity) tempParCurves;
     if (num2 > 0)
-      tempParCurves = new IGESData_HArray1OfIGESEntity(1, num2);
+      tempParCurves = new HArray1OfIGESEntity(1, num2);
     for (j = 1; j <= num2; j++)
     {
       DeclareAndCast(IGESData_IGESEntity, tempEnt1, TC.Transferred(ParCurves->Value(j)));
@@ -327,9 +327,9 @@ Standard_Boolean BoundaryTool::OwnCorrect(const Handle(IGESGeom_Boundary)& ent) 
   //  -> On reconstruit, avec ParameterCurves Nulles
   // En plus, les ParameterCurves doivent avoir leur UseFlag a 5
 
-  Handle(IGESBasic_HArray1OfHArray1OfIGESEntity) cv2d =
-    new IGESBasic_HArray1OfHArray1OfIGESEntity(1, nb);
-  Handle(IGESData_HArray1OfIGESEntity) modcv  = new IGESData_HArray1OfIGESEntity(1, nb);
+  Handle(HArray1OfHArray1OfEntity) cv2d =
+    new HArray1OfHArray1OfEntity(1, nb);
+  Handle(HArray1OfIGESEntity) modcv  = new HArray1OfIGESEntity(1, nb);
   Handle(TColStd_HArray1OfInteger)     senses = new TColStd_HArray1OfInteger(1, nb);
   for (i = 1; i <= nb; i++)
   {
@@ -440,7 +440,7 @@ void BoundaryTool::OwnDump(const Handle(IGESGeom_Boundary)& ent,
       dumper.Dump(ent->ModelSpaceCurve(i), S, 1);
       S << "  Orientation Flags : " << ent->Sense(i) << "\n"
         << "  Parameter Curves : ";
-      Handle(IGESData_HArray1OfIGESEntity) curves = ent->ParameterCurves(i);
+      Handle(HArray1OfIGESEntity) curves = ent->ParameterCurves(i);
       if (!curves.IsNull())
       {
         IGESData_DumpEntities(S, dumper, level, 1, curves->Length(), curves->Value);

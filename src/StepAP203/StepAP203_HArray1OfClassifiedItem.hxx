@@ -20,6 +20,6 @@
 #include <StepAP203_Array1OfClassifiedItem.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepAP203_HArray1OfClassifiedItem, StepAP203_Array1OfClassifiedItem)
+DEFINE_HARRAY1(HArray1OfClassifiedItem, StepAP203_Array1OfClassifiedItem)
 
 #endif

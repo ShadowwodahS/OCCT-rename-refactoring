@@ -39,12 +39,12 @@ void RWStepBasic_RWMassUnit::ReadStep(const Handle(StepData_StepReaderData)& dat
 
   // Inherited fields of NamedUnit
 
-  Handle(StepBasic_DimensionalExponents) aNamedUnit_Dimensions;
+  Handle(DimensionalExponents) aNamedUnit_Dimensions;
   data->ReadEntity(num,
                    1,
                    "named_unit.dimensions",
                    ach,
-                   STANDARD_TYPE(StepBasic_DimensionalExponents),
+                   STANDARD_TYPE(DimensionalExponents),
                    aNamedUnit_Dimensions);
 
   // Initialize entity

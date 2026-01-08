@@ -42,7 +42,7 @@ void StepGeom_GeometricRepresentationContextAndGlobalUnitAssignedContext::Init(
   const Handle(TCollection_HAsciiString)&     aContextIdentifier,
   const Handle(TCollection_HAsciiString)&     aContextType,
   const Standard_Integer                      aCoordinateSpaceDimension,
-  const Handle(StepBasic_HArray1OfNamedUnit)& aUnits)
+  const Handle(HArray1OfNamedUnit)& aUnits)
 {
   // --- classe inherited fields ---
 
@@ -104,12 +104,12 @@ Standard_Integer StepGeom_GeometricRepresentationContextAndGlobalUnitAssignedCon
 //--- Specific Methods for AND classe field access ---
 
 void StepGeom_GeometricRepresentationContextAndGlobalUnitAssignedContext::SetUnits(
-  const Handle(StepBasic_HArray1OfNamedUnit)& aUnits)
+  const Handle(HArray1OfNamedUnit)& aUnits)
 {
   globalUnitAssignedContext->SetUnits(aUnits);
 }
 
-Handle(StepBasic_HArray1OfNamedUnit)
+Handle(HArray1OfNamedUnit)
   StepGeom_GeometricRepresentationContextAndGlobalUnitAssignedContext::Units2() const
 {
   return globalUnitAssignedContext->Units2();

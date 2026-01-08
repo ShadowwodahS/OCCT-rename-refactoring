@@ -18,7 +18,7 @@
 
 #include <LDOM_Node.hxx>
 
-class LDOM_BasicText;
+class BasicText;
 
 //  Class LDOM_CharacterData
 //
@@ -63,7 +63,7 @@ public:
 protected:
   // ---------- PROTECTED METHODS ----------
 
-  LDOM_CharacterData(const LDOM_BasicText& aText, const Handle(LDOM_MemManager)& aDoc);
+  LDOM_CharacterData(const BasicText& aText, const Handle(MemoryManager)& aDoc);
 
 private:
   // ------------ PRIVATE FIELDS -----------

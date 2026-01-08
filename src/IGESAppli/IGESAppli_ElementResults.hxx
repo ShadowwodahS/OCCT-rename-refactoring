@@ -26,8 +26,8 @@
 #include <IGESData_IGESEntity.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 class IGESDimen_GeneralNote;
-class IGESBasic_HArray1OfHArray1OfInteger;
-class IGESBasic_HArray1OfHArray1OfReal;
+class HArray1OfHArray1OfInt;
+class HArray1OfHArray1OfReal;
 class IGESAppli_FiniteElement;
 
 class IGESAppli_ElementResults;
@@ -63,13 +63,13 @@ public:
                             const Standard_Integer                             nbResults,
                             const Standard_Integer                             aResRepFlag,
                             const Handle(TColStd_HArray1OfInteger)&            allElementIdents,
-                            const Handle(IGESAppli_HArray1OfFiniteElement)&    allFiniteElems,
+                            const Handle(HArray1OfFiniteElement)&    allFiniteElems,
                             const Handle(TColStd_HArray1OfInteger)&            allTopTypes,
                             const Handle(TColStd_HArray1OfInteger)&            nbLayers,
                             const Handle(TColStd_HArray1OfInteger)&            allDataLayerFlags,
                             const Handle(TColStd_HArray1OfInteger)&            allnbResDataLocs,
-                            const Handle(IGESBasic_HArray1OfHArray1OfInteger)& allResDataLocs,
-                            const Handle(IGESBasic_HArray1OfHArray1OfReal)&    allResults);
+                            const Handle(HArray1OfHArray1OfInt)& allResDataLocs,
+                            const Handle(HArray1OfHArray1OfReal)&    allResults);
 
   //! Changes the FormNumber (which indicates Type of Result)
   //! Error if not in range [0-34]
@@ -160,13 +160,13 @@ private:
   Standard_Integer                            theNbResultValues;
   Standard_Integer                            theResultReportFlag;
   Handle(TColStd_HArray1OfInteger)            theElementIdentifiers;
-  Handle(IGESAppli_HArray1OfFiniteElement)    theElements;
+  Handle(HArray1OfFiniteElement)    theElements;
   Handle(TColStd_HArray1OfInteger)            theElementTopologyTypes;
   Handle(TColStd_HArray1OfInteger)            theNbLayers;
   Handle(TColStd_HArray1OfInteger)            theDataLayerFlags;
   Handle(TColStd_HArray1OfInteger)            theNbResultDataLocs;
-  Handle(IGESBasic_HArray1OfHArray1OfInteger) theResultDataLocs;
-  Handle(IGESBasic_HArray1OfHArray1OfReal)    theResultData;
+  Handle(HArray1OfHArray1OfInt) theResultDataLocs;
+  Handle(HArray1OfHArray1OfReal)    theResultData;
 };
 
 #endif // _IGESAppli_ElementResults_HeaderFile

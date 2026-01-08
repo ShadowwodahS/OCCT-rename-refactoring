@@ -21,28 +21,28 @@
 
 class LDOM_CharacterData;
 
-//  Class LDOM_BasicText
+//  Class BasicText
 //
 
-class LDOM_BasicText : public BasicNode
+class BasicText : public BasicNode
 {
 public:
   // ---------- PUBLIC METHODS ----------
 
-  LDOM_BasicText()
+  BasicText()
       : BasicNode(LDOM_Node::UNKNOWN)
   {
   }
 
   //    Empty constructor
 
-  LDOM_BasicText& operator=(const LDOM_NullPtr* aNull);
+  BasicText& operator=(const LDOM_NullPtr* aNull);
 
   //    Nullify
 
   const LDOMBasicString1& GetData() const { return myValue; }
 
-  void SetData(const LDOMBasicString1& aValue, const Handle(LDOM_MemManager)& aDoc)
+  void SetData(const LDOMBasicString1& aValue, const Handle(MemoryManager)& aDoc)
   {
     myValue = LDOMString(aValue, aDoc);
   }
@@ -52,9 +52,9 @@ private:
   friend class LDOM_Node;
   friend class LDOMParser;
   friend class LDOM_Document;
-  friend class LDOM_BasicElement;
+  friend class BasicElement;
 
-  LDOM_BasicText(const LDOM_Node::NodeType aType, const LDOMBasicString1& aData)
+  BasicText(const LDOM_Node::NodeType aType, const LDOMBasicString1& aData)
       : BasicNode(aType),
         myValue(aData)
   {
@@ -62,11 +62,11 @@ private:
 
   // Constructor
 
-  LDOM_BasicText(const LDOM_CharacterData& aText);
+  BasicText(const LDOM_CharacterData& aText);
 
-  static LDOM_BasicText& Create(const LDOM_Node::NodeType      aType,
+  static BasicText& Create(const LDOM_Node::NodeType      aType,
                                 const LDOMBasicString1&         aData,
-                                const Handle(LDOM_MemManager)& aDoc);
+                                const Handle(MemoryManager)& aDoc);
   // Creation
 
 private:

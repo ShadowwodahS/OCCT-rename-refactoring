@@ -50,7 +50,7 @@ void NewDimensionedGeometryTool::ReadOwnParams(
   Standard_Integer                     tempDimOrientFlag;
   Standard_Real                        tempAngle;
   Handle(IGESData_IGESEntity)          tempDimen;
-  Handle(IGESData_HArray1OfIGESEntity) tempGeomEnts;
+  Handle(HArray1OfIGESEntity) tempGeomEnts;
   Handle(TColStd_HArray1OfInteger)     tempDimLocFlags;
   Handle(TColgp_HArray1OfXYZ)          tempPoints;
 
@@ -64,7 +64,7 @@ void NewDimensionedGeometryTool::ReadOwnParams(
   Standard_Boolean st = PR.ReadInteger(PR.Current(), "Number of Geometries", num);
   if (st && num > 0)
   {
-    tempGeomEnts    = new IGESData_HArray1OfIGESEntity(1, num);
+    tempGeomEnts    = new HArray1OfIGESEntity(1, num);
     tempDimLocFlags = new TColStd_HArray1OfInteger(1, num);
     tempPoints      = new TColgp_HArray1OfXYZ(1, num);
   }
@@ -146,7 +146,7 @@ void NewDimensionedGeometryTool::OwnCopy(
   Standard_Real    tempAngle         = another->AngleValue();
   DeclareAndCast(IGESData_IGESEntity, tempDimen, TC.Transferred(another->DimensionEntity()));
 
-  Handle(IGESData_HArray1OfIGESEntity) tempGeomEnts    = new IGESData_HArray1OfIGESEntity(1, num);
+  Handle(HArray1OfIGESEntity) tempGeomEnts    = new HArray1OfIGESEntity(1, num);
   Handle(TColStd_HArray1OfInteger)     tempDimLocFlags = new TColStd_HArray1OfInteger(1, num);
   Handle(TColgp_HArray1OfXYZ)          tempPoints      = new TColgp_HArray1OfXYZ(1, num);
 
@@ -179,7 +179,7 @@ Standard_Boolean NewDimensionedGeometryTool::OwnCorrect(
     return res;
   //   Forcer NbDimensions = 1 -> reconstruire
   Standard_Integer                     nb              = ent->NbGeometries();
-  Handle(IGESData_HArray1OfIGESEntity) tempGeomEnts    = new IGESData_HArray1OfIGESEntity(1, nb);
+  Handle(HArray1OfIGESEntity) tempGeomEnts    = new HArray1OfIGESEntity(1, nb);
   Handle(TColStd_HArray1OfInteger)     tempDimLocFlags = new TColStd_HArray1OfInteger(1, nb);
   Handle(TColgp_HArray1OfXYZ)          tempPoints      = new TColgp_HArray1OfXYZ(1, nb);
 

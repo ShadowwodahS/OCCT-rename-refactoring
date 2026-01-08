@@ -51,7 +51,7 @@ typedef rapidjson::Document::ValueType RWGltf_JsonValue;
 #endif
 
 //! INTERNAL tool for parsing glTF document (JSON structure).
-class RWGltf_GltfJsonParser
+class GLTFJsonParser
 #ifdef HAVE_RAPIDJSON
     : public rapidjson::Document
 #endif
@@ -64,7 +64,7 @@ public:
 
 public:
   //! Empty constructor.
-  Standard_EXPORT RWGltf_GltfJsonParser(TopTools_SequenceOfShape& theRootShapes);
+  Standard_EXPORT GLTFJsonParser(TopTools_SequenceOfShape& theRootShapes);
 
   //! Set file path.
   Standard_EXPORT void SetFilePath(const AsciiString1& theFilePath);

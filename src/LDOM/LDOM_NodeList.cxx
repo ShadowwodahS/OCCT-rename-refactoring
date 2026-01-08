@@ -31,7 +31,7 @@ LDOM_NodeList::LDOM_NodeList()
 
 //=================================================================================================
 
-LDOM_NodeList::LDOM_NodeList(const Handle(LDOM_MemManager)& aDoc)
+LDOM_NodeList::LDOM_NodeList(const Handle(MemoryManager)& aDoc)
     : myDoc(aDoc)
 {
   mySeq = new LDOM_BasicNodeSequence;

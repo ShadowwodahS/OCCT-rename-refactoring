@@ -37,7 +37,7 @@ public:
 
   //! Configure translation process
   //! @param[in] theNode object to init the DE_Provider
-  Standard_EXPORT DEBREP_Provider(const Handle(DE_ConfigurationNode)& theNode);
+  Standard_EXPORT DEBREP_Provider(const Handle(ConfigurationNode)& theNode);
 
 public:
   //! Reads a CAD file, according internal configuration

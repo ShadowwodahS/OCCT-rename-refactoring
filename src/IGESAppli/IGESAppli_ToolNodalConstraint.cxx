@@ -44,11 +44,11 @@ void NodalConstraintTool::ReadOwnParams(const Handle(IGESAppli_NodalConstraint)&
   Standard_Integer                      num, i;
   Standard_Integer                      tempType;
   Handle(IGESAppli_Node)                tempNode;
-  Handle(IGESDefs_HArray1OfTabularData) tempTabularDataProps;
+  Handle(HArray1OfTabularData) tempTabularDataProps;
   if (!PR.ReadInteger(PR.Current(), "Number of cases", num))
     num = 0;
   if (num > 0)
-    tempTabularDataProps = new IGESDefs_HArray1OfTabularData(1, num);
+    tempTabularDataProps = new HArray1OfTabularData(1, num);
   else
     PR.AddFail("Number of cases: Not Positive");
   // szv#4:S4163:12Mar99 `st=` not needed
@@ -98,8 +98,8 @@ void NodalConstraintTool::OwnCopy(const Handle(IGESAppli_NodalConstraint)& anoth
   Standard_Integer num      = another->NbCases();
   Standard_Integer tempType = another->Type();
   DeclareAndCast(IGESAppli_Node, tempNode, TC.Transferred(another->NodeEntity()));
-  Handle(IGESDefs_HArray1OfTabularData) tempTabularDataProps =
-    new IGESDefs_HArray1OfTabularData(1, num);
+  Handle(HArray1OfTabularData) tempTabularDataProps =
+    new HArray1OfTabularData(1, num);
   for (Standard_Integer i = 1; i <= num; i++)
   {
     DeclareAndCast(IGESDefs_TabularData, new_item, TC.Transferred(another->TabularData(i)));

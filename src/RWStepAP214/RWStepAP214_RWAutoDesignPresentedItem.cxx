@@ -36,13 +36,13 @@ void RWStepAP214_RWAutoDesignPresentedItem::ReadStep(
 
   // --- own field : items ---
 
-  Handle(StepAP214_HArray1OfAutoDesignPresentedItemSelect) aItems;
+  Handle(HArray1OfAutoDesignPresentedItem) aItems;
   StepAP214_AutoDesignPresentedItemSelect                  anent1;
   Standard_Integer                                         nsub1;
   if (data->ReadSubList(num, 1, "items", ach, nsub1))
   {
     Standard_Integer nb1 = data->NbParams(nsub1);
-    aItems               = new StepAP214_HArray1OfAutoDesignPresentedItemSelect(1, nb1);
+    aItems               = new HArray1OfAutoDesignPresentedItem(1, nb1);
     for (Standard_Integer i1 = 1; i1 <= nb1; i1++)
     {
       Standard_Boolean stat1 =

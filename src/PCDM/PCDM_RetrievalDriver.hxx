@@ -28,9 +28,9 @@ class CDM_MetaData;
 class Message_Messenger;
 
 class PCDM_RetrievalDriver;
-DEFINE_STANDARD_HANDLE(PCDM_RetrievalDriver, PCDM_Reader)
+DEFINE_STANDARD_HANDLE(PCDM_RetrievalDriver, Reader1)
 
-class PCDM_RetrievalDriver : public PCDM_Reader
+class PCDM_RetrievalDriver : public Reader1
 {
   friend Standard_EXPORT void PCDM_ReferenceIterator::Init(const Handle(CDM_MetaData)& aMetaData);
 
@@ -47,7 +47,7 @@ public:
 
   Standard_EXPORT UtfString GetFormat() const;
 
-  DEFINE_STANDARD_RTTIEXT(PCDM_RetrievalDriver, PCDM_Reader)
+  DEFINE_STANDARD_RTTIEXT(PCDM_RetrievalDriver, Reader1)
 
 private:
   Standard_EXPORT static void References(const UtfString& theFileName,

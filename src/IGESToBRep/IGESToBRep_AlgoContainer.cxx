@@ -23,5 +23,5 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESToBRep_AlgoContainer, RefObject)
 
 IGESToBRep_AlgoContainer::IGESToBRep_AlgoContainer()
 {
-  myTC = new IGESToBRep_ToolContainer;
+  myTC = new ToolContainer3;
 }

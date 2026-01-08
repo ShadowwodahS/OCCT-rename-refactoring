@@ -39,7 +39,7 @@ public:
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&          aId,
                             const Handle(TCollection_HAsciiString)&          aName,
                             const Handle(TCollection_HAsciiString)&          aDescription,
-                            const Handle(StepBasic_HArray1OfProductContext)& aFrameOfReference);
+                            const Handle(HArray1OfProductContext)& aFrameOfReference);
 
   Standard_EXPORT void SetId(const Handle(TCollection_HAsciiString)& aId);
 
@@ -54,9 +54,9 @@ public:
   Standard_EXPORT Handle(TCollection_HAsciiString) Description() const;
 
   Standard_EXPORT void SetFrameOfReference(
-    const Handle(StepBasic_HArray1OfProductContext)& aFrameOfReference);
+    const Handle(HArray1OfProductContext)& aFrameOfReference);
 
-  Standard_EXPORT Handle(StepBasic_HArray1OfProductContext) FrameOfReference() const;
+  Standard_EXPORT Handle(HArray1OfProductContext) FrameOfReference() const;
 
   Standard_EXPORT Handle(StepBasic_ProductContext) FrameOfReferenceValue(
     const Standard_Integer num) const;
@@ -70,7 +70,7 @@ private:
   Handle(TCollection_HAsciiString)          id;
   Handle(TCollection_HAsciiString)          name;
   Handle(TCollection_HAsciiString)          description;
-  Handle(StepBasic_HArray1OfProductContext) frameOfReference;
+  Handle(HArray1OfProductContext) frameOfReference;
 };
 
 #endif // _StepBasic_Product_HeaderFile

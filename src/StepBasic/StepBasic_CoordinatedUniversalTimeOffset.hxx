@@ -24,15 +24,15 @@
 #include <StepBasic_AheadOrBehind.hxx>
 #include <Standard_Transient.hxx>
 
-class StepBasic_CoordinatedUniversalTimeOffset;
-DEFINE_STANDARD_HANDLE(StepBasic_CoordinatedUniversalTimeOffset, RefObject)
+class TimeOffset;
+DEFINE_STANDARD_HANDLE(TimeOffset, RefObject)
 
-class StepBasic_CoordinatedUniversalTimeOffset : public RefObject
+class TimeOffset : public RefObject
 {
 
 public:
   //! Returns a CoordinatedUniversalTimeOffset
-  Standard_EXPORT StepBasic_CoordinatedUniversalTimeOffset();
+  Standard_EXPORT TimeOffset();
 
   Standard_EXPORT void Init(const Standard_Integer        aHourOffset,
                             const Standard_Boolean        hasAminuteOffset,
@@ -55,7 +55,7 @@ public:
 
   Standard_EXPORT StepBasic_AheadOrBehind Sense() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_CoordinatedUniversalTimeOffset, RefObject)
+  DEFINE_STANDARD_RTTIEXT(TimeOffset, RefObject)
 
 protected:
 private:

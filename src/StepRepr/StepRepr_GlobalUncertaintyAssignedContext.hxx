@@ -38,12 +38,12 @@ public:
   Standard_EXPORT void Init(
     const Handle(TCollection_HAsciiString)&                      aContextIdentifier,
     const Handle(TCollection_HAsciiString)&                      aContextType,
-    const Handle(StepBasic_HArray1OfUncertaintyMeasureWithUnit)& aUncertainty);
+    const Handle(HArray1OfUncertainty)& aUncertainty);
 
   Standard_EXPORT void SetUncertainty(
-    const Handle(StepBasic_HArray1OfUncertaintyMeasureWithUnit)& aUncertainty);
+    const Handle(HArray1OfUncertainty)& aUncertainty);
 
-  Standard_EXPORT Handle(StepBasic_HArray1OfUncertaintyMeasureWithUnit) Uncertainty() const;
+  Standard_EXPORT Handle(HArray1OfUncertainty) Uncertainty() const;
 
   Standard_EXPORT Handle(StepBasic_UncertaintyMeasureWithUnit) UncertaintyValue(
     const Standard_Integer num) const;
@@ -54,7 +54,7 @@ public:
 
 protected:
 private:
-  Handle(StepBasic_HArray1OfUncertaintyMeasureWithUnit) uncertainty;
+  Handle(HArray1OfUncertainty) uncertainty;
 };
 
 #endif // _StepRepr_GlobalUncertaintyAssignedContext_HeaderFile

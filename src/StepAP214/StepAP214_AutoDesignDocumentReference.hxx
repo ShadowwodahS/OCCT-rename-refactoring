@@ -37,11 +37,11 @@ public:
 
   Standard_EXPORT void Init(const Handle(StepBasic_Document)&       aAssignedDocument,
                             const Handle(TCollection_HAsciiString)& aSource,
-                            const Handle(StepAP214_HArray1OfAutoDesignReferencingItem)& aItems);
+                            const Handle(HArray1OfAutoDesignRefItem)& aItems);
 
-  Standard_EXPORT Handle(StepAP214_HArray1OfAutoDesignReferencingItem) Items() const;
+  Standard_EXPORT Handle(HArray1OfAutoDesignRefItem) Items() const;
 
-  Standard_EXPORT void SetItems(const Handle(StepAP214_HArray1OfAutoDesignReferencingItem)& aItems);
+  Standard_EXPORT void SetItems(const Handle(HArray1OfAutoDesignRefItem)& aItems);
 
   Standard_EXPORT StepAP214_AutoDesignReferencingItem ItemsValue(const Standard_Integer num) const;
 
@@ -51,7 +51,7 @@ public:
 
 protected:
 private:
-  Handle(StepAP214_HArray1OfAutoDesignReferencingItem) items;
+  Handle(HArray1OfAutoDesignRefItem) items;
 };
 
 #endif // _StepAP214_AutoDesignDocumentReference_HeaderFile

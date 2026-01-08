@@ -24,9 +24,9 @@
 #include <StepBasic_Date.hxx>
 
 class StepBasic_WeekOfYearAndDayDate;
-DEFINE_STANDARD_HANDLE(StepBasic_WeekOfYearAndDayDate, StepBasic_Date)
+DEFINE_STANDARD_HANDLE(StepBasic_WeekOfYearAndDayDate, Date1)
 
-class StepBasic_WeekOfYearAndDayDate : public StepBasic_Date
+class StepBasic_WeekOfYearAndDayDate : public Date1
 {
 
 public:
@@ -50,7 +50,7 @@ public:
 
   Standard_EXPORT Standard_Boolean HasDayComponent() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_WeekOfYearAndDayDate, StepBasic_Date)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_WeekOfYearAndDayDate, Date1)
 
 protected:
 private:

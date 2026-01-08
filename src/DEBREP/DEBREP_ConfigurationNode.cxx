@@ -18,7 +18,7 @@
 #include <DE_PluginHolder.hxx>
 #include <NCollection_Buffer.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DEBREP_ConfigurationNode, DE_ConfigurationNode)
+IMPLEMENT_STANDARD_RTTIEXT(DEBREP_ConfigurationNode, ConfigurationNode)
 
 namespace
 {
@@ -35,21 +35,21 @@ DE_PluginHolder<DEBREP_ConfigurationNode> THE_OCCT_BREP_COMPONENT_PLUGIN;
 //=================================================================================================
 
 DEBREP_ConfigurationNode::DEBREP_ConfigurationNode()
-    : DE_ConfigurationNode()
+    : ConfigurationNode()
 {
 }
 
 //=================================================================================================
 
 DEBREP_ConfigurationNode::DEBREP_ConfigurationNode(const Handle(DEBREP_ConfigurationNode)& theNode)
-    : DE_ConfigurationNode(theNode)
+    : ConfigurationNode(theNode)
 {
   InternalParameters = theNode->InternalParameters;
 }
 
 //=================================================================================================
 
-bool DEBREP_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theResource)
+bool DEBREP_ConfigurationNode::Load(const Handle(ConfigurationContext)& theResource)
 {
   AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor();
@@ -122,7 +122,7 @@ AsciiString1 DEBREP_ConfigurationNode::Save() const
 
 //=================================================================================================
 
-Handle(DE_ConfigurationNode) DEBREP_ConfigurationNode::Copy() const
+Handle(ConfigurationNode) DEBREP_ConfigurationNode::Copy() const
 {
   return new DEBREP_ConfigurationNode(*this);
 }

@@ -56,13 +56,13 @@ void RWStepBasic_RWProduct::ReadStep(const Handle(StepData_StepReaderData)& data
   }
   // --- own field : frameOfReference ---
 
-  Handle(StepBasic_HArray1OfProductContext) aFrameOfReference;
+  Handle(HArray1OfProductContext) aFrameOfReference;
   Handle(StepBasic_ProductContext)          anent4;
   Standard_Integer                          nsub4;
   if (data->ReadSubList(num, 4, "frame_of_reference", ach, nsub4))
   {
     Standard_Integer nb4 = data->NbParams(nsub4);
-    aFrameOfReference    = new StepBasic_HArray1OfProductContext(1, nb4);
+    aFrameOfReference    = new HArray1OfProductContext(1, nb4);
     for (Standard_Integer i4 = 1; i4 <= nb4; i4++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat4 =` not needed

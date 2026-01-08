@@ -60,7 +60,7 @@ static Standard_Boolean isName(const char* aString, const char* aStringEnd, cons
 // purpose  : Constructor (file descriptor)
 //=======================================================================
 
-LDOM_XmlReader::LDOM_XmlReader(const Handle(LDOM_MemManager)& theDocument,
+LDOM_XmlReader::LDOM_XmlReader(const Handle(MemoryManager)& theDocument,
                                AsciiString1&       theErrorString,
                                const Standard_Boolean         theTagPerStep)
     : myEOF(Standard_False),
@@ -71,7 +71,7 @@ LDOM_XmlReader::LDOM_XmlReader(const Handle(LDOM_MemManager)& theDocument,
       myPtr(&myBuffer[0]),
       myEndPtr(&myBuffer[0]),
       myTagPerStep(theTagPerStep),
-      myBOM(LDOM_OSStream::BOM_UNDEFINED)
+      myBOM(OutputStream::BOM_UNDEFINED)
 {
 }
 
@@ -81,7 +81,7 @@ LDOM_XmlReader::LDOM_XmlReader(const Handle(LDOM_MemManager)& theDocument,
 //=======================================================================
 
 LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord(Standard_IStream& theIStream,
-                                                      LDOM_OSStream&    theData,
+                                                      OutputStream&    theData,
                                                       Standard_Boolean& theDocStart)
 {
   theData.Clear();
@@ -165,14 +165,14 @@ LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord(Standard_IStream& theIStre
         case 0xEF:
           if (Standard_Utf8UChar(myPtr[1]) == 0xBB && Standard_Utf8UChar(myPtr[2]) == 0xBF)
           {
-            myBOM = LDOM_OSStream::BOM_UTF8;
+            myBOM = OutputStream::BOM_UTF8;
             myPtr += 3;
           }
           break;
         case 0xFE:
           if (Standard_Utf8UChar(myPtr[1]) == 0xFF)
           {
-            myBOM = LDOM_OSStream::BOM_UTF16BE;
+            myBOM = OutputStream::BOM_UTF16BE;
             myPtr += 2;
           }
           break;
@@ -181,12 +181,12 @@ LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord(Standard_IStream& theIStre
           {
             if (myPtr[2] == 0 && myPtr[3] == 0)
             {
-              myBOM = LDOM_OSStream::BOM_UTF32LE;
+              myBOM = OutputStream::BOM_UTF32LE;
               myPtr += 4;
             }
             else
             {
-              myBOM = LDOM_OSStream::BOM_UTF16LE;
+              myBOM = OutputStream::BOM_UTF16LE;
               myPtr += 2;
             }
           }
@@ -195,7 +195,7 @@ LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord(Standard_IStream& theIStre
           if (myPtr[1] == 0 && Standard_Utf8UChar(myPtr[2]) == 0xFE
               && Standard_Utf8UChar(myPtr[3]) == 0xFF)
           {
-            myBOM = LDOM_OSStream::BOM_UTF32BE;
+            myBOM = OutputStream::BOM_UTF32BE;
             myPtr += 4;
           }
           break;
@@ -203,7 +203,7 @@ LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord(Standard_IStream& theIStre
           if (myPtr[1] == 47 && myPtr[2] == 118
               && (myPtr[3] == 43 || myPtr[3] == 47 || myPtr[3] == 56 || myPtr[3] == 57))
           {
-            myBOM = LDOM_OSStream::BOM_UTF7;
+            myBOM = OutputStream::BOM_UTF7;
             if (myPtr[3] == 56 && myPtr[4] == 45)
               myPtr += 5;
             else
@@ -213,40 +213,40 @@ LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord(Standard_IStream& theIStre
         case 0xF7:
           if (myPtr[1] == 100 && myPtr[2] == 76)
           {
-            myBOM = LDOM_OSStream::BOM_UTF1;
+            myBOM = OutputStream::BOM_UTF1;
             myPtr += 3;
           }
           break;
         case 0xDD:
           if (myPtr[1] == 115 && myPtr[2] == 102 && myPtr[3] == 115)
           {
-            myBOM = LDOM_OSStream::BOM_UTFEBCDIC;
+            myBOM = OutputStream::BOM_UTFEBCDIC;
             myPtr += 4;
           }
           break;
         case 0x0E:
           if (Standard_Utf8UChar(myPtr[1]) == 0xFE && Standard_Utf8UChar(myPtr[2]) == 0xFF)
           {
-            myBOM = LDOM_OSStream::BOM_SCSU;
+            myBOM = OutputStream::BOM_SCSU;
             myPtr += 3;
           }
           break;
         case 0xFB:
           if (Standard_Utf8UChar(myPtr[1]) == 0xEE && myPtr[2] == 40)
           {
-            myBOM = LDOM_OSStream::BOM_BOCU1;
+            myBOM = OutputStream::BOM_BOCU1;
             myPtr += 3;
           }
           break;
         case 0x84:
           if (myPtr[1] == 49 && Standard_Utf8UChar(myPtr[2]) == 0x95 && myPtr[3] == 51)
           {
-            myBOM = LDOM_OSStream::BOM_GB18030;
+            myBOM = OutputStream::BOM_GB18030;
             myPtr += 4;
           }
           break;
       }
-      if (myBOM != LDOM_OSStream::BOM_UNDEFINED)
+      if (myBOM != OutputStream::BOM_UNDEFINED)
         continue;
     }
 
@@ -309,7 +309,7 @@ LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord(Standard_IStream& theIStre
                   myPtr      = aNameEnd;
                   if (myPtr < myEndPtr)
                   {
-                    myElement   = &LDOM_BasicElement::Create(aStartData,
+                    myElement   = &BasicElement::Create(aStartData,
                                                            (Standard_Integer)(myPtr - aStartData),
                                                            myDocument);
                     myLastChild = NULL;
@@ -486,7 +486,7 @@ LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord(Standard_IStream& theIStre
         {
           theData.rdbuf()->sputn(aStartData, aNameEnd - aStartData);
           char* aDataString = (char*)theData.str();
-          myElement         = &LDOM_BasicElement::Create(aDataString, theData.Length(), myDocument);
+          myElement         = &BasicElement::Create(aDataString, theData.Length(), myDocument);
           theData.Clear();
           myLastChild = NULL;
           delete[] aDataString;
@@ -734,7 +734,7 @@ static Standard_Boolean isName(const char* aString, const char* aStringEnd, cons
 
 void LDOM_XmlReader::CreateElement(const char* theName, const Standard_Integer theLen)
 {
-  myElement = &LDOM_BasicElement::Create(theName, theLen, myDocument);
+  myElement = &BasicElement::Create(theName, theLen, myDocument);
 }
 
 //=======================================================================

@@ -54,7 +54,7 @@ void GroupTool::ReadOwnParams(const Handle(IGESBasic_Group)&         ent,
   // st = PR.ReadInteger( PR.Current(), Msg202, nbval); //szv#4:S4163:12Mar99 moved down
   // st = PR.ReadInteger( PR.Current(), "Count of Entities", nbval);
 
-  Handle(IGESData_HArray1OfIGESEntity) EntArray;
+  Handle(HArray1OfIGESEntity) EntArray;
   if (PR.ReadInteger(PR.Current(), nbval))
   { // szv#4:S4163:12Mar99 `st=` not needed
     Message_Msg Msg203("XSTEP_203");
@@ -97,7 +97,7 @@ void GroupTool::OwnCopy(const Handle(IGESBasic_Group)& another,
   Standard_Integer lower, upper;
   lower                                         = 1;
   upper                                         = another->NbEntities();
-  Handle(IGESData_HArray1OfIGESEntity) EntArray = new IGESData_HArray1OfIGESEntity(lower, upper);
+  Handle(HArray1OfIGESEntity) EntArray = new HArray1OfIGESEntity(lower, upper);
   for (Standard_Integer i = lower; i <= upper; i++)
   {
     DeclareAndCast(IGESData_IGESEntity, myentity, TC.Transferred(another->Entity(i)));
@@ -120,9 +120,9 @@ Standard_Boolean GroupTool::OwnCorrect(const Handle(IGESBasic_Group)& ent) const
   }
   if (ianul == 0)
     return Standard_False;
-  Handle(IGESData_HArray1OfIGESEntity) EntArray;
+  Handle(HArray1OfIGESEntity) EntArray;
   if (ianul < nb)
-    EntArray = new IGESData_HArray1OfIGESEntity(1, nb - ianul);
+    EntArray = new HArray1OfIGESEntity(1, nb - ianul);
   for (i = 1; i <= nb; i++)
   {
     Handle(IGESData_IGESEntity) val = ent->Entity(i);

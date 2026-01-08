@@ -35,7 +35,7 @@ void IGESDraw_NetworkSubfigure::Init(const Handle(IGESDraw_NetworkSubfigureDef)&
                                      const Standard_Integer                        aTypeFlag,
                                      const Handle(TCollection_HAsciiString)&       aDesignator,
                                      const Handle(IGESGraph_TextDisplayTemplate)&  aTemplate,
-                                     const Handle(IGESDraw_HArray1OfConnectPoint)& allConnectPoints)
+                                     const Handle(HArray1OfConnectPoint)& allConnectPoints)
 {
   if (!allConnectPoints.IsNull())
     if (allConnectPoints->Lower() != 1)

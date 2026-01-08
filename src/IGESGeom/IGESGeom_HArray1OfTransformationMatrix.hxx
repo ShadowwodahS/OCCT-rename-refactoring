@@ -20,6 +20,6 @@
 #include <IGESGeom_Array1OfTransformationMatrix.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(IGESGeom_HArray1OfTransformationMatrix, IGESGeom_Array1OfTransformationMatrix)
+DEFINE_HARRAY1(HArray1OfTransformationMatrix, IGESGeom_Array1OfTransformationMatrix)
 
 #endif

@@ -78,8 +78,8 @@ static bool findRelativePath(const AsciiString1& theAbsolutePath,
 
 //=================================================================================================
 
-RWObj_MtlReader::RWObj_MtlReader(
-  NCollection_DataMap<AsciiString1, RWObj_Material>& theMaterials)
+MTLReader::MTLReader(
+  NCollection_DataMap<AsciiString1, Material1>& theMaterials)
     : myFile(NULL),
       myMaterials(&theMaterials),
       myNbLines(0)
@@ -89,7 +89,7 @@ RWObj_MtlReader::RWObj_MtlReader(
 
 //=================================================================================================
 
-RWObj_MtlReader::~RWObj_MtlReader()
+MTLReader::~MTLReader()
 {
   if (myFile != NULL)
   {
@@ -99,7 +99,7 @@ RWObj_MtlReader::~RWObj_MtlReader()
 
 //=================================================================================================
 
-bool RWObj_MtlReader::Read(const AsciiString1& theFolder,
+bool MTLReader::Read(const AsciiString1& theFolder,
                            const AsciiString1& theFile)
 {
   myPath = theFolder + theFile;
@@ -113,7 +113,7 @@ bool RWObj_MtlReader::Read(const AsciiString1& theFolder,
 
   char                    aLine[256] = {};
   AsciiString1 aMatName;
-  RWObj_Material          aMat;
+  Material1          aMat;
   const Standard_Integer  aNbMatOld = myMaterials->Extent();
   bool                    hasAspect = false;
   for (; ::feof(myFile) == 0 && ::fgets(aLine, 255, myFile) != NULL;)
@@ -145,14 +145,14 @@ bool RWObj_MtlReader::Read(const AsciiString1& theFolder,
         else
         {
           // reset incomplete material definition
-          aMat = RWObj_Material();
+          aMat = Material1();
         }
         myMaterials->Bind(aMatName, aMat);
         hasAspect = false;
       }
 
       aMatName = AsciiString1(aPos);
-      aMat     = RWObj_Material();
+      aMat     = Material1();
       if (!RWObj_Tools::ReadName(aPos, aMatName))
       {
         Message1::SendWarning(AsciiString1("Empty OBJ material at line ") + myNbLines
@@ -284,7 +284,7 @@ bool RWObj_MtlReader::Read(const AsciiString1& theFolder,
     else
     {
       // reset incomplete material definition
-      aMat = RWObj_Material();
+      aMat = Material1();
     }
     myMaterials->Bind(aMatName, aMat);
   }
@@ -294,7 +294,7 @@ bool RWObj_MtlReader::Read(const AsciiString1& theFolder,
 
 //=================================================================================================
 
-void RWObj_MtlReader::processTexturePath(AsciiString1&       theTexturePath,
+void MTLReader::processTexturePath(AsciiString1&       theTexturePath,
                                          const AsciiString1& theFolder)
 {
   if (SystemPath::IsAbsolutePath(theTexturePath.ToCString()))
@@ -321,7 +321,7 @@ void RWObj_MtlReader::processTexturePath(AsciiString1&       theTexturePath,
 
 //=================================================================================================
 
-bool RWObj_MtlReader::validateScalar(const Standard_Real theValue)
+bool MTLReader::validateScalar(const Standard_Real theValue)
 {
   if (theValue < 0.0 || theValue > 1.0)
   {
@@ -334,7 +334,7 @@ bool RWObj_MtlReader::validateScalar(const Standard_Real theValue)
 
 //=================================================================================================
 
-bool RWObj_MtlReader::validateColor(const Graphic3d_Vec3& theVec)
+bool MTLReader::validateColor(const Graphic3d_Vec3& theVec)
 {
   if (theVec.r() < 0.0f || theVec.r() > 1.0f || theVec.g() < 0.0f || theVec.g() > 1.0f
       || theVec.b() < 0.0f || theVec.b() > 1.0f)

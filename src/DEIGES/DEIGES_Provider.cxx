@@ -33,7 +33,7 @@ DEIGES_Provider::DEIGES_Provider() {}
 
 //=================================================================================================
 
-DEIGES_Provider::DEIGES_Provider(const Handle(DE_ConfigurationNode)& theNode)
+DEIGES_Provider::DEIGES_Provider(const Handle(ConfigurationNode)& theNode)
     : DE_Provider(theNode)
 {
 }
@@ -59,24 +59,24 @@ void DEIGES_Provider::personizeWS(Handle(ExchangeSession)& theWS)
 
 //=================================================================================================
 
-void DEIGES_Provider::initStatic(const Handle(DE_ConfigurationNode)& theNode)
+void DEIGES_Provider::initStatic(const Handle(ConfigurationNode)& theNode)
 {
   Handle(DEIGES_ConfigurationNode) aNode = Handle(DEIGES_ConfigurationNode)::DownCast(theNode);
   IGESData1::Init();
 
   // Get previous values
   myOldValues.ReadBSplineContinuity =
-    (DEIGES_Parameters::ReadMode_BSplineContinuity)ExchangeConfig::IVal(
+    (Parameters1::ReadMode_BSplineContinuity)ExchangeConfig::IVal(
       "read.iges.bspline.continuity");
   myOldValues.ReadPrecisionMode =
-    (DEIGES_Parameters::ReadMode_Precision)ExchangeConfig::IVal("read.precision.mode");
+    (Parameters1::ReadMode_Precision)ExchangeConfig::IVal("read.precision.mode");
   myOldValues.ReadPrecisionVal = ExchangeConfig::RVal("read.precision.val");
   myOldValues.ReadMaxPrecisionMode =
-    (DEIGES_Parameters::ReadMode_MaxPrecision)ExchangeConfig::IVal("read.maxprecision.mode");
+    (Parameters1::ReadMode_MaxPrecision)ExchangeConfig::IVal("read.maxprecision.mode");
   myOldValues.ReadMaxPrecisionVal = ExchangeConfig::RVal("read.maxprecision.val");
   myOldValues.ReadSameParamMode   = ExchangeConfig::IVal("read.stdsameparameter.mode") == 1;
   myOldValues.ReadSurfaceCurveMode =
-    (DEIGES_Parameters::ReadMode_SurfaceCurve)ExchangeConfig::IVal("read.surfacecurve.mode");
+    (Parameters1::ReadMode_SurfaceCurve)ExchangeConfig::IVal("read.surfacecurve.mode");
   myOldValues.EncodeRegAngle = ExchangeConfig::RVal("read.encoderegularity.angle") * 180.0 / M_PI;
 
   myOldValues.ReadApproxd1       = ExchangeConfig::IVal("read.iges.bspline.approxd1.mode") == 1;
@@ -84,19 +84,19 @@ void DEIGES_Provider::initStatic(const Handle(DE_ConfigurationNode)& theNode)
   myOldValues.ReadOnlyVisible    = ExchangeConfig::IVal("read.iges.onlyvisible") == 1;
 
   myOldValues.WriteBRepMode =
-    (DEIGES_Parameters::WriteMode_BRep)ExchangeConfig::IVal("write.iges.brep.mode");
+    (Parameters1::WriteMode_BRep)ExchangeConfig::IVal("write.iges.brep.mode");
   myOldValues.WriteConvertSurfaceMode =
-    (DEIGES_Parameters::WriteMode_ConvertSurface)ExchangeConfig::IVal(
+    (Parameters1::WriteMode_ConvertSurface)ExchangeConfig::IVal(
       "write.convertsurface.mode");
   myOldValues.WriteHeaderAuthor   = ExchangeConfig::CVal("write.iges.header.author");
   myOldValues.WriteHeaderCompany  = ExchangeConfig::CVal("write.iges.header.company");
   myOldValues.WriteHeaderProduct  = ExchangeConfig::CVal("write.iges.header.product");
   myOldValues.WriteHeaderReciever = ExchangeConfig::CVal("write.iges.header.receiver");
   myOldValues.WritePrecisionMode =
-    (DEIGES_Parameters::WriteMode_PrecisionMode)ExchangeConfig::IVal("write.precision.mode");
+    (Parameters1::WriteMode_PrecisionMode)ExchangeConfig::IVal("write.precision.mode");
   myOldValues.WritePrecisionVal = ExchangeConfig::RVal("write.precision.val");
   myOldValues.WritePlaneMode =
-    (DEIGES_Parameters::WriteMode_PlaneMode)ExchangeConfig::IVal("write.iges.plane.mode");
+    (Parameters1::WriteMode_PlaneMode)ExchangeConfig::IVal("write.iges.plane.mode");
   myOldValues.WriteOffsetMode = ExchangeConfig::IVal("write.iges.offset.mode") == 1;
 
   myOldLengthUnit = ExchangeConfig::IVal("xstep.cascade.unit");
@@ -113,7 +113,7 @@ void DEIGES_Provider::initStatic(const Handle(DE_ConfigurationNode)& theNode)
 
 //=================================================================================================
 
-void DEIGES_Provider::setStatic(const DEIGES_Parameters& theParameter)
+void DEIGES_Provider::setStatic(const Parameters1& theParameter)
 {
   ExchangeConfig::SetIVal("read.iges.bspline.continuity", theParameter.ReadBSplineContinuity);
   ExchangeConfig::SetIVal("read.precision.mode", theParameter.ReadPrecisionMode);

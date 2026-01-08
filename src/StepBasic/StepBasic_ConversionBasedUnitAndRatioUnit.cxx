@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ConversionBasedUnitAndRatioUnit, StepBasic_
 StepBasic_ConversionBasedUnitAndRatioUnit::StepBasic_ConversionBasedUnitAndRatioUnit() {}
 
 void StepBasic_ConversionBasedUnitAndRatioUnit::Init(
-  const Handle(StepBasic_DimensionalExponents)& aDimensions,
+  const Handle(DimensionalExponents)& aDimensions,
   const Handle(TCollection_HAsciiString)&       aName,
   const Handle(StepBasic_MeasureWithUnit)&      aConversionFactor)
 {

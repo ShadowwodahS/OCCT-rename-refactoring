@@ -52,13 +52,13 @@ void RWStepGeom_RWGeometricRepresentationContextAndGlobalUnitAssignedContext::Re
 
   // --- field : units ---
 
-  Handle(StepBasic_HArray1OfNamedUnit) aUnits;
+  Handle(HArray1OfNamedUnit) aUnits;
   Handle(StepBasic_NamedUnit)          anent2;
   Standard_Integer                     nsub2;
   if (data->ReadSubList(num, 1, "units", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aUnits               = new StepBasic_HArray1OfNamedUnit(1, nb2);
+    aUnits               = new HArray1OfNamedUnit(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed

@@ -96,14 +96,14 @@ static Standard_Boolean Edit(const Handle(RefObject)& ent, const Standard_Boolea
     Standard_Integer i, nb = bndy->NbModelSpaceCurves();
     if (nb == 0)
       return Standard_False;
-    Handle(IGESData_HArray1OfIGESEntity)           arc3d = new IGESData_HArray1OfIGESEntity(1, nb);
-    Handle(IGESBasic_HArray1OfHArray1OfIGESEntity) arcuv =
-      new IGESBasic_HArray1OfHArray1OfIGESEntity(1, nb);
+    Handle(HArray1OfIGESEntity)           arc3d = new HArray1OfIGESEntity(1, nb);
+    Handle(HArray1OfHArray1OfEntity) arcuv =
+      new HArray1OfHArray1OfEntity(1, nb);
     Handle(TColStd_HArray1OfInteger) sens = new TColStd_HArray1OfInteger(1, nb);
     for (i = 1; i <= nb; i++)
     {
       sens->SetValue(i, bndy->Sense(i));
-      Handle(IGESData_HArray1OfIGESEntity) cuv = bndy->ParameterCurves(i);
+      Handle(HArray1OfIGESEntity) cuv = bndy->ParameterCurves(i);
       Handle(IGESData_IGESEntity)          c3d = bndy->ModelSpaceCurve(i);
       if (UV)
       {

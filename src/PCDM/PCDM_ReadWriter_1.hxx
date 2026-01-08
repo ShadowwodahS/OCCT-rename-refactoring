@@ -31,9 +31,9 @@ class UtfString;
 class Message_Messenger;
 
 class PCDM_ReadWriter_1;
-DEFINE_STANDARD_HANDLE(PCDM_ReadWriter_1, PCDM_ReadWriter)
+DEFINE_STANDARD_HANDLE(PCDM_ReadWriter_1, ReadWriter)
 
-class PCDM_ReadWriter_1 : public PCDM_ReadWriter
+class PCDM_ReadWriter_1 : public ReadWriter
 {
 
 public:
@@ -76,7 +76,7 @@ public:
     ReadDocumentVersion(const UtfString& aFileName,
                         const Handle(Message_Messenger)&  theMsgDriver) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(PCDM_ReadWriter_1, PCDM_ReadWriter)
+  DEFINE_STANDARD_RTTIEXT(PCDM_ReadWriter_1, ReadWriter)
 
 protected:
 private:

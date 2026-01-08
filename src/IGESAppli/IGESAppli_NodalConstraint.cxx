@@ -28,7 +28,7 @@ IGESAppli_NodalConstraint::IGESAppli_NodalConstraint() {}
 
 void IGESAppli_NodalConstraint::Init(const Standard_Integer                       aType,
                                      const Handle(IGESAppli_Node)&                aNode,
-                                     const Handle(IGESDefs_HArray1OfTabularData)& allTabData)
+                                     const Handle(HArray1OfTabularData)& allTabData)
 {
   if (allTabData->Lower() != 1)
     throw Standard_DimensionMismatch("IGESAppli_NodalConstraint : Init");

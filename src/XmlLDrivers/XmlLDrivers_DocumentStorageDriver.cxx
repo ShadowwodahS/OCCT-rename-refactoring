@@ -280,11 +280,11 @@ Standard_Boolean XmlLDrivers_DocumentStorageDriver::WriteToDomDocument(
     aUserInfo.Append(AsciiString1(myCopyright, '?'));
 
   Handle(Storage_Data) theData = new Storage_Data;
-  // PCDM_ReadWriter::WriteFileFormat( theData, theDocument );
-  PCDM_ReadWriter::Writer()->WriteReferenceCounter(theData, theDocument);
-  PCDM_ReadWriter::Writer()->WriteReferences(theData, theDocument, myFileName);
-  PCDM_ReadWriter::Writer()->WriteExtensions(theData, theDocument);
-  PCDM_ReadWriter::Writer()->WriteVersion(theData, theDocument);
+  // ReadWriter::WriteFileFormat( theData, theDocument );
+  ReadWriter::Writer()->WriteReferenceCounter(theData, theDocument);
+  ReadWriter::Writer()->WriteReferences(theData, theDocument, myFileName);
+  ReadWriter::Writer()->WriteExtensions(theData, theDocument);
+  ReadWriter::Writer()->WriteVersion(theData, theDocument);
 
   const TColStd_SequenceOfAsciiString& aRefs = theData->UserInfo();
   for (i = 1; i <= aRefs.Length(); i++)

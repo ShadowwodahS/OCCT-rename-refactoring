@@ -146,7 +146,7 @@ std::streamsize StringBuffer::xsputn(const char* aStr, std::streamsize n)
 
 //=================================================================================================
 
-LDOM_OSStream::LDOM_OSStream(const Standard_Integer theMaxBuf)
+OutputStream::OutputStream(const Standard_Integer theMaxBuf)
     : Standard_OStream(&myBuffer),
       myBuffer(theMaxBuf)
 {
@@ -154,7 +154,7 @@ LDOM_OSStream::LDOM_OSStream(const Standard_Integer theMaxBuf)
 }
 
 //=======================================================================
-// function : ~LDOM_OSStream()
+// function : ~OutputStream()
 // purpose  : Destructor - for g++ vtable generation in *this* translation unit
 //=======================================================================
-LDOM_OSStream::~LDOM_OSStream() {}
+OutputStream::~OutputStream() {}

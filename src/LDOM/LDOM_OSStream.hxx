@@ -89,18 +89,18 @@ private:
 
 //! Subclass if std::ostream allowing to increase performance
 //! of outputting data into a string avoiding reallocation of buffer.
-//! Class LDOM_OSStream implements output into a sequence of
+//! Class OutputStream implements output into a sequence of
 //! strings and getting the result as a string.
 //! It inherits Standard_OStream (std::ostream).
 //! Beside methods of std::ostream, it also has additional
 //! useful methods: str(), Length() and Clear().
-class LDOM_OSStream : public Standard_OStream
+class OutputStream : public Standard_OStream
 {
 public:
   //! Constructor
-  Standard_EXPORT LDOM_OSStream(const Standard_Integer theMaxBuf);
+  Standard_EXPORT OutputStream(const Standard_Integer theMaxBuf);
 
-  Standard_EXPORT virtual ~LDOM_OSStream();
+  Standard_EXPORT virtual ~OutputStream();
 
   Standard_CString str() const { return myBuffer.str(); }
 

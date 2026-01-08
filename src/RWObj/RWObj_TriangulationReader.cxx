@@ -18,11 +18,11 @@
 #include <TopoDS.hxx>
 #include <TopoDS_Iterator.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(RWObj_TriangulationReader, RWObj_Reader)
+IMPLEMENT_STANDARD_RTTIEXT(RWObj_TriangulationReader, Reader2)
 
 //=================================================================================================
 
-Standard_Boolean RWObj_TriangulationReader::addMesh(const RWObj_SubMesh&      theMesh,
+Standard_Boolean RWObj_TriangulationReader::addMesh(const OBJSubMesh&      theMesh,
                                                     const RWObj_SubMeshReason theReason)
 {
   if (!myToCreateShapes)
@@ -43,7 +43,7 @@ Standard_Boolean RWObj_TriangulationReader::addMesh(const RWObj_SubMesh&      th
       {
         if (myShapeReceiver != NULL)
         {
-          const RWObj_Material* aMaterial =
+          const Material1* aMaterial =
             myLastGroupShape.ShapeType() == TopAbs_FACE && !myLastFaceMaterial.IsEmpty()
               ? myMaterials.Seek(myLastFaceMaterial)
               : NULL;
@@ -64,7 +64,7 @@ Standard_Boolean RWObj_TriangulationReader::addMesh(const RWObj_SubMesh&      th
     myLastFaceMaterial = theMesh.Material;
     if (myShapeReceiver != NULL)
     {
-      const RWObj_Material* aMaterial = myMaterials.Seek(theMesh.Material);
+      const Material1* aMaterial = myMaterials.Seek(theMesh.Material);
       myShapeReceiver->BindNamedShape(aNewFace, "", aMaterial, Standard_False);
     }
   }
@@ -76,7 +76,7 @@ Standard_Boolean RWObj_TriangulationReader::addMesh(const RWObj_SubMesh&      th
     {
       if (myShapeReceiver != NULL)
       {
-        const RWObj_Material* aMaterial =
+        const Material1* aMaterial =
           myLastGroupShape.ShapeType() == TopAbs_FACE && !myLastFaceMaterial.IsEmpty()
             ? myMaterials.Seek(myLastFaceMaterial)
             : NULL;

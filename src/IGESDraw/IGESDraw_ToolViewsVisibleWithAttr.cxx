@@ -49,13 +49,13 @@ void ViewsVisibleWithAttrTool::ReadOwnParams(
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
 
   Standard_Integer                          tempNbBlocks, tempNbEntity;
-  Handle(IGESDraw_HArray1OfViewKindEntity)  tempViewEntities;
-  Handle(IGESGraph_HArray1OfColor)          tempColorDefinitions;
+  Handle(HArray1OfViewKindEntity)  tempViewEntities;
+  Handle(HArray1OfColor)          tempColorDefinitions;
   Handle(TColStd_HArray1OfInteger)          tempLineFonts;
   Handle(TColStd_HArray1OfInteger)          tempColorValues;
   Handle(TColStd_HArray1OfInteger)          tempLineWeights;
-  Handle(IGESData_HArray1OfIGESEntity)      tempDisplayEntities;
-  Handle(IGESBasic_HArray1OfLineFontEntity) tempLineDefinitions;
+  Handle(HArray1OfIGESEntity)      tempDisplayEntities;
+  Handle(HArray1OfLineFontEntity) tempLineDefinitions;
 
   // st = PR.ReadInteger(PR.Current(), "Number Of Blocks", tempNbBlocks); //szv#4:S4163:12Mar99
   // moved in if
@@ -66,11 +66,11 @@ void ViewsVisibleWithAttrTool::ReadOwnParams(
       PR.AddFail("Number Of Blocks : Not Positive");
     else
     {
-      tempViewEntities     = new IGESDraw_HArray1OfViewKindEntity(1, tempNbBlocks);
+      tempViewEntities     = new HArray1OfViewKindEntity(1, tempNbBlocks);
       tempLineFonts        = new TColStd_HArray1OfInteger(1, tempNbBlocks);
-      tempLineDefinitions  = new IGESBasic_HArray1OfLineFontEntity(1, tempNbBlocks);
+      tempLineDefinitions  = new HArray1OfLineFontEntity(1, tempNbBlocks);
       tempColorValues      = new TColStd_HArray1OfInteger(1, tempNbBlocks);
-      tempColorDefinitions = new IGESGraph_HArray1OfColor(1, tempNbBlocks);
+      tempColorDefinitions = new HArray1OfColor(1, tempNbBlocks);
       tempLineWeights      = new TColStd_HArray1OfInteger(1, tempNbBlocks);
     }
   }
@@ -167,7 +167,7 @@ void ViewsVisibleWithAttrTool::ReadOwnParams(
                 "Displayed Entities",
                 tempDisplayEntities); // szv#4:S4163:12Mar99 `st=` not needed
     /*
-        tempDisplayEntities = new IGESData_HArray1OfIGESEntity (1, tempNbEntity);
+        tempDisplayEntities = new HArray1OfIGESEntity (1, tempNbEntity);
         Standard_Integer I;
         for (I = 1; I <= tempNbEntity; I++) {
           Handle(IGESData_IGESEntity) tempEntity3;
@@ -244,13 +244,13 @@ void ViewsVisibleWithAttrTool::OwnCopy(
 {
   Standard_Integer                         I;
   Standard_Integer                         up = another->NbViews();
-  Handle(IGESDraw_HArray1OfViewKindEntity) tempViewEntities =
-    new IGESDraw_HArray1OfViewKindEntity(1, up);
+  Handle(HArray1OfViewKindEntity) tempViewEntities =
+    new HArray1OfViewKindEntity(1, up);
   Handle(TColStd_HArray1OfInteger)          tempLineFonts = new TColStd_HArray1OfInteger(1, up);
-  Handle(IGESBasic_HArray1OfLineFontEntity) tempLineDefinitions =
-    new IGESBasic_HArray1OfLineFontEntity(1, up);
+  Handle(HArray1OfLineFontEntity) tempLineDefinitions =
+    new HArray1OfLineFontEntity(1, up);
   Handle(TColStd_HArray1OfInteger) tempColorValues      = new TColStd_HArray1OfInteger(1, up);
-  Handle(IGESGraph_HArray1OfColor) tempColorDefinitions = new IGESGraph_HArray1OfColor(1, up);
+  Handle(HArray1OfColor) tempColorDefinitions = new HArray1OfColor(1, up);
   Handle(TColStd_HArray1OfInteger) tempLineWeights      = new TColStd_HArray1OfInteger(1, up);
 
   for (I = 1; I <= up; I++)
@@ -280,7 +280,7 @@ void ViewsVisibleWithAttrTool::OwnCopy(
     tempLineWeights->SetValue(I, tempLineWeight);
   }
   //  Displayed -> Implied : mettre une liste vide par defaut
-  Handle(IGESData_HArray1OfIGESEntity) tempDisplayEntities;
+  Handle(HArray1OfIGESEntity) tempDisplayEntities;
   ent->Init(tempViewEntities,
             tempLineFonts,
             tempLineDefinitions,
@@ -300,7 +300,7 @@ void ViewsVisibleWithAttrTool::OwnRenew(
   up = another->NbDisplayedEntities();
   if (up == 0)
     return;
-  Handle(IGESData_HArray1OfIGESEntity) tempDisplayEntities;
+  Handle(HArray1OfIGESEntity) tempDisplayEntities;
   Handle(RefObject)           anew;
   for (I = 1; I <= up; I++)
   {
@@ -311,7 +311,7 @@ void ViewsVisibleWithAttrTool::OwnRenew(
   up = newdisp.NbEntities();
   I  = 0;
   if (up > 0)
-    tempDisplayEntities = new IGESData_HArray1OfIGESEntity(1, up);
+    tempDisplayEntities = new HArray1OfIGESEntity(1, up);
   for (newdisp.Start(); newdisp.More(); newdisp.Next())
   {
     I++;
@@ -367,7 +367,7 @@ void ViewsVisibleWithAttrTool::OwnCheck(const Handle(IGESDraw_ViewsVisibleWithAt
 void ViewsVisibleWithAttrTool::OwnWhenDelete(
   const Handle(IGESDraw_ViewsVisibleWithAttr)& ent) const
 {
-  Handle(IGESData_HArray1OfIGESEntity) tempDisplayEntities;
+  Handle(HArray1OfIGESEntity) tempDisplayEntities;
   ent->InitImplied(tempDisplayEntities);
 }
 
@@ -437,7 +437,7 @@ Standard_Boolean ViewsVisibleWithAttrTool::OwnCorrect(
   }
   if (!res)
     return res;
-  Handle(IGESData_HArray1OfIGESEntity) nulDisplayEntities;
+  Handle(HArray1OfIGESEntity) nulDisplayEntities;
   ent->InitImplied(nulDisplayEntities);
   return res;
 }

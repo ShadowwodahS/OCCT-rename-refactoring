@@ -40,7 +40,7 @@
   #define fseek64(a, b, c) fseeko(a, b, c)
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(RWObj_Reader, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Reader2, RefObject)
 
 namespace
 {
@@ -66,7 +66,7 @@ static bool isClockwisePolygon(const Handle(BRepMesh_DataStructureOfDelaun)& the
 
 //=================================================================================================
 
-RWObj_Reader::RWObj_Reader()
+Reader2::Reader2()
     : myMemLimitBytes(Standard_Size(-1)),
       myMemEstim(0),
       myNbLines(0),
@@ -80,7 +80,7 @@ RWObj_Reader::RWObj_Reader()
 
 //=================================================================================================
 
-Standard_Boolean RWObj_Reader::read(std::istream&                  theStream,
+Standard_Boolean Reader2::read(std::istream&                  theStream,
                                     const AsciiString1& theFile,
                                     const Message_ProgressRange&   theProgress,
                                     const Standard_Boolean         theToProbe)
@@ -98,7 +98,7 @@ Standard_Boolean RWObj_Reader::read(std::istream&                  theStream,
   myMaterials.Clear();
   myFileComments.Clear();
   myExternalFiles.Clear();
-  myActiveSubMesh = RWObj_SubMesh();
+  myActiveSubMesh = OBJSubMesh();
 
   // determine file location to load associated files
   AsciiString1 aFileName;
@@ -247,11 +247,11 @@ Standard_Boolean RWObj_Reader::read(std::istream&                  theStream,
   }
 
   // collect external references
-  for (NCollection_DataMap<AsciiString1, RWObj_Material>::Iterator aMatIter(myMaterials);
+  for (NCollection_DataMap<AsciiString1, Material1>::Iterator aMatIter(myMaterials);
        aMatIter.More();
        aMatIter.Next())
   {
-    const RWObj_Material& aMat = aMatIter.Value();
+    const Material1& aMat = aMatIter.Value();
     if (!aMat.DiffuseTexture.IsEmpty())
     {
       myExternalFiles.Add(aMat.DiffuseTexture);
@@ -282,7 +282,7 @@ Standard_Boolean RWObj_Reader::read(std::istream&                  theStream,
 
 //=================================================================================================
 
-void RWObj_Reader::pushIndices(const char* thePos)
+void Reader2::pushIndices(const char* thePos)
 {
   char* aNext = NULL;
 
@@ -440,7 +440,7 @@ void RWObj_Reader::pushIndices(const char* thePos)
 
 //=================================================================================================
 
-Standard_Integer RWObj_Reader::triangulatePolygonFan(
+Standard_Integer Reader2::triangulatePolygonFan(
   const NCollection_Array1<Standard_Integer>& theIndices)
 {
   const Standard_Integer aNbElemNodes = theIndices.Size();
@@ -460,7 +460,7 @@ Standard_Integer RWObj_Reader::triangulatePolygonFan(
 
 //=================================================================================================
 
-Coords3d RWObj_Reader::polygonCenter(const NCollection_Array1<Standard_Integer>& theIndices)
+Coords3d Reader2::polygonCenter(const NCollection_Array1<Standard_Integer>& theIndices)
 {
   if (theIndices.Size() < 3)
   {
@@ -487,7 +487,7 @@ Coords3d RWObj_Reader::polygonCenter(const NCollection_Array1<Standard_Integer>&
 
 //=================================================================================================
 
-Coords3d RWObj_Reader::polygonNormal(const NCollection_Array1<Standard_Integer>& theIndices)
+Coords3d Reader2::polygonNormal(const NCollection_Array1<Standard_Integer>& theIndices)
 {
   const Coords3d aCenter = polygonCenter(theIndices);
   Coords3d       aMaxDir = getNode(theIndices.First()).XYZ() - aCenter;
@@ -519,7 +519,7 @@ Coords3d RWObj_Reader::polygonNormal(const NCollection_Array1<Standard_Integer>&
 
 //=================================================================================================
 
-Standard_Integer RWObj_Reader::triangulatePolygon(
+Standard_Integer Reader2::triangulatePolygon(
   const NCollection_Array1<Standard_Integer>& theIndices)
 {
   const Standard_Integer aNbElemNodes = theIndices.Size();
@@ -609,7 +609,7 @@ Standard_Integer RWObj_Reader::triangulatePolygon(
 
 //=================================================================================================
 
-void RWObj_Reader::pushObject(const char* theObjectName)
+void Reader2::pushObject(const char* theObjectName)
 {
   AsciiString1 aNewObject;
   if (!RWObj_Tools::ReadName(theObjectName, aNewObject))
@@ -625,7 +625,7 @@ void RWObj_Reader::pushObject(const char* theObjectName)
 
 //=================================================================================================
 
-void RWObj_Reader::pushGroup(const char* theGroupName)
+void Reader2::pushGroup(const char* theGroupName)
 {
   AsciiString1 aNewGroup;
   if (!RWObj_Tools::ReadName(theGroupName, aNewGroup))
@@ -641,7 +641,7 @@ void RWObj_Reader::pushGroup(const char* theGroupName)
 
 //=================================================================================================
 
-void RWObj_Reader::pushSmoothGroup(const char* theSmoothGroupIndex)
+void Reader2::pushSmoothGroup(const char* theSmoothGroupIndex)
 {
   AsciiString1 aNewSmoothGroup;
   RWObj_Tools::ReadName(theSmoothGroupIndex, aNewSmoothGroup);
@@ -666,7 +666,7 @@ void RWObj_Reader::pushSmoothGroup(const char* theSmoothGroupIndex)
 
 //=================================================================================================
 
-void RWObj_Reader::pushMaterial(const char* theMaterialName)
+void Reader2::pushMaterial(const char* theMaterialName)
 {
   AsciiString1 aNewMat;
   if (!RWObj_Tools::ReadName(theMaterialName, aNewMat))
@@ -694,7 +694,7 @@ void RWObj_Reader::pushMaterial(const char* theMaterialName)
 
 //=================================================================================================
 
-void RWObj_Reader::readMaterialLib(const char* theFileName)
+void Reader2::readMaterialLib(const char* theFileName)
 {
   AsciiString1 aMatPath;
   if (!RWObj_Tools::ReadName(theFileName, aMatPath))
@@ -704,7 +704,7 @@ void RWObj_Reader::readMaterialLib(const char* theFileName)
     return;
   }
 
-  RWObj_MtlReader aMatReader(myMaterials);
+  MTLReader aMatReader(myMaterials);
   if (aMatReader.Read(myFolder, aMatPath))
   {
     myExternalFiles.Add(myFolder + aMatPath);
@@ -713,7 +713,7 @@ void RWObj_Reader::readMaterialLib(const char* theFileName)
 
 //=================================================================================================
 
-bool RWObj_Reader::checkMemory()
+bool Reader2::checkMemory()
 {
   if (myMemEstim < myMemLimitBytes || myToAbort)
   {

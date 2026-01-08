@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ConversionBasedUnitAndTimeUnit, StepBasic_C
 StepBasic_ConversionBasedUnitAndTimeUnit::StepBasic_ConversionBasedUnitAndTimeUnit() {}
 
 void StepBasic_ConversionBasedUnitAndTimeUnit::Init(
-  const Handle(StepBasic_DimensionalExponents)& aDimensions,
+  const Handle(DimensionalExponents)& aDimensions,
   const Handle(TCollection_HAsciiString)&       aName,
   const Handle(StepBasic_MeasureWithUnit)&      aConversionFactor)
 {

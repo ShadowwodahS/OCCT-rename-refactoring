@@ -25,7 +25,7 @@
 #include <TColStd_HArray1OfTransient.hxx>
 #include <IGESData_IGESEntity.hxx>
 class TCollection_HAsciiString;
-class IGESDefs_HArray1OfHArray1OfTextDisplayTemplate;
+class HArray1OfHArray1OfTextTemplate;
 class IGESGraph_TextDisplayTemplate;
 class RefObject;
 
@@ -50,7 +50,7 @@ public:
     const Handle(TColStd_HArray1OfInteger)&                       attrValueDataTypes,
     const Handle(TColStd_HArray1OfInteger)&                       attrValueCounts,
     const Handle(TColStd_HArray1OfTransient)&                     attrValues,
-    const Handle(IGESDefs_HArray1OfHArray1OfTextDisplayTemplate)& attrValuePointers);
+    const Handle(HArray1OfHArray1OfTextTemplate)& attrValuePointers);
 
   //! Returns True if a Table Name is defined
   Standard_EXPORT Standard_Boolean HasTableName() const;
@@ -131,7 +131,7 @@ private:
   Handle(TColStd_HArray1OfInteger)                       theAttrValueDataTypes;
   Handle(TColStd_HArray1OfInteger)                       theAttrValueCounts;
   Handle(TColStd_HArray1OfTransient)                     theAttrValues;
-  Handle(IGESDefs_HArray1OfHArray1OfTextDisplayTemplate) theAttrValuePointers;
+  Handle(HArray1OfHArray1OfTextTemplate) theAttrValuePointers;
 };
 
 #endif // _IGESDefs_AttributeDef_HeaderFile

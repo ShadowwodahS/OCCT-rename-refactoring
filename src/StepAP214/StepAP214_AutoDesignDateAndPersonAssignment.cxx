@@ -24,7 +24,7 @@ StepAP214_AutoDesignDateAndPersonAssignment::StepAP214_AutoDesignDateAndPersonAs
 void StepAP214_AutoDesignDateAndPersonAssignment::Init(
   const Handle(StepBasic_PersonAndOrganization)&                aAssignedPersonAndOrganization,
   const Handle(StepBasic_PersonAndOrganizationRole)&            aRole,
-  const Handle(StepAP214_HArray1OfAutoDesignDateAndPersonItem)& aItems)
+  const Handle(HArray1OfAutoDesignDatePerson)& aItems)
 {
   // --- classe own fields ---
   items = aItems;
@@ -33,12 +33,12 @@ void StepAP214_AutoDesignDateAndPersonAssignment::Init(
 }
 
 void StepAP214_AutoDesignDateAndPersonAssignment::SetItems(
-  const Handle(StepAP214_HArray1OfAutoDesignDateAndPersonItem)& aItems)
+  const Handle(HArray1OfAutoDesignDatePerson)& aItems)
 {
   items = aItems;
 }
 
-Handle(StepAP214_HArray1OfAutoDesignDateAndPersonItem) StepAP214_AutoDesignDateAndPersonAssignment::
+Handle(HArray1OfAutoDesignDatePerson) StepAP214_AutoDesignDateAndPersonAssignment::
   Items() const
 {
   return items;

@@ -110,8 +110,8 @@ void IGESSelect_RebuildGroups::Performing(IFSelect_ContextModif&            ctx,
     //  A present, reconstruire sil le faut
     if (newlist.NbEntities() <= 1)
       continue; // 0 ou 1 : rien a refaire
-    Handle(IGESData_HArray1OfIGESEntity) tab =
-      new IGESData_HArray1OfIGESEntity(1, newlist.NbEntities());
+    Handle(HArray1OfIGESEntity) tab =
+      new HArray1OfIGESEntity(1, newlist.NbEntities());
     Standard_Integer ng = 0;
     for (newlist.Start(); newlist.More(); newlist.Next())
     {

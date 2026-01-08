@@ -29,8 +29,8 @@ public:
   Standard_EXPORT LDOM_Document();
   // Empty constructor
 
-  Standard_EXPORT LDOM_Document(const LDOM_MemManager& aMemManager);
-  // Called by LDOM_MemManager::Doc()
+  Standard_EXPORT LDOM_Document(const MemoryManager& aMemManager);
+  // Called by MemoryManager::Doc()
 
   //  Standard_EXPORT LDOM_Document (const LDOM_Document& theOther);
   // Copy constructor
@@ -88,7 +88,7 @@ private:
   friend class LDOM_Node;
   // ---------- PRIVATE FIELDS ----------
 
-  Handle(LDOM_MemManager) myMemManager;
+  Handle(MemoryManager) myMemManager;
 };
 
 #endif

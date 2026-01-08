@@ -102,7 +102,7 @@ void XmlMXCAFDoc_NoteBinDataDriver::Paste(const Handle(TDF_Attribute)& theSource
   if (aNote->Size() > 0)
   {
     const Handle(TColStd_HArray1OfByte)& aData = aNote->Data();
-    LDOM_OSStream                        anOSS(aNote->Size());
+    OutputStream                        anOSS(aNote->Size());
     for (Standard_Integer i = aData->Lower(); i <= aData->Upper(); ++i)
     {
       anOSS << std::hex << aData->Value(i);

@@ -80,7 +80,7 @@ void STEPConstruct_Part::MakeSDR(const Handle(StepShape_ShapeRepresentation)& SR
 
   // create product
   Handle(StepBasic_Product)                 P   = new StepBasic_Product;
-  Handle(StepBasic_HArray1OfProductContext) PCs = new StepBasic_HArray1OfProductContext(1, 1);
+  Handle(HArray1OfProductContext) PCs = new HArray1OfProductContext(1, 1);
   PCs->SetValue(1, PC);
   Handle(TCollection_HAsciiString) Pdescription = new TCollection_HAsciiString("");
   P->Init(aName, aName, Pdescription, PCs);
@@ -165,7 +165,7 @@ void STEPConstruct_Part::MakeSDR(const Handle(StepShape_ShapeRepresentation)& SR
       PRPCName = new TCollection_HAsciiString("detail"); // !!!!! or "assembly"
       break;
   }
-  Handle(StepBasic_HArray1OfProduct) PRPCproducts = new StepBasic_HArray1OfProduct(1, 1);
+  Handle(HArray1OfProduct) PRPCproducts = new HArray1OfProduct(1, 1);
   PRPCproducts->SetValue(1, P);
   myPRPC->Init(PRPCName, Standard_False, 0, PRPCproducts);
 

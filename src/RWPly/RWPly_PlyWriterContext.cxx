@@ -58,7 +58,7 @@ static void splitLines(const AsciiString1&                   theString,
 
 //=================================================================================================
 
-RWPly_PlyWriterContext::RWPly_PlyWriterContext()
+PLYWriterContext::PLYWriterContext()
     : myNbHeaderVerts(0),
       myNbHeaderElems(0),
       myNbVerts(0),
@@ -76,14 +76,14 @@ RWPly_PlyWriterContext::RWPly_PlyWriterContext()
 
 //=================================================================================================
 
-RWPly_PlyWriterContext::~RWPly_PlyWriterContext()
+PLYWriterContext::~PLYWriterContext()
 {
   Close();
 }
 
 //=================================================================================================
 
-bool RWPly_PlyWriterContext::Open(const AsciiString1&       theName,
+bool PLYWriterContext::Open(const AsciiString1&       theName,
                                   const std::shared_ptr<std::ostream>& theStream)
 {
   myName          = theName;
@@ -108,7 +108,7 @@ bool RWPly_PlyWriterContext::Open(const AsciiString1&       theName,
 
 //=================================================================================================
 
-bool RWPly_PlyWriterContext::Close(bool theIsAborted)
+bool PLYWriterContext::Close(bool theIsAborted)
 {
   if (myStream.get() == nullptr)
   {
@@ -140,7 +140,7 @@ bool RWPly_PlyWriterContext::Close(bool theIsAborted)
 
 //=================================================================================================
 
-bool RWPly_PlyWriterContext::WriteHeader(const Standard_Integer                      theNbNodes,
+bool PLYWriterContext::WriteHeader(const Standard_Integer                      theNbNodes,
                                          const Standard_Integer                      theNbElems,
                                          const TColStd_IndexedDataMapOfStringString& theFileInfo)
 {
@@ -223,7 +223,7 @@ bool RWPly_PlyWriterContext::WriteHeader(const Standard_Integer                 
 
 //=================================================================================================
 
-bool RWPly_PlyWriterContext::WriteVertex(const Point3d&           thePoint,
+bool PLYWriterContext::WriteVertex(const Point3d&           thePoint,
                                          const Graphic3d_Vec3&   theNorm,
                                          const Graphic3d_Vec2&   theUV,
                                          const Graphic3d_Vec4ub& theColor)
@@ -258,14 +258,14 @@ bool RWPly_PlyWriterContext::WriteVertex(const Point3d&           thePoint,
   if (++myNbVerts > myNbHeaderVerts)
   {
     throw Standard_OutOfRange(
-      "RWPly_PlyWriterContext::WriteVertex() - number of vertices is greater than defined");
+      "PLYWriterContext::WriteVertex() - number of vertices is greater than defined");
   }
   return myStream->good();
 }
 
 //=================================================================================================
 
-bool RWPly_PlyWriterContext::WriteTriangle(const Graphic3d_Vec3i& theTri)
+bool PLYWriterContext::WriteTriangle(const Graphic3d_Vec3i& theTri)
 {
   if (myStream.get() == nullptr)
   {
@@ -282,14 +282,14 @@ bool RWPly_PlyWriterContext::WriteTriangle(const Graphic3d_Vec3i& theTri)
   if (++myNbElems > myNbHeaderElems)
   {
     throw Standard_OutOfRange(
-      "RWPly_PlyWriterContext::WriteTriangle() - number of elements is greater than defined");
+      "PLYWriterContext::WriteTriangle() - number of elements is greater than defined");
   }
   return myStream->good();
 }
 
 //=================================================================================================
 
-bool RWPly_PlyWriterContext::WriteQuad(const Graphic3d_Vec4i& theQuad)
+bool PLYWriterContext::WriteQuad(const Graphic3d_Vec4i& theQuad)
 {
   if (myStream.get() == nullptr)
   {
@@ -306,7 +306,7 @@ bool RWPly_PlyWriterContext::WriteQuad(const Graphic3d_Vec4i& theQuad)
   if (++myNbElems > myNbHeaderElems)
   {
     throw Standard_OutOfRange(
-      "RWPly_PlyWriterContext::WriteQuad() - number of elements is greater than defined");
+      "PLYWriterContext::WriteQuad() - number of elements is greater than defined");
   }
   return myStream->good();
 }

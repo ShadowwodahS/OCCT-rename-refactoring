@@ -16,7 +16,7 @@
 
 #include <TColStd_ListOfAsciiString.hxx>
 
-class DE_ConfigurationContext;
+class ConfigurationContext;
 class DE_Provider;
 class NCollection_Buffer;
 
@@ -46,16 +46,16 @@ class NCollection_Buffer;
 //!   4.2) Export (if "::IsExportSupported: returns TRUE)
 //!     4.2.1) Use created provider's "::Write" method
 //! 5) Check the provider's output
-class DE_ConfigurationNode : public RefObject
+class ConfigurationNode : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(DE_ConfigurationNode, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ConfigurationNode, RefObject)
 public:
   //! Initializes all field by default
-  Standard_EXPORT DE_ConfigurationNode();
+  Standard_EXPORT ConfigurationNode();
 
   //! Copies values of all fields
   //! @param[in] theConfigurationNode object to copy
-  Standard_EXPORT DE_ConfigurationNode(const Handle(DE_ConfigurationNode)& theConfigurationNode);
+  Standard_EXPORT ConfigurationNode(const Handle(ConfigurationNode)& theConfigurationNode);
 
   //! Updates values according the resource file
   //! @param[in] theResourcePath file path to resource
@@ -65,7 +65,7 @@ public:
   //! Updates values according the resource
   //! @param[in] theResource input resource to use
   //! @return True if Load was successful
-  Standard_EXPORT virtual bool Load(const Handle(DE_ConfigurationContext)& theResource) = 0;
+  Standard_EXPORT virtual bool Load(const Handle(ConfigurationContext)& theResource) = 0;
 
   //! Writes configuration to the resource file
   //! @param[in] theResourcePath file path to resource
@@ -82,7 +82,7 @@ public:
 
   //! Copies values of all fields
   //! @return new object with the same field values
-  Standard_EXPORT virtual Handle(DE_ConfigurationNode) Copy() const = 0;
+  Standard_EXPORT virtual Handle(ConfigurationNode) Copy() const = 0;
 
   //! Update loading status. Checking for the ability to read and write.
   //! @param[in] theToImport flag to updates for import. Standard_True-import, Standard_False-export
@@ -151,7 +151,7 @@ public:
   } GlobalParameters;
 
 private:
-  Standard_Boolean myIsEnabled; //!< Flag to use a current provider for Read or Write process via DE_Wrapper
+  Standard_Boolean myIsEnabled; //!< Flag to use a current provider for Read or Write process via DataExchangeWrapper
   // clang-format on
 };
 

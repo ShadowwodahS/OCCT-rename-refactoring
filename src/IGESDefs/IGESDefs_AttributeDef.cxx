@@ -44,7 +44,7 @@ void IGESDefs_AttributeDef::Init(
   const Handle(TColStd_HArray1OfInteger)&                       attrValueDataTypes,
   const Handle(TColStd_HArray1OfInteger)&                       attrValueCounts,
   const Handle(TColStd_HArray1OfTransient)&                     attrValues,
-  const Handle(IGESDefs_HArray1OfHArray1OfTextDisplayTemplate)& attrValuePointers)
+  const Handle(HArray1OfHArray1OfTextTemplate)& attrValuePointers)
 {
   Standard_Integer nb = attrTypes->Length();
   if (attrTypes->Lower() != 1 || attrValueDataTypes->Lower() != 1
@@ -163,7 +163,7 @@ Handle(IGESData_IGESEntity) IGESDefs_AttributeDef::AttributeAsEntity(
   const Standard_Integer AttrNum,
   const Standard_Integer ValueNum) const
 {
-  return GetCasted(IGESData_HArray1OfIGESEntity, theAttrValues->Value(AttrNum))->Value(ValueNum);
+  return GetCasted(HArray1OfIGESEntity, theAttrValues->Value(AttrNum))->Value(ValueNum);
 }
 
 Standard_Boolean IGESDefs_AttributeDef::AttributeAsLogical(const Standard_Integer AttrNum,

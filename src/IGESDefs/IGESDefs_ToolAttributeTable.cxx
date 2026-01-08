@@ -112,7 +112,7 @@ void AttributeTableTool::ReadOwnParams(const Handle(IGESDefs_AttributeTable)& en
         }
         break;
         case 4: {
-          Handle(IGESData_HArray1OfIGESEntity) attrEnt = new IGESData_HArray1OfIGESEntity(1, avc);
+          Handle(HArray1OfIGESEntity) attrEnt = new HArray1OfIGESEntity(1, avc);
           list2->SetValue(i, k, attrEnt);
           Handle(IGESData_IGESEntity) item;
           for (j = 1; j <= avc; j++)
@@ -259,8 +259,8 @@ void AttributeTableTool::OwnCopy(const Handle(IGESDefs_AttributeTable)& another,
         }
         break;
         case 4: {
-          DeclareAndCast(IGESData_HArray1OfIGESEntity, otherEnt, another->AttributeList(i, k));
-          Handle(IGESData_HArray1OfIGESEntity) attrEnt = new IGESData_HArray1OfIGESEntity(1, avc);
+          DeclareAndCast(HArray1OfIGESEntity, otherEnt, another->AttributeList(i, k));
+          Handle(HArray1OfIGESEntity) attrEnt = new HArray1OfIGESEntity(1, avc);
           list2->SetValue(i, k, attrEnt);
           for (j = 1; j <= avc; j++)
             attrEnt->SetValue(j,

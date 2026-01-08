@@ -163,7 +163,7 @@ XmlLDrivers_DocumentRetrievalDriver::XmlLDrivers_DocumentRetrievalDriver()
 void XmlLDrivers_DocumentRetrievalDriver::Read(const UtfString& theFileName,
                                                const Handle(CDM_Document)&       theNewDocument,
                                                const Handle(CDM_Application)&    theApplication,
-                                               const Handle(PCDM_ReaderFilter)&  theFilter,
+                                               const Handle(ReaderFilter)&  theFilter,
                                                const Message_ProgressRange&      theRange)
 {
   myReaderStatus = PCDM_RS_DriverFailure;
@@ -194,7 +194,7 @@ void XmlLDrivers_DocumentRetrievalDriver::Read(Standard_IStream& theIStream,
                                                const Handle(Storage_Data)& /*theStorageData*/,
                                                const Handle(CDM_Document)&    theNewDocument,
                                                const Handle(CDM_Application)& theApplication,
-                                               const Handle(PCDM_ReaderFilter)& /*theFilter*/,
+                                               const Handle(ReaderFilter)& /*theFilter*/,
                                                const Message_ProgressRange& theRange)
 {
   Handle(Message_Messenger) aMessageDriver = theApplication->MessageDriver();

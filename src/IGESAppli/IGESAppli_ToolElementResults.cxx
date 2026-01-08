@@ -54,13 +54,13 @@ void ElementResultsTool::ReadOwnParams(const Handle(IGESAppli_ElementResults)& e
   Standard_Integer                            nv                = 0;
   Standard_Integer                            aResultReportFlag = 0;
   Handle(TColStd_HArray1OfInteger)            allElementIdentifiers;
-  Handle(IGESAppli_HArray1OfFiniteElement)    allElements;
+  Handle(HArray1OfFiniteElement)    allElements;
   Handle(TColStd_HArray1OfInteger)            allElementTopologyType;
   Handle(TColStd_HArray1OfInteger)            allNbLayers;
   Handle(TColStd_HArray1OfInteger)            allDataLayerFlag;
   Handle(TColStd_HArray1OfInteger)            allNbResultDataLocs;
-  Handle(IGESBasic_HArray1OfHArray1OfInteger) allResultDataLoc;
-  Handle(IGESBasic_HArray1OfHArray1OfReal)    allResultData;
+  Handle(HArray1OfHArray1OfInt) allResultDataLoc;
+  Handle(HArray1OfHArray1OfReal)    allResultData;
 
   // szv#4:S4163:12Mar99 `st=` not needed
   PR.ReadEntity(IR, PR.Current(), "General Note", STANDARD_TYPE(IGESDimen_GeneralNote), aNote);
@@ -73,13 +73,13 @@ void ElementResultsTool::ReadOwnParams(const Handle(IGESAppli_ElementResults)& e
   if (num > 0)
   {
     allElementIdentifiers  = new TColStd_HArray1OfInteger(1, num);
-    allElements            = new IGESAppli_HArray1OfFiniteElement(1, num);
+    allElements            = new HArray1OfFiniteElement(1, num);
     allElementTopologyType = new TColStd_HArray1OfInteger(1, num);
     allNbLayers            = new TColStd_HArray1OfInteger(1, num);
     allDataLayerFlag       = new TColStd_HArray1OfInteger(1, num);
     allNbResultDataLocs    = new TColStd_HArray1OfInteger(1, num);
-    allResultDataLoc       = new IGESBasic_HArray1OfHArray1OfInteger(1, num);
-    allResultData          = new IGESBasic_HArray1OfHArray1OfReal(1, num);
+    allResultDataLoc       = new HArray1OfHArray1OfInt(1, num);
+    allResultData          = new HArray1OfHArray1OfReal(1, num);
     // ??  WHAT ABOUT FILLING  ?
   }
   else
@@ -187,23 +187,23 @@ void ElementResultsTool::OwnCopy(const Handle(IGESAppli_ElementResults)& another
   Standard_Integer aResultReportFlag = another->ResultReportFlag();
 
   Handle(TColStd_HArray1OfInteger)            allElementIdentifiers;
-  Handle(IGESAppli_HArray1OfFiniteElement)    allElements;
+  Handle(HArray1OfFiniteElement)    allElements;
   Handle(TColStd_HArray1OfInteger)            allElementTopologyType;
   Handle(TColStd_HArray1OfInteger)            allNbLayers;
   Handle(TColStd_HArray1OfInteger)            allDataLayerFlag;
   Handle(TColStd_HArray1OfInteger)            allNbResultDataLocs;
-  Handle(IGESBasic_HArray1OfHArray1OfInteger) allResultDataLoc;
-  Handle(IGESBasic_HArray1OfHArray1OfReal)    allResultData;
+  Handle(HArray1OfHArray1OfInt) allResultDataLoc;
+  Handle(HArray1OfHArray1OfReal)    allResultData;
   if (num > 0)
   {
     allElementIdentifiers  = new TColStd_HArray1OfInteger(1, num);
-    allElements            = new IGESAppli_HArray1OfFiniteElement(1, num);
+    allElements            = new HArray1OfFiniteElement(1, num);
     allElementTopologyType = new TColStd_HArray1OfInteger(1, num);
     allNbLayers            = new TColStd_HArray1OfInteger(1, num);
     allDataLayerFlag       = new TColStd_HArray1OfInteger(1, num);
     allNbResultDataLocs    = new TColStd_HArray1OfInteger(1, num);
-    allResultDataLoc       = new IGESBasic_HArray1OfHArray1OfInteger(1, num);
-    allResultData          = new IGESBasic_HArray1OfHArray1OfReal(1, num);
+    allResultDataLoc       = new HArray1OfHArray1OfInt(1, num);
+    allResultData          = new HArray1OfHArray1OfReal(1, num);
   }
   for (i = 1; i <= num; i++)
   {

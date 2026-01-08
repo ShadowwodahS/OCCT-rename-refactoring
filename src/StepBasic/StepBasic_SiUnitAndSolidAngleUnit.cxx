@@ -30,7 +30,7 @@ void StepBasic_SiUnitAndSolidAngleUnit::Init(const Standard_Boolean     hasApref
 
   // --- ANDOR component fields ---
   solidAngleUnit = new StepBasic_SolidAngleUnit();
-  Handle(StepBasic_DimensionalExponents) aDimensions;
+  Handle(DimensionalExponents) aDimensions;
   aDimensions.Nullify();
   solidAngleUnit->Init(aDimensions);
 }

@@ -387,7 +387,7 @@ Standard_Boolean STEPCAFControl_Writer::Transfer(const Handle(AppDocument)& theD
 //=================================================================================================
 
 Standard_Boolean STEPCAFControl_Writer::Transfer(const Handle(AppDocument)& theDoc,
-                                                 const DESTEP_Parameters&        theParams,
+                                                 const Parameters2&        theParams,
                                                  const STEPControl_StepModelType theMode,
                                                  const Standard_CString          theMulti,
                                                  const Message_ProgressRange&    theProgress)
@@ -422,7 +422,7 @@ Standard_Boolean STEPCAFControl_Writer::Transfer(const DataLabel&               
 //=================================================================================================
 
 Standard_Boolean STEPCAFControl_Writer::Transfer(const DataLabel&                theLabel,
-                                                 const DESTEP_Parameters&        theParams,
+                                                 const Parameters2&        theParams,
                                                  const STEPControl_StepModelType theMode,
                                                  const Standard_CString          theIsMulti,
                                                  const Message_ProgressRange&    theProgress)
@@ -457,7 +457,7 @@ Standard_Boolean STEPCAFControl_Writer::Transfer(const TDF_LabelSequence&       
 //=================================================================================================
 
 Standard_Boolean STEPCAFControl_Writer::Transfer(const TDF_LabelSequence&        theLabels,
-                                                 const DESTEP_Parameters&        theParams,
+                                                 const Parameters2&        theParams,
                                                  const STEPControl_StepModelType theMode,
                                                  const Standard_CString          theIsMulti,
                                                  const Message_ProgressRange&    theProgress)
@@ -492,7 +492,7 @@ Standard_Boolean STEPCAFControl_Writer::Perform(const Handle(AppDocument)& theDo
 
 Standard_Boolean STEPCAFControl_Writer::Perform(const Handle(AppDocument)& theDoc,
                                                 const Standard_CString          theFileName,
-                                                const DESTEP_Parameters&        theParams,
+                                                const Parameters2&        theParams,
                                                 const Message_ProgressRange&    theProgress)
 {
   if (!Transfer(theDoc, theParams, STEPControl_AsIs, 0L, theProgress))
@@ -708,8 +708,8 @@ Standard_Boolean STEPCAFControl_Writer::transfer(StepFileWriter&             the
       if (aPS1.UserBreak())
         return Standard_False;
 
-      DESTEP_Parameters::WriteMode_Assembly assemblymode = aModel->InternalParameters.WriteAssembly;
-      aModel->InternalParameters.WriteAssembly           = DESTEP_Parameters::WriteMode_Assembly_On;
+      Parameters2::WriteMode_Assembly assemblymode = aModel->InternalParameters.WriteAssembly;
+      aModel->InternalParameters.WriteAssembly           = Parameters2::WriteMode_Assembly_On;
       theWriter.Transfer(aSass,
                          STEPControl_AsIs,
                          aModel->InternalParameters,
@@ -873,10 +873,10 @@ TopoShape STEPCAFControl_Writer::transferExternFiles(const DataLabel&           
     anExtFile->SetWS(aNewWS);
     anExtFile->SetName(aNewName);
     anExtFile->SetLabel(theLabel);
-    DESTEP_Parameters::WriteMode_Assembly anAssemblymode =
+    Parameters2::WriteMode_Assembly anAssemblymode =
       aStepWriter.Model()->InternalParameters.WriteAssembly;
     aStepWriter.Model()->InternalParameters.WriteAssembly =
-      DESTEP_Parameters::WriteMode_Assembly_Off;
+      Parameters2::WriteMode_Assembly_Off;
     const Standard_CString anIsMulti = 0;
     anExtFile->SetTransferStatus(
       transfer(aStepWriter, aLabelSeq, theMode, anIsMulti, Standard_True, theProgress));
@@ -2376,7 +2376,7 @@ static StepBasic_Unit GetUnit(const Handle(StepRepr_RepresentationContext)& theR
       Handle(StepGeom_GeometricRepresentationContextAndGlobalUnitAssignedContext)::DownCast(theRC);
     if (!aCtx.IsNull())
     {
-      for (StepBasic_HArray1OfNamedUnit::Iterator aUnitIter(aCtx->Units2()->Array1());
+      for (HArray1OfNamedUnit::Iterator aUnitIter(aCtx->Units2()->Array1());
            aUnitIter.More();
            aUnitIter.Next())
       {
@@ -2395,7 +2395,7 @@ static StepBasic_Unit GetUnit(const Handle(StepRepr_RepresentationContext)& theR
         Handle(StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx)::DownCast(theRC);
       if (!aCtx1.IsNull())
       {
-        for (StepBasic_HArray1OfNamedUnit::Iterator aUnitIter(aCtx1->Units2()->Array1());
+        for (HArray1OfNamedUnit::Iterator aUnitIter(aCtx1->Units2()->Array1());
              aUnitIter.More();
              aUnitIter.Next())
         {
@@ -2419,7 +2419,7 @@ static StepBasic_Unit GetUnit(const Handle(StepRepr_RepresentationContext)& theR
       Handle(StepGeom_GeometricRepresentationContextAndGlobalUnitAssignedContext)::DownCast(theRC);
     if (!aCtx.IsNull())
     {
-      for (StepBasic_HArray1OfNamedUnit::Iterator aUnitIter(aCtx->Units2()->Array1());
+      for (HArray1OfNamedUnit::Iterator aUnitIter(aCtx->Units2()->Array1());
            aUnitIter.More();
            aUnitIter.Next())
       {
@@ -2438,7 +2438,7 @@ static StepBasic_Unit GetUnit(const Handle(StepRepr_RepresentationContext)& theR
         Handle(StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx)::DownCast(theRC);
       if (!aCtx1.IsNull())
       {
-        for (StepBasic_HArray1OfNamedUnit::Iterator aUnitIter(aCtx1->Units2()->Array1());
+        for (HArray1OfNamedUnit::Iterator aUnitIter(aCtx1->Units2()->Array1());
              aUnitIter.More();
              aUnitIter.Next())
         {
@@ -4755,8 +4755,8 @@ Standard_Boolean STEPCAFControl_Writer::writeMaterials(const Handle(ExchangeSess
           Handle(StepBasic_DerivedUnitElement) aDUE2 = new StepBasic_DerivedUnitElement;
           aDUE2->Init(aSLU, 2.0);
           // other
-          Handle(StepBasic_HArray1OfDerivedUnitElement) aHADUE =
-            new StepBasic_HArray1OfDerivedUnitElement(1, 2);
+          Handle(HArray1OfDerivedUnitElement) aHADUE =
+            new HArray1OfDerivedUnitElement(1, 2);
           aHADUE->SetValue(1, aDUE1);
           aHADUE->SetValue(2, aDUE2);
           Handle(StepBasic_DerivedUnit) aDU = new StepBasic_DerivedUnit;

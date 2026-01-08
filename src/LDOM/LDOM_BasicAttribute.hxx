@@ -21,15 +21,15 @@
 
 class LDOM_Attr;
 
-//  Class LDOM_BasicAttribute
+//  Class BasicAttribute
 //
 
-class LDOM_BasicAttribute : public BasicNode
+class BasicAttribute : public BasicNode
 {
 public:
   // ---------- PUBLIC METHODS ----------
 
-  LDOM_BasicAttribute()
+  BasicAttribute()
       : BasicNode(LDOM_Node::UNKNOWN),
         myName(NULL)
   {
@@ -37,7 +37,7 @@ public:
 
   //    Empty constructor
 
-  LDOM_BasicAttribute& operator=(const LDOM_NullPtr* aNull);
+  BasicAttribute& operator=(const LDOM_NullPtr* aNull);
 
   //    Nullify
 
@@ -45,7 +45,7 @@ public:
 
   const LDOMBasicString1& GetValue() const { return myValue; }
 
-  void SetValue(const LDOMBasicString1& aValue, const Handle(LDOM_MemManager)& aDoc)
+  void SetValue(const LDOMBasicString1& aValue, const Handle(MemoryManager)& aDoc)
   {
     myValue = LDOMString(aValue, aDoc);
   }
@@ -54,12 +54,12 @@ private:
   friend class LDOM_Node;
   friend class LDOM_Attr;
   friend class LDOM_Element;
-  friend class LDOM_BasicElement;
+  friend class BasicElement;
   friend class LDOM_XmlReader;
 
   // ---------- PRIVATE METHODS ----------
 
-  LDOM_BasicAttribute(const LDOMBasicString1& aName)
+  BasicAttribute(const LDOMBasicString1& aName)
       : BasicNode(LDOM_Node::ATTRIBUTE_NODE),
         myName(aName.GetString())
   {
@@ -67,11 +67,11 @@ private:
 
   //    Constructor
 
-  static LDOM_BasicAttribute& Create(const LDOMBasicString1&         theName,
-                                     const Handle(LDOM_MemManager)& theDoc,
+  static BasicAttribute& Create(const LDOMBasicString1&         theName,
+                                     const Handle(MemoryManager)& theDoc,
                                      Standard_Integer&              theHashIndex);
 
-  LDOM_BasicAttribute(const LDOM_Attr& anAttr);
+  BasicAttribute(const LDOM_Attr& anAttr);
 
 private:
   // ---------- PRIVATE FIELDS ----------

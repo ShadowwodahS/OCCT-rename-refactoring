@@ -17,7 +17,7 @@
 #include <DE_ConfigurationContext.hxx>
 #include <DE_PluginHolder.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DEGLTF_ConfigurationNode, DE_ConfigurationNode)
+IMPLEMENT_STANDARD_RTTIEXT(DEGLTF_ConfigurationNode, ConfigurationNode)
 
 namespace
 {
@@ -34,21 +34,21 @@ DE_PluginHolder<DEGLTF_ConfigurationNode> THE_OCCT_GLTF_COMPONENT_PLUGIN;
 //=================================================================================================
 
 DEGLTF_ConfigurationNode::DEGLTF_ConfigurationNode()
-    : DE_ConfigurationNode()
+    : ConfigurationNode()
 {
 }
 
 //=================================================================================================
 
 DEGLTF_ConfigurationNode::DEGLTF_ConfigurationNode(const Handle(DEGLTF_ConfigurationNode)& theNode)
-    : DE_ConfigurationNode(theNode)
+    : ConfigurationNode(theNode)
 {
   InternalParameters = theNode->InternalParameters;
 }
 
 //=================================================================================================
 
-bool DEGLTF_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theResource)
+bool DEGLTF_ConfigurationNode::Load(const Handle(ConfigurationContext)& theResource)
 {
   AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor();
@@ -331,7 +331,7 @@ AsciiString1 DEGLTF_ConfigurationNode::Save() const
 
 //=================================================================================================
 
-Handle(DE_ConfigurationNode) DEGLTF_ConfigurationNode::Copy() const
+Handle(ConfigurationNode) DEGLTF_ConfigurationNode::Copy() const
 {
   return new DEGLTF_ConfigurationNode(*this);
 }

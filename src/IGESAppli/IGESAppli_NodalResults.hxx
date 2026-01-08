@@ -56,7 +56,7 @@ public:
                             const Standard_Integer                  aNumber,
                             const Standard_Real                     aTime,
                             const Handle(TColStd_HArray1OfInteger)& allNodeIdentifiers,
-                            const Handle(IGESAppli_HArray1OfNode)&  allNodes,
+                            const Handle(HArray1OfNode)&  allNodes,
                             const Handle(TColStd_HArray2OfReal)&    allData);
 
   //! Changes the FormNumber (which indicates Type of Result)
@@ -102,7 +102,7 @@ private:
   Standard_Integer                 theSubCaseNum;
   Standard_Real                    theTime;
   Handle(TColStd_HArray1OfInteger) theNodeIdentifiers;
-  Handle(IGESAppli_HArray1OfNode)  theNodes;
+  Handle(HArray1OfNode)  theNodes;
   Handle(TColStd_HArray2OfReal)    theData;
 };
 

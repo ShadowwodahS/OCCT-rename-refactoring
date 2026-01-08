@@ -50,12 +50,12 @@ void PipingFlowTool::ReadOwnParams(const Handle(IGESAppli_PipingFlow)&    ent,
   Standard_Integer                               tempNbContextFlags;
   Standard_Integer                               tempTypeOfFlow;
   Standard_Integer                               i, num;
-  Handle(IGESData_HArray1OfIGESEntity)           tempFlowAssocs;
-  Handle(IGESDraw_HArray1OfConnectPoint)         tempConnectPoints;
-  Handle(IGESData_HArray1OfIGESEntity)           tempJoins;
+  Handle(HArray1OfIGESEntity)           tempFlowAssocs;
+  Handle(HArray1OfConnectPoint)         tempConnectPoints;
+  Handle(HArray1OfIGESEntity)           tempJoins;
   Handle(Interface_HArray1OfHAsciiString)        tempFlowNames;
-  Handle(IGESGraph_HArray1OfTextDisplayTemplate) tempTextDisplayTemplates;
-  Handle(IGESData_HArray1OfIGESEntity)           tempContFlowAssocs;
+  Handle(HArray1OfTextDisplayTemplate) tempTextDisplayTemplates;
+  Handle(HArray1OfIGESEntity)           tempContFlowAssocs;
 
   // szv#4:S4163:12Mar99 `st=` not needed
   if (PR.DefinedElseSkip())
@@ -66,21 +66,21 @@ void PipingFlowTool::ReadOwnParams(const Handle(IGESAppli_PipingFlow)&    ent,
   if (!PR.ReadInteger(PR.Current(), "Number of Flow Associativities", num))
     num = 0;
   if (num > 0)
-    tempFlowAssocs = new IGESData_HArray1OfIGESEntity(1, num);
+    tempFlowAssocs = new HArray1OfIGESEntity(1, num);
   else
     PR.AddFail("Number of Flow Associativities: Not Positive");
 
   if (!PR.ReadInteger(PR.Current(), "Number of Connect Points", num))
     num = 0;
   if (num > 0)
-    tempConnectPoints = new IGESDraw_HArray1OfConnectPoint(1, num);
+    tempConnectPoints = new HArray1OfConnectPoint(1, num);
   else
     PR.AddFail("Number of Connect Points: Not Positive");
 
   if (!PR.ReadInteger(PR.Current(), "Number of Joins", num))
     num = 0;
   if (num > 0)
-    tempJoins = new IGESData_HArray1OfIGESEntity(1, num);
+    tempJoins = new HArray1OfIGESEntity(1, num);
   else
     PR.AddFail("Number of Joins: Not Positive");
 
@@ -94,14 +94,14 @@ void PipingFlowTool::ReadOwnParams(const Handle(IGESAppli_PipingFlow)&    ent,
   if (!PR.ReadInteger(PR.Current(), "Number of Text Displays", num))
     num = 0;
   if (num > 0)
-    tempTextDisplayTemplates = new IGESGraph_HArray1OfTextDisplayTemplate(1, num);
+    tempTextDisplayTemplates = new HArray1OfTextDisplayTemplate(1, num);
   else
     PR.AddFail("Number of Text Displays: Not Positive");
 
   if (!PR.ReadInteger(PR.Current(), "Number of Continuation Flows", num))
     num = 0;
   if (num > 0)
-    tempContFlowAssocs = new IGESData_HArray1OfIGESEntity(1, num);
+    tempContFlowAssocs = new HArray1OfIGESEntity(1, num);
   else
     PR.AddFail("Number of Continuation Flows: Not Positive");
 
@@ -232,22 +232,22 @@ void PipingFlowTool::OwnCopy(const Handle(IGESAppli_PipingFlow)& another,
   Standard_Integer tempTypeOfFlow     = another->TypeOfFlow();
   Standard_Integer i, num;
   num                                                 = another->NbFlowAssociativities();
-  Handle(IGESData_HArray1OfIGESEntity) tempFlowAssocs = new IGESData_HArray1OfIGESEntity(1, num);
+  Handle(HArray1OfIGESEntity) tempFlowAssocs = new HArray1OfIGESEntity(1, num);
   for (i = 1; i <= num; i++)
   {
     DeclareAndCast(IGESData_IGESEntity, new_item, TC.Transferred(another->FlowAssociativity(i)));
     tempFlowAssocs->SetValue(i, new_item);
   }
   num = another->NbConnectPoints();
-  Handle(IGESDraw_HArray1OfConnectPoint) tempConnectPoints =
-    new IGESDraw_HArray1OfConnectPoint(1, num);
+  Handle(HArray1OfConnectPoint) tempConnectPoints =
+    new HArray1OfConnectPoint(1, num);
   for (i = 1; i <= num; i++)
   {
     DeclareAndCast(IGESDraw_ConnectPoint, new_item, TC.Transferred(another->ConnectPoint(i)));
     tempConnectPoints->SetValue(i, new_item);
   }
   num                                            = another->NbJoins();
-  Handle(IGESData_HArray1OfIGESEntity) tempJoins = new IGESData_HArray1OfIGESEntity(1, num);
+  Handle(HArray1OfIGESEntity) tempJoins = new HArray1OfIGESEntity(1, num);
   for (i = 1; i <= num; i++)
   {
     DeclareAndCast(IGESData_IGESEntity, new_item, TC.Transferred(another->Join(i)));
@@ -259,8 +259,8 @@ void PipingFlowTool::OwnCopy(const Handle(IGESAppli_PipingFlow)& another,
   for (i = 1; i <= num; i++)
     tempFlowNames->SetValue(i, new TCollection_HAsciiString(another->FlowName(i)));
   num = another->NbTextDisplayTemplates();
-  Handle(IGESGraph_HArray1OfTextDisplayTemplate) tempTextDisplayTemplates =
-    new IGESGraph_HArray1OfTextDisplayTemplate(1, num);
+  Handle(HArray1OfTextDisplayTemplate) tempTextDisplayTemplates =
+    new HArray1OfTextDisplayTemplate(1, num);
   for (i = 1; i <= num; i++)
   {
     DeclareAndCast(IGESGraph_TextDisplayTemplate,
@@ -269,8 +269,8 @@ void PipingFlowTool::OwnCopy(const Handle(IGESAppli_PipingFlow)& another,
     tempTextDisplayTemplates->SetValue(i, new_item);
   }
   num = another->NbContFlowAssociativities();
-  Handle(IGESData_HArray1OfIGESEntity) tempContFlowAssocs =
-    new IGESData_HArray1OfIGESEntity(1, num);
+  Handle(HArray1OfIGESEntity) tempContFlowAssocs =
+    new HArray1OfIGESEntity(1, num);
   for (i = 1; i <= num; i++)
   {
     DeclareAndCast(IGESData_IGESEntity,

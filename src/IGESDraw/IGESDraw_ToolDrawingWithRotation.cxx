@@ -48,16 +48,16 @@ void DrawingWithRotationTool::ReadOwnParams(
   // Standard_Boolean st; //szv#4:S4163:12Mar99 moved down
   Standard_Integer nbval;
 
-  Handle(IGESDraw_HArray1OfViewKindEntity) views;
+  Handle(HArray1OfViewKindEntity) views;
   Handle(TColgp_HArray1OfXY)               viewOrigins;
   Handle(TColStd_HArray1OfReal)            orientationAngles;
-  Handle(IGESData_HArray1OfIGESEntity)     annotations;
+  Handle(HArray1OfIGESEntity)     annotations;
 
   // Reading nbval(Count of Array Views)
   Standard_Boolean st = PR.ReadInteger(PR.Current(), "count of array views", nbval);
   if (st && nbval > 0)
   {
-    views             = new IGESDraw_HArray1OfViewKindEntity(1, nbval);
+    views             = new HArray1OfViewKindEntity(1, nbval);
     viewOrigins       = new TColgp_HArray1OfXY(1, nbval);
     orientationAngles = new TColStd_HArray1OfReal(1, nbval);
 
@@ -112,7 +112,7 @@ void DrawingWithRotationTool::ReadOwnParams(
     /*
           {
         // Reading annotations(HArray1OfIGESEntity)
-        annotations = new IGESData_HArray1OfIGESEntity(1, nbval);
+        annotations = new HArray1OfIGESEntity(1, nbval);
         Handle(IGESData_IGESEntity) tempAnnotation;
         for (Standard_Integer i = 1; i <= nbval; i++)
               {
@@ -169,20 +169,20 @@ void DrawingWithRotationTool::OwnCopy(const Handle(IGESDraw_DrawingWithRotation)
 {
   Standard_Integer                         nbanot;
   Standard_Integer                         nbval;
-  Handle(IGESDraw_HArray1OfViewKindEntity) views;
+  Handle(HArray1OfViewKindEntity) views;
   Handle(TColgp_HArray1OfXY)               viewOrigins;
   Handle(TColStd_HArray1OfReal)            orientationAngles;
-  Handle(IGESData_HArray1OfIGESEntity)     annotations;
+  Handle(HArray1OfIGESEntity)     annotations;
 
   nbanot            = another->NbAnnotations();
   nbval             = another->NbViews();
-  views             = new IGESDraw_HArray1OfViewKindEntity(1, nbval);
+  views             = new HArray1OfViewKindEntity(1, nbval);
   viewOrigins       = new TColgp_HArray1OfXY(1, nbval);
   orientationAngles = new TColStd_HArray1OfReal(1, nbval);
 
   if (nbanot > 0)
   {
-    annotations = new IGESData_HArray1OfIGESEntity(1, nbanot);
+    annotations = new HArray1OfIGESEntity(1, nbanot);
     for (Standard_Integer i = 1; i <= nbanot; i++)
     {
       DeclareAndCast(IGESData_IGESEntity, tempAnnotation, TC.Transferred(another->Annotation(i)));
@@ -219,12 +219,12 @@ Standard_Boolean DrawingWithRotationTool::OwnCorrect(
   }
   if (nbtrue == nb)
     return Standard_False;
-  Handle(IGESDraw_HArray1OfViewKindEntity) views;
+  Handle(HArray1OfViewKindEntity) views;
   Handle(TColgp_HArray1OfXY)               viewOrigins;
   Handle(TColStd_HArray1OfReal)            orientationAngles;
   if (nbtrue > 0)
   {
-    views             = new IGESDraw_HArray1OfViewKindEntity(1, nbtrue);
+    views             = new HArray1OfViewKindEntity(1, nbtrue);
     viewOrigins       = new TColgp_HArray1OfXY(1, nbtrue);
     orientationAngles = new TColStd_HArray1OfReal(1, nbtrue);
   }
@@ -244,7 +244,7 @@ Standard_Boolean DrawingWithRotationTool::OwnCorrect(
 
   //  Ne pas oublier les annotations ...
   Standard_Integer                     nbanot      = ent->NbAnnotations();
-  Handle(IGESData_HArray1OfIGESEntity) annotations = new IGESData_HArray1OfIGESEntity(1, nbanot);
+  Handle(HArray1OfIGESEntity) annotations = new HArray1OfIGESEntity(1, nbanot);
   for (i = 1; i <= nbanot; i++)
     annotations->SetValue(i, ent->Annotation(i));
 

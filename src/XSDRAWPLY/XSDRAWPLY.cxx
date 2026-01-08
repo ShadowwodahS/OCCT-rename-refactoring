@@ -185,7 +185,7 @@ static Standard_Integer WritePly(DrawInterpreter& theDI,
 
   if (isPntSet)
   {
-    class PointCloudPlyWriter : public BRepLib_PointCloudShape, public RWPly_PlyWriterContext
+    class PointCloudPlyWriter : public BRepLib_PointCloudShape, public PLYWriterContext
     {
     public:
       PointCloudPlyWriter(Standard_Real theTol)
@@ -206,7 +206,7 @@ static Standard_Integer WritePly(DrawInterpreter& theDI,
       {
         Graphic3d_Vec4ub aColor;
         myFaceColor.Find(theFace, aColor);
-        RWPly_PlyWriterContext::WriteVertex(
+        PLYWriterContext::WriteVertex(
           thePoint,
           Graphic3d_Vec3((float)theNorm.X(), (float)theNorm.Y(), (float)theNorm.Z()),
           Graphic3d_Vec2((float)theUV.X(), (float)theUV.Y()),

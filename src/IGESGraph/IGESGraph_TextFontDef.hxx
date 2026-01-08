@@ -24,7 +24,7 @@
 #include <TColStd_HArray1OfInteger.hxx>
 #include <IGESData_IGESEntity.hxx>
 class TCollection_HAsciiString;
-class IGESBasic_HArray1OfHArray1OfInteger;
+class HArray1OfHArray1OfInt;
 
 class IGESGraph_TextFontDef;
 DEFINE_STANDARD_HANDLE(IGESGraph_TextFontDef, IGESData_IGESEntity)
@@ -68,9 +68,9 @@ public:
                             const Handle(TColStd_HArray1OfInteger)&            allNextCharX,
                             const Handle(TColStd_HArray1OfInteger)&            allNextCharY,
                             const Handle(TColStd_HArray1OfInteger)&            allPenMotions,
-                            const Handle(IGESBasic_HArray1OfHArray1OfInteger)& allPenFlags,
-                            const Handle(IGESBasic_HArray1OfHArray1OfInteger)& allMovePenToX,
-                            const Handle(IGESBasic_HArray1OfHArray1OfInteger)& allMovePenToY);
+                            const Handle(HArray1OfHArray1OfInt)& allPenFlags,
+                            const Handle(HArray1OfHArray1OfInt)& allMovePenToX,
+                            const Handle(HArray1OfHArray1OfInt)& allMovePenToY);
 
   //! returns the font code.
   Standard_EXPORT Standard_Integer FontCode() const;
@@ -134,9 +134,9 @@ private:
   Handle(TColStd_HArray1OfInteger)            theNextCharOriginX;
   Handle(TColStd_HArray1OfInteger)            theNextCharOriginY;
   Handle(TColStd_HArray1OfInteger)            theNbPenMotions;
-  Handle(IGESBasic_HArray1OfHArray1OfInteger) thePenMotions;
-  Handle(IGESBasic_HArray1OfHArray1OfInteger) thePenMovesToX;
-  Handle(IGESBasic_HArray1OfHArray1OfInteger) thePenMovesToY;
+  Handle(HArray1OfHArray1OfInt) thePenMotions;
+  Handle(HArray1OfHArray1OfInt) thePenMovesToX;
+  Handle(HArray1OfHArray1OfInt) thePenMovesToY;
 };
 
 #endif // _IGESGraph_TextFontDef_HeaderFile

@@ -43,7 +43,7 @@ void SectionedAreaTool::ReadOwnParams(const Handle(IGESDimen_SectionedArea)& ent
   Standard_Integer                     tempPattern, nbislands;
   Coords3d                               passPnt;
   Standard_Real                        tempDistance, tempAngle;
-  Handle(IGESData_HArray1OfIGESEntity) tempIslands;
+  Handle(HArray1OfIGESEntity) tempIslands;
   Handle(IGESData_IGESEntity)          anent;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 moved down
 
@@ -65,7 +65,7 @@ void SectionedAreaTool::ReadOwnParams(const Handle(IGESDimen_SectionedArea)& ent
   // clang-format on
   /*
       {
-        tempIslands = new IGESData_HArray1OfIGESEntity(1, nbislands);
+        tempIslands = new HArray1OfIGESEntity(1, nbislands);
         for (Standard_Integer i=1; i<=nbislands; i++)
       {
             st = PR.ReadEntity(IR, PR.Current(), "Island curves", anent);
@@ -112,11 +112,11 @@ void SectionedAreaTool::OwnCopy(const Handle(IGESDimen_SectionedArea)& another,
   Coords3d                               passPnt      = (another->PassingPoint()).XYZ();
   Standard_Real                        tempDistance = another->Distance();
   Standard_Real                        tempAngle    = another->Angle();
-  Handle(IGESData_HArray1OfIGESEntity) tempIslands;
+  Handle(HArray1OfIGESEntity) tempIslands;
   Standard_Integer                     nbislands = another->NbIslands();
   if (nbislands > 0)
   {
-    tempIslands = new IGESData_HArray1OfIGESEntity(1, nbislands);
+    tempIslands = new HArray1OfIGESEntity(1, nbislands);
     for (Standard_Integer i = 1; i <= nbislands; i++)
     {
       DeclareAndCast(IGESData_IGESEntity, anent, TC.Transferred(another->IslandCurve(i)));

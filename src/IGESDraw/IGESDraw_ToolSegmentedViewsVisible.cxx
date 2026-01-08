@@ -45,26 +45,26 @@ void SegmentedViewsVisibleTool::ReadOwnParams(
   // Standard_Boolean                              st; //szv#4:S4163:12Mar99 moved down
   Standard_Integer nbval;
 
-  Handle(IGESDraw_HArray1OfViewKindEntity)  views;
+  Handle(HArray1OfViewKindEntity)  views;
   Handle(TColStd_HArray1OfReal)             breakpointParameters;
   Handle(TColStd_HArray1OfInteger)          displayFlags;
   Handle(TColStd_HArray1OfInteger)          colorValues;
-  Handle(IGESGraph_HArray1OfColor)          colorDefinitions;
+  Handle(HArray1OfColor)          colorDefinitions;
   Handle(TColStd_HArray1OfInteger)          lineFontValues;
-  Handle(IGESBasic_HArray1OfLineFontEntity) lineFontDefinitions;
+  Handle(HArray1OfLineFontEntity) lineFontDefinitions;
   Handle(TColStd_HArray1OfInteger)          lineWeights;
 
   // Reading nbval(Integer1)
   Standard_Boolean st = PR.ReadInteger(PR.Current(), "No. of View/segment blocks", nbval);
   if (st && nbval > 0)
   {
-    views                = new IGESDraw_HArray1OfViewKindEntity(1, nbval);
+    views                = new HArray1OfViewKindEntity(1, nbval);
     breakpointParameters = new TColStd_HArray1OfReal(1, nbval);
     displayFlags         = new TColStd_HArray1OfInteger(1, nbval);
     colorValues          = new TColStd_HArray1OfInteger(1, nbval);
-    colorDefinitions     = new IGESGraph_HArray1OfColor(1, nbval);
+    colorDefinitions     = new HArray1OfColor(1, nbval);
     lineFontValues       = new TColStd_HArray1OfInteger(1, nbval);
-    lineFontDefinitions  = new IGESBasic_HArray1OfLineFontEntity(1, nbval);
+    lineFontDefinitions  = new HArray1OfLineFontEntity(1, nbval);
     lineWeights          = new TColStd_HArray1OfInteger(1, nbval);
 
     Handle(IGESData_ViewKindEntity) tempView;
@@ -202,13 +202,13 @@ void SegmentedViewsVisibleTool::OwnCopy(
   Interface_CopyTool&                           TC) const
 {
   Standard_Integer                          nbval;
-  Handle(IGESDraw_HArray1OfViewKindEntity)  views;
+  Handle(HArray1OfViewKindEntity)  views;
   Handle(TColStd_HArray1OfReal)             breakpointParameters;
   Handle(TColStd_HArray1OfInteger)          displayFlags;
   Handle(TColStd_HArray1OfInteger)          colorValues;
-  Handle(IGESGraph_HArray1OfColor)          colorDefinitions;
+  Handle(HArray1OfColor)          colorDefinitions;
   Handle(TColStd_HArray1OfInteger)          lineFontValues;
-  Handle(IGESBasic_HArray1OfLineFontEntity) lineFontDefinitions;
+  Handle(HArray1OfLineFontEntity) lineFontDefinitions;
   Handle(TColStd_HArray1OfInteger)          lineWeights;
 
   Handle(IGESData_ViewKindEntity) retView;
@@ -216,13 +216,13 @@ void SegmentedViewsVisibleTool::OwnCopy(
   Handle(IGESData_LineFontEntity) retLineFontDef;
 
   nbval                = another->NbSegmentBlocks();
-  views                = new IGESDraw_HArray1OfViewKindEntity(1, nbval);
+  views                = new HArray1OfViewKindEntity(1, nbval);
   breakpointParameters = new TColStd_HArray1OfReal(1, nbval);
   displayFlags         = new TColStd_HArray1OfInteger(1, nbval);
   colorValues          = new TColStd_HArray1OfInteger(1, nbval);
   lineFontValues       = new TColStd_HArray1OfInteger(1, nbval);
-  colorDefinitions     = new IGESGraph_HArray1OfColor(1, nbval);
-  lineFontDefinitions  = new IGESBasic_HArray1OfLineFontEntity(1, nbval);
+  colorDefinitions     = new HArray1OfColor(1, nbval);
+  lineFontDefinitions  = new HArray1OfLineFontEntity(1, nbval);
   lineWeights          = new TColStd_HArray1OfInteger(1, nbval);
 
   for (Standard_Integer i = 1; i <= nbval; i++)

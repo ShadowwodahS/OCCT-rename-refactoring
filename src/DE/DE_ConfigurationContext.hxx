@@ -25,13 +25,13 @@ typedef NCollection_DataMap<AsciiString1, AsciiString1> DE_ResourceMap;
 //! if scope is defined as "ToV4" and requested parameter
 //! is "exec.op", value of "ToV4.exec.op" parameter from
 //! the resource file will be returned
-class DE_ConfigurationContext : public RefObject
+class ConfigurationContext : public RefObject
 {
 public:
-  DEFINE_STANDARD_RTTIEXT(DE_ConfigurationContext, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ConfigurationContext, RefObject)
 
   //! Creates an empty tool
-  Standard_EXPORT DE_ConfigurationContext();
+  Standard_EXPORT ConfigurationContext();
 
   //! Import the custom configuration
   //! Save all parameters with their values.

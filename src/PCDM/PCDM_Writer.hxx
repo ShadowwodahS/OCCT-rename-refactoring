@@ -27,10 +27,10 @@
 class CDM_Document;
 class UtfString;
 
-class PCDM_Writer;
-DEFINE_STANDARD_HANDLE(PCDM_Writer, RefObject)
+class Writer1;
+DEFINE_STANDARD_HANDLE(Writer1, RefObject)
 
-class PCDM_Writer : public RefObject
+class Writer1 : public RefObject
 {
 public:
   Standard_EXPORT virtual void Write(
@@ -44,7 +44,7 @@ public:
     Standard_OStream&            theOStream,
     const Message_ProgressRange& theRange = Message_ProgressRange()) = 0;
 
-  DEFINE_STANDARD_RTTIEXT(PCDM_Writer, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Writer1, RefObject)
 };
 
 #endif // _PCDM_Writer_HeaderFile

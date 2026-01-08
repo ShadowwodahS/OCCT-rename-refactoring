@@ -23,7 +23,7 @@
 
 //=================================================================================================
 
-LDOM_Element::LDOM_Element(const LDOM_BasicElement& anElem, const Handle(LDOM_MemManager)& aDoc)
+LDOM_Element::LDOM_Element(const BasicElement& anElem, const Handle(MemoryManager)& aDoc)
     : LDOM_Node(anElem, aDoc)
 {
 }
@@ -32,7 +32,7 @@ LDOM_Element::LDOM_Element(const LDOM_BasicElement& anElem, const Handle(LDOM_Me
 
 LDOMString LDOM_Element::getAttribute(const LDOMString& aName) const
 {
-  const LDOM_BasicElement& anElem = (const LDOM_BasicElement&)Origin();
+  const BasicElement& anElem = (const BasicElement&)Origin();
   if (anElem.isNull())
     return LDOMString();
   if (myLastChild == NULL)
@@ -52,7 +52,7 @@ LDOMString LDOM_Element::getAttribute(const LDOMString& aName) const
         aNode = aSibling;
       }
   }
-  const LDOM_BasicAttribute& anAttr = anElem.GetAttribute(aName, myLastChild);
+  const BasicAttribute& anAttr = anElem.GetAttribute(aName, myLastChild);
   if (anAttr.isNull())
     return LDOMString();
   return LDOMString(anAttr.GetValue(), myDocument->Self());
@@ -62,7 +62,7 @@ LDOMString LDOM_Element::getAttribute(const LDOMString& aName) const
 
 LDOM_Attr LDOM_Element::getAttributeNode(const LDOMString& aName) const
 {
-  const LDOM_BasicElement& anElem = (const LDOM_BasicElement&)Origin();
+  const BasicElement& anElem = (const BasicElement&)Origin();
   if (anElem.isNull())
     return LDOM_Attr();
   if (myLastChild == NULL)
@@ -82,7 +82,7 @@ LDOM_Attr LDOM_Element::getAttributeNode(const LDOMString& aName) const
         aNode = aSibling;
       }
   }
-  const LDOM_BasicAttribute& anAttr = anElem.GetAttribute(aName, myLastChild);
+  const BasicAttribute& anAttr = anElem.GetAttribute(aName, myLastChild);
   return LDOM_Attr(anAttr, myDocument);
 }
 
@@ -93,7 +93,7 @@ LDOM_NodeList LDOM_Element::getElementsByTagName(const LDOMString& theTagName) c
   LDOM_NodeList aList(myDocument);
   if (isNull() == Standard_False)
   {
-    const LDOM_BasicElement& anElem = (const LDOM_BasicElement&)Origin();
+    const BasicElement& anElem = (const BasicElement&)Origin();
     //    if (anElem.GetTagName().equals(theTagName))
     if (strcmp(anElem.GetTagName(), theTagName.GetString()) == 0)
       aList.Append(anElem);
@@ -106,7 +106,7 @@ LDOM_NodeList LDOM_Element::getElementsByTagName(const LDOMString& theTagName) c
 
 void LDOM_Element::setAttribute(const LDOMString& aName, const LDOMString& aVal)
 {
-  LDOM_BasicElement& anElem = (LDOM_BasicElement&)Origin();
+  BasicElement& anElem = (BasicElement&)Origin();
   if (anElem.isNull())
     return;
 
@@ -124,7 +124,7 @@ void LDOM_Element::setAttributeNode(const LDOM_Attr& aNewAttr)
 
 void LDOM_Element::removeAttribute(const LDOMString& aName)
 {
-  const LDOM_BasicElement& anElem = (const LDOM_BasicElement&)Origin();
+  const BasicElement& anElem = (const BasicElement&)Origin();
   if (anElem.isNull())
     return;
   anElem.RemoveAttribute(aName, myLastChild);
@@ -201,8 +201,8 @@ LDOM_Element LDOM_Element::GetSiblingByTagName() const
 
 void LDOM_Element::ReplaceElement(const LDOM_Element& anOther)
 {
-  LDOM_BasicElement&       anElem      = (LDOM_BasicElement&)Origin();
-  const LDOM_BasicElement& anOtherElem = (const LDOM_BasicElement&)anOther.Origin();
+  BasicElement&       anElem      = (BasicElement&)Origin();
+  const BasicElement& anOtherElem = (const BasicElement&)anOther.Origin();
   if (myDocument == anOther.myDocument)
   {
     anElem.myTagName                    = anOtherElem.myTagName;
@@ -222,7 +222,7 @@ void LDOM_Element::ReplaceElement(const LDOM_Element& anOther)
 LDOM_NodeList LDOM_Element::GetAttributesList() const
 {
   LDOM_NodeList            aList(myDocument);
-  const LDOM_BasicElement& anElem = (const LDOM_BasicElement&)Origin();
+  const BasicElement& anElem = (const BasicElement&)Origin();
   anElem.AddAttributes(aList, myLastChild);
   return aList;
 }

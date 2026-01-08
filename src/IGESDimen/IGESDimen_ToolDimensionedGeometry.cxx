@@ -41,7 +41,7 @@ void DimensionedGeometryTool::ReadOwnParams(
   Standard_Integer                     tempNbDimen;
   Handle(IGESData_IGESEntity)          aDimEntity;
   Standard_Integer                     nbgeom = 0;
-  Handle(IGESData_HArray1OfIGESEntity) GeomEntities;
+  Handle(HArray1OfIGESEntity) GeomEntities;
 
   // clang-format off
   PR.ReadInteger(PR.Current(),"Number of Dimensions",tempNbDimen); //szv#4:S4163:12Mar99 `st=` not needed
@@ -58,7 +58,7 @@ void DimensionedGeometryTool::ReadOwnParams(
                 GeomEntities); // szv#4:S4163:12Mar99 `st=` not needed
   /*
       {
-        GeomEntities = new IGESData_HArray1OfIGESEntity(1,nbgeom);
+        GeomEntities = new HArray1OfIGESEntity(1,nbgeom);
         for (Standard_Integer i = 1; i <= nbgeom; i++)
       {
             Handle(IGESData_IGESEntity) anentity;
@@ -98,7 +98,7 @@ void DimensionedGeometryTool::OwnCopy(
   Standard_Integer nbDim = another->NbDimensions();
   DeclareAndCast(IGESData_IGESEntity, anentity, TC.Transferred(another->DimensionEntity()));
   Standard_Integer                     upper    = another->NbGeometryEntities();
-  Handle(IGESData_HArray1OfIGESEntity) EntArray = new IGESData_HArray1OfIGESEntity(1, upper);
+  Handle(HArray1OfIGESEntity) EntArray = new HArray1OfIGESEntity(1, upper);
   for (Standard_Integer i = 1; i <= upper; i++)
   {
     DeclareAndCast(IGESData_IGESEntity, myentity, TC.Transferred(another->GeometryEntity(i)));
@@ -114,7 +114,7 @@ Standard_Boolean DimensionedGeometryTool::OwnCorrect(
     return Standard_False;
   //  forcer NbDimensions a 1 -> reconstruire
   Standard_Integer                     nb       = ent->NbGeometryEntities();
-  Handle(IGESData_HArray1OfIGESEntity) EntArray = new IGESData_HArray1OfIGESEntity(1, nb);
+  Handle(HArray1OfIGESEntity) EntArray = new HArray1OfIGESEntity(1, nb);
   for (Standard_Integer i = 1; i <= nb; i++)
     EntArray->SetValue(i, ent->GeometryEntity(i));
   ent->Init(1, ent->DimensionEntity(), EntArray);

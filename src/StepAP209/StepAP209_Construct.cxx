@@ -685,7 +685,7 @@ Standard_Boolean StepAP209_Construct::CreateAnalysStructure(
     ProdCtx->Init(OldProdCtx->Name(), OldProdCtx->FrameOfReference(), OldProdCtx->DisciplineType());
     smodel->ReplaceEntity(smodel->Number(OldProdCtx), ProdCtx);
     smodel->SetIdentLabel(ProdCtx, smodel->Number(ProdCtx));
-    Handle(StepBasic_HArray1OfProductContext) HAPC = Prod->FrameOfReference();
+    Handle(HArray1OfProductContext) HAPC = Prod->FrameOfReference();
     HAPC->SetValue(1, ProdCtx);
     Prod->SetFrameOfReference(HAPC);
   }
@@ -863,7 +863,7 @@ Standard_Boolean StepAP209_Construct::CreateFeaStructure(
   Handle(StepShape_ShapeRepresentation)           NS = NominShape(Prod);
   Handle(StepRepr_RepresentationContext)          RC = NS->ContextOfItems();
   Handle(StepGeom_GeometricRepresentationContext) GeoCtx;
-  Handle(StepBasic_HArray1OfNamedUnit)            OldHANU;
+  Handle(HArray1OfNamedUnit)            OldHANU;
   if (RC->IsKind(STANDARD_TYPE(StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx)))
   {
     Handle(StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx) GeoUnitCtxNS =
@@ -879,8 +879,8 @@ Standard_Boolean StepAP209_Construct::CreateFeaStructure(
     GeoCtx  = GeoUnitCtxNS->GeometricRepresentationContext();
     OldHANU = GeoUnitCtxNS->GlobalUnitAssignedContext()->Units2();
   }
-  Handle(StepBasic_HArray1OfNamedUnit) NewHANU =
-    new StepBasic_HArray1OfNamedUnit(1, OldHANU->Length() + 3);
+  Handle(HArray1OfNamedUnit) NewHANU =
+    new HArray1OfNamedUnit(1, OldHANU->Length() + 3);
   for (Standard_Integer i = 1; i <= OldHANU->Length(); i++)
     NewHANU->SetValue(i, OldHANU->Value(i));
   // create SiUnitAndTimeUnit
@@ -976,9 +976,9 @@ Standard_Boolean StepAP209_Construct::ReplaceCcDesingToApplied() const
       Handle(StepAP203_CcDesignApproval) ent =
         Handle(StepAP203_CcDesignApproval)::DownCast(anEntity);
       Handle(StepAP214_AppliedApprovalAssignment) nent    = new StepAP214_AppliedApprovalAssignment;
-      Handle(StepAP203_HArray1OfApprovedItem)     HAAI203 = ent->Items();
-      Handle(StepAP214_HArray1OfApprovalItem)     HAAI214 =
-        new StepAP214_HArray1OfApprovalItem(1, HAAI203->Length());
+      Handle(HArray1OfApprovedItem)     HAAI203 = ent->Items();
+      Handle(HArray1OfApprovalItem)     HAAI214 =
+        new HArray1OfApprovalItem(1, HAAI203->Length());
       for (Standard_Integer j = 1; j <= HAAI203->Length(); j++)
       {
         StepAP214_ApprovalItem AI214;
@@ -995,9 +995,9 @@ Standard_Boolean StepAP209_Construct::ReplaceCcDesingToApplied() const
         Handle(StepAP203_CcDesignPersonAndOrganizationAssignment)::DownCast(anEntity);
       Handle(StepAP214_AppliedPersonAndOrganizationAssignment) nent =
         new StepAP214_AppliedPersonAndOrganizationAssignment;
-      Handle(StepAP203_HArray1OfPersonOrganizationItem)    HAPOI203 = ent->Items();
-      Handle(StepAP214_HArray1OfPersonAndOrganizationItem) HAPOI214 =
-        new StepAP214_HArray1OfPersonAndOrganizationItem(1, HAPOI203->Length());
+      Handle(HArray1OfPersonOrgItem1)    HAPOI203 = ent->Items();
+      Handle(HArray1OfPersonOrgItem2) HAPOI214 =
+        new HArray1OfPersonOrgItem2(1, HAPOI203->Length());
       for (Standard_Integer j = 1; j <= HAPOI203->Length(); j++)
       {
         StepAP214_PersonAndOrganizationItem POI214;
@@ -1014,9 +1014,9 @@ Standard_Boolean StepAP209_Construct::ReplaceCcDesingToApplied() const
         Handle(StepAP203_CcDesignDateAndTimeAssignment)::DownCast(anEntity);
       Handle(StepAP214_AppliedDateAndTimeAssignment) nent =
         new StepAP214_AppliedDateAndTimeAssignment;
-      Handle(StepAP203_HArray1OfDateTimeItem)    HADTI203 = ent->Items();
-      Handle(StepAP214_HArray1OfDateAndTimeItem) HADTI214 =
-        new StepAP214_HArray1OfDateAndTimeItem(1, HADTI203->Length());
+      Handle(HArray1OfDateTimeItem)    HADTI203 = ent->Items();
+      Handle(HArray1OfDateAndTimeItem) HADTI214 =
+        new HArray1OfDateAndTimeItem(1, HADTI203->Length());
       for (Standard_Integer j = 1; j <= HADTI203->Length(); j++)
       {
         StepAP214_DateAndTimeItem DTI214;
@@ -1033,9 +1033,9 @@ Standard_Boolean StepAP209_Construct::ReplaceCcDesingToApplied() const
         Handle(StepAP203_CcDesignSecurityClassification)::DownCast(anEntity);
       Handle(StepAP214_AppliedSecurityClassificationAssignment) nent =
         new StepAP214_AppliedSecurityClassificationAssignment;
-      Handle(StepAP203_HArray1OfClassifiedItem)             HACI203 = ent->Items();
-      Handle(StepAP214_HArray1OfSecurityClassificationItem) HASCI214 =
-        new StepAP214_HArray1OfSecurityClassificationItem(1, HACI203->Length());
+      Handle(HArray1OfClassifiedItem)             HACI203 = ent->Items();
+      Handle(HArray1OfSecurityClassItem) HASCI214 =
+        new HArray1OfSecurityClassItem(1, HACI203->Length());
       for (Standard_Integer j = 1; j <= HACI203->Length(); j++)
       {
         StepAP214_SecurityClassificationItem SCI214;
@@ -1083,7 +1083,7 @@ Standard_Boolean StepAP209_Construct::CreateAddingEntities(
   smodel->SetIdentLabel(SC, smodel->Number(SC));
 
   Handle(StepAP214_AppliedApprovalAssignment) AAA  = new StepAP214_AppliedApprovalAssignment;
-  Handle(StepAP214_HArray1OfApprovalItem)     HAAI = new StepAP214_HArray1OfApprovalItem(1, 3);
+  Handle(HArray1OfApprovalItem)     HAAI = new HArray1OfApprovalItem(1, 3);
   StepAP214_ApprovalItem                      AI1;
   AI1.SetValue(AnaPD);
   HAAI->SetValue(1, AI1);
@@ -1099,8 +1099,8 @@ Standard_Boolean StepAP209_Construct::CreateAddingEntities(
 
   Handle(StepAP214_AppliedSecurityClassificationAssignment) ASCA =
     new StepAP214_AppliedSecurityClassificationAssignment;
-  Handle(StepAP214_HArray1OfSecurityClassificationItem) HASCI =
-    new StepAP214_HArray1OfSecurityClassificationItem(1, 1);
+  Handle(HArray1OfSecurityClassItem) HASCI =
+    new HArray1OfSecurityClassItem(1, 1);
   StepAP214_SecurityClassificationItem SCI;
   SCI.SetValue(AnaPDF);
   HASCI->SetValue(1, SCI);
@@ -1115,8 +1115,8 @@ Standard_Boolean StepAP209_Construct::CreateAddingEntities(
   CDate->Init(date.Year(), date.Day(), date.Month());
   smodel->AddEntity(CDate);
   smodel->SetIdentLabel(CDate, smodel->Number(CDate));
-  Handle(StepBasic_CoordinatedUniversalTimeOffset) CUTO =
-    new StepBasic_CoordinatedUniversalTimeOffset;
+  Handle(TimeOffset) CUTO =
+    new TimeOffset;
   CUTO->Init(0, Standard_True, 0, StepBasic_aobAhead);
   smodel->AddEntity(CUTO);
   smodel->SetIdentLabel(CUTO, smodel->Number(CUTO));
@@ -1139,7 +1139,7 @@ Standard_Boolean StepAP209_Construct::CreateAddingEntities(
   smodel->AddEntity(DTR);
   smodel->SetIdentLabel(DTR, smodel->Number(DTR));
   Handle(StepAP214_AppliedDateAndTimeAssignment) ADTA = new StepAP214_AppliedDateAndTimeAssignment;
-  Handle(StepAP214_HArray1OfDateAndTimeItem) HADTI = new StepAP214_HArray1OfDateAndTimeItem(1, 1);
+  Handle(HArray1OfDateAndTimeItem) HADTI = new HArray1OfDateAndTimeItem(1, 1);
   StepAP214_DateAndTimeItem                  DTI1;
   DTI1.SetValue(SC);
   HADTI->SetValue(1, DTI1);
@@ -1152,7 +1152,7 @@ Standard_Boolean StepAP209_Construct::CreateAddingEntities(
   smodel->AddEntity(DTR);
   smodel->SetIdentLabel(DTR, smodel->Number(DTR));
   ADTA  = new StepAP214_AppliedDateAndTimeAssignment;
-  HADTI = new StepAP214_HArray1OfDateAndTimeItem(1, 1);
+  HADTI = new HArray1OfDateAndTimeItem(1, 1);
   StepAP214_DateAndTimeItem DTI2;
   DTI2.SetValue(AnaPD);
   HADTI->SetValue(1, DTI2);
@@ -1201,8 +1201,8 @@ Standard_Boolean StepAP209_Construct::CreateAddingEntities(
   smodel->SetIdentLabel(POR, smodel->Number(POR));
   Handle(StepAP214_AppliedPersonAndOrganizationAssignment) APOA =
     new StepAP214_AppliedPersonAndOrganizationAssignment;
-  Handle(StepAP214_HArray1OfPersonAndOrganizationItem) HAPOI =
-    new StepAP214_HArray1OfPersonAndOrganizationItem(1, 1);
+  Handle(HArray1OfPersonOrgItem2) HAPOI =
+    new HArray1OfPersonOrgItem2(1, 1);
   StepAP214_PersonAndOrganizationItem POI1;
   POI1.SetValue(AnaProd);
   HAPOI->SetValue(1, POI1);
@@ -1215,7 +1215,7 @@ Standard_Boolean StepAP209_Construct::CreateAddingEntities(
   smodel->AddEntity(POR);
   smodel->SetIdentLabel(POR, smodel->Number(POR));
   APOA  = new StepAP214_AppliedPersonAndOrganizationAssignment;
-  HAPOI = new StepAP214_HArray1OfPersonAndOrganizationItem(1, 1);
+  HAPOI = new HArray1OfPersonOrgItem2(1, 1);
   StepAP214_PersonAndOrganizationItem POI2;
   POI2.SetValue(AnaPD);
   HAPOI->SetValue(1, POI2);
@@ -1228,7 +1228,7 @@ Standard_Boolean StepAP209_Construct::CreateAddingEntities(
   smodel->AddEntity(POR);
   smodel->SetIdentLabel(POR, smodel->Number(POR));
   APOA  = new StepAP214_AppliedPersonAndOrganizationAssignment;
-  HAPOI = new StepAP214_HArray1OfPersonAndOrganizationItem(1, 1);
+  HAPOI = new HArray1OfPersonOrgItem2(1, 1);
   StepAP214_PersonAndOrganizationItem POI3;
   POI3.SetValue(AnaPD);
   HAPOI->SetValue(1, POI3);
@@ -1241,7 +1241,7 @@ Standard_Boolean StepAP209_Construct::CreateAddingEntities(
   smodel->AddEntity(POR);
   smodel->SetIdentLabel(POR, smodel->Number(POR));
   APOA  = new StepAP214_AppliedPersonAndOrganizationAssignment;
-  HAPOI = new StepAP214_HArray1OfPersonAndOrganizationItem(1, 1);
+  HAPOI = new HArray1OfPersonOrgItem2(1, 1);
   StepAP214_PersonAndOrganizationItem POI4;
   POI4.SetValue(SC);
   HAPOI->SetValue(1, POI4);
@@ -1254,7 +1254,7 @@ Standard_Boolean StepAP209_Construct::CreateAddingEntities(
   smodel->AddEntity(POR);
   smodel->SetIdentLabel(POR, smodel->Number(POR));
   APOA  = new StepAP214_AppliedPersonAndOrganizationAssignment;
-  HAPOI = new StepAP214_HArray1OfPersonAndOrganizationItem(1, 1);
+  HAPOI = new HArray1OfPersonOrgItem2(1, 1);
   StepAP214_PersonAndOrganizationItem POI5;
   POI5.SetValue(AnaPDF);
   HAPOI->SetValue(1, POI5);
@@ -1318,7 +1318,7 @@ Handle(StepData_StepModel) StepAP209_Construct::CreateAP203Structure() const
   nmodel->AddWithRefs(Prod);
 
   // adding categories:
-  Handle(StepBasic_HArray1OfProduct) HAProd = new StepBasic_HArray1OfProduct(1, 1);
+  Handle(HArray1OfProduct) HAProd = new HArray1OfProduct(1, 1);
   HAProd->SetValue(1, Prod);
   Handle(StepBasic_ProductRelatedProductCategory) PRPC =
     new StepBasic_ProductRelatedProductCategory;
@@ -1352,7 +1352,7 @@ Handle(StepData_StepModel) StepAP209_Construct::CreateAP203Structure() const
     Handle(StepBasic_MechanicalContext) MechCtx = new StepBasic_MechanicalContext;
     MechCtx->Init(ProdCtx->Name(), ProdCtx->FrameOfReference(), ProdCtx->DisciplineType());
     nmodel->ReplaceEntity(nmodel->Number(ProdCtx), MechCtx);
-    Handle(StepBasic_HArray1OfProductContext) HAPC = new StepBasic_HArray1OfProductContext(1, 1);
+    Handle(HArray1OfProductContext) HAPC = new HArray1OfProductContext(1, 1);
     HAPC->SetValue(1, MechCtx);
     Prod->SetFrameOfReference(HAPC);
     ApplCtx = MechCtx->FrameOfReference();
@@ -1385,10 +1385,10 @@ Handle(StepData_StepModel) StepAP209_Construct::CreateAP203Structure() const
   nmodel->AddWithRefs(SDR);
 
   // adding DimensionalExponents
-  Handle(StepBasic_DimensionalExponents) DimExp = new StepBasic_DimensionalExponents;
+  Handle(DimensionalExponents) DimExp = new DimensionalExponents;
   DimExp->Init(1., 0., 0., 0., 0., 0., 0.);
   nmodel->AddWithRefs(DimExp);
-  DimExp = new StepBasic_DimensionalExponents;
+  DimExp = new DimensionalExponents;
   DimExp->Init(0., 0., 0., 0., 0., 0., 0.);
   nmodel->AddWithRefs(DimExp);
 
@@ -1456,7 +1456,7 @@ Standard_Boolean StepAP209_Construct::CreateAdding203Entities(
   aModel->AddWithRefs(SC);
   Handle(StepAP203_CcDesignSecurityClassification) DSC =
     new StepAP203_CcDesignSecurityClassification;
-  Handle(StepAP203_HArray1OfClassifiedItem) HACI = new StepAP203_HArray1OfClassifiedItem(1, 1);
+  Handle(HArray1OfClassifiedItem) HACI = new HArray1OfClassifiedItem(1, 1);
   StepAP203_ClassifiedItem                  CI;
   CI.SetValue(PDF);
   HACI->SetValue(1, CI);
@@ -1472,9 +1472,9 @@ Standard_Boolean StepAP209_Construct::CreateAdding203Entities(
       Handle(StepAP214_AppliedApprovalAssignment)::DownCast(subs.Value());
     if (!AAA.IsNull())
     {
-      Handle(StepAP214_HArray1OfApprovalItem) HAAI214 = AAA->Items();
-      Handle(StepAP203_HArray1OfApprovedItem) HAAI =
-        new StepAP203_HArray1OfApprovedItem(1, HAAI214->Length());
+      Handle(HArray1OfApprovalItem) HAAI214 = AAA->Items();
+      Handle(HArray1OfApprovedItem) HAAI =
+        new HArray1OfApprovedItem(1, HAAI214->Length());
       for (Standard_Integer i = 1; i <= HAAI214->Length(); i++)
       {
         StepAP203_ApprovedItem AI;
@@ -1508,9 +1508,9 @@ Standard_Boolean StepAP209_Construct::CreateAdding203Entities(
       Handle(StepAP214_AppliedApprovalAssignment)::DownCast(subs.Value());
     if (!AAA.IsNull())
     {
-      Handle(StepAP214_HArray1OfApprovalItem) HAAI214 = AAA->Items();
-      Handle(StepAP203_HArray1OfApprovedItem) HAAI =
-        new StepAP203_HArray1OfApprovedItem(1, HAAI214->Length());
+      Handle(HArray1OfApprovalItem) HAAI214 = AAA->Items();
+      Handle(HArray1OfApprovedItem) HAAI =
+        new HArray1OfApprovedItem(1, HAAI214->Length());
       for (Standard_Integer i = 1; i <= HAAI214->Length(); i++)
       {
         StepAP203_ApprovedItem AI;
@@ -1544,9 +1544,9 @@ Standard_Boolean StepAP209_Construct::CreateAdding203Entities(
       Handle(StepAP214_AppliedApprovalAssignment)::DownCast(subs.Value());
     if (!AAA.IsNull())
     {
-      Handle(StepAP214_HArray1OfApprovalItem) HAAI214 = AAA->Items();
-      Handle(StepAP203_HArray1OfApprovedItem) HAAI =
-        new StepAP203_HArray1OfApprovedItem(1, HAAI214->Length());
+      Handle(HArray1OfApprovalItem) HAAI214 = AAA->Items();
+      Handle(HArray1OfApprovedItem) HAAI =
+        new HArray1OfApprovedItem(1, HAAI214->Length());
       for (Standard_Integer i = 1; i <= HAAI214->Length(); i++)
       {
         StepAP203_ApprovedItem AI;
@@ -1584,9 +1584,9 @@ Standard_Boolean StepAP209_Construct::CreateAdding203Entities(
         Handle(StepAP214_AppliedDateAndTimeAssignment)::DownCast(subs.Value());
       if (ADTA.IsNull())
         continue;
-      Handle(StepAP214_HArray1OfDateAndTimeItem) HADTI214 = ADTA->Items();
-      Handle(StepAP203_HArray1OfDateTimeItem)    HADTI =
-        new StepAP203_HArray1OfDateTimeItem(1, HADTI214->Length());
+      Handle(HArray1OfDateAndTimeItem) HADTI214 = ADTA->Items();
+      Handle(HArray1OfDateTimeItem)    HADTI =
+        new HArray1OfDateTimeItem(1, HADTI214->Length());
       for (Standard_Integer i = 1; i <= HADTI214->Length(); i++)
       {
         StepAP203_DateTimeItem DTI;
@@ -1608,9 +1608,9 @@ Standard_Boolean StepAP209_Construct::CreateAdding203Entities(
       Handle(StepAP214_AppliedPersonAndOrganizationAssignment)::DownCast(subs.Value());
     if (APOA.IsNull())
       continue;
-    Handle(StepAP214_HArray1OfPersonAndOrganizationItem) HAPOI214 = APOA->Items();
-    Handle(StepAP203_HArray1OfPersonOrganizationItem)    HAPOI =
-      new StepAP203_HArray1OfPersonOrganizationItem(1, HAPOI214->Length());
+    Handle(HArray1OfPersonOrgItem2) HAPOI214 = APOA->Items();
+    Handle(HArray1OfPersonOrgItem1)    HAPOI =
+      new HArray1OfPersonOrgItem1(1, HAPOI214->Length());
     for (Standard_Integer i = 1; i <= HAPOI214->Length(); i++)
     {
       StepAP203_PersonOrganizationItem POI;
@@ -1629,9 +1629,9 @@ Standard_Boolean StepAP209_Construct::CreateAdding203Entities(
       Handle(StepAP214_AppliedPersonAndOrganizationAssignment)::DownCast(subs.Value());
     if (APOA.IsNull())
       continue;
-    Handle(StepAP214_HArray1OfPersonAndOrganizationItem) HAPOI214 = APOA->Items();
-    Handle(StepAP203_HArray1OfPersonOrganizationItem)    HAPOI =
-      new StepAP203_HArray1OfPersonOrganizationItem(1, HAPOI214->Length());
+    Handle(HArray1OfPersonOrgItem2) HAPOI214 = APOA->Items();
+    Handle(HArray1OfPersonOrgItem1)    HAPOI =
+      new HArray1OfPersonOrgItem1(1, HAPOI214->Length());
     for (Standard_Integer i = 1; i <= HAPOI214->Length(); i++)
     {
       StepAP203_PersonOrganizationItem POI;
@@ -1650,9 +1650,9 @@ Standard_Boolean StepAP209_Construct::CreateAdding203Entities(
       Handle(StepAP214_AppliedPersonAndOrganizationAssignment)::DownCast(subs.Value());
     if (APOA.IsNull())
       continue;
-    Handle(StepAP214_HArray1OfPersonAndOrganizationItem) HAPOI214 = APOA->Items();
-    Handle(StepAP203_HArray1OfPersonOrganizationItem)    HAPOI =
-      new StepAP203_HArray1OfPersonOrganizationItem(1, HAPOI214->Length());
+    Handle(HArray1OfPersonOrgItem2) HAPOI214 = APOA->Items();
+    Handle(HArray1OfPersonOrgItem1)    HAPOI =
+      new HArray1OfPersonOrgItem1(1, HAPOI214->Length());
     for (Standard_Integer i = 1; i <= HAPOI214->Length(); i++)
     {
       StepAP203_PersonOrganizationItem POI;
@@ -1671,9 +1671,9 @@ Standard_Boolean StepAP209_Construct::CreateAdding203Entities(
       Handle(StepAP214_AppliedPersonAndOrganizationAssignment)::DownCast(subs.Value());
     if (APOA.IsNull())
       continue;
-    Handle(StepAP214_HArray1OfPersonAndOrganizationItem) HAPOI214 = APOA->Items();
-    Handle(StepAP203_HArray1OfPersonOrganizationItem)    HAPOI =
-      new StepAP203_HArray1OfPersonOrganizationItem(1, HAPOI214->Length());
+    Handle(HArray1OfPersonOrgItem2) HAPOI214 = APOA->Items();
+    Handle(HArray1OfPersonOrgItem1)    HAPOI =
+      new HArray1OfPersonOrgItem1(1, HAPOI214->Length());
     for (Standard_Integer i = 1; i <= HAPOI214->Length(); i++)
     {
       StepAP203_PersonOrganizationItem POI;

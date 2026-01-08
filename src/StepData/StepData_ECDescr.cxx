@@ -18,7 +18,7 @@
 #include <StepData_Simple.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepData_ECDescr, StepData_EDescr)
+IMPLEMENT_STANDARD_RTTIEXT(StepData_ECDescr, EntityDescriptor)
 
 StepData_ECDescr::StepData_ECDescr() {}
 

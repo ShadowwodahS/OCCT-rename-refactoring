@@ -169,12 +169,12 @@ void BRepToIGESBRep_Entity::TransferEdgeList()
   Standard_Integer nbedges = myEdges.Extent();
   if (!nbedges)
     return;
-  Handle(IGESData_HArray1OfIGESEntity)  Curves = new IGESData_HArray1OfIGESEntity(1, nbedges);
-  Handle(IGESSolid_HArray1OfVertexList) startVertexList =
-    new IGESSolid_HArray1OfVertexList(1, nbedges);
+  Handle(HArray1OfIGESEntity)  Curves = new HArray1OfIGESEntity(1, nbedges);
+  Handle(HArray1OfVertexList) startVertexList =
+    new HArray1OfVertexList(1, nbedges);
   Handle(TColStd_HArray1OfInteger)      startVertexIndex = new TColStd_HArray1OfInteger(1, nbedges);
-  Handle(IGESSolid_HArray1OfVertexList) endVertexList =
-    new IGESSolid_HArray1OfVertexList(1, nbedges);
+  Handle(HArray1OfVertexList) endVertexList =
+    new HArray1OfVertexList(1, nbedges);
   Handle(TColStd_HArray1OfInteger) endVertexIndex = new TColStd_HArray1OfInteger(1, nbedges);
 
   for (Standard_Integer iedge = 1; iedge <= nbedges; iedge++)
@@ -432,7 +432,7 @@ Handle(IGESSolid_Loop) BRepToIGESBRep_Entity::TransferWire(const TopoWire&  mywi
   Standard_Integer                            nbedges = Seq2d->Length();
   Handle(TColStd_HArray1OfInteger)            types   = new TColStd_HArray1OfInteger(1, nbedges);
   Standard_Integer                            mytype;
-  Handle(IGESData_HArray1OfIGESEntity)        edges = new IGESData_HArray1OfIGESEntity(1, nbedges);
+  Handle(HArray1OfIGESEntity)        edges = new HArray1OfIGESEntity(1, nbedges);
   Handle(IGESData_IGESEntity)                 myedge;
   Handle(TColStd_HArray1OfInteger)            index = new TColStd_HArray1OfInteger(1, nbedges);
   Standard_Integer                            myindex;
@@ -441,12 +441,12 @@ Handle(IGESSolid_Loop) BRepToIGESBRep_Entity::TransferWire(const TopoWire&  mywi
   Handle(TColStd_HArray1OfInteger)            nbcurves = new TColStd_HArray1OfInteger(1, nbedges);
   Standard_Integer                            mynbcurve;
   Handle(TColStd_HArray1OfInteger)            flag;
-  Handle(IGESBasic_HArray1OfHArray1OfInteger) isoflags =
-    new IGESBasic_HArray1OfHArray1OfInteger(1, nbedges);
+  Handle(HArray1OfHArray1OfInt) isoflags =
+    new HArray1OfHArray1OfInt(1, nbedges);
   Standard_Integer                               myisoflag;
-  Handle(IGESData_HArray1OfIGESEntity)           curve;
-  Handle(IGESBasic_HArray1OfHArray1OfIGESEntity) curves =
-    new IGESBasic_HArray1OfHArray1OfIGESEntity(1, nbedges);
+  Handle(HArray1OfIGESEntity)           curve;
+  Handle(HArray1OfHArray1OfEntity) curves =
+    new HArray1OfHArray1OfEntity(1, nbedges);
   Handle(IGESData_IGESEntity) mycurve;
 
   for (Standard_Integer itab = 1; itab <= nbedges; itab++)
@@ -471,7 +471,7 @@ Handle(IGESSolid_Loop) BRepToIGESBRep_Entity::TransferWire(const TopoWire&  mywi
     flag->SetValue(1, myisoflag);
     isoflags->SetValue(itab, flag);
     mycurve = GetCasted(IGESData_IGESEntity, Seq2d->Value(itab));
-    curve   = new IGESData_HArray1OfIGESEntity(1, 1);
+    curve   = new HArray1OfIGESEntity(1, 1);
     curve->SetValue(1, mycurve);
     curves->SetValue(itab, curve);
   }
@@ -579,8 +579,8 @@ Handle(IGESSolid_Face) BRepToIGESBRep_Entity ::TransferFace(const TopoFace& star
   }
 
   Standard_Integer                nbent = Seq->Length();
-  Handle(IGESSolid_HArray1OfLoop) TabLoop;
-  TabLoop = new IGESSolid_HArray1OfLoop(1, nbent + 1);
+  Handle(HArray1OfLoop) TabLoop;
+  TabLoop = new HArray1OfLoop(1, nbent + 1);
   TabLoop->SetValue(1, OuterLoop);
   if (nbent >= 1)
   {
@@ -649,7 +649,7 @@ Handle(IGESSolid_Shell) BRepToIGESBRep_Entity ::TransferShell(
   }
 
   Standard_Integer                 nbfaces = Seq->Length();
-  Handle(IGESSolid_HArray1OfFace)  TabFace = new IGESSolid_HArray1OfFace(1, nbfaces);
+  Handle(HArray1OfFace)  TabFace = new HArray1OfFace(1, nbfaces);
   Handle(TColStd_HArray1OfInteger) TabFlag = new TColStd_HArray1OfInteger(1, nbfaces);
   for (Standard_Integer itab = 1; itab <= nbfaces; itab++)
   {
@@ -712,11 +712,11 @@ Handle(IGESSolid_ManifoldSolid) BRepToIGESBRep_Entity ::TransferSolid(
   }
 
   Standard_Integer                 nbshells = Seq->Length();
-  Handle(IGESSolid_HArray1OfShell) Tab;
+  Handle(HArray1OfShell) Tab;
   Handle(TColStd_HArray1OfInteger) TabFlag;
   if (nbshells > 1)
   {
-    Tab     = new IGESSolid_HArray1OfShell(1, nbshells - 1);
+    Tab     = new HArray1OfShell(1, nbshells - 1);
     TabFlag = new TColStd_HArray1OfInteger(1, nbshells - 1);
     for (Standard_Integer itab = 1; itab <= nbshells; itab++)
     {
@@ -793,10 +793,10 @@ Handle(IGESData_IGESEntity) BRepToIGESBRep_Entity::TransferCompSolid(
   }
 
   Standard_Integer                     nbsolids = Seq->Length();
-  Handle(IGESData_HArray1OfIGESEntity) Tab;
+  Handle(HArray1OfIGESEntity) Tab;
   if (nbsolids > 1)
   {
-    Tab = new IGESData_HArray1OfIGESEntity(1, nbsolids);
+    Tab = new HArray1OfIGESEntity(1, nbsolids);
     for (Standard_Integer itab = 1; itab <= nbsolids; itab++)
     {
       Handle(IGESData_IGESEntity) item = GetCasted(IGESData_IGESEntity, Seq->Value(itab));
@@ -944,7 +944,7 @@ Handle(IGESData_IGESEntity) BRepToIGESBRep_Entity::TransferCompound(
   nbshapes = Seq->Length();
   if (nbshapes > 0)
   {
-    Handle(IGESData_HArray1OfIGESEntity) Tab = new IGESData_HArray1OfIGESEntity(1, nbshapes);
+    Handle(HArray1OfIGESEntity) Tab = new HArray1OfIGESEntity(1, nbshapes);
     for (Standard_Integer itab = 1; itab <= nbshapes; itab++)
     {
       Handle(IGESData_IGESEntity) item = GetCasted(IGESData_IGESEntity, Seq->Value(itab));

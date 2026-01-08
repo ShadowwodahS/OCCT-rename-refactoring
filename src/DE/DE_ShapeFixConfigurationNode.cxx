@@ -17,7 +17,7 @@
 #include <DE_PluginHolder.hxx>
 #include <DE_Wrapper.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DE_ShapeFixConfigurationNode, DE_ConfigurationNode)
+IMPLEMENT_STANDARD_RTTIEXT(DE_ShapeFixConfigurationNode, ConfigurationNode)
 
 namespace
 {
@@ -31,7 +31,7 @@ static const AsciiString1& THE_CONFIGURATION_SCOPE()
 //=================================================================================================
 
 DE_ShapeFixConfigurationNode::DE_ShapeFixConfigurationNode()
-    : DE_ConfigurationNode()
+    : ConfigurationNode()
 {
 }
 
@@ -39,14 +39,14 @@ DE_ShapeFixConfigurationNode::DE_ShapeFixConfigurationNode()
 
 DE_ShapeFixConfigurationNode::DE_ShapeFixConfigurationNode(
   const Handle(DE_ShapeFixConfigurationNode)& theNode)
-    : DE_ConfigurationNode(theNode),
+    : ConfigurationNode(theNode),
       ShapeFixParameters(theNode->ShapeFixParameters)
 {
 }
 
 //=================================================================================================
 
-bool DE_ShapeFixConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theResource)
+bool DE_ShapeFixConfigurationNode::Load(const Handle(ConfigurationContext)& theResource)
 {
   AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor() + ".healing";

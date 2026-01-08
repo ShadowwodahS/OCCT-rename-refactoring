@@ -44,7 +44,7 @@ public:
     const UtfString& theFileName,
     const Handle(CDM_Document)&       theNewDocument,
     const Handle(CDM_Application)&    theApplication,
-    const Handle(PCDM_ReaderFilter)&  theFilter = Handle(PCDM_ReaderFilter)(),
+    const Handle(ReaderFilter)&  theFilter = Handle(ReaderFilter)(),
     const Message_ProgressRange&      theRange  = Message_ProgressRange()) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Read(
@@ -52,7 +52,7 @@ public:
     const Handle(Storage_Data)&      theStorageData,
     const Handle(CDM_Document)&      theDoc,
     const Handle(CDM_Application)&   theApplication,
-    const Handle(PCDM_ReaderFilter)& theFilter = Handle(PCDM_ReaderFilter)(),
+    const Handle(ReaderFilter)& theFilter = Handle(ReaderFilter)(),
     const Message_ProgressRange&     theRange  = Message_ProgressRange()) Standard_OVERRIDE;
 
   Standard_EXPORT virtual Handle(XmlMDF_ADriverTable) AttributeDrivers(

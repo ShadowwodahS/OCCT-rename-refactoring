@@ -22,14 +22,14 @@
 #include <memory>
 
 //! Auxiliary low-level tool writing PLY file.
-class RWPly_PlyWriterContext
+class PLYWriterContext
 {
 public:
   //! Empty constructor.
-  Standard_EXPORT RWPly_PlyWriterContext();
+  Standard_EXPORT PLYWriterContext();
 
   //! Destructor, will emit error message if file was not closed.
-  Standard_EXPORT ~RWPly_PlyWriterContext();
+  Standard_EXPORT ~PLYWriterContext();
 
 public: //! @name vertex attributes parameters
   //! Return TRUE if vertex position should be stored with double floating point precision; FALSE by

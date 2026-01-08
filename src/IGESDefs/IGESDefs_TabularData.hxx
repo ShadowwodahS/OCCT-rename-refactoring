@@ -24,7 +24,7 @@
 #include <TColStd_HArray1OfInteger.hxx>
 #include <IGESData_IGESEntity.hxx>
 #include <TColStd_HArray1OfReal.hxx>
-class IGESBasic_HArray1OfHArray1OfReal;
+class HArray1OfHArray1OfReal;
 
 class IGESDefs_TabularData;
 DEFINE_STANDARD_HANDLE(IGESDefs_TabularData, IGESData_IGESEntity)
@@ -52,8 +52,8 @@ public:
                             const Standard_Integer                          propType,
                             const Handle(TColStd_HArray1OfInteger)&         typesInd,
                             const Handle(TColStd_HArray1OfInteger)&         nbValuesInd,
-                            const Handle(IGESBasic_HArray1OfHArray1OfReal)& valuesInd,
-                            const Handle(IGESBasic_HArray1OfHArray1OfReal)& valuesDep);
+                            const Handle(HArray1OfHArray1OfReal)& valuesInd,
+                            const Handle(HArray1OfHArray1OfReal)& valuesDep);
 
   //! returns the number of property values (recorded)
   Standard_EXPORT Standard_Integer NbPropertyValues() const;
@@ -98,8 +98,8 @@ private:
   Standard_Integer                         thePropertyType;
   Handle(TColStd_HArray1OfInteger)         theTypeOfIndependentVariables;
   Handle(TColStd_HArray1OfInteger)         theNbValues;
-  Handle(IGESBasic_HArray1OfHArray1OfReal) theIndependentValues;
-  Handle(IGESBasic_HArray1OfHArray1OfReal) theDependentValues;
+  Handle(HArray1OfHArray1OfReal) theIndependentValues;
+  Handle(HArray1OfHArray1OfReal) theDependentValues;
 };
 
 #endif // _IGESDefs_TabularData_HeaderFile

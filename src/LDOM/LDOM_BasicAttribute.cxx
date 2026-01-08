@@ -19,7 +19,7 @@
 
 //=================================================================================================
 
-LDOM_BasicAttribute::LDOM_BasicAttribute(const LDOM_Attr& anAttr)
+BasicAttribute::BasicAttribute(const LDOM_Attr& anAttr)
     : BasicNode(anAttr.Origin()),
       myName(anAttr.getName().GetString()),
       myValue(anAttr.getValue())
@@ -31,12 +31,12 @@ LDOM_BasicAttribute::LDOM_BasicAttribute(const LDOM_Attr& anAttr)
 // purpose  : construction in the Document's data pool
 //=======================================================================
 
-LDOM_BasicAttribute& LDOM_BasicAttribute::Create(const LDOMBasicString1&         theName,
-                                                 const Handle(LDOM_MemManager)& theDoc,
+BasicAttribute& BasicAttribute::Create(const LDOMBasicString1&         theName,
+                                                 const Handle(MemoryManager)& theDoc,
                                                  Standard_Integer&              theHash)
 {
-  void*                aMem    = theDoc->Allocate(sizeof(LDOM_BasicAttribute));
-  LDOM_BasicAttribute* aNewAtt = new (aMem) LDOM_BasicAttribute;
+  void*                aMem    = theDoc->Allocate(sizeof(BasicAttribute));
+  BasicAttribute* aNewAtt = new (aMem) BasicAttribute;
 
   const char* aString = theName.GetString();
   aNewAtt->myName     = theDoc->HashedAllocate(aString, (Standard_Integer)strlen(aString), theHash);
@@ -50,7 +50,7 @@ LDOM_BasicAttribute& LDOM_BasicAttribute::Create(const LDOMBasicString1&        
 // purpose  : Assignment to NULL
 //=======================================================================
 
-LDOM_BasicAttribute& LDOM_BasicAttribute::operator=(const LDOM_NullPtr* aNull)
+BasicAttribute& BasicAttribute::operator=(const LDOM_NullPtr* aNull)
 {
   myName  = NULL;
   myValue = aNull;

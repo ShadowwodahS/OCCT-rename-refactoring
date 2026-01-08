@@ -20,6 +20,6 @@
 #include <IGESSolid_Array1OfLoop.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(IGESSolid_HArray1OfLoop, IGESSolid_Array1OfLoop)
+DEFINE_HARRAY1(HArray1OfLoop, IGESSolid_Array1OfLoop)
 
 #endif

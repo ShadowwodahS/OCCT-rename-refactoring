@@ -16,7 +16,7 @@
 #include <LDOM_MemManager.hxx>
 #include <LDOMBasicString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(LDOM_MemManager, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(MemoryManager, RefObject)
 
 #define HASH_MASK 255
 #define MINIMAL_ROOM 3
@@ -43,8 +43,8 @@ inline Standard_Boolean compareStrings(char* const            str,
 
 //=================================================================================================
 
-inline LDOM_MemManager::MemBlock1::MemBlock1(const Standard_Integer     aSize,
-                                           LDOM_MemManager::MemBlock1* aFirst)
+inline MemoryManager::MemBlock1::MemBlock1(const Standard_Integer     aSize,
+                                           MemoryManager::MemBlock1* aFirst)
     : mySize(aSize),
       myNext(aFirst)
 {
@@ -54,7 +54,7 @@ inline LDOM_MemManager::MemBlock1::MemBlock1(const Standard_Integer     aSize,
 
 //=================================================================================================
 
-inline void* LDOM_MemManager::MemBlock1::Allocate(const Standard_Integer aSize)
+inline void* MemoryManager::MemBlock1::Allocate(const Standard_Integer aSize)
 {
   void* aResult = NULL;
   if (aSize <= myEndBlock - myFreeSpace)
@@ -67,9 +67,9 @@ inline void* LDOM_MemManager::MemBlock1::Allocate(const Standard_Integer aSize)
 
 //=================================================================================================
 
-void* LDOM_MemManager::MemBlock1::AllocateAndCheck(
+void* MemoryManager::MemBlock1::AllocateAndCheck(
   const Standard_Integer            aSize,
-  const LDOM_MemManager::MemBlock1*& aFirstWithoutRoom)
+  const MemoryManager::MemBlock1*& aFirstWithoutRoom)
 {
   void*            aResult = NULL;
   Standard_Integer aRoom   = (Standard_Integer)(myEndBlock - myFreeSpace);
@@ -90,7 +90,7 @@ void* LDOM_MemManager::MemBlock1::AllocateAndCheck(
 
 //=================================================================================================
 
-LDOM_MemManager::MemBlock1::~MemBlock1()
+MemoryManager::MemBlock1::~MemBlock1()
 {
   delete[] myBlock;
   MemBlock1* aNext = myNext;
@@ -105,8 +105,8 @@ LDOM_MemManager::MemBlock1::~MemBlock1()
 
 //=================================================================================================
 
-LDOM_MemManager::HashTable1::HashTable1(/* const Standard_Integer   aMask, */
-                                      LDOM_MemManager& aMemManager)
+MemoryManager::HashTable1::HashTable1(/* const Standard_Integer   aMask, */
+                                      MemoryManager& aMemManager)
     : myManager(aMemManager)
 {
   Standard_Integer m, nKeys = HASH_MASK + 1;
@@ -134,7 +134,7 @@ LDOM_MemManager::HashTable1::HashTable1(/* const Standard_Integer   aMask, */
 // purpose  : CRC-16 hash function
 //=======================================================================
 
-Standard_Integer LDOM_MemManager::HashTable1::Hash(const char* aString, const Standard_Integer aLen)
+Standard_Integer MemoryManager::HashTable1::Hash(const char* aString, const Standard_Integer aLen)
 {
   static const unsigned int wCRC16a[16] = {
     0000000,
@@ -189,7 +189,7 @@ Standard_Integer LDOM_MemManager::HashTable1::Hash(const char* aString, const St
 // purpose  : Add or find a string in the hash table
 //=======================================================================
 
-const char* LDOM_MemManager::HashTable1::AddString(const char*            theString,
+const char* MemoryManager::HashTable1::AddString(const char*            theString,
                                                   const Standard_Integer theLen,
                                                   Standard_Integer&      theHashIndex)
 {
@@ -244,7 +244,7 @@ const char* LDOM_MemManager::HashTable1::AddString(const char*            theStr
 
 //=================================================================================================
 
-LDOM_MemManager::LDOM_MemManager(const Standard_Integer aBlockSize)
+MemoryManager::MemoryManager(const Standard_Integer aBlockSize)
     : myRootElement(NULL),
       myFirstBlock(NULL),
       myFirstWithoutRoom(NULL),
@@ -255,7 +255,7 @@ LDOM_MemManager::LDOM_MemManager(const Standard_Integer aBlockSize)
 
 //=================================================================================================
 
-LDOM_MemManager::~LDOM_MemManager()
+MemoryManager::~MemoryManager()
 {
 #ifdef OCCT_DEBUG
   Standard_Integer aSomme = 0, aCount = 0;
@@ -286,7 +286,7 @@ LDOM_MemManager::~LDOM_MemManager()
 
 //=================================================================================================
 
-void* LDOM_MemManager::Allocate(const Standard_Integer theSize)
+void* MemoryManager::Allocate(const Standard_Integer theSize)
 {
   void*            aResult = NULL;
   Standard_Integer aSize   = convertBlockSize(theSize);
@@ -332,7 +332,7 @@ void* LDOM_MemManager::Allocate(const Standard_Integer theSize)
 //           if already present
 //=======================================================================
 
-const char* LDOM_MemManager::HashedAllocate(const char*            theString,
+const char* MemoryManager::HashedAllocate(const char*            theString,
                                             const Standard_Integer theLen,
                                             Standard_Integer&      theHash)
 {
@@ -347,7 +347,7 @@ const char* LDOM_MemManager::HashedAllocate(const char*            theString,
 //           if already present
 //=======================================================================
 
-void LDOM_MemManager::HashedAllocate(const char*            aString,
+void MemoryManager::HashedAllocate(const char*            aString,
                                      const Standard_Integer theLen,
                                      LDOMBasicString1&       theResult)
 {
@@ -360,7 +360,7 @@ void LDOM_MemManager::HashedAllocate(const char*            aString,
 
 //=================================================================================================
 
-Standard_Boolean LDOM_MemManager::CompareStrings(const char*            theString,
+Standard_Boolean MemoryManager::CompareStrings(const char*            theString,
                                                  const Standard_Integer theHashValue,
                                                  const char*            theHashedStr)
 {

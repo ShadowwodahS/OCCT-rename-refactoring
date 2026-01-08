@@ -25,10 +25,10 @@ class IGESData_IGESEntity;
 class IGESData_IGESDumper;
 
 class IGESData_DefaultSpecific;
-DEFINE_STANDARD_HANDLE(IGESData_DefaultSpecific, IGESData_SpecificModule)
+DEFINE_STANDARD_HANDLE(IGESData_DefaultSpecific, SpecificModule)
 
 //! Specific IGES Services for UndefinedEntity, FreeFormatEntity
-class IGESData_DefaultSpecific : public IGESData_SpecificModule
+class IGESData_DefaultSpecific : public SpecificModule
 {
 
 public:
@@ -44,7 +44,7 @@ public:
                                Standard_OStream&                  S,
                                const Standard_Integer             own) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(IGESData_DefaultSpecific, IGESData_SpecificModule)
+  DEFINE_STANDARD_RTTIEXT(IGESData_DefaultSpecific, SpecificModule)
 
 protected:
 private:

@@ -20,7 +20,7 @@
 #include <Standard_Type.hxx>
 
 #include <Standard_Transient.hxx>
-class IGESToBRep_ToolContainer;
+class ToolContainer3;
 
 class IGESToBRep_AlgoContainer;
 DEFINE_STANDARD_HANDLE(IGESToBRep_AlgoContainer, RefObject)
@@ -33,16 +33,16 @@ public:
   Standard_EXPORT IGESToBRep_AlgoContainer();
 
   //! Sets ToolContainer
-  void SetToolContainer(const Handle(IGESToBRep_ToolContainer)& TC);
+  void SetToolContainer(const Handle(ToolContainer3)& TC);
 
   //! Returns ToolContainer
-  Handle(IGESToBRep_ToolContainer) ToolContainer() const;
+  Handle(ToolContainer3) ToolContainer() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESToBRep_AlgoContainer, RefObject)
 
 protected:
 private:
-  Handle(IGESToBRep_ToolContainer) myTC;
+  Handle(ToolContainer3) myTC;
 };
 
 #include <IGESToBRep_AlgoContainer.lxx>

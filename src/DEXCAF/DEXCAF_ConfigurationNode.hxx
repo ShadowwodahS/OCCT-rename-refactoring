@@ -28,9 +28,9 @@
 //! The supported CAD extension is ".xbf"
 //! The import process is supported.
 //! The export process is supported.
-class DEXCAF_ConfigurationNode : public DE_ConfigurationNode
+class DEXCAF_ConfigurationNode : public ConfigurationNode
 {
-  DEFINE_STANDARD_RTTIEXT(DEXCAF_ConfigurationNode, DE_ConfigurationNode)
+  DEFINE_STANDARD_RTTIEXT(DEXCAF_ConfigurationNode, ConfigurationNode)
 public:
   //! Initializes all field by default
   Standard_EXPORT DEXCAF_ConfigurationNode();
@@ -42,7 +42,7 @@ public:
   //! Updates values according the resource
   //! @param[in] theResource input resource to use
   //! @return true if theResource loading has ended correctly
-  Standard_EXPORT virtual bool Load(const Handle(DE_ConfigurationContext)& theResource)
+  Standard_EXPORT virtual bool Load(const Handle(ConfigurationContext)& theResource)
     Standard_OVERRIDE;
 
   //! Writes configuration to the string
@@ -51,7 +51,7 @@ public:
 
   //! Copies values of all fields
   //! @return new object with the same field values
-  Standard_EXPORT virtual Handle(DE_ConfigurationNode) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(ConfigurationNode) Copy() const Standard_OVERRIDE;
 
   //! Creates new provider for the own format
   //! @return new created provider
@@ -89,7 +89,7 @@ public:
   {
     // Read
     // clang-format off
-    PCDM_ReaderFilter::AppendMode ReadAppendMode = PCDM_ReaderFilter::AppendMode::AppendMode_Forbid; //!< Setting up the append mode
+    ReaderFilter::AppendMode ReadAppendMode = ReaderFilter::AppendMode::AppendMode_Forbid; //!< Setting up the append mode
     TColStd_ListOfAsciiString ReadSkipValues; //!< Overwrites the existing attributes by the loaded ones
     TColStd_ListOfAsciiString ReadValues; //!< Adds sub-tree path or adds attribute to read by typename
     // clang-format on

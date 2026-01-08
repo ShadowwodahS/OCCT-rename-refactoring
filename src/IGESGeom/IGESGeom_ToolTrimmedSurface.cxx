@@ -53,7 +53,7 @@ void TrimmedSurfaceTool::ReadOwnParams(const Handle(IGESGeom_TrimmedSurface)& en
   Standard_Integer                         count;
   Handle(IGESData_IGESEntity)              aSurface;
   Handle(IGESGeom_CurveOnSurface)          anOuter;
-  Handle(IGESGeom_HArray1OfCurveOnSurface) anInner;
+  Handle(HArray1OfCurveOnSurface) anInner;
   IGESData_Status                          aStatus;
 
   // szv#4:S4163:12Mar99 `st=` not needed
@@ -98,7 +98,7 @@ void TrimmedSurfaceTool::ReadOwnParams(const Handle(IGESGeom_TrimmedSurface)& en
       PR.SendFail(Msg171);
     }
     else if (count > 0)
-      anInner = new IGESGeom_HArray1OfCurveOnSurface(1, count);
+      anInner = new HArray1OfCurveOnSurface(1, count);
   }
   else
   {
@@ -226,7 +226,7 @@ void TrimmedSurfaceTool::OwnCopy(const Handle(IGESGeom_TrimmedSurface)& another,
                                           const Handle(IGESGeom_TrimmedSurface)& ent,
                                           Interface_CopyTool&                    TC) const
 {
-  Handle(IGESGeom_HArray1OfCurveOnSurface) anInner;
+  Handle(HArray1OfCurveOnSurface) anInner;
 
   DeclareAndCast(IGESData_IGESEntity, aSurface, TC.Transferred(another->Surface()));
   Standard_Integer aFlag = another->OuterBoundaryType();
@@ -235,7 +235,7 @@ void TrimmedSurfaceTool::OwnCopy(const Handle(IGESGeom_TrimmedSurface)& another,
 
   if (count > 0)
   {
-    anInner = new IGESGeom_HArray1OfCurveOnSurface(1, count);
+    anInner = new HArray1OfCurveOnSurface(1, count);
     Standard_Integer I;
     for (I = 1; I <= count; I++)
     {

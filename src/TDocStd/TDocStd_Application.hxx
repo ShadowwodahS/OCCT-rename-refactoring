@@ -231,7 +231,7 @@ public:
   Standard_EXPORT PCDM_ReaderStatus
     Open(const UtfString& thePath,
          Handle(AppDocument)&         theDoc,
-         const Handle(PCDM_ReaderFilter)&  theFilter,
+         const Handle(ReaderFilter)&  theFilter,
          const Message_ProgressRange&      theRange = Message_ProgressRange());
 
   //! Retrieves the document from specified file.
@@ -245,7 +245,7 @@ public:
                          Handle(AppDocument)&         theDoc,
                          const Message_ProgressRange&      theRange = Message_ProgressRange())
   {
-    return Open(thePath, theDoc, Handle(PCDM_ReaderFilter)(), theRange);
+    return Open(thePath, theDoc, Handle(ReaderFilter)(), theRange);
   }
 
   //! Retrieves document from standard stream.
@@ -257,7 +257,7 @@ public:
   Standard_EXPORT PCDM_ReaderStatus
     Open(Standard_IStream&                theIStream,
          Handle(AppDocument)&        theDoc,
-         const Handle(PCDM_ReaderFilter)& theFilter,
+         const Handle(ReaderFilter)& theFilter,
          const Message_ProgressRange&     theRange = Message_ProgressRange());
 
   //! Retrieves document from standard stream.
@@ -269,7 +269,7 @@ public:
                          Handle(AppDocument)&    theDoc,
                          const Message_ProgressRange& theRange = Message_ProgressRange())
   {
-    return Open(theIStream, theDoc, Handle(PCDM_ReaderFilter)(), theRange);
+    return Open(theIStream, theDoc, Handle(ReaderFilter)(), theRange);
   }
 
   //! Save the  active document  in the file  <name> in the

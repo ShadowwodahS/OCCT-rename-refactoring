@@ -574,8 +574,8 @@ Standard_Integer STEPConstruct_ExternRefs::AddExternRef(
 
     StepAP214_ExternalIdentificationItem Item;
     Item.SetValue(DF);
-    Handle(StepAP214_HArray1OfExternalIdentificationItem) Items =
-      new StepAP214_HArray1OfExternalIdentificationItem(1, 1);
+    Handle(HArray1OfExternalIdItem) Items =
+      new HArray1OfExternalIdItem(1, 1);
     Items->SetValue(1, Item);
 
     Handle(StepAP214_AppliedExternalIdentificationAssignment) ExtIdent =
@@ -678,7 +678,7 @@ Standard_Integer STEPConstruct_ExternRefs::AddExternRef(
     Handle(TCollection_HAsciiString) aDescription =
       new TCollection_HAsciiString("CAD Model associated to the part");
     aDoc->Init(EmptyString, fname, Standard_True, aDescription, aDocType);
-    Handle(StepBasic_HArray1OfDocument) aDocIds = new StepBasic_HArray1OfDocument(1, 1);
+    Handle(HArray1OfDocument) aDocIds = new HArray1OfDocument(1, 1);
     aDocIds->SetValue(1, aDoc);
 
     // create ProductDefinitionWithAssociatedDocuments
@@ -736,7 +736,7 @@ Standard_Integer STEPConstruct_ExternRefs::AddExternRef(
       {
         Handle(StepAP203_CcDesignPersonAndOrganizationAssignment) CDPAOA =
           Handle(StepAP203_CcDesignPersonAndOrganizationAssignment)::DownCast(sub2);
-        Handle(StepAP203_HArray1OfPersonOrganizationItem) HAPOI = CDPAOA->Items();
+        Handle(HArray1OfPersonOrgItem1) HAPOI = CDPAOA->Items();
         for (Standard_Integer i = 1; i <= HAPOI->Length(); i++)
         {
           StepAP203_PersonOrganizationItem    POI      = HAPOI->Value(i);
@@ -754,7 +754,7 @@ Standard_Integer STEPConstruct_ExternRefs::AddExternRef(
       {
         Handle(StepAP203_CcDesignDateAndTimeAssignment) CDDATA =
           Handle(StepAP203_CcDesignDateAndTimeAssignment)::DownCast(sub2);
-        Handle(StepAP203_HArray1OfDateTimeItem) HADTI = CDDATA->Items();
+        Handle(HArray1OfDateTimeItem) HADTI = CDDATA->Items();
         for (Standard_Integer i = 1; i <= HADTI->Length(); i++)
         {
           StepAP203_DateTimeItem              DTI      = HADTI->Value(i);
@@ -771,7 +771,7 @@ Standard_Integer STEPConstruct_ExternRefs::AddExternRef(
       if (sub2->IsKind(STANDARD_TYPE(StepAP203_CcDesignApproval)))
       {
         Handle(StepAP203_CcDesignApproval) CDA = Handle(StepAP203_CcDesignApproval)::DownCast(sub2);
-        Handle(StepAP203_HArray1OfApprovedItem) HAAI = CDA->Items();
+        Handle(HArray1OfApprovedItem) HAAI = CDA->Items();
         for (Standard_Integer i = 1; i <= HAAI->Length(); i++)
         {
           StepAP203_ApprovedItem              AI       = HAAI->Value(i);
@@ -851,8 +851,8 @@ Standard_Boolean STEPConstruct_ExternRefs::addAP214ExterRef(
   const Handle(StepBasic_DocumentFile)&             DF,
   const Standard_CString                            filename)
 {
-  Handle(StepAP214_HArray1OfDocumentReferenceItem) DRIs =
-    new StepAP214_HArray1OfDocumentReferenceItem(1, 1);
+  Handle(HArray1OfDocumentRefItem) DRIs =
+    new HArray1OfDocumentRefItem(1, 1);
   StepAP214_DocumentReferenceItem aDRI;
   aDRI.SetValue(PD);
   DRIs->SetValue(1, aDRI);
@@ -869,7 +869,7 @@ Standard_Boolean STEPConstruct_ExternRefs::addAP214ExterRef(
 
   // create new product
   Handle(StepBasic_Product)          Product    = new StepBasic_Product;
-  Handle(StepBasic_HArray1OfProduct) HProducts  = mySharedPRPC->Products();
+  Handle(HArray1OfProduct) HProducts  = mySharedPRPC->Products();
   Standard_Integer                   nbProducts = 0;
   if (!HProducts.IsNull())
     nbProducts = HProducts->Length();
@@ -877,8 +877,8 @@ Standard_Boolean STEPConstruct_ExternRefs::addAP214ExterRef(
   Handle(TCollection_HAsciiString) ProductID   = new TCollection_HAsciiString(intProdId);
   Handle(TCollection_HAsciiString) ProductName = new TCollection_HAsciiString(filename);
   ProductName->AssignCat("-Doc");
-  Handle(StepBasic_HArray1OfProductContext) aHProdContext =
-    new StepBasic_HArray1OfProductContext(1, 1);
+  Handle(HArray1OfProductContext) aHProdContext =
+    new HArray1OfProductContext(1, 1);
   aHProdContext->SetValue(1, mySharedPC);
   Product->Init(ProductID, ProductName, EmptyString, aHProdContext);
 
@@ -897,8 +897,8 @@ Standard_Boolean STEPConstruct_ExternRefs::addAP214ExterRef(
   Model()->AddWithRefs(DPE);
 
   // add products to shared PRPC
-  Handle(StepBasic_HArray1OfProduct) newHProducts =
-    new StepBasic_HArray1OfProduct(1, nbProducts + 1);
+  Handle(HArray1OfProduct) newHProducts =
+    new HArray1OfProduct(1, nbProducts + 1);
   for (Standard_Integer pi = 1; pi <= nbProducts; pi++)
     newHProducts->SetValue(pi, HProducts->Value(pi));
   newHProducts->SetValue(nbProducts + 1, Product);
@@ -908,7 +908,7 @@ Standard_Boolean STEPConstruct_ExternRefs::addAP214ExterRef(
   // create new PDWAD
   Handle(StepBasic_ProductDefinitionWithAssociatedDocuments) PDWAD =
     new StepBasic_ProductDefinitionWithAssociatedDocuments;
-  Handle(StepBasic_HArray1OfDocument) aDocIds = new StepBasic_HArray1OfDocument(1, 1);
+  Handle(HArray1OfDocument) aDocIds = new HArray1OfDocument(1, 1);
   aDocIds->SetValue(1, DF);
   Handle(TCollection_HAsciiString) PDWAD_ID = new TCollection_HAsciiString("1");
   PDWAD->Init(PDWAD_ID, EmptyString, PDF, mySharedPDC, aDocIds);

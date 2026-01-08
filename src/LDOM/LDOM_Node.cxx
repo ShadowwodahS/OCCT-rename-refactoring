@@ -31,7 +31,7 @@ const BasicNode& LDOM_Node::Origin() const
 
 //=================================================================================================
 
-const LDOM_MemManager& LDOM_Node::getOwnerDocument() const
+const MemoryManager& LDOM_Node::getOwnerDocument() const
 {
   return myDocument->Self();
 }
@@ -107,11 +107,11 @@ LDOMString LDOM_Node::getNodeName() const
   switch (getNodeType())
   {
     case ELEMENT_NODE: {
-      const LDOM_BasicElement& anElement = *(const LDOM_BasicElement*)myOrigin;
+      const BasicElement& anElement = *(const BasicElement*)myOrigin;
       return LDOMString::CreateDirectString(anElement.GetTagName(), myDocument->Self());
     }
     case ATTRIBUTE_NODE: {
-      const LDOM_BasicAttribute& anAttr = *(const LDOM_BasicAttribute*)myOrigin;
+      const BasicAttribute& anAttr = *(const BasicAttribute*)myOrigin;
       return LDOMString::CreateDirectString(anAttr.GetName(), myDocument->Self());
     }
     default:;
@@ -126,13 +126,13 @@ LDOMString LDOM_Node::getNodeValue() const
   switch (getNodeType())
   {
     case ATTRIBUTE_NODE: {
-      const LDOM_BasicAttribute& anAttr = *(const LDOM_BasicAttribute*)myOrigin;
+      const BasicAttribute& anAttr = *(const BasicAttribute*)myOrigin;
       return LDOMString(anAttr.GetValue(), myDocument->Self());
     }
     case TEXT_NODE:
     case CDATA_SECTION_NODE:
     case COMMENT_NODE: {
-      const LDOM_BasicText& aText = *(const LDOM_BasicText*)myOrigin;
+      const BasicText& aText = *(const BasicText*)myOrigin;
       return LDOMString(aText.GetData(), myDocument->Self());
     }
     default:;
@@ -147,7 +147,7 @@ LDOM_Node LDOM_Node::getFirstChild() const
   const NodeType aType = getNodeType();
   if (aType == ELEMENT_NODE)
   {
-    const LDOM_BasicElement& anElement = *(const LDOM_BasicElement*)myOrigin;
+    const BasicElement& anElement = *(const BasicElement*)myOrigin;
     const BasicNode*    aChild    = anElement.GetFirstChild();
     if (aChild)
       if (aChild->getNodeType() != LDOM_Node::ATTRIBUTE_NODE)
@@ -165,7 +165,7 @@ LDOM_Node LDOM_Node::getLastChild() const
   {
     if (myLastChild == NULL)
     {
-      const LDOM_BasicElement& anElement  = *(const LDOM_BasicElement*)myOrigin;
+      const BasicElement& anElement  = *(const BasicElement*)myOrigin;
       (const BasicNode*&)myLastChild = anElement.GetLastChild();
     }
     return LDOM_Node(*myLastChild, myDocument);
@@ -191,7 +191,7 @@ void LDOM_Node::removeChild(const LDOM_Node& aChild)
   const NodeType aType = getNodeType();
   if (aType == ELEMENT_NODE)
   {
-    const LDOM_BasicElement& anElement = *(LDOM_BasicElement*)myOrigin;
+    const BasicElement& anElement = *(BasicElement*)myOrigin;
     if (aChild != NULL)
       anElement.RemoveChild(aChild.myOrigin);
     if (aChild.myOrigin == myLastChild)
@@ -214,7 +214,7 @@ void LDOM_Node::appendChild(const LDOM_Node& aChild)
     }
     else
     {
-      const LDOM_BasicElement& anElement = *(LDOM_BasicElement*)myOrigin;
+      const BasicElement& anElement = *(BasicElement*)myOrigin;
       anElement.AppendChild(aChild.myOrigin, myLastChild);
     }
     myLastChild = aChild.myOrigin;
@@ -228,7 +228,7 @@ Standard_Boolean LDOM_Node::hasChildNodes() const
   const NodeType aType = getNodeType();
   if (aType == ELEMENT_NODE)
   {
-    const LDOM_BasicElement& anElement = *(const LDOM_BasicElement*)myOrigin;
+    const BasicElement& anElement = *(const BasicElement*)myOrigin;
     const BasicNode*    aChild    = anElement.GetFirstChild();
     if (aChild)
       return !aChild->isNull();
@@ -244,14 +244,14 @@ void LDOM_Node::SetValueClear() const
   switch (getNodeType())
   {
     case ATTRIBUTE_NODE: {
-      const LDOM_BasicAttribute& anAttr = *(const LDOM_BasicAttribute*)myOrigin;
+      const BasicAttribute& anAttr = *(const BasicAttribute*)myOrigin;
       aValue                            = (LDOMBasicString1*)&anAttr.GetValue();
       break;
     }
     case TEXT_NODE:
     case CDATA_SECTION_NODE:
     case COMMENT_NODE: {
-      const LDOM_BasicText& aText = *(const LDOM_BasicText*)myOrigin;
+      const BasicText& aText = *(const BasicText*)myOrigin;
       aValue                      = (LDOMBasicString1*)&aText.GetData();
       break;
     }

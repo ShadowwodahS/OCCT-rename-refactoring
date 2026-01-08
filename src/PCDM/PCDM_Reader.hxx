@@ -29,12 +29,12 @@
 class CDM_Document;
 class UtfString;
 class CDM_Application;
-class PCDM_ReaderFilter;
+class ReaderFilter;
 
-class PCDM_Reader;
-DEFINE_STANDARD_HANDLE(PCDM_Reader, RefObject)
+class Reader1;
+DEFINE_STANDARD_HANDLE(Reader1, RefObject)
 
-class PCDM_Reader : public RefObject
+class Reader1 : public RefObject
 {
 
 public:
@@ -43,7 +43,7 @@ public:
     const UtfString& aFileName,
     const Handle(CDM_Document)&       aNewDocument,
     const Handle(CDM_Application)&    anApplication,
-    const Handle(PCDM_ReaderFilter)&  theFilter   = Handle(PCDM_ReaderFilter)(),
+    const Handle(ReaderFilter)&  theFilter   = Handle(ReaderFilter)(),
     const Message_ProgressRange&      theProgress = Message_ProgressRange()) = 0;
 
   Standard_EXPORT virtual void Read(
@@ -51,12 +51,12 @@ public:
     const Handle(Storage_Data)&      theStorageData,
     const Handle(CDM_Document)&      theDoc,
     const Handle(CDM_Application)&   theApplication,
-    const Handle(PCDM_ReaderFilter)& theFilter   = Handle(PCDM_ReaderFilter)(),
+    const Handle(ReaderFilter)& theFilter   = Handle(ReaderFilter)(),
     const Message_ProgressRange&     theProgress = Message_ProgressRange()) = 0;
 
   PCDM_ReaderStatus GetStatus() const;
 
-  DEFINE_STANDARD_RTTIEXT(PCDM_Reader, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Reader1, RefObject)
 
 protected:
   PCDM_ReaderStatus myReaderStatus;

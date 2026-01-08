@@ -22,15 +22,15 @@
 
 #include <Standard_Transient.hxx>
 
-class StepBasic_DimensionalExponents;
-DEFINE_STANDARD_HANDLE(StepBasic_DimensionalExponents, RefObject)
+class DimensionalExponents;
+DEFINE_STANDARD_HANDLE(DimensionalExponents, RefObject)
 
-class StepBasic_DimensionalExponents : public RefObject
+class DimensionalExponents : public RefObject
 {
 
 public:
   //! Returns a DimensionalExponents
-  Standard_EXPORT StepBasic_DimensionalExponents();
+  Standard_EXPORT DimensionalExponents();
 
   Standard_EXPORT void Init(const Standard_Real aLengthExponent,
                             const Standard_Real aMassExponent,
@@ -69,7 +69,7 @@ public:
 
   Standard_EXPORT Standard_Real LuminousIntensityExponent() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_DimensionalExponents, RefObject)
+  DEFINE_STANDARD_RTTIEXT(DimensionalExponents, RefObject)
 
 protected:
 private:

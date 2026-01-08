@@ -21,7 +21,7 @@
 #define Handle_TheKey Handle(TColStd_HArray1OfInteger)
 #define TheKey TColStd_HArray1OfInteger
 #define TheKey_hxx <TColStd_HArray1OfInteger.hxx>
-#define Interface_JaggedArray IGESBasic_HArray1OfHArray1OfInteger
+#define Interface_JaggedArray HArray1OfHArray1OfInt
 #define Interface_JaggedArray_hxx <IGESBasic_HArray1OfHArray1OfInteger.hxx>
-#define Handle_Interface_JaggedArray Handle(IGESBasic_HArray1OfHArray1OfInteger)
+#define Handle_Interface_JaggedArray Handle(HArray1OfHArray1OfInt)
 #include "../Interface/Interface_JaggedArray.gxx"

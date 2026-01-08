@@ -29,10 +29,10 @@ class StepData_ESDescr;
 class StepData_Described;
 
 class StepData_ECDescr;
-DEFINE_STANDARD_HANDLE(StepData_ECDescr, StepData_EDescr)
+DEFINE_STANDARD_HANDLE(StepData_ECDescr, EntityDescriptor)
 
 //! Describes a Complex Entity (Plex) as a list of Simple ones
-class StepData_ECDescr : public StepData_EDescr
+class StepData_ECDescr : public EntityDescriptor
 {
 
 public:
@@ -62,7 +62,7 @@ public:
   //! simple entity per member)
   Standard_EXPORT Handle(StepData_Described) NewEntity() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(StepData_ECDescr, StepData_EDescr)
+  DEFINE_STANDARD_RTTIEXT(StepData_ECDescr, EntityDescriptor)
 
 protected:
 private:

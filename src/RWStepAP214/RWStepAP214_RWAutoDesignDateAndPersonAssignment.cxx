@@ -55,13 +55,13 @@ void RWStepAP214_RWAutoDesignDateAndPersonAssignment::ReadStep(
 
   // --- own field : items ---
 
-  Handle(StepAP214_HArray1OfAutoDesignDateAndPersonItem) aItems;
+  Handle(HArray1OfAutoDesignDatePerson) aItems;
   StepAP214_AutoDesignDateAndPersonItem                  aItemsItem;
   Standard_Integer                                       nsub3;
   if (data->ReadSubList(num, 3, "items", ach, nsub3))
   {
     Standard_Integer nb3 = data->NbParams(nsub3);
-    aItems               = new StepAP214_HArray1OfAutoDesignDateAndPersonItem(1, nb3);
+    aItems               = new HArray1OfAutoDesignDatePerson(1, nb3);
     for (Standard_Integer i3 = 1; i3 <= nb3; i3++)
     {
       Standard_Boolean stat3 = data->ReadEntity(nsub3, i3, "items", ach, aItemsItem);

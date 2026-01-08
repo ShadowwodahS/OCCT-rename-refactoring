@@ -30,9 +30,9 @@ void IGESGeom_Boundary::Init(
   const Standard_Integer                                aType,
   const Standard_Integer                                aPreference,
   const Handle(IGESData_IGESEntity)&                    aSurface,
-  const Handle(IGESData_HArray1OfIGESEntity)&           allModelCurves,
+  const Handle(HArray1OfIGESEntity)&           allModelCurves,
   const Handle(TColStd_HArray1OfInteger)&               allSenses,
-  const Handle(IGESBasic_HArray1OfHArray1OfIGESEntity)& allParameterCurves)
+  const Handle(HArray1OfHArray1OfEntity)& allParameterCurves)
 {
   Standard_Integer num1 = allSenses->Length();
   if (allSenses->Lower() != 1 || (allModelCurves->Lower() != 1 || allModelCurves->Length() != num1)
@@ -85,7 +85,7 @@ Standard_Integer IGESGeom_Boundary::NbParameterCurves(const Standard_Integer Ind
   return theParameterCurves->Value(Index)->Length();
 }
 
-Handle(IGESData_HArray1OfIGESEntity) IGESGeom_Boundary::ParameterCurves(
+Handle(HArray1OfIGESEntity) IGESGeom_Boundary::ParameterCurves(
   const Standard_Integer Index) const
 {
   return theParameterCurves->Value(Index);

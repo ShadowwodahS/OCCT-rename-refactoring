@@ -63,7 +63,7 @@ public:
 
   //    Copy constructor
 
-  Standard_EXPORT const LDOM_MemManager& getOwnerDocument() const;
+  Standard_EXPORT const MemoryManager& getOwnerDocument() const;
 
   Standard_EXPORT LDOM_Node& operator=(const LDOM_Node& anOther);
 
@@ -103,15 +103,15 @@ public:
   //    NEVER call this method if you are not stuck on the performance
 
 protected:
-  friend class LDOM_BasicAttribute;
-  friend class LDOM_BasicElement;
-  friend class LDOM_BasicText;
+  friend class BasicAttribute;
+  friend class BasicElement;
+  friend class BasicText;
   friend class LDOM_NodeList;
   // ---------- PROTECTED METHODS ----------
 
   const BasicNode& Origin() const;
 
-  LDOM_Node(const BasicNode& anOrig, const Handle(LDOM_MemManager)& aDoc)
+  LDOM_Node(const BasicNode& anOrig, const Handle(MemoryManager)& aDoc)
       : myDocument(aDoc),
         myOrigin((BasicNode*)&anOrig),
         myLastChild(NULL)
@@ -124,7 +124,7 @@ protected:
   // ---------- PROTECTED FIELDS ----------
 
   // smart pointer to document owner of the node
-  Handle(LDOM_MemManager) myDocument;
+  Handle(MemoryManager) myDocument;
 
   // pointer to (non-transient) node data in the document-managed memory
   BasicNode* myOrigin;

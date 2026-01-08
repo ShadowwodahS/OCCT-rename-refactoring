@@ -65,9 +65,9 @@ public:
                             const Standard_Integer                          aPatchType,
                             const Handle(TColStd_HArray1OfReal)&            allUBreakpoints,
                             const Handle(TColStd_HArray1OfReal)&            allVBreakpoints,
-                            const Handle(IGESBasic_HArray2OfHArray1OfReal)& allXCoeffs,
-                            const Handle(IGESBasic_HArray2OfHArray1OfReal)& allYCoeffs,
-                            const Handle(IGESBasic_HArray2OfHArray1OfReal)& allZCoeffs);
+                            const Handle(HArray2OfHArray1OfReal)& allXCoeffs,
+                            const Handle(HArray2OfHArray1OfReal)& allYCoeffs,
+                            const Handle(HArray2OfHArray1OfReal)& allZCoeffs);
 
   //! returns the number of U segments
   Standard_EXPORT Standard_Integer NbUSegments() const;
@@ -109,9 +109,9 @@ public:
 
   //! returns in one all the polynomial values "in bulk"
   //! useful for massive treatments
-  Standard_EXPORT void Polynomials(Handle(IGESBasic_HArray2OfHArray1OfReal)& XCoef,
-                                   Handle(IGESBasic_HArray2OfHArray1OfReal)& YCoef,
-                                   Handle(IGESBasic_HArray2OfHArray1OfReal)& ZCoef) const;
+  Standard_EXPORT void Polynomials(Handle(HArray2OfHArray1OfReal)& XCoef,
+                                   Handle(HArray2OfHArray1OfReal)& YCoef,
+                                   Handle(HArray2OfHArray1OfReal)& ZCoef) const;
 
   DEFINE_STANDARD_RTTIEXT(IGESGeom_SplineSurface, IGESData_IGESEntity)
 
@@ -121,9 +121,9 @@ private:
   Standard_Integer                         thePatchType;
   Handle(TColStd_HArray1OfReal)            theUBreakPoints;
   Handle(TColStd_HArray1OfReal)            theVBreakPoints;
-  Handle(IGESBasic_HArray2OfHArray1OfReal) theXCoeffs;
-  Handle(IGESBasic_HArray2OfHArray1OfReal) theYCoeffs;
-  Handle(IGESBasic_HArray2OfHArray1OfReal) theZCoeffs;
+  Handle(HArray2OfHArray1OfReal) theXCoeffs;
+  Handle(HArray2OfHArray1OfReal) theYCoeffs;
+  Handle(HArray2OfHArray1OfReal) theZCoeffs;
 };
 
 #endif // _IGESGeom_SplineSurface_HeaderFile

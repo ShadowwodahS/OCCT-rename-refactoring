@@ -20,7 +20,7 @@
 #include <StepAP214_Array1OfSecurityClassificationItem.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepAP214_HArray1OfSecurityClassificationItem,
+DEFINE_HARRAY1(HArray1OfSecurityClassItem,
                StepAP214_Array1OfSecurityClassificationItem)
 
 #endif

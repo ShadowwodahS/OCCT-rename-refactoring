@@ -24,14 +24,14 @@
 #include <TColgp_HArray1OfXY.hxx>
 #include <Standard_Integer.hxx>
 
-class IGESBasic_HArray1OfHArray1OfXY;
-DEFINE_STANDARD_HANDLE(IGESBasic_HArray1OfHArray1OfXY, RefObject)
+class HArray1OfHArray1OfXY;
+DEFINE_STANDARD_HANDLE(HArray1OfHArray1OfXY, RefObject)
 
-class IGESBasic_HArray1OfHArray1OfXY : public RefObject
+class HArray1OfHArray1OfXY : public RefObject
 {
 
 public:
-  Standard_EXPORT IGESBasic_HArray1OfHArray1OfXY(const Standard_Integer low,
+  Standard_EXPORT HArray1OfHArray1OfXY(const Standard_Integer low,
                                                  const Standard_Integer up);
 
   Standard_EXPORT Standard_Integer Lower() const;
@@ -44,7 +44,7 @@ public:
 
   Standard_EXPORT Handle(TColgp_HArray1OfXY) Value(const Standard_Integer num) const;
 
-  DEFINE_STANDARD_RTTI_INLINE(IGESBasic_HArray1OfHArray1OfXY, RefObject)
+  DEFINE_STANDARD_RTTI_INLINE(HArray1OfHArray1OfXY, RefObject)
 
 protected:
 private:

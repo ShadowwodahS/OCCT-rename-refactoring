@@ -20,6 +20,6 @@
 #include <StepAP203_Array1OfContractedItem.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepAP203_HArray1OfContractedItem, StepAP203_Array1OfContractedItem)
+DEFINE_HARRAY1(HArray1OfContractedItem, StepAP203_Array1OfContractedItem)
 
 #endif

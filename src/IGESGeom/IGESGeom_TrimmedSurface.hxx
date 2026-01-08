@@ -57,7 +57,7 @@ public:
   Standard_EXPORT void Init(const Handle(IGESData_IGESEntity)&              aSurface,
                             const Standard_Integer                          aFlag,
                             const Handle(IGESGeom_CurveOnSurface)&          anOuter,
-                            const Handle(IGESGeom_HArray1OfCurveOnSurface)& allInners);
+                            const Handle(HArray1OfCurveOnSurface)& allInners);
 
   //! returns the surface to be trimmed
   Standard_EXPORT Handle(IGESData_IGESEntity) Surface() const;
@@ -87,7 +87,7 @@ private:
   Handle(IGESData_IGESEntity)              theSurface;
   Standard_Integer                         theFlag;
   Handle(IGESGeom_CurveOnSurface)          theOuterCurve;
-  Handle(IGESGeom_HArray1OfCurveOnSurface) theInnerCurves;
+  Handle(HArray1OfCurveOnSurface) theInnerCurves;
 };
 
 #endif // _IGESGeom_TrimmedSurface_HeaderFile

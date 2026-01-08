@@ -64,13 +64,13 @@ void RWStepBasic_RWConversionBasedUnitAndMassUnit::ReadStep(
   if (!data->CheckNbParams(num, 1, ach, "named_unit"))
     return;
   // --- field : dimensions ---
-  Handle(StepBasic_DimensionalExponents) aDimensions;
+  Handle(DimensionalExponents) aDimensions;
   // szv#4:S4163:12Mar99 `Standard_Boolean stat3 =` not needed
   data->ReadEntity(num,
                    1,
                    "dimensions",
                    ach,
-                   STANDARD_TYPE(StepBasic_DimensionalExponents),
+                   STANDARD_TYPE(DimensionalExponents),
                    aDimensions);
 
   //--- Initialisation of the red entity ---

@@ -33,7 +33,7 @@ DESTEP_Provider::DESTEP_Provider() {}
 
 //=================================================================================================
 
-DESTEP_Provider::DESTEP_Provider(const Handle(DE_ConfigurationNode)& theNode)
+DESTEP_Provider::DESTEP_Provider(const Handle(ConfigurationNode)& theNode)
     : DE_Provider(theNode)
 {
 }
@@ -72,7 +72,7 @@ bool DESTEP_Provider::Read(const AsciiString1&  thePath,
   aReader.SetProductMetaMode(aNode->InternalParameters.ReadProductMetadata);
   aReader.SetShapeFixParameters(aNode->ShapeFixParameters);
   IFSelect_ReturnStatus aReadStat = IFSelect_RetVoid;
-  DESTEP_Parameters     aParams   = aNode->InternalParameters;
+  Parameters2     aParams   = aNode->InternalParameters;
   aReadStat                       = aReader.ReadFile(thePath.ToCString(), aParams);
   if (aReadStat != IFSelect_RetDone)
   {
@@ -116,7 +116,7 @@ bool DESTEP_Provider::Write(const AsciiString1&  thePath,
   aWriter.SetLayerMode(aNode->InternalParameters.WriteLayer);
   aWriter.SetPropsMode(aNode->InternalParameters.WriteProps);
   aWriter.SetShapeFixParameters(aNode->ShapeFixParameters);
-  DESTEP_Parameters aParams        = aNode->InternalParameters;
+  Parameters2 aParams        = aNode->InternalParameters;
   Standard_Real     aScaleFactorMM = 1.;
   if (XCAFDoc_DocumentTool::GetLengthUnit(theDocument,
                                           aScaleFactorMM,
@@ -204,7 +204,7 @@ bool DESTEP_Provider::Read(const AsciiString1& thePath,
   aReader.SetWS(theWS);
   aReader.SetShapeFixParameters(aNode->ShapeFixParameters);
   IFSelect_ReturnStatus aReadstat   = IFSelect_RetVoid;
-  DESTEP_Parameters     aParams     = aNode->InternalParameters;
+  Parameters2     aParams     = aNode->InternalParameters;
   aReadstat                         = aReader.ReadFile(thePath.ToCString(), aParams);
   Handle(StepData_StepModel) aModel = aReader.StepModel();
   if (aReadstat != IFSelect_RetDone)
@@ -245,7 +245,7 @@ bool DESTEP_Provider::Write(const AsciiString1& thePath,
   IFSelect_ReturnStatus      aWritestat = IFSelect_RetVoid;
   Handle(StepData_StepModel) aModel     = aWriter.Model();
   ;
-  DESTEP_Parameters aParams = aNode->InternalParameters;
+  Parameters2 aParams = aNode->InternalParameters;
   aModel->SetLocalLengthUnit(aNode->GlobalParameters.SystemUnit);
   UnitsMethods_LengthUnit aTargetUnit =
     UnitsMethods1::GetLengthUnitByFactorValue(aNode->GlobalParameters.LengthUnit,

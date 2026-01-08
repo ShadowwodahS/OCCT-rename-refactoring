@@ -28,7 +28,7 @@ void RWStepBasic_RWCoordinatedUniversalTimeOffset::ReadStep(
   const Handle(StepData_StepReaderData)&                  data,
   const Standard_Integer                                  num,
   Handle(Interface_Check)&                                ach,
-  const Handle(StepBasic_CoordinatedUniversalTimeOffset)& ent) const
+  const Handle(TimeOffset)& ent) const
 {
 
   // --- Number of Parameter Control ---
@@ -82,7 +82,7 @@ void RWStepBasic_RWCoordinatedUniversalTimeOffset::ReadStep(
 
 void RWStepBasic_RWCoordinatedUniversalTimeOffset::WriteStep(
   StepData_StepWriter&                                    SW,
-  const Handle(StepBasic_CoordinatedUniversalTimeOffset)& ent) const
+  const Handle(TimeOffset)& ent) const
 {
 
   // --- own field : hourOffset ---

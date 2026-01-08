@@ -32,7 +32,7 @@ IGESDimen_FlagNote::IGESDimen_FlagNote() {}
 void IGESDimen_FlagNote::Init(const Coords3d&                                 leftCorner,
                               const Standard_Real                           anAngle,
                               const Handle(IGESDimen_GeneralNote)&          aNote,
-                              const Handle(IGESDimen_HArray1OfLeaderArrow)& someLeaders)
+                              const Handle(HArray1OfLeaderArrow)& someLeaders)
 {
   if (!someLeaders.IsNull())
     if (someLeaders->Lower() != 1)

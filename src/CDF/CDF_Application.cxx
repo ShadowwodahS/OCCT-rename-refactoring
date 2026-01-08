@@ -91,7 +91,7 @@ void CDF_Application::Close(const Handle(CDM_Document)& aDocument)
 Handle(CDM_Document) CDF_Application::Retrieve(const UtfString& aFolder,
                                                const UtfString& aName,
                                                const Standard_Boolean UseStorageConfiguration,
-                                               const Handle(PCDM_ReaderFilter)& theFilter,
+                                               const Handle(ReaderFilter)& theFilter,
                                                const Message_ProgressRange&     theRange)
 {
   UtfString nullVersion;
@@ -104,7 +104,7 @@ Handle(CDM_Document) CDF_Application::Retrieve(const UtfString& aFolder,
                                                const UtfString& aName,
                                                const UtfString& aVersion,
                                                const Standard_Boolean UseStorageConfiguration,
-                                               const Handle(PCDM_ReaderFilter)& theFilter,
+                                               const Handle(ReaderFilter)& theFilter,
                                                const Message_ProgressRange&     theRange)
 {
   Handle(CDM_MetaData) theMetaData;
@@ -163,7 +163,7 @@ PCDM_ReaderStatus CDF_Application::CanRetrieve(const UtfString& theFolder,
     else
     {
       UtfString theFileName = theMetaData->FileName();
-      UtfString theFormat   = PCDM_ReadWriter::FileFormat(theFileName);
+      UtfString theFormat   = ReadWriter::FileFormat(theFileName);
       if (theFormat.Length() == 0)
       {
         UtfString ResourceName = UTL1::Extension(theFileName);
@@ -179,7 +179,7 @@ PCDM_ReaderStatus CDF_Application::CanRetrieve(const UtfString& theFolder,
       // check actual availability of the driver
       try
       {
-        Handle(PCDM_Reader) aReader = ReaderFromFormat(theFormat);
+        Handle(Reader1) aReader = ReaderFromFormat(theFormat);
         if (aReader.IsNull())
           return PCDM_RS_NoDriver;
       }
@@ -223,7 +223,7 @@ Standard_Boolean CDF_Application::SetDefaultFolder(const Standard_ExtString aFol
 
 Handle(CDM_Document) CDF_Application::Retrieve(const Handle(CDM_MetaData)& aMetaData,
                                                const Standard_Boolean      UseStorageConfiguration,
-                                               const Handle(PCDM_ReaderFilter)& theFilter,
+                                               const Handle(ReaderFilter)& theFilter,
                                                const Message_ProgressRange&     theRange)
 {
   return Retrieve(aMetaData, UseStorageConfiguration, Standard_True, theFilter, theRange);
@@ -234,7 +234,7 @@ Handle(CDM_Document) CDF_Application::Retrieve(const Handle(CDM_MetaData)& aMeta
 Handle(CDM_Document) CDF_Application::Retrieve(const Handle(CDM_MetaData)& aMetaData,
                                                const Standard_Boolean      UseStorageConfiguration,
                                                const Standard_Boolean      IsComponent,
-                                               const Handle(PCDM_ReaderFilter)& theFilter,
+                                               const Handle(ReaderFilter)& theFilter,
                                                const Message_ProgressRange&     theRange)
 {
 
@@ -280,7 +280,7 @@ Handle(CDM_Document) CDF_Application::Retrieve(const Handle(CDM_MetaData)& aMeta
       aMsg << "Could not determine format for the file " << aMetaData->FileName() << (char)0;
       throw Standard_NoSuchObject(aMsg.str().c_str());
     }
-    Handle(PCDM_Reader) theReader = ReaderFromFormat(aFormat);
+    Handle(Reader1) theReader = ReaderFromFormat(aFormat);
 
     Handle(CDM_Document) aDocument;
 
@@ -365,7 +365,7 @@ CDF_TypeOfActivation CDF_Application::TypeOfActivation(const Handle(CDM_MetaData
 
 void CDF_Application::Read(Standard_IStream&                theIStream,
                            Handle(CDM_Document)&            theDocument,
-                           const Handle(PCDM_ReaderFilter)& theFilter,
+                           const Handle(ReaderFilter)& theFilter,
                            const Message_ProgressRange&     theRange)
 {
   Handle(Storage_Data) dData;
@@ -376,7 +376,7 @@ void CDF_Application::Read(Standard_IStream&                theIStream,
   {
     OCC_CATCH_SIGNALS
 
-    aFormat = PCDM_ReadWriter::FileFormat(theIStream, dData);
+    aFormat = ReadWriter::FileFormat(theIStream, dData);
   }
   catch (ExceptionBase const& anException)
   {
@@ -394,7 +394,7 @@ void CDF_Application::Read(Standard_IStream&                theIStream,
   }
 
   // use a format name to detect plugin corresponding to the format to continue reading
-  Handle(PCDM_Reader) aReader = ReaderFromFormat(aFormat);
+  Handle(Reader1) aReader = ReaderFromFormat(aFormat);
 
   if (theFilter.IsNull() || !theFilter->IsAppendMode())
   {
@@ -438,7 +438,7 @@ void CDF_Application::Read(Standard_IStream&                theIStream,
 
 //=================================================================================================
 
-Handle(PCDM_Reader) CDF_Application::ReaderFromFormat(const UtfString& theFormat)
+Handle(Reader1) CDF_Application::ReaderFromFormat(const UtfString& theFormat)
 {
   // check map of readers
   Handle(PCDM_RetrievalDriver) aReader;
@@ -552,7 +552,7 @@ Standard_Boolean CDF_Application::Format(const UtfString& aFileName,
                                          UtfString&       theFormat)
 {
 
-  theFormat = PCDM_ReadWriter::FileFormat(aFileName);
+  theFormat = ReadWriter::FileFormat(aFileName);
   // It is good if the format is in the file. Otherwise base on the extension.
   if (theFormat.Length() == 0)
   {
