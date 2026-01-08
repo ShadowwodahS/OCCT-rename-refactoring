@@ -176,7 +176,7 @@ def get_csv_range_map(start, end):
 
 def try_smart_detection(error_line, start, end):
     if not error_line: return None, None
-    pattern = r"^\s*(.*)\((\d+),(\d+)\)\s*:\s*error"
+    pattern = r"(?:^\d+>)?\s*(.*)\((\d+),(\d+)\)\s*:\s*error"
     match = re.search(pattern, error_line)
     if not match: return None, None
 
