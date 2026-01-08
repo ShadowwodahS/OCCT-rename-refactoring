@@ -113,10 +113,10 @@ Handle(MeshTriangulation) Prs3d_ToolQuadric::CreatePolyTriangulation(const Trans
       if (aU != 0 && aV != 0)
       {
         aTriangulation->SetTriangle(++anIndex,
-                                    Poly_Triangle(aVertId, aVertId - myStacksNb - 2, aVertId - 1));
+                                    Triangle2(aVertId, aVertId - myStacksNb - 2, aVertId - 1));
         aTriangulation->SetTriangle(
           ++anIndex,
-          Poly_Triangle(aVertId - myStacksNb - 2, aVertId, aVertId - myStacksNb - 1));
+          Triangle2(aVertId - myStacksNb - 2, aVertId, aVertId - myStacksNb - 1));
       }
     }
   }

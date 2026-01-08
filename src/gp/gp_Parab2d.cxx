@@ -40,7 +40,7 @@ gp_Parab2d::gp_Parab2d(const gp_Ax2d&         theDirectrix,
                      ? gp_Dir2d(theFocus.XY() - anOrigin.XY())
                      : theDirectrix.Rotated(aDirLoc, theSense ? -M_PI_2 : M_PI_2).Direction();
 
-  pos = gp_Ax22d(anApex, aXDir, aDirVec);
+  pos = Ax22d(anApex, aXDir, aDirVec);
 }
 
 void gp_Parab2d::Coefficients(Standard_Real& A,

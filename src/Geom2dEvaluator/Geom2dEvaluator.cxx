@@ -24,7 +24,7 @@ void Geom2dEvaluator1::CalculateD0(gp_Pnt2d&           theValue,
                                   const gp_Vec2d&     theD1,
                                   const Standard_Real theOffset)
 {
-  if (theD1.SquareMagnitude() <= gp::Resolution())
+  if (theD1.SquareMagnitude() <= gp1::Resolution())
     throw Standard_NullValue("Geom2dEvaluator1: Undefined normal vector "
                              "because tangent vector has zero-magnitude!");
 
@@ -50,9 +50,9 @@ void Geom2dEvaluator1::CalculateD1(gp_Pnt2d&           theValue,
   Standard_Real R  = Sqrt(R2);
   Standard_Real R3 = R * R2;
   Standard_Real Dr = Ndir.Dot(DNdir);
-  if (R3 <= gp::Resolution())
+  if (R3 <= gp1::Resolution())
   {
-    if (R2 <= gp::Resolution())
+    if (R2 <= gp1::Resolution())
       throw Standard_NullValue("Geom2dEvaluator_OffsetCurve: Null derivative");
     // We try another computation but the stability is not very good.
     DNdir.Multiply(R);
@@ -100,9 +100,9 @@ void Geom2dEvaluator1::CalculateD2(gp_Pnt2d&              theValue,
   Standard_Real R5  = R3 * R2;
   Standard_Real Dr  = Ndir.Dot(DNdir);
   Standard_Real D2r = Ndir.Dot(D2Ndir) + DNdir.Dot(DNdir);
-  if (R5 <= gp::Resolution())
+  if (R5 <= gp1::Resolution())
   {
-    if (R4 <= gp::Resolution())
+    if (R4 <= gp1::Resolution())
       throw Standard_NullValue("Geom2dEvaluator1: Null derivative");
     // We try another computation but the stability is not very good dixit ISG.
     //  V2 = P" (U) :
@@ -177,9 +177,9 @@ void Geom2dEvaluator1::CalculateD3(gp_Pnt2d&              theValue,
   Standard_Real D2r = Ndir.Dot(D2Ndir) + DNdir.Dot(DNdir);
   Standard_Real D3r = Ndir.Dot(D3Ndir) + 3.0 * DNdir.Dot(D2Ndir);
 
-  if (R7 <= gp::Resolution())
+  if (R7 <= gp1::Resolution())
   {
-    if (R6 <= gp::Resolution())
+    if (R6 <= gp1::Resolution())
       throw Standard_NullValue("Geom2dEvaluator1: Null derivative");
     // We try another computation but the stability is not very good dixit ISG.
     //  V3 = P"' (U) :

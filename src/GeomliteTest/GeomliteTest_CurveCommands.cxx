@@ -154,14 +154,14 @@ static Standard_Integer anacurve(DrawInterpreter&, Standard_Integer n, const cha
   {
     if (n == 5)
       result2d =
-        new Geom2d_Circle(gp_Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])), gp_Dir2d(1, 0)),
+        new Geom2d_Circle(Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])), gp_Dir2d(1, 0)),
                           Draw1::Atof(a[4]));
     else if (n == 6)
       result = new GeomCircle(
         Frame3d(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])), Dir3d(0, 0, 1)),
         Draw1::Atof(a[5]));
     else if (n == 7)
-      result2d = new Geom2d_Circle(gp_Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])),
+      result2d = new Geom2d_Circle(Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])),
                                             gp_Dir2d(Draw1::Atof(a[4]), Draw1::Atof(a[5]))),
                                    Draw1::Atof(a[6]));
     else if (n == 9)
@@ -182,14 +182,14 @@ static Standard_Integer anacurve(DrawInterpreter&, Standard_Integer n, const cha
   {
     if (n == 5)
       result2d =
-        new Geom2d_Parabola(gp_Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])), gp_Dir2d(1, 0)),
+        new Geom2d_Parabola(Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])), gp_Dir2d(1, 0)),
                             Draw1::Atof(a[4]));
     else if (n == 6)
       result = new Geom_Parabola(
         Frame3d(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])), Dir3d(0, 0, 1)),
         Draw1::Atof(a[5]));
     else if (n == 7)
-      result2d = new Geom2d_Parabola(gp_Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])),
+      result2d = new Geom2d_Parabola(Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])),
                                               gp_Dir2d(Draw1::Atof(a[4]), Draw1::Atof(a[5]))),
                                      Draw1::Atof(a[6]));
     else if (n == 9)
@@ -211,7 +211,7 @@ static Standard_Integer anacurve(DrawInterpreter&, Standard_Integer n, const cha
   {
     if (n == 6)
       result2d =
-        new Geom2d_Ellipse(gp_Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])), gp_Dir2d(1, 0)),
+        new Geom2d_Ellipse(Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])), gp_Dir2d(1, 0)),
                            Draw1::Atof(a[4]),
                            Draw1::Atof(a[5]));
     else if (n == 7)
@@ -220,7 +220,7 @@ static Standard_Integer anacurve(DrawInterpreter&, Standard_Integer n, const cha
         Draw1::Atof(a[5]),
         Draw1::Atof(a[6]));
     else if (n == 8)
-      result2d = new Geom2d_Ellipse(gp_Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])),
+      result2d = new Geom2d_Ellipse(Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])),
                                              gp_Dir2d(Draw1::Atof(a[4]), Draw1::Atof(a[5]))),
                                     Draw1::Atof(a[6]),
                                     Draw1::Atof(a[7]));
@@ -245,7 +245,7 @@ static Standard_Integer anacurve(DrawInterpreter&, Standard_Integer n, const cha
   {
     if (n == 6)
       result2d =
-        new Geom2d_Hyperbola(gp_Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])), gp_Dir2d(1, 0)),
+        new Geom2d_Hyperbola(Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])), gp_Dir2d(1, 0)),
                              Draw1::Atof(a[4]),
                              Draw1::Atof(a[5]));
     else if (n == 7)
@@ -254,7 +254,7 @@ static Standard_Integer anacurve(DrawInterpreter&, Standard_Integer n, const cha
         Draw1::Atof(a[5]),
         Draw1::Atof(a[6]));
     else if (n == 8)
-      result2d = new Geom2d_Hyperbola(gp_Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])),
+      result2d = new Geom2d_Hyperbola(Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])),
                                                gp_Dir2d(Draw1::Atof(a[4]), Draw1::Atof(a[5]))),
                                       Draw1::Atof(a[6]),
                                       Draw1::Atof(a[7]));
@@ -1428,7 +1428,7 @@ static Standard_Integer localprop(DrawInterpreter& di, Standard_Integer argc, co
       {
         Standard_Real R = 1 / Abs(K);
         Prop.CentreOfCurvature(Center);
-        gp_Ax2d                    Axe(Center, gp::DX2d());
+        gp_Ax2d                    Axe(Center, gp1::DX2d());
         Handle(Geom2d_Circle)      Cir2d = new Geom2d_Circle(Axe, R);
         Handle(DrawTrSurf_Curve2d) dr;
         dr = new DrawTrSurf_Curve2d(Cir2d, Draw_rouge, 30, Standard_False);

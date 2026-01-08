@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class gp_Circ2d;
 class gp_Ax2d;
-class gp_Ax22d;
+class Ax22d;
 class gp_Pnt2d;
 class gp_Vec2d;
 class gp_Trsf2d;
@@ -36,7 +36,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Circle, Geom2d_Conic)
 //! Describes a circle in the plane (2D space).
 //! A circle is defined by its radius and, as with any conic
 //! curve, is positioned in the plane with a coordinate
-//! system (gp_Ax22d object) where the origin is the
+//! system (Ax22d object) where the origin is the
 //! center of the circle.
 //! The coordinate system is the local coordinate
 //! system of the circle.
@@ -59,7 +59,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Circle, Geom2d_Conic)
 //! See Also
 //! GCE2d_MakeCircle which provides functions for
 //! more complex1 circle constructions
-//! gp_Ax22d and  gp_Circ2d for an equivalent, non-parameterized data structure.
+//! Ax22d and  gp_Circ2d for an equivalent, non-parameterized data structure.
 class Geom2d_Circle : public Geom2d_Conic
 {
 
@@ -83,14 +83,14 @@ public:
   //! - the center of the circle is the origin of A,
   //! - the orientation (direct or indirect) of A gives the
   //! orientation of the circle.
-  Standard_EXPORT Geom2d_Circle(const gp_Ax22d& A, const Standard_Real Radius);
+  Standard_EXPORT Geom2d_Circle(const Ax22d& A, const Standard_Real Radius);
 
   //! Converts the gp_Circ2d circle C into this circle.
   Standard_EXPORT void SetCirc2d(const gp_Circ2d& C);
 
   Standard_EXPORT void SetRadius(const Standard_Real R);
 
-  //! Returns the non persistent circle from gp with the same
+  //! Returns the non persistent circle from gp1 with the same
   //! geometric properties as <me>.
   Standard_EXPORT gp_Circ2d Circ2d() const;
 

@@ -73,7 +73,7 @@ static void ComputePoles(const Standard_Real R,
 
 //=================================================================================================
 
-Convert_ConeToBSplineSurface::Convert_ConeToBSplineSurface(const gp_Cone&      C,
+Convert_ConeToBSplineSurface::Convert_ConeToBSplineSurface(const Cone1&      C,
                                                            const Standard_Real U1,
                                                            const Standard_Real U2,
                                                            const Standard_Real V1,
@@ -127,7 +127,7 @@ Convert_ConeToBSplineSurface::Convert_ConeToBSplineSurface(const gp_Cone&      C
   // and calculate the weight of the bspline.
   Standard_Real W1;
   Transform3d       Trsf;
-  Trsf.SetTransformation(C.Position(), gp::XOY());
+  Trsf.SetTransformation(C.Position(), gp1::XOY());
 
   for (i = 1; i <= nbUPoles; i++)
   {
@@ -146,7 +146,7 @@ Convert_ConeToBSplineSurface::Convert_ConeToBSplineSurface(const gp_Cone&      C
 
 //=================================================================================================
 
-Convert_ConeToBSplineSurface::Convert_ConeToBSplineSurface(const gp_Cone&      C,
+Convert_ConeToBSplineSurface::Convert_ConeToBSplineSurface(const Cone1&      C,
                                                            const Standard_Real V1,
                                                            const Standard_Real V2)
     : ElementaryToBSplineSurface(TheNbUPoles,
@@ -189,7 +189,7 @@ Convert_ConeToBSplineSurface::Convert_ConeToBSplineSurface(const gp_Cone&      C
   // and calculate the weight of bspline.
   Standard_Real W;
   Transform3d       Trsf;
-  Trsf.SetTransformation(C.Position(), gp::XOY());
+  Trsf.SetTransformation(C.Position(), gp1::XOY());
 
   for (i = 1; i <= nbUPoles; i++)
   {

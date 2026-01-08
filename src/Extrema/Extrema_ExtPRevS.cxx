@@ -49,7 +49,7 @@ static Frame3d GetPosition(
       if (N.IsParallel(L.Direction(), Precision::Angular()))
       {
         Vector3d OO(L.Location(), S.AxeOfRevolution().Location());
-        if (OO.Magnitude() <= gp::Resolution())
+        if (OO.Magnitude() <= gp1::Resolution())
         {
           OO = Vector3d(L.Location(), ElCLib1::Value(100, L));
           if (N.IsParallel(OO, Precision::Angular()))
@@ -158,7 +158,7 @@ static Standard_Boolean IsCaseAnalyticallyComputable(const GeomAbs_CurveType& th
     return Standard_True;
   return Standard_False;
   //   Vector3d V (AxeOfRevolution.Location(),theCurvePos.Location());
-  //   if (Abs( V * theCurvePos.Direction()) <= gp::Resolution())
+  //   if (Abs( V * theCurvePos.Direction()) <= gp1::Resolution())
   //     return Standard_True;
   //   else
   //     return Standard_False;
@@ -324,7 +324,7 @@ void Extrema_ExtPRevS::Perform(const Point3d& P)
   Standard_Real U, V;
   Point3d        P1, Ppp;
   Standard_Real OPpz = Vector3d(O, Pp).Dot(Z);
-  if (Abs(OPpz) <= gp::Resolution())
+  if (Abs(OPpz) <= gp1::Resolution())
   {
     Ppp = Pp;
     U   = 0;
@@ -343,7 +343,7 @@ void Extrema_ExtPRevS::Perform(const Point3d& P)
   Vector3d OPpp(O, Ppp), OPq(O, myS->Value(M_PI / 2, 0));
   if (U != M_PI / 2)
   {
-    if (Abs(OPq.Magnitude()) <= gp::Resolution())
+    if (Abs(OPq.Magnitude()) <= gp1::Resolution())
       OPq = Vector3d(O, myS->Value(M_PI / 2, anACurve->LastParameter() / 10));
     if (OPpp.AngleWithRef(OPq, Dir) < 0)
       U += M_PI;

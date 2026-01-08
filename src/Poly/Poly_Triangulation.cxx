@@ -66,7 +66,7 @@ MeshTriangulation::MeshTriangulation(const TColgp_Array1OfPnt&    theNodes,
       myTriangles(1, theTriangles.Length()),
       myPurpose(Poly_MeshPurpose_NONE)
 {
-  const Poly_ArrayOfNodes aNodeWrapper(theNodes.First(), theNodes.Length());
+  const NodeArray aNodeWrapper(theNodes.First(), theNodes.Length());
   myNodes     = aNodeWrapper;
   myTriangles = theTriangles;
 }
@@ -83,10 +83,10 @@ MeshTriangulation::MeshTriangulation(const TColgp_Array1OfPnt&    theNodes,
       myUVNodes(theNodes.Length()),
       myPurpose(Poly_MeshPurpose_NONE)
 {
-  const Poly_ArrayOfNodes aNodeWrapper(theNodes.First(), theNodes.Length());
+  const NodeArray aNodeWrapper(theNodes.First(), theNodes.Length());
   myNodes     = aNodeWrapper;
   myTriangles = theTriangles;
-  const Poly_ArrayOfUVNodes aUVNodeWrapper(theUVNodes.First(), theUVNodes.Length());
+  const UVNodeArray aUVNodeWrapper(theUVNodes.First(), theUVNodes.Length());
   myUVNodes = aUVNodeWrapper;
 }
 
@@ -124,7 +124,7 @@ void MeshTriangulation::Clear()
 {
   if (!myNodes.IsEmpty())
   {
-    Poly_ArrayOfNodes anEmptyNodes;
+    NodeArray anEmptyNodes;
     anEmptyNodes.SetDoublePrecision(myNodes.IsDoublePrecision());
     myNodes.Move(anEmptyNodes);
   }
@@ -143,7 +143,7 @@ void MeshTriangulation::RemoveUVNodes()
 {
   if (!myUVNodes.IsEmpty())
   {
-    Poly_ArrayOfUVNodes anEmpty;
+    UVNodeArray anEmpty;
     anEmpty.SetDoublePrecision(myUVNodes.IsDoublePrecision());
     myUVNodes.Move(anEmpty);
   }

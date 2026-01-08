@@ -146,7 +146,7 @@ static void Bubble(TColgp_SequenceOfPnt& Seq)
 static Standard_Real EvalPhase(const TopoEdge&         Edge,
                                const TopoFace&         Face,
                                const GeomAdaptor_Surface& GAS,
-                               const gp_Ax3&              Axis)
+                               const Ax3&              Axis)
 {
   gp_Pnt2d      PE1, PE2, PF1, PF2;
   Standard_Real VDeg;
@@ -339,7 +339,7 @@ static void EvalParameters(const TopoEdge&          Edge,
     Handle(GeomSurface) GS = BRepInspector::Surface(Face);
     GeomAdaptor_Surface  GAS(GS);
 
-    gp_Ax3        Axis;
+    Ax3        Axis;
     Standard_Real Phase = 0.;
 
     switch (GAS.GetType())
@@ -436,7 +436,7 @@ void BRepFill_TrimSurfaceTool::IntersectWith(const TopoEdge&    EdgeOnF1,
 Standard_Boolean BRepFill_TrimSurfaceTool::IsOnFace(const gp_Pnt2d& Point) const
 {
   Point3d P(Point.X(), Point.Y(), 0.);
-  gp_Lin Line(P, gp::DZ());
+  gp_Lin Line(P, gp1::DZ());
 
   BRepIntCurveSurface_Inter Inter;
 

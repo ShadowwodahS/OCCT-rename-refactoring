@@ -135,7 +135,7 @@ public:
   //! Computes the reverse transformation.
   //! Raises an exception if the matrix of the transformation
   //! is not inversible, it means that the scale factor is lower
-  //! or equal to Resolution from package gp.
+  //! or equal to Resolution from package gp1.
   Standard_NODISCARD gp_Trsf2d Inverted() const
   {
     gp_Trsf2d aT = *this;

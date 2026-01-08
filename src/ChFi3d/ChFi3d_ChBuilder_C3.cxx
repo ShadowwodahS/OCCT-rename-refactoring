@@ -557,7 +557,7 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
     Dir3d ndir(nor);
     //    Dir3d xdir(Vector3d(p3d[fin],p3d[deb]));
     Dir3d xdir = Dir3d(Vector3d(p3d[fin], p3d[deb]));
-    gp_Ax3 planAx3(p3d[pivot], ndir, xdir);
+    Ax3 planAx3(p3d[pivot], ndir, xdir);
     if (planAx3.YDirection().Dot(v1) <= 0.)
       planAx3.YReverse();
     Handle(GeomPlane) gpl = new GeomPlane(planAx3);

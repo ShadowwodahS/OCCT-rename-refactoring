@@ -25,7 +25,7 @@
 #include <Geom_ConicalSurface.hxx>
 
 class Frame3d;
-class gp_Cone;
+class Cone1;
 class Point3d;
 
 //! This class implements the following algorithms used
@@ -73,13 +73,13 @@ public:
   //! such that the normal Vector (N = D1U ^ D1V) is oriented towards
   //! the "outside region" of the surface.
   //! Status is "NegativeRadius" if Radius < 0.0 or "BadAngle" if
-  //! Ang < Resolution from gp or Ang >= PI/ - Resolution
+  //! Ang < Resolution from gp1 or Ang >= PI/ - Resolution
   Standard_EXPORT GC_MakeConicalSurface(const Frame3d&       A2,
                                         const Standard_Real Ang,
                                         const Standard_Real Radius);
 
-  //! Creates a ConicalSurface from a non persistent Cone from package gp.
-  Standard_EXPORT GC_MakeConicalSurface(const gp_Cone& C);
+  //! Creates a ConicalSurface from a non persistent Cone from package gp1.
+  Standard_EXPORT GC_MakeConicalSurface(const Cone1& C);
 
   //! Make a ConicalSurface from Geom <TheCone> passing through 3
   //! Pnt <P1>,<P2>,<P3>.

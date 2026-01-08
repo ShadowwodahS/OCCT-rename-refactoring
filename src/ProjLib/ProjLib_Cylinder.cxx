@@ -30,14 +30,14 @@ ProjLib_Cylinder::ProjLib_Cylinder() {}
 
 //=================================================================================================
 
-ProjLib_Cylinder::ProjLib_Cylinder(const gp_Cylinder& Cyl)
+ProjLib_Cylinder::ProjLib_Cylinder(const Cylinder1& Cyl)
 {
   Init(Cyl);
 }
 
 //=================================================================================================
 
-ProjLib_Cylinder::ProjLib_Cylinder(const gp_Cylinder& Cyl, const gp_Lin& L)
+ProjLib_Cylinder::ProjLib_Cylinder(const Cylinder1& Cyl, const gp_Lin& L)
 {
   Init(Cyl);
   Project(L);
@@ -45,7 +45,7 @@ ProjLib_Cylinder::ProjLib_Cylinder(const gp_Cylinder& Cyl, const gp_Lin& L)
 
 //=================================================================================================
 
-ProjLib_Cylinder::ProjLib_Cylinder(const gp_Cylinder& Cyl, const gp_Circ& C)
+ProjLib_Cylinder::ProjLib_Cylinder(const Cylinder1& Cyl, const gp_Circ& C)
 {
   Init(Cyl);
   Project(C);
@@ -53,7 +53,7 @@ ProjLib_Cylinder::ProjLib_Cylinder(const gp_Cylinder& Cyl, const gp_Circ& C)
 
 //=================================================================================================
 
-ProjLib_Cylinder::ProjLib_Cylinder(const gp_Cylinder& Cyl, const gp_Elips& E)
+ProjLib_Cylinder::ProjLib_Cylinder(const Cylinder1& Cyl, const gp_Elips& E)
 {
   Init(Cyl);
   Project(E);
@@ -61,7 +61,7 @@ ProjLib_Cylinder::ProjLib_Cylinder(const gp_Cylinder& Cyl, const gp_Elips& E)
 
 //=================================================================================================
 
-void ProjLib_Cylinder::Init(const gp_Cylinder& Cyl)
+void ProjLib_Cylinder::Init(const Cylinder1& Cyl)
 {
   myType       = GeomAbs_OtherCurve;
   myCylinder   = Cyl;
@@ -75,7 +75,7 @@ void ProjLib_Cylinder::Init(const gp_Cylinder& Cyl)
 //           of myPlane.
 //=======================================================================
 
-static gp_Pnt2d EvalPnt2d(const Point3d& P, const gp_Cylinder& Cy)
+static gp_Pnt2d EvalPnt2d(const Point3d& P, const Cylinder1& Cy)
 {
   Vector3d        OP(Cy.Location(), P);
   Standard_Real X = OP.Dot(Vector3d(Cy.Position().XDirection()));
@@ -125,7 +125,7 @@ void ProjLib_Cylinder::Project(const gp_Circ& C)
 {
   // Check the circle's normal is parallel to the axis of cylinder.
   // In other cases, the projection is wrong.
-  const gp_Ax3& aCylPos  = myCylinder.Position();
+  const Ax3& aCylPos  = myCylinder.Position();
   const Frame3d& aCircPos = C.Position();
   if (aCylPos.Direction().XYZ().CrossSquareMagnitude(aCircPos.Direction().XYZ())
       > Precision::Angular() * Precision::Angular())

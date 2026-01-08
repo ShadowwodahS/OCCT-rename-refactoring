@@ -288,10 +288,10 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
   };
 
 public:
-  typedef subBase_gp<Surface, gp_Ax3>                                Elementary;
-  typedef instance<Elementary, GeomPlane, gp_Ax3>                   Plane;
-  typedef instance<Elementary, Geom_ConicalSurface, gp_Cone>         Conical;
-  typedef instance<Elementary, Geom_CylindricalSurface, gp_Cylinder> Cylindrical;
+  typedef subBase_gp<Surface, Ax3>                                Elementary;
+  typedef instance<Elementary, GeomPlane, Ax3>                   Plane;
+  typedef instance<Elementary, Geom_ConicalSurface, Cone1>         Conical;
+  typedef instance<Elementary, Geom_CylindricalSurface, Cylinder1> Cylindrical;
   typedef instance<Elementary, Geom_SphericalSurface, gp_Sphere>     Spherical;
   typedef instance<Elementary, Geom_ToroidalSurface, gp_Torus>       Toroidal;
 
@@ -348,7 +348,7 @@ public:
 // Elementary
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>::PName()
+Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>::PName()
   const;
 
 //=======================================================================
@@ -356,58 +356,58 @@ Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface,
 //=======================================================================
 template <>
 Standard_CString ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   GeomPlane,
-  gp_Ax3>::PName() const;
+  Ax3>::PName() const;
 
 template <>
 void ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   GeomPlane,
-  gp_Ax3>::Write(StdObjMgt_WriteData& theWriteData) const;
+  Ax3>::Write(StdObjMgt_WriteData& theWriteData) const;
 
 //=======================================================================
 // Conical
 //=======================================================================
 template <>
 Standard_CString ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_ConicalSurface,
-  gp_Cone>::PName() const;
+  Cone1>::PName() const;
 
 template <>
 void ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_ConicalSurface,
-  gp_Cone>::Write(StdObjMgt_WriteData& theWriteData) const;
+  Cone1>::Write(StdObjMgt_WriteData& theWriteData) const;
 
 //=======================================================================
 // Cylindrical
 //=======================================================================
 template <>
 Standard_CString ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_CylindricalSurface,
-  gp_Cylinder>::PName() const;
+  Cylinder1>::PName() const;
 
 template <>
 void ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_CylindricalSurface,
-  gp_Cylinder>::Write(StdObjMgt_WriteData& theWriteData) const;
+  Cylinder1>::Write(StdObjMgt_WriteData& theWriteData) const;
 
 //=======================================================================
 // Spherical
 //=======================================================================
 template <>
 Standard_CString ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_SphericalSurface,
   gp_Sphere>::PName() const;
 
 template <>
 void ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_SphericalSurface,
   gp_Sphere>::Write(StdObjMgt_WriteData& theWriteData) const;
 
@@ -416,13 +416,13 @@ void ShapePersistent_Geom::instance<
 //=======================================================================
 template <>
 Standard_CString ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_ToroidalSurface,
   gp_Torus>::PName() const;
 
 template <>
 void ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_ToroidalSurface,
   gp_Torus>::Write(StdObjMgt_WriteData& theWriteData) const;
 

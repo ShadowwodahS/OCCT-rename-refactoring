@@ -89,7 +89,7 @@ Standard_Boolean AlgoTools2D::EdgeTangent(const TopoEdge&  anEdge,
   Point3d             aP;
   aC->D1(aT, aP, aTau);
   Standard_Real mod = aTau.Magnitude();
-  if (mod > gp::Resolution())
+  if (mod > gp1::Resolution())
   {
     aTau /= mod;
   }
@@ -302,7 +302,7 @@ void AlgoTools2D::AdjustPCurveOnSurf(const BRepAdaptor_Surface&  aBAS,
       {
         Standard_Real aR, dFi, aTol;
         //
-        gp_Cylinder aCylinder = aBAS.Cylinder();
+        Cylinder1 aCylinder = aBAS.Cylinder();
         aR                    = aCylinder.Radius();
         aTol                  = MaxToleranceEdge(aF);
         dFi                   = aTol / aR;
@@ -684,7 +684,7 @@ void AlgoTools2D::IsEdgeIsoline(const TopoEdge& theE,
   aPC->D1(0.5 * (aFirst + aLast), aP, aT);
 
   const Standard_Real aSqMagn = aT.SquareMagnitude();
-  if (aSqMagn <= gp::Resolution())
+  if (aSqMagn <= gp1::Resolution())
     return;
 
   // Normalize aT

@@ -575,7 +575,7 @@ Standard_Boolean FaceNormal(const TopoFace&  aF,
   aS = BRepInspector::Surface(aF);
   aS->D1(U, V, aPnt, aD1U, aD1V);
   aN = aD1U.Crossed(aD1V);
-  if (aN.Magnitude() <= gp::Resolution())
+  if (aN.Magnitude() <= gp1::Resolution())
     return Standard_False;
 
   aN.Normalize();

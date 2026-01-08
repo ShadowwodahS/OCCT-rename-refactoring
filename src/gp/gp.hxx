@@ -30,7 +30,7 @@ class gp_Pnt2d;
 class gp_Dir2d;
 class gp_Ax2d;
 
-//! The geometric processor package, called gp, provides an
+//! The geometric processor package, called gp1, provides an
 //! implementation of entities used  :
 //! . for algebraic calculation such as "XYZ" coordinates, "Mat"
 //! matrix
@@ -39,19 +39,19 @@ class gp_Ax2d;
 //! surfaces.
 //! These entities are defined in 2d and 3d space.
 //! All the classes of this package are non-persistent.
-class gp
+class gp1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Method of package gp
+  //! Method of package gp1
   //!
   //! In geometric computations, defines the tolerance criterion
   //! used to determine when two numbers can be considered equal.
   //! Many class functions use this tolerance criterion, for
   //! example, to avoid division by zero in geometric
   //! computations. In the documentation, tolerance criterion is
-  //! always referred to as gp::Resolution().
+  //! always referred to as gp1::Resolution().
   static Standard_Real Resolution() { return RealSmall(); }
 
   //! Identifies a Cartesian point with coordinates X = Y = Z = 0.0.0

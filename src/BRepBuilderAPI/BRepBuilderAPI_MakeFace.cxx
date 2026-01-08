@@ -54,7 +54,7 @@ FaceMaker::FaceMaker(const gp_Pln& P)
 
 //=================================================================================================
 
-FaceMaker::FaceMaker(const gp_Cylinder& C)
+FaceMaker::FaceMaker(const Cylinder1& C)
     : myMakeFace(C)
 {
   if (myMakeFace.IsDone())
@@ -66,7 +66,7 @@ FaceMaker::FaceMaker(const gp_Cylinder& C)
 
 //=================================================================================================
 
-FaceMaker::FaceMaker(const gp_Cone& C)
+FaceMaker::FaceMaker(const Cone1& C)
     : myMakeFace(C)
 {
   if (myMakeFace.IsDone())
@@ -131,7 +131,7 @@ FaceMaker::FaceMaker(const gp_Pln&       P,
 
 //=================================================================================================
 
-FaceMaker::FaceMaker(const gp_Cylinder&  C,
+FaceMaker::FaceMaker(const Cylinder1&  C,
                                                  const Standard_Real UMin,
                                                  const Standard_Real UMax,
                                                  const Standard_Real VMin,
@@ -147,7 +147,7 @@ FaceMaker::FaceMaker(const gp_Cylinder&  C,
 
 //=================================================================================================
 
-FaceMaker::FaceMaker(const gp_Cone&      C,
+FaceMaker::FaceMaker(const Cone1&      C,
                                                  const Standard_Real UMin,
                                                  const Standard_Real UMax,
                                                  const Standard_Real VMin,
@@ -239,7 +239,7 @@ FaceMaker::FaceMaker(const gp_Pln&          P,
 
 //=================================================================================================
 
-FaceMaker::FaceMaker(const gp_Cylinder&     C,
+FaceMaker::FaceMaker(const Cylinder1&     C,
                                                  const TopoWire&     W,
                                                  const Standard_Boolean Inside)
     : myMakeFace(C, W, Inside)
@@ -253,7 +253,7 @@ FaceMaker::FaceMaker(const gp_Cylinder&     C,
 
 //=================================================================================================
 
-FaceMaker::FaceMaker(const gp_Cone&         C,
+FaceMaker::FaceMaker(const Cone1&         C,
                                                  const TopoWire&     W,
                                                  const Standard_Boolean Inside)
     : myMakeFace(C, W, Inside)

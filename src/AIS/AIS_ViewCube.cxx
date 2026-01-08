@@ -45,7 +45,7 @@ static Standard_Integer nbDirectionComponents(const Dir3d& theDir)
   Standard_Integer aNbComps = 0;
   for (Standard_Integer aCompIter = 1; aCompIter <= 3; ++aCompIter)
   {
-    if (Abs(theDir.Coord(aCompIter)) > gp::Resolution())
+    if (Abs(theDir.Coord(aCompIter)) > gp1::Resolution())
     {
       ++aNbComps;
     }
@@ -333,7 +333,7 @@ void AIS_ViewCube::createRoundRectangleTriangles(const Handle(Graphic3d_ArrayOfT
 {
   const Standard_Real    aRadius = Min(theRadius, Min(theSize.X(), theSize.Y()) * 0.5);
   const Coords2d            aHSize(theSize.X() * 0.5 - aRadius, theSize.Y() * 0.5 - aRadius);
-  const Dir3d           aNorm      = gp::DZ().Transformed(theTrsf);
+  const Dir3d           aNorm      = gp1::DZ().Transformed(theTrsf);
   const Standard_Integer aVertFirst = !theTris.IsNull() ? theTris->VertexNumber() : 0;
   if (aRadius > 0.0)
   {
@@ -348,7 +348,7 @@ void AIS_ViewCube::createRoundRectangleTriangles(const Handle(Graphic3d_ArrayOfT
     theTris->AddVertex(Point3d(0.0, 0.0, 0.0).Transformed(theTrsf));
     for (Standard_Integer aNodeIter = 0; aNodeIter <= THE_NB_ROUND_SPLITS; ++aNodeIter)
     {
-      const Standard_Real anAngle = NCollection_Lerp<Standard_Real>::Interpolate(
+      const Standard_Real anAngle = NCollection_Lerp1<Standard_Real>::Interpolate(
         M_PI * 0.5,
         0.0,
         Standard_Real(aNodeIter) / Standard_Real(THE_NB_ROUND_SPLITS));
@@ -358,7 +358,7 @@ void AIS_ViewCube::createRoundRectangleTriangles(const Handle(Graphic3d_ArrayOfT
     }
     for (Standard_Integer aNodeIter = 0; aNodeIter <= THE_NB_ROUND_SPLITS; ++aNodeIter)
     {
-      const Standard_Real anAngle = NCollection_Lerp<Standard_Real>::Interpolate(
+      const Standard_Real anAngle = NCollection_Lerp1<Standard_Real>::Interpolate(
         0.0,
         -M_PI * 0.5,
         Standard_Real(aNodeIter) / Standard_Real(THE_NB_ROUND_SPLITS));
@@ -368,7 +368,7 @@ void AIS_ViewCube::createRoundRectangleTriangles(const Handle(Graphic3d_ArrayOfT
     }
     for (Standard_Integer aNodeIter = 0; aNodeIter <= THE_NB_ROUND_SPLITS; ++aNodeIter)
     {
-      const Standard_Real anAngle = NCollection_Lerp<Standard_Real>::Interpolate(
+      const Standard_Real anAngle = NCollection_Lerp1<Standard_Real>::Interpolate(
         -M_PI * 0.5,
         -M_PI,
         Standard_Real(aNodeIter) / Standard_Real(THE_NB_ROUND_SPLITS));
@@ -378,7 +378,7 @@ void AIS_ViewCube::createRoundRectangleTriangles(const Handle(Graphic3d_ArrayOfT
     }
     for (Standard_Integer aNodeIter = 0; aNodeIter <= THE_NB_ROUND_SPLITS; ++aNodeIter)
     {
-      const Standard_Real anAngle = NCollection_Lerp<Standard_Real>::Interpolate(
+      const Standard_Real anAngle = NCollection_Lerp1<Standard_Real>::Interpolate(
         -M_PI,
         -M_PI * 1.5,
         Standard_Real(aNodeIter) / Standard_Real(THE_NB_ROUND_SPLITS));
@@ -445,9 +445,9 @@ void AIS_ViewCube::createBoxSideTriangles(const Handle(Graphic3d_ArrayOfTriangle
   const Point3d aPos = aDir.XYZ() * (mySize * 0.5 + myBoxFacetExtension);
   const Frame3d aPosition(aPos, aDir.Reversed());
 
-  gp_Ax3  aSystem(aPosition);
+  Ax3  aSystem(aPosition);
   Transform3d aTrsf;
-  aTrsf.SetTransformation(aSystem, gp_Ax3());
+  aTrsf.SetTransformation(aSystem, Ax3());
 
   createRoundRectangleTriangles(theTris,
                                 theNbNodes,
@@ -472,9 +472,9 @@ void AIS_ViewCube::createBoxEdgeTriangles(const Handle(Graphic3d_ArrayOfTriangle
     aDir.XYZ() * (mySize * 0.5 * Coords2d(1.0, 1.0).Modulus() + myBoxFacetExtension * Cos(M_PI_4));
   const Frame3d aPosition(aPos, aDir.Reversed());
 
-  gp_Ax3  aSystem(aPosition);
+  Ax3  aSystem(aPosition);
   Transform3d aTrsf;
-  aTrsf.SetTransformation(aSystem, gp_Ax3());
+  aTrsf.SetTransformation(aSystem, Ax3());
 
   createRoundRectangleTriangles(theTris,
                                 theNbNodes,
@@ -508,15 +508,15 @@ void AIS_ViewCube::createBoxCornerTriangles(const Handle(Graphic3d_ArrayOfTriang
     const Standard_Real aHeight      = anEdgeHWidth * Sqrt(2.0 / 3.0); // tetrahedron height
     const Point3d        aPos = aDir.XYZ() * (aHSize * Vector3d(1.0, 1.0, 1.0).Magnitude() + aHeight);
     const Frame3d        aPosition(aPos, aDir.Reversed());
-    gp_Ax3              aSystem(aPosition);
+    Ax3              aSystem(aPosition);
     Transform3d             aTrsf;
-    aTrsf.SetTransformation(aSystem, gp_Ax3());
+    aTrsf.SetTransformation(aSystem, Ax3());
     const Standard_Real aRadius = Max(myBoxFacetExtension * 0.5 / Cos(M_PI_4), myCornerMinSize);
 
     theTris->AddVertex(Point3d(0.0, 0.0, 0.0).Transformed(aTrsf));
     for (Standard_Integer aNodeIter = 0; aNodeIter < THE_NB_DISK_SLICES; ++aNodeIter)
     {
-      const Standard_Real anAngle = NCollection_Lerp<Standard_Real>::Interpolate(
+      const Standard_Real anAngle = NCollection_Lerp1<Standard_Real>::Interpolate(
         2.0 * M_PI,
         0.0,
         Standard_Real(aNodeIter) / Standard_Real(THE_NB_DISK_SLICES));
@@ -592,13 +592,13 @@ void AIS_ViewCube::Compute(const Handle(PrsMgr_PresentationManager)&,
       switch (aPart)
       {
         case Prs3d_DatumParts_XAxis:
-          anAx1 = Axis3d(aLocation, gp::DX());
+          anAx1 = Axis3d(aLocation, gp1::DX());
           break;
         case Prs3d_DatumParts_YAxis:
-          anAx1 = Axis3d(aLocation, gp::DY());
+          anAx1 = Axis3d(aLocation, gp1::DY());
           break;
         case Prs3d_DatumParts_ZAxis:
-          anAx1 = Axis3d(aLocation, gp::DZ());
+          anAx1 = Axis3d(aLocation, gp1::DZ());
           break;
         default:
           break;
@@ -643,7 +643,7 @@ void AIS_ViewCube::Compute(const Handle(PrsMgr_PresentationManager)&,
       aGroup->SetGroupPrimitivesAspect(anAspectCen->Aspect());
       Prs3d_ToolSphere aTool(myAxesSphereRadius, THE_NB_DISK_SLICES, THE_NB_DISK_SLICES);
       Transform3d          aTrsf;
-      aTrsf.SetTranslation(Vector3d(gp::Origin(), aLocation));
+      aTrsf.SetTranslation(Vector3d(gp1::Origin(), aLocation));
       Handle(Graphic3d_ArrayOfTriangles) aCenterArray;
       aTool.FillArray(aCenterArray, aTrsf);
       aGroup->AddPrimitiveArray(aCenterArray);
@@ -724,23 +724,23 @@ void AIS_ViewCube::Compute(const Handle(PrsMgr_PresentationManager)&,
       }
 
       const Dir3d aDir = V3d::GetProjAxis(anOrient);
-      Dir3d       anUp = myIsYup ? gp::DY() : gp::DZ();
+      Dir3d       anUp = myIsYup ? gp1::DY() : gp1::DZ();
       if (myIsYup)
       {
         if (anOrient == V3d_Ypos || anOrient == V3d_Yneg)
         {
-          anUp = -gp::DZ();
+          anUp = -gp1::DZ();
         }
       }
       else
       {
         if (anOrient == V3d_Zpos)
         {
-          anUp = gp::DY();
+          anUp = gp1::DY();
         }
         else if (anOrient == V3d_Zneg)
         {
-          anUp = -gp::DY();
+          anUp = -gp1::DY();
         }
       }
 
@@ -928,7 +928,7 @@ void AIS_ViewCube::StartAnimation(const Handle(AIS_ViewCubeOwner)& theOwner)
     if (!myToResetCameraUp && !aNewDir.IsEqual(myStartState->Direction(), Precision::Angular()))
     {
       // find the Up direction closest to current instead of default one
-      const Axis3d aNewDirAx1(gp::Origin(), aNewDir);
+      const Axis3d aNewDirAx1(gp1::Origin(), aNewDir);
       const Dir3d anOldUp     = myStartState->Up();
       const Dir3d anUpList[4] = {
         myEndState->Up(),

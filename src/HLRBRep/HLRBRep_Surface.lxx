@@ -257,7 +257,7 @@ inline GeomAbs_SurfaceType HLRBRep_Surface::GetType() const
 // purpose  :
 //=======================================================================
 
-inline gp_Cylinder HLRBRep_Surface::Cylinder() const
+inline Cylinder1 HLRBRep_Surface::Cylinder() const
 {
   return BSurfaceTool::Cylinder(mySurf);
 }
@@ -267,7 +267,7 @@ inline gp_Cylinder HLRBRep_Surface::Cylinder() const
 // purpose  :
 //=======================================================================
 
-inline gp_Cone HLRBRep_Surface::Cone() const
+inline Cone1 HLRBRep_Surface::Cone() const
 {
   return BSurfaceTool::Cone(mySurf);
 }

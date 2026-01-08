@@ -38,7 +38,7 @@ class BRepTools_NurbsConvertModification;
 DEFINE_STANDARD_HANDLE(BRepTools_NurbsConvertModification, BRepTools_CopyModification)
 
 //! Defines a modification of the  geometry by a  Trsf
-//! from gp. All methods return True and transform the
+//! from gp1. All methods return True and transform the
 //! geometry.
 class BRepTools_NurbsConvertModification : public BRepTools_CopyModification
 {

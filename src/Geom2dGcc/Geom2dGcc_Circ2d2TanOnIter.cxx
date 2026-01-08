@@ -118,7 +118,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedLine& Qualifie
       gp_Vec2d      Vec2(point2, point3new);
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real angle2;
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         angle2 = Vec2.Angle(Tan2);
       }
@@ -232,7 +232,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Quali
       Standard_Real normevec1 = Vec1.Magnitude();
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real angle1, angle2;
-      if (normevec1 >= gp::Resolution() && normetan1 >= gp::Resolution())
+      if (normevec1 >= gp1::Resolution() && normetan1 >= gp1::Resolution())
       {
         angle1 = Vec1.Angle(Tan1);
       }
@@ -240,7 +240,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Quali
       {
         angle1 = 0.;
       }
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         angle2 = Vec2.Angle(Tan2);
       }
@@ -336,7 +336,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Quali
       gp_Vec2d      Vec1(point1new, point3new);
       Standard_Real normevec1 = Vec1.Magnitude();
       Standard_Real angle1;
-      if (normevec1 >= gp::Resolution() && normetan1 >= gp::Resolution())
+      if (normevec1 >= gp1::Resolution() && normetan1 >= gp1::Resolution())
       {
         angle1 = Vec1.Angle(Tan1);
       }
@@ -445,7 +445,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedCircle& Qualif
       gp_Vec2d      Vec2(point2, point3);
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real angle2;
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         angle2 = Vec2.Angle(Tan2);
       }
@@ -559,7 +559,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedCircle& Qualif
       gp_Vec2d      Vec2(point2, point3);
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real angle2;
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         angle2 = Vec2.Angle(Tan2);
       }
@@ -671,7 +671,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedLine& Qualifie
       gp_Vec2d      Vec2(point2new, point3);
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real angle2;
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         angle2 = Vec2.Angle(Tan2);
       }
@@ -785,7 +785,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Quali
       Standard_Real normevec1 = Vec1.Magnitude();
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real angle1, angle2;
-      if (normevec1 >= gp::Resolution() && normetan1 >= gp::Resolution())
+      if (normevec1 >= gp1::Resolution() && normetan1 >= gp1::Resolution())
       {
         angle1 = Vec1.Angle(Tan1);
       }
@@ -793,7 +793,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Quali
       {
         angle1 = 0.;
       }
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         angle2 = Vec2.Angle(Tan2);
       }
@@ -889,7 +889,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Quali
       gp_Vec2d      Vec1(point1new, point3new);
       Standard_Real normevec1 = Vec1.Magnitude();
       Standard_Real angle1;
-      if (normevec1 >= gp::Resolution() && normetan1 >= gp::Resolution())
+      if (normevec1 >= gp1::Resolution() && normetan1 >= gp1::Resolution())
       {
         angle1 = Vec1.Angle(Tan1);
       }
@@ -993,7 +993,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve&    Qu
       Standard_Real normevec1 = Vec1.Magnitude();
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real angle1, angle2;
-      if (normevec1 >= gp::Resolution() && normetan1 >= gp::Resolution())
+      if (normevec1 >= gp1::Resolution() && normetan1 >= gp1::Resolution())
       {
         angle1 = Vec1.Angle(Tan1);
       }
@@ -1001,7 +1001,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve&    Qu
       {
         angle1 = 0.;
       }
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         angle2 = Vec2.Angle(Tan2);
       }
@@ -1109,7 +1109,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedCircle& Qualif
       gp_Vec2d      Vec2(point2.XY(), point3.XY());
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real angle2;
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         angle2 = Vec2.Angle(Tan2);
       }
@@ -1217,7 +1217,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedLine& Qualifie
       gp_Vec2d      Vec2(point2, point3);
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real angle2;
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         angle2 = Vec2.Angle(Tan2);
       }
@@ -1314,7 +1314,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve&    Qu
       gp_Vec2d      Vec1(point1, point3);
       Standard_Real normevec1 = Vec1.Magnitude();
       Standard_Real angle1;
-      if (normevec1 >= gp::Resolution() && normetan1 >= gp::Resolution())
+      if (normevec1 >= gp1::Resolution() && normetan1 >= gp1::Resolution())
       {
         angle1 = Vec1.Angle(Tan1);
       }

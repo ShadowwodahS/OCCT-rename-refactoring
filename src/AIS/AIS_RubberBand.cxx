@@ -313,7 +313,7 @@ Standard_Boolean AIS_RubberBand::fillTriangles()
 
     if (toFill)
     {
-      Dir3d aNorm = gp::DZ();
+      Dir3d aNorm = gp1::DZ();
       for (Standard_Integer anIt = 0; anIt < 3; ++anIt)
       {
         myTriangles

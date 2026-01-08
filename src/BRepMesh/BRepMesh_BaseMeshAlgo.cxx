@@ -253,7 +253,7 @@ Handle(MeshTriangulation) BRepMesh_BaseMeshAlgo::collectTriangles()
       aNode[i] = myUsedNodes->Find(aNode[i]);
     }
 
-    aRes->SetTriangle(aTriangeId, Poly_Triangle(aNode[0], aNode[1], aNode[2]));
+    aRes->SetTriangle(aTriangeId, Triangle2(aNode[0], aNode[1], aNode[2]));
   }
   aRes->ResizeNodes(myUsedNodes->Extent(), false);
   aRes->AddUVNodes();

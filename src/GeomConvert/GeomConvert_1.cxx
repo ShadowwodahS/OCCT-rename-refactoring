@@ -431,7 +431,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
     {
       Handle(Geom_CylindricalSurface) TheElSurf = Handle(Geom_CylindricalSurface)::DownCast(Surf);
 
-      gp_Cylinder Cyl = TheElSurf->Cylinder();
+      Cylinder1 Cyl = TheElSurf->Cylinder();
       if (isUClosed)
       {
         Convert_CylinderToBSplineSurface Convert(Cyl, VFirst, VLast);
@@ -452,7 +452,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
     else if (Surf->IsKind(STANDARD_TYPE(Geom_ConicalSurface)))
     {
       Handle(Geom_ConicalSurface) TheElSurf = Handle(Geom_ConicalSurface)::DownCast(Surf);
-      gp_Cone                     Co        = TheElSurf->Cone();
+      Cone1                     Co        = TheElSurf->Cone();
       if (isUClosed)
       {
         Convert_ConeToBSplineSurface Convert(Co, VFirst, VLast);

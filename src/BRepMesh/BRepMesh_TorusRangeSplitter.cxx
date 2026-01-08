@@ -53,7 +53,7 @@ Handle(IMeshData::ListOfPnt2d) BRepMesh_TorusRangeSplitter::GenerateSurfaceNodes
                                                      theParameters.MinSize);
 
     const Standard_Real aa = sqrt(Du * Du + oldDv * oldDv);
-    if (aa < gp::Resolution())
+    if (aa < gp1::Resolution())
     {
       return Handle(IMeshData::ListOfPnt2d)();
     }

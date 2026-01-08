@@ -59,12 +59,12 @@ void ChFiDS_FilSpine::Reset(const Standard_Boolean AllData)
 
     Coords2d FirstUandR = parandrad.First();
     Coords2d LastUandR  = parandrad.Last();
-    if (Abs(spinedeb - FirstUandR.X()) > gp::Resolution())
+    if (Abs(spinedeb - FirstUandR.X()) > gp1::Resolution())
     {
       FirstUandR.SetX(spinedeb);
       parandrad.Prepend(FirstUandR);
     }
-    if (Abs(spinefin - LastUandR.X()) > gp::Resolution())
+    if (Abs(spinefin - LastUandR.X()) > gp1::Resolution())
     {
       LastUandR.SetX(spinefin);
       parandrad.Append(LastUandR);
@@ -98,9 +98,9 @@ void ChFiDS_FilSpine::UnSetRadius(const TopoEdge& E)
   Standard_Integer ifirst = 0, ilast = 0;
   for (Standard_Integer i = 1; i <= parandrad.Length(); i++)
   {
-    if (Abs(parandrad(i).X() - Uf) <= gp::Resolution())
+    if (Abs(parandrad(i).X() - Uf) <= gp1::Resolution())
       ifirst = i;
-    if (Abs(parandrad(i).X() - Ul) <= gp::Resolution())
+    if (Abs(parandrad(i).X() - Ul) <= gp1::Resolution())
       ilast = i;
   }
   if (ifirst != 0 && ilast != 0)
@@ -248,8 +248,8 @@ Standard_Boolean ChFiDS_FilSpine::IsConstant(const Standard_Integer IE) const
     par                   = parandrad(i).X();
     rad                   = parandrad(i).Y();
     Standard_Real nextpar = parandrad(i + 1).X();
-    if (Abs(Uf - par) <= gp::Resolution()
-        || (par < Uf && Uf < nextpar && nextpar - Uf > gp::Resolution()))
+    if (Abs(Uf - par) <= gp1::Resolution()
+        || (par < Uf && Uf < nextpar && nextpar - Uf > gp1::Resolution()))
     {
       StartRad = rad;
       break;
@@ -261,7 +261,7 @@ Standard_Boolean ChFiDS_FilSpine::IsConstant(const Standard_Integer IE) const
     rad = parandrad(i).Y();
     if (Abs(rad - StartRad) > Precision::Confusion())
       return Standard_False;
-    if (Abs(Ul - par) <= gp::Resolution())
+    if (Abs(Ul - par) <= gp1::Resolution())
       return Standard_True;
     if (par > Ul)
       return Standard_True;
@@ -291,8 +291,8 @@ Standard_Real ChFiDS_FilSpine::Radius(const Standard_Integer IE) const
     par                   = parandrad(i).X();
     rad                   = parandrad(i).Y();
     Standard_Real nextpar = parandrad(i + 1).X();
-    if (Abs(Uf - par) <= gp::Resolution()
-        || (par < Uf && Uf < nextpar && nextpar - Uf > gp::Resolution()))
+    if (Abs(Uf - par) <= gp1::Resolution()
+        || (par < Uf && Uf < nextpar && nextpar - Uf > gp1::Resolution()))
     {
       StartRad = rad;
       break;
@@ -304,7 +304,7 @@ Standard_Real ChFiDS_FilSpine::Radius(const Standard_Integer IE) const
     rad = parandrad(i).Y();
     if (Abs(rad - StartRad) > Precision::Confusion())
       throw Standard_DomainError("Edge is not constant");
-    if (Abs(Ul - par) <= gp::Resolution())
+    if (Abs(Ul - par) <= gp1::Resolution())
       return StartRad;
     if (par > Ul)
       return StartRad;

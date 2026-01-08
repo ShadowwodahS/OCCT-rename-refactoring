@@ -159,7 +159,7 @@ static void d1(const Standard_Real              t,
   Coords2d    dE_dv(DS1_v * DS1_u + Ort * DS2_uv, DS1_v * DS1_v + Ort * DS2_v);
 
   Standard_Real det = dE_du.X() * dE_dv.Y() - dE_du.Y() * dE_dv.X();
-  if (fabs(det) < gp::Resolution())
+  if (fabs(det) < gp1::Resolution())
     throw Standard_ConstructionError();
 
   gp_Mat2d M(Coords2d(dE_dv.Y() / det, -dE_du.Y() / det), Coords2d(-dE_dv.X() / det, dE_du.X() / det));
@@ -191,7 +191,7 @@ static void d2(const Standard_Real              t,
   Coords2d    dE_dv(DS1_v * DS1_u + Ort * DS2_uv, DS1_v * DS1_v + Ort * DS2_v);
 
   Standard_Real det = dE_du.X() * dE_dv.Y() - dE_du.Y() * dE_dv.X();
-  if (fabs(det) < gp::Resolution())
+  if (fabs(det) < gp1::Resolution())
     throw Standard_ConstructionError();
 
   gp_Mat2d M(Coords2d(dE_dv.Y() / det, -dE_du.Y() / det), Coords2d(-dE_dv.X() / det, dE_du.X() / det));
@@ -260,7 +260,7 @@ static void d1CurvOnSurf(const Standard_Real t,
     DS1_v*DS1_v + Ort*DS2_v);
 
   Standard_Real det = dE_du.X()*dE_dv.Y() - dE_du.Y()*dE_dv.X();
-  if (fabs(det) < gp::Resolution()) throw Standard_ConstructionError();
+  if (fabs(det) < gp1::Resolution()) throw Standard_ConstructionError();
 
   gp_Mat2d M(Coords2d(dE_dv.Y()/det, -dE_du.Y()/det), 
     Coords2d(-dE_dv.X()/det, dE_du.X()/det));
@@ -297,7 +297,7 @@ static void d2CurvOnSurf(const Standard_Real              t,
   Coords2d    dE_dv(DS1_v * DS1_u + Ort * DS2_uv, DS1_v * DS1_v + Ort * DS2_v);
 
   Standard_Real det = dE_du.X() * dE_dv.Y() - dE_du.Y() * dE_dv.X();
-  if (fabs(det) < gp::Resolution())
+  if (fabs(det) < gp1::Resolution())
     throw Standard_ConstructionError();
 
   gp_Mat2d M(Coords2d(dE_dv.Y() / det, -dE_du.Y() / det), Coords2d(-dE_dv.X() / det, dE_du.X() / det));
@@ -372,14 +372,14 @@ static Standard_Boolean ExactBound(Point3d&                          Sol,
   Standard_Real RU1, RU2, RV1, RV2;
   d1(Sol.X(), U0, V0, D2d, Curve, Surface);
   // Here we assume that D2d != (0, 0)
-  if (Abs(D2d.X()) < gp::Resolution())
+  if (Abs(D2d.X()) < gp1::Resolution())
   {
     RU1 = Precision::Infinite();
     RU2 = Precision::Infinite();
     RV1 = V0 - FirstV;
     RV2 = LastV - V0;
   }
-  else if (Abs(D2d.Y()) < gp::Resolution())
+  else if (Abs(D2d.Y()) < gp1::Resolution())
   {
     RU1 = U0 - FirstU;
     RU2 = LastU - U0;

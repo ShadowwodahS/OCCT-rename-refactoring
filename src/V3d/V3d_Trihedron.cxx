@@ -326,7 +326,7 @@ void V3d_Trihedron::compute()
 
   // Display axes.
   {
-    const Axis3d anAxes[3] = {gp::OX(), gp::OY(), gp::OZ()};
+    const Axis3d anAxes[3] = {gp1::OX(), gp1::OY(), gp1::OZ()};
     for (Standard_Integer anIter = 0; anIter < 3; ++anIter)
     {
       Handle(Graphic3d_Group) anAxisGroup = addGroup(myStructure, aGroupIter);

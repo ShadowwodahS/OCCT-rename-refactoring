@@ -263,7 +263,7 @@ public:
   //! Status  :
   //! OK    : Vertices (end of num-1 th edge and start on num-th one)
   //! are already the same
-  //! DONE1 : Absolutely confused (gp::Resolution)
+  //! DONE1 : Absolutely confused (gp1::Resolution)
   //! DONE2 : Confused at starting <preci> from <SBWD>
   //! DONE3 : Confused at <prec> but not <preci>
   //! FAIL1 : Not confused

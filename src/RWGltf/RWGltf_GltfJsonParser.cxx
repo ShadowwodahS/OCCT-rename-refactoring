@@ -526,8 +526,8 @@ bool RWGltf_GltfJsonParser::parseTransformationComponents(
       aRotVec4[aCompIter] = aGenVal.GetDouble();
     }
     const gp_Quaternion aQuaternion(aRotVec4.x(), aRotVec4.y(), aRotVec4.z(), aRotVec4.w());
-    if (Abs(aQuaternion.X()) > gp::Resolution() || Abs(aQuaternion.Y()) > gp::Resolution()
-        || Abs(aQuaternion.Z()) > gp::Resolution() || Abs(aQuaternion.W() - 1.0) > gp::Resolution())
+    if (Abs(aQuaternion.X()) > gp1::Resolution() || Abs(aQuaternion.Y()) > gp1::Resolution()
+        || Abs(aQuaternion.Z()) > gp1::Resolution() || Abs(aQuaternion.W() - 1.0) > gp1::Resolution())
     {
       aTrsf.SetRotation(aQuaternion);
     }
@@ -572,7 +572,7 @@ bool RWGltf_GltfJsonParser::parseTransformationComponents(
         return false;
       }
       aScaleVec[aCompIter] = aGenVal.GetDouble();
-      if (Abs(aScaleVec[aCompIter]) <= gp::Resolution())
+      if (Abs(aScaleVec[aCompIter]) <= gp1::Resolution())
       {
         reportGltfError("Scene node '" + theSceneNodeId + "' defines invalid scale.");
         return false;

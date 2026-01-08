@@ -27,7 +27,7 @@
 #include <TCollection_HAsciiString.hxx>
 
 //=============================================================================
-// Creation d' un axis2_placement_2d de prostep a partir d' un Ax2 de gp
+// Creation d' un axis2_placement_2d de prostep a partir d' un Ax2 de gp1
 //=============================================================================
 GeomToStep_MakeAxis2Placement2d::GeomToStep_MakeAxis2Placement2d(
   const Frame3d&           A,
@@ -53,11 +53,11 @@ GeomToStep_MakeAxis2Placement2d::GeomToStep_MakeAxis2Placement2d(
 }
 
 //=============================================================================
-// Creation d' un axis2_placement_2d de prostep a partir d' un Ax22d de gp
+// Creation d' un axis2_placement_2d de prostep a partir d' un Ax22d de gp1
 //=============================================================================
 
 GeomToStep_MakeAxis2Placement2d::GeomToStep_MakeAxis2Placement2d(
-  const gp_Ax22d&         A,
+  const Ax22d&         A,
   const ConversionFactors& theLocalFactors)
 {
   Handle(StepGeom_Axis2Placement2d) Axe;

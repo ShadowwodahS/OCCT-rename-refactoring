@@ -25,7 +25,7 @@
 #include <TColStd_HArray1OfReal.hxx>
 
 //=============================================================================
-// Creation d' une direction de prostep a partir d' une Dir de gp
+// Creation d' une direction de prostep a partir d' une Dir de gp1
 //=============================================================================
 GeomToStep_MakeDirection::GeomToStep_MakeDirection(const Dir3d& D)
 {
@@ -44,7 +44,7 @@ GeomToStep_MakeDirection::GeomToStep_MakeDirection(const Dir3d& D)
 }
 
 //=============================================================================
-// Creation d' une direction de prostep a partir d' une Dir2d de gp
+// Creation d' une direction de prostep a partir d' une Dir2d de gp1
 //=============================================================================
 
 GeomToStep_MakeDirection::GeomToStep_MakeDirection(const gp_Dir2d& D)

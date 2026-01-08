@@ -62,7 +62,7 @@ public:
   //! Writes a transformation matrix to the stream.
   Standard_EXPORT BinaryOutputStream& operator<<(const Transform3d& theValue);
   //! Writes triangle nodes indices to the stream.
-  Standard_EXPORT BinaryOutputStream& operator<<(const Poly_Triangle& theValue);
+  Standard_EXPORT BinaryOutputStream& operator<<(const Triangle2& theValue);
   //! Writes a vector to the stream.
   Standard_EXPORT BinaryOutputStream& operator<<(const gp_Vec3f& theValue);
 

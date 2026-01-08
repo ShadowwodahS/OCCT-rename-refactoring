@@ -27,7 +27,7 @@
 #include <StdFail_NotDone.hxx>
 
 //=========================================================================
-//   Creation d un cercle 2d de gp passant par trois points.              +
+//   Creation d un cercle 2d de gp1 passant par trois points.              +
 //   Trois cas de figures :                                               +
 //      1/ Les trois points sont confondus.                               +
 //      -----------------------------------                               +
@@ -56,7 +56,7 @@ gce_MakeCirc2d::gce_MakeCirc2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2, const gp_
   Standard_Real dist2 = P1.Distance(P3);
   Standard_Real dist3 = P2.Distance(P3);
 
-  if ((dist1 < gp::Resolution()) && (dist2 < gp::Resolution()) && (dist3 < gp::Resolution()))
+  if ((dist1 < gp1::Resolution()) && (dist2 < gp1::Resolution()) && (dist3 < gp1::Resolution()))
   {
     TheCirc2d = gp_Circ2d(gp_Ax2d(P1, dirx), 0.0);
     TheError  = gce_Done;
@@ -104,7 +104,7 @@ gce_MakeCirc2d::gce_MakeCirc2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2, const gp_
         pInt.Coord(xc, yc);
         gp_Dir2d d1(x1 - xc, y1 - yc);
         gp_Dir2d d2(xc - x3, yc - y3);
-        TheCirc2d            = gp_Circ2d(gp_Ax22d(pInt, d1, d2), (dist1 + dist2 + dist3) / 3.);
+        TheCirc2d            = gp_Circ2d(Ax22d(pInt, d1, d2), (dist1 + dist2 + dist3) / 3.);
         Standard_Real Alpha1 = ElCLib1::Parameter(TheCirc2d, P1);
         Standard_Real Alpha2 = ElCLib1::Parameter(TheCirc2d, P2);
         Standard_Real Alpha3 = ElCLib1::Parameter(TheCirc2d, P3);
@@ -145,7 +145,7 @@ gce_MakeCirc2d::gce_MakeCirc2d(const gp_Ax2d&         XAxis,
 //   Creation d un gp_Circ2d par son Repere <Axis> et son rayon  <Radius>. +
 //==========================================================================
 
-gce_MakeCirc2d::gce_MakeCirc2d(const gp_Ax22d& Axis, const Standard_Real Radius)
+gce_MakeCirc2d::gce_MakeCirc2d(const Ax22d& Axis, const Standard_Real Radius)
 {
   if (Radius >= 0.)
   {

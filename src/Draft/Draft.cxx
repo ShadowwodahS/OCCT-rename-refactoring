@@ -53,7 +53,7 @@ Standard_Real Draft::Angle(const TopoFace& F, const Dir3d& D)
   S = Handle(GeomSurface)::DownCast(S->Transformed(Lo.Transformation()));
   if (TypeS == STANDARD_TYPE(GeomPlane))
   {
-    gp_Ax3 ax3(Handle(GeomPlane)::DownCast(S)->Pln().Position());
+    Ax3 ax3(Handle(GeomPlane)::DownCast(S)->Pln().Position());
     Vector3d normale(ax3.Direction());
     if (!ax3.Direct())
     {
@@ -67,7 +67,7 @@ Standard_Real Draft::Angle(const TopoFace& F, const Dir3d& D)
   }
   else if (TypeS == STANDARD_TYPE(Geom_CylindricalSurface))
   {
-    gp_Cylinder   Cy(Handle(Geom_CylindricalSurface)::DownCast(S)->Cylinder());
+    Cylinder1   Cy(Handle(Geom_CylindricalSurface)::DownCast(S)->Cylinder());
     Standard_Real testdir = D.Dot(Cy.Axis().Direction());
     if (Abs(testdir) <= 1. - Precision::Angular())
     {
@@ -77,7 +77,7 @@ Standard_Real Draft::Angle(const TopoFace& F, const Dir3d& D)
   }
   else
   { // STANDARD_TYPE(Geom_ConicalSurface)
-    gp_Cone       Co(Handle(Geom_ConicalSurface)::DownCast(S)->Cone());
+    Cone1       Co(Handle(Geom_ConicalSurface)::DownCast(S)->Cone());
     Standard_Real testdir = D.Dot(Co.Axis().Direction());
     if (Abs(testdir) <= 1. - Precision::Angular())
     {

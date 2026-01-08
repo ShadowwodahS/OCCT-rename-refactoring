@@ -22,7 +22,7 @@
 
 //! Describes a torus.
 //! A torus is defined by its major and minor radii and
-//! positioned in space with a coordinate system (a gp_Ax3
+//! positioned in space with a coordinate system (a Ax3
 //! object) as follows:
 //! -   The origin of the coordinate system is the center of the torus;
 //! -   The surface is obtained by rotating a circle of radius
@@ -72,7 +72,7 @@ public:
   //! It is not forbidden to create a torus with
   //! theMajorRadius = theMinorRadius = 0.0
   //! Raises ConstructionError if theMinorRadius < 0.0 or if theMajorRadius < 0.0
-  gp_Torus(const gp_Ax3&       theA3,
+  gp_Torus(const Ax3&       theA3,
            const Standard_Real theMajorRadius,
            const Standard_Real theMinorRadius)
       : pos(theA3),
@@ -98,24 +98,24 @@ public:
   //! Raises ConstructionError if theMajorRadius - MinorRadius <= Resolution()
   void SetMajorRadius(const Standard_Real theMajorRadius)
   {
-    Standard_ConstructionError_Raise_if(theMajorRadius - minorRadius <= gp::Resolution(),
+    Standard_ConstructionError_Raise_if(theMajorRadius - minorRadius <= gp1::Resolution(),
                                         "gp_Torus::SetMajorRadius() - invalid input parameters");
     majorRadius = theMajorRadius;
   }
 
   //! Assigns value to the  minor radius of this torus.
   //! Raises ConstructionError if theMinorRadius < 0.0 or if
-  //! MajorRadius - theMinorRadius <= Resolution from gp.
+  //! MajorRadius - theMinorRadius <= Resolution from gp1.
   void SetMinorRadius(const Standard_Real theMinorRadius)
   {
     Standard_ConstructionError_Raise_if(theMinorRadius < 0.0
-                                          || majorRadius - theMinorRadius <= gp::Resolution(),
+                                          || majorRadius - theMinorRadius <= gp1::Resolution(),
                                         "gp_Torus::SetMinorRadius() - invalid input parameters");
     minorRadius = theMinorRadius;
   }
 
   //! Changes the local coordinate system of the surface.
-  void SetPosition(const gp_Ax3& theA3) { pos = theA3; }
+  void SetPosition(const Ax3& theA3) { pos = theA3; }
 
   //! Computes the area of the torus.
   Standard_Real Area() const { return 4.0 * M_PI * M_PI * minorRadius * majorRadius; }
@@ -159,7 +159,7 @@ public:
   const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the local coordinates system of the torus.
-  const gp_Ax3& Position() const { return pos; }
+  const Ax3& Position() const { return pos; }
 
   //! returns the major radius of the torus.
   Standard_Real MajorRadius() const { return majorRadius; }
@@ -244,7 +244,7 @@ public:
   }
 
 private:
-  gp_Ax3        pos;
+  Ax3        pos;
   Standard_Real majorRadius;
   Standard_Real minorRadius;
 };

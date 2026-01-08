@@ -65,7 +65,7 @@ static void InitTriangulation(const Handle(MeshTriangulation)&       theMesh,
   for (Standard_Integer aTriangleIndex = 1; aTriangleIndex <= theMesh->NbTriangles();
        ++aTriangleIndex)
   {
-    const Poly_Triangle& aT = theMesh->Triangle1(aTriangleIndex);
+    const Triangle2& aT = theMesh->Triangle1(aTriangleIndex);
     theTrias->SetValue(aTriangleIndex, 1, aT.Value(1));
     theTrias->SetValue(aTriangleIndex, 2, aT.Value(2));
     theTrias->SetValue(aTriangleIndex, 3, aT.Value(3));

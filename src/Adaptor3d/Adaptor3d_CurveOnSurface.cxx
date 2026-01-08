@@ -70,7 +70,7 @@ static Vector3d to3d(const gp_Pln& Pl, const gp_Vec2d& V)
   return Vx;
 }
 
-static Frame3d to3d(const gp_Pln& Pl, const gp_Ax22d& A)
+static Frame3d to3d(const gp_Pln& Pl, const Ax22d& A)
 {
   Point3d P  = to3d(Pl, A.Location());
   Vector3d VX = to3d(Pl, A.XAxis().Direction());
@@ -1574,7 +1574,7 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
     if (CTy == GeomAbs_Line)
     {
       gp_Dir2d D = myCurve->Line().Direction();
-      if (D.IsParallel(gp::DX2d(), Precision::Angular()))
+      if (D.IsParallel(gp1::DX2d(), Precision::Angular()))
       { // Iso V.
         if (STy == GeomAbs_Sphere)
         {
@@ -1583,12 +1583,12 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
           {
             myType         = GeomAbs_Circle;
             gp_Sphere Sph  = mySurface->Sphere();
-            gp_Ax3    Axis = Sph.Position();
+            Ax3    Axis = Sph.Position();
             myCirc         = ElSLib1::SphereVIso(Axis, Sph.Radius(), P.Y());
             Dir3d DRev    = Axis.XDirection().Crossed(Axis.YDirection());
             Axis3d AxeRev(Axis.Location(), DRev);
             myCirc.Rotate(AxeRev, P.X());
-            if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
+            if (D.IsOpposite(gp1::DX2d(), Precision::Angular()))
             {
               Frame3d Ax = myCirc.Position();
               Ax.SetDirection(Ax.Direction().Reversed());
@@ -1599,14 +1599,14 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
         else if (STy == GeomAbs_Cylinder)
         {
           myType           = GeomAbs_Circle;
-          gp_Cylinder Cyl  = mySurface->Cylinder();
+          Cylinder1 Cyl  = mySurface->Cylinder();
           gp_Pnt2d    P    = myCurve->Line().Location();
-          gp_Ax3      Axis = Cyl.Position();
+          Ax3      Axis = Cyl.Position();
           myCirc           = ElSLib1::CylinderVIso(Axis, Cyl.Radius(), P.Y());
           Dir3d DRev      = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d AxeRev(Axis.Location(), DRev);
           myCirc.Rotate(AxeRev, P.X());
-          if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DX2d(), Precision::Angular()))
           {
             Frame3d Ax = myCirc.Position();
             Ax.SetDirection(Ax.Direction().Reversed());
@@ -1616,14 +1616,14 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
         else if (STy == GeomAbs_Cone)
         {
           myType        = GeomAbs_Circle;
-          gp_Cone  Cone = mySurface->Cone();
+          Cone1  Cone = mySurface->Cone();
           gp_Pnt2d P    = myCurve->Line().Location();
-          gp_Ax3   Axis = Cone.Position();
+          Ax3   Axis = Cone.Position();
           myCirc        = ElSLib1::ConeVIso(Axis, Cone.RefRadius(), Cone.SemiAngle(), P.Y());
           Dir3d DRev   = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d AxeRev(Axis.Location(), DRev);
           myCirc.Rotate(AxeRev, P.X());
-          if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DX2d(), Precision::Angular()))
           {
             Frame3d Ax = myCirc.Position();
             Ax.SetDirection(Ax.Direction().Reversed());
@@ -1635,12 +1635,12 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
           myType        = GeomAbs_Circle;
           gp_Torus Tore = mySurface->Torus();
           gp_Pnt2d P    = myCurve->Line().Location();
-          gp_Ax3   Axis = Tore.Position();
+          Ax3   Axis = Tore.Position();
           myCirc        = ElSLib1::TorusVIso(Axis, Tore.MajorRadius(), Tore.MinorRadius(), P.Y());
           Dir3d DRev   = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d AxeRev(Axis.Location(), DRev);
           myCirc.Rotate(AxeRev, P.X());
-          if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DX2d(), Precision::Angular()))
           {
             Frame3d Ax = myCirc.Position();
             Ax.SetDirection(Ax.Direction().Reversed());
@@ -1648,14 +1648,14 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
           }
         }
       }
-      else if (D.IsParallel(gp::DY2d(), Precision::Angular()))
+      else if (D.IsParallel(gp1::DY2d(), Precision::Angular()))
       { // Iso U.
         if (STy == GeomAbs_Sphere)
         {
           myType         = GeomAbs_Circle;
           gp_Sphere Sph  = mySurface->Sphere();
           gp_Pnt2d  P    = myCurve->Line().Location();
-          gp_Ax3    Axis = Sph.Position();
+          Ax3    Axis = Sph.Position();
           // calcul de l'iso 0.
           myCirc = ElSLib1::SphereUIso(Axis, Sph.Radius(), 0.);
 
@@ -1669,7 +1669,7 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
           AxeRev = Axis3d(Axis.Location(), DRev);
           myCirc.Rotate(AxeRev, P.X());
 
-          if (D.IsOpposite(gp::DY2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DY2d(), Precision::Angular()))
           {
             Frame3d Ax = myCirc.Position();
             Ax.SetDirection(Ax.Direction().Reversed());
@@ -1679,25 +1679,25 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
         else if (STy == GeomAbs_Cylinder)
         {
           myType          = GeomAbs_Line;
-          gp_Cylinder Cyl = mySurface->Cylinder();
+          Cylinder1 Cyl = mySurface->Cylinder();
           gp_Pnt2d    P   = myCurve->Line().Location();
           myLin           = ElSLib1::CylinderUIso(Cyl.Position(), Cyl.Radius(), P.X());
           Vector3d Tr(myLin.Direction());
           Tr.Multiply(P.Y());
           myLin.Translate(Tr);
-          if (D.IsOpposite(gp::DY2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DY2d(), Precision::Angular()))
             myLin.Reverse();
         }
         else if (STy == GeomAbs_Cone)
         {
           myType        = GeomAbs_Line;
-          gp_Cone  Cone = mySurface->Cone();
+          Cone1  Cone = mySurface->Cone();
           gp_Pnt2d P    = myCurve->Line().Location();
           myLin = ElSLib1::ConeUIso(Cone.Position(), Cone.RefRadius(), Cone.SemiAngle(), P.X());
           Vector3d Tr(myLin.Direction());
           Tr.Multiply(P.Y());
           myLin.Translate(Tr);
-          if (D.IsOpposite(gp::DY2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DY2d(), Precision::Angular()))
             myLin.Reverse();
         }
         else if (STy == GeomAbs_Torus)
@@ -1705,11 +1705,11 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
           myType        = GeomAbs_Circle;
           gp_Torus Tore = mySurface->Torus();
           gp_Pnt2d P    = myCurve->Line().Location();
-          gp_Ax3   Axis = Tore.Position();
+          Ax3   Axis = Tore.Position();
           myCirc        = ElSLib1::TorusUIso(Axis, Tore.MajorRadius(), Tore.MinorRadius(), P.X());
           myCirc.Rotate(myCirc.Axis(), P.Y());
 
-          if (D.IsOpposite(gp::DY2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DY2d(), Precision::Angular()))
           {
             Frame3d Ax = myCirc.Position();
             Ax.SetDirection(Ax.Direction().Reversed());

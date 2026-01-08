@@ -274,7 +274,7 @@ Standard_Boolean Geom2d_OffsetCurve::IsClosed() const
   gp_Pnt2d PF, PL;
   D0(FirstParameter(), PF);
   D0(LastParameter(), PL);
-  return (PF.Distance(PL) <= gp::Resolution());
+  return (PF.Distance(PL) <= gp1::Resolution());
 }
 
 //=================================================================================================

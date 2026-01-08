@@ -212,7 +212,7 @@ Standard_Real IntPatch_Polyhedron::DeflectionOnTriangle(const Handle(Adaptor3d_S
   gp_XYZ        XYZ3 = P1.XYZ() - P3.XYZ();
   Vector3d        NormalVector((XYZ1 ^ XYZ2) + (XYZ2 ^ XYZ3) + (XYZ3 ^ XYZ1));
   Standard_Real aNormLen = NormalVector.Magnitude();
-  if (aNormLen < gp::Resolution())
+  if (aNormLen < gp1::Resolution())
   {
     return 0.;
   }
@@ -616,7 +616,7 @@ void IntPatch_Polyhedron::PlaneEquation(const Standard_Integer Triang,
 
   NormalVector           = (v1 ^ v2) + (v2 ^ v3) + (v3 ^ v1);
   Standard_Real aNormLen = NormalVector.Modulus();
-  if (aNormLen < gp::Resolution())
+  if (aNormLen < gp1::Resolution())
   {
     PolarDistance = 0.;
   }

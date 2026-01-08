@@ -85,7 +85,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_onapex(const gp_Pnt2d& p2d, const Hand
   Standard_Real       toluv = 1.e-8;
   if (ST == GeomAbs_Cone)
   {
-    gp_Cone       co   = GS.Cone();
+    Cone1       co   = GS.Cone();
     Point3d        apex = co.Apex();
     Point3d        pnt  = GS.Value(p2d.X(), p2d.Y());
     Standard_Real dist = pnt.Distance(apex);

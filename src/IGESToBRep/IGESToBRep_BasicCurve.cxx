@@ -1472,7 +1472,7 @@ Handle(BSplineCurve3d) IGESToBRep_BasicCurve::TransferCopiousData(
     //  delete GetUnitFactor()
     //   if (!aPole.IsEqual(TempPole(TempIndex-1),GetEpsGeom()))
     // S4054: some filter must be kept UKI60556 entity 7 (two equal points)
-    if (!aPole.IsEqual(TempPole(TempIndex - 1), gp::Resolution()))
+    if (!aPole.IsEqual(TempPole(TempIndex - 1), gp1::Resolution()))
       TempPole.SetValue(TempIndex++, aPole);
   }
 
@@ -1578,7 +1578,7 @@ Handle(Geom2d_BSplineCurve) IGESToBRep_BasicCurve::Transfer2dCopiousData(
     //    if (!aPole.IsEqual(TempPole(TempIndex-1), GetEpsCoeff())) //modified by rln 16/12/97 CSR#
     //    PRO11641 entity 46GetEpsGeom()*GetUnitFactor()
     // S4054: some filter must be kept UKI60556 entity 7 (two equal points)
-    if (!aPole.IsEqual(TempPole(TempIndex - 1), gp::Resolution()))
+    if (!aPole.IsEqual(TempPole(TempIndex - 1), gp1::Resolution()))
       TempPole.SetValue(TempIndex++, aPole);
   }
 

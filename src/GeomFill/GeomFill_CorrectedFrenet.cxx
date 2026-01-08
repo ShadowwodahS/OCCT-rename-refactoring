@@ -109,7 +109,7 @@ static Standard_Real ComputeTorsion(const Standard_Real            Param,
 
   Standard_Real DC1DC2DC3 = DC1crossDC2 * DC3; // mixed product
 
-  Standard_Real Tol                    = gp::Resolution();
+  Standard_Real Tol                    = gp1::Resolution();
   Standard_Real SquareNorm_DC1crossDC2 = Norm_DC1crossDC2 * Norm_DC1crossDC2;
   if (SquareNorm_DC1crossDC2 <= Tol)
     Torsion = 0.;
@@ -229,19 +229,19 @@ static Standard_Boolean FindPlane(const Handle(Adaptor3d_Curve)& theC, Handle(Ge
     break;
 
     case GeomAbs_Circle:
-      theP = new GeomPlane(gp_Ax3(theC->Circle().Position()));
+      theP = new GeomPlane(Ax3(theC->Circle().Position()));
       break;
 
     case GeomAbs_Ellipse:
-      theP = new GeomPlane(gp_Ax3(theC->Ellipse().Position()));
+      theP = new GeomPlane(Ax3(theC->Ellipse().Position()));
       break;
 
     case GeomAbs_Hyperbola:
-      theP = new GeomPlane(gp_Ax3(theC->Hyperbola().Position()));
+      theP = new GeomPlane(Ax3(theC->Hyperbola().Position()));
       break;
 
     case GeomAbs_Parabola:
-      theP = new GeomPlane(gp_Ax3(theC->Parabola().Position()));
+      theP = new GeomPlane(Ax3(theC->Parabola().Position()));
       break;
 
     case GeomAbs_BezierCurve: {

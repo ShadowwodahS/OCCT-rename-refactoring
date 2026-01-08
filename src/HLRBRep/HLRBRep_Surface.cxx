@@ -161,7 +161,7 @@ Standard_Boolean HLRBRep_Surface::IsSide(const Standard_Real tolF, const Standar
   {
     if (myProj->Perspective())
       return Standard_False;
-    gp_Cylinder Cyl = BSurfaceTool::Cylinder(mySurf);
+    Cylinder1 Cyl = BSurfaceTool::Cylinder(mySurf);
     Axis3d      A   = Cyl.Axis();
     D               = A.Direction();
     D.Transform(myProj->Transformation());
@@ -172,7 +172,7 @@ Standard_Boolean HLRBRep_Surface::IsSide(const Standard_Real tolF, const Standar
   {
     if (!myProj->Perspective())
       return Standard_False;
-    gp_Cone Con = BSurfaceTool::Cone(mySurf);
+    Cone1 Con = BSurfaceTool::Cone(mySurf);
     Pt          = Con.Apex();
     Pt.Transform(myProj->Transformation());
     Standard_Real tol = 0.001;

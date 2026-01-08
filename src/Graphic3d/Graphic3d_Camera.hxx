@@ -832,7 +832,7 @@ DEFINE_STANDARD_HANDLE(CameraOn3d, RefObject)
 //! independently.
 //! @sa CameraOn3d::Interpolate()
 template <>
-inline void NCollection_Lerp<Handle(CameraOn3d)>::Interpolate(
+inline void NCollection_Lerp1<Handle(CameraOn3d)>::Interpolate(
   const double              theT,
   Handle(CameraOn3d)& theResult) const
 {
@@ -843,6 +843,6 @@ inline void NCollection_Lerp<Handle(CameraOn3d)>::Interpolate(
 //! This tool interpolates camera parameters scale, eye, center, rotation (up and direction vectors)
 //! independently.
 //! @sa CameraOn3d::Interpolate()
-typedef NCollection_Lerp<Handle(CameraOn3d)> Graphic3d_CameraLerp;
+typedef NCollection_Lerp1<Handle(CameraOn3d)> Graphic3d_CameraLerp;
 
 #endif

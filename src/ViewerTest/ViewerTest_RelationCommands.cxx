@@ -114,7 +114,7 @@ static Point3d Get3DPointAtMousePosition()
   GeomAPI_IntCS      anIntersector(aGeomLine, aGeomPlane);
   if (!anIntersector.IsDone() || anIntersector.NbPoints() == 0)
   {
-    return gp::Origin();
+    return gp1::Origin();
   }
   return anIntersector.Point(1);
 }
@@ -128,7 +128,7 @@ static Standard_Boolean Get3DPointAtMousePosition(const Point3d& theFirstPoint,
                                                   const Point3d& theSecondPoint,
                                                   Point3d&       theOutputPoint)
 {
-  theOutputPoint = gp::Origin();
+  theOutputPoint = gp1::Origin();
 
   Handle(ViewWindow) aView = ViewerTest::CurrentView();
 
@@ -450,17 +450,17 @@ static int ParseDimensionParams(
       if (aValue == "xoy")
       {
         theIsCustomPlane = Standard_True;
-        thePlane         = gp_Pln(gp_Ax3(gp::XOY()));
+        thePlane         = gp_Pln(Ax3(gp1::XOY()));
       }
       else if (aValue == "zox")
       {
         theIsCustomPlane = Standard_True;
-        thePlane         = gp_Pln(gp_Ax3(gp::ZOX()));
+        thePlane         = gp_Pln(Ax3(gp1::ZOX()));
       }
       else if (aValue == "yoz")
       {
         theIsCustomPlane = Standard_True;
-        thePlane         = gp_Pln(gp_Ax3(gp::YOZ()));
+        thePlane         = gp_Pln(Ax3(gp1::YOZ()));
       }
       else
       {
@@ -1666,11 +1666,11 @@ static int VLengthParam(DrawInterpreter&, Standard_Integer theArgNum, const char
     AsciiString1 aValue = theArgVec[anArgumentIt];
     aValue.LowerCase();
     if (aValue == "ox")
-      aDirection = gp::DX();
+      aDirection = gp1::DX();
     else if (aValue == "oy")
-      aDirection = gp::DY();
+      aDirection = gp1::DY();
     else if (aValue == "oz")
-      aDirection = gp::DZ();
+      aDirection = gp1::DZ();
     else if (aValue == "autodirection")
       isCustomDirection = false;
     else
@@ -1789,7 +1789,7 @@ static int VMoveDim(DrawInterpreter& theDi, Standard_Integer theArgNum, const ch
   Standard_Boolean isPointSet = (theArgNum == 4 || theArgNum == 5);
 
   Handle(VisualEntity) aPickedObj;
-  Point3d                        aPoint(gp::Origin());
+  Point3d                        aPoint(gp1::Origin());
   Standard_Integer              aMaxPickNum = 5;
 
   // Find object

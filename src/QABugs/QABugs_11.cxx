@@ -109,7 +109,7 @@ static Standard_Integer OCC128(DrawInterpreter& di, Standard_Integer /*argc*/, c
     return 1;
   }
 
-  Handle(Geom_Axis2Placement) aTrihedronAxis = new Geom_Axis2Placement(gp::XOY());
+  Handle(Geom_Axis2Placement) aTrihedronAxis = new Geom_Axis2Placement(gp1::XOY());
 
   Transform3d trsf1;
   trsf1.SetTranslation(Vector3d(100, 100, 0));
@@ -3384,7 +3384,7 @@ static Standard_Integer OCC15489(DrawInterpreter& di, Standard_Integer argc, con
   }
   catch (Standard_ConstructionError const&)
   {
-    di << argv[0] << " Exception: Sqrt(A*A + B*B) <= Resolution from gp\n";
+    di << argv[0] << " Exception: Sqrt(A*A + B*B) <= Resolution from gp1\n";
   }
   return 0;
 }

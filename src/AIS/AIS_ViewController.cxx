@@ -418,7 +418,7 @@ void AIS_ViewController::flushGestures(const Handle(VisualContext)&,
 
     // rotation
     const Standard_Real aRotTouchTol =
-      !aTouch.IsPreciseDevice ? aTolScale * myTouchRotationThresholdPx : gp::Resolution();
+      !aTouch.IsPreciseDevice ? aTolScale * myTouchRotationThresholdPx : gp1::Resolution();
     if (Abs(aTouch.Delta().x()) + Abs(aTouch.Delta().y()) > aRotTouchTol)
     {
       const Standard_Real aRotAccel =
@@ -505,7 +505,7 @@ void AIS_ViewController::flushGestures(const Handle(VisualContext)&,
     }
 
     const Standard_Real aPanTouchTol =
-      !aFirstTouch.IsPreciseDevice ? aTolScale * myTouchPanThresholdPx : gp::Resolution();
+      !aFirstTouch.IsPreciseDevice ? aTolScale * myTouchPanThresholdPx : gp1::Resolution();
     if (Abs(aPinchCenterXDev) + Abs(aPinchCenterYDev) > aPanTouchTol)
     {
       // pan
@@ -1268,7 +1268,7 @@ AIS_WalkDelta AIS_ViewController::FetchNavigationKeys(Standard_Real theCrouchRat
   updateEventsTime(aPrevEventTime, aNewEventTime);
 
   double aDuration = 0.0, aPressure = 1.0;
-  if (Abs(myThrustSpeed) > gp::Resolution())
+  if (Abs(myThrustSpeed) > gp1::Resolution())
   {
     if (myHasThrust)
     {
@@ -1439,7 +1439,7 @@ void AIS_ViewController::handlePanning(const Handle(ViewWindow)& theView)
   theView->Window()->Size(aWinSize.x(), aWinSize.y());
 
   const Dir3d& aDir = aCam->Direction();
-  const gp_Ax3  aCameraCS(aCam->Center(), aDir.Reversed(), aDir ^ aCam->Up());
+  const Ax3  aCameraCS(aCam->Center(), aDir.Reversed(), aDir ^ aCam->Up());
   const gp_XYZ  anEyeToPnt = myPanPnt3d.XYZ() - aCam->Eye().XYZ();
   // clang-format off
   const Point3d aViewDims = aCam->ViewDimensions (anEyeToPnt.Dot (aCam->Direction().XYZ())); // view dimensions at 3D point
@@ -1549,7 +1549,7 @@ void AIS_ViewController::handleZoom(const Handle(ViewWindow)&   theView,
   aCam->SetScale(aCam->Scale() / aCoef);
 
   const Dir3d& aDir = aCam->Direction();
-  const gp_Ax3  aCameraCS(aCam->Center(), aDir.Reversed(), aDir ^ aCam->Up());
+  const Ax3  aCameraCS(aCam->Center(), aDir.Reversed(), aDir ^ aCam->Up());
 
   // pan back to the point
   aDxy = aZoomAtPointXYv - aDxy;
@@ -1628,8 +1628,8 @@ void AIS_ViewController::handleOrbitRotation(const Handle(ViewWindow)& theView,
     myCamStartOpCenter = aCam->Center();
 
     Transform3d aTrsf;
-    aTrsf.SetTransformation(gp_Ax3(myRotatePnt3d, aCam->OrthogonalizedUp(), aCam->Direction()),
-                            gp_Ax3(myRotatePnt3d, gp::DZ(), gp::DX()));
+    aTrsf.SetTransformation(Ax3(myRotatePnt3d, aCam->OrthogonalizedUp(), aCam->Direction()),
+                            Ax3(myRotatePnt3d, gp1::DZ(), gp1::DX()));
     const gp_Quaternion aRot = aTrsf.GetRotation();
     aRot.GetEulerAngles(gp_YawPitchRoll,
                         myRotateStartYawPitchRoll[0],
@@ -1676,7 +1676,7 @@ void AIS_ViewController::handleOrbitRotation(const Handle(ViewWindow)& theView,
     Transform3d aTrsfRot;
     aTrsfRot.SetRotation(aRot);
 
-    const Dir3d aNewUp = gp::DZ().Transformed(aTrsfRot);
+    const Dir3d aNewUp = gp1::DZ().Transformed(aTrsfRot);
     aCam->SetUp(aNewUp);
     aCam->SetEyeAndCenter(myRotatePnt3d.XYZ() + myCamStartOpToEye.Transformed(aTrsfRot).XYZ(),
                           myRotatePnt3d.XYZ() + myCamStartOpToCenter.Transformed(aTrsfRot).XYZ());
@@ -1765,9 +1765,9 @@ void AIS_ViewController::handleViewRotation(const Handle(ViewWindow)& theView,
   }
 
   const Handle(CameraOn3d)& aCam           = theView->Camera();
-  const bool                      toRotateAnyway = Abs(theYawExtra) > gp::Resolution()
-                              || Abs(thePitchExtra) > gp::Resolution()
-                              || Abs(theRoll - myRotateStartYawPitchRoll[2]) > gp::Resolution();
+  const bool                      toRotateAnyway = Abs(theYawExtra) > gp1::Resolution()
+                              || Abs(thePitchExtra) > gp1::Resolution()
+                              || Abs(theRoll - myRotateStartYawPitchRoll[2]) > gp1::Resolution();
   if (toRotateAnyway && theToRestartOnIncrement)
   {
     myGL.ViewRotation.ToStart = true;
@@ -1776,8 +1776,8 @@ void AIS_ViewController::handleViewRotation(const Handle(ViewWindow)& theView,
   if (myGL.ViewRotation.ToStart)
   {
     Transform3d aTrsf;
-    aTrsf.SetTransformation(gp_Ax3(gp::Origin(), aCam->OrthogonalizedUp(), aCam->Direction()),
-                            gp_Ax3(gp::Origin(), gp::DZ(), gp::DX()));
+    aTrsf.SetTransformation(Ax3(gp1::Origin(), aCam->OrthogonalizedUp(), aCam->Direction()),
+                            Ax3(gp1::Origin(), gp1::DZ(), gp1::DX()));
     const gp_Quaternion aRot       = aTrsf.GetRotation();
     double              aRollDummy = 0.0;
     aRot.GetEulerAngles(gp_YawPitchRoll,
@@ -1817,8 +1817,8 @@ void AIS_ViewController::handleViewRotation(const Handle(ViewWindow)& theView,
   Transform3d aTrsfRot;
   aTrsfRot.SetRotation(aRot);
 
-  const Dir3d aNewUp  = gp::DZ().Transformed(aTrsfRot);
-  const Dir3d aNewDir = gp::DX().Transformed(aTrsfRot);
+  const Dir3d aNewUp  = gp1::DZ().Transformed(aTrsfRot);
+  const Dir3d aNewDir = gp1::DX().Transformed(aTrsfRot);
   aCam->SetUp(aNewUp);
   aCam->SetDirectionFromEye(aNewDir);
   aCam->OrthogonalizeUp();
@@ -2089,7 +2089,7 @@ AIS_WalkDelta AIS_ViewController::handleNavigationKeys(const Handle(VisualContex
     aMax = aBndBox.CornerMax().XYZ();
   }
   double aBndDiam = Max(Max(aMax.X() - aMin.X(), aMax.Y() - aMin.Y()), aMax.Z() - aMin.Z());
-  if (aBndDiam <= gp::Resolution())
+  if (aBndDiam <= gp1::Resolution())
   {
     aBndDiam = 0.001;
   }
@@ -2102,7 +2102,7 @@ AIS_WalkDelta AIS_ViewController::handleNavigationKeys(const Handle(VisualContex
     theView->View()->IsActiveXR() ? theView->View()->BaseXRCamera() : theView->Camera();
 
   // move forward in plane XY and up along Z
-  const Dir3d anUp = ToLockOrbitZUp() ? gp::DZ() : aCam->OrthogonalizedUp();
+  const Dir3d anUp = ToLockOrbitZUp() ? gp1::DZ() : aCam->OrthogonalizedUp();
   if (aWalk.ToMove() && myToAllowPanning)
   {
     const Vector3d aSide = -aCam->SideRight();
@@ -2441,7 +2441,7 @@ void AIS_ViewController::handleXRTurnPad(const Handle(VisualContext)&,
         && Abs(aPadPos.VecXYZ.y()) < 0.5f && Abs(aPadPos.VecXYZ.x()) > 0.7f)
     {
       Transform3d aTrsfTurn;
-      aTrsfTurn.SetRotation(Axis3d(gp::Origin(), theView->View()->BaseXRCamera()->Up()),
+      aTrsfTurn.SetRotation(Axis3d(gp1::Origin(), theView->View()->BaseXRCamera()->Up()),
                             aPadPos.VecXYZ.x() < 0.0f ? myXRTurnAngle : -myXRTurnAngle);
       theView->View()->TurnViewXRCamera(aTrsfTurn);
       break;
@@ -2526,7 +2526,7 @@ void AIS_ViewController::handleXRTeleport(const Handle(VisualContext)& theCtx,
         myXRLastTeleportHand = Aspect_XRTrackedDeviceRole_Other;
         if (!Precision::IsInfinite(aPickDepth))
         {
-          const Dir3d aTeleDir = -gp::DZ().Transformed(aHandBase);
+          const Dir3d aTeleDir = -gp1::DZ().Transformed(aHandBase);
           const Dir3d anUpDir  = theView->View()->BaseXRCamera()->Up();
 
           bool   isHorizontal = false;

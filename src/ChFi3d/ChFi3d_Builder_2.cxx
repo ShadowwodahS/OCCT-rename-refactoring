@@ -427,7 +427,7 @@ Standard_Boolean IsInput(const Vector3d& Vec, const TopoVertex& Ve, const TopoFa
     amin = 0;
 
   // Projection of the vector
-  gp_Ax3  Axe(Point, Normal, Vec3d[0]);
+  Ax3  Axe(Point, Normal, Vec3d[0]);
   Transform3d Transf;
   Transf.SetTransformation(Axe);
   gp_XYZ coord = Vec.XYZ();

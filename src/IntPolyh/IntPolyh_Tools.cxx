@@ -172,7 +172,7 @@ void Tools4::FillArrayOfPointNormal(const Handle(Adaptor3d_Surface)& theSurf,
       // Compute normal
       Vector3d        aVNorm  = aDU.Crossed(aDV);
       Standard_Real aLength = aVNorm.Magnitude();
-      if (aLength > gp::Resolution())
+      if (aLength > gp1::Resolution())
       {
         aVNorm /= aLength;
       }

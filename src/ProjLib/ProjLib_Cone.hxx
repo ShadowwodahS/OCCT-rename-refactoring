@@ -38,15 +38,15 @@ public:
   Standard_EXPORT ProjLib_Cone();
 
   //! Projection on the cone <Co>.
-  Standard_EXPORT ProjLib_Cone(const gp_Cone& Co);
+  Standard_EXPORT ProjLib_Cone(const Cone1& Co);
 
   //! Projection of the line <L> on the cone <Co>.
-  Standard_EXPORT ProjLib_Cone(const gp_Cone& Co, const gp_Lin& L);
+  Standard_EXPORT ProjLib_Cone(const Cone1& Co, const gp_Lin& L);
 
   //! Projection of the circle <C> on the cone <Co>.
-  Standard_EXPORT ProjLib_Cone(const gp_Cone& Co, const gp_Circ& C);
+  Standard_EXPORT ProjLib_Cone(const Cone1& Co, const gp_Circ& C);
 
-  Standard_EXPORT void Init(const gp_Cone& Co);
+  Standard_EXPORT void Init(const Cone1& Co);
 
   Standard_EXPORT virtual void Project(const gp_Lin& L) Standard_OVERRIDE;
 
@@ -60,7 +60,7 @@ public:
 
 protected:
 private:
-  gp_Cone myCone;
+  Cone1 myCone;
 };
 
 #endif // _ProjLib_Cone_HeaderFile

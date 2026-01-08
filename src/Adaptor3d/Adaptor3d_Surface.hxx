@@ -192,9 +192,9 @@ public:
 
   Standard_EXPORT virtual gp_Pln Plane() const;
 
-  Standard_EXPORT virtual gp_Cylinder Cylinder() const;
+  Standard_EXPORT virtual Cylinder1 Cylinder() const;
 
-  Standard_EXPORT virtual gp_Cone Cone() const;
+  Standard_EXPORT virtual Cone1 Cone() const;
 
   Standard_EXPORT virtual gp_Sphere Sphere() const;
 

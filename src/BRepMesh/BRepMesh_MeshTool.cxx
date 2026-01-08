@@ -326,7 +326,7 @@ void BRepMesh_MeshTool::DumpTriangles(const Standard_CString   theFileName,
                                      Point3d(aV3.X(), aV3.Y(), 0.),
                                      Standard_True);
 
-    FaceMaker aFaceBuilder(gp_Pln(gp::XOY()), aPoly.Wire());
+    FaceMaker aFaceBuilder(gp_Pln(gp1::XOY()), aPoly.Wire());
     aBuilder.Add(aResult, aFaceBuilder.Shape());
   }
 

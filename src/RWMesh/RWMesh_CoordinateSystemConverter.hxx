@@ -32,7 +32,7 @@
 //!
 //! RWMesh_CoordinateSystem enumeration is used for convenient conversion between two commonly
 //! used coordinate systems, to make sure that imported model is oriented up.
-//! But gp_Ax3 can be used instead for defining a conversion between arbitrary systems (e.g.
+//! But Ax3 can be used instead for defining a conversion between arbitrary systems (e.g.
 //! including non-zero origin).
 //!
 //! The converter requires defining explicitly both input and output systems,
@@ -50,18 +50,18 @@ class RWMesh_CoordinateSystemConverter
 {
 public:
   //! Return a standard coordinate system definition.
-  static gp_Ax3 StandardCoordinateSystem(RWMesh_CoordinateSystem theSys)
+  static Ax3 StandardCoordinateSystem(RWMesh_CoordinateSystem theSys)
   {
     switch (theSys)
     {
       case RWMesh_CoordinateSystem_posYfwd_posZup:
-        return gp_Ax3(gp::Origin(), gp::DZ(), gp::DX());
+        return Ax3(gp1::Origin(), gp1::DZ(), gp1::DX());
       case RWMesh_CoordinateSystem_negZfwd_posYup:
-        return gp_Ax3(gp::Origin(), gp::DY(), gp::DX());
+        return Ax3(gp1::Origin(), gp1::DY(), gp1::DX());
       case RWMesh_CoordinateSystem_Undefined:
         break;
     }
-    return gp_Ax3();
+    return Ax3();
   }
 
 public:
@@ -97,10 +97,10 @@ public:
   Standard_Boolean HasInputCoordinateSystem() const { return myHasInputAx3; }
 
   //! Source coordinate system; UNDEFINED by default.
-  const gp_Ax3& InputCoordinateSystem() const { return myInputAx3; }
+  const Ax3& InputCoordinateSystem() const { return myInputAx3; }
 
   //! Set source coordinate system.
-  void SetInputCoordinateSystem(const gp_Ax3& theSysFrom)
+  void SetInputCoordinateSystem(const Ax3& theSysFrom)
   {
     myHasInputAx3 = Standard_True;
     Init(theSysFrom, myInputLengthUnit, myOutputAx3, myOutputLengthUnit);
@@ -117,10 +117,10 @@ public:
   Standard_Boolean HasOutputCoordinateSystem() const { return myHasOutputAx3; }
 
   //! Destination coordinate system; UNDEFINED by default.
-  const gp_Ax3& OutputCoordinateSystem() const { return myOutputAx3; }
+  const Ax3& OutputCoordinateSystem() const { return myOutputAx3; }
 
   //! Set destination coordinate system.
-  void SetOutputCoordinateSystem(const gp_Ax3& theSysTo)
+  void SetOutputCoordinateSystem(const Ax3& theSysTo)
   {
     myHasOutputAx3 = Standard_True;
     Init(myInputAx3, myInputLengthUnit, theSysTo, myOutputLengthUnit);
@@ -134,9 +134,9 @@ public:
   }
 
   //! Initialize transformation.
-  Standard_EXPORT void Init(const gp_Ax3& theInputSystem,
+  Standard_EXPORT void Init(const Ax3& theInputSystem,
                             Standard_Real theInputLengthUnit,
-                            const gp_Ax3& theOutputSystem,
+                            const Ax3& theOutputSystem,
                             Standard_Real theOutputLengthUnit);
 
 public:
@@ -179,8 +179,8 @@ public:
   }
 
 private:
-  gp_Ax3 myInputAx3;          //!< source      coordinate system
-  gp_Ax3 myOutputAx3;         //!< destination coordinate system
+  Ax3 myInputAx3;          //!< source      coordinate system
+  Ax3 myOutputAx3;         //!< destination coordinate system
                               // clang-format off
   Standard_Real    myInputLengthUnit;  //!< source      length units, defined as scale factor to m (meters); -1.0 by default which means UNDEFINED
   Standard_Real    myOutputLengthUnit; //!< destination length units, defined as scale factor to m (meters); -1.0 by default which means UNDEFINED

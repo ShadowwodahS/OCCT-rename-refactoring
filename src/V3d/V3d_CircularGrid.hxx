@@ -70,7 +70,7 @@ private:
 private:
   Handle(Graphic3d_Structure) myStructure;
   Handle(Graphic3d_Group)     myGroup;
-  gp_Ax3                      myCurViewPlane;
+  Ax3                      myCurViewPlane;
   V3d_ViewerPointer           myViewer;
   Standard_Boolean            myCurAreDefined;
   Standard_Boolean            myToComputePrs;

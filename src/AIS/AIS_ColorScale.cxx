@@ -68,11 +68,11 @@ static Quantity_Color colorFromValueEx(const Standard_Real    theValue,
   }
 
   Standard_Real aHue =
-    NCollection_Lerp<Standard_Real>::Interpolate(theHlsMin[0], theHlsMax[0], aValue);
+    NCollection_Lerp1<Standard_Real>::Interpolate(theHlsMin[0], theHlsMax[0], aValue);
   Standard_Real aLightness =
-    NCollection_Lerp<Standard_Real>::Interpolate(theHlsMin[1], theHlsMax[1], aValue);
+    NCollection_Lerp1<Standard_Real>::Interpolate(theHlsMin[1], theHlsMax[1], aValue);
   Standard_Real aSaturation =
-    NCollection_Lerp<Standard_Real>::Interpolate(theHlsMin[2], theHlsMax[2], aValue);
+    NCollection_Lerp1<Standard_Real>::Interpolate(theHlsMin[2], theHlsMax[2], aValue);
   return Quantity_Color(AIS_ColorScale::hueToValidRange(aHue),
                         aLightness,
                         aSaturation,
@@ -872,7 +872,7 @@ void AIS_ColorScale::drawText(const Handle(Graphic3d_Group)&        theGroup,
 
   Handle(Graphic3d_Text) aText = new Graphic3d_Text((Standard_ShortReal)anAspect->Height());
   aText->SetText(theText.ToExtString());
-  aText->SetOrientation(Frame3d(Point3d(theX, theY, 0.0), gp::DZ()));
+  aText->SetOrientation(Frame3d(Point3d(theX, theY, 0.0), gp1::DZ()));
   aText->SetOwnAnchorPoint(Standard_False);
   aText->SetVerticalAlignment(theVertAlignment);
 

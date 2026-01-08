@@ -180,7 +180,7 @@ static Standard_Boolean Rational(const TColStd_Array1OfReal& W)
   Standard_Boolean rat = Standard_False;
   for (i = 1; i < n; i++)
   {
-    rat = Abs(W(i) - W(i + 1)) > gp::Resolution();
+    rat = Abs(W(i) - W(i + 1)) > gp1::Resolution();
     if (rat)
       break;
   }
@@ -257,7 +257,7 @@ Law_BSpline::Law_BSpline(const TColStd_Array1OfReal&    Poles,
   Standard_Integer i;
   for (i = Weights.Lower(); i <= Weights.Upper(); i++)
   {
-    if (Weights(i) <= gp::Resolution())
+    if (Weights(i) <= gp1::Resolution())
       throw Standard_ConstructionError("Law_BSpline");
   }
 
@@ -604,7 +604,7 @@ void Law_BSpline::InsertPoleAfter
 {
   if (Index < 0 || Index > poles->Length())  throw Standard_OutOfRange();
   
-  if (Weight <= gp::Resolution())     throw Standard_ConstructionError();
+  if (Weight <= gp1::Resolution())     throw Standard_ConstructionError();
   
   
   // find the spans which are modified with the inserting pole
@@ -681,7 +681,7 @@ void Law_BSpline::InsertPoleAfter
   // insert the weight 
   
   Handle(TColStd_HArray1OfReal) nweights;
-  Standard_Boolean rat = IsRational() || Abs(Weight-1.) > gp::Resolution();
+  Standard_Boolean rat = IsRational() || Abs(Weight-1.) > gp1::Resolution();
   
   if (rat) {
     nweights = new TColStd_HArray1OfReal(1,nbpoles+1);
@@ -1212,10 +1212,10 @@ void Law_BSpline::SetWeight(const Standard_Integer Index, const Standard_Real W)
   if (Index < 1 || Index > poles->Length())
     throw Standard_OutOfRange();
 
-  if (W <= gp::Resolution())
+  if (W <= gp1::Resolution())
     throw Standard_ConstructionError();
 
-  Standard_Boolean rat = IsRational() || (Abs(W - 1.) > gp::Resolution());
+  Standard_Boolean rat = IsRational() || (Abs(W - 1.) > gp1::Resolution());
 
   if (rat)
   {
@@ -1344,7 +1344,7 @@ Standard_Boolean Law_BSpline::IsCN(const Standard_Integer N) const
 
 Standard_Boolean Law_BSpline::IsClosed() const
 {
-  return (Abs(StartPoint() - EndPoint())) <= gp::Resolution();
+  return (Abs(StartPoint() - EndPoint())) <= gp1::Resolution();
 }
 
 //=================================================================================================

@@ -63,7 +63,7 @@ public:
   //! -   gce_ConfusedPoints if points P1 and P2, or P3 and P4, are coincident;
   //! -   gce_NullAngle if:
   //! -   the lines joining P1 to P2 and P3 to P4 are parallel, or
-  //! -   R1 and R2 are equal (i.e. their difference is less than gp::Resolution());
+  //! -   R1 and R2 are equal (i.e. their difference is less than gp1::Resolution());
   //! -   gce_NullRadius if:
   //! -   the line joining P1 to P2 is perpendicular to the line joining P3 to P4, or
   //! -   the points P1, P2, P3 and P4 are collinear;

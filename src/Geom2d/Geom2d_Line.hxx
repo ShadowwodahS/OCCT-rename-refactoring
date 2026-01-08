@@ -86,7 +86,7 @@ public:
 
   Standard_EXPORT const gp_Ax2d& Position() const;
 
-  //! Returns non persistent line from gp with the same geometric
+  //! Returns non persistent line from gp1 with the same geometric
   //! properties as <me>
   Standard_EXPORT gp_Lin2d Lin2d() const;
 

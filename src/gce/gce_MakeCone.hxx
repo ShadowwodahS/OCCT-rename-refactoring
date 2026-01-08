@@ -29,7 +29,7 @@ class Axis3d;
 class gp_Lin;
 
 //! This class implements the following algorithms used
-//! to create a Cone from gp.
+//! to create a Cone from gp1.
 //! * Create a Cone coaxial to another and passing
 //! through a point.
 //! * Create a Cone coaxial to another at a distance
@@ -50,21 +50,21 @@ public:
   //! Radius is the radius of the circle in the reference plane of
   //! the cone.
   //! If Radius is lower than 0.0 the status is "
-  //! If Ang < Resolution from gp  or Ang >= (PI/2) - Resolution.
+  //! If Ang < Resolution from gp1  or Ang >= (PI/2) - Resolution.
   Standard_EXPORT gce_MakeCone(const Frame3d&       A2,
                                const Standard_Real Ang,
                                const Standard_Real Radius);
 
-  //! Makes a Cone from gp <TheCone> coaxial to another
+  //! Makes a Cone from gp1 <TheCone> coaxial to another
   //! Cone <Cone> and passing through a Pnt <Point>.
-  Standard_EXPORT gce_MakeCone(const gp_Cone& Cone, const Point3d& Point);
+  Standard_EXPORT gce_MakeCone(const Cone1& Cone, const Point3d& Point);
 
-  //! Makes a Cone from gp <TheCone> coaxial to another
+  //! Makes a Cone from gp1 <TheCone> coaxial to another
   //! Cone <Cone> at the distance <Dist> which can
   //! be greater or lower than zero.
-  Standard_EXPORT gce_MakeCone(const gp_Cone& Cone, const Standard_Real Dist);
+  Standard_EXPORT gce_MakeCone(const Cone1& Cone, const Standard_Real Dist);
 
-  //! Makes a Cone from gp <TheCone> by four points <P1>,
+  //! Makes a Cone from gp1 <TheCone> by four points <P1>,
   //! <P2>,<P3> and <P4>.
   //! Its axis is <P1P2> and the radius of its base is
   //! the distance between <P3> and <P1P2>.
@@ -120,14 +120,14 @@ public:
   //! false), the Status function returns:
   //! -   gce_NegativeRadius if Radius, R1 or R2 is less than 0.0;
   //! -   gce_BadAngle if Ang is less than
-  //! gp::Resolution() or greater than Pi/2.- gp::Resolution();
+  //! gp1::Resolution() or greater than Pi/2.- gp1::Resolution();
   //! -   gce_ConfusedPoints if P1 and P2 or P3 and P4 are coincident;
   //! -   gce_NullAxis if the points P1 and P2, are coincident (5th syntax only);
   //! -   gce_NullAngle if:
   //! -   the vector joining P1 to P2 is parallel to either
   //! Axis or the line joining P3 to P4, or
   //! -   R1 and R2 are equal, (that is, their difference is
-  //! less than gp::Resolution()); or
+  //! less than gp1::Resolution()); or
   //! -   gce_NullRadius if:
   //! -   the vector joining P1 to P2 is perpendicular to the line joining P3 to P4,
   //! -   the vector joining P1 to P2 is perpendicular to Axis, or
@@ -139,14 +139,14 @@ public:
 
   //! Returns the constructed cone.
   //! Exceptions StdFail_NotDone if no cone is constructed.
-  Standard_EXPORT const gp_Cone& Value() const;
+  Standard_EXPORT const Cone1& Value() const;
 
-  Standard_EXPORT const gp_Cone& Operator() const;
-  Standard_EXPORT                operator gp_Cone() const;
+  Standard_EXPORT const Cone1& Operator() const;
+  Standard_EXPORT                operator Cone1() const;
 
 protected:
 private:
-  gp_Cone TheCone;
+  Cone1 TheCone;
 };
 
 #endif // _gce_MakeCone_HeaderFile

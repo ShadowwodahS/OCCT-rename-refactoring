@@ -2216,7 +2216,7 @@ void IntWalk_IWalking::ComputeCloseLine(const TColStd_SequenceOfReal& Umult,
                   if (aStatus != IntWalk_PasTropGrand)
                   {
                     // Make linear extrapolation.
-                    if (Abs(uv[aCoordIdx - 1] - uvprev[aCoordIdx - 1]) > gp::Resolution())
+                    if (Abs(uv[aCoordIdx - 1] - uvprev[aCoordIdx - 1]) > gp1::Resolution())
                       aScaleCoeff = Abs((Uvap(aCoordIdx) - uv[aCoordIdx - 1]) / (uv[aCoordIdx - 1] - uvprev[aCoordIdx - 1]));
                     Standard_Integer aFixIdx = aCoordIdx == 1 ? 2 : 1; // Fixing index;
                     Uvap(aFixIdx)            = uv[aFixIdx - 1] + (uv[aFixIdx - 1] - uvprev[aFixIdx - 1]) * aScaleCoeff;
@@ -3040,7 +3040,7 @@ Standard_Boolean IntWalk_IWalking::IsPointOnLine(const PointOn2Surfaces& thePOn2
 
       const Standard_Real aSq12 = aP1P2.SquareModulus();
 
-      if (aSq12 < gp::Resolution())
+      if (aSq12 < gp1::Resolution())
         continue;
 
       const Standard_Real aDP = aP1P.Dot(aP1P2);

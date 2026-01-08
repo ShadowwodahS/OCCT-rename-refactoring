@@ -37,7 +37,7 @@ static Dir3d getNormalOnFace(const TopoFace&  theFace,
                               const Standard_Real theU,
                               const Standard_Real theV)
 {
-  Standard_Real     aPrec = gp::Resolution();
+  Standard_Real     aPrec = gp1::Resolution();
   BRepLProp_SLProps aProps(BRepAdaptor_Surface(theFace), theU, theV, 2, aPrec);
   Dir3d            aNormal = aProps.Normal();
   if (theFace.Orientation() == TopAbs_REVERSED)
@@ -73,7 +73,7 @@ static Standard_Boolean getNormalFromEdge(const TopoShape& theShape,
       }
     }
   }
-  if (aSum.SquareModulus() > gp::Resolution())
+  if (aSum.SquareModulus() > gp1::Resolution())
   {
     theNormal = aSum;
     return Standard_True;
@@ -106,7 +106,7 @@ static Standard_Boolean getNormalFromVertex(const TopoShape&  theShape,
       }
     }
   }
-  if (aSum.SquareModulus() > gp::Resolution())
+  if (aSum.SquareModulus() > gp1::Resolution())
   {
     theNormal = aSum;
     return Standard_True;

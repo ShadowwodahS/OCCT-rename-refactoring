@@ -1084,7 +1084,7 @@ void BooleanPaveFiller::ForceInterfEE(const Message_ProgressRange& theRange)
       Point3d            aPm;
       Vector3d            aVTgt1;
       aBAC1.D1((aT11 + aT12) * 0.5, aPm, aVTgt1);
-      if (aVTgt1.SquareMagnitude() < gp::Resolution())
+      if (aVTgt1.SquareMagnitude() < gp1::Resolution())
         continue;
       aVTgt1.Normalize();
 
@@ -1134,7 +1134,7 @@ void BooleanPaveFiller::ForceInterfEE(const Message_ProgressRange& theRange)
             Point3d aPm2;
             Vector3d aVTgt2;
             aBAC2.D1(aProjPC.LowerDistanceParameter(), aPm2, aVTgt2);
-            if (aVTgt2.SquareMagnitude() < gp::Resolution())
+            if (aVTgt2.SquareMagnitude() < gp1::Resolution())
               continue;
 
             // The angle should be close to zero

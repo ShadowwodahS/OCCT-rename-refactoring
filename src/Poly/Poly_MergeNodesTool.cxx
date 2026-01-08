@@ -46,7 +46,7 @@ public:
   }
 
   //! Key.
-  const Poly_MergeNodesTool::Vec3AndNormal& Key() const { return myKey; }
+  const Poly_MergeNodesTool::Vec3AndNormal1& Key() const { return myKey; }
 
   //! Static deleter to be passed to BaseMap
   static void delNode(NCollection_ListNode* theNode, Handle(NCollection_BaseAllocator)& theAl)
@@ -56,7 +56,7 @@ public:
   }
 
 private:
-  Poly_MergeNodesTool::Vec3AndNormal myKey;
+  Poly_MergeNodesTool::Vec3AndNormal1 myKey;
 };
 
 //=================================================================================================
@@ -171,7 +171,7 @@ inline bool Poly_MergeNodesTool::MergedNodesMap::vec3AreEqual(
 
 //=================================================================================================
 
-inline bool Poly_MergeNodesTool::MergedNodesMap::isEqual(const Vec3AndNormal&           theKey1,
+inline bool Poly_MergeNodesTool::MergedNodesMap::isEqual(const Vec3AndNormal1&           theKey1,
                                                          const NCollection_Vec3<float>& thePos2,
                                                          const NCollection_Vec3<float>& theNorm2,
                                                          bool& theIsOpposite) const
@@ -392,7 +392,7 @@ void Poly_MergeNodesTool::PushLastElement(int theNbNodes)
       myPolyData->ResizeTriangles(myNbElems * 2, true);
     }
     myPolyData->SetTriangle(myNbElems,
-                            Poly_Triangle(myNodeInds[0] + 1, myNodeInds[1] + 1, myNodeInds[2] + 1));
+                            Triangle2(myNodeInds[0] + 1, myNodeInds[1] + 1, myNodeInds[2] + 1));
     if (theNbNodes == 4)
     {
       ++myNbElems;
@@ -402,7 +402,7 @@ void Poly_MergeNodesTool::PushLastElement(int theNbNodes)
       }
       myPolyData->SetTriangle(
         myNbElems,
-        Poly_Triangle(myNodeInds[0] + 1, myNodeInds[2] + 1, myNodeInds[3] + 1));
+        Triangle2(myNodeInds[0] + 1, myNodeInds[2] + 1, myNodeInds[3] + 1));
     }
   }
 }
@@ -428,10 +428,10 @@ void Poly_MergeNodesTool::AddTriangulation(const Handle(MeshTriangulation)& theT
 
   for (int anElemIter = 1; anElemIter <= theTris->NbTriangles(); ++anElemIter)
   {
-    Poly_Triangle anElem = theTris->Triangle1(anElemIter);
+    Triangle2 anElem = theTris->Triangle1(anElemIter);
     if (theToReverse)
     {
-      anElem = Poly_Triangle(anElem.Value(1), anElem.Value(3), anElem.Value(2));
+      anElem = Triangle2(anElem.Value(1), anElem.Value(3), anElem.Value(2));
     }
     for (int aTriNodeIter = 0; aTriNodeIter < 3; ++aTriNodeIter)
     {

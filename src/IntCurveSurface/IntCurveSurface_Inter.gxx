@@ -957,7 +957,7 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Lin&   Line,
   case GeomAbs_Cone:
     {
       constexpr Standard_Real correction = 1.E+5*Precision::Angular();
-      gp_Cone cn = TheSurfaceTool::Cone(surface);
+      Cone1 cn = TheSurfaceTool::Cone(surface);
       if(Abs(cn.SemiAngle()) < M_PI/2.0 - correction) {
         ConicQuadIntersection LinCone(Line, cn);
         AppendIntAna(curve, surface, LinCone);
@@ -1805,7 +1805,7 @@ void EstLimForInfRevl(const gp_Lin&   Line,
       P = Point3d(aU, aU+1, aU+2);
   }
   Vector3d aNVec = aXVec ^ Vector3d(O,P);
-  gp_Pln aPln (gp_Ax3 (O, aNVec ,aXVec));
+  gp_Pln aPln (Ax3 (O, aNVec ,aXVec));
 
   // project basic curve
   ProjLib_Plane aBasCurvProj(aPln);
@@ -1836,7 +1836,7 @@ void EstLimForInfRevl(const gp_Lin&   Line,
   } else
     aNVec = aXVec.Crossed( Line.Direction() );
   
-  aPln  = gp_Pln (gp_Ax3 (O, aNVec ,aXVec));
+  aPln  = gp_Pln (Ax3 (O, aNVec ,aXVec));
 
   // make a second plane perpendicular to the first one, rotated around aXVec
   gp_Pln aPlnPrp = aPln.Rotated (Axis3d (O,aXVec), M_PI/2.);
@@ -1917,10 +1917,10 @@ void EstLimForInfOffs(const gp_Lin&   Line,
   }
   else if(aTypeOfBasSurf == GeomAbs_Cylinder) {
 
-    gp_Cylinder aCyl = aBasSurf->Cylinder();
+    Cylinder1 aCyl = aBasSurf->Cylinder();
 
     Standard_Real aR = aCyl.Radius();
-    gp_Ax3 anA = aCyl.Position();
+    Ax3 anA = aCyl.Position();
 
     if (anA.Direct()) 
       aR += anOffVal;
@@ -1972,10 +1972,10 @@ void EstLimForInfOffs(const gp_Lin&   Line,
   }
   else if(aTypeOfBasSurf == GeomAbs_Cone) {
 
-    gp_Cone aCon = aBasSurf->Cone();
+    Cone1 aCon = aBasSurf->Cone();
     Standard_Real anAng = aCon.SemiAngle();
     Standard_Real aR = aCon.RefRadius() + anOffVal * Cos(anAng);
-    gp_Ax3 anA = aCon.Position();
+    Ax3 anA = aCon.Position();
     if ( aR >= 0.) {
 
       Vector3d aZ( anA.Direction());

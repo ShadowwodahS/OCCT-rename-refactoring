@@ -23,7 +23,7 @@
 
 //=================================================================================================
 
-const Point3d& gp::Origin()
+const Point3d& gp1::Origin()
 {
   static Point3d gp_Origin(0, 0, 0);
   return gp_Origin;
@@ -31,7 +31,7 @@ const Point3d& gp::Origin()
 
 //=================================================================================================
 
-const Dir3d& gp::DX()
+const Dir3d& gp1::DX()
 {
   static Dir3d gp_DX(1, 0, 0);
   return gp_DX;
@@ -39,7 +39,7 @@ const Dir3d& gp::DX()
 
 //=================================================================================================
 
-const Dir3d& gp::DY()
+const Dir3d& gp1::DY()
 {
   static Dir3d gp_DY(0, 1, 0);
   return gp_DY;
@@ -47,7 +47,7 @@ const Dir3d& gp::DY()
 
 //=================================================================================================
 
-const Dir3d& gp::DZ()
+const Dir3d& gp1::DZ()
 {
   static Dir3d gp_DZ(0, 0, 1);
   return gp_DZ;
@@ -55,7 +55,7 @@ const Dir3d& gp::DZ()
 
 //=================================================================================================
 
-const Axis3d& gp::OX()
+const Axis3d& gp1::OX()
 {
   static Axis3d gp_OX(Point3d(0, 0, 0), Dir3d(1, 0, 0));
   return gp_OX;
@@ -63,7 +63,7 @@ const Axis3d& gp::OX()
 
 //=================================================================================================
 
-const Axis3d& gp::OY()
+const Axis3d& gp1::OY()
 {
   static Axis3d gp_OY(Point3d(0, 0, 0), Dir3d(0, 1, 0));
   return gp_OY;
@@ -71,7 +71,7 @@ const Axis3d& gp::OY()
 
 //=================================================================================================
 
-const Axis3d& gp::OZ()
+const Axis3d& gp1::OZ()
 {
   static Axis3d gp_OZ(Point3d(0, 0, 0), Dir3d(0, 0, 1));
   return gp_OZ;
@@ -79,7 +79,7 @@ const Axis3d& gp::OZ()
 
 //=================================================================================================
 
-const Frame3d& gp::XOY()
+const Frame3d& gp1::XOY()
 {
   static Frame3d gp_XOY(Point3d(0, 0, 0), Dir3d(0, 0, 1), Dir3d(1, 0, 0));
   return gp_XOY;
@@ -87,7 +87,7 @@ const Frame3d& gp::XOY()
 
 //=================================================================================================
 
-const Frame3d& gp::ZOX()
+const Frame3d& gp1::ZOX()
 {
   static Frame3d gp_ZOX(Point3d(0, 0, 0), Dir3d(0, 1, 0), Dir3d(0, 0, 1));
   return gp_ZOX;
@@ -95,7 +95,7 @@ const Frame3d& gp::ZOX()
 
 //=================================================================================================
 
-const Frame3d& gp::YOZ()
+const Frame3d& gp1::YOZ()
 {
   static Frame3d gp_YOZ(Point3d(0, 0, 0), Dir3d(1, 0, 0), Dir3d(0, 1, 0));
   return gp_YOZ;
@@ -103,7 +103,7 @@ const Frame3d& gp::YOZ()
 
 //=================================================================================================
 
-const gp_Pnt2d& gp::Origin2d()
+const gp_Pnt2d& gp1::Origin2d()
 {
   static gp_Pnt2d gp_Origin2d(0, 0);
   return gp_Origin2d;
@@ -111,7 +111,7 @@ const gp_Pnt2d& gp::Origin2d()
 
 //=================================================================================================
 
-const gp_Dir2d& gp::DX2d()
+const gp_Dir2d& gp1::DX2d()
 {
   static gp_Dir2d gp_DX2d(1, 0);
   return gp_DX2d;
@@ -119,7 +119,7 @@ const gp_Dir2d& gp::DX2d()
 
 //=================================================================================================
 
-const gp_Dir2d& gp::DY2d()
+const gp_Dir2d& gp1::DY2d()
 {
   static gp_Dir2d gp_DY2d(0, 1);
   return gp_DY2d;
@@ -127,7 +127,7 @@ const gp_Dir2d& gp::DY2d()
 
 //=================================================================================================
 
-const gp_Ax2d& gp::OX2d()
+const gp_Ax2d& gp1::OX2d()
 {
   static gp_Ax2d gp_OX2d(gp_Pnt2d(0, 0), gp_Dir2d(1, 0));
   return gp_OX2d;
@@ -135,7 +135,7 @@ const gp_Ax2d& gp::OX2d()
 
 //=================================================================================================
 
-const gp_Ax2d& gp::OY2d()
+const gp_Ax2d& gp1::OY2d()
 {
   static gp_Ax2d gp_OY2d(gp_Pnt2d(0, 0), gp_Dir2d(0, 1));
   return gp_OY2d;

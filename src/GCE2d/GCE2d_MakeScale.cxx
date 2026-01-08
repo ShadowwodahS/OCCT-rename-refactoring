@@ -19,7 +19,7 @@
 #include <gp_Pnt2d.hxx>
 
 //=========================================================================
-//   Creation d un homothetie de gp de centre Point et de rapport Scale.  +
+//   Creation d un homothetie de gp1 de centre Point et de rapport Scale.  +
 //=========================================================================
 GCE2d_MakeScale::GCE2d_MakeScale(const gp_Pnt2d& Point, const Standard_Real Scale)
 {

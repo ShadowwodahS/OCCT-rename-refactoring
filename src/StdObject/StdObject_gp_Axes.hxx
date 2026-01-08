@@ -50,17 +50,17 @@ inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const 
   return theWriteData;
 }
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Ax22d& theAx)
+inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Ax22d& theAx)
 {
   StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
   gp_Pnt2d                         aLoc;
   gp_Dir2d                         aYDir, aXDir;
   theReadData >> aLoc >> aYDir >> aXDir;
-  theAx = gp_Ax22d(aLoc, aXDir, aYDir);
+  theAx = Ax22d(aLoc, aXDir, aYDir);
   return theReadData;
 }
 
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const gp_Ax22d& theAx)
+inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const Ax22d& theAx)
 {
   StdObjMgt_WriteData::ObjectSentry aSentry(theWriteData);
 
@@ -122,19 +122,19 @@ inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const 
   return theWriteData;
 }
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Ax3& theAx)
+inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Ax3& theAx)
 {
   StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
   Axis3d                           anAx;
   Dir3d                           aYDir, aXDir;
   theReadData >> anAx >> aYDir >> aXDir;
-  theAx = gp_Ax3(anAx.Location(), anAx.Direction(), aXDir);
+  theAx = Ax3(anAx.Location(), anAx.Direction(), aXDir);
   if (aYDir * theAx.YDirection() < 0.)
     theAx.YReverse();
   return theReadData;
 }
 
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const gp_Ax3& theAx)
+inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const Ax3& theAx)
 {
   StdObjMgt_WriteData::ObjectSentry aSentry(theWriteData);
 

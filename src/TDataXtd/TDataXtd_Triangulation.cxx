@@ -203,7 +203,7 @@ void TDataXtd_Triangulation::SetUVNode(const Standard_Integer theIndex, const gp
 //           Raises Standard_OutOfRange exception if theIndex is less than 1 or greater than
 //           NbTriangles.
 //=======================================================================
-Poly_Triangle TDataXtd_Triangulation::Triangle1(const Standard_Integer theIndex) const
+Triangle2 TDataXtd_Triangulation::Triangle1(const Standard_Integer theIndex) const
 {
   return myTriangulation->Triangle1(theIndex);
 }
@@ -216,7 +216,7 @@ Poly_Triangle TDataXtd_Triangulation::Triangle1(const Standard_Integer theIndex)
 //           NbTriangles.
 //=======================================================================
 void TDataXtd_Triangulation::SetTriangle(const Standard_Integer theIndex,
-                                         const Poly_Triangle&   theTriangle)
+                                         const Triangle2&   theTriangle)
 {
   Backup();
   myTriangulation->SetTriangle(theIndex, theTriangle);

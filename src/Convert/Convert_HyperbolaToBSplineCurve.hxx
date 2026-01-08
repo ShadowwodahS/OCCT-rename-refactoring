@@ -25,7 +25,7 @@
 class gp_Hypr2d;
 
 //! This algorithm converts a hyperbola into a rational B-spline curve.
-//! The hyperbola is an Hypr2d from package gp with the
+//! The hyperbola is an Hypr2d from package gp1 with the
 //! parametrization :
 //! P (U) =
 //! Loc + (MajorRadius * Cosh(U) * Xdir + MinorRadius * Sinh(U) * Ydir)

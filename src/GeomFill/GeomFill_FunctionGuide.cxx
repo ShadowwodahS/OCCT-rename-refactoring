@@ -82,11 +82,11 @@ void GeomFill_FunctionGuide::SetParam(const Standard_Real,
   Dir    = D;
 
   // repere fixe
-  gp_Ax3 Rep(gp::Origin(), gp::DZ(), gp::DX());
+  Ax3 Rep(gp1::Origin(), gp1::DZ(), gp1::DX());
 
   // calculer transfo entre triedre et Oxyz
   Dir3d  B2 = DX;
-  gp_Ax3  RepTriedre(C, D, B2);
+  Ax3  RepTriedre(C, D, B2);
   Transform3d Transfo;
   Transfo.SetTransformation(RepTriedre, Rep);
 

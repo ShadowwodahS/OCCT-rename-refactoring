@@ -113,9 +113,9 @@ static Handle(IntPatch_WLine) MakeNewWLine(const Handle(IntPatch_WLine)&        
       const Standard_Real aSqDist     = aPPrev.SquareDistance(aP);
 
       const Standard_Real aRatio =
-        (aSqDistPrev < gp::Resolution()) ? 0.0 : 9.0 * aSqDist / aSqDistPrev;
+        (aSqDistPrev < gp1::Resolution()) ? 0.0 : 9.0 * aSqDist / aSqDistPrev;
 
-      if (theIsOuter || (aRatio < gp::Resolution()) || ((1.0 < aRatio) && (aRatio < 81.0))
+      if (theIsOuter || (aRatio < gp1::Resolution()) || ((1.0 < aRatio) && (aRatio < 81.0))
           || (i - anIndexPrev <= 1) || (i - anIdxOld <= 1))
       {
         // difference in distances is satisfactory
@@ -1382,7 +1382,7 @@ Handle(IntPatch_WLine) WLineTool1::ComputePurgedWLine(
   {
     const PointOn2Surfaces& p1 = theWLine->Point(1);
     const PointOn2Surfaces& p2 = theWLine->Point(2);
-    if (p1.Value().IsEqual(p2.Value(), gp::Resolution()))
+    if (p1.Value().IsEqual(p2.Value(), gp1::Resolution()))
       return aResult;
   }
 
@@ -1428,7 +1428,7 @@ Handle(IntPatch_WLine) WLineTool1::ComputePurgedWLine(
             aMax = Abs(UV[anIdx]);
         }
 
-        if (p1.Value().IsEqual(p2.Value(), gp::Resolution())
+        if (p1.Value().IsEqual(p2.Value(), gp1::Resolution())
             || Abs(UV[0] - UV[4]) + Abs(UV[1] - UV[5]) < 1.0e-16 * aMax
             || Abs(UV[2] - UV[6]) + Abs(UV[3] - UV[7]) < 1.0e-16 * aMax)
         {

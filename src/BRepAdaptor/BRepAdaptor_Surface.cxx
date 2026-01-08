@@ -254,7 +254,7 @@ gp_Pln BRepAdaptor_Surface::Plane() const
 
 //=================================================================================================
 
-gp_Cylinder BRepAdaptor_Surface::Cylinder() const
+Cylinder1 BRepAdaptor_Surface::Cylinder() const
 {
   return mySurf.Cylinder().Transformed(myTrsf);
 }
@@ -268,7 +268,7 @@ gp_Sphere BRepAdaptor_Surface::Sphere() const
 
 //=================================================================================================
 
-gp_Cone BRepAdaptor_Surface::Cone() const
+Cone1 BRepAdaptor_Surface::Cone() const
 {
   return mySurf.Cone().Transformed(myTrsf);
 }

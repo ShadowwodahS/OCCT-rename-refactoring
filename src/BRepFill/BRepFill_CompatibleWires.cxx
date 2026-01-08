@@ -271,7 +271,7 @@ static Standard_Boolean PlaneOfWire(const TopoWire& W, gp_Pln& P)
         Vec = Pp.FirstAxisOfInertia();
       }
       Dir3d     XDir(Vec);
-      gp_Ax3     repere(Bary, NDir, XDir);
+      Ax3     repere(Bary, NDir, XDir);
       GeomPlane GPlan(repere);
       P = GPlan.Pln();
     }
@@ -1536,7 +1536,7 @@ void CompatibleWires::SameNumberByACR(const Standard_Boolean report)
       {
         const TopoWire& oldwire = TopoDS::Wire(myWork(i));
         Standard_Real      tol     = Precision::Confusion();
-        if (WireLen(i) > gp::Resolution())
+        if (WireLen(i) > gp1::Resolution())
           tol /= WireLen(i);
         TopoWire            newwire = BRepFill1::InsertACR(oldwire, dec3, tol);
         BRepTools_WireExplorer anExp1, anExp2;

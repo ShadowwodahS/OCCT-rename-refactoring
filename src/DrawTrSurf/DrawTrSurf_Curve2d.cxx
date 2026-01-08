@@ -127,7 +127,7 @@ void DrawTrSurf_Curve2d::DrawOn(DrawDisplay& dis) const
     gp_Pnt2d p1, p2;
     gp_Vec2d v;
     C2d.D1(Last, p1, v);
-    if (v.Magnitude() > gp::Resolution())
+    if (v.Magnitude() > gp1::Resolution())
     {
       Standard_Real L = 20 / dis.Zoom();
       Standard_Real H = 10 / dis.Zoom();

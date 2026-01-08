@@ -160,9 +160,9 @@ public:
 
   Standard_EXPORT gp_Pln Plane() const;
 
-  gp_Cylinder Cylinder() const;
+  Cylinder1 Cylinder() const;
 
-  gp_Cone Cone() const;
+  Cone1 Cone() const;
 
   gp_Sphere Sphere() const;
 

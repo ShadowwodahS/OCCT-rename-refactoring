@@ -2942,7 +2942,7 @@ static Standard_Integer OCC28784(DrawInterpreter&, Standard_Integer argc, const 
   if (aShape.IsNull())
     return 1;
 
-  Frame3d            aPlane(gp::Origin(), gp::DX(), -gp::DZ());
+  Frame3d            aPlane(gp1::Origin(), gp1::DX(), -gp1::DZ());
   HLRAlgoProjector aProjector(aPlane);
 
   Handle(HLRBRep_PolyAlgo) aHLR = new HLRBRep_PolyAlgo(aShape);
@@ -3106,7 +3106,7 @@ static Standard_Integer OCC28131(DrawInterpreter&,
 
     Handle(Geom2d_BSplineCurve) c = anInterpolation.Curve();
 
-    gp_Pln pln(gp_Ax3(Point3d(), Dir3d(1, 0, 0), Dir3d(0, -1, 0)));
+    gp_Pln pln(Ax3(Point3d(), Dir3d(1, 0, 0), Dir3d(0, -1, 0)));
 
     Handle(BSplineCurve3d) c3d = Handle(BSplineCurve3d)::DownCast(GeomAPI1::To3d(c, pln));
     curve1                        = c3d;
@@ -3123,7 +3123,7 @@ static Standard_Integer OCC28131(DrawInterpreter&,
     anInterpolation.Perform();
 
     Handle(Geom2d_BSplineCurve) c = anInterpolation.Curve();
-    gp_Pln                      pln(gp_Ax3(Point3d(), Dir3d(0, -1, 0), Dir3d(-1, 0, 0)));
+    gp_Pln                      pln(Ax3(Point3d(), Dir3d(0, -1, 0), Dir3d(-1, 0, 0)));
     Handle(BSplineCurve3d)   c3d = Handle(BSplineCurve3d)::DownCast(GeomAPI1::To3d(c, pln));
     curve2                          = c3d;
   }
@@ -4266,9 +4266,9 @@ static Standard_Integer OCC30869(DrawInterpreter& theDI,
   aBACC.D1(aFirst, aPFirst, aVFirst);
   aBACC.D1(aLast, aPLast, aVLast);
 
-  if (aVFirst.SquareMagnitude() > gp::Resolution())
+  if (aVFirst.SquareMagnitude() > gp1::Resolution())
     aVFirst.Normalize();
-  if (aVLast.SquareMagnitude() > gp::Resolution())
+  if (aVLast.SquareMagnitude() > gp1::Resolution())
     aVLast.Normalize();
 
   theDI << aFirst << ": point " << aPFirst.X() << " " << aPFirst.Y() << " " << aPFirst.Z()
@@ -4726,7 +4726,7 @@ static Standard_Integer QANullifyShape(DrawInterpreter& di, Standard_Integer n, 
   return 0;
 }
 
-static void CheckAx3Dir(gp_Ax3& theAxis, const Dir3d& theDir)
+static void CheckAx3Dir(Ax3& theAxis, const Dir3d& theDir)
 {
   Standard_Boolean bDirect = theAxis.Direct();
   theAxis.SetDirection(theDir);
@@ -4740,7 +4740,7 @@ static void CheckAx3Dir(gp_Ax3& theAxis, const Dir3d& theDir)
   }
 }
 
-static void CheckAx3DirX(gp_Ax3& theAxis, const Dir3d& theDir)
+static void CheckAx3DirX(Ax3& theAxis, const Dir3d& theDir)
 {
   Standard_Boolean bDirect = theAxis.Direct();
   theAxis.SetXDirection(theDir);
@@ -4765,7 +4765,7 @@ static void CheckAx3DirX(gp_Ax3& theAxis, const Dir3d& theDir)
   }
 }
 
-static void CheckAx3DirY(gp_Ax3& theAxis, const Dir3d& theDir)
+static void CheckAx3DirY(Ax3& theAxis, const Dir3d& theDir)
 {
   Standard_Boolean bDirect = theAxis.Direct();
   theAxis.SetYDirection(theDir);
@@ -4790,7 +4790,7 @@ static void CheckAx3DirY(gp_Ax3& theAxis, const Dir3d& theDir)
   }
 }
 
-static void CheckAx3Ax1(gp_Ax3& theAx, const Axis3d& theAx0)
+static void CheckAx3Ax1(Ax3& theAx, const Axis3d& theAx0)
 {
   Standard_Boolean bDirect = theAx.Direct();
   theAx.SetAxis(theAx0);
@@ -4808,41 +4808,41 @@ static Standard_Integer OCC29406(DrawInterpreter&, Standard_Integer, const char*
 {
   // Main (Z) direction
   {
-    // gp_Ax3::SetDirection() test
-    gp_Ax3 anAx1, anAx2, anAx3, anAx4, anAx5, anAx6;
+    // Ax3::SetDirection() test
+    Ax3 anAx1, anAx2, anAx3, anAx4, anAx5, anAx6;
     anAx3.ZReverse();
     anAx4.ZReverse();
-    CheckAx3Dir(anAx1, gp::DX());
-    CheckAx3Dir(anAx2, -gp::DX());
-    CheckAx3Dir(anAx3, gp::DX());
-    CheckAx3Dir(anAx4, -gp::DX());
-    // gp_Ax3::SetAxis() test
-    Axis3d anAx0_1(gp::Origin(), gp::DX());
-    Axis3d anAx0_2(gp::Origin(), -gp::DX());
+    CheckAx3Dir(anAx1, gp1::DX());
+    CheckAx3Dir(anAx2, -gp1::DX());
+    CheckAx3Dir(anAx3, gp1::DX());
+    CheckAx3Dir(anAx4, -gp1::DX());
+    // Ax3::SetAxis() test
+    Axis3d anAx0_1(gp1::Origin(), gp1::DX());
+    Axis3d anAx0_2(gp1::Origin(), -gp1::DX());
     CheckAx3Ax1(anAx5, anAx0_1);
     CheckAx3Ax1(anAx6, anAx0_2);
   }
   // X direction
   {
-    // gp_Ax3::SetXDirection() test
-    gp_Ax3 anAx1, anAx2, anAx3, anAx4;
+    // Ax3::SetXDirection() test
+    Ax3 anAx1, anAx2, anAx3, anAx4;
     anAx3.XReverse();
     anAx4.XReverse();
-    CheckAx3DirX(anAx1, gp::DZ());
-    CheckAx3DirX(anAx2, -gp::DZ());
-    CheckAx3DirX(anAx3, gp::DZ());
-    CheckAx3DirX(anAx4, -gp::DZ());
+    CheckAx3DirX(anAx1, gp1::DZ());
+    CheckAx3DirX(anAx2, -gp1::DZ());
+    CheckAx3DirX(anAx3, gp1::DZ());
+    CheckAx3DirX(anAx4, -gp1::DZ());
   }
   // Y direction
   {
-    // gp_Ax3::SetYDirection() test
-    gp_Ax3 anAx1, anAx2, anAx3, anAx4;
+    // Ax3::SetYDirection() test
+    Ax3 anAx1, anAx2, anAx3, anAx4;
     anAx3.YReverse();
     anAx4.YReverse();
-    CheckAx3DirY(anAx1, gp::DZ());
-    CheckAx3DirY(anAx2, -gp::DZ());
-    CheckAx3DirY(anAx3, gp::DZ());
-    CheckAx3DirY(anAx4, -gp::DZ());
+    CheckAx3DirY(anAx1, gp1::DZ());
+    CheckAx3DirY(anAx2, -gp1::DZ());
+    CheckAx3DirY(anAx3, gp1::DZ());
+    CheckAx3DirY(anAx4, -gp1::DZ());
   }
 
   return 0;
@@ -5408,7 +5408,7 @@ void QABugs::Commands_20(DrawInterpreter& theCommands)
 
   theCommands.Add(
     "OCC29406",
-    "Tests the case when newly set axis for gp_Ax3 is parallel to one of current axis",
+    "Tests the case when newly set axis for Ax3 is parallel to one of current axis",
     __FILE__,
     OCC29406,
     group);

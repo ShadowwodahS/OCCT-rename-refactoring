@@ -304,7 +304,7 @@ void Select3D_SensitiveTriangulation::Swap(const Standard_Integer theIdx1,
 
 //=================================================================================================
 
-bool Select3D_SensitiveTriangulation::LastDetectedTriangle(Poly_Triangle& theTriangle) const
+bool Select3D_SensitiveTriangulation::LastDetectedTriangle(Triangle2& theTriangle) const
 {
   const Standard_Integer anIndex = LastDetectedTriangleIndex();
   if (anIndex != -1)
@@ -317,7 +317,7 @@ bool Select3D_SensitiveTriangulation::LastDetectedTriangle(Poly_Triangle& theTri
 
 //=================================================================================================
 
-bool Select3D_SensitiveTriangulation::LastDetectedTriangle(Poly_Triangle& theTriangle,
+bool Select3D_SensitiveTriangulation::LastDetectedTriangle(Triangle2& theTriangle,
                                                            Point3d         theTriNodes[3]) const
 {
   if (!LastDetectedTriangle(theTriangle))

@@ -2494,7 +2494,7 @@ void BRepOffset_MakeOffset::CorrectConicalFaces()
         // Xdir.Rotate(Axis3d(theApex, aNorm), -f);
         Frame3d anAx2(theApex, Dir3d(aNorm), Dir3d(Xdir));
         theSphere.SetRadius(myOffset);
-        theSphere.SetPosition(gp_Ax3(anAx2) /*gp_Ax3(theApex, Dir3d(aNorm))*/);
+        theSphere.SetPosition(Ax3(anAx2) /*Ax3(theApex, Dir3d(aNorm))*/);
         aSphSurf       = new Geom_SphericalSurface(theSphere);
         FirstPoint     = fPnt;
         theFirstVertex = BRepLib_MakeVertex(fPnt);
@@ -2534,7 +2534,7 @@ void BRepOffset_MakeOffset::CorrectConicalFaces()
       Handle(Geom_TrimmedCurve) aTrimCurv = new Geom_TrimmedCurve(aCurv, Uf, Ul);
       BB.UpdateEdge(CurEdge, aTrimCurv, Precision::Confusion());
       BB.Range(CurEdge, Uf, Ul, Standard_True);
-      Handle(Geom2d_Line)         theLin2d     = new Geom2d_Line(gp_Pnt2d(0., Vf), gp::DX2d());
+      Handle(Geom2d_Line)         theLin2d     = new Geom2d_Line(gp_Pnt2d(0., Vf), gp1::DX2d());
       Handle(Geom2d_TrimmedCurve) theTrimLin2d = new Geom2d_TrimmedCurve(theLin2d, Uf, Ul);
       BB.UpdateEdge(CurEdge, theTrimLin2d, aSphSurf, L, Precision::Confusion());
       BB.Range(CurEdge, aSphSurf, L, Uf, Ul);
@@ -3173,7 +3173,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
           // Potential problems not detected via checkshape.
           Point3d aPntOF = BRepInspector::Pnt(V4);
           Point3d aPntOL = BRepInspector::Pnt(V3);
-          if (aPntOF.SquareDistance(aPntOL) > gp::Resolution())
+          if (aPntOF.SquareDistance(aPntOL) > gp1::Resolution())
           {
             // To avoid computation of complex1 analytical continuation of Sin / ArcSin.
             Standard_Real aSinValue     = Min(2 * anEdgeTol / aPntOF.Distance(aPntOL), 1.0);
@@ -3326,9 +3326,9 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
           }
           else // case of cone
           {
-            gp_Cone theCone =
+            Cone1 theCone =
               gce_MakeCone(aCirc.Location(), aCircOE.Location(), aCirc.Radius(), aCircOE.Radius());
-            gp_Ax3 theAx3(aCirc.Position());
+            Ax3 theAx3(aCirc.Position());
             if (CircAxisDir * theCone.Axis().Direction() < 0.)
             {
               theAx3.ZReverse();

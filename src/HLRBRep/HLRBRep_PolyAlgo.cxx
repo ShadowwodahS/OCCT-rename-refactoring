@@ -483,7 +483,7 @@ void HLRBRep_PolyAlgo::StoreShell(const TopoShape&                              
           HLRAlgo_Array1OfPINod& aPINod = aPid->PINod();
           for (Standard_Integer aTriIter = 1; aTriIter <= aNbTris; ++aTriIter)
           {
-            const Poly_Triangle&  aPolyTri = aTr->Triangle1(aTriIter);
+            const Triangle2&  aPolyTri = aTr->Triangle1(aTriIter);
             TriangleData& aTriData = aTData.ChangeValue(aTriIter);
             aTriData.Flags                 = 0;
             if (isReversed)

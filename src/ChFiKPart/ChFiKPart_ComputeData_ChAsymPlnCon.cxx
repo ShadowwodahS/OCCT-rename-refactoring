@@ -57,7 +57,7 @@
 Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
                                       const Handle(ChFiDS_SurfData)& Data,
                                       const gp_Pln&                  Pln,
-                                      const gp_Cone&                 Con,
+                                      const Cone1&                 Con,
                                       const Standard_Real            fu,
                                       const Standard_Real            lu,
                                       const TopAbs_Orientation       Or1,
@@ -71,7 +71,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
                                       const Standard_Boolean         DisOnP)
 {
   // Compute the chamfer surface(cone)
-  gp_Ax3 PosPl = Pln.Position();
+  Ax3 PosPl = Pln.Position();
   Dir3d Dpl   = PosPl.XDirection().Crossed(PosPl.YDirection());
   Dir3d norf  = Dpl;
   if (Ofpl == TopAbs_REVERSED)
@@ -235,7 +235,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
             Or.Y() + dis * PosPl.XDirection().Y(),
             Or.Z() + dis * PosPl.XDirection().Z());
 
-  gp_Ax3 ChamfAx3(PtPl, Dpl, Dx);
+  Ax3 ChamfAx3(PtPl, Dpl, Dx);
 
   if (iscylinder)
   {
@@ -295,7 +295,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     ElSLib1::PlaneParameters(PosPl, Pt, u, v);
     gp_Pnt2d  p2dPln(u, v);
     gp_Dir2d  d2d(DSp.Dot(PosPl.XDirection()), DSp.Dot(PosPl.YDirection()));
-    gp_Ax22d  ax2dPln(pt2dPln, gp_Dir2d(gp_Vec2d(pt2dPln, p2dPln)), d2d);
+    Ax22d  ax2dPln(pt2dPln, gp_Dir2d(gp_Vec2d(pt2dPln, p2dPln)), d2d);
     gp_Circ2d cir2dPln(ax2dPln, ChamfRad);
     GCir2dPln = new Geom2d_Circle(cir2dPln);
 
@@ -303,7 +303,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     gp_Pnt2d p2dch;
     p2dch.SetCoord(0., 0.);
     // ElSLib1::CylinderD1(0.,0.,ChamfAx3,ChamfRad,Pt,deru,derv);
-    gp_Lin2d            lin2dch(p2dch, gp::DX2d());
+    gp_Lin2d            lin2dch(p2dch, gp1::DX2d());
     Handle(Geom2d_Line) GLin2dCh1 = new Geom2d_Line(lin2dch);
 
     // orientation
@@ -376,9 +376,9 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     gp_Pnt2d p2dCon(u, v);
     gp_Dir2d d2dCon;
     if (deru.Dot(DSp) <= 0.)
-      d2dCon = -gp::DX2d();
+      d2dCon = -gp1::DX2d();
     else
-      d2dCon = gp::DX2d();
+      d2dCon = gp1::DX2d();
     gp_Lin2d            lin2dCon(p2dCon, d2dCon);
     Handle(Geom2d_Line) GLin2dCon = new Geom2d_Line(lin2dCon);
 
@@ -486,7 +486,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
       ElSLib1::PlaneParameters(PosPl, Pt, u, v);
       gp_Pnt2d  p2dPln(u, v);
       gp_Dir2d  d2d(DSp.Dot(PosPl.XDirection()), DSp.Dot(PosPl.YDirection()));
-      gp_Ax22d  ax2dPln(pt2dPln, gp_Dir2d(gp_Vec2d(pt2dPln, p2dPln)), d2d);
+      Ax22d  ax2dPln(pt2dPln, gp_Dir2d(gp_Vec2d(pt2dPln, p2dPln)), d2d);
       gp_Circ2d cir2dPln(ax2dPln, ChamfRad);
       GCir2dPln = new Geom2d_Circle(cir2dPln);
     }
@@ -495,7 +495,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     gp_Pnt2d p2dch;
     p2dch.SetCoord(0., 0.);
     ElSLib1::ConeD1(0., 0., ChamfAx3, ChamfRad, SemiAngl, Pt, deru, derv);
-    gp_Lin2d            lin2dch(p2dch, gp::DX2d());
+    gp_Lin2d            lin2dch(p2dch, gp1::DX2d());
     Handle(Geom2d_Line) GLin2dCh1 = new Geom2d_Line(lin2dch);
 
     // orientation
@@ -573,9 +573,9 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     gp_Pnt2d p2dCon(u, v);
     gp_Dir2d d2dCon;
     if (deru.Dot(DSp) <= 0.)
-      d2dCon = -gp::DX2d();
+      d2dCon = -gp1::DX2d();
     else
-      d2dCon = gp::DX2d();
+      d2dCon = gp1::DX2d();
     gp_Lin2d            lin2dCon(p2dCon, d2dCon);
     Handle(Geom2d_Line) GLin2dCon = new Geom2d_Line(lin2dCon);
 

@@ -623,7 +623,7 @@ Standard_Boolean ShapeAnalysis_Wire::CheckConnected(const Standard_Integer num,
   Point3d p1 = BRepInspector::Pnt(V1);
   Point3d p2 = BRepInspector::Pnt(V2);
   myMin3d   = p1.Distance(p2);
-  if (myMin3d <= gp::Resolution())
+  if (myMin3d <= gp1::Resolution())
     myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
   else if (myMin3d <= myPrecision)
     myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
@@ -971,7 +971,7 @@ Standard_Boolean ShapeAnalysis_Wire::CheckDegenerated(const Standard_Integer num
   //(i.e. the parametric space is closed)
   GeomAdaptor_Surface& Ads = *mySurf->Adaptor3d();
   Standard_Real        max = Max(Ads.UResolution(myPrecision), Ads.VResolution(myPrecision));
-  if (p2d1.Distance(p2d2) /*Abs (par1 - par2)*/ <= max + gp::Resolution())
+  if (p2d1.Distance(p2d2) /*Abs (par1 - par2)*/ <= max + gp1::Resolution())
     return Standard_False;
 
   // #84 rln p2d1 = aP2d.XY() + par1 * theDir2d.XY();
@@ -1566,20 +1566,20 @@ Standard_Boolean ShapeAnalysis_Wire::CheckLacking(const Standard_Integer num,
 
   // test like in BRepCheck
   Standard_Real tol          = Max(BRepInspector::Tolerance(V1), BRepInspector::Tolerance(V2));
-  tol                        = (Tolerance > gp::Resolution() && Tolerance < tol ? Tolerance : tol);
+  tol                        = (Tolerance > gp1::Resolution() && Tolerance < tol ? Tolerance : tol);
   GeomAdaptor_Surface& Ads   = *mySurf->Adaptor3d();
   Standard_Real        tol2d = 2 * Max(Ads.UResolution(tol), Ads.VResolution(tol));
-  if ( // tol2d < gp::Resolution() || //#2 smh 26.03.99 S4163 Zero divide
+  if ( // tol2d < gp1::Resolution() || //#2 smh 26.03.99 S4163 Zero divide
     myMax2d < tol2d * tol2d)
     return Standard_False;
 
   myMax2d = Sqrt(myMax2d);
-  myMax3d = tol * myMax2d / Max(tol2d, gp::Resolution());
+  myMax3d = tol * myMax2d / Max(tol2d, gp1::Resolution());
   myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
 
   if (myMax2d < Precision::PConfusion() || //: abv 03.06.02 CTS21866.stp
-      (v1.SquareMagnitude() > gp::Resolution() && Abs(v12.Angle(v1)) > 0.9 * M_PI)
-      || (v2.SquareMagnitude() > gp::Resolution() && Abs(v12.Angle(v2)) > 0.9 * M_PI))
+      (v1.SquareMagnitude() > gp1::Resolution() && Abs(v12.Angle(v1)) > 0.9 * M_PI)
+      || (v2.SquareMagnitude() > gp1::Resolution() && Abs(v12.Angle(v2)) > 0.9 * M_PI))
     myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
   return Standard_True;
 }
@@ -1713,7 +1713,7 @@ Standard_Boolean ShapeAnalysis_Wire::CheckNotchedEdges(const Standard_Integer nu
   else
     c2d2->D1(a2, p2d2, v2);
 
-  if (v2.Magnitude() < gp::Resolution() || v1.Magnitude() < gp::Resolution())
+  if (v2.Magnitude() < gp1::Resolution() || v1.Magnitude() < gp1::Resolution())
     return Standard_False;
 
   if (Abs(v2.Angle(v1)) > 0.1 || p2d1.Distance(p2d2) > Tolerance)

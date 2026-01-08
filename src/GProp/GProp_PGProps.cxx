@@ -27,8 +27,8 @@ typedef TColStd_Array2OfReal Array2OfReal;
 
 GProp_PGProps::GProp_PGProps()
 {
-  g   = gp::Origin();
-  loc = gp::Origin();
+  g   = gp1::Origin();
+  loc = gp1::Origin();
   dim = 0.0;
 }
 
@@ -68,7 +68,7 @@ void GProp_PGProps::AddPoint(const Pnt& P)
 
 void GProp_PGProps::AddPoint(const Point3d& P, const Standard_Real Density)
 {
-  if (Density <= gp::Resolution())
+  if (Density <= gp1::Resolution())
     throw Standard_DomainError();
   Standard_Real Xp, Yp, Zp;
   P.Coord(Xp, Yp, Zp);
@@ -125,7 +125,7 @@ GProp_PGProps::GProp_PGProps(const Array1OfPnt& Pnts, const Array1OfReal& Densit
   while (id <= Pnts.Upper())
   {
     Standard_Real D = Density(id);
-    if (D <= gp::Resolution())
+    if (D <= gp1::Resolution())
       throw Standard_DomainError();
     AddPoint(Pnts(ip), D);
     ip++;
@@ -146,7 +146,7 @@ GProp_PGProps::GProp_PGProps(const Array2OfPnt& Pnts, const Array2OfReal& Densit
     while (ip <= Pnts.UpperRow())
     {
       Standard_Real D = Density(id, jd);
-      if (D <= gp::Resolution())
+      if (D <= gp1::Resolution())
         throw Standard_DomainError();
       AddPoint(Pnts(ip, jp), D);
       ip++;

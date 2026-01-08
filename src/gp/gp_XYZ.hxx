@@ -25,7 +25,7 @@
 //! This class describes a cartesian coordinate entity in
 //! 3D space {X,Y,Z}. This entity is used for algebraic
 //! calculation. This entity can be transformed
-//! with a "Trsf" or a  "GTrsf" from package "gp".
+//! with a "Trsf" or a  "GTrsf" from package "gp1".
 //! It is used in vectorial computations or for holding this type
 //! of information in data structures.
 class gp_XYZ
@@ -316,7 +316,7 @@ public:
   //! <me>.Y() = <me>.Y()/ <me>.Modulus()
   //! <me>.Z() = <me>.Z()/ <me>.Modulus()
   //! @endcode
-  //! Raised if <me>.Modulus() <= Resolution from gp
+  //! Raised if <me>.Modulus() <= Resolution from gp1
   void Normalize();
 
   //! @code
@@ -324,11 +324,11 @@ public:
   //! New.Y() = <me>.Y()/ <me>.Modulus()
   //! New.Z() = <me>.Z()/ <me>.Modulus()
   //! @endcode
-  //! Raised if <me>.Modulus() <= Resolution from gp
+  //! Raised if <me>.Modulus() <= Resolution from gp1
   Standard_NODISCARD gp_XYZ Normalized() const
   {
     Standard_Real aD = Modulus();
-    Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+    Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                         "gp_XYZ::Normalized() - vector has zero norm");
     return gp_XYZ(x / aD, y / aD, z / aD);
   }
@@ -562,7 +562,7 @@ inline void gp_XYZ::Multiply(const gp_Mat& theMatrix)
 inline void gp_XYZ::Normalize()
 {
   Standard_Real aD = Modulus();
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "gp_XYZ::Normalize() - vector has zero norm");
   x = x / aD;
   y = y / aD;

@@ -104,7 +104,7 @@ public:
   //! ConstructionError raised if MajorRadius < MinorRadius or if MinorRadius < 0.
   Standard_EXPORT void SetMinorRadius(const Standard_Real MinorRadius);
 
-  //! returns the non transient ellipse from gp with the same
+  //! returns the non transient ellipse from gp1 with the same
   Standard_EXPORT gp_Elips Elips() const;
 
   //! Computes the parameter on the reversed ellipse for

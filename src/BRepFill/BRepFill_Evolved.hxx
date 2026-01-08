@@ -27,7 +27,7 @@
 #include <BRepFill_DataMapOfShapeDataMapOfShapeListOfShape.hxx>
 #include <TopTools_ListOfShape.hxx>
 #include <TopTools_DataMapOfShapeShape.hxx>
-class gp_Ax3;
+class Ax3;
 class BRepMAT2d_BisectingLocus;
 class BRepMAT2d_LinkTopoBilo;
 class ShapeQuilt;
@@ -52,7 +52,7 @@ public:
   //! <XDirection> mixed with the tangent to <Spine>.
   Standard_EXPORT BRepFill_Evolved(const TopoWire&     Spine,
                                    const TopoWire&     Profile,
-                                   const gp_Ax3&          AxeProf,
+                                   const Ax3&          AxeProf,
                                    const GeomAbs_JoinType Join  = GeomAbs_Arc,
                                    const Standard_Boolean Solid = Standard_False);
 
@@ -60,7 +60,7 @@ public:
   //! along the <Spine>
   Standard_EXPORT BRepFill_Evolved(const TopoFace&     Spine,
                                    const TopoWire&     Profile,
-                                   const gp_Ax3&          AxeProf,
+                                   const Ax3&          AxeProf,
                                    const GeomAbs_JoinType Join  = GeomAbs_Arc,
                                    const Standard_Boolean Solid = Standard_False);
 
@@ -68,7 +68,7 @@ public:
   //! along the <Spine>
   Standard_EXPORT void Perform(const TopoWire&     Spine,
                                const TopoWire&     Profile,
-                               const gp_Ax3&          AxeProf,
+                               const Ax3&          AxeProf,
                                const GeomAbs_JoinType Join  = GeomAbs_Arc,
                                const Standard_Boolean Solid = Standard_False);
 
@@ -76,7 +76,7 @@ public:
   //! along the <Spine>
   Standard_EXPORT void Perform(const TopoFace&     Spine,
                                const TopoWire&     Profile,
-                               const gp_Ax3&          AxeProf,
+                               const Ax3&          AxeProf,
                                const GeomAbs_JoinType Join  = GeomAbs_Arc,
                                const Standard_Boolean Solid = Standard_False);
 
@@ -103,7 +103,7 @@ protected:
 private:
   Standard_EXPORT void PrivatePerform(const TopoFace&     Spine,
                                       const TopoWire&     Profile,
-                                      const gp_Ax3&          AxeProf,
+                                      const Ax3&          AxeProf,
                                       const GeomAbs_JoinType Join  = GeomAbs_Arc,
                                       const Standard_Boolean Solid = Standard_False);
 
@@ -154,11 +154,11 @@ private:
   Standard_EXPORT void PrepareSpine(TopoFace&                  WorkSpine,
                                     TopTools_DataMapOfShapeShape& SpineProf) const;
 
-  Standard_EXPORT void MakePipe(const TopoEdge& SpineEdge, const gp_Ax3& ProfRef);
+  Standard_EXPORT void MakePipe(const TopoEdge& SpineEdge, const Ax3& ProfRef);
 
   Standard_EXPORT void MakeRevol(const TopoEdge&   SpineEdge,
                                  const TopoVertex& SpineVertex,
-                                 const gp_Ax3&        ProfRef);
+                                 const Ax3&        ProfRef);
 
   //! Find the location transforming the planar shape <Shape>
   //! in the plane xOy

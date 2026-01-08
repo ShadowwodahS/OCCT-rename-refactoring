@@ -19,7 +19,7 @@
 #include <gp_XY.hxx>
 
 //! Describes a 2d circle with a size of only 3 Standard_Real
-//! numbers instead of gp who needs 7 Standard_Real numbers.
+//! numbers instead of gp1 who needs 7 Standard_Real numbers.
 class BRepMesh_Circle
 {
 public:

@@ -143,7 +143,7 @@ public:
   //! Returns true if this matrix is singular (and therefore, cannot be inverted).
   //! The Gauss LU decomposition is used to invert the matrix
   //! so the matrix is considered as singular if the largest
-  //! pivot found is lower or equal to Resolution from gp.
+  //! pivot found is lower or equal to Resolution from gp1.
   Standard_Boolean IsSingular() const
   {
     Standard_Real aDet = Determinant();
@@ -151,7 +151,7 @@ public:
     {
       aDet = -aDet;
     }
-    return aDet <= gp::Resolution();
+    return aDet <= gp1::Resolution();
   }
 
   void Add(const gp_Mat2d& Other);

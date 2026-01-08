@@ -103,9 +103,9 @@ bool OpenGl_ShadowMap::UpdateCamera(const Graphic3d_CView& theView, const gp_XYZ
       myShadowCamera->SetZeroToOneDepth(theView.Camera()->IsZeroToOneDepth());
       myShadowCamera->SetProjectionType(CameraOn3d::Projection_Orthographic);
       myShadowCamera->SetDirection(Dir3d(aDir.x(), aDir.y(), aDir.z()));
-      myShadowCamera->SetUp(!myShadowCamera->Direction().IsParallel(gp::DY(), Precision::Angular())
-                              ? gp::DY()
-                              : gp::DX());
+      myShadowCamera->SetUp(!myShadowCamera->Direction().IsParallel(gp1::DY(), Precision::Angular())
+                              ? gp1::DY()
+                              : gp1::DX());
       myShadowCamera->OrthogonalizeUp();
 
       // Fitting entire scene to the light might produce a shadow map of too low resolution.
@@ -156,9 +156,9 @@ bool OpenGl_ShadowMap::UpdateCamera(const Graphic3d_CView& theView, const gp_XYZ
       myShadowCamera->SetDistance(aDistance);
       myShadowCamera->MoveEyeTo(aLightPos);
       myShadowCamera->SetDirectionFromEye(myShadowLight->Direction());
-      myShadowCamera->SetUp(!myShadowCamera->Direction().IsParallel(gp::DY(), Precision::Angular())
-                              ? gp::DY()
-                              : gp::DX());
+      myShadowCamera->SetUp(!myShadowCamera->Direction().IsParallel(gp1::DY(), Precision::Angular())
+                              ? gp1::DY()
+                              : gp1::DX());
       myShadowCamera->OrthogonalizeUp();
       myShadowCamera->SetZRange(1.0, aDistance);
 

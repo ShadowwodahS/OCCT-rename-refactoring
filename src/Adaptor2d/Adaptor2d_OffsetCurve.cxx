@@ -421,7 +421,7 @@ gp_Circ2d Adaptor2d_OffsetCurve::Circle() const
     {
       gp_Circ2d     C1(myCurve->Circle());
       Standard_Real radius = C1.Radius();
-      gp_Ax22d      axes(C1.Axis());
+      Ax22d      axes(C1.Axis());
       gp_Dir2d      Xd      = axes.XDirection();
       gp_Dir2d      Yd      = axes.YDirection();
       Standard_Real Crossed = Xd.X() * Yd.Y() - Xd.Y() * Yd.X();

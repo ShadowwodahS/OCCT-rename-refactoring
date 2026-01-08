@@ -511,7 +511,7 @@ void ConicQuadIntersection::Perform(const gp_Circ&      C,
 
   done = Standard_False;
 
-  gp_Pln             Plconic(gp_Ax3(C.Position()));
+  gp_Pln             Plconic(Ax3(C.Position()));
   QuadQuadGeoIntersection IntP(Plconic, P, Tolang, Tol);
   if (!IntP.IsDone())
   {

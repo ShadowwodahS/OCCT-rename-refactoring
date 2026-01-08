@@ -42,7 +42,7 @@ class Axis3d;
 //!
 //! * A rotation axis and angle :
 //!
-//! - The axis is an Ax1 from gp.
+//! - The axis is an Ax1 from gp1.
 //!
 //! - The angle is in [0, 2*Pi].
 //!

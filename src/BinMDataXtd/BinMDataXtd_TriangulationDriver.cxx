@@ -96,7 +96,7 @@ Standard_Boolean BinMDataXtd_TriangulationDriver::Paste(const BinObjMgt_Persiste
     theSource >> n1;
     theSource >> n2;
     theSource >> n3;
-    PT->SetTriangle(i, Poly_Triangle(n1, n2, n3));
+    PT->SetTriangle(i, Triangle2(n1, n2, n3));
   }
 
   // set triangulation to Ocaf attribute

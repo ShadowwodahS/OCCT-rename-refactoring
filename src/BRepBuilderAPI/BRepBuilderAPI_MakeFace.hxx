@@ -27,8 +27,8 @@
 #include <BRepBuilderAPI_FaceError.hxx>
 class TopoFace;
 class gp_Pln;
-class gp_Cylinder;
-class gp_Cone;
+class Cylinder1;
+class Cone1;
 class gp_Sphere;
 class gp_Torus;
 class GeomSurface;
@@ -40,7 +40,7 @@ class TopoWire;
 //!
 //! * From a surface.
 //!
-//! - Elementary surface from gp.
+//! - Elementary surface from gp1.
 //!
 //! - Surface from Geom.
 //!
@@ -74,10 +74,10 @@ public:
   Standard_EXPORT FaceMaker(const gp_Pln& P);
 
   //! Make a face from a cylinder.
-  Standard_EXPORT FaceMaker(const gp_Cylinder& C);
+  Standard_EXPORT FaceMaker(const Cylinder1& C);
 
   //! Make a face from a cone.
-  Standard_EXPORT FaceMaker(const gp_Cone& C);
+  Standard_EXPORT FaceMaker(const Cone1& C);
 
   //! Make a face from a sphere.
   Standard_EXPORT FaceMaker(const gp_Sphere& S);
@@ -98,14 +98,14 @@ public:
                                           const Standard_Real VMax);
 
   //! Make a face from a cylinder.
-  Standard_EXPORT FaceMaker(const gp_Cylinder&  C,
+  Standard_EXPORT FaceMaker(const Cylinder1&  C,
                                           const Standard_Real UMin,
                                           const Standard_Real UMax,
                                           const Standard_Real VMin,
                                           const Standard_Real VMax);
 
   //! Make a face from a cone.
-  Standard_EXPORT FaceMaker(const gp_Cone&      C,
+  Standard_EXPORT FaceMaker(const Cone1&      C,
                                           const Standard_Real UMin,
                                           const Standard_Real UMax,
                                           const Standard_Real VMin,
@@ -147,12 +147,12 @@ public:
                                           const Standard_Boolean Inside = Standard_True);
 
   //! Make a face from a cylinder and a wire.
-  Standard_EXPORT FaceMaker(const gp_Cylinder&     C,
+  Standard_EXPORT FaceMaker(const Cylinder1&     C,
                                           const TopoWire&     W,
                                           const Standard_Boolean Inside = Standard_True);
 
   //! Make a face from a cone and a wire.
-  Standard_EXPORT FaceMaker(const gp_Cone&         C,
+  Standard_EXPORT FaceMaker(const Cone1&         C,
                                           const TopoWire&     W,
                                           const Standard_Boolean Inside = Standard_True);
 
@@ -263,7 +263,7 @@ public:
   //! (Be careful, however, as this is not checked.)
   //! Example
   //! // a cylinder
-  //! gp_Cylinder C = ..;
+  //! Cylinder1 C = ..;
   //! // a wire
   //! TopoWire W = ...;
   //! FaceMaker MF(C);

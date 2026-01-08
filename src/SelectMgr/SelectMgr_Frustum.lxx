@@ -735,8 +735,8 @@ Standard_Boolean SelectMgr_Frustum<N>::hasCylinderOverlap(const Standard_Real   
     return false;
   }
 
-  const Dir3d aCylNorm(gp::DZ().Transformed(theTrsf));
-  const Point3d aBottomCenter(gp::Origin().Transformed(theTrsf));
+  const Dir3d aCylNorm(gp1::DZ().Transformed(theTrsf));
+  const Point3d aBottomCenter(gp1::Origin().Transformed(theTrsf));
   const Point3d aTopCenter = aBottomCenter.XYZ() + aCylNorm.XYZ() * theHeight;
 
   const Dir3d  aViewRayDir = Dir3d(myEdgeDirs[N == 4 ? 4 : 0]);
@@ -761,7 +761,7 @@ Standard_Boolean SelectMgr_Frustum<N>::hasCylinderOverlap(const Standard_Real   
 
   Point3d       aPoints[6];
   const Dir3d aDirEndFaces = (aCylNorm.IsParallel(aViewRayDir, Precision::Angular()))
-                                ? gp::DY().Transformed(theTrsf)
+                                ? gp1::DY().Transformed(theTrsf)
                                 : aCylNorm.Crossed(aViewRayDir);
 
   const Standard_Real anAngle = aCylNorm.Angle(aViewRayDir);
@@ -866,7 +866,7 @@ Standard_Boolean SelectMgr_Frustum<N>::hasCircleOverlap(const Standard_Real    t
     return true;
   }
 
-  Point3d        aCircCenter = gp::Origin(); //.Transformed (theTrsf);
+  Point3d        aCircCenter = gp1::Origin(); //.Transformed (theTrsf);
   const Dir3d  aViewRayDir = Dir3d(myEdgeDirs[N == 4 ? 4 : 0]);
   const gp_Pln  aPln(myVertices[0], aViewRayDir);
   Standard_Real aCoefA, aCoefB, aCoefC, aCoefD;

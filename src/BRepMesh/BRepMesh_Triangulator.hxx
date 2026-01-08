@@ -37,7 +37,7 @@ public:
   //! Performs conversion of the given list of triangles to MeshTriangulation.
   Standard_EXPORT static Handle(MeshTriangulation) ToPolyTriangulation(
     const TColgp_Array1OfPnt&              theNodes,
-    const NCollection_List<Poly_Triangle>& thePolyTriangles);
+    const NCollection_List<Triangle2>& thePolyTriangles);
 
 public:
   //! Constructor. Initialized tool by the given parameters.
@@ -46,7 +46,7 @@ public:
                                         const Dir3d&                                      theNorm);
 
   //! Performs triangulation of source wires and stores triangles the output list.
-  Standard_EXPORT Standard_Boolean Perform(NCollection_List<Poly_Triangle>& thePolyTriangles);
+  Standard_EXPORT Standard_Boolean Perform(NCollection_List<Triangle2>& thePolyTriangles);
 
   //! Set messenger for output information
   //! without this Message::DefaultMessenger() will be used
@@ -57,7 +57,7 @@ public:
 private:
   // auxiliary for makeTrianglesUsingBRepMesh
   void addTriange34(const TColStd_SequenceOfInteger& theW,
-                    NCollection_List<Poly_Triangle>& thePolyTriangles);
+                    NCollection_List<Triangle2>& thePolyTriangles);
 
   // auxiliary for addTriange34
   Standard_Boolean checkCondition(const int (&theNodes)[4],
@@ -67,7 +67,7 @@ private:
   Standard_Boolean prepareMeshStructure();
 
   // auxiliary for triangulation
-  Standard_Boolean triangulate(NCollection_List<Poly_Triangle>& thePolyTriangles);
+  Standard_Boolean triangulate(NCollection_List<Triangle2>& thePolyTriangles);
 
 private:
   const NCollection_Vector<gp_XYZ>&                  myXYZs;

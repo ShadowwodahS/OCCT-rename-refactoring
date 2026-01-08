@@ -25,7 +25,7 @@
 #include <Geom2d_Parabola.hxx>
 
 class gp_Parab2d;
-class gp_Ax22d;
+class Ax22d;
 class gp_Ax2d;
 class gp_Pnt2d;
 
@@ -57,7 +57,7 @@ public:
   //! length "Focal".
   //! The "Location" point of "Axis" is the vertex of the parabola
   //! Status is "NegativeFocusLength" if Focal < 0.0
-  Standard_EXPORT GCE2d_MakeParabola(const gp_Ax22d& Axis, const Standard_Real Focal);
+  Standard_EXPORT GCE2d_MakeParabola(const Ax22d& Axis, const Standard_Real Focal);
 
   //! Creates a parabola with its "MirrorAxis" and it's focal length "Focal".
   //! MirrorAxis is the axis of symmetry of the curve, it is the

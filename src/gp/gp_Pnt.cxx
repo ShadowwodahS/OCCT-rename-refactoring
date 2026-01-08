@@ -13,8 +13,8 @@
 // commercial license or contractual agreement.
 
 // JCV 30/08/90 Modif passage version C++ 2.0 sur Sun
-// JCV 01/10/90 Changement de nom du package vgeom -> gp
-// JCV 07/12/90 Modifs introduction des classes XYZ, Mat dans le package gp
+// JCV 01/10/90 Changement de nom du package vgeom -> gp1
+// JCV 07/12/90 Modifs introduction des classes XYZ, Mat dans le package gp1
 
 #define No_Standard_OutOfRange
 

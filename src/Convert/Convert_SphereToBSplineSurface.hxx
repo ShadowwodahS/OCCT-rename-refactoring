@@ -26,7 +26,7 @@
 class gp_Sphere;
 
 //! This algorithm converts a bounded Sphere into a rational
-//! B-spline surface. The sphere is a Sphere from package gp.
+//! B-spline surface. The sphere is a Sphere from package gp1.
 //! The parametrization of the sphere is
 //! P (U, V) = Loc  + Radius * Sin(V) * Zdir +
 //! Radius * Cos(V) * (Cos(U)*Xdir + Sin(U)*Ydir)

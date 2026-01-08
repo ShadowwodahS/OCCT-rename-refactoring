@@ -40,7 +40,7 @@ class GC_MakeEllipse : public Root4
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Creates an ellipse from a non persistent ellipse E from package gp by its conversion.
+  //! Creates an ellipse from a non persistent ellipse E from package gp1 by its conversion.
   Standard_EXPORT GC_MakeEllipse(const gp_Elips& E);
 
   //! Constructs an ellipse with major and minor radii MajorRadius and

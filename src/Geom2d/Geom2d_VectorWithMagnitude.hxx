@@ -113,13 +113,13 @@ public:
   //! Normalizes <me>.
   //!
   //! Raised if the magnitude of the vector is lower or equal to
-  //! Resolution from package gp.
+  //! Resolution from package gp1.
   Standard_EXPORT void Normalize();
 
   //! Returns a copy of <me> Normalized.
   //!
   //! Raised if the magnitude of the vector is lower or equal to
-  //! Resolution from package gp.
+  //! Resolution from package gp1.
   Standard_NODISCARD Standard_EXPORT Handle(Geom2d_VectorWithMagnitude) Normalized() const;
 
   //! Subtracts the Vector Other to <me>.

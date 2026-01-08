@@ -1825,7 +1825,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
       if (Curve2d->IsKind(STANDARD_TYPE(Geom2d_Line)))
       {
         DeclareAndCast(Geom2d_Line, Line2d, Curve2d);
-        if (Line2d->Direction().IsParallel(gp::DY2d(), Precision::Angular()))
+        if (Line2d->Direction().IsParallel(gp1::DY2d(), Precision::Angular()))
         {
           theedge = myedge;
           break;
@@ -1841,7 +1841,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
     if (Surf->IsKind(STANDARD_TYPE(Geom_CylindricalSurface)))
     {
       DeclareAndCast(Geom_CylindricalSurface, Cyl, Surf);
-      gp_Cylinder TheCyl = Cyl->Cylinder();
+      Cylinder1 TheCyl = Cyl->Cylinder();
       ElSLib1::CylinderParameters(TheCyl.Position(),
                                  TheCyl.Radius(),
                                  Curve3d->Value(First),
@@ -1852,7 +1852,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
     else if (Surf->IsKind(STANDARD_TYPE(Geom_ConicalSurface)))
     {
       DeclareAndCast(Geom_ConicalSurface, Cone, Surf);
-      gp_Cone TheCone = Cone->Cone();
+      Cone1 TheCone = Cone->Cone();
       ElSLib1::ConeParameters(TheCone.Position(),
                              TheCone.RefRadius(),
                              TheCone.SemiAngle(),
@@ -1942,9 +1942,9 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
     gp_Trsf2d tmp;
     tmp.SetTranslation(gp_Vec2d(0, -2 * M_PI));
     trans.PreMultiply(tmp);
-    tmp.SetMirror(gp::OX2d());
+    tmp.SetMirror(gp1::OX2d());
     trans.PreMultiply(tmp);
-    tmp.SetMirror(gp_Ax2d(gp::Origin2d(), gp_Dir2d(1., 1.)));
+    tmp.SetMirror(gp_Ax2d(gp1::Origin2d(), gp_Dir2d(1., 1.)));
     trans.PreMultiply(tmp);
     uscale = 1. / cscale;
     // #30 rln 19.10.98
@@ -1992,9 +1992,9 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
     gp_Trsf2d tmp;
     tmp.SetTranslation(gp_Vec2d(0, -360.)); // in IGES terms
     trans.PreMultiply(tmp);
-    tmp.SetMirror(gp::OX2d());
+    tmp.SetMirror(gp1::OX2d());
     trans.PreMultiply(tmp);
-    tmp.SetMirror(gp_Ax2d(gp::Origin2d(), gp_Dir2d(1., 1.)));
+    tmp.SetMirror(gp_Ax2d(gp1::Origin2d(), gp_Dir2d(1., 1.)));
     trans.PreMultiply(tmp);
     if (paramv > 0)
       paramv = paramv * 180. / M_PI;

@@ -207,7 +207,7 @@ Standard_Integer UpdateClosedPCurve(const TopoEdge&              aEold,
   // aV2DS12 - translation vector
   gp_Vec2d        aV2DS12(aP2DS1, aP2DS2);
   gp_Dir2d        aD2DS12(aV2DS12);
-  const gp_Dir2d& aD2DX = gp::DX2d();
+  const gp_Dir2d& aD2DX = gp1::DX2d();
   //
   // Directoion of closeness: U-Closed or V-Closed
   aScPr    = aD2DS12 * aD2DX;

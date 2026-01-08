@@ -146,7 +146,7 @@ public:
   //! Note: The Gauss LU decomposition is used to invert the
   //! transformation matrix. Consequently, the transformation
   //! is considered as singular if the largest pivot found is less
-  //! than or equal to gp::Resolution().
+  //! than or equal to gp1::Resolution().
   //! Warning
   //! If this transformation is singular, it cannot be inverted.
   Standard_Boolean IsSingular() const { return matrix.IsSingular(); }

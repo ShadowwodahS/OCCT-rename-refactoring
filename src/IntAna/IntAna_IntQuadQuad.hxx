@@ -23,19 +23,19 @@
 #include <IntAna_Curve.hxx>
 #include <Standard_Integer.hxx>
 #include <gp_Pnt.hxx>
-class gp_Cylinder;
+class Cylinder1;
 class Quadric2;
-class gp_Cone;
+class Cone1;
 
 //! This class provides the analytic intersection between a
-//! cylinder or a cone from gp and another quadric, as defined
+//! cylinder or a cone from gp1 and another quadric, as defined
 //! in the class Quadric from IntAna.
 //! This algorithm is used when the geometric intersection
 //! (class QuadQuadGeo from IntAna) returns no geometric
 //! solution.
 //! The result of the intersection may be
 //! - Curves as defined in the class Curve from IntAna
-//! - Points (Pnt from gp)
+//! - Points (Pnt from gp1)
 class QuadQuadIntersection
 {
 public:
@@ -46,25 +46,25 @@ public:
 
   //! Creates the intersection between a cylinder and a quadric .
   //! Tol est a definir plus precisemment.
-  Standard_EXPORT QuadQuadIntersection(const gp_Cylinder&    C,
+  Standard_EXPORT QuadQuadIntersection(const Cylinder1&    C,
                                      const Quadric2& Q,
                                      const Standard_Real   Tol);
 
   //! Creates the intersection between a cone and a quadric.
   //! Tol est a definir plus precisemment.
-  Standard_EXPORT QuadQuadIntersection(const gp_Cone&        C,
+  Standard_EXPORT QuadQuadIntersection(const Cone1&        C,
                                      const Quadric2& Q,
                                      const Standard_Real   Tol);
 
   //! Intersects a cylinder and a quadric .
   //! Tol est a definir plus precisemment.
-  Standard_EXPORT void Perform(const gp_Cylinder&    C,
+  Standard_EXPORT void Perform(const Cylinder1&    C,
                                const Quadric2& Q,
                                const Standard_Real   Tol);
 
   //! Intersects a cone and a quadric.
   //! Tol est a definir plus precisemment.
-  Standard_EXPORT void Perform(const gp_Cone& C, const Quadric2& Q, const Standard_Real Tol);
+  Standard_EXPORT void Perform(const Cone1& C, const Quadric2& Q, const Standard_Real Tol);
 
   //! Returns True if the computation was successful.
   Standard_Boolean IsDone() const;

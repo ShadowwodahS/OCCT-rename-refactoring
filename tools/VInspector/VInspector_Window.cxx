@@ -1022,7 +1022,7 @@ void VInspector_Window::addLight(const Graphic3d_TypeOfLightSource& theSourceLig
   Handle(Graphic3d_CLight) aLight = new Graphic3d_CLight(theSourceLight);
   if (aNeedDirection)
   {
-    aLight->SetDirection(gp::DZ());
+    aLight->SetDirection(gp1::DZ());
   }
   if (theSourceLight == Graphic3d_TOLS_SPOT)
   {

@@ -106,7 +106,7 @@ Standard_Boolean BRepMesh_CircleTool::MakeCircle(const Coords2d&   thePoint1,
                               + const_cast<Coords2d&>(thePoint2).ChangeCoord(1) * aLink2.Y()
                               + const_cast<Coords2d&>(thePoint3).ChangeCoord(1) * aLink3.Y());
 
-  if (Abs(aD) < gp::Resolution())
+  if (Abs(aD) < gp1::Resolution())
     return Standard_False;
 
   const Standard_Real aInvD   = 1. / aD;
@@ -165,6 +165,6 @@ IMeshData::ListOfInteger& BRepMesh_CircleTool::Select(const Coords2d& thePoint)
 
 void BRepMesh_CircleTool::MocBind(const Standard_Integer theIndex)
 {
-  BRepMesh_Circle aNullCir(gp::Origin2d().Coord(), -1.);
+  BRepMesh_Circle aNullCir(gp1::Origin2d().Coord(), -1.);
   mySelector.Bind(theIndex, aNullCir);
 }

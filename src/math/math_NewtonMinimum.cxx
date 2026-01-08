@@ -159,7 +159,7 @@ void math_NewtonMinimum::Perform(math_MultipleVarFunctionWithHessian& F,
       for (Standard_Integer anIdx = 1; anIdx <= myLeft.Upper(); anIdx++)
       {
         const Standard_Real anAbsStep = Abs(TheStep(anIdx));
-        if (anAbsStep < gp::Resolution())
+        if (anAbsStep < gp1::Resolution())
           continue;
 
         if (suivant->Value(anIdx) < myLeft(anIdx))

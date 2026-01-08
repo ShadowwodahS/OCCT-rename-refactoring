@@ -642,7 +642,7 @@ static Standard_Integer QABVH_PairDistance(DrawInterpreter& theDI,
       const int aNbTriangles = aTriangulation->NbTriangles();
       for (int iT = 1; iT <= aNbTriangles; ++iT)
       {
-        const Poly_Triangle aTriangle = aTriangulation->Triangle1(iT);
+        const Triangle2 aTriangle = aTriangulation->Triangle1(iT);
         // Nodes indices
         Standard_Integer id1, id2, id3;
         aTriangle.Get(id1, id2, id3);
@@ -702,7 +702,7 @@ public:
     const int aNbTriangles = aTriangulation->NbTriangles();
     for (int iT = 1; iT <= aNbTriangles; ++iT)
     {
-      const Poly_Triangle aTriangle = aTriangulation->Triangle1(iT);
+      const Triangle2 aTriangle = aTriangulation->Triangle1(iT);
       // Nodes indices
       Standard_Integer id1, id2, id3;
       aTriangle.Get(id1, id2, id3);

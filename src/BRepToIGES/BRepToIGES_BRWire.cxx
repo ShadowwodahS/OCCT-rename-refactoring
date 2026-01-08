@@ -420,16 +420,16 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
             || (Surf->IsKind(STANDARD_TYPE(Geom_SphericalSurface)))))
     {
       // #30 rln 19.10.98 transformation of pcurves for IGES Surface of Revolution
-      Curve2d->Mirror(gp_Ax2d(gp::Origin2d(), gp_Dir2d(1., 1.)));
-      Curve2d->Mirror(gp::OX2d());
+      Curve2d->Mirror(gp_Ax2d(gp1::Origin2d(), gp_Dir2d(1., 1.)));
+      Curve2d->Mirror(gp1::OX2d());
       Curve2d->Translate(gp_Vec2d(0, 2 * M_PI));
     }
 
     if (Surf->IsKind(STANDARD_TYPE(Geom_SurfaceOfRevolution))
         || (Surf->IsKind(STANDARD_TYPE(Geom_ToroidalSurface))))
     {
-      Curve2d->Mirror(gp_Ax2d(gp::Origin2d(), gp_Dir2d(1., 1.)));
-      Curve2d->Mirror(gp::OX2d());
+      Curve2d->Mirror(gp_Ax2d(gp1::Origin2d(), gp_Dir2d(1., 1.)));
+      Curve2d->Mirror(gp1::OX2d());
       Curve2d->Translate(gp_Vec2d(0, 2 * M_PI));
     }
 
@@ -468,7 +468,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
     if (Surf->IsKind(STANDARD_TYPE(Geom_SurfaceOfLinearExtrusion)))
     {
       Standard_Real aDiv = myLen;
-      if (aDiv < gp::Resolution())
+      if (aDiv < gp1::Resolution())
         aDiv = 1.;
       // emv: changed for bug OCC22126 17.12.2010
       trans.SetScale(gp_Pnt2d(0, 0), 1. / (Vlast - Vfirst));

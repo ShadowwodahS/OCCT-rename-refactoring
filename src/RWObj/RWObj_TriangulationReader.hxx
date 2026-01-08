@@ -97,10 +97,10 @@ protected:
                           Standard_Integer theN3,
                           Standard_Integer theN4) Standard_OVERRIDE
   {
-    myTriangles.Append(Poly_Triangle(theN1, theN2, theN3));
+    myTriangles.Append(Triangle2(theN1, theN2, theN3));
     if (theN4 != -1)
     {
-      myTriangles.Append(Poly_Triangle(theN1, theN3, theN4));
+      myTriangles.Append(Triangle2(theN1, theN3, theN4));
     }
   }
 
@@ -114,7 +114,7 @@ protected:
   NCollection_Vector<Point3d>         myNodes;     //!< nodes   of currently filled triangulation
   NCollection_Vector<Graphic3d_Vec3> myNormals;   //!< normals of currently filled triangulation
   NCollection_Vector<Graphic3d_Vec2> myNodesUV;   //!< UVs     of currently filled triangulation
-  NCollection_Vector<Poly_Triangle>  myTriangles; //!< indexes of currently filled triangulation
+  NCollection_Vector<Triangle2>  myTriangles; //!< indexes of currently filled triangulation
 
   ShapeReceiver* myShapeReceiver;      //!< optional shape receiver
   TopoCompound       myResultShape;        //!< result shape as Compound of objects

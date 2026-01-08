@@ -284,7 +284,7 @@ Handle(GeomPlane) IGESToBRep_BasicSurface::TransferPlaneSurface(
   {
     Handle(IGESGeom_Direction) refdir = start->ReferenceDir();
     Dir3d                     Dirgp  = Dir3d(refdir->Value());
-    pln                               = gp_Pln(gp_Ax3(Pt, Normale, Dirgp));
+    pln                               = gp_Pln(Ax3(Pt, Normale, Dirgp));
   }
 
   return new GeomPlane(pln);
@@ -329,9 +329,9 @@ Handle(Geom_CylindricalSurface) IGESToBRep_BasicSurface::TransferRigthCylindrica
 
   Point3d Pt = Point->Value();
   Dir3d ax = Dir3d(Axis->Value());
-  gp_Ax3 ax3;
+  Ax3 ax3;
   if (!Param)
-    ax3 = gp_Ax3(Pt, ax);
+    ax3 = Ax3(Pt, ax);
   else
   {
     Handle(IGESGeom_Direction) refdir = start->ReferenceDir();
@@ -342,9 +342,9 @@ Handle(Geom_CylindricalSurface) IGESToBRep_BasicSurface::TransferRigthCylindrica
 
       return res;
     }
-    ax3 = gp_Ax3(Pt, ax, Dir);
+    ax3 = Ax3(Pt, ax, Dir);
   }
-  gp_Cylinder cyl(ax3, radius);
+  Cylinder1 cyl(ax3, radius);
   return new Geom_CylindricalSurface(cyl);
 }
 
@@ -394,9 +394,9 @@ Handle(Geom_ConicalSurface) IGESToBRep_BasicSurface::TransferRigthConicalSurface
 
   Point3d Pt = Point->Value();
   Dir3d ax = Dir3d(Axis->Value());
-  gp_Ax3 ax3;
+  Ax3 ax3;
   if (!Param)
-    ax3 = gp_Ax3(Pt, ax);
+    ax3 = Ax3(Pt, ax);
   else
   {
     Handle(IGESGeom_Direction) refdir = start->ReferenceDir();
@@ -407,7 +407,7 @@ Handle(Geom_ConicalSurface) IGESToBRep_BasicSurface::TransferRigthConicalSurface
 
       return res;
     }
-    ax3 = gp_Ax3(Pt, ax, Dir);
+    ax3 = Ax3(Pt, ax, Dir);
   }
   return new Geom_ConicalSurface(ax3, angle, radius);
 }
@@ -452,9 +452,9 @@ Handle(Geom_SphericalSurface) IGESToBRep_BasicSurface::TransferSphericalSurface(
 
   Point3d Pt = Point->Value();
   Dir3d ax = Dir3d(Axis->Value());
-  gp_Ax3 ax3;
+  Ax3 ax3;
   if (!Param)
-    ax3 = gp_Ax3(Pt, ax);
+    ax3 = Ax3(Pt, ax);
   else
   {
     Handle(IGESGeom_Direction) refdir = start->ReferenceDir();
@@ -465,7 +465,7 @@ Handle(Geom_SphericalSurface) IGESToBRep_BasicSurface::TransferSphericalSurface(
 
       return res;
     }
-    ax3 = gp_Ax3(Pt, ax, Dir);
+    ax3 = Ax3(Pt, ax, Dir);
   }
   return new Geom_SphericalSurface(ax3, radius);
 }
@@ -511,9 +511,9 @@ Handle(Geom_ToroidalSurface) IGESToBRep_BasicSurface::TransferToroidalSurface(
 
   Point3d Pt = Point->Value();
   Dir3d ax = Dir3d(Axis->Value());
-  gp_Ax3 ax3;
+  Ax3 ax3;
   if (!Param)
-    ax3 = gp_Ax3(Pt, ax);
+    ax3 = Ax3(Pt, ax);
   else
   {
     Handle(IGESGeom_Direction) refdir = start->ReferenceDir();
@@ -524,7 +524,7 @@ Handle(Geom_ToroidalSurface) IGESToBRep_BasicSurface::TransferToroidalSurface(
 
       return res;
     }
-    ax3 = gp_Ax3(Pt, ax, Dir);
+    ax3 = Ax3(Pt, ax, Dir);
   }
   return new Geom_ToroidalSurface(ax3, major, minor);
 }

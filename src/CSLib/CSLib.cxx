@@ -41,13 +41,13 @@ void CSLib1::Normal(
   Standard_Real D1VMag  = D1V.SquareMagnitude();
   Vector3d        D1UvD1V = D1U.Crossed(D1V);
 
-  if (D1UMag <= gp::Resolution() && D1VMag <= gp::Resolution())
+  if (D1UMag <= gp1::Resolution() && D1VMag <= gp1::Resolution())
   {
     theStatus = CSLib_D1IsNull;
   }
-  else if (D1UMag <= gp::Resolution())
+  else if (D1UMag <= gp1::Resolution())
     theStatus = CSLib_D1uIsNull;
-  else if (D1VMag <= gp::Resolution())
+  else if (D1VMag <= gp1::Resolution())
     theStatus = CSLib_D1vIsNull;
   //  else if ((D1VMag / D1UMag) <= RealEpsilon())   theStatus = CSLib_D1vD1uRatioIsNull;
   //  else if ((D1UMag / D1VMag) <= RealEpsilon())   theStatus = CSLib_D1uD1vRatioIsNull;

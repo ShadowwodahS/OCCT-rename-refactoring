@@ -183,7 +183,7 @@ Standard_Boolean ShapeAnalysis_Geom::PositionTrsf(const Handle(TColStd_HArray2Of
     Dir3d d1(v1);
     Dir3d d2(v2);
     Dir3d d3(v3);
-    gp_Ax3 axes(Point3d(0, 0, 0), d3, d1);
+    Ax3 axes(Point3d(0, 0, 0), d3, d1);
     d3.Cross(d1);
     if (d3.Dot(d2) < 0)
       axes.YReverse();

@@ -219,17 +219,17 @@ void ProjLib_Sphere::SetInBounds(const Standard_Real U)
   //   if ((P.Y() > M_PI/2) ||
   if ((P.Y() - M_PI / 2 > Tol) ||
       //  Modified by skv - Tue Aug  1 16:29:59 2006 OCC13116 End
-      (Abs(P.Y() - M_PI / 2) < Tol && D2d.IsEqual(gp::DY2d(), Tol)))
+      (Abs(P.Y() - M_PI / 2) < Tol && D2d.IsEqual(gp1::DY2d(), Tol)))
   {
-    Axis = gp_Ax2d(gp_Pnt2d(0., M_PI / 2.), gp::DX2d());
+    Axis = gp_Ax2d(gp_Pnt2d(0., M_PI / 2.), gp1::DX2d());
   }
   //  Modified by skv - Tue Aug  1 16:29:59 2006 OCC13116 Begin
   //   else if ((P.Y() < -M_PI/2) ||
   else if ((P.Y() + M_PI / 2 < -Tol) ||
            //  Modified by skv - Tue Aug  1 16:29:59 2006 OCC13116 End
-           (Abs(P.Y() + M_PI / 2) < Tol && D2d.IsOpposite(gp::DY2d(), Tol)))
+           (Abs(P.Y() + M_PI / 2) < Tol && D2d.IsOpposite(gp1::DY2d(), Tol)))
   {
-    Axis = gp_Ax2d(gp_Pnt2d(0., -M_PI / 2.), gp::DX2d());
+    Axis = gp_Ax2d(gp_Pnt2d(0., -M_PI / 2.), gp1::DX2d());
   }
   else
     return;

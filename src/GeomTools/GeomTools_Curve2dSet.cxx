@@ -541,7 +541,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom2d_Circle)&
   Standard_Real R = 0.;
   IS >> P >> AX >> AY;
   GeomTools1::GetReal(IS, R);
-  C = new Geom2d_Circle(gp_Ax22d(P, AX, AY), R);
+  C = new Geom2d_Circle(Ax22d(P, AX, AY), R);
   return IS;
 }
 
@@ -555,7 +555,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom2d_Ellipse)
   IS >> P >> AX >> AY;
   GeomTools1::GetReal(IS, R1);
   GeomTools1::GetReal(IS, R2);
-  E = new Geom2d_Ellipse(gp_Ax22d(P, AX, AY), R1, R2);
+  E = new Geom2d_Ellipse(Ax22d(P, AX, AY), R1, R2);
   return IS;
 }
 
@@ -568,7 +568,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom2d_Parabola
   Standard_Real R1 = 0.;
   IS >> P >> AX >> AY;
   GeomTools1::GetReal(IS, R1);
-  C = new Geom2d_Parabola(gp_Ax22d(P, AX, AY), R1);
+  C = new Geom2d_Parabola(Ax22d(P, AX, AY), R1);
   return IS;
 }
 
@@ -582,7 +582,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom2d_Hyperbol
   IS >> P >> AX >> AY;
   GeomTools1::GetReal(IS, R1);
   GeomTools1::GetReal(IS, R2);
-  H = new Geom2d_Hyperbola(gp_Ax22d(P, AX, AY), R1, R2);
+  H = new Geom2d_Hyperbola(Ax22d(P, AX, AY), R1, R2);
   return IS;
 }
 

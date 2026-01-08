@@ -203,7 +203,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
     if (CTy == GeomAbs_Line)
     {
       gp_Dir2d D = C.Line().Direction();
-      if (D.IsParallel(gp::DX2d(), Precision::Angular()))
+      if (D.IsParallel(gp1::DX2d(), Precision::Angular()))
       { // Iso V.
         if (STy == GeomAbs_Sphere)
         {
@@ -215,13 +215,13 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
           else
           {
             gp_Sphere Sph  = S.Sphere();
-            gp_Ax3    Axis = Sph.Position();
+            Ax3    Axis = Sph.Position();
             gp_Circ   Ci   = ElSLib1::SphereVIso(Axis, Sph.Radius(), P.Y());
             Dir3d    DRev = Axis.XDirection().Crossed(Axis.YDirection());
             Axis3d    AxeRev(Axis.Location(), DRev);
             Ci.Rotate(AxeRev, P.X());
             Handle(GeomCircle) Circle = new GeomCircle(Ci);
-            if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
+            if (D.IsOpposite(gp1::DX2d(), Precision::Angular()))
               Circle->Reverse();
             UpdateEdge(Edge, Circle, Loc, Tol);
           }
@@ -229,30 +229,30 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
         }
         else if (STy == GeomAbs_Cylinder)
         {
-          gp_Cylinder Cyl  = S.Cylinder();
+          Cylinder1 Cyl  = S.Cylinder();
           gp_Pnt2d    P    = C.Line().Location();
-          gp_Ax3      Axis = Cyl.Position();
+          Ax3      Axis = Cyl.Position();
           gp_Circ     Ci   = ElSLib1::CylinderVIso(Axis, Cyl.Radius(), P.Y());
           Dir3d      DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d      AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
           Handle(GeomCircle) Circle = new GeomCircle(Ci);
-          if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DX2d(), Precision::Angular()))
             Circle->Reverse();
           UpdateEdge(Edge, Circle, Loc, Tol);
           IsComputed = Standard_True;
         }
         else if (STy == GeomAbs_Cone)
         {
-          gp_Cone  Cone = S.Cone();
+          Cone1  Cone = S.Cone();
           gp_Pnt2d P    = C.Line().Location();
-          gp_Ax3   Axis = Cone.Position();
+          Ax3   Axis = Cone.Position();
           gp_Circ  Ci   = ElSLib1::ConeVIso(Axis, Cone.RefRadius(), Cone.SemiAngle(), P.Y());
           Dir3d   DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d   AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
           Handle(GeomCircle) Circle = new GeomCircle(Ci);
-          if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DX2d(), Precision::Angular()))
             Circle->Reverse();
           UpdateEdge(Edge, Circle, Loc, Tol);
           IsComputed = Standard_True;
@@ -261,25 +261,25 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
         {
           gp_Torus Tore = S.Torus();
           gp_Pnt2d P    = C.Line().Location();
-          gp_Ax3   Axis = Tore.Position();
+          Ax3   Axis = Tore.Position();
           gp_Circ  Ci   = ElSLib1::TorusVIso(Axis, Tore.MajorRadius(), Tore.MinorRadius(), P.Y());
           Dir3d   DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d   AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
           Handle(GeomCircle) Circle = new GeomCircle(Ci);
-          if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DX2d(), Precision::Angular()))
             Circle->Reverse();
           UpdateEdge(Edge, Circle, Loc, Tol);
           IsComputed = Standard_True;
         }
       }
-      else if (D.IsParallel(gp::DY2d(), Precision::Angular()))
+      else if (D.IsParallel(gp1::DY2d(), Precision::Angular()))
       { // Iso U.
         if (STy == GeomAbs_Sphere)
         {
           gp_Sphere Sph  = S.Sphere();
           gp_Pnt2d  P    = C.Line().Location();
-          gp_Ax3    Axis = Sph.Position();
+          Ax3    Axis = Sph.Position();
           // calculate iso 0.
           gp_Circ Ci = ElSLib1::SphereUIso(Axis, Sph.Radius(), 0.);
 
@@ -294,35 +294,35 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
           Ci.Rotate(AxeRev, P.X());
           Handle(GeomCircle) Circle = new GeomCircle(Ci);
 
-          if (D.IsOpposite(gp::DY2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DY2d(), Precision::Angular()))
             Circle->Reverse();
           UpdateEdge(Edge, Circle, Loc, Tol);
           IsComputed = Standard_True;
         }
         else if (STy == GeomAbs_Cylinder)
         {
-          gp_Cylinder Cyl = S.Cylinder();
+          Cylinder1 Cyl = S.Cylinder();
           gp_Pnt2d    P   = C.Line().Location();
           gp_Lin      L   = ElSLib1::CylinderUIso(Cyl.Position(), Cyl.Radius(), P.X());
           Vector3d      Tr(L.Direction());
           Tr.Multiply(P.Y());
           L.Translate(Tr);
           Handle(GeomLine) Line = new GeomLine(L);
-          if (D.IsOpposite(gp::DY2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DY2d(), Precision::Angular()))
             Line->Reverse();
           UpdateEdge(Edge, Line, Loc, Tol);
           IsComputed = Standard_True;
         }
         else if (STy == GeomAbs_Cone)
         {
-          gp_Cone  Cone = S.Cone();
+          Cone1  Cone = S.Cone();
           gp_Pnt2d P    = C.Line().Location();
           gp_Lin   L = ElSLib1::ConeUIso(Cone.Position(), Cone.RefRadius(), Cone.SemiAngle(), P.X());
           Vector3d   Tr(L.Direction());
           Tr.Multiply(P.Y());
           L.Translate(Tr);
           Handle(GeomLine) Line = new GeomLine(L);
-          if (D.IsOpposite(gp::DY2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DY2d(), Precision::Angular()))
             Line->Reverse();
           UpdateEdge(Edge, Line, Loc, Tol);
           IsComputed = Standard_True;
@@ -331,12 +331,12 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
         {
           gp_Torus Tore = S.Torus();
           gp_Pnt2d P    = C.Line().Location();
-          gp_Ax3   Axis = Tore.Position();
+          Ax3   Axis = Tore.Position();
           gp_Circ  Ci   = ElSLib1::TorusUIso(Axis, Tore.MajorRadius(), Tore.MinorRadius(), P.X());
           Ci.Rotate(Ci.Axis(), P.Y());
           Handle(GeomCircle) Circle = new GeomCircle(Ci);
 
-          if (D.IsOpposite(gp::DY2d(), Precision::Angular()))
+          if (D.IsOpposite(gp1::DY2d(), Precision::Angular()))
             Circle->Reverse();
           UpdateEdge(Edge, Circle, Loc, Tol);
           IsComputed = Standard_True;
@@ -569,7 +569,7 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
       }
       if (TheSurf->DynamicType() == STANDARD_TYPE(Geom_ConicalSurface))
       {
-        gp_Cone       theCone = Handle(Geom_ConicalSurface)::DownCast(TheSurf)->Cone();
+        Cone1       theCone = Handle(Geom_ConicalSurface)::DownCast(TheSurf)->Cone();
         Point3d        apex    = theCone.Apex();
         Standard_Real Uapex, Vapex;
         ElSLib1::Parameters(theCone, apex, Uapex, Vapex);
@@ -1491,7 +1491,7 @@ void BRepOffset_Offset::Init(const TopoVertex&        Vertex,
   gp_Pln thePlane     = gce_MakePln(Origin, BaryCenter, FarestCorner);
   Dir3d Vdir         = thePlane.Axis().Direction();
 
-  gp_Ax3 Axis(Origin, Vdir, Xdir);
+  Ax3 Axis(Origin, Vdir, Xdir);
 
   Handle(GeomSurface) S = new Geom_SphericalSurface(Axis, Abs(Offset));
 
@@ -1562,12 +1562,12 @@ void BRepOffset_Offset::Init(const TopoVertex&        Vertex,
     if (P2d.Y() < -M_PI / 2.)
     {
       IsToAdjust = Standard_True;
-      PCurve->Mirror(gp_Ax2d(gp_Pnt2d(0., -M_PI / 2.), gp::DX2d()));
+      PCurve->Mirror(gp_Ax2d(gp_Pnt2d(0., -M_PI / 2.), gp1::DX2d()));
     }
     else if (P2d.Y() > M_PI / 2.)
     {
       IsToAdjust = Standard_True;
-      PCurve->Mirror(gp_Ax2d(gp_Pnt2d(0., M_PI / 2.), gp::DX2d()));
+      PCurve->Mirror(gp_Ax2d(gp_Pnt2d(0., M_PI / 2.), gp1::DX2d()));
     }
     if (IsToAdjust)
     {

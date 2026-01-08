@@ -53,7 +53,7 @@ static Standard_Boolean Rational(const TColStd_Array1OfReal& W)
   Standard_Boolean rat = Standard_False;
   for (i = 1; i < n; i++)
   {
-    rat = Abs(W(i) - W(i + 1)) > gp::Resolution();
+    rat = Abs(W(i) - W(i + 1)) > gp1::Resolution();
     if (rat)
       break;
   }
@@ -96,7 +96,7 @@ Geom2d_BezierCurve::Geom2d_BezierCurve(const TColgp_Array1OfPnt2d& Poles,
   Standard_Integer i;
   for (i = 1; i <= nbpoles; i++)
   {
-    if (Weights(i) <= gp::Resolution())
+    if (Weights(i) <= gp1::Resolution())
     {
       throw Standard_ConstructionError();
     }
@@ -189,7 +189,7 @@ void Geom2d_BezierCurve::InsertPoleAfter(const Standard_Integer Index,
   Standard_Integer nbpoles = NbPoles();
 
   Standard_ConstructionError_Raise_if(nbpoles >= Geom2d_BezierCurve::MaxDegree()
-                                        || Weight <= gp::Resolution(),
+                                        || Weight <= gp1::Resolution(),
                                       "Geom2d_BezierCurve::InsertPoleAfter");
 
   Standard_OutOfRange_Raise_if(Index < 0 || Index > nbpoles, "Geom2d_BezierCurve::InsertPoleAfter");
@@ -212,7 +212,7 @@ void Geom2d_BezierCurve::InsertPoleAfter(const Standard_Integer Index,
 
   // Insert the weight
   Handle(TColStd_HArray1OfReal) nweights;
-  Standard_Boolean              rat = IsRational() || Abs(Weight - 1.) > gp::Resolution();
+  Standard_Boolean              rat = IsRational() || Abs(Weight - 1.) > gp1::Resolution();
 
   if (rat)
   {
@@ -330,7 +330,7 @@ Standard_Real Geom2d_BezierCurve::ReversedParameter(const Standard_Real U) const
 
 void Geom2d_BezierCurve::Segment(const Standard_Real U1, const Standard_Real U2)
 {
-  closed = (Abs(Value(U1).Distance(Value(U2))) <= gp::Resolution());
+  closed = (Abs(Value(U1).Distance(Value(U2))) <= gp1::Resolution());
   //
   //   WARNING : when calling trimming be careful that the cache
   //   is computed regarding 0.0e0 and not 1.0e0
@@ -379,7 +379,7 @@ void Geom2d_BezierCurve::SetPole(const Standard_Integer Index, const gp_Pnt2d& P
 
   if (Index == 1 || Index == cpoles.Length())
   {
-    closed = (cpoles(1).Distance(cpoles(NbPoles())) <= gp::Resolution());
+    closed = (cpoles(1).Distance(cpoles(NbPoles())) <= gp1::Resolution());
   }
 }
 
@@ -400,14 +400,14 @@ void Geom2d_BezierCurve::SetWeight(const Standard_Integer Index, const Standard_
   Standard_Integer nbpoles = NbPoles();
 
   Standard_OutOfRange_Raise_if(Index < 1 || Index > nbpoles, "Geom2d_BezierCurve::SetWeight");
-  Standard_ConstructionError_Raise_if(Weight <= gp::Resolution(), "Geom2d_BezierCurve::SetWeight");
+  Standard_ConstructionError_Raise_if(Weight <= gp1::Resolution(), "Geom2d_BezierCurve::SetWeight");
 
   // compute new rationality
   Standard_Boolean wasrat = IsRational();
   if (!wasrat)
   {
     // a weight of 1. does not turn to rational
-    if (Abs(Weight - 1.) <= gp::Resolution())
+    if (Abs(Weight - 1.) <= gp1::Resolution())
       return;
 
     // set weights of 1.
@@ -685,7 +685,7 @@ void Geom2d_BezierCurve::Init(const Handle(TColgp_HArray1OfPnt2d)& Poles,
   Standard_Integer nbpoles = Poles->Length();
   // closed ?
   const TColgp_Array1OfPnt2d& cpoles = Poles->Array1();
-  closed                             = cpoles(1).Distance(cpoles(nbpoles)) <= gp::Resolution();
+  closed                             = cpoles(1).Distance(cpoles(nbpoles)) <= gp1::Resolution();
 
   // rational
   rational = !Weights.IsNull();

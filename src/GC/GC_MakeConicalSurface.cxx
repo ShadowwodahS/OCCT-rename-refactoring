@@ -33,7 +33,7 @@ GC_MakeConicalSurface::GC_MakeConicalSurface(const Frame3d&       A2,
   {
     TheError = gce_NegativeRadius;
   }
-  else if (Ang <= gp::Resolution() || Ang >= M_PI / 2. - gp::Resolution())
+  else if (Ang <= gp1::Resolution() || Ang >= M_PI / 2. - gp1::Resolution())
   {
     TheError = gce_BadAngle;
   }
@@ -44,7 +44,7 @@ GC_MakeConicalSurface::GC_MakeConicalSurface(const Frame3d&       A2,
   }
 }
 
-GC_MakeConicalSurface::GC_MakeConicalSurface(const gp_Cone& C)
+GC_MakeConicalSurface::GC_MakeConicalSurface(const Cone1& C)
 {
   TheError = gce_Done;
   TheCone  = new Geom_ConicalSurface(C);

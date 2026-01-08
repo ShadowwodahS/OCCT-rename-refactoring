@@ -26,7 +26,7 @@
 
 //=================================================================================================
 
-gp_Ax3::gp_Ax3(const Point3d& P, const Dir3d& V)
+Ax3::Ax3(const Point3d& P, const Dir3d& V)
     : axis(P, V)
 {
   Standard_Real A    = V.X();
@@ -73,49 +73,49 @@ gp_Ax3::gp_Ax3(const Point3d& P, const Dir3d& V)
   vydir = V.Crossed(vxdir);
 }
 
-void gp_Ax3::Mirror(const Point3d& P)
+void Ax3::Mirror(const Point3d& P)
 {
   axis.Mirror(P);
   vxdir.Reverse();
   vydir.Reverse();
 }
 
-gp_Ax3 gp_Ax3::Mirrored(const Point3d& P) const
+Ax3 Ax3::Mirrored(const Point3d& P) const
 {
-  gp_Ax3 Temp = *this;
+  Ax3 Temp = *this;
   Temp.Mirror(P);
   return Temp;
 }
 
-void gp_Ax3::Mirror(const Axis3d& A1)
+void Ax3::Mirror(const Axis3d& A1)
 {
   vydir.Mirror(A1);
   vxdir.Mirror(A1);
   axis.Mirror(A1);
 }
 
-gp_Ax3 gp_Ax3::Mirrored(const Axis3d& A1) const
+Ax3 Ax3::Mirrored(const Axis3d& A1) const
 {
-  gp_Ax3 Temp = *this;
+  Ax3 Temp = *this;
   Temp.Mirror(A1);
   return Temp;
 }
 
-void gp_Ax3::Mirror(const Frame3d& A2)
+void Ax3::Mirror(const Frame3d& A2)
 {
   vydir.Mirror(A2);
   vxdir.Mirror(A2);
   axis.Mirror(A2);
 }
 
-gp_Ax3 gp_Ax3::Mirrored(const Frame3d& A2) const
+Ax3 Ax3::Mirrored(const Frame3d& A2) const
 {
-  gp_Ax3 Temp = *this;
+  Ax3 Temp = *this;
   Temp.Mirror(A2);
   return Temp;
 }
 
-void gp_Ax3::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
+void Ax3::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
   OCCT_DUMP_VECTOR_CLASS(theOStream, "Location", 3, Location().X(), Location().Y(), Location().Z())
     OCCT_DUMP_VECTOR_CLASS(theOStream,
                            "Direction",
@@ -136,7 +136,7 @@ void gp_Ax3::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
                                                                       YDirection().Y(),
                                                                       YDirection().Z())}
 
-Standard_Boolean gp_Ax3::InitFromJson(const Standard_SStream& theSStream,
+Standard_Boolean Ax3::InitFromJson(const Standard_SStream& theSStream,
                                       Standard_Integer&       theStreamPos)
 {
   Standard_Integer        aPos       = theStreamPos;

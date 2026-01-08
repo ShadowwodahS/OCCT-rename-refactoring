@@ -218,7 +218,7 @@ void Bisector_Bisec::Perform(const Handle(GeomCurve2d)& afirstcurve,
         {
           gp_Dir2d dir1(afirstvector), dir2(asecondvector);
           Nx = -dir1.X() - dir2.X(), Ny = -dir1.Y() - dir2.Y();
-          if (Abs(Nx) <= gp::Resolution() && Abs(Ny) <= gp::Resolution())
+          if (Abs(Nx) <= gp1::Resolution() && Abs(Ny) <= gp1::Resolution())
           {
             Nx = -afirstvector.Y();
             Ny = afirstvector.X();
@@ -354,7 +354,7 @@ void Bisector_Bisec::Perform(const Handle(GeomCurve2d)& afirstcurve,
       {
         gp_Dir2d      dir1(afirstvector), dir2(asecondvector);
         Standard_Real Nx = -dir1.X() - dir2.X(), Ny = -dir1.Y() - dir2.Y();
-        if (Abs(Nx) <= gp::Resolution() && Abs(Ny) <= gp::Resolution())
+        if (Abs(Nx) <= gp1::Resolution() && Abs(Ny) <= gp1::Resolution())
         {
           Nx = -afirstvector.Y();
           Ny = afirstvector.X();
@@ -507,7 +507,7 @@ void Bisector_Bisec::Perform(const Handle(Geom2d_Point)& afirstpoint,
       {
         gp_Dir2d      dir1(afirstvector), dir2(asecondvector);
         Standard_Real Nx = -dir1.X() - dir2.X(), Ny = -dir1.Y() - dir2.Y();
-        if (Abs(Nx) <= gp::Resolution() && Abs(Ny) <= gp::Resolution())
+        if (Abs(Nx) <= gp1::Resolution() && Abs(Ny) <= gp1::Resolution())
         {
           Nx = -afirstvector.Y();
           Ny = afirstvector.X();
@@ -673,7 +673,7 @@ static Standard_Boolean IsMaxRC(const Handle(GeomCurve2d)& C, Standard_Real U, S
 
   C->D2(US, P, D1, D2);
   Norm2 = D1.SquareMagnitude();
-  if (Norm2 < gp::Resolution())
+  if (Norm2 < gp1::Resolution())
   {
     KF = 0.0;
   }
@@ -684,7 +684,7 @@ static Standard_Boolean IsMaxRC(const Handle(GeomCurve2d)& C, Standard_Real U, S
 
   C->D2(UL, P, D1, D2);
   Norm2 = D1.SquareMagnitude();
-  if (Norm2 < gp::Resolution())
+  if (Norm2 < gp1::Resolution())
   {
     KL = 0.0;
   }

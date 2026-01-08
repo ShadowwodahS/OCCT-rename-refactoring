@@ -32,7 +32,7 @@ DEFINE_STANDARD_HANDLE(Geom_ElementarySurface, GeomSurface)
 //! cone, the sphere and the torus.
 //! An elementary surface inherits the common behavior
 //! of GeomSurface surfaces. Furthermore, it is located
-//! in 3D space by a coordinate system (a gp_Ax3
+//! in 3D space by a coordinate system (a Ax3
 //! object) which is also its local coordinate system.
 //! Any elementary surface is oriented, i.e. the normal
 //! vector is always defined, and gives the same
@@ -74,7 +74,7 @@ public:
   void SetLocation(const Point3d& theLoc) { pos.SetLocation(theLoc); }
 
   //! Changes the local coordinates system of the surface.
-  void SetPosition(const gp_Ax3& theAx3) { pos = theAx3; }
+  void SetPosition(const Ax3& theAx3) { pos = theAx3; }
 
   //! Returns the main axis of the surface (ZAxis).
   const Axis3d& Axis() const { return pos.Axis(); }
@@ -84,7 +84,7 @@ public:
   const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the local coordinates system of the surface.
-  const gp_Ax3& Position() const { return pos; }
+  const Ax3& Position() const { return pos; }
 
   //! Reverses the U parametric direction of the surface.
   Standard_EXPORT virtual void UReverse() Standard_OVERRIDE;
@@ -126,7 +126,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(Geom_ElementarySurface, GeomSurface)
 
 protected:
-  gp_Ax3 pos;
+  Ax3 pos;
 };
 
 #endif // _Geom_ElementarySurface_HeaderFile

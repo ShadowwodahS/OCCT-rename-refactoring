@@ -29,7 +29,7 @@
 #include <TCollection_HAsciiString.hxx>
 
 //=============================================================================
-// Creation d' un cercle de prostep a partir d' un cercle 3d de gp
+// Creation d' un cercle de prostep a partir d' un cercle 3d de gp1
 //=============================================================================
 GeomToStep_MakeCircle::GeomToStep_MakeCircle(const gp_Circ&          C,
                                              const ConversionFactors& theLocalFactors)

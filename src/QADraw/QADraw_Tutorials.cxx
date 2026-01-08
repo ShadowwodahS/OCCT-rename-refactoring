@@ -111,7 +111,7 @@ void MyAisObject::Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
     aDisk.FillArray(aTris, Transform3d());
 
     Transform3d aDisk2Trsf;
-    aDisk2Trsf.SetTransformation(gp_Ax3(Point3d(0.0, 0.0, aHeight), -gp::DZ(), gp::DX()), gp::XOY());
+    aDisk2Trsf.SetTransformation(Ax3(Point3d(0.0, 0.0, aHeight), -gp1::DZ(), gp1::DX()), gp1::XOY());
     aDisk.FillArray(aTris, aDisk2Trsf);
 
     Handle(Graphic3d_Group) aGroupTris = thePrs->NewGroup();
@@ -122,12 +122,12 @@ void MyAisObject::Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
     // manually tessellated disk
     /*Handle(Graphic3d_ArrayOfTriangles) aTris2 =
       new Graphic3d_ArrayOfTriangles (aNbSlices + 1, aNbSlices * 3,
-    Graphic3d_ArrayFlags_VertexNormal); aTris2->AddVertex (Point3d (0.0, 0.0, aHeight), gp::DZ());
+    Graphic3d_ArrayFlags_VertexNormal); aTris2->AddVertex (Point3d (0.0, 0.0, aHeight), gp1::DZ());
     for (int aSliceIter = 0; aSliceIter < aNbSlices; ++aSliceIter)
     {
       double anAngle = M_PI * 2.0 * double(aSliceIter) / double(aNbSlices);
       aTris2->AddVertex (Point3d (Cos (anAngle) * aRadius, Sin (anAngle) * aRadius, aHeight),
-    gp::DZ());
+    gp1::DZ());
     }
     for (int aSliceIter = 0; aSliceIter < aNbSlices; ++aSliceIter)
     {
@@ -289,7 +289,7 @@ bool MyAisOwner::HandleMouseClick(const Graphic3d_Vec2i& thePoint,
     MyAisObject* anObj  = dynamic_cast<MyAisObject*>(mySelectable);
 
     Transform3d aTrsfTo;
-    aTrsfTo.SetRotation(Axis3d(gp::Origin(), gp::DX()), isFirst ? M_PI * 0.5 : -M_PI * 0.5);
+    aTrsfTo.SetRotation(Axis3d(gp1::Origin(), gp1::DX()), isFirst ? M_PI * 0.5 : -M_PI * 0.5);
     Transform3d                     aTrsfFrom = anObj->LocalTransformation();
     Handle(AIS_AnimationObject) anAnim =
       new AIS_AnimationObject("MyAnim", anObj->InteractiveContext(), anObj, aTrsfFrom, aTrsfTo);

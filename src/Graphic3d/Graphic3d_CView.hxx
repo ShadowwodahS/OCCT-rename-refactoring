@@ -531,8 +531,8 @@ public:
   Transform3d PoseXRToWorld(const Transform3d& thePoseXR) const
   {
     const Handle(CameraOn3d)& anOrigin = myBaseXRCamera;
-    const gp_Ax3                    anAxVr(gp::Origin(), gp::DZ(), gp::DX());
-    const gp_Ax3 aCameraCS(anOrigin->Eye().XYZ(), -anOrigin->Direction(), -anOrigin->SideRight());
+    const Ax3                    anAxVr(gp1::Origin(), gp1::DZ(), gp1::DX());
+    const Ax3 aCameraCS(anOrigin->Eye().XYZ(), -anOrigin->Direction(), -anOrigin->SideRight());
     Transform3d      aTrsfCS;
     aTrsfCS.SetTransformation(aCameraCS, anAxVr);
     return aTrsfCS * thePoseXR;
@@ -543,7 +543,7 @@ public:
   //!                       oriented as Y-up, X-right and -Z-forward
   Axis3d ViewAxisInWorld(const Transform3d& thePoseXR) const
   {
-    return Axis3d(gp::Origin(), -gp::DZ()).Transformed(PoseXRToWorld(thePoseXR));
+    return Axis3d(gp1::Origin(), -gp1::DZ()).Transformed(PoseXRToWorld(thePoseXR));
   }
 
   //! Recomputes PosedXRCamera() based on BaseXRCamera() and head orientation.

@@ -78,12 +78,12 @@ Standard_EXPORT Standard_Boolean FUN_tool_direct(const TopoFace& F, Standard_Boo
   }
   if (cyl)
   {
-    const gp_Cylinder& cycy = BS.Cylinder();
+    const Cylinder1& cycy = BS.Cylinder();
     direct                  = cycy.Direct();
   }
   if (cone)
   {
-    const gp_Cone& coco = BS.Cone();
+    const Cone1& coco = BS.Cone();
     direct              = coco.Direct();
   }
   if (sphe)

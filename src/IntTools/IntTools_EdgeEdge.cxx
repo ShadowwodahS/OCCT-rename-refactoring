@@ -1611,7 +1611,7 @@ Standard_Real CurveDeflection(const BRepAdaptor_Curve& theBAC, const IntToolsRan
   {
     aT += aDt;
     theBAC.D1(aT, aP, aV2);
-    if (aV1.Magnitude() > gp::Resolution() && aV2.Magnitude() > gp::Resolution())
+    if (aV1.Magnitude() > gp1::Resolution() && aV2.Magnitude() > gp1::Resolution())
     {
       Dir3d aD1(aV1), aD2(aV2);
       aDefl += aD1.Angle(aD2);

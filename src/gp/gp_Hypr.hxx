@@ -204,7 +204,7 @@ public:
   //! 0.0
   Standard_Real Eccentricity() const
   {
-    Standard_DomainError_Raise_if(majorRadius <= gp::Resolution(),
+    Standard_DomainError_Raise_if(majorRadius <= gp1::Resolution(),
                                   "gp_Hypr::Eccentricity() - major radius is zero");
     return sqrt(majorRadius * majorRadius + minorRadius * minorRadius) / majorRadius;
   }
@@ -251,7 +251,7 @@ public:
   //! Raises DomainError if MajorRadius = 0.0
   Standard_Real Parameter() const
   {
-    Standard_DomainError_Raise_if(majorRadius <= gp::Resolution(),
+    Standard_DomainError_Raise_if(majorRadius <= gp1::Resolution(),
                                   "gp_Hypr::Parameter() - major radius is zero");
     return (minorRadius * minorRadius) / majorRadius;
   }
@@ -348,7 +348,7 @@ private:
 //=======================================================================
 inline Axis3d gp_Hypr::Asymptote1() const
 {
-  Standard_ConstructionError_Raise_if(majorRadius <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(majorRadius <= gp1::Resolution(),
                                       "gp_Hypr::Asymptote1() - major radius is zero");
   Vector3d aV1 = Vector3d(pos.YDirection());
   aV1.Multiply(minorRadius / majorRadius);
@@ -363,7 +363,7 @@ inline Axis3d gp_Hypr::Asymptote1() const
 //=======================================================================
 inline Axis3d gp_Hypr::Asymptote2() const
 {
-  Standard_ConstructionError_Raise_if(majorRadius <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(majorRadius <= gp1::Resolution(),
                                       "gp_Hypr::Asymptote1() - major radius is zero");
   Vector3d aV1 = Vector3d(pos.YDirection());
   aV1.Multiply(-minorRadius / majorRadius);

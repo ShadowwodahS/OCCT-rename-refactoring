@@ -104,9 +104,9 @@ DEFINE_STANDARD_HANDLE(Geom_BezierSurface, Geom_BoundedSurface)
 //! parametric direction and the in v parametric direction.
 //! Note: It is not possible to build a Bezier surface with
 //! negative weights. Any weight value that is less than,
-//! or equal to, gp::Resolution() is considered
+//! or equal to, gp1::Resolution() is considered
 //! to be zero. Two weight values, W1 and W2, are
-//! considered equal if: |W2-W1| <= gp::Resolution()
+//! considered equal if: |W2-W1| <= gp1::Resolution()
 class Geom_BezierSurface : public Geom_BoundedSurface
 {
 
@@ -135,11 +135,11 @@ public:
   //! V direction.
   //! If all the weights are identical the surface is considered as
   //! non-rational (the tolerance criterion is Resolution from package
-  //! gp).
+  //! gp1).
   //!
   //! Raised if SurfacePoles and PoleWeights have not the same
   //! Rowlength or have not the same ColLength.
-  //! Raised if PoleWeights (i, j) <= Resolution from gp;
+  //! Raised if PoleWeights (i, j) <= Resolution from gp1;
   //! Raised if the number of poles of the surface is lower than 2
   //! or greater than MaxDegree + 1 in one of the two directions U or V.
   Standard_EXPORT Geom_BezierSurface(const TColgp_Array2OfPnt&   SurfacePoles,
@@ -178,7 +178,7 @@ public:
   //! . VDegree is greater than MaxDegree.
   //! . the Length of CPoles is not equal to NbUPoles
   //! . a weight value is lower or equal to Resolution from
-  //! package gp
+  //! package gp1
   Standard_EXPORT void InsertPoleColAfter(const Standard_Integer      VIndex,
                                           const TColgp_Array1OfPnt&   CPoles,
                                           const TColStd_Array1OfReal& CPoleWeights);
@@ -201,7 +201,7 @@ public:
   //! . VDegree is greater than MaxDegree.
   //! . the Length of CPoles is not equal to NbUPoles
   //! . a weight value is lower or equal to Resolution from
-  //! package gp
+  //! package gp1
   Standard_EXPORT void InsertPoleColBefore(const Standard_Integer      VIndex,
                                            const TColgp_Array1OfPnt&   CPoles,
                                            const TColStd_Array1OfReal& CPoleWeights);
@@ -224,7 +224,7 @@ public:
   //! . UDegree is greater than MaxDegree.
   //! . the Length of CPoles is not equal to NbVPoles
   //! . a weight value is lower or equal to Resolution from
-  //! package gp
+  //! package gp1
   Standard_EXPORT void InsertPoleRowAfter(const Standard_Integer      UIndex,
                                           const TColgp_Array1OfPnt&   CPoles,
                                           const TColStd_Array1OfReal& CPoleWeights);
@@ -247,7 +247,7 @@ public:
   //! . UDegree is greater than MaxDegree.
   //! . the Length of CPoles is not equal to NbVPoles
   //! . a weight value is lower or equal to Resolution from
-  //! package gp
+  //! package gp1
   Standard_EXPORT void InsertPoleRowBefore(const Standard_Integer      UIndex,
                                            const TColgp_Array1OfPnt&   CPoles,
                                            const TColStd_Array1OfReal& CPoleWeights);
@@ -310,7 +310,7 @@ public:
   //!
   //! raises if  UIndex < 1 or UIndex > NbUPoles  or  VIndex < 1
   //! or VIndex > NbVPoles.
-  //! Raised if Weight <= Resolution from package gp.
+  //! Raised if Weight <= Resolution from package gp1.
   Standard_EXPORT void SetPole(const Standard_Integer UIndex,
                                const Standard_Integer VIndex,
                                const Point3d&          P,
@@ -334,7 +334,7 @@ public:
   //! Raised if CPoles.Lower() < 1 or CPoles.Upper() > NbUPoles
   //! Raised if CPoleWeights and CPoles have not the same bounds.
   //! Raised if one of the weight value CPoleWeights (i) is lower
-  //! or equal to Resolution from package gp.
+  //! or equal to Resolution from package gp1.
   Standard_EXPORT void SetPoleCol(const Standard_Integer      VIndex,
                                   const TColgp_Array1OfPnt&   CPoles,
                                   const TColStd_Array1OfReal& CPoleWeights);
@@ -357,7 +357,7 @@ public:
   //! Raised if CPoles.Lower() < 1 or CPoles.Upper() > NbVPoles
   //! Raised if CPoleWeights and CPoles have not the same bounds.
   //! Raised if one of the weight value CPoleWeights (i) is lower
-  //! or equal to Resolution from gp.
+  //! or equal to Resolution from gp1.
   Standard_EXPORT void SetPoleRow(const Standard_Integer      UIndex,
                                   const TColgp_Array1OfPnt&   CPoles,
                                   const TColStd_Array1OfReal& CPoleWeights);
@@ -368,7 +368,7 @@ public:
   //!
   //! Raised if UIndex < 1  or  UIndex > NbUPoles or VIndex < 1 or
   //! VIndex > NbVPoles.
-  //! Raised if Weight <= Resolution from package gp.
+  //! Raised if Weight <= Resolution from package gp1.
   Standard_EXPORT void SetWeight(const Standard_Integer UIndex,
                                  const Standard_Integer VIndex,
                                  const Standard_Real    Weight);
@@ -383,7 +383,7 @@ public:
   //! Raised if CPoleWeights.Lower() < 1 or CPoleWeights.Upper() >
   //! NbUPoles
   //! Raised if one of the weight value CPoleWeights (i) is lower
-  //! or equal to Resolution from package gp.
+  //! or equal to Resolution from package gp1.
   Standard_EXPORT void SetWeightCol(const Standard_Integer      VIndex,
                                     const TColStd_Array1OfReal& CPoleWeights);
 
@@ -397,7 +397,7 @@ public:
   //! Raised if CPoleWeights.Lower() < 1 or CPoleWeights.Upper() >
   //! NbVPoles
   //! Raised if one of the weight value CPoleWeights (i) is lower
-  //! or equal to Resolution from package gp.
+  //! or equal to Resolution from package gp1.
   Standard_EXPORT void SetWeightRow(const Standard_Integer      UIndex,
                                     const TColStd_Array1OfReal& CPoleWeights);
 
@@ -555,12 +555,12 @@ public:
 
   //! Returns True if the first control points row and the
   //! last control points row are identical. The tolerance
-  //! criterion is Resolution from package gp.
+  //! criterion is Resolution from package gp1.
   Standard_EXPORT Standard_Boolean IsUClosed() const Standard_OVERRIDE;
 
   //! Returns True if the first control points column
   //! and the last control points column are identical.
-  //! The tolerance criterion is Resolution from package gp.
+  //! The tolerance criterion is Resolution from package gp1.
   Standard_EXPORT Standard_Boolean IsVClosed() const Standard_OVERRIDE;
 
   //! Returns True, a Bezier surface is always  CN
@@ -576,7 +576,7 @@ public:
   Standard_EXPORT Standard_Boolean IsVPeriodic() const Standard_OVERRIDE;
 
   //! Returns False if the weights are identical in the U direction,
-  //! The tolerance criterion is Resolution from package gp.
+  //! The tolerance criterion is Resolution from package gp1.
   //! Example :
   //! |1.0, 1.0, 1.0|
   //! if Weights =  |0.5, 0.5, 0.5|   returns False
@@ -584,7 +584,7 @@ public:
   Standard_EXPORT Standard_Boolean IsURational() const;
 
   //! Returns False if the weights are identical in the V direction,
-  //! The tolerance criterion is Resolution from package gp.
+  //! The tolerance criterion is Resolution from package gp1.
   //! Example :
   //! |1.0, 2.0, 0.5|
   //! if Weights =  |1.0, 2.0, 0.5|   returns False

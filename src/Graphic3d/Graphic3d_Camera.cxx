@@ -59,13 +59,13 @@ static Standard_Real zEpsilon(const Standard_Real theValue)
 }
 
 //! Convert camera definition to Ax3
-gp_Ax3 cameraToAx3(const CameraOn3d& theCamera)
+Ax3 cameraToAx3(const CameraOn3d& theCamera)
 {
   const Dir3d aBackDir = -theCamera.Direction();
   const Dir3d anXAxis(theCamera.Up().Crossed(aBackDir));
   const Dir3d anYAxis(aBackDir.Crossed(anXAxis));
   const Dir3d aZAxis(anXAxis.Crossed(anYAxis));
-  return gp_Ax3(Point3d(0.0, 0.0, 0.0), aZAxis, anXAxis);
+  return Ax3(Point3d(0.0, 0.0, 0.0), aZAxis, anXAxis);
 }
 } // namespace
 
@@ -221,7 +221,7 @@ void CameraOn3d::SetEyeAndCenter(const Point3d& theEye, const Point3d& theCenter
 
   myEye      = theEye;
   myDistance = theEye.Distance(theCenter);
-  if (myDistance > gp::Resolution())
+  if (myDistance > gp1::Resolution())
   {
     myDirection = Dir3d(theCenter.XYZ() - theEye.XYZ());
   }
@@ -240,7 +240,7 @@ void CameraOn3d::SetEye(const Point3d& theEye)
   const Point3d aCenter = Center();
   myEye                = theEye;
   myDistance           = myEye.Distance(aCenter);
-  if (myDistance > gp::Resolution())
+  if (myDistance > gp1::Resolution())
   {
     myDirection = Dir3d(aCenter.XYZ() - myEye.XYZ());
   }
@@ -258,7 +258,7 @@ void CameraOn3d::SetCenter(const Point3d& theCenter)
   }
 
   myDistance = aDistance;
-  if (myDistance > gp::Resolution())
+  if (myDistance > gp1::Resolution())
   {
     myDirection = Dir3d(theCenter.XYZ() - myEye.XYZ());
   }
@@ -765,10 +765,10 @@ void CameraOn3d::Frustum(gp_Pln& theLeft,
   {
     Standard_Real aHFOVHor = ATan(Tan(DTR_HALF * FOVy()) * Aspect());
     Standard_Real aHFOVVer = DTR_HALF * FOVy();
-    aDirLeft.Rotate(Axis3d(gp::Origin(), anUp), aHFOVHor);
-    aDirRight.Rotate(Axis3d(gp::Origin(), anUp), -aHFOVHor);
-    aDirBottom.Rotate(Axis3d(gp::Origin(), aSide), -aHFOVVer);
-    aDirTop.Rotate(Axis3d(gp::Origin(), aSide), aHFOVVer);
+    aDirLeft.Rotate(Axis3d(gp1::Origin(), anUp), aHFOVHor);
+    aDirRight.Rotate(Axis3d(gp1::Origin(), anUp), -aHFOVHor);
+    aDirBottom.Rotate(Axis3d(gp1::Origin(), aSide), -aHFOVVer);
+    aDirTop.Rotate(Axis3d(gp1::Origin(), aSide), aHFOVVer);
   }
 
   theLeft   = gp_Pln(aPntLeft, aDirLeft);
@@ -1519,7 +1519,7 @@ bool CameraOn3d::ZFitAll(const Standard_Real theScaleFactor,
 
     // Check if the camera is intruded into the scene.
     Vector3d aVecToMeasurePnt(aCamEye, aMeasurePnt);
-    if (aVecToMeasurePnt.Magnitude() > gp::Resolution()
+    if (aVecToMeasurePnt.Magnitude() > gp1::Resolution()
         && aCamDir.IsOpposite(aVecToMeasurePnt, M_PI * 0.5))
     {
       aDistance *= -1;
@@ -1662,11 +1662,11 @@ void CameraOn3d::Interpolate(const Handle(CameraOn3d)& theStart,
 
   // apply rotation
   {
-    gp_Ax3  aCamStart = cameraToAx3(*theStart);
-    gp_Ax3  aCamEnd   = cameraToAx3(*theEnd);
+    Ax3  aCamStart = cameraToAx3(*theStart);
+    Ax3  aCamEnd   = cameraToAx3(*theEnd);
     Transform3d aTrsfStart, aTrsfEnd;
-    aTrsfStart.SetTransformation(aCamStart, gp::XOY());
-    aTrsfEnd.SetTransformation(aCamEnd, gp::XOY());
+    aTrsfStart.SetTransformation(aCamStart, gp1::XOY());
+    aTrsfEnd.SetTransformation(aCamEnd, gp1::XOY());
 
     gp_Quaternion aRotStart = aTrsfStart.GetRotation();
     gp_Quaternion aRotEnd   = aTrsfEnd.GetRotation();
@@ -1680,35 +1680,35 @@ void CameraOn3d::Interpolate(const Handle(CameraOn3d)& theStart,
   // apply translation
   {
     gp_XYZ aCenter =
-      NCollection_Lerp<gp_XYZ>::Interpolate(theStart->Center().XYZ(), theEnd->Center().XYZ(), theT);
+      NCollection_Lerp1<gp_XYZ>::Interpolate(theStart->Center().XYZ(), theEnd->Center().XYZ(), theT);
     gp_XYZ anEye =
-      NCollection_Lerp<gp_XYZ>::Interpolate(theStart->Eye().XYZ(), theEnd->Eye().XYZ(), theT);
+      NCollection_Lerp1<gp_XYZ>::Interpolate(theStart->Eye().XYZ(), theEnd->Eye().XYZ(), theT);
     gp_XYZ        anAnchor = aCenter;
     Standard_Real aKc      = 0.0;
 
     const Standard_Real aDeltaCenter = theStart->Center().Distance(theEnd->Center());
     const Standard_Real aDeltaEye    = theStart->Eye().Distance(theEnd->Eye());
-    if (aDeltaEye <= gp::Resolution())
+    if (aDeltaEye <= gp1::Resolution())
     {
       anAnchor = anEye;
       aKc      = 1.0;
     }
-    else if (aDeltaCenter > gp::Resolution())
+    else if (aDeltaCenter > gp1::Resolution())
     {
       aKc = aDeltaCenter / (aDeltaCenter + aDeltaEye);
 
       const gp_XYZ anAnchorStart =
-        NCollection_Lerp<gp_XYZ>::Interpolate(theStart->Center().XYZ(), theStart->Eye().XYZ(), aKc);
+        NCollection_Lerp1<gp_XYZ>::Interpolate(theStart->Center().XYZ(), theStart->Eye().XYZ(), aKc);
       const gp_XYZ anAnchorEnd =
-        NCollection_Lerp<gp_XYZ>::Interpolate(theEnd->Center().XYZ(), theEnd->Eye().XYZ(), aKc);
-      anAnchor = NCollection_Lerp<gp_XYZ>::Interpolate(anAnchorStart, anAnchorEnd, theT);
+        NCollection_Lerp1<gp_XYZ>::Interpolate(theEnd->Center().XYZ(), theEnd->Eye().XYZ(), aKc);
+      anAnchor = NCollection_Lerp1<gp_XYZ>::Interpolate(anAnchorStart, anAnchorEnd, theT);
     }
 
     const Vector3d        aDirEyeToCenter     = theCamera->Direction();
     const Standard_Real aDistEyeCenterStart = theStart->Eye().Distance(theStart->Center());
     const Standard_Real aDistEyeCenterEnd   = theEnd->Eye().Distance(theEnd->Center());
     const Standard_Real aDistEyeCenter =
-      NCollection_Lerp<Standard_Real>::Interpolate(aDistEyeCenterStart, aDistEyeCenterEnd, theT);
+      NCollection_Lerp1<Standard_Real>::Interpolate(aDistEyeCenterStart, aDistEyeCenterEnd, theT);
     aCenter = anAnchor + aDirEyeToCenter.XYZ() * aDistEyeCenter * aKc;
     anEye   = anAnchor - aDirEyeToCenter.XYZ() * aDistEyeCenter * (1.0 - aKc);
 
@@ -1720,7 +1720,7 @@ void CameraOn3d::Interpolate(const Handle(CameraOn3d)& theStart,
       && theStart->IsOrthographic())
   {
     const Standard_Real aScale =
-      NCollection_Lerp<Standard_Real>::Interpolate(theStart->Scale(), theEnd->Scale(), theT);
+      NCollection_Lerp1<Standard_Real>::Interpolate(theStart->Scale(), theEnd->Scale(), theT);
     theCamera->SetScale(aScale);
   }
 }

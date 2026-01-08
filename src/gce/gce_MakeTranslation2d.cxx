@@ -20,7 +20,7 @@
 #include <gp_Vec2d.hxx>
 
 //=========================================================================
-//   Creation d une translation 2d de gp de vecteur de translation Vec.   +
+//   Creation d une translation 2d de gp1 de vecteur de translation Vec.   +
 //=========================================================================
 TranslationBuilder2d::TranslationBuilder2d(const gp_Vec2d& Vec)
 {
@@ -28,7 +28,7 @@ TranslationBuilder2d::TranslationBuilder2d(const gp_Vec2d& Vec)
 }
 
 //=========================================================================
-//   Creation d une translation 2d de gp de vecteur de translation le     +
+//   Creation d une translation 2d de gp1 de vecteur de translation le     +
 //   vecteur reliant Point1 a Point2.                                     +
 //=========================================================================
 

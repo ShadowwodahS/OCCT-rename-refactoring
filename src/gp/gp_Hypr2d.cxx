@@ -31,7 +31,7 @@ void gp_Hypr2d::Coefficients(Standard_Real& A,
 {
   Standard_Real DMin = minorRadius * minorRadius;
   Standard_Real DMaj = majorRadius * majorRadius;
-  if (DMin <= gp::Resolution() && DMaj <= gp::Resolution())
+  if (DMin <= gp1::Resolution() && DMaj <= gp1::Resolution())
   {
     A = B = C = D = E = F = 0.0;
   }
@@ -42,7 +42,7 @@ void gp_Hypr2d::Coefficients(Standard_Real& A,
     Standard_Real T11 = T.Value(1, 1);
     Standard_Real T12 = T.Value(1, 2);
     Standard_Real T13 = T.Value(1, 3);
-    if (DMin <= gp::Resolution())
+    if (DMin <= gp1::Resolution())
     {
       A = T11 * T11;
       B = T12 * T12;

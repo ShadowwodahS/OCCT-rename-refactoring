@@ -2101,15 +2101,15 @@ static int VViewProj(DrawInterpreter&, Standard_Integer theNbArgs, const char** 
 
         if (aFrameDef.Value(2) == 'x')
         {
-          aRight = aFrameDef.Value(1) == '+' ? gp::DX() : -gp::DX();
+          aRight = aFrameDef.Value(1) == '+' ? gp1::DX() : -gp1::DX();
         }
         else if (aFrameDef.Value(2) == 'y')
         {
-          aRight = aFrameDef.Value(1) == '+' ? gp::DY() : -gp::DY();
+          aRight = aFrameDef.Value(1) == '+' ? gp1::DY() : -gp1::DY();
         }
         else if (aFrameDef.Value(2) == 'z')
         {
-          aRight = aFrameDef.Value(1) == '+' ? gp::DZ() : -gp::DZ();
+          aRight = aFrameDef.Value(1) == '+' ? gp1::DZ() : -gp1::DZ();
         }
         else
         {
@@ -2119,15 +2119,15 @@ static int VViewProj(DrawInterpreter&, Standard_Integer theNbArgs, const char** 
 
         if (aFrameDef.Value(4) == 'x')
         {
-          anUp = aFrameDef.Value(3) == '+' ? gp::DX() : -gp::DX();
+          anUp = aFrameDef.Value(3) == '+' ? gp1::DX() : -gp1::DX();
         }
         else if (aFrameDef.Value(4) == 'y')
         {
-          anUp = aFrameDef.Value(3) == '+' ? gp::DY() : -gp::DY();
+          anUp = aFrameDef.Value(3) == '+' ? gp1::DY() : -gp1::DY();
         }
         else if (aFrameDef.Value(4) == 'z')
         {
-          anUp = aFrameDef.Value(3) == '+' ? gp::DZ() : -gp::DZ();
+          anUp = aFrameDef.Value(3) == '+' ? gp1::DZ() : -gp1::DZ();
         }
         else
         {
@@ -2136,7 +2136,7 @@ static int VViewProj(DrawInterpreter&, Standard_Integer theNbArgs, const char** 
         }
 
         const Handle(CameraOn3d)& aCamera     = aView->Camera();
-        const Point3d                    anOriginVCS = aCamera->ConvertWorld2View(gp::Origin());
+        const Point3d                    anOriginVCS = aCamera->ConvertWorld2View(gp1::Origin());
         const Dir3d                    aDir        = anUp.Crossed(aRight);
         aCamera->SetCenter(Point3d(0, 0, 0));
         aCamera->SetDirection(aDir);
@@ -5255,7 +5255,7 @@ static int VPriviledgedPlane(DrawInterpreter& theDI,
 
   if (theArgNb == 1)
   {
-    gp_Ax3        aPriviledgedPlane = aViewer->PrivilegedPlane();
+    Ax3        aPriviledgedPlane = aViewer->PrivilegedPlane();
     const Point3d& anOrig            = aPriviledgedPlane.Location();
     const Dir3d& aNorm             = aPriviledgedPlane.Direction();
     const Dir3d& aXDir             = aPriviledgedPlane.XDirection();
@@ -5273,7 +5273,7 @@ static int VPriviledgedPlane(DrawInterpreter& theDI,
   Standard_Real    aNormY   = Draw1::Atof(theArgVec[anArgIdx++]);
   Standard_Real    aNormZ   = Draw1::Atof(theArgVec[anArgIdx++]);
 
-  gp_Ax3 aPriviledgedPlane;
+  Ax3 aPriviledgedPlane;
   Point3d anOrig(anOrigX, anOrigY, anOrigZ);
   Dir3d aNorm(aNormX, aNormY, aNormZ);
   if (theArgNb > 7)
@@ -5282,11 +5282,11 @@ static int VPriviledgedPlane(DrawInterpreter& theDI,
     Standard_Real aXDirY = Draw1::Atof(theArgVec[anArgIdx++]);
     Standard_Real aXDirZ = Draw1::Atof(theArgVec[anArgIdx++]);
     Dir3d        aXDir(aXDirX, aXDirY, aXDirZ);
-    aPriviledgedPlane = gp_Ax3(anOrig, aNorm, aXDir);
+    aPriviledgedPlane = Ax3(anOrig, aNorm, aXDir);
   }
   else
   {
-    aPriviledgedPlane = gp_Ax3(anOrig, aNorm);
+    aPriviledgedPlane = Ax3(anOrig, aNorm);
   }
 
   aViewer->SetPrivilegedPlane(aPriviledgedPlane);
@@ -12496,7 +12496,7 @@ static int VManipulator(DrawInterpreter& theDi, Standard_Integer theArgsNb, cons
   if (anAttachPos != ManipAjustPosition_Off && aManipulator->IsAttached()
       && (anAttachObject.IsNull() || anAttachPos != ManipAjustPosition_Center))
   {
-    Frame3d        aPosition = gp::XOY();
+    Frame3d        aPosition = gp1::XOY();
     const Transform3d aBaseTrsf = aManipulator->Object()->LocalTransformation();
     switch (anAttachPos)
     {
@@ -12504,13 +12504,13 @@ static int VManipulator(DrawInterpreter& theDi, Standard_Integer theArgsNb, cons
         break;
       }
       case ManipAjustPosition_Location: {
-        aPosition = gp::XOY().Transformed(aBaseTrsf);
+        aPosition = gp1::XOY().Transformed(aBaseTrsf);
         break;
       }
       case ManipAjustPosition_ShapeLocation: {
         if (Handle(VisualShape) aShapePrs = Handle(VisualShape)::DownCast(aManipulator->Object()))
         {
-          aPosition = gp::XOY().Transformed(aBaseTrsf * aShapePrs->Shape().Location());
+          aPosition = gp1::XOY().Transformed(aBaseTrsf * aShapePrs->Shape().Location());
         }
         else
         {

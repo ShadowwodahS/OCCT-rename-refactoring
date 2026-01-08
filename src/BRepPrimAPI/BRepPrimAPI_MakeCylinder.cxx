@@ -21,7 +21,7 @@
 //=================================================================================================
 
 CylinderMaker::CylinderMaker(const Standard_Real R, const Standard_Real H)
-    : myCylinder(gp::XOY(), R, H)
+    : myCylinder(gp1::XOY(), R, H)
 {
 }
 

@@ -51,7 +51,7 @@ void SelectMgr_RectangularFrustum::segmentSegmentDistance(
   Standard_Real aSn   = aCoef;
   Standard_Real aTc, aTn, aTd = aCoef;
 
-  if (aCoef < gp::Resolution())
+  if (aCoef < gp1::Resolution())
   {
     aTn = anE;
     aTd = aC;
@@ -80,7 +80,7 @@ void SelectMgr_RectangularFrustum::segmentSegmentDistance(
   {
     aTn = aTd;
   }
-  aTc = (Abs(aTd) < gp::Resolution() ? 0.0 : aTn / aTd);
+  aTc = (Abs(aTd) < gp1::Resolution() ? 0.0 : aTn / aTd);
 
   const Point3d aClosestPnt = myNearPickedPnt.XYZ() + aV * aTc;
   thePickResult.SetDepth(myNearPickedPnt.Distance(aClosestPnt) * myScale);
@@ -89,7 +89,7 @@ void SelectMgr_RectangularFrustum::segmentSegmentDistance(
   const Vector3d        aFigureVec    = theSegPnt2.XYZ() - theSegPnt1.XYZ();
   const Standard_Real aPickedVecMod = aPickedVec.Magnitude();
   const Standard_Real aFigureVecMod = aFigureVec.Magnitude();
-  if (aPickedVecMod <= gp::Resolution() || aFigureVecMod <= gp::Resolution())
+  if (aPickedVecMod <= gp1::Resolution() || aFigureVecMod <= gp1::Resolution())
   {
     thePickResult.SetPickedPoint(aClosestPnt);
     return;
@@ -707,19 +707,19 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsTriangle(
     const gp_XYZ aTrEdges[3] = {thePnt2.XYZ() - thePnt1.XYZ(),
                                 thePnt3.XYZ() - thePnt2.XYZ(),
                                 thePnt1.XYZ() - thePnt3.XYZ()};
-    if (aTriangleNormal.SquareMagnitude() < gp::Resolution())
+    if (aTriangleNormal.SquareMagnitude() < gp1::Resolution())
     {
       // consider degenerated triangle as point or segment
-      return aTrEdges[0].SquareModulus() > gp::Resolution()
+      return aTrEdges[0].SquareModulus() > gp1::Resolution()
                ? OverlapsSegment(thePnt1, thePnt2, theClipRange, thePickResult)
-               : (aTrEdges[1].SquareModulus() > gp::Resolution()
+               : (aTrEdges[1].SquareModulus() > gp1::Resolution()
                     ? OverlapsSegment(thePnt2, thePnt3, theClipRange, thePickResult)
                     : OverlapsPoint(thePnt1, theClipRange, thePickResult));
     }
 
     const Point3d        aPnts[3] = {thePnt1, thePnt2, thePnt3};
     const Standard_Real anAlpha  = aTriangleNormal.XYZ().Dot(myViewRayDir.XYZ());
-    if (Abs(anAlpha) < gp::Resolution())
+    if (Abs(anAlpha) < gp1::Resolution())
     {
       // handle the case when triangle normal and selecting frustum direction are orthogonal
       SelectBasics_PickResult aPickResult;
@@ -771,7 +771,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsTriangle(
     }
     Standard_Integer aNearestEdgeIdx2 = (aNearestEdgeIdx1 + 1) % 3;
     const Vector3d     aVec12(aPnts[aNearestEdgeIdx1], aPnts[aNearestEdgeIdx2]);
-    if (aVec12.SquareMagnitude() > gp::Resolution()
+    if (aVec12.SquareMagnitude() > gp1::Resolution()
         && myViewRayDir.IsParallel(aVec12, Precision::Angular()))
     {
       aNearestEdgeIdx2 = aNearestEdgeIdx1 == 0 ? 2 : aNearestEdgeIdx1 - 1;
@@ -825,11 +825,11 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCylinder(
   const Point3d aPntOnCylinder = aLoc.XYZ() + aRayDir.XYZ() * aTimes[aResTime];
   if (Abs(aPntOnCylinder.Z()) < Precision::Confusion())
   {
-    thePickResult.SetSurfaceNormal(-gp::DZ().Transformed(theTrsf));
+    thePickResult.SetSurfaceNormal(-gp1::DZ().Transformed(theTrsf));
   }
   else if (Abs(aPntOnCylinder.Z() - theHeight) < Precision::Confusion())
   {
-    thePickResult.SetSurfaceNormal(gp::DZ().Transformed(theTrsf));
+    thePickResult.SetSurfaceNormal(gp1::DZ().Transformed(theTrsf));
   }
   else
   {
@@ -882,7 +882,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCircle(
   const Point3d aPntOnCircle = aLoc.XYZ() + aRayDir.XYZ() * aTime;
   if (Abs(aPntOnCircle.Z()) < Precision::Confusion())
   {
-    thePickResult.SetSurfaceNormal(-gp::DZ().Transformed(theTrsf));
+    thePickResult.SetSurfaceNormal(-gp1::DZ().Transformed(theTrsf));
   }
   else
   {

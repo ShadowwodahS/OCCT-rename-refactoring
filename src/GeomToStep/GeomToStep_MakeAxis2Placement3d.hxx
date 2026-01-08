@@ -25,12 +25,12 @@
 #include <StepData_StepModel.hxx>
 class StepGeom_Axis2Placement3d;
 class Frame3d;
-class gp_Ax3;
+class Ax3;
 class Transform3d;
 class Geom_Axis2Placement;
 
 //! This class implements the mapping between classes
-//! Axis2Placement from Geom and Ax2, Ax3 from gp, and the class
+//! Axis2Placement from Geom and Ax2, Ax3 from gp1, and the class
 //! Axis2Placement3d from StepGeom which describes an
 //! axis2_placement_3d from Prostep.
 class GeomToStep_MakeAxis2Placement3d : public Root1
@@ -46,7 +46,7 @@ public:
     const ConversionFactors& theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeAxis2Placement3d(
-    const gp_Ax3&           A,
+    const Ax3&           A,
     const ConversionFactors& theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeAxis2Placement3d(

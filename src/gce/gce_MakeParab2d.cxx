@@ -22,7 +22,7 @@
 #include <gp_Pnt2d.hxx>
 #include <StdFail_NotDone.hxx>
 
-gce_MakeParab2d::gce_MakeParab2d(const gp_Ax22d& A, const Standard_Real Focal)
+gce_MakeParab2d::gce_MakeParab2d(const Ax22d& A, const Standard_Real Focal)
 {
   if (Focal < 0.0)
   {
@@ -57,7 +57,7 @@ gce_MakeParab2d::gce_MakeParab2d(const gp_Ax2d& D, const gp_Pnt2d& F, const Stan
 }
 
 //=========================================================================
-//   Creation d une Parabole 2d de gp de centre <Center> et de sommet     +
+//   Creation d une Parabole 2d de gp1 de centre <Center> et de sommet     +
 //   <S1> .                                                               +
 //   <CenterS1> donne le grand axe .                                      +
 //   <S1> donne la focale.                                                +
@@ -67,7 +67,7 @@ gce_MakeParab2d::gce_MakeParab2d(const gp_Pnt2d&        S,
                                  const gp_Pnt2d&        Center,
                                  const Standard_Boolean Sense)
 {
-  if (S.Distance(Center) >= gp::Resolution())
+  if (S.Distance(Center) >= gp1::Resolution())
   {
     gp_Dir2d XAxis(Coords2d(S.XY() - Center.XY()));
     TheParab2d = gp_Parab2d(gp_Ax2d(Center, XAxis), S.Distance(Center), Sense);

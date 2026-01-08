@@ -530,7 +530,7 @@ void FindExactUVBounds(const TopoFace&  FF,
       //
       aC2D->D1((aT1 + aT2) / 2., aP, aV);
       Standard_Real magn = aV.SquareMagnitude();
-      if (magn < gp::Resolution())
+      if (magn < gp1::Resolution())
       {
         break;
       }
@@ -768,7 +768,7 @@ void AdjustFaceBox(const BRepAdaptor_Surface& BS,
   if (exmin > fxmin)
   {
     //
-    gp_Pln pl(gp_Ax3(Point3d(fxmin, fymin, fzmin), gp::DX()));
+    gp_Pln pl(Ax3(Point3d(fxmin, fymin, fzmin), gp1::DX()));
     Point3d aP(fxmin, fymax, fzmax);
     if (IsModifySize(BS, pl, aP, umin, umax, vmin, vmax, FClass, TolU, TolV))
     {
@@ -779,7 +779,7 @@ void AdjustFaceBox(const BRepAdaptor_Surface& BS,
   if (exmax < fxmax)
   {
     //
-    gp_Pln pl(gp_Ax3(Point3d(fxmax, fymax, fzmax), gp::DX()));
+    gp_Pln pl(Ax3(Point3d(fxmax, fymax, fzmax), gp1::DX()));
     Point3d aP(fxmax, fymin, fzmin);
     if (IsModifySize(BS, pl, aP, umin, umax, vmin, vmax, FClass, TolU, TolV))
     {
@@ -791,7 +791,7 @@ void AdjustFaceBox(const BRepAdaptor_Surface& BS,
   if (eymin > fymin)
   {
     //
-    gp_Pln pl(gp_Ax3(Point3d(fxmin, fymin, fzmin), gp::DY()));
+    gp_Pln pl(Ax3(Point3d(fxmin, fymin, fzmin), gp1::DY()));
     Point3d aP(fxmax, fymin, fzmax);
     if (IsModifySize(BS, pl, aP, umin, umax, vmin, vmax, FClass, TolU, TolV))
     {
@@ -802,7 +802,7 @@ void AdjustFaceBox(const BRepAdaptor_Surface& BS,
   if (eymax < fymax)
   {
     //
-    gp_Pln pl(gp_Ax3(Point3d(fxmax, fymax, fzmax), gp::DY()));
+    gp_Pln pl(Ax3(Point3d(fxmax, fymax, fzmax), gp1::DY()));
     Point3d aP(fxmin, fymax, fzmin);
     if (IsModifySize(BS, pl, aP, umin, umax, vmin, vmax, FClass, TolU, TolV))
     {
@@ -814,7 +814,7 @@ void AdjustFaceBox(const BRepAdaptor_Surface& BS,
   if (ezmin > fzmin)
   {
     //
-    gp_Pln pl(gp_Ax3(Point3d(fxmin, fymin, fzmin), gp::DZ()));
+    gp_Pln pl(Ax3(Point3d(fxmin, fymin, fzmin), gp1::DZ()));
     Point3d aP(fxmax, fymax, fzmin);
     if (IsModifySize(BS, pl, aP, umin, umax, vmin, vmax, FClass, TolU, TolV))
     {
@@ -825,7 +825,7 @@ void AdjustFaceBox(const BRepAdaptor_Surface& BS,
   if (ezmax < fzmax)
   {
     //
-    gp_Pln pl(gp_Ax3(Point3d(fxmax, fymax, fzmax), gp::DZ()));
+    gp_Pln pl(Ax3(Point3d(fxmax, fymax, fzmax), gp1::DZ()));
     Point3d aP(fxmin, fymin, fzmax);
     if (IsModifySize(BS, pl, aP, umin, umax, vmin, vmax, FClass, TolU, TolV))
     {

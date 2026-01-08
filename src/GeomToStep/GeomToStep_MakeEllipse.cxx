@@ -29,7 +29,7 @@
 #include <TCollection_HAsciiString.hxx>
 
 //=============================================================================
-// Creation d'une ellipse de prostep a partir d'une ellipse 3d de gp
+// Creation d'une ellipse de prostep a partir d'une ellipse 3d de gp1
 //=============================================================================
 GeomToStep_MakeEllipse::GeomToStep_MakeEllipse(const gp_Elips&         E,
                                                const ConversionFactors& theLocalFactors)

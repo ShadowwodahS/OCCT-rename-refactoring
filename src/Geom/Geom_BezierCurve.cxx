@@ -54,7 +54,7 @@ static Standard_Boolean Rational(const TColStd_Array1OfReal& W)
   Standard_Boolean rat = Standard_False;
   for (i = 1; i < n; i++)
   {
-    rat = Abs(W(i) - W(i + 1)) > gp::Resolution();
+    rat = Abs(W(i) - W(i + 1)) > gp1::Resolution();
     if (rat)
       break;
   }
@@ -99,7 +99,7 @@ BezierCurve3d::BezierCurve3d(const TColgp_Array1OfPnt&   Poles,
   Standard_Integer i;
   for (i = 1; i <= nbpoles; i++)
   {
-    if (Weights(i) <= gp::Resolution())
+    if (Weights(i) <= gp1::Resolution())
     {
       throw Standard_ConstructionError();
     }
@@ -198,7 +198,7 @@ void BezierCurve3d::InsertPoleAfter(const Standard_Integer Index,
 {
   Standard_Integer nbpoles = NbPoles();
 
-  if (nbpoles >= BezierCurve3d::MaxDegree() || Weight <= gp::Resolution())
+  if (nbpoles >= BezierCurve3d::MaxDegree() || Weight <= gp1::Resolution())
     throw Standard_ConstructionError("BezierCurve3d::InsertPoleAfter");
 
   if (Index < 0 || Index > nbpoles)
@@ -222,7 +222,7 @@ void BezierCurve3d::InsertPoleAfter(const Standard_Integer Index,
 
   // Insert the weight
   Handle(TColStd_HArray1OfReal) nweights;
-  Standard_Boolean              rat = IsRational() || Abs(Weight - 1.) > gp::Resolution();
+  Standard_Boolean              rat = IsRational() || Abs(Weight - 1.) > gp1::Resolution();
 
   if (rat)
   {
@@ -418,7 +418,7 @@ void BezierCurve3d::SetWeight(const Standard_Integer Index, const Standard_Real 
 
   if (Index < 1 || Index > nbpoles)
     throw Standard_OutOfRange("BezierCurve3d::SetWeight");
-  if (Weight <= gp::Resolution())
+  if (Weight <= gp1::Resolution())
     throw Standard_ConstructionError("BezierCurve3d::SetWeight");
 
   // compute new rationality
@@ -426,7 +426,7 @@ void BezierCurve3d::SetWeight(const Standard_Integer Index, const Standard_Real 
   if (!wasrat)
   {
     // a weight of 1. does not turn to rational
-    if (Abs(Weight - 1.) <= gp::Resolution())
+    if (Abs(Weight - 1.) <= gp1::Resolution())
       return;
 
     // set weights of 1.

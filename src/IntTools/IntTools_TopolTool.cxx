@@ -171,7 +171,7 @@ void IntTools_TopolTool::ComputeSamplePoints()
     }
     break;
     case GeomAbs_Cone: {
-      gp_Cone aCone = myS->Cone();
+      Cone1 aCone = myS->Cone();
       gp_Circ aCircle =
         ElSLib1::ConeVIso(aCone.Position(), aCone.RefRadius(), aCone.SemiAngle(), vinf);
       Standard_Real aRadius = aCircle.Radius();

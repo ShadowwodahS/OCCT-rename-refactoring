@@ -32,7 +32,7 @@ public:
   Standard_EXPORT PointOnCurve2d();
 
   //! Creation of a point on curve with a parameter
-  //! value on the curve and a Pnt from gp.
+  //! value on the curve and a Pnt from gp1.
   Standard_EXPORT PointOnCurve2d(const Standard_Real U, const gp_Pnt2d& P);
 
   //! sets the point and parameter values.

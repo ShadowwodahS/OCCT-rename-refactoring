@@ -20,6 +20,6 @@
 #include <Poly_Triangle.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Poly_Triangle> Poly_Array1OfTriangle;
+typedef NCollection_Array1<Triangle2> Poly_Array1OfTriangle;
 
 #endif

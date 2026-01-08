@@ -25,7 +25,7 @@ static Standard_Integer doDebug = 0;
 
 //=================================================================================================
 
-Poly_MakeLoops::Poly_MakeLoops(const Helper1*                            theHelper,
+LoopBuilder::LoopBuilder(const Helper1*                            theHelper,
                                const Handle(NCollection_BaseAllocator)& theAlloc)
     : myHelper(theHelper),
       myAlloc(theAlloc),
@@ -37,7 +37,7 @@ Poly_MakeLoops::Poly_MakeLoops(const Helper1*                            theHelp
 
 //=================================================================================================
 
-void Poly_MakeLoops::Reset(const Helper1*                            theHelper,
+void LoopBuilder::Reset(const Helper1*                            theHelper,
                            const Handle(NCollection_BaseAllocator)& theAlloc)
 {
   myHelper = theHelper;
@@ -49,7 +49,7 @@ void Poly_MakeLoops::Reset(const Helper1*                            theHelper,
 
 //=================================================================================================
 
-void Poly_MakeLoops::AddLink(const Link1& theLink)
+void LoopBuilder::AddLink(const Link1& theLink)
 {
   if (theLink.node1 == theLink.node2)
     return;
@@ -63,7 +63,7 @@ void Poly_MakeLoops::AddLink(const Link1& theLink)
 
 //=================================================================================================
 
-void Poly_MakeLoops::ReplaceLink(const Link1& theLink, const Link1& theNewLink)
+void LoopBuilder::ReplaceLink(const Link1& theLink, const Link1& theNewLink)
 {
   if (theNewLink.node1 == theNewLink.node2)
     return;
@@ -84,7 +84,7 @@ void Poly_MakeLoops::ReplaceLink(const Link1& theLink, const Link1& theNewLink)
 
 //=================================================================================================
 
-Poly_MakeLoops::LinkFlag Poly_MakeLoops::SetLinkOrientation(const Link1&    theLink,
+LoopBuilder::LinkFlag LoopBuilder::SetLinkOrientation(const Link1&    theLink,
                                                             const LinkFlag theOrient)
 {
   Standard_Integer aInd = myMapLink.FindIndex(theLink);
@@ -103,10 +103,10 @@ Poly_MakeLoops::LinkFlag Poly_MakeLoops::SetLinkOrientation(const Link1&    theL
 
 //=================================================================================================
 
-Poly_MakeLoops::Link1 Poly_MakeLoops::FindLink(const Link1& theLink) const
+LoopBuilder::Link1 LoopBuilder::FindLink(const Link1& theLink) const
 {
   Standard_Integer     aInd = myMapLink.FindIndex(theLink);
-  Poly_MakeLoops::Link1 aLink;
+  LoopBuilder::Link1 aLink;
   if (aInd > 0)
     aLink = myMapLink(aInd);
   return aLink;
@@ -114,7 +114,7 @@ Poly_MakeLoops::Link1 Poly_MakeLoops::FindLink(const Link1& theLink) const
 
 //=================================================================================================
 
-Standard_Integer Poly_MakeLoops::Perform()
+Standard_Integer LoopBuilder::Perform()
 {
   // prepare the set of start indices
   myStartIndices.Clear();
@@ -221,7 +221,7 @@ Standard_Integer Poly_MakeLoops::Perform()
 // what means that the contour is open
 //=======================================================================
 
-Standard_Integer Poly_MakeLoops::findContour(
+Standard_Integer LoopBuilder::findContour(
   Standard_Integer                          theIndexS,
   NCollection_IndexedMap<Standard_Integer>& theContour,
   const Handle(NCollection_BaseAllocator)&  theTempAlloc,
@@ -245,7 +245,7 @@ Standard_Integer Poly_MakeLoops::findContour(
     theTempAlloc1->Reset(false);
     NCollection_List<Standard_Integer>   aLstIndS(theTempAlloc1);
     const ListOfLink&                    aLinks = myHelper->GetAdjacentLinks(aLastNode);
-    Poly_MakeLoops::ListOfLink::Iterator itLinks(aLinks);
+    LoopBuilder::ListOfLink::Iterator itLinks(aLinks);
     for (; itLinks.More(); itLinks.Next())
     {
       Standard_Integer aInd = myMapLink.FindIndex(itLinks.Value());
@@ -318,7 +318,7 @@ Standard_Integer Poly_MakeLoops::findContour(
 // Also updates the start indices.
 //=======================================================================
 
-void Poly_MakeLoops::acceptContour(const NCollection_IndexedMap<Standard_Integer>& theContour,
+void LoopBuilder::acceptContour(const NCollection_IndexedMap<Standard_Integer>& theContour,
                                    Standard_Integer                                theStartNumber)
 {
   // append a new loop to the result
@@ -349,7 +349,7 @@ void Poly_MakeLoops::acceptContour(const NCollection_IndexedMap<Standard_Integer
 // taking into account its orientation (the sign of index)
 //=======================================================================
 
-Standard_Integer Poly_MakeLoops::getFirstNode(Standard_Integer theIndexS) const
+Standard_Integer LoopBuilder::getFirstNode(Standard_Integer theIndexS) const
 {
   Standard_Integer aIndex = Abs(theIndexS);
   const Link1&      aLink  = myMapLink(aIndex);
@@ -364,7 +364,7 @@ Standard_Integer Poly_MakeLoops::getFirstNode(Standard_Integer theIndexS) const
 // taking into account its orientation (the sign of index)
 //=======================================================================
 
-Standard_Integer Poly_MakeLoops::getLastNode(int theIndexS) const
+Standard_Integer LoopBuilder::getLastNode(int theIndexS) const
 {
   Standard_Integer aIndex = Abs(theIndexS);
   const Link1&      aLink  = myMapLink(aIndex);
@@ -379,7 +379,7 @@ Standard_Integer Poly_MakeLoops::getLastNode(int theIndexS) const
 // Also removes such links from the start indices.
 //=======================================================================
 
-void Poly_MakeLoops::markHangChain(Standard_Integer theNode, Standard_Integer theIndexS)
+void LoopBuilder::markHangChain(Standard_Integer theNode, Standard_Integer theIndexS)
 {
   Standard_Integer aNode1  = theNode;
   Standard_Integer aIndexS = theIndexS;
@@ -393,7 +393,7 @@ void Poly_MakeLoops::markHangChain(Standard_Integer theNode, Standard_Integer th
     // if the number is zero than it is hanging
     const ListOfLink&                    aLinks = myHelper->GetAdjacentLinks(aNode1);
     Standard_Integer                     nEdges = 0;
-    Poly_MakeLoops::ListOfLink::Iterator itLinks(aLinks);
+    LoopBuilder::ListOfLink::Iterator itLinks(aLinks);
     for (; itLinks.More() && nEdges == 0; itLinks.Next())
     {
       const Link1&      aL   = itLinks.Value();
@@ -454,7 +454,7 @@ void Poly_MakeLoops::markHangChain(Standard_Integer theNode, Standard_Integer th
 // Remark: A boundary edge can be taken only once
 //=======================================================================
 
-Standard_Boolean Poly_MakeLoops::canLinkBeTaken(Standard_Integer theIndexS) const
+Standard_Boolean LoopBuilder::canLinkBeTaken(Standard_Integer theIndexS) const
 {
   return myStartIndices.Contains(theIndexS);
 }
@@ -462,7 +462,7 @@ Standard_Boolean Poly_MakeLoops::canLinkBeTaken(Standard_Integer theIndexS) cons
 //=================================================================================================
 
 #ifdef OCCT_DEBUG
-void Poly_MakeLoops::showBoundaryBreaks() const
+void LoopBuilder::showBoundaryBreaks() const
 {
   // collect nodes of boundary links
   TColStd_PackedMapOfInteger aNodesMap;
@@ -487,10 +487,10 @@ void Poly_MakeLoops::showBoundaryBreaks() const
     Standard_Integer                     aNode  = it.Key();
     Standard_Integer                     nb     = 0;
     const ListOfLink&                    aLinks = myHelper->GetAdjacentLinks(aNode);
-    Poly_MakeLoops::ListOfLink::Iterator itLinks(aLinks);
+    LoopBuilder::ListOfLink::Iterator itLinks(aLinks);
     for (; itLinks.More(); itLinks.Next())
     {
-      const Poly_MakeLoops::Link1& aLink = itLinks.Value();
+      const LoopBuilder::Link1& aLink = itLinks.Value();
       if (myMapLink.FindIndex(aLink) == 0)
         continue;
       Standard_Integer aFlags = aLink.flags & LF_Both;
@@ -533,7 +533,7 @@ void Poly_MakeLoops::showBoundaryBreaks() const
 
 //=================================================================================================
 
-void Poly_MakeLoops::GetHangingLinks(ListOfLink& theLinks) const
+void LoopBuilder::GetHangingLinks(ListOfLink& theLinks) const
 {
   TColStd_MapIteratorOfPackedMapOfInteger it(myHangIndices);
   for (; it.More(); it.Next())
@@ -550,7 +550,7 @@ void Poly_MakeLoops::GetHangingLinks(ListOfLink& theLinks) const
 
 Poly_MakeLoops3D::Poly_MakeLoops3D(const Helper1*                            theHelper,
                                    const Handle(NCollection_BaseAllocator)& theAlloc)
-    : Poly_MakeLoops(theHelper, theAlloc)
+    : LoopBuilder(theHelper, theAlloc)
 {
 }
 
@@ -616,7 +616,7 @@ Standard_Integer Poly_MakeLoops3D::chooseLeftWay(
 Poly_MakeLoops2D::Poly_MakeLoops2D(const Standard_Boolean                   theLeftWay,
                                    const Helper1*                            theHelper,
                                    const Handle(NCollection_BaseAllocator)& theAlloc)
-    : Poly_MakeLoops(theHelper, theAlloc),
+    : LoopBuilder(theHelper, theAlloc),
       myRightWay(!theLeftWay)
 {
 }

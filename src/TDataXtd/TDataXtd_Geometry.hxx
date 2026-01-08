@@ -30,7 +30,7 @@ class gp_Lin;
 class gp_Circ;
 class gp_Elips;
 class gp_Pln;
-class gp_Cylinder;
+class Cylinder1;
 class Standard_GUID;
 class TDF_RelocationTable;
 
@@ -104,12 +104,12 @@ public:
   Standard_EXPORT static Standard_Boolean Plane(const Handle(ShapeAttribute)& S, gp_Pln& G);
 
   //! Returns the cylinder attribute defined by the label L and the cylinder G.
-  Standard_EXPORT static Standard_Boolean Cylinder(const DataLabel& L, gp_Cylinder& G);
+  Standard_EXPORT static Standard_Boolean Cylinder(const DataLabel& L, Cylinder1& G);
 
   //! Returns the cylinder attribute defined by the
   //! topological attribute S and the cylinder G.
   Standard_EXPORT static Standard_Boolean Cylinder(const Handle(ShapeAttribute)& S,
-                                                   gp_Cylinder&                      G);
+                                                   Cylinder1&                      G);
 
   //! Returns the GUID for geometry attributes.
   Standard_EXPORT static const Standard_GUID& GetID();

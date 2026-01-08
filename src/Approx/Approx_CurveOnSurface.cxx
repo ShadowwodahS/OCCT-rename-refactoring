@@ -620,20 +620,20 @@ Standard_Boolean Approx_CurveOnSurface::isIsoLine(const Handle(Adaptor2d_Curve2d
     return Standard_False;
 
   // Check line to be vertical or horizontal.
-  if (aDir2d.IsParallel(gp::DX2d(), Precision::Angular()))
+  if (aDir2d.IsParallel(gp1::DX2d(), Precision::Angular()))
   {
     // Horizontal line. V = const.
     theIsU       = Standard_False;
     theParam     = aLoc2d.Y();
-    theIsForward = aDir2d.Dot(gp::DX2d()) > 0.0;
+    theIsForward = aDir2d.Dot(gp1::DX2d()) > 0.0;
     return Standard_True;
   }
-  else if (aDir2d.IsParallel(gp::DY2d(), Precision::Angular()))
+  else if (aDir2d.IsParallel(gp1::DY2d(), Precision::Angular()))
   {
     // Vertical line. U = const.
     theIsU       = Standard_True;
     theParam     = aLoc2d.X();
-    theIsForward = aDir2d.Dot(gp::DY2d()) > 0.0;
+    theIsForward = aDir2d.Dot(gp1::DY2d()) > 0.0;
     return Standard_True;
   }
 

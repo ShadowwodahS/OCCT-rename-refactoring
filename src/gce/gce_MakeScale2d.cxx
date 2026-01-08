@@ -19,7 +19,7 @@
 #include <gp_Trsf2d.hxx>
 
 //=========================================================================
-//   Creation d un homothetie de gp de centre Point et de rapport Scale.  +
+//   Creation d un homothetie de gp1 de centre Point et de rapport Scale.  +
 //=========================================================================
 ScaleBuilder2d::ScaleBuilder2d(const gp_Pnt2d& Point, const Standard_Real Scale)
 {

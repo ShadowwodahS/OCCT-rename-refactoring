@@ -218,7 +218,7 @@ static Standard_Integer BUC60792(DrawInterpreter& di, Standard_Integer /*argc*/,
   Frame3d               anAx2(Point3d(0, 0, 0), Dir3d(1, 0, 0), Dir3d(0, 0, 1));
   gp_Circ              circ(anAx2, 50.0);
   Handle(GeomCircle)  gcir  = new GeomCircle(circ);
-  Handle(GeomPlane)   pln   = new GeomPlane(gp_Ax3(Point3d(0, 0, 0), Dir3d(1, 0, 0)));
+  Handle(GeomPlane)   pln   = new GeomPlane(Ax3(Point3d(0, 0, 0), Dir3d(1, 0, 0)));
   Handle(GeomCurve2d) gcir1 = GeomAPI1::To2d(gcir, pln->Pln());
   TopoShape         sh1   = EdgeMaker(gcir1, pln).Shape();
   Handle(VisualShape)    ais1  = new VisualShape(sh1);

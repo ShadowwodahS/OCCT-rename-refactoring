@@ -20,7 +20,7 @@
 #include <gp_Vec.hxx>
 
 //=========================================================================
-//   Creation d une translation 3d de gp de vecteur de translation Vec.   +
+//   Creation d une translation 3d de gp1 de vecteur de translation Vec.   +
 //=========================================================================
 TranslationBuilder::TranslationBuilder(const Vector3d& Vec)
 {
@@ -28,7 +28,7 @@ TranslationBuilder::TranslationBuilder(const Vector3d& Vec)
 }
 
 //=========================================================================
-//   Creation d une translation 3d de gp de vecteur de translation le     +
+//   Creation d une translation 3d de gp1 de vecteur de translation le     +
 //   vecteur reliant Point1 a Point2.                                     +
 //=========================================================================
 

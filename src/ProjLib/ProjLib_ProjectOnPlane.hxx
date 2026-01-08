@@ -54,13 +54,13 @@ public:
 
   //! The projection will be normal to the Plane defined
   //! by the Ax3 <Pl>.
-  Standard_EXPORT ProjLib_ProjectOnPlane(const gp_Ax3& Pl);
+  Standard_EXPORT ProjLib_ProjectOnPlane(const Ax3& Pl);
 
   //! The projection will be  along the direction <D> on
   //! the plane defined by the Ax3 <Pl>.
   //! raises  if the direction  <D>  is parallel  to the
   //! plane <Pl>.
-  Standard_EXPORT ProjLib_ProjectOnPlane(const gp_Ax3& Pl, const Dir3d& D);
+  Standard_EXPORT ProjLib_ProjectOnPlane(const Ax3& Pl, const Dir3d& D);
 
   //! Shallow copy of adaptor
   Standard_EXPORT virtual Handle(Adaptor3d_Curve) ShallowCopy() const Standard_OVERRIDE;
@@ -75,7 +75,7 @@ public:
                             const Standard_Real            Tolerance,
                             const Standard_Boolean         KeepParametrization = Standard_True);
 
-  Standard_EXPORT const gp_Ax3& GetPlane() const;
+  Standard_EXPORT const Ax3& GetPlane() const;
 
   Standard_EXPORT const Dir3d& GetDirection() const;
 
@@ -205,7 +205,7 @@ protected:
 
 private:
   Handle(Adaptor3d_Curve)   myCurve;
-  gp_Ax3                    myPlane;
+  Ax3                    myPlane;
   Dir3d                    myDirection;
   Standard_Boolean          myKeepParam;
   Standard_Real             myFirstPar;

@@ -28,7 +28,7 @@
 #include <TCollection_HAsciiString.hxx>
 
 //=============================================================================
-// Creation d' un vector de prostep a partir d' un Vec de gp
+// Creation d' un vector de prostep a partir d' un Vec de gp1
 //=============================================================================
 GeomToStep_MakeVector::GeomToStep_MakeVector(const Vector3d&           V,
                                              const ConversionFactors& theLocalFactors)
@@ -39,7 +39,7 @@ GeomToStep_MakeVector::GeomToStep_MakeVector(const Vector3d&           V,
 }
 
 //=============================================================================
-// Creation d' un vector de prostep a partir d' un Vec2d de gp
+// Creation d' un vector de prostep a partir d' un Vec2d de gp1
 //=============================================================================
 
 GeomToStep_MakeVector::GeomToStep_MakeVector(const gp_Vec2d&         V,

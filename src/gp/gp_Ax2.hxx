@@ -37,7 +37,7 @@ class Vector3d;
 //! Since an Ax2 coordinate system is right-handed, its
 //! "main Direction" is always equal to the cross product of
 //! its "X Direction" and "Y Direction". (To define a
-//! left-handed coordinate system, use gp_Ax3.)
+//! left-handed coordinate system, use Ax3.)
 //! A coordinate system is used:
 //! -   to describe geometric entities, in particular to position
 //! them. The local coordinate system of a geometric

@@ -48,12 +48,12 @@ public:
   Dir3d(const Vector3d& theV);
 
   //! Creates a direction from a triplet of coordinates. Raises ConstructionError if
-  //! theCoord.Modulus() <= Resolution from gp.
+  //! theCoord.Modulus() <= Resolution from gp1.
   Dir3d(const gp_XYZ& theCoord);
 
   //! Creates a direction with its 3 cartesian coordinates. Raises ConstructionError if
   //! Sqrt(theXv*theXv + theYv*theYv + theZv*theZv) <= Resolution Modification of the direction's
-  //! coordinates If Sqrt (theXv*theXv + theYv*theYv + theZv*theZv) <= Resolution from gp where
+  //! coordinates If Sqrt (theXv*theXv + theYv*theYv + theZv*theZv) <= Resolution from gp1 where
   //! theXv, theYv ,theZv are the new coordinates it is not possible to
   //! construct the direction and the method raises the
   //! exception ConstructionError.
@@ -70,7 +70,7 @@ public:
   //! Exceptions
   //! Standard_OutOfRange if theIndex is not 1, 2, or 3.
   //! Standard_ConstructionError if either of the following
-  //! is less than or equal to gp::Resolution():
+  //! is less than or equal to gp1::Resolution():
   //! -   Sqrt(Xv*Xv + Yv*Yv + Zv*Zv), or
   //! -   the modulus of the number triple formed by the new
   //! value theXi and the two other coordinates of this vector
@@ -167,7 +167,7 @@ public:
   //! as <theVRef> the angular value is positive else negative.
   //! Returns the angular value in the range -PI and PI (in radians). Raises  DomainError if <me>
   //! and <theOther> are not parallel this exception is raised when <theVRef> is in the same plane
-  //! as <me> and <theOther> The tolerance criterion is Resolution from package gp.
+  //! as <me> and <theOther> The tolerance criterion is Resolution from package gp1.
   Standard_EXPORT Standard_Real AngleWithRef(const Dir3d& theOther, const Dir3d& theVRef) const;
 
   //! Computes the cross product between two directions
@@ -264,7 +264,7 @@ public:
 
   Standard_EXPORT void Transform(const Transform3d& theT);
 
-  //! Transforms a direction with a "Trsf" from gp.
+  //! Transforms a direction with a "Trsf" from gp1.
   //! Warnings :
   //! If the scale factor of the "Trsf" theT is negative then the
   //! direction <me> is reversed.
@@ -299,7 +299,7 @@ inline Dir3d::Dir3d(const Vector3d& theV)
   Standard_Real aY   = aXYZ.Y();
   Standard_Real aZ   = aXYZ.Z();
   Standard_Real aD   = sqrt(aX * aX + aY * aY + aZ * aZ);
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "Dir3d() - input vector has zero norm");
   coord.SetX(aX / aD);
   coord.SetY(aY / aD);
@@ -316,7 +316,7 @@ inline Dir3d::Dir3d(const gp_XYZ& theXYZ)
   Standard_Real aY = theXYZ.Y();
   Standard_Real aZ = theXYZ.Z();
   Standard_Real aD = sqrt(aX * aX + aY * aY + aZ * aZ);
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "Dir3d() - input vector has zero norm");
   coord.SetX(aX / aD);
   coord.SetY(aY / aD);
@@ -332,7 +332,7 @@ inline Dir3d::Dir3d(const Standard_Real theXv,
                       const Standard_Real theZv)
 {
   Standard_Real aD = sqrt(theXv * theXv + theYv * theYv + theZv * theZv);
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "Dir3d() - input vector has zero norm");
   coord.SetX(theXv / aD);
   coord.SetY(theYv / aD);
@@ -363,7 +363,7 @@ inline void Dir3d::SetCoord(const Standard_Integer theIndex, const Standard_Real
     aZ = theXi;
   }
   Standard_Real aD = sqrt(aX * aX + aY * aY + aZ * aZ);
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "Dir3d::SetCoord() - result vector has zero norm");
   coord.SetX(aX / aD);
   coord.SetY(aY / aD);
@@ -379,7 +379,7 @@ inline void Dir3d::SetCoord(const Standard_Real theXv,
                              const Standard_Real theZv)
 {
   Standard_Real aD = sqrt(theXv * theXv + theYv * theYv + theZv * theZv);
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "Dir3d::SetCoord() - input vector has zero norm");
   coord.SetX(theXv / aD);
   coord.SetY(theYv / aD);
@@ -395,7 +395,7 @@ inline void Dir3d::SetX(const Standard_Real theX)
   Standard_Real anY = coord.Y();
   Standard_Real aZ  = coord.Z();
   Standard_Real aD  = sqrt(theX * theX + anY * anY + aZ * aZ);
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "Dir3d::SetX() - result vector has zero norm");
   coord.SetX(theX / aD);
   coord.SetY(anY / aD);
@@ -411,7 +411,7 @@ inline void Dir3d::SetY(const Standard_Real theY)
   Standard_Real aZ = coord.Z();
   Standard_Real aX = coord.X();
   Standard_Real aD = sqrt(aX * aX + theY * theY + aZ * aZ);
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "Dir3d::SetY() - result vector has zero norm");
   coord.SetX(aX / aD);
   coord.SetY(theY / aD);
@@ -427,7 +427,7 @@ inline void Dir3d::SetZ(const Standard_Real theZ)
   Standard_Real aX  = coord.X();
   Standard_Real anY = coord.Y();
   Standard_Real aD  = sqrt(aX * aX + anY * anY + theZ * theZ);
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "Dir3d::SetZ() - result vector has zero norm");
   coord.SetX(aX / aD);
   coord.SetY(anY / aD);
@@ -444,7 +444,7 @@ inline void Dir3d::SetXYZ(const gp_XYZ& theXYZ)
   Standard_Real anY = theXYZ.Y();
   Standard_Real aZ  = theXYZ.Z();
   Standard_Real aD  = sqrt(aX * aX + anY * anY + aZ * aZ);
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "Dir3d::SetX() - input vector has zero norm");
   coord.SetX(aX / aD);
   coord.SetY(anY / aD);
@@ -459,7 +459,7 @@ inline void Dir3d::Cross(const Dir3d& theRight)
 {
   coord.Cross(theRight.coord);
   Standard_Real aD = coord.Modulus();
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "Dir3d::Cross() - result vector has zero norm");
   coord.Divide(aD);
 }
@@ -473,7 +473,7 @@ inline Dir3d Dir3d::Crossed(const Dir3d& theRight) const
   Dir3d aV = *this;
   aV.coord.Cross(theRight.coord);
   Standard_Real aD = aV.coord.Modulus();
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "Dir3d::Crossed() - result vector has zero norm");
   aV.coord.Divide(aD);
   return aV;
@@ -487,7 +487,7 @@ inline void Dir3d::CrossCross(const Dir3d& theV1, const Dir3d& theV2)
 {
   coord.CrossCross(theV1.coord, theV2.coord);
   Standard_Real aD = coord.Modulus();
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "Dir3d::CrossCross() - result vector has zero norm");
   coord.Divide(aD);
 }
@@ -501,7 +501,7 @@ inline Dir3d Dir3d::CrossCrossed(const Dir3d& theV1, const Dir3d& theV2) const
   Dir3d aV = *this;
   (aV.coord).CrossCross(theV1.coord, theV2.coord);
   Standard_Real aD = aV.coord.Modulus();
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "Dir3d::CrossCrossed() - result vector has zero norm");
   aV.coord.Divide(aD);
   return aV;

@@ -25,7 +25,7 @@
 #include <Geom_CylindricalSurface.hxx>
 
 class Frame3d;
-class gp_Cylinder;
+class Cylinder1;
 class Point3d;
 class Axis3d;
 class gp_Circ;
@@ -72,14 +72,14 @@ public:
   Standard_EXPORT GC_MakeCylindricalSurface(const Frame3d& A2, const Standard_Real Radius);
 
   //! Creates a CylindricalSurface from a non persistent Cylinder
-  //! from package gp.
-  Standard_EXPORT GC_MakeCylindricalSurface(const gp_Cylinder& C);
+  //! from package gp1.
+  Standard_EXPORT GC_MakeCylindricalSurface(const Cylinder1& C);
 
   //! Make a CylindricalSurface from Geom <TheCylinder>
   //! parallel to another
   //! CylindricalSurface <Cylinder> and passing through a
   //! Pnt <Point>.
-  Standard_EXPORT GC_MakeCylindricalSurface(const gp_Cylinder& Cyl, const Point3d& Point);
+  Standard_EXPORT GC_MakeCylindricalSurface(const Cylinder1& Cyl, const Point3d& Point);
 
   //! Make a CylindricalSurface from Geom <TheCylinder>
   //! parallel to another
@@ -87,7 +87,7 @@ public:
   //! which can be greater or lower than zero.
   //! The radius of the result is the absolute value of the
   //! radius of <Cyl> plus <Dist>
-  Standard_EXPORT GC_MakeCylindricalSurface(const gp_Cylinder& Cyl, const Standard_Real Dist);
+  Standard_EXPORT GC_MakeCylindricalSurface(const Cylinder1& Cyl, const Standard_Real Dist);
 
   //! Make a CylindricalSurface from Geom <TheCylinder>
   //! passing through 3 Pnt <P1>,<P2>,<P3>.

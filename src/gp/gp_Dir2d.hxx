@@ -44,15 +44,15 @@ public:
   }
 
   //! Normalizes the vector theV and creates a Direction. Raises ConstructionError if
-  //! theV.Magnitude() <= Resolution from gp.
+  //! theV.Magnitude() <= Resolution from gp1.
   gp_Dir2d(const gp_Vec2d& theV);
 
   //! Creates a Direction from a doublet of coordinates. Raises ConstructionError if
-  //! theCoord.Modulus() <= Resolution from gp.
+  //! theCoord.Modulus() <= Resolution from gp1.
   gp_Dir2d(const Coords2d& theCoord);
 
   //! Creates a Direction with its 2 cartesian coordinates. Raises ConstructionError if
-  //! Sqrt(theXv*theXv + theYv*theYv) <= Resolution from gp.
+  //! Sqrt(theXv*theXv + theYv*theYv) <= Resolution from gp1.
   gp_Dir2d(const Standard_Real theXv, const Standard_Real theYv);
 
   //! For this unit vector, assigns:
@@ -65,7 +65,7 @@ public:
   //! Exceptions
   //! Standard_OutOfRange if theIndex is not 1 or 2.
   //! Standard_ConstructionError if either of the following
-  //! is less than or equal to gp::Resolution():
+  //! is less than or equal to gp1::Resolution():
   //! -   Sqrt(theXv*theXv + theYv*theYv), or
   //! -   the modulus of the number pair formed by the new
   //! value theXi and the other coordinate of this vector that
@@ -81,7 +81,7 @@ public:
   //! Exceptions
   //! Standard_OutOfRange if theIndex is not 1 or 2.
   //! Standard_ConstructionError if either of the following
-  //! is less than or equal to gp::Resolution():
+  //! is less than or equal to gp1::Resolution():
   //! -   Sqrt(theXv*theXv + theYv*theYv), or
   //! -   the modulus of the number pair formed by the new
   //! value Xi and the other coordinate of this vector that
@@ -96,7 +96,7 @@ public:
   //! implicitly modified when any single one is changed directly.
   //! Exceptions
   //! Standard_ConstructionError if either of the following
-  //! is less than or equal to gp::Resolution():
+  //! is less than or equal to gp1::Resolution():
   //! -   the modulus of Coord, or
   //! -   the modulus of the number pair formed from the new
   //! X or Y coordinate and the other coordinate of this
@@ -110,7 +110,7 @@ public:
   //! implicitly modified when any single one is changed directly.
   //! Exceptions
   //! Standard_ConstructionError if either of the following
-  //! is less than or equal to gp::Resolution():
+  //! is less than or equal to gp1::Resolution():
   //! -   the modulus of Coord, or
   //! -   the modulus of the number pair formed from the new
   //! X or Y coordinate and the other coordinate of this
@@ -125,7 +125,7 @@ public:
   //! implicitly modified when any single one is changed directly.
   //! Exceptions
   //! Standard_ConstructionError if either of the following
-  //! is less than or equal to gp::Resolution():
+  //! is less than or equal to gp1::Resolution():
   //! -   the modulus of theCoord, or
   //! -   the modulus of the number pair formed from the new
   //! X or Y coordinate and the other coordinate of this
@@ -267,7 +267,7 @@ inline gp_Dir2d::gp_Dir2d(const gp_Vec2d& theV)
   Standard_Real aX  = aXY.X();
   Standard_Real anY = aXY.Y();
   Standard_Real aD  = sqrt(aX * aX + anY * anY);
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "gp_Dir2d() - input vector has zero norm");
   coord.SetX(aX / aD);
   coord.SetY(anY / aD);
@@ -282,7 +282,7 @@ inline gp_Dir2d::gp_Dir2d(const Coords2d& theXY)
   Standard_Real aX  = theXY.X();
   Standard_Real anY = theXY.Y();
   Standard_Real aD  = sqrt(aX * aX + anY * anY);
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "gp_Dir2d() - input vector has zero norm");
   coord.SetX(aX / aD);
   coord.SetY(anY / aD);
@@ -295,7 +295,7 @@ inline gp_Dir2d::gp_Dir2d(const Coords2d& theXY)
 inline gp_Dir2d::gp_Dir2d(const Standard_Real theXv, const Standard_Real theYv)
 {
   Standard_Real aD = sqrt(theXv * theXv + theYv * theYv);
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "gp_Dir2d() - input vector has zero norm");
   coord.SetX(theXv / aD);
   coord.SetY(theYv / aD);
@@ -320,7 +320,7 @@ inline void gp_Dir2d::SetCoord(const Standard_Integer theIndex, const Standard_R
     anY = theXi;
   }
   Standard_Real aD = sqrt(aX * aX + anY * anY);
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "gp_Dir2d::SetCoord() - result vector has zero norm");
   coord.SetX(aX / aD);
   coord.SetY(anY / aD);
@@ -333,7 +333,7 @@ inline void gp_Dir2d::SetCoord(const Standard_Integer theIndex, const Standard_R
 inline void gp_Dir2d::SetCoord(const Standard_Real theXv, const Standard_Real theYv)
 {
   Standard_Real aD = sqrt(theXv * theXv + theYv * theYv);
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "gp_Dir2d::SetCoord() - result vector has zero norm");
   coord.SetX(theXv / aD);
   coord.SetY(theYv / aD);
@@ -347,7 +347,7 @@ inline void gp_Dir2d::SetX(const Standard_Real theX)
 {
   Standard_Real anY = coord.Y();
   Standard_Real aD  = sqrt(theX * theX + anY * anY);
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "gp_Dir2d::SetX() - result vector has zero norm");
   coord.SetX(theX / aD);
   coord.SetY(anY / aD);
@@ -361,7 +361,7 @@ inline void gp_Dir2d::SetY(const Standard_Real theY)
 {
   Standard_Real aX = coord.X();
   Standard_Real aD = sqrt(aX * aX + theY * theY);
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "gp_Dir2d::SetY() - result vector has zero norm");
   coord.SetX(aX / aD);
   coord.SetY(theY / aD);
@@ -376,7 +376,7 @@ inline void gp_Dir2d::SetXY(const Coords2d& theXY)
   Standard_Real aX  = theXY.X();
   Standard_Real anY = theXY.Y();
   Standard_Real aD  = sqrt(aX * aX + anY * anY);
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "gp_Dir2d::SetZ() - result vector has zero norm");
   coord.SetX(aX / aD);
   coord.SetY(anY / aD);

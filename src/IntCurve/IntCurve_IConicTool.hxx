@@ -32,7 +32,7 @@ class gp_Pnt2d;
 class gp_Vec2d;
 
 //! Implementation of the ImpTool from IntImpParGen1
-//! for conics of gp.
+//! for conics of gp1.
 class ConicTool
 {
 public:
@@ -76,7 +76,7 @@ private:
   Standard_Real     prm1;
   Standard_Real     prm2;
   Standard_Real     prm3;
-  gp_Ax22d          Axis;
+  Ax22d          Axis;
   GeomAbs_CurveType type;
   gp_Trsf2d         Abs_To_Object;
 };

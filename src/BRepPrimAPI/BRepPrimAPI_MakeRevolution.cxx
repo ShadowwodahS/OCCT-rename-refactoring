@@ -25,7 +25,7 @@
 
 //=================================================================================================
 
-static Handle(GeomCurve2d) Project(const Handle(GeomCurve3d)& M, const gp_Ax3& Axis)
+static Handle(GeomCurve2d) Project(const Handle(GeomCurve3d)& M, const Ax3& Axis)
 {
   Handle(GeomCurve2d) C;
   C = GeomProjLib1::Curve2d(M, new GeomPlane(Axis));
@@ -34,13 +34,13 @@ static Handle(GeomCurve2d) Project(const Handle(GeomCurve3d)& M, const gp_Ax3& A
 
 static Handle(GeomCurve2d) Project(const Handle(GeomCurve3d)& M)
 {
-  return Project(M, Frame3d(gp::Origin(), -gp::DY(), gp::DX()));
+  return Project(M, Frame3d(gp1::Origin(), -gp1::DY(), gp1::DX()));
 }
 
 //=================================================================================================
 
 BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Handle(GeomCurve3d)& Meridian)
-    : myRevolution(gp::XOY(),
+    : myRevolution(gp1::XOY(),
                    Meridian->FirstParameter(),
                    Meridian->LastParameter(),
                    Meridian,

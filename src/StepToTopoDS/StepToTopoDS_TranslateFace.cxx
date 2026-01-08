@@ -171,7 +171,7 @@ static void SetTriangles(const Handle(MeshTriangulation)&         theMesh,
     for (Standard_Integer aTrianIndex = 1; aTrianIndex <= theMesh->NbTriangles(); ++aTrianIndex)
     {
       theMesh->SetTriangle(aTrianIndex,
-                           Poly_Triangle(theTriangles->Value(aTrianIndex, 1),
+                           Triangle2(theTriangles->Value(aTrianIndex, 1),
                                          theTriangles->Value(aTrianIndex, 2),
                                          theTriangles->Value(aTrianIndex, 3)));
     }
@@ -190,7 +190,7 @@ static void SetTriangles(const Handle(MeshTriangulation)&         theMesh,
             && aTriangleStrip->Value(anIndex) != aTriangleStrip->Value(anIndex - 1))
         {
           theMesh->SetTriangle(aTriangleIndex++,
-                               Poly_Triangle(aTriangleStrip->Value(anIndex - 2),
+                               Triangle2(aTriangleStrip->Value(anIndex - 2),
                                              aTriangleStrip->Value(anIndex),
                                              aTriangleStrip->Value(anIndex - 1)));
         }
@@ -201,7 +201,7 @@ static void SetTriangles(const Handle(MeshTriangulation)&         theMesh,
             && aTriangleStrip->Value(anIndex) != aTriangleStrip->Value(anIndex - 1))
         {
           theMesh->SetTriangle(aTriangleIndex++,
-                               Poly_Triangle(aTriangleStrip->Value(anIndex - 2),
+                               Triangle2(aTriangleStrip->Value(anIndex - 2),
                                              aTriangleStrip->Value(anIndex - 1),
                                              aTriangleStrip->Value(anIndex)));
         }
@@ -217,7 +217,7 @@ static void SetTriangles(const Handle(MeshTriangulation)&         theMesh,
             && aTriangleFan->Value(anIndex - 1) != aTriangleFan->Value(anIndex - 2))
         {
           theMesh->SetTriangle(aTriangleIndex++,
-                               Poly_Triangle(aTriangleFan->Value(1),
+                               Triangle2(aTriangleFan->Value(1),
                                              aTriangleFan->Value(anIndex),
                                              aTriangleFan->Value(anIndex - 1)));
         }

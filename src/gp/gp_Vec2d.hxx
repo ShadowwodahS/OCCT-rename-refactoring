@@ -104,7 +104,7 @@ public:
   //! Returns True if abs(Abs(<me>.Angle(theOther)) - PI/2.)
   //! <= theAngularTolerance
   //! Raises VectorWithNullMagnitude if <me>.Magnitude() <= Resolution or
-  //! theOther.Magnitude() <= Resolution from gp.
+  //! theOther.Magnitude() <= Resolution from gp1.
   Standard_Boolean IsNormal(const gp_Vec2d& theOther, const Standard_Real theAngularTolerance) const
   {
     const Standard_Real anAng = Abs(M_PI_2 - Abs(Angle(theOther)));
@@ -113,7 +113,7 @@ public:
 
   //! Returns True if PI - Abs(<me>.Angle(theOther)) <= theAngularTolerance
   //! Raises VectorWithNullMagnitude if <me>.Magnitude() <= Resolution or
-  //! theOther.Magnitude() <= Resolution from gp.
+  //! theOther.Magnitude() <= Resolution from gp1.
   Standard_Boolean IsOpposite(const gp_Vec2d&     theOther,
                               const Standard_Real theAngularTolerance) const;
 
@@ -121,7 +121,7 @@ public:
   //! PI - Abs(Angle(<me>, theOther)) <= theAngularTolerance
   //! Two vectors with opposite directions are considered as parallel.
   //! Raises VectorWithNullMagnitude if <me>.Magnitude() <= Resolution or
-  //! theOther.Magnitude() <= Resolution from gp
+  //! theOther.Magnitude() <= Resolution from gp1
   Standard_Boolean IsParallel(const gp_Vec2d&     theOther,
                               const Standard_Real theAngularTolerance) const;
 
@@ -129,7 +129,7 @@ public:
   //! returns the angle value between -PI and PI in radian.
   //! The orientation is from <me> to theOther. The positive sense is the
   //! trigonometric sense.
-  //! Raises VectorWithNullMagnitude if <me>.Magnitude() <= Resolution from gp or
+  //! Raises VectorWithNullMagnitude if <me>.Magnitude() <= Resolution from gp1 or
   //! theOther.Magnitude() <= Resolution because the angular value is
   //! indefinite if one of the vectors has a null magnitude.
   Standard_EXPORT Standard_Real Angle(const gp_Vec2d& theOther) const;
@@ -209,7 +209,7 @@ public:
 
   //! Normalizes a vector
   //! Raises an exception if the magnitude of the vector is
-  //! lower or equal to Resolution from package gp.
+  //! lower or equal to Resolution from package gp1.
   Standard_NODISCARD gp_Vec2d Multiplied(const Standard_Real theScalar) const
   {
     gp_Vec2d aV = *this;
@@ -225,14 +225,14 @@ public:
   void Normalize()
   {
     Standard_Real aD = coord.Modulus();
-    Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+    Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                         "gp_Vec2d::Normalize() - vector has zero norm");
     coord.Divide(aD);
   }
 
   //! Normalizes a vector
   //! Raises an exception if the magnitude of the vector is
-  //! lower or equal to Resolution from package gp.
+  //! lower or equal to Resolution from package gp1.
   //! Reverses the direction of a vector
   Standard_NODISCARD gp_Vec2d Normalized() const;
 
@@ -341,7 +341,7 @@ public:
 
   Standard_EXPORT void Transform(const gp_Trsf2d& theT);
 
-  //! Transforms a vector with a Trsf from gp.
+  //! Transforms a vector with a Trsf from gp1.
   Standard_NODISCARD gp_Vec2d Transformed(const gp_Trsf2d& theT) const
   {
     gp_Vec2d aV = *this;
@@ -412,7 +412,7 @@ inline Standard_Boolean gp_Vec2d::IsParallel(const gp_Vec2d&     theOther,
 inline gp_Vec2d gp_Vec2d::Normalized() const
 {
   Standard_Real aD = coord.Modulus();
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "gp_Vec2d::Normalized() - vector has zero norm");
   gp_Vec2d aV = *this;
   aV.coord.Divide(aD);

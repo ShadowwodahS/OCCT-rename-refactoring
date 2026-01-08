@@ -674,7 +674,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
         if (SError <= TolProd)
         {
           Ok = Standard_True;
-          gp_Ax3 axe(C.Location(), DP, C.Position().XDirection());
+          Ax3 axe(C.Location(), DP, C.Position().XDirection());
           S = new (Geom_CylindricalSurface)(axe, C.Radius());
           if (C.Position().Direction().IsOpposite(axe.Direction(), 0.1))
           {
@@ -757,7 +757,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
         if (R2 < R1)
           Angle = -Angle;
         SError = error;
-        gp_Ax3 Axis(Centre0, Dir, N);
+        Ax3 Axis(Centre0, Dir, N);
         S = new (Geom_ConicalSurface)(Axis, Angle, C.Radius());
         // Calcul du glissement parametrique
         VFirst = First / Cos(Angle);
@@ -881,7 +881,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
             Standard_Real f = UFirst, l = ULast, aRadius = 0.0;
             SError = error;
             Centre.BaryCenter(1.0, C.Location(), 1.0);
-            gp_Ax3 AxisOfSphere(Centre, DN, DS);
+            Ax3 AxisOfSphere(Centre, DN, DS);
             aRadius = C.Radius();
             gp_Sphere theSphere(AxisOfSphere, aRadius);
             S = new Geom_SphericalSurface(theSphere);
@@ -934,7 +934,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
           else if (IsGoodSide)
           {
             // (2.1.b) Tore
-            gp_Ax3 AxisOfTore(Centre, DN, DC);
+            Ax3 AxisOfTore(Centre, DN, DC);
             S = new (Geom_ToroidalSurface)(AxisOfTore, Radius, C.Radius());
 
             // Pour les tores on ne peut pas controler le parametre
@@ -1008,8 +1008,8 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
             // si la line est orthogonale au plan de rotation
             SError = error;
             //
-            gp_Ax3 Axis(CentreOfSurf, Dir.Direction());
-            if (DS.SquareMagnitude() > gp::Resolution())
+            Ax3 Axis(CentreOfSurf, Dir.Direction());
+            if (DS.SquareMagnitude() > gp1::Resolution())
             {
               Axis.SetXDirection(DS);
             }
@@ -1035,7 +1035,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
               // (2.2.b) Cone
               // si les 2 droites ne sont pas orthogonales
               Standard_Real Radius = CentreOfSurf.Distance(L.Location());
-              gp_Ax3        Axis(CentreOfSurf, Dir.Direction(), DS);
+              Ax3        Axis(CentreOfSurf, Dir.Direction(), DS);
               S        = new (Geom_ConicalSurface)(Axis, Angle, Radius);
               myExchUV = Standard_True;
               Ok       = Standard_True;

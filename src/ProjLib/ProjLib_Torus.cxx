@@ -163,7 +163,7 @@ void ProjLib_Torus::Project(const gp_Circ& C)
     gp_Pnt2d P1(U, V1);
 
     // Direction de la droite
-    gp_Dir2d D2 = gp::DY2d();
+    gp_Dir2d D2 = gp1::DY2d();
     if (((OC ^ Zt) * (Xc ^ Yc)) < 0.)
     {
       D2.Reverse();

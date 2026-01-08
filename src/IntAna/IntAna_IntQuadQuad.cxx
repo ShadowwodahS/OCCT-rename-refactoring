@@ -353,7 +353,7 @@ QuadQuadIntersection::QuadQuadIntersection(void)
 // function : QuadQuadIntersection::QuadQuadIntersection
 // purpose  : I n t e r s e c t i o n   C y l i n d r e   Q u a d r i q u e
 //=======================================================================
-QuadQuadIntersection::QuadQuadIntersection(const gp_Cylinder&    Cyl,
+QuadQuadIntersection::QuadQuadIntersection(const Cylinder1&    Cyl,
                                        const Quadric2& Quad,
                                        const Standard_Real   Tol)
 {
@@ -367,7 +367,7 @@ QuadQuadIntersection::QuadQuadIntersection(const gp_Cylinder&    Cyl,
 // function : Perform
 // purpose  : I n t e r s e c t i o n   C y l i n d r e   Q u a d r i q u e
 //=======================================================================
-void QuadQuadIntersection::Perform(const gp_Cylinder&    Cyl,
+void QuadQuadIntersection::Perform(const Cylinder1&    Cyl,
                                  const Quadric2& Quad,
                                  const Standard_Real)
 {
@@ -823,7 +823,7 @@ void QuadQuadIntersection::Perform(const gp_Cylinder&    Cyl,
 
 //=================================================================================================
 
-QuadQuadIntersection::QuadQuadIntersection(const gp_Cone&        Cone,
+QuadQuadIntersection::QuadQuadIntersection(const Cone1&        Cone,
                                        const Quadric2& Quad,
                                        const Standard_Real   Tol)
 {
@@ -835,7 +835,7 @@ QuadQuadIntersection::QuadQuadIntersection(const gp_Cone&        Cone,
 
 //=================================================================================================
 
-void QuadQuadIntersection::Perform(const gp_Cone&        Cone,
+void QuadQuadIntersection::Perform(const Cone1&        Cone,
                                  const Quadric2& Quad,
                                  const Standard_Real)
 {
@@ -864,7 +864,7 @@ void QuadQuadIntersection::Perform(const gp_Cone&        Cone,
   //
   Quad.Coefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, Q1);
   //
-  gp_Ax3 tAx3(Cone.Position());
+  Ax3 tAx3(Cone.Position());
   tAx3.SetLocation(Cone.Apex());
   Quad.NewCoefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, Q1, tAx3);
   //

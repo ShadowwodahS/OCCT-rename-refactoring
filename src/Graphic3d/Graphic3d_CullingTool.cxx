@@ -117,7 +117,7 @@ Standard_Real Graphic3d_CullingTool::SignedPlanePointDistance(const Graphic3d_Ve
   const Standard_Real aNormLength = std::sqrt(
     theNormal.x() * theNormal.x() + theNormal.y() * theNormal.y() + theNormal.z() * theNormal.z());
 
-  if (aNormLength < gp::Resolution())
+  if (aNormLength < gp1::Resolution())
     return 0.0;
 
   const Standard_Real anInvNormLength = 1.0 / aNormLength;

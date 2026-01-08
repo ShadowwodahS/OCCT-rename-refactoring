@@ -159,7 +159,7 @@ static void Print(const Handle(Geom_CylindricalSurface)& S,
   else
     OS << "CylindricalSurface";
 
-  gp_Cylinder P = S->Cylinder();
+  Cylinder1 P = S->Cylinder();
   if (!compact)
     OS << "\n  Origin :";
   Print(P.Location(), OS, compact);
@@ -191,7 +191,7 @@ static void Print(const Handle(Geom_ConicalSurface)& S,
   else
     OS << "ConicalSurface";
 
-  gp_Cone P = S->Cone();
+  Cone1 P = S->Cone();
   if (!compact)
     OS << "\n  Origin :";
   Print(P.Location(), OS, compact);
@@ -661,12 +661,12 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Dir3d& D)
 
 //=================================================================================================
 
-static Standard_IStream& operator>>(Standard_IStream& IS, gp_Ax3& A3)
+static Standard_IStream& operator>>(Standard_IStream& IS, Ax3& A3)
 {
   Point3d P(0., 0., 0.);
   Dir3d A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
   IS >> P >> A >> AX >> AY;
-  gp_Ax3 ax3(P, A, AX);
+  Ax3 ax3(P, A, AX);
   if (AY.DotCross(A, AX) < 0)
     ax3.YReverse();
   A3 = ax3;
@@ -680,7 +680,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, gp_Ax3& A3)
 
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(GeomPlane)& S)
 {
-  gp_Ax3 A;
+  Ax3 A;
   IS >> A;
   S = new GeomPlane(A);
   return IS;
@@ -693,7 +693,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(GeomPlane)& S)
 
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_CylindricalSurface)& S)
 {
-  gp_Ax3        A;
+  Ax3        A;
   Standard_Real R = 0.;
   IS >> A;
   GeomTools1::GetReal(IS, R);
@@ -708,7 +708,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Cylindrica
 
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_ConicalSurface)& S)
 {
-  gp_Ax3        A;
+  Ax3        A;
   Standard_Real R = 0., Ang = 0.;
   IS >> A;
   GeomTools1::GetReal(IS, R);
@@ -724,7 +724,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_ConicalSur
 
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_SphericalSurface)& S)
 {
-  gp_Ax3        A;
+  Ax3        A;
   Standard_Real R = 0.;
   IS >> A;
   GeomTools1::GetReal(IS, R);
@@ -739,7 +739,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_SphericalS
 
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_ToroidalSurface)& S)
 {
-  gp_Ax3        A;
+  Ax3        A;
   Standard_Real R1 = 0., R2 = 0.;
   IS >> A;
   GeomTools1::GetReal(IS, R1);

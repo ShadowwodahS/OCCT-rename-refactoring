@@ -1739,7 +1739,7 @@ Standard_Boolean HLRBRep_Data::OrientOutLine(const Standard_Integer I, HLRBRep_F
             Pt.Transform(T);
             Nm.Transform(T);
             Nm.Cross(Tg);
-            if (Tg.Magnitude() < gp::Resolution())
+            if (Tg.Magnitude() < gp1::Resolution())
             {
 #ifdef OCCT_DEBUG
               std::cout << "HLRBRep_Data::OrientOutLine " << I;

@@ -1880,7 +1880,7 @@ Standard_Boolean BSplCLib1::PrepareInsertKnots(const Standard_Integer         De
   {
     // gka for case when segments was produced on full period only one knot
     // was added in the end of curve
-    if (fabs(adeltaK1) <= gp::Resolution() && fabs(adeltaK2) <= gp::Resolution())
+    if (fabs(adeltaK1) <= gp1::Resolution() && fabs(adeltaK2) <= gp1::Resolution())
       ak++;
   }
 

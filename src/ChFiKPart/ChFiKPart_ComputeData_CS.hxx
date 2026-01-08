@@ -28,7 +28,7 @@ void ChFiKPart_CornerSpine(const Handle(Adaptor3d_Surface)& S1,
                            const gp_Pnt2d&                  P1S2,
                            const gp_Pnt2d&                  P2S2,
                            const Standard_Real              R,
-                           gp_Cylinder&                     cyl,
+                           Cylinder1&                     cyl,
                            gp_Circ&                         circ,
                            Standard_Real&                   First,
                            Standard_Real&                   Last);

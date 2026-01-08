@@ -39,8 +39,8 @@
 //! ^ is the cross product of two vectors, and ||P1P2||
 //! the magnitude of the vector P1P2.
 //!
-//! The conditions AngularDeflection > gp::Resolution()
-//! and CurvatureDeflection > gp::Resolution() must be
+//! The conditions AngularDeflection > gp1::Resolution()
+//! and CurvatureDeflection > gp1::Resolution() must be
 //! satisfied at the construction time.
 //!
 //! A minimum number of points can be fixed for a linear or circular element.

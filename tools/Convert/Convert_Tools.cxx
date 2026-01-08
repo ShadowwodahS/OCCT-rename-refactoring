@@ -74,7 +74,7 @@ void Convert_Tools::ConvertStreamToPresentations(
   Dir3d aDir;
   if (aDir.InitFromJson(theSStream, aStartPos))
   {
-    gp_Lin            aLin(gp::Origin(), aDir);
+    gp_Lin            aLin(gp1::Origin(), aDir);
     Handle(GeomLine) aGeomLine = new GeomLine(aLin);
     CreatePresentation(aGeomLine, thePresentations);
     return;
@@ -83,12 +83,12 @@ void Convert_Tools::ConvertStreamToPresentations(
   Frame3d anAx2;
   if (anAx2.InitFromJson(theSStream, aStartPos))
   {
-    Handle(GeomPlane) aGeomPlane = new GeomPlane(gp_Ax3(anAx2));
+    Handle(GeomPlane) aGeomPlane = new GeomPlane(Ax3(anAx2));
     CreatePresentation(aGeomPlane, thePresentations);
     return;
   }
 
-  gp_Ax3 anAx3; // should be after Frame3d
+  Ax3 anAx3; // should be after Frame3d
   if (anAx3.InitFromJson(theSStream, aStartPos))
   {
     Handle(GeomPlane) aGeomPlane = new GeomPlane(anAx3);
@@ -96,7 +96,7 @@ void Convert_Tools::ConvertStreamToPresentations(
     return;
   }
 
-  // should be after gp_Ax3
+  // should be after Ax3
   Axis3d anAxis;
   if (anAxis.InitFromJson(theSStream, aStartPos))
   {

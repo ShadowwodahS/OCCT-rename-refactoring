@@ -24,7 +24,7 @@ GCPnts_DistFunction2d::GCPnts_DistFunction2d(const Adaptor2d_Curve2d& theCurve,
       myU2(U2)
 {
   gp_Pnt2d P2d1 = theCurve.Value(U1), P2d2 = theCurve.Value(U2);
-  if (P2d1.SquareDistance(P2d2) > gp::Resolution())
+  if (P2d1.SquareDistance(P2d2) > gp1::Resolution())
   {
     myLin = gp_Lin2d(P2d1, P2d2.XY() - P2d1.XY());
   }

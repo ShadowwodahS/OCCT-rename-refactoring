@@ -966,7 +966,7 @@ void BooleanPaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB,
       // Tangent vector in the middle point
       Vector3d aVETgt;
       aBAC.D1(AlgoTools2D::IntermediatePoint(aTS[0], aTS[1]), aPOnE, aVETgt);
-      if (aVETgt.SquareMagnitude() < gp::Resolution())
+      if (aVETgt.SquareMagnitude() < gp1::Resolution())
         continue;
 
       aProjPS.Perform(aPOnE);
@@ -997,7 +997,7 @@ void BooleanPaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB,
       {
         Point3d aPOnS = aProjPS.NearestPoint();
         Vector3d aVFNorm(aPOnS, aPOnE);
-        if (aVFNorm.SquareMagnitude() > gp::Resolution())
+        if (aVFNorm.SquareMagnitude() > gp1::Resolution())
         {
           // Angle between vectors should be close to 90 degrees.
           // We allow deviation of 25 degrees.

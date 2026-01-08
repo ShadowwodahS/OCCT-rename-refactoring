@@ -27,7 +27,7 @@ std::pair<Standard_Real, Standard_Real> BRepMesh_ConeRangeSplitter::GetSplitStep
   const std::pair<Standard_Real, Standard_Real>& aRangeU = GetRangeU();
   const std::pair<Standard_Real, Standard_Real>& aRangeV = GetRangeV();
 
-  gp_Cone       aCone = GetDFace()->GetSurface()->Cone();
+  Cone1       aCone = GetDFace()->GetSurface()->Cone();
   Standard_Real aRefR = aCone.RefRadius();
   Standard_Real aSAng = aCone.SemiAngle();
   Standard_Real aRadius =

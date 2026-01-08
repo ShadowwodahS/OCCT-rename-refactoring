@@ -15,7 +15,7 @@
 
 //=================================================================================================
 
-Poly_ArrayOfUVNodes::Poly_ArrayOfUVNodes(const Poly_ArrayOfUVNodes& theOther)
+UVNodeArray::UVNodeArray(const UVNodeArray& theOther)
     : NCollection_AliasedArray(theOther)
 {
   //
@@ -23,14 +23,14 @@ Poly_ArrayOfUVNodes::Poly_ArrayOfUVNodes(const Poly_ArrayOfUVNodes& theOther)
 
 //=================================================================================================
 
-Poly_ArrayOfUVNodes::~Poly_ArrayOfUVNodes()
+UVNodeArray::~UVNodeArray()
 {
   //
 }
 
 //=================================================================================================
 
-Poly_ArrayOfUVNodes& Poly_ArrayOfUVNodes::Assign(const Poly_ArrayOfUVNodes& theOther)
+UVNodeArray& UVNodeArray::Assign(const UVNodeArray& theOther)
 {
   if (&theOther == this)
   {
@@ -47,7 +47,7 @@ Poly_ArrayOfUVNodes& Poly_ArrayOfUVNodes::Assign(const Poly_ArrayOfUVNodes& theO
   // slow copy
   if (mySize != theOther.mySize)
   {
-    throw Standard_DimensionMismatch("Poly_ArrayOfUVNodes::Assign(), arrays have different sizes");
+    throw Standard_DimensionMismatch("UVNodeArray::Assign(), arrays have different sizes");
   }
   for (int anIter = 0; anIter < mySize; ++anIter)
   {

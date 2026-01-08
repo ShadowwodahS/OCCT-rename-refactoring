@@ -130,14 +130,14 @@ public:
   //! Is the surface closed in the parametric direction U ?
   //! Returns True if for each parameter V  the distance
   //! between the point P (UFirst, V) and P (ULast, V) is
-  //! lower or equal to Resolution from gp.  UFirst and ULast
+  //! lower or equal to Resolution from gp1.  UFirst and ULast
   //! are the parametric bounds in the U direction.
   Standard_EXPORT Standard_Boolean IsUClosed() const Standard_OVERRIDE;
 
   //! Is the surface closed in the parametric direction V ?
   //! Returns True if for each parameter U  the distance
   //! between the point P (U, VFirst) and  P (U, VLast) is
-  //! lower or equal to Resolution from gp.  VFirst and VLast
+  //! lower or equal to Resolution from gp1.  VFirst and VLast
   //! are the parametric bounds in the V direction.
   Standard_EXPORT Standard_Boolean IsVClosed() const Standard_OVERRIDE;
 
@@ -148,7 +148,7 @@ public:
   //! satisfied :
   //! for each parameter V the distance between the point
   //! P (U, V)  and the point  P (U + T, V) is lower or equal
-  //! to Resolution from package gp. T is the parametric period
+  //! to Resolution from package gp1. T is the parametric period
   //! and must be a constant.
   Standard_EXPORT Standard_Boolean IsUPeriodic() const Standard_OVERRIDE;
 
@@ -163,7 +163,7 @@ public:
   //! satisfied :
   //! for each parameter V the distance between the point
   //! P (U, V)  and the point  P (U + T, V) is lower or equal
-  //! to Resolution from package gp. T is the parametric period
+  //! to Resolution from package gp1. T is the parametric period
   //! and must be a constant.
   Standard_EXPORT Standard_Boolean IsVPeriodic() const Standard_OVERRIDE;
 

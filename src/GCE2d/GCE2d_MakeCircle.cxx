@@ -44,7 +44,7 @@ GCE2d_MakeCircle::GCE2d_MakeCircle(const gp_Ax2d&         A,
   }
 }
 
-GCE2d_MakeCircle::GCE2d_MakeCircle(const gp_Ax22d& A, const Standard_Real Radius)
+GCE2d_MakeCircle::GCE2d_MakeCircle(const Ax22d& A, const Standard_Real Radius)
 {
   if (Radius < 0.0)
   {

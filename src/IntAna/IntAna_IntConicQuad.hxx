@@ -31,17 +31,17 @@ class gp_Hypr;
 class gp_Pln;
 
 //! This class provides the analytic intersection between
-//! a conic defined as an element of gp (Lin,Circ,Elips,
+//! a conic defined as an element of gp1 (Lin,Circ,Elips,
 //! Parab,Hypr) and a quadric as defined in the class
 //! Quadric from IntAna.
 //! The intersection between a conic and a plane is treated
 //! as a special case.
 //!
 //! The result of the intersection are points (Pnt from
-//! gp), associated with the parameter on the conic.
+//! gp1), associated with the parameter on the conic.
 //!
-//! A call to an Intersection  L:Lin from gp and
-//! SPH: Sphere from gp can be written either :
+//! A call to an Intersection  L:Lin from gp1 and
+//! SPH: Sphere from gp1 can be written either :
 //! ConicQuadIntersection Inter(L,Quadric2(SPH))
 //! or :
 //! ConicQuadIntersection Inter(L,SPH) (it is necessary

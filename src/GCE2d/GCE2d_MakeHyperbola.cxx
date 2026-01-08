@@ -42,7 +42,7 @@ GCE2d_MakeHyperbola::GCE2d_MakeHyperbola(const gp_Ax2d&         MajorAxis,
   }
 }
 
-GCE2d_MakeHyperbola::GCE2d_MakeHyperbola(const gp_Ax22d&     Axis,
+GCE2d_MakeHyperbola::GCE2d_MakeHyperbola(const Ax22d&     Axis,
                                          const Standard_Real MajorRadius,
                                          const Standard_Real MinorRadius)
 {

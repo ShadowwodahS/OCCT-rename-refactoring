@@ -91,7 +91,7 @@ static void ComputeTrsf(const TopoWire& W, const Dir3d& D, Box2& Box1, Transform
   Bary /= nb;
 
   // Calculate the Transformation
-  gp_Ax3 N(Bary, D);
+  Ax3 N(Bary, D);
   Tf.SetTransformation(N);
   BRepAdaptor_Curve AC;
   //  Add3dCurve BC;
@@ -474,7 +474,7 @@ void BRepFill_Draft::Init(const Handle(GeomSurface)&,
 #ifdef DRAW
   if (Affich > 2)
   {
-    TC = new (GeomCircle)(gp::XOY(), Length);
+    TC = new (GeomCircle)(gp1::XOY(), Length);
   }
 #endif
 

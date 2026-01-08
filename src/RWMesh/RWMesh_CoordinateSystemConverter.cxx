@@ -33,9 +33,9 @@ RWMesh_CoordinateSystemConverter::RWMesh_CoordinateSystemConverter()
 
 //=================================================================================================
 
-void RWMesh_CoordinateSystemConverter::Init(const gp_Ax3& theInputSystem,
+void RWMesh_CoordinateSystemConverter::Init(const Ax3& theInputSystem,
                                             Standard_Real theInputLengthUnit,
-                                            const gp_Ax3& theOutputSystem,
+                                            const Ax3& theOutputSystem,
                                             Standard_Real theOutputLengthUnit)
 {
   myInputLengthUnit  = theInputLengthUnit;
@@ -45,7 +45,7 @@ void RWMesh_CoordinateSystemConverter::Init(const gp_Ax3& theInputSystem,
   if (theInputLengthUnit > 0.0 && theOutputLengthUnit > 0.0)
   {
     myUnitFactor = theInputLengthUnit / theOutputLengthUnit;
-    myHasScale   = Abs(myUnitFactor - 1.0) > gp::Resolution();
+    myHasScale   = Abs(myUnitFactor - 1.0) > gp1::Resolution();
   }
   else
   {
@@ -57,7 +57,7 @@ void RWMesh_CoordinateSystemConverter::Init(const gp_Ax3& theInputSystem,
   if (myHasInputAx3 && myHasOutputAx3)
   {
     aTrsf.SetTransformation(theOutputSystem, theInputSystem);
-    if (aTrsf.TranslationPart().IsEqual(gp_XYZ(0.0, 0.0, 0.0), gp::Resolution())
+    if (aTrsf.TranslationPart().IsEqual(gp_XYZ(0.0, 0.0, 0.0), gp1::Resolution())
         && aTrsf.GetRotation().IsEqual(gp_Quaternion()))
     {
       aTrsf = Transform3d();

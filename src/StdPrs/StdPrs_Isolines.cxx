@@ -43,12 +43,12 @@ namespace
 {
 const gp_Lin2d isoU(const Standard_Real theU)
 {
-  return gp_Lin2d(gp_Pnt2d(theU, 0.0), gp::DY2d());
+  return gp_Lin2d(gp_Pnt2d(theU, 0.0), gp1::DY2d());
 }
 
 const gp_Lin2d isoV(const Standard_Real theV)
 {
-  return gp_Lin2d(gp_Pnt2d(0.0, theV), gp::DX2d());
+  return gp_Lin2d(gp_Pnt2d(0.0, theV), gp1::DX2d());
 }
 
 typedef NCollection_Shared<NCollection_Vector<StdPrs_Isolines::SegOnIso>> VecOfSegments;

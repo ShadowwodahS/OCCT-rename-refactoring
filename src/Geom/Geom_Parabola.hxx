@@ -99,7 +99,7 @@ public:
   //! Converts the gp_Parab parabola Prb into this parabola.
   Standard_EXPORT void SetParab(const gp_Parab& Prb);
 
-  //! Returns the non transient parabola from gp with the same
+  //! Returns the non transient parabola from gp1 with the same
   //! geometric properties as <me>.
   Standard_EXPORT gp_Parab Parab() const;
 

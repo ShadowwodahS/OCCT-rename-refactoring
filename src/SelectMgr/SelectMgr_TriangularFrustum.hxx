@@ -155,7 +155,7 @@ public: //! @name SAT Tests for different objects
   //! Returns true if selecting volume is overlapped by circle with radius theRadius,
   //! boolean theIsFilled and transformation to apply theTrsf.
   //! The position and orientation of the circle are specified
-  //! via theTrsf transformation for gp::XOY() with center in gp::Origin().
+  //! via theTrsf transformation for gp1::XOY() with center in gp1::Origin().
   Standard_EXPORT virtual Standard_Boolean OverlapsCircle(
     const Standard_Real            theRadius,
     const Transform3d&                 theTrsf,
@@ -166,7 +166,7 @@ public: //! @name SAT Tests for different objects
   //! Returns true if selecting volume is overlapped by circle with radius theRadius,
   //! boolean theIsFilled and transformation to apply theTrsf.
   //! The position and orientation of the circle are specified
-  //! via theTrsf transformation for gp::XOY() with center in gp::Origin().
+  //! via theTrsf transformation for gp1::XOY() with center in gp1::Origin().
   Standard_EXPORT virtual Standard_Boolean OverlapsCircle(const Standard_Real    theRadius,
                                                           const Transform3d&         theTrsf,
                                                           const Standard_Boolean theIsFilled,

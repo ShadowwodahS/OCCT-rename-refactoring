@@ -608,8 +608,8 @@ protected: //! @name Selection geometry
 
       if (theMode == ComputeMode_All || theMode == ComputeMode_Text)
       {
-        TextPos    = gp::Origin();
-        TextDir    = gp::DX();
+        TextPos    = gp1::Origin();
+        TextDir    = gp1::DX();
         TextWidth  = 0.0;
         TextHeight = 0.0;
       }

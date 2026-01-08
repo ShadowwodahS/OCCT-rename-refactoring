@@ -13,7 +13,7 @@
 // commercial license or contractual agreement.
 
 // JCV 30/08/90 Modif passage version C++ 2.0 sur Sun
-// JCV 1/10/90 Changement de nom du package vgeom -> gp
+// JCV 1/10/90 Changement de nom du package vgeom -> gp1
 // JCV 12/12/90 modifs suite a la premiere revue de projet
 
 #include <gp_Lin.hxx>
@@ -27,7 +27,7 @@
 
 Standard_Real gp_Lin::Distance(const gp_Lin& Other) const
 {
-  if (pos.IsParallel(Other.pos, gp::Resolution()))
+  if (pos.IsParallel(Other.pos, gp1::Resolution()))
   {
     return Other.Distance(pos.Location());
   }

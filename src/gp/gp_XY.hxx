@@ -23,7 +23,7 @@
 //! This class describes a cartesian coordinate entity in 2D
 //! space {X,Y}. This class is non persistent. This entity used
 //! for algebraic calculation. An XY can be transformed with a
-//! Trsf2d or a  GTrsf2d from package gp.
+//! Trsf2d or a  GTrsf2d from package gp1.
 //! It is used in vectorial computations or for holding this type
 //! of information in data structures.
 class Coords2d
@@ -260,18 +260,18 @@ public:
   //! <me>.X() = <me>.X()/ <me>.Modulus()
   //! <me>.Y() = <me>.Y()/ <me>.Modulus()
   //! @endcode
-  //! Raises ConstructionError if <me>.Modulus() <= Resolution from gp
+  //! Raises ConstructionError if <me>.Modulus() <= Resolution from gp1
   void Normalize();
 
   //! @code
   //! New.X() = <me>.X()/ <me>.Modulus()
   //! New.Y() = <me>.Y()/ <me>.Modulus()
   //! @endcode
-  //! Raises ConstructionError if <me>.Modulus() <= Resolution from gp
+  //! Raises ConstructionError if <me>.Modulus() <= Resolution from gp1
   Standard_NODISCARD Coords2d Normalized() const
   {
     Standard_Real aD = Modulus();
-    Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+    Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                         "Coords2d::Normalized() - vector has zero norm");
     return Coords2d(x / aD, y / aD);
   }
@@ -397,7 +397,7 @@ inline void Coords2d::Multiply(const gp_Mat2d& theMatrix)
 inline void Coords2d::Normalize()
 {
   Standard_Real aD = Modulus();
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "Coords2d::Normalize() - vector has zero norm");
   x = x / aD;
   y = y / aD;

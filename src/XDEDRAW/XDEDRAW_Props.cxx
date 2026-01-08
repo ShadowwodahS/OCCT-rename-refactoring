@@ -146,7 +146,7 @@ static Standard_Real CalculVolume(const TopoShape& So,
     for (Standard_Integer i = 1; i <= (facing->NbTriangles()); i++)
     {
 
-      Poly_Triangle    trian = facing->Triangle1(i);
+      Triangle2    trian = facing->Triangle1(i);
       Standard_Integer index1, index2, index3; // M,N;
       if (F.Orientation() == TopAbs_REVERSED)
         trian.Get(index1, index3, index2);

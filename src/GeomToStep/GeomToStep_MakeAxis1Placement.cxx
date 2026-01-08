@@ -29,7 +29,7 @@
 #include <TCollection_HAsciiString.hxx>
 
 //=============================================================================
-// Creation d' un axis1_placement de prostep a partir d' un Ax1 de gp
+// Creation d' un axis1_placement de prostep a partir d' un Ax1 de gp1
 //=============================================================================
 GeomToStep_MakeAxis1Placement::GeomToStep_MakeAxis1Placement(
   const Axis3d&           A,
@@ -39,7 +39,7 @@ GeomToStep_MakeAxis1Placement::GeomToStep_MakeAxis1Placement(
 }
 
 //=============================================================================
-// Creation d' un axis1_placement de prostep a partir d' un Ax2d de gp
+// Creation d' un axis1_placement de prostep a partir d' un Ax2d de gp1
 //=============================================================================
 
 GeomToStep_MakeAxis1Placement::GeomToStep_MakeAxis1Placement(

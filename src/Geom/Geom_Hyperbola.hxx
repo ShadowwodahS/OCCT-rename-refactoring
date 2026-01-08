@@ -126,7 +126,7 @@ public:
   //! - MinorRadius is less than 0.0.Raised if MajorRadius < 0.0
   Standard_EXPORT void SetMinorRadius(const Standard_Real MinorRadius);
 
-  //! returns the non transient parabola from gp with the same
+  //! returns the non transient parabola from gp1 with the same
   //! geometric properties as <me>.
   Standard_EXPORT gp_Hypr Hypr() const;
 

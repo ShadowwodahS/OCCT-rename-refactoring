@@ -77,7 +77,7 @@ static Standard_Integer BUC60842(DrawInterpreter& di,
                                               150,
                                               100);
   Handle(GeomPlane)   plne =
-    new GeomPlane(gp_Ax3(Frame3d(Point3d(1262.224429, 425.040878, 363.609716),
+    new GeomPlane(Ax3(Frame3d(Point3d(1262.224429, 425.040878, 363.609716),
                                  Dir3d(0.173648, 0.984808, 0.000000),
                                  Dir3d(-0.932169, 0.164367, -0.322560))));
 
@@ -817,7 +817,7 @@ static Standard_Integer OCC813(DrawInterpreter& di, Standard_Integer argc, const
                                               150,
                                               100);
   Handle(GeomPlane)   plne =
-    new GeomPlane(gp_Ax3(Frame3d(Point3d(1262.224429, 425.040878, 363.609716),
+    new GeomPlane(Ax3(Frame3d(Point3d(1262.224429, 425.040878, 363.609716),
                                  Dir3d(0.173648, 0.984808, 0.000000),
                                  Dir3d(-0.932169, 0.164367, -0.322560))));
 
@@ -895,7 +895,7 @@ static Standard_Integer OCC814(DrawInterpreter& di, Standard_Integer argc, const
                                               150,
                                               100);
   Handle(GeomPlane)   plne =
-    new GeomPlane(gp_Ax3(Frame3d(Point3d(1262.224429, 425.040878, 363.609716),
+    new GeomPlane(Ax3(Frame3d(Point3d(1262.224429, 425.040878, 363.609716),
                                  Dir3d(0.173648, 0.984808, 0.000000),
                                  Dir3d(-0.932169, 0.164367, -0.322560))));
 

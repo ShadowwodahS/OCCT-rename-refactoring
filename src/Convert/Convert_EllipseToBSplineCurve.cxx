@@ -94,7 +94,7 @@ Convert_EllipseToBSplineCurve::Convert_EllipseToBSplineCurve(
   gp_Dir2d  Ox = E.XAxis().Direction();
   gp_Dir2d  Oy = E.YAxis().Direction();
   gp_Trsf2d Trsf;
-  Trsf.SetTransformation(E.XAxis(), gp::OX2d());
+  Trsf.SetTransformation(E.XAxis(), gp1::OX2d());
   if (Ox.X() * Oy.Y() - Ox.Y() * Oy.X() > 0.0e0)
   {
     value = r;
@@ -159,7 +159,7 @@ Convert_EllipseToBSplineCurve::Convert_EllipseToBSplineCurve(
   gp_Dir2d  Ox = E.XAxis().Direction();
   gp_Dir2d  Oy = E.YAxis().Direction();
   gp_Trsf2d Trsf;
-  Trsf.SetTransformation(E.XAxis(), gp::OX2d());
+  Trsf.SetTransformation(E.XAxis(), gp1::OX2d());
   if (Ox.X() * Oy.Y() - Ox.Y() * Oy.X() > 0.0e0)
   {
     value = r;

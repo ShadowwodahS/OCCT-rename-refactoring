@@ -99,7 +99,7 @@ Standard_Boolean ChFiKPart_Sphere(TopOpeBRepDS_DataStructure&      DStr,
   Dir3d ddy(Vector3d(cen, p3));
   Dir3d dx  = dz.Crossed(ddx.Crossed(dz));
   Dir3d ddz = dz.Reversed();
-  gp_Ax3 FilAx3(cen, dz, dx);
+  Ax3 FilAx3(cen, dz, dx);
   if (FilAx3.YDirection().Dot(ddy) <= 0.)
   {
     FilAx3.YReverse();
@@ -135,7 +135,7 @@ Standard_Boolean ChFiKPart_Sphere(TopOpeBRepDS_DataStructure&      DStr,
   Handle(GeomCurve3d)   C;
   Handle(GeomCurve2d) C2d;
   gp_Pnt2d             p2dFil(0., -M_PI / 2.);
-  gp_Lin2d             lin2dFil(p2dFil, gp::DX2d());
+  gp_Lin2d             lin2dFil(p2dFil, gp1::DX2d());
   Handle(GeomCurve2d) C2dFil = new Geom2d_Line(lin2dFil);
   toreverse                   = (ddz.Dot(dnat1) <= 0.);
   TopAbs_Orientation trans    = TopAbs_REVERSED;

@@ -188,7 +188,7 @@ void BRepTools_WireExplorer::Init(const TopoWire&  W,
       Vector3d        aDU, aDV;
       aGAS.D1((UMax - UMin) / 2., (VMax - VMin) / 2., aP, aDU, aDV);
       Standard_Real mod = Sqrt(aDU * aDU + aDV * aDV);
-      if (mod > gp::Resolution())
+      if (mod > gp1::Resolution())
       {
         if (mod * maxTol / dfVertToler < 1.5)
         {
@@ -518,7 +518,7 @@ void BRepTools_WireExplorer::Next()
       aPCurve->D0(dfMPar, PRefm);
       // Get vector from PRef to PRefm
       gp_Vec2d anERefDir(PRef, PRefm);
-      if (anERefDir.SquareMagnitude() < gp::Resolution())
+      if (anERefDir.SquareMagnitude() < gp1::Resolution())
       {
         myEdge = TopoEdge();
         return;
@@ -580,7 +580,7 @@ void BRepTools_WireExplorer::Next()
                 GetNextParamOnPC(aPCurve, aPEb, dfFPar, dfLPar, myTolU, myTolV, isrevese);
 
               aPCurve->D0(aEPm, aPEe);
-              if (aPEb.SquareDistance(aPEe) <= gp::Resolution())
+              if (aPEb.SquareDistance(aPEe) <= gp1::Resolution())
               {
                 // seems to be very short curve
                 gp_Vec2d aD;
@@ -590,7 +590,7 @@ void BRepTools_WireExplorer::Next()
                 else
                   aPEe.SetXY(aPEb.XY() + aD.XY());
 
-                if (aPEb.SquareDistance(aPEe) <= gp::Resolution())
+                if (aPEb.SquareDistance(aPEe) <= gp1::Resolution())
                 {
                   it.Next();
                   k++;

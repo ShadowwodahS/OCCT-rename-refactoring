@@ -115,7 +115,7 @@ static Standard_Boolean FindPointOnFace(const TopoFace& face, gp_Pnt2d& pt2d)
     }
   }
 
-  if (Abs(area) < gp::Resolution())
+  if (Abs(area) < gp1::Resolution())
   {
     pt2d.SetCoord(points(1).X(), points(1).Y());
     return Standard_False;
@@ -125,7 +125,7 @@ static Standard_Boolean FindPointOnFace(const TopoFace& face, gp_Pnt2d& pt2d)
 
   // verify that (upar vpar) is a point on the face
 
-  BRepClass_FaceClassifier fClass(face, pt2d, gp::Resolution());
+  BRepClass_FaceClassifier fClass(face, pt2d, gp1::Resolution());
 
   if ((fClass.State() == TopAbs_OUT) || (fClass.State() == TopAbs_UNKNOWN))
   {
@@ -149,7 +149,7 @@ static Standard_Boolean ComputeDir(const TopoShape&    shape,
     Handle(GeomCurve3d) curv0 = BRepInspector::Curve(TopoDS::Edge(shape), loc, first, last);
     Handle(GeomCurve3d) curve = Handle(GeomCurve3d)::DownCast(curv0->Copy());
     curve->Transform(loc.Transformation());
-    GeomLProp_CLProps lProps(curve, 1, gp::Resolution());
+    GeomLProp_CLProps lProps(curve, 1, gp1::Resolution());
     lProps.SetParameter((mode == 0) ? last : first);
     if (!lProps.IsTangentDefined())
       return Standard_False;
@@ -172,7 +172,7 @@ static Standard_Boolean ComputeDir(const TopoShape&    shape,
         return Standard_False;
     }
 
-    GeomLProp_SLProps lProps(surface, pt2d.X(), pt2d.Y(), 1, gp::Resolution());
+    GeomLProp_SLProps lProps(surface, pt2d.X(), pt2d.Y(), 1, gp1::Resolution());
     if (!lProps.IsNormalDefined())
       return Standard_False;
 

@@ -143,7 +143,7 @@ Convert_SphereToBSplineSurface::Convert_SphereToBSplineSurface(const gp_Sphere& 
   // and calculate the weight of the bspline.
   Standard_Real W1, W2;
   Transform3d       Trsf;
-  Trsf.SetTransformation(Sph.Position(), gp::XOY());
+  Trsf.SetTransformation(Sph.Position(), gp1::XOY());
 
   for (i = 1; i <= nbUPoles; i++)
   {
@@ -257,7 +257,7 @@ Convert_SphereToBSplineSurface::Convert_SphereToBSplineSurface(const gp_Sphere& 
   // Replace the bspline in the mark of the sphere.
   // and calculate the weight of bspline.
   Transform3d Trsf;
-  Trsf.SetTransformation(Sph.Position(), gp::XOY());
+  Trsf.SetTransformation(Sph.Position(), gp1::XOY());
 
   for (i = 1; i <= nbUPoles; i++)
   {
@@ -323,7 +323,7 @@ Convert_SphereToBSplineSurface::Convert_SphereToBSplineSurface(const gp_Sphere& 
   // Replace the bspline in the mark of the sphere.
   // and calculate the weight of the bspline.
   Transform3d Trsf;
-  Trsf.SetTransformation(Sph.Position(), gp::XOY());
+  Trsf.SetTransformation(Sph.Position(), gp1::XOY());
 
   for (i = 1; i <= nbUPoles; i++)
   {

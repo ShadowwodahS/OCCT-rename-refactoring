@@ -77,7 +77,7 @@ static void TraceRevol(const Standard_Real                        t,
 {
   Vector3d T, N, B;
   Point3d P;
-  gp_Ax3 Rep(gp::Origin(), gp::DZ(), gp::DX());
+  Ax3 Rep(gp1::Origin(), gp1::DZ(), gp1::DX());
 
   Curve->D0(t, P);
   Law1->D0(t, T, N, B);
@@ -90,7 +90,7 @@ static void TraceRevol(const Standard_Real                        t,
 
   // calculer transfo entre triedre et Oxyz
   Dir3d  N2 = N;
-  gp_Ax3  N3(P, D, N2);
+  Ax3  N3(P, D, N2);
   Transform3d Transfo;
   Transfo.SetTransformation(N3, Rep);
 
@@ -212,7 +212,7 @@ void GeomFill_LocationGuide::SetRotation(const Standard_Real PrecAngle, Standard
     throw Standard_ConstructionError("GeomFill_LocationGuide::The path is not set !!");
 
   // repere fixe
-  gp_Ax3 Rep(gp::Origin(), gp::DZ(), gp::DX());
+  Ax3 Rep(gp1::Origin(), gp1::DZ(), gp1::DX());
   //  Point3d P,P1,P2;
   Point3d                            P;
   Vector3d                            T, N, B;
@@ -303,7 +303,7 @@ void GeomFill_LocationGuide::SetRotation(const Standard_Real PrecAngle, Standard
 
     // calculer transfo entre triedre et Oxyz
     Dir3d  N2 = N;
-    gp_Ax3  N3(P, D, N2);
+    Ax3  N3(P, D, N2);
     Transform3d Transfo;
     Transfo.SetTransformation(N3, Rep);
 
@@ -835,8 +835,8 @@ Standard_Boolean GeomFill_LocationGuide::D1(const Standard_Real Param,
          M.SetCols(n*Rot, b*Rot, t);
 
          // transfo entre triedre (en Q) et Oxyz
-         gp_Ax3 Rep(gp::Origin(),gp::DZ(), gp::DX());
-         gp_Ax3 RepTriedre(gp::Origin(),t,n);
+         Ax3 Rep(gp1::Origin(),gp1::DZ(), gp1::DX());
+         Ax3 RepTriedre(gp1::Origin(),t,n);
          Transform3d Transfo3;
          Transfo3.SetTransformation(Rep,RepTriedre);
          // on  se place dans Oxyz
@@ -1049,7 +1049,7 @@ Standard_Boolean GeomFill_LocationGuide::D2(
           Vector3d db1,dn1,db2,dn2;
 
     //transfo entre triedre et Oxyz
-          gp_Ax3 RepTriedre4(Q,D,B2);
+          Ax3 RepTriedre4(Q,D,B2);
           Transform3d Transfo3;
           Transfo3.SetTransformation(Rep,RepTriedre4);
 

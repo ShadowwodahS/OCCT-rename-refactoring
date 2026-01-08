@@ -85,12 +85,12 @@ static gp_Pnt2d Function_Value(const Standard_Real              U,
       break;
     }
     case GeomAbs_Cylinder: {
-      gp_Cylinder Cylinder = mySurface->Cylinder();
+      Cylinder1 Cylinder = mySurface->Cylinder();
       ElSLib1::Parameters(Cylinder, P3d, S, T);
       break;
     }
     case GeomAbs_Cone: {
-      gp_Cone Cone = mySurface->Cone();
+      Cone1 Cone = mySurface->Cone();
       ElSLib1::Parameters(Cone, P3d, S, T);
       break;
     }
@@ -243,7 +243,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
     case GeomAbs_Cone: {
       Standard_Real           tol  = Epsilon(1.);
       constexpr Standard_Real ptol = Precision::PConfusion();
-      gp_Cone                 Cone = mySurface->Cone();
+      Cone1                 Cone = mySurface->Cone();
       VCouture                     = Standard_False;
       // Calculation of cone parameters for P == ConeApex often produces wrong
       // values of U
@@ -393,7 +393,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
     break;
 
     case GeomAbs_Cylinder: {
-      gp_Cylinder Cylinder = mySurface->Cylinder();
+      Cylinder1 Cylinder = mySurface->Cylinder();
       VCouture             = Standard_False;
 
       if (myCurve->GetType() == GeomAbs_Ellipse)
@@ -549,7 +549,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         Circle.Transform(Trsf);
         //
         R = SP.Radius();
-        gp_Pln Plane(gp_Ax3(Circle.Position()));
+        gp_Pln Plane(Ax3(Circle.Position()));
         Plane.Coefficients(A, B, C, D);
         //
         if (Abs(C) < Tol)
@@ -687,7 +687,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         { // 0 ou 2 solutions
           Point3d        Center = Circle.Location();
           Standard_Real U, V;
-          ElSLib1::SphereParameters(gp_Ax3(gp::XOY()), 1, Center, U, V);
+          ElSLib1::SphereParameters(Ax3(gp1::XOY()), 1, Center, U, V);
           myU1 = U - M_PI;
           myU2 = U + M_PI;
         }
@@ -720,7 +720,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
           {
             Point3d        Center = Circle.Location();
             Standard_Real U, V;
-            ElSLib1::SphereParameters(gp_Ax3(gp::XOY()), 1, Center, U, V);
+            ElSLib1::SphereParameters(Ax3(gp1::XOY()), 1, Center, U, V);
             myU1     = U - M_PI;
             myU2     = U + M_PI;
             VCouture = Standard_False;
@@ -737,7 +737,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         // if((Abs(UU1) <= (2.*M_PI) && Abs(UU2) <= (2.*M_PI)) && NbSolutions == 1 && reCalc) {
         //  Point3d Center = Circle.Location();
         //  Standard_Real U,V;
-        //  ElSLib1::SphereParameters(gp_Ax3(gp::XOY()),1,Center, U, V);
+        //  ElSLib1::SphereParameters(Ax3(gp1::XOY()),1,Center, U, V);
         //  myU1 = U-M_PI;
         //  myU1 = Min(UU1,myU1);
         //  myU2 = myU1 + 2.*M_PI;
@@ -1354,12 +1354,12 @@ void ProjLib_ComputeApprox::Perform(const Handle(Adaptor3d_Curve)&   C,
         break;
       }
       case GeomAbs_Cylinder: {
-        gp_Cylinder Cylinder = S->Cylinder();
+        Cylinder1 Cylinder = S->Cylinder();
         ElSLib1::Parameters(Cylinder, P3d, u, v);
         break;
       }
       case GeomAbs_Cone: {
-        gp_Cone Cone = S->Cone();
+        Cone1 Cone = S->Cone();
         ElSLib1::Parameters(Cone, P3d, u, v);
         break;
       }

@@ -64,7 +64,7 @@ static void Tangente(const Adaptor3d_Curve& Path,
     Norm = Tang.Magnitude();
   }
 
-  if (Norm > 100 * gp::Resolution())
+  if (Norm > 100 * gp1::Resolution())
     Tang /= Norm;
 }
 
@@ -434,7 +434,7 @@ void GeomFill_SectionPlacement::Perform(const Handle(Adaptor3d_Curve)& Path,
       }
 
       // (1.2) Intersection Plan-courbe
-      gp_Ax3                      axe(TheAxe.Location(), TheAxe.Direction());
+      Ax3                      axe(TheAxe.Location(), TheAxe.Direction());
       Handle(GeomPlane)          plan   = new (GeomPlane)(axe);
       Handle(GeomAdaptor_Surface) adplan = new (GeomAdaptor_Surface)(plan);
       IntCurveSurface_HInter      Intersector;
@@ -522,7 +522,7 @@ void GeomFill_SectionPlacement::Perform(const Handle(Adaptor3d_Curve)& Path,
          }
 
          // (1.2) Intersection Plan-courbe
-         gp_Ax3 axe (TheAxe.Location(), TheAxe.Direction());
+         Ax3 axe (TheAxe.Location(), TheAxe.Direction());
          Handle(GeomPlane) plan = new (GeomPlane)(axe);
          Handle(GeomAdaptor_Surface) adplan =
          new (GeomAdaptor_Surface)(plan);
@@ -772,7 +772,7 @@ Transform3d GeomFill_SectionPlacement::Transformation(const Standard_Boolean Wit
   P.SetXYZ(V.XYZ());
   D.SetXYZ(M.Column(3));
   DN.SetXYZ(M.Column(1));
-  gp_Ax3 Paxe(P, D, DN);
+  Ax3 Paxe(P, D, DN);
 
   if (WithTranslation || WithCorrection)
   {
@@ -814,7 +814,7 @@ Transform3d GeomFill_SectionPlacement::Transformation(const Standard_Boolean Wit
     P.SetCoord(0., 0., 0.);
   }
 
-  gp_Ax3 Saxe(P, gp::DZ(), gp::DX());
+  Ax3 Saxe(P, gp1::DZ(), gp1::DX());
 
   // Transfo
   Transform3d Tf;

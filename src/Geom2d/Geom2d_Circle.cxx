@@ -68,12 +68,12 @@ Geom2d_Circle::Geom2d_Circle(const Ax2d&            A,
   {
     throw Standard_ConstructionError();
   }
-  pos = gp_Ax22d(A, Sense);
+  pos = Ax22d(A, Sense);
 }
 
 //=================================================================================================
 
-Geom2d_Circle::Geom2d_Circle(const gp_Ax22d& A, const Standard_Real Radius)
+Geom2d_Circle::Geom2d_Circle(const Ax22d& A, const Standard_Real Radius)
 
     : radius(Radius)
 {

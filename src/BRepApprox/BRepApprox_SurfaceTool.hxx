@@ -135,9 +135,9 @@ public:
 
   static gp_Pln Plane(const BRepAdaptor_Surface& S);
 
-  static gp_Cylinder Cylinder(const BRepAdaptor_Surface& S);
+  static Cylinder1 Cylinder(const BRepAdaptor_Surface& S);
 
-  static gp_Cone Cone(const BRepAdaptor_Surface& S);
+  static Cone1 Cone(const BRepAdaptor_Surface& S);
 
   static gp_Torus Torus(const BRepAdaptor_Surface& S);
 

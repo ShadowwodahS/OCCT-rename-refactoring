@@ -1178,7 +1178,7 @@ gp_Pln GeomAdaptor_Surface::Plane() const
 
 //=================================================================================================
 
-gp_Cylinder GeomAdaptor_Surface::Cylinder() const
+Cylinder1 GeomAdaptor_Surface::Cylinder() const
 {
   if (mySurfaceType != GeomAbs_Cylinder)
     throw Standard_NoSuchObject("GeomAdaptor_Surface::Cylinder");
@@ -1187,7 +1187,7 @@ gp_Cylinder GeomAdaptor_Surface::Cylinder() const
 
 //=================================================================================================
 
-gp_Cone GeomAdaptor_Surface::Cone() const
+Cone1 GeomAdaptor_Surface::Cone() const
 {
   if (mySurfaceType != GeomAbs_Cone)
     throw Standard_NoSuchObject("GeomAdaptor_Surface::Cone");

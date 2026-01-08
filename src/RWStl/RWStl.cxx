@@ -78,7 +78,7 @@ public:
                            Standard_Integer theNode2,
                            Standard_Integer theNode3) Standard_OVERRIDE
   {
-    myTriangles.Append(Poly_Triangle(theNode1, theNode2, theNode3));
+    myTriangles.Append(Triangle2(theNode1, theNode2, theNode3));
   }
 
   //! Creates MeshTriangulation from collected data
@@ -111,7 +111,7 @@ protected:
 
 private:
   NCollection_Vector<gp_XYZ>        myNodes;
-  NCollection_Vector<Poly_Triangle> myTriangles;
+  NCollection_Vector<Triangle2> myTriangles;
 };
 
 class MultiDomainReader : public Reader
@@ -312,7 +312,7 @@ Standard_Boolean RWStl1::writeASCII(const Handle(MeshTriangulation)& theMesh,
   Standard_Integer anElem[3] = {0, 0, 0};
   for (Standard_Integer aTriIter = 1; aTriIter <= NBTriangles; ++aTriIter)
   {
-    const Poly_Triangle aTriangle = theMesh->Triangle1(aTriIter);
+    const Triangle2 aTriangle = theMesh->Triangle1(aTriIter);
     aTriangle.Get(anElem[0], anElem[1], anElem[2]);
 
     const Point3d aP1 = theMesh->Node(anElem[0]);
@@ -322,7 +322,7 @@ Standard_Boolean RWStl1::writeASCII(const Handle(MeshTriangulation)& theMesh,
     const Vector3d aVec1(aP1, aP2);
     const Vector3d aVec2(aP1, aP3);
     Vector3d       aVNorm = aVec1.Crossed(aVec2);
-    if (aVNorm.SquareMagnitude() > gp::Resolution())
+    if (aVNorm.SquareMagnitude() > gp1::Resolution())
     {
       aVNorm.Normalize();
     }
@@ -405,7 +405,7 @@ Standard_Boolean RWStl1::writeBinary(const Handle(MeshTriangulation)& theMesh,
   for (Standard_Integer aTriIter = 1; aTriIter <= aNBTriangles; ++aTriIter)
   {
     Standard_Integer    id[3];
-    const Poly_Triangle aTriangle = theMesh->Triangle1(aTriIter);
+    const Triangle2 aTriangle = theMesh->Triangle1(aTriIter);
     aTriangle.Get(id[0], id[1], id[2]);
 
     const Point3d aP1 = theMesh->Node(id[0]);
@@ -415,7 +415,7 @@ Standard_Boolean RWStl1::writeBinary(const Handle(MeshTriangulation)& theMesh,
     Vector3d aVec1(aP1, aP2);
     Vector3d aVec2(aP1, aP3);
     Vector3d aVNorm = aVec1.Crossed(aVec2);
-    if (aVNorm.SquareMagnitude() > gp::Resolution())
+    if (aVNorm.SquareMagnitude() > gp1::Resolution())
     {
       aVNorm.Normalize();
     }

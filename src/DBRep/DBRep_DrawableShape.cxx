@@ -786,7 +786,7 @@ void DBRep_DrawableShape::DrawOn(DrawDisplay& dis) const
         aPnt.Translate(V);
         dis.Project(aPnt, p2);
         gp_Vec2d v(p1, p2);
-        if (v.Magnitude() > gp::Resolution())
+        if (v.Magnitude() > gp1::Resolution())
         {
           Standard_Real L = 20 / dis.Zoom();
           Standard_Real H = 10 / dis.Zoom();

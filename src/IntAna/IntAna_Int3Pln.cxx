@@ -48,7 +48,7 @@ void Int3Planes::Perform(const gp_Pln& P1, const gp_Pln& P2, const gp_Pln& P3)
   P2.Coefficients(M(2, 1), M(2, 2), M(2, 3), V(2));
   P3.Coefficients(M(3, 1), M(3, 2), M(3, 3), V(3));
 
-  math_Gauss Resol(M, gp::Resolution());
+  math_Gauss Resol(M, gp1::Resolution());
 
   if (!Resol.IsDone())
   {

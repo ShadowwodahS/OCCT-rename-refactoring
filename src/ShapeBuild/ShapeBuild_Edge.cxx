@@ -544,7 +544,7 @@ Handle(GeomCurve2d) ShapeBuild_Edge::TransformPCurve(const Handle(GeomCurve2d)& 
   }
 
   gp_GTrsf2d tMatu;
-  tMatu.SetAffinity(gp::OY2d(), uFact);
+  tMatu.SetAffinity(gp1::OY2d(), uFact);
   Coords2d pXY;
 
   if (result->IsKind(STANDARD_TYPE(Geom2d_Line)))

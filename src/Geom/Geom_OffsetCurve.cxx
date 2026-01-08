@@ -323,7 +323,7 @@ Standard_Boolean Geom_OffsetCurve::IsClosed() const
   Point3d PF, PL;
   D0(FirstParameter(), PF);
   D0(LastParameter(), PL);
-  return (PF.Distance(PL) <= gp::Resolution());
+  return (PF.Distance(PL) <= gp1::Resolution());
 }
 
 //=================================================================================================

@@ -1868,7 +1868,7 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
     hguide->D1(param, PtOnGuide, TgOnGuide);
     // Check deflection on guide
     Cosi = PrevTgOnGuide * TgOnGuide;
-    if (Cosi < gp::Resolution()) // angle>=pi/2 or null magnitude
+    if (Cosi < gp1::Resolution()) // angle>=pi/2 or null magnitude
       Cosi2 = 0.;
     else
       Cosi2 = Cosi * Cosi / PrevTgOnGuide.SquareMagnitude() / TgOnGuide.SquareMagnitude();
@@ -2079,7 +2079,7 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
               Vector3d Dir0;
               hguide->D1(SavedParams[ind], Pnt0, Dir0);
               Standard_Real Length = Dir0.Magnitude();
-              if (Length <= gp::Resolution())
+              if (Length <= gp1::Resolution())
                 continue;
               Dir0 /= Length;
               gce_MakePln PlaneBuilder(Pnt0, Pnt1, Pnt2);

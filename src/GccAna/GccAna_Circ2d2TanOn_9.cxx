@@ -75,7 +75,7 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedLine& Qualified1,
   gp_Pnt2d          originL1(L1.Location());
   gp_Pnt2d          originL2(L2.Location());
   Coords2d             Dloc(originL1.XY() - originL2.XY());
-  if (D1.Angle(D2) <= gp::Resolution())
+  if (D1.Angle(D2) <= gp1::Resolution())
   {
     if (Qualified1.IsEnclosed())
     {

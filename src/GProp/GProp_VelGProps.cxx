@@ -30,7 +30,7 @@ void GProp_VelGProps::SetLocation(const Point3d& VLocation)
   loc = VLocation;
 }
 
-GProp_VelGProps::GProp_VelGProps(const gp_Cylinder&  S,
+GProp_VelGProps::GProp_VelGProps(const Cylinder1&  S,
                                  const Standard_Real Alpha1,
                                  const Standard_Real Alpha2,
                                  const Standard_Real Z1,
@@ -41,7 +41,7 @@ GProp_VelGProps::GProp_VelGProps(const gp_Cylinder&  S,
   Perform(S, Alpha1, Alpha2, Z1, Z2);
 }
 
-GProp_VelGProps::GProp_VelGProps(const gp_Cone&      S,
+GProp_VelGProps::GProp_VelGProps(const Cone1&      S,
                                  const Standard_Real Alpha1,
                                  const Standard_Real Alpha2,
                                  const Standard_Real Z1,
@@ -74,7 +74,7 @@ GProp_VelGProps::GProp_VelGProps(const gp_Torus&     S,
   Perform(S, Teta1, Teta2, Alpha1, Alpha2);
 }
 
-void GProp_VelGProps::Perform(const gp_Cylinder&  S,
+void GProp_VelGProps::Perform(const Cylinder1&  S,
                               const Standard_Real Alpha1,
                               const Standard_Real Alpha2,
                               const Standard_Real Z1,
@@ -146,7 +146,7 @@ void GProp_VelGProps::Perform(const gp_Cylinder&  S,
   inertia = inertia + Hop;
 }
 
-void GProp_VelGProps::Perform(const gp_Cone&      S,
+void GProp_VelGProps::Perform(const Cone1&      S,
                               const Standard_Real Alpha1,
                               const Standard_Real Alpha2,
                               const Standard_Real Z1,

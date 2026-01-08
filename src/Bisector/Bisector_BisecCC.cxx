@@ -631,7 +631,7 @@ gp_Pnt2d Bisector_BisecCC::ValueAndDist(const Standard_Real U,
   Standard_Real    VMax          = myPolygon.Value(IntervalIndex + 1).ParamOnC2();
   Standard_Real    Alpha, VInit;
 
-  if (Abs(UMax - UMin) < gp::Resolution())
+  if (Abs(UMax - UMin) < gp1::Resolution())
   {
     VInit = VMin;
   }
@@ -1160,7 +1160,7 @@ void Bisector_BisecCC::Values(const Standard_Real    U,
   //---------------------------------------
   // F(u,v) = Pu - (A(u,v)/B(u,v))*Nor(u)
   //----------------------------------------
-  if (BB < gp::Resolution())
+  if (BB < gp1::Resolution())
   {
     V1 = Tu.Normalized() + Tv.Normalized();
     V1 = 0.5 * Tu.SquareMagnitude() * V1;
@@ -1170,7 +1170,7 @@ void Bisector_BisecCC::Values(const Standard_Real    U,
     gp_Vec2d dFdu = Tu - (dAdu / B - dBdu * A / BB) * Nor - (A / B) * Nu;
     gp_Vec2d dFdv = (-dAdv / B + dBdv * A / BB) * Nor;
 
-    if (Abs(dHdv) > gp::Resolution())
+    if (Abs(dHdv) > gp1::Resolution())
     {
       V1 = dFdu + dFdv * (-dHdu / dHdv);
     }

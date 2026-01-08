@@ -29,7 +29,7 @@ class GeomLine;
 class Geom2d_Line;
 
 //! This class implements the mapping between classes
-//! Line from Geom and Lin from gp, and the class
+//! Line from Geom and Lin from gp1, and the class
 //! Line from StepGeom which describes a line from
 //! Prostep.
 class GeomToStep_MakeLine : public Root1

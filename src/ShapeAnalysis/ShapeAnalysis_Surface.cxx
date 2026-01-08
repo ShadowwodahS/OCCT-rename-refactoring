@@ -1178,13 +1178,13 @@ gp_Pnt2d ShapeAnalysis_Surface::ValueOfUV(const Point3d& P3D, const Standard_Rea
           break;
         }
         case GeomAbs_Cylinder: {
-          gp_Cylinder Cylinder = SurfAdapt.Cylinder();
+          Cylinder1 Cylinder = SurfAdapt.Cylinder();
           ElSLib1::Parameters(Cylinder, P3D, S, T);
           S += ShapeAnalysis::AdjustByPeriod(S, 0.5 * (uf + ul), 2 * M_PI);
           break;
         }
         case GeomAbs_Cone: {
-          gp_Cone Cone = SurfAdapt.Cone();
+          Cone1 Cone = SurfAdapt.Cone();
           ElSLib1::Parameters(Cone, P3D, S, T);
           S += ShapeAnalysis::AdjustByPeriod(S, 0.5 * (uf + ul), 2 * M_PI);
           break;

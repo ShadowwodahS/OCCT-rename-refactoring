@@ -30,7 +30,7 @@
 class MeshTriangulation;
 class Poly_Polygon3D;
 class Poly_Polygon2D;
-class Poly_Triangle;
+class Triangle2;
 
 //! This  package  provides  classes  and services  to
 //! handle :
@@ -138,7 +138,7 @@ public:
   Standard_EXPORT static Standard_Boolean Intersect(const Handle(MeshTriangulation)& theTri,
                                                     const Axis3d&                     theAxis,
                                                     const Standard_Boolean            theIsClosest,
-                                                    Poly_Triangle&                    theTriangle,
+                                                    Triangle2&                    theTriangle,
                                                     Standard_Real&                    theDistance);
 
   //! Computes the intersection between a triangle defined by three vertexes and a line.

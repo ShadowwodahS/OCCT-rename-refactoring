@@ -1571,14 +1571,14 @@ void IntWalk_PWalking::Perform(const TColStd_Array1OfReal& ParDep,
                           const Standard_Real aSQMCurS1 = PrevToCurOnS1.SquareMagnitude();
                           const Standard_Real aSQMCurS2 = PrevToCurOnS2.SquareMagnitude();
 
-                          if (aSQMCurS1 < gp::Resolution())
+                          if (aSQMCurS1 < gp1::Resolution())
                           {
                             // We came back to the one of previous point.
                             // Therefore, we must break;
 
                             anAngleS1 = M_PI;
                           }
-                          else if (aSQMParS1 < gp::Resolution())
+                          else if (aSQMParS1 < gp1::Resolution())
                           {
                             // We are walking along tangent zone.
                             // It should be continued.
@@ -1589,14 +1589,14 @@ void IntWalk_PWalking::Perform(const TColStd_Array1OfReal& ParDep,
                             anAngleS1 = Abs(PrevToParamOnS1.Angle(PrevToCurOnS1));
                           }
 
-                          if (aSQMCurS2 < gp::Resolution())
+                          if (aSQMCurS2 < gp1::Resolution())
                           {
                             // We came back to the one of previous point.
                             // Therefore, we must break;
 
                             anAngleS2 = M_PI;
                           }
-                          else if (aSQMParS2 < gp::Resolution())
+                          else if (aSQMParS2 < gp1::Resolution())
                           {
                             // We are walking along tangent zone.
                             // It should be continued;
@@ -1661,7 +1661,7 @@ void IntWalk_PWalking::Perform(const TColStd_Array1OfReal& ParDep,
                             const Standard_Real aF1 = aF1x * aF1x + aF1y * aF1y + aF1z * aF1z;
                             const Standard_Real aF2 = aF2x * aF2x + aF2y * aF2y + aF2z * aF2z;
 
-                            if ((aF1 < gp::Resolution()) && (aF2 < gp::Resolution()))
+                            if ((aF1 < gp1::Resolution()) && (aF2 < gp1::Resolution()))
                             {
                               // All derivative are equal to 0. Therefore, there is
                               // no point in going along direction chosen.
@@ -2176,7 +2176,7 @@ Standard_Boolean IntWalk_PWalking::ExtendLineInCommonZone(
         if ((indexofiso == 1) || (indexofiso == 3))
           anIsoDir = gp_Dir2d(1, 0);
 
-        if (aTangentZoneDir.SquareMagnitude() > gp::Resolution())
+        if (aTangentZoneDir.SquareMagnitude() > gp1::Resolution())
         {
           Standard_Real piquota = M_PI * 0.25;
 
@@ -2184,7 +2184,7 @@ Standard_Boolean IntWalk_PWalking::ExtendLineInCommonZone(
           {
             Standard_Integer ii = 1, nextii = 2;
             gp_Vec2d         d1(0, 0);
-            Standard_Real    asqresol = gp::Resolution();
+            Standard_Real    asqresol = gp1::Resolution();
             asqresol *= asqresol;
 
             do
@@ -3360,7 +3360,7 @@ IntWalk_StatusDeflection IntWalk_PWalking::TestDeflection(const IntImp_ConstIsop
       }
       Standard_Real RefDist    = CurPnt.Distance(OffsetPnt);
       Standard_Real LocalResol = 0.;
-      if (RefDist > gp::Resolution())
+      if (RefDist > gp1::Resolution())
         LocalResol = pasuv[choixIso] * tolconf / RefDist;
       if (pasuv[choixIso] < 2 * LocalResol)
         pasuv[choixIso] = pasInit[choixIso] = 2 * LocalResol;

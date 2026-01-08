@@ -31,7 +31,7 @@ class Dir3d;
 //! This package implements functions for basis geometric
 //! computation on curves and surfaces.
 //! The tolerance criterions used in this package are
-//! Resolution from package gp and RealEpsilon from class
+//! Resolution from package gp1 and RealEpsilon from class
 //! Real of package Standard.
 class CSLib1
 {
@@ -66,9 +66,9 @@ public:
   //! with Eps->0 so we can have the equivalence N ~ dN/du + dN/dv.
   //! DNu = ||DN/du|| and DNv = ||DN/dv||
   //!
-  //! . if DNu IsNull (DNu <= Resolution from gp) the answer Done = True
+  //! . if DNu IsNull (DNu <= Resolution from gp1) the answer Done = True
   //! the normal direction is given by DN/dv
-  //! . if DNv IsNull (DNv <= Resolution from gp) the answer Done = True
+  //! . if DNv IsNull (DNv <= Resolution from gp1) the answer Done = True
   //! the normal direction is given by DN/du
   //! . if the two directions DN/du and DN/dv are parallel Done = True
   //! the normal direction is given either by DN/du or DN/dv.

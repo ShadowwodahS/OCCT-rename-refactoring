@@ -24,7 +24,7 @@
 #include <TCollection_HAsciiString.hxx>
 
 //=============================================================================
-// Creation d' un plane de prostep a partir d' un Pln de gp
+// Creation d' un plane de prostep a partir d' un Pln de gp1
 //=============================================================================
 GeomToStep_MakePlane::GeomToStep_MakePlane(const gp_Pln& P, const ConversionFactors& theLocalFactors)
 {

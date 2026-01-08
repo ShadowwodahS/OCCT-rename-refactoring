@@ -29,7 +29,7 @@ class gp_Pln;
 class Axis3d;
 
 //! This class implements the following algorithms used
-//! to create Circ from gp.
+//! to create Circ from gp1.
 //!
 //! * Create a Circ coaxial to another and passing
 //! though a point.
@@ -55,43 +55,43 @@ public:
   //! The status is "NegativeRadius" if Radius < 0.0
   Standard_EXPORT gce_MakeCirc(const Frame3d& A2, const Standard_Real Radius);
 
-  //! Makes a Circ from gp <TheCirc> coaxial to another
+  //! Makes a Circ from gp1 <TheCirc> coaxial to another
   //! Circ <Circ> at a distance <Dist>.
   //! If Dist is greater than zero the result is encloses
   //! the circle <Circ>, else the result is enclosed by the
   //! circle <Circ>.
   Standard_EXPORT gce_MakeCirc(const gp_Circ& Circ, const Standard_Real Dist);
 
-  //! Makes a Circ from gp <TheCirc> coaxial to another
+  //! Makes a Circ from gp1 <TheCirc> coaxial to another
   //! Circ <Circ> and passing through a Pnt2d <Point>.
   Standard_EXPORT gce_MakeCirc(const gp_Circ& Circ, const Point3d& Point);
 
-  //! Makes a Circ from gp <TheCirc> passing through 3
+  //! Makes a Circ from gp1 <TheCirc> passing through 3
   //! Pnt2d <P1>,<P2>,<P3>.
   Standard_EXPORT gce_MakeCirc(const Point3d& P1, const Point3d& P2, const Point3d& P3);
 
-  //! Makes a Circ from gp <TheCirc> with its center
+  //! Makes a Circ from gp1 <TheCirc> with its center
   //! <Center> and the normal of its plane <Norm> and
   //! its radius <Radius>.
   Standard_EXPORT gce_MakeCirc(const Point3d&       Center,
                                const Dir3d&       Norm,
                                const Standard_Real Radius);
 
-  //! Makes a Circ from gp <TheCirc> with its center
+  //! Makes a Circ from gp1 <TheCirc> with its center
   //! <Center> and the normal of its plane <Plane> and
   //! its radius <Radius>.
   Standard_EXPORT gce_MakeCirc(const Point3d&       Center,
                                const gp_Pln&       Plane,
                                const Standard_Real Radius);
 
-  //! Makes a Circ from gp <TheCirc> with its center
+  //! Makes a Circ from gp1 <TheCirc> with its center
   //! <Center> and a point <Ptaxis> giving the normal
   //! of its plane <Plane> and its radius <Radius>.
   Standard_EXPORT gce_MakeCirc(const Point3d&       Center,
                                const Point3d&       Ptaxis,
                                const Standard_Real Radius);
 
-  //! Makes a Circ from gp <TheCirc> with its center
+  //! Makes a Circ from gp1 <TheCirc> with its center
   //! <Center> and its radius <Radius>.
   //! Warning
   //! The MakeCirc class does not prevent the

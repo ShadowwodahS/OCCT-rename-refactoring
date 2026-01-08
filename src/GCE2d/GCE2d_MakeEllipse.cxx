@@ -29,7 +29,7 @@ GCE2d_MakeEllipse::GCE2d_MakeEllipse(const gp_Elips2d& E)
   TheEllipse = new Geom2d_Ellipse(E);
 }
 
-GCE2d_MakeEllipse::GCE2d_MakeEllipse(const gp_Ax22d&     Axis,
+GCE2d_MakeEllipse::GCE2d_MakeEllipse(const Ax22d&     Axis,
                                      const Standard_Real MajorRadius,
                                      const Standard_Real MinorRadius)
 {

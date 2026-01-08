@@ -151,13 +151,13 @@ static void writeTexCoordsToDracoMesh(draco::Mesh1&                       theMes
 
 //! Write indices to Draco mesh
 static void writeIndicesToDracoMesh(draco::Mesh1&                      theMesh,
-                                    const std::vector<Poly_Triangle>& theIndices)
+                                    const std::vector<Triangle2>& theIndices)
 {
   draco::Mesh1::Face aFace;
   int               anIndex = 0;
   for (size_t anInd = 0; anInd < theIndices.size(); ++anInd, ++anIndex)
   {
-    const Poly_Triangle& anElem = theIndices[anInd];
+    const Triangle2& anElem = theIndices[anInd];
     aFace[0]                    = anElem.Value(1);
     aFace[1]                    = anElem.Value(2);
     aFace[2]                    = anElem.Value(3);
@@ -471,7 +471,7 @@ void RWGltf_CafWriter::saveTriangleIndices(RWGltf_GltfFace&           theGltfFac
   for (Standard_Integer anElemIter = theFaceIter.ElemLower(); anElemIter <= theFaceIter.ElemUpper();
        ++anElemIter)
   {
-    Poly_Triangle aTri = theFaceIter.TriangleOriented(anElemIter);
+    Triangle2 aTri = theFaceIter.TriangleOriented(anElemIter);
     aTri(1) += aNodeFirst;
     aTri(2) += aNodeFirst;
     aTri(3) += aNodeFirst;
@@ -2299,14 +2299,14 @@ void RWGltf_CafWriter::writeNodes(const Handle(AppDocument)&         theDocument
       {
         myCSTrsf.TransformTransformation(aTrsf);
         const gp_Quaternion aQuaternion = aTrsf.GetRotation();
-        const bool          hasRotation = Abs(aQuaternion.X()) > gp::Resolution()
-                                 || Abs(aQuaternion.Y()) > gp::Resolution()
-                                 || Abs(aQuaternion.Z()) > gp::Resolution()
-                                 || Abs(aQuaternion.W() - 1.0) > gp::Resolution();
+        const bool          hasRotation = Abs(aQuaternion.X()) > gp1::Resolution()
+                                 || Abs(aQuaternion.Y()) > gp1::Resolution()
+                                 || Abs(aQuaternion.Z()) > gp1::Resolution()
+                                 || Abs(aQuaternion.W() - 1.0) > gp1::Resolution();
         const Standard_Real aScaleFactor   = aTrsf.ScaleFactor();
         const bool          hasScale       = Abs(aScaleFactor - 1.0) > Precision::Confusion();
         const gp_XYZ&       aTranslPart    = aTrsf.TranslationPart();
-        const bool          hasTranslation = aTranslPart.SquareModulus() > gp::Resolution();
+        const bool          hasTranslation = aTranslPart.SquareModulus() > gp1::Resolution();
 
         RWGltf_WriterTrsfFormat aTrsfFormat = myTrsfFormat;
         if (myTrsfFormat == RWGltf_WriterTrsfFormat_Compact)

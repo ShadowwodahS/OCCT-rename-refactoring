@@ -176,7 +176,7 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Value(const math_Vector& X, math_V
   Standard_Real NorP2P3 = P2P3.Modulus();
   Standard_Real NorP3P1 = P3P1.Modulus();
   Coords2d         p1p2, p2p3, p3p1;
-  if (NorP1P2 >= gp::Resolution())
+  if (NorP1P2 >= gp1::Resolution())
   {
     p1p2 = P1P2 / NorP1P2;
   }
@@ -184,7 +184,7 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Value(const math_Vector& X, math_V
   {
     p1p2 = Coords2d(0., 0.);
   }
-  if (NorP2P3 >= gp::Resolution())
+  if (NorP2P3 >= gp1::Resolution())
   {
     p2p3 = P2P3 / NorP2P3;
   }
@@ -192,7 +192,7 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Value(const math_Vector& X, math_V
   {
     p2p3 = Coords2d(0., 0.);
   }
-  if (NorP3P1 >= gp::Resolution())
+  if (NorP3P1 >= gp1::Resolution())
   {
     p3p1 = P3P1 / NorP3P1;
   }
@@ -212,7 +212,7 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Value(const math_Vector& X, math_V
   Coords2d         Nor2(-Deriv1u2.Y(), Deriv1u2.X());
   Coords2d         Nor3(-Deriv1u3.Y(), Deriv1u3.X());
   Coords2d         nor1, nor2, nor3;
-  if (nnor1 >= gp::Resolution())
+  if (nnor1 >= gp1::Resolution())
   {
     nor1 = Nor1 / nnor1;
   }
@@ -220,7 +220,7 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Value(const math_Vector& X, math_V
   {
     nor1 = Coords2d(0., 0.);
   }
-  if (nnor2 >= gp::Resolution())
+  if (nnor2 >= gp1::Resolution())
   {
     nor2 = Nor2 / nnor2;
   }
@@ -228,7 +228,7 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Value(const math_Vector& X, math_V
   {
     nor2 = Coords2d(0., 0.);
   }
-  if (nnor3 >= gp::Resolution())
+  if (nnor3 >= gp1::Resolution())
   {
     nor3 = Nor3 / nnor3;
   }
@@ -292,11 +292,11 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Derivatives(const math_Vector&, ma
   Standard_Real NorP2P3 = P2P3.Modulus();
   Standard_Real NorP3P1 = P3P1.Modulus();
   Coords2d p1p2,p2p3,p3p1;
-  if (NorP1P2 >= gp::Resolution()) { p1p2 = P1P2/NorP1P2; }
+  if (NorP1P2 >= gp1::Resolution()) { p1p2 = P1P2/NorP1P2; }
   else { p1p2 = Coords2d(0.,0.); }
-  if (NorP2P3 >= gp::Resolution()) { p2p3 = P2P3/NorP2P3; }
+  if (NorP2P3 >= gp1::Resolution()) { p2p3 = P2P3/NorP2P3; }
   else { p2p3 = Coords2d(0.,0.); }
-  if (NorP3P1 >= gp::Resolution()) { p3p1 = P3P1/NorP3P1; }
+  if (NorP3P1 >= gp1::Resolution()) { p3p1 = P3P1/NorP3P1; }
   else { p3p1 = Coords2d(0.,0.); }
   //normales au courbes normees Nori et non nromees nori et norme des nori.
   Standard_Real nnor1 = Deriv1u1.Modulus();
@@ -306,11 +306,11 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Derivatives(const math_Vector&, ma
   Coords2d Nor2(-Deriv1u2.Y(),Deriv1u2.X());
   Coords2d Nor3(-Deriv1u3.Y(),Deriv1u3.X());
   Coords2d nor1,nor2,nor3;
-  if (nnor1 >= gp::Resolution()) { nor1 = Nor1/nnor1; }
+  if (nnor1 >= gp1::Resolution()) { nor1 = Nor1/nnor1; }
   else { nor1 = Coords2d(0.,0.); }
-  if (nnor2 >= gp::Resolution()) { nor2 = Nor2/nnor2; }
+  if (nnor2 >= gp1::Resolution()) { nor2 = Nor2/nnor2; }
   else { nor2 = Coords2d(0.,0.); }
-  if (nnor3 >= gp::Resolution()) { nor3 = Nor3/nnor3; }
+  if (nnor3 >= gp1::Resolution()) { nor3 = Nor3/nnor3; }
   else { nor3 = Coords2d(0.,0.); }
   //derivees des normales.
   Coords2d NorD21,NorD22,NorD23;
@@ -342,48 +342,48 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Derivatives(const math_Vector&, ma
   // Derivees dFui/uj  1 <= ui <= 3 , 1 <= uj <= 3
   // =============================================
   Standard_Real partie1,partie2;
-  if (nnor1 <= gp::Resolution()) { partie1 = 0.; }
+  if (nnor1 <= gp1::Resolution()) { partie1 = 0.; }
   else { partie1 = (signe1*NorD21/nnor1-(Nor1.Dot(NorD21)/(nnor1*nnor1*nnor1))
     *Nor1).Dot(p1p2); }
-  if (NorP1P2 <= gp::Resolution()) { partie2 = 0.; }
+  if (NorP1P2 <= gp1::Resolution()) { partie2 = 0.; }
   else {partie2=((Deriv1u1.Dot(p1p2)/(NorP1P2*NorP1P2))*P1P2-Deriv1u1/NorP1P2)
     .Dot(signe1*nor1+signe2*nor2); }
   Deriv(1,1) = partie1 + partie2;
-  if (nnor2 <= gp::Resolution()) { partie1 = 0.; }
+  if (nnor2 <= gp1::Resolution()) { partie1 = 0.; }
   else { partie1=(signe2*NorD22/(nnor2)-(Nor2.Dot(NorD22)/(nnor2*nnor2*nnor2))
     *Nor2).Dot(p1p2); }
-  if (NorP1P2 <= gp::Resolution()) { partie2 = 0.; }
+  if (NorP1P2 <= gp1::Resolution()) { partie2 = 0.; }
   else{partie2=((-Deriv1u2.Dot(p1p2)/(NorP1P2*NorP1P2))*P1P2+Deriv1u2/NorP1P2)
     .Dot(signe1*nor1+signe2*nor2); }
   Deriv(1,2) = partie1 + partie2;
   Deriv(1,3) = 0.;
   Deriv(2,1) = 0.;
-  if (nnor2 <= gp::Resolution()) { partie1 = 0.; }
+  if (nnor2 <= gp1::Resolution()) { partie1 = 0.; }
   else { partie1=(signe2*NorD22/(nnor2)-(Nor2.Dot(NorD22)/(nnor2*nnor2*nnor2))
     *Nor2).Dot(p2p3); }
-  if (NorP2P3 <= gp::Resolution()) { partie2 = 0.; }
+  if (NorP2P3 <= gp1::Resolution()) { partie2 = 0.; }
   else { partie2=((Deriv1u2.Dot(p2p3)/(NorP2P3*NorP2P3))*P2P3-Deriv1u2/NorP2P3)
     .Dot(signe2*nor2+signe3*nor3); }
   Deriv(2,2) = partie1 +partie2;
-  if (nnor3 <= gp::Resolution()) { partie1 = 0.; }
+  if (nnor3 <= gp1::Resolution()) { partie1 = 0.; }
   else { partie1=(signe3*NorD23/(nnor3)-(Nor3.Dot(NorD23)/(nnor3*nnor3*nnor3))
     *Nor3).Dot(p2p3); }
-  if (NorP2P3 <= gp::Resolution()) { partie2 = 0.; }
+  if (NorP2P3 <= gp1::Resolution()) { partie2 = 0.; }
   else {partie2=((-Deriv1u3.Dot(p2p3)/(NorP2P3*NorP2P3))*P2P3+Deriv1u3/NorP2P3)
     .Dot(signe2*nor2+signe3*nor3); }
   Deriv(2,3) = partie1 + partie2;
-  if (nnor1 <= gp::Resolution()) { partie1 = 0.; }
+  if (nnor1 <= gp1::Resolution()) { partie1 = 0.; }
   else { partie1 =(signe1*NorD21/(nnor1)-(Nor1.Dot(NorD21)/(nnor1*nnor1*nnor1))
     *Nor1).Dot(p3p1); }
-  if (NorP3P1 <= gp::Resolution()) { partie2 = 0.; }
+  if (NorP3P1 <= gp1::Resolution()) { partie2 = 0.; }
   else {partie2=((-Deriv1u1.Dot(p3p1)/(NorP3P1*NorP3P1))*P3P1+Deriv1u1/NorP3P1)
     .Dot(signe1*nor1+signe3*nor3); }
   Deriv(3,1) = partie1 + partie2;
   Deriv(3,2) = 0.;
-  if (nnor3 <= gp::Resolution()) { partie1 = 0.; }
+  if (nnor3 <= gp1::Resolution()) { partie1 = 0.; }
   else { partie1=(signe3*NorD23/(nnor3)-(Nor3.Dot(NorD23)/(nnor3*nnor3*nnor3))
     *Nor3).Dot(p3p1); }
-  if (NorP3P1 <= gp::Resolution()) { partie2 = 0.; }
+  if (NorP3P1 <= gp1::Resolution()) { partie2 = 0.; }
   else {partie2=((Deriv1u3.Dot(p3p1)/(NorP3P1*NorP3P1))*P3P1-Deriv1u3/NorP3P1)
     .Dot(signe1*nor1+signe3*nor3); }
   Deriv(3,3) = partie1+partie2;
@@ -416,11 +416,11 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Values(const math_Vector&, math_Ve
   Standard_Real NorP2P3 = P2P3.Modulus();
   Standard_Real NorP3P1 = P3P1.Modulus();
   Coords2d p1p2,p2p3,p3p1;
-  if (NorP1P2 >= gp::Resolution()) { p1p2 = P1P2/NorP1P2; }
+  if (NorP1P2 >= gp1::Resolution()) { p1p2 = P1P2/NorP1P2; }
   else { p1p2 = Coords2d(0.,0.); }
-  if (NorP2P3 >= gp::Resolution()) { p2p3 = P2P3/NorP2P3; }
+  if (NorP2P3 >= gp1::Resolution()) { p2p3 = P2P3/NorP2P3; }
   else { p2p3 = Coords2d(0.,0.); }
-  if (NorP3P1 >= gp::Resolution()) { p3p1 = P3P1/NorP3P1; }
+  if (NorP3P1 >= gp1::Resolution()) { p3p1 = P3P1/NorP3P1; }
   else { p3p1 = Coords2d(0.,0.); }
   //normales au courbes normees Nori et non nromees nori et norme des nori.
   Standard_Real nnor1 = Deriv1u1.Modulus();
@@ -430,11 +430,11 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Values(const math_Vector&, math_Ve
   Coords2d Nor2(-Deriv1u2.Y(),Deriv1u2.X());
   Coords2d Nor3(-Deriv1u3.Y(),Deriv1u3.X());
   Coords2d nor1,nor2,nor3;
-  if (nnor1 >= gp::Resolution()) { nor1 = Nor1/nnor1; }
+  if (nnor1 >= gp1::Resolution()) { nor1 = Nor1/nnor1; }
   else { nor1 = Coords2d(0.,0.); }
-  if (nnor2 >= gp::Resolution()) { nor2 = Nor2/nnor2; }
+  if (nnor2 >= gp1::Resolution()) { nor2 = Nor2/nnor2; }
   else { nor2 = Coords2d(0.,0.); }
-  if (nnor3 >= gp::Resolution()) { nor3 = Nor3/nnor3; }
+  if (nnor3 >= gp1::Resolution()) { nor3 = Nor3/nnor3; }
   else { nor3 = Coords2d(0.,0.); }
   //derivees des normales.
   Coords2d NorD21,NorD22,NorD23;
@@ -471,48 +471,48 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Values(const math_Vector&, math_Ve
   // Derivees dFui/uj  1 <= ui <= 3 , 1 <= uj <= 3
   // =============================================
   Standard_Real partie1,partie2;
-  if (nnor1 <= gp::Resolution()) { partie1 = 0.; }
+  if (nnor1 <= gp1::Resolution()) { partie1 = 0.; }
   else { partie1 = signe1*(NorD21/nnor1-(Nor1.Dot(NorD21)/(nnor1*nnor1*nnor1))
     *Nor1).Dot(p1p2); }
-  if (NorP1P2 <= gp::Resolution()) { partie2 = 0.; }
+  if (NorP1P2 <= gp1::Resolution()) { partie2 = 0.; }
   else {partie2=((Deriv1u1.Dot(p1p2)/(NorP1P2*NorP1P2))*P1P2-Deriv1u1/NorP1P2)
     .Dot(signe1*nor1+signe2*nor2); }
   Deriv(1,1) = partie1 + partie2;
-  if (nnor2 <= gp::Resolution()) { partie1 = 0.; }
+  if (nnor2 <= gp1::Resolution()) { partie1 = 0.; }
   else { partie1=signe2*(NorD22/(nnor2)-(Nor2.Dot(NorD22)/(nnor2*nnor2*nnor2))
     *Nor2).Dot(p1p2); }
-  if (NorP1P2 <= gp::Resolution()) { partie2 = 0.; }
+  if (NorP1P2 <= gp1::Resolution()) { partie2 = 0.; }
   else{partie2=((-Deriv1u2.Dot(p1p2)/(NorP1P2*NorP1P2))*P1P2+Deriv1u2/NorP1P2)
     .Dot(signe1*nor1+signe2*nor2); }
   Deriv(1,2) = partie1 + partie2;
   Deriv(1,3) = 0.;
   Deriv(2,1) = 0.;
-  if (nnor2 <= gp::Resolution()) { partie1 = 0.; }
+  if (nnor2 <= gp1::Resolution()) { partie1 = 0.; }
   else { partie1=signe2*(NorD22/(nnor2)-(Nor2.Dot(NorD22)/(nnor2*nnor2*nnor2))
     *Nor2).Dot(p2p3); }
-  if (NorP2P3 <= gp::Resolution()) { partie2 = 0.; }
+  if (NorP2P3 <= gp1::Resolution()) { partie2 = 0.; }
   else { partie2=((Deriv1u2.Dot(p2p3)/(NorP2P3*NorP2P3))*P2P3-Deriv1u2/NorP2P3)
     .Dot(signe2*nor2+signe3*nor3); }
   Deriv(2,2) = partie1 +partie2;
-  if (nnor3 <= gp::Resolution()) { partie1 = 0.; }
+  if (nnor3 <= gp1::Resolution()) { partie1 = 0.; }
   else { partie1=signe3*(NorD23/(nnor3)-(Nor3.Dot(NorD23)/(nnor3*nnor3*nnor3))
     *Nor3).Dot(p2p3); }
-  if (NorP2P3 <= gp::Resolution()) { partie2 = 0.; }
+  if (NorP2P3 <= gp1::Resolution()) { partie2 = 0.; }
   else {partie2=((-Deriv1u3.Dot(p2p3)/(NorP2P3*NorP2P3))*P2P3+Deriv1u3/NorP2P3)
     .Dot(signe2*nor2+signe3*nor3); }
   Deriv(2,3) = partie1 + partie2;
-  if (nnor1 <= gp::Resolution()) { partie1 = 0.; }
+  if (nnor1 <= gp1::Resolution()) { partie1 = 0.; }
   else { partie1 =signe1*(NorD21/(nnor1)-(Nor1.Dot(NorD21)/(nnor1*nnor1*nnor1))
     *Nor1).Dot(p3p1); }
-  if (NorP3P1 <= gp::Resolution()) { partie2 = 0.; }
+  if (NorP3P1 <= gp1::Resolution()) { partie2 = 0.; }
   else {partie2=((-Deriv1u1.Dot(p3p1)/(NorP3P1*NorP3P1))*P3P1+Deriv1u1/NorP3P1)
     .Dot(signe1*nor1+signe3*nor3); }
   Deriv(3,1) = partie1 + partie2;
   Deriv(3,2) = 0.;
-  if (nnor3 <= gp::Resolution()) { partie1 = 0.; }
+  if (nnor3 <= gp1::Resolution()) { partie1 = 0.; }
   else { partie1=signe3*(NorD23/(nnor3)-(Nor3.Dot(NorD23)/(nnor3*nnor3*nnor3))
     *Nor3).Dot(p3p1); }
-  if (NorP3P1 <= gp::Resolution()) { partie2 = 0.; }
+  if (NorP3P1 <= gp1::Resolution()) { partie2 = 0.; }
   else {partie2=((Deriv1u3.Dot(p3p1)/(NorP3P1*NorP3P1))*P3P1-Deriv1u3/NorP3P1)
     .Dot(signe1*nor1+signe3*nor3); }
   Deriv(3,3) = partie1+partie2;

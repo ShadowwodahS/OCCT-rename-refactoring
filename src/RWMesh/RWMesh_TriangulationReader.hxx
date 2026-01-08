@@ -264,7 +264,7 @@ protected: //! @name interface for filling triangulation data
   //!         1 in case of success operation.
   virtual Standard_Integer setTriangle(const Handle(MeshTriangulation)& theMesh,
                                        Standard_Integer                  theIndex,
-                                       const Poly_Triangle&              theTriangle) const
+                                       const Triangle2&              theTriangle) const
   {
     if (theTriangle.Value(1) < 1 || theTriangle.Value(1) > theMesh->NbNodes()
         || theTriangle.Value(2) < 1 || theTriangle.Value(2) > theMesh->NbNodes()

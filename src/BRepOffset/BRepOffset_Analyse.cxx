@@ -922,7 +922,7 @@ void BRepOffset_Analyse::TangentEdges(const TopoEdge&    Edge,
   C3dRef = BRepAdaptor_Curve(Edge);
   VRef   = C3dRef.DN(URef, 1);
   CorrectOrientationOfTangent(VRef, Vertex, Edge);
-  if (VRef.SquareMagnitude() < gp::Resolution())
+  if (VRef.SquareMagnitude() < gp1::Resolution())
     return;
 
   Edges.Clear();
@@ -938,7 +938,7 @@ void BRepOffset_Analyse::TangentEdges(const TopoEdge&    Edge,
     C3d = BRepAdaptor_Curve(CurE);
     V   = C3d.DN(U, 1);
     CorrectOrientationOfTangent(V, Vertex, CurE);
-    if (V.SquareMagnitude() < gp::Resolution())
+    if (V.SquareMagnitude() < gp1::Resolution())
       continue;
     if (V.IsOpposite(VRef, myAngle))
     {

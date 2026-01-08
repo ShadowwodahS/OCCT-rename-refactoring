@@ -43,7 +43,7 @@ GC_MakePlane::GC_MakePlane(const Standard_Real A,
                            const Standard_Real C,
                            const Standard_Real D)
 {
-  if (Sqrt(A * A + B * B + C * C) <= gp::Resolution())
+  if (Sqrt(A * A + B * B + C * C) <= gp1::Resolution())
   {
     TheError = gce_BadEquation;
   }

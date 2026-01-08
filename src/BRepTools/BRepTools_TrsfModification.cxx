@@ -144,7 +144,7 @@ Standard_Boolean BRepTools_TrsfModification::NewTriangulation(
   {
     for (Standard_Integer anInd = 1; anInd <= theTriangulation->NbTriangles(); ++anInd)
     {
-      Poly_Triangle    aTria = theTriangulation->Triangle1(anInd);
+      Triangle2    aTria = theTriangulation->Triangle1(anInd);
       Standard_Integer aN1, aN2, aN3;
       aTria.Get(aN1, aN2, aN3);
       aTria.Set(aN1, aN3, aN2);

@@ -73,9 +73,9 @@ DEFINE_STANDARD_HANDLE(BezierCurve3d, Geom_BoundedCurve)
 //! The continuity of a Bezier curve is infinite.
 //! It is not possible to build a Bezier curve with negative
 //! weights. We consider that a weight value is zero if it
-//! is less than or equal to gp::Resolution(). We
+//! is less than or equal to gp1::Resolution(). We
 //! also consider that two weight values W1 and W2 are equal if:
-//! |W2 - W1| <= gp::Resolution().
+//! |W2 - W1| <= gp1::Resolution().
 //! Warning
 //! - When considering the continuity of a closed Bezier
 //! curve at the junction point, remember that a curve
@@ -100,7 +100,7 @@ public:
   //! as non rational. Raises ConstructionError if
   //! the number of poles is greater than  MaxDegree + 1 or lower
   //! than 2 or CurvePoles and CurveWeights have not the same length
-  //! or one weight value is lower or equal to Resolution from package gp.
+  //! or one weight value is lower or equal to Resolution from package gp1.
   Standard_EXPORT BezierCurve3d(const TColgp_Array1OfPnt&   CurvePoles,
                                    const TColStd_Array1OfReal& PoleWeights);
 
@@ -126,7 +126,7 @@ public:
   //!
   //! Raised if the resulting number of poles is greater than
   //! MaxDegree + 1.
-  //! Raised if Weight is lower or equal to Resolution from package gp.
+  //! Raised if Weight is lower or equal to Resolution from package gp1.
   Standard_EXPORT void InsertPoleAfter(const Standard_Integer Index,
                                        const Point3d&          P,
                                        const Standard_Real    Weight);
@@ -148,7 +148,7 @@ public:
   //! Raised if the resulting number of poles is greater than
   //! MaxDegree + 1.
   //! Raised if Weight is lower or equal to Resolution from
-  //! package gp.
+  //! package gp1.
   Standard_EXPORT void InsertPoleBefore(const Standard_Integer Index,
                                         const Point3d&          P,
                                         const Standard_Real    Weight);
@@ -194,7 +194,7 @@ public:
   //! If the curve was rational it can become non rational if
   //! all the weights are identical.
   //! Raised if Index is not in the range [1, NbPoles]
-  //! Raised if Weight <= Resolution from package gp
+  //! Raised if Weight <= Resolution from package gp1
   Standard_EXPORT void SetPole(const Standard_Integer Index,
                                const Point3d&          P,
                                const Standard_Real    Weight);
@@ -205,12 +205,12 @@ public:
   //! If the curve was rational it can become non rational if
   //! all the weights are identical.
   //! Raised if Index is not in the range [1, NbPoles]
-  //! Raised if Weight <= Resolution from package gp
+  //! Raised if Weight <= Resolution from package gp1
   Standard_EXPORT void SetWeight(const Standard_Integer Index, const Standard_Real Weight);
 
   //! Returns True if the distance between the first point
   //! and the last point of the curve is lower or equal to
-  //! the Resolution from package gp.
+  //! the Resolution from package gp1.
   Standard_EXPORT Standard_Boolean IsClosed() const Standard_OVERRIDE;
 
   //! Continuity of the curve, returns True.
@@ -221,7 +221,7 @@ public:
   Standard_EXPORT Standard_Boolean IsPeriodic() const Standard_OVERRIDE;
 
   //! Returns false if all the weights are identical. The tolerance
-  //! criterion is Resolution from package gp.
+  //! criterion is Resolution from package gp1.
   Standard_EXPORT Standard_Boolean IsRational() const;
 
   //! a Bezier curve is CN

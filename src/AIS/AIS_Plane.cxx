@@ -269,8 +269,8 @@ void AIS_Plane::ComputeSelection(const Handle(SelectionContainer)& theSelection,
     aPlane->D0(-aLengthX, aLengthY, aRectanglePoints.ChangeValue(4));
 
     Poly_Array1OfTriangle aTriangles(1, 2);
-    aTriangles.ChangeValue(1) = Poly_Triangle(1, 2, 3);
-    aTriangles.ChangeValue(2) = Poly_Triangle(1, 3, 4);
+    aTriangles.ChangeValue(1) = Triangle2(1, 2, 3);
+    aTriangles.ChangeValue(2) = Triangle2(1, 3, 4);
 
     aSensitivePoly = new MeshTriangulation(aRectanglePoints, aTriangles);
   }
@@ -283,7 +283,7 @@ void AIS_Plane::ComputeSelection(const Handle(SelectionContainer)& theSelection,
     aTrianglePoints.ChangeValue(3) = myPmax;
 
     Poly_Array1OfTriangle aTriangles(1, 1);
-    aTriangles.ChangeValue(1) = Poly_Triangle(1, 2, 3);
+    aTriangles.ChangeValue(1) = Triangle2(1, 2, 3);
 
     aSensitivePoly = new MeshTriangulation(aTrianglePoints, aTriangles);
   }

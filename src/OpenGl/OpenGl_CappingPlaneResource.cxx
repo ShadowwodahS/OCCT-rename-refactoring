@@ -153,7 +153,7 @@ void OpenGl_CappingPlaneResource::updateAspect(const Handle(Graphic3d_Aspects)& 
 void OpenGl_CappingPlaneResource::updateTransform(const Handle(OpenGl_Context)& theCtx)
 {
   if (myEquationMod == myPlaneRoot->MCountEquation()
-      && myLocalOrigin.IsEqual(theCtx->ShaderManager()->LocalOrigin(), gp::Resolution()))
+      && myLocalOrigin.IsEqual(theCtx->ShaderManager()->LocalOrigin(), gp1::Resolution()))
   {
     return; // nothing to update
   }

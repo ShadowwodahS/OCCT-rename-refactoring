@@ -29,7 +29,7 @@ inline Standard_Real ParametricConic::Param2(void) const
   return (prm2);
 }
 
-inline const gp_Ax22d& ParametricConic::Axis2(void) const
+inline const Ax22d& ParametricConic::Axis2(void) const
 {
   return (axe);
 }

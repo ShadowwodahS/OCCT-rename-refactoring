@@ -1458,7 +1458,7 @@ void BinTools_ShapeSet::WriteTriangulation(Standard_OStream&            OS,
 
       for (Standard_Integer aTriIter = 1; aTriIter <= aNbTriangles; ++aTriIter)
       {
-        const Poly_Triangle aTri = aTriangulation->Triangle1(aTriIter);
+        const Triangle2 aTri = aTriangulation->Triangle1(aTriIter);
         BinTools1::PutInteger(OS, aTri.Value(1));
         BinTools1::PutInteger(OS, aTri.Value(2));
         BinTools1::PutInteger(OS, aTri.Value(3));
@@ -1557,7 +1557,7 @@ void BinTools_ShapeSet::ReadTriangulation(Standard_IStream&            IS,
         BinTools1::GetInteger(IS, aTriNodes[1]);
         BinTools1::GetInteger(IS, aTriNodes[2]);
         aTriangulation->SetTriangle(aTriIter,
-                                    Poly_Triangle(aTriNodes[0], aTriNodes[1], aTriNodes[2]));
+                                    Triangle2(aTriNodes[0], aTriNodes[1], aTriNodes[2]));
       }
       // IS.ignore(sizeof(Standard_Real) * (hasUV ? 5 : 3) * aNbNodes + sizeof(Standard_Integer) * 3
       // * aNbTriangles);

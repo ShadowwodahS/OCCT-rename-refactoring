@@ -119,7 +119,7 @@ void ProjLib_Plane::Project(const gp_Circ& C)
   gp_Pnt2d P2d = EvalPnt2d(C.Location(), myPlane);
   gp_Dir2d X2d = EvalDir2d(C.Position().XDirection(), myPlane);
   gp_Dir2d Y2d = EvalDir2d(C.Position().YDirection(), myPlane);
-  gp_Ax22d Ax(P2d, X2d, Y2d);
+  Ax22d Ax(P2d, X2d, Y2d);
 
   myCirc       = gp_Circ2d(Ax, C.Radius());
   myIsPeriodic = Standard_True;
@@ -135,7 +135,7 @@ void ProjLib_Plane::Project(const gp_Elips& E)
   gp_Pnt2d P2d = EvalPnt2d(E.Location(), myPlane);
   gp_Dir2d X2d = EvalDir2d(E.Position().XDirection(), myPlane);
   gp_Dir2d Y2d = EvalDir2d(E.Position().YDirection(), myPlane);
-  gp_Ax22d Ax(P2d, X2d, Y2d);
+  Ax22d Ax(P2d, X2d, Y2d);
 
   myElips      = gp_Elips2d(Ax, E.MajorRadius(), E.MinorRadius());
   myIsPeriodic = Standard_True;
@@ -151,7 +151,7 @@ void ProjLib_Plane::Project(const gp_Parab& P)
   gp_Pnt2d P2d = EvalPnt2d(P.Location(), myPlane);
   gp_Dir2d X2d = EvalDir2d(P.Position().XDirection(), myPlane);
   gp_Dir2d Y2d = EvalDir2d(P.Position().YDirection(), myPlane);
-  gp_Ax22d Ax(P2d, X2d, Y2d);
+  Ax22d Ax(P2d, X2d, Y2d);
 
   myParab = gp_Parab2d(Ax, P.Focal());
   isDone  = Standard_True;
@@ -166,7 +166,7 @@ void ProjLib_Plane::Project(const gp_Hypr& H)
   gp_Pnt2d P2d = EvalPnt2d(H.Location(), myPlane);
   gp_Dir2d X2d = EvalDir2d(H.Position().XDirection(), myPlane);
   gp_Dir2d Y2d = EvalDir2d(H.Position().YDirection(), myPlane);
-  gp_Ax22d Ax(P2d, X2d, Y2d);
+  Ax22d Ax(P2d, X2d, Y2d);
 
   myHypr = gp_Hypr2d(Ax, H.MajorRadius(), H.MinorRadius());
   isDone = Standard_True;

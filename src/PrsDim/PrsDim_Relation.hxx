@@ -165,10 +165,10 @@ public:
   //! aPres    : Presentation from Prs3d;
   //! Curve1   : Curve                from Geom;
   //! Curve2   : Curve                from Geom;
-  //! FirstP1  : Pnt                  from gp;
-  //! LastP1   : Pnt                  from gp;
-  //! FirstP2  : Pnt                  from gp;
-  //! LastP2   : Pnt                  from gp;
+  //! FirstP1  : Pnt                  from gp1;
+  //! LastP1   : Pnt                  from gp1;
+  //! FirstP2  : Pnt                  from gp1;
+  //! LastP2   : Pnt                  from gp1;
   //! aColor   : NameOfColor          from Quantity = Quantity_NOC_PURPLE;
   //! aWidth   : Real                 from Standard = 2;
   //! aProjTOL : TypeOfLine           from Aspect   = Aspect_TOL_DASH;

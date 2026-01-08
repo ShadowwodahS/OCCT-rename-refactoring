@@ -52,7 +52,7 @@ public:
   //! The Location of A1 is the origin of the line.
   Standard_EXPORT GeomLine(const Axis3d& A1);
 
-  //! Creates a line from a non transient line from package gp.
+  //! Creates a line from a non transient line from package gp1.
   Standard_EXPORT GeomLine(const gp_Lin& L);
 
   //! Constructs a line passing through point P and parallel to vector V
@@ -72,7 +72,7 @@ public:
   //! changes the "Location" and a the "Direction" of <me>.
   Standard_EXPORT void SetPosition(const Axis3d& A1);
 
-  //! Returns non transient line from gp with the same geometric
+  //! Returns non transient line from gp1 with the same geometric
   //! properties as <me>
   Standard_EXPORT gp_Lin Lin() const;
 

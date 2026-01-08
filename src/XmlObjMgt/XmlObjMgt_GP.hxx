@@ -22,7 +22,7 @@ class Transform3d;
 class gp_Mat;
 class gp_XYZ;
 
-//! Translation of gp (simple geometry) objects
+//! Translation of gp1 (simple geometry) objects
 class XmlObjMgt_GP
 {
 public:

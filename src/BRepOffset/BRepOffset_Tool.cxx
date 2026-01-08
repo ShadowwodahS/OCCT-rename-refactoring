@@ -501,7 +501,7 @@ void BRepOffset_Tool::OrientSection(const TopoEdge&  E,
     ParOnC = AlgoTools2D::IntermediatePoint(f, l);
 
   Vector3d T1 = C->DN(ParOnC, 1).Transformed(L.Transformation());
-  if (T1.SquareMagnitude() > gp::Resolution())
+  if (T1.SquareMagnitude() > gp1::Resolution())
   {
     T1.Normalize();
   }
@@ -634,7 +634,7 @@ static Standard_Boolean IsOnSurface(const Handle(GeomCurve3d)&   C,
   switch (AS.GetType())
   {
     case GeomAbs_Plane: {
-      gp_Ax3 Ax = AS.Plane().Position();
+      Ax3 Ax = AS.Plane().Position();
       for (Standard_Integer i = 0; i < n; i++)
       {
         P = C->Value(f + i * du);
@@ -646,7 +646,7 @@ static Standard_Boolean IsOnSurface(const Handle(GeomCurve3d)&   C,
       break;
     }
     case GeomAbs_Cylinder: {
-      gp_Ax3        Ax  = AS.Cylinder().Position();
+      Ax3        Ax  = AS.Cylinder().Position();
       Standard_Real Rad = AS.Cylinder().Radius();
       for (Standard_Integer i = 0; i < n; i++)
       {
@@ -659,7 +659,7 @@ static Standard_Boolean IsOnSurface(const Handle(GeomCurve3d)&   C,
       break;
     }
     case GeomAbs_Cone: {
-      gp_Ax3        Ax  = AS.Cone().Position();
+      Ax3        Ax  = AS.Cone().Position();
       Standard_Real Rad = AS.Cone().RefRadius();
       Standard_Real Alp = AS.Cone().SemiAngle();
       for (Standard_Integer i = 0; i < n; i++)
@@ -673,7 +673,7 @@ static Standard_Boolean IsOnSurface(const Handle(GeomCurve3d)&   C,
       break;
     }
     case GeomAbs_Sphere: {
-      gp_Ax3        Ax  = AS.Sphere().Position();
+      Ax3        Ax  = AS.Sphere().Position();
       Standard_Real Rad = AS.Sphere().Radius();
       for (Standard_Integer i = 0; i < n; i++)
       {
@@ -686,7 +686,7 @@ static Standard_Boolean IsOnSurface(const Handle(GeomCurve3d)&   C,
       break;
     }
     case GeomAbs_Torus: {
-      gp_Ax3        Ax = AS.Torus().Position();
+      Ax3        Ax = AS.Torus().Position();
       Standard_Real R1 = AS.Torus().MajorRadius();
       Standard_Real R2 = AS.Torus().MinorRadius();
       for (Standard_Integer i = 0; i < n; i++)
@@ -954,7 +954,7 @@ static Standard_Boolean BSplineEdges(const TopoEdge&     E1,
   C1->D1(Param1, Pnt1, Der1);
   C2->D1(Param2, Pnt2, Der2);
 
-  if (Der1.Magnitude() <= gp::Resolution() || Der2.Magnitude() <= gp::Resolution())
+  if (Der1.Magnitude() <= gp1::Resolution() || Der2.Magnitude() <= gp1::Resolution())
     angle = M_PI / 2.;
   else
     angle = Der1.Angle(Der2);
@@ -2072,7 +2072,7 @@ static void ExtentEdge(const TopoFace& F,
   Tang = tmin * Tang;
   gp_Pnt2d PL2d(P.X() + Tang.X(), P.Y() + Tang.Y());
 
-  Handle(GeomCurve3d) CC = GeomAPI1::To3d(C2d, gp_Pln(gp::XOY()));
+  Handle(GeomCurve3d) CC = GeomAPI1::To3d(C2d, gp_Pln(gp1::XOY()));
   Point3d             PF(PF2d.X(), PF2d.Y(), 0.);
   Point3d             PL(PL2d.X(), PL2d.Y(), 0.);
 
@@ -2083,7 +2083,7 @@ static void ExtentEdge(const TopoFace& F,
   GeomLib1::ExtendCurveToPoint(ExtC, PF, 1, 0);
   GeomLib1::ExtendCurveToPoint(ExtC, PL, 1, 1);
 
-  Handle(GeomCurve2d) CNE2d = GeomAPI1::To2d(ExtC, gp_Pln(gp::XOY()));
+  Handle(GeomCurve2d) CNE2d = GeomAPI1::To2d(ExtC, gp_Pln(gp1::XOY()));
 
   // Construction de la nouvelle arrete;
   ShapeBuilder B;
@@ -2570,7 +2570,7 @@ static void MakeFace(const Handle(GeomSurface)& S,
   if (theSurf->DynamicType() == STANDARD_TYPE(Geom_ConicalSurface))
   {
     Handle(Geom_ConicalSurface) ConicalS = Handle(Geom_ConicalSurface)::DownCast(theSurf);
-    gp_Cone                     theCone  = ConicalS->Cone();
+    Cone1                     theCone  = ConicalS->Cone();
     Point3d                      theApex  = theCone.Apex();
     Standard_Real               Uapex, Vapex;
     ElSLib1::Parameters(theCone, theApex, Uapex, Vapex);
@@ -3206,7 +3206,7 @@ void BRepOffset_Tool::CheckBounds(const TopoFace&        F,
           if (!theLine.IsNull())
           {
             gp_Dir2d theDir = theLine->Direction();
-            if (theDir.IsParallel(gp::DX2d(), Precision::Angular()))
+            if (theDir.IsParallel(gp1::DX2d(), Precision::Angular()))
             {
               Vbound++;
               if (BRepInspector::Degenerated(anEdge))
@@ -3224,7 +3224,7 @@ void BRepOffset_Tool::CheckBounds(const TopoFace&        F,
                   Vlast = theLine->Location().Y();
               }
             }
-            else if (theDir.IsParallel(gp::DY2d(), Precision::Angular()))
+            else if (theDir.IsParallel(gp1::DY2d(), Precision::Angular()))
             {
               Ubound++;
               if (theLine->Location().X() < Ufirst)
@@ -3372,7 +3372,7 @@ Standard_Boolean BRepOffset_Tool::EnLargeFace(const TopoFace&     F,
   if (theSurf->DynamicType() == STANDARD_TYPE(Geom_ConicalSurface))
   {
     Handle(Geom_ConicalSurface) ConicalS = Handle(Geom_ConicalSurface)::DownCast(theSurf);
-    gp_Cone                     theCone  = ConicalS->Cone();
+    Cone1                     theCone  = ConicalS->Cone();
     Point3d                      theApex  = theCone.Apex();
     Standard_Real               Uapex, Vapex;
     ElSLib1::Parameters(theCone, theApex, Uapex, Vapex);

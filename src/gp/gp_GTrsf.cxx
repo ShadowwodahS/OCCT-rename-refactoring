@@ -159,7 +159,7 @@ void gp_GTrsf::SetForm()
   gp_Mat        M(matrix);
   Standard_Real s = M.Determinant();
 
-  if (Abs(s) < gp::Resolution())
+  if (Abs(s) < gp1::Resolution())
     throw Standard_ConstructionError("gp_GTrsf::SetForm, null determinant");
 
   if (s > 0)

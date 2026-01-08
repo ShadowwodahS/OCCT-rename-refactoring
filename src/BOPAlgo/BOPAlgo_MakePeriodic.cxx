@@ -39,7 +39,7 @@
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 
 // Periodic/Trim/Repeat directions
-static const Dir3d MY_DIRECTIONS[3] = {gp::DX(), gp::DY(), gp::DZ()};
+static const Dir3d MY_DIRECTIONS[3] = {gp1::DX(), gp1::DY(), gp1::DZ()};
 
 //=======================================================================
 // function : Perform

@@ -27,18 +27,18 @@
 //! A Triangle1 is defined by a triplet of nodes within [1, MeshTriangulation::NbNodes()] range.
 //! Each node is an index in the table of nodes specific to an existing
 //! triangulation of a shape, and represents a point on the surface.
-class Poly_Triangle
+class Triangle2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs a triangle and sets all indices to zero.
-  Poly_Triangle() { myNodes[0] = myNodes[1] = myNodes[2] = 0; }
+  Triangle2() { myNodes[0] = myNodes[1] = myNodes[2] = 0; }
 
   //! Constructs a triangle and sets its three indices,
   //! where these node values are indices in the table of nodes specific to an existing
   //! triangulation of a shape.
-  Poly_Triangle(const Standard_Integer theN1,
+  Triangle2(const Standard_Integer theN1,
                 const Standard_Integer theN2,
                 const Standard_Integer theN3)
   {
@@ -60,7 +60,7 @@ public:
   void Set(const Standard_Integer theIndex, const Standard_Integer theNode)
   {
     Standard_OutOfRange_Raise_if(theIndex < 1 || theIndex > 3,
-                                 "Poly_Triangle::Set(), invalid index");
+                                 "Triangle2::Set(), invalid index");
     myNodes[theIndex - 1] = theNode;
   }
 
@@ -77,7 +77,7 @@ public:
   Standard_Integer Value(const Standard_Integer theIndex) const
   {
     Standard_OutOfRange_Raise_if(theIndex < 1 || theIndex > 3,
-                                 "Poly_Triangle::Value(), invalid index");
+                                 "Triangle2::Value(), invalid index");
     return myNodes[theIndex - 1];
   }
 
@@ -88,7 +88,7 @@ public:
   Standard_Integer& ChangeValue(const Standard_Integer theIndex)
   {
     Standard_OutOfRange_Raise_if(theIndex < 1 || theIndex > 3,
-                                 "Poly_Triangle::ChangeValue(), invalid index");
+                                 "Triangle2::ChangeValue(), invalid index");
     return myNodes[theIndex - 1];
   }
 

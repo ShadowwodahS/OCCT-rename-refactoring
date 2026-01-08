@@ -429,8 +429,8 @@ void GeomFill_Pipe::Init(const Handle(GeomCurve3d)& Path, const Standard_Real Ra
 
   // Nouvelle methode
   myAdpPath             = new (GeomAdaptor_Curve)(Path);
-  Handle(GeomCircle) C = new (GeomCircle)(gp::XOY(), Radius);
-  C->Rotate(gp::OZ(), M_PI / 2.);
+  Handle(GeomCircle) C = new (GeomCircle)(gp1::XOY(), Radius);
+  C->Rotate(gp1::OZ(), M_PI / 2.);
 
   mySec = new (GeomFill_UniformSection)(C, Path->FirstParameter(), Path->LastParameter());
   Handle(GeomFill_CorrectedFrenet) TLaw = new (GeomFill_CorrectedFrenet)();
@@ -930,7 +930,7 @@ Standard_Boolean GeomFill_Pipe::KPartT4()
     Dir3d X(V1), Y(V2), ZRef;
     ZRef = X.Crossed(Y);
 
-    gp_Ax3 Axis(A0.Location(), D0, X);
+    Ax3 Axis(A0.Location(), D0, X);
     if (ZRef.Dot(D0) < 0.)
       Axis.YReverse();
 

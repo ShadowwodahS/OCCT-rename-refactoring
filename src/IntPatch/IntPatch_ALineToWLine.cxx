@@ -276,7 +276,7 @@ void IntPatch_ALineToWLine::CorrectEndPoint(Handle(IntSurf_LineOn2S)& theLine,
     const Quadric1& aQuad = (ii == 1) ? myQuad1 : myQuad2;
     if (aQuad.TypeQuadric() == GeomAbs_Cone)
     {
-      const gp_Cone aCone  = aQuad.Cone();
+      const Cone1 aCone  = aQuad.Cone();
       const Point3d  anApex = aCone.Apex();
       if (anApex.SquareDistance(aPntOn2S.Value()) > aSqTol)
         continue;
@@ -298,7 +298,7 @@ void IntPatch_ALineToWLine::CorrectEndPoint(Handle(IntSurf_LineOn2S)& theLine,
     Standard_Real aXend, aYend;
     aPntOn2S.ParametersOnSurface(anIsOnFirst, aXend, aYend);
 
-    if (Abs(aDir.Y()) < gp::Resolution())
+    if (Abs(aDir.Y()) < gp1::Resolution())
       continue;
 
     Standard_Real aNewXend = aDir.X() / aDir.Y() * (aYend - aY0) + aX0;
@@ -317,7 +317,7 @@ Standard_Real IntPatch_ALineToWLine::GetSectionRadius(const Point3d& thePnt3d) c
     const Quadric1& aQuad = i ? myQuad2 : myQuad1;
     if (aQuad.TypeQuadric() == GeomAbs_Cone)
     {
-      const gp_Cone aCone = aQuad.Cone();
+      const Cone1 aCone = aQuad.Cone();
       const gp_XYZ  aRVec = thePnt3d.XYZ() - aCone.Apex().XYZ();
       const gp_XYZ& aDir  = aCone.Axis().Direction().XYZ();
 

@@ -23,7 +23,7 @@
 BRepPrimAPI_MakeCone::BRepPrimAPI_MakeCone(const Standard_Real R1,
                                            const Standard_Real R2,
                                            const Standard_Real H)
-    : myCone(gp::XOY(), R1, R2, H)
+    : myCone(gp1::XOY(), R1, R2, H)
 {
 }
 

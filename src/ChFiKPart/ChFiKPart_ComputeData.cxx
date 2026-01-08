@@ -623,7 +623,7 @@ Standard_Boolean ComputeData::ComputeCorner(TopOpeBRepDS_DataStructure&      DSt
   // The guideline is the circle corresponding
   // to the section of S2, and other construction elements.
 
-  gp_Cylinder   cyl;
+  Cylinder1   cyl;
   gp_Circ       circ;
   Standard_Real First, Last, fu, lu;
   ChFiKPart_CornerSpine(S1, S2, P1S1, P2S1, P1S2, P2S2, majRad, cyl, circ, First, Last);

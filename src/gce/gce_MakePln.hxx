@@ -29,7 +29,7 @@ class Dir3d;
 class Axis3d;
 
 //! This class implements the following algorithms used
-//! to create a Plane from gp.
+//! to create a Plane from gp1.
 //! * Create a Pln parallel to another and passing
 //! through a point.
 //! * Create a Pln passing through 3 points.
@@ -66,17 +66,17 @@ public:
   //! A * X + B * Y + C * Z + D = 0.0
   //!
   //! the status is "BadEquation" if Sqrt (A*A + B*B + C*C) <=
-  //! Resolution from gp.
+  //! Resolution from gp1.
   Standard_EXPORT gce_MakePln(const Standard_Real A,
                               const Standard_Real B,
                               const Standard_Real C,
                               const Standard_Real D);
 
-  //! Make a Pln from gp <ThePln> parallel to another
+  //! Make a Pln from gp1 <ThePln> parallel to another
   //! Pln <Pln> and passing through a Pnt <Point>.
   Standard_EXPORT gce_MakePln(const gp_Pln& Pln, const Point3d& Point);
 
-  //! Make a Pln from gp <ThePln> parallel to another
+  //! Make a Pln from gp1 <ThePln> parallel to another
   //! Pln <Pln> at the distance <Dist> which can be greater
   //! or less than zero.
   //! In the first case the result is at the distance
@@ -85,12 +85,12 @@ public:
   //! Otherwise it is in the opposite direction.
   Standard_EXPORT gce_MakePln(const gp_Pln& Pln, const Standard_Real Dist);
 
-  //! Make a Pln from gp <ThePln> passing through 3
+  //! Make a Pln from gp1 <ThePln> passing through 3
   //! Pnt <P1>,<P2>,<P3>.
   //! It returns false if <P1> <P2> <P3> are confused.
   Standard_EXPORT gce_MakePln(const Point3d& P1, const Point3d& P2, const Point3d& P3);
 
-  //! Make a Pln from gp <ThePln> perpendicular to the line
+  //! Make a Pln from gp1 <ThePln> perpendicular to the line
   //! passing through <P1>,<P2>.
   //! The status is "ConfusedPoints" if <P1> <P2> are confused.
   Standard_EXPORT gce_MakePln(const Point3d& P1, const Point3d& P2);
@@ -100,7 +100,7 @@ public:
   //! Warning -  If an error occurs (that is, when IsDone returns
   //! false), the Status function returns:
   //! -   gce_BadEquation if Sqrt(A*A + B*B +
-  //! C*C) is less than or equal to gp::Resolution(),
+  //! C*C) is less than or equal to gp1::Resolution(),
   //! -   gce_ConfusedPoints if P1 and P2 are coincident, or
   //! -   gce_ColinearPoints if P1, P2 and P3 are collinear.
   Standard_EXPORT gce_MakePln(const Axis3d& Axis);

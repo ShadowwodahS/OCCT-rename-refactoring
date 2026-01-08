@@ -568,7 +568,7 @@ of the cone with a plane tangent to 2nd (intersected) surface.
 Standard_Boolean SpecialPoints::ProcessCone(const PointOn2Surfaces& thePtIso,
                                                      const Vector3d&          theDUofPSurf,
                                                      const Vector3d&          theDVofPSurf,
-                                                     const gp_Cone&         theCone,
+                                                     const Cone1&         theCone,
                                                      const Standard_Boolean theIsReversed,
                                                      Standard_Real&         theUquad,
                                                      Standard_Boolean&      theIsIsoChoosen)
@@ -798,7 +798,7 @@ Standard_Boolean SpecialPoints::AddSingularPole(const Handle(Adaptor3d_Surface)&
   }
   else if (theQSurf->GetType() == GeomAbs_Cone)
   {
-    const gp_Cone       aCo        = theQSurf->Cone();
+    const Cone1       aCo        = theQSurf->Cone();
     const Standard_Real aRadius    = aCo.RefRadius();
     const Standard_Real aSemiAngle = aCo.SemiAngle();
     aVquad                         = -aRadius / sin(aSemiAngle);

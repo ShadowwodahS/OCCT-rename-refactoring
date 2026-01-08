@@ -244,8 +244,8 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&  theEdge,
   }
   else
   {
-    theFirstPnt = gp::Origin();
-    theLastPnt  = gp::Origin();
+    theFirstPnt = gp1::Origin();
+    theLastPnt  = gp1::Origin();
   }
 
   return Standard_True;
@@ -294,7 +294,7 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&        theEdge,
   }
   else if (Handle(GeomCircle) aCircle = Handle(GeomCircle)::DownCast(theExtCurve))
   {
-    gp_Ax3 aCircPos(aCircle->Position());
+    Ax3 aCircPos(aCircle->Position());
     theIsOnPlane =
       aCircPos.IsCoplanar(thePlane->Pln().Position(), Precision::Confusion(), Precision::Angular());
   }
@@ -1212,7 +1212,7 @@ Point3d PrsDim::TranslatePointToBound(const Point3d&  aPoint,
     Standard_Boolean IsFound = Standard_False;
     for (Standard_Integer i = 1; i <= 3; i++)
     {
-      if (Abs(Dir(i)) <= gp::Resolution())
+      if (Abs(Dir(i)) <= gp1::Resolution())
         continue;
       for (Standard_Integer j = 1; j <= 2; j++)
       {

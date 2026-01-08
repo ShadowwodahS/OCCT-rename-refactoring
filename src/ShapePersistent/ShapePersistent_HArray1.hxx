@@ -46,7 +46,7 @@ public:
   typedef instance<Poly_HArray1OfTriangle> Triangle1;
 };
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Poly_Triangle& theTriangle)
+inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Triangle2& theTriangle)
 {
   StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
 
@@ -57,7 +57,7 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Poly_Tria
 }
 
 inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData,
-                                       const Poly_Triangle& theTriangle)
+                                       const Triangle2& theTriangle)
 {
   StdObjMgt_WriteData::ObjectSentry aSentry(theWriteData);
 

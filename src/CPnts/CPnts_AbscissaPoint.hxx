@@ -28,10 +28,10 @@ class Adaptor2d_Curve2d;
 //! distance from another point on the curve
 //!
 //! We can instantiates with
-//! Curve from Adaptor3d, Pnt from gp, Vec from gp
+//! Curve from Adaptor3d, Pnt from gp1, Vec from gp1
 //!
 //! or
-//! Curve2d from Adaptor2d, Pnt2d from gp, Vec2d from gp
+//! Curve2d from Adaptor2d, Pnt2d from gp1, Vec2d from gp1
 class CPnts_AbscissaPoint
 {
 public:

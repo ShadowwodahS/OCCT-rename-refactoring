@@ -40,7 +40,7 @@ Standard_Real EdgeFaceTool::CurvatureValue(const Standard_Address F,
   Standard_Real nmu2   = D1U * D1U;
   Standard_Real nmv2   = D1V * D1V;
   Standard_Real det    = nmu2 * nmv2 - d1ud1v * d1ud1v;
-  if (det > gp::Resolution())
+  if (det > gp1::Resolution())
   {
     Standard_Real alfa     = (d1ut * nmv2 - d1vt * d1ud1v) / det;
     Standard_Real beta     = (d1vt * nmu2 - d1ut * d1ud1v) / det;

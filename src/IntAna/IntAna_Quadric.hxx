@@ -20,8 +20,8 @@
 #include <NCollection_List.hxx>
 #include <Standard_DefineAlloc.hxx>
 
-class gp_Cone;
-class gp_Cylinder;
+class Cone1;
+class Cylinder1;
 class gp_Pln;
 class gp_Sphere;
 
@@ -42,10 +42,10 @@ public:
   Standard_EXPORT Quadric2(const gp_Sphere& Sph);
 
   //! Creates a Quadric from a Cylinder
-  Standard_EXPORT Quadric2(const gp_Cylinder& Cyl);
+  Standard_EXPORT Quadric2(const Cylinder1& Cyl);
 
   //! Creates a Quadric from a Cone
-  Standard_EXPORT Quadric2(const gp_Cone& Cone);
+  Standard_EXPORT Quadric2(const Cone1& Cone);
 
   //! Initializes the quadric with a Pln
   Standard_EXPORT void SetQuadric(const gp_Pln& P);
@@ -54,10 +54,10 @@ public:
   Standard_EXPORT void SetQuadric(const gp_Sphere& Sph);
 
   //! Initializes the quadric with a Cone
-  Standard_EXPORT void SetQuadric(const gp_Cone& Con);
+  Standard_EXPORT void SetQuadric(const Cone1& Con);
 
   //! Initializes the quadric with a Cylinder
-  Standard_EXPORT void SetQuadric(const gp_Cylinder& Cyl);
+  Standard_EXPORT void SetQuadric(const Cylinder1& Cyl);
 
   //! Returns the coefficients of the polynomial equation
   //! which define the quadric:
@@ -89,7 +89,7 @@ public:
                                        Standard_Real& xCY,
                                        Standard_Real& xCZ,
                                        Standard_Real& xCCte,
-                                       const gp_Ax3&  Axis) const;
+                                       const Ax3&  Axis) const;
 
   //! Returns the list of special points (with singularities)
   const NCollection_List<Point3d>& SpecialPoints() const { return mySpecialPoints; }

@@ -113,13 +113,13 @@ public:
 
   //! @return triangle at the given index.
   //! Raises Standard_OutOfRange exception if theIndex is less than 1 or greater than NbTriangles.
-  Standard_EXPORT Poly_Triangle Triangle1(const Standard_Integer theIndex) const;
+  Standard_EXPORT Triangle2 Triangle1(const Standard_Integer theIndex) const;
 
   //! The method differs from MeshTriangulation!
   //! Sets a triangle at the given index.
   //! Raises Standard_OutOfRange exception if theIndex is less than 1 or greater than NbTriangles.
   Standard_EXPORT void SetTriangle(const Standard_Integer theIndex,
-                                   const Poly_Triangle&   theTriangle);
+                                   const Triangle2&   theTriangle);
 
   //! Changes normal at the given index.
   //! Raises Standard_OutOfRange exception.

@@ -577,7 +577,7 @@ static Standard_Integer PRW(DrawInterpreter& theCommands, Standard_Integer narg,
       }
       else if (Su->DynamicType() == STANDARD_TYPE(Geom_CylindricalSurface))
       {
-        gp_Cylinder cy = Handle(Geom_CylindricalSurface)::DownCast(Su)->Cylinder();
+        Cylinder1 cy = Handle(Geom_CylindricalSurface)::DownCast(Su)->Cylinder();
         if (V.IsParallel(cy.Axis().Direction(), Precision::Angular()))
         {
           FEIF.Set(ToPrism, fac);
@@ -769,7 +769,7 @@ static Standard_Integer PRF(DrawInterpreter& theCommands, Standard_Integer narg,
       }
       else if (Su->DynamicType() == STANDARD_TYPE(Geom_CylindricalSurface))
       {
-        gp_Cylinder cy = Handle(Geom_CylindricalSurface)::DownCast(Su)->Cylinder();
+        Cylinder1 cy = Handle(Geom_CylindricalSurface)::DownCast(Su)->Cylinder();
         if (V.IsParallel(cy.Axis().Direction(), Precision::Angular()))
         {
           FEIF.Set(ToPrism, fac);
@@ -1507,7 +1507,7 @@ static Standard_Integer ROW(DrawInterpreter& theCommands, Standard_Integer narg,
       }
       else if (Su->DynamicType() == STANDARD_TYPE(Geom_CylindricalSurface))
       {
-        gp_Cylinder cy = Handle(Geom_CylindricalSurface)::DownCast(Su)->Cylinder();
+        Cylinder1 cy = Handle(Geom_CylindricalSurface)::DownCast(Su)->Cylinder();
         if (cy.Axis().IsCoaxial(theAxis, Precision::Angular(), Precision::Confusion()))
         {
           FEIF.Set(ToRotate, fac);
@@ -1680,7 +1680,7 @@ static Standard_Integer ROF(DrawInterpreter& theCommands, Standard_Integer narg,
       }
       else if (Su->DynamicType() == STANDARD_TYPE(Geom_CylindricalSurface))
       {
-        gp_Cylinder cy = Handle(Geom_CylindricalSurface)::DownCast(Su)->Cylinder();
+        Cylinder1 cy = Handle(Geom_CylindricalSurface)::DownCast(Su)->Cylinder();
         if (cy.Axis().IsCoaxial(theAxis, Precision::Angular(), Precision::Confusion()))
         {
           FEIF.Set(ToRotate, fac);
@@ -2709,7 +2709,7 @@ static Standard_Integer ComputeSimpleOffset(DrawInterpreter& theCommands,
     return 0;
   }
   const Standard_Real anOffsetValue = Draw1::Atof(a[3]);
-  if (Abs(anOffsetValue) < gp::Resolution())
+  if (Abs(anOffsetValue) < gp1::Resolution())
   {
     theCommands << "Null offset value";
     return 0;

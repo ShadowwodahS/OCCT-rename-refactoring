@@ -723,7 +723,7 @@ static int VTrihedron(DrawInterpreter&, Standard_Integer theArgsNb, const char**
   else
   {
     Handle(Geom_Axis2Placement) aPlacement =
-      new Geom_Axis2Placement(Point3d(0.0, 0.0, 0.0), gp::DZ(), gp::DX());
+      new Geom_Axis2Placement(Point3d(0.0, 0.0, 0.0), gp1::DZ(), gp1::DX());
     aTrihedron = new AIS_Trihedron(aPlacement);
   }
 
@@ -2023,7 +2023,7 @@ TopoFace FilledCircle::ComputeFace()
 
   // Create wire from anEdge
   BRepBuilderAPI_MakeWire aWireMaker;
-  if (Abs(Abs(myUEnd - myUStart) - 2.0 * M_PI) > gp::Resolution())
+  if (Abs(Abs(myUEnd - myUStart) - 2.0 * M_PI) > gp1::Resolution())
   {
     TopoEdge anEndCenterEdge =
       EdgeMaker(myCircle->Value(myUEnd), myCircle->Location()).Edge();
@@ -2066,7 +2066,7 @@ void FilledCircle::ComputeSelection(const Handle(SelectionContainer)& theSelecti
   Handle(SelectMgr_EntityOwner)    anEntityOwner = new SelectMgr_EntityOwner(this);
   Handle(Select3D_SensitiveEntity) aSensitiveCircle;
 
-  if (Abs(Abs(myUEnd - myUStart) - 2.0 * M_PI) > gp::Resolution())
+  if (Abs(Abs(myUEnd - myUStart) - 2.0 * M_PI) > gp1::Resolution())
   {
     aSensitiveCircle =
       new Select3D_SensitivePoly(anEntityOwner, myCircle->Circ(), myUStart, myUEnd, myFilledStatus);
@@ -2920,7 +2920,7 @@ Handle(MeshTriangulation) CalculationOfSphere(double X, double Y, double Z, int 
       pts[0] = phiResolution * i + numPoles;
       pts[1] = (phiResolution * (i + 1) % base) + numPoles;
       pts[2] = 1;
-      polyTriangulation->SetTriangle(number_triangle, Poly_Triangle(pts[0], pts[1], pts[2]));
+      polyTriangulation->SetTriangle(number_triangle, Triangle2(pts[0], pts[1], pts[2]));
       number_triangle++;
     }
   }
@@ -2933,7 +2933,7 @@ Handle(MeshTriangulation) CalculationOfSphere(double X, double Y, double Z, int 
       pts[0] = phiResolution * i + numOffset;
       pts[2] = ((phiResolution * (i + 1)) % base) + numOffset;
       pts[1] = numPoles - 1;
-      polyTriangulation->SetTriangle(number_triangle, Poly_Triangle(pts[0], pts[1], pts[2]));
+      polyTriangulation->SetTriangle(number_triangle, Triangle2(pts[0], pts[1], pts[2]));
       number_triangle++;
     }
   }
@@ -2947,11 +2947,11 @@ Handle(MeshTriangulation) CalculationOfSphere(double X, double Y, double Z, int 
       pts[0] = phiResolution * i + j + numPoles;
       pts[1] = pts[0] + 1;
       pts[2] = ((phiResolution * (i + 1) + j) % base) + numPoles + 1;
-      polyTriangulation->SetTriangle(number_triangle, Poly_Triangle(pts[0], pts[1], pts[2]));
+      polyTriangulation->SetTriangle(number_triangle, Triangle2(pts[0], pts[1], pts[2]));
       number_triangle++;
       pts[1] = pts[2];
       pts[2] = pts[1] - 1;
-      polyTriangulation->SetTriangle(number_triangle, Poly_Triangle(pts[0], pts[1], pts[2]));
+      polyTriangulation->SetTriangle(number_triangle, Triangle2(pts[0], pts[1], pts[2]));
       number_triangle++;
     }
   }
@@ -5692,7 +5692,7 @@ static int TextToBRep(DrawInterpreter& /*theDI*/,
   Standard_Real           aTextHeight        = 16.0;
   Font_FontAspect         aFontAspect        = Font_FA_Regular;
   Standard_Boolean        anIsCompositeCurve = Standard_False;
-  gp_Ax3                  aPenAx3(gp::XOY());
+  Ax3                  aPenAx3(gp1::XOY());
   Dir3d                  aNormal(0.0, 0.0, 1.0);
   Dir3d                  aDirection(1.0, 0.0, 0.0);
   Point3d                  aPenLoc;
@@ -5859,7 +5859,7 @@ static int TextToBRep(DrawInterpreter& /*theDI*/,
     return 1;
   }
 
-  aPenAx3 = gp_Ax3(aPenLoc, aNormal, aDirection);
+  aPenAx3 = Ax3(aPenLoc, aNormal, aDirection);
 
   Font_BRepTextBuilder aBuilder;
   DBRep1::Set(aName, aBuilder.Perform(aFont, aText, aPenAx3, aHJustification, aVJustification));
@@ -6404,7 +6404,7 @@ static Standard_Integer VPointCloud(DrawInterpreter& theDI,
                             const TopoShape&) Standard_OVERRIDE
       {
         const Standard_Integer aPntIndex = myPoints->AddVertex(thePoint, theUV);
-        if (theNorm.SquareMagnitude() > gp::Resolution())
+        if (theNorm.SquareMagnitude() > gp1::Resolution())
         {
           myPoints->SetVertexNormal(aPntIndex, theNorm);
         }
@@ -6699,7 +6699,7 @@ static int VNormals(DrawInterpreter& theDI, Standard_Integer theArgNum, const ch
     {
       ++anArgIter;
       aLength = anArgIter < theArgNum ? Draw1::Atof(theArgs[anArgIter]) : 0.0;
-      if (Abs(aLength) <= gp::Resolution())
+      if (Abs(aLength) <= gp1::Resolution())
       {
         Message::SendFail("Syntax error: length should not be zero");
         return 1;

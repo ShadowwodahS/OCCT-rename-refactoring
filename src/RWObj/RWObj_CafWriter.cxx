@@ -408,7 +408,7 @@ bool RWObj_CafWriter::writeIndices(RWObj_ObjWriterContext&    theWriter,
   for (Standard_Integer anElemIter = anElemLower; anElemIter <= anElemUpper && thePSentry.More();
        ++anElemIter, thePSentry.Next())
   {
-    const Poly_Triangle aTri = theFace.TriangleOriented(anElemIter);
+    const Triangle2 aTri = theFace.TriangleOriented(anElemIter);
     if (!theWriter.WriteTriangle(Graphic3d_Vec3i(aTri(1), aTri(2), aTri(3))
                                  - Graphic3d_Vec3i(anElemLower)))
     {

@@ -94,12 +94,12 @@ public:
   Standard_Integer ElemUpper() const Standard_OVERRIDE { return myPolyTriang->NbTriangles(); }
 
   //! Return triangle with specified index with applied Face orientation.
-  Poly_Triangle TriangleOriented(Standard_Integer theElemIndex) const
+  Triangle2 TriangleOriented(Standard_Integer theElemIndex) const
   {
-    Poly_Triangle aTri = triangle(theElemIndex);
+    Triangle2 aTri = triangle(theElemIndex);
     if ((myFace.Orientation() == TopAbs_REVERSED) ^ myIsMirrored)
     {
-      return Poly_Triangle(aTri.Value(1), aTri.Value(3), aTri.Value(2));
+      return Triangle2(aTri.Value(1), aTri.Value(3), aTri.Value(2));
     }
     return aTri;
   }
@@ -156,7 +156,7 @@ public:
   Standard_EXPORT Dir3d normal(Standard_Integer theNode) const;
 
   //! Return triangle with specified index.
-  Poly_Triangle triangle(Standard_Integer theElemIndex) const
+  Triangle2 triangle(Standard_Integer theElemIndex) const
   {
     return myPolyTriang->Triangle1(theElemIndex);
   }

@@ -73,7 +73,7 @@ DEFINE_STANDARD_HANDLE(Geom_OffsetCurve, GeomCurve3d)
 //!
 //! The OffsetCurve is closed if the first point and the last point
 //! are the same (The distance between these two points is lower or
-//! equal to the Resolution sea package gp) . The OffsetCurve can be
+//! equal to the Resolution sea package gp1) . The OffsetCurve can be
 //! closed even if the basis curve is not closed.
 class Geom_OffsetCurve : public GeomCurve3d
 {
@@ -228,7 +228,7 @@ public:
 
   //! Returns True if the distance between the start point
   //! and the end point of the curve is lower or equal to
-  //! Resolution from package gp.
+  //! Resolution from package gp1.
   Standard_EXPORT Standard_Boolean IsClosed() const Standard_OVERRIDE;
 
   //! Returns true if the degree of continuity of the basis

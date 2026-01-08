@@ -174,7 +174,7 @@ static Standard_Boolean CheckMultiCurve(const AppParCurves_MultiCurve& theMultiC
     {
       FirstVec = Vector3d(aPoles(1), aPoles(indp++));
       Standard_Real aLength = FirstVec.Magnitude();
-      if (aLength > gp::Resolution())
+      if (aLength > gp1::Resolution())
       {
         FirstVec /= aLength;
         break;
@@ -186,7 +186,7 @@ static Standard_Boolean CheckMultiCurve(const AppParCurves_MultiCurve& theMultiC
     {
       SecondVec = Vector3d(MidPnt, aPoles(indp));
       Standard_Real aLength = SecondVec.Magnitude();
-      if (aLength <= gp::Resolution())
+      if (aLength <= gp1::Resolution())
       {
         indp++;
         continue;
@@ -266,7 +266,7 @@ static Standard_Boolean CheckMultiCurve(const AppParCurves_MultiCurve& theMultiC
           MaxSqDist = aSqDist;
           indbads[1] = k;
         }
-        if (aSqDist > gp::Resolution() &&
+        if (aSqDist > gp1::Resolution() &&
             aSqDist < MinSqDist)
           MinSqDist = aSqDist;
       }
@@ -399,7 +399,7 @@ static Standard_Boolean CheckMultiCurve(const AppParCurves_MultiCurve& theMultiC
             MaxSqDist = aSqDist;
             indbads[indcur] = k;
           }
-          if (aSqDist > gp::Resolution() &&
+          if (aSqDist > gp1::Resolution() &&
               aSqDist < MinSqDist)
             MinSqDist = aSqDist;
         }

@@ -115,7 +115,7 @@ Circle2dTangentCenter::Circle2dTangentCenter(const QualifiedCircle& Qualified1,
       cirsol(NbrSol) = gp_Circ2d(gp_Ax2d(Pcenter, dirx), Radius);
       //     ========================================================
       qualifier1(NbrSol) = Qualified1.Qualifier();
-      if (dist <= gp::Resolution())
+      if (dist <= gp1::Resolution())
       {
         TheSame1(NbrSol) = 1;
       }
@@ -134,7 +134,7 @@ Circle2dTangentCenter::Circle2dTangentCenter(const QualifiedCircle& Qualified1,
   {
     // ====
     dist = Pcenter.Distance(center1);
-    if (dist >= gp::Resolution())
+    if (dist >= gp1::Resolution())
     {
       signe = 1;
       for (Standard_Integer i = 1; i <= 2; i++)

@@ -23,8 +23,8 @@
 #include <GeomAbs_CurveType.hxx>
 class CurveAndInfo;
 
-//! Computes the locals extremas of curvature of a gp curve
-//! Remark : a gp curve has not inflection.
+//! Computes the locals extremas of curvature of a gp1 curve
+//! Remark : a gp1 curve has not inflection.
 class AnalyticCurveInfo
 {
 public:

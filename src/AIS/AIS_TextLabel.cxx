@@ -232,7 +232,7 @@ void AIS_TextLabel::Compute(const Handle(PrsMgr_PresentationManager)&,
       {
         anAsp->Aspect()->SetTextZoomable(myHasFlipping ? Standard_True : Standard_False);
         SetTransformPersistence(new Graphic3d_TransformPers(Graphic3d_TMF_ZoomPers, aPosition));
-        aPosition = gp::Origin();
+        aPosition = gp1::Origin();
       }
       else if (isTextZoomable || TransformPersistence().IsNull()
                || TransformPersistence()->Mode() != Graphic3d_TMF_2d)
@@ -241,7 +241,7 @@ void AIS_TextLabel::Compute(const Handle(PrsMgr_PresentationManager)&,
           isTextZoomable ? Graphic3d_TMF_RotatePers : Graphic3d_TMF_ZoomRotatePers,
           aPosition);
         SetTransformPersistence(aTrsfPers);
-        aPosition = gp::Origin();
+        aPosition = gp1::Origin();
       }
 
       Point3d        aCenterOfLabel;
@@ -311,7 +311,7 @@ void AIS_TextLabel::ComputeSelection(const Handle(SelectionContainer)& theSelect
       Point3d aPosition = Position();
       if (!TransformPersistence().IsNull() && TransformPersistence()->Mode() != Graphic3d_TMF_2d)
       {
-        aPosition = gp::Origin();
+        aPosition = gp1::Origin();
       }
 
       Point3d        aCenterOfLabel;
@@ -409,7 +409,7 @@ Transform3d AIS_TextLabel::calculateLabelTrsf(const Point3d& thePosition, Point3
   theCenterOfLabel.Rotate(aRotAxis, anAngle);
 
   Transform3d aLabelPlane;
-  aLabelPlane.SetTransformation(anOrientation, gp::XOY());
+  aLabelPlane.SetTransformation(anOrientation, gp1::XOY());
   aLabelPlane.SetTranslationPart(theCenterOfLabel.XYZ());
 
   return aLabelPlane;

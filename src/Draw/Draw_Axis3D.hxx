@@ -39,7 +39,7 @@ public:
                               const DrawColor&      col,
                               const Standard_Integer Size = 5);
 
-  Standard_EXPORT Draw_Axis3D(const gp_Ax3&          A,
+  Standard_EXPORT Draw_Axis3D(const Ax3&          A,
                               const DrawColor&      col,
                               const Standard_Integer Size = 5);
 
@@ -49,7 +49,7 @@ public:
 
 protected:
 private:
-  gp_Ax3           myAxes;
+  Ax3           myAxes;
   DrawColor       myColor;
   Standard_Integer mySize;
 };

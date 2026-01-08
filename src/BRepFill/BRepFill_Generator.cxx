@@ -461,7 +461,7 @@ Standard_Boolean CreateKPart(const TopoEdge&     Edge1,
     // cylindrical surface
     gp_Circ c1  = aC1Adaptor.Circle();
     gp_Circ c2  = aC2Adaptor.Circle();
-    gp_Ax3  Ac1 = c1.Position();
+    Ax3  Ac1 = c1.Position();
     V           = Vector3d(c1.Location(), c2.Location()).Dot(Vector3d(Ac1.Direction()));
     if (V < 0.)
     {
@@ -475,7 +475,7 @@ Standard_Boolean CreateKPart(const TopoEdge&     Edge1,
   {
     // conical surface
     gp_Circ k1  = aC1Adaptor.Circle();
-    gp_Ax3  Ak1 = k1.Position();
+    Ax3  Ak1 = k1.Position();
     if (degen2)
     {
       V   = Vector3d(k1.Location(), BRepInspector::Pnt(v2f)).Dot(Vector3d(Ak1.Direction()));
@@ -502,7 +502,7 @@ Standard_Boolean CreateKPart(const TopoEdge&     Edge1,
   {
     // conical surface with the top at the beginning (degen1 is true)
     gp_Circ k2  = aC2Adaptor.Circle();
-    gp_Ax3  Ak2 = k2.Position();
+    Ax3  Ak2 = k2.Position();
     Ak2.SetLocation(BRepInspector::Pnt(v1f));
     V   = Vector3d(BRepInspector::Pnt(v1f), k2.Location()).Dot(Vector3d(Ak2.Direction()));
     Rad = k2.Radius(); // - k2.Radius();
@@ -540,7 +540,7 @@ Standard_Boolean CreateKPart(const TopoEdge&     Edge1,
 
     Vector3d             P1P2(P1, P2);
     Dir3d             D1 = aLine.Direction();
-    gp_Ax3             Ax(aLine.Location(), Dir3d(D1.Crossed(P1P2)), D1);
+    Ax3             Ax(aLine.Location(), Dir3d(D1.Crossed(P1P2)), D1);
     Handle(GeomPlane) Plan = new GeomPlane(Ax);
     V                       = P1P2.Dot(Ax.YDirection());
     surface                 = Plan;

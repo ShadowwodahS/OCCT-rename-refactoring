@@ -690,7 +690,7 @@ static Standard_Integer profile(DrawInterpreter& di, Standard_Integer n, const c
   Standard_Integer        i  = 2;
   Standard_Real           x0 = 0, y0 = 0, x = 0, y = 0, dx = 1, dy = 0;
   BRepBuilderAPI_MakeWire MW;
-  gp_Ax3                  DummyHP(gp::XOY());
+  Ax3                  DummyHP(gp1::XOY());
   gp_Pln                  P(DummyHP);
 
   enum
@@ -1106,7 +1106,7 @@ static Standard_Integer bsplineprof(DrawInterpreter& di, Standard_Integer n, con
   //  Standard_Real x0 = 0, y0 = 0, x = 0, y = 0, dx = 1, dy = 0;
   Standard_Real           x = 0, y = 0, dx = 1, dy = 0;
   BRepBuilderAPI_MakeWire MW;
-  gp_Ax3                  DummyHP(gp::XOY());
+  Ax3                  DummyHP(gp1::XOY());
   gp_Pln                  P(DummyHP);
   Standard_Boolean        face  = Standard_True;
   Standard_Boolean        close = Standard_True;

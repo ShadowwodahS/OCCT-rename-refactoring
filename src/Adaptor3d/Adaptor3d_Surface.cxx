@@ -291,14 +291,14 @@ gp_Pln Adaptor3d_Surface::Plane() const
 
 //=================================================================================================
 
-gp_Cylinder Adaptor3d_Surface::Cylinder() const
+Cylinder1 Adaptor3d_Surface::Cylinder() const
 {
   throw Standard_NotImplemented("Adaptor3d_Surface::Cylinder");
 }
 
 //=================================================================================================
 
-gp_Cone Adaptor3d_Surface::Cone() const
+Cone1 Adaptor3d_Surface::Cone() const
 {
   throw Standard_NotImplemented("Adaptor3d_Surface::Cone");
 }

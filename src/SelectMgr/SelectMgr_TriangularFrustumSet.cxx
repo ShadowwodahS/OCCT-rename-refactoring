@@ -583,8 +583,8 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsCylinder(
   const Standard_Boolean theIsHollow,
   Standard_Boolean*      theInside) const
 {
-  const Dir3d aCylNorm(gp::DZ().Transformed(theTrsf));
-  const Point3d aBottomCenter(gp::Origin().Transformed(theTrsf));
+  const Dir3d aCylNorm(gp1::DZ().Transformed(theTrsf));
+  const Point3d aBottomCenter(gp1::Origin().Transformed(theTrsf));
   const Point3d aTopCenter = aBottomCenter.XYZ() + aCylNorm.XYZ() * theHeight;
 
   const Vector3d aVecPlane1(myFrustums.First()->myVertices[0], myFrustums.First()->myVertices[1]);
@@ -621,7 +621,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsCylinder(
   aPoints[0] = aBottomCenterProject.XYZ() - aCylNormProject * theBottomRad * Abs(aCosAngle);
   aPoints[1] = aTopCenterProject.XYZ() + aCylNormProject * theTopRad * Abs(aCosAngle);
   const Dir3d aDirEndFaces = (aCylNorm.IsParallel(aDirNorm, Precision::Angular()))
-                                ? gp::DY().Transformed(theTrsf)
+                                ? gp1::DY().Transformed(theTrsf)
                                 : aCylNorm.Crossed(aDirNorm);
 
   aPoints[2] = aTopCenterProject.XYZ() + aDirEndFaces.XYZ() * theTopRad;
@@ -700,7 +700,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsCircle(const Standard_R
                                                                 const Standard_Boolean theIsFilled,
                                                                 Standard_Boolean* theInside) const
 {
-  const Point3d aCenter(gp::Origin().Transformed(theTrsf));
+  const Point3d aCenter(gp1::Origin().Transformed(theTrsf));
   const Vector3d aVecPlane1(myFrustums.First()->myVertices[0], myFrustums.First()->myVertices[1]);
   const Vector3d aVecPlane2(myFrustums.First()->myVertices[0], myFrustums.First()->myVertices[2]);
 
@@ -961,7 +961,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::segmentTriangleIntersection(con
 
   aPVec = theDir.Crossed(anEdge2);
   aD    = anEdge1.Dot(aPVec);
-  if (fabs(aD) < gp::Resolution())
+  if (fabs(aD) < gp1::Resolution())
   {
     return Standard_False;
   }

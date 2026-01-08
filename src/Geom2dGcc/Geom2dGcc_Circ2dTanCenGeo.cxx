@@ -108,7 +108,7 @@ Circle2dTangentCenterGeo::Circle2dTangentCenterGeo(const Geom2dGcc_QCurve& Quali
     gp_Vec2d      Vec1(point1, Pcenter);
     Standard_Real normevec1 = Vec1.Magnitude();
     Standard_Real dot1;
-    if (normevec1 >= gp::Resolution() && normetan1 >= gp::Resolution())
+    if (normevec1 >= gp1::Resolution() && normetan1 >= gp1::Resolution())
     {
       dot1 = Vec1.Dot(Tan1) / (normevec1 * normetan1);
     }

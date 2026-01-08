@@ -501,7 +501,7 @@ Standard_Integer BSplCLib1::EvalBsplineBasis(const Standard_Integer      Derivat
       // this should be always invertible if ii is correctly computed
       //
       const Standard_Real aScale = (FlatKnots(ii + pp) - FlatKnots(ii - qq + pp + 1));
-      if (Abs(aScale) < gp::Resolution())
+      if (Abs(aScale) < gp1::Resolution())
       {
         return 2;
       }
@@ -531,7 +531,7 @@ Standard_Integer BSplCLib1::EvalBsplineBasis(const Standard_Integer      Derivat
     for (pp = 1; pp <= qq - 1; pp++)
     {
       const Standard_Real aScale = (FlatKnots(ii + pp) - FlatKnots(ii - qq + pp + 1));
-      if (Abs(aScale) < gp::Resolution())
+      if (Abs(aScale) < gp1::Resolution())
       {
         return 2;
       }

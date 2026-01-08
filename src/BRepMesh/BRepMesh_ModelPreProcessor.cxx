@@ -77,7 +77,7 @@ public:
              i <= aTriangulation->NbTriangles() && isTriangulationConsistent;
              ++i)
         {
-          const Poly_Triangle aTriangle = aTriangulation->Triangle1(i);
+          const Triangle2 aTriangle = aTriangulation->Triangle1(i);
 
           Standard_Integer aNode[3];
           aTriangle.Get(aNode[0], aNode[1], aNode[2]);
@@ -200,7 +200,7 @@ private:
     const gp_Pnt2d&     aLPntOfIPC1 = aIPC1->GetPoint(aIPC1->ParametersNb() - 1);
     const Standard_Real aMod        = Abs(aFPntOfIPC1.Y() - aLPntOfIPC1.Y());
 
-    if (aMod < gp::Resolution())
+    if (aMod < gp1::Resolution())
     {
       return Standard_False;
     }

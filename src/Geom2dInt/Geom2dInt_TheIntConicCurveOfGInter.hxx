@@ -126,7 +126,7 @@ public:
 
 protected:
 private:
-  //! Intersection between a conic fom gp
+  //! Intersection between a conic fom gp1
   //! and a parametric curve.
   void Perform(const ConicTool& ICurve,
                const Domain2&     D1,

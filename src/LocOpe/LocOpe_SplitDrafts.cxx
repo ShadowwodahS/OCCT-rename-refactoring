@@ -1587,7 +1587,7 @@ static void MakeFace(TopoFace& F, ShapeList& ledg)
               pt2d = C22d->Value(l2);
               pt2d.SetY(pt2d.Y() - l);
             }
-            C2d = new Geom2d_Line(pt2d, gp::DY2d());
+            C2d = new Geom2d_Line(pt2d, gp1::DY2d());
             B.UpdateEdge(edg, C2d, F, BRepInspector::Tolerance(edg));
             break;
           }

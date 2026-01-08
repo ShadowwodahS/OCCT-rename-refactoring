@@ -47,7 +47,7 @@ Standard_Boolean Geom2dLProp_FuncCurExt::Value(const Standard_Real X, Standard_R
   Standard_Real V13    = V1V1 * NV1;
   Standard_Real V15    = V13 * V1V1;
 
-  if (V15 < gp::Resolution())
+  if (V15 < gp1::Resolution())
   {
     return Standard_False;
   }
@@ -103,7 +103,7 @@ Standard_Boolean Geom2dLProp_FuncCurExt::IsMinKC(const Standard_Real X) const
   Standard_Real NV1    = Sqrt(V1V1);
   Standard_Real V13    = V1V1 * NV1;
 
-  if (V13 < gp::Resolution())
+  if (V13 < gp1::Resolution())
   {
     return Standard_False;
   }
@@ -121,7 +121,7 @@ Standard_Boolean Geom2dLProp_FuncCurExt::IsMinKC(const Standard_Real X) const
   NV1    = Sqrt(V1V1);
   V13    = V1V1 * NV1;
 
-  if (V13 < gp::Resolution())
+  if (V13 < gp1::Resolution())
   {
     return Standard_False;
   }

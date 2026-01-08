@@ -112,7 +112,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_BSplineCurve, Geom2d_BoundedCurve)
 //! more complex1 than those of a non-periodic one.
 //! Warnings :
 //! In this class we consider that a weight value is zero if
-//! Weight <= Resolution from package gp.
+//! Weight <= Resolution from package gp1.
 //! For two parametric values (or two knot values) U1, U2 we
 //! consider that U1 = U2 if Abs (U2 - U1) <= Epsilon (U1).
 //! For two weights values W1, W2 we consider that W1 = W2 if
@@ -561,7 +561,7 @@ public:
 
   //! Returns true if the distance between the first point and the
   //! last point of the curve is lower or equal to Resolution
-  //! from package gp.
+  //! from package gp1.
   //! Warnings :
   //! The first and the last point can be different from the first
   //! pole and the last pole of the curve.

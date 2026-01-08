@@ -182,7 +182,7 @@ public:
   //! the parametric bounds in the u parametric direction,
   //! the distance between the points P(uFirst,v)
   //! and P(uLast,v) is less than or equal to
-  //! gp::Resolution() for each value of the   parameter v.
+  //! gp1::Resolution() for each value of the   parameter v.
   Standard_EXPORT Standard_Boolean IsUClosed() const Standard_OVERRIDE;
 
   //! Checks whether this offset surface is closed in the u
@@ -190,7 +190,7 @@ public:
   //! parametric bounds in the v parametric direction, the
   //! distance between the points P(u,vFirst) and
   //! P(u,vLast) is less than or equal to
-  //! gp::Resolution() for each value of the parameter u.
+  //! gp1::Resolution() for each value of the parameter u.
   Standard_EXPORT Standard_Boolean IsVClosed() const Standard_OVERRIDE;
 
   //! Returns true if this offset surface is periodic in the u

@@ -805,7 +805,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
               bCheckAngle1 = Standard_True;
               aNewVec      = gp_Vec2d(gp_Pnt2d(nU1, nV1), gp_Pnt2d(anewU, anewV));
 
-              if (aNewVec.SquareMagnitude() < gp::Resolution())
+              if (aNewVec.SquareMagnitude() < gp1::Resolution())
               {
                 aNewP.SetValue((surfit == 0), anewU, anewV);
                 bCheckAngle1 = Standard_False;
@@ -816,7 +816,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
               bCheckAngle2 = Standard_True;
               aNewVec      = gp_Vec2d(gp_Pnt2d(nU1, nV1), gp_Pnt2d(U, V));
 
-              if (aNewVec.SquareMagnitude() < gp::Resolution())
+              if (aNewVec.SquareMagnitude() < gp1::Resolution())
               {
                 bCheckAngle2 = Standard_False;
               }
@@ -839,7 +839,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
                   aPrevNeighbourPoint.ParametersOnS2(nU2, nV2);
                 gp_Vec2d aVecOld(gp_Pnt2d(nU2, nV2), gp_Pnt2d(nU1, nV1));
 
-                if (aVecOld.SquareMagnitude() <= gp::Resolution())
+                if (aVecOld.SquareMagnitude() <= gp1::Resolution())
                 {
                   continue;
                 }
@@ -955,7 +955,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
               ap2.SetX(nU2);
               ap2.SetY(nV2);
 
-              if (ap1.SquareDistance(ap2) > gp::Resolution())
+              if (ap1.SquareDistance(ap2) > gp1::Resolution())
               {
                 break;
               }

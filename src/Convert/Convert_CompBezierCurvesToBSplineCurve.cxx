@@ -175,7 +175,7 @@ void BezierToBSpline::Perform()
       Standard_Real D1 = V1.SquareMagnitude();
       Standard_Real D2 = V2.SquareMagnitude();
       if (MaxDegree > 1 && // rln 20.06.99 work-around
-          D1 > gp::Resolution() && D2 > gp::Resolution() && V1.IsParallel(V2, myAngular))
+          D1 > gp1::Resolution() && D2 > gp1::Resolution() && V1.IsParallel(V2, myAngular))
       {
         Standard_Real Lambda = Sqrt(D2 / D1);
         if (CurveKnVals(i - 1) * Lambda > 10. * Epsilon(Det))

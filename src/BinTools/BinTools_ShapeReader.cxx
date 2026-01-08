@@ -547,7 +547,7 @@ Handle(MeshTriangulation) BinTools_ShapeReader::ReadTriangulation(BinaryInputStr
       }
     }
     // read the triangles
-    Poly_Triangle aTriangle;
+    Triangle2 aTriangle;
     for (Standard_Integer aTriIter = 1; aTriIter <= aNbTriangles; ++aTriIter)
     {
       theStream >> aTriangle.ChangeValue(1);

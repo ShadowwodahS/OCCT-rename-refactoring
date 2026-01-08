@@ -713,7 +713,7 @@ Standard_Boolean Graphic3d_Layer::Append(const Graphic3d_Layer& theOther)
 void Graphic3d_Layer::SetLayerSettings(const Graphic3d_ZLayerSettings& theSettings)
 {
   const Standard_Boolean toUpdateTrsf =
-    !myLayerSettings.Origin().IsEqual(theSettings.Origin(), gp::Resolution());
+    !myLayerSettings.Origin().IsEqual(theSettings.Origin(), gp1::Resolution());
   myLayerSettings = theSettings;
   if (!toUpdateTrsf)
   {

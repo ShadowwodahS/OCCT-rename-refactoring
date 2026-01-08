@@ -26,7 +26,7 @@
 
 gce_MakePln::gce_MakePln(const Frame3d& A2)
 {
-  ThePln   = gp_Pln(gp_Ax3(A2));
+  ThePln   = gp_Pln(Ax3(A2));
   TheError = gce_Done;
 }
 
@@ -38,7 +38,7 @@ gce_MakePln::gce_MakePln(const Point3d& P, const Dir3d& V)
 
 gce_MakePln::gce_MakePln(const Point3d& P1, const Point3d& P2)
 {
-  if (P1.Distance(P2) <= gp::Resolution())
+  if (P1.Distance(P2) <= gp1::Resolution())
   {
     TheError = gce_ConfusedPoints;
   }
@@ -55,7 +55,7 @@ gce_MakePln::gce_MakePln(const Standard_Real A,
                          const Standard_Real C,
                          const Standard_Real D)
 {
-  if (A * A + B * B + C * C <= gp::Resolution())
+  if (A * A + B * B + C * C <= gp1::Resolution())
   {
     TheError = gce_BadEquation;
   }
@@ -75,7 +75,7 @@ gce_MakePln::gce_MakePln(const Point3d& P1, const Point3d& P2, const Point3d& P3
   gp_XYZ V1(P2.XYZ() - P1.XYZ());
   gp_XYZ V2(P3.XYZ() - P1.XYZ());
   gp_XYZ Norm(V1.Crossed(V2));
-  if (Norm.Modulus() < gp::Resolution())
+  if (Norm.Modulus() < gp1::Resolution())
   {
     TheError = gce_ColinearPoints;
   }
@@ -83,7 +83,7 @@ gce_MakePln::gce_MakePln(const Point3d& P1, const Point3d& P2, const Point3d& P3
   {
     Dir3d DNorm(Norm);
     Dir3d Dx(V1);
-    ThePln   = gp_Pln(gp_Ax3(P1, DNorm, Dx));
+    ThePln   = gp_Pln(Ax3(P1, DNorm, Dx));
     TheError = gce_Done;
   }
 }
@@ -95,7 +95,7 @@ gce_MakePln::gce_MakePln(const Point3d& P1, const Point3d& P2, const Point3d& P3
 gce_MakePln::gce_MakePln(const gp_Pln& Pl, const Standard_Real Dist)
 {
   Point3d Center(Pl.Location().XYZ() + Dist * gp_XYZ(Pl.Axis().Direction().XYZ()));
-  ThePln   = gp_Pln(gp_Ax3(Center, Pl.Axis().Direction(), Pl.XAxis().Direction()));
+  ThePln   = gp_Pln(Ax3(Center, Pl.Axis().Direction(), Pl.XAxis().Direction()));
   TheError = gce_Done;
 }
 
@@ -106,7 +106,7 @@ gce_MakePln::gce_MakePln(const gp_Pln& Pl, const Standard_Real Dist)
 
 gce_MakePln::gce_MakePln(const gp_Pln& Pl, const Point3d& Point)
 {
-  ThePln   = gp_Pln(gp_Ax3(Point, Pl.Axis().Direction(), Pl.XAxis().Direction()));
+  ThePln   = gp_Pln(Ax3(Point, Pl.Axis().Direction(), Pl.XAxis().Direction()));
   TheError = gce_Done;
 }
 

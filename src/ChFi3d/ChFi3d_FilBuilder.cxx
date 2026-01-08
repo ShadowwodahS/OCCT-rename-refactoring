@@ -496,7 +496,7 @@ void ChFi3d_FilBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       v1                       = Max(p1f.Y(), p2f.Y());
       v2                       = Min(p1l.Y(), p2l.Y());
       sec                      = new ChFiDS_SecHArray1(1, 2);
-      gp_Cylinder         Cy   = AS.Cylinder();
+      Cylinder1         Cy   = AS.Cylinder();
       CircularSection& sec1 = sec->ChangeValue(1);
       CircularSection& sec2 = sec->ChangeValue(2);
       sec1.Set(ElSLib1::CylinderVIso(Cy.Position(), Cy.Radius(), v1), u1, u2);

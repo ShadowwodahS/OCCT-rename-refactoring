@@ -70,7 +70,7 @@ static Vector3d DDeriv(const Vector3d& F, const Vector3d& DF, const Vector3d& D2
 //=======================================================================
 static Standard_Real CosAngle(const Vector3d& theV1, const Vector3d& theV2)
 {
-  const Standard_Real aTol = gp::Resolution();
+  const Standard_Real aTol = gp1::Resolution();
 
   const Standard_Real m1 = theV1.Magnitude(), m2 = theV2.Magnitude();
   if ((m1 <= aTol) || (m2 <= aTol)) // Vectors are codirectional
@@ -293,9 +293,9 @@ void GeomFill_Frenet::Init()
     for (i = 1; i <= mySngl->Length(); i++)
     {
       Func.D2(mySngl->Value(i), C, SnglDer, SnglDer2);
-      if ((norm = SnglDer.Magnitude()) > gp::Resolution())
+      if ((norm = SnglDer.Magnitude()) > gp1::Resolution())
         mySnglLen->ChangeValue(i) = Min(NullTol / norm, MaxSingular);
-      else if ((norm = SnglDer2.Magnitude()) > gp::Resolution())
+      else if ((norm = SnglDer2.Magnitude()) > gp1::Resolution())
         mySnglLen->ChangeValue(i) = Min(Sqrt(2 * NullTol / norm), MaxSingular);
       else
         mySnglLen->ChangeValue(i) = MaxSingular;
@@ -360,7 +360,7 @@ Standard_Boolean GeomFill_Frenet::RotateTrihedron(Vector3d&       Tangent,
                                                   const Vector3d& NewTangent) const
 {
   const Standard_Real anInfCOS = cos(Precision::Angular()); // 0.99999995
-  const Standard_Real aTol     = gp::Resolution();
+  const Standard_Real aTol     = gp1::Resolution();
 
   Vector3d              anAxis = Tangent.Crossed(NewTangent);
   const Standard_Real NT     = anAxis.Magnitude();
@@ -427,7 +427,7 @@ Standard_Boolean GeomFill_Frenet::D0(const Standard_Real theParam,
                                      Vector3d&             Normal,
                                      Vector3d&             BiNormal)
 {
-  const Standard_Real aTol = gp::Resolution();
+  const Standard_Real aTol = gp1::Resolution();
 
   Standard_Real    norm;
   Standard_Integer Index;
@@ -542,7 +542,7 @@ Standard_Boolean GeomFill_Frenet::D0(const Standard_Real theParam,
     Tangent  = Tangent / Ndu;
     BiNormal = Tangent.Crossed(BiNormal);
     norm     = BiNormal.Magnitude();
-    if (norm <= gp::Resolution())
+    if (norm <= gp1::Resolution())
     {
       Frame3d Axe(Point3d(0, 0, 0), Tangent);
       BiNormal.SetXYZ(Axe.YDirection().XYZ());
@@ -580,7 +580,7 @@ Standard_Boolean GeomFill_Frenet::D1(const Standard_Real Param,
   Tangent = DC1.Normalized();
 
   // if (DC2.Magnitude() <= NullTol || Tangent.Crossed(DC2).Magnitude() <= NullTol) {
-  if (Tangent.Crossed(DC2).Magnitude() <= gp::Resolution())
+  if (Tangent.Crossed(DC2).Magnitude() <= gp1::Resolution())
   {
     Frame3d Axe(Point3d(0, 0, 0), Tangent);
     Normal.SetXYZ(Axe.XDirection().XYZ());
@@ -645,7 +645,7 @@ Standard_Boolean GeomFill_Frenet::D2(const Standard_Real Param,
   Tangent = DC1.Normalized();
 
   // if (DC2.Magnitude() <= NullTol || Tangent.Crossed(DC2).Magnitude() <= NullTol) {
-  if (Tangent.Crossed(DC2).Magnitude() <= gp::Resolution())
+  if (Tangent.Crossed(DC2).Magnitude() <= gp1::Resolution())
   {
     Frame3d Axe(Point3d(0, 0, 0), Tangent);
     Normal.SetXYZ(Axe.XDirection().XYZ());

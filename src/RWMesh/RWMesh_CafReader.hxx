@@ -138,13 +138,13 @@ public:
 
   //! Return system coordinate system; UNDEFINED by default, which means that no conversion will be
   //! done.
-  const gp_Ax3& SystemCoordinateSystem() const
+  const Ax3& SystemCoordinateSystem() const
   {
     return myCoordSysConverter.OutputCoordinateSystem();
   }
 
   //! Set system origin coordinate system to perform conversion into during read.
-  void SetSystemCoordinateSystem(const gp_Ax3& theCS)
+  void SetSystemCoordinateSystem(const Ax3& theCS)
   {
     myCoordSysConverter.SetOutputCoordinateSystem(theCS);
   }
@@ -174,10 +174,10 @@ public:
 
   //! Return file origin coordinate system; can be UNDEFINED, which means no conversion will be
   //! done.
-  const gp_Ax3& FileCoordinateSystem() const { return myCoordSysConverter.InputCoordinateSystem(); }
+  const Ax3& FileCoordinateSystem() const { return myCoordSysConverter.InputCoordinateSystem(); }
 
   //! Set (override) file origin coordinate system to perform conversion during read.
-  void SetFileCoordinateSystem(const gp_Ax3& theCS)
+  void SetFileCoordinateSystem(const Ax3& theCS)
   {
     myCoordSysConverter.SetInputCoordinateSystem(theCS);
   }

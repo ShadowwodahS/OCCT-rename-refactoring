@@ -275,7 +275,7 @@ Standard_Boolean TDataXtd_Geometry::Plane(const Handle(ShapeAttribute)& NS, gp_P
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Cylinder(const DataLabel& L, gp_Cylinder& G)
+Standard_Boolean TDataXtd_Geometry::Cylinder(const DataLabel& L, Cylinder1& G)
 {
   Handle(ShapeAttribute) NS;
   if (L.FindAttribute(ShapeAttribute::GetID(), NS))
@@ -287,7 +287,7 @@ Standard_Boolean TDataXtd_Geometry::Cylinder(const DataLabel& L, gp_Cylinder& G)
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Cylinder(const Handle(ShapeAttribute)& NS, gp_Cylinder& G)
+Standard_Boolean TDataXtd_Geometry::Cylinder(const Handle(ShapeAttribute)& NS, Cylinder1& G)
 {
   const TopoShape& shape = Tool11::GetShape(NS);
   if (shape.IsNull())

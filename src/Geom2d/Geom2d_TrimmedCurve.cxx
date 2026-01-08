@@ -182,7 +182,7 @@ Standard_Real Geom2d_TrimmedCurve::FirstParameter() const
 Standard_Boolean Geom2d_TrimmedCurve::IsClosed() const
 {
   Standard_Real Dist = Value(FirstParameter()).Distance(Value(LastParameter()));
-  return (Dist <= gp::Resolution());
+  return (Dist <= gp1::Resolution());
 }
 
 //=================================================================================================

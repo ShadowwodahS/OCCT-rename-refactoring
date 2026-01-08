@@ -51,11 +51,11 @@ static Standard_Integer qcurve(DrawInterpreter&,
   {
     if (theArgsNb == 5 || theArgsNb == 6)
       aResult2d = new Geom2d_Circle(
-        gp_Ax22d(gp_Pnt2d(Draw1::Atof(theArgVec[2]), Draw1::Atof(theArgVec[3])), gp_Dir2d(1, 0)),
+        Ax22d(gp_Pnt2d(Draw1::Atof(theArgVec[2]), Draw1::Atof(theArgVec[3])), gp_Dir2d(1, 0)),
         Draw1::Atof(theArgVec[4]));
     else if (theArgsNb == 7 || theArgsNb == 8)
       aResult2d =
-        new Geom2d_Circle(gp_Ax22d(gp_Pnt2d(Draw1::Atof(theArgVec[2]), Draw1::Atof(theArgVec[3])),
+        new Geom2d_Circle(Ax22d(gp_Pnt2d(Draw1::Atof(theArgVec[2]), Draw1::Atof(theArgVec[3])),
                                    gp_Dir2d(Draw1::Atof(theArgVec[4]), Draw1::Atof(theArgVec[5]))),
                           Draw1::Atof(theArgVec[6]));
 

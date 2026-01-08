@@ -243,7 +243,7 @@ Standard_Boolean GeomConvert_CurveToAnaCurve::GetCircle(gp_Circ&      crc,
   if (!mkc.IsDone())
     return Standard_False;
   crc = mkc.Value();
-  if (crc.Radius() < gp::Resolution())
+  if (crc.Radius() < gp1::Resolution())
     return Standard_False;
   //  Recalage sur P0
   Point3d PC  = crc.Location();
@@ -355,7 +355,7 @@ static Standard_Boolean IsArrayPntPlanar(const Handle(TColgp_HArray1OfPnt)& HAP,
       return Standard_False;
   }
 
-  if (NV.Magnitude() < gp::Resolution())
+  if (NV.Magnitude() < gp1::Resolution())
     return Standard_False;
 
   if (size > 3)
@@ -446,7 +446,7 @@ static Standard_Boolean ConicDefinition(const Standard_Real    a,
     Standard_Real aprim = (a + c + auxil) / 2.;
     Standard_Real cprim = (a + c - auxil) / 2.;
 
-    if (Abs(aprim) < gp::Resolution() || Abs(cprim) < gp::Resolution())
+    if (Abs(aprim) < gp1::Resolution() || Abs(cprim) < gp1::Resolution())
       return Standard_False;
 
     term1 = -gdet / (aprim * pdet);
@@ -548,11 +548,11 @@ Handle(GeomCurve3d) GeomConvert_CurveToAnaCurve::ComputeEllipse(const Handle(Geo
   if (!IsArrayPntPlanar(AP, ndir, prec))
     return res;
 
-  if (Abs(ndir.X()) < gp::Resolution() && Abs(ndir.Y()) < gp::Resolution()
-      && Abs(ndir.Z()) < gp::Resolution())
+  if (Abs(ndir.X()) < gp1::Resolution() && Abs(ndir.Y()) < gp1::Resolution()
+      && Abs(ndir.Z()) < gp1::Resolution())
     return res;
 
-  gp_Ax3  AX(Point3d(0, 0, 0), ndir);
+  Ax3  AX(Point3d(0, 0, 0), ndir);
   Transform3d Tr;
   Tr.SetTransformation(AX);
   Transform3d Tr2 = Tr.Inverted();

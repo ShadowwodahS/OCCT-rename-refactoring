@@ -959,9 +959,9 @@ void OrientedBox::Add(const Point3d& theP)
   if (IsVoid())
   {
     myCenter   = theP.XYZ();
-    myAxes[0]  = gp::DX().XYZ();
-    myAxes[1]  = gp::DY().XYZ();
-    myAxes[2]  = gp::DZ().XYZ();
+    myAxes[0]  = gp1::DX().XYZ();
+    myAxes[1]  = gp1::DY().XYZ();
+    myAxes[2]  = gp1::DZ().XYZ();
     myHDims[0] = 0.0;
     myHDims[1] = 0.0;
     myHDims[2] = 0.0;

@@ -198,12 +198,12 @@ private:
 
 private:
   //! Pair holding Vec3 and Normal to the triangle
-  struct Vec3AndNormal
+  struct Vec3AndNormal1
   {
     NCollection_Vec3<float> Pos;  //!< position
     NCollection_Vec3<float> Norm; //!< normal to the element
 
-    Vec3AndNormal(const NCollection_Vec3<float>& thePos, const NCollection_Vec3<float>& theNorm)
+    Vec3AndNormal1(const NCollection_Vec3<float>& thePos, const NCollection_Vec3<float>& theNorm)
         : Pos(thePos),
           Norm(theNorm)
     {
@@ -287,7 +287,7 @@ private:
                                     const int                      theUpper) const;
 
     //! Compute hash code.
-    size_t hashCode(const Vec3AndNormal& theKey, const int theUpper) const
+    size_t hashCode(const Vec3AndNormal1& theKey, const int theUpper) const
     {
       return hashCode(theKey.Pos, theKey.Norm, theUpper);
     }
@@ -297,7 +297,7 @@ private:
                                       const NCollection_Vec3<float>& theKey2) const;
 
     //! Compare two nodes.
-    Standard_EXPORT bool isEqual(const Vec3AndNormal&           theKey1,
+    Standard_EXPORT bool isEqual(const Vec3AndNormal1&           theKey1,
                                  const NCollection_Vec3<float>& thePos2,
                                  const NCollection_Vec3<float>& theNorm2,
                                  bool&                          theIsOpposite) const;

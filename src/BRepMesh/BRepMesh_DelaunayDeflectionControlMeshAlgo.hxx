@@ -285,7 +285,7 @@ private:
   Standard_Boolean computeNormal(const Vector3d& theLink1, const Vector3d& theLink2, Vector3d& theNormal)
   {
     const Vector3d aNormal(theLink1 ^ theLink2);
-    if (aNormal.SquareMagnitude() > gp::Resolution())
+    if (aNormal.SquareMagnitude() > gp1::Resolution())
     {
       theNormal = aNormal.Normalized();
       return Standard_True;

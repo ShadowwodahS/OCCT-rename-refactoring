@@ -22,7 +22,7 @@
 
 #include <Geom_ElementarySurface.hxx>
 #include <Standard_Integer.hxx>
-class gp_Ax3;
+class Ax3;
 class gp_Pln;
 class Point3d;
 class Dir3d;
@@ -37,7 +37,7 @@ DEFINE_STANDARD_HANDLE(GeomPlane, Geom_ElementarySurface)
 
 //! Describes a plane in 3D space.
 //! A plane is positioned in space by a coordinate system
-//! (a gp_Ax3 object) such that the plane is defined by
+//! (a Ax3 object) such that the plane is defined by
 //! the origin, "X Direction" and "Y Direction" of this
 //! coordinate system.
 //! This coordinate system is the "local coordinate
@@ -70,9 +70,9 @@ public:
   //! to the plane.  The "Location" point of "A3" is the origin of the plane.
   //! The "XDirection" and "YDirection" of "A3" define
   //! the directions of the U isoparametric and V isoparametric curves.
-  Standard_EXPORT GeomPlane(const gp_Ax3& A3);
+  Standard_EXPORT GeomPlane(const Ax3& A3);
 
-  //! Creates a plane from a non transient plane from package gp.
+  //! Creates a plane from a non transient plane from package gp1.
   Standard_EXPORT GeomPlane(const gp_Pln& Pl);
 
   //! P is the "Location" point or origin of the plane.
@@ -83,7 +83,7 @@ public:
   //! @code
   //!   Ax + By + Cz + D = 0.0
   //! @endcode
-  //! Raised if Sqrt (A*A + B*B + C*C) <= Resolution from gp
+  //! Raised if Sqrt (A*A + B*B + C*C) <= Resolution from gp1
   Standard_EXPORT GeomPlane(const Standard_Real A,
                              const Standard_Real B,
                              const Standard_Real C,

@@ -954,8 +954,8 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
           Handle(Geom_Axis2Placement) aTargAP = StepToGeom1::MakeAxis2Placement(aCS, aLocalFactors);
           if (!aTargAP.IsNull())
           {
-            const gp_Ax3 ax3Orig(Point3d(0., 0., 0), Vector3d(0., 0., 1.), Vector3d(1., 0., 0.));
-            const gp_Ax3 ax3Targ(aTargAP->Ax2());
+            const Ax3 ax3Orig(Point3d(0., 0., 0), Vector3d(0., 0., 1.), Vector3d(1., 0., 0.));
+            const Ax3 ax3Targ(aTargAP->Ax2());
             if (ax3Targ.Location().SquareDistance(ax3Orig.Location()) < Precision::SquareConfusion()
                 && ax3Targ.Direction().IsEqual(ax3Orig.Direction(), Precision::Angular())
                 && ax3Targ.XDirection().IsEqual(ax3Orig.XDirection(), Precision::Angular()))
@@ -1288,7 +1288,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
           StepToGeom1::MakeAxis2Placement(aStepAxis, aLocalFactors);
         if (anAxis.IsNull())
           continue;
-        Handle(GeomPlane) aPlane = new GeomPlane(gp_Ax3(anAxis->Ax2()));
+        Handle(GeomPlane) aPlane = new GeomPlane(Ax3(anAxis->Ax2()));
         TopoFace        aPlaneFace;
         aB.MakeFace(aPlaneFace, aPlane, Precision::Confusion());
         Handle(TransferBRep_ShapeBinder) axisbinder = new TransferBRep_ShapeBinder(aPlaneFace);
@@ -2186,8 +2186,8 @@ Standard_Boolean STEPControl_ActorRead::ComputeTransformation(
   if (oldSRContext != TargContext)
     PrepareUnits(oldSRContext, TP, aLocalFactors);
 
-  gp_Ax3 ax3Orig(theOrig->Ax2());
-  gp_Ax3 ax3Targ(theTarg->Ax2());
+  Ax3 ax3Orig(theOrig->Ax2());
+  Ax3 ax3Targ(theTarg->Ax2());
 
   //  ne pas se tromper de sens !
   Trsf.SetTransformation(ax3Targ, ax3Orig);

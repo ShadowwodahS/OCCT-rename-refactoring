@@ -338,7 +338,7 @@ gp_Pln GeomAdaptor_SurfaceOfLinearExtrusion::Plane() const
     if (newZ.Magnitude() > 1.e-12)
       break;
   }
-  gp_Ax3 Ax3(P, Dir3d(newZ), Dir3d(D1u));
+  Ax3 Ax3(P, Dir3d(newZ), Dir3d(D1u));
   if (myDirection.Dot(Ax3.YDirection()) < 0.)
   {
     Ax3.YReverse();
@@ -348,23 +348,23 @@ gp_Pln GeomAdaptor_SurfaceOfLinearExtrusion::Plane() const
 
 //=================================================================================================
 
-gp_Cylinder GeomAdaptor_SurfaceOfLinearExtrusion::Cylinder() const
+Cylinder1 GeomAdaptor_SurfaceOfLinearExtrusion::Cylinder() const
 {
   Standard_NoSuchObject_Raise_if(GetType() != GeomAbs_Cylinder,
                                  "GeomAdaptor_SurfaceOfLinearExtrusion::Cylinder");
 
   gp_Circ C = myBasisCurve->Circle();
-  gp_Ax3  Ax3(C.Position());
+  Ax3  Ax3(C.Position());
   if (myDirection.Dot((C.Axis()).Direction()) < 0.)
   {
     Ax3.ZReverse();
   }
-  return gp_Cylinder(Ax3, C.Radius());
+  return Cylinder1(Ax3, C.Radius());
 }
 
 //=================================================================================================
 
-gp_Cone GeomAdaptor_SurfaceOfLinearExtrusion::Cone() const
+Cone1 GeomAdaptor_SurfaceOfLinearExtrusion::Cone() const
 {
   throw Standard_NoSuchObject("GeomAdaptor_SurfaceOfLinearExtrusion::Cone");
 }

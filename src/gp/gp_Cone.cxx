@@ -23,7 +23,7 @@
 #include <gp_Pnt.hxx>
 #include <gp_Trsf.hxx>
 
-void gp_Cone::Coefficients(Standard_Real& A1,
+void Cone1::Coefficients(Standard_Real& A1,
                            Standard_Real& A2,
                            Standard_Real& A3,
                            Standard_Real& B1,
@@ -63,38 +63,38 @@ void gp_Cone::Coefficients(Standard_Real& A1,
   D                  = T14 * T14 + T24 * T24 - radius * radius - T34 * T34 - 2.0 * radius * T34;
 }
 
-void gp_Cone::Mirror(const Point3d& P)
+void Cone1::Mirror(const Point3d& P)
 {
   pos.Mirror(P);
 }
 
-gp_Cone gp_Cone::Mirrored(const Point3d& P) const
+Cone1 Cone1::Mirrored(const Point3d& P) const
 {
-  gp_Cone C = *this;
+  Cone1 C = *this;
   C.pos.Mirror(P);
   return C;
 }
 
-void gp_Cone::Mirror(const Axis3d& A1)
+void Cone1::Mirror(const Axis3d& A1)
 {
   pos.Mirror(A1);
 }
 
-gp_Cone gp_Cone::Mirrored(const Axis3d& A1) const
+Cone1 Cone1::Mirrored(const Axis3d& A1) const
 {
-  gp_Cone C = *this;
+  Cone1 C = *this;
   C.pos.Mirror(A1);
   return C;
 }
 
-void gp_Cone::Mirror(const Frame3d& A2)
+void Cone1::Mirror(const Frame3d& A2)
 {
   pos.Mirror(A2);
 }
 
-gp_Cone gp_Cone::Mirrored(const Frame3d& A2) const
+Cone1 Cone1::Mirrored(const Frame3d& A2) const
 {
-  gp_Cone C = *this;
+  Cone1 C = *this;
   C.pos.Mirror(A2);
   return C;
 }

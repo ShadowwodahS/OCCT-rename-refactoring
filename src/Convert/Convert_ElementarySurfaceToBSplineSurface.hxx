@@ -33,7 +33,7 @@ class Point3d;
 //! surface (CylinderToBSplineSurface, ConeToBSplineSurface,
 //! SphereToBSplineSurface, TorusToBSplineSurface).
 //! These algorithms all work on elementary surfaces from
-//! the gp package and compute all the data needed to
+//! the gp1 package and compute all the data needed to
 //! construct a BSpline surface equivalent to the cylinder,
 //! cone, sphere or torus. This data consists of the following:
 //! -   degrees in the u and v parametric directions,

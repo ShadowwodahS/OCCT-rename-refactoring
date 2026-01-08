@@ -175,7 +175,7 @@ static Standard_Integer to2d(DrawInterpreter&, Standard_Integer n, const char** 
       return 1;
   }
   else
-    S = new GeomPlane(gp::XOY());
+    S = new GeomPlane(gp1::XOY());
 
   Handle(GeomPlane) P = Handle(GeomPlane)::DownCast(S);
   if (P.IsNull())
@@ -204,7 +204,7 @@ static Standard_Integer to3d(DrawInterpreter&, Standard_Integer n, const char** 
       return 1;
   }
   else
-    S = new GeomPlane(gp::XOY());
+    S = new GeomPlane(gp1::XOY());
 
   Handle(GeomPlane) P = Handle(GeomPlane)::DownCast(S);
   if (P.IsNull())

@@ -67,18 +67,18 @@ void Extrema_ExtElCS::Perform(const gp_Lin& C, const gp_Pln& S)
   }
 }
 
-Extrema_ExtElCS::Extrema_ExtElCS(const gp_Lin& C, const gp_Cylinder& S)
+Extrema_ExtElCS::Extrema_ExtElCS(const gp_Lin& C, const Cylinder1& S)
 {
   Perform(C, S);
 }
 
-void Extrema_ExtElCS::Perform(const gp_Lin& C, const gp_Cylinder& S)
+void Extrema_ExtElCS::Perform(const gp_Lin& C, const Cylinder1& S)
 {
   myDone  = Standard_False;
   myNbExt = 0;
   myIsPar = Standard_False;
 
-  gp_Ax3 Pos = S.Position();
+  Ax3 Pos = S.Position();
 
   Standard_Boolean isParallel = Standard_False;
 
@@ -189,14 +189,14 @@ void Extrema_ExtElCS::Perform(const gp_Lin& C, const gp_Cylinder& S)
   }
 }
 
-Extrema_ExtElCS::Extrema_ExtElCS(const gp_Lin& C, const gp_Cone& S)
+Extrema_ExtElCS::Extrema_ExtElCS(const gp_Lin& C, const Cone1& S)
 {
   Perform(C, S);
 }
 
 // void Extrema_ExtElCS::Perform(const gp_Lin& C,
-//			      const gp_Cone& S)
-void Extrema_ExtElCS::Perform(const gp_Lin&, const gp_Cone&)
+//			      const Cone1& S)
+void Extrema_ExtElCS::Perform(const gp_Lin&, const Cone1&)
 {
   throw Standard_NotImplemented();
 }
@@ -394,14 +394,14 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Pln& S)
   }
 }
 
-Extrema_ExtElCS::Extrema_ExtElCS(const gp_Circ& C, const gp_Cylinder& S)
+Extrema_ExtElCS::Extrema_ExtElCS(const gp_Circ& C, const Cylinder1& S)
 {
   Perform(C, S);
 }
 
 //  Modified by skv - Thu Jul  7 14:37:05 2005 OCC9134 Begin
 // Implementation of the method.
-void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Cylinder& S)
+void Extrema_ExtElCS::Perform(const gp_Circ& C, const Cylinder1& S)
 {
   myDone  = Standard_False;
   myIsPar = Standard_False;
@@ -544,14 +544,14 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Cylinder& S)
 
 //  Modified by skv - Thu Jul  7 14:37:05 2005 OCC9134 End
 
-Extrema_ExtElCS::Extrema_ExtElCS(const gp_Circ& C, const gp_Cone& S)
+Extrema_ExtElCS::Extrema_ExtElCS(const gp_Circ& C, const Cone1& S)
 {
   Perform(C, S);
 }
 
 // void Extrema_ExtElCS::Perform(const gp_Circ& C,
-//			 const gp_Cone& S)
-void Extrema_ExtElCS::Perform(const gp_Circ&, const gp_Cone&)
+//			 const Cone1& S)
+void Extrema_ExtElCS::Perform(const gp_Circ&, const Cone1&)
 {
   throw Standard_NotImplemented();
 }

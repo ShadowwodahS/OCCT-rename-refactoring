@@ -53,7 +53,7 @@ void LocOpe_FindEdgesInFace::Set(const TopoShape& Sh, const TopoFace& F)
   Handle(TypeInfo) Tc, Ts;
   Standard_Boolean      ToAdd;
   gp_Pln                pl;
-  gp_Cylinder           cy;
+  Cylinder1           cy;
 
   constexpr Standard_Real Tol    = Precision::Confusion();
   constexpr Standard_Real TolAng = Precision::Angular();

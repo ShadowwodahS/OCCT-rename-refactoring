@@ -1925,7 +1925,7 @@ Standard_Boolean BooleanPaveFiller::IsExistingPaveBlock(
   const Handle(GeomCurve3d)& aC3d = aIC.Curve();
   aC3d->D1(aTm, aPm, aVTgt1);
   aBoxPm.Add(aPm);
-  Standard_Boolean isVtgt1Valid = aVTgt1.SquareMagnitude() > gp::Resolution();
+  Standard_Boolean isVtgt1Valid = aVTgt1.SquareMagnitude() > gp1::Resolution();
   if (isVtgt1Valid)
     aVTgt1.Normalize();
 
@@ -2012,7 +2012,7 @@ Standard_Boolean BooleanPaveFiller::IsExistingPaveBlock(
               Point3d aPm2;
               Vector3d aVTgt2;
               aBAC2.D1(aTldp, aPm2, aVTgt2);
-              if (aVTgt2.SquareMagnitude() > gp::Resolution())
+              if (aVTgt2.SquareMagnitude() > gp1::Resolution())
               {
                 // The angle should be close to zero
                 Standard_Real aCos = aVTgt1.Dot(aVTgt2.Normalized());
@@ -2262,7 +2262,7 @@ void BooleanPaveFiller::FilterPavesOnCurves(const BOPDS_VectorOfCurve&    theVNC
   // collect list of pave blocks with distance to the curve
   NCollection_IndexedDataMap<Standard_Integer, NCollection_List<PaveBlockDist>> aIDMVertPBs;
   Standard_Integer                                                              i;
-  const Standard_Real anEps = gp::Resolution();
+  const Standard_Real anEps = gp1::Resolution();
   for (i = 0; i < theVNC.Length(); ++i)
   {
     const BOPDS_Curve&             aNC     = theVNC(i);

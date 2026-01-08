@@ -64,7 +64,7 @@ Handle(GeomSurface) BRepOffset::Surface(const Handle(GeomSurface)& Surface,
   {
     Handle(Geom_CylindricalSurface) C      = Handle(Geom_CylindricalSurface)::DownCast(Surface);
     Standard_Real                   Radius = C->Radius();
-    gp_Ax3                          Axis   = C->Position();
+    Ax3                          Axis   = C->Position();
     if (Axis.Direct())
       Radius += Offset;
     else
@@ -89,7 +89,7 @@ Handle(GeomSurface) BRepOffset::Surface(const Handle(GeomSurface)& Surface,
     Handle(Geom_ConicalSurface) C      = Handle(Geom_ConicalSurface)::DownCast(Surface);
     Standard_Real               Alpha  = C->SemiAngle();
     Standard_Real               Radius = C->RefRadius() + Offset * Cos(Alpha);
-    gp_Ax3                      Axis   = C->Position();
+    Ax3                      Axis   = C->Position();
     if (Radius >= 0.)
     {
       Vector3d Z(Axis.Direction());
@@ -111,7 +111,7 @@ Handle(GeomSurface) BRepOffset::Surface(const Handle(GeomSurface)& Surface,
   {
     Handle(Geom_SphericalSurface) S      = Handle(Geom_SphericalSurface)::DownCast(Surface);
     Standard_Real                 Radius = S->Radius();
-    gp_Ax3                        Axis   = S->Position();
+    Ax3                        Axis   = S->Position();
     if (Axis.Direct())
       Radius += Offset;
     else
@@ -137,7 +137,7 @@ Handle(GeomSurface) BRepOffset::Surface(const Handle(GeomSurface)& Surface,
     Handle(Geom_ToroidalSurface) S           = Handle(Geom_ToroidalSurface)::DownCast(Surface);
     Standard_Real                MajorRadius = S->MajorRadius();
     Standard_Real                MinorRadius = S->MinorRadius();
-    gp_Ax3                       Axis        = S->Position();
+    Ax3                       Axis        = S->Position();
     if (MinorRadius < MajorRadius)
     { // A FINIR
       if (Axis.Direct())
@@ -260,7 +260,7 @@ Handle(GeomSurface) BRepOffset::CollapseSingularities(const Handle(GeomSurface)&
       Point3d aCenter(aSum / NbSteps[iSide]);
 
       // determine if all poles of the side fit into:
-      Standard_Boolean isCollapsed = Standard_True; // aCenter precisely (with gp::Resolution())
+      Standard_Boolean isCollapsed = Standard_True; // aCenter precisely (with gp1::Resolution())
       Standard_Boolean isSingular  = Standard_True; // aCenter with thePrecision
                                                     // clang-format off
       NCollection_LocalArray<Standard_Boolean,4> isDegenerated (aDegenPnt.Extent()); // degenerated vertex
@@ -274,7 +274,7 @@ Handle(GeomSurface) BRepOffset::CollapseSingularities(const Handle(GeomSurface)&
 
         // distance from CG
         Standard_Real aDistCG = aCenter.Distance(aPole);
-        if (aDistCG > gp::Resolution())
+        if (aDistCG > gp1::Resolution())
           isCollapsed = Standard_False;
         if (aDistCG > thePrecision)
           isSingular = Standard_False;

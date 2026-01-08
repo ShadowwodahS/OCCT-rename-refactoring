@@ -82,7 +82,7 @@ static Standard_Boolean Rational(const TColStd_Array1OfReal& theWeights)
 {
   for (Standard_Integer i = theWeights.Lower(); i < theWeights.Upper(); i++)
   {
-    if (Abs(theWeights[i] - theWeights[i + 1]) > gp::Resolution())
+    if (Abs(theWeights[i] - theWeights[i + 1]) > gp1::Resolution())
     {
       return Standard_True;
     }
@@ -162,7 +162,7 @@ Geom2d_BSplineCurve::Geom2d_BSplineCurve(const TColgp_Array1OfPnt2d&    Poles,
   Standard_Integer i;
   for (i = Weights.Lower(); i <= Weights.Upper(); i++)
   {
-    if (Weights(i) <= gp::Resolution())
+    if (Weights(i) <= gp1::Resolution())
     {
       throw Standard_ConstructionError("Geom2d_BSplineCurve: Weights values too small");
     }
@@ -442,7 +442,7 @@ void Geom2d_BSplineCurve::InsertPoleAfter(const Standard_Integer Index,
   if (Index < 0 || Index > poles->Length())
     throw Standard_OutOfRange("BSpline curve: InsertPoleAfter: Index and #pole mismatch");
 
-  if (Weight <= gp::Resolution())
+  if (Weight <= gp1::Resolution())
     throw Standard_ConstructionError("BSpline curve: InsertPoleAfter: Weight too small");
 
   if (knotSet == GeomAbs_NonUniform || knotSet == GeomAbs_PiecewiseBezier)
@@ -493,7 +493,7 @@ void Geom2d_BSplineCurve::InsertPoleAfter(const Standard_Integer Index,
   // Insert the weight
 
   Handle(TColStd_HArray1OfReal) nweights;
-  Standard_Boolean              rat = IsRational() || Abs(Weight - 1.) > gp::Resolution();
+  Standard_Boolean              rat = IsRational() || Abs(Weight - 1.) > gp1::Resolution();
 
   if (rat)
   {
@@ -1039,10 +1039,10 @@ void Geom2d_BSplineCurve::SetWeight(const Standard_Integer Index, const Standard
   if (Index < 1 || Index > poles->Length())
     throw Standard_OutOfRange("BSpline curve: SetWeight: Index and #pole mismatch");
 
-  if (W <= gp::Resolution())
+  if (W <= gp1::Resolution())
     throw Standard_ConstructionError("BSpline curve: SetWeight: Weight too small");
 
-  Standard_Boolean rat = IsRational() || (Abs(W - 1.) > gp::Resolution());
+  Standard_Boolean rat = IsRational() || (Abs(W - 1.) > gp1::Resolution());
 
   if (rat)
   {

@@ -22,7 +22,7 @@
 #include <gp_Trsf2d.hxx>
 
 //=========================================================================
-//   Creation d une symetrie 2d de gp par rapport a un point.             +
+//   Creation d une symetrie 2d de gp1 par rapport a un point.             +
 //=========================================================================
 MirrorBuilder2d::MirrorBuilder2d(const gp_Pnt2d& Point)
 {
@@ -30,7 +30,7 @@ MirrorBuilder2d::MirrorBuilder2d(const gp_Pnt2d& Point)
 }
 
 //=========================================================================
-//   Creation d une symetrie 2d de gp par rapport a une droite.           +
+//   Creation d une symetrie 2d de gp1 par rapport a une droite.           +
 //=========================================================================
 
 MirrorBuilder2d::MirrorBuilder2d(const gp_Ax2d& Axis)
@@ -39,7 +39,7 @@ MirrorBuilder2d::MirrorBuilder2d(const gp_Ax2d& Axis)
 }
 
 //=========================================================================
-//   Creation d une symetrie 2d de gp par rapport a une droite.           +
+//   Creation d une symetrie 2d de gp1 par rapport a une droite.           +
 //=========================================================================
 
 MirrorBuilder2d::MirrorBuilder2d(const gp_Lin2d& Line)
@@ -48,7 +48,7 @@ MirrorBuilder2d::MirrorBuilder2d(const gp_Lin2d& Line)
 }
 
 //=========================================================================
-//   Creation d une symetrie 2d de gp par rapport a une droite definie    +
+//   Creation d une symetrie 2d de gp1 par rapport a une droite definie    +
 //   par un point et une direction.                                       +
 //=========================================================================
 

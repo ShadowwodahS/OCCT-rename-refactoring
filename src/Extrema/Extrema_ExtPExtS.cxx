@@ -565,7 +565,7 @@ static Standard_Boolean IsCaseAnalyticallyComputable(const GeomAbs_CurveType& th
       return Standard_False;
   }
   // check if it is a plane
-  if (Abs(theCurvePos.Direction() * theSurfaceDirection) <= gp::Resolution())
+  if (Abs(theCurvePos.Direction() * theSurfaceDirection) <= gp1::Resolution())
     return Standard_False;
   else
     return Standard_True;

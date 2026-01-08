@@ -698,7 +698,7 @@ void OpenGl_LayerList::renderLayer(const Handle(OpenGl_Workspace)&   theWorkspac
            aShadowIter.More();
            aShadowIter.Next())
       {
-        aShadowIter.Value()->UpdateCamera(*theWorkspace->View(), &gp::Origin().XYZ());
+        aShadowIter.Value()->UpdateCamera(*theWorkspace->View(), &gp1::Origin().XYZ());
       }
     }
 

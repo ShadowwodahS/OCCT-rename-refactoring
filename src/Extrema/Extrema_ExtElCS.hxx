@@ -28,8 +28,8 @@
 
 class gp_Lin;
 class gp_Pln;
-class gp_Cylinder;
-class gp_Cone;
+class Cylinder1;
+class Cone1;
 class gp_Sphere;
 class gp_Torus;
 class gp_Circ;
@@ -56,14 +56,14 @@ public:
 
   //! Calculates the distances between a line and a
   //! cylinder.
-  Standard_EXPORT Extrema_ExtElCS(const gp_Lin& C, const gp_Cylinder& S);
+  Standard_EXPORT Extrema_ExtElCS(const gp_Lin& C, const Cylinder1& S);
 
-  Standard_EXPORT void Perform(const gp_Lin& C, const gp_Cylinder& S);
+  Standard_EXPORT void Perform(const gp_Lin& C, const Cylinder1& S);
 
   //! Calculates the distances between a line and a cone.
-  Standard_EXPORT Extrema_ExtElCS(const gp_Lin& C, const gp_Cone& S);
+  Standard_EXPORT Extrema_ExtElCS(const gp_Lin& C, const Cone1& S);
 
-  Standard_EXPORT void Perform(const gp_Lin& C, const gp_Cone& S);
+  Standard_EXPORT void Perform(const gp_Lin& C, const Cone1& S);
 
   //! Calculates the distances between a line and a
   //! sphere.
@@ -85,15 +85,15 @@ public:
 
   //! Calculates the distances between a circle and a
   //! cylinder.
-  Standard_EXPORT Extrema_ExtElCS(const gp_Circ& C, const gp_Cylinder& S);
+  Standard_EXPORT Extrema_ExtElCS(const gp_Circ& C, const Cylinder1& S);
 
-  Standard_EXPORT void Perform(const gp_Circ& C, const gp_Cylinder& S);
+  Standard_EXPORT void Perform(const gp_Circ& C, const Cylinder1& S);
 
   //! Calculates the distances between a circle and a
   //! cone.
-  Standard_EXPORT Extrema_ExtElCS(const gp_Circ& C, const gp_Cone& S);
+  Standard_EXPORT Extrema_ExtElCS(const gp_Circ& C, const Cone1& S);
 
-  Standard_EXPORT void Perform(const gp_Circ& C, const gp_Cone& S);
+  Standard_EXPORT void Perform(const gp_Circ& C, const Cone1& S);
 
   //! Calculates the distances between a circle and a
   //! sphere.

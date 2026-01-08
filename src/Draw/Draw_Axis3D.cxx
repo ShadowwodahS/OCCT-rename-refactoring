@@ -30,7 +30,7 @@ extern Standard_Boolean Draw_Bounds;
 //=================================================================================================
 
 Draw_Axis3D::Draw_Axis3D(const DrawColor& col, const Standard_Integer Size)
-    : myAxes(gp::XOY()),
+    : myAxes(gp1::XOY()),
       myColor(col),
       mySize(Size)
 {
@@ -39,7 +39,7 @@ Draw_Axis3D::Draw_Axis3D(const DrawColor& col, const Standard_Integer Size)
 //=================================================================================================
 
 Draw_Axis3D::Draw_Axis3D(const Point3d& p, const DrawColor& col, const Standard_Integer Size)
-    : myAxes(p, gp::DZ(), gp::DX()),
+    : myAxes(p, gp1::DZ(), gp1::DX()),
       myColor(col),
       mySize(Size)
 {
@@ -47,7 +47,7 @@ Draw_Axis3D::Draw_Axis3D(const Point3d& p, const DrawColor& col, const Standard_
 
 //=================================================================================================
 
-Draw_Axis3D::Draw_Axis3D(const gp_Ax3& a, const DrawColor& col, const Standard_Integer Size)
+Draw_Axis3D::Draw_Axis3D(const Ax3& a, const DrawColor& col, const Standard_Integer Size)
     : myAxes(a),
       myColor(col),
       mySize(Size)

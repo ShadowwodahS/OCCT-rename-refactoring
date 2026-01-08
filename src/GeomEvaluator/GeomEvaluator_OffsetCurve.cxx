@@ -62,7 +62,7 @@ void GeomEvaluator_OffsetCurve::D2(const Standard_Real theU,
   BaseD3(theU, theValue, theD1, theD2, aD3);
 
   Standard_Boolean isDirectionChange = Standard_False;
-  if (theD1.SquareMagnitude() <= gp::Resolution())
+  if (theD1.SquareMagnitude() <= gp1::Resolution())
   {
     Vector3d aDummyD4;
     isDirectionChange = AdjustDerivative(3, theU, theD1, theD2, aD3, aDummyD4);
@@ -81,7 +81,7 @@ void GeomEvaluator_OffsetCurve::D3(const Standard_Real theU,
   BaseD4(theU, theValue, theD1, theD2, theD3, aD4);
 
   Standard_Boolean isDirectionChange = Standard_False;
-  if (theD1.SquareMagnitude() <= gp::Resolution())
+  if (theD1.SquareMagnitude() <= gp1::Resolution())
     isDirectionChange = AdjustDerivative(4, theU, theD1, theD2, theD3, aD4);
 
   CalculateD3(theValue, theD1, theD2, theD3, aD4, isDirectionChange);
@@ -200,7 +200,7 @@ void GeomEvaluator_OffsetCurve::CalculateD0(Point3d& theValue, const Vector3d& t
 {
   gp_XYZ        Ndir = (theD1.XYZ()).Crossed(myOffsetDir.XYZ());
   Standard_Real R    = Ndir.Modulus();
-  if (R <= gp::Resolution())
+  if (R <= gp1::Resolution())
     throw Standard_NullValue("GeomEvaluator_OffsetCurve: Undefined normal vector "
                              "because tangent vector has zero-magnitude!");
 
@@ -223,9 +223,9 @@ void GeomEvaluator_OffsetCurve::CalculateD1(Point3d&       theValue,
   Standard_Real R     = Sqrt(R2);
   Standard_Real R3    = R * R2;
   Standard_Real Dr    = Ndir.Dot(DNdir);
-  if (R3 <= gp::Resolution())
+  if (R3 <= gp1::Resolution())
   {
-    if (R2 <= gp::Resolution())
+    if (R2 <= gp1::Resolution())
       throw Standard_NullValue("GeomEvaluator_OffsetCurve: Null derivative");
     // We try another computation but the stability is not very good.
     DNdir.Multiply(R);
@@ -271,9 +271,9 @@ void GeomEvaluator_OffsetCurve::CalculateD2(Point3d&                theValue,
   Standard_Real Dr     = Ndir.Dot(DNdir);
   Standard_Real D2r    = Ndir.Dot(D2Ndir) + DNdir.Dot(DNdir);
 
-  if (R5 <= gp::Resolution())
+  if (R5 <= gp1::Resolution())
   {
-    if (R4 <= gp::Resolution())
+    if (R4 <= gp1::Resolution())
       throw Standard_NullValue("GeomEvaluator_OffsetCurve: Null derivative");
     // We try another computation but the stability is not very good
     // dixit ISG.
@@ -346,9 +346,9 @@ void GeomEvaluator_OffsetCurve::CalculateD3(Point3d&                theValue,
   Standard_Real Dr     = Ndir.Dot(DNdir);
   Standard_Real D2r    = Ndir.Dot(D2Ndir) + DNdir.Dot(DNdir);
   Standard_Real D3r    = Ndir.Dot(D3Ndir) + 3.0 * DNdir.Dot(D2Ndir);
-  if (R7 <= gp::Resolution())
+  if (R7 <= gp1::Resolution())
   {
-    if (R6 <= gp::Resolution())
+    if (R6 <= gp1::Resolution())
       throw Standard_NullValue("CSLib_Offset: Null derivative");
     // V3 = P"' (U) :
     D3Ndir.Subtract(D2Ndir.Multiplied(3.0 * Dr / R2));
@@ -406,7 +406,7 @@ Standard_Boolean GeomEvaluator_OffsetCurve::AdjustDerivative(
   Vector3d&                theD3,
   Vector3d&                theD4) const
 {
-  static const Standard_Real    aTol           = gp::Resolution();
+  static const Standard_Real    aTol           = gp1::Resolution();
   static const Standard_Real    aMinStep       = 1e-7;
   static const Standard_Integer aMaxDerivOrder = 3;
 

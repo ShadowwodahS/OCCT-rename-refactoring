@@ -67,14 +67,14 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   // Creation of the plane which carry the chamfer
 
   // compute the normals to the planes Pl1 and Pl2
-  gp_Ax3 Pos1 = Pl1.Position();
+  Ax3 Pos1 = Pl1.Position();
   Dir3d D1   = Pos1.XDirection().Crossed(Pos1.YDirection());
   if (Or1 == TopAbs_REVERSED)
   {
     D1.Reverse();
   }
 
-  gp_Ax3 Pos2 = Pl2.Position();
+  Ax3 Pos2 = Pl2.Position();
   Dir3d D2   = Pos2.XDirection().Crossed(Pos2.YDirection());
   if (Or2 == TopAbs_REVERSED)
   {
@@ -144,7 +144,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   Dir3d AxisPlan = V1.Crossed(V2);
 
   Dir3d xdir = LinAx1; // u axis
-  gp_Ax3 PlanAx3(Po, AxisPlan, xdir);
+  Ax3 PlanAx3(Po, AxisPlan, xdir);
   if (PlanAx3.YDirection().Dot(D2) >= 0.)
     PlanAx3.YReverse();
 
@@ -189,7 +189,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   ElSLib1::PlaneParameters(PlanAx3, P1, u, v);
   p2dPln.SetCoord(u, v);
   lin2dPln.SetLocation(p2dPln);
-  lin2dPln.SetDirection(gp::DX2d());
+  lin2dPln.SetDirection(gp1::DX2d());
   Handle(Geom2d_Line) GLin2dPlnCh1 = new Geom2d_Line(lin2dPln);
 
   TopAbs_Orientation trans;
@@ -221,7 +221,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   ElSLib1::PlaneParameters(PlanAx3, P2, u, v);
   p2dPln.SetCoord(u, v);
   lin2dPln.SetLocation(p2dPln);
-  lin2dPln.SetDirection(gp::DX2d());
+  lin2dPln.SetDirection(gp1::DX2d());
   Handle(Geom2d_Line) GLin2dPlnCh2 = new Geom2d_Line(lin2dPln);
 
   norpl     = Pos2.XDirection().Crossed(Pos2.YDirection());

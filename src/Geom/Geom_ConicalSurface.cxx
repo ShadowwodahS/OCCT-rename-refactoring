@@ -41,7 +41,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_ConicalSurface, Geom_ElementarySurface)
 typedef Geom_ConicalSurface ConicalSurface;
 typedef Axis3d              Ax1;
 typedef Frame3d              Ax2;
-typedef gp_Ax3              Ax3;
+typedef Ax3              Ax3;
 typedef gp_Circ             Circ;
 typedef Dir3d              Dir;
 typedef gp_Lin              Lin;
@@ -69,7 +69,7 @@ Geom_ConicalSurface::Geom_ConicalSurface(const Ax3&          A3,
       semiAngle(Ang)
 {
 
-  if (R < 0.0 || Abs(Ang) <= gp::Resolution() || Abs(Ang) >= M_PI / 2.0 - gp::Resolution())
+  if (R < 0.0 || Abs(Ang) <= gp1::Resolution() || Abs(Ang) >= M_PI / 2.0 - gp1::Resolution())
     throw Standard_ConstructionError();
 
   pos = A3;
@@ -77,7 +77,7 @@ Geom_ConicalSurface::Geom_ConicalSurface(const Ax3&          A3,
 
 //=================================================================================================
 
-Geom_ConicalSurface::Geom_ConicalSurface(const gp_Cone& C)
+Geom_ConicalSurface::Geom_ConicalSurface(const Cone1& C)
     : radius(C.RefRadius()),
       semiAngle(C.SemiAngle())
 {
@@ -150,15 +150,15 @@ Standard_Boolean Geom_ConicalSurface::IsVPeriodic() const
 
 //=================================================================================================
 
-gp_Cone Geom_ConicalSurface::Cone() const
+Cone1 Geom_ConicalSurface::Cone() const
 {
 
-  return gp_Cone(pos, semiAngle, radius);
+  return Cone1(pos, semiAngle, radius);
 }
 
 //=================================================================================================
 
-void Geom_ConicalSurface::SetCone(const gp_Cone& C)
+void Geom_ConicalSurface::SetCone(const Cone1& C)
 {
 
   radius    = C.RefRadius();
@@ -181,7 +181,7 @@ void Geom_ConicalSurface::SetRadius(const Standard_Real R)
 void Geom_ConicalSurface::SetSemiAngle(const Standard_Real Ang)
 {
 
-  if (Abs(Ang) <= gp::Resolution() || Abs(Ang) >= M_PI / 2.0 - gp::Resolution())
+  if (Abs(Ang) <= gp1::Resolution() || Abs(Ang) >= M_PI / 2.0 - gp1::Resolution())
   {
     throw Standard_ConstructionError();
   }
@@ -364,7 +364,7 @@ void Geom_ConicalSurface::TransformParameters(Standard_Real&,
 gp_GTrsf2d Geom_ConicalSurface::ParametricTransformation(const Transform3d& T) const
 {
   gp_GTrsf2d T2;
-  gp_Ax2d    Axis(gp::Origin2d(), gp::DX2d());
+  gp_Ax2d    Axis(gp1::Origin2d(), gp1::DX2d());
   T2.SetAffinity(Axis, Abs(T.ScaleFactor()));
   return T2;
 }

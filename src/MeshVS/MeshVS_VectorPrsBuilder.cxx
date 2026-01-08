@@ -272,8 +272,8 @@ void MeshVS_VectorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
           continue;
         }
 
-        aTrsf.SetDisplacement(gp_Ax3(Point3d(0, 0, 0), Dir3d(0, 0, 1)),
-                              gp_Ax3(Point3d(X, Y, Z), aVec));
+        aTrsf.SetDisplacement(Ax3(Point3d(0, 0, 0), Dir3d(0, 0, 1)),
+                              Ax3(Point3d(X, Y, Z), aVec));
 
         DrawVector(aTrsf,
                    Max(k * fabs(aValue) + b, aMinLength),

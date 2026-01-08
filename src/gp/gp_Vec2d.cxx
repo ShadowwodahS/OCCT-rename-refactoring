@@ -12,7 +12,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// JCV 08/01/90 Modifs suite a l'introduction des classes XY et Mat2d dans gp
+// JCV 08/01/90 Modifs suite a l'introduction des classes XY et Mat2d dans gp1
 
 #define No_Standard_OutOfRange
 
@@ -58,7 +58,7 @@ Standard_Real gp_Vec2d::Angle(const gp_Vec2d& Other) const
   //    En 2D les valeurs angulaires sont comprises entre -PI et PI
   const Standard_Real theNorm      = Magnitude();
   const Standard_Real theOtherNorm = Other.Magnitude();
-  if (theNorm <= gp::Resolution() || theOtherNorm <= gp::Resolution())
+  if (theNorm <= gp1::Resolution() || theOtherNorm <= gp1::Resolution())
     throw gp_VectorWithNullMagnitude();
 
   const Standard_Real D       = theNorm * theOtherNorm;
@@ -120,7 +120,7 @@ void gp_Vec2d::Transform(const gp_Trsf2d& T)
 void gp_Vec2d::Mirror(const gp_Vec2d& V)
 {
   const Standard_Real D = V.coord.Modulus();
-  if (D > gp::Resolution())
+  if (D > gp1::Resolution())
   {
     const Coords2d&  XY = V.coord;
     Standard_Real X  = XY.X();

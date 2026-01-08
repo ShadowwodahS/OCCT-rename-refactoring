@@ -139,31 +139,31 @@ static Standard_Integer anasurface(DrawInterpreter&, Standard_Integer n, const c
 {
   if (n < 2)
     return 1;
-  gp_Ax3 loc;
+  Ax3 loc;
 
   Standard_Integer i;
 
   if (n < 5)
   {
-    loc = gp_Ax3(Point3d(0, 0, 0), Dir3d(0, 0, 1), Dir3d(1, 0, 0));
+    loc = Ax3(Point3d(0, 0, 0), Dir3d(0, 0, 1), Dir3d(1, 0, 0));
     i   = 2;
   }
   else if (n < 8)
   {
-    loc = gp_Ax3(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])),
+    loc = Ax3(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])),
                  Dir3d(0, 0, 1),
                  Dir3d(1, 0, 0));
     i   = 5;
   }
   else if (n < 11)
   {
-    loc = gp_Ax3(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])),
+    loc = Ax3(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])),
                  Dir3d(Draw1::Atof(a[5]), Draw1::Atof(a[6]), Draw1::Atof(a[7])));
     i   = 8;
   }
   else if (n < 14)
   {
-    loc = gp_Ax3(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])),
+    loc = Ax3(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])),
                  Dir3d(Draw1::Atof(a[5]), Draw1::Atof(a[6]), Draw1::Atof(a[7])),
                  Dir3d(Draw1::Atof(a[8]), Draw1::Atof(a[9]), Draw1::Atof(a[10])));
     i   = 11;

@@ -36,7 +36,7 @@ class BRepTools_GTrsfModification;
 DEFINE_STANDARD_HANDLE(BRepTools_GTrsfModification, BRepTools_Modification)
 
 //! Defines a modification of the  geometry by a  GTrsf
-//! from gp. All methods return True and transform the
+//! from gp1. All methods return True and transform the
 //! geometry.
 class BRepTools_GTrsfModification : public BRepTools_Modification
 {

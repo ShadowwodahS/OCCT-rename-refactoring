@@ -1433,9 +1433,9 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
               }
               // Patch: extraordinar situation (e.g. tolerance(v) == 0.)
               //   Modified by skv - Wed Jul 23 12:28:11 2003 OCC1764 Begin
-              //  if (VertexLePlusProche.Distance( P3d ) <= gp::Resolution())
-              if (VertexLePlusProche.Distance(P3d) <= gp::Resolution()
-                  || VertexLePlusProche.Distance(P3d2) <= gp::Resolution())
+              //  if (VertexLePlusProche.Distance( P3d ) <= gp1::Resolution())
+              if (VertexLePlusProche.Distance(P3d) <= gp1::Resolution()
+                  || VertexLePlusProche.Distance(P3d2) <= gp1::Resolution())
               {
                 //  Modified by skv - Wed Jul 23 12:28:12 2003 OCC1764 End
                 localok = Standard_True;
@@ -1833,7 +1833,7 @@ void ChoixUV(const TopoVertex&  theVertex,
   gp_Pnt2d            aPntRef, aPnt;
   gp_Vec2d            aDerRef, aDer;
   Standard_Real       aMinAngle, aMaxAngle, anAngle;
-  Standard_Real       a_gpResolution = gp::Resolution();
+  Standard_Real       a_gpResolution = gp1::Resolution();
   TopAbs_Orientation  aVOrientation, anEdgOrientation;
   Standard_Real       aParam = 0.0, aFirstParam = 0.0, aLastParam = 0.0, aParPiv = 0.0;
   BRepAdaptor_Surface aFaceSurface(theFace, Standard_False); // no restriction
@@ -1964,7 +1964,7 @@ void CurveDirForParameter(const Geom2dAdaptor_Curve& aC2d,
                           gp_Pnt2d&                  Pnt,
                           gp_Vec2d&                  aVec2d)
 {
-  Standard_Real    aTol = gp::Resolution();
+  Standard_Real    aTol = gp1::Resolution();
   Standard_Integer i;
 
   aC2d.D1(aPrm, Pnt, aVec2d);

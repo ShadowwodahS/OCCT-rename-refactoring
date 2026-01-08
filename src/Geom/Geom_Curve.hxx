@@ -129,7 +129,7 @@ public:
   //! Some Curves such as OffsetCurve can be closed or not. These curves
   //! are considered as closed if the distance between the first point
   //! and the last point of the curve is lower or equal to the Resolution
-  //! from package gp which is a fixed criterion independent of the
+  //! from package gp1 which is a fixed criterion independent of the
   //! application.
   Standard_EXPORT virtual Standard_Boolean IsClosed() const = 0;
 
@@ -138,7 +138,7 @@ public:
   //! following relation is satisfied :
   //! for each parametric value U the distance between the point
   //! P(u) and the point P (u + T) is lower or equal to Resolution
-  //! from package gp, T is the period and must be a constant.
+  //! from package gp1, T is the period and must be a constant.
   //! There are three possibilities :
   //! . the curve is never periodic by definition (SegmentLine)
   //! . the curve is always periodic by definition (Circle)

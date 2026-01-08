@@ -110,7 +110,7 @@ public:
   Standard_EXPORT void SetTranslation(const gp_Pnt2d& P1, const gp_Pnt2d& P2);
 
   //! Makes the transformation into a transformation T from
-  //! package gp.
+  //! package gp1.
   Standard_EXPORT void SetTrsf2d(const gp_Trsf2d& T);
 
   //! Checks whether this transformation is an indirect
@@ -146,12 +146,12 @@ public:
   //!
   //! Raised if the transformation is singular. This means that
   //! the ScaleFactor is lower or equal to Resolution from
-  //! package gp.
+  //! package gp1.
   Standard_EXPORT void Invert();
 
   //! Computes the inverse of this transformation and creates a new one.
   //! Raises ConstructionError  if the transformation is singular. This means that
-  //! the ScaleFactor is lower or equal to Resolution from package gp.
+  //! the ScaleFactor is lower or equal to Resolution from package gp1.
   Standard_NODISCARD Standard_EXPORT Handle(Geom2d_Transformation) Inverted() const;
 
   //! Computes the transformation composed with Other and <me>.

@@ -410,7 +410,7 @@ bool RWGltf_TriangulationReader::readDracoBuffer(
   for (Standard_Integer aFaceIter = 0; aFaceIter < aNbTris; ++aFaceIter)
   {
     const draco::Mesh1::Face& aFace = aDracoStat.value()->face(draco::FaceIndex(aFaceIter));
-    Poly_Triangle            aVec3;
+    Triangle2            aVec3;
     aVec3.ChangeValue(1) = THE_LOWER_NODE_INDEX + aFace[0].value();
     aVec3.ChangeValue(2) = THE_LOWER_NODE_INDEX + aFace[1].value();
     aVec3.ChangeValue(3) = THE_LOWER_NODE_INDEX + aFace[2].value();
@@ -541,7 +541,7 @@ bool RWGltf_TriangulationReader::finalizeLoading(
       {
         if (!setTriangle(theDestMesh,
                          THE_LOWER_TRI_INDEX + aTriIter,
-                         Poly_Triangle(THE_LOWER_NODE_INDEX + aTriIter * 3 + 0,
+                         Triangle2(THE_LOWER_NODE_INDEX + aTriIter * 3 + 0,
                                        THE_LOWER_NODE_INDEX + aTriIter * 3 + 1,
                                        THE_LOWER_NODE_INDEX + aTriIter * 3 + 2)))
         {
@@ -581,7 +581,7 @@ bool RWGltf_TriangulationReader::readBuffer(
         break;
       }
 
-      Poly_Triangle aVec3;
+      Triangle2 aVec3;
       if (theAccessor.ComponentType == RWGltf_GltfAccessorCompType_UInt16)
       {
         if ((theAccessor.Count / 3) > std::numeric_limits<Standard_Integer>::max())

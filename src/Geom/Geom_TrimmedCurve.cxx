@@ -144,7 +144,7 @@ void Geom_TrimmedCurve::SetTrim(const Standard_Real    U1,
 
 Standard_Boolean Geom_TrimmedCurve::IsClosed() const
 {
-  return (StartPoint().Distance(EndPoint()) <= gp::Resolution());
+  return (StartPoint().Distance(EndPoint()) <= gp1::Resolution());
 }
 
 //=================================================================================================

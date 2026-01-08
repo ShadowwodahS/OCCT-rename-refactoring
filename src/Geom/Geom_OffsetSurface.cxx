@@ -819,7 +819,7 @@ Handle(GeomSurface) Geom_OffsetSurface::Surface() const
   {
     Handle(Geom_CylindricalSurface) C      = Handle(Geom_CylindricalSurface)::DownCast(Base);
     Standard_Real                   Radius = C->Radius();
-    gp_Ax3                          Axis   = C->Position();
+    Ax3                          Axis   = C->Position();
     if (Axis.Direct())
       Radius += offsetValue;
     else
@@ -842,7 +842,7 @@ Handle(GeomSurface) Geom_OffsetSurface::Surface() const
   else if (TheType == STANDARD_TYPE(Geom_ConicalSurface))
   {
     Handle(Geom_ConicalSurface) C        = Handle(Geom_ConicalSurface)::DownCast(Base);
-    gp_Ax3                      anAxis   = C->Position();
+    Ax3                      anAxis   = C->Position();
     Standard_Boolean            isDirect = anAxis.Direct();
     Standard_Real               anAlpha  = C->SemiAngle();
     Standard_Real               aRadius;
@@ -877,7 +877,7 @@ Handle(GeomSurface) Geom_OffsetSurface::Surface() const
   {
     Handle(Geom_SphericalSurface) S      = Handle(Geom_SphericalSurface)::DownCast(Base);
     Standard_Real                 Radius = S->Radius();
-    gp_Ax3                        Axis   = S->Position();
+    Ax3                        Axis   = S->Position();
     if (Axis.Direct())
       Radius += offsetValue;
     else
@@ -904,7 +904,7 @@ Handle(GeomSurface) Geom_OffsetSurface::Surface() const
     Handle(Geom_ToroidalSurface) S           = Handle(Geom_ToroidalSurface)::DownCast(Base);
     Standard_Real                MajorRadius = S->MajorRadius();
     Standard_Real                MinorRadius = S->MinorRadius();
-    gp_Ax3                       Axis        = S->Position();
+    Ax3                       Axis        = S->Position();
     if (MinorRadius <= MajorRadius)
     {
       if (Axis.Direct())

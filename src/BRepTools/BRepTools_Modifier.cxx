@@ -467,7 +467,7 @@ Standard_Boolean ShapeModifier::Rebuild(const TopoShape&                   S,
               CurE.Orientation(TopAbs_FORWARD);
               curve2d1 = BRepInspector::CurveOnSurface(CurE, CurF, f, l);
               if (curve2d1.IsNull())
-                curve2d1 = new Geom2d_Line(gp::OX2d());
+                curve2d1 = new Geom2d_Line(gp1::OX2d());
               B.UpdateEdge(CurE, curve2d1, curve2d, CurF, 0.);
             }
             else
@@ -475,7 +475,7 @@ Standard_Boolean ShapeModifier::Rebuild(const TopoShape&                   S,
               CurE.Orientation(TopAbs_REVERSED);
               curve2d1 = BRepInspector::CurveOnSurface(CurE, CurF, f, l);
               if (curve2d1.IsNull())
-                curve2d1 = new Geom2d_Line(gp::OX2d());
+                curve2d1 = new Geom2d_Line(gp1::OX2d());
               B.UpdateEdge(CurE, curve2d, curve2d1, CurF, 0.);
             }
             currcurv = BRepInspector::CurveOnSurface(CurE, CurF, f, l);

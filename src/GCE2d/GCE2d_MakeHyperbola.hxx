@@ -26,7 +26,7 @@
 
 class gp_Hypr2d;
 class gp_Ax2d;
-class gp_Ax22d;
+class Ax22d;
 class gp_Pnt2d;
 
 //! This class implements the following algorithms used to
@@ -60,7 +60,7 @@ class GCE2d_MakeHyperbola : public Root5
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Creates  an Hyperbola from a non persistent one from package gp
+  //! Creates  an Hyperbola from a non persistent one from package gp1
   Standard_EXPORT GCE2d_MakeHyperbola(const gp_Hypr2d& H);
 
   //! MajorAxis is the "XAxis" of the hyperbola.
@@ -78,7 +78,7 @@ public:
   //! the minor radius is on the "YAxis" of the hyperbola.
   //! The status is "NegativeRadius" if MajorRadius < 0.0 or if
   //! MinorRadius < 0.0
-  Standard_EXPORT GCE2d_MakeHyperbola(const gp_Ax22d&     Axis,
+  Standard_EXPORT GCE2d_MakeHyperbola(const Ax22d&     Axis,
                                       const Standard_Real MajorRadius,
                                       const Standard_Real MinorRadius);
 

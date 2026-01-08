@@ -21,7 +21,7 @@
 
 TopoShape StdPrs_BRepTextBuilder::Perform(StdPrs_BRepFont&                  theFont,
                                              const Handle(Font_TextFormatter)& theFormatter,
-                                             const gp_Ax3&                     thePenLoc)
+                                             const Ax3&                     thePenLoc)
 {
   Transform3d                aTrsf;
   gp_XYZ                 aPen;
@@ -51,7 +51,7 @@ TopoShape StdPrs_BRepTextBuilder::Perform(StdPrs_BRepFont&                  theF
     }
   }
 
-  aTrsf.SetTransformation(thePenLoc, gp_Ax3(gp::XOY()));
+  aTrsf.SetTransformation(thePenLoc, Ax3(gp1::XOY()));
   aResult.Move(aTrsf);
 
   return aResult;
@@ -61,7 +61,7 @@ TopoShape StdPrs_BRepTextBuilder::Perform(StdPrs_BRepFont&                  theF
 
 TopoShape StdPrs_BRepTextBuilder::Perform(StdPrs_BRepFont&                        theFont,
                                              const NCollection_String&               theString,
-                                             const gp_Ax3&                           thePenLoc,
+                                             const Ax3&                           thePenLoc,
                                              const Graphic3d_HorizontalTextAlignment theHAlign,
                                              const Graphic3d_VerticalTextAlignment   theVAlign)
 {

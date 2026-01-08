@@ -28,13 +28,13 @@ void ChFiKPart_CornerSpine(const Handle(Adaptor3d_Surface)& S1,
                            const gp_Pnt2d&     P1S2,
                            const gp_Pnt2d&     P2S2,
                            const Standard_Real R,
-                           gp_Cylinder&        cyl,
+                           Cylinder1&        cyl,
                            gp_Circ&            circ,
                            Standard_Real&      First,
                            Standard_Real&      Last)
 
 {
-  gp_Ax3 ax = S1->Plane().Position();
+  Ax3 ax = S1->Plane().Position();
   Vector3d V1(ax.XDirection());
   Vector3d V2(ax.YDirection());
   Point3d P;
@@ -59,7 +59,7 @@ void ChFiKPart_CornerSpine(const Handle(Adaptor3d_Surface)& S1,
   Dir3d dy(Vector3d(cent, P2));
   dy = (dx ^ dy) ^ dx;
   Frame3d circax2(cent, dx ^ dy, dx);
-  gp_Ax3 cylax3(circax2);
+  Ax3 cylax3(circax2);
   if ((du ^ dv).Dot(dx) < 0.)
     cylax3.ZReverse();
   First = 0.;

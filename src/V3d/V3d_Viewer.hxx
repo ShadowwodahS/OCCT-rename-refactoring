@@ -338,9 +338,9 @@ public:
   void SetDefaultComputedMode(const Standard_Boolean theMode) { myDefaultComputedMode = theMode; }
 
 public: //! @name privileged plane management
-  const gp_Ax3& PrivilegedPlane() const { return myPrivilegedPlane; }
+  const Ax3& PrivilegedPlane() const { return myPrivilegedPlane; }
 
-  Standard_EXPORT void SetPrivilegedPlane(const gp_Ax3& thePlane);
+  Standard_EXPORT void SetPrivilegedPlane(const Ax3& thePlane);
 
   Standard_EXPORT void DisplayPrivilegedPlane(const Standard_Boolean theOnOff,
                                               const Standard_Real    theSize = 1);
@@ -584,7 +584,7 @@ private:
   Standard_Boolean myComputedMode;
   Standard_Boolean myDefaultComputedMode;
 
-  gp_Ax3                      myPrivilegedPlane;
+  Ax3                      myPrivilegedPlane;
   Handle(Graphic3d_Structure) myPlaneStructure;
   Standard_Boolean            myDisplayPlane;
   Standard_Real               myDisplayPlaneLength;

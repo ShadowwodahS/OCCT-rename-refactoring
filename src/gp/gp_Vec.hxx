@@ -121,12 +121,12 @@ public:
 
   //! Returns True if abs(<me>.Angle(theOther) - PI/2.) <= theAngularTolerance
   //! Raises VectorWithNullMagnitude if <me>.Magnitude() <= Resolution or
-  //! theOther.Magnitude() <= Resolution from gp
+  //! theOther.Magnitude() <= Resolution from gp1
   Standard_Boolean IsNormal(const Vector3d& theOther, const Standard_Real theAngularTolerance) const;
 
   //! Returns True if PI - <me>.Angle(theOther) <= theAngularTolerance
   //! Raises VectorWithNullMagnitude if <me>.Magnitude() <= Resolution or
-  //! Other.Magnitude() <= Resolution from gp
+  //! Other.Magnitude() <= Resolution from gp1
   Standard_Boolean IsOpposite(const Vector3d& theOther, const Standard_Real theAngularTolerance) const
   {
     Standard_Real anAng = M_PI - Angle(theOther);
@@ -138,7 +138,7 @@ public:
   //! This definition means that two parallel vectors cannot define
   //! a plane but two vectors with opposite directions are considered
   //! as parallel. Raises VectorWithNullMagnitude if <me>.Magnitude() <= Resolution or
-  //! Other.Magnitude() <= Resolution from gp
+  //! Other.Magnitude() <= Resolution from gp1
   Standard_Boolean IsParallel(const Vector3d& theOther, const Standard_Real theAngularTolerance) const
   {
     Standard_Real anAng = Angle(theOther);
@@ -147,7 +147,7 @@ public:
 
   //! Computes the angular value between <me> and <theOther>
   //! Returns the angle value between 0 and PI in radian.
-  //! Raises VectorWithNullMagnitude if <me>.Magnitude() <= Resolution from gp or
+  //! Raises VectorWithNullMagnitude if <me>.Magnitude() <= Resolution from gp1 or
   //! theOther.Magnitude() <= Resolution because the angular value is
   //! indefinite if one of the vectors has a null magnitude.
   Standard_Real Angle(const Vector3d& theOther) const;
@@ -162,7 +162,7 @@ public:
   //! Exceptions
   //! gp_VectorWithNullMagnitude if the magnitude of this
   //! vector, the vector theOther, or the vector theVRef is less than or
-  //! equal to gp::Resolution().
+  //! equal to gp1::Resolution().
   //! Standard_DomainError if this vector, the vector theOther,
   //! and the vector theVRef are coplanar, unless this vector and
   //! the vector theOther are parallel.
@@ -300,18 +300,18 @@ public:
 
   //! normalizes a vector
   //! Raises an exception if the magnitude of the vector is
-  //! lower or equal to Resolution from gp.
+  //! lower or equal to Resolution from gp1.
   void Normalize()
   {
     Standard_Real aD = coord.Modulus();
-    Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+    Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                         "Vector3d::Normalize() - vector has zero norm");
     coord.Divide(aD);
   }
 
   //! normalizes a vector
   //! Raises an exception if the magnitude of the vector is
-  //! lower or equal to Resolution from gp.
+  //! lower or equal to Resolution from gp1.
   Standard_NODISCARD Vector3d Normalized() const;
 
   //! Reverses the direction of a vector
@@ -488,8 +488,8 @@ inline Standard_Boolean Vector3d::IsNormal(const Vector3d&       theOther,
 //=======================================================================
 inline Standard_Real Vector3d::Angle(const Vector3d& theOther) const
 {
-  gp_VectorWithNullMagnitude_Raise_if(coord.Modulus() <= gp::Resolution()
-                                        || theOther.coord.Modulus() <= gp::Resolution(),
+  gp_VectorWithNullMagnitude_Raise_if(coord.Modulus() <= gp1::Resolution()
+                                        || theOther.coord.Modulus() <= gp1::Resolution(),
                                       " ");
   return (Dir3d(coord)).Angle(theOther);
 }
@@ -500,9 +500,9 @@ inline Standard_Real Vector3d::Angle(const Vector3d& theOther) const
 //=======================================================================
 inline Standard_Real Vector3d::AngleWithRef(const Vector3d& theOther, const Vector3d& theVRef) const
 {
-  gp_VectorWithNullMagnitude_Raise_if(coord.Modulus() <= gp::Resolution()
-                                        || theVRef.coord.Modulus() <= gp::Resolution()
-                                        || theOther.coord.Modulus() <= gp::Resolution(),
+  gp_VectorWithNullMagnitude_Raise_if(coord.Modulus() <= gp1::Resolution()
+                                        || theVRef.coord.Modulus() <= gp1::Resolution()
+                                        || theOther.coord.Modulus() <= gp1::Resolution(),
                                       " ");
   return (Dir3d(coord)).AngleWithRef(theOther, theVRef);
 }
@@ -514,7 +514,7 @@ inline Standard_Real Vector3d::AngleWithRef(const Vector3d& theOther, const Vect
 inline Vector3d Vector3d::Normalized() const
 {
   Standard_Real aD = coord.Modulus();
-  Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(aD <= gp1::Resolution(),
                                       "Vector3d::Normalized() - vector has zero norm");
   Vector3d aV = *this;
   aV.coord.Divide(aD);

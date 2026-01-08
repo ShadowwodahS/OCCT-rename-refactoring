@@ -28,8 +28,8 @@ Standard_Boolean gp_Quaternion::IsEqual(const gp_Quaternion& theOther) const
 {
   if (this == &theOther)
     return Standard_True;
-  return Abs(x - theOther.x) <= gp::Resolution() && Abs(y - theOther.y) <= gp::Resolution()
-         && Abs(z - theOther.z) <= gp::Resolution() && Abs(w - theOther.w) <= gp::Resolution();
+  return Abs(x - theOther.x) <= gp1::Resolution() && Abs(y - theOther.y) <= gp1::Resolution()
+         && Abs(z - theOther.z) <= gp1::Resolution() && Abs(w - theOther.w) <= gp1::Resolution();
 }
 
 //=================================================================================================
@@ -40,7 +40,7 @@ void gp_Quaternion::SetRotation(const Vector3d& theVecFrom, const Vector3d& theV
   Set(aVecCross.X(), aVecCross.Y(), aVecCross.Z(), theVecFrom.Dot(theVecTo));
   Normalize();               // if "from" or "to" not unit, normalize quat
   w += 1.0;                  // reducing angle to halfangle
-  if (w <= gp::Resolution()) // angle close to PI
+  if (w <= gp1::Resolution()) // angle close to PI
   {
     if ((theVecFrom.Z() * theVecFrom.Z()) > (theVecFrom.X() * theVecFrom.X()))
       Set(0.0, theVecFrom.Z(), -theVecFrom.Y(), w); // theVecFrom * Vector3d(1,0,0)
@@ -60,7 +60,7 @@ void gp_Quaternion::SetRotation(const Vector3d& theVecFrom,
   Set(aVecCross.X(), aVecCross.Y(), aVecCross.Z(), theVecFrom.Dot(theVecTo));
   Normalize();               // if "from" or "to" not unit, normalize quat
   w += 1.0;                  // reducing angle to halfangle
-  if (w <= gp::Resolution()) // angle close to PI
+  if (w <= gp1::Resolution()) // angle close to PI
   {
     Vector3d theAxis = theVecFrom.Crossed(theHelpCrossVec);
     Set(theAxis.X(), theAxis.Y(), theAxis.Z(), w);
@@ -83,7 +83,7 @@ void gp_Quaternion::SetVectorAndAngle(const Vector3d& theAxis, const Standard_Re
 void gp_Quaternion::GetVectorAndAngle(Vector3d& theAxis, Standard_Real& theAngle) const
 {
   Standard_Real vl = Sqrt(x * x + y * y + z * z);
-  if (vl > gp::Resolution())
+  if (vl > gp1::Resolution())
   {
     Standard_Real ivl = 1.0 / vl;
     theAxis.SetCoord(x * ivl, y * ivl, z * ivl);
@@ -425,7 +425,7 @@ void gp_Quaternion::StabilizeLength()
 void gp_Quaternion::Normalize()
 {
   Standard_Real aMagn = Norm();
-  if (aMagn < gp::Resolution())
+  if (aMagn < gp1::Resolution())
   {
     StabilizeLength();
     aMagn = Norm();

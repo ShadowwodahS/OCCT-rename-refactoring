@@ -30,7 +30,7 @@ class Dir3d;
 class Axis3d;
 
 //! This class implements the following algorithms used
-//! to create a Plane from gp.
+//! to create a Plane from gp1.
 //! * Create a Plane parallel to another and passing
 //! through a point.
 //! * Create a Plane passing through 3 points.
@@ -45,7 +45,7 @@ class GC_MakePlane : public Root4
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Creates a plane from a non persistent plane from package gp.
+  //! Creates a plane from a non persistent plane from package gp1.
   Standard_EXPORT GC_MakePlane(const gp_Pln& Pl);
 
   //! P is the "Location" point or origin of the plane.
@@ -55,7 +55,7 @@ public:
   //! Creates a plane from its cartesian equation :
   //! Ax + By + Cz + D = 0.0
   //! Status is "BadEquation" if Sqrt (A*A + B*B + C*C)
-  //! <= Resolution from gp
+  //! <= Resolution from gp1
   Standard_EXPORT GC_MakePlane(const Standard_Real A,
                                const Standard_Real B,
                                const Standard_Real C,

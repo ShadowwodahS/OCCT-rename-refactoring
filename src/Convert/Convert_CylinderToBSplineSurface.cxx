@@ -60,7 +60,7 @@ static void ComputePoles(const Standard_Real R,
 
 //=================================================================================================
 
-Convert_CylinderToBSplineSurface::Convert_CylinderToBSplineSurface(const gp_Cylinder&  Cyl,
+Convert_CylinderToBSplineSurface::Convert_CylinderToBSplineSurface(const Cylinder1&  Cyl,
                                                                    const Standard_Real U1,
                                                                    const Standard_Real U2,
                                                                    const Standard_Real V1,
@@ -113,7 +113,7 @@ Convert_CylinderToBSplineSurface::Convert_CylinderToBSplineSurface(const gp_Cyli
   // and calculate the weight of the bspline.
   Standard_Real W1;
   Transform3d       Trsf;
-  Trsf.SetTransformation(Cyl.Position(), gp::XOY());
+  Trsf.SetTransformation(Cyl.Position(), gp1::XOY());
 
   for (i = 1; i <= nbUPoles; i++)
   {
@@ -132,7 +132,7 @@ Convert_CylinderToBSplineSurface::Convert_CylinderToBSplineSurface(const gp_Cyli
 
 //=================================================================================================
 
-Convert_CylinderToBSplineSurface::Convert_CylinderToBSplineSurface(const gp_Cylinder&  Cyl,
+Convert_CylinderToBSplineSurface::Convert_CylinderToBSplineSurface(const Cylinder1&  Cyl,
                                                                    const Standard_Real V1,
                                                                    const Standard_Real V2)
     : ElementaryToBSplineSurface(TheNbUPoles,
@@ -175,7 +175,7 @@ Convert_CylinderToBSplineSurface::Convert_CylinderToBSplineSurface(const gp_Cyli
   // and calculate the weight of the bspline.
   Standard_Real W;
   Transform3d       Trsf;
-  Trsf.SetTransformation(Cyl.Position(), gp::XOY());
+  Trsf.SetTransformation(Cyl.Position(), gp1::XOY());
 
   for (i = 1; i <= nbUPoles; i++)
   {

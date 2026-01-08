@@ -176,19 +176,19 @@ Standard_Boolean SelectMgr_BaseIntersector::RayCylinderIntersection(
   {
     const Standard_Real aTriangleHeight =
       Min(theBottomRadius, theTopRadius) * theHeight / (Abs(theBottomRadius - theTopRadius));
-    gp_Ax3 aSystem;
+    Ax3 aSystem;
     if (theBottomRadius > theTopRadius)
     {
       aSystem.SetLocation(Point3d(0, 0, theHeight + aTriangleHeight));
-      aSystem.SetDirection(-gp::DZ());
+      aSystem.SetDirection(-gp1::DZ());
     }
     else
     {
       aSystem.SetLocation(Point3d(0, 0, -aTriangleHeight));
-      aSystem.SetDirection(gp::DZ());
+      aSystem.SetDirection(gp1::DZ());
     }
     Transform3d aTrsfCone;
-    aTrsfCone.SetTransformation(gp_Ax3(), aSystem);
+    aTrsfCone.SetTransformation(Ax3(), aSystem);
     const Point3d        aPnt(theLoc.Transformed(aTrsfCone));
     const Dir3d        aDir(theRayDir.Transformed(aTrsfCone));
     const Standard_Real aMaxRad     = Max(theBottomRadius, theTopRadius);

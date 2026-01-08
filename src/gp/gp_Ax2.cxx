@@ -12,7 +12,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// JCV 1/10/90 Changement de nom du package vgeom -> gp
+// JCV 1/10/90 Changement de nom du package vgeom -> gp1
 // JCV 12/12/90 Modif mineur suite a la premiere revue de projet
 // LPA, JCV  07/92 passage sur C1.
 // JCV 07/92 Introduction de la method Dump

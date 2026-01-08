@@ -33,8 +33,8 @@ class gp_Parab2d;
 class gp_Parab;
 class gp_Hypr2d;
 class gp_Hypr;
-class gp_Cylinder;
-class gp_Cone;
+class Cylinder1;
+class Cone1;
 class gp_Sphere;
 class gp_Torus;
 class ProjLib_ProjectedCurve;
@@ -77,17 +77,17 @@ public:
 
   Standard_EXPORT static gp_Hypr2d Project(const gp_Pln& Pl, const gp_Hypr& H);
 
-  Standard_EXPORT static gp_Pnt2d Project(const gp_Cylinder& Cy, const Point3d& P);
+  Standard_EXPORT static gp_Pnt2d Project(const Cylinder1& Cy, const Point3d& P);
 
-  Standard_EXPORT static gp_Lin2d Project(const gp_Cylinder& Cy, const gp_Lin& L);
+  Standard_EXPORT static gp_Lin2d Project(const Cylinder1& Cy, const gp_Lin& L);
 
-  Standard_EXPORT static gp_Lin2d Project(const gp_Cylinder& Cy, const gp_Circ& Ci);
+  Standard_EXPORT static gp_Lin2d Project(const Cylinder1& Cy, const gp_Circ& Ci);
 
-  Standard_EXPORT static gp_Pnt2d Project(const gp_Cone& Co, const Point3d& P);
+  Standard_EXPORT static gp_Pnt2d Project(const Cone1& Co, const Point3d& P);
 
-  Standard_EXPORT static gp_Lin2d Project(const gp_Cone& Co, const gp_Lin& L);
+  Standard_EXPORT static gp_Lin2d Project(const Cone1& Co, const gp_Lin& L);
 
-  Standard_EXPORT static gp_Lin2d Project(const gp_Cone& Co, const gp_Circ& Ci);
+  Standard_EXPORT static gp_Lin2d Project(const Cone1& Co, const gp_Circ& Ci);
 
   Standard_EXPORT static gp_Pnt2d Project(const gp_Sphere& Sp, const Point3d& P);
 

@@ -45,9 +45,9 @@ public:
   //! Exceptions
   //! gp_VectorWithNullMagnitude if:
   //! - the magnitude of this vector is less than or equal to
-  //! gp::Resolution(), or
+  //! gp1::Resolution(), or
   //! - the magnitude of vector Other is less than or equal
-  //! to gp::Resolution().
+  //! to gp1::Resolution().
   Standard_EXPORT Standard_Real Angle(const Handle(Geom_Vector)& Other) const;
 
   //! Computes the angular value, in radians, between this
@@ -63,7 +63,7 @@ public:
   //! and vector Other are parallel.
   //! gp_VectorWithNullMagnitude if the magnitude of
   //! this vector, vector Other or vector VRef is less than
-  //! or equal to gp::Resolution().
+  //! or equal to gp1::Resolution().
   Standard_EXPORT Standard_Real AngleWithRef(const Handle(Geom_Vector)& Other,
                                              const Handle(Geom_Vector)& VRef) const;
 

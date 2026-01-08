@@ -34,19 +34,19 @@ class gp_Parab;
 class gp_Parab2d;
 class gp_Hypr;
 class gp_Hypr2d;
-class gp_Cylinder;
-class gp_Cone;
+class Cylinder1;
+class Cone1;
 class gp_Sphere;
 class gp_Torus;
 
 //! The BndLib1 package provides functions to add a geometric primitive to a bounding box.
-//! Note: these functions work with gp objects, optionally
+//! Note: these functions work with gp1 objects, optionally
 //! limited by parameter values. If the curves and surfaces
-//! provided by the gp package are not explicitly
+//! provided by the gp1 package are not explicitly
 //! parameterized, they still have an implicit parameterization,
 //! similar to that which they infer for the equivalent Geom or Geom2d objects.
 //! Add : Package to compute the bounding boxes for elementary
-//! objects from gp in 2d and 3d .
+//! objects from gp1 in 2d and 3d .
 //!
 //! AddCurve2d : A class to compute the bounding box for a curve
 //! in 2d dimensions ;the curve is defined by a tool
@@ -164,7 +164,7 @@ public:
                                   Bnd_Box2d&          B);
 
   //! UMax -UMin can be in [0,2*pi]
-  Standard_EXPORT static void Add(const gp_Cylinder&  S,
+  Standard_EXPORT static void Add(const Cylinder1&  S,
                                   const Standard_Real UMin,
                                   const Standard_Real UMax,
                                   const Standard_Real VMin,
@@ -182,14 +182,14 @@ public:
   //! Exceptions
   //! ExceptionBase if VMin and VMax are either two
   //! negative infinite real numbers, or two positive infinite real numbers.
-  Standard_EXPORT static void Add(const gp_Cylinder&  S,
+  Standard_EXPORT static void Add(const Cylinder1&  S,
                                   const Standard_Real VMin,
                                   const Standard_Real VMax,
                                   const Standard_Real Tol,
                                   Box2&            B);
 
   //! UMax-UMin can be in [0,2*pi]
-  Standard_EXPORT static void Add(const gp_Cone&      S,
+  Standard_EXPORT static void Add(const Cone1&      S,
                                   const Standard_Real UMin,
                                   const Standard_Real UMax,
                                   const Standard_Real VMin,
@@ -207,7 +207,7 @@ public:
   //! Exceptions
   //! ExceptionBase if VMin and VMax are either two
   //! negative infinite real numbers, or two positive infinite real numbers.
-  Standard_EXPORT static void Add(const gp_Cone&      S,
+  Standard_EXPORT static void Add(const Cone1&      S,
                                   const Standard_Real VMin,
                                   const Standard_Real VMax,
                                   const Standard_Real Tol,

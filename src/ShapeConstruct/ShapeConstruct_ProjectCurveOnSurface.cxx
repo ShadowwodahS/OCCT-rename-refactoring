@@ -310,7 +310,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(GeomCurve3
         aMinParSpeed = Min(aMinParSpeed, aDist / aStep);
       }
       const Standard_Real aCoeff = aLength3d / (aLastParam - aFirstParam);
-      if (Abs(aCoeff) > gp::Resolution())
+      if (Abs(aCoeff) > gp1::Resolution())
         aKnotCoeffs.Append(aCoeff);
       aFirstParam = aLastParam;
     }
@@ -1839,7 +1839,7 @@ void ShapeConstruct_ProjectCurveOnSurface::CorrectExtremity(const Handle(GeomCur
   gp_Pnt2d         EndPoint         = (theIsFirstPoint) ? thePnt2d(1) : thePnt2d(NbPnt);
   Standard_Real    FinishCoord      = EndPoint.Coord(3 - IndCoord); // the constant coord of isoline
 
-  gp_Dir2d        aDir = (theIsUiso) ? gp::DY2d() : gp::DX2d();
+  gp_Dir2d        aDir = (theIsUiso) ? gp1::DY2d() : gp1::DX2d();
   gp_Lin2d        anIsoLine(EndPoint, aDir);
   Domain2 Dom1, Dom2;
 
@@ -2048,7 +2048,7 @@ void ShapeConstruct_ProjectCurveOnSurface::CheckPoints(Handle(TColgp_HArray1OfPn
   {
     Curr                   = points->Value(i);
     Standard_Real CurDist2 = Prev.SquareDistance(Curr);
-    if (CurDist2 < gp::Resolution())
+    if (CurDist2 < gp1::Resolution())
     { // test 0
       nbPntDropped++;
       if (i == lastElem)
@@ -2126,7 +2126,7 @@ void ShapeConstruct_ProjectCurveOnSurface::CheckPoints2d(Handle(TColgp_HArray1Of
   {
     Curr                   = points->Value(i);
     Standard_Real CurDist2 = Prev.SquareDistance(Curr);
-    if (CurDist2 < gp::Resolution())
+    if (CurDist2 < gp1::Resolution())
     { // test 0
       nbPntDropped++;
       if (i == lastElem)

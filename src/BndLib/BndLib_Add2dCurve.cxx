@@ -725,7 +725,7 @@ void BndLib_Box2dCurve::D0(const Standard_Real aU, gp_Pnt2d& aP2D)
     //
     aMaxDegree = 9;
     aIndex     = 2;
-    aRes       = gp::Resolution();
+    aRes       = gp1::Resolution();
     //
     while (aV1.Magnitude() <= aRes && aIndex <= aMaxDegree)
     {
@@ -987,7 +987,7 @@ Standard_Integer BndLib_Box2dCurve::Compute(const Handle(Geom2d_Conic)& aConic2D
   //
   iRet = 0;
   //
-  const gp_Ax22d& aPos  = aConic2D->Position();
+  const Ax22d& aPos  = aConic2D->Position();
   const Coords2d&    aXDir = aPos.XDirection().XY();
   const Coords2d&    aYDir = aPos.YDirection().XY();
   //

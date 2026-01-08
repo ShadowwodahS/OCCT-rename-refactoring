@@ -2013,7 +2013,7 @@ static Standard_Boolean RemoveLoop(TopoEdge&                      E,
   // direct construction causes error on osf system.
   Point3d p(0, 0, 0);
   Dir3d d(0, 0, 1);
-  gp_Ax3 ax(p, d);
+  Ax3 ax(p, d);
   gp_Pln Pln(ax);
 
   // PTV OCC884
@@ -2938,7 +2938,7 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num1,
     aCurve2 = BRepInspector::Curve(edge2, L2, f, l);
 
     // if aMinDist lower than resolution than the intersection point lyes inside the vertex
-    if (aMinDist < gp::Resolution())
+    if (aMinDist < gp1::Resolution())
       continue;
 
     Standard_Real aMaxEdgeTol1 = 0.0, aMaxEdgeTol2 = 0.0;

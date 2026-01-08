@@ -1188,12 +1188,12 @@ void TopOpeBRepDS_BuildTool::PCurve(TopoShape&               F,
         Standard_Boolean           isVperio = Surf->IsVPeriodic();
         gp_Dir2d                   dir2d    = line2d->Direction();
         Standard_Real              delta;
-        if (isUperio && dir2d.IsParallel(gp::DX2d(), Precision::Angular()))
+        if (isUperio && dir2d.IsParallel(gp1::DX2d(), Precision::Angular()))
         {
           delta = (CDSmin - Cf) * dir2d.X();
           PCT->Translate(gp_Vec2d(delta, 0.));
         }
-        else if (isVperio && dir2d.IsParallel(gp::DY2d(), Precision::Angular()))
+        else if (isVperio && dir2d.IsParallel(gp1::DY2d(), Precision::Angular()))
         {
           delta = (CDSmin - Cf) * dir2d.Y();
           PCT->Translate(gp_Vec2d(0., delta));

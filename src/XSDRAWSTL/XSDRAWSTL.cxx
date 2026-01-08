@@ -994,7 +994,7 @@ static Standard_Integer meshvectors(DrawInterpreter& theDI,
       if (IsValidData)
       {
         aNorm = Vector3d(aCoords.Value(1), aCoords.Value(2), aCoords.Value(3));
-        if (aNorm.Magnitude() < gp::Resolution())
+        if (aNorm.Magnitude() < gp1::Resolution())
         {
           aNorm = Vector3d(0, 0, 1); // method GetGeom(...) returns coordinates of nodes
         }

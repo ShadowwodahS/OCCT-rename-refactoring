@@ -12,7 +12,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// JCV 1/10/90 Changement de nom du package vgeom -> gp
+// JCV 1/10/90 Changement de nom du package vgeom -> gp1
 // JCV 12/12/90 Modif mineur suite a la premiere revue de projet
 // LPA, JCV  07/92 passage sur C1.
 // JCV 07/92 Introduction de la method Dump
@@ -26,7 +26,7 @@
 #include <gp_Vec2d.hxx>
 #include <Standard_Dump.hxx>
 
-void gp_Ax22d::Mirror(const gp_Pnt2d& P)
+void Ax22d::Mirror(const gp_Pnt2d& P)
 {
   gp_Pnt2d Temp = point;
   Temp.Mirror(P);
@@ -35,14 +35,14 @@ void gp_Ax22d::Mirror(const gp_Pnt2d& P)
   vydir.Reverse();
 }
 
-gp_Ax22d gp_Ax22d::Mirrored(const gp_Pnt2d& P) const
+Ax22d Ax22d::Mirrored(const gp_Pnt2d& P) const
 {
-  gp_Ax22d Temp = *this;
+  Ax22d Temp = *this;
   Temp.Mirror(P);
   return Temp;
 }
 
-void gp_Ax22d::Mirror(const gp_Ax2d& A1)
+void Ax22d::Mirror(const gp_Ax2d& A1)
 {
   vydir.Mirror(A1);
   vxdir.Mirror(A1);
@@ -51,14 +51,14 @@ void gp_Ax22d::Mirror(const gp_Ax2d& A1)
   point = Temp;
 }
 
-gp_Ax22d gp_Ax22d::Mirrored(const gp_Ax2d& A1) const
+Ax22d Ax22d::Mirrored(const gp_Ax2d& A1) const
 {
-  gp_Ax22d Temp = *this;
+  Ax22d Temp = *this;
   Temp.Mirror(A1);
   return Temp;
 }
 
-void gp_Ax22d::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
+void Ax22d::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
 {
   OCCT_DUMP_VECTOR_CLASS(theOStream, "Location", 2, point.X(), point.Y())
 

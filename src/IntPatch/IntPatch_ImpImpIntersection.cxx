@@ -535,7 +535,7 @@ void PutPointsOnLine(const Handle(Adaptor3d_Surface)&                  S1,
             Vector3d aNorm1 = QuadSurf.Normale(Psurf);
             Vector3d aNorm2 = OtherQuad.Normale(Psurf);
             //
-            if (aNorm1.Magnitude() > gp::Resolution() && aNorm2.Magnitude() > gp::Resolution())
+            if (aNorm1.Magnitude() > gp1::Resolution() && aNorm2.Magnitude() > gp1::Resolution())
             {
               if (aNorm1.IsParallel(aNorm2, aTolAng))
                 tolerance = Sqrt(tolerance);
@@ -3066,10 +3066,10 @@ Standard_Integer SetQuad(const Handle(Adaptor3d_Surface)& theS,
   return iRet;
 }
 
-static void SeamPosition(const Point3d& aPLoc, const gp_Ax3& aPos, Frame3d& aSeamPos);
-static void AdjustToSeam(const gp_Cylinder& aQuad, gp_Circ& aCirc);
+static void SeamPosition(const Point3d& aPLoc, const Ax3& aPos, Frame3d& aSeamPos);
+static void AdjustToSeam(const Cylinder1& aQuad, gp_Circ& aCirc);
 static void AdjustToSeam(const gp_Sphere& aQuad, gp_Circ& aCirc, const Standard_Real aTolAng);
-static void AdjustToSeam(const gp_Cone& aQuad, gp_Circ& aCirc);
+static void AdjustToSeam(const Cone1& aQuad, gp_Circ& aCirc);
 static void AdjustToSeam(const gp_Torus& aQuad, gp_Circ& aCirc);
 
 // modified by NIZNHY-PKV Thu Sep 15 11:09:13 2011
@@ -3141,7 +3141,7 @@ Standard_Boolean IntPCy(const Quadric1&   Quad1,
 
 {
   gp_Pln      Pl;
-  gp_Cylinder Cy;
+  Cylinder1 Cy;
 
   IntSurf_TypeTrans trans1, trans2;
   IntAna_ResultType typint;
@@ -3433,7 +3433,7 @@ Standard_Boolean IntPCo(const Quadric1&    Quad1,
   Point3d apex;
 
   gp_Pln  Pl;
-  gp_Cone Co;
+  Cone1 Co;
 
   IntSurf_TypeTrans trans1, trans2;
   IntAna_ResultType typint;
@@ -3836,12 +3836,12 @@ Standard_Boolean IntPTo(const Quadric1&   theQuad1,
 // modified by NIZNHY-PKV Thu Sep 15 10:53:39 2011f
 //=================================================================================================
 
-void AdjustToSeam(const gp_Cone& aQuad, gp_Circ& aCirc)
+void AdjustToSeam(const Cone1& aQuad, gp_Circ& aCirc)
 {
   Frame3d aAx2;
   //
   const Point3d& aPLoc = aCirc.Location();
-  const gp_Ax3& aAx3  = aQuad.Position();
+  const Ax3& aAx3  = aQuad.Position();
   SeamPosition(aPLoc, aAx3, aAx2);
   aCirc.SetPosition(aAx2);
 }
@@ -3853,7 +3853,7 @@ void AdjustToSeam(const gp_Sphere& aQuad, gp_Circ& aCirc, const Standard_Real aT
   Frame3d aAx2;
   //
   const Axis3d& aAx1C = aCirc.Axis();
-  const gp_Ax3& aAx3  = aQuad.Position();
+  const Ax3& aAx3  = aQuad.Position();
   const Axis3d& aAx1Q = aAx3.Axis();
   //
   const Dir3d& aDirC = aAx1C.Direction();
@@ -3868,12 +3868,12 @@ void AdjustToSeam(const gp_Sphere& aQuad, gp_Circ& aCirc, const Standard_Real aT
 
 //=================================================================================================
 
-void AdjustToSeam(const gp_Cylinder& aQuad, gp_Circ& aCirc)
+void AdjustToSeam(const Cylinder1& aQuad, gp_Circ& aCirc)
 {
   Frame3d aAx2;
   //
   const Point3d& aPLoc = aCirc.Location();
-  const gp_Ax3& aAx3  = aQuad.Position();
+  const Ax3& aAx3  = aQuad.Position();
   SeamPosition(aPLoc, aAx3, aAx2);
   aCirc.SetPosition(aAx2);
 }
@@ -3885,14 +3885,14 @@ void AdjustToSeam(const gp_Torus& aQuad, gp_Circ& aCirc)
   Frame3d aAx2;
   //
   const Point3d& aPLoc = aCirc.Location();
-  const gp_Ax3& aAx3  = aQuad.Position();
+  const Ax3& aAx3  = aQuad.Position();
   SeamPosition(aPLoc, aAx3, aAx2);
   aCirc.SetPosition(aAx2);
 }
 
 //=================================================================================================
 
-void SeamPosition(const Point3d& aPLoc, const gp_Ax3& aPos, Frame3d& aSeamPos)
+void SeamPosition(const Point3d& aPLoc, const Ax3& aPos, Frame3d& aSeamPos)
 {
   const Dir3d& aDZ = aPos.Direction();
   const Dir3d& aDX = aPos.XDirection();
@@ -3910,7 +3910,7 @@ static void ShortCosForm(const Standard_Real theCosFactor,
                          Standard_Real&      theCoeff,
                          Standard_Real&      theAngle);
 //
-static Standard_Boolean ExploreCurve(const gp_Cone&      theCo,
+static Standard_Boolean ExploreCurve(const Cone1&      theCo,
                                      Curve1&       aC,
                                      const Standard_Real aTol,
                                      IntAna_ListOfCurve& aLC);
@@ -3968,7 +3968,7 @@ public:
   // Stores equations coefficients
   struct stCoeffsValue
   {
-    stCoeffsValue(const gp_Cylinder&, const gp_Cylinder&);
+    stCoeffsValue(const Cylinder1&, const Cylinder1&);
 
     math_Vector mVecA1;
     math_Vector mVecA2;
@@ -4036,8 +4036,8 @@ public:
                                                   Standard_Real&         theV2);
 };
 
-ComputationMethods::stCoeffsValue::stCoeffsValue(const gp_Cylinder& theCyl1,
-                                                 const gp_Cylinder& theCyl2)
+ComputationMethods::stCoeffsValue::stCoeffsValue(const Cylinder1& theCyl1,
+                                                 const Cylinder1& theCyl2)
     : mVecA1(-theCyl1.Radius() * theCyl1.XAxis().Direction().XYZ()),
       mVecA2(theCyl2.Radius() * theCyl2.XAxis().Direction().XYZ()),
       mVecB1(-theCyl1.Radius() * theCyl1.YAxis().Direction().XYZ()),
@@ -4327,8 +4327,8 @@ public:
                                               const Standard_Real                      thePeriod,
                                               Range1                                theURange[]);
 
-  void BoundaryEstimation(const gp_Cylinder& theCy1,
-                          const gp_Cylinder& theCy2,
+  void BoundaryEstimation(const Cylinder1& theCy1,
+                          const Cylinder1& theCy2,
                           Range1&         theOutBoxS1,
                           Range1&         theOutBoxS2) const;
 
@@ -4830,8 +4830,8 @@ Standard_Boolean CyCyAnalyticalIntersect(const Quadric1&    Quad1,
   gp_Elips elipsol;
   gp_Lin   linsol;
 
-  gp_Cylinder Cy1(Quad1.Cylinder());
-  gp_Cylinder Cy2(Quad2.Cylinder());
+  Cylinder1 Cy1(Quad1.Cylinder());
+  Cylinder1 Cy2(Quad2.Cylinder());
 
   typint                 = theInter.TypeInter();
   Standard_Integer NbSol = theInter.NbSolutions();
@@ -6456,8 +6456,8 @@ static void CriticalPointsComputing(const ComputationMethods::stCoeffsValue& the
 // function : BoundaryEstimation
 // purpose  : Rough estimation of the parameter range.
 //=======================================================================
-void WorkWithBoundaries::BoundaryEstimation(const gp_Cylinder& theCy1,
-                                            const gp_Cylinder& theCy2,
+void WorkWithBoundaries::BoundaryEstimation(const Cylinder1& theCy1,
+                                            const Cylinder1& theCy2,
                                             Range1&         theOutBoxS1,
                                             Range1&         theOutBoxS2) const
 {
@@ -6516,8 +6516,8 @@ void WorkWithBoundaries::BoundaryEstimation(const gp_Cylinder& theCy1,
 //=================================================================================================
 
 static IntPatch_ImpImpIntersection::IntStatus CyCyNoGeometric(
-  const gp_Cylinder&        theCyl1,
-  const gp_Cylinder&        theCyl2,
+  const Cylinder1&        theCyl1,
+  const Cylinder1&        theCyl2,
   const WorkWithBoundaries& theBW,
   Range1                 theRange[],
   const Standard_Integer    theNbOfRanges /*=2*/,
@@ -7771,7 +7771,7 @@ IntPatch_ImpImpIntersection::IntStatus IntCyCy(const Quadric1&    theQuad1,
   theSlin.Clear();
   theSPnt.Clear();
 
-  const gp_Cylinder aCyl1 = theQuad1.Cylinder(), aCyl2 = theQuad2.Cylinder();
+  const Cylinder1 aCyl1 = theQuad1.Cylinder(), aCyl2 = theQuad2.Cylinder();
 
   QuadQuadGeoIntersection anInter(aCyl1, aCyl2, theTol3D);
 
@@ -7981,7 +7981,7 @@ Standard_Boolean IntCySp(const Quadric1&    Quad1,
   IntPatch_Point    ptsol;
   gp_Circ           cirsol;
 
-  gp_Cylinder Cy;
+  Cylinder1 Cy;
   gp_Sphere   Sp;
 
   if (!Reversed)
@@ -8249,8 +8249,8 @@ Standard_Boolean IntCyCo(const Quadric1&    Quad1,
   IntAna_ResultType typint;
   gp_Circ           cirsol;
 
-  gp_Cylinder Cy;
-  gp_Cone     Co;
+  Cylinder1 Cy;
+  Cone1     Co;
 
   if (!Reversed)
   {
@@ -8465,7 +8465,7 @@ Standard_Boolean IntCyCo(const Quadric1&    Quad1,
 // function : ExploreCurve
 // purpose  : Splits aC on several curves in the cone apex points.
 //=======================================================================
-Standard_Boolean ExploreCurve(const gp_Cone&      theCo,
+Standard_Boolean ExploreCurve(const Cone1&      theCo,
                               Curve1&       theCrv,
                               const Standard_Real theTol,
                               IntAna_ListOfCurve& theLC)
@@ -8547,8 +8547,8 @@ Standard_Boolean IntCoCo(const Quadric1&    Quad1,
   IntSurf_TypeTrans trans1, trans2;
   IntAna_ResultType typint;
   //
-  gp_Cone Co1(Quad1.Cone());
-  gp_Cone Co2(Quad2.Cone());
+  Cone1 Co1(Quad1.Cone());
+  Cone1 Co2(Quad2.Cone());
   //
   QuadQuadGeoIntersection inter(Co1, Co2, Tol);
   if (!inter.IsDone())
@@ -9048,7 +9048,7 @@ Standard_Boolean IntCoSp(const Quadric1&    Quad1,
   IntAna_ResultType typint;
 
   gp_Sphere     Sp;
-  gp_Cone       Co;
+  Cone1       Co;
   Standard_Real U1, V1, U2, V2;
 
   if (!Reversed)
@@ -9424,7 +9424,7 @@ Standard_Boolean IntCyTo(const Quadric1&   theQuad1,
                          Standard_Boolean&        bEmpty,
                          IntPatch_SequenceOfLine& theSeqLin)
 {
-  const gp_Cylinder aCyl   = bReversed ? theQuad2.Cylinder() : theQuad1.Cylinder();
+  const Cylinder1 aCyl   = bReversed ? theQuad2.Cylinder() : theQuad1.Cylinder();
   const gp_Torus    aTorus = bReversed ? theQuad1.Torus() : theQuad2.Torus();
   //
   QuadQuadGeoIntersection anInt(aCyl, aTorus, theTolTang);
@@ -9442,7 +9442,7 @@ Standard_Boolean IntCoTo(const Quadric1&   theQuad1,
                          Standard_Boolean&        bEmpty,
                          IntPatch_SequenceOfLine& theSeqLin)
 {
-  const gp_Cone  aCone  = bReversed ? theQuad2.Cone() : theQuad1.Cone();
+  const Cone1  aCone  = bReversed ? theQuad2.Cone() : theQuad1.Cone();
   const gp_Torus aTorus = bReversed ? theQuad1.Torus() : theQuad2.Torus();
   //
   QuadQuadGeoIntersection anInt(aCone, aTorus, theTolTang);

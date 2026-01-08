@@ -323,7 +323,7 @@ Standard_Real ShapeAnalysis_Curve::ProjectAct(const Adaptor3d_Curve& C3D,
       case GeomAbs_Circle: {
         const gp_Circ& aCirc = C3D.Circle();
         proj                 = aCirc.Position().Location();
-        if (aCirc.Radius() <= gp::Resolution() || P3D.SquareDistance(proj) <= gp::Resolution())
+        if (aCirc.Radius() <= gp1::Resolution() || P3D.SquareDistance(proj) <= gp1::Resolution())
         {
           param = C3D.FirstParameter();
           proj  = proj.XYZ() + aCirc.XAxis().Direction().XYZ() * aCirc.Radius();
@@ -798,7 +798,7 @@ Standard_Integer ShapeAnalysis_Curve::SelectForwardSeam(const Handle(GeomCurve2d
     gp_Pnt2d StartBC1 = BC1->StartPoint();
     gp_Pnt2d EndBC1   = BC1->EndPoint();
     gp_Vec2d VecBC1(StartBC1, EndBC1);
-    if (VecBC1.SquareMagnitude() < gp::Resolution())
+    if (VecBC1.SquareMagnitude() < gp1::Resolution())
       return theCurveIndice;
     L1 = new Geom2d_Line(StartBC1, VecBC1);
   }
@@ -813,7 +813,7 @@ Standard_Integer ShapeAnalysis_Curve::SelectForwardSeam(const Handle(GeomCurve2d
     gp_Pnt2d StartBC2 = BC2->StartPoint();
     gp_Pnt2d EndBC2   = BC2->EndPoint();
     gp_Vec2d VecBC2(StartBC2, EndBC2);
-    if (VecBC2.SquareMagnitude() < gp::Resolution())
+    if (VecBC2.SquareMagnitude() < gp1::Resolution())
       return theCurveIndice;
     L2 = new Geom2d_Line(StartBC2, VecBC2);
   }

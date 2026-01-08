@@ -69,12 +69,12 @@ Geom2d_Hyperbola::Geom2d_Hyperbola(const Ax2d&            A,
 {
   if (MajorRadius < 0.0 || MinorRadius < 0.0)
     throw Standard_ConstructionError();
-  pos = gp_Ax22d(A, Sense);
+  pos = Ax22d(A, Sense);
 }
 
 //=================================================================================================
 
-Geom2d_Hyperbola::Geom2d_Hyperbola(const gp_Ax22d&     Axis,
+Geom2d_Hyperbola::Geom2d_Hyperbola(const Ax22d&     Axis,
                                    const Standard_Real MajorRadius,
                                    const Standard_Real MinorRadius)
     : majorRadius(MajorRadius),
@@ -208,7 +208,7 @@ Ax2d Geom2d_Hyperbola::Directrix2() const
 
 Standard_Real Geom2d_Hyperbola::Eccentricity() const
 {
-  Standard_DomainError_Raise_if(majorRadius <= gp::Resolution(), " ");
+  Standard_DomainError_Raise_if(majorRadius <= gp1::Resolution(), " ");
   return (Sqrt(majorRadius * majorRadius + minorRadius * minorRadius)) / majorRadius;
 }
 
@@ -267,7 +267,7 @@ gp_Hypr2d Geom2d_Hyperbola::OtherBranch() const
 
 Standard_Real Geom2d_Hyperbola::Parameter() const
 {
-  Standard_DomainError_Raise_if(majorRadius <= gp::Resolution(), " ");
+  Standard_DomainError_Raise_if(majorRadius <= gp1::Resolution(), " ");
   return (minorRadius * minorRadius) / majorRadius;
 }
 

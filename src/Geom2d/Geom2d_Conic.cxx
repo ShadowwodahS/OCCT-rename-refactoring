@@ -38,7 +38,7 @@ void Geom2d_Conic::Reverse()
 {
   gp_Dir2d Temp = pos.YDirection();
   Temp.Reverse();
-  pos.SetAxis(gp_Ax22d(pos.Location(), pos.XDirection(), Temp));
+  pos.SetAxis(Ax22d(pos.Location(), pos.XDirection(), Temp));
 }
 
 //=================================================================================================

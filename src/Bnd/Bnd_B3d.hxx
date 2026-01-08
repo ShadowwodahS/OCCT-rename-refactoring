@@ -28,7 +28,7 @@ class gp_XYZ;
 class Point3d;
 class Transform3d;
 class Axis3d;
-class gp_Ax3;
+class Ax3;
 
 class Box3d
 {
@@ -117,7 +117,7 @@ public:
 
   //! Check the given Plane for the intersection with the current box.
   //! Returns True if there is no intersection.
-  Standard_EXPORT Standard_Boolean IsOut(const gp_Ax3& thePlane) const;
+  Standard_EXPORT Standard_Boolean IsOut(const Ax3& thePlane) const;
 
   //! Check that the box 'this' is inside the given box 'theBox'. Returns
   //! True if 'this' box is fully inside 'theBox'.

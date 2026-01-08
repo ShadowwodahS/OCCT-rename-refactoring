@@ -25,7 +25,7 @@
 #include <StdFail_NotDone.hxx>
 
 //=========================================================================
-//  Constructions d un cylindre de gp par son Ax2 A2 et son rayon         +
+//  Constructions d un cylindre de gp1 par son Ax2 A2 et son rayon         +
 //  Radius.                                                               +
 //=========================================================================
 gce_MakeCylinder::gce_MakeCylinder(const Frame3d& A2, const Standard_Real Radius)
@@ -36,13 +36,13 @@ gce_MakeCylinder::gce_MakeCylinder(const Frame3d& A2, const Standard_Real Radius
   }
   else
   {
-    TheCylinder = gp_Cylinder(A2, Radius);
+    TheCylinder = Cylinder1(A2, Radius);
     TheError    = gce_Done;
   }
 }
 
 //=========================================================================
-//  Constructions d un cylindre de gp par son axe Axis et son rayon       +
+//  Constructions d un cylindre de gp1 par son axe Axis et son rayon       +
 //  Radius.                                                               +
 //=========================================================================
 
@@ -59,42 +59,42 @@ gce_MakeCylinder::gce_MakeCylinder(const Axis3d& Axis, const Standard_Real Radiu
     Standard_Real x = D.X();
     Standard_Real y = D.Y();
     Standard_Real z = D.Z();
-    if (Abs(x) > gp::Resolution())
+    if (Abs(x) > gp1::Resolution())
     {
       Direc = Dir3d(-y, x, 0.0);
     }
-    else if (Abs(y) > gp::Resolution())
+    else if (Abs(y) > gp1::Resolution())
     {
       Direc = Dir3d(-y, x, 0.0);
     }
-    else if (Abs(z) > gp::Resolution())
+    else if (Abs(z) > gp1::Resolution())
     {
       Direc = Dir3d(0.0, -z, y);
     }
-    TheCylinder = gp_Cylinder(Frame3d(Axis.Location(), D, Direc), Radius);
+    TheCylinder = Cylinder1(Frame3d(Axis.Location(), D, Direc), Radius);
     TheError    = gce_Done;
   }
 }
 
 //=========================================================================
-//  Constructions d un cylindre de gp par un cercle.                      +
+//  Constructions d un cylindre de gp1 par un cercle.                      +
 //=========================================================================
 
 gce_MakeCylinder::gce_MakeCylinder(const gp_Circ& Circ)
 {
-  TheCylinder = gp_Cylinder(Circ.Position(), Circ.Radius());
+  TheCylinder = Cylinder1(Circ.Position(), Circ.Radius());
   TheError    = gce_Done;
 }
 
 //=========================================================================
-//  Constructions d un cylindre de gp par trois points P1, P2, P3.        +
+//  Constructions d un cylindre de gp1 par trois points P1, P2, P3.        +
 //  P1 et P2 donnent l axe du cylindre, la distance de P3 a l axe donne   +
 //  le rayon du cylindre.                                                 +
 //=========================================================================
 
 gce_MakeCylinder::gce_MakeCylinder(const Point3d& P1, const Point3d& P2, const Point3d& P3)
 {
-  if (P1.Distance(P2) < gp::Resolution())
+  if (P1.Distance(P2) < gp1::Resolution())
   {
     TheError = gce_ConfusedPoints;
   }
@@ -105,29 +105,29 @@ gce_MakeCylinder::gce_MakeCylinder(const Point3d& P1, const Point3d& P2, const P
     Standard_Real x = D1.X();
     Standard_Real y = D1.Y();
     Standard_Real z = D1.Z();
-    if (Abs(x) > gp::Resolution())
+    if (Abs(x) > gp1::Resolution())
     {
       D2 = Dir3d(-y, x, 0.0);
     }
-    else if (Abs(y) > gp::Resolution())
+    else if (Abs(y) > gp1::Resolution())
     {
       D2 = Dir3d(-y, x, 0.0);
     }
-    else if (Abs(z) > gp::Resolution())
+    else if (Abs(z) > gp1::Resolution())
     {
       D2 = Dir3d(0.0, -z, y);
     }
-    TheCylinder = gp_Cylinder(Frame3d(P1, D1, D2), gp_Lin(P1, D1).Distance(P3));
+    TheCylinder = Cylinder1(Frame3d(P1, D1, D2), gp_Lin(P1, D1).Distance(P3));
     TheError    = gce_Done;
   }
 }
 
 //=========================================================================
-//  Constructions d un cylindre de gp concentrique a un autre cylindre de +
-//  gp a une distance Dist.                                               +
+//  Constructions d un cylindre de gp1 concentrique a un autre cylindre de +
+//  gp1 a une distance Dist.                                               +
 //=========================================================================
 
-gce_MakeCylinder::gce_MakeCylinder(const gp_Cylinder& Cyl, const Standard_Real Dist)
+gce_MakeCylinder::gce_MakeCylinder(const Cylinder1& Cyl, const Standard_Real Dist)
 {
   Standard_Real Rad = Cyl.Radius() + Dist;
   if (Rad < 0.)
@@ -136,38 +136,38 @@ gce_MakeCylinder::gce_MakeCylinder(const gp_Cylinder& Cyl, const Standard_Real D
   }
   else
   {
-    TheCylinder = gp_Cylinder(Cyl);
+    TheCylinder = Cylinder1(Cyl);
     TheCylinder.SetRadius(Rad);
     TheError = gce_Done;
   }
 }
 
 //=========================================================================
-//  Constructions d un cylindre de gp concentrique a un autre cylindre de +
-//  gp passant par le point P.                                            +
+//  Constructions d un cylindre de gp1 concentrique a un autre cylindre de +
+//  gp1 passant par le point P.                                            +
 //=========================================================================
 
-gce_MakeCylinder::gce_MakeCylinder(const gp_Cylinder& Cyl, const Point3d& P)
+gce_MakeCylinder::gce_MakeCylinder(const Cylinder1& Cyl, const Point3d& P)
 {
   gp_Lin        L(Cyl.Axis());
   Standard_Real Rad = L.Distance(P);
-  TheCylinder       = gp_Cylinder(Cyl);
+  TheCylinder       = Cylinder1(Cyl);
   TheCylinder.SetRadius(Rad);
   TheError = gce_Done;
 }
 
-const gp_Cylinder& gce_MakeCylinder::Value() const
+const Cylinder1& gce_MakeCylinder::Value() const
 {
   StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakeCylinder::Value() - no result");
   return TheCylinder;
 }
 
-const gp_Cylinder& gce_MakeCylinder::Operator() const
+const Cylinder1& gce_MakeCylinder::Operator() const
 {
   return Value();
 }
 
-gce_MakeCylinder::operator gp_Cylinder() const
+gce_MakeCylinder::operator Cylinder1() const
 {
   return Value();
 }

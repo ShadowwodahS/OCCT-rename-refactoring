@@ -95,17 +95,17 @@ static Handle(Geom2d_BSplineCurve) BSplineCurveBuilder(
   }
   TheCurve = new BSplineCurve(Poles, Weights, Knots, Mults, Convert.Degree(), Convert.IsPeriodic());
 
-  gp_Ax22d Axis = TheConic->Position();
+  Ax22d Axis = TheConic->Position();
   if ((Axis.XDirection() ^ Axis.YDirection()) < 0.)
   {
     // Then the axis is left-handed, apply a symmetry to the curve.
     gp_Trsf2d Sym;
-    Sym.SetMirror(gp::OX2d());
+    Sym.SetMirror(gp1::OX2d());
     TheCurve->Transform(Sym);
   }
 
   Trsf2d T;
-  T.SetTransformation(TheConic->XAxis(), gp::OX2d());
+  T.SetTransformation(TheConic->XAxis(), gp1::OX2d());
   Handle(Geom2d_BSplineCurve) Cres =
     Handle(Geom2d_BSplineCurve)::DownCast(TheCurve->Transformed(T));
   return Cres;
@@ -226,7 +226,7 @@ Handle(Geom2d_BSplineCurve) Geom2dConvert1::CurveToBSplineCurve(
     else if (Curv->IsKind(STANDARD_TYPE(Geom2d_Circle)))
     {
       Handle(Geom2d_Circle) TheConic = Handle(Geom2d_Circle)::DownCast(Curv);
-      Circ2d                C2d(gp::OX2d(), TheConic->Radius());
+      Circ2d                C2d(gp1::OX2d(), TheConic->Radius());
       if (Parameterisation != Convert_RationalC1)
       {
         Convert_CircleToBSplineCurve Convert(C2d, U1, U2, Parameterisation);
@@ -265,7 +265,7 @@ Handle(Geom2d_BSplineCurve) Geom2dConvert1::CurveToBSplineCurve(
     {
       Handle(Geom2d_Ellipse) TheConic = Handle(Geom2d_Ellipse)::DownCast(Curv);
 
-      Elips2d E2d(gp::OX2d(), TheConic->MajorRadius(), TheConic->MinorRadius());
+      Elips2d E2d(gp1::OX2d(), TheConic->MajorRadius(), TheConic->MinorRadius());
       if (Parameterisation != Convert_RationalC1)
       {
         Convert_EllipseToBSplineCurve Convert(E2d, U1, U2, Parameterisation);
@@ -304,7 +304,7 @@ Handle(Geom2d_BSplineCurve) Geom2dConvert1::CurveToBSplineCurve(
     {
       Handle(Geom2d_Hyperbola) TheConic = Handle(Geom2d_Hyperbola)::DownCast(Curv);
 
-      Hypr2d H2d(gp::OX2d(), TheConic->MajorRadius(), TheConic->MinorRadius());
+      Hypr2d H2d(gp1::OX2d(), TheConic->MajorRadius(), TheConic->MinorRadius());
       Convert_HyperbolaToBSplineCurve Convert(H2d, U1, U2);
       TheCurve = BSplineCurveBuilder(TheConic, Convert);
     }
@@ -313,7 +313,7 @@ Handle(Geom2d_BSplineCurve) Geom2dConvert1::CurveToBSplineCurve(
     {
       Handle(Geom2d_Parabola) TheConic = Handle(Geom2d_Parabola)::DownCast(Curv);
 
-      Parab2d                        Prb2d(gp::OX2d(), TheConic->Focal());
+      Parab2d                        Prb2d(gp1::OX2d(), TheConic->Focal());
       Convert_ParabolaToBSplineCurve Convert(Prb2d, U1, U2);
       TheCurve = BSplineCurveBuilder(TheConic, Convert);
     }
@@ -378,7 +378,7 @@ Handle(Geom2d_BSplineCurve) Geom2dConvert1::CurveToBSplineCurve(
     {
       Handle(Geom2d_Ellipse) TheConic = Handle(Geom2d_Ellipse)::DownCast(C);
 
-      Elips2d E2d(gp::OX2d(), TheConic->MajorRadius(), TheConic->MinorRadius());
+      Elips2d E2d(gp1::OX2d(), TheConic->MajorRadius(), TheConic->MinorRadius());
       Convert_EllipseToBSplineCurve Convert(E2d, Parameterisation);
       TheCurve = BSplineCurveBuilder(TheConic, Convert);
       TheCurve->SetPeriodic();
@@ -388,7 +388,7 @@ Handle(Geom2d_BSplineCurve) Geom2dConvert1::CurveToBSplineCurve(
     {
       Handle(Geom2d_Circle) TheConic = Handle(Geom2d_Circle)::DownCast(C);
 
-      Circ2d                       C2d(gp::OX2d(), TheConic->Radius());
+      Circ2d                       C2d(gp1::OX2d(), TheConic->Radius());
       Convert_CircleToBSplineCurve Convert(C2d, Parameterisation);
       TheCurve = BSplineCurveBuilder(TheConic, Convert);
       TheCurve->SetPeriodic();

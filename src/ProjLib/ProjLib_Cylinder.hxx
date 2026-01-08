@@ -38,18 +38,18 @@ public:
   Standard_EXPORT ProjLib_Cylinder();
 
   //! Projection on the cylinder <Cyl>.
-  Standard_EXPORT ProjLib_Cylinder(const gp_Cylinder& Cyl);
+  Standard_EXPORT ProjLib_Cylinder(const Cylinder1& Cyl);
 
   //! Projection of the line <L> on the cylinder <Cyl>.
-  Standard_EXPORT ProjLib_Cylinder(const gp_Cylinder& Cyl, const gp_Lin& L);
+  Standard_EXPORT ProjLib_Cylinder(const Cylinder1& Cyl, const gp_Lin& L);
 
   //! Projection of the circle <C> on the cylinder <Cyl>.
-  Standard_EXPORT ProjLib_Cylinder(const gp_Cylinder& Cyl, const gp_Circ& C);
+  Standard_EXPORT ProjLib_Cylinder(const Cylinder1& Cyl, const gp_Circ& C);
 
   //! Projection of the ellipse <E> on the cylinder <Cyl>.
-  Standard_EXPORT ProjLib_Cylinder(const gp_Cylinder& Cyl, const gp_Elips& E);
+  Standard_EXPORT ProjLib_Cylinder(const Cylinder1& Cyl, const gp_Elips& E);
 
-  Standard_EXPORT void Init(const gp_Cylinder& Cyl);
+  Standard_EXPORT void Init(const Cylinder1& Cyl);
 
   Standard_EXPORT virtual void Project(const gp_Lin& L) Standard_OVERRIDE;
 
@@ -63,7 +63,7 @@ public:
 
 protected:
 private:
-  gp_Cylinder myCylinder;
+  Cylinder1 myCylinder;
 };
 
 #endif // _ProjLib_Cylinder_HeaderFile

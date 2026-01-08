@@ -80,7 +80,7 @@ Handle(GccInt_Bisec) CircleLine2dBisector::ThisSolution(const Standard_Integer I
   Standard_Real        ycencir = circle.Location().Y();
   Standard_Real        R1      = circle.Radius();
   Standard_Real        dist    = line.Distance(circle.Location());
-  if ((Abs(line.Distance(circle.Location()) - circle.Radius()) <= gp::Resolution()) && (Index == 1))
+  if ((Abs(line.Distance(circle.Location()) - circle.Radius()) <= gp1::Resolution()) && (Index == 1))
   {
     gp_Lin2d biscirlin1(circle.Location(), gp_Dir2d(-ydir, xdir));
     bissol = new GccInt_BLine(biscirlin1);

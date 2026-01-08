@@ -280,7 +280,7 @@ Point3d PrsDim_AngleDimension::GetCenterOnArc(const Point3d& theFirstAttach,
   gce_MakePln aConstructPlane(theFirstAttach, theSecondAttach, theCenter);
   if (!aConstructPlane.IsDone())
   {
-    return gp::Origin();
+    return gp1::Origin();
   }
 
   gp_Pln aPlane = aConstructPlane.Value();
@@ -300,7 +300,7 @@ Point3d PrsDim_AngleDimension::GetCenterOnArc(const Point3d& theFirstAttach,
   gce_MakeCirc aConstructCircle(theCenter, aPlane, aRadius);
   if (!aConstructCircle.IsDone())
   {
-    return gp::Origin();
+    return gp1::Origin();
   }
 
   gp_Circ aCircle = aConstructCircle.Value();
@@ -523,7 +523,7 @@ void PrsDim_AngleDimension::ComputePlane()
   Vector3d aDirectionY = aFirstVec + aSecondVec;
   Vector3d aDirectionX = aDirectionY ^ aDirectionN;
 
-  myPlane = gp_Pln(gp_Ax3(myCenterPoint, Dir3d(aDirectionN), Dir3d(aDirectionX)));
+  myPlane = gp_Pln(Ax3(myCenterPoint, Dir3d(aDirectionN), Dir3d(aDirectionX)));
 }
 
 //=================================================================================================
@@ -860,7 +860,7 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoEdgesAngle(gp_Pln& theComputedPla
     aFirstLin.Direction().IsParallel(aSecondLin.Direction(), Precision::Angular());
 
   theComputedPlane = isParallelLines
-                       ? gp_Pln(gp::XOY())
+                       ? gp_Pln(gp1::XOY())
                        : gp_Pln(aSecondLin.Location(),
                                 Vector3d(aFirstLin.Direction()) ^ Vector3d(aSecondLin.Direction()));
 
@@ -1066,7 +1066,7 @@ Standard_Boolean PrsDim_AngleDimension::InitConeAngle()
 
   TopoFace aConeShape = TopoDS::Face(myFirstShape);
   gp_Pln      aPln;
-  gp_Cone     aCone;
+  Cone1     aCone;
   gp_Circ     aCircle;
   // A surface from the Face
   Handle(GeomSurface)             aSurf;
@@ -1196,7 +1196,7 @@ Point3d PrsDim_AngleDimension::GetTextPosition() const
 {
   if (!IsValid())
   {
-    return gp::Origin();
+    return gp1::Origin();
   }
 
   if (IsTextPositionCustom())
@@ -1205,7 +1205,7 @@ Point3d PrsDim_AngleDimension::GetTextPosition() const
   }
 
   // Counts text position according to the dimension parameters
-  Point3d aTextPosition(gp::Origin());
+  Point3d aTextPosition(gp1::Origin());
 
   Handle(Prs3d_DimensionAspect) aDimensionAspect = myDrawer->DimensionAspect();
 

@@ -510,7 +510,7 @@ gp_XYZ RWObj_Reader::polygonNormal(const NCollection_Array1<Standard_Integer>& t
   }
 
   const Standard_Real aMod = aNormal.Modulus();
-  if (aMod > gp::Resolution())
+  if (aMod > gp1::Resolution())
   {
     aNormal /= aMod;
   }

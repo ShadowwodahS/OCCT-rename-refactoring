@@ -791,7 +791,7 @@ static Standard_Integer QANColTestArray2(DrawInterpreter& di,
           anArr2.Value(aRowIter + anArr2.LowerRow(), aColIter + anArr2.LowerCol());
         const Point3d& aPnt2 =
           anArr2Copy.Value(aRowIter + anArr2Copy.LowerRow(), aColIter + anArr2Copy.LowerCol());
-        if (!aPnt1.IsEqual(aPnt2, gp::Resolution()))
+        if (!aPnt1.IsEqual(aPnt2, gp1::Resolution()))
         {
           std::cerr << "Error: 2D array is not properly resized\n";
           return 1;

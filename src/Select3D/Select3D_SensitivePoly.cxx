@@ -36,7 +36,7 @@ static Standard_Integer GetCircleNbPoints(const gp_Circ&         theCircle,
   if (theCircle.Radius() > Precision::Confusion())
   {
     const Standard_Boolean isSector =
-      theIsFilled && Abs(Abs(theU2 - theU1) - 2.0 * M_PI) > gp::Resolution();
+      theIsFilled && Abs(Abs(theU2 - theU1) - 2.0 * M_PI) > gp1::Resolution();
     return 2 * theNbPnts + 1 + (isSector ? 2 : 0);
   }
 
@@ -59,7 +59,7 @@ static void initCircle(Select3D_PointData&    thePolygon,
   Point3d              aP1;
   Vector3d              aV1;
 
-  const Standard_Boolean isSector = Abs(theU2 - theU1 - 2.0 * M_PI) > gp::Resolution();
+  const Standard_Boolean isSector = Abs(theU2 - theU1 - 2.0 * M_PI) > gp1::Resolution();
 
   if (isSector && theIsFilled)
   {

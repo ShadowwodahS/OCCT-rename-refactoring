@@ -116,8 +116,8 @@ static Standard_Integer DefineClosedness(const TopoFace& theFace)
       Standard_Real        fpar, lpar;
       Handle(GeomCurve2d) aPCurve     = BRepInspector::CurveOnSurface(anEdge, theFace, fpar, lpar);
       gp_Vec2d             aTangent    = aPCurve->DN(fpar, 1);
-      Standard_Real        aCrossProd1 = aTangent ^ gp::DX2d();
-      Standard_Real        aCrossProd2 = aTangent ^ gp::DY2d();
+      Standard_Real        aCrossProd1 = aTangent ^ gp1::DX2d();
+      Standard_Real        aCrossProd2 = aTangent ^ gp1::DY2d();
       if (Abs(aCrossProd2) < Abs(aCrossProd1)) // pcurve is parallel to OY
         return 1;
       else
@@ -553,7 +553,7 @@ static void EdgeInter(const TopoFace&                         F,
           V2or.Reverse();
         Standard_Real CrossProd = V2or ^ V1;
 #ifdef OCCT_DEBUG
-        if (Abs(CrossProd) <= gp::Resolution())
+        if (Abs(CrossProd) <= gp1::Resolution())
           std::cout << std::endl << "CrossProd = " << CrossProd << std::endl;
 #endif
         if (CrossProd > 0.)
@@ -858,7 +858,7 @@ static void RefEdgeInter(const TopoFace&                         F,
         V2or.Reverse();
       Standard_Real CrossProd = V2or ^ V1;
 #ifdef OCCT_DEBUG
-      if (Abs(CrossProd) <= gp::Resolution())
+      if (Abs(CrossProd) <= gp1::Resolution())
         std::cout << std::endl << "CrossProd = " << CrossProd << std::endl;
 #endif
       if (CrossProd > 0.)
@@ -1391,7 +1391,7 @@ Standard_Boolean BRepOffset_Inter2d::ExtentEdge(const TopoEdge&  E,
           {
             Handle(Geom2d_Line) theLine = Handle(Geom2d_Line)::DownCast(MinPC);
             gp_Dir2d            LineDir = theLine->Direction();
-            if (LineDir.IsParallel(gp::DY2d(), Precision::Angular()))
+            if (LineDir.IsParallel(gp1::DY2d(), Precision::Angular()))
               IsLine = Standard_True;
           }
           if (IsLine)
@@ -1457,8 +1457,8 @@ Standard_Boolean BRepOffset_Inter2d::ExtentEdge(const TopoEdge&  E,
                   && theSurf->IsKind(STANDARD_TYPE(Geom_BoundedSurface)))
               {
                 gp_Dir2d theDir = Handle(Geom2d_Line)::DownCast(theCurve)->Direction();
-                if (theDir.IsParallel(gp::DX2d(), Precision::Angular())
-                    || theDir.IsParallel(gp::DY2d(), Precision::Angular()))
+                if (theDir.IsParallel(gp1::DX2d(), Precision::Angular())
+                    || theDir.IsParallel(gp1::DY2d(), Precision::Angular()))
                 {
                   Standard_Real U1, U2, V1, V2;
                   theSurf->Bounds(U1, U2, V1, V2);

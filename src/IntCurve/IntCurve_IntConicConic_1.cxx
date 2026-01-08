@@ -297,7 +297,7 @@ void CircleCircleGeometricIntersection(const gp_Circ2d&    C1,
   gp_Vec2d AxeO1O2 = gp_Vec2d(C1.Location(), C2.Location());
 
   Standard_Real dAngle1;
-  if (AxeO1O2.Magnitude() <= gp::Resolution())
+  if (AxeO1O2.Magnitude() <= gp1::Resolution())
     dAngle1 = Axe1.Angle(C2.XAxis().Direction());
   else
     dAngle1 = Axe1.Angle(AxeO1O2);
@@ -965,8 +965,8 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       Circle1,
   //----------------------------------------------------------------------
   //-- Traitement des intervalles (ou des points obtenus)
   //--
-  gp_Ax22d            Axis2C1 = Circle1.Axis();
-  gp_Ax22d            Axis2C2 = Circle2.Axis();
+  Ax22d            Axis2C1 = Circle1.Axis();
+  Ax22d            Axis2C2 = Circle2.Axis();
   gp_Pnt2d            P1a, P1b, P2a, P2b;
   gp_Vec2d            Tan1, Tan2, Norm1, Norm2;
   Transition3 T1a, T1b, T2a, T2b;
@@ -2356,7 +2356,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        Line,
   //--
   if (NbSolTotal)
   {
-    gp_Ax22d            CircleAxis = Circle.Axis();
+    Ax22d            CircleAxis = Circle.Axis();
     gp_Ax2d             LineAxis   = Line.Position();
     gp_Pnt2d            P1a, P2a, P1b, P2b;
     gp_Vec2d            Tan1, Tan2, Norm1;
@@ -2595,7 +2595,7 @@ void LineEllipseGeometricIntersection(const gp_Lin2d&   Line,
                                       Standard_Integer&   nbsol)
 {
 
-  const gp_Ax22d& anElAxis = Ellipse.Axis();
+  const Ax22d& anElAxis = Ellipse.Axis();
   gp_Trsf2d       aTr;
   aTr.SetTransformation(anElAxis.XAxis());
   gp_Elips2d       aTEllipse = Ellipse.Transformed(aTr);
@@ -2947,7 +2947,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
   //
   if (NbSolTotal)
   {
-    gp_Ax22d            EllipseAxis = E.Axis();
+    Ax22d            EllipseAxis = E.Axis();
     gp_Ax2d             LineAxis    = L.Position();
     gp_Pnt2d            P1a, P2a, P1b, P2b;
     gp_Vec2d            Tan1, Tan2, Norm1;

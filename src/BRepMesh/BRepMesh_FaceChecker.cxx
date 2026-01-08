@@ -168,10 +168,10 @@ public:
           const BRepMesh_FaceChecker::Segment& aCurrSegment = mySegments->Value(i);
           Coords2d                                aCurVec      = aCurrSegment.Point2->XY() - aRefPnt;
 
-          if (aCurVec.SquareModulus() < gp::Resolution())
+          if (aCurVec.SquareModulus() < gp1::Resolution())
             continue;
 
-          if (aPrevVec.SquareModulus() > gp::Resolution())
+          if (aPrevVec.SquareModulus() > gp1::Resolution())
             aSumS += aPrevVec ^ aCurVec;
 
           aPrevVec = aCurVec;

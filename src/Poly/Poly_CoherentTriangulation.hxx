@@ -26,9 +26,9 @@ class Poly_CoherentTriangulation;
 template <class A>
 class NCollection_List;
 
-typedef NCollection_Vector<Poly_CoherentTriangle>::Iterator Poly_BaseIteratorOfCoherentTriangle;
+typedef NCollection_Vector<CoherentTriangle>::Iterator Poly_BaseIteratorOfCoherentTriangle;
 typedef NCollection_Vector<Poly_CoherentNode>::Iterator     Poly_BaseIteratorOfCoherentNode;
-typedef NCollection_Vector<Poly_CoherentLink>::Iterator     Poly_BaseIteratorOfCoherentLink;
+typedef NCollection_Vector<CoherentLink>::Iterator     Poly_BaseIteratorOfCoherentLink;
 
 //! Definition of HANDLE object using Standard_DefineHandle.hxx
 #include <Standard_Type.hxx>
@@ -59,22 +59,22 @@ DEFINE_STANDARD_HANDLE(Poly_CoherentTriangulation, RefObject)
  * method IsFreeNode() to check this). Free nodes are not available to further processing,
  * particularly they are not exported in MeshTriangulation.
  * </li>
- * <li><b>Poly_CoherentTriangle</b>: Main data type. Refers three Nodes, three connected Triangles,
+ * <li><b>CoherentTriangle</b>: Main data type. Refers three Nodes, three connected Triangles,
  * three opposite (connected) Nodes and three Links. If there is boundary then 1, 2 or 3 references
  * to Triangles/connected Nodes/Links are assigned to NULL (for pointers) or -1 (for integer node
  * index).
  *
  * You can find a triangle by one node using its triangle iterator or by
- * two nodes - creating a temporary Poly_CoherentLink and calling the method FindTriangle().
+ * two nodes - creating a temporary CoherentLink and calling the method FindTriangle().
  *
  * Triangles can be removed but they are never deleted from the containing array. Removed triangles
  * have all nodes equal to -1. You can use the method IsEmpty() to check that.
  * </li>
- * <li><b>Poly_CoherentLink</b>: Auxiliary data type. Normally the array of Links is empty, because
+ * <li><b>CoherentLink</b>: Auxiliary data type. Normally the array of Links is empty, because
  * for many algorithms it is sufficient to define only Triangles. You can explicitly create the
  * Links at least once, calling the method ComputeLinks(). Each Link1 is oriented couple of
  * Poly_CoherentNode (directed to the ascending Node index). It refers two connected triangulated
- * Nodes - on the left and on the right, therefore a Poly_CoherentLink instance refers the full set
+ * Nodes - on the left and on the right, therefore a CoherentLink instance refers the full set
  * of nodes that constitute a couple of connected Triangles. A boundary Link1 has either the first
  * (left) or the second (right) connected node index equal to -1.
  *
@@ -83,7 +83,7 @@ DEFINE_STANDARD_HANDLE(Poly_CoherentTriangulation, RefObject)
  * Particularly, new Links are created by method AddTriangle() and existing ones are removed by
  * method RemoveTriangle(), in each case whenever necessary.
  *
- * Similarly to Poly_CoherentTriangle, a Link1 can be removed but not destroyed separately from
+ * Similarly to CoherentTriangle, a Link1 can be removed but not destroyed separately from
  * others. Removed Link1 can be recogniosed using the method IsEmpty(). To destroy all Links, call
  * the method ClearLinks(), this method also nullifies Link1 references in all Triangles.
  * </li>
@@ -143,13 +143,13 @@ public:
   };
 
   //! Couple of integer indices (used in RemoveDegenerated()).
-  struct TwoIntegers
+  struct TwoIntegers1
   {
     Standard_Integer myValue[2];
 
-    TwoIntegers() {}
+    TwoIntegers1() {}
 
-    TwoIntegers(Standard_Integer i0, Standard_Integer i1)
+    TwoIntegers1(Standard_Integer i0, Standard_Integer i1)
     {
       myValue[0] = i0;
       myValue[1] = i1;
@@ -196,7 +196,7 @@ public:
    */
   Standard_EXPORT Standard_Boolean
     RemoveDegenerated(const Standard_Real            theTol,
-                      NCollection_List<TwoIntegers>* pLstRemovedNode = 0L);
+                      NCollection_List<TwoIntegers1>* pLstRemovedNode = 0L);
 
   /**
    * Create a list of free nodes. These nodes may appear as a result of any
@@ -259,7 +259,7 @@ public:
   /**
    * Get the triangle at the given index 'i'.
    */
-  inline const Poly_CoherentTriangle& Triangle1(const Standard_Integer i) const
+  inline const CoherentTriangle& Triangle1(const Standard_Integer i) const
   {
     return myTriangles.Value(i);
   }
@@ -278,19 +278,19 @@ public:
   /**
    * Removal of a single triangle from the triangulation.
    */
-  Standard_EXPORT Standard_Boolean RemoveTriangle(Poly_CoherentTriangle& theTr);
+  Standard_EXPORT Standard_Boolean RemoveTriangle(CoherentTriangle& theTr);
 
   /**
    * Removal of a single link from the triangulation.
    */
-  Standard_EXPORT void RemoveLink(Poly_CoherentLink& theLink);
+  Standard_EXPORT void RemoveLink(CoherentLink& theLink);
 
   /**
    * Add a triangle to the triangulation.
    * @return
    *   Pointer to the added triangle instance or NULL if an error occurred.
    */
-  Standard_EXPORT Poly_CoherentTriangle* AddTriangle(const Standard_Integer iNode0,
+  Standard_EXPORT CoherentTriangle* AddTriangle(const Standard_Integer iNode0,
                                                      const Standard_Integer iNode1,
                                                      const Standard_Integer iNode2);
 
@@ -299,7 +299,7 @@ public:
    * @return
    *   True if operation succeeded.
    */
-  Standard_EXPORT Standard_Boolean ReplaceNodes(Poly_CoherentTriangle& theTriangle,
+  Standard_EXPORT Standard_Boolean ReplaceNodes(CoherentTriangle& theTriangle,
                                                 const Standard_Integer iNode0,
                                                 const Standard_Integer iNode1,
                                                 const Standard_Integer iNode2);
@@ -312,7 +312,7 @@ public:
    * @param theConn
    *   Index of the side (i.e., 0, 1 0r 2) defining the added link.
    */
-  Standard_EXPORT Poly_CoherentLink* AddLink(const Poly_CoherentTriangle& theTri,
+  Standard_EXPORT CoherentLink* AddLink(const CoherentTriangle& theTri,
                                              const Standard_Integer       theConn);
 
   /**
@@ -327,8 +327,8 @@ public:
    * @return
    *   True if at least one triangle is found and output as pTri.
    */
-  Standard_EXPORT Standard_Boolean FindTriangle(const Poly_CoherentLink&     theLink,
-                                                const Poly_CoherentTriangle* pTri[2]) const;
+  Standard_EXPORT Standard_Boolean FindTriangle(const CoherentLink&     theLink,
+                                                const CoherentTriangle* pTri[2]) const;
 
   /**
    * (Re)Calculate all links in this Triangulation.
@@ -363,9 +363,9 @@ protected:
 protected:
   // ---------- PROTECTED FIELDS ----------
 
-  NCollection_Vector<Poly_CoherentTriangle> myTriangles;
+  NCollection_Vector<CoherentTriangle> myTriangles;
   NCollection_Vector<Poly_CoherentNode>     myNodes;
-  NCollection_Vector<Poly_CoherentLink>     myLinks;
+  NCollection_Vector<CoherentLink>     myLinks;
   Handle(NCollection_BaseAllocator)         myAlloc;
   Standard_Real                             myDeflection;
 

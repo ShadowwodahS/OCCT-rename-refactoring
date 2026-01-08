@@ -20,42 +20,42 @@
 #include <Standard_Macro.hxx>
 
 //! Defines an array of 2D nodes of single/double precision configurable at construction time.
-class Poly_ArrayOfUVNodes : public NCollection_AliasedArray<>
+class UVNodeArray : public NCollection_AliasedArray<>
 {
 public:
   //! Empty constructor of double-precision array.
-  Poly_ArrayOfUVNodes()
+  UVNodeArray()
       : NCollection_AliasedArray((Standard_Integer)sizeof(gp_Pnt2d))
   {
     //
   }
 
   //! Constructor of double-precision array.
-  Poly_ArrayOfUVNodes(Standard_Integer theLength)
+  UVNodeArray(Standard_Integer theLength)
       : NCollection_AliasedArray((Standard_Integer)sizeof(gp_Pnt2d), theLength)
   {
     //
   }
 
   //! Copy constructor
-  Standard_EXPORT Poly_ArrayOfUVNodes(const Poly_ArrayOfUVNodes& theOther);
+  Standard_EXPORT UVNodeArray(const UVNodeArray& theOther);
 
   //! Constructor wrapping pre-allocated C-array of values without copying them.
-  Poly_ArrayOfUVNodes(const gp_Pnt2d& theBegin, Standard_Integer theLength)
+  UVNodeArray(const gp_Pnt2d& theBegin, Standard_Integer theLength)
       : NCollection_AliasedArray(theBegin, theLength)
   {
     //
   }
 
   //! Constructor wrapping pre-allocated C-array of values without copying them.
-  Poly_ArrayOfUVNodes(const gp_Vec2f& theBegin, Standard_Integer theLength)
+  UVNodeArray(const gp_Vec2f& theBegin, Standard_Integer theLength)
       : NCollection_AliasedArray(theBegin, theLength)
   {
     //
   }
 
   //! Destructor.
-  Standard_EXPORT ~Poly_ArrayOfUVNodes();
+  Standard_EXPORT ~UVNodeArray();
 
   //! Returns TRUE if array defines nodes with double precision.
   bool IsDoublePrecision() const { return myStride == (Standard_Integer)sizeof(gp_Pnt2d); }
@@ -67,7 +67,7 @@ public:
     if (myData != NULL)
     {
       throw Standard_ProgramError(
-        "Poly_ArrayOfUVNodes::SetDoublePrecision() should be called before allocation");
+        "UVNodeArray::SetDoublePrecision() should be called before allocation");
     }
     myStride = Standard_Integer(theIsDouble ? sizeof(gp_Pnt2d) : sizeof(gp_Vec2f));
   }
@@ -76,27 +76,27 @@ public:
   //! The arrays should have the same length,
   //! but may have different precision / number of components (data conversion will be applied in
   //! the latter case).
-  Standard_EXPORT Poly_ArrayOfUVNodes& Assign(const Poly_ArrayOfUVNodes& theOther);
+  Standard_EXPORT UVNodeArray& Assign(const UVNodeArray& theOther);
 
   //! Move assignment.
-  Poly_ArrayOfUVNodes& Move(Poly_ArrayOfUVNodes& theOther)
+  UVNodeArray& Move(UVNodeArray& theOther)
   {
     NCollection_AliasedArray::Move(theOther);
     return *this;
   }
 
   //! Assignment operator; @sa Assign()
-  Poly_ArrayOfUVNodes& operator=(const Poly_ArrayOfUVNodes& theOther) { return Assign(theOther); }
+  UVNodeArray& operator=(const UVNodeArray& theOther) { return Assign(theOther); }
 
   //! Move constructor
-  Poly_ArrayOfUVNodes(Poly_ArrayOfUVNodes&& theOther) Standard_Noexcept
+  UVNodeArray(UVNodeArray&& theOther) Standard_Noexcept
       : NCollection_AliasedArray(std::move(theOther))
   {
     //
   }
 
   //! Move assignment operator; @sa Move()
-  Poly_ArrayOfUVNodes& operator=(Poly_ArrayOfUVNodes&& theOther) Standard_Noexcept
+  UVNodeArray& operator=(UVNodeArray&& theOther) Standard_Noexcept
   {
     return Move(theOther);
   }
@@ -116,7 +116,7 @@ public:
 // function : Value
 // purpose  :
 // =======================================================================
-inline gp_Pnt2d Poly_ArrayOfUVNodes::Value(Standard_Integer theIndex) const
+inline gp_Pnt2d UVNodeArray::Value(Standard_Integer theIndex) const
 {
   if (myStride == (Standard_Integer)sizeof(gp_Pnt2d))
   {
@@ -133,7 +133,7 @@ inline gp_Pnt2d Poly_ArrayOfUVNodes::Value(Standard_Integer theIndex) const
 // function : SetValue
 // purpose  :
 // =======================================================================
-inline void Poly_ArrayOfUVNodes::SetValue(Standard_Integer theIndex, const gp_Pnt2d& theValue)
+inline void UVNodeArray::SetValue(Standard_Integer theIndex, const gp_Pnt2d& theValue)
 {
   if (myStride == (Standard_Integer)sizeof(gp_Pnt2d))
   {

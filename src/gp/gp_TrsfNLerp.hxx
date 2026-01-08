@@ -30,14 +30,14 @@
 //! thus this tool might be considered for simple cases or for interpolating between small
 //! intervals.
 template <>
-class NCollection_Lerp<Transform3d>
+class NCollection_Lerp1<Transform3d>
 {
 public:
   //! Empty constructor
-  NCollection_Lerp() {}
+  NCollection_Lerp1() {}
 
   //! Main constructor.
-  NCollection_Lerp(const Transform3d& theStart, const Transform3d& theEnd) { Init(theStart, theEnd); }
+  NCollection_Lerp1(const Transform3d& theStart, const Transform3d& theEnd) { Init(theStart, theEnd); }
 
   //! Initialize values.
   void Init(const Transform3d& theStart, const Transform3d& theEnd)
@@ -79,13 +79,13 @@ public:
   }
 
 private:
-  NCollection_Lerp<gp_XYZ>        myLocLerp;
-  NCollection_Lerp<Standard_Real> myScaleLerp;
+  NCollection_Lerp1<gp_XYZ>        myLocLerp;
+  NCollection_Lerp1<Standard_Real> myScaleLerp;
   gp_QuaternionNLerp              myRotLerp;
   Transform3d                         myTrsfStart;
   Transform3d                         myTrsfEnd;
 };
 
-typedef NCollection_Lerp<Transform3d> gp_TrsfNLerp;
+typedef NCollection_Lerp1<Transform3d> gp_TrsfNLerp;
 
 #endif // _gp_TrsfNLerp_HeaderFile

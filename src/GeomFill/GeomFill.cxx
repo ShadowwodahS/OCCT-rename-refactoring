@@ -103,7 +103,7 @@ Handle(GeomSurface) GeomFill1::Surface(const Handle(GeomCurve3d)& Curve1,
         if (Abs(a1 - proj - a2) <= Precision::Confusion()
             && Abs(b1 - proj - b2) <= Precision::Confusion())
         {
-          gp_Ax3             Ax(L1.Location(), Dir3d(D1.Crossed(P1P2)), D1);
+          Ax3             Ax(L1.Location(), Dir3d(D1.Crossed(P1P2)), D1);
           Handle(GeomPlane) P = new GeomPlane(Ax);
           Standard_Real      V = P1P2.Dot(Ax.YDirection());
           Surf   = new Geom_RectangularTrimmedSurface(P, a1, b1, Min(0., V), Max(0., V));
@@ -115,7 +115,7 @@ Handle(GeomSurface) GeomFill1::Surface(const Handle(GeomCurve3d)& Curve1,
         if (Abs(a1 - proj + b2) <= Precision::Confusion()
             && Abs(b1 - proj + a2) <= Precision::Confusion())
         {
-          gp_Ax3             Ax(L1.Location(), Dir3d(D1.Crossed(P1P2)), D1);
+          Ax3             Ax(L1.Location(), Dir3d(D1.Crossed(P1P2)), D1);
           Handle(GeomPlane) P = new GeomPlane(Ax);
           Standard_Real      V = P1P2.Dot(Ax.YDirection());
           Surf   = new Geom_RectangularTrimmedSurface(P, a1, b1, Min(0., V), Max(0., V));
@@ -133,8 +133,8 @@ Handle(GeomSurface) GeomFill1::Surface(const Handle(GeomCurve3d)& Curve1,
     gp_Circ C1 = (Handle(GeomCircle)::DownCast(TheCurve1))->Circ();
     gp_Circ C2 = (Handle(GeomCircle)::DownCast(TheCurve2))->Circ();
 
-    gp_Ax3 A1 = C1.Position();
-    gp_Ax3 A2 = C2.Position();
+    Ax3 A1 = C1.Position();
+    Ax3 A2 = C2.Position();
 
     // first, A1 & A2 must be coaxials
     if (A1.Axis().IsCoaxial(A2.Axis(), Precision::Angular(), Precision::Confusion()))

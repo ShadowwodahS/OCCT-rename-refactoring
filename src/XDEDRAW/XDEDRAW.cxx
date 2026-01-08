@@ -1823,7 +1823,7 @@ static Standard_Integer testDoc(DrawInterpreter&, Standard_Integer argc, const c
   DataLabel                 aLab    = aShapes->AddShape(shape);
 
   Handle(Geom_Axis2Placement) aPlacement =
-    new Geom_Axis2Placement(gp::Origin(), gp::DZ(), gp::DX());
+    new Geom_Axis2Placement(gp1::Origin(), gp1::DZ(), gp1::DX());
   Handle(AIS_Trihedron) aTriShape = new AIS_Trihedron(aPlacement);
 
   Handle(ShapeAttribute)      NS;

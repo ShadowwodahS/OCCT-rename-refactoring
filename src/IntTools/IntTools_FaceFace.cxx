@@ -82,7 +82,7 @@ static Standard_Boolean ParameterOutOfBoundary(const Standard_Real       thePara
 
 static Standard_Boolean IsCurveValid(const Handle(GeomCurve2d)& thePCurve);
 
-static Standard_Boolean ApproxWithPCurves(const gp_Cylinder& theCyl, const gp_Sphere& theSph);
+static Standard_Boolean ApproxWithPCurves(const Cylinder1& theCyl, const gp_Sphere& theSph);
 
 static void PerformPlanes(const Handle(GeomAdaptor_Surface)& theS1,
                           const Handle(GeomAdaptor_Surface)& theS2,
@@ -263,7 +263,7 @@ static Standard_Boolean isTreatAnalityc(const BRepAdaptor_Surface& theBAS1,
   const GeomAbs_SurfaceType aType2 = theBAS2.GetType();
 
   gp_Pln      aS1;
-  gp_Cylinder aS2;
+  Cylinder1 aS2;
   if (aType1 == GeomAbs_Plane)
   {
     aS1 = theBAS1.Plane();
@@ -2300,7 +2300,7 @@ Standard_Boolean IsCurveValid(const Handle(GeomCurve2d)& thePCurve)
 // static function : ApproxWithPCurves
 // purpose  : for bug 20964 only
 //=======================================================================
-Standard_Boolean ApproxWithPCurves(const gp_Cylinder& theCyl, const gp_Sphere& theSph)
+Standard_Boolean ApproxWithPCurves(const Cylinder1& theCyl, const gp_Sphere& theSph)
 {
   Standard_Boolean bRes = Standard_True;
   Standard_Real    R1 = theCyl.Radius(), R2 = theSph.Radius();
@@ -2312,7 +2312,7 @@ Standard_Boolean ApproxWithPCurves(const gp_Cylinder& theCyl, const gp_Sphere& t
     aEps = 1.E-7;
     aRc2 = R1 * R1;
     //
-    const gp_Ax3& aAx3Sph = theSph.Position();
+    const Ax3& aAx3Sph = theSph.Position();
     const Point3d& aLocSph = aAx3Sph.Location();
     const Dir3d& aDirSph = aAx3Sph.Direction();
     //
@@ -2681,7 +2681,7 @@ void ApproxParameters(const Handle(GeomAdaptor_Surface)& aHS1,
       || (aTS2 == GeomAbs_Cylinder && aTS1 == GeomAbs_Torus))
   {
     Standard_Real aRC, aRT, dR, aPC;
-    gp_Cylinder   aCylinder;
+    Cylinder1   aCylinder;
     gp_Torus      aTorus;
     //
     aPC = Precision::Confusion();
@@ -2724,7 +2724,7 @@ void Tolerances(const Handle(GeomAdaptor_Surface)& aHS1,
       || (aTS2 == GeomAbs_Cylinder && aTS1 == GeomAbs_Torus))
   {
     Standard_Real aRC, aRT, dR, aPC;
-    gp_Cylinder   aCylinder;
+    Cylinder1   aCylinder;
     gp_Torus      aTorus;
     //
     aPC = Precision::Confusion();

@@ -27,8 +27,8 @@
 #include <Standard_Handle.hxx>
 
 class gp_Sphere;
-class gp_Cylinder;
-class gp_Cone;
+class Cylinder1;
+class Cone1;
 class gp_Lin;
 
 //! This class provides the computation of the contours
@@ -46,17 +46,17 @@ public:
 
   Standard_EXPORT void Perform(const gp_Sphere& S, const Point3d& Eye);
 
-  Standard_EXPORT void Perform(const gp_Cylinder& C, const Dir3d& D);
+  Standard_EXPORT void Perform(const Cylinder1& C, const Dir3d& D);
 
-  Standard_EXPORT void Perform(const gp_Cylinder& C, const Dir3d& D, const Standard_Real Ang);
+  Standard_EXPORT void Perform(const Cylinder1& C, const Dir3d& D, const Standard_Real Ang);
 
-  Standard_EXPORT void Perform(const gp_Cylinder& C, const Point3d& Eye);
+  Standard_EXPORT void Perform(const Cylinder1& C, const Point3d& Eye);
 
-  Standard_EXPORT void Perform(const gp_Cone& C, const Dir3d& D);
+  Standard_EXPORT void Perform(const Cone1& C, const Dir3d& D);
 
-  Standard_EXPORT void Perform(const gp_Cone& C, const Dir3d& D, const Standard_Real Ang);
+  Standard_EXPORT void Perform(const Cone1& C, const Dir3d& D, const Standard_Real Ang);
 
-  Standard_EXPORT void Perform(const gp_Cone& C, const Point3d& Eye);
+  Standard_EXPORT void Perform(const Cone1& C, const Point3d& Eye);
 
   Standard_Boolean IsDone() const;
 

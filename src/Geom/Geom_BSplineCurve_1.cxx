@@ -94,7 +94,7 @@ Standard_Boolean BSplineCurve3d::IsG1(const Standard_Real theTf,
     LocalD1(aTpar, aNKnot - 1, aNKnot, aP1, aV1);
     LocalD1(aTpar, aNKnot, aNKnot + 1, aP2, aV2);
 
-    if ((aV1.SquareMagnitude() <= gp::Resolution()) || aV2.SquareMagnitude() <= gp::Resolution())
+    if ((aV1.SquareMagnitude() <= gp1::Resolution()) || aV2.SquareMagnitude() <= gp1::Resolution())
     {
       return Standard_False;
     }
@@ -124,7 +124,7 @@ Standard_Boolean BSplineCurve3d::IsG1(const Standard_Real theTf,
   D1(Knot(FirstUKnotIndex()), aP, aV1);
   D1(Knot(LastUKnotIndex()), aP, aV2);
 
-  if ((aV1.SquareMagnitude() <= gp::Resolution()) || aV2.SquareMagnitude() <= gp::Resolution())
+  if ((aV1.SquareMagnitude() <= gp1::Resolution()) || aV2.SquareMagnitude() <= gp1::Resolution())
   {
     return Standard_False;
   }
@@ -138,7 +138,7 @@ Standard_Boolean BSplineCurve3d::IsG1(const Standard_Real theTf,
 //=================================================================================================
 
 Standard_Boolean BSplineCurve3d::IsClosed() const
-//-- { return (StartPoint().Distance (EndPoint())) <= gp::Resolution (); }
+//-- { return (StartPoint().Distance (EndPoint())) <= gp1::Resolution (); }
 {
   return (StartPoint().SquareDistance(EndPoint())) <= 1e-16;
 }

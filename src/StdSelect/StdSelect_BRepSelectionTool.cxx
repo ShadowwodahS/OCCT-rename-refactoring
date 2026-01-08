@@ -695,7 +695,7 @@ Standard_Boolean StdSelect_BRepSelectionTool::GetSensitiveForFace(
 
       if (aNumCircles > 0 && aNumCircles < 3)
       {
-        const gp_Cone aCone = BRepAdaptor_Surface(theFace).Cone();
+        const Cone1 aCone = BRepAdaptor_Surface(theFace).Cone();
 
         Transform3d       aTrsf;
         Standard_Real aRad1, aRad2, aHeight;
@@ -704,7 +704,7 @@ Standard_Boolean StdSelect_BRepSelectionTool::GetSensitiveForFace(
           aRad1   = 0.0;
           aRad2   = aCircles[0].Radius();
           aHeight = aRad2 * Tan(aCone.SemiAngle());
-          aTrsf.SetTransformation(aCone.Position(), gp::XOY());
+          aTrsf.SetTransformation(aCone.Position(), gp1::XOY());
         }
         else
         {
@@ -715,7 +715,7 @@ Standard_Boolean StdSelect_BRepSelectionTool::GetSensitiveForFace(
           const Point3d aPos = aCircles[0].Location();
           const Dir3d aDirection(aCircles[1].Location().XYZ() - aPos.XYZ());
 
-          aTrsf.SetTransformation(gp_Ax3(aPos, aDirection), gp::XOY());
+          aTrsf.SetTransformation(Ax3(aPos, aDirection), gp1::XOY());
         }
 
         Handle(Select3D_SensitiveCylinder) aSensSCyl =
@@ -732,7 +732,7 @@ Standard_Boolean StdSelect_BRepSelectionTool::GetSensitiveForFace(
 
       if (aNumCircles == 2)
       {
-        const gp_Cylinder aCyl = BRepAdaptor_Surface(theFace).Cylinder();
+        const Cylinder1 aCyl = BRepAdaptor_Surface(theFace).Cylinder();
 
         const Standard_Real aRad = aCyl.Radius();
         const Point3d        aPos = aCircles[0].Location();
@@ -740,7 +740,7 @@ Standard_Boolean StdSelect_BRepSelectionTool::GetSensitiveForFace(
         const Standard_Real aHeight = aPos.Distance(aCircles[1].Location());
 
         Transform3d aTrsf;
-        aTrsf.SetTransformation(gp_Ax3(aPos, aDirection), gp::XOY());
+        aTrsf.SetTransformation(Ax3(aPos, aDirection), gp1::XOY());
 
         Handle(Select3D_SensitiveCylinder) aSensSCyl =
           new Select3D_SensitiveCylinder(theOwner, aRad, aRad, aHeight, aTrsf, true);
@@ -999,7 +999,7 @@ Standard_Boolean StdSelect_BRepSelectionTool::GetSensitiveForCylinder(
         && aGeomPln->Position().Direction().IsEqual(aGeomCone->Position().Direction(),
                                                     Precision::Angular()))
     {
-      const gp_Cone       aCone = BRepAdaptor_Surface(*aFaces[aConIndex]).Cone();
+      const Cone1       aCone = BRepAdaptor_Surface(*aFaces[aConIndex]).Cone();
       const Standard_Real aRad1 = aCone.RefRadius();
       const Standard_Real aHeight =
         (aRad1 != 0.0) ? aRad1 / Abs(Tan(aCone.SemiAngle()))
@@ -1007,7 +1007,7 @@ Standard_Boolean StdSelect_BRepSelectionTool::GetSensitiveForCylinder(
                            aGeomPln->Location().Transformed(aLocSurf[aConIndex == 0 ? 1 : 0]));
       const Standard_Real aRad2 = (aRad1 != 0.0) ? 0.0 : Tan(aCone.SemiAngle()) * aHeight;
       Transform3d             aTrsf;
-      aTrsf.SetTransformation(aCone.Position(), gp::XOY());
+      aTrsf.SetTransformation(aCone.Position(), gp1::XOY());
       Handle(Select3D_SensitiveCylinder) aSensSCyl =
         new Select3D_SensitiveCylinder(theOwner, aRad1, aRad2, aHeight, aTrsf);
       theSelection->Add(aSensSCyl);
@@ -1067,7 +1067,7 @@ Standard_Boolean StdSelect_BRepSelectionTool::GetSensitiveForCylinder(
           && aGeomPlanes[1]->Position().Direction().IsEqual(aGeomCone->Position().Direction(),
                                                             Precision::Angular()))
       {
-        const gp_Cone       aCone = BRepAdaptor_Surface(*aFaces[aConIndex]).Cone();
+        const Cone1       aCone = BRepAdaptor_Surface(*aFaces[aConIndex]).Cone();
         const Standard_Real aRad1 = aCone.RefRadius();
         const Standard_Real aHeight =
           aGeomPlanes[0]
@@ -1075,7 +1075,7 @@ Standard_Boolean StdSelect_BRepSelectionTool::GetSensitiveForCylinder(
             .Transformed(*aGeomPlanesLoc[0])
             .Distance(aGeomPlanes[1]->Location().Transformed(*aGeomPlanesLoc[1]));
         Transform3d aTrsf;
-        aTrsf.SetTransformation(aCone.Position(), gp::XOY());
+        aTrsf.SetTransformation(aCone.Position(), gp1::XOY());
         const Standard_Real aTriangleHeight = (aCone.SemiAngle() > 0.0)
                                                 ? aRad1 / Tan(aCone.SemiAngle())
                                                 : aRad1 / Tan(Abs(aCone.SemiAngle())) - aHeight;
@@ -1097,7 +1097,7 @@ Standard_Boolean StdSelect_BRepSelectionTool::GetSensitiveForCylinder(
           && aGeomPlanes[1]->Position().Direction().IsParallel(aGeomCyl->Position().Direction(),
                                                                Precision::Angular()))
       {
-        const gp_Cylinder   aCyl = BRepAdaptor_Surface(*aFaces[aConIndex]).Cylinder();
+        const Cylinder1   aCyl = BRepAdaptor_Surface(*aFaces[aConIndex]).Cylinder();
         const Standard_Real aRad = aCyl.Radius();
         const Standard_Real aHeight =
           aGeomPlanes[0]
@@ -1106,7 +1106,7 @@ Standard_Boolean StdSelect_BRepSelectionTool::GetSensitiveForCylinder(
             .Distance(aGeomPlanes[1]->Location().Transformed(*aGeomPlanesLoc[1]));
 
         Transform3d aTrsf;
-        gp_Ax3  aPos = aCyl.Position();
+        Ax3  aPos = aCyl.Position();
         if (aGeomPlanes[0]->Position().IsCoplanar(aGeomPlanes[1]->Position(),
                                                   Precision::Angular(),
                                                   Precision::Angular()))
@@ -1114,7 +1114,7 @@ Standard_Boolean StdSelect_BRepSelectionTool::GetSensitiveForCylinder(
           // cylinders created as a prism have an inverse vector of the cylindrical surface
           aPos.SetDirection(aPos.Direction().Reversed());
         }
-        aTrsf.SetTransformation(aPos, gp::XOY());
+        aTrsf.SetTransformation(aPos, gp1::XOY());
 
         Handle(Select3D_SensitiveCylinder) aSensSCyl =
           new Select3D_SensitiveCylinder(theOwner, aRad, aRad, aHeight, aTrsf);

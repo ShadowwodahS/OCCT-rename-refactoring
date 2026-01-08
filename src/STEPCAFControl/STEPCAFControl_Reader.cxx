@@ -1090,8 +1090,8 @@ static void SetAssemblyComponentStyle(
         Handle(Geom_Axis2Placement) anOrig =
           StepToGeom1::MakeAxis2Placement(anAxp1, theLocalFactors);
         Handle(Geom_Axis2Placement) aTarg = StepToGeom1::MakeAxis2Placement(anAxp2, theLocalFactors);
-        gp_Ax3                      anAx3Orig(anOrig->Ax2());
-        gp_Ax3                      anAx3Targ(aTarg->Ax2());
+        Ax3                      anAx3Orig(anOrig->Ax2());
+        Ax3                      anAx3Targ(aTarg->Ax2());
 
         Transform3d aTr1;
         aTr1.SetTransformation(anAx3Targ, anAx3Orig);
@@ -2190,7 +2190,7 @@ Handle(MeshTriangulation) createMesh(
           && aTriangleStrip->Value(j) != aTriangleStrip->Value(j - 1))
       {
         aMesh->SetTriangle(k++,
-                           Poly_Triangle(aTriangleStrip->Value(j - 2),
+                           Triangle2(aTriangleStrip->Value(j - 2),
                                          aTriangleStrip->Value(j),
                                          aTriangleStrip->Value(j - 1)));
       }
@@ -2201,7 +2201,7 @@ Handle(MeshTriangulation) createMesh(
           && aTriangleStrip->Value(j) != aTriangleStrip->Value(j - 1))
       {
         aMesh->SetTriangle(k++,
-                           Poly_Triangle(aTriangleStrip->Value(j - 2),
+                           Triangle2(aTriangleStrip->Value(j - 2),
                                          aTriangleStrip->Value(j - 1),
                                          aTriangleStrip->Value(j)));
       }
@@ -2217,7 +2217,7 @@ Handle(MeshTriangulation) createMesh(
     {
       aMesh->SetTriangle(
         k++,
-        Poly_Triangle(aTriangleFan->Value(1), aTriangleFan->Value(j - 1), aTriangleFan->Value(j)));
+        Triangle2(aTriangleFan->Value(1), aTriangleFan->Value(j - 1), aTriangleFan->Value(j)));
     }
   }
 
@@ -2348,8 +2348,8 @@ Standard_Boolean readPMIPresentation(const Handle(RefObject)&       thePresentEn
           StepToGeom1::MakeAxis2Placement(aRTGS->Location(), theLocalFactors);
         if (!aLocation.IsNull())
         {
-          const gp_Ax3 anAx3Orig = gp::XOY();
-          const gp_Ax3 anAx3Targ(aLocation->Ax2());
+          const Ax3 anAx3Orig = gp1::XOY();
+          const Ax3 anAx3Targ(aLocation->Ax2());
           if (anAx3Targ.Location().SquareDistance(anAx3Orig.Location())
                 >= Precision::SquareConfusion()
               || !anAx3Targ.Direction().IsEqual(anAx3Orig.Direction(), Precision::Angular())

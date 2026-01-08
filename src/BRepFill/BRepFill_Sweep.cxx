@@ -946,7 +946,7 @@ static Standard_Boolean Filling(const TopoShape&           EF,
   const Point3d aP2 = Prof2->Value(aPrm2[bSameCurveDomain ? aMaxIdx : 2 - aMaxIdx]).Transformed(aTf);
   const gp_Vec2d aV1(aP1[aMaxIdx].Z(), aP1[aMaxIdx].X());
   const gp_Vec2d aV2(aP2.Z(), aP2.X());
-  if (aV1.SquareMagnitude() <= gp::Resolution() || aV2.SquareMagnitude() <= gp::Resolution())
+  if (aV1.SquareMagnitude() <= gp1::Resolution() || aV2.SquareMagnitude() <= gp1::Resolution())
   {
     return Standard_False;
   }
@@ -1001,11 +1001,11 @@ static Standard_Boolean Filling(const TopoShape&           EF,
   Handle(Geom2d_Line) L;
   gp_Pnt2d            P2d(0., 0.);
 
-  L  = new (Geom2d_Line)(P2d, gp::DY2d());
+  L  = new (Geom2d_Line)(P2d, gp1::DY2d());
   C1 = new (Geom2d_TrimmedCurve)(L, f1, l1);
 
   P2d.SetCoord(Angle, 0.);
-  L  = new (Geom2d_Line)(P2d, gp::DY2d());
+  L  = new (Geom2d_Line)(P2d, gp1::DY2d());
   C2 = new (Geom2d_TrimmedCurve)(L, f1, l1);
 
   // It is required to control the direction and the range.
@@ -1045,11 +1045,11 @@ static Standard_Boolean Filling(const TopoShape&           EF,
   //  pointu_l = Vl.IsSame(V2) || (P1.Distance(P2) < BT.Tolerance(Vl));
 
   P2d.SetCoord(0., f1);
-  L  = new (Geom2d_Line)(P2d, gp::DX2d());
+  L  = new (Geom2d_Line)(P2d, gp1::DX2d());
   C3 = new (Geom2d_TrimmedCurve)(L, 0, Angle);
 
   P2d.SetCoord(0., l1);
-  L  = new (Geom2d_Line)(P2d, gp::DX2d());
+  L  = new (Geom2d_Line)(P2d, gp1::DX2d());
   C4 = new (Geom2d_TrimmedCurve)(L, 0, Angle);
   /*
     // Determine the constraints and
@@ -3496,7 +3496,7 @@ Standard_Boolean BRepFill_Sweep::PerformCorner(const Standard_Integer           
   Vector3d      aNormal = T2 + T1;
   TopoFace aPlaneF;
 
-  if (aNormal.Magnitude() > gp::Resolution())
+  if (aNormal.Magnitude() > gp1::Resolution())
   {
     gp_Pln           pl(P1, Dir3d(aNormal));
     BRepLib_MakeFace aFMaker(pl);

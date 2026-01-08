@@ -39,7 +39,7 @@ public:
                               const DrawColor&      col,
                               const Standard_Integer Size = 5);
 
-  Standard_EXPORT Draw_Axis2D(const gp_Ax22d&        A,
+  Standard_EXPORT Draw_Axis2D(const Ax22d&        A,
                               const DrawColor&      col,
                               const Standard_Integer Size = 5);
 
@@ -49,7 +49,7 @@ public:
 
 protected:
 private:
-  gp_Ax22d         myAxes;
+  Ax22d         myAxes;
   DrawColor       myColor;
   Standard_Integer mySize;
 };

@@ -126,7 +126,7 @@ Standard_Boolean V3d_RectangularGrid::IsDisplayed() const
 
 void V3d_RectangularGrid::UpdateDisplay()
 {
-  gp_Ax3 ThePlane = myViewer->PrivilegedPlane();
+  Ax3 ThePlane = myViewer->PrivilegedPlane();
 
   Standard_Boolean MakeTransform = Standard_False;
   Standard_Real    xl, yl, zl;

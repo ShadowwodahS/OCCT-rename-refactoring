@@ -194,7 +194,7 @@ class ShapePersistent_Geom2d_Curve : public ShapePersistent_Geom2d
 public:
   typedef instance<Curve, Geom2d_Line, gp_Ax2d> Line;
 
-  typedef subBase_gp<Curve, gp_Ax22d>                  Conic;
+  typedef subBase_gp<Curve, Ax22d>                  Conic;
   typedef instance<Conic, Geom2d_Circle, gp_Circ2d>    Circle;
   typedef instance<Conic, Geom2d_Ellipse, gp_Elips2d>  Ellipse;
   typedef instance<Conic, Geom2d_Hyperbola, gp_Hypr2d> Hyperbola;
@@ -253,7 +253,7 @@ void ShapePersistent_Geom2d_Curve::instance<ShapePersistent_Geom2d::Curve, Geom2
 //=======================================================================
 template <>
 Standard_CString ShapePersistent_Geom2d_Curve::subBase_gp<ShapePersistent_Geom2d::Curve,
-                                                          gp_Ax22d>::PName() const;
+                                                          Ax22d>::PName() const;
 
 //=======================================================================
 // Circle

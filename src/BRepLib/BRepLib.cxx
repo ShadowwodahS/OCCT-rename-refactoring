@@ -136,7 +136,7 @@ void BRepLib::Plane(const Handle(GeomPlane)& P)
 const Handle(GeomPlane)& BRepLib::Plane()
 {
   if (thePlane.IsNull())
-    thePlane = new GeomPlane(gp::XOY());
+    thePlane = new GeomPlane(gp1::XOY());
   return thePlane;
 }
 
@@ -2639,7 +2639,7 @@ void BRepLib::UpdateDeflection(const TopoShape& theShape)
     const Transform3d&        aTrsf         = aLoc.Transformation();
     for (Standard_Integer aTriIt = 1; aTriIt <= aPT->NbTriangles(); ++aTriIt)
     {
-      const Poly_Triangle& aTriangle = aPT->Triangle1(aTriIt);
+      const Triangle2& aTriangle = aPT->Triangle1(aTriIt);
 
       int aNode[3];
       aTriangle.Get(aNode[0], aNode[1], aNode[2]);

@@ -213,7 +213,7 @@ void TopoDSToStep_MakeStepFace::Init(const TopoFace&                    aFace,
         Standard_Real r = TS->MinorRadius();
         if (R < r) // if torus is degenerate or base surface is degenerate, make revolution instead
         {
-          gp_Ax3 Ax3 = TS->Position();
+          Ax3 Ax3 = TS->Position();
           Point3d pos = Ax3.Location();
           Dir3d dir = Ax3.Direction();
           Dir3d X   = Ax3.XDirection();

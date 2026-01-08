@@ -118,7 +118,7 @@ Handle(ShapePersistent_Geom2d::Curve) ShapePersistent_Geom2d_Curve::Translate(
 //=======================================================================
 template <>
 Standard_CString ShapePersistent_Geom2d_Curve::subBase_gp<ShapePersistent_Geom2d::Curve,
-                                                          gp_Ax22d>::PName() const
+                                                          Ax22d>::PName() const
 {
   return "PGeom2d_Conic";
 }

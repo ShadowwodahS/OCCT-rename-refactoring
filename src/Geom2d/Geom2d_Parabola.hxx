@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class gp_Parab2d;
 class gp_Ax2d;
-class gp_Ax22d;
+class Ax22d;
 class gp_Pnt2d;
 class gp_Vec2d;
 class gp_Trsf2d;
@@ -37,7 +37,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Parabola, Geom2d_Conic)
 //! A parabola is defined by its focal length (i.e. the
 //! distance between its focus and its apex) and is
 //! positioned in the plane with a coordinate system
-//! (gp_Ax22d object) where:
+//! (Ax22d object) where:
 //! - the origin is the apex of the parabola, and
 //! - the "X Axis" defines the axis of symmetry; the
 //! parabola is on the positive side of this axis.
@@ -83,7 +83,7 @@ public:
   //! parabola. The "Location" point of "Axis" is the vertex
   //! of the parabola.
   //! Raised if Focal < 0.0
-  Standard_EXPORT Geom2d_Parabola(const gp_Ax22d& Axis, const Standard_Real Focal);
+  Standard_EXPORT Geom2d_Parabola(const Ax22d& Axis, const Standard_Real Focal);
 
   //! D is the directrix of the parabola and F the focus point.
   //! The symmetry axis "XAxis" of the parabola is normal to the
@@ -100,7 +100,7 @@ public:
   //! Converts the gp_Parab2d parabola Prb into this parabola.
   Standard_EXPORT void SetParab2d(const gp_Parab2d& Prb);
 
-  //! Returns the non persistent parabola from gp with the same
+  //! Returns the non persistent parabola from gp1 with the same
   //! geometric properties as <me>.
   Standard_EXPORT gp_Parab2d Parab2d() const;
 

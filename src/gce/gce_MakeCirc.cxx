@@ -30,7 +30,7 @@
 //=======================================================================
 // function : gce_MakeCirc
 // purpose  :
-//   Creation d un cercle 3d de gp passant par trois points.              +
+//   Creation d un cercle 3d de gp1 passant par trois points.              +
 //   Trois cas de figures :                                               +
 //      1/ Les trois points sont confondus.                               +
 //      -----------------------------------                               +
@@ -51,7 +51,7 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& P1, const Point3d& P2, const Point3d& 
   //=========================================================================
   Standard_Real dist1, dist2, dist3, aResolution;
   //
-  aResolution = gp::Resolution();
+  aResolution = gp1::Resolution();
   //
   dist1 = P1.Distance(P2);
   dist2 = P1.Distance(P3);
@@ -272,7 +272,7 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const Point3d& Ptaxis, const S
   }
   else
   {
-    if (Center.Distance(Ptaxis) <= gp::Resolution())
+    if (Center.Distance(Ptaxis) <= gp1::Resolution())
     {
       TheError = gce_NullAxis;
     }

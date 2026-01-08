@@ -28,10 +28,10 @@ class Coords2d;
 class gp_Pnt2d;
 
 //! This class implements the following algorithms used
-//! to create a Dir2d from gp.
+//! to create a Dir2d from gp1.
 //! * Create a Dir2d with 2 points.
 //! * Create a Dir2d with a Vec2d.
-//! * Create a Dir2d with a XY from gp.
+//! * Create a Dir2d with a XY from gp1.
 //! * Create a Dir2d with a 2 Reals (Coordinates).
 class gce_MakeDir2d : public Root6
 {
@@ -44,7 +44,7 @@ public:
 
   //! Creates a direction from a triplet of coordinates.
   //! Status is "NullVector" if Coord.Modulus() <=
-  //! Resolution from gp.
+  //! Resolution from gp1.
   Standard_EXPORT gce_MakeDir2d(const Coords2d& Coord);
 
   //! Creates a direction with its 3 cartesian coordinates.
@@ -52,7 +52,7 @@ public:
   //! <= Resolution
   Standard_EXPORT gce_MakeDir2d(const Standard_Real Xv, const Standard_Real Yv);
 
-  //! Make a Dir2d from gp <TheDir> passing through 2
+  //! Make a Dir2d from gp1 <TheDir> passing through 2
   //! Pnt <P1>,<P2>.
   //! Status is "ConfusedPoints" if <P1> and <P2> are confused.
   //! Warning
@@ -60,7 +60,7 @@ public:
   //! false), the Status function returns:
   //! -   gce_ConfusedPoints if points P1 and P2 are coincident, or
   //! -   gce_NullVector if one of the following is less
-  //! than or equal to gp::Resolution():
+  //! than or equal to gp1::Resolution():
   //! -   the magnitude of vector V,
   //! -   the modulus of Coord,
   //! -   Sqrt(Xv*Xv + Yv*Yv).

@@ -15,7 +15,7 @@
 
 //=================================================================================================
 
-Poly_ArrayOfNodes::Poly_ArrayOfNodes(const Poly_ArrayOfNodes& theOther)
+NodeArray::NodeArray(const NodeArray& theOther)
     : NCollection_AliasedArray(theOther)
 {
   //
@@ -23,14 +23,14 @@ Poly_ArrayOfNodes::Poly_ArrayOfNodes(const Poly_ArrayOfNodes& theOther)
 
 //=================================================================================================
 
-Poly_ArrayOfNodes::~Poly_ArrayOfNodes()
+NodeArray::~NodeArray()
 {
   //
 }
 
 //=================================================================================================
 
-Poly_ArrayOfNodes& Poly_ArrayOfNodes::Assign(const Poly_ArrayOfNodes& theOther)
+NodeArray& NodeArray::Assign(const NodeArray& theOther)
 {
   if (&theOther == this)
   {
@@ -47,7 +47,7 @@ Poly_ArrayOfNodes& Poly_ArrayOfNodes::Assign(const Poly_ArrayOfNodes& theOther)
   // slow copy
   if (mySize != theOther.mySize)
   {
-    throw Standard_DimensionMismatch("Poly_ArrayOfNodes::Assign(), arrays have different sizes");
+    throw Standard_DimensionMismatch("NodeArray::Assign(), arrays have different sizes");
   }
   for (int anIter = 0; anIter < mySize; ++anIter)
   {

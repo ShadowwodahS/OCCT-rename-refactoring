@@ -158,7 +158,7 @@ public:
   //! @param[in] theC conical surface
   //! @param[in] theU U parameter of cone's apex
   //! @param[in] theV V parameter of cone's apex
-  Standard_EXPORT static void GetConeApexParam(const gp_Cone& theC,
+  Standard_EXPORT static void GetConeApexParam(const Cone1& theC,
                                                Standard_Real& theU,
                                                Standard_Real& theV);
 

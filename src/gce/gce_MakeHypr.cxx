@@ -22,7 +22,7 @@
 #include <StdFail_NotDone.hxx>
 
 //=========================================================================
-//   Creation d une Hyperbole 3d de gp de centre <Center> et de sommets   +
+//   Creation d une Hyperbole 3d de gp1 de centre <Center> et de sommets   +
 //   <S1> et <S2>.                                                        +
 //   <CenterS1> donne le grand axe .                                      +
 //   <S1> donne le grand rayon et <S2> le petit rayon.                    +

@@ -24,14 +24,14 @@
 //=================================================================================================
 
 BRepPrimAPI_MakeSphere::BRepPrimAPI_MakeSphere(const Standard_Real R)
-    : mySphere(gp::XOY(), R)
+    : mySphere(gp1::XOY(), R)
 {
 }
 
 //=================================================================================================
 
 BRepPrimAPI_MakeSphere::BRepPrimAPI_MakeSphere(const Standard_Real R, const Standard_Real angle)
-    : mySphere(Frame3d(gp::Origin(), (angle < 0. ? -1 : 1) * gp::DZ(), gp::DX()), R)
+    : mySphere(Frame3d(gp1::Origin(), (angle < 0. ? -1 : 1) * gp1::DZ(), gp1::DX()), R)
 {
   mySphere.Angle(Abs(angle));
 }

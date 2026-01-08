@@ -415,19 +415,19 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsTriangle(
                                 thePnt3.XYZ() - thePnt2.XYZ(),
                                 thePnt1.XYZ() - thePnt3.XYZ()};
     aTriangleNormal          = aTrEdges[2].Crossed(aTrEdges[0]);
-    if (aTriangleNormal.SquareMagnitude() < gp::Resolution())
+    if (aTriangleNormal.SquareMagnitude() < gp1::Resolution())
     {
       // consider degenerated triangle as point or segment
-      return aTrEdges[0].SquareModulus() > gp::Resolution()
+      return aTrEdges[0].SquareModulus() > gp1::Resolution()
                ? OverlapsSegment(thePnt1, thePnt2, theClipRange, thePickResult)
-               : (aTrEdges[1].SquareModulus() > gp::Resolution()
+               : (aTrEdges[1].SquareModulus() > gp1::Resolution()
                     ? OverlapsSegment(thePnt2, thePnt3, theClipRange, thePickResult)
                     : OverlapsPoint(thePnt1, theClipRange, thePickResult));
     }
 
     const Point3d        aPnts[3] = {thePnt1, thePnt2, thePnt3};
     const Standard_Real anAlpha  = aTriangleNormal.XYZ().Dot(myAxis.Direction().XYZ());
-    if (Abs(anAlpha) < gp::Resolution())
+    if (Abs(anAlpha) < gp1::Resolution())
     {
       // handle the case when triangle normal and selecting frustum direction are orthogonal
       SelectBasics_PickResult aPickResult;
@@ -481,7 +481,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsTriangle(
     }
     Standard_Integer aNearestEdgeIdx2 = (aNearestEdgeIdx1 + 1) % 3;
     const Vector3d     aVec12(aPnts[aNearestEdgeIdx1], aPnts[aNearestEdgeIdx2]);
-    if (aVec12.SquareMagnitude() > gp::Resolution()
+    if (aVec12.SquareMagnitude() > gp1::Resolution()
         && myAxis.Direction().IsParallel(aVec12, Precision::Angular()))
     {
       aNearestEdgeIdx2 = aNearestEdgeIdx1 == 0 ? 2 : aNearestEdgeIdx1 - 1;
@@ -603,11 +603,11 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsCylinder(
   thePickResult.SetPickedPoint(aPntOnCylinder.Transformed(theTrsf));
   if (Abs(aPntOnCylinder.Z()) < Precision::Confusion())
   {
-    thePickResult.SetSurfaceNormal(-gp::DZ().Transformed(theTrsf));
+    thePickResult.SetSurfaceNormal(-gp1::DZ().Transformed(theTrsf));
   }
   else if (Abs(aPntOnCylinder.Z() - theHeight) < Precision::Confusion())
   {
-    thePickResult.SetSurfaceNormal(gp::DZ().Transformed(theTrsf));
+    thePickResult.SetSurfaceNormal(gp1::DZ().Transformed(theTrsf));
   }
   else
   {
@@ -683,7 +683,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsCircle(
   thePickResult.SetPickedPoint(aPntOnCylinder.Transformed(theTrsf));
   if (Abs(aPntOnCylinder.Z()) < Precision::Confusion())
   {
-    thePickResult.SetSurfaceNormal(-gp::DZ().Transformed(theTrsf));
+    thePickResult.SetSurfaceNormal(-gp1::DZ().Transformed(theTrsf));
   }
   else
   {

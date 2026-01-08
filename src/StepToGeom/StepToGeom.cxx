@@ -1271,7 +1271,7 @@ Handle(Geom_ConicalSurface) StepToGeom1::MakeConicalSurface(
   {
     const Standard_Real R   = SS->Radius() * theLocalFactors.LengthFactor();
     const Standard_Real Ang = SS->SemiAngle() * theLocalFactors.PlaneAngleFactor();
-    // #2(K3-3) rln 12/02/98 ProSTEP ct_turbine-A.stp entity #518, #3571 (gp::Resolution() is too
+    // #2(K3-3) rln 12/02/98 ProSTEP ct_turbine-A.stp entity #518, #3571 (gp1::Resolution() is too
     // little)
     return new Geom_ConicalSurface(A->Ax2(), Max(Ang, Precision::Angular()), R);
   }
@@ -1428,7 +1428,7 @@ Handle(Geom_Direction) StepToGeom1::MakeDirection(const Handle(StepGeom_Directio
       return 0;
     }
     // sln 22.10.2001. CTS23496: Direction is not created if it has null magnitude
-    if (gp_XYZ(X, Y, Z).SquareModulus() > gp::Resolution() * gp::Resolution())
+    if (gp_XYZ(X, Y, Z).SquareModulus() > gp1::Resolution() * gp1::Resolution())
     {
       return new Geom_Direction(X, Y, Z);
     }
@@ -1447,7 +1447,7 @@ Handle(Geom2d_Direction) StepToGeom1::MakeDirection2d(const Handle(StepGeom_Dire
     const Standard_Real X = SD->DirectionRatiosValue(1);
     const Standard_Real Y = SD->DirectionRatiosValue(2);
     // sln 23.10.2001. CTS23496: Direction is not created if it has null magnitude
-    if (Coords2d(X, Y).SquareModulus() > gp::Resolution() * gp::Resolution())
+    if (Coords2d(X, Y).SquareModulus() > gp1::Resolution() * gp1::Resolution())
     {
       return new Geom2d_Direction(X, Y);
     }
@@ -1537,7 +1537,7 @@ Handle(Geom2d_Ellipse) StepToGeom1::MakeEllipse2d(const Handle(StepGeom_Ellipse)
                         theLocalFactors);
     if (!A1.IsNull())
     {
-      gp_Ax22d            A(A1->Ax2d());
+      Ax22d            A(A1->Ax2d());
       const Standard_Real majorR = SC->SemiAxis1();
       const Standard_Real minorR = SC->SemiAxis2();
       if (majorR - minorR >= 0.)
@@ -1593,7 +1593,7 @@ Handle(Geom2d_Hyperbola) StepToGeom1::MakeHyperbola2d(const Handle(StepGeom_Hype
                         theLocalFactors);
     if (!A1.IsNull())
     {
-      const gp_Ax22d A(A1->Ax2d());
+      const Ax22d A(A1->Ax2d());
       return new Geom2d_Hyperbola(A, SC->SemiAxis(), SC->SemiImagAxis());
     }
   }
@@ -1680,7 +1680,7 @@ Handle(Geom2d_Parabola) StepToGeom1::MakeParabola2d(const Handle(StepGeom_Parabo
                         theLocalFactors);
     if (!A1.IsNull())
     {
-      const gp_Ax22d A(A1->Ax2d());
+      const Ax22d A(A1->Ax2d());
       return new Geom2d_Parabola(A, SC->FocalDist());
     }
   }
@@ -2129,7 +2129,7 @@ Standard_Boolean StepToGeom1::MakeTransformation3d(
     if (isDefaultDirectionUsed)
       D3 = D1.Crossed(D2);
 
-    const gp_Ax3 result(Pgp, D3, D1);
+    const Ax3 result(Pgp, D3, D1);
     CT.SetTransformation(result);
     CT = CT.Inverted(); //: n8 abv 16 Feb 99: tr8_as2_db.stp: reverse for accordance with LV tool
     return Standard_True;

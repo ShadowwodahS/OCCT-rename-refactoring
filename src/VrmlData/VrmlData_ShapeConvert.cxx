@@ -448,7 +448,7 @@ Handle(VrmlData_Geometry) ShapeConverter::triToIndexedFaceSet(
             eqPlan += vv / mod;
           }
 
-          if (eqPlan.SquareModulus() > gp::Resolution())
+          if (eqPlan.SquareModulus() > gp1::Resolution())
             aNormal = Dir3d(eqPlan);
         }
         if (isReverse)

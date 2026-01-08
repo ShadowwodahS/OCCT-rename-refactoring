@@ -156,7 +156,7 @@ Handle(GeomSurface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Real
     Vector3d nnew = unew.Crossed(vnew);
     if (nold.Dot(nnew) < 0.0)
     {
-      gp_Ax3 ax3 = aPln.Position();
+      Ax3 ax3 = aPln.Position();
       ax3.ZReverse();
       ax3.XReverse();
       aPln    = gp_Pln(ax3);
@@ -215,7 +215,7 @@ Handle(GeomSurface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Real
     Vector3d aVec(p3(1), p3(2));
     //      Dir3d xDir(xVec);  ne sert pas. Null si R3 = 0
     Dir3d aDir(aVec);
-    gp_Ax3 aAx3(p3(1), aDir, xVec);
+    Ax3 aAx3(p3(1), aDir, xVec);
     //  CKY  3-FEV-1997 : verification du sens de description
     // Dir3d AXY = aAx3.YDirection(); // AXY not used (skl)
     if (aAx3.YDirection().Dot(origD1U) < 0)
@@ -230,8 +230,8 @@ Handle(GeomSurface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Real
     {
       if ((Abs(R(1)) < tol) && (Abs(R(2)) < tol) && (Abs(R(3)) > tol))
       {
-        // deja fait	  gp_Ax3 aAx3(p3(1), aDir, xVec);
-        // gp_Ax3 aAx3(p3(3), aDir);
+        // deja fait	  Ax3 aAx3(p3(1), aDir, xVec);
+        // Ax3 aAx3(p3(3), aDir);
         Handle(Geom_SphericalSurface) anObject = new Geom_SphericalSurface(aAx3, R(3));
         if (!uClosed)
           anObject->UReverse();
@@ -241,8 +241,8 @@ Handle(GeomSurface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Real
     else if (nVP == 2)
     {
 
-      // deja fait	gp_Ax3 aAx3(p3(1), aDir, xVec);
-      // gp_Ax3 aAx3(p3(1), aDir);
+      // deja fait	Ax3 aAx3(p3(1), aDir, xVec);
+      // Ax3 aAx3(p3(1), aDir);
 
       if (Abs(R(2) - R(1)) < tol)
       {
@@ -267,7 +267,7 @@ Handle(GeomSurface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Real
           aDir.Reverse();
           Vector3d                      anotherXVec(p3(2), p1(2));
           Dir3d                      anotherXDir(anotherXVec);
-          gp_Ax3                      anotherAx3(p3(2), aDir, anotherXDir);
+          Ax3                      anotherAx3(p3(2), aDir, anotherXDir);
           Handle(Geom_ConicalSurface) anObject = new Geom_ConicalSurface(anotherAx3, angle, R(2));
           // if (!uClosed) anObject->UReverse();
           anObject->UReverse();
@@ -319,12 +319,12 @@ Handle(GeomSurface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Real
         Standard_Real RR1 = R(1), RR2 = R(2), RR3;
         aVec ^= aVec2;
 
-        if (aVec.Magnitude() <= gp::Resolution())
+        if (aVec.Magnitude() <= gp1::Resolution())
           aVec.SetCoord(0., 0., 1.);
 
         Dir3d aDir(aVec);
 
-        gp_Ax3 aAx3(p10, aDir);
+        Ax3 aAx3(p10, aDir);
         RR1 = p10.Distance(p3(1));
         //          modif empirique (pourtant NON DEMONTREE) : inverser roles RR1,RR2
         //          CKY, 24-JAN-1997
@@ -384,12 +384,12 @@ Handle(GeomSurface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Real
       {
 
         case GeomAbs_Cylinder: {
-          gp_Cylinder Cylinder = SurfAdapt.Cylinder();
+          Cylinder1 Cylinder = SurfAdapt.Cylinder();
           ElSLib1::Parameters(Cylinder, P3d, S, T);
           break;
         }
         case GeomAbs_Cone: {
-          gp_Cone Cone = SurfAdapt.Cone();
+          Cone1 Cone = SurfAdapt.Cone();
           ElSLib1::Parameters(Cone, P3d, S, T);
           break;
         }

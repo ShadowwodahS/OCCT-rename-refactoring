@@ -231,7 +231,7 @@ const Point3d& IntTools_SurfaceRangeLocalizeData::GetPointInFrame(
   Standard_Integer aFrmVInd = theVIndex + myVIndMin - 1;
 
   if (myGridPoints.IsNull() || aFrmUInd > myUIndMax || aFrmVInd > myVIndMax)
-    return gp::Origin();
+    return gp1::Origin();
 
   return myGridPoints->Value(aFrmUInd, aFrmVInd);
 }

@@ -76,12 +76,12 @@ Quadric2::Quadric2(const gp_Pln& P)
 //----------------------------------------------------------------------
 //-- Cylinder -----> Quadric
 //----------------------------------------------------------------------
-void Quadric2::SetQuadric(const gp_Cylinder& Cyl)
+void Quadric2::SetQuadric(const Cylinder1& Cyl)
 {
   Cyl.Coefficients(CXX, CYY, CZZ, CXY, CXZ, CYZ, CX, CY, CZ, CCte);
 }
 
-Quadric2::Quadric2(const gp_Cylinder& Cyl)
+Quadric2::Quadric2(const Cylinder1& Cyl)
 {
   Cyl.Coefficients(CXX, CYY, CZZ, CXY, CXZ, CYZ, CX, CY, CZ, CCte);
 }
@@ -89,12 +89,12 @@ Quadric2::Quadric2(const gp_Cylinder& Cyl)
 //----------------------------------------------------------------------
 //-- Cone -----> Quadric
 //----------------------------------------------------------------------
-Quadric2::Quadric2(const gp_Cone& Cone)
+Quadric2::Quadric2(const Cone1& Cone)
 {
   SetQuadric(Cone);
 }
 
-void Quadric2::SetQuadric(const gp_Cone& Cone)
+void Quadric2::SetQuadric(const Cone1& Cone)
 {
   Cone.Coefficients(CXX, CYY, CZZ, CXY, CXZ, CYZ, CX, CY, CZ, CCte);
   const Standard_Real aVParam = -Cone.RefRadius() / Sin(Cone.SemiAngle());
@@ -155,7 +155,7 @@ void Quadric2::NewCoefficients(Standard_Real& _CXX,
                                      Standard_Real& _CY,
                                      Standard_Real& _CZ,
                                      Standard_Real& _CCte,
-                                     const gp_Ax3&  Axis) const
+                                     const Ax3&  Axis) const
 {
   Standard_Real t11, t12, t13, t14; // x = t11 X + t12 Y + t13 Z + t14
   Standard_Real t21, t22, t23, t24; // y = t21 X + t22 Y + t23 Z + t24

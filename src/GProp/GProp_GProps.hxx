@@ -160,7 +160,7 @@ public:
   //! only its global properties.
   //! Exceptions
   //! Standard_DomainError if Density is less than or
-  //! equal to gp::Resolution().
+  //! equal to gp1::Resolution().
   Standard_EXPORT void Add(const GeometricProperties& Item, const Standard_Real Density = 1.0);
 
   //! Returns the mass of the current system.

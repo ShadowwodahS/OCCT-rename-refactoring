@@ -41,7 +41,7 @@ typedef Geom_CylindricalSurface CylindricalSurface;
 
 typedef Axis3d  Ax1;
 typedef Frame3d  Ax2;
-typedef gp_Ax3  Ax3;
+typedef Ax3  Ax3;
 typedef gp_Circ Circ;
 typedef Dir3d  Dir;
 typedef gp_Lin  Lin;
@@ -62,7 +62,7 @@ Handle(Geom_Geometry) Geom_CylindricalSurface::Copy() const
 
 //=================================================================================================
 
-Geom_CylindricalSurface::Geom_CylindricalSurface(const gp_Cylinder& C)
+Geom_CylindricalSurface::Geom_CylindricalSurface(const Cylinder1& C)
     : radius(C.Radius())
 {
 
@@ -131,7 +131,7 @@ Standard_Boolean Geom_CylindricalSurface::IsVPeriodic() const
 
 //=================================================================================================
 
-void Geom_CylindricalSurface::SetCylinder(const gp_Cylinder& C)
+void Geom_CylindricalSurface::SetCylinder(const Cylinder1& C)
 {
 
   radius = C.Radius();
@@ -204,10 +204,10 @@ void Geom_CylindricalSurface::Coefficients(Standard_Real& A1,
 
 //=================================================================================================
 
-gp_Cylinder Geom_CylindricalSurface::Cylinder() const
+Cylinder1 Geom_CylindricalSurface::Cylinder() const
 {
 
-  return gp_Cylinder(pos, radius);
+  return Cylinder1(pos, radius);
 }
 
 //=================================================================================================
@@ -319,7 +319,7 @@ void Geom_CylindricalSurface::TransformParameters(Standard_Real&,
 gp_GTrsf2d Geom_CylindricalSurface::ParametricTransformation(const Transform3d& T) const
 {
   gp_GTrsf2d T2;
-  gp_Ax2d    Axis(gp::Origin2d(), gp::DX2d());
+  gp_Ax2d    Axis(gp1::Origin2d(), gp1::DX2d());
   T2.SetAffinity(Axis, Abs(T.ScaleFactor()));
   return T2;
 }

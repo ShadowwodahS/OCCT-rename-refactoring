@@ -80,7 +80,7 @@ public:
   //! Adds a new point P with its density in the system of points
   //! Exceptions
   //! Standard_DomainError if the mass value Density
-  //! is less than gp::Resolution().
+  //! is less than gp1::Resolution().
   Standard_EXPORT void AddPoint(const Point3d& P, const Standard_Real Density);
 
   //! computes the global properties of the system of points Pnts.
@@ -95,7 +95,7 @@ public:
   //! A density is associated with each point.
   //!
   //! raises if a density is lower or equal to Resolution from package
-  //! gp.
+  //! gp1.
   //!
   //! raises if the length of Pnts and the length of Density
   //! is not the same.
@@ -106,7 +106,7 @@ public:
   //! A density is associated with each point.
   //!
   //! Raised if a density is lower or equal to Resolution from package
-  //! gp.
+  //! gp1.
   //!
   //! Raised if the length of Pnts and the length of Density
   //! is not the same.
@@ -125,7 +125,7 @@ public:
   //! with each point.
   //!
   //! raises if a density is lower or equal to Resolution from package
-  //! gp.
+  //! gp1.
   //!
   //! Raised if the length of Pnts and the length of Density
   //! is not the same.
@@ -138,7 +138,7 @@ public:
   //! with each point.
   //!
   //! Raised if a density is lower or equal to Resolution from package
-  //! gp.
+  //! gp1.
   //!
   //! Raised if the length of Pnts and the length of Density
   //! is not the same.

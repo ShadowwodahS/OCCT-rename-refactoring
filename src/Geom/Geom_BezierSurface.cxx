@@ -409,7 +409,7 @@ Geom_BezierSurface::Geom_BezierSurface(const TColgp_Array2OfPnt&   SurfacePoles,
     Standard_Integer Row = PoleWeights.LowerRow();
     while (Row <= PoleWeights.UpperRow())
     {
-      if (PoleWeights(Row, Col) <= gp::Resolution())
+      if (PoleWeights(Row, Col) <= gp1::Resolution())
       {
         throw Standard_ConstructionError();
       }
@@ -696,7 +696,7 @@ void Geom_BezierSurface::InsertPoleColAfter(const Standard_Integer      VIndex,
   Standard_Integer Index = CPoleWeights.Lower();
   while (Index <= CPoleWeights.Upper())
   {
-    if (CPoleWeights(Index) <= gp::Resolution())
+    if (CPoleWeights(Index) <= gp1::Resolution())
     {
       throw Standard_ConstructionError();
     }
@@ -797,7 +797,7 @@ void Geom_BezierSurface::InsertPoleRowAfter(const Standard_Integer      UIndex,
   Standard_Integer Index = CPoleWeights.Lower();
   while (Index <= CPoleWeights.Upper())
   {
-    if (CPoleWeights(Index) <= gp::Resolution())
+    if (CPoleWeights(Index) <= gp1::Resolution())
     {
       throw Standard_ConstructionError();
     }
@@ -1043,7 +1043,7 @@ void Geom_BezierSurface::SetPole(const Standard_Integer UIndex,
                                  const Standard_Real    Weight)
 {
 
-  if (Weight <= gp::Resolution())
+  if (Weight <= gp1::Resolution())
     throw Standard_ConstructionError("Geom_BezierSurface::SetPole");
   if (UIndex < 1 || UIndex > poles->ColLength() || VIndex < 1 || VIndex > poles->RowLength())
     throw Standard_OutOfRange("Geom_BezierSurface::SetPole");
@@ -1153,7 +1153,7 @@ void Geom_BezierSurface::SetWeight(const Standard_Integer UIndex,
   if (!wasrat)
   {
     // a weight of 1. does not turn to rational
-    if (Abs(Weight - 1.) <= gp::Resolution())
+    if (Abs(Weight - 1.) <= gp1::Resolution())
       return;
 
     // set weights of 1.
@@ -1161,13 +1161,13 @@ void Geom_BezierSurface::SetWeight(const Standard_Integer UIndex,
   }
 
   TColStd_Array2OfReal& Weights = weights->ChangeArray2();
-  if (Weight <= gp::Resolution())
+  if (Weight <= gp1::Resolution())
     throw Standard_ConstructionError("Geom_BezierSurface::SetWeight");
 
   if (UIndex < 1 || UIndex > Weights.ColLength() || VIndex < 1 || VIndex > Weights.RowLength())
     throw Standard_OutOfRange();
 
-  if (Abs(Weight - Weights(UIndex, VIndex)) > gp::Resolution())
+  if (Abs(Weight - Weights(UIndex, VIndex)) > gp1::Resolution())
   {
     Weights(UIndex, VIndex) = Weight;
     Rational(Weights, urational, vrational);
@@ -1204,7 +1204,7 @@ void Geom_BezierSurface::SetWeightCol(const Standard_Integer      VIndex,
   I = CPoleWeights.Lower();
   while (I <= CPoleWeights.Upper())
   {
-    if (CPoleWeights(I) <= gp::Resolution())
+    if (CPoleWeights(I) <= gp1::Resolution())
     {
       throw Standard_ConstructionError();
     }
@@ -1245,7 +1245,7 @@ void Geom_BezierSurface::SetWeightRow(const Standard_Integer      UIndex,
   I = CPoleWeights.Lower();
   while (I <= CPoleWeights.Upper())
   {
-    if (CPoleWeights(I) <= gp::Resolution())
+    if (CPoleWeights(I) <= gp1::Resolution())
     {
       throw Standard_ConstructionError();
     }

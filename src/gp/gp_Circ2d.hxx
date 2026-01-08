@@ -24,7 +24,7 @@
 
 //! Describes a circle in the plane (2D space).
 //! A circle is defined by its radius and positioned in the
-//! plane with a coordinate system (a gp_Ax22d object) as follows:
+//! plane with a coordinate system (a Ax22d object) as follows:
 //! -   the origin of the coordinate system is the center of the circle, and
 //! -   the orientation (direct or indirect) of the coordinate
 //! system gives an implicit orientation to the circle (and
@@ -45,7 +45,7 @@
 //! complex1 circle constructions
 //! Geom2d_Circle which provides additional functions for
 //! constructing circles and works, with the parametric
-//! equations of circles in particular  gp_Ax22d
+//! equations of circles in particular  Ax22d
 class gp_Circ2d
 {
 public:
@@ -68,7 +68,7 @@ public:
   {
     Standard_ConstructionError_Raise_if(theRadius < 0.0,
                                         "gp_Circ2d() - radius should be positive number");
-    pos = gp_Ax22d(theXAxis, theIsSense);
+    pos = Ax22d(theXAxis, theIsSense);
   }
 
   //! theAxis defines the Xaxis and Yaxis of the circle which defines
@@ -77,7 +77,7 @@ public:
   //! Warnings :
   //! It is not forbidden to create a circle with theRadius = 0.0 Raises ConstructionError if
   //! theRadius < 0.0. Raised if theRadius < 0.0.
-  gp_Circ2d(const gp_Ax22d& theAxis, const Standard_Real theRadius)
+  gp_Circ2d(const Ax22d& theAxis, const Standard_Real theRadius)
       : pos(theAxis),
         radius(theRadius)
   {
@@ -92,7 +92,7 @@ public:
   void SetXAxis(const gp_Ax2d& theA) { pos.SetXAxis(theA); }
 
   //! Changes the X axis of the circle.
-  void SetAxis(const gp_Ax22d& theA) { pos.SetAxis(theA); }
+  void SetAxis(const Ax22d& theA) { pos.SetAxis(theA); }
 
   //! Changes the Y axis of the circle.
   void SetYAxis(const gp_Ax2d& theA) { pos.SetYAxis(theA); }
@@ -149,10 +149,10 @@ public:
   Standard_Real Radius() const { return radius; }
 
   //! returns the position of the circle.
-  const gp_Ax22d& Axis() const { return pos; }
+  const Ax22d& Axis() const { return pos; }
 
   //! returns the position of the circle. Idem Axis(me).
-  const gp_Ax22d& Position() const { return pos; }
+  const Ax22d& Position() const { return pos; }
 
   //! returns the X axis of the circle.
   gp_Ax2d XAxis() const { return gp_Ax2d(pos.XAxis()); }
@@ -169,7 +169,7 @@ public:
   {
     gp_Dir2d aTemp = pos.YDirection();
     aTemp.Reverse();
-    pos.SetAxis(gp_Ax22d(pos.Location(), pos.XDirection(), aTemp));
+    pos.SetAxis(Ax22d(pos.Location(), pos.XDirection(), aTemp));
   }
 
   //! Reverses the orientation of the local coordinate system
@@ -241,7 +241,7 @@ public:
   }
 
 private:
-  gp_Ax22d      pos;
+  Ax22d      pos;
   Standard_Real radius;
 };
 
@@ -291,7 +291,7 @@ inline gp_Circ2d gp_Circ2d::Reversed() const
   gp_Circ2d aCirc = *this;
   gp_Dir2d  aTemp = pos.YDirection();
   aTemp.Reverse();
-  aCirc.pos.SetAxis(gp_Ax22d(pos.Location(), pos.XDirection(), aTemp));
+  aCirc.pos.SetAxis(Ax22d(pos.Location(), pos.XDirection(), aTemp));
   return aCirc;
 }
 

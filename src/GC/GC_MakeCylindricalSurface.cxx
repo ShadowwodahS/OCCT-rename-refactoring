@@ -25,7 +25,7 @@
 #include <gp_Pnt.hxx>
 #include <StdFail_NotDone.hxx>
 
-GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const gp_Cylinder& C)
+GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const Cylinder1& C)
 {
   TheError    = gce_Done;
   TheCylinder = new Geom_CylindricalSurface(C);
@@ -64,7 +64,7 @@ GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const Axis3d& A1, const Sta
 
 GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const gp_Circ& Circ)
 {
-  gp_Cylinder Cyl = gce_MakeCylinder(Circ);
+  Cylinder1 Cyl = gce_MakeCylinder(Circ);
   TheCylinder     = new Geom_CylindricalSurface(Cyl);
   TheError        = gce_Done;
 }
@@ -87,7 +87,7 @@ GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const Point3d& P1,
   }
 }
 
-GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const gp_Cylinder&  Cyl,
+GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const Cylinder1&  Cyl,
                                                      const Standard_Real Dist)
 {
   TheError        = gce_Done;
@@ -96,10 +96,10 @@ GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const gp_Cylinder&  Cyl,
   TheCylinder->SetRadius(R);
 }
 
-GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const gp_Cylinder& Cyl, const Point3d& Point)
+GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const Cylinder1& Cyl, const Point3d& Point)
 {
   TheError = gce_Done;
-  gp_Cylinder   C(Cyl);
+  Cylinder1   C(Cyl);
   gp_Lin        L(C.Axis());
   Standard_Real R = L.Distance(Point);
   C.SetRadius(R);

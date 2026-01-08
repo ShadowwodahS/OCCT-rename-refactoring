@@ -24,7 +24,7 @@
 //! Describes an ellipse in the plane (2D space).
 //! An ellipse is defined by its major and minor radii and
 //! positioned in the plane with a coordinate system (a
-//! gp_Ax22d object) as follows:
+//! Ax22d object) as follows:
 //! -   the origin of the coordinate system is the center of the ellipse,
 //! -   its "X Direction" defines the major axis of the ellipse, and
 //! -   its "Y Direction" defines the minor axis of the ellipse.
@@ -68,7 +68,7 @@ public:
       : majorRadius(theMajorRadius),
         minorRadius(theMinorRadius)
   {
-    pos = gp_Ax22d(theMajorAxis, theIsSense);
+    pos = Ax22d(theMajorAxis, theIsSense);
     Standard_ConstructionError_Raise_if(theMinorRadius < 0.0 || theMajorRadius < theMinorRadius,
                                         "gp_Elips2d() - invalid construction parameters");
   }
@@ -88,7 +88,7 @@ public:
   //! It is possible to create an ellipse with
   //! theMajorRadius = theMinorRadius.
   //! Raises ConstructionError if theMajorRadius < theMinorRadius or theMinorRadius < 0.0
-  gp_Elips2d(const gp_Ax22d&     theA,
+  gp_Elips2d(const Ax22d&     theA,
              const Standard_Real theMajorRadius,
              const Standard_Real theMinorRadius)
       : pos(theA),
@@ -125,7 +125,7 @@ public:
 
   //! Modifies this ellipse, by redefining its local coordinate system so that
   //! it becomes theA.
-  void SetAxis(const gp_Ax22d& theA) { pos.SetAxis(theA); }
+  void SetAxis(const Ax22d& theA) { pos.SetAxis(theA); }
 
   //! Modifies this ellipse, by redefining its local coordinate system so that
   //! its origin and its "X Direction"  become those
@@ -208,7 +208,7 @@ public:
   Standard_Real Parameter() const;
 
   //! Returns the major axis of the ellipse.
-  const gp_Ax22d& Axis() const { return pos; }
+  const Ax22d& Axis() const { return pos; }
 
   //! Returns the major axis of the ellipse.
   gp_Ax2d XAxis() const { return pos.XAxis(); }
@@ -221,7 +221,7 @@ public:
   {
     gp_Dir2d aTemp = pos.YDirection();
     aTemp.Reverse();
-    pos.SetAxis(gp_Ax22d(pos.Location(), pos.XDirection(), aTemp));
+    pos.SetAxis(Ax22d(pos.Location(), pos.XDirection(), aTemp));
   }
 
   Standard_NODISCARD gp_Elips2d Reversed() const;
@@ -283,7 +283,7 @@ public:
   }
 
 private:
-  gp_Ax22d      pos;
+  Ax22d      pos;
   Standard_Real majorRadius;
   Standard_Real minorRadius;
 };
@@ -295,7 +295,7 @@ private:
 inline gp_Ax2d gp_Elips2d::Directrix1() const
 {
   Standard_Real anE = Eccentricity();
-  Standard_ConstructionError_Raise_if(anE <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(anE <= gp1::Resolution(),
                                       "gp_Elips2d::Directrix1() - zero eccentricity");
   Coords2d anOrig = pos.XDirection().XY();
   anOrig.Multiply(majorRadius / anE);
@@ -310,7 +310,7 @@ inline gp_Ax2d gp_Elips2d::Directrix1() const
 inline gp_Ax2d gp_Elips2d::Directrix2() const
 {
   Standard_Real anE = Eccentricity();
-  Standard_ConstructionError_Raise_if(anE <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(anE <= gp1::Resolution(),
                                       "gp_Elips2d::Directrix2() - zero eccentricity");
   Coords2d anOrig = pos.XDirection().XY();
   anOrig.Multiply(-majorRadius / anE);
@@ -423,7 +423,7 @@ inline gp_Elips2d gp_Elips2d::Reversed() const
   gp_Elips2d anE   = *this;
   gp_Dir2d   aTemp = pos.YDirection();
   aTemp.Reverse();
-  anE.pos.SetAxis(gp_Ax22d(pos.Location(), pos.XDirection(), aTemp));
+  anE.pos.SetAxis(Ax22d(pos.Location(), pos.XDirection(), aTemp));
   return anE;
 }
 

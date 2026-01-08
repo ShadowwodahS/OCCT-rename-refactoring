@@ -48,7 +48,7 @@
 Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
                                       const Handle(ChFiDS_SurfData)& Data,
                                       const gp_Pln&                  Pln,
-                                      const gp_Cone&                 Con,
+                                      const Cone1&                 Con,
                                       const Standard_Real            fu,
                                       const Standard_Real            lu,
                                       const TopAbs_Orientation       Or1,
@@ -61,7 +61,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
 {
   // calculate the fillet (torus or sphere).
   Standard_Boolean c1sphere = Standard_False;
-  gp_Ax3           PosPl    = Pln.Position();
+  Ax3           PosPl    = Pln.Position();
   Dir3d           Dpnat    = PosPl.XDirection().Crossed(PosPl.YDirection());
   Dir3d           Dp       = Dpnat;
   Dir3d           Df       = Dp;
@@ -152,7 +152,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
     }
     Rad = Maxrad + Rabio;
   }
-  gp_Ax3 FilAx3(Or, Dz, Dx);
+  Ax3 FilAx3(Or, Dz, Dx);
   if (FilAx3.YDirection().Dot(Dy) <= 0.)
   {
     FilAx3.YReverse();
@@ -212,14 +212,14 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
     ElSLib1::PlaneParameters(PosPl, P, u, v);
     gp_Pnt2d  p2dPln(u, v);
     gp_Dir2d  d2d(DSp.Dot(PosPl.XDirection()), DSp.Dot(PosPl.YDirection()));
-    gp_Ax22d  ax2dPln(c2dPln, gp_Dir2d(gp_Vec2d(c2dPln, p2dPln)), d2d);
+    Ax22d  ax2dPln(c2dPln, gp_Dir2d(gp_Vec2d(c2dPln, p2dPln)), d2d);
     gp_Circ2d circ2dPln(ax2dPln, Rad);
     GCirc2dPln = new Geom2d_Circle(circ2dPln);
     circAx2.SetLocation(cPln);
     gp_Circ circPln(circAx2, Rad);
     GCircPln = new GeomCircle(circPln);
   }
-  gp_Lin2d            lin2dFil(p2dFil, gp::DX2d());
+  gp_Lin2d            lin2dFil(p2dFil, gp1::DX2d());
   Handle(Geom2d_Line) GLin2dFil1 = new Geom2d_Line(lin2dFil);
   toreverse                      = (norFil.Dot(Dpnat) <= 0.);
   TopAbs_Orientation trans;
@@ -279,7 +279,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
     u = ElCLib1::InPeriod(u, fu, fu + 2 * M_PI);
   ElSLib1::D1(u, v, Con, PP, deru, derv);
   Dir3d   norCon = deru.Crossed(derv);
-  gp_Dir2d d2dCon = gp::DX2d();
+  gp_Dir2d d2dCon = gp1::DX2d();
   if (deru.Dot(Dy) < 0.)
   {
     d2dCon.Reverse();

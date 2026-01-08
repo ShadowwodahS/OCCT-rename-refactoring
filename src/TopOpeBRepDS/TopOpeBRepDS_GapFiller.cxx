@@ -344,8 +344,8 @@ static Standard_Boolean Normal(const Handle(TopOpeBRepDS_GapTool)&        A,
       {
         S.D1(P2d.X(), P2d.Y(), PS, TU, TV);
         N = TU ^ TV;
-        //	if (N.SquareMagnitude() >= gp::Resolution()); { // !!
-        if (N.SquareMagnitude() >= gp::Resolution())
+        //	if (N.SquareMagnitude() >= gp1::Resolution()); { // !!
+        if (N.SquareMagnitude() >= gp1::Resolution())
         {
           D = Dir3d(N);
           return 1;

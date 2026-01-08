@@ -68,7 +68,7 @@ void ShapeAnalysis_TransferParameters::Init(const TopoEdge& E, const TopoFace& F
 
   Standard_Real ln2d = l2d - f2d;
   Standard_Real ln3d = l - f;
-  myScale            = (ln3d <= gp::Resolution() ? 1. : ln2d / ln3d);
+  myScale            = (ln3d <= gp1::Resolution() ? 1. : ln2d / ln3d);
   myShift            = f2d - f * myScale;
 }
 

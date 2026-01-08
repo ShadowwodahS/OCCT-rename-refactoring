@@ -1878,7 +1878,7 @@ Axis3d BlendFunc_ConstRad::AxeRot(const Standard_Real Prm)
   dnp.SetLinearForm(1. / normtg, d2gui, -1. / normtg * (np.Dot(d2gui)), np);
 
   dirax = np.Crossed(dnp);
-  if (dirax.Magnitude() >= gp::Resolution())
+  if (dirax.Magnitude() >= gp1::Resolution())
   {
 
     axrot.SetDirection(dirax);
@@ -1887,7 +1887,7 @@ Axis3d BlendFunc_ConstRad::AxeRot(const Standard_Real Prm)
   {
     axrot.SetDirection(np); // To avoid stop
   }
-  if (dnp.Magnitude() >= gp::Resolution())
+  if (dnp.Magnitude() >= gp1::Resolution())
   {
     oriax.SetXYZ(ptgui.XYZ() + (normtg / dnp.Magnitude()) * dnp.Normalized().XYZ());
   }

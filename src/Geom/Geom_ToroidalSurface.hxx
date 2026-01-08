@@ -23,7 +23,7 @@
 #include <Geom_ElementarySurface.hxx>
 #include <TColStd_Array1OfReal.hxx>
 #include <Standard_Integer.hxx>
-class gp_Ax3;
+class Ax3;
 class gp_Torus;
 class GeomCurve3d;
 class Point3d;
@@ -37,7 +37,7 @@ DEFINE_STANDARD_HANDLE(Geom_ToroidalSurface, Geom_ElementarySurface)
 //! Describes a torus.
 //! A torus is defined by its major and minor radii, and
 //! positioned in space with a coordinate system (a
-//! gp_Ax3 object) as follows:
+//! Ax3 object) as follows:
 //! - The origin is the center of the torus.
 //! - The surface is obtained by rotating a circle around
 //! the "main Direction". This circle has a radius equal
@@ -93,12 +93,12 @@ public:
   //! MajorRadius = MinorRadius = 0.0
   //!
   //! Raised if MinorRadius < 0.0 or if MajorRadius < 0.0
-  Standard_EXPORT Geom_ToroidalSurface(const gp_Ax3&       A3,
+  Standard_EXPORT Geom_ToroidalSurface(const Ax3&       A3,
                                        const Standard_Real MajorRadius,
                                        const Standard_Real MinorRadius);
 
   //! Creates a ToroidalSurface from a non transient Torus from
-  //! package gp.
+  //! package gp1.
   Standard_EXPORT Geom_ToroidalSurface(const gp_Torus& T);
 
   //! Modifies this torus by changing its major radius.
@@ -106,7 +106,7 @@ public:
   //! Standard_ConstructionError if:
   //! - MajorRadius is negative, or
   //! - MajorRadius - r is less than or equal to
-  //! gp::Resolution(), where r is the minor radius of this torus.
+  //! gp1::Resolution(), where r is the minor radius of this torus.
   Standard_EXPORT void SetMajorRadius(const Standard_Real MajorRadius);
 
   //! Modifies this torus by changing its minor radius.
@@ -114,7 +114,7 @@ public:
   //! Standard_ConstructionError if:
   //! - MinorRadius is negative, or
   //! - R - MinorRadius is less than or equal to
-  //! gp::Resolution(), where R is the major radius of this torus.
+  //! gp1::Resolution(), where R is the major radius of this torus.
   Standard_EXPORT void SetMinorRadius(const Standard_Real MinorRadius);
 
   //! Converts the gp_Torus torus T into this torus.

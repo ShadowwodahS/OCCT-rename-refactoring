@@ -22,8 +22,8 @@
 
 #include <Geom_ElementarySurface.hxx>
 #include <Standard_Integer.hxx>
-class gp_Ax3;
-class gp_Cone;
+class Ax3;
+class Cone1;
 class Transform3d;
 class gp_GTrsf2d;
 class Point3d;
@@ -37,7 +37,7 @@ DEFINE_STANDARD_HANDLE(Geom_ConicalSurface, Geom_ElementarySurface)
 //! Describes a cone.
 //! A cone is defined by the half-angle (can be negative) at its apex, and
 //! is positioned in space by a coordinate system (a
-//! gp_Ax3 object) and a reference radius as follows:
+//! Ax3 object) and a reference radius as follows:
 //! - The "main Axis" of the coordinate system is the
 //! axis of revolution of the cone.
 //! - The plane defined by the origin, the "X Direction"
@@ -89,17 +89,17 @@ public:
   //! such that the normal Vector (N = D1U ^ D1V) is oriented towards
   //! the "outside region" of the surface.
   //!
-  //! Raised if Radius < 0.0 or Abs(Ang) < Resolution from gp or
+  //! Raised if Radius < 0.0 or Abs(Ang) < Resolution from gp1 or
   //! Abs(Ang) >= PI/2 - Resolution
-  Standard_EXPORT Geom_ConicalSurface(const gp_Ax3&       A3,
+  Standard_EXPORT Geom_ConicalSurface(const Ax3&       A3,
                                       const Standard_Real Ang,
                                       const Standard_Real Radius);
 
-  //! Creates a ConicalSurface from a non transient gp_Cone.
-  Standard_EXPORT Geom_ConicalSurface(const gp_Cone& C);
+  //! Creates a ConicalSurface from a non transient Cone1.
+  Standard_EXPORT Geom_ConicalSurface(const Cone1& C);
 
   //! Set <me> so that <me> has the same geometric properties as C.
-  Standard_EXPORT void SetCone(const gp_Cone& C);
+  Standard_EXPORT void SetCone(const Cone1& C);
 
   //! Changes the radius of the conical surface in the placement plane (Z = 0, V = 0).
   //! The local coordinate system is not modified.
@@ -109,12 +109,12 @@ public:
   //! Changes the semi angle of the conical surface.
   //! Semi-angle can be negative. Its absolute value
   //! Abs(Ang) is in range ]0,PI/2[.
-  //! Raises ConstructionError if Abs(Ang) < Resolution from gp or
+  //! Raises ConstructionError if Abs(Ang) < Resolution from gp1 or
   //! Abs(Ang) >= PI/2 - Resolution
   Standard_EXPORT void SetSemiAngle(const Standard_Real Ang);
 
   //! Returns a non transient cone with the same geometric properties as <me>.
-  Standard_EXPORT gp_Cone Cone() const;
+  Standard_EXPORT Cone1 Cone() const;
 
   //! Eeturn 2.PI - U.
   Standard_EXPORT Standard_Real UReversedParameter(const Standard_Real U) const Standard_OVERRIDE;

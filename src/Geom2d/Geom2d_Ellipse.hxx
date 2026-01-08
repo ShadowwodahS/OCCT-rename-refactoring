@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class gp_Elips2d;
 class gp_Ax2d;
-class gp_Ax22d;
+class Ax22d;
 class gp_Pnt2d;
 class gp_Vec2d;
 class gp_Trsf2d;
@@ -36,7 +36,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Ellipse, Geom2d_Conic)
 //! Describes an ellipse in the plane (2D space).
 //! An ellipse is defined by its major and minor radii and,
 //! as with any conic curve, is positioned in the plane
-//! with a coordinate system (gp_Ax22d object) where:
+//! with a coordinate system (Ax22d object) where:
 //! - the origin is the center of the ellipse,
 //! - the "X Direction" defines the major axis, and
 //! - the "Y Direction" defines the minor axis.
@@ -60,7 +60,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Ellipse, Geom2d_Conic)
 //! See Also
 //! GCE2d_MakeEllipse which provides functions for
 //! more complex1 ellipse constructions
-//! gp_Ax22d
+//! Ax22d
 //! gp_Elips2d for an equivalent, non-parameterized data structure
 class Geom2d_Ellipse : public Geom2d_Conic
 {
@@ -107,7 +107,7 @@ public:
   //! Standard_ConstructionError if:
   //! - MajorRadius is less than MinorRadius, or
   //! - MinorRadius is less than 0.
-  Standard_EXPORT Geom2d_Ellipse(const gp_Ax22d&     Axis,
+  Standard_EXPORT Geom2d_Ellipse(const Ax22d&     Axis,
                                  const Standard_Real MajorRadius,
                                  const Standard_Real MinorRadius);
 

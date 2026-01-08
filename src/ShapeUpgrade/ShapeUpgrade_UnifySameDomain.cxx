@@ -986,8 +986,8 @@ static void TransformPCurves(const TopoFace&   theRefFace,
 
   if (!ElemSurfFace.IsNull() && !ElemRefSurf.IsNull())
   {
-    gp_Ax3 AxisOfSurfFace = ElemSurfFace->Position();
-    gp_Ax3 AxisOfRefSurf  = ElemRefSurf->Position();
+    Ax3 AxisOfSurfFace = ElemSurfFace->Position();
+    Ax3 AxisOfRefSurf  = ElemRefSurf->Position();
 
     Point3d OriginRefSurf = AxisOfRefSurf.Location();
 
@@ -1087,10 +1087,10 @@ static void TransformPCurves(const TopoFace&   theRefFace,
       if (ToTranslate)
         NewPCurves[ii]->Translate(gp_Vec2d(0., aTranslation));
       if (Y_Reverse)
-        NewPCurves[ii]->Mirror(gp::OX2d());
+        NewPCurves[ii]->Mirror(gp1::OX2d());
       if (X_Reverse)
       {
-        NewPCurves[ii]->Mirror(gp::OY2d());
+        NewPCurves[ii]->Mirror(gp1::OY2d());
         NewPCurves[ii]->Translate(gp_Vec2d(2 * M_PI, 0.));
       }
       if (ToRotate)
@@ -1218,7 +1218,7 @@ static Standard_Boolean AddOrdinaryEdges(TopTools_SequenceOfShape& edges,
 
 //=================================================================================================
 
-static Standard_Boolean getCylinder(Handle(GeomSurface)& theInSurface, gp_Cylinder& theOutCylinder)
+static Standard_Boolean getCylinder(Handle(GeomSurface)& theInSurface, Cylinder1& theOutCylinder)
 {
   Standard_Boolean isCylinder = Standard_False;
 
@@ -1250,9 +1250,9 @@ static Standard_Boolean getCylinder(Handle(GeomSurface)& theInSurface, gp_Cylind
         // basis line is parallel to the revolution axis: it is a cylinder
         Point3d        aLoc = aRS->Location();
         Standard_Real aR   = aBasisLine->Lin().Distance(aLoc);
-        gp_Ax3        aCylAx(aLoc, aDir);
+        Ax3        aCylAx(aLoc, aDir);
 
-        theOutCylinder = gp_Cylinder(aCylAx, aR);
+        theOutCylinder = Cylinder1(aCylAx, aR);
         isCylinder     = Standard_True;
       }
     }
@@ -1279,9 +1279,9 @@ static Standard_Boolean getCylinder(Handle(GeomSurface)& theInSurface, gp_Cylind
         // basis circle is normal to the extrusion axis: it is a cylinder
         Point3d        aLoc = aBasisCircle->Location();
         Standard_Real aR   = aBasisCircle->Radius();
-        gp_Ax3        aCylAx(aLoc, aDir);
+        Ax3        aCylAx(aLoc, aDir);
 
-        theOutCylinder = gp_Cylinder(aCylAx, aR);
+        theOutCylinder = Cylinder1(aCylAx, aR);
         isCylinder     = Standard_True;
       }
     }
@@ -1470,7 +1470,7 @@ static Standard_Boolean IsSameDomain(
       && (S2->IsKind(STANDARD_TYPE(Geom_CylindricalSurface))
           || S2->IsKind(STANDARD_TYPE(Geom_SweptSurface))))
   {
-    gp_Cylinder aCyl1, aCyl2;
+    Cylinder1 aCyl1, aCyl2;
     if (getCylinder(S1, aCyl1) && getCylinder(S2, aCyl2))
     {
       if (fabs(aCyl1.Radius() - aCyl2.Radius()) < theLinTol)
@@ -2011,7 +2011,7 @@ void ShapeUpgrade_UnifySameDomain::UnionPCurves(const TopTools_SequenceOfShape& 
         {
           gp_Circ2d     aCirc2d   = aGAcurve.Circle();
           Standard_Real aRadius   = aCirc2d.Radius();
-          gp_Ax22d      aPosition = aCirc2d.Position();
+          Ax22d      aPosition = aCirc2d.Position();
           gp_Pnt2d      aLocation = aCirc2d.Location();
           Standard_Real anOffset  = ResFirsts(ii) - aFirst3d;
           aPosition.Rotate(aLocation, anOffset);

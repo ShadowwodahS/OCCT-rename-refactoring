@@ -24,7 +24,7 @@
 #include <gp_Pnt.hxx>
 #include <gp_Trsf.hxx>
 
-void gp_Cylinder::Coefficients(Standard_Real& A1,
+void Cylinder1::Coefficients(Standard_Real& A1,
                                Standard_Real& A2,
                                Standard_Real& A3,
                                Standard_Real& B1,
@@ -60,38 +60,38 @@ void gp_Cylinder::Coefficients(Standard_Real& A1,
   D  = T14 * T14 + T24 * T24 - radius * radius;
 }
 
-void gp_Cylinder::Mirror(const Point3d& P)
+void Cylinder1::Mirror(const Point3d& P)
 {
   pos.Mirror(P);
 }
 
-gp_Cylinder gp_Cylinder::Mirrored(const Point3d& P) const
+Cylinder1 Cylinder1::Mirrored(const Point3d& P) const
 {
-  gp_Cylinder C = *this;
+  Cylinder1 C = *this;
   C.pos.Mirror(P);
   return C;
 }
 
-void gp_Cylinder::Mirror(const Axis3d& A1)
+void Cylinder1::Mirror(const Axis3d& A1)
 {
   pos.Mirror(A1);
 }
 
-gp_Cylinder gp_Cylinder::Mirrored(const Axis3d& A1) const
+Cylinder1 Cylinder1::Mirrored(const Axis3d& A1) const
 {
-  gp_Cylinder C = *this;
+  Cylinder1 C = *this;
   C.pos.Mirror(A1);
   return C;
 }
 
-void gp_Cylinder::Mirror(const Frame3d& A2)
+void Cylinder1::Mirror(const Frame3d& A2)
 {
   pos.Mirror(A2);
 }
 
-gp_Cylinder gp_Cylinder::Mirrored(const Frame3d& A2) const
+Cylinder1 Cylinder1::Mirrored(const Frame3d& A2) const
 {
-  gp_Cylinder C = *this;
+  Cylinder1 C = *this;
   C.pos.Mirror(A2);
   return C;
 }

@@ -1513,7 +1513,7 @@ static Standard_Boolean AreFacesCoincideInArea(const TopoShape&         theBaseF
   gp_Pnt2d            pt;
   gp_Vec2d            d1;
   PCref->D1(pm, pt, d1);
-  if (d1.Magnitude() < gp::Resolution())
+  if (d1.Magnitude() < gp1::Resolution())
     return Standard_False;
   if (reverse)
     d1.Reverse();
@@ -1595,7 +1595,7 @@ static Standard_Boolean AreFacesCoincideInArea(const TopoShape&         theBaseF
   aBAS.D1(aP2d.X(), aP2d.Y(), aPnt, d1u, d1v);
   Vector3d        aNormBase = d1u ^ d1v;
   Standard_Real mag       = aNormBase.Magnitude();
-  if (mag < gp::Resolution())
+  if (mag < gp1::Resolution())
     return Standard_False;
   if (aBaseFace.Orientation() == TopAbs_REVERSED)
     mag = -mag;
@@ -1613,7 +1613,7 @@ static Standard_Boolean AreFacesCoincideInArea(const TopoShape&         theBaseF
   aSurf->D1(u, v, aPnt, d1u, d1v);
   Vector3d aNorm = d1u ^ d1v;
   mag          = aNorm.Magnitude();
-  if (mag < gp::Resolution())
+  if (mag < gp1::Resolution())
     return Standard_False;
   if (aFace.Orientation() == TopAbs_REVERSED)
     mag = -mag;

@@ -71,7 +71,7 @@ public:
   //! Circ <Circ> and passing through a Pnt <Point>.
   Standard_EXPORT GC_MakeCircle(const gp_Circ& Circ, const Point3d& Point);
 
-  //! Make a Circ from gp <TheCirc> passing through 3
+  //! Make a Circ from gp1 <TheCirc> passing through 3
   //! Pnt2d <P1>,<P2>,<P3>.
   Standard_EXPORT GC_MakeCircle(const Point3d& P1, const Point3d& P2, const Point3d& P3);
 

@@ -172,8 +172,8 @@ static Standard_Boolean PerformLengthParametrized(TColStd_Array1OfReal& theParam
   Standard_Real aUU2 = Max(theU1, theU2);
 
   // Ratio is defined as dl = Ratio * du
-  // for a circle of gp Ratio is equal to the radius of the circle.
-  // for a line of gp ratio is equal to 1.0
+  // for a circle of gp1 Ratio is equal to the radius of the circle.
+  // for a line of gp1 ratio is equal to 1.0
   const Standard_Real aRatio = GetParameterLengthRatio(theC);
   if (theAbscissa < 0.0e0)
   {

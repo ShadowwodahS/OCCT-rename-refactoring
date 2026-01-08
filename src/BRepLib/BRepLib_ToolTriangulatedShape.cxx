@@ -72,7 +72,7 @@ void BRepLib_ToolTriangulatedShape::ComputeNormals(const TopoFace&              
         }
       }
       const Standard_Real aModMax = eqPlan.Modulus();
-      aNorm                       = (aModMax > aTol) ? Dir3d(eqPlan) : gp::DZ();
+      aNorm                       = (aModMax > aTol) ? Dir3d(eqPlan) : gp1::DZ();
     }
 
     theTris->SetNormal(aNodeIter, aNorm);

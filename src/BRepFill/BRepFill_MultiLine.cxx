@@ -69,7 +69,7 @@ static Standard_Boolean isIsoU(const TopoFace& Face, const TopoEdge& Edge)
 
   gp_Dir2d D = C->DN(f, 1);
 
-  if (Abs(D.Dot(gp::DX2d())) < Abs(D.Dot(gp::DY2d())))
+  if (Abs(D.Dot(gp1::DX2d())) < Abs(D.Dot(gp1::DY2d())))
     return Standard_True;
   else
     return Standard_False;
@@ -234,7 +234,7 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoFace&          Face1,
   myU1 = Geom2dAdaptor_Curve(GeomProjLib1::Curve2d(UU1, BasisPlane), Umin, Umax);
 
   UU1->D1(Umin, P, DZ);
-  RefPlane = new GeomPlane(gp_Ax3(P, DZ, gp::DZ()));
+  RefPlane = new GeomPlane(Ax3(P, DZ, gp1::DZ()));
 
   myV1 = Geom2dAdaptor_Curve(GeomProjLib1::Curve2d(VV1, RefPlane), Vmin, Vmax);
 
@@ -351,7 +351,7 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoFace&          Face1,
   myU2 = Geom2dAdaptor_Curve(GeomProjLib1::Curve2d(UU2, BasisPlane), Umin, Umax);
 
   UU2->D1(Umin, P, DZ);
-  RefPlane = new GeomPlane(gp_Ax3(P, DZ, gp::DZ()));
+  RefPlane = new GeomPlane(Ax3(P, DZ, gp1::DZ()));
   myV2     = Geom2dAdaptor_Curve(GeomProjLib1::Curve2d(VV2, RefPlane), Vmin, Vmax);
 
   // eval if in a particular case.
@@ -433,9 +433,9 @@ void BRepFill_MultiLine::Curves(Handle(GeomCurve3d)&   Curve,
       f = Curve->FirstParameter();
       l = Curve->LastParameter();
       if (Sens)
-        PCurve1 = new Geom2d_Line(gp_Pnt2d(PMil.X(), P1.Y() - f), gp::DY2d());
+        PCurve1 = new Geom2d_Line(gp_Pnt2d(PMil.X(), P1.Y() - f), gp1::DY2d());
       else
-        PCurve1 = new Geom2d_Line(gp_Pnt2d(PMil.X(), P1.Y() + f), -gp::DY2d());
+        PCurve1 = new Geom2d_Line(gp_Pnt2d(PMil.X(), P1.Y() + f), -gp1::DY2d());
       PCurve1 = new Geom2d_TrimmedCurve(PCurve1, f, l);
     }
     else
@@ -450,9 +450,9 @@ void BRepFill_MultiLine::Curves(Handle(GeomCurve3d)&   Curve,
       f = Curve->FirstParameter();
       l = Curve->LastParameter();
       if (Sens)
-        PCurve1 = new Geom2d_Line(gp_Pnt2d(P1.X() - f, PMil.Y()), gp::DX2d());
+        PCurve1 = new Geom2d_Line(gp_Pnt2d(P1.X() - f, PMil.Y()), gp1::DX2d());
       else
-        PCurve1 = new Geom2d_Line(gp_Pnt2d(P1.X() + f, PMil.Y()), -gp::DX2d());
+        PCurve1 = new Geom2d_Line(gp_Pnt2d(P1.X() + f, PMil.Y()), -gp1::DX2d());
       PCurve1 = new Geom2d_TrimmedCurve(PCurve1, f, l);
     }
 
@@ -464,17 +464,17 @@ void BRepFill_MultiLine::Curves(Handle(GeomCurve3d)&   Curve,
     {
       Sens = P1.Y() < P2.Y();
       if (Sens)
-        PCurve2 = new Geom2d_Line(gp_Pnt2d(PMil.X(), (P1.Y() - f)), gp::DY2d());
+        PCurve2 = new Geom2d_Line(gp_Pnt2d(PMil.X(), (P1.Y() - f)), gp1::DY2d());
       else
-        PCurve2 = new Geom2d_Line(gp_Pnt2d(PMil.X(), (P1.Y() + f)), -gp::DY2d());
+        PCurve2 = new Geom2d_Line(gp_Pnt2d(PMil.X(), (P1.Y() + f)), -gp1::DY2d());
     }
     else
     {
       Sens = P1.X() < P2.X();
       if (Sens)
-        PCurve2 = new Geom2d_Line(gp_Pnt2d(P1.X() - f, PMil.Y()), gp::DX2d());
+        PCurve2 = new Geom2d_Line(gp_Pnt2d(P1.X() - f, PMil.Y()), gp1::DX2d());
       else
-        PCurve2 = new Geom2d_Line(gp_Pnt2d(P1.X() + f, PMil.Y()), -gp::DX2d());
+        PCurve2 = new Geom2d_Line(gp_Pnt2d(P1.X() + f, PMil.Y()), -gp1::DX2d());
     }
     PCurve2 = new Geom2d_TrimmedCurve(PCurve2, f, l);
   }
@@ -496,7 +496,7 @@ void BRepFill_MultiLine::Curves(Handle(GeomCurve3d)&   Curve,
     Handle(GeomLine) Line = new GeomLine(Point3d(P.X(), P.Y(), 0.), Dir3d(D.X(), D.Y(), 0.));
     Handle(Geom_TrimmedCurve) TLine =
       new Geom_TrimmedCurve(Line, myBis.FirstParameter(), myBis.LastParameter());
-    Curve = GeomProjLib1::ProjectOnPlane(TLine, Plane, gp::DZ(), Standard_False);
+    Curve = GeomProjLib1::ProjectOnPlane(TLine, Plane, gp1::DZ(), Standard_False);
 
 #ifdef DRAW
     if (AffichCurve)
@@ -649,7 +649,7 @@ static gp_Pnt2d ValueOnFace(const Standard_Real        U,
     if (Min(PF.Y(), PL.Y()) < -Tol)
       Dist = -Dist;
 
-    Handle(Geom2d_Line) Line = new Geom2d_Line(gp_Pnt2d(0., Dist), gp::DX2d());
+    Handle(Geom2d_Line) Line = new Geom2d_Line(gp_Pnt2d(0., Dist), gp1::DX2d());
 
 #ifdef DRAW
     if (AffichCurve)

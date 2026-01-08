@@ -45,27 +45,27 @@ public:
 
   static Standard_Boolean IsComposite(const Adaptor2d_Curve2d& C);
 
-  //! Returns the Lin2d from gp corresponding to the curve C.
+  //! Returns the Lin2d from gp1 corresponding to the curve C.
   //! This method is called only when TheType returns
   //! GeomAbs_Line.
   static gp_Lin2d Line(const Adaptor2d_Curve2d& C);
 
-  //! Returns the Circ2d from gp corresponding to the curve C.
+  //! Returns the Circ2d from gp1 corresponding to the curve C.
   //! This method is called only when TheType returns
   //! GeomAbs_Circle.
   static gp_Circ2d Circle(const Adaptor2d_Curve2d& C);
 
-  //! Returns the Elips2d from gp corresponding to the curve C.
+  //! Returns the Elips2d from gp1 corresponding to the curve C.
   //! This method is called only when TheType returns
   //! GeomAbs_Ellipse.
   static gp_Elips2d Ellipse(const Adaptor2d_Curve2d& C);
 
-  //! Returns the Parab2d from gp corresponding to the curve C.
+  //! Returns the Parab2d from gp1 corresponding to the curve C.
   //! This method is called only when TheType returns
   //! GeomAbs_Parabola.
   static gp_Parab2d Parabola(const Adaptor2d_Curve2d& C);
 
-  //! Returns the Hypr2d from gp corresponding to the curve C.
+  //! Returns the Hypr2d from gp1 corresponding to the curve C.
   //! This method is called only when TheType returns
   //! GeomAbs_Hyperbola.
   static gp_Hypr2d Hyperbola(const Adaptor2d_Curve2d& C);

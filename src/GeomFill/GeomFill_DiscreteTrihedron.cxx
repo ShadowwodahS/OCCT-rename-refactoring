@@ -135,7 +135,7 @@ void GeomFill_DiscreteTrihedron::Init()
       Frame3d LastAxis       = myTrihedrons->Value(myTrihedrons->Length());
       Vector3d LastTangent    = LastAxis.Direction();
       Vector3d AxisOfRotation = LastTangent ^ Tangent;
-      if (AxisOfRotation.Magnitude() <= gp::Resolution()) // tangents are equal or opposite
+      if (AxisOfRotation.Magnitude() <= gp1::Resolution()) // tangents are equal or opposite
       {
         Standard_Real ScalarProduct = LastTangent * Tangent;
         if (ScalarProduct > 0.) // tangents are equal
@@ -143,7 +143,7 @@ void GeomFill_DiscreteTrihedron::Init()
         else // tangents are opposite
         {
           Standard_Real NewParam = (myKnots->Value(i - 1) + myKnots->Value(i)) / 2.;
-          if (NewParam - myKnots->Value(i - 1) < gp::Resolution())
+          if (NewParam - myKnots->Value(i - 1) < gp1::Resolution())
             throw Standard_ConstructionError(
               "GeomFill_DiscreteTrihedron : impassable singularities on path curve");
           myKnots->InsertBefore(i, NewParam);
@@ -225,7 +225,7 @@ Standard_Boolean GeomFill_DiscreteTrihedron::D0(const Standard_Real Param,
       Tangent               = TangDir;
       Vector3d PrevTangent    = PrevAxis.Direction();
       Vector3d AxisOfRotation = PrevTangent ^ Tangent;
-      if (AxisOfRotation.Magnitude() <= gp::Resolution()) // tangents are equal
+      if (AxisOfRotation.Magnitude() <= gp1::Resolution()) // tangents are equal
       {
         // we assume that tangents can not be opposite
         theAxis = PrevAxis;

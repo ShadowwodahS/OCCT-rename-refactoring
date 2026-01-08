@@ -53,7 +53,7 @@ const Standard_Real aHyperbolaLimit = 10.;
 
 static Point3d OnPlane_Value(const Standard_Real            U,
                             const Handle(Adaptor3d_Curve)& aCurvePtr,
-                            const gp_Ax3&                  Pl,
+                            const Ax3&                  Pl,
                             const Dir3d&                  D)
 {
   //                   PO . Z                /  Z = Pl.Direction()
@@ -79,7 +79,7 @@ static Point3d OnPlane_Value(const Standard_Real            U,
 static Vector3d OnPlane_DN(const Standard_Real            U,
                          const Standard_Integer         DerivativeRequest,
                          const Handle(Adaptor3d_Curve)& aCurvePtr,
-                         const gp_Ax3&                  Pl,
+                         const Ax3&                  Pl,
                          const Dir3d&                  D)
 {
   //                   PO . Z                /  Z = Pl.Direction()
@@ -103,7 +103,7 @@ static Standard_Boolean OnPlane_D1(const Standard_Real            U,
                                    Point3d&                        P,
                                    Vector3d&                        V,
                                    const Handle(Adaptor3d_Curve)& aCurvePtr,
-                                   const gp_Ax3&                  Pl,
+                                   const Ax3&                  Pl,
                                    const Dir3d&                  D)
 {
   Standard_Real Alpha;
@@ -142,7 +142,7 @@ static Standard_Boolean OnPlane_D2(const Standard_Real            U,
                                    Vector3d&                        V1,
                                    Vector3d&                        V2,
                                    const Handle(Adaptor3d_Curve)& aCurvePtr,
-                                   const gp_Ax3&                  Pl,
+                                   const Ax3&                  Pl,
                                    const Dir3d&                  D)
 {
   Standard_Real Alpha;
@@ -186,7 +186,7 @@ static Standard_Boolean OnPlane_D3(const Standard_Real            U,
                                    Vector3d&                        V2,
                                    Vector3d&                        V3,
                                    const Handle(Adaptor3d_Curve)& aCurvePtr,
-                                   const gp_Ax3&                  Pl,
+                                   const Ax3&                  Pl,
                                    const Dir3d&                  D)
 {
   Standard_Real Alpha;
@@ -235,11 +235,11 @@ class ProjLib_OnPlane : public ContinuityFunction
 
 {
   Handle(Adaptor3d_Curve) myCurve;
-  gp_Ax3                  myPlane;
+  Ax3                  myPlane;
   Dir3d                  myDirection;
 
 public:
-  ProjLib_OnPlane(const Handle(Adaptor3d_Curve)& C, const gp_Ax3& Pl, const Dir3d& D)
+  ProjLib_OnPlane(const Handle(Adaptor3d_Curve)& C, const Ax3& Pl, const Dir3d& D)
       : myCurve(C),
         myPlane(Pl),
         myDirection(D)
@@ -307,7 +307,7 @@ private:
 //=================================================================================================
 
 static void PerformApprox(const Handle(Adaptor3d_Curve)& C,
-                          const gp_Ax3&                  Pl,
+                          const Ax3&                  Pl,
                           const Dir3d&                  D,
                           Handle(BSplineCurve3d)&     BSplineCurvePtr)
 
@@ -437,7 +437,7 @@ ProjLib_ProjectOnPlane::ProjLib_ProjectOnPlane()
 
 //=================================================================================================
 
-ProjLib_ProjectOnPlane::ProjLib_ProjectOnPlane(const gp_Ax3& Pl)
+ProjLib_ProjectOnPlane::ProjLib_ProjectOnPlane(const Ax3& Pl)
     : myPlane(Pl),
       myDirection(Pl.Direction()),
       myKeepParam(Standard_False),
@@ -451,7 +451,7 @@ ProjLib_ProjectOnPlane::ProjLib_ProjectOnPlane(const gp_Ax3& Pl)
 
 //=================================================================================================
 
-ProjLib_ProjectOnPlane::ProjLib_ProjectOnPlane(const gp_Ax3& Pl, const Dir3d& D)
+ProjLib_ProjectOnPlane::ProjLib_ProjectOnPlane(const Ax3& Pl, const Dir3d& D)
     : myPlane(Pl),
       myDirection(D),
       myKeepParam(Standard_False),
@@ -499,7 +499,7 @@ Handle(Adaptor3d_Curve) ProjLib_ProjectOnPlane::ShallowCopy() const
 //           <ThePlane>  along a direction <TheDir>.
 //=======================================================================
 
-static Point3d ProjectPnt(const gp_Ax3& ThePlane, const Dir3d& TheDir, const Point3d& Point)
+static Point3d ProjectPnt(const Ax3& ThePlane, const Dir3d& TheDir, const Point3d& Point)
 {
   Vector3d PO(Point, ThePlane.Location());
 
@@ -518,7 +518,7 @@ static Point3d ProjectPnt(const gp_Ax3& ThePlane, const Dir3d& TheDir, const Poi
 //           <ThePlane> along a direction <TheDir>.
 //=======================================================================
 
-static Vector3d ProjectVec(const gp_Ax3& ThePlane, const Dir3d& TheDir, const Vector3d& Vec)
+static Vector3d ProjectVec(const Ax3& ThePlane, const Dir3d& TheDir, const Vector3d& Vec)
 {
   Vector3d D = Vec;
   Vector3d Z = ThePlane.Direction();
@@ -986,7 +986,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
 
 //=================================================================================================
 
-const gp_Ax3& ProjLib_ProjectOnPlane::GetPlane() const
+const Ax3& ProjLib_ProjectOnPlane::GetPlane() const
 {
   return myPlane;
 }

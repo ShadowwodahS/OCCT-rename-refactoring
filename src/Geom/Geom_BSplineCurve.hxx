@@ -113,7 +113,7 @@ DEFINE_STANDARD_HANDLE(BSplineCurve3d, Geom_BoundedCurve)
 //! are more complex1 than those of a non-periodic one.
 //! Warning
 //! In this class, weight value is considered to be zero if
-//! the weight is less than or equal to gp::Resolution().
+//! the weight is less than or equal to gp1::Resolution().
 //!
 //! References :
 //! . A survey of curve and surface methods in CADG Wolfgang BOHM
@@ -482,7 +482,7 @@ public:
 
   //! Returns true if the distance between the first point and the
   //! last point of the curve is lower or equal to Resolution
-  //! from package gp.
+  //! from package gp1.
   //! Warnings :
   //! The first and the last point can be different from the first
   //! pole and the last pole of the curve.

@@ -105,7 +105,7 @@ Standard_Real BRepCheck::PrecSurface(const Handle(Adaptor3d_Surface)& aAHSurf)
   GeomAbs_SurfaceType aST = aAHSurf->GetType();
   if (aST == GeomAbs_Cone)
   {
-    gp_Cone       aCone = aAHSurf->Cone();
+    Cone1       aCone = aAHSurf->Cone();
     Standard_Real aX[4];
     //
     aCone.Location().Coord(aX[0], aX[1], aX[2]);

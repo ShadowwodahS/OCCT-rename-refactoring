@@ -182,7 +182,7 @@ public:
 
   //! The Gauss LU decomposition is used to invert the matrix
   //! (see Math package) so the matrix is considered as singular if
-  //! the largest pivot found is lower or equal to Resolution from gp.
+  //! the largest pivot found is lower or equal to Resolution from gp1.
   Standard_Boolean IsSingular() const
   {
     // Pour etre sur que Gauss va fonctionner, il faut faire Gauss ...
@@ -191,7 +191,7 @@ public:
     {
       aVal = -aVal;
     }
-    return aVal <= gp::Resolution();
+    return aVal <= gp1::Resolution();
   }
 
   void Add(const gp_Mat& theOther);
@@ -225,7 +225,7 @@ public:
   //! Warning
   //! The Gauss LU decomposition is used to invert the matrix.
   //! Consequently, the matrix is considered as singular if the
-  //! largest pivot found is less than or equal to gp::Resolution().
+  //! largest pivot found is less than or equal to gp1::Resolution().
   //! Exceptions
   //! Standard_ConstructionError if this matrix is singular,
   //! and therefore cannot be inverted.
@@ -377,7 +377,7 @@ inline void gp_Mat::Divide(const Standard_Real theScalar)
   {
     aVal = -aVal;
   }
-  Standard_ConstructionError_Raise_if(aVal <= gp::Resolution(), "gp_Mat : Divide by 0");
+  Standard_ConstructionError_Raise_if(aVal <= gp1::Resolution(), "gp_Mat : Divide by 0");
   const Standard_Real anUnSurScalar = 1.0 / theScalar;
   myMat[0][0] *= anUnSurScalar;
   myMat[0][1] *= anUnSurScalar;
@@ -401,7 +401,7 @@ inline gp_Mat gp_Mat::Divided(const Standard_Real theScalar) const
   {
     aVal = -aVal;
   }
-  Standard_ConstructionError_Raise_if(aVal <= gp::Resolution(), "gp_Mat : Divide by 0");
+  Standard_ConstructionError_Raise_if(aVal <= gp1::Resolution(), "gp_Mat : Divide by 0");
   gp_Mat              aNewMat;
   const Standard_Real anUnSurScalar = 1.0 / theScalar;
   aNewMat.myMat[0][0]               = myMat[0][0] * anUnSurScalar;

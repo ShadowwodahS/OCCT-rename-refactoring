@@ -953,7 +953,7 @@ public:
 
   //! Defines or Updates the definition of the
   //! grid in <me>
-  Standard_EXPORT void SetGrid(const gp_Ax3& aPlane, const Handle(Aspect_Grid)& aGrid);
+  Standard_EXPORT void SetGrid(const Ax3& aPlane, const Handle(Aspect_Grid)& aGrid);
 
   //! Defines or Updates the activity of the
   //! grid in <me>
@@ -1235,7 +1235,7 @@ private:
   Standard_Integer            MyZoomAtPointY;
   Handle(V3d_Trihedron)       myTrihedron;
   Handle(Aspect_Grid)         MyGrid;
-  gp_Ax3                      MyPlane;
+  Ax3                      MyPlane;
   TColStd_Array2OfReal        MyTrsf;
   Handle(Graphic3d_Structure) MyGridEchoStructure;
   Handle(Graphic3d_Group)     MyGridEchoGroup;

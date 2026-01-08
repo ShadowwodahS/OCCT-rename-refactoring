@@ -13,9 +13,9 @@
 // commercial license or contractual agreement.
 
 // JCV 30/08/90 Modif passage version C++ 2.0 sur Sun
-// JCV 1/10/90 Changement de nom du package vgeom -> gp
+// JCV 1/10/90 Changement de nom du package vgeom -> gp1
 // JCV 4/10/90 codage sur la forme de la transformation shape,Scaling,negative
-// JCV 10/12/90 Modif introduction des classes Mat et XYZ dans gp
+// JCV 10/12/90 Modif introduction des classes Mat et XYZ dans gp1
 
 #define No_Standard_OutOfRange
 
@@ -166,14 +166,14 @@ void Transform3d::SetScale(const Point3d& P, const Standard_Real S)
   Standard_Real As = scale;
   if (As < 0)
     As = -As;
-  Standard_ConstructionError_Raise_if(As <= gp::Resolution(), "Transform3d::SetScaleFactor");
+  Standard_ConstructionError_Raise_if(As <= gp1::Resolution(), "Transform3d::SetScaleFactor");
   matrix.SetIdentity();
   loc.Multiply(1 - S);
 }
 
 //=================================================================================================
 
-void Transform3d::SetTransformation(const gp_Ax3& FromA1, const gp_Ax3& ToA2)
+void Transform3d::SetTransformation(const Ax3& FromA1, const Ax3& ToA2)
 {
   shape = gp_CompoundTrsf;
   scale = 1.0;
@@ -197,7 +197,7 @@ void Transform3d::SetTransformation(const gp_Ax3& FromA1, const gp_Ax3& ToA2)
   matrix.Multiply(MA1);
 }
 
-void Transform3d::SetTransformation(const gp_Ax3& A3)
+void Transform3d::SetTransformation(const Ax3& A3)
 {
   shape = gp_CompoundTrsf;
   scale = 1.0;
@@ -219,7 +219,7 @@ void Transform3d::SetTransformation(const gp_Quaternion& R, const Vector3d& T)
 
 //=================================================================================================
 
-void Transform3d::SetDisplacement(const gp_Ax3& FromA1, const gp_Ax3& ToA2)
+void Transform3d::SetDisplacement(const Ax3& FromA1, const Ax3& ToA2)
 {
   shape = gp_CompoundTrsf;
   scale = 1.0;
@@ -249,7 +249,7 @@ void Transform3d::SetTranslationPart(const Vector3d& V)
 {
 
   loc                            = V.XYZ();
-  const Standard_Boolean locnull = (loc.SquareModulus() < gp::Resolution());
+  const Standard_Boolean locnull = (loc.SquareModulus() < gp1::Resolution());
 
   switch (shape)
   {
@@ -286,16 +286,16 @@ void Transform3d::SetScaleFactor(const Standard_Real S)
   Standard_Real As = S;
   if (As < 0)
     As = -As;
-  Standard_ConstructionError_Raise_if(As <= gp::Resolution(), "Transform3d::SetScaleFactor");
+  Standard_ConstructionError_Raise_if(As <= gp1::Resolution(), "Transform3d::SetScaleFactor");
   scale = S;
   As    = scale - 1.;
   if (As < 0)
     As = -As;
-  Standard_Boolean unit = As <= gp::Resolution(); // = (scale == 1)
+  Standard_Boolean unit = As <= gp1::Resolution(); // = (scale == 1)
   As                    = scale + 1.;
   if (As < 0)
     As = -As;
-  Standard_Boolean munit = As <= gp::Resolution(); // = (scale == -1)
+  Standard_Boolean munit = As <= gp1::Resolution(); // = (scale == -1)
 
   switch (shape)
   {
@@ -335,7 +335,7 @@ void Transform3d::SetScaleFactor(const Standard_Real S)
 // function : SetValues
 // purpose  :
 // 06-01-1998 modified by PMN : On utilise TolDist pour evaluer si les coeffs
-//  sont nuls : c'est toujours mieux que gp::Resolution !
+//  sont nuls : c'est toujours mieux que gp1::Resolution !
 //=======================================================================
 
 void Transform3d::SetValues(const Standard_Real a11,
@@ -361,7 +361,7 @@ void Transform3d::SetValues(const Standard_Real a11,
   Standard_Real As = s;
   if (As < 0)
     As = -As;
-  Standard_ConstructionError_Raise_if(As < gp::Resolution(),
+  Standard_ConstructionError_Raise_if(As < gp1::Resolution(),
                                       "Transform3d::SetValues, null determinant");
   if (s > 0)
     s = Pow(s, 1. / 3.);
@@ -415,14 +415,14 @@ void Transform3d::Invert()
     loc.Reverse();
   else if (shape == gp_Scale)
   {
-    Standard_ConstructionError_Raise_if(Abs(scale) <= gp::Resolution(),
+    Standard_ConstructionError_Raise_if(Abs(scale) <= gp1::Resolution(),
                                         "Transform3d::Invert() - transformation has zero scale");
     scale = 1.0 / scale;
     loc.Multiply(-scale);
   }
   else
   {
-    Standard_ConstructionError_Raise_if(Abs(scale) <= gp::Resolution(),
+    Standard_ConstructionError_Raise_if(Abs(scale) <= gp1::Resolution(),
                                         "Transform3d::Invert() - transformation has zero scale");
     scale = 1.0 / scale;
     matrix.Transpose();

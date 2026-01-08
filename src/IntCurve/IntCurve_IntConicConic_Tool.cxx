@@ -50,7 +50,7 @@ void Determine_Transition_LC(const IntRes2d_Position Pos1,
     Standard_Real Val1 = Norm.Dot(Norm1);
     Standard_Real Val2 = Norm.Dot(Norm2);
 
-    if (Abs(Val1 - Val2) <= gp::Resolution())
+    if (Abs(Val1 - Val2) <= gp1::Resolution())
     {
       T1.SetValue(Standard_True, Pos1, IntRes2d_Unknown, opos);
       T2.SetValue(Standard_True, Pos2, IntRes2d_Unknown, opos);

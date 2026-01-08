@@ -1857,7 +1857,7 @@ static Standard_Integer tolsphere(DrawInterpreter& di, Standard_Integer n, const
     const TopoVertex&    aV      = TopoDS::Vertex(aMapV.FindKey(i));
     Standard_Real           aRadius = BRepInspector::Tolerance(aV);
     Point3d                  aCenter = BRepInspector::Pnt(aV);
-    Handle(GeomSurface)    aSph    = new Geom_SphericalSurface(Frame3d(aCenter, gp::DZ()), aRadius);
+    Handle(GeomSurface)    aSph    = new Geom_SphericalSurface(Frame3d(aCenter, gp1::DZ()), aRadius);
     AsciiString1 aName(a[1]);
     aName = aName + "_v" + i;
     DrawTrSurf1::Set(aName.ToCString(), aSph);

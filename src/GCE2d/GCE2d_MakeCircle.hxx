@@ -26,7 +26,7 @@
 
 class gp_Circ2d;
 class gp_Ax2d;
-class gp_Ax22d;
+class Ax22d;
 class gp_Pnt2d;
 
 //! This class implements the following algorithms used
@@ -60,7 +60,7 @@ public:
   //! the origin of parametrization.
   //! It is not forbidden to create a circle with Radius = 0.0
   //! The status is "NegativeRadius" if Radius < 0.
-  Standard_EXPORT GCE2d_MakeCircle(const gp_Ax22d& A, const Standard_Real Radius);
+  Standard_EXPORT GCE2d_MakeCircle(const Ax22d& A, const Standard_Real Radius);
 
   //! Make a Circle from Geom2d <TheCirc> parallel to another
   //! Circ <Circ> with a distance <Dist>.
@@ -73,7 +73,7 @@ public:
   //! Circ <Circ> and passing through a Pnt <Point>.
   Standard_EXPORT GCE2d_MakeCircle(const gp_Circ2d& Circ, const gp_Pnt2d& Point);
 
-  //! Make a Circ from gp <TheCirc> passing through 3
+  //! Make a Circ from gp1 <TheCirc> passing through 3
   //! Pnt2d <P1>,<P2>,<P3>.
   Standard_EXPORT GCE2d_MakeCircle(const gp_Pnt2d& P1, const gp_Pnt2d& P2, const gp_Pnt2d& P3);
 

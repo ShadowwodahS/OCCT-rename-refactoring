@@ -23,7 +23,7 @@
 #include <StdFail_NotDone.hxx>
 
 //=========================================================================
-//   Creation d une ligne 3d de gp a partir d un Ax1 de gp.               +
+//   Creation d une ligne 3d de gp1 a partir d un Ax1 de gp1.               +
 //=========================================================================
 gce_MakeLin::gce_MakeLin(const Axis3d& A1)
 {
@@ -32,8 +32,8 @@ gce_MakeLin::gce_MakeLin(const Axis3d& A1)
 }
 
 //=========================================================================
-//   Creation d une ligne 3d de gp a partir de son origine P (Pnt de gp)  +
-//   et d une direction V (Dir de gp).                                    +
+//   Creation d une ligne 3d de gp1 a partir de son origine P (Pnt de gp1)  +
+//   et d une direction V (Dir de gp1).                                    +
 //=========================================================================
 
 gce_MakeLin::gce_MakeLin(const Point3d& P, const Dir3d& V)
@@ -43,13 +43,13 @@ gce_MakeLin::gce_MakeLin(const Point3d& P, const Dir3d& V)
 }
 
 //=========================================================================
-//   Creation d une ligne 3d de gp passant par les deux points <P1> et    +
+//   Creation d une ligne 3d de gp1 passant par les deux points <P1> et    +
 //   <P2>.                                                                +
 //=========================================================================
 
 gce_MakeLin::gce_MakeLin(const Point3d& P1, const Point3d& P2)
 {
-  if (P1.Distance(P2) >= gp::Resolution())
+  if (P1.Distance(P2) >= gp1::Resolution())
   {
     TheLin   = gp_Lin(P1, Dir3d(P2.XYZ() - P1.XYZ()));
     TheError = gce_Done;
@@ -61,7 +61,7 @@ gce_MakeLin::gce_MakeLin(const Point3d& P1, const Point3d& P2)
 }
 
 //=========================================================================
-//   Creation d une ligne 3d de gp parallele a une autre <Lin> et passant +
+//   Creation d une ligne 3d de gp1 parallele a une autre <Lin> et passant +
 //   par le point <P>.                                                    +
 //=========================================================================
 

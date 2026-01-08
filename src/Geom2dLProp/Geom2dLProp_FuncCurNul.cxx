@@ -74,7 +74,7 @@ Standard_Boolean Geom2dLProp_FuncCurNul::Values(const Standard_Real X,
   {
     return Standard_True;
   }
-  else if (NV1 * NV2 < gp::Resolution())
+  else if (NV1 * NV2 < gp1::Resolution())
   {
     return Standard_False;
   }

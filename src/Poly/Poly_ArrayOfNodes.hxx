@@ -20,42 +20,42 @@
 #include <Standard_Macro.hxx>
 
 //! Defines an array of 3D nodes of single/double precision configurable at construction time.
-class Poly_ArrayOfNodes : public NCollection_AliasedArray<>
+class NodeArray : public NCollection_AliasedArray<>
 {
 public:
   //! Empty constructor of double-precision array.
-  Poly_ArrayOfNodes()
+  NodeArray()
       : NCollection_AliasedArray((Standard_Integer)sizeof(Point3d))
   {
     //
   }
 
   //! Constructor of double-precision array.
-  Poly_ArrayOfNodes(Standard_Integer theLength)
+  NodeArray(Standard_Integer theLength)
       : NCollection_AliasedArray((Standard_Integer)sizeof(Point3d), theLength)
   {
     //
   }
 
   //! Copy constructor
-  Standard_EXPORT Poly_ArrayOfNodes(const Poly_ArrayOfNodes& theOther);
+  Standard_EXPORT NodeArray(const NodeArray& theOther);
 
   //! Constructor wrapping pre-allocated C-array of values without copying them.
-  Poly_ArrayOfNodes(const Point3d& theBegin, Standard_Integer theLength)
+  NodeArray(const Point3d& theBegin, Standard_Integer theLength)
       : NCollection_AliasedArray(theBegin, theLength)
   {
     //
   }
 
   //! Constructor wrapping pre-allocated C-array of values without copying them.
-  Poly_ArrayOfNodes(const gp_Vec3f& theBegin, Standard_Integer theLength)
+  NodeArray(const gp_Vec3f& theBegin, Standard_Integer theLength)
       : NCollection_AliasedArray(theBegin, theLength)
   {
     //
   }
 
   //! Destructor.
-  Standard_EXPORT ~Poly_ArrayOfNodes();
+  Standard_EXPORT ~NodeArray();
 
   //! Returns TRUE if array defines nodes with double precision.
   bool IsDoublePrecision() const { return myStride == (Standard_Integer)sizeof(Point3d); }
@@ -67,7 +67,7 @@ public:
     if (myData != NULL)
     {
       throw Standard_ProgramError(
-        "Poly_ArrayOfNodes::SetDoublePrecision() should be called before allocation");
+        "NodeArray::SetDoublePrecision() should be called before allocation");
     }
     myStride = Standard_Integer(theIsDouble ? sizeof(Point3d) : sizeof(gp_Vec3f));
   }
@@ -76,27 +76,27 @@ public:
   //! The arrays should have the same length,
   //! but may have different precision / number of components (data conversion will be applied in
   //! the latter case).
-  Standard_EXPORT Poly_ArrayOfNodes& Assign(const Poly_ArrayOfNodes& theOther);
+  Standard_EXPORT NodeArray& Assign(const NodeArray& theOther);
 
   //! Move assignment.
-  Poly_ArrayOfNodes& Move(Poly_ArrayOfNodes& theOther)
+  NodeArray& Move(NodeArray& theOther)
   {
     NCollection_AliasedArray::Move(theOther);
     return *this;
   }
 
   //! Assignment operator; @sa Assign()
-  Poly_ArrayOfNodes& operator=(const Poly_ArrayOfNodes& theOther) { return Assign(theOther); }
+  NodeArray& operator=(const NodeArray& theOther) { return Assign(theOther); }
 
   //! Move constructor
-  Poly_ArrayOfNodes(Poly_ArrayOfNodes&& theOther) Standard_Noexcept
+  NodeArray(NodeArray&& theOther) Standard_Noexcept
       : NCollection_AliasedArray(std::move(theOther))
   {
     //
   }
 
   //! Move assignment operator; @sa Move()
-  Poly_ArrayOfNodes& operator=(Poly_ArrayOfNodes&& theOther) Standard_Noexcept
+  NodeArray& operator=(NodeArray&& theOther) Standard_Noexcept
   {
     return Move(theOther);
   }
@@ -116,7 +116,7 @@ public:
 // function : Value
 // purpose  :
 // =======================================================================
-inline Point3d Poly_ArrayOfNodes::Value(Standard_Integer theIndex) const
+inline Point3d NodeArray::Value(Standard_Integer theIndex) const
 {
   if (myStride == (Standard_Integer)sizeof(Point3d))
   {
@@ -133,7 +133,7 @@ inline Point3d Poly_ArrayOfNodes::Value(Standard_Integer theIndex) const
 // function : SetValue
 // purpose  :
 // =======================================================================
-inline void Poly_ArrayOfNodes::SetValue(Standard_Integer theIndex, const Point3d& theValue)
+inline void NodeArray::SetValue(Standard_Integer theIndex, const Point3d& theValue)
 {
   if (myStride == (Standard_Integer)sizeof(Point3d))
   {

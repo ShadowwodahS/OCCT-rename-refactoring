@@ -21,7 +21,7 @@
 
 //! Describes a sphere.
 //! A sphere is defined by its radius and positioned in space
-//! with a coordinate system (a gp_Ax3 object). The origin of
+//! with a coordinate system (a Ax3 object). The origin of
 //! the coordinate system is the center of the sphere. This
 //! coordinate system is the "local coordinate system" of the sphere.
 //! Note: when a gp_Sphere sphere is converted into a
@@ -55,7 +55,7 @@ public:
   //! Warnings :
   //! It is not forbidden to create a sphere with null radius.
   //! Raises ConstructionError if theRadius < 0.0
-  gp_Sphere(const gp_Ax3& theA3, const Standard_Real theRadius)
+  gp_Sphere(const Ax3& theA3, const Standard_Real theRadius)
       : pos(theA3),
         radius(theRadius)
   {
@@ -66,7 +66,7 @@ public:
   void SetLocation(const Point3d& theLoc) { pos.SetLocation(theLoc); }
 
   //! Changes the local coordinate system of the sphere.
-  void SetPosition(const gp_Ax3& theA3) { pos = theA3; }
+  void SetPosition(const Ax3& theA3) { pos = theA3; }
 
   //! Assigns theR the radius of the Sphere.
   //! Warnings :
@@ -116,7 +116,7 @@ public:
   const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the local coordinates system of the sphere.
-  const gp_Ax3& Position() const { return pos; }
+  const Ax3& Position() const { return pos; }
 
   //! Returns the radius of the sphere.
   Standard_Real Radius() const { return radius; }
@@ -195,7 +195,7 @@ public:
   }
 
 private:
-  gp_Ax3        pos;
+  Ax3        pos;
   Standard_Real radius;
 };
 

@@ -57,8 +57,8 @@ Standard_Boolean StepToTopoDS_MakeTransformed::Compute(
   if (theTarg.IsNull())
     return Standard_False;
 
-  const gp_Ax3 ax3Orig(theOrig->Ax2());
-  const gp_Ax3 ax3Targ(theTarg->Ax2());
+  const Ax3 ax3Orig(theOrig->Ax2());
+  const Ax3 ax3Targ(theTarg->Ax2());
 
   //  ne pas se tromper de sens !
   theTrsf.SetTransformation(ax3Targ, ax3Orig);

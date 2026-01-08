@@ -165,7 +165,7 @@ void GeomAdaptor_SurfaceOfRevolution::Load(const Axis3d& V)
     Ox = ((Oz ^ Vector3d(PP.XYZ() - O.XYZ())) ^ Oz);
   }
 
-  myAxeRev = gp_Ax3(O, Oz, Ox);
+  myAxeRev = Ax3(O, Oz, Ox);
 
   if (yrev)
   {
@@ -446,7 +446,7 @@ gp_Pln GeomAdaptor_SurfaceOfRevolution::Plane() const
   Standard_NoSuchObject_Raise_if(GetType() != GeomAbs_Plane,
                                  "GeomAdaptor_SurfaceOfRevolution:Plane");
 
-  gp_Ax3        Axe       = myAxeRev;
+  Ax3        Axe       = myAxeRev;
   Point3d        aPonCurve = Value(0., 0.);
   Standard_Real aDot = (aPonCurve.XYZ() - myAxis.Location().XYZ()).Dot(myAxis.Direction().XYZ());
 
@@ -460,23 +460,23 @@ gp_Pln GeomAdaptor_SurfaceOfRevolution::Plane() const
 
 //=================================================================================================
 
-gp_Cylinder GeomAdaptor_SurfaceOfRevolution::Cylinder() const
+Cylinder1 GeomAdaptor_SurfaceOfRevolution::Cylinder() const
 {
   Standard_NoSuchObject_Raise_if(GetType() != GeomAbs_Cylinder,
                                  "GeomAdaptor_SurfaceOfRevolution::Cylinder");
 
   Point3d        P = Value(0., 0.);
   Standard_Real R = Vector3d(myAxeRev.Location(), P) * myAxeRev.XDirection();
-  return gp_Cylinder(myAxeRev, R);
+  return Cylinder1(myAxeRev, R);
 }
 
 //=================================================================================================
 
-gp_Cone GeomAdaptor_SurfaceOfRevolution::Cone() const
+Cone1 GeomAdaptor_SurfaceOfRevolution::Cone() const
 {
   Standard_NoSuchObject_Raise_if(GetType() != GeomAbs_Cone, "GeomAdaptor_SurfaceOfRevolution:Cone");
 
-  gp_Ax3        Axe   = myAxeRev;
+  Ax3        Axe   = myAxeRev;
   Dir3d        ldir  = (myBasisCurve->Line()).Direction();
   Standard_Real Angle = (Axe.Direction()).Angle(ldir);
   Point3d        P0    = Value(0., 0.);
@@ -491,7 +491,7 @@ gp_Cone GeomAdaptor_SurfaceOfRevolution::Cone() const
     if (OP0.Dot(Axe.Direction()) > 0.)
       Angle = -Angle;
   }
-  return gp_Cone(Axe, Angle, R);
+  return Cone1(Axe, Angle, R);
 }
 
 //=================================================================================================
@@ -502,7 +502,7 @@ gp_Sphere GeomAdaptor_SurfaceOfRevolution::Sphere() const
                                  "GeomAdaptor_SurfaceOfRevolution:Sphere");
 
   gp_Circ C   = myBasisCurve->Circle();
-  gp_Ax3  Axe = myAxeRev;
+  Ax3  Axe = myAxeRev;
   Axe.SetLocation(C.Location());
   return gp_Sphere(Axe, C.Radius());
 }
@@ -570,7 +570,7 @@ Handle(Geom_BSplineSurface) GeomAdaptor_SurfaceOfRevolution::BSpline() const
 
 //=================================================================================================
 
-const gp_Ax3& GeomAdaptor_SurfaceOfRevolution::Axis() const
+const Ax3& GeomAdaptor_SurfaceOfRevolution::Axis() const
 {
   return myAxeRev;
 }

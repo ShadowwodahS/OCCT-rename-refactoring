@@ -25,9 +25,9 @@
 #include <gp_Pnt.hxx>
 #include <gp_Dir.hxx>
 class gp_Pln;
-class gp_Cylinder;
+class Cylinder1;
 class gp_Sphere;
-class gp_Cone;
+class Cone1;
 class gp_Torus;
 class gp_Lin;
 class gp_Circ;
@@ -36,7 +36,7 @@ class gp_Parab;
 class gp_Hypr;
 
 //! Geometric intersections between two natural quadrics
-//! (Sphere , Cylinder , Cone , Pln from gp).
+//! (Sphere , Cylinder , Cone , Pln from gp1).
 //! The possible intersections are :
 //! - 1 point
 //! - 1 or 2 line(s)
@@ -88,7 +88,7 @@ public:
   //! H is the height of the cylinder <Cyl>. It is  used to check
   //! whether the plane and cylinder are parallel.
   Standard_EXPORT QuadQuadGeoIntersection(const gp_Pln&       P,
-                                     const gp_Cylinder&  C,
+                                     const Cylinder1&  C,
                                      const Standard_Real Tolang,
                                      const Standard_Real Tol,
                                      const Standard_Real H = 0);
@@ -103,7 +103,7 @@ public:
   //! H is the height of the cylinder <Cyl>. It is  used to check
   //! whether the plane and cylinder are parallel.
   Standard_EXPORT void Perform(const gp_Pln&       P,
-                               const gp_Cylinder&  C,
+                               const Cylinder1&  C,
                                const Standard_Real Tolang,
                                const Standard_Real Tol,
                                const Standard_Real H = 0);
@@ -122,7 +122,7 @@ public:
   //! Tol is the tolerance used to determine if the apex
   //! of the cone is in the plane.
   Standard_EXPORT QuadQuadGeoIntersection(const gp_Pln&       P,
-                                     const gp_Cone&      C,
+                                     const Cone1&      C,
                                      const Standard_Real Tolang,
                                      const Standard_Real Tol);
 
@@ -134,37 +134,37 @@ public:
   //! Tol is the tolerance used to determine if the apex
   //! of the cone is in the plane.
   Standard_EXPORT void Perform(const gp_Pln&       P,
-                               const gp_Cone&      C,
+                               const Cone1&      C,
                                const Standard_Real Tolang,
                                const Standard_Real Tol);
 
   //! Creates the intersection between two cylinders.
-  Standard_EXPORT QuadQuadGeoIntersection(const gp_Cylinder&  Cyl1,
-                                     const gp_Cylinder&  Cyl2,
+  Standard_EXPORT QuadQuadGeoIntersection(const Cylinder1&  Cyl1,
+                                     const Cylinder1&  Cyl2,
                                      const Standard_Real Tol);
 
   //! Intersects two cylinders
-  Standard_EXPORT void Perform(const gp_Cylinder&  Cyl1,
-                               const gp_Cylinder&  Cyl2,
+  Standard_EXPORT void Perform(const Cylinder1&  Cyl1,
+                               const Cylinder1&  Cyl2,
                                const Standard_Real Tol);
 
   //! Creates the intersection between a Cylinder and a Sphere.
-  Standard_EXPORT QuadQuadGeoIntersection(const gp_Cylinder&  Cyl,
+  Standard_EXPORT QuadQuadGeoIntersection(const Cylinder1&  Cyl,
                                      const gp_Sphere&    Sph,
                                      const Standard_Real Tol);
 
   //! Intersects a cylinder and a sphere.
-  Standard_EXPORT void Perform(const gp_Cylinder&  Cyl,
+  Standard_EXPORT void Perform(const Cylinder1&  Cyl,
                                const gp_Sphere&    Sph,
                                const Standard_Real Tol);
 
   //! Creates the intersection between a Cylinder and a Cone
-  Standard_EXPORT QuadQuadGeoIntersection(const gp_Cylinder&  Cyl,
-                                     const gp_Cone&      Con,
+  Standard_EXPORT QuadQuadGeoIntersection(const Cylinder1&  Cyl,
+                                     const Cone1&      Con,
                                      const Standard_Real Tol);
 
   //! Intersects a cylinder and a cone.
-  Standard_EXPORT void Perform(const gp_Cylinder& Cyl, const gp_Cone& Con, const Standard_Real Tol);
+  Standard_EXPORT void Perform(const Cylinder1& Cyl, const Cone1& Con, const Standard_Real Tol);
 
   //! Creates the intersection between two Spheres.
   Standard_EXPORT QuadQuadGeoIntersection(const gp_Sphere&    Sph1,
@@ -178,19 +178,19 @@ public:
 
   //! Creates the intersection between a Sphere and a Cone.
   Standard_EXPORT QuadQuadGeoIntersection(const gp_Sphere&    Sph,
-                                     const gp_Cone&      Con,
+                                     const Cone1&      Con,
                                      const Standard_Real Tol);
 
   //! Intersects a sphere and a cone.
-  Standard_EXPORT void Perform(const gp_Sphere& Sph, const gp_Cone& Con, const Standard_Real Tol);
+  Standard_EXPORT void Perform(const gp_Sphere& Sph, const Cone1& Con, const Standard_Real Tol);
 
   //! Creates the intersection between two cones.
-  Standard_EXPORT QuadQuadGeoIntersection(const gp_Cone&      Con1,
-                                     const gp_Cone&      Con2,
+  Standard_EXPORT QuadQuadGeoIntersection(const Cone1&      Con1,
+                                     const Cone1&      Con2,
                                      const Standard_Real Tol);
 
   //! Intersects two cones.
-  Standard_EXPORT void Perform(const gp_Cone& Con1, const gp_Cone& Con2, const Standard_Real Tol);
+  Standard_EXPORT void Perform(const Cone1& Con1, const Cone1& Con2, const Standard_Real Tol);
 
   //! Creates the intersection between plane and torus.
   Standard_EXPORT QuadQuadGeoIntersection(const gp_Pln&       Pln,
@@ -201,22 +201,22 @@ public:
   Standard_EXPORT void Perform(const gp_Pln& Pln, const gp_Torus& Tor, const Standard_Real Tol);
 
   //! Creates the intersection between cylinder and torus.
-  Standard_EXPORT QuadQuadGeoIntersection(const gp_Cylinder&  Cyl,
+  Standard_EXPORT QuadQuadGeoIntersection(const Cylinder1&  Cyl,
                                      const gp_Torus&     Tor,
                                      const Standard_Real Tol);
 
   //! Intersects cylinder and torus.
-  Standard_EXPORT void Perform(const gp_Cylinder&  Cyl,
+  Standard_EXPORT void Perform(const Cylinder1&  Cyl,
                                const gp_Torus&     Tor,
                                const Standard_Real Tol);
 
   //! Creates the intersection between cone and torus.
-  Standard_EXPORT QuadQuadGeoIntersection(const gp_Cone&      Con,
+  Standard_EXPORT QuadQuadGeoIntersection(const Cone1&      Con,
                                      const gp_Torus&     Tor,
                                      const Standard_Real Tol);
 
   //! Intersects cone and torus.
-  Standard_EXPORT void Perform(const gp_Cone& Con, const gp_Torus& Tor, const Standard_Real Tol);
+  Standard_EXPORT void Perform(const Cone1& Con, const gp_Torus& Tor, const Standard_Real Tol);
 
   //! Creates the intersection between sphere and torus.
   Standard_EXPORT QuadQuadGeoIntersection(const gp_Sphere&    Sph,

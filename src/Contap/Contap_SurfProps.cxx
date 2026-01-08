@@ -59,7 +59,7 @@ void SurfaceProperties::Normale(const Handle(Adaptor3d_Surface)& S,
     break;
 
     case GeomAbs_Cylinder: {
-      gp_Cylinder cy(HSurfaceTool::Cylinder(S));
+      Cylinder1 cy(HSurfaceTool::Cylinder(S));
       P = ElSLib1::Value(U, V, cy);
       Norm.SetLinearForm(Cos(U), cy.XAxis().Direction(), Sin(U), cy.YAxis().Direction());
       if (!cy.Direct())
@@ -70,7 +70,7 @@ void SurfaceProperties::Normale(const Handle(Adaptor3d_Surface)& S,
     break;
 
     case GeomAbs_Cone: {
-      gp_Cone co(HSurfaceTool::Cone(S));
+      Cone1 co(HSurfaceTool::Cone(S));
       P                   = ElSLib1::Value(U, V, co);
       Standard_Real Angle = co.SemiAngle();
       Standard_Real Sina  = sin(Angle);
@@ -167,7 +167,7 @@ void SurfaceProperties::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
     break;
 
     case GeomAbs_Cylinder: {
-      gp_Cylinder cy(HSurfaceTool::Cylinder(S));
+      Cylinder1 cy(HSurfaceTool::Cylinder(S));
       ElSLib1::D1(U, V, cy, P, d1u, d1v);
       Norm.SetLinearForm(Cos(U), cy.XAxis().Direction(), Sin(U), cy.YAxis().Direction());
       if (!cy.Direct())
@@ -178,7 +178,7 @@ void SurfaceProperties::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
     break;
 
     case GeomAbs_Cone: {
-      gp_Cone co(HSurfaceTool::Cone(S));
+      Cone1 co(HSurfaceTool::Cone(S));
       ElSLib1::D1(U, V, co, P, d1u, d1v);
       Standard_Real Angle = co.SemiAngle();
       Standard_Real Sina  = Sin(Angle);
@@ -273,7 +273,7 @@ void SurfaceProperties::NormAndDn(const Handle(Adaptor3d_Surface)& S,
     break;
 
     case GeomAbs_Cylinder: {
-      gp_Cylinder cy(HSurfaceTool::Cylinder(S));
+      Cylinder1 cy(HSurfaceTool::Cylinder(S));
       P = ElSLib1::Value(U, V, cy);
       Norm.SetLinearForm(Cos(U), cy.XAxis().Direction(), Sin(U), cy.YAxis().Direction());
       Dnu.SetLinearForm(-Sin(U), cy.XAxis().Direction(), Cos(U), cy.YAxis().Direction());
@@ -288,7 +288,7 @@ void SurfaceProperties::NormAndDn(const Handle(Adaptor3d_Surface)& S,
 
     case GeomAbs_Cone: {
 
-      gp_Cone co(HSurfaceTool::Cone(S));
+      Cone1 co(HSurfaceTool::Cone(S));
       P                   = ElSLib1::Value(U, V, co);
       Standard_Real Angle = co.SemiAngle();
       Standard_Real Sina  = Sin(Angle);

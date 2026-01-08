@@ -12,7 +12,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// JCV 08/01/90 Modifs suite a l'introduction des classes XY et Mat2d dans gp
+// JCV 08/01/90 Modifs suite a l'introduction des classes XY et Mat2d dans gp1
 
 #include <gp_Dir2d.hxx>
 

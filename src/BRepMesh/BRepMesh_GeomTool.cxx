@@ -295,7 +295,7 @@ BRepMesh_GeomTool::IntFlag BRepMesh_GeomTool::IntLinLin(const Coords2d& theStart
   Standard_Real aCrossD1D2 = aVec1 ^ aVec2;
   Standard_Real aCrossD1D3 = aVecO1O2 ^ aVec2;
 
-  const Standard_Real aPrec = gp::Resolution();
+  const Standard_Real aPrec = gp1::Resolution();
   // Are edgegs codirectional
   if (Abs(aCrossD1D2) < aPrec)
   {

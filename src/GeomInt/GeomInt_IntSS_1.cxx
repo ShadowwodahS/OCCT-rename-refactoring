@@ -1224,7 +1224,7 @@ void GeomInt_IntSS::BuildPCurves(const Standard_Real         theFirst,
         {
           const gp_Pnt2d aP2d2(aU, aV);
 
-          if (aP2d1.Distance(aP2d2) > gp::Resolution())
+          if (aP2d1.Distance(aP2d2) > gp1::Resolution())
           {
             TColgp_Array1OfPnt2d    poles(1, 2);
             TColStd_Array1OfReal    knots(1, 2);

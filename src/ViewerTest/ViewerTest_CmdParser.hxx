@@ -157,12 +157,12 @@ public:
   Graphic3d_Vec3d ArgVec3d(const std::string&     theOptionName,
                            const Standard_Integer theArgumentIndex = 0) const;
 
-  // Interprets arguments of option 'theOptionName' as gp vector starting with index
+  // Interprets arguments of option 'theOptionName' as gp1 vector starting with index
   // 'theArgumentIndex'.
   Vector3d ArgVec(const std::string&     theOptionName,
                 const Standard_Integer theArgumentIndex = 0) const;
 
-  // Interprets arguments of option 'theOptionName' as gp vector starting with index
+  // Interprets arguments of option 'theOptionName' as gp1 vector starting with index
   // 'theArgumentIndex'.
   Point3d ArgPnt(const std::string&     theOptionName,
                 const Standard_Integer theArgumentIndex = 0) const;

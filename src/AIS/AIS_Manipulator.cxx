@@ -131,9 +131,9 @@ void AIS_Manipulator::init()
 {
   // Create axis in the default coordinate system. The custom position is applied in local
   // transformation.
-  myAxes[0] = Axis(gp::OX(), Quantity_NOC_RED);
-  myAxes[1] = Axis(gp::OY(), Quantity_NOC_GREEN);
-  myAxes[2] = Axis(gp::OZ(), Quantity_NOC_BLUE1);
+  myAxes[0] = Axis(gp1::OX(), Quantity_NOC_RED);
+  myAxes[1] = Axis(gp1::OY(), Quantity_NOC_GREEN);
+  myAxes[2] = Axis(gp1::OZ(), Quantity_NOC_BLUE1);
 
   Graphic3d_MaterialAspect aShadingMaterial;
   aShadingMaterial.SetSpecularColor(Quantity_NOC_BLACK);
@@ -233,14 +233,14 @@ Handle(Graphic3d_Group) AIS_Manipulator::getGroup(const Standard_Integer    theI
 //=================================================================================================
 
 AIS_Manipulator::AIS_Manipulator()
-    : myPosition(gp::XOY()),
+    : myPosition(gp1::XOY()),
       myCurrentIndex(-1),
       myCurrentMode(AIS_MM_None),
       mySkinMode(ManipulatorSkin_Shaded),
       myIsActivationOnDetection(Standard_False),
       myIsZoomPersistentMode(Standard_True),
       myHasStartedTransformation(Standard_False),
-      myStartPosition(gp::XOY()),
+      myStartPosition(gp1::XOY()),
       myStartPick(0.0, 0.0, 0.0),
       myPrevState(0.0)
 {
@@ -260,7 +260,7 @@ AIS_Manipulator::AIS_Manipulator(const Frame3d& thePosition)
       myIsActivationOnDetection(Standard_False),
       myIsZoomPersistentMode(Standard_True),
       myHasStartedTransformation(Standard_False),
-      myStartPosition(gp::XOY()),
+      myStartPosition(gp1::XOY()),
       myStartPick(0.0, 0.0, 0.0),
       myPrevState(0.0)
 {
@@ -335,7 +335,7 @@ void AIS_Manipulator::EnableMode(const AIS_ManipulatorMode theMode)
 
 void AIS_Manipulator::attachToPoint(const Point3d& thePoint)
 {
-  Frame3d aPosition = gp::XOY();
+  Frame3d aPosition = gp1::XOY();
   aPosition.SetLocation(thePoint);
   SetPosition(aPosition);
 }
@@ -352,7 +352,7 @@ void AIS_Manipulator::attachToBox(const Box2& theBox)
   Standard_Real anXmin = 0.0, anYmin = 0.0, aZmin = 0.0, anXmax = 0.0, anYmax = 0.0, aZmax = 0.0;
   theBox.Get(anXmin, anYmin, aZmin, anXmax, anYmax, aZmax);
 
-  Frame3d aPosition = gp::XOY();
+  Frame3d aPosition = gp1::XOY();
   aPosition.SetLocation(
     Point3d((anXmin + anXmax) * 0.5, (anYmin + anYmax) * 0.5, (aZmin + aZmax) * 0.5));
   SetPosition(aPosition);
@@ -831,7 +831,7 @@ void AIS_Manipulator::RecomputeTransformation(const Handle(CameraOn3d)& theCamer
       anAxisDir = myPosition.XDirection().Crossed(myPosition.YDirection());
     }
 
-    const Dir3d aCameraProj = Abs(Abs(anAxisDir.Dot(aCameraDir)) - 1.0) <= gp::Resolution()
+    const Dir3d aCameraProj = Abs(Abs(anAxisDir.Dot(aCameraDir)) - 1.0) <= gp1::Resolution()
                                  ? aCameraDir
                                  : anAxisDir.Crossed(aCameraDir).Crossed(anAxisDir);
     const Standard_Boolean isReversed = anAxisDir.Dot(aCameraDir) > 0;
@@ -910,19 +910,19 @@ void AIS_Manipulator::RecomputeTransformation(const Handle(CameraOn3d)& theCamer
 
   if (isRecomputedRotation)
   {
-    const Dir3d aXDir  = gp::DX();
-    const Dir3d anYDir = gp::DY();
-    const Dir3d aZDir  = gp::DZ();
+    const Dir3d aXDir  = gp1::DX();
+    const Dir3d anYDir = gp1::DY();
+    const Dir3d aZDir  = gp1::DZ();
 
     const Dir3d aCameraProjection =
-      Abs(aXDir.Dot(aCameraDir)) <= gp::Resolution()
-          || Abs(anYDir.Dot(aCameraDir)) <= gp::Resolution()
+      Abs(aXDir.Dot(aCameraDir)) <= gp1::Resolution()
+          || Abs(anYDir.Dot(aCameraDir)) <= gp1::Resolution()
         ? aCameraDir
         : aXDir.XYZ() * (aXDir.Dot(aCameraDir)) + anYDir.XYZ() * (anYDir.Dot(aCameraDir));
     const Standard_Boolean isReversed = aZDir.Dot(aCameraDir) > 0;
 
     const Standard_Real anAngle  = M_PI_2 - aCameraDir.Angle(aCameraProjection);
-    Dir3d              aRotAxis = Abs(Abs(aCameraProjection.Dot(aZDir)) - 1.0) <= gp::Resolution()
+    Dir3d              aRotAxis = Abs(Abs(aCameraProjection.Dot(aZDir)) - 1.0) <= gp1::Resolution()
                                      ? aZDir
                                      : aCameraProjection.Crossed(aZDir);
     if (isReversed)
@@ -931,12 +931,12 @@ void AIS_Manipulator::RecomputeTransformation(const Handle(CameraOn3d)& theCamer
     }
 
     Transform3d aRotationTrsf;
-    aRotationTrsf.SetRotation(Axis3d(gp::Origin(), aRotAxis), anAngle);
+    aRotationTrsf.SetRotation(Axis3d(gp1::Origin(), aRotAxis), anAngle);
 
-    gp_Ax3 aToSystem(gp::Origin(),
+    Ax3 aToSystem(gp1::Origin(),
                      myPosition.XDirection().Crossed(myPosition.YDirection()),
                      myPosition.XDirection());
-    gp_Ax3 aFromSystem(gp::XOY());
+    Ax3 aFromSystem(gp1::XOY());
     aFromSystem.Transform(aRotationTrsf);
 
     Transform3d aTrsf;
@@ -1066,13 +1066,13 @@ void AIS_Manipulator::updateTransformation()
 
   if (!myIsZoomPersistentMode)
   {
-    aTrsf.SetTransformation(myPosition, gp::XOY());
+    aTrsf.SetTransformation(myPosition, gp1::XOY());
   }
   else
   {
     const Dir3d& aVDir = myPosition.Direction();
     const Dir3d& aXDir = myPosition.XDirection();
-    aTrsf.SetTransformation(Frame3d(gp::Origin(), aVDir, aXDir), gp::XOY());
+    aTrsf.SetTransformation(Frame3d(gp1::Origin(), aVDir, aXDir), gp1::XOY());
   }
 
   Handle(TopLoc_Datum3D) aGeomTrsf = new TopLoc_Datum3D(aTrsf);
@@ -1254,7 +1254,7 @@ void AIS_Manipulator::Compute(const Handle(PrsMgr_PresentationManager)& thePrsMg
   anAspect->SetTransparency(myDrawer->ShadingAspect()->Transparency());
 
   // Display center
-  myCenter.Init(myAxes[0].AxisRadius() * 2.0f, gp::Origin(), mySkinMode);
+  myCenter.Init(myAxes[0].AxisRadius() * 2.0f, gp1::Origin(), mySkinMode);
   aGroup = thePrs->NewGroup();
   aGroup->SetPrimitivesAspect(myDrawer->ShadingAspect()->Aspect());
   aGroup->AddPrimitiveArray(myCenter.Array());
@@ -1265,7 +1265,7 @@ void AIS_Manipulator::Compute(const Handle(PrsMgr_PresentationManager)& thePrsMg
   {
     myCircle.Init(myAxes[0].InnerRadius(),
                   myAxes[0].Size(),
-                  Axis3d(gp::Origin(), gp::DZ()),
+                  Axis3d(gp1::Origin(), gp1::DZ()),
                   2.0f * M_PI,
                   myAxes[0].FacettesNumber() * 4);
     myCircleGroup = thePrs->NewGroup();
@@ -1446,7 +1446,7 @@ void AIS_Manipulator::ComputeSelection(const Handle(SelectionContainer)& theSele
         {
           // define sensitivity by line
           Handle(Select3D_SensitiveSegment) aLine =
-            new Select3D_SensitiveSegment(anOwner, gp::Origin(), anAxis.TranslatorTipPosition());
+            new Select3D_SensitiveSegment(anOwner, gp1::Origin(), anAxis.TranslatorTipPosition());
           aLine->SetSensitivityFactor(aHighSensitivity);
           theSelection->Add(aLine);
         }
@@ -1478,7 +1478,7 @@ void AIS_Manipulator::ComputeSelection(const Handle(SelectionContainer)& theSele
         if (mySkinMode == ManipulatorSkin_Shaded)
         {
           // define sensitivity by circle
-          const gp_Circ aGeomCircle(Frame3d(gp::Origin(), anAxis.ReferenceAxis().Direction()),
+          const gp_Circ aGeomCircle(Frame3d(gp1::Origin(), anAxis.ReferenceAxis().Direction()),
                                     anAxis.RotatorDiskRadius());
           Handle(Select3D_SensitiveCircle) aCircle = new ManipSensCircle(anOwner, aGeomCircle);
           aCircle->SetSensitivityFactor(aLowSensitivity);
@@ -1596,9 +1596,9 @@ void AIS_Manipulator::Disk::Init(const Standard_ShortReal theInnerRadius,
 
   Prs3d_ToolDisk aTool(theInnerRadius, theOuterRadius, theSlicesNb, theStacksNb);
   aTool.SetAngleRange(0, theAngle);
-  gp_Ax3  aSystem(myPosition.Location(), myPosition.Direction());
+  Ax3  aSystem(myPosition.Location(), myPosition.Direction());
   Transform3d aTrsf;
-  aTrsf.SetTransformation(aSystem, gp_Ax3());
+  aTrsf.SetTransformation(aSystem, Ax3());
   myArray         = aTool.CreateTriangulation(aTrsf);
   myTriangulation = aTool.CreatePolyTriangulation(aTrsf);
 }
@@ -1618,7 +1618,7 @@ void AIS_Manipulator::Sphere::Init(const Standard_ShortReal theRadius,
   myRadius   = theRadius;
 
   Transform3d aTrsf;
-  aTrsf.SetTranslation(Vector3d(gp::Origin(), thePosition));
+  aTrsf.SetTranslation(Vector3d(gp1::Origin(), thePosition));
 
   const Standard_Real aRadius = theSkinMode == ManipulatorSkin_Flat ? theRadius * 0.5 : theRadius;
   Prs3d_ToolSphere    aTool(aRadius, theSlicesNb, theStacksNb);
@@ -1639,17 +1639,17 @@ void AIS_Manipulator::Cube::Init(const Axis3d&            thePosition,
   {
     Dir3d aXDirection;
     if (thePosition.Direction().X() > 0)
-      aXDirection = gp::DY();
+      aXDirection = gp1::DY();
     else if (thePosition.Direction().Y() > 0)
-      aXDirection = gp::DZ();
+      aXDirection = gp1::DZ();
     else
-      aXDirection = gp::DX();
+      aXDirection = gp1::DX();
 
     Point3d aLocation =
       thePosition.Location().Translated(Vector3d(thePosition.Direction().XYZ() * theSize));
-    gp_Ax3  aSystem(aLocation, aXDirection, thePosition.Direction());
+    Ax3  aSystem(aLocation, aXDirection, thePosition.Direction());
     Transform3d aTrsf;
-    aTrsf.SetTransformation(aSystem, gp_Ax3());
+    aTrsf.SetTransformation(aSystem, Ax3());
 
     Prs3d_ToolDisk aTool(0.0, theSize, 40, 40);
     myArray         = aTool.CreateTriangulation(aTrsf);
@@ -1723,7 +1723,7 @@ void AIS_Manipulator::Cube::addTriangle(const Standard_Integer theIndex,
   myTriangulation->SetNode(theIndex * 3 + 3, theP3);
 
   myTriangulation->SetTriangle(theIndex + 1,
-                               Poly_Triangle(theIndex * 3 + 1, theIndex * 3 + 2, theIndex * 3 + 3));
+                               Triangle2(theIndex * 3 + 1, theIndex * 3 + 2, theIndex * 3 + 3));
   myArray->AddVertex(theP1, theNormal);
   myArray->AddVertex(theP2, theNormal);
   myArray->AddVertex(theP3, theNormal);
@@ -1741,9 +1741,9 @@ void AIS_Manipulator::Sector::Init(const Standard_ShortReal theRadius,
                                    const Standard_Integer   theSlicesNb,
                                    const Standard_Integer   theStacksNb)
 {
-  gp_Ax3  aSystem(thePosition.Location(), thePosition.Direction(), theXDirection);
+  Ax3  aSystem(thePosition.Location(), thePosition.Direction(), theXDirection);
   Transform3d aTrsf;
-  aTrsf.SetTransformation(aSystem, gp_Ax3());
+  aTrsf.SetTransformation(aSystem, Ax3());
 
   if (theSkinMode == ManipulatorSkin_Flat)
   {
@@ -1768,8 +1768,8 @@ void AIS_Manipulator::Sector::Init(const Standard_ShortReal theRadius,
     myTriangulation->SetNode(2, aV2);
     myTriangulation->SetNode(3, aV3);
     myTriangulation->SetNode(4, aV4);
-    myTriangulation->SetTriangle(1, Poly_Triangle(3, 1, 2));
-    myTriangulation->SetTriangle(2, Poly_Triangle(1, 3, 4));
+    myTriangulation->SetTriangle(1, Triangle2(3, 1, 2));
+    myTriangulation->SetTriangle(2, Triangle2(1, 3, 4));
   }
   else
   {
@@ -1844,9 +1844,9 @@ void AIS_Manipulator::Axis::Compute(const Handle(PrsMgr_PresentationManager)& th
         aStripsNb * 3,
         Graphic3d_ArrayFlags_VertexNormal | Graphic3d_ArrayFlags_VertexColor);
 
-      gp_Ax3  aSystem(gp::Origin(), myReferenceAxis.Direction());
+      Ax3  aSystem(gp1::Origin(), myReferenceAxis.Direction());
       Transform3d aTrsf;
-      aTrsf.SetTransformation(aSystem, gp_Ax3());
+      aTrsf.SetTransformation(aSystem, Ax3());
 
       Dir3d        aNormal = Dir3d(1.0, 0.0, 0.0).Transformed(aTrsf);
       Standard_Real aLength = myLength + myIndent * 4.0f;
@@ -1890,7 +1890,7 @@ void AIS_Manipulator::Axis::Compute(const Handle(PrsMgr_PresentationManager)& th
     }
     else
     {
-      myTriangleArray = Prs3d_Arrow::DrawShaded(Axis3d(gp::Origin(), myReferenceAxis.Direction()),
+      myTriangleArray = Prs3d_Arrow::DrawShaded(Axis3d(gp1::Origin(), myReferenceAxis.Direction()),
                                                 myAxisRadius,
                                                 myLength,
                                                 myAxisRadius * 1.5,
@@ -1947,7 +1947,7 @@ void AIS_Manipulator::Axis::Compute(const Handle(PrsMgr_PresentationManager)& th
     const Standard_Real anAngle = theSkinMode == ManipulatorSkin_Shaded ? M_PI * 2.0f : M_PI;
     myCircle.Init(myInnerRadius + myIndent * 2.0f,
                   Size(),
-                  Axis3d(gp::Origin(), myReferenceAxis.Direction()),
+                  Axis3d(gp1::Origin(), myReferenceAxis.Direction()),
                   anAngle,
                   myFacettesNumber * 2);
     myRotatorGroup = thePrs->NewGroup();
@@ -1973,15 +1973,15 @@ void AIS_Manipulator::Axis::Compute(const Handle(PrsMgr_PresentationManager)& th
   {
     Dir3d aXDirection;
     if (myReferenceAxis.Direction().X() > 0)
-      aXDirection = gp::DY();
+      aXDirection = gp1::DY();
     else if (myReferenceAxis.Direction().Y() > 0)
-      aXDirection = gp::DZ();
+      aXDirection = gp1::DZ();
     else
-      aXDirection = gp::DX();
+      aXDirection = gp1::DX();
 
     Point3d             aPosition = theSkinMode == ManipulatorSkin_Flat
                                      ? Point3d(myReferenceAxis.Direction().Reversed().XYZ() * (myAxisRadius))
-                                     : gp::Origin();
+                                     : gp1::Origin();
     Standard_ShortReal aRadius =
       theSkinMode == ManipulatorSkin_Flat ? myLength : myInnerRadius + myIndent * 2;
     mySector.Init(aRadius,

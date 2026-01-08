@@ -32,8 +32,8 @@
 #include <TColStd_Array1OfReal.hxx>
 
 class gp_Pln;
-class gp_Cone;
-class gp_Cylinder;
+class Cone1;
+class Cylinder1;
 class gp_Sphere;
 class gp_Lin;
 class gp_Circ;
@@ -84,11 +84,11 @@ public:
 
   //! Returns true if the underlined surface can be represent by cylindrical one with tolerance
   //! theTol and sets in theCyl the result cylinrical surface.
-  Standard_EXPORT Standard_Boolean IsCylinder(const Standard_Real theTol, gp_Cylinder& theCyl);
+  Standard_EXPORT Standard_Boolean IsCylinder(const Standard_Real theTol, Cylinder1& theCyl);
 
   //! Returns true if the underlined surface can be represent by conical one with tolerance theTol
   //! and sets in theCone the result conical surface.
-  Standard_EXPORT Standard_Boolean IsCone(const Standard_Real theTol, gp_Cone& theCone);
+  Standard_EXPORT Standard_Boolean IsCone(const Standard_Real theTol, Cone1& theCone);
 
   //! Returns true if the underlined surface can be represent by spherical one with tolerance theTol
   //! and sets in theSphere the result spherical surface.
@@ -109,7 +109,7 @@ public:
 private:
   Standard_Boolean IsElementarySurf(const GeomAbs_SurfaceType theTarget,
                                     const Standard_Real       theTol,
-                                    gp_Ax3&                   thePos,
+                                    Ax3&                   thePos,
                                     TColStd_Array1OfReal&     theParams);
 
   Standard_Boolean IsConic(const GeomAbs_CurveType theTarget,
@@ -135,7 +135,7 @@ private:
                                          const Standard_Real        theTol,
                                          const GeomConvert_ConvType theType,
                                          const GeomAbs_SurfaceType  theTarget,
-                                         gp_Ax3&                    thePos,
+                                         Ax3&                    thePos,
                                          TColStd_Array1OfReal&      theParams,
                                          Standard_Real&             theGap,
                                          Standard_Integer&          theStatus);
@@ -144,7 +144,7 @@ private:
                                          const Standard_Real        theTol,
                                          const GeomConvert_ConvType theType,
                                          const GeomAbs_SurfaceType  theTarget,
-                                         gp_Ax3&                    thePos,
+                                         Ax3&                    thePos,
                                          TColStd_Array1OfReal&      theParams,
                                          Standard_Real&             theGap,
                                          Standard_Integer&          theStatus);
@@ -159,7 +159,7 @@ private:
   static Standard_Boolean GetSurfaceByLS(const TopoWire&        theWire,
                                          const Standard_Real       theTol,
                                          const GeomAbs_SurfaceType theTarget,
-                                         gp_Ax3&                   thePos,
+                                         Ax3&                   thePos,
                                          TColStd_Array1OfReal&     theParams,
                                          Standard_Real&            theGap,
                                          Standard_Integer&         theStatus);

@@ -751,7 +751,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::FastComputeAnalytic()
   // Cylinder - Line/Circle
   else if (aST == GeomAbs_Cylinder)
   {
-    gp_Cylinder   aCylinder  = mySurface.Cylinder();
+    Cylinder1   aCylinder  = mySurface.Cylinder();
     const Axis3d& aCylAxis   = aCylinder.Axis();
     const Dir3d& aCylDir    = aCylAxis.Direction();
     Standard_Real aCylRadius = aCylinder.Radius();

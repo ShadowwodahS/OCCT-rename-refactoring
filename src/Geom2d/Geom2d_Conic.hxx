@@ -30,7 +30,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Conic, GeomCurve2d)
 //! Geom2d_Circle, Geom2d_Ellipse,
 //! Geom2d_Hyperbola and Geom2d_Parabola.
 //! A conic is positioned in the plane with a coordinate
-//! system (gp_Ax22d object), where the origin is the
+//! system (Ax22d object), where the origin is the
 //! center of the conic (or the apex in case of a parabola).
 //! This coordinate system is the local coordinate
 //! system of the conic. It gives the conic an explicit
@@ -43,7 +43,7 @@ class Geom2d_Conic : public GeomCurve2d
 public:
   //! Modifies this conic, redefining its local coordinate system
   //! partially, by assigning theA as its axis
-  void SetAxis(const gp_Ax22d& theA) { pos.SetAxis(theA); }
+  void SetAxis(const Ax22d& theA) { pos.SetAxis(theA); }
 
   //! Assigns the origin and unit vector of axis theA to the
   //! origin of the local coordinate system of this conic and X Direction.
@@ -89,7 +89,7 @@ public:
   const gp_Pnt2d& Location() const { return pos.Location(); }
 
   //! Returns the local coordinates system of the conic.
-  const gp_Ax22d& Position() const { return pos; }
+  const Ax22d& Position() const { return pos; }
 
   //! Reverses the direction of parameterization of <me>.
   //! The local coordinate system of the conic is modified.
@@ -113,7 +113,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(Geom2d_Conic, GeomCurve2d)
 
 protected:
-  gp_Ax22d pos;
+  Ax22d pos;
 };
 
 #endif // _Geom2d_Conic_HeaderFile

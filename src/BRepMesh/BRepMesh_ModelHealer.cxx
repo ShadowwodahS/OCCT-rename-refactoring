@@ -485,7 +485,7 @@ Standard_Boolean BRepMesh_ModelHealer::connectClosestPoints(
 
   // Connect closest points first. This can help to identify
   // which ends should be connected in case of gap.
-  if (aPrevSqDist - aNextSqDist > gp::Resolution())
+  if (aPrevSqDist - aNextSqDist > gp1::Resolution())
   {
     adjustSamePoints(aCurrNextUV,
                      aNextUV,

@@ -175,7 +175,7 @@ static void TreatInfinitePlane(const gp_Pln&       aPlane,
   // Get location of the plane as its barycenter
   Point3d aLocation = BaryCenter(aPlane, aUMin, aUMax, aVMin, aVMax);
 
-  if (aNorm.IsParallel(gp::DX(), anAngularTol))
+  if (aNorm.IsParallel(gp1::DX(), anAngularTol))
   {
     aB.Add(aLocation);
     aB.OpenYmin();
@@ -183,7 +183,7 @@ static void TreatInfinitePlane(const gp_Pln&       aPlane,
     aB.OpenZmin();
     aB.OpenZmax();
   }
-  else if (aNorm.IsParallel(gp::DY(), anAngularTol))
+  else if (aNorm.IsParallel(gp1::DY(), anAngularTol))
   {
     aB.Add(aLocation);
     aB.OpenXmin();
@@ -191,7 +191,7 @@ static void TreatInfinitePlane(const gp_Pln&       aPlane,
     aB.OpenZmin();
     aB.OpenZmax();
   }
-  else if (aNorm.IsParallel(gp::DZ(), anAngularTol))
+  else if (aNorm.IsParallel(gp1::DZ(), anAngularTol))
   {
     aB.Add(aLocation);
     aB.OpenXmin();

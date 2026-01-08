@@ -58,7 +58,7 @@ public:
   void SetLocalOrigin(const gp_XYZ& theOrigin)
   {
     myLocalOrigin    = theOrigin;
-    myHasLocalOrigin = !theOrigin.IsEqual(gp_XYZ(0.0, 0.0, 0.0), gp::Resolution());
+    myHasLocalOrigin = !theOrigin.IsEqual(gp_XYZ(0.0, 0.0, 0.0), gp1::Resolution());
   }
 
   //! Return clipping plane W equation value moved considering local camera transformation.

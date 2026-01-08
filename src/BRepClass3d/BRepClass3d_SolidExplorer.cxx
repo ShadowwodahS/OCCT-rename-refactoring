@@ -177,7 +177,7 @@ Standard_Boolean BRepClass3d_SolidExplorer::FindAPointInTheFace(const TopoFace& 
       s.Initialize(face, Standard_False);
       s.D1(u_, v_, APoint_, theVecD1U, theVecD1V);
 
-      if (theVecD1U.CrossMagnitude(theVecD1V) > gp::Resolution())
+      if (theVecD1U.CrossMagnitude(theVecD1V) > gp1::Resolution())
         return Standard_True;
 
       if (ParamInit < Precision::PConfusion())
@@ -654,12 +654,12 @@ Standard_Integer BRepClass3d_SolidExplorer::OtherSegment(const Point3d&  P,
           ++NbPointsOK;
           Vector3d V(P, APoint);
           Par = V.Magnitude();
-          if (Par > gp::Resolution() && aVecD1U.Magnitude() > gp::Resolution()
-              && aVecD1V.Magnitude() > gp::Resolution())
+          if (Par > gp1::Resolution() && aVecD1U.Magnitude() > gp1::Resolution()
+              && aVecD1V.Magnitude() > gp1::Resolution())
           {
             Vector3d        Norm = aVecD1U.Crossed(aVecD1V);
             Standard_Real tt   = Norm.Magnitude();
-            if (tt > gp::Resolution())
+            if (tt > gp1::Resolution())
             {
               tt = Abs(Norm.Dot(V)) / (tt * Par);
               if (tt > maxscal)

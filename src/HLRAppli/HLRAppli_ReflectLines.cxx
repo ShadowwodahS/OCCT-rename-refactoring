@@ -48,7 +48,7 @@ void HLRAppli_ReflectLines::SetAxes(const Standard_Real Nx,
   Dir3d  Zpers(Nx, Ny, Nz);
   Dir3d  Ypers(XUp, YUp, ZUp);
   Dir3d  Xpers = Ypers.Crossed(Zpers);
-  gp_Ax3  Axe(At, Zpers, Xpers);
+  Ax3  Axe(At, Zpers, Xpers);
   Transform3d T;
   T.SetTransformation(Axe);
 

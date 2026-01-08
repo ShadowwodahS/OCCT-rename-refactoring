@@ -26,7 +26,7 @@
 class gp_Torus;
 
 //! This algorithm converts a bounded Torus into a rational
-//! B-spline surface. The torus is a Torus from package gp.
+//! B-spline surface. The torus is a Torus from package gp1.
 //! The parametrization of the torus is :
 //! P (U, V) =
 //! Loc  +  MinorRadius * Sin(V) * Zdir +

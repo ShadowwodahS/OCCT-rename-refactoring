@@ -26,7 +26,7 @@ class gp_Pnt2d;
 class gp_Vec2d;
 
 //! Implementation of the ParTool from IntImpParGen1
-//! for conics of gp, using the class PConic from IntCurve.
+//! for conics of gp1, using the class PConic from IntCurve.
 class ParametricConicTool
 {
 public:

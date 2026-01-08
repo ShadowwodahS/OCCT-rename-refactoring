@@ -542,7 +542,7 @@ public:
   //! value this method increases the multiplicity of the knot if the
   //! previous multiplicity was lower than M else it does nothing. The
   //! tolerance criterion is ParametricTolerance. ParametricTolerance
-  //! should be greater or equal than Resolution from package gp.
+  //! should be greater or equal than Resolution from package gp1.
   //!
   //! Raised if U is out of the bounds [U1, U2] given by the methods
   //! Bounds, the criterion ParametricTolerance is used.
@@ -557,7 +557,7 @@ public:
   //! previous multiplicity was lower than M otherwise it does nothing.
   //! The tolerance criterion is ParametricTolerance.
   //! ParametricTolerance should be greater or equal than Resolution
-  //! from package gp.
+  //! from package gp1.
   //!
   //! raises if V is out of the Bounds [V1, V2] given by the methods
   //! Bounds, the criterion ParametricTolerance is used.
@@ -725,7 +725,7 @@ public:
   //!
   //! Raised if UIndex < 1 or UIndex > NbUPoles or VIndex < 1 or
   //! VIndex > NbVPoles.
-  //! Raised if Weight <= Resolution from package gp.
+  //! Raised if Weight <= Resolution from package gp1.
   Standard_EXPORT void SetPole(const Standard_Integer UIndex,
                                const Standard_Integer VIndex,
                                const Point3d&          P,
@@ -747,7 +747,7 @@ public:
   //! Raised if the bounds of CPoleWeights are not the same as the
   //! bounds of CPoles.
   //! Raised if one of the weight value of CPoleWeights is lower or
-  //! equal to Resolution from package gp.
+  //! equal to Resolution from package gp1.
   Standard_EXPORT void SetPoleCol(const Standard_Integer      VIndex,
                                   const TColgp_Array1OfPnt&   CPoles,
                                   const TColStd_Array1OfReal& CPoleWeights);
@@ -762,7 +762,7 @@ public:
   //! raises if the bounds of CPoleWeights are not the same as the
   //! bounds of CPoles.
   //! Raised if one of the weight value of CPoleWeights is lower or
-  //! equal to Resolution from package gp.
+  //! equal to Resolution from package gp1.
   Standard_EXPORT void SetPoleRow(const Standard_Integer      UIndex,
                                   const TColgp_Array1OfPnt&   CPoles,
                                   const TColStd_Array1OfReal& CPoleWeights);
@@ -781,7 +781,7 @@ public:
   //! VIndex > NbVPoles
   //!
   //! Raised if weight is lower or equal to Resolution from
-  //! package gp
+  //! package gp1
   Standard_EXPORT void SetWeight(const Standard_Integer UIndex,
                                  const Standard_Integer VIndex,
                                  const Standard_Real    Weight);
@@ -793,7 +793,7 @@ public:
   //! Raised if CPoleWeights.Lower() < 1 or
   //! CPoleWeights.Upper() > NbUPoles.
   //! Raised if a weight value is lower or equal to Resolution
-  //! from package gp.
+  //! from package gp1.
   Standard_EXPORT void SetWeightCol(const Standard_Integer      VIndex,
                                     const TColStd_Array1OfReal& CPoleWeights);
 
@@ -804,7 +804,7 @@ public:
   //! Raised if CPoleWeights.Lower() < 1 or
   //! CPoleWeights.Upper() > NbVPoles.
   //! Raised  if a weight value is lower or equal to Resolution
-  //! from package gp.
+  //! from package gp1.
   Standard_EXPORT void SetWeightRow(const Standard_Integer      UIndex,
                                     const TColStd_Array1OfReal& CPoleWeights);
 
@@ -837,12 +837,12 @@ public:
 
   //! Returns true if the first control points row and the last
   //! control points row are identical. The tolerance criterion
-  //! is Resolution from package gp.
+  //! is Resolution from package gp1.
   Standard_EXPORT Standard_Boolean IsUClosed() const Standard_OVERRIDE;
 
   //! Returns true if the first control points column and the
   //! last last control points column are identical.
-  //! The tolerance criterion is Resolution from package gp.
+  //! The tolerance criterion is Resolution from package gp1.
   Standard_EXPORT Standard_Boolean IsVClosed() const Standard_OVERRIDE;
 
   //! Returns True if the order of continuity of the surface in the
@@ -862,7 +862,7 @@ public:
 
   //! Returns False if for each row of weights all the weights
   //! are identical.
-  //! The tolerance criterion is resolution from package gp.
+  //! The tolerance criterion is resolution from package gp1.
   //! Example :
   //! |1.0, 1.0, 1.0|
   //! if Weights =  |0.5, 0.5, 0.5|   returns False
@@ -876,7 +876,7 @@ public:
 
   //! Returns False if for each column of weights all the weights
   //! are identical.
-  //! The tolerance criterion is resolution from package gp.
+  //! The tolerance criterion is resolution from package gp1.
   //! Examples :
   //! |1.0, 2.0, 0.5|
   //! if Weights =  |1.0, 2.0, 0.5|   returns False
@@ -981,7 +981,7 @@ public:
   //! multiplicity Degree + 1 and if interior knots have
   //! multiplicity Degree
   //! otherwise the surface is non uniform in the U direction
-  //! The tolerance criterion is Resolution from package gp.
+  //! The tolerance criterion is Resolution from package gp1.
   Standard_EXPORT GeomAbs_BSplKnotDistribution UKnotDistribution() const;
 
   //! Returns the knots in the U direction.
@@ -1043,7 +1043,7 @@ public:
   //! multiplicity  Degree + 1 and if interior knots have
   //! multiplicity Degree
   //! otherwise the surface is non uniform in the V direction.
-  //! The tolerance criterion is Resolution from package gp.
+  //! The tolerance criterion is Resolution from package gp1.
   Standard_EXPORT GeomAbs_BSplKnotDistribution VKnotDistribution() const;
 
   //! Returns the knots in the V direction.

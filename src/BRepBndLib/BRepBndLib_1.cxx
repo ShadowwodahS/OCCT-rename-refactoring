@@ -379,7 +379,7 @@ static void ComputePCA(const TopoShape&    theS,
   if ((anIdx1 == 0) || (anIdx2 == 0))
   {
     // Coordinate system in which the shape will have the optimal bounding box
-    gp_Ax3 aLocCoordSys(aGCommon.CentreOfMass(),
+    Ax3 aLocCoordSys(aGCommon.CentreOfMass(),
                         aGCommon.PrincipalProperties().ThirdAxisOfInertia(),
                         aGCommon.PrincipalProperties().FirstAxisOfInertia());
     aTrsf.SetTransformation(aLocCoordSys);

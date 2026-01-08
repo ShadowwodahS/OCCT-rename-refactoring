@@ -27,7 +27,7 @@
 class Coords2d;
 class gp_XYZ;
 class IGESGeom_CopiousData;
-class gp_Ax3;
+class Ax3;
 class Frame3d;
 class Axis3d;
 class IGESGeom_TransformationMatrix;
@@ -85,7 +85,7 @@ public:
   Standard_EXPORT void SetPosition(const Transform3d& pos);
 
   //! Sets final position from an Ax3
-  Standard_EXPORT void SetPosition(const gp_Ax3& pos);
+  Standard_EXPORT void SetPosition(const Ax3& pos);
 
   //! Sets final position from an Ax2
   Standard_EXPORT void SetPosition(const Frame3d& pos);

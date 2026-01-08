@@ -23,7 +23,7 @@
 #include <StdFail_NotDone.hxx>
 
 //=========================================================================
-//   Creation d une Ellipse 3d de gp a partir de son Ax2 et de son        +
+//   Creation d une Ellipse 3d de gp1 a partir de son Ax2 et de son        +
 //   grand rayon <MajorRadius> et son petit rayon <MinorRadius>.          +
 //=========================================================================
 gce_MakeElips::gce_MakeElips(const Frame3d&       A2,
@@ -46,7 +46,7 @@ gce_MakeElips::gce_MakeElips(const Frame3d&       A2,
 }
 
 //=========================================================================
-//   Creation d une Ellipse 3d de gp de centre <Center> et de sommets     +
+//   Creation d une Ellipse 3d de gp1 de centre <Center> et de sommets     +
 //   <S1> et <S2>.                                                        +
 //   <S1> donne le grand rayon et <S2> le petit rayon.                    +
 //=========================================================================
@@ -54,7 +54,7 @@ gce_MakeElips::gce_MakeElips(const Frame3d&       A2,
 gce_MakeElips::gce_MakeElips(const Point3d& S1, const Point3d& S2, const Point3d& Center)
 {
   Standard_Real D1 = S1.Distance(Center);
-  if (D1 < gp::Resolution())
+  if (D1 < gp1::Resolution())
   {
     TheError = gce_NullAxis;
   }
@@ -62,7 +62,7 @@ gce_MakeElips::gce_MakeElips(const Point3d& S1, const Point3d& S2, const Point3d
   {
     Dir3d        XAxis(gp_XYZ(S1.XYZ() - Center.XYZ()));
     Standard_Real D2 = gp_Lin(Center, XAxis).Distance(S2);
-    if (D1 < D2 || D2 < gp::Resolution())
+    if (D1 < D2 || D2 < gp1::Resolution())
     {
       TheError = gce_InvertAxis;
     }

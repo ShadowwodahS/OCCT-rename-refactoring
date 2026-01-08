@@ -25,11 +25,11 @@
 #include <gce_Root.hxx>
 #include <Standard_Boolean.hxx>
 class gp_Ax2d;
-class gp_Ax22d;
+class Ax22d;
 class gp_Pnt2d;
 
 //! This class implements the following algorithms used to
-//! create Elips2d from gp.
+//! create Elips2d from gp1.
 //!
 //! * Create an ellipse from its center, and two points:
 //! one on the ciconference giving the major radius, the
@@ -61,7 +61,7 @@ public:
   //! It is possible to create an ellipse with MajorRadius = MinorRadius.
   //! the status is "InvertRadius" if MajorRadius < MinorRadius or
   //! "NegativeRadius" if MinorRadius < 0.0
-  Standard_EXPORT gce_MakeElips2d(const gp_Ax22d&     A,
+  Standard_EXPORT gce_MakeElips2d(const Ax22d&     A,
                                   const Standard_Real MajorRadius,
                                   const Standard_Real MinorRadius);
 

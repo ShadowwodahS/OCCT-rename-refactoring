@@ -78,7 +78,7 @@ static Standard_Real EstimAngl(const Point3d& P1, const Point3d& Pm, const Point
 {
   Vector3d        V1(P1, Pm), V2(Pm, P2);
   Standard_Real L = V1.Magnitude() * V2.Magnitude();
-  if (L > gp::Resolution())
+  if (L > gp1::Resolution())
   {
     return V1.CrossMagnitude(V2) / L;
   }

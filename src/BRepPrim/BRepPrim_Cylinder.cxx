@@ -39,7 +39,7 @@ BRepPrim_Cylinder::BRepPrim_Cylinder(const Frame3d&       Position,
 //=================================================================================================
 
 BRepPrim_Cylinder::BRepPrim_Cylinder(const Standard_Real Radius)
-    : BRepPrim_Revolution(gp::XOY(), RealFirst(), RealLast()),
+    : BRepPrim_Revolution(gp1::XOY(), RealFirst(), RealLast()),
       myRadius(Radius)
 {
   SetMeridian();
@@ -68,7 +68,7 @@ BRepPrim_Cylinder::BRepPrim_Cylinder(const Frame3d& Axes, const Standard_Real Ra
 //=================================================================================================
 
 BRepPrim_Cylinder::BRepPrim_Cylinder(const Standard_Real R, const Standard_Real H)
-    : BRepPrim_Revolution(gp::XOY(), 0, H),
+    : BRepPrim_Revolution(gp1::XOY(), 0, H),
       myRadius(R)
 {
   SetMeridian();

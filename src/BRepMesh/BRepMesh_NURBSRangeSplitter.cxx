@@ -162,8 +162,8 @@ private:
     if (aSqDist < myDFace->GetDeflection() * myDFace->GetDeflection())
     {
       // Lets check parameters for angular deflection.
-      if (myPrevControlVec.SquareMagnitude() < gp::Resolution()
-          || aTmpVec.SquareMagnitude() < gp::Resolution()
+      if (myPrevControlVec.SquareMagnitude() < gp1::Resolution()
+          || aTmpVec.SquareMagnitude() < gp1::Resolution()
           || myPrevControlVec.Angle(aTmpVec) < myParameters.AngleInterior)
       {
         // For current Iso line we can remove this parameter.

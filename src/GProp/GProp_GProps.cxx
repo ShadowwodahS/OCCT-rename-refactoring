@@ -24,15 +24,15 @@
 #include <Standard_DomainError.hxx>
 
 GeometricProperties::GeometricProperties()
-    : g(gp::Origin()),
-      loc(gp::Origin()),
+    : g(gp1::Origin()),
+      loc(gp1::Origin()),
       dim(0.0)
 {
   inertia = gp_Mat(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 }
 
 GeometricProperties::GeometricProperties(const Point3d& SystemLocation)
-    : g(gp::Origin()),
+    : g(gp1::Origin()),
       loc(SystemLocation),
       dim(0.0)
 {
@@ -41,9 +41,9 @@ GeometricProperties::GeometricProperties(const Point3d& SystemLocation)
 
 void GeometricProperties::Add(const GeometricProperties& Item, const Standard_Real Density)
 {
-  if (Density <= gp::Resolution())
+  if (Density <= gp1::Resolution())
     throw Standard_DomainError();
-  if (loc.Distance(Item.loc) <= gp::Resolution())
+  if (loc.Distance(Item.loc) <= gp1::Resolution())
   {
     gp_XYZ GXYZ = (Item.g.XYZ()).Multiplied(Item.dim * Density);
     g.SetXYZ(g.XYZ().Multiplied(dim));
@@ -82,7 +82,7 @@ void GeometricProperties::Add(const GeometricProperties& Item, const Standard_Re
     // of the system using the Huyghens theorem
     gp_Mat HMat;
     gp_Mat ItemInertia = Item.inertia;
-    if (Item.g.XYZ().Modulus() > gp::Resolution())
+    if (Item.g.XYZ().Modulus() > gp1::Resolution())
     {
       // Computes the inertia of Item at its dim centre
       GProp1::HOperator(Itemg, Item.loc, Item.dim, HMat);
@@ -108,7 +108,7 @@ Point3d GeometricProperties::CentreOfMass() const
 gp_Mat GeometricProperties::MatrixOfInertia() const
 {
   gp_Mat HMat;
-  GProp1::HOperator(g, gp::Origin(), dim, HMat);
+  GProp1::HOperator(g, gp1::Origin(), dim, HMat);
   return inertia - HMat;
 }
 
@@ -129,7 +129,7 @@ Standard_Real GeometricProperties::MomentOfInertia(const Axis3d& A) const
   // 3] then computes the scalar product between this vector and
   //    A.Direction()
 
-  if (loc.Distance(A.Location()) <= gp::Resolution())
+  if (loc.Distance(A.Location()) <= gp1::Resolution())
   {
     return (A.Direction().XYZ()).Dot((A.Direction().XYZ()).Multiplied(inertia));
   }

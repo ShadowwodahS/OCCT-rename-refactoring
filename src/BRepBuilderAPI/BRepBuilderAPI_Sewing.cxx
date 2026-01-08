@@ -1128,7 +1128,7 @@ void BRepBuilderAPI_Sewing::EvaluateAngulars(TopTools_SequenceOfShape& sequenceS
       Vector3d n = w1 ^ w2; // Compute the normal vector
       if (i == indRef)
         normRef(j) = n;
-      else if ((n.Magnitude() > gp::Resolution()) && (normRef(j).Magnitude() > gp::Resolution()))
+      else if ((n.Magnitude() > gp1::Resolution()) && (normRef(j).Magnitude() > gp1::Resolution()))
       {
         nbComputedAngle++;
         Standard_Real angular = n.Angle(normRef(j));

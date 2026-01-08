@@ -29,8 +29,8 @@
 
 class gp_Pln;
 class gp_Sphere;
-class gp_Cylinder;
-class gp_Cone;
+class Cylinder1;
+class Cone1;
 class gp_Torus;
 class PointOnSurface1;
 
@@ -64,15 +64,15 @@ public:
 
   //! Calculates the distances between a sphere
   //! and a cylinder.
-  Standard_EXPORT Extrema_ExtElSS(const gp_Sphere& S1, const gp_Cylinder& S2);
+  Standard_EXPORT Extrema_ExtElSS(const gp_Sphere& S1, const Cylinder1& S2);
 
-  Standard_EXPORT void Perform(const gp_Sphere& S1, const gp_Cylinder& S2);
+  Standard_EXPORT void Perform(const gp_Sphere& S1, const Cylinder1& S2);
 
   //! Calculates the distances between a sphere
   //! and a cone.
-  Standard_EXPORT Extrema_ExtElSS(const gp_Sphere& S1, const gp_Cone& S2);
+  Standard_EXPORT Extrema_ExtElSS(const gp_Sphere& S1, const Cone1& S2);
 
-  Standard_EXPORT void Perform(const gp_Sphere& S1, const gp_Cone& S2);
+  Standard_EXPORT void Perform(const gp_Sphere& S1, const Cone1& S2);
 
   //! Calculates the distances between a sphere
   //! and a torus.

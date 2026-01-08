@@ -20,7 +20,7 @@
 #include <StdFail_NotDone.hxx>
 
 //=========================================================================
-//   Creation d un homothetie de gp de centre Point et de rapport Scale.  +
+//   Creation d un homothetie de gp1 de centre Point et de rapport Scale.  +
 //=========================================================================
 GC_MakeScale::GC_MakeScale(const Point3d& Point, const Standard_Real Scale)
 {

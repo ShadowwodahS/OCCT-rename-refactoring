@@ -403,7 +403,7 @@ void BRepSweep_Rotation::SetGeneratingPCurve(const TopoShape& aNewFace,
   if (AS.GetType() == GeomAbs_Plane)
   {
     gp_Pln             pln = AS.Plane();
-    gp_Ax3             ax3 = pln.Position();
+    Ax3             ax3 = pln.Position();
     Handle(GeomCurve3d) aC  = BRepInspector::Curve(TopoDS::Edge(aNewEdge), Loc, First, Last);
     Handle(GeomLine)  GL  = Handle(GeomLine)::DownCast(aC);
     if (GL.IsNull())
@@ -461,7 +461,7 @@ void BRepSweep_Rotation::SetGeneratingPCurve(const TopoShape& aNewFace,
     //  modified by NIZHNY-EAP Wed Mar  1 17:49:32 2000 ___END___
     pnt2d.SetCoord(u, v - U);
     L.SetLocation(pnt2d);
-    L.SetDirection(gp::DY2d());
+    L.SetDirection(gp1::DY2d());
   }
   else if (AS.GetType() == GeomAbs_Sphere)
   {
@@ -475,7 +475,7 @@ void BRepSweep_Rotation::SetGeneratingPCurve(const TopoShape& aNewFace,
       u = myAng;
     pnt2d.SetCoord(u, v - U);
     L.SetLocation(pnt2d);
-    L.SetDirection(gp::DY2d());
+    L.SetDirection(gp1::DY2d());
   }
   else
   {
@@ -483,7 +483,7 @@ void BRepSweep_Rotation::SetGeneratingPCurve(const TopoShape& aNewFace,
     if (aDirV.Index() == 2)
       anAngleTemp = myAng;
     L.SetLocation(gp_Pnt2d(anAngleTemp, 0));
-    L.SetDirection(gp::DY2d());
+    L.SetDirection(gp1::DY2d());
   }
   Handle(Geom2d_Line) GL = new Geom2d_Line(L);
   SetThePCurve(myBuilder.Builder(), TopoDS::Edge(aNewEdge), TopoDS::Face(aNewFace), orien, GL);
@@ -511,12 +511,12 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoShape& aNewFace,
 
     case GeomAbs_Plane: {
       gp_Pln        pln = AS.Plane();
-      gp_Ax3        ax3 = pln.Position();
+      Ax3        ax3 = pln.Position();
       Point3d        p1  = pln.Location();
       Standard_Real R   = p1.Distance(p2);
       ElSLib1::PlaneParameters(ax3, p2, u, v);
       gp_Dir2d              dx2d(u, v);
-      gp_Ax22d              axe(gp::Origin2d(), dx2d, gp::DY2d());
+      Ax22d              axe(gp1::Origin2d(), dx2d, gp1::DY2d());
       gp_Circ2d             C(axe, R);
       Handle(Geom2d_Circle) GC = new Geom2d_Circle(C);
       thePCurve                = GC;
@@ -524,10 +524,10 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoShape& aNewFace,
     break;
 
     case GeomAbs_Cone: {
-      gp_Cone cone = AS.Cone();
+      Cone1 cone = AS.Cone();
       ElSLib1::ConeParameters(cone.Position(), cone.RefRadius(), cone.SemiAngle(), p2, u, v);
       p22d.SetCoord(0., v);
-      gp_Lin2d            L(p22d, gp::DX2d());
+      gp_Lin2d            L(p22d, gp1::DX2d());
       Handle(Geom2d_Line) GL = new Geom2d_Line(L);
       thePCurve              = GL;
     }
@@ -537,7 +537,7 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoShape& aNewFace,
       gp_Sphere sph = AS.Sphere();
       ElSLib1::SphereParameters(sph.Position(), sph.Radius(), p2, u, v);
       p22d.SetCoord(0., v);
-      gp_Lin2d            L(p22d, gp::DX2d());
+      gp_Lin2d            L(p22d, gp1::DX2d());
       Handle(Geom2d_Line) GL = new Geom2d_Line(L);
       thePCurve              = GL;
     }
@@ -582,7 +582,7 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoShape& aNewFace,
         p22d.SetCoord(u1, v2);
         //  modified by NIZHNY-EAP Thu Mar  2 09:43:32 2000 ___END___
       }
-      gp_Lin2d            L(p22d, gp::DX2d());
+      gp_Lin2d            L(p22d, gp1::DX2d());
       Handle(Geom2d_Line) GL = new Geom2d_Line(L);
       thePCurve              = GL;
     }
@@ -590,7 +590,7 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoShape& aNewFace,
 
     default: {
       p22d.SetCoord(0., par);
-      gp_Lin2d            L(p22d, gp::DX2d());
+      gp_Lin2d            L(p22d, gp1::DX2d());
       Handle(Geom2d_Line) GL = new Geom2d_Line(L);
       thePCurve              = GL;
     }

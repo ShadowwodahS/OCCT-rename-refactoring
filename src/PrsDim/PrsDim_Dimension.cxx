@@ -342,9 +342,9 @@ void PrsDim_Dimension::DrawArrow(const Handle(Prs3d_Presentation)& thePresentati
   }
   else
   {
-    Point3d        aLocation = isZoomable ? theLocation : gp::Origin();
-    Point3d        aLeftPoint(gp::Origin());
-    Point3d        aRightPoint(gp::Origin());
+    Point3d        aLocation = isZoomable ? theLocation : gp1::Origin();
+    Point3d        aLeftPoint(gp1::Origin());
+    Point3d        aRightPoint(gp1::Origin());
     const Dir3d& aPlane = GetPlane().Axis().Direction();
 
     PointsForArrow(aLocation, theDirection, aPlane, aLength, anAngle, aLeftPoint, aRightPoint);
@@ -467,21 +467,21 @@ void PrsDim_Dimension::drawText(const Handle(Prs3d_Presentation)& thePresentatio
     aShapeVOffset += aYalign;
 
     Transform3d anOffsetTrsf;
-    anOffsetTrsf.SetTranslation(gp::Origin(), Point3d(aShapeHOffset, aShapeVOffset, 0.0));
+    anOffsetTrsf.SetTranslation(gp1::Origin(), Point3d(aShapeHOffset, aShapeVOffset, 0.0));
     aTextShape.Move(anOffsetTrsf);
 
     // transform text to myWorkingPlane coordinate system
-    gp_Ax3  aTextCoordSystem(theTextPos, GetPlane().Axis().Direction(), aTextDir);
+    Ax3  aTextCoordSystem(theTextPos, GetPlane().Axis().Direction(), aTextDir);
     Transform3d aTextPlaneTrsf;
-    aTextPlaneTrsf.SetTransformation(aTextCoordSystem, gp_Ax3(gp::XOY()));
+    aTextPlaneTrsf.SetTransformation(aTextCoordSystem, Ax3(gp1::XOY()));
     aTextShape.Move(aTextPlaneTrsf);
 
     // set text flipping anchors
     Transform3d aCenterOffsetTrsf;
     Point3d  aCenterOffset(aCenterHOffset, aCenterVOffset, 0.0);
-    aCenterOffsetTrsf.SetTranslation(gp::Origin(), aCenterOffset);
+    aCenterOffsetTrsf.SetTranslation(gp1::Origin(), aCenterOffset);
 
-    Point3d aCenterOfLabel(gp::Origin());
+    Point3d aCenterOfLabel(gp1::Origin());
     aCenterOfLabel.Transform(aCenterOffsetTrsf);
     aCenterOfLabel.Transform(aTextPlaneTrsf);
 
@@ -1324,8 +1324,8 @@ void PrsDim_Dimension::ComputeSelection(const Handle(SelectionContainer)& theSel
     {
       const SelectionGeometry::HArrow& anArrow = anArrowIt.Value();
 
-      Point3d        aSidePnt1(gp::Origin());
-      Point3d        aSidePnt2(gp::Origin());
+      Point3d        aSidePnt1(gp1::Origin());
+      Point3d        aSidePnt2(gp1::Origin());
       const Dir3d& aPlane = GetPlane().Axis().Direction();
       const Point3d& aPeak  = anArrow->Position;
       const Dir3d& aDir   = anArrow->Direction;
@@ -1370,7 +1370,7 @@ void PrsDim_Dimension::ComputeSelection(const Handle(SelectionContainer)& theSel
       Standard_Real aDy = mySelectionGeom.TextHeight * 0.5;
 
       Transform3d aLabelPlane;
-      aLabelPlane.SetTransformation(aTextAxes, gp::XOY());
+      aLabelPlane.SetTransformation(aTextAxes, gp1::XOY());
 
       TColgp_Array1OfPnt aRectanglePoints(1, 4);
       aRectanglePoints.ChangeValue(1) = Point3d(-aDx, -aDy, 0.0).Transformed(aLabelPlane);
@@ -1379,8 +1379,8 @@ void PrsDim_Dimension::ComputeSelection(const Handle(SelectionContainer)& theSel
       aRectanglePoints.ChangeValue(4) = Point3d(aDx, -aDy, 0.0).Transformed(aLabelPlane);
 
       Poly_Array1OfTriangle aTriangles(1, 2);
-      aTriangles.ChangeValue(1) = Poly_Triangle(1, 2, 3);
-      aTriangles.ChangeValue(2) = Poly_Triangle(1, 3, 4);
+      aTriangles.ChangeValue(1) = Triangle2(1, 2, 3);
+      aTriangles.ChangeValue(2) = Triangle2(1, 3, 4);
 
       Handle(MeshTriangulation) aRectanglePoly =
         new MeshTriangulation(aRectanglePoints, aTriangles);
@@ -1434,10 +1434,10 @@ Point3d PrsDim_Dimension::GetTextPositionForLinear(const Point3d&          theFi
 {
   if (!IsValid())
   {
-    return gp::Origin();
+    return gp1::Origin();
   }
 
-  Point3d aTextPosition(gp::Origin());
+  Point3d aTextPosition(gp1::Origin());
 
   Handle(Prs3d_DimensionAspect) aDimensionAspect = myDrawer->DimensionAspect();
 
@@ -1695,5 +1695,5 @@ void PrsDim_Dimension::FitTextAlignmentForLinear(
 void PrsDim_Dimension::UnsetFixedTextPosition()
 {
   myIsTextPositionFixed = Standard_False;
-  myFixedTextPosition   = gp::Origin();
+  myFixedTextPosition   = gp1::Origin();
 }

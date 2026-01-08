@@ -13,8 +13,8 @@
 // commercial license or contractual agreement.
 
 // JCV 30/08/90 Modif passage version C++ 2.0 sur Sun
-// JCV 1/10/90 Changement de nom du package vgeom -> gp
-// JCV 07/12/90 Modifs suite a l'introduction des classes XYZ et Mat dans gp
+// JCV 1/10/90 Changement de nom du package vgeom -> gp1
+// JCV 07/12/90 Modifs suite a l'introduction des classes XYZ et Mat dans gp1
 
 #define No_Standard_OutOfRange
 
@@ -52,7 +52,7 @@ Standard_Boolean Vector3d::IsEqual(const Vector3d&       Other,
 void Vector3d::Mirror(const Vector3d& V)
 {
   Standard_Real D = V.coord.Modulus();
-  if (D > gp::Resolution())
+  if (D > gp1::Resolution())
   {
     const gp_XYZ& XYZ = V.coord;
     Standard_Real A   = XYZ.X() / D;
@@ -91,7 +91,7 @@ void Vector3d::Mirror(const Frame3d& A2)
 {
   gp_XYZ Z      = A2.Direction().XYZ();
   gp_XYZ MirXYZ = Z.Crossed(coord);
-  if (MirXYZ.Modulus() <= gp::Resolution())
+  if (MirXYZ.Modulus() <= gp1::Resolution())
   {
     coord.Reverse();
   }

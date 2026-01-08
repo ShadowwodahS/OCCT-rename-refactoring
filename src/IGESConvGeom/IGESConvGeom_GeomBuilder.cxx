@@ -118,9 +118,9 @@ void IGESConvGeom_GeomBuilder::SetPosition(const Transform3d& pos)
   thepos = pos;
 }
 
-void IGESConvGeom_GeomBuilder::SetPosition(const gp_Ax3& pos)
+void IGESConvGeom_GeomBuilder::SetPosition(const Ax3& pos)
 {
-  gp_Ax3  orig(gp::XOY());
+  Ax3  orig(gp1::XOY());
   Transform3d ps;
   ps.SetTransformation(pos, orig);
   thepos = ps;
@@ -128,7 +128,7 @@ void IGESConvGeom_GeomBuilder::SetPosition(const gp_Ax3& pos)
 
 void IGESConvGeom_GeomBuilder::SetPosition(const Frame3d& pos)
 {
-  gp_Ax3 a3(pos);
+  Ax3 a3(pos);
   SetPosition(a3);
 }
 
@@ -136,7 +136,7 @@ void IGESConvGeom_GeomBuilder::SetPosition(const Axis3d& pos)
 {
   const Point3d& p = pos.Location();
   const Dir3d& d = pos.Direction();
-  gp_Ax3        a3(p, d);
+  Ax3        a3(p, d);
   SetPosition(a3);
 }
 

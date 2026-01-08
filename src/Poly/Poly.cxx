@@ -79,7 +79,7 @@ Handle(MeshTriangulation) Poly1::Catenate(const Poly_ListOfTriangulation& lstTri
     {
       aTri->Triangle1(i).Get(iNode[0], iNode[1], iNode[2]);
       aResult->SetTriangle(i + nTrian,
-                           Poly_Triangle(iNode[0] + nNodes, iNode[1] + nNodes, iNode[2] + nNodes));
+                           Triangle2(iNode[0] + nNodes, iNode[1] + nNodes, iNode[2] + nNodes));
     }
     nNodes += nbNodes;
     nTrian += nbTrian;
@@ -479,13 +479,13 @@ Standard_Real Poly1::PointOnTriangle(const Coords2d& theP1,
   Standard_Real aDet = aDU ^ aDV;
 
   // case of non-degenerated triangle
-  if (Abs(aDet) > gp::Resolution())
+  if (Abs(aDet) > gp1::Resolution())
   {
     Standard_Real aU = (aDP ^ aDV) / aDet;
     Standard_Real aV = -(aDP ^ aDU) / aDet;
 
     // if point is inside triangle, just return parameters
-    if (aU > -gp::Resolution() && aV > -gp::Resolution() && 1. - aU - aV > -gp::Resolution())
+    if (aU > -gp1::Resolution() && aV > -gp1::Resolution() && 1. - aU - aV > -gp1::Resolution())
     {
       theUV.SetCoord(aU, aV);
       return 0.;
@@ -528,9 +528,9 @@ Standard_Real Poly1::PointOnTriangle(const Coords2d& theP1,
   // degenerated triangle
   Standard_Real aL2U = aDU.SquareModulus();
   Standard_Real aL2V = aDV.SquareModulus();
-  if (aL2U < gp::Resolution()) // side 1-2 is degenerated
+  if (aL2U < gp1::Resolution()) // side 1-2 is degenerated
   {
-    if (aL2V < gp::Resolution()) // whole triangle is degenerated to point
+    if (aL2V < gp1::Resolution()) // whole triangle is degenerated to point
     {
       theUV.SetCoord(0., 0.);
       return (theP - theP1).SquareModulus();
@@ -541,7 +541,7 @@ Standard_Real Poly1::PointOnTriangle(const Coords2d& theP1,
       return (theP - (theP1 + theUV.Y() * aDV)).SquareModulus();
     }
   }
-  else if (aL2V < gp::Resolution()) // side 1-3 is degenerated
+  else if (aL2V < gp1::Resolution()) // side 1-3 is degenerated
   {
     theUV.SetCoord((aDP * aDU) / aL2U, 0.);
     return (theP - (theP1 + theUV.X() * aDU)).SquareModulus();
@@ -571,7 +571,7 @@ Standard_Real Poly1::PointOnTriangle(const Coords2d& theP1,
 Standard_Boolean Poly1::Intersect(const Handle(MeshTriangulation)& theTri,
                                  const Axis3d&                     theAxis,
                                  const Standard_Boolean            theIsClosest,
-                                 Poly_Triangle&                    theTriangle,
+                                 Triangle2&                    theTriangle,
                                  Standard_Real&                    theDistance)
 {
   const Standard_Real aConf = 1E-15;
@@ -583,7 +583,7 @@ Standard_Boolean Poly1::Intersect(const Handle(MeshTriangulation)& theTri,
   Standard_Integer aTriNodes[3] = {};
   for (Standard_Integer aTriIter = 1; aTriIter <= theTri->NbTriangles(); ++aTriIter)
   {
-    const Poly_Triangle& aTri = theTri->Triangle1(aTriIter);
+    const Triangle2& aTri = theTri->Triangle1(aTriIter);
     aTri.Get(aTriNodes[0], aTriNodes[1], aTriNodes[2]);
     if (IntersectTriLine(aLoc,
                          aDir,

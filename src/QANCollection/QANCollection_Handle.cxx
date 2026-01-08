@@ -70,7 +70,7 @@ static Standard_Integer QAHandleOps(DrawInterpreter& theDI,
   // Part 1: classes inheriting transient
   // ===============================================================
 
-  Handle(GeomLine) aLine = new GeomLine(gp::Origin(), gp::DZ());
+  Handle(GeomLine) aLine = new GeomLine(gp1::Origin(), gp1::DZ());
   CHECK(theDI, !aLine.IsNull(), "handle for non-null");
 
   const Handle(GeomLine)&  cLine  = aLine; // cast to self const ref
@@ -229,7 +229,7 @@ static Standard_Integer QAHandleOps(DrawInterpreter& theDI,
   pLine = cLine.get(); // getting non-const pointer to contained object from const handle 
   Handle(GeomLine) xLine = cCurve; // copy from handle to base type
 // clang-format off
-  Handle(BSplineCurve3d) aBSpl (new GeomLine (gp::Origin(), gp::DX())); // construction from pointer to incompatible type
+  Handle(BSplineCurve3d) aBSpl (new GeomLine (gp1::Origin(), gp1::DX())); // construction from pointer to incompatible type
 // clang-format on
 
   CHECK(theDI, aLine == aSurf,  "equality of handles of incompatible types");
@@ -253,7 +253,7 @@ static Standard_Integer QAHandleOps(DrawInterpreter& theDI,
   // Part 2: classes not inheriting transient
   // ===============================================================
   /*
-    Handle(Point3d) aPnt = new Point3d (gp::Origin());
+    Handle(Point3d) aPnt = new Point3d (gp1::Origin());
     CHECK(theDI, ! aPnt.IsNull(), "handle for non-null");
 
     const Handle(Point3d)& cPnt = aPnt; // cast to self const ref

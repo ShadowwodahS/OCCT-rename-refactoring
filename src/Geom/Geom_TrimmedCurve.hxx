@@ -163,7 +163,7 @@ public:
   Standard_EXPORT Standard_Real FirstParameter() const Standard_OVERRIDE;
 
   //! Returns True if the distance between the StartPoint and
-  //! the EndPoint is lower or equal to Resolution from package gp.
+  //! the EndPoint is lower or equal to Resolution from package gp1.
   Standard_EXPORT Standard_Boolean IsClosed() const Standard_OVERRIDE;
 
   //! Always returns FALSE (independently of the type of basis curve).

@@ -684,7 +684,7 @@ void ViewWindow::SetVisualization(const V3d_TypeOfVisualization theType)
 
 void ViewWindow::SetFront()
 {
-  gp_Ax3        a = MyViewer->PrivilegedPlane();
+  Ax3        a = MyViewer->PrivilegedPlane();
   Standard_Real xo, yo, zo, vx, vy, vz, xu, yu, zu;
 
   a.Direction().Coord(vx, vy, vz);
@@ -895,13 +895,13 @@ void ViewWindow::Rotate(const V3d_TypeOfAxe    theAxe,
     switch (theAxe)
     {
       case V3d_X:
-        myViewAxis = gp::DX();
+        myViewAxis = gp1::DX();
         break;
       case V3d_Y:
-        myViewAxis = gp::DY();
+        myViewAxis = gp1::DY();
         break;
       case V3d_Z:
-        myViewAxis = gp::DZ();
+        myViewAxis = gp1::DZ();
         break;
     }
   }
@@ -1099,9 +1099,9 @@ void ViewWindow::SetTwist(const Standard_Real angle)
   Handle(CameraOn3d) aCamera = Camera();
 
   const Dir3d aReferencePlane(aCamera->Direction().Reversed());
-  if (!screenAxis(aReferencePlane, gp::DZ(), myXscreenAxis, myYscreenAxis, myZscreenAxis)
-      && !screenAxis(aReferencePlane, gp::DY(), myXscreenAxis, myYscreenAxis, myZscreenAxis)
-      && !screenAxis(aReferencePlane, gp::DX(), myXscreenAxis, myYscreenAxis, myZscreenAxis))
+  if (!screenAxis(aReferencePlane, gp1::DZ(), myXscreenAxis, myYscreenAxis, myZscreenAxis)
+      && !screenAxis(aReferencePlane, gp1::DY(), myXscreenAxis, myYscreenAxis, myZscreenAxis)
+      && !screenAxis(aReferencePlane, gp1::DX(), myXscreenAxis, myYscreenAxis, myZscreenAxis))
   {
     throw V3d_BadValue("V3d_ViewSetTwist, alignment of Eye,At,Up,");
   }
@@ -1211,7 +1211,7 @@ void ViewWindow::SetProj(const V3d_TypeOfOrientation theOrientation, const Stand
 
   // retain camera panning from origin when switching projection
   const Handle(CameraOn3d)& aCamera     = Camera();
-  const Point3d                    anOriginVCS = aCamera->ConvertWorld2View(gp::Origin());
+  const Point3d                    anOriginVCS = aCamera->ConvertWorld2View(gp1::Origin());
 
   const Standard_Real aNewDist = aCamera->Eye().Distance(Point3d(0, 0, 0));
   aCamera->SetEyeAndCenter(gp_XYZ(0, 0, 0) + aBck.XYZ() * aNewDist, gp_XYZ(0, 0, 0));
@@ -1252,9 +1252,9 @@ void ViewWindow::SetUp(const Standard_Real theVx,
   const Dir3d aReferencePlane(aCamera->Direction().Reversed());
   const Dir3d anUp(theVx, theVy, theVz);
   if (!screenAxis(aReferencePlane, anUp, myXscreenAxis, myYscreenAxis, myZscreenAxis)
-      && !screenAxis(aReferencePlane, gp::DZ(), myXscreenAxis, myYscreenAxis, myZscreenAxis)
-      && !screenAxis(aReferencePlane, gp::DY(), myXscreenAxis, myYscreenAxis, myZscreenAxis)
-      && !screenAxis(aReferencePlane, gp::DX(), myXscreenAxis, myYscreenAxis, myZscreenAxis))
+      && !screenAxis(aReferencePlane, gp1::DZ(), myXscreenAxis, myYscreenAxis, myZscreenAxis)
+      && !screenAxis(aReferencePlane, gp1::DY(), myXscreenAxis, myYscreenAxis, myZscreenAxis)
+      && !screenAxis(aReferencePlane, gp1::DX(), myXscreenAxis, myYscreenAxis, myZscreenAxis))
   {
     throw V3d_BadValue("ViewWindow::Setup, alignment of Eye,At,Up");
   }
@@ -1273,9 +1273,9 @@ void ViewWindow::SetUp(const V3d_TypeOfOrientation theOrientation)
   const Dir3d aReferencePlane(aCamera->Direction().Reversed());
   const Dir3d anUp = V3d::GetProjAxis(theOrientation);
   if (!screenAxis(aReferencePlane, anUp, myXscreenAxis, myYscreenAxis, myZscreenAxis)
-      && !screenAxis(aReferencePlane, gp::DZ(), myXscreenAxis, myYscreenAxis, myZscreenAxis)
-      && !screenAxis(aReferencePlane, gp::DY(), myXscreenAxis, myYscreenAxis, myZscreenAxis)
-      && !screenAxis(aReferencePlane, gp::DX(), myXscreenAxis, myYscreenAxis, myZscreenAxis))
+      && !screenAxis(aReferencePlane, gp1::DZ(), myXscreenAxis, myYscreenAxis, myZscreenAxis)
+      && !screenAxis(aReferencePlane, gp1::DY(), myXscreenAxis, myYscreenAxis, myZscreenAxis)
+      && !screenAxis(aReferencePlane, gp1::DX(), myXscreenAxis, myYscreenAxis, myZscreenAxis))
   {
     throw V3d_BadValue("ViewWindow::SetUp, alignment of Eye,At,Up");
   }
@@ -2243,9 +2243,9 @@ Standard_Real ViewWindow::Twist() const
 {
   Vector3d       Xaxis, Yaxis, Zaxis;
   const Dir3d aReferencePlane(Camera()->Direction().Reversed());
-  if (!screenAxis(aReferencePlane, gp::DZ(), Xaxis, Yaxis, Zaxis)
-      && !screenAxis(aReferencePlane, gp::DY(), Xaxis, Yaxis, Zaxis)
-      && !screenAxis(aReferencePlane, gp::DX(), Xaxis, Yaxis, Zaxis))
+  if (!screenAxis(aReferencePlane, gp1::DZ(), Xaxis, Yaxis, Zaxis)
+      && !screenAxis(aReferencePlane, gp1::DY(), Xaxis, Yaxis, Zaxis)
+      && !screenAxis(aReferencePlane, gp1::DX(), Xaxis, Yaxis, Zaxis))
   {
     //
   }
@@ -2347,14 +2347,14 @@ Standard_Boolean ViewWindow::screenAxis(const Dir3d& theVpn,
                                       Vector3d&       theZaxe)
 {
   theXaxe = theVup.XYZ().Crossed(theVpn.XYZ());
-  if (theXaxe.Magnitude() <= gp::Resolution())
+  if (theXaxe.Magnitude() <= gp1::Resolution())
   {
     return Standard_False;
   }
   theXaxe.Normalize();
 
   theYaxe = theVpn.XYZ().Crossed(theXaxe.XYZ());
-  if (theYaxe.Magnitude() <= gp::Resolution())
+  if (theYaxe.Magnitude() <= gp1::Resolution())
   {
     return Standard_False;
   }
@@ -3032,7 +3032,7 @@ void ViewWindow::Translate(const Handle(CameraOn3d)& theCamera,
   const Point3d& aCenter = theCamera->Center();
   const Dir3d& aDir    = theCamera->Direction();
   const Dir3d& anUp    = theCamera->Up();
-  gp_Ax3        aCameraCS(aCenter, aDir.Reversed(), aDir ^ anUp);
+  Ax3        aCameraCS(aCenter, aDir.Reversed(), aDir ^ anUp);
 
   Vector3d  aCameraPanXv = Vector3d(aCameraCS.XDirection()) * theDXv;
   Vector3d  aCameraPanYv = Vector3d(aCameraCS.YDirection()) * theDYv;
@@ -3383,7 +3383,7 @@ void ViewWindow::Translate(const Standard_Real theLength, const Standard_Boolean
 
 //=================================================================================================
 
-void ViewWindow::SetGrid(const gp_Ax3& aPlane, const Handle(Aspect_Grid)& aGrid)
+void ViewWindow::SetGrid(const Ax3& aPlane, const Handle(Aspect_Grid)& aGrid)
 {
   MyPlane = aPlane;
   MyGrid  = aGrid;

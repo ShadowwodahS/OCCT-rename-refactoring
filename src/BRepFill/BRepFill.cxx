@@ -662,7 +662,7 @@ TopoShell BRepFill1::Shell(const TopoWire& Wire1, const TopoWire& Wire2)
 
 void BRepFill1::Axe(const TopoShape& Spine,
                    const TopoWire&  Profile,
-                   gp_Ax3&             AxeProf,
+                   Ax3&             AxeProf,
                    Standard_Boolean&   ProfOnSpine,
                    const Standard_Real Tol)
 {
@@ -847,7 +847,7 @@ void BRepFill1::Axe(const TopoShape& Spine,
 
   ProfOnSpine = (DistMin < Tol);
   // Construction AxeProf;
-  gp_Ax3 A3(Loc, Normal, Tang);
+  Ax3 A3(Loc, Normal, Tang);
   AxeProf = A3;
 }
 

@@ -317,7 +317,7 @@ static void LineConstructor(Contap_TheSequenceOfLine&          slin,
           for (Standard_Integer j = firstp + 1; j <= lastp; j++)
           {
             Standard_Real aSqDist = L.Point(j).Value().SquareDistance(L.Point(j - 1).Value());
-            if (aSqDist > gp::Resolution())
+            if (aSqDist > gp1::Resolution())
               LineOn2S->Add(L.Point(j));
           }
           if (LineOn2S->NbPoints() < 2)
@@ -1151,7 +1151,7 @@ void ComputeInternalPointsOnRstr(Contap_Line&         Line,
     HSurfaceTool::D1(Surf, p2d.X(), p2d.Y(), pcour, d1u, d1v);
     tgt.SetLinearForm(d2d.X(), d1u, d2d.Y(), d1v);
 
-    if (tgt.Magnitude() > gp::Resolution())
+    if (tgt.Magnitude() > gp1::Resolution())
     {
       if (TypeFunc == Contap_ContourPrs || TypeFunc == Contap_DraftPrs)
       {
@@ -1159,7 +1159,7 @@ void ComputeInternalPointsOnRstr(Contap_Line&         Line,
       }
       vecref = vecregard.Crossed(tgt);
 
-      if (vecref.Magnitude() <= gp::Resolution())
+      if (vecref.Magnitude() <= gp1::Resolution())
       {
         indexinf++;
       }
@@ -1183,7 +1183,7 @@ void ComputeInternalPointsOnRstr(Contap_Line&         Line,
     HSurfaceTool::D1(Surf, p2d.X(), p2d.Y(), pcour, d1u, d1v);
     tgt.SetLinearForm(d2d.X(), d1u, d2d.Y(), d1v);
 
-    if (tgt.Magnitude() > gp::Resolution())
+    if (tgt.Magnitude() > gp1::Resolution())
     {
       if (TypeFunc == Contap_ContourPrs || TypeFunc == Contap_DraftPrs)
       {
@@ -1195,7 +1195,7 @@ void ComputeInternalPointsOnRstr(Contap_Line&         Line,
     {
       vectest = Vector3d(0., 0., 0.);
     }
-    if (vectest.Magnitude() <= gp::Resolution())
+    if (vectest.Magnitude() <= gp1::Resolution())
     {
       // On cherche un vrai changement de signe
       indexsup++;
@@ -1214,7 +1214,7 @@ void ComputeInternalPointsOnRstr(Contap_Line&         Line,
           HSurfaceTool::D1(Surf, p2d.X(), p2d.Y(), pcour, d1u, d1v);
           tgt.SetLinearForm(d2d.X(), d1u, d2d.Y(), d1v);
 
-          if (tgt.Magnitude() > gp::Resolution())
+          if (tgt.Magnitude() > gp1::Resolution())
           {
             if (TypeFunc == Contap_ContourPrs || TypeFunc == Contap_DraftPrs)
             {
@@ -1227,7 +1227,7 @@ void ComputeInternalPointsOnRstr(Contap_Line&         Line,
             vtestb = Vector3d(0., 0., 0.);
           }
 
-          if ((vtestb.Magnitude() <= gp::Resolution()) || (Abs(paramp - paraminf) <= toler)
+          if ((vtestb.Magnitude() <= gp1::Resolution()) || (Abs(paramp - paraminf) <= toler)
               || (Abs(paramp - paramsup) <= toler))
           {
             // on est a la solution
@@ -1334,7 +1334,7 @@ void ComputeInternalPoints(Contap_Line&         Line,
       }
       vecref = vecregard.Crossed(tgt);
 
-      if (vecref.Magnitude() <= gp::Resolution())
+      if (vecref.Magnitude() <= gp1::Resolution())
       {
         indexinf++;
       }
@@ -1369,7 +1369,7 @@ void ComputeInternalPoints(Contap_Line&         Line,
     {
       vectest = Vector3d(0., 0., 0.);
     }
-    if (vectest.Magnitude() <= gp::Resolution())
+    if (vectest.Magnitude() <= gp1::Resolution())
     {
       // On cherche un vrai changement de signe
       indexsup++;
@@ -1417,7 +1417,7 @@ void ComputeInternalPoints(Contap_Line&         Line,
               {
                 vtestb = Vector3d(0., 0., 0.);
               }
-              if ((vtestb.Magnitude() <= gp::Resolution())
+              if ((vtestb.Magnitude() <= gp1::Resolution())
                   || (Abs(X(1) - XInf(1)) <= toler(1) && Abs(X(2) - XInf(2)) <= toler(2))
                   || (Abs(X(1) - XSup(1)) <= toler(1) && Abs(X(2) - XSup(2)) <= toler(2)))
               {
@@ -2321,7 +2321,7 @@ void Contap_Contour::PerformAna(const Handle(Adaptor3d_TopolTool)& Domain)
       /*
       if (typS == GeomAbs_Cone) {
       Standard_Real u,v;
-      gp_Cone thecone(HSurfaceTool::Cone(Surf));
+      Cone1 thecone(HSurfaceTool::Cone(Surf));
       ElSLib1::Parameters(thecone,thecone.Apex(),u,v);
       Contap_Point vtxapex(thecone.Apex(),u,v);
       vtxapex.SetInternal();

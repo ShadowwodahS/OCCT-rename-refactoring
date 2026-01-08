@@ -82,13 +82,13 @@ void Extrema_ExtElSS::Perform(const gp_Sphere&, const gp_Sphere&)
   throw Standard_NotImplemented();
 }
 
-Extrema_ExtElSS::Extrema_ExtElSS(const gp_Sphere& S1, const gp_Cylinder& S2)
+Extrema_ExtElSS::Extrema_ExtElSS(const gp_Sphere& S1, const Cylinder1& S2)
 {
   Perform(S1, S2);
 }
 
-// void Extrema_ExtElSS::Perform(const gp_Sphere& S1, const gp_Cylinder& S2)
-void Extrema_ExtElSS::Perform(const gp_Sphere&, const gp_Cylinder&)
+// void Extrema_ExtElSS::Perform(const gp_Sphere& S1, const Cylinder1& S2)
+void Extrema_ExtElSS::Perform(const gp_Sphere&, const Cylinder1&)
 {
 
   myDone  = Standard_True;
@@ -97,13 +97,13 @@ void Extrema_ExtElSS::Perform(const gp_Sphere&, const gp_Cylinder&)
   throw Standard_NotImplemented();
 }
 
-Extrema_ExtElSS::Extrema_ExtElSS(const gp_Sphere& S1, const gp_Cone& S2)
+Extrema_ExtElSS::Extrema_ExtElSS(const gp_Sphere& S1, const Cone1& S2)
 {
   Perform(S1, S2);
 }
 
-// void Extrema_ExtElSS::Perform(const gp_Sphere& S1, const gp_Cone& S2)
-void Extrema_ExtElSS::Perform(const gp_Sphere&, const gp_Cone&)
+// void Extrema_ExtElSS::Perform(const gp_Sphere& S1, const Cone1& S2)
+void Extrema_ExtElSS::Perform(const gp_Sphere&, const Cone1&)
 {
 
   myDone  = Standard_True;

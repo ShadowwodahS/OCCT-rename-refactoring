@@ -26,7 +26,7 @@ class gp_Parab2d;
 
 //! This algorithm converts a parabola into a non rational B-spline
 //! curve.
-//! The parabola is a Parab2d from package gp with the parametrization
+//! The parabola is a Parab2d from package gp1 with the parametrization
 //! P (U) = Loc + F * (U*U * Xdir + 2 * U * Ydir) where Loc is the
 //! apex of the parabola, Xdir is the normalized direction of the
 //! symmetry axis of the parabola, Ydir is the normalized direction of

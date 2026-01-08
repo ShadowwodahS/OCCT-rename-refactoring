@@ -115,7 +115,7 @@ Handle(Draw_Drawable3D) HLRTest_Projector::Restore(Standard_IStream& theStream)
   Dir3d aDir1(aDirVect1[0], aDirVect1[1], aDirVect1[2]);
   Dir3d aDir2(aDirVect2[0], aDirVect2[1], aDirVect2[2]);
   Dir3d aDir3(aDirVect3[0], aDirVect3[1], aDirVect3[2]);
-  gp_Ax3 anAxis(Point3d(0, 0, 0), aDir3, aDir1);
+  Ax3 anAxis(Point3d(0, 0, 0), aDir3, aDir1);
   aDir3.Cross(aDir1);
   if (aDir3.Dot(aDir2) < 0.0)
   {

@@ -28,11 +28,11 @@ class gp_XYZ;
 class Point3d;
 
 //! This class implements the following algorithms used
-//! to create a Dir from gp.
+//! to create a Dir from gp1.
 //! * Create a Dir parallel to another and passing
 //! through a point.
 //! * Create a Dir passing through 2 points.
-//! * Create a Dir from its axis (Ax1 from gp).
+//! * Create a Dir from its axis (Ax1 from gp1).
 //! * Create a Dir from a point and a direction.
 class gce_MakeDir : public Root6
 {
@@ -45,7 +45,7 @@ public:
 
   //! Creates a direction from a triplet of coordinates.
   //! Status is "NullVector" if Coord.Modulus() <=
-  //! Resolution from gp.
+  //! Resolution from gp1.
   Standard_EXPORT gce_MakeDir(const gp_XYZ& Coord);
 
   //! Creates a direction with its 3 cartesian coordinates.
@@ -55,7 +55,7 @@ public:
                               const Standard_Real Yv,
                               const Standard_Real Zv);
 
-  //! Make a Dir from gp <TheDir> passing through 2
+  //! Make a Dir from gp1 <TheDir> passing through 2
   //! Pnt <P1>,<P2>.
   //! Status is "ConfusedPoints" if <p1> and <P2> are confused.
   //! Warning
@@ -63,7 +63,7 @@ public:
   //! false), the Status function returns:
   //! -   gce_ConfusedPoints if points P1 and P2 are coincident, or
   //! -   gce_NullVector if one of the following is less
-  //! than or equal to gp::Resolution():
+  //! than or equal to gp1::Resolution():
   //! -   the magnitude of vector V,
   //! -   the modulus of Coord,
   //! -   Sqrt(Xv*Xv + Yv*Yv + Zv*Zv).

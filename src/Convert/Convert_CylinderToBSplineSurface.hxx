@@ -22,10 +22,10 @@
 #include <Standard_Handle.hxx>
 
 #include <Convert_ElementarySurfaceToBSplineSurface.hxx>
-class gp_Cylinder;
+class Cylinder1;
 
 //! This algorithm converts a bounded cylinder into a rational
-//! B-spline surface. The cylinder is a Cylinder from package gp.
+//! B-spline surface. The cylinder is a Cylinder from package gp1.
 //! The parametrization of the cylinder is  :
 //! P (U, V) = Loc + V * Zdir + Radius * (Xdir*Cos(U) + Ydir*Sin(U))
 //! where Loc is the location point of the cylinder, Xdir, Ydir and
@@ -44,7 +44,7 @@ public:
   //!
   //! Raised if U1 = U2 or U1 = U2 + 2.0 * Pi
   //! Raised if V1 = V2.
-  Standard_EXPORT Convert_CylinderToBSplineSurface(const gp_Cylinder&  Cyl,
+  Standard_EXPORT Convert_CylinderToBSplineSurface(const Cylinder1&  Cyl,
                                                    const Standard_Real U1,
                                                    const Standard_Real U2,
                                                    const Standard_Real V1,
@@ -54,7 +54,7 @@ public:
   //! cylinder in the U and V parametric directions.
   //!
   //! Raised if V1 = V2.
-  Standard_EXPORT Convert_CylinderToBSplineSurface(const gp_Cylinder&  Cyl,
+  Standard_EXPORT Convert_CylinderToBSplineSurface(const Cylinder1&  Cyl,
                                                    const Standard_Real V1,
                                                    const Standard_Real V2);
 

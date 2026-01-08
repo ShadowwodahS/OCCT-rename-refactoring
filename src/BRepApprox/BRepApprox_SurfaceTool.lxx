@@ -206,12 +206,12 @@ inline gp_Pln BRepApprox_SurfaceTool::Plane(const BRepAdaptor_Surface& S)
   return S.Plane();
 }
 
-inline gp_Cylinder BRepApprox_SurfaceTool::Cylinder(const BRepAdaptor_Surface& S)
+inline Cylinder1 BRepApprox_SurfaceTool::Cylinder(const BRepAdaptor_Surface& S)
 {
   return S.Cylinder();
 }
 
-inline gp_Cone BRepApprox_SurfaceTool::Cone(const BRepAdaptor_Surface& S)
+inline Cone1 BRepApprox_SurfaceTool::Cone(const BRepAdaptor_Surface& S)
 {
   return S.Cone();
 }

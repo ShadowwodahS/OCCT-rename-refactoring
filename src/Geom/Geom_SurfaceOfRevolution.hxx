@@ -139,7 +139,7 @@ public:
   //! Raised if the revolved curve is not planar or if the revolved
   //! curve and the symmetry axis are not in the same plane or if
   //! the maximum of distance between the axis and the revolved
-  //! curve is lower or equal to Resolution from gp.
+  //! curve is lower or equal to Resolution from gp1.
   Standard_EXPORT Frame3d ReferencePlane() const;
 
   //! Changes the orientation of this surface of revolution

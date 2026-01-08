@@ -73,7 +73,7 @@ GC_MakeMirror::GC_MakeMirror(const Frame3d& Plane)
 }
 
 //=========================================================================
-//   Creation d une symetrie 3d de gp par rapport a un plan Plane.        +
+//   Creation d une symetrie 3d de gp1 par rapport a un plan Plane.        +
 //=========================================================================
 
 GC_MakeMirror::GC_MakeMirror(const gp_Pln& Plane)

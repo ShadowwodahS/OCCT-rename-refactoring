@@ -24,7 +24,7 @@
 #include <StdFail_NotDone.hxx>
 
 //=========================================================================
-//   Creation d une Ellipse 2d de gp de centre <Center> et de sommets     +
+//   Creation d une Ellipse 2d de gp1 de centre <Center> et de sommets     +
 //   <S1> et <S2>.                                                        +
 //   <CenterS1> donne le grand axe .                                      +
 //   <S1> donne le grand rayon et <S2> le petit rayon.                    +
@@ -39,13 +39,13 @@ gce_MakeElips2d::gce_MakeElips2d(const gp_Pnt2d& S1, const gp_Pnt2d& S2, const g
   {
     TheError = gce_InvertAxis;
   }
-  else if (D2 < gp::Resolution())
+  else if (D2 < gp1::Resolution())
   {
     TheError = gce_NullAxis;
   }
   else
   {
-    TheElips2d = gp_Elips2d(gp_Ax22d(Center, XAxis, YAxis), D1, D2);
+    TheElips2d = gp_Elips2d(Ax22d(Center, XAxis, YAxis), D1, D2);
     TheError   = gce_Done;
   }
 }
@@ -70,7 +70,7 @@ gce_MakeElips2d::gce_MakeElips2d(const gp_Ax2d&         MajorAxis,
   }
 }
 
-gce_MakeElips2d::gce_MakeElips2d(const gp_Ax22d&     A,
+gce_MakeElips2d::gce_MakeElips2d(const Ax22d&     A,
                                  const Standard_Real MajorRadius,
                                  const Standard_Real MinorRadius)
 {

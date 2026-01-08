@@ -12,7 +12,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// JCV 08/01/91 Modif introduction des classes Mat2d et XY dans gp
+// JCV 08/01/91 Modif introduction des classes Mat2d et XY dans gp1
 
 #define No_Standard_OutOfRange
 
@@ -92,7 +92,7 @@ void gp_Trsf2d::SetTranslationPart(const gp_Vec2d& V)
   Standard_Real Y = loc.Y();
   if (Y < 0)
     Y = -Y;
-  if (X <= gp::Resolution() && Y <= gp::Resolution())
+  if (X <= gp1::Resolution() && Y <= gp1::Resolution())
   {
     if (shape == gp_Identity || shape == gp_PntMirror || shape == gp_Scale || shape == gp_Rotation
         || shape == gp_Ax1Mirror)
@@ -133,7 +133,7 @@ void gp_Trsf2d::SetScaleFactor(const Standard_Real S)
     Standard_Real Y = loc.Y();
     if (Y < 0)
       Y = -Y;
-    if (X <= gp::Resolution() && Y <= gp::Resolution())
+    if (X <= gp1::Resolution() && Y <= gp1::Resolution())
     {
       if (shape == gp_Identity || shape == gp_Rotation)
       {
@@ -233,7 +233,7 @@ void gp_Trsf2d::Invert()
     Standard_Real As = scale;
     if (As < 0)
       As = -As;
-    Standard_ConstructionError_Raise_if(As <= gp::Resolution(),
+    Standard_ConstructionError_Raise_if(As <= gp1::Resolution(),
                                         "gp_Trsf2d::Invert() - transformation has zero scale");
     scale = 1.0 / scale;
     loc.Multiply(-scale);
@@ -243,7 +243,7 @@ void gp_Trsf2d::Invert()
     Standard_Real As = scale;
     if (As < 0)
       As = -As;
-    Standard_ConstructionError_Raise_if(As <= gp::Resolution(),
+    Standard_ConstructionError_Raise_if(As <= gp1::Resolution(),
                                         "gp_Trsf2d::Invert() - transformation has zero scale");
     scale = 1.0 / scale;
     matrix.Transpose();
@@ -657,7 +657,7 @@ void gp_Trsf2d::SetValues(const Standard_Real a11,
   Standard_Real As = s;
   if (As < 0)
     As = -As;
-  Standard_ConstructionError_Raise_if(As < gp::Resolution(),
+  Standard_ConstructionError_Raise_if(As < gp1::Resolution(),
                                       "gp_Trsf2d::SetValues, null determinant");
 
   if (s > 0)

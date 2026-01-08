@@ -34,7 +34,7 @@ class gp_Pnt2d;
 //!
 //! The revolution  body is described by :
 //!
-//! A coordinate  system (Ax2 from  gp). The Z axis is
+//! A coordinate  system (Ax2 from  gp1). The Z axis is
 //! the rotational axis.
 //!
 //! An Angle around the Axis, When  the Angle  is 2*PI

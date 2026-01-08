@@ -513,7 +513,7 @@ void BRepLib_FindSurface::Init(const TopoShape&    S,
         aVec(2)   = aN.Y();
         aVec(3)   = aN.Z();
       }
-      if (aVec.Norm2() < gp::Resolution())
+      if (aVec.Norm2() < gp1::Resolution())
       {
         isSolved = Standard_False;
       }

@@ -55,7 +55,7 @@ public:
     std::vector<Graphic3d_Vec3> NodesVec;     //!< vector for mesh nodes
     std::vector<Graphic3d_Vec3> NormalsVec;   //!< vector for mesh normals
     std::vector<Graphic3d_Vec2> TexCoordsVec; //!< vector for mesh texture UV coordinates
-    std::vector<Poly_Triangle>  IndicesVec;   //!< vector for mesh indices
+    std::vector<Triangle2>  IndicesVec;   //!< vector for mesh indices
   };
 
   //! Main constructor.

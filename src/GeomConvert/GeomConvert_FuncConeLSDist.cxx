@@ -41,7 +41,7 @@ Standard_Boolean GeomConvert_FuncConeLSDist::Value(const math_Vector& X, Standar
 {
   Point3d        aLoc(X(1), X(2), X(3));
   Standard_Real aSemiAngle = X(4), anR = X(5);
-  gp_Ax3        aPos(aLoc, myDir);
+  Ax3        aPos(aLoc, myDir);
 
   F = 0.;
   Standard_Integer i;

@@ -21,14 +21,14 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <GProp_GProps.hxx>
-class gp_Cylinder;
+class Cylinder1;
 class Point3d;
-class gp_Cone;
+class Cone1;
 class gp_Sphere;
 class gp_Torus;
 
 //! Computes the global properties of a bounded
-//! elementary surface in 3d (surface of the gp package)
+//! elementary surface in 3d (surface of the gp1 package)
 class GProp_SelGProps : public GeometricProperties
 {
 public:
@@ -36,14 +36,14 @@ public:
 
   Standard_EXPORT GProp_SelGProps();
 
-  Standard_EXPORT GProp_SelGProps(const gp_Cylinder&  S,
+  Standard_EXPORT GProp_SelGProps(const Cylinder1&  S,
                                   const Standard_Real Alpha1,
                                   const Standard_Real Alpha2,
                                   const Standard_Real Z1,
                                   const Standard_Real Z2,
                                   const Point3d&       SLocation);
 
-  Standard_EXPORT GProp_SelGProps(const gp_Cone&      S,
+  Standard_EXPORT GProp_SelGProps(const Cone1&      S,
                                   const Standard_Real Alpha1,
                                   const Standard_Real Alpha2,
                                   const Standard_Real Z1,
@@ -66,13 +66,13 @@ public:
 
   Standard_EXPORT void SetLocation(const Point3d& SLocation);
 
-  Standard_EXPORT void Perform(const gp_Cylinder&  S,
+  Standard_EXPORT void Perform(const Cylinder1&  S,
                                const Standard_Real Alpha1,
                                const Standard_Real Alpha2,
                                const Standard_Real Z1,
                                const Standard_Real Z2);
 
-  Standard_EXPORT void Perform(const gp_Cone&      S,
+  Standard_EXPORT void Perform(const Cone1&      S,
                                const Standard_Real Alpha1,
                                const Standard_Real Alpha2,
                                const Standard_Real Z1,

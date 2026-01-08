@@ -57,7 +57,7 @@ AIS_Circle::AIS_Circle(const Handle(GeomCircle)& theComponent,
       myComponent(theComponent),
       myUStart(theUStart),
       myUEnd(theUEnd),
-      myCircleIsArc(Abs(Abs(theUEnd - theUStart) - 2.0 * M_PI) > gp::Resolution()),
+      myCircleIsArc(Abs(Abs(theUEnd - theUStart) - 2.0 * M_PI) > gp1::Resolution()),
       myIsFilledCircleSens(theIsFilledCircleSens)
 {
 }

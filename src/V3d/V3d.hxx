@@ -41,17 +41,17 @@ public:
     switch (theOrientation)
     {
       case V3d_Xpos:
-        return gp::DX();
+        return gp1::DX();
       case V3d_Ypos:
-        return gp::DY();
+        return gp1::DY();
       case V3d_Zpos:
-        return gp::DZ();
+        return gp1::DZ();
       case V3d_Xneg:
-        return -gp::DX();
+        return -gp1::DX();
       case V3d_Yneg:
-        return -gp::DY();
+        return -gp1::DY();
       case V3d_Zneg:
-        return -gp::DZ();
+        return -gp1::DZ();
       case V3d_XposYposZpos:
         return Dir3d(1, 1, 1);
       case V3d_XposYposZneg:

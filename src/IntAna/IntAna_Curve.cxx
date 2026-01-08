@@ -92,7 +92,7 @@ Curve1::Curve1()
 // function : SetConeQuadValues
 // purpose  : Description de l intersection Cone Quadrique
 //=======================================================================
-void Curve1::SetConeQuadValues(const gp_Cone&         Cone,
+void Curve1::SetConeQuadValues(const Cone1&         Cone,
                                      const Standard_Real    Qxx,
                                      const Standard_Real    Qyy,
                                      const Standard_Real    Qzz,
@@ -158,7 +158,7 @@ void Curve1::SetConeQuadValues(const gp_Cone&         Cone,
 // function : SetCylinderQuadValues
 // purpose  : Description de l intersection Cylindre Quadrique
 //=======================================================================
-void Curve1::SetCylinderQuadValues(const gp_Cylinder&     Cyl,
+void Curve1::SetCylinderQuadValues(const Cylinder1&     Cyl,
                                          const Standard_Real    Qxx,
                                          const Standard_Real    Qyy,
                                          const Standard_Real    Qzz,

@@ -234,7 +234,7 @@ Standard_Boolean IntTools_EdgeFace::IsEqDistance(const Point3d&              aP,
 
   if (aSurfType == GeomAbs_Cylinder)
   {
-    gp_Cylinder   aCyl  = aBAS.Cylinder();
+    Cylinder1   aCyl  = aBAS.Cylinder();
     const Axis3d& anAx1 = aCyl.Axis();
     gp_Lin        aLinAxis(anAx1);
     Standard_Real aDC, aRadius = aCyl.Radius();
@@ -248,7 +248,7 @@ Standard_Boolean IntTools_EdgeFace::IsEqDistance(const Point3d&              aP,
 
   if (aSurfType == GeomAbs_Cone)
   {
-    gp_Cone       aCone = aBAS.Cone();
+    Cone1       aCone = aBAS.Cone();
     const Axis3d& anAx1 = aCone.Axis();
     gp_Lin        aLinAxis(anAx1);
     Standard_Real aDC, aRadius, aDS, aSemiAngle;
@@ -841,7 +841,7 @@ Standard_Integer AdaptiveDiscret(const Standard_Integer     iDiscret,
 
     aELength = IntTools1::Length(aCurve.Edge());
 
-    gp_Cylinder aCylinder = aSurface.Cylinder();
+    Cylinder1 aCylinder = aSurface.Cylinder();
     aRadius               = aCylinder.Radius();
     dLR                   = 2 * aRadius;
 

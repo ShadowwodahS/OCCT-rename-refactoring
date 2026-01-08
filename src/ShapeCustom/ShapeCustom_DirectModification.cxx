@@ -195,21 +195,21 @@ Standard_Boolean ShapeCustom_DirectModification::NewCurve2d(const TopoEdge&    E
     {
       case 1: { // Indirect surface
         // mirror the PCurve about the V axis
-        T.SetMirror(gp::OY2d());
+        T.SetMirror(gp1::OY2d());
         C = Handle(GeomCurve2d)::DownCast(C->Transformed(T));
         break;
       }
       case 2: { // Negative cone
         // mirror the PCurve about the U and V axis
-        T.SetMirror(gp::OX2d());
+        T.SetMirror(gp1::OX2d());
         C = Handle(GeomCurve2d)::DownCast(C->Transformed(T));
-        T.SetMirror(gp::OY2d());
+        T.SetMirror(gp1::OY2d());
         C->Transform(T);
         break;
       }
       case 3: { // Indirect negative cone
         // mirror the PCurve about the U axis
-        T.SetMirror(gp::OX2d());
+        T.SetMirror(gp1::OX2d());
         C = Handle(GeomCurve2d)::DownCast(C->Transformed(T));
         break;
       }

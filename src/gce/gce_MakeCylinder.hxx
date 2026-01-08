@@ -29,7 +29,7 @@ class Axis3d;
 class gp_Circ;
 
 //! This class implements the following algorithms used
-//! to create a Cylinder from gp.
+//! to create a Cylinder from gp1.
 //! * Create a Cylinder coaxial to another and passing
 //! through a point.
 //! * Create a Cylinder coaxial to another at a distance
@@ -46,18 +46,18 @@ public:
   //! The status is "NegativeRadius" if R < 0.0
   Standard_EXPORT gce_MakeCylinder(const Frame3d& A2, const Standard_Real Radius);
 
-  //! Makes a Cylinder from gp <TheCylinder> coaxial to another
+  //! Makes a Cylinder from gp1 <TheCylinder> coaxial to another
   //! Cylinder <Cylinder> and passing through a Pnt <Point>.
-  Standard_EXPORT gce_MakeCylinder(const gp_Cylinder& Cyl, const Point3d& Point);
+  Standard_EXPORT gce_MakeCylinder(const Cylinder1& Cyl, const Point3d& Point);
 
-  //! Makes a Cylinder from gp <TheCylinder> coaxial to another
+  //! Makes a Cylinder from gp1 <TheCylinder> coaxial to another
   //! Cylinder <Cylinder> at the distance <Dist> which can
   //! be greater or lower than zero.
   //! The radius of the result is the absolute value of the
   //! radius of <Cyl> plus <Dist>
-  Standard_EXPORT gce_MakeCylinder(const gp_Cylinder& Cyl, const Standard_Real Dist);
+  Standard_EXPORT gce_MakeCylinder(const Cylinder1& Cyl, const Standard_Real Dist);
 
-  //! Makes a Cylinder from gp <TheCylinder> with 3 points
+  //! Makes a Cylinder from gp1 <TheCylinder> with 3 points
   //! <P1>,<P2>,<P3>.
   //! Its axis is <P1P2> and its radius is the distance
   //! between <P3> and <P1P2>
@@ -79,14 +79,14 @@ public:
 
   //! Returns the constructed cylinder.
   //! Exceptions StdFail_NotDone if no cylinder is constructed.
-  Standard_EXPORT const gp_Cylinder& Value() const;
+  Standard_EXPORT const Cylinder1& Value() const;
 
-  Standard_EXPORT const gp_Cylinder& Operator() const;
-  Standard_EXPORT                    operator gp_Cylinder() const;
+  Standard_EXPORT const Cylinder1& Operator() const;
+  Standard_EXPORT                    operator Cylinder1() const;
 
 protected:
 private:
-  gp_Cylinder TheCylinder;
+  Cylinder1 TheCylinder;
 };
 
 #endif // _gce_MakeCylinder_HeaderFile

@@ -45,7 +45,7 @@ static Standard_Boolean isCW(const BRepAdaptor_Curve& AC)
   Point3d              start  = AC.Value(f);
   Point3d              end    = AC.Value(l);
   Point3d              center = AC.Circle().Location();
-  gp_Ax3              plane  = AC.Circle().Position();
+  Ax3              plane  = AC.Circle().Position();
 
   // Get point on circle at half angle
   Point3d m;
@@ -598,7 +598,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::SegmentFilletArc(const Standard_Real radi
   gp_Pnt2d pc2(xc2, yc2);
 
   // Check length of segment.
-  if (p11.SquareDistance(p12) < gp::Resolution())
+  if (p11.SquareDistance(p12) < gp1::Resolution())
     return Standard_False;
 
   // Make 2D vectors.
@@ -624,7 +624,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::SegmentFilletArc(const Standard_Real radi
 
   // If segment and arc look in opposite direction,
   // no fillet is possible.
-  if (bisec.SquareMagnitude() < gp::Resolution())
+  if (bisec.SquareMagnitude() < gp1::Resolution())
     return Standard_False;
 
   // Define an appropriate point to choose center of fillet.
@@ -642,7 +642,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::SegmentFilletArc(const Standard_Real radi
     line.Translate(-2.0 * radius * d1);
 
   // Make a circle of radius of the arc +/- fillet radius.
-  gp_Ax2d   axes(pc2, gp::DX2d());
+  gp_Ax2d   axes(pc2, gp1::DX2d());
   gp_Circ2d circ(axes, radius2 + radius);
   if (radius2 > radius && circ.Distance(nearp) > radius)
     circ.SetRadius(radius2 - radius);
@@ -728,7 +728,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::ArcFilletSegment(const Standard_Real radi
   gp_Pnt2d pc1(xc1, yc1);
 
   // Check length of segment.
-  if (p12.SquareDistance(p22) < gp::Resolution())
+  if (p12.SquareDistance(p22) < gp1::Resolution())
     return Standard_False;
 
   // Make 2D vectors.
@@ -754,7 +754,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::ArcFilletSegment(const Standard_Real radi
 
   // If segment and arc look in opposite direction,
   // no fillet is possible.
-  if (bisec.SquareMagnitude() < gp::Resolution())
+  if (bisec.SquareMagnitude() < gp1::Resolution())
     return Standard_False;
 
   // Define an appropriate point to choose center of fillet.
@@ -772,7 +772,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::ArcFilletSegment(const Standard_Real radi
     line.Translate(-2.0 * radius * aD2Vec);
 
   // Make a circle of radius of the arc +/- fillet radius.
-  gp_Ax2d   axes(pc1, gp::DX2d());
+  gp_Ax2d   axes(pc1, gp1::DX2d());
   gp_Circ2d circ(axes, radius1 + radius);
   if (radius1 > radius && circ.Distance(nearPoint) > radius)
     circ.SetRadius(radius1 - radius);
@@ -875,7 +875,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::ArcFilletArc(const Standard_Real radius,
   v1.Normalize();
   v2.Normalize();
   gp_Vec2d bisec = 0.5 * (v1 + v2);
-  if (bisec.SquareMagnitude() < gp::Resolution())
+  if (bisec.SquareMagnitude() < gp1::Resolution())
     return Standard_False;
 
   const gp_Pnt2d checkp = p12.Translated(radius * bisec);
@@ -884,7 +884,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::ArcFilletArc(const Standard_Real radius,
   // Make two circles of radius r1 +/- r and r2 +/- r
   // with center point equal to pc1 and pc2.
   // Arc 1.
-  gp_Ax2d   axes(pc1, gp::DX2d());
+  gp_Ax2d   axes(pc1, gp1::DX2d());
   gp_Circ2d c1(axes, radius1 + radius);
   if (radius1 > radius && c1.Distance(checkp) > radius)
     c1.SetRadius(radius1 - radius);

@@ -963,12 +963,12 @@ void TPrsStd_ConstraintTools::ComputeAngle(const Handle(TDataXtd_Constraint)& aC
     }
     else if (aTypeaFace == GeomAbs_Cylinder)
     {
-      gp_Cylinder aCylaFace = aSurfaFace.Cylinder();
+      Cylinder1 aCylaFace = aSurfaFace.Cylinder();
       anax1aFace1           = aCylaFace.Axis();
     }
     else if (aTypeaFace == GeomAbs_Cone)
     {
-      gp_Cone aCone = aSurfaFace.Cone();
+      Cone1 aCone = aSurfaFace.Cone();
       anax1aFace1   = aCone.Axis();
     }
     else if (aTypeaFace == GeomAbs_Torus)
@@ -1017,12 +1017,12 @@ void TPrsStd_ConstraintTools::ComputeAngle(const Handle(TDataXtd_Constraint)& aC
     }
     else if (aTypeaFace == GeomAbs_Cylinder)
     {
-      gp_Cylinder aCylaFace = aSurfaFace.Cylinder();
+      Cylinder1 aCylaFace = aSurfaFace.Cylinder();
       anax1aFace2           = aCylaFace.Axis();
     }
     else if (aTypeaFace == GeomAbs_Cone)
     {
-      gp_Cone aCone = aSurfaFace.Cone();
+      Cone1 aCone = aSurfaFace.Cone();
       anax1aFace2   = aCone.Axis();
     }
     else if (aTypeaFace == GeomAbs_Torus)
@@ -1712,14 +1712,14 @@ void TPrsStd_ConstraintTools::ComputeEqualRadius(const Handle(TDataXtd_Constrain
     BRepAdaptor_Curve  aCurve(edge1);
     Handle(GeomCurve3d) aProjCurve = aCurve.Curve().Curve();
     gp_Circ            aCircle    = (Handle(GeomCircle)::DownCast(aProjCurve))->Circ();
-    gp_Ax3             anAx31(aCircle.Position()); // get the circle axis
+    Ax3             anAx31(aCircle.Position()); // get the circle axis
     // get the circle plane
     Handle(GeomPlane) aPlane1 = new GeomPlane(anAx31);
 
     aCurve.Initialize(edge2);
     aProjCurve = aCurve.Curve().Curve();
     aCircle    = (Handle(GeomCircle)::DownCast(aProjCurve))->Circ();
-    gp_Ax3 anAx32(aCircle.Position()); // get the circle axis
+    Ax3 anAx32(aCircle.Position()); // get the circle axis
     // get the circle plane
     Handle(GeomPlane) aPlane2 = new GeomPlane(anAx32);
 

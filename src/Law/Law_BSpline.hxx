@@ -265,7 +265,7 @@ public:
 
   //! Makes a closed B-spline into a periodic curve. The curve is
   //! periodic if the knot sequence is periodic and if the curve is
-  //! closed (The tolerance criterion is Resolution from gp).
+  //! closed (The tolerance criterion is Resolution from gp1).
   //! The period T is equal to Knot(LastUKnotIndex) -
   //! Knot(FirstUKnotIndex). A periodic B-spline can be uniform
   //! or not.
@@ -312,7 +312,7 @@ public:
 
   //! Returns true if the distance between the first point and the
   //! last point of the curve is lower or equal to Resolution
-  //! from package gp.
+  //! from package gp1.
   //! Warnings :
   //! The first and the last point can be different from the first
   //! pole and the last pole of the curve.

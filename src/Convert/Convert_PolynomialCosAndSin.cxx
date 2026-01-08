@@ -109,7 +109,7 @@ void BuildPolynomialCosAndSin(const Standard_Real            UFirst,
   TPoles(7).SetCoord(1., -1.013854);
   TPoles(8).SetCoord(1., 0.);
   gp_Trsf2d T;
-  T.SetRotation(gp::Origin2d(), Angle);
+  T.SetRotation(gp1::Origin2d(), Angle);
   for (ii = 1; ii <= num_poles; ii++)
   {
     TPoles(ii).Transform(T);
@@ -170,7 +170,7 @@ void BuildPolynomialCosAndSin(const Standard_Real            UFirst,
   NewTPoles(num_poles - 1) = Pfin;
 
   // Rotation to return to the arc [LocUFirst, LocUFirst+Delta]
-  T.SetRotation(gp::Origin2d(), locUFirst);
+  T.SetRotation(gp1::Origin2d(), locUFirst);
   for (ii = 1; ii <= num_poles; ii++)
   {
     NewTPoles(ii).Transform(T);

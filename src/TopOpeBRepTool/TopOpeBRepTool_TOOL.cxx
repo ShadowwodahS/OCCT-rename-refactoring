@@ -938,13 +938,13 @@ static Standard_Boolean FUN_analyticcS(const gp_Pnt2d&             uv0,
     Dir3d axis;
     if (cyl)
     {
-      const gp_Cylinder& cycy = GS.Cylinder();
+      const Cylinder1& cycy = GS.Cylinder();
       axis                    = cycy.Axis().Direction();
       direct                  = cycy.Direct();
     }
     if (cone)
     {
-      const gp_Cone& coco = GS.Cone();
+      const Cone1& coco = GS.Cone();
       axis                = coco.Axis().Direction();
       direct              = coco.Direct();
     }

@@ -26,7 +26,7 @@
 class Transform3d;
 
 //! Describes a coordinate system in 3D space. Unlike a
-//! Frame3d coordinate system, a gp_Ax3 can be
+//! Frame3d coordinate system, a Ax3 can be
 //! right-handed ("direct sense") or left-handed ("indirect sense").
 //! A coordinate system is defined by:
 //! -   its origin (also referred to as its "Location point"), and
@@ -59,14 +59,14 @@ class Transform3d;
 //! "main Direction", respectively, as their unit vectors.
 //! -   The "Z Axis" is also the "main Axis".
 //! -   Frame3d is used to define a coordinate system that must be always right-handed.
-class gp_Ax3
+class Ax3
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates an object corresponding to the reference
   //! coordinate system (OXYZ).
-  gp_Ax3()
+  Ax3()
       : vydir(0., 1., 0.)
   // vxdir(1.,0.,0.) use default ctor of Dir3d, as it creates the same dir(1,0,0)
   {
@@ -74,13 +74,13 @@ public:
 
   //! Creates  a  coordinate  system from a right-handed
   //! coordinate system.
-  gp_Ax3(const Frame3d& theA);
+  Ax3(const Frame3d& theA);
 
   //! Creates a  right handed axis placement with the
   //! "Location" point theP and  two directions, theN gives the
   //! "Direction" and theVx gives the "XDirection".
   //! Raises ConstructionError if theN and theVx are parallel (same or opposite orientation).
-  gp_Ax3(const Point3d& theP, const Dir3d& theN, const Dir3d& theVx)
+  Ax3(const Point3d& theP, const Dir3d& theN, const Dir3d& theVx)
       : axis(theP, theN),
         vydir(theN),
         vxdir(theN)
@@ -91,7 +91,7 @@ public:
 
   //! Creates an axis placement with the "Location" point <theP>
   //! and the normal direction <theV>.
-  Standard_EXPORT gp_Ax3(const Point3d& theP, const Dir3d& theV);
+  Standard_EXPORT Ax3(const Point3d& theP, const Dir3d& theV);
 
   //! Reverses the X direction of <me>.
   void XReverse() { vxdir.Reverse(); }
@@ -149,7 +149,7 @@ public:
   //! Computes the angular value between the main direction of
   //! <me> and the main direction of <theOther>. Returns the angle
   //! between 0 and PI in radians.
-  Standard_Real Angle(const gp_Ax3& theOther) const { return axis.Angle(theOther.axis); }
+  Standard_Real Angle(const Ax3& theOther) const { return axis.Angle(theOther.axis); }
 
   //! Returns the main axis of <me>. It is the "Location" point
   //! and the main "Direction".
@@ -186,7 +186,7 @@ public:
   //! <me> is lower or equal to theLinearTolerance and
   //! . the main direction of <me> and the main direction of
   //! <theOther> are parallel (same or opposite orientation).
-  Standard_Boolean IsCoplanar(const gp_Ax3&       theOther,
+  Standard_Boolean IsCoplanar(const Ax3&       theOther,
                               const Standard_Real theLinearTolerance,
                               const Standard_Real theAngularTolerance) const;
 
@@ -209,7 +209,7 @@ public:
   //! The main direction of the axis placement is not changed.
   //! The "XDirection" and the "YDirection" are reversed.
   //! So the axis placement stay right handed.
-  Standard_NODISCARD Standard_EXPORT gp_Ax3 Mirrored(const Point3d& theP) const;
+  Standard_NODISCARD Standard_EXPORT Ax3 Mirrored(const Point3d& theP) const;
 
   Standard_EXPORT void Mirror(const Axis3d& theA1);
 
@@ -220,7 +220,7 @@ public:
   //! point, on the "XDirection" and "YDirection".
   //! The resulting main "Direction" is the cross product between
   //! the "XDirection" and the "YDirection" after transformation.
-  Standard_NODISCARD Standard_EXPORT gp_Ax3 Mirrored(const Axis3d& theA1) const;
+  Standard_NODISCARD Standard_EXPORT Ax3 Mirrored(const Axis3d& theA1) const;
 
   Standard_EXPORT void Mirror(const Frame3d& theA2);
 
@@ -232,7 +232,7 @@ public:
   //! point, on the "XDirection" and "YDirection".
   //! The resulting main "Direction" is the cross product between
   //! the "XDirection" and the "YDirection" after transformation.
-  Standard_NODISCARD Standard_EXPORT gp_Ax3 Mirrored(const Frame3d& theA2) const;
+  Standard_NODISCARD Standard_EXPORT Ax3 Mirrored(const Frame3d& theA2) const;
 
   void Rotate(const Axis3d& theA1, const Standard_Real theAng)
   {
@@ -244,9 +244,9 @@ public:
   //! Rotates an axis placement. <theA1> is the axis of the
   //! rotation . theAng is the angular value of the rotation
   //! in radians.
-  Standard_NODISCARD gp_Ax3 Rotated(const Axis3d& theA1, const Standard_Real theAng) const
+  Standard_NODISCARD Ax3 Rotated(const Axis3d& theA1, const Standard_Real theAng) const
   {
-    gp_Ax3 aTemp = *this;
+    Ax3 aTemp = *this;
     aTemp.Rotate(theA1, theAng);
     return aTemp;
   }
@@ -268,9 +268,9 @@ public:
   //! . the main direction of the axis placement is not changed.
   //! . The "XDirection" and the "YDirection" are reversed.
   //! So the axis placement stay right handed.
-  Standard_NODISCARD gp_Ax3 Scaled(const Point3d& theP, const Standard_Real theS) const
+  Standard_NODISCARD Ax3 Scaled(const Point3d& theP, const Standard_Real theS) const
   {
-    gp_Ax3 aTemp = *this;
+    Ax3 aTemp = *this;
     aTemp.Scale(theP, theS);
     return aTemp;
   }
@@ -287,9 +287,9 @@ public:
   //! "YDirection" are transformed with theT.  The resulting
   //! main "Direction" of <me> is the cross product between
   //! the "XDirection" and the "YDirection" after transformation.
-  Standard_NODISCARD gp_Ax3 Transformed(const Transform3d& theT) const
+  Standard_NODISCARD Ax3 Transformed(const Transform3d& theT) const
   {
-    gp_Ax3 aTemp = *this;
+    Ax3 aTemp = *this;
     aTemp.Transform(theT);
     return aTemp;
   }
@@ -298,9 +298,9 @@ public:
 
   //! Translates an axis plaxement in the direction of the vector
   //! <theV>. The magnitude of the translation is the vector's magnitude.
-  Standard_NODISCARD gp_Ax3 Translated(const Vector3d& theV) const
+  Standard_NODISCARD Ax3 Translated(const Vector3d& theV) const
   {
-    gp_Ax3 aTemp = *this;
+    Ax3 aTemp = *this;
     aTemp.Translate(theV);
     return aTemp;
   }
@@ -309,7 +309,7 @@ public:
 
   //! Translates an axis placement from the point <theP1> to the
   //! point <theP2>.
-  Standard_NODISCARD gp_Ax3 Translated(const Point3d& theP1, const Point3d& theP2) const
+  Standard_NODISCARD Ax3 Translated(const Point3d& theP1, const Point3d& theP2) const
   {
     return Translated(Vector3d(theP1, theP2));
   }
@@ -328,10 +328,10 @@ private:
 };
 
 // =======================================================================
-// function : gp_Ax3
+// function : Ax3
 // purpose  :
 // =======================================================================
-inline gp_Ax3::gp_Ax3(const Frame3d& theA)
+inline Ax3::Ax3(const Frame3d& theA)
     : axis(theA.Axis()),
       vydir(theA.YDirection()),
       vxdir(theA.XDirection())
@@ -342,7 +342,7 @@ inline gp_Ax3::gp_Ax3(const Frame3d& theA)
 // function : Ax2
 // purpose  :
 // =======================================================================
-inline Frame3d gp_Ax3::Ax2() const
+inline Frame3d Ax3::Ax2() const
 {
   Dir3d aZz = axis.Direction();
   if (!Direct())
@@ -356,7 +356,7 @@ inline Frame3d gp_Ax3::Ax2() const
 // function : SetAxis
 // purpose  :
 // =======================================================================
-inline void gp_Ax3::SetAxis(const Axis3d& theA1)
+inline void Ax3::SetAxis(const Axis3d& theA1)
 {
   axis.SetLocation(theA1.Location());
   SetDirection(theA1.Direction());
@@ -366,7 +366,7 @@ inline void gp_Ax3::SetAxis(const Axis3d& theA1)
 // function : SetDirection
 // purpose  :
 // =======================================================================
-inline void gp_Ax3::SetDirection(const Dir3d& theV)
+inline void Ax3::SetDirection(const Dir3d& theV)
 {
   Standard_Real aDot = theV.Dot(vxdir);
   if (1. - Abs(aDot) <= Precision::Angular())
@@ -402,7 +402,7 @@ inline void gp_Ax3::SetDirection(const Dir3d& theV)
 // function : SetXDirection
 // purpose  :
 // =======================================================================
-inline void gp_Ax3::SetXDirection(const Dir3d& theVx)
+inline void Ax3::SetXDirection(const Dir3d& theVx)
 {
   Standard_Real aDot = theVx.Dot(axis.Direction());
   if (1. - Abs(aDot) <= Precision::Angular())
@@ -437,7 +437,7 @@ inline void gp_Ax3::SetXDirection(const Dir3d& theVx)
 // function : SetYDirection
 // purpose  :
 // =======================================================================
-inline void gp_Ax3::SetYDirection(const Dir3d& theVy)
+inline void Ax3::SetYDirection(const Dir3d& theVy)
 {
   Standard_Real aDot = theVy.Dot(axis.Direction());
   if (1. - Abs(aDot) <= Precision::Angular())
@@ -469,7 +469,7 @@ inline void gp_Ax3::SetYDirection(const Dir3d& theVy)
 // function : IsCoplanar
 // purpose  :
 // =======================================================================
-inline Standard_Boolean gp_Ax3::IsCoplanar(const gp_Ax3&       theOther,
+inline Standard_Boolean Ax3::IsCoplanar(const Ax3&       theOther,
                                            const Standard_Real theLinearTolerance,
                                            const Standard_Real theAngularTolerance) const
 {
@@ -492,7 +492,7 @@ inline Standard_Boolean gp_Ax3::IsCoplanar(const gp_Ax3&       theOther,
 // function : IsCoplanar
 // purpose  :
 // =======================================================================
-inline Standard_Boolean gp_Ax3::IsCoplanar(const Axis3d&       theA1,
+inline Standard_Boolean Ax3::IsCoplanar(const Axis3d&       theA1,
                                            const Standard_Real theLinearTolerance,
                                            const Standard_Real theAngularTolerance) const
 {

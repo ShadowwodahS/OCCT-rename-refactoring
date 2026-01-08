@@ -48,7 +48,7 @@ public:
   //! The Location of A1 is the origin of the line.
   Standard_EXPORT GC_MakeLine(const Axis3d& A1);
 
-  //! Creates a line from a non persistent line from package gp.
+  //! Creates a line from a non persistent line from package gp1.
   Standard_EXPORT GC_MakeLine(const gp_Lin& L);
 
   //! P is the origin and V is the direction of the line.

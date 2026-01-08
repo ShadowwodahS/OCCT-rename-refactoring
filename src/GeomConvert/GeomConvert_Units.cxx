@@ -83,7 +83,7 @@ Handle(GeomCurve2d) Units1::RadianToDegree(const Handle(GeomCurve2d)& theCurve2d
         || aCurve2d->IsKind(STANDARD_TYPE(Geom2d_Ellipse)))
     {
       gp_Trsf2d aT;
-      aT.SetScale(gp::Origin2d(), LengthFact);
+      aT.SetScale(gp1::Origin2d(), LengthFact);
       aCurve2d->Transform(aT);
       return aCurve2d;
     }
@@ -132,8 +132,8 @@ Handle(GeomCurve2d) Units1::RadianToDegree(const Handle(GeomCurve2d)& theCurve2d
   }
 
   // Compute affinity
-  tMatu.SetAffinity(gp::OY2d(), uFact);
-  tMatv.SetAffinity(gp::OX2d(), vFact);
+  tMatu.SetAffinity(gp1::OY2d(), uFact);
+  tMatv.SetAffinity(gp1::OX2d(), vFact);
   if (aCurve2d->IsKind(STANDARD_TYPE(Geom2d_BoundedCurve)))
   {
     if (aCurve2d->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)))
@@ -216,7 +216,7 @@ Handle(GeomCurve2d) Units1::DegreeToRadian(const Handle(GeomCurve2d)& thePcurve,
         || aPcurve->IsKind(STANDARD_TYPE(Geom2d_Ellipse)))
     {
       gp_Trsf2d aT;
-      aT.SetScale(gp::Origin2d(), LengthFact);
+      aT.SetScale(gp1::Origin2d(), LengthFact);
       aPcurve->Transform(aT);
       return aPcurve;
     }
@@ -254,8 +254,8 @@ Handle(GeomCurve2d) Units1::DegreeToRadian(const Handle(GeomCurve2d)& thePcurve,
 
   // Compute affinity
 
-  tMatu.SetAffinity(gp::OY2d(), uFact);
-  tMatv.SetAffinity(gp::OX2d(), vFact);
+  tMatu.SetAffinity(gp1::OY2d(), uFact);
+  tMatv.SetAffinity(gp1::OX2d(), vFact);
 
   if (aPcurve->IsKind(STANDARD_TYPE(Geom2d_Line)))
   {

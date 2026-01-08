@@ -325,7 +325,7 @@ ExtElC::ExtElC(const gp_Lin& theC1, const gp_Lin& theC2, const Standard_Real)
   const Standard_Real aCosA   = aD1.Dot(aD2);
   const Standard_Real aSqSinA = 1.0 - aCosA * aCosA;
   Standard_Real       aU1 = 0.0, aU2 = 0.0;
-  if (aSqSinA < gp::Resolution() || aD1.IsParallel(aD2, Precision::Angular()))
+  if (aSqSinA < gp1::Resolution() || aD1.IsParallel(aD2, Precision::Angular()))
   {
     myIsPar = Standard_True;
   }
@@ -384,7 +384,7 @@ Standard_Boolean ExtElC::PlanarLineCircleExtrema(const gp_Lin&  theLin,
   // Center of 2D-circle
   const gp_Pnt2d aPC(0.0, 0.0);
 
-  gp_Ax22d  aCircAxis(aPC, gp_Dir2d(1.0, 0.0), gp_Dir2d(0.0, 1.0));
+  Ax22d  aCircAxis(aPC, gp_Dir2d(1.0, 0.0), gp_Dir2d(0.0, 1.0));
   gp_Circ2d aCirc2d(aCircAxis, theCirc.Radius());
 
   gp_Pnt2d aPL(aVecCL.Dot(aDCx), aVecCL.Dot(aDCy));
@@ -506,7 +506,7 @@ ExtElC::ExtElC(const gp_Lin& C1, const gp_Circ& C2, const Standard_Real)
   Point3d O2 = C2.Location();
   Vector3d O2O1(O2, O1);
   //
-  aTolRO2O1 = gp::Resolution();
+  aTolRO2O1 = gp1::Resolution();
   aRO2O1    = O2O1.Magnitude();
   if (aRO2O1 > aTolRO2O1)
   {

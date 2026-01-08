@@ -126,7 +126,7 @@ public:
   //! Computes the line normal to the direction of <me>, passing
   //! through the point theP.  Raises ConstructionError
   //! if the distance between <me> and the point theP is lower
-  //! or equal to Resolution from gp because there is an infinity of
+  //! or equal to Resolution from gp1 because there is an infinity of
   //! solutions in 3D space.
   gp_Lin Normal(const Point3d& theP) const;
 

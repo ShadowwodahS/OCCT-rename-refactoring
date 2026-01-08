@@ -113,7 +113,7 @@ Handle(GeomSurface) ShapePersistent_Geom_Surface::pOffset::Import() const
 // Elementary
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>::PName()
+Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>::PName()
   const
 {
   return "PGeom_ElementarySurface";
@@ -124,18 +124,18 @@ Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface,
 //=======================================================================
 template <>
 Standard_CString ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   GeomPlane,
-  gp_Ax3>::PName() const
+  Ax3>::PName() const
 {
   return "PGeom_Plane";
 }
 
 template <>
 void ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   GeomPlane,
-  gp_Ax3>::Write(StdObjMgt_WriteData& theWriteData) const
+  Ax3>::Write(StdObjMgt_WriteData& theWriteData) const
 {
   Handle(GeomPlane) aMyGeom = Handle(GeomPlane)::DownCast(myTransient);
   theWriteData << aMyGeom->Position();
@@ -165,18 +165,18 @@ Handle(ShapePersistent_Geom::Surface) ShapePersistent_Geom_Surface::Translate(
 //=======================================================================
 template <>
 Standard_CString ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_ConicalSurface,
-  gp_Cone>::PName() const
+  Cone1>::PName() const
 {
   return "PGeom_ConicalSurface";
 }
 
 template <>
 void ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_ConicalSurface,
-  gp_Cone>::Write(StdObjMgt_WriteData& theWriteData) const
+  Cone1>::Write(StdObjMgt_WriteData& theWriteData) const
 {
   Handle(Geom_ConicalSurface) aMyGeom = Handle(Geom_ConicalSurface)::DownCast(myTransient);
   theWriteData << aMyGeom->Cone();
@@ -206,18 +206,18 @@ Handle(ShapePersistent_Geom::Surface) ShapePersistent_Geom_Surface::Translate(
 //=======================================================================
 template <>
 Standard_CString ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_CylindricalSurface,
-  gp_Cylinder>::PName() const
+  Cylinder1>::PName() const
 {
   return "PGeom_CylindricalSurface";
 }
 
 template <>
 void ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_CylindricalSurface,
-  gp_Cylinder>::Write(StdObjMgt_WriteData& theWriteData) const
+  Cylinder1>::Write(StdObjMgt_WriteData& theWriteData) const
 {
   Handle(Geom_CylindricalSurface) aMyGeom = Handle(Geom_CylindricalSurface)::DownCast(myTransient);
   theWriteData << aMyGeom->Cylinder();
@@ -247,7 +247,7 @@ Handle(ShapePersistent_Geom::Surface) ShapePersistent_Geom_Surface::Translate(
 //=======================================================================
 template <>
 Standard_CString ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_SphericalSurface,
   gp_Sphere>::PName() const
 {
@@ -256,7 +256,7 @@ Standard_CString ShapePersistent_Geom::instance<
 
 template <>
 void ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_SphericalSurface,
   gp_Sphere>::Write(StdObjMgt_WriteData& theWriteData) const
 {
@@ -288,7 +288,7 @@ Handle(ShapePersistent_Geom::Surface) ShapePersistent_Geom_Surface::Translate(
 //=======================================================================
 template <>
 Standard_CString ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_ToroidalSurface,
   gp_Torus>::PName() const
 {
@@ -297,7 +297,7 @@ Standard_CString ShapePersistent_Geom::instance<
 
 template <>
 void ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
+  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_ToroidalSurface,
   gp_Torus>::Write(StdObjMgt_WriteData& theWriteData) const
 {

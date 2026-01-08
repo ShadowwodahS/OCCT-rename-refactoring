@@ -23,7 +23,7 @@
 #include <StdFail_NotDone.hxx>
 
 //=========================================================================
-//   Creation d une Hyperbola 2d de gp de centre <Center> et de sommets   +
+//   Creation d une Hyperbola 2d de gp1 de centre <Center> et de sommets   +
 //   <S1> et <S2>.                                                        +
 //   <CenterS1> donne le grand axe .                                      +
 //   <S1> donne le grand rayon et <S2> le petit rayon.                    +
@@ -32,7 +32,7 @@ gce_MakeHypr2d::gce_MakeHypr2d(const gp_Pnt2d& S1, const gp_Pnt2d& S2, const gp_
 {
   gp_Dir2d      XAxis(Coords2d(S1.XY() - Center.XY()));
   gp_Dir2d      YAxis(Coords2d(S2.XY() - Center.XY()));
-  gp_Ax22d      Axis(Center, XAxis, YAxis);
+  Ax22d      Axis(Center, XAxis, YAxis);
   gp_Lin2d      L(Center, XAxis);
   Standard_Real D1 = S1.Distance(Center);
   Standard_Real D2 = L.Distance(S2);
@@ -63,7 +63,7 @@ gce_MakeHypr2d::gce_MakeHypr2d(const gp_Ax2d&         MajorAxis,
   }
 }
 
-gce_MakeHypr2d::gce_MakeHypr2d(const gp_Ax22d&     A,
+gce_MakeHypr2d::gce_MakeHypr2d(const Ax22d&     A,
                                const Standard_Real MajorRadius,
                                const Standard_Real MinorRadius)
 {

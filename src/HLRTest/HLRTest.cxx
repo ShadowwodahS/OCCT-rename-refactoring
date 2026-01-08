@@ -78,7 +78,7 @@ static Standard_Integer hprj(DrawInterpreter&, Standard_Integer n, const char** 
   if (n < 2)
     return 1;
   //
-  Frame3d anAx2 = gp::XOY();
+  Frame3d anAx2 = gp1::XOY();
   if (n == 11)
   {
     Standard_Real x = Draw1::Atof(a[2]);

@@ -36,7 +36,7 @@ IMPLEMENT_STANDARD_RTTIEXT(GeomPlane, Geom_ElementarySurface)
 typedef GeomPlane Plane;
 typedef Axis3d     Ax1;
 typedef Frame3d     Ax2;
-typedef gp_Ax3     Ax3;
+typedef Ax3     Ax3;
 typedef Dir3d     Dir;
 typedef gp_Lin     Lin;
 typedef gp_Pln     Pln;
@@ -56,7 +56,7 @@ Handle(Geom_Geometry) GeomPlane::Copy() const
 
 //=================================================================================================
 
-GeomPlane::GeomPlane(const gp_Ax3& A3)
+GeomPlane::GeomPlane(const Ax3& A3)
 {
 
   pos = A3;
@@ -312,7 +312,7 @@ void GeomPlane::TransformParameters(Standard_Real& U, Standard_Real& V, const Tr
 gp_GTrsf2d GeomPlane::ParametricTransformation(const Transform3d& T) const
 {
   gp_Trsf2d T2;
-  T2.SetScale(gp::Origin2d(), Abs(T.ScaleFactor()));
+  T2.SetScale(gp1::Origin2d(), Abs(T.ScaleFactor()));
   return gp_GTrsf2d(T2);
 }
 

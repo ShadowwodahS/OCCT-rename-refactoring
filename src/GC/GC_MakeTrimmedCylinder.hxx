@@ -47,7 +47,7 @@ public:
   //! The height is the distance between P1 and P2.
   Standard_EXPORT GC_MakeTrimmedCylinder(const Point3d& P1, const Point3d& P2, const Point3d& P3);
 
-  //! Make a cylindricalSurface <Cyl> from gp by its base <Circ>.
+  //! Make a cylindricalSurface <Cyl> from gp1 by its base <Circ>.
   //! Its axis is the normal to the plane defined bi <Circ>.
   //! <Height> can be greater than zero or lower than zero.
   //! In the first case the V parametric direction of the
@@ -55,7 +55,7 @@ public:
   //! In the other case it has the opposite orientation.
   Standard_EXPORT GC_MakeTrimmedCylinder(const gp_Circ& Circ, const Standard_Real Height);
 
-  //! Make a cylindricalSurface <Cyl> from gp by its
+  //! Make a cylindricalSurface <Cyl> from gp1 by its
   //! axis <A1> and its radius <Radius>.
   //! It returns NullObject if <Radius> is lower than zero.
   //! <Height> can be greater than zero or lower than zero.

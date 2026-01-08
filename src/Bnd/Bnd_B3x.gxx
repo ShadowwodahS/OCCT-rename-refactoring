@@ -324,7 +324,7 @@ Standard_Boolean Bnd_B3x::IsOut (const Bnd_B3x& theBox,
 //purpose  : 
 //=======================================================================
 
-Standard_Boolean Bnd_B3x::IsOut (const gp_Ax3& thePlane) const
+Standard_Boolean Bnd_B3x::IsOut (const Ax3& thePlane) const
 {
   if (IsVoid())
     return Standard_True;
@@ -352,7 +352,7 @@ Standard_Boolean Bnd_B3x::IsOut (const Axis3d&          theLine,
                                  const Standard_Boolean isRay,
                                  const Standard_Real    theOverthickness) const
 {
-  const Standard_Real aRes = gp::Resolution() * 100.;
+  const Standard_Real aRes = gp1::Resolution() * 100.;
   if (IsVoid())
     return Standard_True;
   Standard_Real

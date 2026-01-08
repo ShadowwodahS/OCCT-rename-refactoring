@@ -565,7 +565,7 @@ void AppBlend_AppSurf::InternalPerform(const Handle(TheLine)& Lin,
       // les poles par leurs poids respectifs
       tabPoles->ChangeValue(j,k).SetXYZ(newtabP(k).XYZ()/newtabP2d->Value(k).X());
       Standard_Real aWeight = newtabP2d->Value(k).X();
-      if (aWeight < gp::Resolution()) {
+      if (aWeight < gp1::Resolution()) {
         done = Standard_False;
         return;
       }
@@ -911,7 +911,7 @@ void AppBlend_AppSurf::Perform(const Handle(TheLine)& Lin,
       // les poles par leurs poids respectifs
       tabPoles->ChangeValue(j,k).SetXYZ(newtabP(k).XYZ()/newtabP2d->Value(k).X());
       Standard_Real aWeight = newtabP2d->Value(k).X();
-      if (aWeight < gp::Resolution()) {
+      if (aWeight < gp1::Resolution()) {
         done = Standard_False;
         return;
       }

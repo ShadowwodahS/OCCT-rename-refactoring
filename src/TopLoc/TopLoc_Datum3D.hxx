@@ -39,7 +39,7 @@ public:
   //! Constructs a default Datum3D.
   Standard_EXPORT TopLoc_Datum3D();
 
-  //! Constructs a Datum3D form a Trsf from gp. An error is
+  //! Constructs a Datum3D form a Trsf from gp1. An error is
   //! raised if the Trsf is not a rigid transformation.
   Standard_EXPORT TopLoc_Datum3D(const Transform3d& T);
 

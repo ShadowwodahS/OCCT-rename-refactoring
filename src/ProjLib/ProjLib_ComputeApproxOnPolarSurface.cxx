@@ -229,7 +229,7 @@ static gp_Pnt2d Function_Value(const Standard_Real theU, const aFuncStruct& theD
     switch (Type)
     {
       case GeomAbs_Cylinder: {
-        gp_Cylinder Cylinder = theData.mySurf->Cylinder();
+        Cylinder1 Cylinder = theData.mySurf->Cylinder();
         ElSLib1::Parameters(Cylinder, p, S, T);
         if (U0 < Uinf)
           decalU = -int((Uinf - U0) / (2 * M_PI)) - 1;
@@ -239,7 +239,7 @@ static gp_Pnt2d Function_Value(const Standard_Real theU, const aFuncStruct& theD
         break;
       }
       case GeomAbs_Cone: {
-        gp_Cone Cone = theData.mySurf->Cone();
+        Cone1 Cone = theData.mySurf->Cone();
         ElSLib1::Parameters(Cone, p, S, T);
         if (U0 < Uinf)
           decalU = -int((Uinf - U0) / (2 * M_PI)) - 1;
@@ -995,7 +995,7 @@ Handle(Adaptor2d_Curve2d) ProjLib_ComputeApproxOnPolarSurface::BuildInitialCurve
         //	Standard_Real Sloc, Tloc;
         Standard_Real    Sloc;
         Standard_Integer usens    = 0;
-        gp_Cylinder      Cylinder = Surf->Cylinder();
+        Cylinder1      Cylinder = Surf->Cylinder();
         ElSLib1::Parameters(Cylinder, Pts(1), S, T);
         Pts2d(1).SetCoord(S, T);
         for (i = 2; i <= NbOfPnts; i++)
@@ -1018,7 +1018,7 @@ Handle(Adaptor2d_Curve2d) ProjLib_ComputeApproxOnPolarSurface::BuildInitialCurve
         //	Standard_Real Sloc, Tloc;
         Standard_Real    Sloc;
         Standard_Integer usens = 0;
-        gp_Cone          Cone  = Surf->Cone();
+        Cone1          Cone  = Surf->Cone();
         ElSLib1::Parameters(Cone, Pts(1), S, T);
         Pts2d(1).SetCoord(S, T);
         for (i = 2; i <= NbOfPnts; i++)
@@ -1632,7 +1632,7 @@ Handle(Adaptor2d_Curve2d) ProjLib_ComputeApproxOnPolarSurface::BuildInitialCurve
         TestV += sense * vperiod;
     }
     gp_Vec2d Offset(TestU - MidPoint.X(), TestV - MidPoint.Y());
-    if (Abs(Offset.X()) > gp::Resolution() || Abs(Offset.Y()) > gp::Resolution())
+    if (Abs(Offset.X()) > gp1::Resolution() || Abs(Offset.Y()) > gp1::Resolution())
       myBSpline->Translate(Offset);
     //////////////////////////////////////////
     Geom2dAdaptor_Curve       GAC(myBSpline);

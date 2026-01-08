@@ -882,7 +882,7 @@ void RestrictedIntersection::PutVertexOnLine(const Handle(IntPatch_Line)&       
               tgrst.SetLinearForm(d2d.X(), d1u, d2d.Y(), d1v);
 
               normsurf = d1u.Crossed(d1v);
-              if (normsurf.Magnitude() < gp::Resolution())
+              if (normsurf.Magnitude() < gp1::Resolution())
               {
                 transline.SetValue(Standard_True, IntSurf_Undecided);
                 transarc.SetValue(Standard_True, IntSurf_Undecided);

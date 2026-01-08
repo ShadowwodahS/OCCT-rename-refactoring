@@ -24,7 +24,7 @@
 
 //! Describes a plane.
 //! A plane is positioned in space with a coordinate system
-//! (a gp_Ax3 object), such that the plane is defined by the
+//! (a Ax3 object), such that the plane is defined by the
 //! origin, "X Direction" and "Y Direction" of this coordinate
 //! system, which is the "local coordinate system" of the
 //! plane. The "main Direction" of the coordinate system is a
@@ -58,7 +58,7 @@ public:
   //! The "Location" of theA3 defines the location (origin) of the plane.
   //! The "XDirection" and "YDirection" of theA3 define the "XAxis" and
   //! the "YAxis" of the plane used to parametrize the plane.
-  gp_Pln(const gp_Ax3& theA3)
+  gp_Pln(const Ax3& theA3)
       : pos(theA3)
   {
   }
@@ -71,7 +71,7 @@ public:
   //! @code
   //! theA * X + theB * Y + theC * Z + theD = 0.0
   //! @endcode
-  //! Raises ConstructionError if Sqrt (theA*theA + theB*theB + theC*theC) <= Resolution from gp.
+  //! Raises ConstructionError if Sqrt (theA*theA + theB*theB + theC*theC) <= Resolution from gp1.
   Standard_EXPORT gp_Pln(const Standard_Real theA,
                          const Standard_Real theB,
                          const Standard_Real theC,
@@ -96,7 +96,7 @@ public:
   void SetLocation(const Point3d& theLoc) { pos.SetLocation(theLoc); }
 
   //! Changes the local coordinate system of the plane.
-  void SetPosition(const gp_Ax3& theA3) { pos = theA3; }
+  void SetPosition(const Ax3& theA3) { pos = theA3; }
 
   //! Reverses the   U   parametrization of   the  plane
   //! reversing the XAxis.
@@ -116,7 +116,7 @@ public:
   const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the local coordinate system of the plane .
-  const gp_Ax3& Position() const { return pos; }
+  const Ax3& Position() const { return pos; }
 
   //! Computes the distance between <me> and the point <theP>.
   Standard_Real Distance(const Point3d& theP) const;
@@ -276,7 +276,7 @@ public:
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
 private:
-  gp_Ax3 pos;
+  Ax3 pos;
 };
 
 #include <gp_Lin.hxx>
@@ -331,7 +331,7 @@ inline Standard_Real gp_Pln::Distance(const Point3d& theP) const
 inline Standard_Real gp_Pln::Distance(const gp_Lin& theL) const
 {
   Standard_Real aD = 0.0;
-  if ((pos.Direction()).IsNormal(theL.Direction(), gp::Resolution()))
+  if ((pos.Direction()).IsNormal(theL.Direction(), gp1::Resolution()))
   {
     const Point3d& aP   = theL.Location();
     const Point3d& aLoc = pos.Location();
@@ -353,7 +353,7 @@ inline Standard_Real gp_Pln::Distance(const gp_Lin& theL) const
 inline Standard_Real gp_Pln::Distance(const gp_Pln& theOther) const
 {
   Standard_Real aD = 0.0;
-  if ((pos.Direction()).IsParallel(theOther.pos.Direction(), gp::Resolution()))
+  if ((pos.Direction()).IsParallel(theOther.pos.Direction(), gp1::Resolution()))
   {
     const Point3d& aP   = theOther.pos.Location();
     const Point3d& aLoc = pos.Location();

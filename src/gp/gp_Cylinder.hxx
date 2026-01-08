@@ -20,10 +20,10 @@
 
 //! Describes an infinite cylindrical surface.
 //! A cylinder is defined by its radius and positioned in space
-//! with a coordinate system (a gp_Ax3 object), the "main
+//! with a coordinate system (a Ax3 object), the "main
 //! Axis" of which is the axis of the cylinder. This coordinate
 //! system is the "local coordinate system" of the cylinder.
-//! Note: when a gp_Cylinder cylinder is converted into a
+//! Note: when a Cylinder1 cylinder is converted into a
 //! Geom_CylindricalSurface cylinder, some implicit
 //! properties of its local coordinate system are used explicitly:
 //! -   its origin, "X Direction", "Y Direction" and "main
@@ -37,24 +37,24 @@
 //! complex1 cylinder constructions
 //! Geom_CylindricalSurface which provides additional
 //! functions for constructing cylinders and works, in
-//! particular, with the parametric equations of cylinders gp_Ax3
-class gp_Cylinder
+//! particular, with the parametric equations of cylinders Ax3
+class Cylinder1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates a indefinite cylinder.
-  gp_Cylinder() { radius = RealLast(); }
+  Cylinder1() { radius = RealLast(); }
 
   //! Creates a cylinder of radius Radius, whose axis is the "main
   //! Axis" of theA3. theA3 is the local coordinate system of the cylinder.   Raises
   //! ConstructionErrord if theRadius < 0.0
-  gp_Cylinder(const gp_Ax3& theA3, const Standard_Real theRadius)
+  Cylinder1(const Ax3& theA3, const Standard_Real theRadius)
       : pos(theA3),
         radius(theRadius)
   {
     Standard_ConstructionError_Raise_if(theRadius < 0.0,
-                                        "gp_Cylinder() - radius should be positive number");
+                                        "Cylinder1() - radius should be positive number");
   }
 
   //! Changes the symmetry axis of the cylinder. Raises ConstructionError if the direction of theA1
@@ -65,7 +65,7 @@ public:
   void SetLocation(const Point3d& theLoc) { pos.SetLocation(theLoc); }
 
   //! Change the local coordinate system of the surface.
-  void SetPosition(const gp_Ax3& theA3) { pos = theA3; }
+  void SetPosition(const Ax3& theA3) { pos = theA3; }
 
   //! Modifies the radius of this cylinder.
   //! Exceptions
@@ -74,7 +74,7 @@ public:
   {
     Standard_ConstructionError_Raise_if(
       theR < 0.0,
-      "gp_Cylinder::SetRadius() - radius should be positive number");
+      "Cylinder1::SetRadius() - radius should be positive number");
     radius = theR;
   }
 
@@ -111,7 +111,7 @@ public:
   const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the local coordinate system of the cylinder.
-  const gp_Ax3& Position() const { return pos; }
+  const Ax3& Position() const { return pos; }
 
   //! Returns the radius of the cylinder.
   Standard_Real Radius() const { return radius; }
@@ -127,29 +127,29 @@ public:
   //! Performs the symmetrical transformation of a cylinder
   //! with respect to the point theP which is the center of the
   //! symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Cylinder Mirrored(const Point3d& theP) const;
+  Standard_NODISCARD Standard_EXPORT Cylinder1 Mirrored(const Point3d& theP) const;
 
   Standard_EXPORT void Mirror(const Axis3d& theA1);
 
   //! Performs the symmetrical transformation of a cylinder with
   //! respect to an axis placement which is the axis of the
   //! symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Cylinder Mirrored(const Axis3d& theA1) const;
+  Standard_NODISCARD Standard_EXPORT Cylinder1 Mirrored(const Axis3d& theA1) const;
 
   Standard_EXPORT void Mirror(const Frame3d& theA2);
 
   //! Performs the symmetrical transformation of a cylinder with respect
   //! to a plane. The axis placement theA2 locates the plane of the
   //! of the symmetry : (Location, XDirection, YDirection).
-  Standard_NODISCARD Standard_EXPORT gp_Cylinder Mirrored(const Frame3d& theA2) const;
+  Standard_NODISCARD Standard_EXPORT Cylinder1 Mirrored(const Frame3d& theA2) const;
 
   void Rotate(const Axis3d& theA1, const Standard_Real theAng) { pos.Rotate(theA1, theAng); }
 
   //! Rotates a cylinder. theA1 is the axis of the rotation.
   //! theAng is the angular value of the rotation in radians.
-  Standard_NODISCARD gp_Cylinder Rotated(const Axis3d& theA1, const Standard_Real theAng) const
+  Standard_NODISCARD Cylinder1 Rotated(const Axis3d& theA1, const Standard_Real theAng) const
   {
-    gp_Cylinder aCyl = *this;
+    Cylinder1 aCyl = *this;
     aCyl.pos.Rotate(theA1, theAng);
     return aCyl;
   }
@@ -158,20 +158,20 @@ public:
 
   //! Scales a cylinder. theS is the scaling value.
   //! The absolute value of theS is used to scale the cylinder
-  Standard_NODISCARD gp_Cylinder Scaled(const Point3d& theP, const Standard_Real theS) const;
+  Standard_NODISCARD Cylinder1 Scaled(const Point3d& theP, const Standard_Real theS) const;
 
   void Transform(const Transform3d& theT);
 
   //! Transforms a cylinder with the transformation theT from class Trsf.
-  Standard_NODISCARD gp_Cylinder Transformed(const Transform3d& theT) const;
+  Standard_NODISCARD Cylinder1 Transformed(const Transform3d& theT) const;
 
   void Translate(const Vector3d& theV) { pos.Translate(theV); }
 
   //! Translates a cylinder in the direction of the vector theV.
   //! The magnitude of the translation is the vector's magnitude.
-  Standard_NODISCARD gp_Cylinder Translated(const Vector3d& theV) const
+  Standard_NODISCARD Cylinder1 Translated(const Vector3d& theV) const
   {
-    gp_Cylinder aCyl = *this;
+    Cylinder1 aCyl = *this;
     aCyl.pos.Translate(theV);
     return aCyl;
   }
@@ -179,15 +179,15 @@ public:
   void Translate(const Point3d& theP1, const Point3d& theP2) { pos.Translate(theP1, theP2); }
 
   //! Translates a cylinder from the point theP1 to the point theP2.
-  Standard_NODISCARD gp_Cylinder Translated(const Point3d& theP1, const Point3d& theP2) const
+  Standard_NODISCARD Cylinder1 Translated(const Point3d& theP1, const Point3d& theP2) const
   {
-    gp_Cylinder aCyl = *this;
+    Cylinder1 aCyl = *this;
     aCyl.pos.Translate(theP1, theP2);
     return aCyl;
   }
 
 private:
-  gp_Ax3        pos;
+  Ax3        pos;
   Standard_Real radius;
 };
 
@@ -195,7 +195,7 @@ private:
 // function : Scale
 // purpose  :
 // =======================================================================
-inline void gp_Cylinder::Scale(const Point3d& theP, const Standard_Real theS)
+inline void Cylinder1::Scale(const Point3d& theP, const Standard_Real theS)
 {
   pos.Scale(theP, theS);
   radius *= theS;
@@ -209,9 +209,9 @@ inline void gp_Cylinder::Scale(const Point3d& theP, const Standard_Real theS)
 // function : Scaled
 // purpose  :
 // =======================================================================
-inline gp_Cylinder gp_Cylinder::Scaled(const Point3d& theP, const Standard_Real theS) const
+inline Cylinder1 Cylinder1::Scaled(const Point3d& theP, const Standard_Real theS) const
 {
-  gp_Cylinder aCyl = *this;
+  Cylinder1 aCyl = *this;
   aCyl.pos.Scale(theP, theS);
   aCyl.radius *= theS;
   if (aCyl.radius < 0)
@@ -225,7 +225,7 @@ inline gp_Cylinder gp_Cylinder::Scaled(const Point3d& theP, const Standard_Real 
 // function : Transform
 // purpose  :
 // =======================================================================
-inline void gp_Cylinder::Transform(const Transform3d& theT)
+inline void Cylinder1::Transform(const Transform3d& theT)
 {
   pos.Transform(theT);
   radius *= theT.ScaleFactor();
@@ -239,9 +239,9 @@ inline void gp_Cylinder::Transform(const Transform3d& theT)
 // function : Transformed
 // purpose  :
 // =======================================================================
-inline gp_Cylinder gp_Cylinder::Transformed(const Transform3d& theT) const
+inline Cylinder1 Cylinder1::Transformed(const Transform3d& theT) const
 {
-  gp_Cylinder aCyl = *this;
+  Cylinder1 aCyl = *this;
   aCyl.pos.Transform(theT);
   aCyl.radius *= theT.ScaleFactor();
   if (aCyl.radius < 0)

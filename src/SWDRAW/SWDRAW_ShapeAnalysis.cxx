@@ -1363,7 +1363,7 @@ static Standard_Integer getanasurf(DrawInterpreter& di, Standard_Integer n, cons
       break;
     }
     case GeomAbs_Cylinder: {
-      gp_Cylinder aCyl;
+      Cylinder1 aCyl;
       if (aSampleSurf.GetType() == GeomAbs_Cylinder)
         aCyl = aSampleSurf.Cylinder();
       if (aCanonRec.IsCylinder(tol, aCyl))
@@ -1371,7 +1371,7 @@ static Standard_Integer getanasurf(DrawInterpreter& di, Standard_Integer n, cons
       break;
     }
     case GeomAbs_Cone: {
-      gp_Cone aCon;
+      Cone1 aCon;
       if (aSampleSurf.GetType() == GeomAbs_Cone)
         aCon = aSampleSurf.Cone();
       if (aCanonRec.IsCone(tol, aCon))

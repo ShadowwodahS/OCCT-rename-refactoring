@@ -21,7 +21,7 @@
 #include <gp_Trsf.hxx>
 
 //=========================================================================
-//   Creation d une symetrie  de gp par rapport a un point.             +
+//   Creation d une symetrie  de gp1 par rapport a un point.             +
 //=========================================================================
 MirrorBuilder::MirrorBuilder(const Point3d& Point)
 {
@@ -29,7 +29,7 @@ MirrorBuilder::MirrorBuilder(const Point3d& Point)
 }
 
 //=========================================================================
-//   Creation d une symetrie  de gp par rapport a une droite.           +
+//   Creation d une symetrie  de gp1 par rapport a une droite.           +
 //=========================================================================
 
 MirrorBuilder::MirrorBuilder(const Axis3d& Axis)
@@ -38,7 +38,7 @@ MirrorBuilder::MirrorBuilder(const Axis3d& Axis)
 }
 
 //=========================================================================
-//   Creation d une symetrie  de gp par rapport a une droite.           +
+//   Creation d une symetrie  de gp1 par rapport a une droite.           +
 //=========================================================================
 
 MirrorBuilder::MirrorBuilder(const gp_Lin& Line)
@@ -47,7 +47,7 @@ MirrorBuilder::MirrorBuilder(const gp_Lin& Line)
 }
 
 //=========================================================================
-//   Creation d une symetrie  de gp par rapport a une droite definie    +
+//   Creation d une symetrie  de gp1 par rapport a une droite definie    +
 //   par un point et une direction.                                       +
 //=========================================================================
 
@@ -57,7 +57,7 @@ MirrorBuilder::MirrorBuilder(const Point3d& Point, const Dir3d& Direc)
 }
 
 //=========================================================================
-//   Creation d une symetrie 3d de gp par rapport a un plan defini par    +
+//   Creation d une symetrie 3d de gp1 par rapport a un plan defini par    +
 //   un Ax2 (Normale au plan et axe x du plan).                           +
 //=========================================================================
 
@@ -67,7 +67,7 @@ MirrorBuilder::MirrorBuilder(const Frame3d& Plane)
 }
 
 //=========================================================================
-//   Creation d une symetrie 3d de gp par rapport a un plan Plane.        +
+//   Creation d une symetrie 3d de gp1 par rapport a un plan Plane.        +
 //=========================================================================
 
 MirrorBuilder::MirrorBuilder(const gp_Pln& Plane)

@@ -21,15 +21,15 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <GProp_GProps.hxx>
-class gp_Cylinder;
+class Cylinder1;
 class Point3d;
-class gp_Cone;
+class Cone1;
 class gp_Sphere;
 class gp_Torus;
 
 //! Computes the global properties and the volume of a geometric solid
 //! (3D closed region of space)
-//! The solid can be elementary(definition in the gp package)
+//! The solid can be elementary(definition in the gp1 package)
 class GProp_VelGProps : public GeometricProperties
 {
 public:
@@ -37,14 +37,14 @@ public:
 
   Standard_EXPORT GProp_VelGProps();
 
-  Standard_EXPORT GProp_VelGProps(const gp_Cylinder&  S,
+  Standard_EXPORT GProp_VelGProps(const Cylinder1&  S,
                                   const Standard_Real Alpha1,
                                   const Standard_Real Alpha2,
                                   const Standard_Real Z1,
                                   const Standard_Real Z2,
                                   const Point3d&       VLocation);
 
-  Standard_EXPORT GProp_VelGProps(const gp_Cone&      S,
+  Standard_EXPORT GProp_VelGProps(const Cone1&      S,
                                   const Standard_Real Alpha1,
                                   const Standard_Real Alpha2,
                                   const Standard_Real Z1,
@@ -67,13 +67,13 @@ public:
 
   Standard_EXPORT void SetLocation(const Point3d& VLocation);
 
-  Standard_EXPORT void Perform(const gp_Cylinder&  S,
+  Standard_EXPORT void Perform(const Cylinder1&  S,
                                const Standard_Real Alpha1,
                                const Standard_Real Alpha2,
                                const Standard_Real Z1,
                                const Standard_Real Z2);
 
-  Standard_EXPORT void Perform(const gp_Cone&      S,
+  Standard_EXPORT void Perform(const Cone1&      S,
                                const Standard_Real Alpha1,
                                const Standard_Real Alpha2,
                                const Standard_Real Z1,

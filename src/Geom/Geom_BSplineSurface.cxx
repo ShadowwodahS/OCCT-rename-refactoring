@@ -241,7 +241,7 @@ Geom_BSplineSurface::Geom_BSplineSurface(const TColgp_Array2OfPnt&      Poles,
   {
     for (j = Weights.LowerCol(); j <= Weights.UpperCol(); j++)
     {
-      if (Weights(i, j) <= gp::Resolution())
+      if (Weights(i, j) <= gp1::Resolution())
         throw Standard_ConstructionError("Geom_BSplineSurface: Weights values too small");
     }
   }
@@ -905,14 +905,14 @@ void Geom_BSplineSurface::SetUKnots(const TColStd_Array1OfReal& UK)
   }
   if (Lower > 1)
   {
-    if (Abs(UK(Lower) - uknots->Value(Lower - 1)) <= gp::Resolution())
+    if (Abs(UK(Lower) - uknots->Value(Lower - 1)) <= gp1::Resolution())
     {
       throw Standard_ConstructionError("Geom_BSplineSurface::SetUKnots: invalid knot value");
     }
   }
   if (Upper < uknots->Length())
   {
-    if (Abs(UK(Upper) - uknots->Value(Upper + 1)) <= gp::Resolution())
+    if (Abs(UK(Upper) - uknots->Value(Upper + 1)) <= gp1::Resolution())
     {
       throw Standard_ConstructionError("Geom_BSplineSurface::SetUKnots: invalid knot value");
     }
@@ -923,7 +923,7 @@ void Geom_BSplineSurface::SetUKnots(const TColStd_Array1OfReal& UK)
     uknots->SetValue(i, UK(i));
     if (i != Lower)
     {
-      if (Abs(UK(i) - K1) <= gp::Resolution())
+      if (Abs(UK(i) - K1) <= gp1::Resolution())
       {
         throw Standard_ConstructionError("Geom_BSplineSurface::SetUKnots: invalid knot value");
       }
@@ -996,14 +996,14 @@ void Geom_BSplineSurface::SetVKnots(const TColStd_Array1OfReal& VK)
   }
   if (Lower > 1)
   {
-    if (Abs(VK(Lower) - vknots->Value(Lower - 1)) <= gp::Resolution())
+    if (Abs(VK(Lower) - vknots->Value(Lower - 1)) <= gp1::Resolution())
     {
       throw Standard_ConstructionError("Geom_BSplineSurface::SetVKnots: invalid knot value");
     }
   }
   if (Upper < vknots->Length())
   {
-    if (Abs(VK(Upper) - vknots->Value(Upper + 1)) <= gp::Resolution())
+    if (Abs(VK(Upper) - vknots->Value(Upper + 1)) <= gp1::Resolution())
     {
       throw Standard_ConstructionError("Geom_BSplineSurface::SetVKnots: invalid knot value");
     }
@@ -1014,7 +1014,7 @@ void Geom_BSplineSurface::SetVKnots(const TColStd_Array1OfReal& VK)
     vknots->SetValue(i, VK(i));
     if (i != Lower)
     {
-      if (Abs(VK(i) - K1) <= gp::Resolution())
+      if (Abs(VK(i) - K1) <= gp1::Resolution())
       {
         throw Standard_ConstructionError("Geom_BSplineSurface::SetVKnots: invalid knot value");
       }
@@ -1261,7 +1261,7 @@ void Geom_BSplineSurface::SetWeight(const Standard_Integer UIndex,
                                     const Standard_Integer VIndex,
                                     const Standard_Real    Weight)
 {
-  if (Weight <= gp::Resolution())
+  if (Weight <= gp1::Resolution())
     throw Standard_ConstructionError("Geom_BSplineSurface::SetWeight: Weight too small");
   TColStd_Array2OfReal& Weights = weights->ChangeArray2();
   if (UIndex < 1 || UIndex > Weights.ColLength() || VIndex < 1 || VIndex > Weights.RowLength())
@@ -1290,7 +1290,7 @@ void Geom_BSplineSurface::SetWeightCol(const Standard_Integer      VIndex,
   Standard_Integer I = CPoleWeights.Lower();
   while (I <= CPoleWeights.Upper())
   {
-    if (CPoleWeights(I) <= gp::Resolution())
+    if (CPoleWeights(I) <= gp1::Resolution())
     {
       throw Standard_ConstructionError("Geom_BSplineSurface::SetWeightCol: Weight too small");
     }
@@ -1321,7 +1321,7 @@ void Geom_BSplineSurface::SetWeightRow(const Standard_Integer      UIndex,
 
   while (I <= CPoleWeights.Upper())
   {
-    if (CPoleWeights(I) <= gp::Resolution())
+    if (CPoleWeights(I) <= gp1::Resolution())
     {
       throw Standard_ConstructionError("Geom_BSplineSurface::SetWeightRow: Weight too small");
     }

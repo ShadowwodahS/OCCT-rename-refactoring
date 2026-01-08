@@ -28,7 +28,7 @@
  * Make loops from a set of connected links. A link is represented by
  * a pair of integer indices of nodes.
  */
-class Poly_MakeLoops
+class LoopBuilder
 {
 public:
   //! Orientation flags that can be attached to a link
@@ -61,9 +61,9 @@ public:
     {
     }
 
-    void Reverse() { flags ^= Poly_MakeLoops::LF_Reversed; }
+    void Reverse() { flags ^= LoopBuilder::LF_Reversed; }
 
-    Standard_Boolean IsReversed() const { return (flags & Poly_MakeLoops::LF_Reversed) != 0; }
+    Standard_Boolean IsReversed() const { return (flags & LoopBuilder::LF_Reversed) != 0; }
 
     void Nullify() { node1 = node2 = 0; }
 
@@ -78,7 +78,7 @@ public:
 
   struct Hasher1
   {
-    size_t operator()(const Poly_MakeLoops::Link1& theLink) const noexcept
+    size_t operator()(const LoopBuilder::Link1& theLink) const noexcept
     {
       // Combine two int values into a single hash value.
       int aCombination[2]{theLink.node1, theLink.node2};
@@ -89,8 +89,8 @@ public:
       return opencascade::hashBytes(aCombination, sizeof(aCombination));
     }
 
-    bool operator()(const Poly_MakeLoops::Link1& theLink1,
-                    const Poly_MakeLoops::Link1& theLink2) const noexcept
+    bool operator()(const LoopBuilder::Link1& theLink1,
+                    const LoopBuilder::Link1& theLink2) const noexcept
     {
       return theLink1 == theLink2;
     }
@@ -178,7 +178,7 @@ public:
 
   //! Constructor. If helper is NULL then the algorithm will
   //! probably return a wrong result
-  Standard_EXPORT Poly_MakeLoops(const Helper1*                            theHelper,
+  Standard_EXPORT LoopBuilder(const Helper1*                            theHelper,
                                  const Handle(NCollection_BaseAllocator)& theAlloc = 0L);
 
   //! It is to reset the algorithm to the initial state.
@@ -267,11 +267,11 @@ private:
  */
 class Dir3d;
 
-class Poly_MakeLoops3D : public Poly_MakeLoops
+class Poly_MakeLoops3D : public LoopBuilder
 {
 public:
   //! The abstract helper class
-  class Helper1 : public Poly_MakeLoops::Helper1
+  class Helper1 : public LoopBuilder::Helper1
   {
   public:
     // all the following methods should return False if
@@ -300,7 +300,7 @@ protected:
 
   const Helper1* getHelper() const
   {
-    return static_cast<const Poly_MakeLoops3D::Helper1*>(Poly_MakeLoops::getHelper());
+    return static_cast<const Poly_MakeLoops3D::Helper1*>(LoopBuilder::getHelper());
   }
 };
 
@@ -309,11 +309,11 @@ protected:
  */
 class gp_Dir2d;
 
-class Poly_MakeLoops2D : public Poly_MakeLoops
+class Poly_MakeLoops2D : public LoopBuilder
 {
 public:
   //! The abstract helper class
-  class Helper1 : public Poly_MakeLoops::Helper1
+  class Helper1 : public LoopBuilder::Helper1
   {
   public:
     // all the following methods should return False if
@@ -340,7 +340,7 @@ protected:
 
   const Helper1* getHelper() const
   {
-    return static_cast<const Poly_MakeLoops2D::Helper1*>(Poly_MakeLoops::getHelper());
+    return static_cast<const Poly_MakeLoops2D::Helper1*>(LoopBuilder::getHelper());
   }
 
 private:
@@ -351,19 +351,19 @@ private:
 namespace std
 {
 template <>
-struct hash<Poly_MakeLoops::Link1>
+struct hash<LoopBuilder::Link1>
 {
-  size_t operator()(const Poly_MakeLoops::Link1& theLink) const noexcept
+  size_t operator()(const LoopBuilder::Link1& theLink) const noexcept
   {
-    return Poly_MakeLoops::Hasher1{}(theLink);
+    return LoopBuilder::Hasher1{}(theLink);
   }
 };
 
 template <>
-struct equal_to<Poly_MakeLoops::Link1>
+struct equal_to<LoopBuilder::Link1>
 {
-  bool operator()(const Poly_MakeLoops::Link1& theLink1,
-                  const Poly_MakeLoops::Link1& theLink2) const noexcept
+  bool operator()(const LoopBuilder::Link1& theLink1,
+                  const LoopBuilder::Link1& theLink2) const noexcept
   {
     return theLink1 == theLink2;
   }

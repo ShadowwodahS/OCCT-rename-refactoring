@@ -1642,7 +1642,7 @@ void BRepTools_ShapeSet::ReadTriangulation(Standard_IStream&            IS,
     for (j = 1; j <= nbTriangles; j++)
     {
       IS >> n1 >> n2 >> n3;
-      T->SetTriangle(j, Poly_Triangle(n1, n2, n3));
+      T->SetTriangle(j, Triangle2(n1, n2, n3));
     }
 
     if (hasNormals)

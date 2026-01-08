@@ -122,7 +122,7 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
   //  std::cout << " Dir(Xpers): " << std::endl;
   //  std::cout << " X: " << Xpers.X() << " Y: " << Xpers.Y() << " Z: " << Xpers.Z()  <<  std::endl;
 
-  gp_Ax3 Axe(Source, Zpers, Xpers);
+  Ax3 Axe(Source, Zpers, Xpers);
 
   Transform3d T;
 

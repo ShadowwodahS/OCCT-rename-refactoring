@@ -1612,11 +1612,11 @@ Standard_Boolean Adaptor3d_TopolTool::IsUniformSampling() const
 // function : GetConeApexParam
 // purpose  : Computes the cone's apex parameters
 //=======================================================================
-void Adaptor3d_TopolTool::GetConeApexParam(const gp_Cone& theC,
+void Adaptor3d_TopolTool::GetConeApexParam(const Cone1& theC,
                                            Standard_Real& theU,
                                            Standard_Real& theV)
 {
-  const gp_Ax3& Pos    = theC.Position();
+  const Ax3& Pos    = theC.Position();
   Standard_Real Radius = theC.RefRadius();
   Standard_Real SAngle = theC.SemiAngle();
   const Point3d& P      = theC.Apex();

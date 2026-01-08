@@ -26,7 +26,7 @@
 class gp_Elips2d;
 
 //! This algorithm converts a ellipse into a rational B-spline curve.
-//! The ellipse is represented an Elips2d from package gp with
+//! The ellipse is represented an Elips2d from package gp1 with
 //! the parametrization :
 //! P (U) =
 //! Loc + (MajorRadius * Cos(U) * Xdir + MinorRadius * Sin(U) * Ydir)

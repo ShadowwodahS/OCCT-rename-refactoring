@@ -26,10 +26,10 @@
 #include <Standard_Boolean.hxx>
 class gp_Pnt2d;
 class gp_Ax2d;
-class gp_Ax22d;
+class Ax22d;
 
 //! This class implements the following algorithms used to
-//! create a 2d Hyperbola from gp.
+//! create a 2d Hyperbola from gp1.
 //! * Create a 2d Hyperbola from its center and two points:
 //! one on its axis of symmetry giving the major radius, the
 //! other giving the value of the small radius.
@@ -90,7 +90,7 @@ public:
   //! A, with major and minor radii MajorRadius and
   //! MinorRadius, where its major axis is the "X Axis"
   //! of A (A is the local coordinate system of the hyperbola).
-  Standard_EXPORT gce_MakeHypr2d(const gp_Ax22d&     A,
+  Standard_EXPORT gce_MakeHypr2d(const Ax22d&     A,
                                  const Standard_Real MajorRadius,
                                  const Standard_Real MinorRadius);
 

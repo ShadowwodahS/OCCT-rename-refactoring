@@ -43,7 +43,7 @@ DEFINE_STANDARD_HANDLE(MeshTriangulation, RefObject)
 //! A triangulation comprises:
 //! - A table of 3D nodes (3D points on the surface).
 //! - A table of triangles.
-//!   Each triangle (Poly_Triangle object) comprises a triplet of indices in the table of 3D nodes
+//!   Each triangle (Triangle2 object) comprises a triplet of indices in the table of 3D nodes
 //!   specific to the triangulation.
 //! - An optional table of 2D nodes (2D points), parallel to the table of 3D nodes.
 //!   2D point are the (u, v) parameters of the corresponding 3D point on the surface approximated
@@ -165,7 +165,7 @@ public:
   //! Returns triangle at the given index.
   //! @param[in] theIndex triangle index within [1, NbTriangles()] range
   //! @return triangle node indices, with each node defined within [1, NbNodes()] range
-  const Poly_Triangle& Triangle1(Standard_Integer theIndex) const
+  const Triangle2& Triangle1(Standard_Integer theIndex) const
   {
     return myTriangles.Value(theIndex);
   }
@@ -174,7 +174,7 @@ public:
   //! @param[in] theIndex triangle index within [1, NbTriangles()] range
   //! @param[in] theTriangle triangle node indices, with each node defined within [1, NbNodes()]
   //! range
-  void SetTriangle(Standard_Integer theIndex, const Poly_Triangle& theTriangle)
+  void SetTriangle(Standard_Integer theIndex, const Triangle2& theTriangle)
   {
     myTriangles.SetValue(theIndex, theTriangle);
   }
@@ -321,11 +321,11 @@ public:
 
   //! Returns an internal array of nodes.
   //! Node()/SetNode() should be used instead in portable code.
-  Poly_ArrayOfNodes& InternalNodes() { return myNodes; }
+  NodeArray& InternalNodes() { return myNodes; }
 
   //! Returns an internal array of UV nodes.
   //! UBNode()/SetUVNode() should be used instead in portable code.
-  Poly_ArrayOfUVNodes& InternalUVNodes() { return myUVNodes; }
+  UVNodeArray& InternalUVNodes() { return myUVNodes; }
 
   //! Return an internal array of normals.
   //! Normal()/SetNormal() should be used instead in portable code.
@@ -344,7 +344,7 @@ public:
 
   Standard_DEPRECATED("Deprecated method, SetTriangle() should be used instead")
 
-  Poly_Triangle& ChangeTriangle(const Standard_Integer theIndex)
+  Triangle2& ChangeTriangle(const Standard_Integer theIndex)
   {
     return myTriangles.ChangeValue(theIndex);
   }
@@ -401,9 +401,9 @@ protected:
 protected:
   Box2*                     myCachedMinMax;
   Standard_Real                myDeflection;
-  Poly_ArrayOfNodes            myNodes;
+  NodeArray            myNodes;
   Poly_Array1OfTriangle        myTriangles;
-  Poly_ArrayOfUVNodes          myUVNodes;
+  UVNodeArray          myUVNodes;
   NCollection_Array1<gp_Vec3f> myNormals;
   Poly_MeshPurpose             myPurpose;
 

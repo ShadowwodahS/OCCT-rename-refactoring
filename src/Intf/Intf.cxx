@@ -32,7 +32,7 @@ void Intf::PlaneEquation(const Point3d&  P1,
   gp_XYZ v3              = P1.XYZ() - P3.XYZ();
   NormalVector           = (v1 ^ v2) + (v2 ^ v3) + (v3 ^ v1);
   Standard_Real aNormLen = NormalVector.Modulus();
-  if (aNormLen < gp::Resolution())
+  if (aNormLen < gp1::Resolution())
   {
     PolarDistance = 0.;
   }

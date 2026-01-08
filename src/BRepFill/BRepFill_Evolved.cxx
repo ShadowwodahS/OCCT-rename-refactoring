@@ -122,7 +122,7 @@ static Standard_Real BRepFill_Confusion()
 }
 
 static const TopoWire PutProfilAt(const TopoWire&     ProfRef,
-                                     const gp_Ax3&          AxeRef,
+                                     const Ax3&          AxeRef,
                                      const TopoEdge&     E,
                                      const TopoFace&     F,
                                      const Standard_Boolean AtStart);
@@ -207,7 +207,7 @@ BRepFill_Evolved::BRepFill_Evolved()
 
 BRepFill_Evolved::BRepFill_Evolved(const TopoWire&     Spine,
                                    const TopoWire&     Profile,
-                                   const gp_Ax3&          AxeProf,
+                                   const Ax3&          AxeProf,
                                    const GeomAbs_JoinType Join,
                                    const Standard_Boolean Solid)
 
@@ -220,7 +220,7 @@ BRepFill_Evolved::BRepFill_Evolved(const TopoWire&     Spine,
 
 BRepFill_Evolved::BRepFill_Evolved(const TopoFace&     Spine,
                                    const TopoWire&     Profile,
-                                   const gp_Ax3&          AxeProf,
+                                   const Ax3&          AxeProf,
                                    const GeomAbs_JoinType Join,
                                    const Standard_Boolean Solid)
     : myIsDone(Standard_False)
@@ -310,7 +310,7 @@ static Standard_Integer Side(const TopoWire& Profil, const Standard_Real Tol)
 
 void BRepFill_Evolved::Perform(const TopoWire&     Spine,
                                const TopoWire&     Profile,
-                               const gp_Ax3&          AxeProf,
+                               const Ax3&          AxeProf,
                                const GeomAbs_JoinType Join,
                                const Standard_Boolean Solid)
 {
@@ -323,7 +323,7 @@ void BRepFill_Evolved::Perform(const TopoWire&     Spine,
 
 void BRepFill_Evolved::Perform(const TopoFace&     Spine,
                                const TopoWire&     Profile,
-                               const gp_Ax3&          AxeProf,
+                               const Ax3&          AxeProf,
                                const GeomAbs_JoinType Join,
                                const Standard_Boolean Solid)
 {
@@ -335,7 +335,7 @@ void BRepFill_Evolved::Perform(const TopoFace&     Spine,
 
 void BRepFill_Evolved::PrivatePerform(const TopoFace&     Spine,
                                       const TopoWire&     Profile,
-                                      const gp_Ax3&          AxeProf,
+                                      const Ax3&          AxeProf,
                                       const GeomAbs_JoinType Join,
                                       const Standard_Boolean Solid)
 {
@@ -682,7 +682,7 @@ void BRepFill_Evolved::ElementaryPerform(const TopoFace&              Sp,
   TColStd_SequenceOfReal       EmptySeqOfReal;
 
   // mark of the profile.
-  gp_Ax3 AxeRef(Point3d(0., 0., 0.), Dir3d(0., 0., 1.), Dir3d(1., 0., 0.));
+  Ax3 AxeRef(Point3d(0., 0., 0.), Dir3d(0., 0., 1.), Dir3d(1., 0., 0.));
 
   //---------------------------------------------------------------
   // Construction of revolutions and tubes.
@@ -1593,8 +1593,8 @@ void BRepFill_Evolved::PrepareProfile(ShapeList&         WorkProf,
   // to be carried out is a projection on plane yOz.
 
   // initialise the projection Plane and the Line to evaluate the extrema.
-  Handle(GeomPlane)  Plane = new GeomPlane(gp_Ax3(gp::YOZ()));
-  Handle(Geom2d_Line) Line  = new Geom2d_Line(gp::OY2d());
+  Handle(GeomPlane)  Plane = new GeomPlane(Ax3(gp1::YOZ()));
+  Handle(Geom2d_Line) Line  = new Geom2d_Line(gp1::OY2d());
 
   // Map initial vertex -> projected vertex.
   TopTools_DataMapOfShapeShape MapVerRefMoved;
@@ -2249,7 +2249,7 @@ void BRepFill_Evolved::MakeSolid()
 
 //=================================================================================================
 
-void BRepFill_Evolved::MakePipe(const TopoEdge& SE, const gp_Ax3& AxeRef)
+void BRepFill_Evolved::MakePipe(const TopoEdge& SE, const Ax3& AxeRef)
 {
   BRepTools_WireExplorer ProfExp;
   ShapeExplorer        FaceExp;
@@ -2257,7 +2257,7 @@ void BRepFill_Evolved::MakePipe(const TopoEdge& SE, const gp_Ax3& AxeRef)
   Transform3d trsf;
   if (Side(myProfile, BRepFill_Confusion()) > 3)
   { // side right
-    trsf.SetRotation(gp::OZ(), M_PI);
+    trsf.SetRotation(gp1::OZ(), M_PI);
   }
   TopLoc_Location DumLoc(trsf);
   TopoShape    aLocalShape = myProfile.Moved(DumLoc);
@@ -2334,7 +2334,7 @@ void BRepFill_Evolved::MakePipe(const TopoEdge& SE, const gp_Ax3& AxeRef)
 
 void BRepFill_Evolved::MakeRevol(const TopoEdge&   SE,
                                  const TopoVertex& VLast,
-                                 const gp_Ax3&        AxeRef)
+                                 const Ax3&        AxeRef)
 {
   BRepTools_WireExplorer ProfExp;
   ShapeExplorer        FaceExp;
@@ -2342,7 +2342,7 @@ void BRepFill_Evolved::MakeRevol(const TopoEdge&   SE,
   Transform3d trsf;
   if (Side(myProfile, BRepFill_Confusion()) > 3)
   { // side right
-    trsf.SetRotation(gp::OZ(), M_PI);
+    trsf.SetRotation(gp1::OZ(), M_PI);
   }
   TopLoc_Location DumLoc(trsf);
   TopoShape    aLocalShape = myProfile.Moved(DumLoc);
@@ -2352,7 +2352,7 @@ void BRepFill_Evolved::MakeRevol(const TopoEdge&   SE,
   //		 AxeRef,SE,
   //		 mySpine,Standard_False);
 
-  Axis3d AxeRev(BRepInspector::Pnt(VLast), -gp::DZ());
+  Axis3d AxeRev(BRepInspector::Pnt(VLast), -gp1::DZ());
 
   // Position of the sewing on the edge of the spine
   // so that the bissectrices didn't cross the sewings.
@@ -2443,10 +2443,10 @@ TopLoc_Location BRepFill_Evolved::FindLocation(const TopoFace& Face) const
     S = Handle(GeomSurface)::DownCast(S->Transformed(L.Transformation()));
 
   Handle(GeomPlane) P    = Handle(GeomPlane)::DownCast(S);
-  gp_Ax3             Axis = P->Position();
+  Ax3             Axis = P->Position();
 
   Transform3d T;
-  gp_Ax3  AxeRef(Point3d(0., 0., 0.), Dir3d(0., 0., 1.), Dir3d(1., 0., 0.));
+  Ax3  AxeRef(Point3d(0., 0., 0.), Dir3d(0., 0., 1.), Dir3d(1., 0., 0.));
   T.SetTransformation(AxeRef, Axis);
 
   return TopLoc_Location(T);
@@ -2743,7 +2743,7 @@ void TrimFace(const TopoFace&        Face,
 //=================================================================================================
 
 const TopoWire PutProfilAt(const TopoWire&     ProfRef,
-                              const gp_Ax3&          AxeRef,
+                              const Ax3&          AxeRef,
                               const TopoEdge&     E,
                               const TopoFace&     F,
                               const Standard_Boolean AtStart)
@@ -2778,7 +2778,7 @@ const TopoWire PutProfilAt(const TopoWire&     ProfRef,
   Point3d P3d(P.X(), P.Y(), 0.);
   Vector3d V3d(D1.X(), D1.Y(), 0.);
 
-  gp_Ax3  Ax(P3d, gp::DZ(), V3d);
+  Ax3  Ax(P3d, gp1::DZ(), V3d);
   Transform3d Trans;
   Trans.SetTransformation(Ax, AxeRef);
   TopoShape aLocalShape = ProfRef.Moved(TopLoc_Location(Trans));

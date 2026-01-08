@@ -29,7 +29,7 @@ class gp_Parab2d;
 class gp_Hypr2d;
 class gp_Lin2d;
 
-//! This class represents a conic from gp as a
+//! This class represents a conic from gp1 as a
 //! parametric curve ( in order to be used by the
 //! class PConicTool from IntCurve).
 class ParametricConic
@@ -67,7 +67,7 @@ public:
   //! Type Curve is used to select the correct Conic.
   GeomAbs_CurveType TypeCurve() const;
 
-  const gp_Ax22d& Axis2() const;
+  const Ax22d& Axis2() const;
 
   Standard_Real Param1() const;
 
@@ -75,7 +75,7 @@ public:
 
 protected:
 private:
-  gp_Ax22d          axe;
+  Ax22d          axe;
   Standard_Real     prm1;
   Standard_Real     prm2;
   Standard_Real     TheEpsX;

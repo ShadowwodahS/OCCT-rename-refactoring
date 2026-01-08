@@ -84,7 +84,7 @@ Point3d PrsDim_DiameterDimension::AnchorPoint()
 {
   if (!IsValid())
   {
-    return gp::Origin();
+    return gp1::Origin();
   }
 
   return myAnchorPoint;
@@ -97,7 +97,7 @@ void PrsDim_DiameterDimension::SetMeasuredGeometry(const gp_Circ& theCircle)
   myCircle          = theCircle;
   myGeometryType    = GeometryType_Edge;
   myShape           = BRepLib_MakeEdge(theCircle);
-  myAnchorPoint     = gp::Origin();
+  myAnchorPoint     = gp1::Origin();
   myIsGeometryValid = IsValidCircle(myCircle);
 
   if (myIsGeometryValid && myIsPlaneCustom)
@@ -117,12 +117,12 @@ void PrsDim_DiameterDimension::SetMeasuredGeometry(const gp_Circ& theCircle)
 
 void PrsDim_DiameterDimension::SetMeasuredGeometry(const TopoShape& theShape)
 {
-  Point3d           aDummyPnt(gp::Origin());
+  Point3d           aDummyPnt(gp1::Origin());
   Standard_Boolean isClosed = Standard_False;
 
   myGeometryType    = GeometryType_UndefShapes;
   myShape           = theShape;
-  myAnchorPoint     = gp::Origin();
+  myAnchorPoint     = gp1::Origin();
   myIsGeometryValid = InitCircularDimension(theShape, myCircle, aDummyPnt, isClosed)
                       && IsValidCircle(myCircle) && isClosed;
 
@@ -161,7 +161,7 @@ void PrsDim_DiameterDimension::ComputePlane()
     return;
   }
 
-  myPlane = gp_Pln(gp_Ax3(myCircle.Position()));
+  myPlane = gp_Pln(Ax3(myCircle.Position()));
 }
 
 //=================================================================================================
@@ -251,8 +251,8 @@ void PrsDim_DiameterDimension::Compute(const Handle(PrsMgr_PresentationManager)&
     return;
   }
 
-  Point3d aFirstPnt(gp::Origin());
-  Point3d aSecondPnt(gp::Origin());
+  Point3d aFirstPnt(gp1::Origin());
+  Point3d aSecondPnt(gp1::Origin());
   ComputeSidePoints(myCircle, aFirstPnt, aSecondPnt);
 
   DrawLinearDimension(thePresentation, theMode, aFirstPnt, aSecondPnt);
@@ -269,8 +269,8 @@ void PrsDim_DiameterDimension::ComputeFlyoutSelection(
     return;
   }
 
-  Point3d aFirstPnt(gp::Origin());
-  Point3d aSecondPnt(gp::Origin());
+  Point3d aFirstPnt(gp1::Origin());
+  Point3d aSecondPnt(gp1::Origin());
   ComputeSidePoints(myCircle, aFirstPnt, aSecondPnt);
 
   ComputeLinearFlyouts(theSelection, theEntityOwner, aFirstPnt, aSecondPnt);

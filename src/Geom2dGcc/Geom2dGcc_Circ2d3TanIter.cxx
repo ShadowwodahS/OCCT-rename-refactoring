@@ -121,7 +121,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Quali
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real normevec3 = Vec3.Magnitude();
       Standard_Real dot1, dot2, dot3;
-      if (normevec1 >= gp::Resolution() && normetan1 >= gp::Resolution())
+      if (normevec1 >= gp1::Resolution() && normetan1 >= gp1::Resolution())
       {
         dot1 = Vec1.Dot(Tan1) / (normevec1 * normetan1);
       }
@@ -129,7 +129,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Quali
       {
         dot1 = 0.;
       }
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         dot2 = Vec2.Dot(Tan2) / (normevec2 * normetan2);
       }
@@ -137,7 +137,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Quali
       {
         dot2 = 0.;
       }
-      if (normevec3 >= gp::Resolution() && normetan3 >= gp::Resolution())
+      if (normevec3 >= gp1::Resolution() && normetan3 >= gp1::Resolution())
       {
         dot3 = Vec3.Dot(Tan3) / (normevec3 * normetan3);
       }
@@ -270,7 +270,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualif
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real normevec3 = Vec3.Magnitude();
       Standard_Real dot1, dot2, dot3;
-      if (normevec1 >= gp::Resolution() && normetan1 >= gp::Resolution())
+      if (normevec1 >= gp1::Resolution() && normetan1 >= gp1::Resolution())
       {
         dot1 = Vec1.Dot(Tan1) / (normevec1 * normetan1);
       }
@@ -278,7 +278,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualif
       {
         dot1 = 0.;
       }
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         dot2 = Vec2.Dot(Tan2) / (normevec2 * normetan2);
       }
@@ -286,7 +286,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualif
       {
         dot2 = 0.;
       }
-      if (normevec3 >= gp::Resolution() && normetan3 >= gp::Resolution())
+      if (normevec3 >= gp1::Resolution() && normetan3 >= gp1::Resolution())
       {
         dot3 = Vec3.Dot(Tan3) / (normevec3 * normetan3);
       }
@@ -420,7 +420,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualif
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real normevec3 = Vec3.Magnitude();
       Standard_Real dot1, dot2, dot3;
-      if (normevec1 >= gp::Resolution() && normetan1 >= gp::Resolution())
+      if (normevec1 >= gp1::Resolution() && normetan1 >= gp1::Resolution())
       {
         dot1 = Vec1.Dot(Tan1) / (normevec1 * normetan1);
       }
@@ -428,7 +428,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualif
       {
         dot1 = 0.;
       }
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         dot2 = Vec2.Dot(Tan2) / (normevec2 * normetan2);
       }
@@ -436,7 +436,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualif
       {
         dot2 = 0.;
       }
-      if (normevec3 >= gp::Resolution() && normetan3 >= gp::Resolution())
+      if (normevec3 >= gp1::Resolution() && normetan3 >= gp1::Resolution())
       {
         dot3 = Vec3.Dot(Tan3) / (normevec3 * normetan3);
       }
@@ -570,7 +570,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedLine& Qualifie
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real normevec3 = Vec3.Magnitude();
       Standard_Real dot1, dot2, dot3;
-      if (normevec1 >= gp::Resolution() && normetan1 >= gp::Resolution())
+      if (normevec1 >= gp1::Resolution() && normetan1 >= gp1::Resolution())
       {
         dot1 = Vec1.Dot(Tan1) / (normevec1 * normetan1);
       }
@@ -578,7 +578,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedLine& Qualifie
       {
         dot1 = 0.;
       }
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         dot2 = Vec2.Dot(Tan2) / (normevec2 * normetan2);
       }
@@ -586,7 +586,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedLine& Qualifie
       {
         dot2 = 0.;
       }
-      if (normevec3 >= gp::Resolution() && normetan3 >= gp::Resolution())
+      if (normevec3 >= gp1::Resolution() && normetan3 >= gp1::Resolution())
       {
         dot3 = Vec3.Dot(Tan3) / (normevec3 * normetan3);
       }
@@ -719,7 +719,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedLine& Qualifie
         Standard_Real normevec2 = Vec2.Magnitude();
         Standard_Real normevec3 = Vec3.Magnitude();
         Standard_Real dot1, dot2, dot3;
-        if (normevec1 >= gp::Resolution() && normetan1 >= gp::Resolution())
+        if (normevec1 >= gp1::Resolution() && normetan1 >= gp1::Resolution())
         {
           dot1 = Vec1.Dot(Tan1) / (normevec1 * normetan1);
         }
@@ -727,7 +727,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedLine& Qualifie
         {
           dot1 = 0.;
         }
-        if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+        if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
         {
           dot2 = Vec2.Dot(Tan2) / (normevec2 * normetan2);
         }
@@ -735,7 +735,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedLine& Qualifie
         {
           dot2 = 0.;
         }
-        if (normevec3 >= gp::Resolution() && normetan3 >= gp::Resolution())
+        if (normevec3 >= gp1::Resolution() && normetan3 >= gp1::Resolution())
         {
           dot3 = Vec3.Dot(Tan3) / (normevec3 * normetan3);
         }
@@ -853,7 +853,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Quali
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real normevec3 = Vec3.Magnitude();
       Standard_Real dot1, dot2, dot3;
-      if (normevec1 >= gp::Resolution() && normetan1 >= gp::Resolution())
+      if (normevec1 >= gp1::Resolution() && normetan1 >= gp1::Resolution())
       {
         dot1 = Vec1.Dot(Tan1) / (normevec1 * normetan1);
       }
@@ -861,7 +861,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Quali
       {
         dot1 = 0.;
       }
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         dot2 = Vec2.Dot(Tan2) / (normevec2 * normetan2);
       }
@@ -869,7 +869,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Quali
       {
         dot2 = 0.;
       }
-      if (normevec3 >= gp::Resolution() && normetan3 >= gp::Resolution())
+      if (normevec3 >= gp1::Resolution() && normetan3 >= gp1::Resolution())
       {
         dot3 = Vec3.Dot(Tan3) / (normevec3 * normetan3);
       }
@@ -985,7 +985,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Quali
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real normevec3 = Vec3.Magnitude();
       Standard_Real dot1, dot2, dot3;
-      if (normevec1 >= gp::Resolution() && normetan1 >= gp::Resolution())
+      if (normevec1 >= gp1::Resolution() && normetan1 >= gp1::Resolution())
       {
         dot1 = Vec1.Dot(Tan1) / (normevec1 * normetan1);
       }
@@ -993,7 +993,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Quali
       {
         dot1 = 0.;
       }
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         dot2 = Vec2.Dot(Tan2) / (normevec2 * normetan2);
       }
@@ -1001,7 +1001,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Quali
       {
         dot2 = 0.;
       }
-      if (normevec3 >= gp::Resolution() && normetan3 >= gp::Resolution())
+      if (normevec3 >= gp1::Resolution() && normetan3 >= gp1::Resolution())
       {
         dot3 = Vec3.Dot(Tan3) / (normevec3 * normetan3);
       }
@@ -1115,7 +1115,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedLine& Qualifie
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real normevec3 = Vec3.Magnitude();
       Standard_Real dot1, dot2, dot3;
-      if (normevec1 >= gp::Resolution() && normetan1 >= gp::Resolution())
+      if (normevec1 >= gp1::Resolution() && normetan1 >= gp1::Resolution())
       {
         dot1 = Vec1.Dot(Tan1) / (normevec1 * normetan1);
       }
@@ -1123,7 +1123,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedLine& Qualifie
       {
         dot1 = 0.;
       }
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         dot2 = Vec2.Dot(Tan2) / (normevec2 * normetan2);
       }
@@ -1131,7 +1131,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedLine& Qualifie
       {
         dot2 = 0.;
       }
-      if (normevec3 >= gp::Resolution() && normetan3 >= gp::Resolution())
+      if (normevec3 >= gp1::Resolution() && normetan3 >= gp1::Resolution())
       {
         dot3 = Vec3.Dot(Tan3) / (normevec3 * normetan3);
       }
@@ -1254,7 +1254,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualif
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real normevec3 = Vec3.Magnitude();
       Standard_Real dot1, dot2, dot3;
-      if (normevec1 >= gp::Resolution() && normetan1 >= gp::Resolution())
+      if (normevec1 >= gp1::Resolution() && normetan1 >= gp1::Resolution())
       {
         dot1 = Vec1.Dot(Tan1) / (normevec1 * normetan1);
       }
@@ -1262,7 +1262,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualif
       {
         dot1 = 0.;
       }
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         dot2 = Vec2.Dot(Tan2) / (normevec2 * normetan2);
       }
@@ -1270,7 +1270,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualif
       {
         dot2 = 0.;
       }
-      if (normevec3 >= gp::Resolution() && normetan3 >= gp::Resolution())
+      if (normevec3 >= gp1::Resolution() && normetan3 >= gp1::Resolution())
       {
         dot3 = Vec3.Dot(Tan3) / (normevec3 * normetan3);
       }
@@ -1397,7 +1397,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualif
       Standard_Real normevec2 = Vec2.Magnitude();
       Standard_Real normevec3 = Vec3.Magnitude();
       Standard_Real dot1, dot2, dot3;
-      if (normevec1 >= gp::Resolution())
+      if (normevec1 >= gp1::Resolution())
       {
         dot1 = Vec1.Dot(Tan1) / (normevec1);
       }
@@ -1405,7 +1405,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualif
       {
         dot1 = 0.;
       }
-      if (normevec2 >= gp::Resolution() && normetan2 >= gp::Resolution())
+      if (normevec2 >= gp1::Resolution() && normetan2 >= gp1::Resolution())
       {
         dot2 = Vec2.Dot(Tan2) / (normevec2 * normetan2);
       }
@@ -1413,7 +1413,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualif
       {
         dot2 = 0.;
       }
-      if (normevec3 >= gp::Resolution())
+      if (normevec3 >= gp1::Resolution())
       {
         dot3 = Vec3.Dot(Tan3) / (normevec3);
       }

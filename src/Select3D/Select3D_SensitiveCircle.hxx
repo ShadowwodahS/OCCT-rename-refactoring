@@ -66,12 +66,12 @@ public:
   //! Returns center of the circle with transformation applied
   Standard_EXPORT virtual Point3d CenterOfGeometry() const Standard_OVERRIDE;
 
-  //! The transformation for gp::XOY() with center in gp::Origin(),
+  //! The transformation for gp1::XOY() with center in gp1::Origin(),
   //! it specifies the position and orientation of the circle.
   const Transform3d& Transformation() const { return myTrsf; }
 
   //! Returns circle
-  gp_Circ Circle() const { return gp_Circ(gp::XOY().Transformed(myTrsf), myRadius); }
+  gp_Circ Circle() const { return gp_Circ(gp1::XOY().Transformed(myTrsf), myRadius); }
 
   //! Returns circle radius
   Standard_Real Radius() const { return myRadius; }

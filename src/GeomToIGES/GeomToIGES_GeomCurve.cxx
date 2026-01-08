@@ -529,7 +529,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
 
   Standard_Real U1 = Udeb;
   Standard_Real U2 = Ufin;
-  if (Abs(Udeb) <= gp::Resolution())
+  if (Abs(Udeb) <= gp1::Resolution())
     U1 = 0.0;
 
   // creation du "CircularArc" (#100)
@@ -538,7 +538,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   start->Circ().Location().Coord(xloc, yloc, zloc);
   Point3d Loc;
   Loc.SetCoord(xloc, yloc, zloc);
-  gp_Ax3 Pos = gp_Ax3(start->Circ().Position());
+  Ax3 Pos = Ax3(start->Circ().Position());
   // unusable  Standard_Boolean IsDirect = Pos.Direct();
   Pos.SetLocation(Loc);
   Build.SetPosition(Pos);
@@ -601,7 +601,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
     // Trimmed ellipse. To avoid huge weights in B-Spline first rotate it and then convert
     Handle(Geom_Ellipse) copystart = Handle(Geom_Ellipse)::DownCast(start->Copy());
     Frame3d               pos       = copystart->Position();
-    copystart->SetPosition(pos.Rotated(pos.Axis(), gp_Ax3(pos).Direct() ? Udeb : 2 * M_PI - Udeb));
+    copystart->SetPosition(pos.Rotated(pos.Axis(), Ax3(pos).Direct() ? Udeb : 2 * M_PI - Udeb));
     Handle(BSplineCurve3d) Bspline;
     //: q3 abv 17 Mar 99: use GeomConvert_ApproxCurve for precise conversion
     const Handle(GeomCurve3d)& aCopy = copystart; // to avoid ambiguity
@@ -621,7 +621,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   IGESConvGeom_GeomBuilder  Build;
   Standard_Real             U1 = Udeb;
   Standard_Real             U2 = Ufin;
-  if (Abs(Udeb) <= gp::Resolution())
+  if (Abs(Udeb) <= gp1::Resolution())
     U1 = 0.0;
 
   // creation du "ConicArc" (#104)
@@ -631,7 +631,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   start->Elips().Location().Coord(xloc, yloc, zloc);
   Point3d Loc;
   Loc.SetCoord(xloc, yloc, zloc);
-  gp_Ax3 Pos = gp_Ax3(start->Elips().Position());
+  Ax3 Pos = Ax3(start->Elips().Position());
   Pos.SetLocation(Loc);
   Build.SetPosition(Pos);
 
@@ -639,7 +639,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   Standard_Real Xe, Ye, Ze;
   Build.EvalXYZ((start->Value(U1)).XYZ(), Xs, Ys, Zs);
   Build.EvalXYZ((start->Value(U2)).XYZ(), Xe, Ye, Ze);
-  gp_Elips2d    E2d = gp_Elips2d(gp_Ax22d(gp::Origin2d(), gp::DX2d(), gp::DY2d()),
+  gp_Elips2d    E2d = gp_Elips2d(Ax22d(gp1::Origin2d(), gp1::DX2d(), gp1::DY2d()),
                               (start->MajorRadius() / GetUnit()),
                               (start->MinorRadius() / GetUnit()));
   Standard_Real A, B, C, D, E, F;
@@ -700,7 +700,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   start->Hypr().Location().Coord(xloc, yloc, zloc);
   Point3d Loc;
   Loc.SetCoord(xloc, yloc, zloc);
-  gp_Ax3 Pos = gp_Ax3(start->Hypr().Position());
+  Ax3 Pos = Ax3(start->Hypr().Position());
   Pos.SetLocation(Loc);
   Build.SetPosition(Pos);
 
@@ -708,7 +708,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   Standard_Real Xe, Ye, Ze;
   Build.EvalXYZ((start->Value(U1)).XYZ(), Xs, Ys, Zs);
   Build.EvalXYZ((start->Value(U2)).XYZ(), Xe, Ye, Ze);
-  gp_Hypr2d     H2d = gp_Hypr2d(gp_Ax22d(gp::Origin2d(), gp::DX2d(), gp::DY2d()),
+  gp_Hypr2d     H2d = gp_Hypr2d(Ax22d(gp1::Origin2d(), gp1::DX2d(), gp1::DY2d()),
                             (start->MajorRadius() / GetUnit()),
                             (start->MinorRadius() / GetUnit()));
   Standard_Real A, B, C, D, E, F;
@@ -768,7 +768,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   start->Parab().Location().Coord(xloc, yloc, zloc);
   Point3d Loc;
   Loc.SetCoord(xloc, yloc, zloc);
-  gp_Ax3 Pos = gp_Ax3(start->Parab().Position());
+  Ax3 Pos = Ax3(start->Parab().Position());
   Pos.SetLocation(Loc);
   Build.SetPosition(Pos);
 
@@ -777,7 +777,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   Build.EvalXYZ((start->Value(U1)).XYZ(), Xs, Ys, Zs);
   Build.EvalXYZ((start->Value(U2)).XYZ(), Xe, Ye, Ze);
   gp_Parab2d P2d =
-    gp_Parab2d(gp_Ax22d(gp::Origin2d(), gp::DX2d(), gp::DY2d()), (start->Focal() * 2.));
+    gp_Parab2d(Ax22d(gp1::Origin2d(), gp1::DX2d(), gp1::DY2d()), (start->Focal() * 2.));
   Standard_Real A, B, C, D, E, F;
   P2d.Coefficients(A, C, B, D, E, F);
 

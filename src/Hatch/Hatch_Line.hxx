@@ -27,7 +27,7 @@
 
 //! Stores a Line in the Hatcher. Represented by :
 //!
-//! * A Lin2d from gp, the geometry of the line.
+//! * A Lin2d from gp1, the geometry of the line.
 //!
 //! * Bounding parameters for the line.
 //!

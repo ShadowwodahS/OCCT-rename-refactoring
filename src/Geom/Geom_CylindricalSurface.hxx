@@ -22,8 +22,8 @@
 
 #include <Geom_ElementarySurface.hxx>
 #include <Standard_Integer.hxx>
-class gp_Ax3;
-class gp_Cylinder;
+class Ax3;
+class Cylinder1;
 class Transform3d;
 class gp_GTrsf2d;
 class GeomCurve3d;
@@ -78,20 +78,20 @@ public:
   //! It is not forbidden to create a cylindrical surface with
   //! Radius = 0.0
   //! Raised if Radius < 0.0
-  Standard_EXPORT Geom_CylindricalSurface(const gp_Ax3& A3, const Standard_Real Radius);
+  Standard_EXPORT Geom_CylindricalSurface(const Ax3& A3, const Standard_Real Radius);
 
-  //! Creates a CylindricalSurface from a non transient gp_Cylinder.
-  Standard_EXPORT Geom_CylindricalSurface(const gp_Cylinder& C);
+  //! Creates a CylindricalSurface from a non transient Cylinder1.
+  Standard_EXPORT Geom_CylindricalSurface(const Cylinder1& C);
 
   //! Set <me> so that <me> has the same geometric properties as C.
-  Standard_EXPORT void SetCylinder(const gp_Cylinder& C);
+  Standard_EXPORT void SetCylinder(const Cylinder1& C);
 
   //! Changes the radius of the cylinder.
   //! Raised if R < 0.0
   Standard_EXPORT void SetRadius(const Standard_Real R);
 
   //! returns a non transient cylinder with the same geometric properties as <me>.
-  Standard_EXPORT gp_Cylinder Cylinder() const;
+  Standard_EXPORT Cylinder1 Cylinder() const;
 
   //! Return the  parameter on the  Ureversed surface for
   //! the point of parameter U on <me>.

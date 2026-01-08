@@ -62,12 +62,12 @@ ChFiDS_TypeOfConcavity ChFi3d1::DefineConnectType(const TopoEdge&     E,
   //
   Standard_Real ParOnC = 0.5 * (f + l);
   Vector3d        T1     = C.DN(ParOnC, 1);
-  if (T1.SquareMagnitude() <= gp::Resolution())
+  if (T1.SquareMagnitude() <= gp1::Resolution())
   {
     ParOnC = Tools2::IntermediatePoint(f, l);
     T1     = C.DN(ParOnC, 1);
   }
-  if (T1.SquareMagnitude() > gp::Resolution())
+  if (T1.SquareMagnitude() > gp1::Resolution())
   {
     T1.Normalize();
   }
@@ -123,7 +123,7 @@ ChFiDS_TypeOfConcavity ChFi3d1::DefineConnectType(const TopoEdge&     E,
   }
   else
   {
-    if (NormProVec > gp::Resolution())
+    if (NormProVec > gp1::Resolution())
       ProVec /= NormProVec;
     Standard_Real Prod = T1.Dot(ProVec);
     if (Prod > 0.)

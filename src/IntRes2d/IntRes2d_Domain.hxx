@@ -27,7 +27,7 @@
 //! Definition of the domain of parameter on a 2d-curve.
 //! Most of the time, a domain is defined by two extremities.
 //! An extremity is made of :
-//! - a point in 2d-space (Pnt2d from gp),
+//! - a point in 2d-space (Pnt2d from gp1),
 //! - a parameter on the curve,
 //! - a tolerance in the 2d-space.
 //! Sometimes, it can be made of 0 or 1 point ( for an infinite

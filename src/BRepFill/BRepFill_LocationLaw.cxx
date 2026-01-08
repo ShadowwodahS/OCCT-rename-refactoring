@@ -169,7 +169,7 @@ void BRepFill_LocationLaw::TransformInCompatibleLaw(const Standard_Real TolAngul
       Vector3d        cross(T1);
       cross.Cross(T2);
       alpha = T2.AngleWithRef(T1, cross);
-      Axis3d axe(gp::Origin(), cross.XYZ());
+      Axis3d axe(gp1::Origin(), cross.XYZ());
       N2.Rotate(axe, alpha);
 
 #ifdef OCCT_DEBUG

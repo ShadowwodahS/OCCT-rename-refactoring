@@ -56,7 +56,7 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
 
   // calcul du tore.
   //---------------
-  gp_Ax3 pos    = pl.Position();
+  Ax3 pos    = pl.Position();
   Dir3d dpl    = pos.XDirection().Crossed(pos.YDirection());
   Dir3d dfpl   = dpl;
   Dir3d dplnat = dpl;
@@ -96,7 +96,7 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
     return Standard_False;
   }
 
-  gp_Ax3 ppos(ptor, dpl.Reversed(), dpl1);
+  Ax3 ppos(ptor, dpl.Reversed(), dpl1);
   if (ppos.YDirection().Dot(dpl2) < 0.)
     ppos.YReverse();
   Handle(Geom_ToroidalSurface) gtor = new Geom_ToroidalSurface(ppos, r, r);
@@ -133,10 +133,10 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
   gp_Dir2d dx2d(dpl1.Dot(pl.Position().XDirection()), dpl1.Dot(pl.Position().YDirection()));
   gp_Dir2d dy2d(ppos.YDirection().Dot(pl.Position().XDirection()),
                 ppos.YDirection().Dot(pl.Position().YDirection()));
-  gp_Ax22d circ2dax(p2dcirc, dx2d, dy2d);
+  Ax22d circ2dax(p2dcirc, dx2d, dy2d);
   Handle(Geom2d_Circle) GC2d = new Geom2d_Circle(circ2dax, r);
   gp_Pnt2d              p2dlin(0., M_PI / 2);
-  Handle(Geom2d_Line)   GL2d  = new Geom2d_Line(p2dlin, gp::DX2d());
+  Handle(Geom2d_Line)   GL2d  = new Geom2d_Line(p2dlin, gp1::DX2d());
   TopAbs_Orientation    trans = TopAbs_REVERSED;
   if (reversecur)
     trans = TopAbs_FORWARD;
@@ -150,7 +150,7 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
   Handle(GeomCurve3d)   bid;
   Handle(GeomCurve2d) bid2d;
   p2dlin.SetCoord(0., M_PI);
-  Handle(Geom2d_Line) GL2dcoin = new Geom2d_Line(p2dlin, gp::DX2d());
+  Handle(Geom2d_Line) GL2dcoin = new Geom2d_Line(p2dlin, gp1::DX2d());
   Data->ChangeInterferenceOnS2().SetInterference(ChFiKPart_IndexCurveInDS(bid, DStr),
                                                  trans,
                                                  bid2d,

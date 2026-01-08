@@ -100,7 +100,7 @@ Standard_Boolean ShapeCustom_ConvertToRevolution::NewSurface(const TopoFace&    
     }
   */
 
-  gp_Ax3 Ax3 = ES->Position();
+  Ax3 Ax3 = ES->Position();
   Point3d pos = Ax3.Location();
   Dir3d dir = Ax3.Direction();
   Dir3d X   = Ax3.XDirection();

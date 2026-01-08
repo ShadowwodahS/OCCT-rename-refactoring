@@ -117,7 +117,7 @@ BRepLib_MakeEdge2d::BRepLib_MakeEdge2d(const TopoVertex& V1, const TopoVertex& V
   gp_Pnt2d      P1 = Project(V1);
   gp_Pnt2d      P2 = Project(V2);
   Standard_Real l  = P1.Distance(P2);
-  if (l <= gp::Resolution())
+  if (l <= gp1::Resolution())
   {
     myError = BRepLib_LineThroughIdenticPoints;
     return;
@@ -132,7 +132,7 @@ BRepLib_MakeEdge2d::BRepLib_MakeEdge2d(const TopoVertex& V1, const TopoVertex& V
 BRepLib_MakeEdge2d::BRepLib_MakeEdge2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2)
 {
   Standard_Real l = P1.Distance(P2);
-  if (l <= gp::Resolution())
+  if (l <= gp1::Resolution())
   {
     myError = BRepLib_LineThroughIdenticPoints;
     return;

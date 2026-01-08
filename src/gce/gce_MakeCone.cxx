@@ -35,20 +35,20 @@ gce_MakeCone::gce_MakeCone(const Frame3d& A2, const Standard_Real Ang, const Sta
   }
   else
   {
-    if (Ang <= gp::Resolution() || M_PI / 2 - Ang <= gp::Resolution())
+    if (Ang <= gp1::Resolution() || M_PI / 2 - Ang <= gp1::Resolution())
     {
       TheError = gce_BadAngle;
     }
     else
     {
       TheError = gce_Done;
-      TheCone  = gp_Cone(A2, Ang, Radius);
+      TheCone  = Cone1(A2, Ang, Radius);
     }
   }
 }
 
 //=========================================================================
-//  Constructions d un cone de gp par quatre points P1, P2, P3 et P4.     +
+//  Constructions d un cone de gp1 par quatre points P1, P2, P3 et P4.     +
 //  P1 et P2 donnent l axe du cone, la distance de P3 a l axe donne       +
 //  le rayon de la base du cone et la distance de P4 a l axe donne le     +
 //  rayon du cone pour la section passant par P4.                         +
@@ -99,15 +99,15 @@ gce_MakeCone::gce_MakeCone(const Point3d& P1, const Point3d& P2, const Point3d& 
   Standard_Real x = DD1.X();
   Standard_Real y = DD1.Y();
   Standard_Real z = DD1.Z();
-  if (Abs(x) > gp::Resolution())
+  if (Abs(x) > gp1::Resolution())
   {
     D2 = Dir3d(-y, x, 0.0);
   }
-  else if (Abs(y) > gp::Resolution())
+  else if (Abs(y) > gp1::Resolution())
   {
     D2 = Dir3d(-y, x, 0.0);
   }
-  else if (Abs(z) > gp::Resolution())
+  else if (Abs(z) > gp1::Resolution())
   {
     D2 = Dir3d(0.0, -z, y);
   }
@@ -115,12 +115,12 @@ gce_MakeCone::gce_MakeCone(const Point3d& P1, const Point3d& P2, const Point3d& 
   {
     angle *= -1;
   }
-  TheCone  = gp_Cone(Frame3d(PP3, DD1, D2), angle, R1);
+  TheCone  = Cone1(Frame3d(PP3, DD1, D2), angle, R1);
   TheError = gce_Done;
 }
 
 //=========================================================================
-//  Constructions d un cone de gp par son axe et deux points P1, P2.      +
+//  Constructions d un cone de gp1 par son axe et deux points P1, P2.      +
 //  La distance de P1 a l axe donne le rayon de la base du cone et la     +
 //  distance de P2 a l axe donne le rayon du cone pour la section passant +
 //  par P2.                                                               +
@@ -147,9 +147,9 @@ gce_MakeCone::gce_MakeCone(const Axis3d& Axis, const Point3d& P1, const Point3d&
 //  donne.                                                                +
 //=========================================================================
 
-// gce_MakeCone::gce_MakeCone(const gp_Cone&  cone ,
+// gce_MakeCone::gce_MakeCone(const Cone1&  cone ,
 //			   const Point3d&   P    )
-gce_MakeCone::gce_MakeCone(const gp_Cone&, const Point3d&)
+gce_MakeCone::gce_MakeCone(const Cone1&, const Point3d&)
 {
   TheError = gce_ConfusedPoints;
 }
@@ -159,15 +159,15 @@ gce_MakeCone::gce_MakeCone(const gp_Cone&, const Point3d&)
 //  donnee.                                                               +
 //=========================================================================
 
-// gce_MakeCone::gce_MakeCone(const gp_Cone&      cone ,
+// gce_MakeCone::gce_MakeCone(const Cone1&      cone ,
 //			   const Standard_Real Dist )
-gce_MakeCone::gce_MakeCone(const gp_Cone&, const Standard_Real)
+gce_MakeCone::gce_MakeCone(const Cone1&, const Standard_Real)
 {
   TheError = gce_Done;
 }
 
 //=========================================================================
-//  Constructions d un cone de gp par son axe et deux points P1, P2.      +
+//  Constructions d un cone de gp1 par son axe et deux points P1, P2.      +
 //  La distance de P1 a l axe donne le rayon de la base du cone et la     +
 //  distance de P2 a l axe donne le rayon du cone pour la section passant +
 //  par P2.                                                               +
@@ -224,15 +224,15 @@ gce_MakeCone::gce_MakeCone(const Point3d&       P1,
         Standard_Real x = D1.X();
         Standard_Real y = D1.Y();
         Standard_Real z = D1.Z();
-        if (Abs(x) > gp::Resolution())
+        if (Abs(x) > gp1::Resolution())
         {
           D2 = Dir3d(-y, x, 0.0);
         }
-        else if (Abs(y) > gp::Resolution())
+        else if (Abs(y) > gp1::Resolution())
         {
           D2 = Dir3d(-y, x, 0.0);
         }
-        else if (Abs(z) > gp::Resolution())
+        else if (Abs(z) > gp1::Resolution())
         {
           D2 = Dir3d(0.0, -z, y);
         }
@@ -240,25 +240,25 @@ gce_MakeCone::gce_MakeCone(const Point3d&       P1,
         {
           Angle *= -1;
         }
-        TheCone  = gp_Cone(Frame3d(P1, D1, D2), Angle, R1);
+        TheCone  = Cone1(Frame3d(P1, D1, D2), Angle, R1);
         TheError = gce_Done;
       }
     }
   }
 }
 
-const gp_Cone& gce_MakeCone::Value() const
+const Cone1& gce_MakeCone::Value() const
 {
   StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakeCone::Value() - no result");
   return TheCone;
 }
 
-const gp_Cone& gce_MakeCone::Operator() const
+const Cone1& gce_MakeCone::Operator() const
 {
   return Value();
 }
 
-gce_MakeCone::operator gp_Cone() const
+gce_MakeCone::operator Cone1() const
 {
   return Value();
 }

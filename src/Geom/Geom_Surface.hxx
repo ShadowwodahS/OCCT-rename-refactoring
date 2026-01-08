@@ -147,14 +147,14 @@ public:
   //! taking uFirst and uLast as the parametric bounds in
   //! the u parametric direction, for each parameter v,
   //! the distance between the points P(uFirst, v) and
-  //! P(uLast, v) is less than or equal to gp::Resolution().
+  //! P(uLast, v) is less than or equal to gp1::Resolution().
   Standard_EXPORT virtual Standard_Boolean IsUClosed() const = 0;
 
   //! Checks whether this surface is closed in the u parametric direction.
   //! Returns true if, in the v parametric direction:
   //! taking vFirst and vLast as the parametric bounds in the v parametric direction,
   //! for each parameter u, the distance between the points
-  //! P(u, vFirst) and P(u, vLast) is less than or equal to gp::Resolution().
+  //! P(u, vFirst) and P(u, vLast) is less than or equal to gp1::Resolution().
   Standard_EXPORT virtual Standard_Boolean IsVClosed() const = 0;
 
   //! Checks if this surface is periodic in the u parametric direction.
@@ -162,7 +162,7 @@ public:
   //! - this surface is closed in the u parametric direction, and
   //! - there is a constant T such that the distance
   //!   between the points P (u, v) and P (u + T, v)
-  //!   (or the points P (u, v) and P (u, v + T)) is less than or equal to gp::Resolution().
+  //!   (or the points P (u, v) and P (u, v + T)) is less than or equal to gp1::Resolution().
   //!
   //! Note: T is the parametric period in the u parametric direction.
   Standard_EXPORT virtual Standard_Boolean IsUPeriodic() const = 0;
@@ -176,7 +176,7 @@ public:
   //! - this surface is closed in the v parametric direction, and
   //! - there is a constant T such that the distance
   //!   between the points P (u, v) and P (u + T, v)
-  //!   (or the points P (u, v) and P (u, v + T)) is less than or equal to gp::Resolution().
+  //!   (or the points P (u, v) and P (u, v + T)) is less than or equal to gp1::Resolution().
   //!
   //! Note: T is the parametric period in the v parametric direction.
   Standard_EXPORT virtual Standard_Boolean IsVPeriodic() const = 0;

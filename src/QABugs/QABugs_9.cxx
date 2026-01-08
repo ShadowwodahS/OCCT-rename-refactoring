@@ -82,11 +82,11 @@ static Standard_Integer OCC24303(DrawInterpreter& di, Standard_Integer n, const 
   // Ellipses
   Standard_Real majorRadius = 2.0;
   Standard_Real minorRadius = 1.0;
-  gp_Pnt2d      p0(gp::Origin2d());
+  gp_Pnt2d      p0(gp1::Origin2d());
   gp_Pnt2d      p1(4.0, 0.0);
 
-  gp_Elips2d ellipse1 = gp_Elips2d(gp_Ax2d(p0, gp::DX2d()), majorRadius, minorRadius, true);
-  gp_Elips2d ellipse2 = gp_Elips2d(gp_Ax2d(p1, gp::DX2d()), majorRadius, minorRadius, true);
+  gp_Elips2d ellipse1 = gp_Elips2d(gp_Ax2d(p0, gp1::DX2d()), majorRadius, minorRadius, true);
+  gp_Elips2d ellipse2 = gp_Elips2d(gp_Ax2d(p1, gp1::DX2d()), majorRadius, minorRadius, true);
 
   Handle(GeomCurve2d) curve1 = new Geom2d_Ellipse(ellipse1);
   Handle(GeomCurve2d) curve2 = new Geom2d_Ellipse(ellipse2);
@@ -95,7 +95,7 @@ static Standard_Integer OCC24303(DrawInterpreter& di, Standard_Integer n, const 
   // Expected tangent
   gp_Pnt2d      centre(5.0, 0.0);
   Standard_Real radius            = 3.0;
-  gp_Circ2d     theorical_tangent = gp_Circ2d(gp_Ax2d(centre, gp::DX2d()), radius);
+  gp_Circ2d     theorical_tangent = gp_Circ2d(gp_Ax2d(centre, gp1::DX2d()), radius);
 
   // Calculate the tangent with Geom2dGcc_Circ2dTanRan
 

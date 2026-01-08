@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class gp_Hypr2d;
 class gp_Ax2d;
-class gp_Ax22d;
+class Ax22d;
 class gp_Pnt2d;
 class gp_Vec2d;
 class gp_Trsf2d;
@@ -36,7 +36,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Hyperbola, Geom2d_Conic)
 //! Describes a branch of a hyperbola in the plane (2D space).
 //! A hyperbola is defined by its major and minor radii
 //! and, as with any conic curve, is positioned in the
-//! plane with a coordinate system (gp_Ax22d object) where:
+//! plane with a coordinate system (Ax22d object) where:
 //! - the origin is the center of the hyperbola,
 //! - the "X Direction" defines the major axis, and
 //! - the "Y Direction" defines the minor axis.
@@ -81,13 +81,13 @@ DEFINE_STANDARD_HANDLE(Geom2d_Hyperbola, Geom2d_Conic)
 //! See Also
 //! GCE2d_MakeHyperbola which provides functions for
 //! more complex1 hyperbola constructions
-//! gp_Ax22d
+//! Ax22d
 //! gp_Hypr2d for an equivalent, non-parameterized data structure
 class Geom2d_Hyperbola : public Geom2d_Conic
 {
 
 public:
-  //! Creates  an Hyperbola from a non persistent one from package gp
+  //! Creates  an Hyperbola from a non persistent one from package gp1
   Standard_EXPORT Geom2d_Hyperbola(const gp_Hypr2d& H);
 
   //! MajorAxis is the "XAxis" of the hyperbola.
@@ -105,7 +105,7 @@ public:
   //! The major radius of the hyperbola is on this "XAxis" and
   //! the minor radius is on the "YAxis" of the hyperbola.
   //! Raised if MajorRadius < 0.0 or if MinorRadius < 0.0
-  Standard_EXPORT Geom2d_Hyperbola(const gp_Ax22d&     Axis,
+  Standard_EXPORT Geom2d_Hyperbola(const Ax22d&     Axis,
                                    const Standard_Real MajorRadius,
                                    const Standard_Real MinorRadius);
 

@@ -38,7 +38,7 @@ typedef Geom_ToroidalSurface ToroidalSurface;
 typedef TColStd_Array1OfReal Array1OfReal;
 typedef Axis3d               Ax1;
 typedef Frame3d               Ax2;
-typedef gp_Ax3               Ax3;
+typedef Ax3               Ax3;
 typedef gp_Circ              Circ;
 typedef Dir3d               Dir;
 typedef Point3d               Pnt;
@@ -155,7 +155,7 @@ Standard_Boolean Geom_ToroidalSurface::IsVPeriodic() const
 void Geom_ToroidalSurface::SetMajorRadius(const Standard_Real MajorRadius)
 {
 
-  if (MajorRadius - minorRadius <= gp::Resolution())
+  if (MajorRadius - minorRadius <= gp1::Resolution())
     throw Standard_ConstructionError();
   else
     majorRadius = MajorRadius;
@@ -166,7 +166,7 @@ void Geom_ToroidalSurface::SetMajorRadius(const Standard_Real MajorRadius)
 void Geom_ToroidalSurface::SetMinorRadius(const Standard_Real MinorRadius)
 {
 
-  if (MinorRadius < 0.0 || majorRadius - MinorRadius <= gp::Resolution())
+  if (MinorRadius < 0.0 || majorRadius - MinorRadius <= gp1::Resolution())
     throw Standard_ConstructionError();
   else
     minorRadius = MinorRadius;

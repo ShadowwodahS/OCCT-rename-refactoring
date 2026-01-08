@@ -23,7 +23,7 @@
 #include <StdFail_NotDone.hxx>
 
 //=========================================================================
-//   Creation d une ligne 2d de gp a partir d un Ax2d de gp.              +
+//   Creation d une ligne 2d de gp1 a partir d un Ax2d de gp1.              +
 //=========================================================================
 gce_MakeLin2d::gce_MakeLin2d(const gp_Ax2d& A)
 {
@@ -32,8 +32,8 @@ gce_MakeLin2d::gce_MakeLin2d(const gp_Ax2d& A)
 }
 
 //=========================================================================
-//   Creation d une ligne 2d de gp a partir de son origine P (Pnt2d de gp)+
-//   et d une direction V (Dir2d de gp).                                  +
+//   Creation d une ligne 2d de gp1 a partir de son origine P (Pnt2d de gp1)+
+//   et d une direction V (Dir2d de gp1).                                  +
 //=========================================================================
 
 gce_MakeLin2d::gce_MakeLin2d(const gp_Pnt2d& P, const gp_Dir2d& V)
@@ -43,13 +43,13 @@ gce_MakeLin2d::gce_MakeLin2d(const gp_Pnt2d& P, const gp_Dir2d& V)
 }
 
 //=========================================================================
-//   Creation d une ligne 2d de gp a partir des parametres de son         +
+//   Creation d une ligne 2d de gp1 a partir des parametres de son         +
 //    equation.                                                           +
 //=========================================================================
 
 gce_MakeLin2d::gce_MakeLin2d(const Standard_Real A, const Standard_Real B, const Standard_Real C)
 {
-  if (A * A + B * B <= gp::Resolution())
+  if (A * A + B * B <= gp1::Resolution())
   {
     TheError = gce_NullAxis;
   }
@@ -61,13 +61,13 @@ gce_MakeLin2d::gce_MakeLin2d(const Standard_Real A, const Standard_Real B, const
 }
 
 //=========================================================================
-//   Creation d une ligne 2d de gp passant par les deux points <P1> et    +
+//   Creation d une ligne 2d de gp1 passant par les deux points <P1> et    +
 //   <P2>.                                                                +
 //=========================================================================
 
 gce_MakeLin2d::gce_MakeLin2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2)
 {
-  if (P1.Distance(P2) >= gp::Resolution())
+  if (P1.Distance(P2) >= gp1::Resolution())
   {
     TheLin2d = gp_Lin2d(P1, gp_Dir2d(P2.XY() - P1.XY()));
     TheError = gce_Done;
@@ -79,7 +79,7 @@ gce_MakeLin2d::gce_MakeLin2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2)
 }
 
 //=========================================================================
-//   Creation d une ligne 2d de gp <TheLine> parallele a une autre ligne  +
+//   Creation d une ligne 2d de gp1 <TheLine> parallele a une autre ligne  +
 //   <Line1> passant par le point <Point1>.                               +
 //=========================================================================
 
@@ -90,7 +90,7 @@ gce_MakeLin2d::gce_MakeLin2d(const gp_Lin2d& Line, const gp_Pnt2d& Point)
 }
 
 //=========================================================================
-//   Creation d une ligne 2d de gp <TheLine> parallele a une autre ligne  +
+//   Creation d une ligne 2d de gp1 <TheLine> parallele a une autre ligne  +
 //   <Line1> a une distance <Dist1>.                                      +
 //=========================================================================
 

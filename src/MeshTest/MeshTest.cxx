@@ -414,8 +414,8 @@ static Standard_Integer tessellate(DrawInterpreter& /*di*/,
     for (int iV = 0; iV < aNbV; iV++)
     {
       int           iBase = iShift + iV;
-      Poly_Triangle aTri1(iBase, iBase + aNbV + 2, iBase + 1);
-      Poly_Triangle aTri2(iBase, iBase + aNbV + 1, iBase + aNbV + 2);
+      Triangle2 aTri1(iBase, iBase + aNbV + 2, iBase + 1);
+      Triangle2 aTri2(iBase, iBase + aNbV + 1, iBase + aNbV + 2);
       aTriangulation->SetTriangle(++iTri, aTri1);
       aTriangulation->SetTriangle(++iTri, aTri2);
     }

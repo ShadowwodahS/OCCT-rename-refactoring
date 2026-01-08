@@ -36,16 +36,16 @@ inline gp_Sphere Quadric1::Sphere() const
   return gp_Sphere(ax3, prm1);
 }
 
-inline gp_Cylinder Quadric1::Cylinder() const
+inline Cylinder1 Quadric1::Cylinder() const
 {
 
-  return gp_Cylinder(ax3, prm1);
+  return Cylinder1(ax3, prm1);
 }
 
-inline gp_Cone Quadric1::Cone() const
+inline Cone1 Quadric1::Cone() const
 {
 
-  return gp_Cone(ax3, prm2, prm1);
+  return Cone1(ax3, prm2, prm1);
 }
 
 inline gp_Torus Quadric1::Torus() const

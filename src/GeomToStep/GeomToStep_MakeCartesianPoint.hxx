@@ -30,7 +30,7 @@ class Geom2d_CartesianPoint;
 class StepData_StepModel;
 
 //! This class implements the mapping between classes
-//! CartesianPoint from Geom and Pnt from gp, and the class
+//! CartesianPoint from Geom and Pnt from gp1, and the class
 //! CartesianPoint from StepGeom which describes a point from
 //! Prostep.
 class GeomToStep_MakeCartesianPoint : public Root1

@@ -426,7 +426,7 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoEdgesLength(const TopoEdge& theF
     Point3d            aPoint;
     Vector3d            aDir;
     aCurveAdaptor.D1(aParam1, aPoint, aDir);
-    if (aDir.SquareMagnitude() <= gp::Resolution())
+    if (aDir.SquareMagnitude() <= gp1::Resolution())
     {
       return false;
     }
@@ -481,7 +481,7 @@ Standard_Boolean PrsDim_LengthDimension::InitEdgeVertexLength(const TopoEdge&   
   Point3d            aPoint;
   Vector3d            aDir;
   aCurveAdaptor.D1(anExtrema.LowerDistanceParameter(), aPoint, aDir);
-  if (aDir.SquareMagnitude() <= gp::Resolution())
+  if (aDir.SquareMagnitude() <= gp1::Resolution())
   {
     return false;
   }
@@ -495,7 +495,7 @@ Standard_Boolean PrsDim_LengthDimension::InitEdgeFaceLength(const TopoEdge& theE
                                                             const TopoFace& theFace,
                                                             Dir3d&            theEdgeDir)
 {
-  theEdgeDir = gp::DX();
+  theEdgeDir = gp1::DX();
 
   // Find attachment points (closest distance between the edge and the face)
   BRepExtrema_DistShapeShape aDistAdaptor(theEdge, theFace, Extrema_ExtFlag_MIN);
@@ -524,7 +524,7 @@ Standard_Boolean PrsDim_LengthDimension::InitEdgeFaceLength(const TopoEdge& theE
   Point3d aP;
   Vector3d aV;
   aCurveAdaptor.D1(aParam, aP, aV);
-  if (aV.SquareMagnitude() > gp::Resolution())
+  if (aV.SquareMagnitude() > gp1::Resolution())
   {
     theEdgeDir = aV;
   }

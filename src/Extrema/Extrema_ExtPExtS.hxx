@@ -36,7 +36,7 @@ public:
   Standard_EXPORT Extrema_ExtPExtS();
 
   //! It calculates all the distances between a point
-  //! from gp and a Surface.
+  //! from gp1 and a Surface.
   Standard_EXPORT Extrema_ExtPExtS(const Point3d&                                       P,
                                    const Handle(GeomAdaptor_SurfaceOfLinearExtrusion)& S,
                                    const Standard_Real                                 Umin,
@@ -47,7 +47,7 @@ public:
                                    const Standard_Real                                 TolV);
 
   //! It calculates all the distances between a point
-  //! from gp and a Surface.
+  //! from gp1 and a Surface.
   Standard_EXPORT Extrema_ExtPExtS(const Point3d&                                       P,
                                    const Handle(GeomAdaptor_SurfaceOfLinearExtrusion)& S,
                                    const Standard_Real                                 TolU,

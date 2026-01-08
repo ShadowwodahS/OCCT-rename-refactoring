@@ -150,7 +150,7 @@ Method:
   Standard_Real TolU, aR;
   aR   = C.Radius();
   TolU = Precision::Infinite();
-  if (aR > gp::Resolution())
+  if (aR > gp1::Resolution())
   {
     TolU = Tol / aR;
   }

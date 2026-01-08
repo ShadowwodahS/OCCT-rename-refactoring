@@ -89,7 +89,7 @@ Standard_Integer DNaming_CylinderDriver::Execute(Handle(TFunction_Logbook)& theL
     aFunction->SetFailure(WRONG_AXIS);
     return -1;
   }
-  // Creation of gp axis (Frame3d):
+  // Creation of gp1 axis (Frame3d):
   if (aTopoDSAxis.ShapeType() != TopAbs_EDGE && aTopoDSAxis.ShapeType() != TopAbs_WIRE)
   {
 #ifdef OCCT_DEBUG

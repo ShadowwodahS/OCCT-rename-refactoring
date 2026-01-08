@@ -18,7 +18,7 @@
 
 #include <Standard_TypeDef.hxx>
 
-class Poly_CoherentTriangle;
+class CoherentTriangle;
 
 /**
  * Link1 between two mesh nodes that is created by existing triangle(s).
@@ -31,7 +31,7 @@ class Poly_CoherentTriangle;
  * Any Link1 can store an arbitrary pointer that is called Attribute.
  */
 
-class Poly_CoherentLink
+class CoherentLink
 {
 public:
   // ---------- PUBLIC METHODS ----------
@@ -39,14 +39,14 @@ public:
   /**
    * Empty constructor.
    */
-  Standard_EXPORT Poly_CoherentLink();
+  Standard_EXPORT CoherentLink();
 
   /**
    * Constructor. Creates a Link1 that has no reference to 'opposite nodes'.
    * This constructor is useful to create temporary object that is not
    * inserted into any existing triangulation.
    */
-  inline Poly_CoherentLink(const Standard_Integer iNode0, const Standard_Integer iNode1)
+  inline CoherentLink(const Standard_Integer iNode0, const Standard_Integer iNode1)
       : myAttribute(0L)
   {
     myNode[0]         = iNode0;
@@ -65,7 +65,7 @@ public:
    * @param iSide
    *   Can be 0, 1 or 2. Index of the node
    */
-  Standard_EXPORT Poly_CoherentLink(const Poly_CoherentTriangle& theTri, Standard_Integer iSide);
+  Standard_EXPORT CoherentLink(const CoherentTriangle& theTri, Standard_Integer iSide);
 
   /**
    * Return the node index in the current triangulation.

@@ -194,7 +194,7 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::TryCylinerCone(const Handle(GeomS
     // cylinder
     if (((Abs(R2 - R1)) < theToler) && ((Abs(R3 - R1)) < theToler) && ((Abs(R3 - R2)) < theToler))
     {
-      gp_Ax3 Axes(P1, Dir3d(Vector3d(P1, P3)));
+      Ax3 Axes(P1, Dir3d(Vector3d(P1, P3)));
       aNewSurf = new Geom_CylindricalSurface(Axes, R1);
     }
     // cone
@@ -202,19 +202,19 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::TryCylinerCone(const Handle(GeomS
              || (((Abs(R3)) > (Abs(R2))) && ((Abs(R2)) > (Abs(R1)))))
     {
       Standard_Real radius;
-      gp_Ax3        Axes;
+      Ax3        Axes;
       Standard_Real semiangle = Vector3d(isoline).Angle(Vector3d(P3, P1));
       if (semiangle > M_PI / 2)
         semiangle = M_PI - semiangle;
       if (R1 > R3)
       {
         radius = R3;
-        Axes   = gp_Ax3(P3, Dir3d(Vector3d(P3, P1)));
+        Axes   = Ax3(P3, Dir3d(Vector3d(P3, P1)));
       }
       else
       {
         radius = R1;
-        Axes   = gp_Ax3(P1, Dir3d(Vector3d(P1, P3)));
+        Axes   = Ax3(P1, Dir3d(Vector3d(P1, P3)));
       }
       aNewSurf = new Geom_ConicalSurface(Axes, semiangle, radius);
     }
@@ -228,7 +228,7 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::TryCylinerCone(const Handle(GeomS
 // static method to create cylinrical surface using least square method
 //=======================================================================
 static void GetLSGap(const Handle(TColgp_HArray1OfXYZ)& thePoints,
-                     const gp_Ax3&                      thePos,
+                     const Ax3&                      thePos,
                      const Standard_Real                theR,
                      Standard_Real&                     theGap)
 {
@@ -246,7 +246,7 @@ static void GetLSGap(const Handle(TColgp_HArray1OfXYZ)& thePoints,
 
 Standard_Boolean GeomConvert_SurfToAnaSurf::GetCylByLS(const Handle(TColgp_HArray1OfXYZ)& thePoints,
                                                        const Standard_Real                theTol,
-                                                       gp_Ax3&                            thePos,
+                                                       Ax3&                            thePos,
                                                        Standard_Real&                     theR,
                                                        Standard_Real&                     theGap)
 {
@@ -333,7 +333,7 @@ Standard_Boolean GeomConvert_SurfToAnaSurf::GetCylByLS(const Handle(TColgp_HArra
 
   if (aSolver.IsDone())
   {
-    gp_Ax3 aPos2 = thePos;
+    Ax3 aPos2 = thePos;
     aSolver.Location(aStartPoint);
     aLoc.SetCoord(aStartPoint(1), aStartPoint(2), aStartPoint(3));
     aPos2.SetLocation(aLoc);
@@ -482,13 +482,13 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::TryCylinderByGaussField(
   Vector3d aT(aSign * anAvR * aNorm.XYZ());
   aLoc.Translate(aT);
   Axis3d      anAx1(aLoc, anAxD);
-  gp_Cylinder aCyl;
+  Cylinder1 aCyl;
   aCyl.SetAxis(anAx1);
   aCyl.SetRadius(anAvR);
 
   if (theLeastSquare)
   {
-    gp_Ax3           aPos   = aCyl.Position();
+    Ax3           aPos   = aCyl.Position();
     Standard_Real    anR    = aCyl.Radius();
     Standard_Real    aGap   = 0.;
     Standard_Boolean IsDone = GetCylByLS(aPoints, theToler, aPos, anR, aGap);
@@ -588,7 +588,7 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::TryTorusSphere(
   {
     // compute sphere
     Dir3d                        MainDir = otherCircle->Circ().Axis().Direction();
-    gp_Ax3                        Axes(circle->Circ().Location(), MainDir);
+    Ax3                        Axes(circle->Circ().Location(), MainDir);
     Handle(Geom_SphericalSurface) anObject = new Geom_SphericalSurface(Axes, R);
     if (!anObject.IsNull())
       newSurface = anObject;
@@ -602,7 +602,7 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::TryTorusSphere(
   Standard_Real aMajorR = circ.Radius();
   Point3d        aCenter = circ.Location();
   Dir3d        aDir((aPnt1.XYZ() - aCenter.XYZ()) ^ (aPnt3.XYZ() - aCenter.XYZ()));
-  gp_Ax3        anAx3(aCenter, aDir);
+  Ax3        anAx3(aCenter, aDir);
   newSurface = new Geom_ToroidalSurface(anAx3, aMajorR, R);
   return newSurface;
 }
@@ -620,8 +620,8 @@ Standard_Real GeomConvert_SurfToAnaSurf::ComputeGap(const Handle(GeomSurface)& t
   GeomAdaptor_Surface aGAS(theNewSurf);
   GeomAbs_SurfaceType aSType = aGAS.GetType();
   gp_Pln              aPln;
-  gp_Cylinder         aCyl;
-  gp_Cone             aCon;
+  Cylinder1         aCyl;
+  Cone1             aCon;
   gp_Sphere           aSphere;
   gp_Torus            aTor;
   switch (aSType)

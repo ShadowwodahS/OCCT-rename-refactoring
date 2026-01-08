@@ -560,7 +560,7 @@ void BRepFeat1::FaceUntil(const TopoShape& Sbase, TopoFace& FUntil)
   }
   else if (styp == STANDARD_TYPE(Geom_CylindricalSurface))
   {
-    gp_Cylinder   aCyl = Handle(Geom_CylindricalSurface)::DownCast(s)->Cylinder();
+    Cylinder1   aCyl = Handle(Geom_CylindricalSurface)::DownCast(s)->Cylinder();
     Standard_Real u, v, vmin = RealLast(), vmax = -vmin;
     for (Standard_Integer i = 0; i < 2; i++)
     {
@@ -583,7 +583,7 @@ void BRepFeat1::FaceUntil(const TopoShape& Sbase, TopoFace& FUntil)
   }
   else if (styp == STANDARD_TYPE(Geom_ConicalSurface))
   {
-    gp_Cone       aCon = Handle(Geom_ConicalSurface)::DownCast(s)->Cone();
+    Cone1       aCon = Handle(Geom_ConicalSurface)::DownCast(s)->Cone();
     Standard_Real u, v, vmin = RealLast(), vmax = -vmin;
     for (Standard_Integer i = 0; i < 2; i++)
     {

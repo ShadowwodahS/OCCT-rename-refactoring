@@ -134,7 +134,7 @@ static Standard_Integer BUC60814(DrawInterpreter& di, Standard_Integer argc, con
 
   // TRIHEDRON
   Handle(VisualEntity) aTrihedron;
-  Handle(Geom_Axis2Placement)   aTrihedronAxis = new Geom_Axis2Placement(gp::XOY());
+  Handle(Geom_Axis2Placement)   aTrihedronAxis = new Geom_Axis2Placement(gp1::XOY());
   aTrihedron                                   = new AIS_Trihedron(aTrihedronAxis);
   myAISContext->Display(aTrihedron, Standard_False);
 

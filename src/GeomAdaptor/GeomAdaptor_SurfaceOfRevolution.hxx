@@ -20,8 +20,8 @@
 #include <GeomAdaptor_Surface.hxx>
 
 class gp_Pln;
-class gp_Cylinder;
-class gp_Cone;
+class Cylinder1;
+class Cone1;
 class gp_Sphere;
 class gp_Torus;
 class Geom_BezierSurface;
@@ -145,11 +145,11 @@ public:
 
   Standard_EXPORT gp_Pln Plane() const Standard_OVERRIDE;
 
-  Standard_EXPORT gp_Cylinder Cylinder() const Standard_OVERRIDE;
+  Standard_EXPORT Cylinder1 Cylinder() const Standard_OVERRIDE;
 
   //! Apex of the Cone = Cone.Position().Location()
   //! ==> ReferenceRadius = 0.
-  Standard_EXPORT gp_Cone Cone() const Standard_OVERRIDE;
+  Standard_EXPORT Cone1 Cone() const Standard_OVERRIDE;
 
   Standard_EXPORT gp_Sphere Sphere() const Standard_OVERRIDE;
 
@@ -169,7 +169,7 @@ public:
 
   Standard_EXPORT Handle(Geom_BSplineSurface) BSpline() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Ax3& Axis() const;
+  Standard_EXPORT const Ax3& Axis() const;
 
   Standard_EXPORT Handle(Adaptor3d_Curve) BasisCurve() const Standard_OVERRIDE;
 
@@ -177,7 +177,7 @@ private:
   Handle(Adaptor3d_Curve) myBasisCurve; ///< revolved curve
   Axis3d                  myAxis;       ///< axis of revolution
   Standard_Boolean        myHaveAxis;   ///< whether axis of revolution is initialized
-  gp_Ax3                  myAxeRev;     ///< auxiliary trihedron according to the curve position
+  Ax3                  myAxeRev;     ///< auxiliary trihedron according to the curve position
 };
 
 #endif // _GeomAdaptor_SurfaceOfRevolution_HeaderFile

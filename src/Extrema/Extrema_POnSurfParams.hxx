@@ -36,7 +36,7 @@ public:
   Extrema_POnSurfParams();
 
   //! Creation of a point on surface with parameter
-  //! values on the surface and a Pnt from gp.
+  //! values on the surface and a Pnt from gp1.
   Extrema_POnSurfParams(const Standard_Real theU, const Standard_Real theV, const Point3d& thePnt);
 
   //! Sets the square distance from this point to another one

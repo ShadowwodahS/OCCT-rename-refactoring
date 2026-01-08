@@ -243,7 +243,7 @@ void PrsDim_EllipseRadiusDimension::ComputeEdgeGeometry()
 
   myEllipse = elips->Elips();
   gp_Pln aPlane;
-  aPlane.SetPosition(gp_Ax3(myEllipse.Position()));
+  aPlane.SetPosition(Ax3(myEllipse.Position()));
   myPlane = new GeomPlane(aPlane);
 
   if (ptfirst.IsEqual(ptend, Precision::Confusion()))

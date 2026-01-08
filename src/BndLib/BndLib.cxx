@@ -511,7 +511,7 @@ void BndLib1::Add(const gp_Circ&      C,
   //
   Standard_Real tt;
   Standard_Real xmin, xmax, txmin, txmax;
-  if (Abs(Xd.X()) > gp::Resolution())
+  if (Abs(Xd.X()) > gp1::Resolution())
   {
     txmin = ATan(Yd.X() / Xd.X());
     txmin = ElCLib1::InPeriod(txmin, 0., 2. * M_PI);
@@ -534,7 +534,7 @@ void BndLib1::Add(const gp_Circ&      C,
   }
   //
   Standard_Real ymin, ymax, tymin, tymax;
-  if (Abs(Xd.Y()) > gp::Resolution())
+  if (Abs(Xd.Y()) > gp1::Resolution())
   {
     tymin = ATan(Yd.Y() / Xd.Y());
     tymin = ElCLib1::InPeriod(tymin, 0., 2. * M_PI);
@@ -557,7 +557,7 @@ void BndLib1::Add(const gp_Circ&      C,
   }
   //
   Standard_Real zmin, zmax, tzmin, tzmax;
-  if (Abs(Xd.Z()) > gp::Resolution())
+  if (Abs(Xd.Z()) > gp1::Resolution())
   {
     tzmin = ATan(Yd.Z() / Xd.Z());
     tzmin = ElCLib1::InPeriod(tzmin, 0., 2. * M_PI);
@@ -704,7 +704,7 @@ void BndLib1::Add(const gp_Elips&     C,
   //
   Standard_Real tt;
   Standard_Real xmin, xmax, txmin, txmax;
-  if (Abs(Xd.X()) > gp::Resolution())
+  if (Abs(Xd.X()) > gp1::Resolution())
   {
     txmin = ATan((MinR * Yd.X()) / (MajR * Xd.X()));
     txmin = ElCLib1::InPeriod(txmin, 0., 2. * M_PI);
@@ -727,7 +727,7 @@ void BndLib1::Add(const gp_Elips&     C,
   }
   //
   Standard_Real ymin, ymax, tymin, tymax;
-  if (Abs(Xd.Y()) > gp::Resolution())
+  if (Abs(Xd.Y()) > gp1::Resolution())
   {
     tymin = ATan((MinR * Yd.Y()) / (MajR * Xd.Y()));
     tymin = ElCLib1::InPeriod(tymin, 0., 2. * M_PI);
@@ -750,7 +750,7 @@ void BndLib1::Add(const gp_Elips&     C,
   }
   //
   Standard_Real zmin, zmax, tzmin, tzmax;
-  if (Abs(Xd.Z()) > gp::Resolution())
+  if (Abs(Xd.Z()) > gp1::Resolution())
   {
     tzmin = ATan((MinR * Yd.Z()) / (MajR * Xd.Z()));
     tzmin = ElCLib1::InPeriod(tzmin, 0., 2. * M_PI);
@@ -1139,7 +1139,7 @@ void BndLib1::Add(const gp_Hypr2d&    H,
   B.Enlarge(Tol);
 }
 
-static void ComputeCyl(const gp_Cylinder&  Cyl,
+static void ComputeCyl(const Cylinder1&  Cyl,
                        const Standard_Real UMin,
                        const Standard_Real UMax,
                        const Standard_Real VMin,
@@ -1154,7 +1154,7 @@ static void ComputeCyl(const gp_Cylinder&  Cyl,
   BndLib1::Add(aC, UMin, UMax, 0., B);
 }
 
-void BndLib1::Add(const gp_Cylinder&  S,
+void BndLib1::Add(const Cylinder1&  S,
                  const Standard_Real UMin,
                  const Standard_Real UMax,
                  const Standard_Real VMin,
@@ -1215,7 +1215,7 @@ void BndLib1::Add(const gp_Cylinder&  S,
   B.Enlarge(Tol);
 }
 
-void BndLib1::Add(const gp_Cylinder&  S,
+void BndLib1::Add(const Cylinder1&  S,
                  const Standard_Real VMin,
                  const Standard_Real VMax,
                  const Standard_Real Tol,
@@ -1225,14 +1225,14 @@ void BndLib1::Add(const gp_Cylinder&  S,
   BndLib1::Add(S, 0., 2. * M_PI, VMin, VMax, Tol, B);
 }
 
-static void ComputeCone(const gp_Cone&      Cone,
+static void ComputeCone(const Cone1&      Cone,
                         const Standard_Real UMin,
                         const Standard_Real UMax,
                         const Standard_Real VMin,
                         const Standard_Real VMax,
                         Box2&            B)
 {
-  const gp_Ax3& aPos = Cone.Position();
+  const Ax3& aPos = Cone.Position();
   Standard_Real R    = Cone.RefRadius();
   Standard_Real sang = Cone.SemiAngle();
   gp_Circ       aC   = ElSLib1::ConeVIso(aPos, R, sang, VMin);
@@ -1256,7 +1256,7 @@ static void ComputeCone(const gp_Cone&      Cone,
   }
 }
 
-void BndLib1::Add(const gp_Cone&      S,
+void BndLib1::Add(const Cone1&      S,
                  const Standard_Real UMin,
                  const Standard_Real UMax,
                  const Standard_Real VMin,
@@ -1325,7 +1325,7 @@ void BndLib1::Add(const gp_Cone&      S,
   B.Enlarge(Tol);
 }
 
-void BndLib1::Add(const gp_Cone&      S,
+void BndLib1::Add(const Cone1&      S,
                  const Standard_Real VMin,
                  const Standard_Real VMax,
                  const Standard_Real Tol,
@@ -1363,7 +1363,7 @@ static void ComputeSphere(const gp_Sphere&    Sphere,
   {
     Standard_Real u, v;
     Standard_Real umax = UMin + 2. * M_PI;
-    const gp_Ax3& Pos  = Sphere.Position();
+    const Ax3& Pos  = Sphere.Position();
     Point3d        PExt = P;
     PExt.SetX(xmin);
     ElSLib1::SphereParameters(Pos, R, PExt, u, v);
@@ -1465,7 +1465,7 @@ static void computeDegeneratedTorus(const gp_Torus&     theTorus,
 
   Standard_Real anU, aV;
   Standard_Real anUmax = theUMin + 2. * M_PI;
-  const gp_Ax3& aPos   = theTorus.Position();
+  const Ax3& aPos   = theTorus.Position();
   Point3d        aPExt  = aP;
   aPExt.SetX(aXmin);
   ElSLib1::TorusParameters(aPos, aRa, aRi, aPExt, anU, aV);

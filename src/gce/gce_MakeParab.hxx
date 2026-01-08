@@ -28,7 +28,7 @@ class Axis3d;
 class Point3d;
 
 //! This class implements the following algorithms used to
-//! create Parab from gp.
+//! create Parab from gp1.
 //! Defines the parabola in the parameterization range  :
 //! ]-infinite, +infinite[
 //! The vertex of the parabola is the "Location" point of the

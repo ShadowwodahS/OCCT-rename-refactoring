@@ -90,12 +90,12 @@ public:
   //! If U1 and U2 and two parametric values we consider that
   //! U1 = U2 if Abs (U1 - U2) <= ParametricTolerance and
   //! ParametricTolerance must  be greater or equal to Resolution
-  //! from package gp.
+  //! from package gp1.
   //!
   //! Raised if FromU1 or ToU2 are out of the parametric bounds of the
   //! curve (The tolerance criterion is ParametricTolerance).
   //! Raised if Abs (FromU1 - ToU2) <= ParametricTolerance
-  //! Raised if ParametricTolerance < Resolution from gp.
+  //! Raised if ParametricTolerance < Resolution from gp1.
   Standard_EXPORT static Handle(Geom2d_BSplineCurve) SplitBSplineCurve(
     const Handle(Geom2d_BSplineCurve)& C,
     const Standard_Real                FromU1,

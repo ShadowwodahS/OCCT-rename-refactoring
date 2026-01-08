@@ -23,7 +23,7 @@
 //! Describes a parabola in the plane (2D space).
 //! A parabola is defined by its focal length (that is, the
 //! distance between its focus and apex) and positioned in
-//! the plane with a coordinate system (a gp_Ax22d object) where:
+//! the plane with a coordinate system (a Ax22d object) where:
 //! -   the origin of the coordinate system is on the apex of
 //! the parabola, and
 //! -   the "X Axis" of the coordinate system is the axis of
@@ -68,7 +68,7 @@ public:
              const Standard_Boolean theSense = Standard_True)
       : focalLength(theFocalLength)
   {
-    pos = gp_Ax22d(theMirrorAxis, theSense);
+    pos = Ax22d(theMirrorAxis, theSense);
     Standard_ConstructionError_Raise_if(theFocalLength < 0.0,
                                         "gp_Parab2d() - focal length should be >= 0");
   }
@@ -78,7 +78,7 @@ public:
   //! Warnings : It is possible to have FocalLength = 0. In this case,
   //! the parabola looks like a line, which is parallel to the symmetry-axis.
   //! Raises ConstructionError if Focal < 0.0
-  gp_Parab2d(const gp_Ax22d& theAxes, const Standard_Real theFocalLength)
+  gp_Parab2d(const Ax22d& theAxes, const Standard_Real theFocalLength)
       : pos(theAxes),
         focalLength(theFocalLength)
   {
@@ -124,7 +124,7 @@ public:
 
   //! Changes the local coordinate system of the parabola.
   //! The "Location" point of A becomes the vertex of the parabola.
-  void SetAxis(const gp_Ax22d& theA) { pos.SetAxis(theA); }
+  void SetAxis(const Ax22d& theA) { pos.SetAxis(theA); }
 
   //! Computes the coefficients of the implicit equation of the parabola
   //! (in WCS - World Coordinate System).
@@ -168,7 +168,7 @@ public:
 
   //! Returns the local coordinate system of the parabola.
   //! The "Location" point of this axis is the vertex of the parabola.
-  gp_Ax22d Axis() const { return pos; }
+  Ax22d Axis() const { return pos; }
 
   //! Returns the distance between the focus and the
   //! directrix of the parabola.
@@ -178,7 +178,7 @@ public:
   {
     gp_Dir2d aTemp = pos.YDirection();
     aTemp.Reverse();
-    pos.SetAxis(gp_Ax22d(pos.Location(), pos.XDirection(), aTemp));
+    pos.SetAxis(Ax22d(pos.Location(), pos.XDirection(), aTemp));
   }
 
   //! Reverses the orientation of the local coordinate system
@@ -250,7 +250,7 @@ public:
   }
 
 private:
-  gp_Ax22d      pos;
+  Ax22d      pos;
   Standard_Real focalLength;
 };
 
@@ -275,7 +275,7 @@ inline gp_Parab2d gp_Parab2d::Reversed() const
   gp_Parab2d aP    = *this;
   gp_Dir2d   aTemp = pos.YDirection();
   aTemp.Reverse();
-  aP.pos.SetAxis(gp_Ax22d(pos.Location(), pos.XDirection(), aTemp));
+  aP.pos.SetAxis(Ax22d(pos.Location(), pos.XDirection(), aTemp));
   return aP;
 }
 

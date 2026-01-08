@@ -74,7 +74,7 @@ GeomToStep_MakeAxis2Placement3d::GeomToStep_MakeAxis2Placement3d(
 }
 
 //=============================================================================
-// Creation d' un axis2_placement_3d de prostep a partir d' un Ax2 de gp
+// Creation d' un axis2_placement_3d de prostep a partir d' un Ax2 de gp1
 //=============================================================================
 
 GeomToStep_MakeAxis2Placement3d::GeomToStep_MakeAxis2Placement3d(
@@ -91,11 +91,11 @@ GeomToStep_MakeAxis2Placement3d::GeomToStep_MakeAxis2Placement3d(
 }
 
 //=============================================================================
-// Creation d' un axis2_placement_3d de prostep a partir d' un Ax3 de gp
+// Creation d' un axis2_placement_3d de prostep a partir d' un Ax3 de gp1
 //=============================================================================
 
 GeomToStep_MakeAxis2Placement3d::GeomToStep_MakeAxis2Placement3d(
-  const gp_Ax3&           A,
+  const Ax3&           A,
   const ConversionFactors& theLocalFactors)
 {
   Handle(StepGeom_Axis2Placement3d) Axe = MakeAxis2Placement3d(A.Location(),
@@ -108,7 +108,7 @@ GeomToStep_MakeAxis2Placement3d::GeomToStep_MakeAxis2Placement3d(
 }
 
 //=============================================================================
-// Creation d' un axis2_placement_3d de prostep a partir d' un Trsf de gp
+// Creation d' un axis2_placement_3d de prostep a partir d' un Trsf de gp1
 //=============================================================================
 
 GeomToStep_MakeAxis2Placement3d::GeomToStep_MakeAxis2Placement3d(

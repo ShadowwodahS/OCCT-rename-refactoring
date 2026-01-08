@@ -489,8 +489,8 @@ VrmlData_ErrorStatus VrmlData_Group::Read(InputBuffer& theBuffer)
       // Create the corresponding transformation.
       Transform3d tRot, tCentInv;
       myTrsf.SetTranslation(aTrans + aCenter);
-      Axis3d aRotation(gp::Origin(), aRotAxis);
-      tRot.SetRotation(Axis3d(gp::Origin(), aRotAxis), aRotAngle);
+      Axis3d aRotation(gp1::Origin(), aRotAxis);
+      tRot.SetRotation(Axis3d(gp1::Origin(), aRotAxis), aRotAngle);
       myTrsf.Multiply(tRot);
       // Check that the scale is uniform (the same value in all 3 directions.
       // Only in this case the scaling is applied.
@@ -498,7 +498,7 @@ VrmlData_ErrorStatus VrmlData_Group::Read(InputBuffer& theBuffer)
       if (aScaleDiff[0] * aScaleDiff[0] + aScaleDiff[1] * aScaleDiff[1] < Precision::Confusion())
       {
         Transform3d tScale;
-        tScale.SetScale(gp::Origin(), (aScale.X() + aScale.Y() + aScale.Z()) / 3.);
+        tScale.SetScale(gp1::Origin(), (aScale.X() + aScale.Y() + aScale.Z()) / 3.);
         myTrsf.Multiply(tScale);
       }
       tCentInv.SetTranslation(aCenter.Reversed());

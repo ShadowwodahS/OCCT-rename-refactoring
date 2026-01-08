@@ -106,7 +106,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_getxx(const TopoFace&  Fi,
                                                 Dir3d&             XX)
 {
   Vector3d xx = FUN_tool_getgeomxx(Fi, Ei, parEi, ngFi);
-  if (xx.Magnitude() < gp::Resolution())
+  if (xx.Magnitude() < gp1::Resolution())
     return Standard_False;
   XX = Dir3d(xx);
   TopAbs_Orientation oriEinF;

@@ -397,11 +397,11 @@ Standard_Boolean AlgoTools3D::GetNormalToSurface(const Handle(GeomSurface)& aS,
   aS->D1(U, V, aP, aD1U, aD1V);
 
   Standard_Real aLenU = aD1U.SquareMagnitude();
-  if (aLenU < gp::Resolution())
+  if (aLenU < gp1::Resolution())
     return Standard_False;
 
   Standard_Real aLenV = aD1V.SquareMagnitude();
-  if (aLenV < gp::Resolution())
+  if (aLenV < gp1::Resolution())
     return Standard_False;
 
   Dir3d aDD1U(aD1U);
@@ -562,7 +562,7 @@ Standard_Integer AlgoTools3D::PointNearEdge(const TopoEdge&  aE,
       { // pkv/909/F8
         Standard_Real aR, dT;
         //
-        gp_Cylinder aCyl = aGAS.Cylinder();
+        Cylinder1 aCyl = aGAS.Cylinder();
         aR               = aCyl.Radius();
         dT               = 1. - transVal / aR;
         if (dT >= -1 && dT <= 1)

@@ -69,7 +69,7 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const Handle(TColgp_HAr
       BasePlan(OZ);
       Dir3d NDir(myOX ^ myOY);
       Dir3d UDir(myOX);
-      gp_Ax3 triedre(myG, NDir, UDir);
+      Ax3 triedre(myG, NDir, UDir);
       myPlane = new GeomPlane(triedre);
     }
     Standard_Integer i, nb = myPts->Length();
@@ -212,7 +212,7 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const TColgp_SequenceOf
   Dir3d XDir = BestDir ^ Axe.XDirection();
   XDir ^= BestDir;
 
-  gp_Ax3 Axe3(Axe.Location(), BestDir, XDir);
+  Ax3 Axe3(Axe.Location(), BestDir, XDir);
   myPlane = new GeomPlane(Axe3);
 
   // Initializing myUmin, myVmin, myUmax, myVmax

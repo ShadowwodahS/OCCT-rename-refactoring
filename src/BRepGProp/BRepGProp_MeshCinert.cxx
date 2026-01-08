@@ -66,7 +66,7 @@ void BRepGProp_MeshCinert::Perform(const TColgp_Array1OfPnt& theNodes)
     Standard_Integer i;
 
     Upper = (aP2 - aP1).Modulus();
-    if (Upper < gp::Resolution())
+    if (Upper < gp1::Resolution())
     {
       continue;
     }
@@ -123,7 +123,7 @@ void BRepGProp_MeshCinert::Perform(const TColgp_Array1OfPnt& theNodes)
 
   inertia = gp_Mat(gp_XYZ(Ixx, -Ixy, -Ixz), gp_XYZ(-Ixy, Iyy, -Iyz), gp_XYZ(-Ixz, -Iyz, Izz));
 
-  if (Abs(dim) < gp::Resolution())
+  if (Abs(dim) < gp1::Resolution())
     g = P;
   else
     g.SetCoord(Ix / dim, Iy / dim, Iz / dim);

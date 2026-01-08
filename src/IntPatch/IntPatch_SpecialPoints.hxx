@@ -23,7 +23,7 @@
 #include <Adaptor3d_Surface.hxx>
 #include <IntPatch_SpecPntType.hxx>
 
-class gp_Cone;
+class Cone1;
 class Vector3d;
 class gp_XYZ;
 class IntPatch_Point;
@@ -145,7 +145,7 @@ protected:
   static Standard_EXPORT Standard_Boolean ProcessCone(const PointOn2Surfaces& thePtIso,
                                                       const Vector3d&          theDUofPSurf,
                                                       const Vector3d&          theDVofPSurf,
-                                                      const gp_Cone&         theCone,
+                                                      const Cone1&         theCone,
                                                       const Standard_Boolean theIsReversed,
                                                       Standard_Real&         theUquad,
                                                       Standard_Boolean&      theIsIsoChoosen);

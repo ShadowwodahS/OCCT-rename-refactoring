@@ -65,7 +65,7 @@ BRepOffsetAPI_MakeEvolved::BRepOffsetAPI_MakeEvolved(const TopoShape&    Spine,
   }
   else
   {
-    gp_Ax3 Axis(gp::Origin(), gp::DZ(), gp::DX());
+    Ax3 Axis(gp1::Origin(), gp1::DZ(), gp1::DX());
 
     if (!AxeProf)
     {

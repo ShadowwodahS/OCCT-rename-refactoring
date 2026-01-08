@@ -39,7 +39,7 @@ GccAna_LinPnt2dBisec::GccAna_LinPnt2dBisec(const gp_Lin2d& Line1, const gp_Pnt2d
   Standard_Real xloc = Line1.Location().X();
   Standard_Real yloc = Line1.Location().Y();
   Standard_Real dist = Line1.Distance(Point2);
-  //   if ( dist > gp::Resolution()) {
+  //   if ( dist > gp1::Resolution()) {
   if (dist > 1.e-10)
   {
     Standard_Real xpoint2 = Point2.X();

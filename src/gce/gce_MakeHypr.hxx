@@ -27,7 +27,7 @@ class Frame3d;
 class Point3d;
 
 //! This class implements the following algorithms used to
-//! create Hyperbola from gp.
+//! create Hyperbola from gp1.
 //! * Create an Hyperbola from its center, and two points:
 //! one on its axis of symmetry giving the major radius, the
 //! other giving the value of the small radius.

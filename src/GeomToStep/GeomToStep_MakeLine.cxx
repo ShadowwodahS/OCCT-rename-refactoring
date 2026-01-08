@@ -31,7 +31,7 @@
 #include <TCollection_HAsciiString.hxx>
 
 //=============================================================================
-// Creation d' une line de prostep a partir d' une Lin de gp
+// Creation d' une line de prostep a partir d' une Lin de gp1
 //=============================================================================
 GeomToStep_MakeLine::GeomToStep_MakeLine(const gp_Lin& L, const ConversionFactors& theLocalFactors)
 {
@@ -41,7 +41,7 @@ GeomToStep_MakeLine::GeomToStep_MakeLine(const gp_Lin& L, const ConversionFactor
 }
 
 //=============================================================================
-// Creation d' une line de prostep a partir d' une Lin2d de gp
+// Creation d' une line de prostep a partir d' une Lin2d de gp1
 //=============================================================================
 
 GeomToStep_MakeLine::GeomToStep_MakeLine(const gp_Lin2d& L, const ConversionFactors& theLocalFactors)

@@ -22,7 +22,7 @@
 
 #include <Geom_ElementarySurface.hxx>
 #include <Standard_Integer.hxx>
-class gp_Ax3;
+class Ax3;
 class gp_Sphere;
 class GeomCurve3d;
 class Point3d;
@@ -35,7 +35,7 @@ DEFINE_STANDARD_HANDLE(Geom_SphericalSurface, Geom_ElementarySurface)
 
 //! Describes a sphere.
 //! A sphere is defined by its radius, and is positioned in
-//! space by a coordinate system (a gp_Ax3 object), the
+//! space by a coordinate system (a Ax3 object), the
 //! origin of which is the center of the sphere.
 //! This coordinate system is the "local coordinate
 //! system" of the sphere. The following apply:
@@ -89,10 +89,10 @@ public:
   //! It is not forbidden to create a spherical surface with
   //! Radius = 0.0
   //! Raised if Radius < 0.0.
-  Standard_EXPORT Geom_SphericalSurface(const gp_Ax3& A3, const Standard_Real Radius);
+  Standard_EXPORT Geom_SphericalSurface(const Ax3& A3, const Standard_Real Radius);
 
   //! Creates a SphericalSurface from a non persistent Sphere from
-  //! package gp.
+  //! package gp1.
   Standard_EXPORT Geom_SphericalSurface(const gp_Sphere& S);
 
   //! Assigns the value R to the radius of this sphere.

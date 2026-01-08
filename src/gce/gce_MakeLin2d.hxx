@@ -28,14 +28,14 @@ class gp_Pnt2d;
 class gp_Dir2d;
 
 //! This class implements the following algorithms used
-//! to create Lin2d from gp.
+//! to create Lin2d from gp1.
 //!
 //! * Create a Lin2d parallel to another and passing
 //! through a point.
 //! * Create a Lin2d parallel to another at the distance
 //! Dist.
 //! * Create a Lin2d passing through 2 points.
-//! * Create a Lin2d from its axis (Ax1 from gp).
+//! * Create a Lin2d from its axis (Ax1 from gp1).
 //! * Create a Lin2d from a point and a direction.
 //! * Create a Lin2d from its equation.
 class gce_MakeLin2d : public Root6
@@ -51,30 +51,30 @@ public:
   Standard_EXPORT gce_MakeLin2d(const gp_Pnt2d& P, const gp_Dir2d& V);
 
   //! Creates the line from the equation A*X + B*Y + C = 0.0
-  //! the status is "NullAxis"if Sqrt(A*A + B*B) <= Resolution from gp.
+  //! the status is "NullAxis"if Sqrt(A*A + B*B) <= Resolution from gp1.
   Standard_EXPORT gce_MakeLin2d(const Standard_Real A,
                                 const Standard_Real B,
                                 const Standard_Real C);
 
-  //! Make a Lin2d from gp <TheLin> parallel to another
+  //! Make a Lin2d from gp1 <TheLin> parallel to another
   //! Lin2d <Lin> at a distance <Dist>.
   //! If Dist is greater than zero the result is on the
   //! right of the Line <Lin>, else the result is on the
   //! left of the Line <Lin>.
   Standard_EXPORT gce_MakeLin2d(const gp_Lin2d& Lin, const Standard_Real Dist);
 
-  //! Make a Lin2d from gp <TheLin> parallel to another
+  //! Make a Lin2d from gp1 <TheLin> parallel to another
   //! Lin2d <Lin> and passing through a Pnt2d <Point>.
   Standard_EXPORT gce_MakeLin2d(const gp_Lin2d& Lin, const gp_Pnt2d& Point);
 
-  //! Make a Lin2d from gp <TheLin> passing through 2
+  //! Make a Lin2d from gp1 <TheLin> passing through 2
   //! Pnt2d <P1>,<P2>.
   //! It returns false if <P1> and <P2> are confused.
   //! Warning
   //! If an error occurs (that is, when IsDone returns
   //! false), the Status function returns:
   //! -   gce_NullAxis if Sqrt(A*A + B*B) is less
-  //! than or equal to gp::Resolution(), or
+  //! than or equal to gp1::Resolution(), or
   //! -   gce_ConfusedPoints if points P1 and P2 are coincident.
   Standard_EXPORT gce_MakeLin2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2);
 

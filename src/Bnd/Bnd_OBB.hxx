@@ -143,9 +143,9 @@ public:
   //! ZHSize)) will produce this oriented box.
   //! @code
   //!   Transform3d aLoc;
-  //!   aLoc.SetTransformation (theOBB.Position(), gp::XOY());
+  //!   aLoc.SetTransformation (theOBB.Position(), gp1::XOY());
   //! @endcode
-  gp_Ax3 Position() const { return gp_Ax3(myCenter, ZDirection(), XDirection()); }
+  Ax3 Position() const { return Ax3(myCenter, ZDirection(), XDirection()); }
 
   //! Returns the center of OBB
   const gp_XYZ& Center() const { return myCenter; }

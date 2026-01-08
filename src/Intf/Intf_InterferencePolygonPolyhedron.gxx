@@ -604,11 +604,11 @@ void Intf_InterferencePolygonPolyhedron::Interference
       if ( iLin == 1 ) {
 	gp_XYZ dif = p1.XYZ() - p2.XYZ();
 	Standard_Real dist = dif.Modulus();
-	if ( dist > gp::Resolution() ) {
+	if ( dist > gp1::Resolution() ) {
 	  dif /= dist;
 	  Standard_Real aCos = dif * triNor;
 	  aCos = fabs(aCos);
-	  if ( aCos > gp::Resolution() ) {
+	  if ( aCos > gp1::Resolution() ) {
 	    Standard_Real shift = defPh / aCos;
 	    Beg0.SetXYZ( p1.XYZ() + dif * shift );
 	  }
@@ -617,11 +617,11 @@ void Intf_InterferencePolygonPolyhedron::Interference
       else if ( iLin == ToolPolygon3d::NbSegments(thePolyg) ) {
 	gp_XYZ dif = p2.XYZ() - p1.XYZ();
 	Standard_Real dist = dif.Modulus();
-	if ( dist > gp::Resolution() ) {
+	if ( dist > gp1::Resolution() ) {
 	  dif /= dist;
 	  Standard_Real aCos = dif * triNor;
 	  aCos = fabs(aCos);
-	  if ( aCos > gp::Resolution() ) {
+	  if ( aCos > gp1::Resolution() ) {
 	    Standard_Real shift = defPh / aCos;
 	    End0.SetXYZ( p2.XYZ() + dif * shift );
 	  }

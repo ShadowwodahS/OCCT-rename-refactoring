@@ -126,7 +126,7 @@ Standard_Boolean V3d_CircularGrid::IsDisplayed() const
 
 void V3d_CircularGrid::UpdateDisplay()
 {
-  gp_Ax3 ThePlane = myViewer->PrivilegedPlane();
+  Ax3 ThePlane = myViewer->PrivilegedPlane();
 
   Standard_Real xl, yl, zl;
   Standard_Real xdx, xdy, xdz;

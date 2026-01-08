@@ -47,9 +47,9 @@ inline void appendTriangle(const int                        theNode1,
                            const int                        theNode2,
                            const int                        theNode3,
                            const TColStd_SequenceOfInteger& theW,
-                           NCollection_List<Poly_Triangle>& thePolyTriangles)
+                           NCollection_List<Triangle2>& thePolyTriangles)
 {
-  const Poly_Triangle aT1(theW(theNode1) + 1, theW(theNode2) + 1, theW(theNode3) + 1);
+  const Triangle2 aT1(theW(theNode1) + 1, theW(theNode2) + 1, theW(theNode3) + 1);
   thePolyTriangles.Append(aT1);
 }
 } // namespace
@@ -58,10 +58,10 @@ inline void appendTriangle(const int                        theNode1,
 
 Handle(MeshTriangulation) BRepMesh_Triangulator::ToPolyTriangulation(
   const TColgp_Array1OfPnt&              theNodes,
-  const NCollection_List<Poly_Triangle>& thePolyTriangles)
+  const NCollection_List<Triangle2>& thePolyTriangles)
 {
   Poly_Array1OfTriangle                     aTriangles(1, thePolyTriangles.Extent());
-  NCollection_List<Poly_Triangle>::Iterator itT(thePolyTriangles);
+  NCollection_List<Triangle2>::Iterator itT(thePolyTriangles);
   for (Standard_Integer i = 1; itT.More(); itT.Next(), i++)
   {
     aTriangles.SetValue(i, itT.Value());
@@ -78,13 +78,13 @@ BRepMesh_Triangulator::BRepMesh_Triangulator(
   const Dir3d&                                      theNorm)
     : myXYZs(theXYZs),
       myWires(theWires),
-      myPlane(gp::Origin(), theNorm)
+      myPlane(gp1::Origin(), theNorm)
 {
 }
 
 //=================================================================================================
 
-Standard_Boolean BRepMesh_Triangulator::Perform(NCollection_List<Poly_Triangle>& thePolyTriangles)
+Standard_Boolean BRepMesh_Triangulator::Perform(NCollection_List<Triangle2>& thePolyTriangles)
 {
 #ifdef CHECK_PERF
   MoniTool_TimerSentry MTS01("BRepMesh_Triangulator::Perform");
@@ -128,12 +128,12 @@ Standard_Boolean BRepMesh_Triangulator::Perform(NCollection_List<Poly_Triangle>&
 // purpose  : auxiliary for makeTrianglesUsingBRepMesh
 //=======================================================================
 void BRepMesh_Triangulator::addTriange34(const TColStd_SequenceOfInteger& theW,
-                                         NCollection_List<Poly_Triangle>& thePolyTriangles)
+                                         NCollection_List<Triangle2>& thePolyTriangles)
 {
   // prepare triangles from simple wire (3 or 4 points)
   if (theW.Length() == 3)
   {
-    Poly_Triangle aT(theW(1) + 1, theW(2) + 1, theW(3) + 1);
+    Triangle2 aT(theW(1) + 1, theW(2) + 1, theW(3) + 1);
     thePolyTriangles.Append(aT);
   }
   else if (theW.Length() == 4)
@@ -233,7 +233,7 @@ Standard_Boolean BRepMesh_Triangulator::prepareMeshStructure()
 //=================================================================================================
 
 Standard_Boolean BRepMesh_Triangulator::triangulate(
-  NCollection_List<Poly_Triangle>& thePolyTriangles)
+  NCollection_List<Triangle2>& thePolyTriangles)
 {
   try
   {
@@ -257,7 +257,7 @@ Standard_Boolean BRepMesh_Triangulator::triangulate(
       Standard_Integer aTri2d[3];
       myMeshStructure->ElementNodes(aTriangle, aTri2d);
 
-      const Poly_Triangle aT(myTmpMap.Find(aTri2d[0]),
+      const Triangle2 aT(myTmpMap.Find(aTri2d[0]),
                              myTmpMap.Find(aTri2d[1]),
                              myTmpMap.Find(aTri2d[2]));
       thePolyTriangles.Append(aT);

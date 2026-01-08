@@ -46,7 +46,7 @@ Draw_Axis2D::Draw_Axis2D(const gp_Pnt2d& p, const DrawColor& col, const Standard
 
 //=================================================================================================
 
-Draw_Axis2D::Draw_Axis2D(const gp_Ax22d& a, const DrawColor& col, const Standard_Integer Size)
+Draw_Axis2D::Draw_Axis2D(const Ax22d& a, const DrawColor& col, const Standard_Integer Size)
     : myAxes(a),
       myColor(col),
       mySize(Size)

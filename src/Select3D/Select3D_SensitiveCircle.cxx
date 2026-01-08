@@ -30,7 +30,7 @@ Select3D_SensitiveCircle::Select3D_SensitiveCircle(const Handle(SelectMgr_Entity
     : Select3D_SensitiveEntity(theOwnerId)
 {
   myRadius = theCircle.Radius();
-  myTrsf.SetTransformation(theCircle.Position(), gp::XOY());
+  myTrsf.SetTransformation(theCircle.Position(), gp1::XOY());
 
   mySensType = theIsFilled ? Select3D_TOS_INTERIOR : Select3D_TOS_BOUNDARY;
   if (mySensType == Select3D_TOS_BOUNDARY)

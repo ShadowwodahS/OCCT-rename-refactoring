@@ -179,11 +179,11 @@ const Handle(TopoDS_TShape)& VrmlData_IndexedFaceSet::TShape()
     }
   }
   // calculate triangles
-  NCollection_List<Poly_Triangle> aTriangles;
+  NCollection_List<Triangle2> aTriangles;
   itP.Init(aPolygons);
   for (NCollection_List<Dir3d>::Iterator itN(aNorms); itP.More(); itP.Next(), itN.Next())
   {
-    NCollection_List<Poly_Triangle> aTrias;
+    NCollection_List<Triangle2> aTrias;
     try
     {
       NCollection_List<TColStd_SequenceOfInteger> aPList;
@@ -211,7 +211,7 @@ const Handle(TopoDS_TShape)& VrmlData_IndexedFaceSet::TShape()
     aTriangulation->SetNode(i + 1, Point3d(aNodes(i)));
   }
   // Copy the triangles.
-  NCollection_List<Poly_Triangle>::Iterator itT(aTriangles);
+  NCollection_List<Triangle2>::Iterator itT(aTriangles);
   for (i = 1; itT.More(); itT.Next(), i++)
   {
     aTriangulation->SetTriangle(i, itT.Value());

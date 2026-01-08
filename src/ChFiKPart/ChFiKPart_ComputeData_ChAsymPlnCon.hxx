@@ -20,7 +20,7 @@
 Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
                                       const Handle(ChFiDS_SurfData)& Data,
                                       const gp_Pln&                  Pln,
-                                      const gp_Cone&                 Con,
+                                      const Cone1&                 Con,
                                       const Standard_Real            fu,
                                       const Standard_Real            lu,
                                       const TopAbs_Orientation       Or1,

@@ -250,7 +250,7 @@ void IVtkOCC_ShapeMesher::addEdge(const TopoEdge&  theEdge,
     {
       const Standard_Integer aPntId = aPolyOnTriangulation->Node(aJ + 1);
       Point3d                 aPoint = aTriangulation->Node(aPntId);
-      Dir3d aNorm = aTriangulation->HasNormals() ? aTriangulation->Normal(aPntId) : gp::DZ();
+      Dir3d aNorm = aTriangulation->HasNormals() ? aTriangulation->Normal(aPntId) : gp1::DZ();
       if (hasTransform)
       {
         aPoint.Transform(aTrsf);
@@ -372,7 +372,7 @@ void IVtkOCC_ShapeMesher::addShadedFace(const TopoFace& theFace, const IVtk_IdTy
   for (Standard_Integer anI = 1; anI <= aNbPoints; anI++)
   {
     Point3d aPoint = anOcctTriangulation->Node(anI);
-    Dir3d aNorm  = anOcctTriangulation->HasNormals() ? anOcctTriangulation->Normal(anI) : gp::DZ();
+    Dir3d aNorm  = anOcctTriangulation->HasNormals() ? anOcctTriangulation->Normal(anI) : gp1::DZ();
     if ((theFace.Orientation() == TopAbs_REVERSED) ^ isMirrored)
     {
       aNorm.Reverse();

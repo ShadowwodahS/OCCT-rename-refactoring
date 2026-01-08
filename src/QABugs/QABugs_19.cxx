@@ -630,9 +630,9 @@ static int test_offset(DrawInterpreter& di, Standard_Integer argc, const char** 
     return 1; // TCL_ERROR
   }
 
-  Axis3d               RotoAx(gp::Origin(), gp::DZ());
-  gp_Ax22d             Ax2(gp::Origin2d(), gp::DY2d(), gp::DX2d());
-  Handle(GeomSurface) Plane = new GeomPlane(gp::YOZ());
+  Axis3d               RotoAx(gp1::Origin(), gp1::DZ());
+  Ax22d             Ax2(gp1::Origin2d(), gp1::DY2d(), gp1::DX2d());
+  Handle(GeomSurface) Plane = new GeomPlane(gp1::YOZ());
 
   di << "<<<< Preparing sample surface of revolution based on trimmed curve >>>>\n";
   di << "-----------------------------------------------------------------------\n";
@@ -1268,11 +1268,11 @@ static Standard_Integer OCC24005(DrawInterpreter& theDI,
   }
 
   Handle(GeomPlane)              plane(new GeomPlane(
-    gp_Ax3(Point3d(-72.948737453424499, 754.30437716359393, 259.52151854671678),
+    Ax3(Point3d(-72.948737453424499, 754.30437716359393, 259.52151854671678),
            Dir3d(6.2471473085930200e-007, -0.99999999999980493, 0.00000000000000000),
            Dir3d(0.99999999999980493, 6.2471473085930200e-007, 0.00000000000000000))));
   Handle(Geom_CylindricalSurface) cylinder(new Geom_CylindricalSurface(
-    gp_Ax3(Point3d(-6.4812490053250649, 753.39408794522092, 279.16400974257465),
+    Ax3(Point3d(-6.4812490053250649, 753.39408794522092, 279.16400974257465),
            Dir3d(1.0000000000000000, 0.0, 0.00000000000000000),
            Dir3d(0.0, 1.0000000000000000, 0.00000000000000000)),
     19.712534607908712));
@@ -1403,7 +1403,7 @@ static Standard_Integer OCC24945(DrawInterpreter& di, Standard_Integer argc, con
   }
 
   Point3d              aP3D(-1725.97, 843.257, -4.22741e-013);
-  Frame3d              aAxis(Point3d(0, 843.257, 0), Dir3d(0, -1, 0), gp::DX());
+  Frame3d              aAxis(Point3d(0, 843.257, 0), Dir3d(0, -1, 0), gp1::DX());
   Handle(GeomCircle) aCircle = new GeomCircle(aAxis, 1725.9708621929999);
   GeomAdaptor_Curve   aC3D(aCircle);
 
@@ -1414,8 +1414,8 @@ static Standard_Integer OCC24945(DrawInterpreter& di, Standard_Integer argc, con
      << "\n";
 
   // Result of deviation
-  Frame3d      aCylAxis(Point3d(0, 2103.87, 0), -gp::DY(), -gp::DX());
-  gp_Cylinder aCylinder(aCylAxis, 1890.);
+  Frame3d      aCylAxis(Point3d(0, 2103.87, 0), -gp1::DY(), -gp1::DX());
+  Cylinder1 aCylinder(aCylAxis, 1890.);
 
   Standard_Real aU = 0., aV = 0.;
   ElSLib1::Parameters(aCylinder, aProj, aU, aV);
@@ -1605,7 +1605,7 @@ static Handle(Geom_ConicalSurface) CreateCone(const Point3d&       theLoc,
                                               const Standard_Real theCos)
 {
   const Standard_Real         anA = atan(theSin / theCos);
-  gp_Ax3                      anAxis(theLoc, theDir, theXDir);
+  Ax3                      anAxis(theLoc, theDir, theXDir);
   Handle(Geom_ConicalSurface) aSurf = new Geom_ConicalSurface(anAxis, anA, theRad);
   return aSurf;
 }
@@ -2109,10 +2109,10 @@ static Standard_Integer OCC24889(DrawInterpreter& theDI,
 {
   // Curves
   Handle(Geom2d_Circle) aCircle1 =
-    new Geom2d_Circle(gp_Ax22d(gp_Pnt2d(25, -25), gp_Dir2d(1, 0), gp_Dir2d(-0, 1)), 155);
+    new Geom2d_Circle(Ax22d(gp_Pnt2d(25, -25), gp_Dir2d(1, 0), gp_Dir2d(-0, 1)), 155);
 
   Handle(Geom2d_Circle) aCircle2 =
-    new Geom2d_Circle(gp_Ax22d(gp_Pnt2d(25, 25), gp_Dir2d(1, 0), gp_Dir2d(-0, 1)), 155);
+    new Geom2d_Circle(Ax22d(gp_Pnt2d(25, 25), gp_Dir2d(1, 0), gp_Dir2d(-0, 1)), 155);
 
   Handle(Geom2d_TrimmedCurve) aTrim[2] = {
     new Geom2d_TrimmedCurve(aCircle1, 1.57079632679490, 2.97959469729228),
@@ -3200,7 +3200,7 @@ static Standard_Integer OCC25545(DrawInterpreter& di, Standard_Integer, const ch
   Standard_Integer             n = 1000;
   std::vector<TopoShape>    aShapeVec(n);
   std::vector<TopLoc_Location> aLocVec(n);
-  TopoShape                 aShape = BRepBuilderAPI_MakeVertex(gp::Origin());
+  TopoShape                 aShape = BRepBuilderAPI_MakeVertex(gp1::Origin());
   aShapeVec[0]                        = aShape;
   for (Standard_Integer i = 1; i < n; ++i)
   {
@@ -3237,7 +3237,7 @@ static Standard_Integer OCC25547(DrawInterpreter& theDI,
 
   // However, start checking the main functionality at first.
   const Standard_Real       aFirstP = 0., aLastP = M_PI;
-  Handle(GeomCircle)       aCircle = new GeomCircle(Frame3d(gp::Origin(), gp::DZ()), 10);
+  Handle(GeomCircle)       aCircle = new GeomCircle(Frame3d(gp1::Origin(), gp1::DZ()), 10);
   Handle(Geom_TrimmedCurve) aHalf   = new Geom_TrimmedCurve(aCircle, aFirstP, aLastP);
   TopoEdge               aEdge   = EdgeMaker(aHalf);
   BRepAdaptor_Curve         aAdaptor(aEdge);
@@ -3250,7 +3250,7 @@ static Standard_Integer OCC25547(DrawInterpreter& theDI,
   }
 
   // Test static methods.
-  TopoFace                 aFace = FaceMaker(gp_Pln(gp::Origin(), gp::DZ()));
+  TopoFace                 aFace = FaceMaker(gp_Pln(gp1::Origin(), gp1::DZ()));
   BRepAdaptor_Surface         aSurf(aFace);
   Handle(BRepAdaptor_Surface) aHSurf = new BRepAdaptor_Surface(aSurf);
 
@@ -3273,7 +3273,7 @@ static Standard_Integer OCC25547(DrawInterpreter& theDI,
                                                                      aIntPnt.ChangeCoord(),
                                                                      aParams);
 
-  Standard_Real aDiff = aIntPnt.Distance(gp::Origin2d());
+  Standard_Real aDiff = aIntPnt.Distance(gp1::Origin2d());
   if (aIntFlag != BRepMesh_GeomTool::Cross || aDiff > Precision::PConfusion())
   {
     theDI << "Error. BRepMesh_GeomTool failed to intersect two lines.\n";
@@ -3288,7 +3288,7 @@ static Standard_Integer OCC25547(DrawInterpreter& theDI,
                                           Standard_False,
                                           aIntPnt);
 
-  aDiff = aIntPnt.Distance(gp::Origin2d());
+  aDiff = aIntPnt.Distance(gp1::Origin2d());
   if (aIntFlag != BRepMesh_GeomTool::Cross || aDiff > Precision::PConfusion())
   {
     theDI << "Error. BRepMesh_GeomTool failed to intersect two segments.\n";
@@ -4767,7 +4767,7 @@ static TopoShape taper(const TopoShape& shape,
                           Standard_Real       angle)
 {
   // Use maximum face-to-taper z-offset.
-  const gp_Pln neutral_plane(gp_Ax3(Point3d(0.0, 0.0, 140.0), Dir3d(0.0, 0.0, 1.0)));
+  const gp_Pln neutral_plane(Ax3(Point3d(0.0, 0.0, 140.0), Dir3d(0.0, 0.0, 1.0)));
 
   // Draft angle needs to be in radians, and flipped to adhere to our own (arbitrary) draft
   // angle definition.
@@ -5155,7 +5155,7 @@ public:
     // create separate group for text elements
     Handle(Graphic3d_Group)    aTextGroup = thePresentation->NewGroup();
     UtfString aString("YOU SHOULD SEE THIS TEXT", Standard_True);
-    Prs3d_Text::Draw1(aTextGroup, myDrawer->TextAspect(), aString, Frame3d(gp::Origin(), gp::DZ()));
+    Prs3d_Text::Draw1(aTextGroup, myDrawer->TextAspect(), aString, Frame3d(gp1::Origin(), gp1::DZ()));
   }
 
   virtual void ComputeSelection(const Handle(SelectionContainer)& /*theSelection*/,

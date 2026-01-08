@@ -223,7 +223,7 @@ Standard_Boolean BRepLib_PointCloudShape::addDensityPoints(const TopoShape& theF
       aNorm.Reverse();
     }
     const Standard_Real aNormMod = aNorm.Magnitude();
-    if (aNormMod > gp::Resolution())
+    if (aNormMod > gp1::Resolution())
     {
       aNorm /= aNormMod;
     }
@@ -234,7 +234,7 @@ Standard_Boolean BRepLib_PointCloudShape::addDensityPoints(const TopoShape& theF
       aP1.SetXYZ(aDeflPoint);
     }
     aP1.Transform(aTrsf);
-    if (aNormMod > gp::Resolution())
+    if (aNormMod > gp1::Resolution())
     {
       aNorm = Dir3d(aNorm).Transformed(aTrsf);
     }

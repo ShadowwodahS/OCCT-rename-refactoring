@@ -792,7 +792,7 @@ Standard_Boolean ChFi3d_Builder::StoreData(Handle(ChFiDS_SurfData)&         Data
   // The SurfData is filled in what concerns S1,
   Handle(GeomCurve3d)   Crv3d1 = Surf->UIso(Uon1);
   gp_Pnt2d             pori1(Uon1, 0.);
-  gp_Lin2d             lfil1(pori1, gp::DY2d());
+  gp_Lin2d             lfil1(pori1, gp1::DY2d());
   Handle(GeomCurve2d) PCurveOnSurf = new Geom2d_Line(lfil1);
   Handle(GeomCurve2d) PCurveOnFace;
   PCurveOnFace = new Geom2d_BSplineCurve(approx.Curve2dPoles(ion1),
@@ -856,7 +856,7 @@ Standard_Boolean ChFi3d_Builder::StoreData(Handle(ChFiDS_SurfData)&         Data
   // SurfData is filled in what concerns S2,
   Handle(GeomCurve3d) Crv3d2 = Surf->UIso(Uon2);
   gp_Pnt2d           pori2(Uon2, 0.);
-  gp_Lin2d           lfil2(pori2, gp::DY2d());
+  gp_Lin2d           lfil2(pori2, gp1::DY2d());
   PCurveOnSurf = new Geom2d_Line(lfil2);
   if (!S2.IsNull())
   {

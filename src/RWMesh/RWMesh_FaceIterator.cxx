@@ -55,7 +55,7 @@ RWMesh_FaceIterator::RWMesh_FaceIterator(const TopoShape&  theShape,
 
 Dir3d RWMesh_FaceIterator::normal(Standard_Integer theNode) const
 {
-  Dir3d aNormal(gp::DZ());
+  Dir3d aNormal(gp1::DZ());
   if (myPolyTriang->HasNormals())
   {
     Graphic3d_Vec3 aNormVec3;

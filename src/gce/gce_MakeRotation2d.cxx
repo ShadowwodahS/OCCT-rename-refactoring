@@ -19,7 +19,7 @@
 #include <gp_Trsf2d.hxx>
 
 //=========================================================================
-//   Creation d une rotation 2d de gp d angle Angle par rapport a un      +
+//   Creation d une rotation 2d de gp1 d angle Angle par rapport a un      +
 //   point Point.                                                         +
 //=========================================================================
 RotationBuilder2d::RotationBuilder2d(const gp_Pnt2d& Point, const Standard_Real Angle)

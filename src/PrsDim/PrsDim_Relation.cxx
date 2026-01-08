@@ -128,7 +128,7 @@ void PrsDim_Relation::ComputeProjEdgePresentation(const Handle(Prs3d_Presentatio
     Point3d ppf, ppl;
     ppf = BRepInspector::Pnt(TopExp1::FirstVertex(TopoDS::Edge(anEdge)));
     ppl = BRepInspector::Pnt(TopExp1::LastVertex(TopoDS::Edge(anEdge)));
-    if (FirstP.Distance(ppf) > gp::Resolution())
+    if (FirstP.Distance(ppf) > gp1::Resolution())
     {
       EdgeMaker MakEd1(FirstP, ppf);
       StdPrs_WFShape::Add(aPrs, MakEd1.Edge(), myDrawer);
@@ -138,7 +138,7 @@ void PrsDim_Relation::ComputeProjEdgePresentation(const Handle(Prs3d_Presentatio
       BRepBuilderAPI_MakeVertex MakVert1(FirstP);
       StdPrs_WFShape::Add(aPrs, MakVert1.Vertex(), myDrawer);
     }
-    if (LastP.Distance(ppl) > gp::Resolution())
+    if (LastP.Distance(ppl) > gp1::Resolution())
     {
       EdgeMaker MakEd2(LastP, ppl);
       StdPrs_WFShape::Add(aPrs, MakEd2.Edge(), myDrawer);

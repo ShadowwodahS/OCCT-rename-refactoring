@@ -22,7 +22,7 @@
 #include <StdFail_NotDone.hxx>
 
 //=========================================================================
-//   Creation d une rotation 3d de gp d angle Angle par rapport a une     +
+//   Creation d une rotation 3d de gp1 d angle Angle par rapport a une     +
 //   droite Line.                                                         +
 //=========================================================================
 GC_MakeRotation::GC_MakeRotation(const gp_Lin& Line, const Standard_Real Angle)
@@ -32,7 +32,7 @@ GC_MakeRotation::GC_MakeRotation(const gp_Lin& Line, const Standard_Real Angle)
 }
 
 //=========================================================================
-//   Creation d une rotation 3d de gp d angle Angle par rapport a un      +
+//   Creation d une rotation 3d de gp1 d angle Angle par rapport a un      +
 //   axe Axis.                                                            +
 //=========================================================================
 
@@ -43,7 +43,7 @@ GC_MakeRotation::GC_MakeRotation(const Axis3d& Axis, const Standard_Real Angle)
 }
 
 //=========================================================================
-//   Creation d une rotation 3d de gp d angle Angle par rapport a une     +
+//   Creation d une rotation 3d de gp1 d angle Angle par rapport a une     +
 //   droite issue du point Point et de direction Direc.                   +
 //=========================================================================
 

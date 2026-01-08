@@ -115,7 +115,7 @@ public:
   //! Returns the geometry linked to the <BasicElt>.
   Standard_EXPORT Handle(Geom2d_Geometry) GeomElt(const Handle(MAT_BasicElt)& aBasicElt) const;
 
-  //! Returns the geometry of  type <gp> linked to
+  //! Returns the geometry of  type <gp1> linked to
   //! the <Node>.
   Standard_EXPORT gp_Pnt2d GeomElt(const Handle(MAT_Node)& aNode) const;
 

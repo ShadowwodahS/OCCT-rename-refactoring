@@ -235,12 +235,12 @@ void PrsDim_OffsetDimension::ComputeTwoAxesOffset(const Handle(Prs3d_Presentatio
 
   if (surf1.GetType() == GeomAbs_Cylinder)
   {
-    gp_Cylinder aCyl = surf1.Cylinder();
+    Cylinder1 aCyl = surf1.Cylinder();
     Ax1Surf1         = aCyl.Axis();
   }
   else if (surf1.GetType() == GeomAbs_Cone)
   {
-    gp_Cone aCone = surf1.Cone();
+    Cone1 aCone = surf1.Cone();
     Ax1Surf1      = aCone.Axis();
   }
   else if (surf1.GetType() == GeomAbs_Torus)
@@ -256,12 +256,12 @@ void PrsDim_OffsetDimension::ComputeTwoAxesOffset(const Handle(Prs3d_Presentatio
 
   if (surf2.GetType() == GeomAbs_Cylinder)
   {
-    gp_Cylinder aCyl = surf2.Cylinder();
+    Cylinder1 aCyl = surf2.Cylinder();
     Ax1Surf2         = aCyl.Axis();
   }
   else if (surf2.GetType() == GeomAbs_Cone)
   {
-    gp_Cone aCone = surf2.Cone();
+    Cone1 aCone = surf2.Cone();
     Ax1Surf2      = aCone.Axis();
   }
   else if (surf2.GetType() == GeomAbs_Torus)
@@ -411,7 +411,7 @@ void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentati
   }
   // en attendant mieux
   mySAttach = PrsDim::Nearest(mySShape, curpos);
-  gp_Ax3 anax3(myax2);
+  Ax3 anax3(myax2);
   gp_Pln apln(anax3);
 
   // Point3d proj2;

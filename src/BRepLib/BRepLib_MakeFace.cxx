@@ -75,7 +75,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const gp_Pln& P)
 
 //=================================================================================================
 
-BRepLib_MakeFace::BRepLib_MakeFace(const gp_Cylinder& C)
+BRepLib_MakeFace::BRepLib_MakeFace(const Cylinder1& C)
 {
   Handle(Geom_CylindricalSurface) GC = new Geom_CylindricalSurface(C);
   Init(GC, Standard_True, Precision::Confusion());
@@ -83,7 +83,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const gp_Cylinder& C)
 
 //=================================================================================================
 
-BRepLib_MakeFace::BRepLib_MakeFace(const gp_Cone& C)
+BRepLib_MakeFace::BRepLib_MakeFace(const Cone1& C)
 {
   Handle(Geom_ConicalSurface) GC = new Geom_ConicalSurface(C);
   Init(GC, Standard_True, Precision::Confusion());
@@ -126,7 +126,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const gp_Pln&       P,
 
 //=================================================================================================
 
-BRepLib_MakeFace::BRepLib_MakeFace(const gp_Cylinder&  C,
+BRepLib_MakeFace::BRepLib_MakeFace(const Cylinder1&  C,
                                    const Standard_Real UMin,
                                    const Standard_Real UMax,
                                    const Standard_Real VMin,
@@ -138,7 +138,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const gp_Cylinder&  C,
 
 //=================================================================================================
 
-BRepLib_MakeFace::BRepLib_MakeFace(const gp_Cone&      C,
+BRepLib_MakeFace::BRepLib_MakeFace(const Cone1&      C,
                                    const Standard_Real UMin,
                                    const Standard_Real UMax,
                                    const Standard_Real VMin,
@@ -270,7 +270,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const gp_Pln&          P,
 
 //=================================================================================================
 
-BRepLib_MakeFace::BRepLib_MakeFace(const gp_Cylinder&     C,
+BRepLib_MakeFace::BRepLib_MakeFace(const Cylinder1&     C,
                                    const TopoWire&     W,
                                    const Standard_Boolean Inside)
 {
@@ -283,7 +283,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const gp_Cylinder&     C,
 
 //=================================================================================================
 
-BRepLib_MakeFace::BRepLib_MakeFace(const gp_Cone&         C,
+BRepLib_MakeFace::BRepLib_MakeFace(const Cone1&         C,
                                    const TopoWire&     W,
                                    const Standard_Boolean Inside)
 {

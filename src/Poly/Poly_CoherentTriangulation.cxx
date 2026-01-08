@@ -144,15 +144,15 @@ Handle(MeshTriangulation) Poly_CoherentTriangulation::GetTriangulation() const
 
   // Copy the triangles
   aCount = 0;
-  for (NCollection_Vector<Poly_CoherentTriangle>::Iterator anIterT(myTriangles); anIterT.More();
+  for (NCollection_Vector<CoherentTriangle>::Iterator anIterT(myTriangles); anIterT.More();
        anIterT.Next())
   {
-    const Poly_CoherentTriangle& aTri = anIterT.Value();
+    const CoherentTriangle& aTri = anIterT.Value();
     if (!aTri.IsEmpty())
     {
       aResult->SetTriangle(
         ++aCount,
-        Poly_Triangle(vecNodeId(aTri.Node(0)), vecNodeId(aTri.Node(1)), vecNodeId(aTri.Node(2))));
+        Triangle2(vecNodeId(aTri.Node(0)), vecNodeId(aTri.Node(1)), vecNodeId(aTri.Node(2))));
     }
   }
 
@@ -186,7 +186,7 @@ Standard_Boolean Poly_CoherentTriangulation::GetFreeNodes(
 
 Standard_Boolean Poly_CoherentTriangulation::RemoveDegenerated(
   const Standard_Real                                        theTol,
-  NCollection_List<Poly_CoherentTriangulation::TwoIntegers>* pLstRemovedNode)
+  NCollection_List<Poly_CoherentTriangulation::TwoIntegers1>* pLstRemovedNode)
 {
   Standard_Boolean        aResult(Standard_False);
   const Standard_Real     aTol2  = theTol * theTol;
@@ -195,11 +195,11 @@ Standard_Boolean Poly_CoherentTriangulation::RemoveDegenerated(
   if (pLstRemovedNode)
     pLstRemovedNode->Clear();
 
-  // NCollection_Vector<Poly_CoherentTriangle>::Iterator anIterT(myTriangles);
+  // NCollection_Vector<CoherentTriangle>::Iterator anIterT(myTriangles);
   Poly_CoherentTriangulation::IteratorOfTriangle1 anIterT(this);
   for (; anIterT.More(); anIterT.Next())
   {
-    Poly_CoherentTriangle& aTri     = anIterT.ChangeValue();
+    CoherentTriangle& aTri     = anIterT.ChangeValue();
     Poly_CoherentNode*     pNode[3] = {&ChangeNode(aTri.Node(0)),
                                        &ChangeNode(aTri.Node(1)),
                                        &ChangeNode(aTri.Node(2))};
@@ -219,13 +219,13 @@ Standard_Boolean Poly_CoherentTriangulation::RemoveDegenerated(
         // Reconnect all triangles from Node(ind[i+1]) to Node(ind[i-1])
         for (;;)
         {
-          Poly_CoherentTriPtr::Iterator anIterConn = pNode[ind[i + 1]]->TriangleIterator();
+          CoherentTriPtr::Iterator anIterConn = pNode[ind[i + 1]]->TriangleIterator();
           if (!anIterConn.More())
           {
             break;
           }
 
-          Poly_CoherentTriangle& aTriConn = anIterConn.ChangeValue();
+          CoherentTriangle& aTriConn = anIterConn.ChangeValue();
           Standard_Integer aNewTriConn[]  = {aTriConn.Node(0), aTriConn.Node(1), aTriConn.Node(2)};
           if (&aTriConn != &aTri)
           {
@@ -250,7 +250,7 @@ Standard_Boolean Poly_CoherentTriangulation::RemoveDegenerated(
         }
         if (pLstRemovedNode)
         {
-          pLstRemovedNode->Append(TwoIntegers(ip1, im1));
+          pLstRemovedNode->Append(TwoIntegers1(ip1, im1));
         }
         aResult = Standard_True;
         break;
@@ -270,7 +270,7 @@ Poly_CoherentTriangulation::IteratorOfTriangle1::IteratorOfTriangle1(
     Init(theTri->myTriangles);
     while (More())
     {
-      const Poly_CoherentTriangle& aTri = Value();
+      const CoherentTriangle& aTri = Value();
       if (aTri.IsEmpty() == Standard_False)
         break;
       Poly_BaseIteratorOfCoherentTriangle::Next();
@@ -285,7 +285,7 @@ void Poly_CoherentTriangulation::IteratorOfTriangle1::Next()
   Poly_BaseIteratorOfCoherentTriangle::Next();
   while (More())
   {
-    const Poly_CoherentTriangle& aTri = Value();
+    const CoherentTriangle& aTri = Value();
     if (aTri.IsEmpty() == Standard_False)
       break;
     Poly_BaseIteratorOfCoherentTriangle::Next();
@@ -369,10 +369,10 @@ Standard_Integer Poly_CoherentTriangulation::NNodes() const
 Standard_Integer Poly_CoherentTriangulation::NTriangles() const
 {
   Standard_Integer                                    aCount(0);
-  NCollection_Vector<Poly_CoherentTriangle>::Iterator anIter(myTriangles);
+  NCollection_Vector<CoherentTriangle>::Iterator anIter(myTriangles);
   for (; anIter.More(); anIter.Next())
   {
-    const Poly_CoherentTriangle& aTri = anIter.Value();
+    const CoherentTriangle& aTri = anIter.Value();
     if (aTri.IsEmpty() == Standard_False)
       aCount++;
   }
@@ -384,7 +384,7 @@ Standard_Integer Poly_CoherentTriangulation::NTriangles() const
 Standard_Integer Poly_CoherentTriangulation::NLinks() const
 {
   Standard_Integer                                aCount(0);
-  NCollection_Vector<Poly_CoherentLink>::Iterator anIter(myLinks);
+  NCollection_Vector<CoherentLink>::Iterator anIter(myLinks);
   for (; anIter.More(); anIter.Next())
   {
     if (anIter.Value().IsEmpty() == Standard_False)
@@ -411,7 +411,7 @@ Standard_Integer Poly_CoherentTriangulation::SetNode(const gp_XYZ&          theP
 
 //=================================================================================================
 
-Standard_Boolean Poly_CoherentTriangulation::RemoveTriangle(Poly_CoherentTriangle& theTriangle)
+Standard_Boolean Poly_CoherentTriangulation::RemoveTriangle(CoherentTriangle& theTriangle)
 {
   Standard_Boolean aResult(Standard_False);
   for (Standard_Integer i = 0; i < 3; i++)
@@ -420,10 +420,10 @@ Standard_Boolean Poly_CoherentTriangulation::RemoveTriangle(Poly_CoherentTriangl
     {
       Poly_CoherentNode& aNode = myNodes(theTriangle.Node(i));
       // If Links exist in this Triangulation, remove or update a Link1
-      Poly_CoherentLink* aLink = const_cast<Poly_CoherentLink*>(theTriangle.mypLink[i]);
+      CoherentLink* aLink = const_cast<CoherentLink*>(theTriangle.mypLink[i]);
       if (aLink)
       {
-        const Poly_CoherentTriangle* pTriOpp = theTriangle.GetConnectedTri(i);
+        const CoherentTriangle* pTriOpp = theTriangle.GetConnectedTri(i);
         Standard_Boolean             toRemoveLink(Standard_True);
         if (pTriOpp != 0L)
         {
@@ -463,14 +463,14 @@ Standard_Boolean Poly_CoherentTriangulation::RemoveTriangle(Poly_CoherentTriangl
 
 //=================================================================================================
 
-Poly_CoherentTriangle* Poly_CoherentTriangulation::AddTriangle(const Standard_Integer iNode0,
+CoherentTriangle* Poly_CoherentTriangulation::AddTriangle(const Standard_Integer iNode0,
                                                                const Standard_Integer iNode1,
                                                                const Standard_Integer iNode2)
 {
-  Poly_CoherentTriangle* pTriangle = 0L;
+  CoherentTriangle* pTriangle = 0L;
   if (iNode0 >= 0 && iNode1 >= 0 && iNode2 >= 0)
   {
-    pTriangle = &myTriangles.Append(Poly_CoherentTriangle());
+    pTriangle = &myTriangles.Append(CoherentTriangle());
     ReplaceNodes(*pTriangle, iNode0, iNode1, iNode2);
   }
   return pTriangle;
@@ -478,7 +478,7 @@ Poly_CoherentTriangle* Poly_CoherentTriangulation::AddTriangle(const Standard_In
 
 //=================================================================================================
 
-Standard_Boolean Poly_CoherentTriangulation::ReplaceNodes(Poly_CoherentTriangle& theTriangle,
+Standard_Boolean Poly_CoherentTriangulation::ReplaceNodes(CoherentTriangle& theTriangle,
                                                           const Standard_Integer iNode0,
                                                           const Standard_Integer iNode1,
                                                           const Standard_Integer iNode2)
@@ -487,11 +487,11 @@ Standard_Boolean Poly_CoherentTriangulation::ReplaceNodes(Poly_CoherentTriangle&
     RemoveTriangle(theTriangle);
   if (iNode0 >= 0 && iNode1 >= 0 && iNode2 >= 0)
   {
-    theTriangle = Poly_CoherentTriangle(iNode0, iNode1, iNode2);
+    theTriangle = CoherentTriangle(iNode0, iNode1, iNode2);
     for (Standard_Integer i = 0; i < 3; i++)
     {
       Poly_CoherentNode&            aNode   = myNodes(theTriangle.Node(i));
-      Poly_CoherentTriPtr::Iterator anIterT = aNode.TriangleIterator();
+      CoherentTriPtr::Iterator anIterT = aNode.TriangleIterator();
       for (; anIterT.More(); anIterT.Next())
       {
         anIterT.ChangeValue().SetConnection(theTriangle);
@@ -504,7 +504,7 @@ Standard_Boolean Poly_CoherentTriangulation::ReplaceNodes(Poly_CoherentTriangle&
     {
       for (Standard_Integer i = 0; i < 3; i++)
       {
-        const Poly_CoherentTriangle* pTriOpp = theTriangle.GetConnectedTri(i);
+        const CoherentTriangle* pTriOpp = theTriangle.GetConnectedTri(i);
         Standard_Boolean             toAddLink(Standard_True);
         if (pTriOpp != 0L)
         {
@@ -514,7 +514,7 @@ Standard_Boolean Poly_CoherentTriangulation::ReplaceNodes(Poly_CoherentTriangle&
           {
             if (theTriangle.Node(i) == pTriOpp->GetConnectedNode(j))
             {
-              Poly_CoherentLink* aLink = const_cast<Poly_CoherentLink*>(pTriOpp->GetLink(j));
+              CoherentLink* aLink = const_cast<CoherentLink*>(pTriOpp->GetLink(j));
               if (aLink != 0L)
               {
                 if (aLink->OppositeNode(0) == pTriOpp->Node(j))
@@ -545,9 +545,9 @@ Standard_Boolean Poly_CoherentTriangulation::ReplaceNodes(Poly_CoherentTriangle&
 
 //=================================================================================================
 
-void Poly_CoherentTriangulation::RemoveLink(Poly_CoherentLink& theLink)
+void Poly_CoherentTriangulation::RemoveLink(CoherentLink& theLink)
 {
-  const Poly_CoherentTriangle* pTri[2] = {0L, 0L};
+  const CoherentTriangle* pTri[2] = {0L, 0L};
   if (FindTriangle(theLink, pTri))
   {
     for (Standard_Integer i = 0; i < 2; i++)
@@ -556,31 +556,31 @@ void Poly_CoherentTriangulation::RemoveLink(Poly_CoherentLink& theLink)
       if (iNode >= 0 && pTri[i] != 0L)
       {
         if (iNode == pTri[i]->Node(0))
-          const_cast<Poly_CoherentTriangle*>(pTri[i])->mypLink[0] = 0L;
+          const_cast<CoherentTriangle*>(pTri[i])->mypLink[0] = 0L;
         else if (iNode == pTri[i]->Node(1))
-          const_cast<Poly_CoherentTriangle*>(pTri[i])->mypLink[1] = 0L;
+          const_cast<CoherentTriangle*>(pTri[i])->mypLink[1] = 0L;
         else if (iNode == pTri[i]->Node(2))
-          const_cast<Poly_CoherentTriangle*>(pTri[i])->mypLink[2] = 0L;
+          const_cast<CoherentTriangle*>(pTri[i])->mypLink[2] = 0L;
         else
           throw Standard_ProgramError("Poly_CoherentTriangulation::RemoveLink: "
                                       " wrong connectivity between triangles");
       }
     }
   }
-  theLink = Poly_CoherentLink();
+  theLink = CoherentLink();
 }
 
 //=================================================================================================
 
-Poly_CoherentLink* Poly_CoherentTriangulation::AddLink(const Poly_CoherentTriangle& theTri,
+CoherentLink* Poly_CoherentTriangulation::AddLink(const CoherentTriangle& theTri,
                                                        const Standard_Integer       theConn)
 {
-  Poly_CoherentLink* pLink = 0L;
+  CoherentLink* pLink = 0L;
   if (theTri.IsEmpty() == Standard_False)
   {
-    pLink = &myLinks.Append(Poly_CoherentLink(theTri, theConn));
-    const_cast<Poly_CoherentTriangle&>(theTri).mypLink[theConn] = pLink;
-    const Poly_CoherentTriangle* pTriOpp                        = theTri.GetConnectedTri(theConn);
+    pLink = &myLinks.Append(CoherentLink(theTri, theConn));
+    const_cast<CoherentTriangle&>(theTri).mypLink[theConn] = pLink;
+    const CoherentTriangle* pTriOpp                        = theTri.GetConnectedTri(theConn);
 
     if (!pTriOpp)
       return pLink;
@@ -590,11 +590,11 @@ Poly_CoherentLink* Poly_CoherentTriangulation::AddLink(const Poly_CoherentTriang
     if (pTriOpp)
     {
       if (pTriOpp->Node(0) == theTri.GetConnectedNode(theConn))
-        const_cast<Poly_CoherentTriangle*>(pTriOpp)->mypLink[0] = pLink;
+        const_cast<CoherentTriangle*>(pTriOpp)->mypLink[0] = pLink;
       else if (pTriOpp->Node(1) == theTri.GetConnectedNode(theConn))
-        const_cast<Poly_CoherentTriangle*>(pTriOpp)->mypLink[1] = pLink;
+        const_cast<CoherentTriangle*>(pTriOpp)->mypLink[1] = pLink;
       else if (pTriOpp->Node(2) == theTri.GetConnectedNode(theConn))
-        const_cast<Poly_CoherentTriangle*>(pTriOpp)->mypLink[2] = pLink;
+        const_cast<CoherentTriangle*>(pTriOpp)->mypLink[2] = pLink;
       else
         throw Standard_ProgramError("Poly_CoherentTriangulation::AddLink: "
                                     "Bad connectivity of triangles");
@@ -606,8 +606,8 @@ Poly_CoherentLink* Poly_CoherentTriangulation::AddLink(const Poly_CoherentTriang
 //=================================================================================================
 
 Standard_Boolean Poly_CoherentTriangulation::FindTriangle(
-  const Poly_CoherentLink&     theLink,
-  const Poly_CoherentTriangle* pTri[2]) const
+  const CoherentLink&     theLink,
+  const CoherentTriangle* pTri[2]) const
 {
   pTri[0]                       = 0L;
   pTri[1]                       = 0L;
@@ -615,10 +615,10 @@ Standard_Boolean Poly_CoherentTriangulation::FindTriangle(
   if (theLink.IsEmpty() == Standard_False && iNode0 < myNodes.Length()
       && theLink.Node(1) < myNodes.Length())
   {
-    Poly_CoherentTriPtr::Iterator anIter0 = myNodes(iNode0).TriangleIterator();
+    CoherentTriPtr::Iterator anIter0 = myNodes(iNode0).TriangleIterator();
     for (; anIter0.More(); anIter0.Next())
     {
-      const Poly_CoherentTriangle& aTri = anIter0.Value();
+      const CoherentTriangle& aTri = anIter0.Value();
       if (aTri.Node(0) == iNode0)
       {
         if (aTri.Node(1) == theLink.Node(1))
@@ -655,10 +655,10 @@ Standard_Boolean Poly_CoherentTriangulation::FindTriangle(
 Standard_Integer Poly_CoherentTriangulation::ComputeLinks()
 {
   myLinks.Clear();
-  NCollection_Vector<Poly_CoherentTriangle>::Iterator anIter(myTriangles);
+  NCollection_Vector<CoherentTriangle>::Iterator anIter(myTriangles);
   for (; anIter.More(); anIter.Next())
   {
-    const Poly_CoherentTriangle& aTriangle = anIter.Value();
+    const CoherentTriangle& aTriangle = anIter.Value();
 
     if (aTriangle.IsEmpty())
       continue;
@@ -676,7 +676,7 @@ Standard_Integer Poly_CoherentTriangulation::ComputeLinks()
   Standard_Integer i;
   for (; anIter.More(); anIter.Next())
   {
-    Poly_CoherentTriangle& aTriangle = anIter.ChangeValue();
+    CoherentTriangle& aTriangle = anIter.ChangeValue();
 
     if (aTriangle.IsEmpty())
       continue;
@@ -697,10 +697,10 @@ Standard_Integer Poly_CoherentTriangulation::ComputeLinks()
 void Poly_CoherentTriangulation::ClearLinks()
 {
   myLinks.Clear();
-  NCollection_Vector<Poly_CoherentTriangle>::Iterator anIter(myTriangles);
+  NCollection_Vector<CoherentTriangle>::Iterator anIter(myTriangles);
   for (; anIter.More(); anIter.Next())
   {
-    Poly_CoherentTriangle& aTriangle = anIter.ChangeValue();
+    CoherentTriangle& aTriangle = anIter.ChangeValue();
     aTriangle.mypLink[0]             = 0L;
     aTriangle.mypLink[1]             = 0L;
     aTriangle.mypLink[2]             = 0L;

@@ -113,7 +113,7 @@ void ContourAnalyzer::Perform(const gp_Sphere& S, const Point3d& Eye)
   done = Standard_True;
 }
 
-void ContourAnalyzer::Perform(const gp_Cylinder& C, const Dir3d& D)
+void ContourAnalyzer::Perform(const Cylinder1& C, const Dir3d& D)
 {
   done = Standard_False;
 
@@ -137,7 +137,7 @@ void ContourAnalyzer::Perform(const gp_Cylinder& C, const Dir3d& D)
   done = Standard_True;
 }
 
-void ContourAnalyzer::Perform(const gp_Cylinder& C, const Dir3d& D, const Standard_Real Angle)
+void ContourAnalyzer::Perform(const Cylinder1& C, const Dir3d& D, const Standard_Real Angle)
 {
   done = Standard_False;
 
@@ -197,7 +197,7 @@ void ContourAnalyzer::Perform(const gp_Cylinder& C, const Dir3d& D, const Standa
   done = Standard_True;
 }
 
-void ContourAnalyzer::Perform(const gp_Cylinder& C, const Point3d& Eye)
+void ContourAnalyzer::Perform(const Cylinder1& C, const Point3d& Eye)
 {
   done = Standard_False;
 
@@ -225,7 +225,7 @@ void ContourAnalyzer::Perform(const gp_Cylinder& C, const Point3d& Eye)
   done = Standard_True;
 }
 
-void ContourAnalyzer::Perform(const gp_Cone& C, const Dir3d& D)
+void ContourAnalyzer::Perform(const Cone1& C, const Dir3d& D)
 {
   done = Standard_False;
 
@@ -286,7 +286,7 @@ void ContourAnalyzer::Perform(const gp_Cone& C, const Dir3d& D)
   done = Standard_True;
 }
 
-void ContourAnalyzer::Perform(const gp_Cone& C, const Dir3d& D, const Standard_Real Angle)
+void ContourAnalyzer::Perform(const Cone1& C, const Dir3d& D, const Standard_Real Angle)
 {
   done  = Standard_False;
   nbSol = 0;
@@ -390,7 +390,7 @@ void ContourAnalyzer::Perform(const gp_Cone& C, const Dir3d& D, const Standard_R
   done = Standard_True;
 }
 
-void ContourAnalyzer::Perform(const gp_Cone& C, const Point3d& Eye)
+void ContourAnalyzer::Perform(const Cone1& C, const Point3d& Eye)
 {
   done = Standard_False;
 

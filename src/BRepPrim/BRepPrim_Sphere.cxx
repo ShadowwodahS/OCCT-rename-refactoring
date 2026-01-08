@@ -32,7 +32,7 @@
 //=================================================================================================
 
 BRepPrim_Sphere::BRepPrim_Sphere(const Standard_Real Radius)
-    : BRepPrim_Revolution(gp::XOY(), PMIN, PMAX),
+    : BRepPrim_Revolution(gp1::XOY(), PMIN, PMAX),
       myRadius(Radius)
 {
   SetMeridian();

@@ -18,14 +18,14 @@
 
 #include <Standard_TypeDef.hxx>
 
-class Poly_CoherentLink;
+class CoherentLink;
 
 /**
  * Data class used in Poly_CoherentTriangultion.
  * Implements a triangle with references to its neighbours.
  */
 
-class Poly_CoherentTriangle
+class CoherentTriangle
 {
 public:
   // ---------- PUBLIC METHODS ----------
@@ -33,12 +33,12 @@ public:
   /**
    * Empty constructor.
    */
-  Standard_EXPORT Poly_CoherentTriangle();
+  Standard_EXPORT CoherentTriangle();
 
   /**
    * Constructor.
    */
-  Standard_EXPORT Poly_CoherentTriangle(const Standard_Integer iNode0,
+  Standard_EXPORT CoherentTriangle(const Standard_Integer iNode0,
                                         const Standard_Integer iNode1,
                                         const Standard_Integer iNode2);
 
@@ -76,7 +76,7 @@ public:
    *   due to improper topology.
    */
   Standard_EXPORT Standard_Boolean SetConnection(const Standard_Integer iConn,
-                                                 Poly_CoherentTriangle& theTr);
+                                                 CoherentTriangle& theTr);
 
   /**
    * Create connection with another triangle theTri.
@@ -89,7 +89,7 @@ public:
    *   True if successful, False if the connection is rejected
    *   due to improper topology.
    */
-  Standard_EXPORT Standard_Boolean SetConnection(Poly_CoherentTriangle& theTri);
+  Standard_EXPORT Standard_Boolean SetConnection(CoherentTriangle& theTri);
 
   /**
    * Remove the connection with the given index.
@@ -104,7 +104,7 @@ public:
    * @return
    *  True if successfuol or False if the connection has not been found.
    */
-  Standard_EXPORT Standard_Boolean RemoveConnection(Poly_CoherentTriangle& theTri);
+  Standard_EXPORT Standard_Boolean RemoveConnection(CoherentTriangle& theTri);
 
   /**
    * Query the number of connected triangles.
@@ -124,7 +124,7 @@ public:
    * Query the connected triangle on the given side.
    * Returns NULL if there is no connection on the specified side.
    */
-  inline const Poly_CoherentTriangle* GetConnectedTri(const Standard_Integer iConn) const
+  inline const CoherentTriangle* GetConnectedTri(const Standard_Integer iConn) const
   {
     return mypConnected[iConn];
   }
@@ -133,7 +133,7 @@ public:
    * Query the Link1 associate with the given side of the Triangle1.
    * May return NULL if there are no links in the triangulation.
    */
-  inline const Poly_CoherentLink* GetLink(const Standard_Integer iLink) const
+  inline const CoherentLink* GetLink(const Standard_Integer iLink) const
   {
     return mypLink[iLink];
   }
@@ -141,7 +141,7 @@ public:
   /**
    * Returns the index of the connection with the given triangle, or -1 if not found.
    */
-  Standard_EXPORT Standard_Integer FindConnection(const Poly_CoherentTriangle&) const;
+  Standard_EXPORT Standard_Integer FindConnection(const CoherentTriangle&) const;
 
 protected:
   // ---------- PROTECTED METHODS ----------
@@ -152,8 +152,8 @@ private:
   Standard_Integer             myNConnections;
   Standard_Integer             myNodes[3]{};
   Standard_Integer             myNodesOnConnected[3]{};
-  const Poly_CoherentTriangle* mypConnected[3]{};
-  const Poly_CoherentLink*     mypLink[3]{};
+  const CoherentTriangle* mypConnected[3]{};
+  const CoherentLink*     mypLink[3]{};
 
   friend class Poly_CoherentTriangulation;
 };

@@ -80,12 +80,12 @@ const Bisector_PointOnBis& Bisector_PolyBis::Last() const
 
 Standard_Integer Bisector_PolyBis::Interval1(const Standard_Real U) const
 {
-  if (Last().ParamOnBis() - U < gp::Resolution())
+  if (Last().ParamOnBis() - U < gp1::Resolution())
   {
     return nbPoints - 1;
   }
   Standard_Real dU = (Last().ParamOnBis() - First().ParamOnBis()) / (nbPoints - 1);
-  if (dU <= gp::Resolution())
+  if (dU <= gp1::Resolution())
     return 1;
 
   Standard_Integer IntU = Standard_Integer(Abs(U - First().ParamOnBis()) / dU);

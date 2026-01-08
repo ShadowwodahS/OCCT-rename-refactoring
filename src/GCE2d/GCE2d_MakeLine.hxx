@@ -43,7 +43,7 @@ public:
   //! The Location of A is the origin of the line.
   Standard_EXPORT GCE2d_MakeLine(const gp_Ax2d& A);
 
-  //! Creates a line from a non persistent line from package gp.
+  //! Creates a line from a non persistent line from package gp1.
   Standard_EXPORT GCE2d_MakeLine(const gp_Lin2d& L);
 
   //! P is the origin and V is the direction of the line.

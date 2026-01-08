@@ -31,7 +31,7 @@ class gp_Pnt2d;
 //! Root class for algorithms which convert a conic curve into
 //! a BSpline curve (CircleToBSplineCurve, EllipseToBSplineCurve,
 //! HyperbolaToBSplineCurve, ParabolaToBSplineCurve).
-//! These algorithms all work on 2D curves from the gp
+//! These algorithms all work on 2D curves from the gp1
 //! package and compute all the data needed to construct a
 //! BSpline curve equivalent to the conic curve. This data consists of:
 //! -   the degree of the curve,

@@ -191,7 +191,7 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const TopoVertex& V1, const TopoVertex& V2)
   Point3d        P1 = BRepInspector::Pnt(V1);
   Point3d        P2 = BRepInspector::Pnt(V2);
   Standard_Real l  = P1.Distance(P2);
-  if (l <= gp::Resolution())
+  if (l <= gp1::Resolution())
   {
     myError = BRepLib_LineThroughIdenticPoints;
     return;
@@ -206,7 +206,7 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const TopoVertex& V1, const TopoVertex& V2)
 BRepLib_MakeEdge::BRepLib_MakeEdge(const Point3d& P1, const Point3d& P2)
 {
   Standard_Real l = P1.Distance(P2);
-  if (l <= gp::Resolution())
+  if (l <= gp1::Resolution())
   {
     myError = BRepLib_LineThroughIdenticPoints;
     return;
@@ -652,7 +652,7 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve3d)& CC,
     }
 
     // check ponctuallity
-    if ((p2 - p1) <= gp::Resolution())
+    if ((p2 - p1) <= gp1::Resolution())
     {
       myError = BRepLib_LineThroughIdenticPoints;
       return;

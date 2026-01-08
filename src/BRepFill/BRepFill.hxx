@@ -28,7 +28,7 @@ class TopoEdge;
 class TopoShell;
 class TopoWire;
 class TopoShape;
-class gp_Ax3;
+class Ax3;
 class Point3d;
 class Vector3d;
 
@@ -52,7 +52,7 @@ public:
   //! <Spine> is a plane wire or a plane face.
   Standard_EXPORT static void Axe(const TopoShape& Spine,
                                   const TopoWire&  Profile,
-                                  gp_Ax3&             AxeProf,
+                                  Ax3&             AxeProf,
                                   Standard_Boolean&   ProfOnSpine,
                                   const Standard_Real Tol);
 

@@ -71,12 +71,12 @@ Geom2d_Ellipse::Geom2d_Ellipse(const Ax2d&            MajorAxis,
   {
     throw Standard_ConstructionError();
   }
-  pos = gp_Ax22d(MajorAxis, Sense);
+  pos = Ax22d(MajorAxis, Sense);
 }
 
 //=================================================================================================
 
-Geom2d_Ellipse::Geom2d_Ellipse(const gp_Ax22d&     Axis,
+Geom2d_Ellipse::Geom2d_Ellipse(const Ax22d&     Axis,
                                const Standard_Real MajorRadius,
                                const Standard_Real MinorRadius)
     : majorRadius(MajorRadius),

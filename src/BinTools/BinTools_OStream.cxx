@@ -281,7 +281,7 @@ BinaryOutputStream& BinaryOutputStream::operator<<(const Transform3d& theValue)
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinaryOutputStream& BinaryOutputStream::operator<<(const Poly_Triangle& theValue)
+BinaryOutputStream& BinaryOutputStream::operator<<(const Triangle2& theValue)
 {
   theValue.Value(1);
 #if DO_INVERSE

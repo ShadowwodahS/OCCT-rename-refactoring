@@ -20,7 +20,7 @@
 #include <TColStd_HArray1OfInteger.hxx>
 #include <Select3D_SensitiveSet.hxx>
 
-class Poly_Triangle;
+class Triangle2;
 class MeshTriangulation;
 
 //! A framework to define selection of a sensitive entity made of a set of triangles.
@@ -55,13 +55,13 @@ public:
   //! Get last detected triangle.
   //! @param[out] theTriangle  triangle node indexes
   //! @return TRUE if defined
-  Standard_EXPORT bool LastDetectedTriangle(Poly_Triangle& theTriangle) const;
+  Standard_EXPORT bool LastDetectedTriangle(Triangle2& theTriangle) const;
 
   //! Get last detected triangle.
   //! @param[out] theTriangle  triangle node indexes
   //! @param[out] theTriNodes  triangle nodes (with pre-applied transformation)
   //! @return TRUE if defined
-  Standard_EXPORT bool LastDetectedTriangle(Poly_Triangle& theTriangle,
+  Standard_EXPORT bool LastDetectedTriangle(Triangle2& theTriangle,
                                             Point3d         theTriNodes[3]) const;
 
   //! Return index of last detected triangle within [1..NbTris] range, or -1 if undefined.

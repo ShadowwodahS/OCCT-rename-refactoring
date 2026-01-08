@@ -27,7 +27,7 @@ class gp_Pnt2d;
 
 //! This class defines the geometric information
 //! for an intersection point between 2 surfaces :
-//! The coordinates ( Pnt from gp ), and two
+//! The coordinates ( Pnt from gp1 ), and two
 //! parametric coordinates.
 class PointOn2Surfaces
 {

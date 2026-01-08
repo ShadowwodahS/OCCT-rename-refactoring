@@ -58,8 +58,8 @@ private:
   const Adaptor3d_Surface* myS;
   GeomAbs_SurfaceType      mySType;
   gp_Pln                   myPln;
-  gp_Cone                  myCone;
-  gp_Cylinder              myCylinder;
+  Cone1                  myCone;
+  Cylinder1              myCylinder;
   gp_Sphere                mySphere;
   gp_Torus                 myTorus;
   Point3d                   myPTrim[4];

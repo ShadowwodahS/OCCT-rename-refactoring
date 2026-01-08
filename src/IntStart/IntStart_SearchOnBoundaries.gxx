@@ -190,7 +190,7 @@ Standard_Boolean IsDegenerated(const Quadric1& theQuadric)
   GeomAbs_SurfaceType TypeQuad = theQuadric.TypeQuadric();
   if (TypeQuad == GeomAbs_Cone)
   {
-    gp_Cone aCone = theQuadric.Cone();
+    Cone1 aCone = theQuadric.Cone();
     Standard_Real aSemiAngle = Abs(aCone.SemiAngle());
     if (aSemiAngle < 0.02 || aSemiAngle > 1.55)
       return Standard_True;
@@ -1032,7 +1032,7 @@ Standard_Integer TreatLC (const TheArc& A,
   Standard_Real f, l, U1f, U1l, U2f, U2l, UEgde, TOL, aDist, aR, aRRel, Tol;
   Handle(GeomCurve3d) aCEdge=BRepInspector::Curve(*anE, f, l);
   
-  gp_Cylinder aCyl=aQuadric.Cylinder();
+  Cylinder1 aCyl=aQuadric.Cylinder();
   const Axis3d& anAx1=aCyl.Axis();
   gp_Lin aLin(anAx1);
   Handle(GeomLine) aCAxis=new GeomLine (aLin);

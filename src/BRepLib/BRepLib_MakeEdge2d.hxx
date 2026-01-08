@@ -51,7 +51,7 @@ class TopoEdge;
 //! that  direction. Vertices are created for finite
 //! values of p1 and p2.
 //!
-//! Create(C : TheCurve; P1, P2 : Pnt2d from gp)
+//! Create(C : TheCurve; P1, P2 : Pnt2d from gp1)
 //!
 //! Make an edge on the curve  between the points P1
 //! and P2. The  points are projected on   the curve

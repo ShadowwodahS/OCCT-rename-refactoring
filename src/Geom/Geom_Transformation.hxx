@@ -114,7 +114,7 @@ public:
   //! T.SetTransformation (FromSystem1, ToSystem2);
   //! Point3d P2 = P1.Transformed (T);
   //! P2.Coord (x2, y2, z2);
-  void SetTransformation(const gp_Ax3& theFromSystem1, const gp_Ax3& theToSystem2)
+  void SetTransformation(const Ax3& theFromSystem1, const Ax3& theToSystem2)
   {
     gpTrsf.SetTransformation(theFromSystem1, theToSystem2);
   }
@@ -125,7 +125,7 @@ public:
   //! to the local coordinate system defined with the Ax2 ToSystem.
   //! Same utilisation as the previous method. FromSystem1 is
   //! defaulted to the absolute coordinate system.
-  void SetTransformation(const gp_Ax3& theToSystem) { gpTrsf.SetTransformation(theToSystem); }
+  void SetTransformation(const Ax3& theToSystem) { gpTrsf.SetTransformation(theToSystem); }
 
   //! Makes the transformation into a translation.
   //! V is the vector of the translation.
@@ -164,12 +164,12 @@ public:
 
   //! Raised if the transformation is singular. This means that
   //! the ScaleFactor is lower or equal to Resolution from
-  //! package gp.
+  //! package gp1.
   void Invert() { gpTrsf.Invert(); }
 
   //! Raised if the transformation is singular. This means that
   //! the ScaleFactor is lower or equal to Resolution from
-  //! package gp.
+  //! package gp1.
   Standard_NODISCARD Standard_EXPORT Handle(Geom_Transformation) Inverted() const;
 
   //! Computes the transformation composed with Other and <me>.

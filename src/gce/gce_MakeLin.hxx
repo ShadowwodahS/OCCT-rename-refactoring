@@ -28,11 +28,11 @@ class Point3d;
 class Dir3d;
 
 //! This class implements the following algorithms used
-//! to create a Lin from gp.
+//! to create a Lin from gp1.
 //! * Create a Lin parallel to another and passing
 //! through a point.
 //! * Create a Lin passing through 2 points.
-//! * Create a lin from its axis (Ax1 from gp).
+//! * Create a lin from its axis (Ax1 from gp1).
 //! * Create a lin from a point and a direction.
 class gce_MakeLin : public Root6
 {
@@ -46,11 +46,11 @@ public:
   //! <V> is the direction of the line.
   Standard_EXPORT gce_MakeLin(const Point3d& P, const Dir3d& V);
 
-  //! Make a Lin from gp <TheLin> parallel to another
+  //! Make a Lin from gp1 <TheLin> parallel to another
   //! Lin <Lin> and passing through a Pnt <Point>.
   Standard_EXPORT gce_MakeLin(const gp_Lin& Lin, const Point3d& Point);
 
-  //! Make a Lin from gp <TheLin> passing through 2
+  //! Make a Lin from gp1 <TheLin> passing through 2
   //! Pnt <P1>,<P2>.
   //! It returns false if <p1> and <P2> are confused.
   Standard_EXPORT gce_MakeLin(const Point3d& P1, const Point3d& P2);

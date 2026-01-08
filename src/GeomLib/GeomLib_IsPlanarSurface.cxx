@@ -49,7 +49,7 @@ static Standard_Boolean Controle(const TColgp_Array1OfPnt&   Poles,
     S->Bounds(umin, umax, vmin, vmax);
     S->D1((umin + umax) / 2, (vmin + vmax) / 2, P, DU, DV);
 
-    if (DU.SquareMagnitude() > gp::Resolution() && DV.SquareMagnitude() > gp::Resolution())
+    if (DU.SquareMagnitude() > gp1::Resolution() && DV.SquareMagnitude() > gp1::Resolution())
     {
       // On prend DX le plus proche possible de DU
       Dir3d        du(DU);
@@ -70,7 +70,7 @@ static Standard_Boolean Controle(const TColgp_Array1OfPnt&   Poles,
       if (DY.Angle(DV) > M_PI / 2)
         DY.Reverse();
 
-      gp_Ax3 axe(Bary, DX ^ DY, DX);
+      Ax3 axe(Bary, DX ^ DY, DX);
       Plan.SetPosition(axe);
       Plan.SetLocation(Bary);
       IsPlan = Standard_True;
@@ -165,7 +165,7 @@ PlanarSurfaceChecker::PlanarSurfaceChecker(const Handle(GeomSurface)& S,
       Standard_Real    Umin, Umax, Vmin, Vmax;
       S->Bounds(Umin, Umax, Vmin, Vmax);
       S->D1((Umin + Umax) / 2, (Vmin + Vmax) / 2, P, DU, DV);
-      if (DU.Magnitude() <= gp::Resolution() || DV.Magnitude() <= gp::Resolution())
+      if (DU.Magnitude() <= gp1::Resolution() || DV.Magnitude() <= gp1::Resolution())
       {
         Standard_Real NewU = (Umin + Umax) / 2 + (Umax - Umin) * 0.1;
         Standard_Real NewV = (Vmin + Vmax) / 2 + (Vmax - Vmin) * 0.1;
@@ -185,7 +185,7 @@ PlanarSurfaceChecker::PlanarSurfaceChecker(const Handle(GeomSurface)& S,
 
       if (Essai)
       {
-        gp_Ax3 axe(P, Dir);
+        Ax3 axe(P, Dir);
         axe.SetXDirection(DU);
         myPlan.SetPosition(axe);
         myPlan.SetLocation(P);
@@ -207,7 +207,7 @@ PlanarSurfaceChecker::PlanarSurfaceChecker(const Handle(GeomSurface)& S,
 
       S->Bounds(Umin, Umax, Vmin, Vmax);
       S->D1((Umin + Umax) / 2, (Vmin + Vmax) / 2, P, Du, Dv);
-      if (Du.Magnitude() <= gp::Resolution() || Dv.Magnitude() <= gp::Resolution())
+      if (Du.Magnitude() <= gp1::Resolution() || Dv.Magnitude() <= gp1::Resolution())
       {
         Standard_Real NewU = (Umin + Umax) / 2 + (Umax - Umin) * 0.1;
         Standard_Real NewV = (Vmin + Vmax) / 2 + (Vmax - Vmin) * 0.1;
@@ -224,7 +224,7 @@ PlanarSurfaceChecker::PlanarSurfaceChecker(const Handle(GeomSurface)& S,
       }
       if (Essai)
       {
-        gp_Ax3 axe(P, Dn, Du);
+        Ax3 axe(P, Dn, Du);
         myPlan.SetPosition(axe);
         myPlan.SetLocation(P);
         Handle(GeomCurve3d) C;

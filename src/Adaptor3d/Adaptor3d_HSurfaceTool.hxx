@@ -230,12 +230,12 @@ public:
 
   static gp_Pln Plane(const Handle(Adaptor3d_Surface)& theSurf) { return theSurf->Plane(); }
 
-  static gp_Cylinder Cylinder(const Handle(Adaptor3d_Surface)& theSurf)
+  static Cylinder1 Cylinder(const Handle(Adaptor3d_Surface)& theSurf)
   {
     return theSurf->Cylinder();
   }
 
-  static gp_Cone Cone(const Handle(Adaptor3d_Surface)& theSurf) { return theSurf->Cone(); }
+  static Cone1 Cone(const Handle(Adaptor3d_Surface)& theSurf) { return theSurf->Cone(); }
 
   static gp_Torus Torus(const Handle(Adaptor3d_Surface)& theSurf) { return theSurf->Torus(); }
 

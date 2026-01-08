@@ -318,7 +318,7 @@ static Standard_Integer triarea(DrawInterpreter& di, int n, const char** a)
       }
       for (int j = 1; j <= aPoly->NbTriangles(); j++)
       {
-        const Poly_Triangle tri = aPoly->Triangle1(j);
+        const Triangle2 tri = aPoly->Triangle1(j);
         int                 n1, n2, n3;
         tri.Get(n1, n2, n3);
         const Point3d p1 = aPoly->Node(n1);
@@ -482,7 +482,7 @@ static Standard_Integer tricheck(DrawInterpreter& di, int n, const char** a)
       TopLoc_Location                  aLoc;
       const Transform3d&                   aTrsf = aLoc.Transformation();
       const Handle(MeshTriangulation) aT    = BRepInspector::Triangulation(aFace, aLoc);
-      const Poly_Triangle&             aTri  = aT->Triangle1(aTriID);
+      const Triangle2&             aTri  = aT->Triangle1(aTriID);
       Standard_Integer                 aN1, aN2, aN3;
       aTri.Get(aN1, aN2, aN3);
 
@@ -580,7 +580,7 @@ static Standard_Integer tricheck(DrawInterpreter& di, int n, const char** a)
     const Standard_Integer         aTriNum = aT->NbTriangles();
     for (Standard_Integer aTriIndx = 1; aTriIndx <= aTriNum; aTriIndx++)
     {
-      const Poly_Triangle aTri         = aT->Triangle1(aTriIndx);
+      const Triangle2 aTri         = aT->Triangle1(aTriIndx);
       Standard_Integer    aTriNodes[3] = {aTri.Value(1), aTri.Value(2), aTri.Value(3)};
 
       for (Standard_Integer j = 1; j <= 3; ++j)

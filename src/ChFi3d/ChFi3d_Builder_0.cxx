@@ -691,7 +691,7 @@ void ChFi3d_ExtrSpineCarac(const TopOpeBRepDS_DataStructure& DStr,
   switch (gs.GetType())
   {
     case GeomAbs_Cylinder: {
-      gp_Cylinder cyl = gs.Cylinder();
+      Cylinder1 cyl = gs.Cylinder();
       R               = cyl.Radius();
       ElSLib1::D1(pp.X(), pp.Y(), cyl, Pbid, Vbid, V);
     }
@@ -1545,22 +1545,22 @@ void ChFi3d_ComputePCurv(const gp_Pnt2d&        UV1,
   if (Abs(p1.X() - p2.X()) <= tol && Abs((p2.Y() - p1.Y()) - (Parfin - Pardeb)) <= tol)
   {
     gp_Pnt2d ppp(p1.X(), p1.Y() - Pardeb);
-    Pcurv = new Geom2d_Line(ppp, gp::DY2d());
+    Pcurv = new Geom2d_Line(ppp, gp1::DY2d());
   }
   else if (Abs(p1.X() - p2.X()) <= tol && Abs((p1.Y() - p2.Y()) - (Parfin - Pardeb)) <= tol)
   {
     gp_Pnt2d ppp(p1.X(), p1.Y() + Pardeb);
-    Pcurv = new Geom2d_Line(ppp, gp::DY2d().Reversed());
+    Pcurv = new Geom2d_Line(ppp, gp1::DY2d().Reversed());
   }
   else if (Abs(p1.Y() - p2.Y()) <= tol && Abs((p2.X() - p1.X()) - (Parfin - Pardeb)) <= tol)
   {
     gp_Pnt2d ppp(p1.X() - Pardeb, p1.Y());
-    Pcurv = new Geom2d_Line(ppp, gp::DX2d());
+    Pcurv = new Geom2d_Line(ppp, gp1::DX2d());
   }
   else if (Abs(p1.Y() - p2.Y()) <= tol && Abs((p1.X() - p2.X()) - (Parfin - Pardeb)) <= tol)
   {
     gp_Pnt2d ppp(p1.X() + Pardeb, p1.Y());
-    Pcurv = new Geom2d_Line(ppp, gp::DX2d().Reversed());
+    Pcurv = new Geom2d_Line(ppp, gp1::DX2d().Reversed());
   }
   else
   {
@@ -3480,7 +3480,7 @@ Standard_Boolean ChFi3d_ComputeCurves(const Handle(Adaptor3d_Surface)& S1,
       || (S1->GetType() == GeomAbs_Plane && S2->GetType() == GeomAbs_Cylinder))
   {
     gp_Pln      pl;
-    gp_Cylinder cyl;
+    Cylinder1 cyl;
     if (S1->GetType() == GeomAbs_Plane)
     {
       pl  = S1->Plane();
@@ -5496,7 +5496,7 @@ Standard_Boolean ChFi3d_IsSmooth(const Handle(GeomCurve3d)& C)
   Standard_Integer     intrv, nbintv = GAC.NbIntervals(GeomAbs_CN);
   TColStd_Array1OfReal TI(1, nbintv + 1);
   GAC.Intervals(TI, GeomAbs_CN);
-  Standard_Real     Resolution = gp::Resolution(), Curvature;
+  Standard_Real     Resolution = gp1::Resolution(), Curvature;
   GeomLProp_CLProps LProp(C, 2, Resolution);
   Point3d            P1, P2;
   Standard_Integer  Discretisation = 30;

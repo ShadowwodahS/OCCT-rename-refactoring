@@ -27,7 +27,7 @@ class Frame3d;
 class Point3d;
 
 //! This class implements the following algorithms used to
-//! create an ellipse from gp.
+//! create an ellipse from gp1.
 //!
 //! * Create an ellipse from its center, and two points:
 //! one on the ciconference giving the major radius, the

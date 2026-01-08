@@ -258,16 +258,16 @@ void MessageView_ActionsTest::OnTestMessenger()
     aCoords.DumpJson(sout);
     sout.Flush(Standard_True);
   }
-  // gp_Ax3
+  // Ax3
   {
-    gp_Ax3 aPln(Point3d(10., 20., 15.), Dir3d(0., 0., 1.), Dir3d(1., 0., 0.));
+    Ax3 aPln(Point3d(10., 20., 15.), Dir3d(0., 0., 1.), Dir3d(1., 0., 0.));
     aPln.DumpJson(sout);
     sout.Flush(Standard_True);
   }
   // Transform3d
   {
     Transform3d aTrsf;
-    aTrsf.SetRotation(gp::OZ(), 0.3);
+    aTrsf.SetRotation(gp1::OZ(), 0.3);
     aTrsf.SetTranslationPart(Vector3d(15., 15., 15.));
     aTrsf.SetScaleFactor(3.);
 

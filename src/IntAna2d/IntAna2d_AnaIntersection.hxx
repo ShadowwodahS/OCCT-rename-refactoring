@@ -33,7 +33,7 @@ class gp_Hypr2d;
 //! - two Lin2d,
 //! - two Circ2d,
 //! - a Lin2d and a Circ2d,
-//! - an element of gp (Lin2d, Circ2d, Elips2d, Parab2d, Hypr2d)
+//! - an element of gp1 (Lin2d, Circ2d, Elips2d, Parab2d, Hypr2d)
 //! and another conic.
 //! No tolerance is given for all the intersections: the tolerance
 //! will be the "precision machine".
@@ -102,9 +102,9 @@ public:
   //! The element may be parallel in this case.
   Standard_Boolean IsEmpty() const;
 
-  //! For the intersection between an element of gp and a conic
+  //! For the intersection between an element of gp1 and a conic
   //! known by an implicit equation, the result will be TRUE
-  //! if the element of gp verifies the implicit equation.
+  //! if the element of gp1 verifies the implicit equation.
   //! For the intersection between two Lin2d or two Circ2d, the
   //! result will be TRUE if the elements are identical.
   //! The function returns FALSE in all the other cases.

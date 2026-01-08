@@ -145,7 +145,7 @@ Convert_TorusToBSplineSurface::Convert_TorusToBSplineSurface(const gp_Torus&    
   // and calculate the weight of the bspline.
   Standard_Real W1, W2;
   Transform3d       Trsf;
-  Trsf.SetTransformation(T.Position(), gp::XOY());
+  Trsf.SetTransformation(T.Position(), gp1::XOY());
 
   for (i = 1; i <= nbUPoles; i++)
   {
@@ -259,7 +259,7 @@ Convert_TorusToBSplineSurface::Convert_TorusToBSplineSurface(const gp_Torus&    
   // Replace the bspline in the reference of the torus.
   // and calculate the weight of the bspline.
   Transform3d Trsf;
-  Trsf.SetTransformation(T.Position(), gp::XOY());
+  Trsf.SetTransformation(T.Position(), gp1::XOY());
 
   for (i = 1; i <= nbUPoles; i++)
   {
@@ -321,7 +321,7 @@ Convert_TorusToBSplineSurface::Convert_TorusToBSplineSurface(const gp_Torus& T)
   // Replace the bspline in the mark of the torus.
   // and calculate the weight of the bspline.
   Transform3d Trsf;
-  Trsf.SetTransformation(T.Position(), gp::XOY());
+  Trsf.SetTransformation(T.Position(), gp1::XOY());
 
   for (i = 1; i <= nbUPoles; i++)
   {

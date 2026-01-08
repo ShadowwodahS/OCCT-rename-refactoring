@@ -22,11 +22,11 @@
 #include <Standard_Handle.hxx>
 
 #include <Convert_ElementarySurfaceToBSplineSurface.hxx>
-class gp_Cone;
+class Cone1;
 
 //! This algorithm converts a bounded Cone into a rational
 //! B-spline  surface.
-//! The cone a Cone from package gp. Its parametrization is :
+//! The cone a Cone from package gp1. Its parametrization is :
 //! P (U, V) =  Loc + V * Zdir +
 //! (R + V*Tan(Ang)) * (Cos(U)*Xdir + Sin(U)*Ydir)
 //! where Loc is the location point of the cone, Xdir, Ydir and Zdir
@@ -46,7 +46,7 @@ public:
   //!
   //! Raised if U1 = U2 or U1 = U2 + 2.0 * Pi
   //! Raised if V1 = V2.
-  Standard_EXPORT Convert_ConeToBSplineSurface(const gp_Cone&      C,
+  Standard_EXPORT Convert_ConeToBSplineSurface(const Cone1&      C,
                                                const Standard_Real U1,
                                                const Standard_Real U2,
                                                const Standard_Real V1,
@@ -56,7 +56,7 @@ public:
   //! Cone in the U and V parametric directions.
   //!
   //! Raised if V1 = V2.
-  Standard_EXPORT Convert_ConeToBSplineSurface(const gp_Cone&      C,
+  Standard_EXPORT Convert_ConeToBSplineSurface(const Cone1&      C,
                                                const Standard_Real V1,
                                                const Standard_Real V2);
 

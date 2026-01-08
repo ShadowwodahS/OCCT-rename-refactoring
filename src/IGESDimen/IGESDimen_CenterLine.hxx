@@ -59,11 +59,11 @@ public:
   //! returns Common Z displacement.
   Standard_EXPORT Standard_Real ZDisplacement() const;
 
-  //! returns the data point as Pnt from gp.
+  //! returns the data point as Pnt from gp1.
   //! raises exception if Index <= 0 or Index > NbPoints()
   Standard_EXPORT Point3d Point(const Standard_Integer Index) const;
 
-  //! returns the data point as Pnt from gp after Transformation.
+  //! returns the data point as Pnt from gp1 after Transformation.
   //! raises exception if Index <= 0 or Index > NbPoints()
   Standard_EXPORT Point3d TransformedPoint(const Standard_Integer Index) const;
 

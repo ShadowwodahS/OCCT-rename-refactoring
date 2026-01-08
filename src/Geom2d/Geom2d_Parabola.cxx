@@ -67,12 +67,12 @@ Geom2d_Parabola::Geom2d_Parabola(const Ax2d&            MirrorAxis,
   {
     throw Standard_ConstructionError();
   }
-  pos = gp_Ax22d(MirrorAxis, Sense);
+  pos = Ax22d(MirrorAxis, Sense);
 }
 
 //=================================================================================================
 
-Geom2d_Parabola::Geom2d_Parabola(const gp_Ax22d& Axis, const Standard_Real Focal)
+Geom2d_Parabola::Geom2d_Parabola(const Ax22d& Axis, const Standard_Real Focal)
     : focalLength(Focal)
 {
   if (Focal < 0.0)

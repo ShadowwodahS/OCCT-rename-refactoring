@@ -26,7 +26,7 @@
 #include <TColStd_HArray1OfReal.hxx>
 
 //=============================================================================
-// Creation d' un cartesian_point de prostep a partir d' un point3d de gp
+// Creation d' un cartesian_point de prostep a partir d' un point3d de gp1
 //=============================================================================
 GeomToStep_MakeCartesianPoint::GeomToStep_MakeCartesianPoint(const Point3d&       P,
                                                              const Standard_Real aFactor)
@@ -48,7 +48,7 @@ GeomToStep_MakeCartesianPoint::GeomToStep_MakeCartesianPoint(const Point3d&     
 }
 
 //=============================================================================
-// Creation d' un cartesian_point de prostep a partir d' un point 2d de gp
+// Creation d' un cartesian_point de prostep a partir d' un point 2d de gp1
 //=============================================================================
 
 GeomToStep_MakeCartesianPoint::GeomToStep_MakeCartesianPoint(const gp_Pnt2d&     P,

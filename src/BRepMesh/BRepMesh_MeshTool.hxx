@@ -49,10 +49,10 @@ public:
     {
       const BRepMesh_Vertex& aVertex = myStructure->GetNode(theNodeIndex);
       const gp_Vec2d         aNodeVec(myConstraint.Location(), aVertex.Coord());
-      if (aNodeVec.SquareMagnitude() > gp::Resolution())
+      if (aNodeVec.SquareMagnitude() > gp1::Resolution())
       {
         const Standard_Real aCross = aNodeVec.Crossed(myConstraint.Direction());
-        if (Abs(aCross) > gp::Resolution())
+        if (Abs(aCross) > gp1::Resolution())
         {
           return mySign ? aCross < 0. : aCross > 0.;
         }

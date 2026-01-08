@@ -41,7 +41,7 @@ BRepPrim_Torus::BRepPrim_Torus(const Frame3d&       Position,
 //=================================================================================================
 
 BRepPrim_Torus::BRepPrim_Torus(const Standard_Real Major, const Standard_Real Minor)
-    : BRepPrim_Revolution(gp::XOY(), 0, 2 * M_PI),
+    : BRepPrim_Revolution(gp1::XOY(), 0, 2 * M_PI),
       myMajor(Major),
       myMinor(Minor)
 {

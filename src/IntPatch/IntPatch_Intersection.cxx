@@ -181,7 +181,7 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   S1,
       break;
     case GeomAbs_SurfaceOfExtrusion: {
       Dir3d                  aDirection = S1->Direction();
-      gp_Ax3                  anAxis(gp::Origin(), aDirection);
+      Ax3                  anAxis(gp1::Origin(), aDirection);
       Handle(Adaptor3d_Curve) aBasisCurve = S1->BasisCurve();
       ProjLib_ProjectOnPlane  Projector(anAxis);
       Projector.Load(aBasisCurve, Precision::Confusion());
@@ -987,13 +987,13 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
     //
     if (typs1 == GeomAbs_Cone || typs2 == GeomAbs_Cone)
     {
-      const gp_Cone aCon1 = (aCTType == GeomAbs_Cone) ? aCTSurf->Cone() : aGeomSurf->Cone();
+      const Cone1 aCon1 = (aCTType == GeomAbs_Cone) ? aCTSurf->Cone() : aGeomSurf->Cone();
       Standard_Real a1    = Abs(aCon1.SemiAngle());
       bToCheck            = (a1 < 0.02) || (a1 > 1.55);
       //
       if (typs1 == typs2)
       {
-        const gp_Cone aCon2 = aGeomSurf->Cone();
+        const Cone1 aCon2 = aGeomSurf->Cone();
         Standard_Real a2    = Abs(aCon2.SemiAngle());
         bToCheck            = bToCheck || (a2 < 0.02) || (a2 > 1.55);
         //
@@ -1280,13 +1280,13 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
     //
     if (typs1 == GeomAbs_Cone || typs2 == GeomAbs_Cone)
     {
-      const gp_Cone aCon1 = (aCTType == GeomAbs_Cone) ? aCTSurf->Cone() : aGeomSurf->Cone();
+      const Cone1 aCon1 = (aCTType == GeomAbs_Cone) ? aCTSurf->Cone() : aGeomSurf->Cone();
       Standard_Real a1    = Abs(aCon1.SemiAngle());
       bToCheck            = (a1 < 0.02) || (a1 > 1.55);
       //
       if (typs1 == typs2)
       {
-        const gp_Cone aCon2 = aGeomSurf->Cone();
+        const Cone1 aCon2 = aGeomSurf->Cone();
         Standard_Real a2    = Abs(aCon2.SemiAngle());
         bToCheck            = bToCheck || (a2 < 0.02) || (a2 > 1.55);
         //
@@ -2230,7 +2230,7 @@ static void splitCone(const Handle(Adaptor3d_Surface)&               theS,
     throw Standard_NoSuchObject("Intersection1 : Surface is not Cone");
   }
 
-  gp_Cone aCone = theS->Cone();
+  Cone1 aCone = theS->Cone();
 
   Standard_Real aU0, aV0;
   Adaptor3d_TopolTool::GetConeApexParam(aCone, aU0, aV0);

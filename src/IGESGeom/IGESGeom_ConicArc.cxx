@@ -291,7 +291,7 @@ void IGESGeom_ConicArc::ComputedDefinition(Standard_Real& Xcen,
     Standard_Real cos2t;
     Standard_Real auxil;
 
-    if (Abs(term1) < gp::Resolution())
+    if (Abs(term1) < gp1::Resolution())
     {
       cos2t = 1.;
       auxil = term2;

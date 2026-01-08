@@ -286,7 +286,7 @@ static Standard_Boolean KPartCircle(const TopoFace&                             
 
     myShape.Orientation(E.Orientation());
     myShape.Location(L);
-    if (fabs(Alt) > gp::Resolution())
+    if (fabs(Alt) > gp1::Resolution())
     {
       BRepAdaptor_Surface S(mySpine, 0);
       Axis3d              Nor = S.Plane().Axis();
@@ -725,7 +725,7 @@ void BRepFill_OffsetWire::PerformWithBiLo(const TopoFace&              Spine,
   TColStd_SequenceOfReal       EmptySeqOfReal;
 
   Handle(GeomPlane) RefPlane = Handle(GeomPlane)::DownCast(BRepInspector::Surface(myWorkSpine));
-  if (fabs(Alt) > gp::Resolution())
+  if (fabs(Alt) > gp1::Resolution())
   {
     Standard_Real anAlt = Alt;
     if (myWorkSpine.Orientation() == TopAbs_REVERSED)
@@ -2097,7 +2097,7 @@ void MakeOffset(const TopoEdge&                                 E,
     // if the offset is greater otr equal to the radius and the side of the
     // concavity of the circle => edge null.
     gp_Circ2d     C1(AC.Circle());
-    gp_Ax22d      axes(C1.Axis());
+    Ax22d      axes(C1.Axis());
     gp_Dir2d      Xd      = axes.XDirection();
     gp_Dir2d      Yd      = axes.YDirection();
     Standard_Real Crossed = Xd.X() * Yd.Y() - Xd.Y() * Yd.X();

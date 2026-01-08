@@ -18,7 +18,7 @@
 //! Simple linear interpolation tool (also known as mix() in GLSL).
 //! The main purpose of this template class is making interpolation routines more readable.
 template <class T>
-class NCollection_Lerp
+class NCollection_Lerp1
 {
 public:
   //! Compute interpolated value between two values.
@@ -29,21 +29,21 @@ public:
   static T Interpolate(const T& theStart, const T& theEnd, double theT)
   {
     T                aResult;
-    NCollection_Lerp aLerp(theStart, theEnd);
+    NCollection_Lerp1 aLerp(theStart, theEnd);
     aLerp.Interpolate(theT, aResult);
     return aResult;
   }
 
 public:
   //! Empty constructor
-  NCollection_Lerp()
+  NCollection_Lerp1()
       : myStart(),
         myEnd()
   {
   }
 
   //! Main constructor.
-  NCollection_Lerp(const T& theStart, const T& theEnd) { Init(theStart, theEnd); }
+  NCollection_Lerp1(const T& theStart, const T& theEnd) { Init(theStart, theEnd); }
 
   //! Initialize values.
   void Init(const T& theStart, const T& theEnd)

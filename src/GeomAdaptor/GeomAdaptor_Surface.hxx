@@ -253,9 +253,9 @@ public:
 
   Standard_EXPORT gp_Pln Plane() const Standard_OVERRIDE;
 
-  Standard_EXPORT gp_Cylinder Cylinder() const Standard_OVERRIDE;
+  Standard_EXPORT Cylinder1 Cylinder() const Standard_OVERRIDE;
 
-  Standard_EXPORT gp_Cone Cone() const Standard_OVERRIDE;
+  Standard_EXPORT Cone1 Cone() const Standard_OVERRIDE;
 
   Standard_EXPORT gp_Sphere Sphere() const Standard_OVERRIDE;
 

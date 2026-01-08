@@ -394,7 +394,7 @@ void Bisector_BisecPC::Values(const Standard_Real    U,
   Standard_Real NorPPC    = Nor.Dot(aPPC);
   Standard_Real A1;
 
-  if (Abs(NorPPC) > gp::Resolution() && (NorPPC * sign) < 0.)
+  if (Abs(NorPPC) > gp1::Resolution() && (NorPPC * sign) < 0.)
   {
     A1 = 0.5 * SquarePPC / NorPPC;
     P.SetCoord(PC.X() - Nor.X() * A1, PC.Y() - Nor.Y() * A1);

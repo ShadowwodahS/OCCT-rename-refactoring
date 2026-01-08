@@ -51,10 +51,10 @@ public:
                             const Handle(IGESDimen_GeneralNote)&          aNote,
                             const Handle(IGESDimen_HArray1OfLeaderArrow)& someLeaders);
 
-  //! returns Lower Left coordinate of Flag as Pnt from package gp
+  //! returns Lower Left coordinate of Flag as Pnt from package gp1
   Standard_EXPORT Point3d LowerLeftCorner() const;
 
-  //! returns Lower Left coordinate of Flag as Pnt from package gp
+  //! returns Lower Left coordinate of Flag as Pnt from package gp1
   //! after Transformation.
   Standard_EXPORT Point3d TransformedLowerLeftCorner() const;
 

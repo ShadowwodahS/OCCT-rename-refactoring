@@ -34,7 +34,7 @@ void StdPrs_HLRShape::ComputeHLR(const Handle(Prs3d_Presentation)& thePresentati
 {
   Dir3d  aBackDir = -theProjector->Direction();
   Dir3d  aXpers   = theProjector->Up().Crossed(aBackDir);
-  gp_Ax3  anAx3(theProjector->Center(), aBackDir, aXpers);
+  Ax3  anAx3(theProjector->Center(), aBackDir, aXpers);
   Transform3d aTrsf;
   aTrsf.SetTransformation(anAx3);
   const HLRAlgoProjector aProj(aTrsf, !theProjector->IsOrthographic(), theProjector->Scale());

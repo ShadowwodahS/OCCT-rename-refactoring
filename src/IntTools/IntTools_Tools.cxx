@@ -705,7 +705,7 @@ Standard_Integer Tools2::SegPln(const gp_Lin&       theLin,
   iRet = 0;
   aTol = theTolLin + theTolPln;
   //
-  const gp_Ax3& aPosPln = thePln.Position();
+  const Ax3& aPosPln = thePln.Position();
   const Dir3d& aDirPln = aPosPln.Direction();
   const Point3d& aLocPln = aPosPln.Location();
   //

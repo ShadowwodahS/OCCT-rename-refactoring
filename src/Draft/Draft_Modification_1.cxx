@@ -146,7 +146,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoFace&     F,
       gp_Circ Cir;
       if (typS == STANDARD_TYPE(Geom_CylindricalSurface))
       {
-        gp_Cylinder cyl   = Handle(Geom_CylindricalSurface)::DownCast(S)->Cylinder();
+        Cylinder1 cyl   = Handle(Geom_CylindricalSurface)::DownCast(S)->Cylinder();
         Axis3d      axcyl = cyl.Axis();
         Cir               = ElSLib1::CylinderVIso(cyl.Position(), cyl.Radius(), 0.);
         Vector3d VV(cyl.Location(), NeutralPlane.Location());
@@ -179,7 +179,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoFace&     F,
           return Standard_False;
         }
 
-        gp_Ax3        Axis = NeutralPlane.Position();
+        Ax3        Axis = NeutralPlane.Position();
         Standard_Real L    = Vector3d(Cir.Location(), Axis.Location()).Dot(Axis.Direction());
         Standard_Real Cos  = theDirextr.Dot(Axis.Direction());
         Vector3d        VV   = (L / Cos) * theDirextr;
@@ -220,7 +220,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoFace&     F,
         }
         else
         {
-          gp_Cone       Co    = Handle(Geom_ConicalSurface)::DownCast(NewS)->Cone();
+          Cone1       Co    = Handle(Geom_ConicalSurface)::DownCast(NewS)->Cone();
           Standard_Real Vapex = -Co.RefRadius() / Sin(Co.SemiAngle());
           if (vmin < Vapex)
           { // vmax should not exceed Vapex
@@ -567,7 +567,7 @@ Standard_Boolean Draft_Modification::Propagate()
       {
         if (C->IsKind(STANDARD_TYPE(Geom_Conic)))
         {
-          gp_Ax3 thePl(Handle(Geom_Conic)::DownCast(C)->Position());
+          Ax3 thePl(Handle(Geom_Conic)::DownCast(C)->Position());
           S2 = new GeomPlane(thePl);
         }
         else if (C->DynamicType() == STANDARD_TYPE(GeomLine))
@@ -585,7 +585,7 @@ Standard_Boolean Draft_Modification::Propagate()
           }
           Vector3d they(axis.Location(), C->Value(0.));
           Dir3d axz(axis.Direction().Crossed(they));
-          S2 = new GeomPlane(gp_Ax3(axis.Location(), axz, axis.Direction()));
+          S2 = new GeomPlane(Ax3(axis.Location(), axz, axis.Direction()));
         }
         else
         {
@@ -774,7 +774,7 @@ void Draft_Modification::Perform()
 
         if (RefSurf->DynamicType() == STANDARD_TYPE(Geom_CylindricalSurface))
         {
-          gp_Ax3 AxeRef = Handle(Geom_CylindricalSurface)::DownCast(RefSurf)->Cylinder().Position();
+          Ax3 AxeRef = Handle(Geom_CylindricalSurface)::DownCast(RefSurf)->Cylinder().Position();
           DirRef        = AxeRef.Direction();
         }
         else if (RefSurf->DynamicType() == STANDARD_TYPE(Geom_SurfaceOfLinearExtrusion))
@@ -878,7 +878,7 @@ void Draft_Modification::Perform()
           }
 
           Dir3d             TheDirExtr;
-          gp_Ax3             Axis;
+          Ax3             Axis;
           Handle(GeomCurve3d) TheNewCurve;
           Standard_Boolean   KPart = Standard_False;
 
@@ -936,7 +936,7 @@ void Draft_Modification::Perform()
             Vector3d        VV  = (aLocalReal / Cos) * TheDirExtr;
             newC              = Handle(GeomCurve3d)::DownCast(TheNewCurve->Translated(VV));
             // it is possible to calculate PCurve
-            Handle(Geom2d_Line) L2d = new Geom2d_Line(gp_Pnt2d(0., aLocalReal / Cos), gp::DX2d());
+            Handle(Geom2d_Line) L2d = new Geom2d_Line(gp_Pnt2d(0., aLocalReal / Cos), gp1::DX2d());
 
             if (PC1)
               Einf.ChangeFirstPC() = L2d;
@@ -1043,7 +1043,7 @@ void Draft_Modification::Perform()
                         }
                         else if (theSurf->DynamicType() == STANDARD_TYPE(Geom_CylindricalSurface))
                         {
-                          gp_Cylinder cy =
+                          Cylinder1 cy =
                             Handle(Geom_CylindricalSurface)::DownCast(S2)->Cylinder();
                           ElSLib1::Parameters(cy, plv, ul, vl);
                           ElSLib1::Parameters(cy, pfv, uf, vf);
@@ -1318,7 +1318,7 @@ void Draft_Modification::Perform()
           // Standard_Boolean dirfound = Standard_False;
           if (aLocalS1->DynamicType() == STANDARD_TYPE(Geom_CylindricalSurface))
           {
-            gp_Cylinder cyl = Handle(Geom_CylindricalSurface)::DownCast(aLocalS1)->Cylinder();
+            Cylinder1 cyl = Handle(Geom_CylindricalSurface)::DownCast(aLocalS1)->Cylinder();
             dirextr         = cyl.Axis().Direction();
             // dirfound = Standard_True;
             //  see direction...
@@ -1336,14 +1336,14 @@ void Draft_Modification::Perform()
             if (!GCir.IsNull())
             {
               Standard_Real       U   = ElCLib1::Parameter(GCir->Circ(), ptfixe);
-              Handle(Geom2d_Line) PC1 = new Geom2d_Line(gp_Pnt2d(U, 0.), gp::DY2d());
+              Handle(Geom2d_Line) PC1 = new Geom2d_Line(gp_Pnt2d(U, 0.), gp1::DY2d());
               Einf.ChangeFirstPC()    = PC1;
             }
           }
 
           else if (aLocalS2->DynamicType() == STANDARD_TYPE(Geom_CylindricalSurface))
           {
-            gp_Cylinder cyl = Handle(Geom_CylindricalSurface)::DownCast(aLocalS2)->Cylinder();
+            Cylinder1 cyl = Handle(Geom_CylindricalSurface)::DownCast(aLocalS2)->Cylinder();
             dirextr         = cyl.Axis().Direction();
             // dirfound = Standard_True;
             // see direction...
@@ -1361,7 +1361,7 @@ void Draft_Modification::Perform()
             if (!GCir.IsNull())
             {
               Standard_Real       U   = ElCLib1::Parameter(GCir->Circ(), ptfixe);
-              Handle(Geom2d_Line) PC2 = new Geom2d_Line(gp_Pnt2d(U, 0.), gp::DY2d());
+              Handle(Geom2d_Line) PC2 = new Geom2d_Line(gp_Pnt2d(U, 0.), gp1::DY2d());
               Einf.ChangeSecondPC()   = PC2;
             }
           }
@@ -1753,7 +1753,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
 #endif
       return NewS;
     }
-    gp_Cylinder Cy = Handle(Geom_CylindricalSurface)::DownCast(S)->Cylinder();
+    Cylinder1 Cy = Handle(Geom_CylindricalSurface)::DownCast(S)->Cylinder();
     testdir        = Direction.Dot(Cy.Axis().Direction());
     if (Abs(testdir) <= 1. - Precision::Angular())
     {
@@ -1783,7 +1783,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
 #endif
         return NewS;
       }
-      gp_Ax3 axcone = Cy.Position();
+      Ax3 axcone = Cy.Position();
       // Pb : Where is the material???
       Standard_Real    alpha = Angle;
       Standard_Boolean direct(axcone.Direct());
@@ -1807,7 +1807,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
       {
         alpha = -alpha;
       }
-      gp_Cone co(axcone, alpha, Rad);
+      Cone1 co(axcone, alpha, Rad);
       NewS = new Geom_ConicalSurface(co);
     }
     else
@@ -1827,7 +1827,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
       return NewS;
     }
 
-    gp_Cone Co1 = Handle(Geom_ConicalSurface)::DownCast(S)->Cone();
+    Cone1 Co1 = Handle(Geom_ConicalSurface)::DownCast(S)->Cone();
 
     testdir = Direction.Dot(Co1.Axis().Direction());
     if (Abs(testdir) <= 1. - Precision::Angular())
@@ -1847,7 +1847,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
 #endif
       return NewS;
     }
-    gp_Ax3 axcone = Co1.Position();
+    Ax3 axcone = Co1.Position();
     // Pb : Where is the material???
     Standard_Real    alpha = Angle;
     Standard_Boolean direct(axcone.Direct());
@@ -1879,13 +1879,13 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
       }
       else
       {
-        gp_Cone co(axcone, alpha, Rad);
+        Cone1 co(axcone, alpha, Rad);
         NewS = new Geom_ConicalSurface(co);
       }
     }
     else
     {
-      NewS = new Geom_CylindricalSurface(gp_Cylinder(axcone, i2s.Circle(1).Radius()));
+      NewS = new Geom_CylindricalSurface(Cylinder1(axcone, i2s.Circle(1).Radius()));
     }
   }
   else
@@ -1947,7 +1947,7 @@ Handle(GeomCurve3d) Draft_Modification::NewCurve(const Handle(GeomCurve3d)&   C,
     Standard_Real U, V;
     Vector3d        d1u, d1v;
     Point3d        pbid;
-    gp_Cylinder   Cy = Handle(Geom_CylindricalSurface)::DownCast(S)->Cylinder();
+    Cylinder1   Cy = Handle(Geom_CylindricalSurface)::DownCast(S)->Cylinder();
     ElSLib1::Parameters(Cy, lin.Location(), U, V);
     ElSLib1::D1(U, V, Cy, pbid, d1u, d1v);
     Norm = d1u.Crossed(d1v);
@@ -1957,7 +1957,7 @@ Handle(GeomCurve3d) Draft_Modification::NewCurve(const Handle(GeomCurve3d)&   C,
     Standard_Real U, V;
     Vector3d        d1u, d1v;
     Point3d        pbid;
-    gp_Cone       Co = Handle(Geom_ConicalSurface)::DownCast(S)->Cone();
+    Cone1       Co = Handle(Geom_ConicalSurface)::DownCast(S)->Cone();
     ElSLib1::Parameters(Co, lin.Location(), U, V);
     ElSLib1::D1(U, V, Co, pbid, d1u, d1v);
     Norm = d1u.Crossed(d1v);

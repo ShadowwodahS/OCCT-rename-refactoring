@@ -24,8 +24,8 @@
 #include <gp_Ax3.hxx>
 #include <TColStd_ListOfReal.hxx>
 
-class gp_Cone;
-class gp_Cylinder;
+class Cone1;
+class Cylinder1;
 
 //! Definition of a parametric Curve which is the result
 //! of the intersection between two quadrics.
@@ -39,7 +39,7 @@ public:
 
   //! Sets the parameters used to compute Points and Derivative
   //! on the curve.
-  Standard_EXPORT void SetCylinderQuadValues(const gp_Cylinder&     Cylinder,
+  Standard_EXPORT void SetCylinderQuadValues(const Cylinder1&     Cylinder,
                                              const Standard_Real    Qxx,
                                              const Standard_Real    Qyy,
                                              const Standard_Real    Qzz,
@@ -58,7 +58,7 @@ public:
 
   //! Sets  the parameters used    to compute Points  and
   //! Derivative on the curve.
-  Standard_EXPORT void SetConeQuadValues(const gp_Cone&         Cone,
+  Standard_EXPORT void SetConeQuadValues(const Cone1&         Cone,
                                          const Standard_Real    Qxx,
                                          const Standard_Real    Qyy,
                                          const Standard_Real    Qzz,
@@ -164,7 +164,7 @@ private:
   GeomAbs_SurfaceType typequadric;
   Standard_Real       RCyl;
   Standard_Real       Angle;
-  gp_Ax3              Ax3;
+  Ax3              Ax3;
 
   //! Trim boundaries
   Standard_Real myFirstParameter, myLastParameter;

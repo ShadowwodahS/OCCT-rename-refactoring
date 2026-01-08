@@ -74,7 +74,7 @@ Standard_Boolean MeshVS_DataSource::GetNormal(const Standard_Integer Id,
     ny                = p3 * q1 - p1 * q3;
     nz                = p1 * q2 - p2 * q1;
     Standard_Real len = sqrt(nx * nx + ny * ny + nz * nz);
-    if (len <= gp::Resolution())
+    if (len <= gp1::Resolution())
     {
       nx = ny = nz = 0;
       return res;

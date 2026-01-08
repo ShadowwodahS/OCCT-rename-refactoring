@@ -40,7 +40,7 @@
 //! on the curve with the parameter is greater than the precision.
 //! -      BRepBuilderAPI_LineThroughIdenticPoints
 //! Two identical points were given to define a line (construction
-//! of an edge without curve); gp::Resolution is used for the    confusion test.
+//! of an edge without curve); gp1::Resolution is used for the    confusion test.
 enum BRepBuilderAPI_EdgeError
 {
   BRepBuilderAPI_EdgeDone,

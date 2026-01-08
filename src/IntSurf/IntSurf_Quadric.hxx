@@ -30,9 +30,9 @@
 #include <gp_Torus.hxx>
 #include <Standard_Integer.hxx>
 class gp_Pln;
-class gp_Cylinder;
+class Cylinder1;
 class gp_Sphere;
-class gp_Cone;
+class Cone1;
 class gp_Torus;
 class Point3d;
 class Vector3d;
@@ -46,21 +46,21 @@ public:
 
   Standard_EXPORT Quadric1(const gp_Pln& P);
 
-  Standard_EXPORT Quadric1(const gp_Cylinder& C);
+  Standard_EXPORT Quadric1(const Cylinder1& C);
 
   Standard_EXPORT Quadric1(const gp_Sphere& S);
 
-  Standard_EXPORT Quadric1(const gp_Cone& C);
+  Standard_EXPORT Quadric1(const Cone1& C);
 
   Standard_EXPORT Quadric1(const gp_Torus& T);
 
   Standard_EXPORT void SetValue(const gp_Pln& P);
 
-  Standard_EXPORT void SetValue(const gp_Cylinder& C);
+  Standard_EXPORT void SetValue(const Cylinder1& C);
 
   Standard_EXPORT void SetValue(const gp_Sphere& S);
 
-  Standard_EXPORT void SetValue(const gp_Cone& C);
+  Standard_EXPORT void SetValue(const Cone1& C);
 
   Standard_EXPORT void SetValue(const gp_Torus& T);
 
@@ -76,9 +76,9 @@ public:
 
   gp_Sphere Sphere() const;
 
-  gp_Cylinder Cylinder() const;
+  Cylinder1 Cylinder() const;
 
-  gp_Cone Cone() const;
+  Cone1 Cone() const;
 
   gp_Torus Torus() const;
 
@@ -103,7 +103,7 @@ public:
 
 protected:
 private:
-  gp_Ax3              ax3;
+  Ax3              ax3;
   gp_Lin              lin;
   GeomAbs_SurfaceType typ;
   Standard_Real       prm1;

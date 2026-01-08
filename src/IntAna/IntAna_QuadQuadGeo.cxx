@@ -60,7 +60,7 @@
 
 static Frame3d        DirToAx2(const Point3d& P, const Dir3d& D);
 static void          RefineDir(Dir3d& aDir);
-static Standard_Real EstimDist(const gp_Cone& theCon1, const gp_Cone& theCon2);
+static Standard_Real EstimDist(const Cone1& theCon1, const Cone1& theCon2);
 
 //=======================================================================
 // class :  AxeOperator
@@ -259,7 +259,7 @@ Frame3d DirToAx2(const Point3d& P, const Dir3d& D)
 // function : EstimDist
 // purpose  : returns a minimal distance from apex to any solution
 //=======================================================================
-Standard_Real EstimDist(const gp_Cone& theCon1, const gp_Cone& theCon2)
+Standard_Real EstimDist(const Cone1& theCon1, const Cone1& theCon2)
 {
   // It is supposed that axes of cones are coplanar and
   // distance between them > Precision::Confusion()
@@ -513,7 +513,7 @@ void QuadQuadGeoIntersection::Perform(const gp_Pln&       P1,
 //=================================================================================================
 
 QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Pln&       P,
-                                       const gp_Cylinder&  Cl,
+                                       const Cylinder1&  Cl,
                                        const Standard_Real Tolang,
                                        const Standard_Real Tol,
                                        const Standard_Real H)
@@ -540,7 +540,7 @@ QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Pln&       P,
 //=================================================================================================
 
 void QuadQuadGeoIntersection::Perform(const gp_Pln&       P,
-                                 const gp_Cylinder&  Cl,
+                                 const Cylinder1&  Cl,
                                  const Standard_Real Tolang,
                                  const Standard_Real Tol,
                                  const Standard_Real H)
@@ -711,7 +711,7 @@ void QuadQuadGeoIntersection::Perform(const gp_Pln&       P,
 //=================================================================================================
 
 QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Pln&       P,
-                                       const gp_Cone&      Co,
+                                       const Cone1&      Co,
                                        const Standard_Real Tolang,
                                        const Standard_Real Tol)
     : done(Standard_False),
@@ -737,7 +737,7 @@ QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Pln&       P,
 //=================================================================================================
 
 void QuadQuadGeoIntersection::Perform(const gp_Pln&       P,
-                                 const gp_Cone&      Co,
+                                 const Cone1&      Co,
                                  const Standard_Real Tolang,
                                  const Standard_Real Tol)
 {
@@ -1009,8 +1009,8 @@ void QuadQuadGeoIntersection::Perform(const gp_Pln& P, const gp_Sphere& S)
 // function : QuadQuadGeoIntersection
 // purpose  : Cylinder - Cylinder
 //=======================================================================
-QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cylinder&  Cyl1,
-                                       const gp_Cylinder&  Cyl2,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const Cylinder1&  Cyl1,
+                                       const Cylinder1&  Cyl2,
                                        const Standard_Real Tol)
     : done(Standard_False),
       nbint(0),
@@ -1034,8 +1034,8 @@ QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cylinder&  Cyl1,
 
 //=================================================================================================
 
-void QuadQuadGeoIntersection::Perform(const gp_Cylinder&  Cyl1,
-                                 const gp_Cylinder&  Cyl2,
+void QuadQuadGeoIntersection::Perform(const Cylinder1&  Cyl1,
+                                 const Cylinder1&  Cyl2,
                                  const Standard_Real Tol)
 {
   done = Standard_True;
@@ -1287,8 +1287,8 @@ void QuadQuadGeoIntersection::Perform(const gp_Cylinder&  Cyl1,
 // function : QuadQuadGeoIntersection
 // purpose  : Cylinder - Cone
 //=======================================================================
-QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cylinder&  Cyl,
-                                       const gp_Cone&      Con,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const Cylinder1&  Cyl,
+                                       const Cone1&      Con,
                                        const Standard_Real Tol)
     : done(Standard_False),
       nbint(0),
@@ -1312,7 +1312,7 @@ QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cylinder&  Cyl,
 
 //=================================================================================================
 
-void QuadQuadGeoIntersection::Perform(const gp_Cylinder& Cyl, const gp_Cone& Con, const Standard_Real)
+void QuadQuadGeoIntersection::Perform(const Cylinder1& Cyl, const Cone1& Con, const Standard_Real)
 {
   done = Standard_True;
   AxeOperator A1A2(Cyl.Axis(), Con.Axis());
@@ -1338,7 +1338,7 @@ void QuadQuadGeoIntersection::Perform(const gp_Cylinder& Cyl, const gp_Cone& Con
 // function :
 // purpose  : Cylinder - Sphere
 //=======================================================================
-QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cylinder&  Cyl,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const Cylinder1&  Cyl,
                                        const gp_Sphere&    Sph,
                                        const Standard_Real Tol)
     : done(Standard_False),
@@ -1363,7 +1363,7 @@ QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cylinder&  Cyl,
 
 //=================================================================================================
 
-void QuadQuadGeoIntersection::Perform(const gp_Cylinder& Cyl, const gp_Sphere& Sph, const Standard_Real)
+void QuadQuadGeoIntersection::Perform(const Cylinder1& Cyl, const gp_Sphere& Sph, const Standard_Real)
 {
   done           = Standard_True;
   Point3d      Pt = Sph.Location();
@@ -1401,8 +1401,8 @@ void QuadQuadGeoIntersection::Perform(const gp_Cylinder& Cyl, const gp_Sphere& S
 // function : QuadQuadGeoIntersection
 // purpose  : Cone - Cone
 //=======================================================================
-QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cone&      Con1,
-                                       const gp_Cone&      Con2,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const Cone1&      Con1,
+                                       const Cone1&      Con2,
                                        const Standard_Real Tol)
     : done(Standard_False),
       nbint(0),
@@ -1427,7 +1427,7 @@ QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cone&      Con1,
 //
 //=================================================================================================
 
-void QuadQuadGeoIntersection::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const Standard_Real Tol)
+void QuadQuadGeoIntersection::Perform(const Cone1& Con1, const Cone1& Con2, const Standard_Real Tol)
 {
   done = Standard_True;
   //
@@ -1895,7 +1895,7 @@ void QuadQuadGeoIntersection::Perform(const gp_Cone& Con1, const gp_Cone& Con2, 
 // purpose  : Sphere - Cone
 //=======================================================================
 QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Sphere&    Sph,
-                                       const gp_Cone&      Con,
+                                       const Cone1&      Con,
                                        const Standard_Real Tol)
     : done(Standard_False),
       nbint(0),
@@ -1919,7 +1919,7 @@ QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Sphere&    Sph,
 
 //=================================================================================================
 
-void QuadQuadGeoIntersection::Perform(const gp_Sphere& Sph, const gp_Cone& Con, const Standard_Real)
+void QuadQuadGeoIntersection::Perform(const gp_Sphere& Sph, const Cone1& Con, const Standard_Real)
 {
 
   //
@@ -2261,7 +2261,7 @@ void QuadQuadGeoIntersection::Perform(const gp_Pln& Pln, const gp_Torus& Tor, co
 // function : QuadQuadGeoIntersection
 // purpose  : Cylinder - Torus
 //=======================================================================
-QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cylinder&  Cyl,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const Cylinder1&  Cyl,
                                        const gp_Torus&     Tor,
                                        const Standard_Real Tol)
     : done(Standard_False),
@@ -2286,7 +2286,7 @@ QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cylinder&  Cyl,
 
 //=================================================================================================
 
-void QuadQuadGeoIntersection::Perform(const gp_Cylinder&  Cyl,
+void QuadQuadGeoIntersection::Perform(const Cylinder1&  Cyl,
                                  const gp_Torus&     Tor,
                                  const Standard_Real Tol)
 {
@@ -2346,7 +2346,7 @@ void QuadQuadGeoIntersection::Perform(const gp_Cylinder&  Cyl,
 // function : QuadQuadGeoIntersection
 // purpose  : Cone - Torus
 //=======================================================================
-QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cone&      Con,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const Cone1&      Con,
                                        const gp_Torus&     Tor,
                                        const Standard_Real Tol)
     : done(Standard_False),
@@ -2371,7 +2371,7 @@ QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cone&      Con,
 
 //=================================================================================================
 
-void QuadQuadGeoIntersection::Perform(const gp_Cone& Con, const gp_Torus& Tor, const Standard_Real Tol)
+void QuadQuadGeoIntersection::Perform(const Cone1& Con, const gp_Torus& Tor, const Standard_Real Tol)
 {
   done = Standard_True;
   //

@@ -38,7 +38,7 @@ class gp_Vec2d;
 //! "axis placement one axis", or
 //! -   to define geometric transformations (axis of
 //! symmetry, axis of rotation, and so on).
-//! Note: to define a left-handed 2D coordinate system, use gp_Ax22d.
+//! Note: to define a left-handed 2D coordinate system, use Ax22d.
 class gp_Ax2d
 {
 public:

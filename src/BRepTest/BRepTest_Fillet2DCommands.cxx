@@ -272,7 +272,7 @@ static Point3d findCommonPoint(const TopoShape& W)
       return BRepInspector::Pnt(TopoDS::Vertex(aExp.Current()));
     }
   }
-  return gp::Origin(); // not found
+  return gp1::Origin(); // not found
 }
 
 //=======================================================================

@@ -298,11 +298,11 @@ gp_GTrsf2d Geom_SurfaceOfLinearExtrusion::ParametricTransformation(const Transfo
 {
   // transformation in the V Direction
   gp_GTrsf2d TV;
-  gp_Ax2d    Axis(gp::Origin2d(), gp::DX2d());
+  gp_Ax2d    Axis(gp1::Origin2d(), gp1::DX2d());
   TV.SetAffinity(Axis, Abs(T.ScaleFactor()));
   // transformation in the U Direction
   gp_GTrsf2d TU;
-  Axis = gp_Ax2d(gp::Origin2d(), gp::DY2d());
+  Axis = gp_Ax2d(gp1::Origin2d(), gp1::DY2d());
   TU.SetAffinity(Axis, basisCurve->ParametricTransformation(T));
 
   return TU * TV;

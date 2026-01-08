@@ -54,13 +54,13 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
 {
 
   // calcul du cylindre
-  gp_Ax3 Pos1 = Pl1.Position();
+  Ax3 Pos1 = Pl1.Position();
   Dir3d D1   = Pos1.XDirection().Crossed(Pos1.YDirection());
   if (Or1 == TopAbs_REVERSED)
   {
     D1.Reverse();
   }
-  gp_Ax3 Pos2 = Pl2.Position();
+  Ax3 Pos2 = Pl2.Position();
   Dir3d D2   = Pos2.XDirection().Crossed(Pos2.YDirection());
   if (Or2 == TopAbs_REVERSED)
   {
@@ -86,7 +86,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   Standard_Real Fac = Radius / Cos(Ang / 2.);
   C.SetCoord(Pv.X() + Fac * S.X(), Pv.Y() + Fac * S.Y(), Pv.Z() + Fac * S.Z());
   Dir3d xdir = D1.Reversed();
-  gp_Ax3 CylAx3(C, AxisCylinder, xdir);
+  Ax3 CylAx3(C, AxisCylinder, xdir);
   if (CylAx3.YDirection().Dot(D2) >= 0.)
   {
     CylAx3.YReverse();
@@ -127,7 +127,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   Handle(Geom2d_Line) GLin2dPln1 = new Geom2d_Line(lin2dPln);
   gp_Lin              linPln(P, AxisCylinder);
   Handle(GeomLine)   GLinPln1 = new GeomLine(linPln);
-  gp_Lin2d            lin2dCyl(gp_Pnt2d(0., 0.), gp::DY2d());
+  gp_Lin2d            lin2dCyl(gp_Pnt2d(0., 0.), gp1::DY2d());
   Handle(Geom2d_Line) GLin2dCyl1 = new Geom2d_Line(lin2dCyl);
   TopAbs_Orientation  trans;
   toreverse = (norcyl.Dot(norpl) <= 0.);

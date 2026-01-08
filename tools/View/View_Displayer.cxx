@@ -429,7 +429,7 @@ const Handle(AIS_Trihedron)& View_Displayer::defaultTrihedron(const bool toCreat
 {
   if (myDefaultTrihedron.IsNull() && toCreate)
   {
-    myDefaultTrihedron = new AIS_Trihedron(new Geom_Axis2Placement(gp::XOY()));
+    myDefaultTrihedron = new AIS_Trihedron(new Geom_Axis2Placement(gp1::XOY()));
     myDefaultTrihedron->SetSize(1);
   }
   return myDefaultTrihedron;

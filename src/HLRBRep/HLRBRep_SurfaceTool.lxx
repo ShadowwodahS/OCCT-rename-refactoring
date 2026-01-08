@@ -206,12 +206,12 @@ inline gp_Pln SurfaceTool3::Plane(const Standard_Address S)
   return ((BRepAdaptor_Surface*)S)->Plane();
 }
 
-inline gp_Cylinder SurfaceTool3::Cylinder(const Standard_Address S)
+inline Cylinder1 SurfaceTool3::Cylinder(const Standard_Address S)
 {
   return ((BRepAdaptor_Surface*)S)->Cylinder();
 }
 
-inline gp_Cone SurfaceTool3::Cone(const Standard_Address S)
+inline Cone1 SurfaceTool3::Cone(const Standard_Address S)
 {
   return ((BRepAdaptor_Surface*)S)->Cone();
 }

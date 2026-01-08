@@ -60,7 +60,7 @@ void Geom2dEvaluator_OffsetCurve::D2(const Standard_Real theU,
   BaseD3(theU, theValue, theD1, theD2, aD3);
 
   Standard_Boolean isDirectionChange = Standard_False;
-  if (theD1.SquareMagnitude() <= gp::Resolution())
+  if (theD1.SquareMagnitude() <= gp1::Resolution())
   {
     gp_Vec2d aDummyD4;
     isDirectionChange = AdjustDerivative(3, theU, theD1, theD2, aD3, aDummyD4);
@@ -79,7 +79,7 @@ void Geom2dEvaluator_OffsetCurve::D3(const Standard_Real theU,
   BaseD4(theU, theValue, theD1, theD2, theD3, aD4);
 
   Standard_Boolean isDirectionChange = Standard_False;
-  if (theD1.SquareMagnitude() <= gp::Resolution())
+  if (theD1.SquareMagnitude() <= gp1::Resolution())
     isDirectionChange = AdjustDerivative(4, theU, theD1, theD2, theD3, aD4);
 
   Geom2dEvaluator1::CalculateD3(theValue, theD1, theD2, theD3, aD4, isDirectionChange, myOffset);
@@ -202,7 +202,7 @@ Standard_Boolean Geom2dEvaluator_OffsetCurve::AdjustDerivative(
   gp_Vec2d&              theD3,
   gp_Vec2d&              theD4) const
 {
-  static const Standard_Real    aTol           = gp::Resolution();
+  static const Standard_Real    aTol           = gp1::Resolution();
   static const Standard_Real    aMinStep       = 1e-7;
   static const Standard_Integer aMaxDerivOrder = 3;
 

@@ -26,7 +26,7 @@
 
 class gp_Elips2d;
 class gp_Ax2d;
-class gp_Ax22d;
+class Ax22d;
 class gp_Pnt2d;
 
 //! This class implements the following algorithms used to
@@ -45,7 +45,7 @@ class GCE2d_MakeEllipse : public Root5
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Creates an ellipse from a non persistent one from package gp
+  //! Creates an ellipse from a non persistent one from package gp1
   Standard_EXPORT GCE2d_MakeEllipse(const gp_Elips2d& E);
 
   //! MajorAxis is the local coordinate system of the ellipse.
@@ -66,7 +66,7 @@ public:
   //! MinorRadius.
   //! The status is "InvertRadius" if MajorRadius < MinorRadius or
   //! "NegativeRadius" if MinorRadius < 0.
-  Standard_EXPORT GCE2d_MakeEllipse(const gp_Ax22d&     Axis,
+  Standard_EXPORT GCE2d_MakeEllipse(const Ax22d&     Axis,
                                     const Standard_Real MajorRadius,
                                     const Standard_Real MinorRadius);
 

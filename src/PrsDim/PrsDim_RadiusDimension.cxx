@@ -132,7 +132,7 @@ void PrsDim_RadiusDimension::ComputePlane()
 
   Dir3d aDimensionX = gce_MakeDir(myAnchorPoint, myCircle.Location());
 
-  myPlane = gp_Pln(gp_Ax3(myCircle.Location(), myCircle.Axis().Direction(), aDimensionX));
+  myPlane = gp_Pln(Ax3(myCircle.Location(), myCircle.Axis().Direction(), aDimensionX));
 }
 
 //=================================================================================================

@@ -33,7 +33,7 @@ public:
   PointOnSurface1();
 
   //! Creation of a point on surface with parameter
-  //! values on the surface and a Pnt from gp.
+  //! values on the surface and a Pnt from gp1.
   PointOnSurface1(const Standard_Real U, const Standard_Real V, const Point3d& P);
 
   //! Returns the 3d point.

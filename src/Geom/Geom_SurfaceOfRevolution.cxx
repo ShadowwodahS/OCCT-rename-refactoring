@@ -317,13 +317,13 @@ Handle(GeomCurve3d) Geom_SurfaceOfRevolution::VIso(const Standard_Real V) const
   Standard_Real       Rad = L1.Distance(Pc);
 
   Ax2 Rep;
-  if (Rad > gp::Resolution())
+  if (Rad > gp1::Resolution())
   {
     XYZ P = Pc.XYZ();
     XYZ C;
     C.SetLinearForm((P - loc.XYZ()).Dot(direction.XYZ()), direction.XYZ(), loc.XYZ());
     P = P - C;
-    if (P.Modulus() > gp::Resolution())
+    if (P.Modulus() > gp1::Resolution())
     {
       Dir3d D = P.Normalized();
       Rep      = Frame3d(C, direction, D);
@@ -366,7 +366,7 @@ void Geom_SurfaceOfRevolution::TransformParameters(Standard_Real&,
 gp_GTrsf2d Geom_SurfaceOfRevolution::ParametricTransformation(const Transform3d& T) const
 {
   gp_GTrsf2d T2;
-  gp_Ax2d    Axis(gp::Origin2d(), gp::DX2d());
+  gp_Ax2d    Axis(gp1::Origin2d(), gp1::DX2d());
   T2.SetAffinity(Axis, basisCurve->ParametricTransformation(T));
   return T2;
 }

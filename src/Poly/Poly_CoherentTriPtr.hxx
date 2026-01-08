@@ -19,7 +19,7 @@
 #include <NCollection_BaseAllocator.hxx>
 #include <NCollection_DefineAlloc.hxx>
 
-class Poly_CoherentTriangle;
+class CoherentTriangle;
 
 #ifdef _MSC_VER
   #pragma warning(push)
@@ -27,11 +27,11 @@ class Poly_CoherentTriangle;
 #endif
 
 /**
- * Implementation of both list node for Poly_CoherentTriangle type and
+ * Implementation of both list node for CoherentTriangle type and
  * round double-linked list of these nodes.
  */
 
-class Poly_CoherentTriPtr
+class CoherentTriPtr
 {
 public:
   /**
@@ -50,14 +50,14 @@ public:
     }
 
     //! Constructor
-    inline Iterator(const Poly_CoherentTriPtr& thePtr)
+    inline Iterator(const CoherentTriPtr& thePtr)
         : myFirst(&thePtr),
           myCurrent(&thePtr)
     {
     }
 
     //! Query the triangle that started the current iteration.
-    inline const Poly_CoherentTriangle* First() const
+    inline const CoherentTriangle* First() const
     {
       return myFirst ? &myFirst->GetTriangle() : 0L;
     }
@@ -69,20 +69,20 @@ public:
     Standard_EXPORT void Next();
 
     //! Get the current iterated triangle
-    inline const Poly_CoherentTriangle& Value() const { return myCurrent->GetTriangle(); }
+    inline const CoherentTriangle& Value() const { return myCurrent->GetTriangle(); }
 
     //! Get the current iterated triangle (mutable)
-    inline Poly_CoherentTriangle& ChangeValue() const
+    inline CoherentTriangle& ChangeValue() const
     {
-      return const_cast<Poly_CoherentTriangle&>(myCurrent->GetTriangle());
+      return const_cast<CoherentTriangle&>(myCurrent->GetTriangle());
     }
 
     //! Get the current iterated pointer to triangle
-    inline const Poly_CoherentTriPtr& PtrValue() const { return *myCurrent; }
+    inline const CoherentTriPtr& PtrValue() const { return *myCurrent; }
 
   private:
-    const Poly_CoherentTriPtr* myFirst;
-    const Poly_CoherentTriPtr* myCurrent;
+    const CoherentTriPtr* myFirst;
+    const CoherentTriPtr* myCurrent;
   };
 
   // ---------- PUBLIC METHODS ----------
@@ -90,7 +90,7 @@ public:
   /**
    * Constructor.
    */
-  inline Poly_CoherentTriPtr(const Poly_CoherentTriangle& theTri)
+  inline CoherentTriPtr(const CoherentTriangle& theTri)
       : mypTriangle(&theTri),
         myNext(this),
         myPrevious(this)
@@ -105,22 +105,22 @@ public:
   /**
    * Query the stored pointer to Triangle1.
    */
-  inline const Poly_CoherentTriangle& GetTriangle() const { return *mypTriangle; }
+  inline const CoherentTriangle& GetTriangle() const { return *mypTriangle; }
 
   /**
    * Initialize this instance with a pointer to triangle.
    */
-  inline void SetTriangle(const Poly_CoherentTriangle* pTri) { mypTriangle = pTri; }
+  inline void SetTriangle(const CoherentTriangle* pTri) { mypTriangle = pTri; }
 
   /**
    * Query the next pointer in the list.
    */
-  inline Poly_CoherentTriPtr& Next() const { return *myNext; }
+  inline CoherentTriPtr& Next() const { return *myNext; }
 
   /**
    * Query the previous pointer in the list.
    */
-  inline Poly_CoherentTriPtr& Previous() const { return *myPrevious; }
+  inline CoherentTriPtr& Previous() const { return *myPrevious; }
 
   /**
    * Append a pointer to triangle into the list after the current instance.
@@ -129,7 +129,7 @@ public:
    * @param theA
    *   Allocator where the new pointer instance is created.
    */
-  Standard_EXPORT void Append(const Poly_CoherentTriangle*             pTri,
+  Standard_EXPORT void Append(const CoherentTriangle*             pTri,
                               const Handle(NCollection_BaseAllocator)& theA);
 
   /**
@@ -139,7 +139,7 @@ public:
    * @param theA
    *   Allocator where the new pointer instance is created.
    */
-  Standard_EXPORT void Prepend(const Poly_CoherentTriangle*             pTri,
+  Standard_EXPORT void Prepend(const CoherentTriangle*             pTri,
                                const Handle(NCollection_BaseAllocator)& theA);
 
   /**
@@ -149,13 +149,13 @@ public:
    * @param theA
    *   Allocator where the current pointer instance was created.
    */
-  Standard_EXPORT static void Remove(Poly_CoherentTriPtr*                     thePtr,
+  Standard_EXPORT static void Remove(CoherentTriPtr*                     thePtr,
                                      const Handle(NCollection_BaseAllocator)& theA);
 
   /**
    * Remove the list containing the given pointer to triangle.
    */
-  Standard_EXPORT static void RemoveList(Poly_CoherentTriPtr* thePtr,
+  Standard_EXPORT static void RemoveList(CoherentTriPtr* thePtr,
                                          const Handle(NCollection_BaseAllocator)&);
 
 protected:
@@ -164,7 +164,7 @@ protected:
   /**
    * Constructor.
    */
-  inline Poly_CoherentTriPtr(const Poly_CoherentTriangle* pTri)
+  inline CoherentTriPtr(const CoherentTriangle* pTri)
       : mypTriangle(pTri),
         myNext(this),
         myPrevious(this)
@@ -174,9 +174,9 @@ protected:
 private:
   // ---------- PRIVATE FIELDS ----------
 
-  const Poly_CoherentTriangle* mypTriangle;
-  Poly_CoherentTriPtr*         myNext;
-  Poly_CoherentTriPtr*         myPrevious;
+  const CoherentTriangle* mypTriangle;
+  CoherentTriPtr*         myNext;
+  CoherentTriPtr*         myPrevious;
 
   friend class Iterator;
 };

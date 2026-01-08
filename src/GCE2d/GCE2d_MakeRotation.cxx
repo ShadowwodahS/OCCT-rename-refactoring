@@ -19,7 +19,7 @@
 #include <gp_Pnt2d.hxx>
 
 //=========================================================================
-//   Creation d une rotation 3d de gp d angle Angle par rapport a une     +
+//   Creation d une rotation 3d de gp1 d angle Angle par rapport a une     +
 //   droite Line.                                                         +
 //=========================================================================
 GCE2d_MakeRotation::GCE2d_MakeRotation(const gp_Pnt2d& Point, const Standard_Real Angle)

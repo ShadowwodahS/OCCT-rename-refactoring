@@ -21,7 +21,7 @@
 #include <gp_Trsf.hxx>
 
 //=========================================================================
-//   Creation d une rotation 3d de gp d angle Angle par rapport a une     +
+//   Creation d une rotation 3d de gp1 d angle Angle par rapport a une     +
 //   droite Line.                                                         +
 //=========================================================================
 RotationBuilder::RotationBuilder(const gp_Lin& Line, const Standard_Real Angle)
@@ -30,7 +30,7 @@ RotationBuilder::RotationBuilder(const gp_Lin& Line, const Standard_Real Angle)
 }
 
 //=========================================================================
-//   Creation d une rotation 3d de gp d angle Angle par rapport a un      +
+//   Creation d une rotation 3d de gp1 d angle Angle par rapport a un      +
 //   axe Axis.                                                            +
 //=========================================================================
 
@@ -40,7 +40,7 @@ RotationBuilder::RotationBuilder(const Axis3d& Axis, const Standard_Real Angle)
 }
 
 //=========================================================================
-//   Creation d une rotation 3d de gp d angle Angle par rapport a une     +
+//   Creation d une rotation 3d de gp1 d angle Angle par rapport a une     +
 //   droite issue du point Point et de direction Direc.                   +
 //=========================================================================
 

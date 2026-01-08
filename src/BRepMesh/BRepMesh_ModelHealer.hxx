@@ -119,7 +119,7 @@ private:
       closestPoint(theFirstPnt1, theFirstPnt2, theSecondPnt2, aCurrPrevUV1);
     const Standard_Real aSqDist2 =
       closestPoint(theSecondPnt1, theFirstPnt2, theSecondPnt2, aCurrPrevUV2);
-    if (aSqDist1 - aSqDist2 < gp::Resolution())
+    if (aSqDist1 - aSqDist2 < gp1::Resolution())
     {
       theClosestPnt1 = &theFirstPnt1;
       theClosestPnt2 = aCurrPrevUV1;

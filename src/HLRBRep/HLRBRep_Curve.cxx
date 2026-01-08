@@ -92,7 +92,7 @@ Standard_Real HLRBRep_Curve::Parameter3d(const Standard_Real P2d) const
       const Standard_Real FmOZ = myOF - myOZ;
       return P2d * FmOZ * FmOZ / (FmOZ * (myOF * myVX + P2d * myVZ) + myOF * myOX * myVZ);
     }
-    return ((myVX <= gp::Resolution()) ? P2d : (P2d / myVX));
+    return ((myVX <= gp1::Resolution()) ? P2d : (P2d / myVX));
   }
 
   else if (myType == GeomAbs_Ellipse)
@@ -122,9 +122,9 @@ Standard_Real HLRBRep_Curve::Update(Standard_Real TotMin[16], Standard_Real TotM
       {
         Dir3d D1 = BCurveTool::Circle(myCurve).Axis().Direction();
         D1.Transform(((HLRAlgoProjector*)myProj)->Transformation());
-        if (D1.IsParallel(gp::DZ(), Precision::Angular()))
+        if (D1.IsParallel(gp1::DZ(), Precision::Angular()))
           myType = GeomAbs_Circle;
-        else if (Abs(D1.Dot(gp::DZ()))
+        else if (Abs(D1.Dot(gp1::DZ()))
                  < Precision::Angular()
                      * 10) //*10: The minor radius of ellipse should not be too small.
           myType = GeomAbs_OtherCurve;
@@ -132,7 +132,7 @@ Standard_Real HLRBRep_Curve::Update(Standard_Real TotMin[16], Standard_Real TotM
         {
           myType = GeomAbs_Ellipse;
           // compute the angle offset
-          Dir3d D3 = D1.Crossed(gp::DZ());
+          Dir3d D3 = D1.Crossed(gp1::DZ());
           Dir3d D2 = BCurveTool::Circle(myCurve).XAxis().Direction();
           D2.Transform(((HLRAlgoProjector*)myProj)->Transformation());
           myOX = D3.AngleWithRef(D2, D1);
@@ -145,7 +145,7 @@ Standard_Real HLRBRep_Curve::Update(Standard_Real TotMin[16], Standard_Real TotM
       {
         Dir3d D1 = BCurveTool::Ellipse(myCurve).Axis().Direction();
         D1.Transform(((HLRAlgoProjector*)myProj)->Transformation());
-        if (D1.IsParallel(gp::DZ(), Precision::Angular()))
+        if (D1.IsParallel(gp1::DZ(), Precision::Angular()))
         {
           myOX   = 0.; // no offset on the angle
           myType = GeomAbs_Ellipse;
@@ -416,7 +416,7 @@ gp_Circ2d HLRBRep_Curve::Circle() const
 {
   gp_Circ C = BCurveTool::Circle(myCurve);
   C.Transform(myProj->Transformation());
-  return ProjLib1::Project(gp_Pln(gp::XOY()), C);
+  return ProjLib1::Project(gp_Pln(gp1::XOY()), C);
 }
 
 //=================================================================================================
@@ -427,13 +427,13 @@ gp_Elips2d HLRBRep_Curve::Ellipse() const
   {
     gp_Elips E = BCurveTool::Ellipse(myCurve);
     E.Transform(myProj->Transformation());
-    return ProjLib1::Project(gp_Pln(gp::XOY()), E);
+    return ProjLib1::Project(gp_Pln(gp1::XOY()), E);
   }
   // this is a circle
   gp_Circ C = BCurveTool::Circle(myCurve);
   C.Transform(myProj->Transformation());
   const Dir3d& D1  = C.Axis().Direction();
-  const Dir3d& D3  = D1.Crossed(gp::DZ());
+  const Dir3d& D3  = D1.Crossed(gp1::DZ());
   const Dir3d& D2  = D1.Crossed(D3);
   Standard_Real rap = sqrt(D2.X() * D2.X() + D2.Y() * D2.Y());
   gp_Dir2d      d(D1.Y(), -D1.X());

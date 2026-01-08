@@ -96,21 +96,21 @@ void Determine_Transition(const IntRes2d_Position Pos1,
   Standard_Boolean courbure1 = Standard_True;
   Standard_Boolean courbure2 = Standard_True;
   Standard_Boolean decide    = Standard_True;
-  if (Tan1.Magnitude() <= gp::Resolution())
+  if (Tan1.Magnitude() <= gp1::Resolution())
   {
     Tan1      = Norm1;
     courbure1 = Standard_False;
-    if (Tan1.Magnitude() <= gp::Resolution())
+    if (Tan1.Magnitude() <= gp1::Resolution())
     { // transition undecided
       decide = Standard_False;
     }
   }
 
-  if (Tan2.Magnitude() <= gp::Resolution())
+  if (Tan2.Magnitude() <= gp1::Resolution())
   {
     Tan2      = Norm2;
     courbure2 = Standard_False;
-    if (Tan2.Magnitude() <= gp::Resolution())
+    if (Tan2.Magnitude() <= gp1::Resolution())
     { // transition undecided
       decide = Standard_False;
     }
@@ -156,7 +156,7 @@ void Determine_Transition(const IntRes2d_Position Pos1,
           Val2 = Norm.Dot(Norm2);
         }
 
-        if (Abs(Val1 - Val2) <= gp::Resolution())
+        if (Abs(Val1 - Val2) <= gp1::Resolution())
         {
           T1.SetValue(Standard_True, Pos1, IntRes2d_Unknown, opos);
           T2.SetValue(Standard_True, Pos2, IntRes2d_Unknown, opos);

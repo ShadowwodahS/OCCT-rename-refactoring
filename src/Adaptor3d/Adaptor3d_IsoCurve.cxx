@@ -608,7 +608,7 @@ gp_Lin Adaptor3d_IsoCurve::Line() const
 
 //=================================================================================================
 
-static void computeHR(const gp_Ax3& axes, const Point3d& P, Standard_Real& h, Standard_Real& radius)
+static void computeHR(const Ax3& axes, const Point3d& P, Standard_Real& h, Standard_Real& radius)
 {
   Vector3d V(axes.Location(), P);
   h      = V * axes.Direction();
@@ -619,14 +619,14 @@ static void computeHR(const gp_Ax3& axes, const Point3d& P, Standard_Real& h, St
 
 gp_Circ Adaptor3d_IsoCurve::Circle() const
 {
-  gp_Ax3        axes;
+  Ax3        axes;
   Standard_Real radius, h = 0.;
 
   switch (mySurface->GetType())
   {
 
     case GeomAbs_Cylinder: {
-      gp_Cylinder cyl = mySurface->Cylinder();
+      Cylinder1 cyl = mySurface->Cylinder();
 
       switch (myIso)
       {
@@ -645,7 +645,7 @@ gp_Circ Adaptor3d_IsoCurve::Circle() const
     }
 
     case GeomAbs_Cone: {
-      gp_Cone cone = mySurface->Cone();
+      Cone1 cone = mySurface->Cone();
 
       switch (myIso)
       {
@@ -723,7 +723,7 @@ gp_Circ Adaptor3d_IsoCurve::Circle() const
         else
         {
           Vector3d DX(Ax1.Location(), aVal0);
-          axes = gp_Ax3(Ax1.Location(), Ax1.Direction(), DX);
+          axes = Ax3(Ax1.Location(), Ax1.Direction(), DX);
           computeHR(axes, aVal0, h, radius);
           Vector3d VT = axes.Direction();
           axes.Translate(VT * h);

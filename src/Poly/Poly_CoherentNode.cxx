@@ -20,7 +20,7 @@
 
 void Poly_CoherentNode::Clear(const Handle(NCollection_BaseAllocator)& theAlloc)
 {
-  Poly_CoherentTriPtr::RemoveList(myTriangles, theAlloc);
+  CoherentTriPtr::RemoveList(myTriangles, theAlloc);
   myUV[0]     = Precision::Infinite();
   myUV[1]     = Precision::Infinite();
   myNormal[0] = 0.f;
@@ -43,11 +43,11 @@ void Poly_CoherentNode::SetNormal(const gp_XYZ& theVector)
 
 //=================================================================================================
 
-void Poly_CoherentNode::AddTriangle(const Poly_CoherentTriangle&             theTri,
+void Poly_CoherentNode::AddTriangle(const CoherentTriangle&             theTri,
                                     const Handle(NCollection_BaseAllocator)& theAlloc)
 {
   if (myTriangles == NULL)
-    myTriangles = new (theAlloc) Poly_CoherentTriPtr(theTri);
+    myTriangles = new (theAlloc) CoherentTriPtr(theTri);
   else
     myTriangles->Prepend(&theTri, theAlloc);
 }
@@ -55,27 +55,27 @@ void Poly_CoherentNode::AddTriangle(const Poly_CoherentTriangle&             the
 //=================================================================================================
 
 Standard_Boolean Poly_CoherentNode::RemoveTriangle(
-  const Poly_CoherentTriangle&             theTri,
+  const CoherentTriangle&             theTri,
   const Handle(NCollection_BaseAllocator)& theAlloc)
 {
   Standard_Boolean aResult(Standard_False);
   if (&myTriangles->GetTriangle() == &theTri)
   {
-    Poly_CoherentTriPtr* aLostPtr = myTriangles;
+    CoherentTriPtr* aLostPtr = myTriangles;
     if (myTriangles == &myTriangles->Next())
       myTriangles = 0L;
     else
       myTriangles = &myTriangles->Next();
-    Poly_CoherentTriPtr::Remove(aLostPtr, theAlloc);
+    CoherentTriPtr::Remove(aLostPtr, theAlloc);
     aResult = Standard_True;
   }
   else
   {
-    Poly_CoherentTriPtr::Iterator anIter(*myTriangles);
+    CoherentTriPtr::Iterator anIter(*myTriangles);
     for (anIter.Next(); anIter.More(); anIter.Next())
       if (&anIter.Value() == &theTri)
       {
-        Poly_CoherentTriPtr::Remove(const_cast<Poly_CoherentTriPtr*>(&anIter.PtrValue()), theAlloc);
+        CoherentTriPtr::Remove(const_cast<CoherentTriPtr*>(&anIter.PtrValue()), theAlloc);
         aResult = Standard_True;
         break;
       }
@@ -90,10 +90,10 @@ void Poly_CoherentNode::Dump(Standard_OStream& theStream) const
   char buf[256];
   Sprintf(buf, "  X =%9.4f; Y =%9.4f; Z =%9.4f", X(), Y(), Z());
   theStream << buf << std::endl;
-  Poly_CoherentTriPtr::Iterator anIter(*myTriangles);
+  CoherentTriPtr::Iterator anIter(*myTriangles);
   for (; anIter.More(); anIter.Next())
   {
-    const Poly_CoherentTriangle& aTri = anIter.Value();
+    const CoherentTriangle& aTri = anIter.Value();
     Sprintf(buf, "      %5d %5d %5d", aTri.Node(0), aTri.Node(1), aTri.Node(2));
     theStream << buf << std::endl;
   }

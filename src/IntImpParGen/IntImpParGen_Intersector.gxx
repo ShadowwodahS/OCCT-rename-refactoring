@@ -371,8 +371,8 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
 
       ParTool::D2(TheParCurve,param2_inf,Ptemp,T2,N2);
       TheImpTool.D2(param1_inf,Ptemp,T1,N1);
-      if (T1.Magnitude() <= gp::Resolution()) T1 = N1;
-      if (T2.Magnitude() <= gp::Resolution()) T2 = N2;
+      if (T1.Magnitude() <= gp1::Resolution()) T1 = N1;
+      if (T2.Magnitude() <= gp1::Resolution()) T2 = N2;
 
       if (T1.Dot(T2) >= 0.0) {
         //---  param1_inf designe un point entrant (et T1 est vers la matiere)

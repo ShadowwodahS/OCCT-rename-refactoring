@@ -13,7 +13,7 @@
 // commercial license or contractual agreement.
 
 // JCV 30/08/90 Modif passage version C++ 2.0 sur Sun
-// JCV 1/10/90 Changement de nom du package vgeom -> gp
+// JCV 1/10/90 Changement de nom du package vgeom -> gp1
 // JCV 12/12/90 Modif suite a la premiere revue de projet
 // LPA, JCV  07/92 passage sur C1.
 // JCV 07/92 Introduction de la method Dump
@@ -53,23 +53,23 @@ gp_Pln::gp_Pln(const Point3d& P, const Dir3d& V)
   if (Babs <= Aabs && Babs <= Cabs)
   {
     if (Aabs > Cabs)
-      pos = gp_Ax3(P, V, Dir3d(-C, 0., A));
+      pos = Ax3(P, V, Dir3d(-C, 0., A));
     else
-      pos = gp_Ax3(P, V, Dir3d(C, 0., -A));
+      pos = Ax3(P, V, Dir3d(C, 0., -A));
   }
   else if (Aabs <= Babs && Aabs <= Cabs)
   {
     if (Babs > Cabs)
-      pos = gp_Ax3(P, V, Dir3d(0., -C, B));
+      pos = Ax3(P, V, Dir3d(0., -C, B));
     else
-      pos = gp_Ax3(P, V, Dir3d(0., C, -B));
+      pos = Ax3(P, V, Dir3d(0., C, -B));
   }
   else
   {
     if (Aabs > Babs)
-      pos = gp_Ax3(P, V, Dir3d(-B, A, 0.));
+      pos = Ax3(P, V, Dir3d(-B, A, 0.));
     else
-      pos = gp_Ax3(P, V, Dir3d(B, -A, 0.));
+      pos = Ax3(P, V, Dir3d(B, -A, 0.));
   }
 }
 
@@ -90,23 +90,23 @@ gp_Pln::gp_Pln(const Standard_Real A,
   if (Babs <= Aabs && Babs <= Cabs)
   {
     if (Aabs > Cabs)
-      pos = gp_Ax3(Point3d(-D / A, 0., 0.), Dir3d(A, B, C), Dir3d(-C, 0., A));
+      pos = Ax3(Point3d(-D / A, 0., 0.), Dir3d(A, B, C), Dir3d(-C, 0., A));
     else
-      pos = gp_Ax3(Point3d(0., 0., -D / C), Dir3d(A, B, C), Dir3d(C, 0., -A));
+      pos = Ax3(Point3d(0., 0., -D / C), Dir3d(A, B, C), Dir3d(C, 0., -A));
   }
   else if (Aabs <= Babs && Aabs <= Cabs)
   {
     if (Babs > Cabs)
-      pos = gp_Ax3(Point3d(0., -D / B, 0.), Dir3d(A, B, C), Dir3d(0., -C, B));
+      pos = Ax3(Point3d(0., -D / B, 0.), Dir3d(A, B, C), Dir3d(0., -C, B));
     else
-      pos = gp_Ax3(Point3d(0., 0., -D / C), Dir3d(A, B, C), Dir3d(0., C, -B));
+      pos = Ax3(Point3d(0., 0., -D / C), Dir3d(A, B, C), Dir3d(0., C, -B));
   }
   else
   {
     if (Aabs > Babs)
-      pos = gp_Ax3(Point3d(-D / A, 0., 0.), Dir3d(A, B, C), Dir3d(-B, A, 0.));
+      pos = Ax3(Point3d(-D / A, 0., 0.), Dir3d(A, B, C), Dir3d(-B, A, 0.));
     else
-      pos = gp_Ax3(Point3d(0., -D / B, 0.), Dir3d(A, B, C), Dir3d(B, -A, 0.));
+      pos = Ax3(Point3d(0., -D / B, 0.), Dir3d(A, B, C), Dir3d(B, -A, 0.));
   }
 }
 

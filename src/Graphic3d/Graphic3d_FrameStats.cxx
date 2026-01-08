@@ -730,7 +730,7 @@ void Graphic3d_FrameStats::FrameEnd(const Handle(Graphic3d_CView)& theView, bool
   }
 
   const Graphic3d_FrameStatsData& aPrevFrame = myCounters.Value(myLastFrameIndex);
-  if (aTime > gp::Resolution())
+  if (aTime > gp1::Resolution())
   {
     // update FPS
     myFpsTimer.Stop();
@@ -742,7 +742,7 @@ void Graphic3d_FrameStats::FrameEnd(const Handle(Graphic3d_CView)& theView, bool
     {
       myCountersTmp.ChangeImmediateFrameRate() = double(myFpsFrameCount) / aTime;
       myCountersTmp.ChangeImmediateFrameRateCpu() =
-        aCpuSec > gp::Resolution() ? double(myFpsFrameCount) / aCpuSec : -1.0;
+        aCpuSec > gp1::Resolution() ? double(myFpsFrameCount) / aCpuSec : -1.0;
       myCountersTmp.ChangeFrameRate()    = aPrevFrame.FrameRate();
       myCountersTmp.ChangeFrameRateCpu() = aPrevFrame.FrameRateCpu();
     }
@@ -752,7 +752,7 @@ void Graphic3d_FrameStats::FrameEnd(const Handle(Graphic3d_CView)& theView, bool
       myCountersTmp.ChangeImmediateFrameRateCpu() = -1.0;
       myCountersTmp.ChangeFrameRate()             = double(myFpsFrameCount) / aTime;
       myCountersTmp.ChangeFrameRateCpu() =
-        aCpuSec > gp::Resolution() ? double(myFpsFrameCount) / aCpuSec : -1.0;
+        aCpuSec > gp1::Resolution() ? double(myFpsFrameCount) / aCpuSec : -1.0;
     }
     myCountersTmp.FlushTimers(myFpsFrameCount, true);
     myCountersMax.FillMax(myCountersTmp);

@@ -813,7 +813,7 @@ void AIS_Trihedron::updatePrimitives(const Handle(Prs3d_DatumAspect)& theAspect,
       const Standard_Integer aNbOfFacettes =
         (Standard_Integer)theAspect->Attribute(Prs3d_DatumAttribute_ShadingNumberOfFacettes);
       Transform3d aSphereTransform;
-      aSphereTransform.SetTranslationPart(Vector3d(gp::Origin(), theOrigin));
+      aSphereTransform.SetTranslationPart(Vector3d(gp1::Origin(), theOrigin));
       myPrimitives[Prs3d_DatumParts_Origin] =
         Prs3d_ToolSphere::Create(aSphereRadius, aNbOfFacettes, aNbOfFacettes, aSphereTransform);
     }

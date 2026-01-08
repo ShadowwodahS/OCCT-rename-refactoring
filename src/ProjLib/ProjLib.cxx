@@ -96,7 +96,7 @@ gp_Hypr2d ProjLib1::Project(const gp_Pln& Pl, const gp_Hypr& H)
 
 //=================================================================================================
 
-gp_Pnt2d ProjLib1::Project(const gp_Cylinder& Cy, const Point3d& P)
+gp_Pnt2d ProjLib1::Project(const Cylinder1& Cy, const Point3d& P)
 {
   Standard_Real U, V;
   ElSLib1::Parameters(Cy, P, U, V);
@@ -105,7 +105,7 @@ gp_Pnt2d ProjLib1::Project(const gp_Cylinder& Cy, const Point3d& P)
 
 //=================================================================================================
 
-gp_Lin2d ProjLib1::Project(const gp_Cylinder& Cy, const gp_Lin& L)
+gp_Lin2d ProjLib1::Project(const Cylinder1& Cy, const gp_Lin& L)
 {
   ProjLib_Cylinder Proj(Cy, L);
   return Proj.Line();
@@ -113,7 +113,7 @@ gp_Lin2d ProjLib1::Project(const gp_Cylinder& Cy, const gp_Lin& L)
 
 //=================================================================================================
 
-gp_Lin2d ProjLib1::Project(const gp_Cylinder& Cy, const gp_Circ& Ci)
+gp_Lin2d ProjLib1::Project(const Cylinder1& Cy, const gp_Circ& Ci)
 {
   ProjLib_Cylinder Proj(Cy, Ci);
   return Proj.Line();
@@ -121,7 +121,7 @@ gp_Lin2d ProjLib1::Project(const gp_Cylinder& Cy, const gp_Circ& Ci)
 
 //=================================================================================================
 
-gp_Pnt2d ProjLib1::Project(const gp_Cone& Co, const Point3d& P)
+gp_Pnt2d ProjLib1::Project(const Cone1& Co, const Point3d& P)
 {
   Standard_Real U, V;
   ElSLib1::Parameters(Co, P, U, V);
@@ -130,7 +130,7 @@ gp_Pnt2d ProjLib1::Project(const gp_Cone& Co, const Point3d& P)
 
 //=================================================================================================
 
-gp_Lin2d ProjLib1::Project(const gp_Cone& Co, const gp_Lin& L)
+gp_Lin2d ProjLib1::Project(const Cone1& Co, const gp_Lin& L)
 {
   ProjLib_Cone Proj(Co, L);
   return Proj.Line();
@@ -138,7 +138,7 @@ gp_Lin2d ProjLib1::Project(const gp_Cone& Co, const gp_Lin& L)
 
 //=================================================================================================
 
-gp_Lin2d ProjLib1::Project(const gp_Cone& Co, const gp_Circ& Ci)
+gp_Lin2d ProjLib1::Project(const Cone1& Co, const gp_Circ& Ci)
 {
   ProjLib_Cone Proj(Co, Ci);
   return Proj.Line();

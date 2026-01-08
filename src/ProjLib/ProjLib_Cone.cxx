@@ -31,14 +31,14 @@ ProjLib_Cone::ProjLib_Cone() {}
 
 //=================================================================================================
 
-ProjLib_Cone::ProjLib_Cone(const gp_Cone& Co)
+ProjLib_Cone::ProjLib_Cone(const Cone1& Co)
 {
   Init(Co);
 }
 
 //=================================================================================================
 
-ProjLib_Cone::ProjLib_Cone(const gp_Cone& Co, const gp_Lin& L)
+ProjLib_Cone::ProjLib_Cone(const Cone1& Co, const gp_Lin& L)
 {
   Init(Co);
   Project(L);
@@ -46,7 +46,7 @@ ProjLib_Cone::ProjLib_Cone(const gp_Cone& Co, const gp_Lin& L)
 
 //=================================================================================================
 
-ProjLib_Cone::ProjLib_Cone(const gp_Cone& Co, const gp_Circ& C)
+ProjLib_Cone::ProjLib_Cone(const Cone1& Co, const gp_Circ& C)
 {
   Init(Co);
   Project(C);
@@ -54,7 +54,7 @@ ProjLib_Cone::ProjLib_Cone(const gp_Cone& Co, const gp_Circ& C)
 
 //=================================================================================================
 
-void ProjLib_Cone::Init(const gp_Cone& Co)
+void ProjLib_Cone::Init(const Cone1& Co)
 {
   myType       = GeomAbs_OtherCurve;
   myCone       = Co;
@@ -107,8 +107,8 @@ void ProjLib_Cone::Project(const gp_Circ& C)
 {
   myType = GeomAbs_Line;
 
-  gp_Ax3 ConePos = myCone.Position();
-  gp_Ax3 CircPos = C.Position();
+  Ax3 ConePos = myCone.Position();
+  Ax3 CircPos = C.Position();
   //
   if (!ConePos.Direction().IsParallel(CircPos.Direction(), Precision::Angular()))
   {

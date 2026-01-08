@@ -56,15 +56,15 @@ Handle(Graphic3d_ArrayOfSegments) Prs3d_Arrow::DrawSegments(const Point3d&      
   Dir3d aN;
   if (Abs(theDir.X()) <= Abs(theDir.Y()) && Abs(theDir.X()) <= Abs(theDir.Z()))
   {
-    aN = gp::DX();
+    aN = gp1::DX();
   }
   else if (Abs(theDir.Y()) <= Abs(theDir.Z()) && Abs(theDir.Y()) <= Abs(theDir.X()))
   {
-    aN = gp::DY();
+    aN = gp1::DY();
   }
   else
   {
-    aN = gp::DZ();
+    aN = gp1::DZ();
   }
 
   const Dir3d anXYZi = theDir.Crossed(aN.XYZ());
@@ -142,9 +142,9 @@ Handle(Graphic3d_ArrayOfTriangles) Prs3d_Arrow::DrawShaded(const Axis3d&        
     new Graphic3d_ArrayOfTriangles(aMaxVertexs, aNbTris * 3, Graphic3d_ArrayFlags_VertexNormal);
   if (aNbTrisTube != 0)
   {
-    gp_Ax3  aSystem(theAxis.Location(), theAxis.Direction());
+    Ax3  aSystem(theAxis.Location(), theAxis.Direction());
     Transform3d aTrsf;
-    aTrsf.SetTransformation(aSystem, gp_Ax3());
+    aTrsf.SetTransformation(aSystem, Ax3());
 
     Prs3d_ToolCylinder aTool(theTubeRadius, theTubeRadius, aTubeLength, theNbFacettes, 1);
     aTool.FillArray(anArray, aTrsf);
@@ -156,9 +156,9 @@ Handle(Graphic3d_ArrayOfTriangles) Prs3d_Arrow::DrawShaded(const Axis3d&        
       theAxis.Location().Translated(Vector3d(theAxis.Direction().X() * aTubeLength,
                                            theAxis.Direction().Y() * aTubeLength,
                                            theAxis.Direction().Z() * aTubeLength));
-    gp_Ax3  aSystem(aConeOrigin, theAxis.Direction());
+    Ax3  aSystem(aConeOrigin, theAxis.Direction());
     Transform3d aTrsf;
-    aTrsf.SetTransformation(aSystem, gp_Ax3());
+    aTrsf.SetTransformation(aSystem, Ax3());
     {
       Prs3d_ToolDisk aTool(0.0, theConeRadius, theNbFacettes, 1);
       aTool.FillArray(anArray, aTrsf);

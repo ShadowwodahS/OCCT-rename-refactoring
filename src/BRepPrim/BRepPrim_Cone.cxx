@@ -52,7 +52,7 @@ BRepPrim_Cone::BRepPrim_Cone(const Standard_Real Angle,
 //=================================================================================================
 
 BRepPrim_Cone::BRepPrim_Cone(const Standard_Real Angle)
-    : BRepPrim_Revolution(gp::XOY(), 0, RealLast()),
+    : BRepPrim_Revolution(gp1::XOY(), 0, RealLast()),
       myHalfAngle(Angle),
       myRadius(0.)
 {
@@ -90,7 +90,7 @@ BRepPrim_Cone::BRepPrim_Cone(const Standard_Real Angle, const Frame3d& Axes)
 //=================================================================================================
 
 BRepPrim_Cone::BRepPrim_Cone(const Standard_Real R1, const Standard_Real R2, const Standard_Real H)
-    : BRepPrim_Revolution(gp::XOY(), 0, 0)
+    : BRepPrim_Revolution(gp1::XOY(), 0, 0)
 {
   SetParameters(R1, R2, H);
   SetMeridian();

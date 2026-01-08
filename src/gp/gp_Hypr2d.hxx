@@ -25,7 +25,7 @@
 //! Describes a branch of a hyperbola in the plane (2D space).
 //! A hyperbola is defined by its major and minor radii, and
 //! positioned in the plane with a coordinate system (a
-//! gp_Ax22d object) of which:
+//! Ax22d object) of which:
 //! -   the origin is the center of the hyperbola,
 //! -   the "X Direction" defines the major axis of the hyperbola, and
 //! -   the "Y Direction" defines the minor axis of the hyperbola.
@@ -91,7 +91,7 @@ public:
       : majorRadius(theMajorRadius),
         minorRadius(theMinorRadius)
   {
-    pos = gp_Ax22d(theMajorAxis, theIsSense);
+    pos = Ax22d(theMajorAxis, theIsSense);
     Standard_ConstructionError_Raise_if(theMinorRadius < 0.0 || theMajorRadius < 0.0,
                                         "gp_Hypr2d() - invalid construction parameters");
   }
@@ -111,7 +111,7 @@ public:
   //! It is yet  possible to create an Hyperbola with
   //! theMajorRadius <= theMinorRadius.
   //! Raises ConstructionError if theMajorRadius < 0.0 or theMinorRadius < 0.0
-  gp_Hypr2d(const gp_Ax22d&     theA,
+  gp_Hypr2d(const Ax22d&     theA,
             const Standard_Real theMajorRadius,
             const Standard_Real theMinorRadius)
       : pos(theA),
@@ -152,7 +152,7 @@ public:
 
   //! Modifies this hyperbola, by redefining its local
   //! coordinate system so that it becomes theA.
-  void SetAxis(const gp_Ax22d& theA) { pos.SetAxis(theA); }
+  void SetAxis(const Ax22d& theA) { pos.SetAxis(theA); }
 
   //! Changes the major axis of the hyperbola. The minor axis is
   //! recomputed and the location of the hyperbola too.
@@ -226,7 +226,7 @@ public:
   //! 0.0.
   Standard_Real Eccentricity() const
   {
-    Standard_DomainError_Raise_if(majorRadius <= gp::Resolution(),
+    Standard_DomainError_Raise_if(majorRadius <= gp1::Resolution(),
                                   "gp_Hypr2d::Eccentricity() - major radius is zero");
     return sqrt(majorRadius * majorRadius + minorRadius * minorRadius) / majorRadius;
   }
@@ -286,13 +286,13 @@ public:
   //! Raises DomainError if MajorRadius = 0.0
   Standard_Real Parameter() const
   {
-    Standard_DomainError_Raise_if(majorRadius <= gp::Resolution(),
+    Standard_DomainError_Raise_if(majorRadius <= gp1::Resolution(),
                                   "gp_Hypr2d::Parameter() - major radius is zero");
     return (minorRadius * minorRadius) / majorRadius;
   }
 
   //! Returns the axisplacement of the hyperbola.
-  const gp_Ax22d& Axis() const { return pos; }
+  const Ax22d& Axis() const { return pos; }
 
   //! Computes an axis whose
   //! -   the origin is the center of this hyperbola, and
@@ -312,7 +312,7 @@ public:
   {
     gp_Dir2d aTemp = pos.YDirection();
     aTemp.Reverse();
-    pos.SetAxis(gp_Ax22d(pos.Location(), pos.XDirection(), aTemp));
+    pos.SetAxis(Ax22d(pos.Location(), pos.XDirection(), aTemp));
   }
 
   //! Reverses the orientation of the local coordinate system
@@ -386,7 +386,7 @@ public:
   }
 
 private:
-  gp_Ax22d      pos;
+  Ax22d      pos;
   Standard_Real majorRadius;
   Standard_Real minorRadius;
 };
@@ -397,7 +397,7 @@ private:
 //=======================================================================
 inline gp_Ax2d gp_Hypr2d::Asymptote1() const
 {
-  Standard_ConstructionError_Raise_if(majorRadius <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(majorRadius <= gp1::Resolution(),
                                       "gp_Hypr2d::Asymptote1() - major radius is zero");
   gp_Dir2d aVdir = pos.XDirection();
   Coords2d    aCoord1(pos.YDirection().XY());
@@ -413,7 +413,7 @@ inline gp_Ax2d gp_Hypr2d::Asymptote1() const
 //=======================================================================
 inline gp_Ax2d gp_Hypr2d::Asymptote2() const
 {
-  Standard_ConstructionError_Raise_if(majorRadius <= gp::Resolution(),
+  Standard_ConstructionError_Raise_if(majorRadius <= gp1::Resolution(),
                                       "gp_Hypr2d::Asymptote2() - major radius is zero");
   gp_Vec2d aVdir = pos.XDirection();
   Coords2d    aCoord1(pos.YDirection().XY());
@@ -458,7 +458,7 @@ inline gp_Hypr2d gp_Hypr2d::Reversed() const
   gp_Hypr2d aH    = *this;
   gp_Dir2d  aTemp = pos.YDirection();
   aTemp.Reverse();
-  aH.pos.SetAxis(gp_Ax22d(pos.Location(), pos.XDirection(), aTemp));
+  aH.pos.SetAxis(Ax22d(pos.Location(), pos.XDirection(), aTemp));
   return aH;
 }
 

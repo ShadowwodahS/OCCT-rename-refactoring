@@ -26,9 +26,9 @@
 //! -   its origin (also referred to as its "Location point"), and
 //! -   two orthogonal unit vectors, respectively, called the "X
 //! Direction" and the "Y Direction".
-//! A gp_Ax22d may be right-handed ("direct sense") or
+//! A Ax22d may be right-handed ("direct sense") or
 //! left-handed ("inverse" or "indirect sense").
-//! You use a gp_Ax22d to:
+//! You use a Ax22d to:
 //! - describe 2D geometric entities, in particular to position
 //! them. The local coordinate system of a geometric
 //! entity serves for the same purpose as the STEP
@@ -38,14 +38,14 @@
 //! -   the origin of the coordinate system as their origin, and
 //! -   the unit vectors "X Direction" and "Y Direction",
 //! respectively, as their unit vectors.
-class gp_Ax22d
+class Ax22d
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates an object representing the reference
   //! coordinate system (OXY).
-  gp_Ax22d()
+  Ax22d()
       : vydir(0., 1.)
   // vxdir(1.,0.) use default ctor of gp_Dir2d, as it creates the same dir(1, 0)
   {
@@ -57,7 +57,7 @@ public:
   //! oriented so that the cross products theVx^"Y
   //! Direction" and theVx^theVy have the same sign.
   //! Raises ConstructionError if theVx and theVy are parallel (same or opposite orientation).
-  gp_Ax22d(const gp_Pnt2d& theP, const gp_Dir2d& theVx, const gp_Dir2d& theVy)
+  Ax22d(const gp_Pnt2d& theP, const gp_Dir2d& theVx, const gp_Dir2d& theVy)
       : point(theP),
         vydir(theVy),
         vxdir(theVx)
@@ -77,7 +77,7 @@ public:
   //! theV, which is:
   //! -   right-handed if theIsSense is true (default value), or
   //! -   left-handed if theIsSense is false
-  gp_Ax22d(const gp_Pnt2d&        theP,
+  Ax22d(const gp_Pnt2d&        theP,
            const gp_Dir2d&        theV,
            const Standard_Boolean theIsSense = Standard_True)
       : point(theP),
@@ -97,7 +97,7 @@ public:
   //! theA and its "X Direction" is the unit vector of theA, which   is:
   //! -   right-handed if theIsSense is true (default value), or
   //! -   left-handed if theIsSense is false.
-  gp_Ax22d(const gp_Ax2d& theA, const Standard_Boolean theIsSense = Standard_True)
+  Ax22d(const gp_Ax2d& theA, const Standard_Boolean theIsSense = Standard_True)
       : point(theA.Location()),
         vxdir(theA.Direction())
   {
@@ -113,7 +113,7 @@ public:
 
   //! Assigns the origin and the two unit vectors of the
   //! coordinate system theA1 to this coordinate system.
-  void SetAxis(const gp_Ax22d& theA1)
+  void SetAxis(const Ax22d& theA1)
   {
     point = theA1.Location();
     vxdir = theA1.XDirection();
@@ -176,7 +176,7 @@ public:
   //! The main direction of the axis placement is not changed.
   //! The "XDirection" and the "YDirection" are reversed.
   //! So the axis placement stay right handed.
-  Standard_NODISCARD Standard_EXPORT gp_Ax22d Mirrored(const gp_Pnt2d& theP) const;
+  Standard_NODISCARD Standard_EXPORT Ax22d Mirrored(const gp_Pnt2d& theP) const;
 
   Standard_EXPORT void Mirror(const gp_Ax2d& theA);
 
@@ -187,16 +187,16 @@ public:
   //! point, on the "XDirection" and "YDirection".
   //! The resulting main "Direction" is the cross product between
   //! the "XDirection" and the "YDirection" after transformation.
-  Standard_NODISCARD Standard_EXPORT gp_Ax22d Mirrored(const gp_Ax2d& theA) const;
+  Standard_NODISCARD Standard_EXPORT Ax22d Mirrored(const gp_Ax2d& theA) const;
 
   void Rotate(const gp_Pnt2d& theP, const Standard_Real theAng);
 
   //! Rotates an axis placement. <theA1> is the axis of the
   //! rotation . theAng is the angular value of the rotation
   //! in radians.
-  Standard_NODISCARD gp_Ax22d Rotated(const gp_Pnt2d& theP, const Standard_Real theAng) const
+  Standard_NODISCARD Ax22d Rotated(const gp_Pnt2d& theP, const Standard_Real theAng) const
   {
-    gp_Ax22d aTemp = *this;
+    Ax22d aTemp = *this;
     aTemp.Rotate(theP, theAng);
     return aTemp;
   }
@@ -210,9 +210,9 @@ public:
   //! . the main direction of the axis placement is not changed.
   //! . The "XDirection" and the "YDirection" are reversed.
   //! So the axis placement stay right handed.
-  Standard_NODISCARD gp_Ax22d Scaled(const gp_Pnt2d& theP, const Standard_Real theS) const
+  Standard_NODISCARD Ax22d Scaled(const gp_Pnt2d& theP, const Standard_Real theS) const
   {
-    gp_Ax22d aTemp = *this;
+    Ax22d aTemp = *this;
     aTemp.Scale(theP, theS);
     return aTemp;
   }
@@ -224,9 +224,9 @@ public:
   //! "YDirection" are transformed with theT.  The resulting
   //! main "Direction" of <me> is the cross product between
   //! the "XDirection" and the "YDirection" after transformation.
-  Standard_NODISCARD gp_Ax22d Transformed(const gp_Trsf2d& theT) const
+  Standard_NODISCARD Ax22d Transformed(const gp_Trsf2d& theT) const
   {
-    gp_Ax22d aTemp = *this;
+    Ax22d aTemp = *this;
     aTemp.Transform(theT);
     return aTemp;
   }
@@ -235,9 +235,9 @@ public:
 
   //! Translates an axis plaxement in the direction of the vector
   //! <theV>. The magnitude of the translation is the vector's magnitude.
-  Standard_NODISCARD gp_Ax22d Translated(const gp_Vec2d& theV) const
+  Standard_NODISCARD Ax22d Translated(const gp_Vec2d& theV) const
   {
-    gp_Ax22d aTemp = *this;
+    Ax22d aTemp = *this;
     aTemp.Translate(theV);
     return aTemp;
   }
@@ -246,9 +246,9 @@ public:
 
   //! Translates an axis placement from the point <theP1> to the
   //! point <theP2>.
-  Standard_NODISCARD gp_Ax22d Translated(const gp_Pnt2d& theP1, const gp_Pnt2d& theP2) const
+  Standard_NODISCARD Ax22d Translated(const gp_Pnt2d& theP1, const gp_Pnt2d& theP2) const
   {
-    gp_Ax22d aTemp = *this;
+    Ax22d aTemp = *this;
     aTemp.Translate(theP1, theP2);
     return aTemp;
   }
@@ -266,7 +266,7 @@ private:
 // function : SetDirection
 // purpose  :
 // =======================================================================
-inline void gp_Ax22d::SetXAxis(const gp_Ax2d& theA1)
+inline void Ax22d::SetXAxis(const gp_Ax2d& theA1)
 {
   Standard_Boolean isSign = (vxdir.Crossed(vydir)) >= 0.0;
   point                   = theA1.Location();
@@ -285,7 +285,7 @@ inline void gp_Ax22d::SetXAxis(const gp_Ax2d& theA1)
 // function : SetDirection
 // purpose  :
 // =======================================================================
-inline void gp_Ax22d::SetYAxis(const gp_Ax2d& theA1)
+inline void Ax22d::SetYAxis(const gp_Ax2d& theA1)
 {
   Standard_Boolean isSign = (vxdir.Crossed(vydir)) >= 0.0;
   point                   = theA1.Location();
@@ -304,7 +304,7 @@ inline void gp_Ax22d::SetYAxis(const gp_Ax2d& theA1)
 // function : SetXDirection
 // purpose  :
 // =======================================================================
-inline void gp_Ax22d::SetXDirection(const gp_Dir2d& theVx)
+inline void Ax22d::SetXDirection(const gp_Dir2d& theVx)
 {
   Standard_Boolean isSign = (vxdir.Crossed(vydir)) >= 0.0;
   vxdir                   = theVx;
@@ -322,7 +322,7 @@ inline void gp_Ax22d::SetXDirection(const gp_Dir2d& theVx)
 // function : SetYDirection
 // purpose  :
 // =======================================================================
-inline void gp_Ax22d::SetYDirection(const gp_Dir2d& theVy)
+inline void Ax22d::SetYDirection(const gp_Dir2d& theVy)
 {
   Standard_Boolean isSign = (vxdir.Crossed(vydir)) >= 0.0;
   vydir                   = theVy;
@@ -340,7 +340,7 @@ inline void gp_Ax22d::SetYDirection(const gp_Dir2d& theVy)
 // function : Rotate
 // purpose  :
 // =======================================================================
-inline void gp_Ax22d::Rotate(const gp_Pnt2d& theP, const Standard_Real theAng)
+inline void Ax22d::Rotate(const gp_Pnt2d& theP, const Standard_Real theAng)
 {
   gp_Pnt2d aTemp = point;
   aTemp.Rotate(theP, theAng);
@@ -353,7 +353,7 @@ inline void gp_Ax22d::Rotate(const gp_Pnt2d& theP, const Standard_Real theAng)
 // function : Scale
 // purpose  :
 // =======================================================================
-inline void gp_Ax22d::Scale(const gp_Pnt2d& theP, const Standard_Real theS)
+inline void Ax22d::Scale(const gp_Pnt2d& theP, const Standard_Real theS)
 {
   gp_Pnt2d aTemp = point;
   aTemp.Scale(theP, theS);
@@ -369,7 +369,7 @@ inline void gp_Ax22d::Scale(const gp_Pnt2d& theP, const Standard_Real theS)
 // function : Transform
 // purpose  :
 // =======================================================================
-inline void gp_Ax22d::Transform(const gp_Trsf2d& theT)
+inline void Ax22d::Transform(const gp_Trsf2d& theT)
 {
   gp_Pnt2d aTemp = point;
   aTemp.Transform(theT);

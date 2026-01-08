@@ -45,7 +45,7 @@ Quadric1::Quadric1(const gp_Pln& P)
 }
 
 // ============================================================
-Quadric1::Quadric1(const gp_Cylinder& C)
+Quadric1::Quadric1(const Cylinder1& C)
     :
 
       ax3(C.Position()),
@@ -71,7 +71,7 @@ Quadric1::Quadric1(const gp_Sphere& S)
 }
 
 // ============================================================
-Quadric1::Quadric1(const gp_Cone& C)
+Quadric1::Quadric1(const Cone1& C)
     :
 
       ax3(C.Position()),
@@ -110,7 +110,7 @@ void Quadric1::SetValue(const gp_Pln& P)
 }
 
 // ============================================================
-void Quadric1::SetValue(const gp_Cylinder& C)
+void Quadric1::SetValue(const Cylinder1& C)
 {
   typ      = GeomAbs_Cylinder;
   ax3      = C.Position();
@@ -132,7 +132,7 @@ void Quadric1::SetValue(const gp_Sphere& S)
 }
 
 // ============================================================
-void Quadric1::SetValue(const gp_Cone& C)
+void Quadric1::SetValue(const Cone1& C)
 {
   typ      = GeomAbs_Cone;
   ax3      = C.Position();

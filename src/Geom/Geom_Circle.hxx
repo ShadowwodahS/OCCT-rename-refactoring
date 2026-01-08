@@ -86,7 +86,7 @@ public:
   //! Exceptions - Standard_ConstructionError if R is negative.
   Standard_EXPORT void SetRadius(const Standard_Real R);
 
-  //! returns the non transient circle from gp with the same
+  //! returns the non transient circle from gp1 with the same
   //! geometric properties as <me>.
   Standard_EXPORT gp_Circ Circ() const;
 

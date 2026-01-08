@@ -92,7 +92,7 @@ Convert_CircleToBSplineCurve::Convert_CircleToBSplineCurve(
   gp_Dir2d  Ox = C.XAxis().Direction();
   gp_Dir2d  Oy = C.YAxis().Direction();
   gp_Trsf2d Trsf;
-  Trsf.SetTransformation(C.XAxis(), gp::OX2d());
+  Trsf.SetTransformation(C.XAxis(), gp1::OX2d());
   if (Ox.X() * Oy.Y() - Ox.Y() * Oy.X() > 0.0e0)
   {
     value = R;
@@ -157,7 +157,7 @@ Convert_CircleToBSplineCurve::Convert_CircleToBSplineCurve(
   gp_Dir2d  Ox = C.XAxis().Direction();
   gp_Dir2d  Oy = C.YAxis().Direction();
   gp_Trsf2d Trsf;
-  Trsf.SetTransformation(C.XAxis(), gp::OX2d());
+  Trsf.SetTransformation(C.XAxis(), gp1::OX2d());
   if (Ox.X() * Oy.Y() - Ox.Y() * Oy.X() > 0.0e0)
   {
     value = R;

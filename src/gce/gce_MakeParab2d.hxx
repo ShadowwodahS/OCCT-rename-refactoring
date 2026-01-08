@@ -25,11 +25,11 @@
 #include <gce_Root.hxx>
 #include <Standard_Boolean.hxx>
 class gp_Ax2d;
-class gp_Ax22d;
+class Ax22d;
 class gp_Pnt2d;
 
 //! This class implements the following algorithms used to
-//! create Parab2d from gp.
+//! create Parab2d from gp1.
 //! Defines an infinite parabola.
 //! An axis placement one axis defines the local cartesian
 //! coordinate system ("XAxis") of the parabola.
@@ -68,7 +68,7 @@ public:
   //! and its focal length.
   //! Warnings : It is possible to have Focal = 0.
   //! The status is "NullFocalLength" Raised if Focal < 0.0
-  Standard_EXPORT gce_MakeParab2d(const gp_Ax22d& A, const Standard_Real Focal);
+  Standard_EXPORT gce_MakeParab2d(const Ax22d& A, const Standard_Real Focal);
 
   //! Creates a parabola with the directrix and the focus point.
   //! The sense of parametrization is given by Sense.

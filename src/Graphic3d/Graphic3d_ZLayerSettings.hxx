@@ -65,7 +65,7 @@ struct Graphic3d_ZLayerSettings
   {
     myOrigin = theOrigin;
     myOriginTrsf.Nullify();
-    if (!theOrigin.IsEqual(gp_XYZ(0.0, 0.0, 0.0), gp::Resolution()))
+    if (!theOrigin.IsEqual(gp_XYZ(0.0, 0.0, 0.0), gp1::Resolution()))
     {
       Transform3d aTrsf;
       aTrsf.SetTranslation(theOrigin);

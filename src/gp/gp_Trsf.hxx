@@ -28,7 +28,7 @@ class gp_Trsf2d;
 class Axis3d;
 class Frame3d;
 class gp_Quaternion;
-class gp_Ax3;
+class Ax3;
 class Vector3d;
 
 // Avoid possible conflict with SetForm macro defined by windows.h
@@ -133,7 +133,7 @@ public:
   //! SetDisplacement and SetTransformation create
   //! related transformations: the vectorial part of one is the
   //! inverse of the vectorial part of the other.
-  Standard_EXPORT void SetDisplacement(const gp_Ax3& theFromSystem1, const gp_Ax3& theToSystem2);
+  Standard_EXPORT void SetDisplacement(const Ax3& theFromSystem1, const Ax3& theToSystem2);
 
   //! Modifies this transformation so that it transforms the
   //! coordinates of any point, (x, y, z), relative to a source
@@ -144,7 +144,7 @@ public:
   //! system "theFromSystem1" to the coordinate system "theToSystem2".
   //! Example :
   //! @code
-  //! gp_Ax3 theFromSystem1, theToSystem2;
+  //! Ax3 theFromSystem1, theToSystem2;
   //! double x1, y1, z1;  // are the coordinates of a point in the local system theFromSystem1
   //! double x2, y2, z2;  // are the coordinates of a point in the local system theToSystem2
   //! Point3d P1 (x1, y1, z1)
@@ -153,7 +153,7 @@ public:
   //! Point3d P2 = P1.Transformed (T);
   //! P2.Coord (x2, y2, z2);
   //! @endcode
-  Standard_EXPORT void SetTransformation(const gp_Ax3& theFromSystem1, const gp_Ax3& theToSystem2);
+  Standard_EXPORT void SetTransformation(const Ax3& theFromSystem1, const Ax3& theToSystem2);
 
   //! Modifies this transformation so that it transforms the
   //! coordinates of any point, (x, y, z), relative to a source
@@ -167,7 +167,7 @@ public:
   //! to the local coordinate system defined with the Ax3 theToSystem.
   //! Use in the same way  as the previous method. FromSystem1 is
   //! defaulted to the absolute coordinate system.
-  Standard_EXPORT void SetTransformation(const gp_Ax3& theToSystem);
+  Standard_EXPORT void SetTransformation(const Ax3& theToSystem);
 
   //! Sets transformation by directly specified rotation and translation.
   Standard_EXPORT void SetTransformation(const gp_Quaternion& R, const Vector3d& theT);
@@ -264,7 +264,7 @@ public:
   //! Computes the reverse transformation
   //! Raises an exception if the matrix of the transformation
   //! is not inversible, it means that the scale factor is lower
-  //! or equal to Resolution from package gp.
+  //! or equal to Resolution from package gp1.
   //! Computes the transformation composed with T and  <me>.
   //! In a C++ implementation you can also write Tcomposed = <me> * T.
   //! Example :

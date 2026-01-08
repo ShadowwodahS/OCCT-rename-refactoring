@@ -52,7 +52,7 @@
 Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
                                       const Handle(ChFiDS_SurfData)& Data,
                                       const gp_Pln&                  Pln,
-                                      const gp_Cylinder&             Cyl,
+                                      const Cylinder1&             Cyl,
                                       const Standard_Real            fu,
                                       const Standard_Real            lu,
                                       const TopAbs_Orientation       Or1,
@@ -66,10 +66,10 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   // calculate the cylinder fillet.
 
   // plane deviated from radius
-  gp_Ax3 AxPln  = Pln.Position();
+  Ax3 AxPln  = Pln.Position();
   Dir3d NorPln = AxPln.XDirection().Crossed(AxPln.YDirection());
   Dir3d NorF(NorPln);
-  gp_Ax3 AxCyl = Cyl.Position();
+  Ax3 AxCyl = Cyl.Position();
 
   if (Or1 == TopAbs_REVERSED)
   {
@@ -94,7 +94,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
     return Standard_False;
   }
   // intersection of the parallel plane and of the parallel cylinder.
-  gp_Cylinder        CylOffset(Cyl.Position(), ROff);
+  Cylinder1        CylOffset(Cyl.Position(), ROff);
   QuadQuadGeoIntersection LInt(PlanOffset, CylOffset, Precision::Angular(), Precision::Confusion());
   Point3d             OrSpine = ElCLib1::Value(First, Spine);
   Point3d             OrFillet;
@@ -152,7 +152,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
     XDir.Normalize();
   }
 
-  gp_Ax3 AxFil(OrFillet, DirFillet, XDir);
+  Ax3 AxFil(OrFillet, DirFillet, XDir);
   Vector3d aProd = XDir.Crossed(OtherDir);
   if (aProd.Dot(DirFillet) < 0.)
     AxFil.YReverse();
@@ -173,7 +173,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
 
   if (UOnFillet > M_PI)
     UOnFillet = 0.;
-  gp_Lin2d            LOnFillet(gp_Pnt2d(UOnFillet, V), gp::DY2d());
+  gp_Lin2d            LOnFillet(gp_Pnt2d(UOnFillet, V), gp1::DY2d());
   Handle(GeomLine)   L3d  = new GeomLine(C3d);
   Handle(Geom2d_Line) LFac = new Geom2d_Line(Lin2dPln);
   Handle(Geom2d_Line) LFil = new Geom2d_Line(LOnFillet);
@@ -214,7 +214,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
 
   // edge cylinder-Fillet.
   gp_Pnt2d PCyl2d(UOnCyl, VOnCyl);
-  gp_Dir2d DPC = gp::DY2d();
+  gp_Dir2d DPC = gp1::DY2d();
   if (DirFillet.Dot(AxCyl.Direction()) < 0.)
     DPC.Reverse();
   gp_Lin2d Lin2dCyl(PCyl2d, DPC);
@@ -223,7 +223,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   ElSLib1::CylinderParameters(AxFil, Radius, POnCyl, UOnFillet, V);
   if (UOnFillet > M_PI)
     UOnFillet = 0.;
-  LOnFillet = gp_Lin2d(gp_Pnt2d(UOnFillet, V), gp::DY2d());
+  LOnFillet = gp_Lin2d(gp_Pnt2d(UOnFillet, V), gp1::DY2d());
   L3d       = new GeomLine(C3d);
   LFac      = new Geom2d_Line(Lin2dCyl);
   LFil      = new Geom2d_Line(LOnFillet);
@@ -263,7 +263,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
 Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
                                       const Handle(ChFiDS_SurfData)& Data,
                                       const gp_Pln&                  Pln,
-                                      const gp_Cylinder&             Cyl,
+                                      const Cylinder1&             Cyl,
                                       const Standard_Real            fu,
                                       const Standard_Real            lu,
                                       const TopAbs_Orientation       Or1,
@@ -277,7 +277,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
 
   // calculation of the fillet (torus or sphere).
   Standard_Boolean c1sphere = Standard_False;
-  gp_Ax3           PosPl    = Pln.Position();
+  Ax3           PosPl    = Pln.Position();
   Dir3d           Dpnat    = PosPl.XDirection().Crossed(PosPl.YDirection());
   Dir3d           Dp       = Dpnat;
   Dir3d           Df       = Dp;
@@ -361,7 +361,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
     }
     Rad = cylrad + Radius;
   }
-  gp_Ax3 FilAx3(Or, Dz, Dx);
+  Ax3 FilAx3(Or, Dz, Dx);
   if (FilAx3.YDirection().Dot(Dy) <= 0.)
   {
     FilAx3.YReverse();
@@ -433,7 +433,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
     ElSLib1::PlaneParameters(PosPl, P, u, v);
     gp_Pnt2d  p2dPln(u, v);
     gp_Dir2d  d2d(DSp.Dot(PosPl.XDirection()), DSp.Dot(PosPl.YDirection()));
-    gp_Ax22d  ax2dPln(c2dPln, gp_Dir2d(gp_Vec2d(c2dPln, p2dPln)), d2d);
+    Ax22d  ax2dPln(c2dPln, gp_Dir2d(gp_Vec2d(c2dPln, p2dPln)), d2d);
     gp_Circ2d circ2dPln(ax2dPln, Rad);
     GCirc2dPln = new Geom2d_Circle(circ2dPln);
     circAx2.SetLocation(cPln);
@@ -453,7 +453,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
       Data->Set2dPoints(pbid, pbid, p2dPln, p2dPln);
     }
   }
-  gp_Lin2d            lin2dFil(p2dFil, gp::DX2d());
+  gp_Lin2d            lin2dFil(p2dFil, gp1::DX2d());
   Handle(Geom2d_Line) GLin2dFil1 = new Geom2d_Line(lin2dFil);
   toreverse                      = (norFil.Dot(Dpnat) <= 0.);
   TopAbs_Orientation trans;
@@ -523,7 +523,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
     u = ChFiKPart_InPeriod(u, fu, fu + 2 * M_PI, tol);
   ElSLib1::D1(u, v, Cyl, PP, deru, derv);
   Dir3d   norcyl = deru.Crossed(derv);
-  gp_Dir2d d2dCyl = gp::DX2d();
+  gp_Dir2d d2dCyl = gp1::DX2d();
   if (deru.Dot(Dy) < 0.)
   {
     d2dCyl.Reverse();

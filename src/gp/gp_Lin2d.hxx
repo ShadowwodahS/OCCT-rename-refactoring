@@ -58,8 +58,8 @@ public:
   }
 
   //! Creates the line from the equation theA*X + theB*Y + theC = 0.0 Raises ConstructionError if
-  //! Sqrt(theA*theA + theB*theB) <= Resolution from gp. Raised if Sqrt(theA*theA + theB*theB) <=
-  //! Resolution from gp.
+  //! Sqrt(theA*theA + theB*theB) <= Resolution from gp1. Raised if Sqrt(theA*theA + theB*theB) <=
+  //! Resolution from gp1.
   Standard_EXPORT gp_Lin2d(const Standard_Real theA,
                            const Standard_Real theB,
                            const Standard_Real theC);
@@ -235,7 +235,7 @@ inline Standard_Real gp_Lin2d::Distance(const gp_Pnt2d& theP) const
 inline Standard_Real gp_Lin2d::Distance(const gp_Lin2d& theOther) const
 {
   Standard_Real aD = 0.0;
-  if (pos.IsParallel(theOther.pos, gp::Resolution()))
+  if (pos.IsParallel(theOther.pos, gp1::Resolution()))
   {
     aD = theOther.Distance(pos.Location());
   }
@@ -261,7 +261,7 @@ inline Standard_Real gp_Lin2d::SquareDistance(const gp_Pnt2d& theP) const
 inline Standard_Real gp_Lin2d::SquareDistance(const gp_Lin2d& theOther) const
 {
   Standard_Real aD = 0.0;
-  if (pos.IsParallel(theOther.pos, gp::Resolution()))
+  if (pos.IsParallel(theOther.pos, gp1::Resolution()))
   {
     aD = theOther.SquareDistance(pos.Location());
   }

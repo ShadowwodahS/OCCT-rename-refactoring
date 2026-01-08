@@ -78,7 +78,7 @@ ConicTool::ConicTool(const gp_Lin2d& Line)
       prm3(0.0)
 {
   Line.Coefficients(Line_a, Line_b, Line_c);
-  Axis = gp_Ax22d(Line.Position(), Standard_True);
+  Axis = Ax22d(Line.Position(), Standard_True);
   type = GeomAbs_Line;
 }
 
@@ -92,7 +92,7 @@ ConicTool::ConicTool(const gp_Elips2d& Elips)
   Elips_b = Elips.MinorRadius();
   Elips_c = sqrt(Elips_a * Elips_a - Elips_b * Elips_b);
   Axis    = Elips.Axis();
-  Abs_To_Object.SetTransformation(gp::OX2d(), Axis.XAxis());
+  Abs_To_Object.SetTransformation(gp1::OX2d(), Axis.XAxis());
   type = GeomAbs_Ellipse;
 }
 
@@ -106,7 +106,7 @@ ConicTool::ConicTool(const gp_Circ2d& C)
   Axis      = C.Axis();
   Circle_x0 = Axis.Location().X();
   Circle_y0 = Axis.Location().Y();
-  Abs_To_Object.SetTransformation(gp::OX2d(), Axis.XAxis());
+  Abs_To_Object.SetTransformation(gp1::OX2d(), Axis.XAxis());
   type = GeomAbs_Circle;
 }
 
@@ -119,7 +119,7 @@ ConicTool::ConicTool(const gp_Parab2d& P)
   Parab_f  = P.Focal();
   Parab_2p = 4.0 * Parab_f;
   Axis     = P.Axis();
-  Abs_To_Object.SetTransformation(gp::OX2d(), Axis.XAxis());
+  Abs_To_Object.SetTransformation(gp1::OX2d(), Axis.XAxis());
   type = GeomAbs_Parabola;
 }
 
@@ -132,7 +132,7 @@ ConicTool::ConicTool(const gp_Hypr2d& H)
   Hypr_a = H.MajorRadius();
   Hypr_b = H.MinorRadius();
   Axis   = H.Axis();
-  Abs_To_Object.SetTransformation(gp::OX2d(), Axis.XAxis());
+  Abs_To_Object.SetTransformation(gp1::OX2d(), Axis.XAxis());
   type = GeomAbs_Hyperbola;
 }
 

@@ -44,7 +44,7 @@ GCE2d_MakeParabola::GCE2d_MakeParabola(const gp_Ax2d&         MirrorAxis,
   }
 }
 
-GCE2d_MakeParabola::GCE2d_MakeParabola(const gp_Ax22d& Axis, const Standard_Real Focal)
+GCE2d_MakeParabola::GCE2d_MakeParabola(const Ax22d& Axis, const Standard_Real Focal)
 {
   if (Focal < 0.0)
   {
