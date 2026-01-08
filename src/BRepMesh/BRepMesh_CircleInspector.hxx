@@ -43,7 +43,7 @@ public:
   //! Adds the circle to vector of circles at the given position.
   //! @param theIndex position of circle in the vector.
   //! @param theCircle circle to be added.
-  void Bind(const Standard_Integer theIndex, const BRepMesh_Circle& theCircle)
+  void Bind(const Standard_Integer theIndex, const BRepMeshCircle& theCircle)
   {
     myCircles.SetValue(theIndex, theCircle);
   }
@@ -54,7 +54,7 @@ public:
   //! Returns circle with the given index.
   //! @param theIndex index of circle.
   //! @return circle with the given index.
-  BRepMesh_Circle& Circle(const Standard_Integer theIndex) { return myCircles(theIndex); }
+  BRepMeshCircle& Circle(const Standard_Integer theIndex) { return myCircles(theIndex); }
 
   //! Set reference point to be checked.
   //! @param thePoint bullet point.
@@ -72,7 +72,7 @@ public:
   //! @return status of the check.
   NCollection_CellFilter_Action Inspect(const Standard_Integer theTargetIndex)
   {
-    BRepMesh_Circle&     aCircle = myCircles(theTargetIndex);
+    BRepMeshCircle&     aCircle = myCircles(theTargetIndex);
     const Standard_Real& aRadius = aCircle.Radius();
     if (aRadius < 0.)
       return CellFilter_Purge;

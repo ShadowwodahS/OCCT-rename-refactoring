@@ -48,7 +48,7 @@ void BRepMesh_CircleTool::bind(const Standard_Integer theIndex,
                                const Coords2d&           theLocation,
                                const Standard_Real    theRadius)
 {
-  BRepMesh_Circle aCirle(theLocation, theRadius);
+  BRepMeshCircle aCirle(theLocation, theRadius);
 
   // compute coords
   Standard_Real aMaxX = Min(theLocation.X() + theRadius, myFaceMax.X());
@@ -147,7 +147,7 @@ Standard_Boolean BRepMesh_CircleTool::Bind(const Standard_Integer theIndex,
 
 void BRepMesh_CircleTool::Delete(const Standard_Integer theIndex)
 {
-  BRepMesh_Circle& aCircle = mySelector.Circle(theIndex);
+  BRepMeshCircle& aCircle = mySelector.Circle(theIndex);
   if (aCircle.Radius() > 0.)
     aCircle.SetRadius(-1);
 }
@@ -165,6 +165,6 @@ IMeshData::ListOfInteger& BRepMesh_CircleTool::Select(const Coords2d& thePoint)
 
 void BRepMesh_CircleTool::MocBind(const Standard_Integer theIndex)
 {
-  BRepMesh_Circle aNullCir(gp1::Origin2d().Coord(), -1.);
+  BRepMeshCircle aNullCir(gp1::Origin2d().Coord(), -1.);
   mySelector.Bind(theIndex, aNullCir);
 }

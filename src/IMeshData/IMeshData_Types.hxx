@@ -96,7 +96,7 @@ typedef NCollection_Shared<NCollection_Vector<Standard_Boolean>>   VectorOfBoole
 typedef NCollection_Shared<NCollection_Vector<Standard_Integer>>   VectorOfInteger;
 typedef NCollection_Shared<NCollection_Vector<TopAbs_Orientation>> VectorOfOrientation;
 typedef NCollection_Shared<NCollection_Vector<BRepMesh_Triangle>>  VectorOfElements;
-typedef NCollection_Shared<NCollection_Vector<BRepMesh_Circle>>    VectorOfCircle;
+typedef NCollection_Shared<NCollection_Vector<BRepMeshCircle>>    VectorOfCircle;
 
 typedef NCollection_Shared<NCollection_Array1<BRepMesh_Vertex>> Array1OfVertexOfDelaun;
 typedef NCollection_Shared<NCollection_Vector<BRepMesh_Vertex>> VectorOfVertex;

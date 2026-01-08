@@ -20,13 +20,13 @@
 
 //! Describes a 2d circle with a size of only 3 Standard_Real
 //! numbers instead of gp1 who needs 7 Standard_Real numbers.
-class BRepMesh_Circle
+class BRepMeshCircle
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Default constructor.
-  BRepMesh_Circle()
+  BRepMeshCircle()
       : myRadius(0.0)
   {
   }
@@ -34,7 +34,7 @@ public:
   //! Constructor.
   //! @param theLocation location of a circle.
   //! @param theRadius radius of a circle.
-  BRepMesh_Circle(const Coords2d& theLocation, const Standard_Real theRadius)
+  BRepMeshCircle(const Coords2d& theLocation, const Standard_Real theRadius)
       : myLocation(theLocation),
         myRadius(theRadius)
   {
