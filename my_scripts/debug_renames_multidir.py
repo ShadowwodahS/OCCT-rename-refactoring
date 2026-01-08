@@ -278,19 +278,21 @@ def check_range(start, end, last_build_success=True):
         else:
             print(f"  [策略] 遇到 {error_type} 但上次编译成功 -> 判定为真实代码错误 (Skip Clean)")
 
-    reset_all_targets()
-
     if success:
+        reset_all_targets()
         log_good_range(start, end)
         return
 
     # === 失败处理 ===
     if start == end:
+        reset_all_targets()
         log_bad_row(start, f"({error_type} 定位)")
         return
 
     # 智能定位 (Tier 1 & Tier 2)
     suspects = get_smart_suspects(error_line, start, end)
+
+    reset_all_targets()
     
     found_culprit = False
     
