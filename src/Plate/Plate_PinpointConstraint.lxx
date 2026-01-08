@@ -29,7 +29,7 @@ inline const Standard_Integer& PinpointConstraint::Idv() const
   return idv;
 }
 
-inline const gp_XYZ& PinpointConstraint::Value() const
+inline const Coords3d& PinpointConstraint::Value() const
 {
   return value;
 }

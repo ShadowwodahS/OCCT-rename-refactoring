@@ -26,7 +26,7 @@ class math_FunctionWithDerivative;
 //! This class implements the calculation of a root of a function of
 //! a single variable starting from an initial near guess using the
 //! Newton algorithm. Knowledge of the derivative is required.
-class math_NewtonFunctionRoot
+class NewtonFunctionRoot
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -37,7 +37,7 @@ public:
   //! The solution is found when :
   //! abs(Xi - Xi-1) <= EpsX and abs(F(Xi))<= EpsF
   //! The maximum number of iterations allowed is given by NbIterations.
-  Standard_EXPORT math_NewtonFunctionRoot(math_FunctionWithDerivative& F,
+  Standard_EXPORT NewtonFunctionRoot(math_FunctionWithDerivative& F,
                                           const Standard_Real          Guess,
                                           const Standard_Real          EpsX,
                                           const Standard_Real          EpsF,
@@ -50,7 +50,7 @@ public:
   //! The solution is found when :
   //! abs(Xi - Xi-1) <= EpsX and abs(F(Xi))<= EpsF
   //! The maximum number of iterations allowed is given by NbIterations.
-  Standard_EXPORT math_NewtonFunctionRoot(math_FunctionWithDerivative& F,
+  Standard_EXPORT NewtonFunctionRoot(math_FunctionWithDerivative& F,
                                           const Standard_Real          Guess,
                                           const Standard_Real          EpsX,
                                           const Standard_Real          EpsF,
@@ -60,7 +60,7 @@ public:
 
   //! is used in a sub-class to initialize correctly all the fields
   //! of this class.
-  Standard_EXPORT math_NewtonFunctionRoot(const Standard_Real    A,
+  Standard_EXPORT NewtonFunctionRoot(const Standard_Real    A,
                                           const Standard_Real    B,
                                           const Standard_Real    EpsX,
                                           const Standard_Real    EpsF,

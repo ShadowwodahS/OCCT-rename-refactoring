@@ -159,7 +159,7 @@ void MoniTool_CaseData::AddShape(const TopoShape& sh, const Standard_CString nam
   AddData(new TopoDS_HShape(sh), 4, name);
 }
 
-void MoniTool_CaseData::AddXYZ(const gp_XYZ& aXYZ, const Standard_CString name)
+void MoniTool_CaseData::AddXYZ(const Coords3d& aXYZ, const Standard_CString name)
 {
   AddData(new Geom_CartesianPoint(aXYZ), 5, name);
 }
@@ -404,7 +404,7 @@ TopoShape MoniTool_CaseData::Shape(const Standard_Integer nd) const
   return sh;
 }
 
-Standard_Boolean MoniTool_CaseData::XYZ(const Standard_Integer nd, gp_XYZ& val) const
+Standard_Boolean MoniTool_CaseData::XYZ(const Standard_Integer nd, Coords3d& val) const
 {
   Handle(Geom_CartesianPoint) p = Handle(Geom_CartesianPoint)::DownCast(Data(nd));
   if (p.IsNull())

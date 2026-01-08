@@ -88,7 +88,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_direct(const TopoFace& F, Standard_Boo
   }
   if (sphe)
   {
-    const gp_Sphere& spsp = BS.Sphere();
+    const Sphere3& spsp = BS.Sphere();
     direct                = spsp.Direct();
   }
   if (torus)

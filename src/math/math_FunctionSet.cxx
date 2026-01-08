@@ -16,11 +16,11 @@
 
 //=================================================================================================
 
-math_FunctionSet::~math_FunctionSet() {}
+FunctionSet::~FunctionSet() {}
 
 //=================================================================================================
 
-Standard_Integer math_FunctionSet::GetStateNumber()
+Standard_Integer FunctionSet::GetStateNumber()
 {
   return 0;
 }

@@ -27,13 +27,13 @@
 //! In addition, provides methods for conversion to and from other
 //! representations of rotation (3*3 matrix, vector and
 //! angle, Euler angles)
-class gp_Quaternion
+class Quaternion
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates an identity quaternion
-  gp_Quaternion()
+  Quaternion()
       : x(0.0),
         y(0.0),
         z(0.0),
@@ -42,7 +42,7 @@ public:
   }
 
   //! Creates quaternion directly from component values
-  gp_Quaternion(const Standard_Real theX,
+  Quaternion(const Standard_Real theX,
                 const Standard_Real theY,
                 const Standard_Real theZ,
                 const Standard_Real theW)
@@ -55,7 +55,7 @@ public:
 
   //! Creates quaternion representing shortest-arc rotation
   //! operator producing vector theVecTo from vector theVecFrom.
-  gp_Quaternion(const Vector3d& theVecFrom, const Vector3d& theVecTo)
+  Quaternion(const Vector3d& theVecFrom, const Vector3d& theVecTo)
   {
     SetRotation(theVecFrom, theVecTo);
   }
@@ -65,24 +65,24 @@ public:
   //! Additional vector theHelpCrossVec defines preferred direction for
   //! rotation and is used when theVecTo and theVecFrom are directed
   //! oppositely.
-  gp_Quaternion(const Vector3d& theVecFrom, const Vector3d& theVecTo, const Vector3d& theHelpCrossVec)
+  Quaternion(const Vector3d& theVecFrom, const Vector3d& theVecTo, const Vector3d& theHelpCrossVec)
   {
     SetRotation(theVecFrom, theVecTo, theHelpCrossVec);
   }
 
   //! Creates quaternion representing rotation on angle
   //! theAngle around vector theAxis
-  gp_Quaternion(const Vector3d& theAxis, const Standard_Real theAngle)
+  Quaternion(const Vector3d& theAxis, const Standard_Real theAngle)
   {
     SetVectorAndAngle(theAxis, theAngle);
   }
 
   //! Creates quaternion from rotation matrix 3*3
   //! (which should be orthonormal skew-symmetric matrix)
-  gp_Quaternion(const gp_Mat& theMat) { SetMatrix(theMat); }
+  Quaternion(const gp_Mat& theMat) { SetMatrix(theMat); }
 
   //! Simple equal test without precision
-  Standard_EXPORT Standard_Boolean IsEqual(const gp_Quaternion& theOther) const;
+  Standard_EXPORT Standard_Boolean IsEqual(const Quaternion& theOther) const;
 
   //! Sets quaternion to shortest-arc rotation producing
   //! vector theVecTo from vector theVecFrom.
@@ -133,7 +133,7 @@ public:
            const Standard_Real theZ,
            const Standard_Real theW);
 
-  void Set(const gp_Quaternion& theQuaternion);
+  void Set(const Quaternion& theQuaternion);
 
   Standard_Real X() const { return x; }
 
@@ -159,7 +159,7 @@ public:
   }
 
   //! Return rotation with reversed direction (conjugated quaternion)
-  Standard_NODISCARD gp_Quaternion Reversed() const { return gp_Quaternion(-x, -y, -z, w); }
+  Standard_NODISCARD Quaternion Reversed() const { return Quaternion(-x, -y, -z, w); }
 
   //! Inverts quaternion (both rotation direction and norm)
   void Invert()
@@ -169,10 +169,10 @@ public:
   }
 
   //! Return inversed quaternion q^-1
-  Standard_NODISCARD gp_Quaternion Inverted() const
+  Standard_NODISCARD Quaternion Inverted() const
   {
     Standard_Real anIn = 1.0 / SquareNorm();
-    return gp_Quaternion(-x * anIn, -y * anIn, -z * anIn, w * anIn);
+    return Quaternion(-x * anIn, -y * anIn, -z * anIn, w * anIn);
   }
 
   //! Returns square norm of quaternion
@@ -188,12 +188,12 @@ public:
   void operator*=(const Standard_Real theScale) { Scale(theScale); }
 
   //! Returns scaled quaternion
-  Standard_NODISCARD gp_Quaternion Scaled(const Standard_Real theScale) const
+  Standard_NODISCARD Quaternion Scaled(const Standard_Real theScale) const
   {
-    return gp_Quaternion(x * theScale, y * theScale, z * theScale, w * theScale);
+    return Quaternion(x * theScale, y * theScale, z * theScale, w * theScale);
   }
 
-  Standard_NODISCARD gp_Quaternion operator*(const Standard_Real theScale) const
+  Standard_NODISCARD Quaternion operator*(const Standard_Real theScale) const
   {
     return Scaled(theScale);
   }
@@ -209,9 +209,9 @@ public:
   Standard_EXPORT void Normalize();
 
   //! Returns quaternion scaled so that its norm goes to 1.
-  Standard_NODISCARD gp_Quaternion Normalized() const
+  Standard_NODISCARD Quaternion Normalized() const
   {
-    gp_Quaternion aNormilizedQ(*this);
+    Quaternion aNormilizedQ(*this);
     aNormilizedQ.Normalize();
     return aNormilizedQ;
   }
@@ -219,28 +219,28 @@ public:
   //! Returns quaternion with all components negated.
   //! Note that this operation does not affect neither
   //! rotation operator defined by quaternion nor its norm.
-  Standard_NODISCARD gp_Quaternion Negated() const { return gp_Quaternion(-x, -y, -z, -w); }
+  Standard_NODISCARD Quaternion Negated() const { return Quaternion(-x, -y, -z, -w); }
 
-  Standard_NODISCARD gp_Quaternion operator-() const { return Negated(); }
+  Standard_NODISCARD Quaternion operator-() const { return Negated(); }
 
   //! Makes sum of quaternion components; result is "rotations mix"
-  Standard_NODISCARD gp_Quaternion Added(const gp_Quaternion& theOther) const
+  Standard_NODISCARD Quaternion Added(const Quaternion& theOther) const
   {
-    return gp_Quaternion(x + theOther.x, y + theOther.y, z + theOther.z, w + theOther.w);
+    return Quaternion(x + theOther.x, y + theOther.y, z + theOther.z, w + theOther.w);
   }
 
-  Standard_NODISCARD gp_Quaternion operator+(const gp_Quaternion& theOther) const
+  Standard_NODISCARD Quaternion operator+(const Quaternion& theOther) const
   {
     return Added(theOther);
   }
 
   //! Makes difference of quaternion components; result is "rotations mix"
-  Standard_NODISCARD gp_Quaternion Subtracted(const gp_Quaternion& theOther) const
+  Standard_NODISCARD Quaternion Subtracted(const Quaternion& theOther) const
   {
-    return gp_Quaternion(x - theOther.x, y - theOther.y, z - theOther.z, w - theOther.w);
+    return Quaternion(x - theOther.x, y - theOther.y, z - theOther.z, w - theOther.w);
   }
 
-  Standard_NODISCARD gp_Quaternion operator-(const gp_Quaternion& theOther) const
+  Standard_NODISCARD Quaternion operator-(const Quaternion& theOther) const
   {
     return Subtracted(theOther);
   }
@@ -255,33 +255,33 @@ public:
   //! qq' != q'q;
   //! qq^-1 = q;
   //! @endcode
-  Standard_NODISCARD gp_Quaternion Multiplied(const gp_Quaternion& theOther) const;
+  Standard_NODISCARD Quaternion Multiplied(const Quaternion& theOther) const;
 
-  Standard_NODISCARD gp_Quaternion operator*(const gp_Quaternion& theOther) const
+  Standard_NODISCARD Quaternion operator*(const Quaternion& theOther) const
   {
     return Multiplied(theOther);
   }
 
   //! Adds components of other quaternion; result is "rotations mix"
-  void Add(const gp_Quaternion& theOther);
+  void Add(const Quaternion& theOther);
 
-  void operator+=(const gp_Quaternion& theOther) { Add(theOther); }
+  void operator+=(const Quaternion& theOther) { Add(theOther); }
 
   //! Subtracts components of other quaternion; result is "rotations mix"
-  void Subtract(const gp_Quaternion& theOther);
+  void Subtract(const Quaternion& theOther);
 
-  void operator-=(const gp_Quaternion& theOther) { Subtract(theOther); }
+  void operator-=(const Quaternion& theOther) { Subtract(theOther); }
 
   //! Adds rotation by multiplication
-  void Multiply(const gp_Quaternion& theOther)
+  void Multiply(const Quaternion& theOther)
   {
     (*this) = Multiplied(theOther); // have no optimization here
   }
 
-  void operator*=(const gp_Quaternion& theOther) { Multiply(theOther); }
+  void operator*=(const Quaternion& theOther) { Multiply(theOther); }
 
   //! Computes inner product / scalar product / Dot
-  Standard_Real Dot(const gp_Quaternion& theOther) const
+  Standard_Real Dot(const Quaternion& theOther) const
   {
     return x * theOther.x + y * theOther.y + z * theOther.z + w * theOther.w;
   }
@@ -305,7 +305,7 @@ private:
 // function : Set
 // purpose  :
 //=======================================================================
-inline void gp_Quaternion::Set(Standard_Real theX,
+inline void Quaternion::Set(Standard_Real theX,
                                Standard_Real theY,
                                Standard_Real theZ,
                                Standard_Real theW)
@@ -320,7 +320,7 @@ inline void gp_Quaternion::Set(Standard_Real theX,
 // function : Set
 // purpose  :
 //=======================================================================
-inline void gp_Quaternion::Set(const gp_Quaternion& theQuaternion)
+inline void Quaternion::Set(const Quaternion& theQuaternion)
 {
   x = theQuaternion.x;
   y = theQuaternion.y;
@@ -332,7 +332,7 @@ inline void gp_Quaternion::Set(const gp_Quaternion& theQuaternion)
 // function : Scale
 // purpose  :
 //=======================================================================
-inline void gp_Quaternion::Scale(const Standard_Real theScale)
+inline void Quaternion::Scale(const Standard_Real theScale)
 {
   x *= theScale;
   y *= theScale;
@@ -344,9 +344,9 @@ inline void gp_Quaternion::Scale(const Standard_Real theScale)
 // function : Multiplied
 // purpose  :
 //=======================================================================
-inline gp_Quaternion gp_Quaternion::Multiplied(const gp_Quaternion& theQ) const
+inline Quaternion Quaternion::Multiplied(const Quaternion& theQ) const
 {
-  return gp_Quaternion(w * theQ.x + x * theQ.w + y * theQ.z - z * theQ.y,
+  return Quaternion(w * theQ.x + x * theQ.w + y * theQ.z - z * theQ.y,
                        w * theQ.y + y * theQ.w + z * theQ.x - x * theQ.z,
                        w * theQ.z + z * theQ.w + x * theQ.y - y * theQ.x,
                        w * theQ.w - x * theQ.x - y * theQ.y - z * theQ.z);
@@ -357,7 +357,7 @@ inline gp_Quaternion gp_Quaternion::Multiplied(const gp_Quaternion& theQ) const
 // function : Add
 // purpose  :
 //=======================================================================
-inline void gp_Quaternion::Add(const gp_Quaternion& theQ)
+inline void Quaternion::Add(const Quaternion& theQ)
 {
   x += theQ.x;
   y += theQ.y;
@@ -369,7 +369,7 @@ inline void gp_Quaternion::Add(const gp_Quaternion& theQ)
 // function : Subtract
 // purpose  :
 //=======================================================================
-inline void gp_Quaternion::Subtract(const gp_Quaternion& theQ)
+inline void Quaternion::Subtract(const Quaternion& theQ)
 {
   x -= theQ.x;
   y -= theQ.y;

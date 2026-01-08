@@ -49,7 +49,7 @@ Standard_Real Dir3d::Angle(const Dir3d& Other) const
 Standard_Real Dir3d::AngleWithRef(const Dir3d& Other, const Dir3d& Vref) const
 {
   Standard_Real Ang;
-  gp_XYZ        XYZ     = coord.Crossed(Other.coord);
+  Coords3d        XYZ     = coord.Crossed(Other.coord);
   Standard_Real Cosinus = coord.Dot(Other.coord);
   Standard_Real Sinus   = XYZ.Modulus();
   if (Cosinus > -0.70710678118655 && Cosinus < 0.70710678118655)
@@ -69,7 +69,7 @@ Standard_Real Dir3d::AngleWithRef(const Dir3d& Other, const Dir3d& Vref) const
 
 void Dir3d::Mirror(const Dir3d& V)
 {
-  const gp_XYZ& XYZ = V.coord;
+  const Coords3d& XYZ = V.coord;
   Standard_Real A   = XYZ.X();
   Standard_Real B   = XYZ.Y();
   Standard_Real C   = XYZ.Z();
@@ -87,7 +87,7 @@ void Dir3d::Mirror(const Dir3d& V)
 
 void Dir3d::Mirror(const Axis3d& A1)
 {
-  const gp_XYZ& XYZ = A1.Direction().coord;
+  const Coords3d& XYZ = A1.Direction().coord;
   Standard_Real A   = XYZ.X();
   Standard_Real B   = XYZ.Y();
   Standard_Real C   = XYZ.Y();

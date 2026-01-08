@@ -25,7 +25,7 @@
 
 //! This class implements function which calculate square Eucluidean distance
 //! between point on surface and nearest point on Conic.
-class Extrema_GlobOptFuncCQuadric : public math_MultipleVarFunction
+class Extrema_GlobOptFuncCQuadric : public MultipleVarFunction
 {
 public:
   //! Curve and surface should exist during all the lifetime of Extrema_GlobOptFuncCQuadric.
@@ -60,7 +60,7 @@ private:
   gp_Pln                   myPln;
   Cone1                  myCone;
   Cylinder1              myCylinder;
-  gp_Sphere                mySphere;
+  Sphere3                mySphere;
   gp_Torus                 myTorus;
   Point3d                   myPTrim[4];
   // Boundaries

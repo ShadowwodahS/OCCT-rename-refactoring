@@ -21,7 +21,7 @@
 
 //! This is function, which corresponds trigonometric equation
 //! a*Cos(x)*Cos(x) + 2*b*Cos(x)*Sin(x) + c*Cos(x) + d*Sin(x) + e = 0
-//! See class math_TrigonometricFunctionRoots
+//! See class TrigonometricFunctionRoots
 class math_TrigonometricEquationFunction : public math_FunctionWithDerivative
 {
   Standard_Real myAA;

@@ -23,7 +23,7 @@
 class Cone1;
 class Cylinder1;
 class gp_Pln;
-class gp_Sphere;
+class Sphere3;
 
 //! This class provides a description of Quadrics by their
 //! Coefficients in natural coordinate system.
@@ -39,7 +39,7 @@ public:
   Standard_EXPORT Quadric2(const gp_Pln& P);
 
   //! Creates a Quadric from a Sphere
-  Standard_EXPORT Quadric2(const gp_Sphere& Sph);
+  Standard_EXPORT Quadric2(const Sphere3& Sph);
 
   //! Creates a Quadric from a Cylinder
   Standard_EXPORT Quadric2(const Cylinder1& Cyl);
@@ -51,7 +51,7 @@ public:
   Standard_EXPORT void SetQuadric(const gp_Pln& P);
 
   //! Initialize the quadric with a Sphere
-  Standard_EXPORT void SetQuadric(const gp_Sphere& Sph);
+  Standard_EXPORT void SetQuadric(const Sphere3& Sph);
 
   //! Initializes the quadric with a Cone
   Standard_EXPORT void SetQuadric(const Cone1& Con);

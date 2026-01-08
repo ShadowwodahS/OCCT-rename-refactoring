@@ -27,7 +27,7 @@
 #include <TColStd_SequenceOfAsciiString.hxx>
 #include <Standard_Transient.hxx>
 class TopoShape;
-class gp_XYZ;
+class Coords3d;
 class Coords2d;
 class Message_Msg;
 
@@ -129,7 +129,7 @@ public:
   Standard_EXPORT void AddShape(const TopoShape& sh, const Standard_CString name = "");
 
   //! Adds a XYZ
-  Standard_EXPORT void AddXYZ(const gp_XYZ& aXYZ, const Standard_CString name = "");
+  Standard_EXPORT void AddXYZ(const Coords3d& aXYZ, const Standard_CString name = "");
 
   //! Adds a XY
   Standard_EXPORT void AddXY(const Coords2d& aXY, const Standard_CString name = "");
@@ -238,7 +238,7 @@ public:
 
   //! Returns a data as a XYZ (i.e. Geom_CartesianPoint)
   //! Returns False if not the good type
-  Standard_EXPORT Standard_Boolean XYZ(const Standard_Integer nd, gp_XYZ& val) const;
+  Standard_EXPORT Standard_Boolean XYZ(const Standard_Integer nd, Coords3d& val) const;
 
   //! Returns a data as a XY  (i.e. Geom2d_CartesianPoint)
   //! Returns False if not the good type

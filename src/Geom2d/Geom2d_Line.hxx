@@ -28,7 +28,7 @@ class gp_Lin2d;
 class gp_Pnt2d;
 class gp_Dir2d;
 class gp_Vec2d;
-class gp_Trsf2d;
+class Transform2d;
 class Geom2d_Geometry;
 
 class Geom2d_Line;
@@ -152,14 +152,14 @@ public:
                               const Standard_Integer N) const Standard_OVERRIDE;
 
   //! Applies the transformation T to this line.
-  Standard_EXPORT void Transform(const gp_Trsf2d& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform2d& T) Standard_OVERRIDE;
 
   //! Computes the parameter on the line transformed by
   //! T for the point of parameter U on this line.
   //! For a line, the returned value is equal to U multiplied
   //! by the scale factor of transformation T.
   Standard_EXPORT virtual Standard_Real TransformedParameter(const Standard_Real U,
-                                                             const gp_Trsf2d&    T) const
+                                                             const Transform2d&    T) const
     Standard_OVERRIDE;
 
   //! Returns the coefficient required to compute the
@@ -169,7 +169,7 @@ public:
   //! and the parameter of the transformed point on the
   //! new line transformed by T.
   //! For a line, the returned value is the scale factor of the transformation T.
-  Standard_EXPORT virtual Standard_Real ParametricTransformation(const gp_Trsf2d& T) const
+  Standard_EXPORT virtual Standard_Real ParametricTransformation(const Transform2d& T) const
     Standard_OVERRIDE;
 
   //! Creates a new object, which is a copy of this line.

@@ -85,10 +85,10 @@ void GeomPlate_Surface::TransformParameters(Standard_Real&, Standard_Real&, cons
 
 //=================================================================================================
 
-// gp_GTrsf2d GeomPlate_Surface::ParametricTransformation(const Transform3d& T) const
-gp_GTrsf2d GeomPlate_Surface::ParametricTransformation(const Transform3d&) const
+// GeneralTransform2d GeomPlate_Surface::ParametricTransformation(const Transform3d& T) const
+GeneralTransform2d GeomPlate_Surface::ParametricTransformation(const Transform3d&) const
 { // throw ExceptionBase("ParametricTransformation");
-  return gp_GTrsf2d();
+  return GeneralTransform2d();
 }
 
 //=================================================================================================
@@ -199,7 +199,7 @@ void GeomPlate_Surface::D0(const Standard_Real U, const Standard_Real V, Point3d
   Coords2d  P1(U, V);
   Point3d P2;
   mySurfinit->D0(U, V, P2);
-  gp_XYZ P3; //=mySurfinter.Evaluate(P1);
+  Coords3d P3; //=mySurfinter.Evaluate(P1);
   P3 = mySurfinter.Evaluate(P1);
   for (Standard_Integer i = 1; i <= 3; i++)
   {
@@ -220,8 +220,8 @@ void GeomPlate_Surface::D1(const Standard_Real U,
   D0(U, V, P);
   Vector3d V1U, V1V;
   mySurfinit->D1(U, V, P2, V1U, V1V);
-  gp_XYZ V2U = mySurfinter.EvaluateDerivative(P1, 1, 0);
-  gp_XYZ V2V = mySurfinter.EvaluateDerivative(P1, 0, 1);
+  Coords3d V2U = mySurfinter.EvaluateDerivative(P1, 1, 0);
+  Coords3d V2V = mySurfinter.EvaluateDerivative(P1, 0, 1);
   for (Standard_Integer i = 1; i <= 3; i++)
   {
     D1U.SetCoord(i, V1U.Coord(i) + V2U.Coord(i));
@@ -246,9 +246,9 @@ void GeomPlate_Surface::D2(const Standard_Real U,
   Vector3d V1U, V1V, V1UV, vv, v;
   D1(U, V, P, D1U, D1V);
   mySurfinit->D2(U, V, P2, vv, v, V1U, V1V, V1UV);
-  gp_XYZ V2U  = mySurfinter.EvaluateDerivative(P1, 2, 0);
-  gp_XYZ V2V  = mySurfinter.EvaluateDerivative(P1, 0, 2);
-  gp_XYZ V2UV = mySurfinter.EvaluateDerivative(P1, 1, 1);
+  Coords3d V2U  = mySurfinter.EvaluateDerivative(P1, 2, 0);
+  Coords3d V2V  = mySurfinter.EvaluateDerivative(P1, 0, 2);
+  Coords3d V2UV = mySurfinter.EvaluateDerivative(P1, 1, 1);
   for (Standard_Integer i = 1; i <= 3; i++)
   {
     D2U.SetCoord(i, V1U.Coord(i) + V2U.Coord(i));

@@ -24,7 +24,7 @@
 //! with a coordinate system (a Ax3 object). The origin of
 //! the coordinate system is the center of the sphere. This
 //! coordinate system is the "local coordinate system" of the sphere.
-//! Note: when a gp_Sphere sphere is converted into a
+//! Note: when a Sphere3 sphere is converted into a
 //! Geom_SphericalSurface sphere, some implicit
 //! properties of its local coordinate system are used explicitly:
 //! -   its origin, "X Direction", "Y Direction" and "main
@@ -39,13 +39,13 @@
 //! Geom_SphericalSurface which provides additional
 //! functions for constructing spheres and works, in
 //! particular, with the parametric equations of spheres.
-class gp_Sphere
+class Sphere3
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates an indefinite sphere.
-  gp_Sphere()
+  Sphere3()
       : radius(RealLast())
   {
   }
@@ -55,11 +55,11 @@ public:
   //! Warnings :
   //! It is not forbidden to create a sphere with null radius.
   //! Raises ConstructionError if theRadius < 0.0
-  gp_Sphere(const Ax3& theA3, const Standard_Real theRadius)
+  Sphere3(const Ax3& theA3, const Standard_Real theRadius)
       : pos(theA3),
         radius(theRadius)
   {
-    Standard_ConstructionError_Raise_if(theRadius < 0.0, "gp_Sphere() - radius should be >= 0");
+    Standard_ConstructionError_Raise_if(theRadius < 0.0, "Sphere3() - radius should be >= 0");
   }
 
   //! Changes the center of the sphere.
@@ -75,7 +75,7 @@ public:
   void SetRadius(const Standard_Real theR)
   {
     Standard_ConstructionError_Raise_if(theR < 0.0,
-                                        "gp_Sphere::SetRadius() - radius should be >= 0");
+                                        "Sphere3::SetRadius() - radius should be >= 0");
     radius = theR;
   }
 
@@ -135,29 +135,29 @@ public:
   //! Performs the symmetrical transformation of a sphere
   //! with respect to the point theP which is the center of the
   //! symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Sphere Mirrored(const Point3d& theP) const;
+  Standard_NODISCARD Standard_EXPORT Sphere3 Mirrored(const Point3d& theP) const;
 
   Standard_EXPORT void Mirror(const Axis3d& theA1);
 
   //! Performs the symmetrical transformation of a sphere with
   //! respect to an axis placement which is the axis of the
   //! symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Sphere Mirrored(const Axis3d& theA1) const;
+  Standard_NODISCARD Standard_EXPORT Sphere3 Mirrored(const Axis3d& theA1) const;
 
   Standard_EXPORT void Mirror(const Frame3d& theA2);
 
   //! Performs the symmetrical transformation of a sphere with respect
   //! to a plane. The axis placement theA2 locates the plane of the
   //! of the symmetry : (Location, XDirection, YDirection).
-  Standard_NODISCARD Standard_EXPORT gp_Sphere Mirrored(const Frame3d& theA2) const;
+  Standard_NODISCARD Standard_EXPORT Sphere3 Mirrored(const Frame3d& theA2) const;
 
   void Rotate(const Axis3d& theA1, const Standard_Real theAng) { pos.Rotate(theA1, theAng); }
 
   //! Rotates a sphere. theA1 is the axis of the rotation.
   //! theAng is the angular value of the rotation in radians.
-  Standard_NODISCARD gp_Sphere Rotated(const Axis3d& theA1, const Standard_Real theAng) const
+  Standard_NODISCARD Sphere3 Rotated(const Axis3d& theA1, const Standard_Real theAng) const
   {
-    gp_Sphere aC = *this;
+    Sphere3 aC = *this;
     aC.pos.Rotate(theA1, theAng);
     return aC;
   }
@@ -166,20 +166,20 @@ public:
 
   //! Scales a sphere. theS is the scaling value.
   //! The absolute value of S is used to scale the sphere
-  Standard_NODISCARD gp_Sphere Scaled(const Point3d& theP, const Standard_Real theS) const;
+  Standard_NODISCARD Sphere3 Scaled(const Point3d& theP, const Standard_Real theS) const;
 
   void Transform(const Transform3d& theT);
 
   //! Transforms a sphere with the transformation theT from class Trsf.
-  Standard_NODISCARD gp_Sphere Transformed(const Transform3d& theT) const;
+  Standard_NODISCARD Sphere3 Transformed(const Transform3d& theT) const;
 
   void Translate(const Vector3d& theV) { pos.Translate(theV); }
 
   //! Translates a sphere in the direction of the vector theV.
   //! The magnitude of the translation is the vector's magnitude.
-  Standard_NODISCARD gp_Sphere Translated(const Vector3d& theV) const
+  Standard_NODISCARD Sphere3 Translated(const Vector3d& theV) const
   {
-    gp_Sphere aC = *this;
+    Sphere3 aC = *this;
     aC.pos.Translate(theV);
     return aC;
   }
@@ -187,9 +187,9 @@ public:
   void Translate(const Point3d& theP1, const Point3d& theP2) { pos.Translate(theP1, theP2); }
 
   //! Translates a sphere from the point theP1 to the point theP2.
-  Standard_NODISCARD gp_Sphere Translated(const Point3d& theP1, const Point3d& theP2) const
+  Standard_NODISCARD Sphere3 Translated(const Point3d& theP1, const Point3d& theP2) const
   {
-    gp_Sphere aC = *this;
+    Sphere3 aC = *this;
     aC.pos.Translate(theP1, theP2);
     return aC;
   }
@@ -203,7 +203,7 @@ private:
 // function : Scale
 // purpose :
 //=======================================================================
-inline void gp_Sphere::Scale(const Point3d& theP, const Standard_Real theS)
+inline void Sphere3::Scale(const Point3d& theP, const Standard_Real theS)
 {
   pos.Scale(theP, theS);
   radius *= theS;
@@ -217,9 +217,9 @@ inline void gp_Sphere::Scale(const Point3d& theP, const Standard_Real theS)
 // function : Scaled
 // purpose :
 //=======================================================================
-inline gp_Sphere gp_Sphere::Scaled(const Point3d& theP, const Standard_Real theS) const
+inline Sphere3 Sphere3::Scaled(const Point3d& theP, const Standard_Real theS) const
 {
-  gp_Sphere aC = *this;
+  Sphere3 aC = *this;
   aC.pos.Scale(theP, theS);
   aC.radius *= theS;
   if (aC.radius < 0)
@@ -233,7 +233,7 @@ inline gp_Sphere gp_Sphere::Scaled(const Point3d& theP, const Standard_Real theS
 // function : Transform
 // purpose :
 //=======================================================================
-inline void gp_Sphere::Transform(const Transform3d& theT)
+inline void Sphere3::Transform(const Transform3d& theT)
 {
   pos.Transform(theT);
   radius *= theT.ScaleFactor();
@@ -247,9 +247,9 @@ inline void gp_Sphere::Transform(const Transform3d& theT)
 // function : Transformed
 // purpose :
 //=======================================================================
-inline gp_Sphere gp_Sphere::Transformed(const Transform3d& theT) const
+inline Sphere3 Sphere3::Transformed(const Transform3d& theT) const
 {
-  gp_Sphere aC = *this;
+  Sphere3 aC = *this;
   aC.pos.Transform(theT);
   aC.radius *= theT.ScaleFactor();
   if (aC.radius < 0)

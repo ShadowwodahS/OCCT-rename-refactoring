@@ -31,12 +31,12 @@
 //! BVH tree the two points giving the extreme projection
 //! parameters on the axis
 class OBB_ExtremePointsSelector
-    : public BVH_Traverse<Standard_Real, 3, BVH_BoxSet<Standard_Real, 3, gp_XYZ>, Range1>
+    : public BVH_Traverse<Standard_Real, 3, BVH_BoxSet<Standard_Real, 3, Coords3d>, Range1>
 {
 public:
   //! Constructor
   OBB_ExtremePointsSelector()
-      : BVH_Traverse<Standard_Real, 3, BVH_BoxSet<Standard_Real, 3, gp_XYZ>, Range1>(),
+      : BVH_Traverse<Standard_Real, 3, BVH_BoxSet<Standard_Real, 3, Coords3d>, Range1>(),
         myPrmMin(RealLast()),
         myPrmMax(RealFirst())
   {
@@ -44,7 +44,7 @@ public:
 
 public: //! @name Set axis for projection
   //! Sets the axis
-  void SetAxis(const gp_XYZ& theAxis) { myAxis = theAxis; }
+  void SetAxis(const Coords3d& theAxis) { myAxis = theAxis; }
 
 public: //! @name Clears the points from previous runs
   //! Clear
@@ -62,10 +62,10 @@ public: //! @name Getting the results
   Standard_Real MaxPrm() const { return myPrmMax; }
 
   //! Returns the minimal projection point
-  const gp_XYZ& MinPnt() const { return myPntMin; }
+  const Coords3d& MinPnt() const { return myPntMin; }
 
   //! Returns the maximal projection point
-  const gp_XYZ& MaxPnt() const { return myPntMax; }
+  const Coords3d& MaxPnt() const { return myPntMax; }
 
 public: //! @name Definition of rejection/acceptance rules
   //! Defines the rules for node rejection
@@ -91,7 +91,7 @@ public: //! @name Definition of rejection/acceptance rules
         {
           Standard_Real z = !k ? theCMin.z() : theCMax.z();
 
-          Standard_Real aPrm = myAxis.Dot(gp_XYZ(x, y, z));
+          Standard_Real aPrm = myAxis.Dot(Coords3d(x, y, z));
           if (aPrm < aPrmMin)
           {
             aPrmMin    = aPrm;
@@ -131,7 +131,7 @@ public: //! @name Definition of rejection/acceptance rules
   virtual Standard_Boolean Accept(const Standard_Integer theIndex,
                                   const Range1&) Standard_OVERRIDE
   {
-    const gp_XYZ& theLeaf = myBVHSet->Element(theIndex);
+    const Coords3d& theLeaf = myBVHSet->Element(theIndex);
     Standard_Real aPrm    = myAxis.Dot(theLeaf);
     if (aPrm < myPrmMin)
     {
@@ -173,11 +173,11 @@ public: //! @name Choosing the best branch
   }
 
 protected:                //! @name Fields
-  gp_XYZ        myAxis;   //!< Axis to project the points to
+  Coords3d        myAxis;   //!< Axis to project the points to
   Standard_Real myPrmMin; //!< Minimal projection parameter
   Standard_Real myPrmMax; //!< Maximal projection parameter
-  gp_XYZ        myPntMin; //!< Minimal projection point
-  gp_XYZ        myPntMax; //!< Maximal projection point
+  Coords3d        myPntMin; //!< Minimal projection point
+  Coords3d        myPntMax; //!< Maximal projection point
 };
 
 //! Tool for OBB construction
@@ -219,7 +219,7 @@ protected:
   void FillToTriangle3();
 
   //! Computes myTriIdx[3] and myTriIdx[4]
-  void FillToTriangle5(const gp_XYZ& theNormal, const gp_XYZ& theBarryCenter);
+  void FillToTriangle5(const Coords3d& theNormal, const Coords3d& theBarryCenter);
 
   //! Returns half of the Surface area of the box
   static Standard_Real ComputeQuality(const Standard_Real* const thePrmArr)
@@ -278,7 +278,7 @@ private:
   //! Looks for the min-max parameters on the axis.
   //! For optimal case projects all the points on the axis,
   //! for not optimal - only the set of extreme points.
-  void FindMinMax(const gp_XYZ& theAxis, Standard_Real& theMin, Standard_Real& theMax)
+  void FindMinMax(const Coords3d& theAxis, Standard_Real& theMin, Standard_Real& theMax)
   {
     theMin = RealLast(), theMax = RealFirst();
 
@@ -298,11 +298,11 @@ private:
   }
 
   //! Projects the set of points on the axis
-  void Project(const gp_XYZ&  theAxis,
+  void Project(const Coords3d&  theAxis,
                Standard_Real& theMin,
                Standard_Real& theMax,
-               gp_XYZ*        thePntMin = 0,
-               gp_XYZ*        thePntMax = 0)
+               Coords3d*        thePntMin = 0,
+               Coords3d*        thePntMax = 0)
   {
     theMin = RealLast(), theMax = RealFirst();
 
@@ -325,7 +325,7 @@ private:
       // Project all points
       for (Standard_Integer iP = myPntsList.Lower(); iP <= myPntsList.Upper(); ++iP)
       {
-        const gp_XYZ&       aPoint = myPntsList(iP).XYZ();
+        const Coords3d&       aPoint = myPntsList(iP).XYZ();
         const Standard_Real aPrm   = theAxis.Dot(aPoint);
         if (aPrm < theMin)
         {
@@ -361,11 +361,11 @@ private:
   Standard_Integer myTriIdx[5]{};
 
   //! List of extremal points
-  gp_XYZ myLExtremalPoints[myNbExtremalPoints];
+  Coords3d myLExtremalPoints[myNbExtremalPoints];
 
   //! The axes of the box (always normalized or
   //! can be null-vector)
-  gp_XYZ myAxes[3];
+  Coords3d myAxes[3];
 
   //! The surface area of the OBB
   Standard_Real myQualityCriterion;
@@ -375,7 +375,7 @@ private:
   Standard_Boolean myOptimal;
 
   //! Point box set organized with BVH
-  opencascade::handle<BVH_BoxSet<Standard_Real, 3, gp_XYZ>> myPointBoxSet;
+  opencascade::handle<BVH_BoxSet<Standard_Real, 3, Coords3d>> myPointBoxSet;
 
   //! Stored min/max parameters for the axes between extremal points
   Params myParams[myNbExtremalPoints][myNbExtremalPoints];
@@ -413,7 +413,7 @@ OBBTool::OBBTool(const TColgp_Array1OfPnt&   theL,
     // Use linear builder for BVH construction with 30 elements in the leaf
     opencascade::handle<BVH_LinearBuilder<Standard_Real, 3>> aLBuilder =
       new BVH_LinearBuilder<Standard_Real, 3>(30);
-    myPointBoxSet = new BVH_BoxSet<Standard_Real, 3, gp_XYZ>(aLBuilder);
+    myPointBoxSet = new BVH_BoxSet<Standard_Real, 3, Coords3d>(aLBuilder);
     myPointBoxSet->SetSize(myPntsList.Length());
 
     // Add the points into Set
@@ -440,23 +440,23 @@ void OBBTool::ComputeExtremePoints()
   // the performance is better (due to the less number of operations).
   // But they show worse quality for the not optimal approach.
   // const Standard_Real a = (sqrt(5) - 1) / 2.;
-  // const gp_XYZ anInitialAxes6[myNbInitAxes] = { gp_XYZ (0, 1, a),
-  //                                              gp_XYZ (0, 1, -a),
-  //                                              gp_XYZ (1, a, 0),
-  //                                              gp_XYZ (1, -a, 0),
-  //                                              gp_XYZ (a, 0, 1),
-  //                                              gp_XYZ (a, 0, -1) };
+  // const Coords3d anInitialAxes6[myNbInitAxes] = { Coords3d (0, 1, a),
+  //                                              Coords3d (0, 1, -a),
+  //                                              Coords3d (1, a, 0),
+  //                                              Coords3d (1, -a, 0),
+  //                                              Coords3d (a, 0, 1),
+  //                                              Coords3d (a, 0, -1) };
   const Standard_Real aSqrt3                       = Sqrt(3);
-  const gp_XYZ        anInitialAxes7[myNbInitAxes] = {gp_XYZ(1.0, 0.0, 0.0),
-                                                      gp_XYZ(0.0, 1.0, 0.0),
-                                                      gp_XYZ(0.0, 0.0, 1.0),
-                                                      gp_XYZ(1.0, 1.0, 1.0) / aSqrt3,
-                                                      gp_XYZ(1.0, 1.0, -1.0) / aSqrt3,
-                                                      gp_XYZ(1.0, -1.0, 1.0) / aSqrt3,
-                                                      gp_XYZ(1.0, -1.0, -1.0) / aSqrt3};
+  const Coords3d        anInitialAxes7[myNbInitAxes] = {Coords3d(1.0, 0.0, 0.0),
+                                                      Coords3d(0.0, 1.0, 0.0),
+                                                      Coords3d(0.0, 0.0, 1.0),
+                                                      Coords3d(1.0, 1.0, 1.0) / aSqrt3,
+                                                      Coords3d(1.0, 1.0, -1.0) / aSqrt3,
+                                                      Coords3d(1.0, -1.0, 1.0) / aSqrt3,
+                                                      Coords3d(1.0, -1.0, -1.0) / aSqrt3};
 
   // Set of initial axes
-  const gp_XYZ* anInitialAxesArray = anInitialAxes7;
+  const Coords3d* anInitialAxesArray = anInitialAxes7;
 
   // Min and Max parameter
   Standard_Real aParams[myNbExtremalPoints];
@@ -507,15 +507,15 @@ void OBBTool::ComputeExtremePoints()
 //=======================================================================
 void OBBTool::FillToTriangle3()
 {
-  const gp_XYZ& aP0        = myLExtremalPoints[myTriIdx[0]];
-  const gp_XYZ  anAxis     = myLExtremalPoints[myTriIdx[1]] - aP0;
+  const Coords3d& aP0        = myLExtremalPoints[myTriIdx[0]];
+  const Coords3d  anAxis     = myLExtremalPoints[myTriIdx[1]] - aP0;
   Standard_Real aMaxSqDist = -1.0;
   for (Standard_Integer i = 0; i < myNbExtremalPoints; i++)
   {
     if ((i == myTriIdx[0]) || (i == myTriIdx[1]))
       continue;
 
-    const gp_XYZ&       aP         = myLExtremalPoints[i];
+    const Coords3d&       aP         = myLExtremalPoints[i];
     const Standard_Real aDistToAxe = anAxis.CrossSquareMagnitude(aP - aP0);
     if (aDistToAxe > aMaxSqDist)
     {
@@ -534,7 +534,7 @@ void OBBTool::FillToTriangle3()
 //            myTriIdx[2]. Moreover, the distance from these points
 //            to the triangle plane must be maximal.
 //=======================================================================
-void OBBTool::FillToTriangle5(const gp_XYZ& theNormal, const gp_XYZ& theBarryCenter)
+void OBBTool::FillToTriangle5(const Coords3d& theNormal, const Coords3d& theBarryCenter)
 {
   Standard_Real    aParams[2] = {0.0, 0.0};
   Standard_Integer id3 = -1, id4 = -1;
@@ -544,7 +544,7 @@ void OBBTool::FillToTriangle5(const gp_XYZ& theNormal, const gp_XYZ& theBarryCen
     if ((aPtIdx == myTriIdx[0]) || (aPtIdx == myTriIdx[1]) || (aPtIdx == myTriIdx[2]))
       continue;
 
-    const gp_XYZ&       aCurrPoint = myLExtremalPoints[aPtIdx];
+    const Coords3d&       aCurrPoint = myLExtremalPoints[aPtIdx];
     const Standard_Real aParam     = theNormal.Dot(aCurrPoint - theBarryCenter);
 
     if (aParam < aParams[0])
@@ -583,12 +583,12 @@ void OBBTool::ProcessTriangle(const Standard_Integer theIdx1,
   // All axes must be normalized in order to provide correct area computation
   // (see ComputeQuality(...) method).
   int    ID1[3] = {theIdx2, theIdx3, theIdx1}, ID2[3] = {theIdx1, theIdx2, theIdx3};
-  gp_XYZ aYAxis[aNbAxes] = {(myLExtremalPoints[ID1[0]] - myLExtremalPoints[ID2[0]]),
+  Coords3d aYAxis[aNbAxes] = {(myLExtremalPoints[ID1[0]] - myLExtremalPoints[ID2[0]]),
                             (myLExtremalPoints[ID1[1]] - myLExtremalPoints[ID2[1]]),
                             (myLExtremalPoints[ID1[2]] - myLExtremalPoints[ID2[2]])};
 
   // Normal to the triangle plane
-  gp_XYZ aZAxis = aYAxis[0].Crossed(aYAxis[1]);
+  Coords3d aZAxis = aYAxis[0].Crossed(aYAxis[1]);
 
   Standard_Real aSqMod = aZAxis.SquareModulus();
 
@@ -597,7 +597,7 @@ void OBBTool::ProcessTriangle(const Standard_Integer theIdx1,
 
   aZAxis /= Sqrt(aSqMod);
 
-  gp_XYZ aXAxis[aNbAxes];
+  Coords3d aXAxis[aNbAxes];
   for (Standard_Integer i = 0; i < aNbAxes; i++)
     aXAxis[i] = aYAxis[i].Crossed(aZAxis).Normalized();
 
@@ -614,7 +614,7 @@ void OBBTool::ProcessTriangle(const Standard_Integer theIdx1,
   Standard_Integer aMinIdx = -1;
   for (Standard_Integer anAxeInd = 0; anAxeInd < aNbAxes; anAxeInd++)
   {
-    const gp_XYZ& aAX = aXAxis[anAxeInd];
+    const Coords3d& aAX = aXAxis[anAxeInd];
     // Compute params on XAxis
     FindMinMax(aAX, aParams[0], aParams[1]);
     // Compute params on YAxis checking for stored values
@@ -697,7 +697,7 @@ void OBBTool::BuildBox(OrientedBox& theBox)
   const Standard_Integer aNbPoints = 6;
   Standard_Real          aParams[aNbPoints];
 
-  gp_XYZ aFCurrPoint = myPntsList.First().XYZ();
+  Coords3d aFCurrPoint = myPntsList.First().XYZ();
 
   aParams[0] = aParams[1] = aFCurrPoint.Dot(aXDir.XYZ());
   aParams[2] = aParams[3] = aFCurrPoint.Dot(aYDir.XYZ());
@@ -716,7 +716,7 @@ void OBBTool::BuildBox(OrientedBox& theBox)
 
   for (Standard_Integer i = myPntsList.Lower() + 1; i <= myPntsList.Upper(); i++)
   {
-    const gp_XYZ&       aCurrPoint = myPntsList(i).XYZ();
+    const Coords3d&       aCurrPoint = myPntsList(i).XYZ();
     const Standard_Real aDx = aCurrPoint.Dot(aXDir.XYZ()), aDy = aCurrPoint.Dot(aYDir.XYZ()),
                         aDz = aCurrPoint.Dot(aZDir.XYZ());
 
@@ -743,7 +743,7 @@ void OBBTool::BuildBox(OrientedBox& theBox)
   const Standard_Real aHY = 0.5 * (aParams[3] - aParams[2]);
   const Standard_Real aHZ = 0.5 * (aParams[5] - aParams[4]);
 
-  const gp_XYZ aCenter =
+  const Coords3d aCenter =
     0.5
     * ((aParams[1] + aParams[0]) * aXDir.XYZ() + (aParams[3] + aParams[2]) * aYDir.XYZ()
        + (aParams[5] + aParams[4]) * aZDir.XYZ());
@@ -775,8 +775,8 @@ void OrientedBox::ReBuild(const TColgp_Array1OfPnt&   theListOfPoints,
 
       const Standard_Real aTol2 = (theListOfTolerances == 0) ? 0.0 : theListOfTolerances->Last();
 
-      const gp_XYZ &      aP1 = theListOfPoints.First().XYZ(), &aP2 = theListOfPoints.Last().XYZ();
-      const gp_XYZ        aDP  = aP2 - aP1;
+      const Coords3d &      aP1 = theListOfPoints.First().XYZ(), &aP2 = theListOfPoints.Last().XYZ();
+      const Coords3d        aDP  = aP2 - aP1;
       const Standard_Real aDPm = aDP.Modulus();
       myIsAABox                = Standard_False;
       myHDims[1] = myHDims[2] = Max(aTol1, aTol2);
@@ -844,7 +844,7 @@ Standard_Boolean OrientedBox::IsOut(const OrientedBox& theOther) const
   // they are not interfered at all.
 
   // Precomputed difference between centers
-  gp_XYZ D = theOther.myCenter - myCenter;
+  Coords3d D = theOther.myCenter - myCenter;
 
   // Check the axes of the this box, i.e. L is one of myAxes
   // Since the Dot product of two of these directions is null, it could be skipped:
@@ -888,7 +888,7 @@ Standard_Boolean OrientedBox::IsOut(const OrientedBox& theOther) const
     for (Standard_Integer j = 0; j < 3; ++j)
     {
       // Separating axis
-      gp_XYZ aLAxe = myAxes[i].Crossed(theOther.myAxes[j]);
+      Coords3d aLAxe = myAxes[i].Crossed(theOther.myAxes[j]);
 
       const Standard_Real aNorm = aLAxe.Modulus();
       if (aNorm < aTolNull)
@@ -926,7 +926,7 @@ Standard_Boolean OrientedBox::IsOut(const Point3d& theP) const
   //    projection parameter is greater than myHDims[i].
   //    In this case, IsOut method will return TRUE.
 
-  const gp_XYZ aRV = theP.XYZ() - myCenter;
+  const Coords3d aRV = theP.XYZ() - myCenter;
 
   return ((Abs(myAxes[0].Dot(aRV)) > myHDims[0]) || (Abs(myAxes[1].Dot(aRV)) > myHDims[1])
           || (Abs(myAxes[2].Dot(aRV)) > myHDims[2]));

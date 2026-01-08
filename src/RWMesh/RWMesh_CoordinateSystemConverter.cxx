@@ -57,8 +57,8 @@ void RWMesh_CoordinateSystemConverter::Init(const Ax3& theInputSystem,
   if (myHasInputAx3 && myHasOutputAx3)
   {
     aTrsf.SetTransformation(theOutputSystem, theInputSystem);
-    if (aTrsf.TranslationPart().IsEqual(gp_XYZ(0.0, 0.0, 0.0), gp1::Resolution())
-        && aTrsf.GetRotation().IsEqual(gp_Quaternion()))
+    if (aTrsf.TranslationPart().IsEqual(Coords3d(0.0, 0.0, 0.0), gp1::Resolution())
+        && aTrsf.GetRotation().IsEqual(Quaternion()))
     {
       aTrsf = Transform3d();
     }

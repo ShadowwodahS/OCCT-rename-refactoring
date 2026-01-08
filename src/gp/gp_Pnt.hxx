@@ -37,7 +37,7 @@ public:
   Point3d() {}
 
   //! Creates a point from a XYZ object.
-  Point3d(const gp_XYZ& theCoord)
+  Point3d(const Coords3d& theCoord)
       : coord(theCoord)
   {
   }
@@ -74,7 +74,7 @@ public:
   void SetZ(const Standard_Real theZ) { coord.SetZ(theZ); }
 
   //! Assigns the three coordinates of theCoord to this point.
-  void SetXYZ(const gp_XYZ& theCoord) { coord = theCoord; }
+  void SetXYZ(const Coords3d& theCoord) { coord = theCoord; }
 
   //! Returns the coordinate of corresponding to the value of theIndex :
   //! theIndex = 1 => X is returned
@@ -100,14 +100,14 @@ public:
   Standard_Real Z() const { return coord.Z(); }
 
   //! For this point, returns its three coordinates as a XYZ object.
-  const gp_XYZ& XYZ() const { return coord; }
+  const Coords3d& XYZ() const { return coord; }
 
   //! For this point, returns its three coordinates as a XYZ object.
-  const gp_XYZ& Coord() const { return coord; }
+  const Coords3d& Coord() const { return coord; }
 
   //! Returns the coordinates of this point.
   //! Note: This syntax allows direct modification of the returned value.
-  gp_XYZ& ChangeCoord() { return coord; }
+  Coords3d& ChangeCoord() { return coord; }
 
   //! Assigns the result of the following expression to this point
   //! (theAlpha*this + theBeta*theP) / (theAlpha + theBeta)
@@ -211,7 +211,7 @@ public:
                                                 Standard_Integer&       theStreamPos);
 
 private:
-  gp_XYZ coord;
+  Coords3d coord;
 };
 
 namespace std
@@ -260,7 +260,7 @@ struct equal_to<Point3d>
 inline Standard_Real Point3d::Distance(const Point3d& theOther) const
 {
   Standard_Real aD   = 0, aDD;
-  const gp_XYZ& aXYZ = theOther.coord;
+  const Coords3d& aXYZ = theOther.coord;
   aDD                = coord.X();
   aDD -= aXYZ.X();
   aDD *= aDD;
@@ -283,7 +283,7 @@ inline Standard_Real Point3d::Distance(const Point3d& theOther) const
 inline Standard_Real Point3d::SquareDistance(const Point3d& theOther) const
 {
   Standard_Real aD  = 0, aDD;
-  const gp_XYZ& XYZ = theOther.coord;
+  const Coords3d& XYZ = theOther.coord;
   aDD               = coord.X();
   aDD -= XYZ.X();
   aDD *= aDD;
@@ -316,7 +316,7 @@ inline void Point3d::Rotate(const Axis3d& theA1, const Standard_Real theAng)
 //=======================================================================
 inline void Point3d::Scale(const Point3d& theP, const Standard_Real theS)
 {
-  gp_XYZ aXYZ = theP.coord;
+  Coords3d aXYZ = theP.coord;
   aXYZ.Multiply(1.0 - theS);
   coord.Multiply(theS);
   coord.Add(aXYZ);

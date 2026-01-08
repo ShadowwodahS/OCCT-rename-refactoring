@@ -26,17 +26,17 @@ ScaleBuilder2d::ScaleBuilder2d(const gp_Pnt2d& Point, const Standard_Real Scale)
   TheScale2d.SetScale(Point, Scale);
 }
 
-const gp_Trsf2d& ScaleBuilder2d::Value() const
+const Transform2d& ScaleBuilder2d::Value() const
 {
   return TheScale2d;
 }
 
-const gp_Trsf2d& ScaleBuilder2d::Operator() const
+const Transform2d& ScaleBuilder2d::Operator() const
 {
   return TheScale2d;
 }
 
-ScaleBuilder2d::operator gp_Trsf2d() const
+ScaleBuilder2d::operator Transform2d() const
 {
   return TheScale2d;
 }

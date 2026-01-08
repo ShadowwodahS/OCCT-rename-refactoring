@@ -359,7 +359,7 @@ void GeomFill_LocationGuide::SetRotation(const Standard_Real PrecAngle, Standard
         GeomFill_FunctionGuide E(mySec, myGuide, U);
         E.SetParam(U, P, T.XYZ(), N.XYZ());
         // resolution   =>  angle
-        math_FunctionSetRoot Result(E, TolRes);
+        FunctionSetRoot Result(E, TolRes);
         Result.Perform(E, X, Inf, Sup);
 
         if (Result.IsDone() && (Result.FunctionSetErrors().Norm() < TolRes(1) * TolRes(1)))
@@ -612,7 +612,7 @@ Standard_Boolean GeomFill_LocationGuide::D0(const Standard_Real Param, gp_Mat& M
     InitX(Param);
 
     Standard_Integer Iter = 100;
-    gp_XYZ           t, b, n;
+    Coords3d           t, b, n;
     t = M.Column(3);
     b = M.Column(2);
     n = M.Column(1);
@@ -622,7 +622,7 @@ Standard_Boolean GeomFill_LocationGuide::D0(const Standard_Real Param, gp_Mat& M
     GeomFill_FunctionGuide E(mySec, myGuide, U);
     E.SetParam(Param, P, t, n);
     // resolution   =>  angle
-    math_FunctionSetRoot Result(E, TolRes, Iter);
+    FunctionSetRoot Result(E, TolRes, Iter);
     Result.Perform(E, X, Inf, Sup);
 
     if (Result.IsDone())
@@ -686,7 +686,7 @@ Standard_Boolean GeomFill_LocationGuide::D0(const Standard_Real Param,
     // initialisation du germe
     InitX(Param);
     Standard_Integer Iter = 100;
-    gp_XYZ           b, n, t;
+    Coords3d           b, n, t;
     t = M.Column(3);
     b = M.Column(2);
     n = M.Column(1);
@@ -698,7 +698,7 @@ Standard_Boolean GeomFill_LocationGuide::D0(const Standard_Real Param,
     E.SetParam(Param, P, t, n);
 
     // resolution
-    math_FunctionSetRoot Result(E, TolRes, Iter);
+    FunctionSetRoot Result(E, TolRes, Iter);
     Result.Perform(E, X, Inf, Sup);
 
     if (Result.IsDone())
@@ -781,7 +781,7 @@ Standard_Boolean GeomFill_LocationGuide::D1(const Standard_Real Param,
        InitX(Param);
 
        Standard_Integer Iter = 100;
-       gp_XYZ t,b,n, dt, db, dn;
+       Coords3d t,b,n, dt, db, dn;
        t = M.Column(3);
        b = M.Column(2);
        n = M.Column(1);
@@ -795,7 +795,7 @@ Standard_Boolean GeomFill_LocationGuide::D1(const Standard_Real Param,
        E.SetParam(Param, P, t, n);
 
        // resolution
-       math_FunctionSetRoot Result(E, X, TolRes,
+       FunctionSetRoot Result(E, X, TolRes,
                    Inf, Sup, Iter);
 
        if (Result.IsDone())
@@ -812,7 +812,7 @@ Standard_Boolean GeomFill_LocationGuide::D1(const Standard_Real Param,
          E.Derivatives(R, DEDX);  // dE/dx au point R => DEDX
 
          // resolution du syst. : DEDX*DSDT = -DEDT
-         math_Gauss Ga(DEDX);
+         Gauss Ga(DEDX);
          if (Ga.IsDone())
            {
              Ga.Solve (DEDT.Opposite(), DSDT);// resolution du syst.
@@ -959,7 +959,7 @@ Standard_Boolean GeomFill_LocationGuide::D2(
           E.SetParam(Param, P, T, N);
 
           // resolution
-          math_FunctionSetRoot Result(E, X, TolRes,
+          FunctionSetRoot Result(E, X, TolRes,
                                       Inf, Sup, Iter);
 
           if (Result.IsDone())
@@ -977,7 +977,7 @@ Standard_Boolean GeomFill_LocationGuide::D2(
           E.Derivatives(R, DEDX);  // dE/dx au point R => DEDX
 
           // resolution du syst. lin. : DEDX*DSDT = -DEDT
-          math_Gauss Ga(DEDX);
+          Gauss Ga(DEDX);
           if (Ga.IsDone())
             {
               Ga.Solve (DEDT.Opposite(), DSDT); // resolution du syst. lin.
@@ -1007,7 +1007,7 @@ Standard_Boolean GeomFill_LocationGuide::D2(
           D2EDX2.Multiply(DSDT,M1);
 
           // resolution du syst. lin.
-          math_Gauss Ga1 (DEDX);
+          Gauss Ga1 (DEDX);
           if (Ga1.IsDone())
             {
               Ga1.Solve ( - M1*DSDT - 2*D2EDTDX*DSDT - D2EDT2 , D2SDT2);

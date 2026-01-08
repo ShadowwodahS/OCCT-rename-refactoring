@@ -26,12 +26,12 @@
 //! This class gives a default sample (constant difference
 //! of parameter) for a function defined between
 //! two bound A,B.
-class math_FunctionSample
+class FunctionSampler
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT math_FunctionSample(const Standard_Real    A,
+  Standard_EXPORT FunctionSampler(const Standard_Real    A,
                                       const Standard_Real    B,
                                       const Standard_Integer N);
 

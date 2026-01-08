@@ -31,7 +31,7 @@ class math_FunctionSetWithDerivatives;
 //! knowing an initial guess at the solution and using the
 //! Newton Raphson algorithm. Knowledge of all the partial
 //! derivatives (Jacobian) is required.
-class math_NewtonFunctionSetRoot
+class NewtonFunctionSetRoot
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -39,7 +39,7 @@ public:
   //! Initialize correctly all the fields of this class.
   //! The range (1, F.NbVariables()) must be especially respected for
   //! all vectors and matrix declarations.
-  Standard_EXPORT math_NewtonFunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
+  Standard_EXPORT NewtonFunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
                                              const math_Vector&               theXTolerance,
                                              const Standard_Real              theFTolerance,
                                              const Standard_Integer tehNbIterations = 100);
@@ -49,12 +49,12 @@ public:
   //! The range (1, F.NbVariables()) must be especially respected for
   //! all vectors and matrix declarations.
   //! The method SetTolerance must be called before performing the algorithm.
-  Standard_EXPORT math_NewtonFunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
+  Standard_EXPORT NewtonFunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
                                              const Standard_Real              theFTolerance,
                                              const Standard_Integer theNbIterations = 100);
 
   //! Destructor
-  Standard_EXPORT virtual ~math_NewtonFunctionSetRoot();
+  Standard_EXPORT virtual ~NewtonFunctionSetRoot();
 
   //! Initializes the tolerance values for the unknowns.
   Standard_EXPORT void SetTolerance(const math_Vector& XTol);

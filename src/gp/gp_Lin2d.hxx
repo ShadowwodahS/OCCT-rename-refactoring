@@ -177,10 +177,10 @@ public:
     return aL;
   }
 
-  void Transform(const gp_Trsf2d& theT) { pos.Transform(theT); }
+  void Transform(const Transform2d& theT) { pos.Transform(theT); }
 
   //! Transforms a line with the transformation theT from class Trsf2d.
-  Standard_NODISCARD gp_Lin2d Transformed(const gp_Trsf2d& theT) const
+  Standard_NODISCARD gp_Lin2d Transformed(const Transform2d& theT) const
   {
     gp_Lin2d aL = *this;
     aL.pos.Transform(theT);

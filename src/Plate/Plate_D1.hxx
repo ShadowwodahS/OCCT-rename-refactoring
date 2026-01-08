@@ -30,21 +30,21 @@ class D1
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT D1(const gp_XYZ& du, const gp_XYZ& dv);
+  Standard_EXPORT D1(const Coords3d& du, const Coords3d& dv);
 
   Standard_EXPORT D1(const D1& ref);
 
-  const gp_XYZ& DU() const;
+  const Coords3d& DU() const;
 
-  const gp_XYZ& DV() const;
+  const Coords3d& DV() const;
 
   friend class Plate_GtoCConstraint;
   friend class FreeGtoCConstraint;
 
 protected:
 private:
-  gp_XYZ Du;
-  gp_XYZ Dv;
+  Coords3d Du;
+  Coords3d Dv;
 };
 
 #include <Plate_D1.lxx>

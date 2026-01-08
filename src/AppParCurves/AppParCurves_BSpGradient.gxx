@@ -18,7 +18,7 @@
 // Application de la methode du gradient corrige pour minimiser 
 // F  = somme(||C(ui, Poles(ui)) - ptli||2.
 // La methode de gradient conjugue est programmee dans la bibliotheque 
-// mathematique: math_BFGS.
+// mathematique: BFGSOptimizer.
 
 
 #define No_Standard_RangeError

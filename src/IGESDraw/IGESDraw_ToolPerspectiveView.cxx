@@ -46,8 +46,8 @@ void PerspectiveViewTool::ReadOwnParams(const Handle(IGESDraw_PerspectiveView)& 
 
   Coords2d            tempTopLeft, tempBottomRight;
   Standard_Real    tempLeft, tempRight, tempTop, tempBottom;
-  gp_XYZ           tempCenterOfProjection, tempViewUpVector;
-  gp_XYZ           tempViewNormalVector, tempViewReferencePoint;
+  Coords3d           tempCenterOfProjection, tempViewUpVector;
+  Coords3d           tempViewNormalVector, tempViewReferencePoint;
   Standard_Integer tempViewNumber, tempDepthClip;
   Standard_Real    tempScaleFactor, tempViewPlaneDistance;
   Standard_Real    tempBackPlaneDistance, tempFrontPlaneDistance;

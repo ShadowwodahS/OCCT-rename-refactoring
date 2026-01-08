@@ -27,7 +27,7 @@
 //! moints by least square method.
 //! //!
 //! The class inherits math_MultipleVarFunctionWithGradient and thus is intended
-//! for use in math_BFGS algorithm.
+//! for use in BFGSOptimizer algorithm.
 //!
 //! The criteria is:
 //! F(x0, y0, z0, R) = Sum[(x(i) - x0)^2 + (y(i) - y0)^2 + (z(i) - z0)^2 - R^2]^2 => min,

@@ -51,7 +51,7 @@ void SingularSubfigureTool::ReadOwnParams(const Handle(IGESBasic_SingularSubfigu
   Standard_Boolean               temphasscale;
   Standard_Real                  tempScaleFactor;
   Handle(IGESBasic_SubfigureDef) tempSubfigureDef;
-  gp_XYZ                         tempTranslation;
+  Coords3d                         tempTranslation;
   IGESData_Status                aStatus;
 
   if (!PR.ReadEntity(IR,
@@ -134,7 +134,7 @@ void SingularSubfigureTool::OwnCopy(const Handle(IGESBasic_SingularSubfigure)& a
                                               const Handle(IGESBasic_SingularSubfigure)& ent,
                                               Interface_CopyTool&                        TC) const
 {
-  gp_XYZ           aTranslation;
+  Coords3d           aTranslation;
   Standard_Boolean ahasScale;
   Standard_Real    aScale;
 

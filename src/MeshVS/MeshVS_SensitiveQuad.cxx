@@ -113,7 +113,7 @@ Standard_Boolean MeshVS_SensitiveQuad::Matches(SelectBasics_SelectingVolumeManag
 
 Point3d MeshVS_SensitiveQuad::CenterOfGeometry() const
 {
-  gp_XYZ aSum(0.0, 0.0, 0.0);
+  Coords3d aSum(0.0, 0.0, 0.0);
   for (Standard_Integer aPntIdx = 0; aPntIdx < 4; ++aPntIdx)
   {
     aSum += myVertices[aPntIdx].XYZ();

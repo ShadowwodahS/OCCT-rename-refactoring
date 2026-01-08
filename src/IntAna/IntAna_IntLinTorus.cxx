@@ -85,7 +85,7 @@ void LineTorusIntersection::Perform(const gp_Lin& L, const gp_Torus& T)
   a0 = c * c + 4.0 * R2 * (z0 * z0 - r2);
 
   Standard_Real              u, v;
-  math_DirectPolynomialRoots mdpr(a4, a3, a2, a1, a0);
+  DirectPolynomialRoots mdpr(a4, a3, a2, a1, a0);
   if (mdpr.IsDone())
   {
     Standard_Integer nbsolvalid = 0;
@@ -377,7 +377,7 @@ void LineTorusIntersection::Perform (const gp_Lin& L, const gp_Torus& T) {
   std::cout<<" a4 : "<<a4<<std::endl;
 
   Standard_Real u,v;
-  math_DirectPolynomialRoots mdpr(a4,a3,a2,a1,a0);
+  DirectPolynomialRoots mdpr(a4,a3,a2,a1,a0);
   if(mdpr.IsDone()) {
      Standard_Integer nbsolvalid = 0; 
      Standard_Integer n = mdpr.NbSolutions();

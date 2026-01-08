@@ -312,18 +312,18 @@ void BRepMesh_CurveTessellator::splitSegment(const Handle(GeomSurface)& theSurf,
   uvm            = gp_Pnt2d((uvf.XY() + uvl.XY()) * 0.5);
   midP3dFromSurf = theSurf->Value(uvm.X(), uvm.Y());
 
-  gp_XYZ Vec1 = midP3dFromSurf.XYZ() - P3dF.XYZ();
+  Coords3d Vec1 = midP3dFromSurf.XYZ() - P3dF.XYZ();
   if (Vec1.SquareModulus() < mySquareMinSize)
   {
     return;
   }
 
-  gp_XYZ aVec = P3dL.XYZ() - P3dF.XYZ();
+  Coords3d aVec = P3dL.XYZ() - P3dF.XYZ();
   aVec.Normalize();
 
   Standard_Real aModulus = Vec1.Dot(aVec);
-  gp_XYZ        aProj    = aVec * aModulus;
-  gp_XYZ        aDist    = Vec1 - aProj;
+  Coords3d        aProj    = aVec * aModulus;
+  Coords3d        aDist    = Vec1 - aProj;
 
   if (aDist.SquareModulus() < mySquareEdgeDef)
   {

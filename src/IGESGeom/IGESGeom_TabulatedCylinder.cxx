@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESGeom_TabulatedCylinder, IGESData_IGESEntity)
 IGESGeom_TabulatedCylinder::IGESGeom_TabulatedCylinder() {}
 
 void IGESGeom_TabulatedCylinder::Init(const Handle(IGESData_IGESEntity)& aDirectrix,
-                                      const gp_XYZ&                      anEnd)
+                                      const Coords3d&                      anEnd)
 {
   theDirectrix = aDirectrix;
   theEnd       = anEnd;
@@ -46,7 +46,7 @@ Point3d IGESGeom_TabulatedCylinder::EndPoint() const
 
 Point3d IGESGeom_TabulatedCylinder::TransformedEndPoint() const
 {
-  gp_XYZ EndPoint = theEnd;
+  Coords3d EndPoint = theEnd;
   if (HasTransf())
     Location().Transforms(EndPoint);
   return (Point3d(EndPoint));

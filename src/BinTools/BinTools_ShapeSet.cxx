@@ -1382,7 +1382,7 @@ void BinTools_ShapeSet::ReadPolygon3D(Standard_IStream& IS, const Message_Progre
       TColgp_Array1OfPnt& aNodes = aPoly->ChangeNodes();
       for (Standard_Integer aNodeIter = 1; aNodeIter <= aNbNodes; ++aNodeIter)
       {
-        gp_XYZ& aPnt = aNodes.ChangeValue(aNodeIter).ChangeCoord();
+        Coords3d& aPnt = aNodes.ChangeValue(aNodeIter).ChangeCoord();
         BinTools1::GetReal(IS, aPnt.ChangeCoord(1));
         BinTools1::GetReal(IS, aPnt.ChangeCoord(2));
         BinTools1::GetReal(IS, aPnt.ChangeCoord(3));

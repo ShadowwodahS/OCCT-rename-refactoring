@@ -87,7 +87,7 @@ public:
   //! @param[in]  theDisplayPnt 2d point of display coordinates
   //! @param[out]  theWorldPnt 3d point of world coordinates
   //! @return true if conversion was successful, false otherwise
-  virtual bool DisplayToWorld(const Coords2d& theDisplayPnt, gp_XYZ& theWorldPnt) const = 0;
+  virtual bool DisplayToWorld(const Coords2d& theDisplayPnt, Coords3d& theWorldPnt) const = 0;
 
   //! Gets viewport coordinates
   virtual void GetViewport(Standard_Real& theX,

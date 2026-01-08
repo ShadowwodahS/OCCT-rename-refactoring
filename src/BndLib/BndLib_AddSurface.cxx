@@ -553,7 +553,7 @@ void AddSurface::AddGenSurf(const Adaptor3d_Surface& S,
   //
   Standard_Real              du = (UMax - UMin) / (Nu - 1), du2 = du / 2.;
   Standard_Real              dv = (VMax - VMin) / (Nv - 1), dv2 = dv / 2.;
-  NCollection_Array2<gp_XYZ> aPnts(1, Nu, 1, Nv);
+  NCollection_Array2<Coords3d> aPnts(1, Nu, 1, Nv);
   Standard_Real              u, v;
   Standard_Integer           i, j, k;
   Point3d                     P;
@@ -578,9 +578,9 @@ void AddSurface::AddGenSurf(const Adaptor3d_Surface& S,
       //
       if (i > 1)
       {
-        gp_XYZ aPm = 0.5 * (aPnts(i - 1, j) + aPnts(i, j));
+        Coords3d aPm = 0.5 * (aPnts(i - 1, j) + aPnts(i, j));
         S.D0(u - du2, v, P);
-        gp_XYZ aD = (P.XYZ() - aPm);
+        Coords3d aD = (P.XYZ() - aPm);
         for (k = 0; k < 3; ++k)
         {
           if (CoordMin[k] > P.Coord(k + 1))
@@ -600,9 +600,9 @@ void AddSurface::AddGenSurf(const Adaptor3d_Surface& S,
       }
       if (j > 1)
       {
-        gp_XYZ aPm = 0.5 * (aPnts(i, j - 1) + aPnts(i, j));
+        Coords3d aPm = 0.5 * (aPnts(i, j - 1) + aPnts(i, j));
         S.D0(u, v - dv2, P);
-        gp_XYZ aD = (P.XYZ() - aPm);
+        Coords3d aD = (P.XYZ() - aPm);
         for (k = 0; k < 3; ++k)
         {
           if (CoordMin[k] > P.Coord(k + 1))
@@ -681,7 +681,7 @@ void AddSurface::AddGenSurf(const Adaptor3d_Surface& S,
 //
 
 //
-class SurfMaxMinCoord : public math_MultipleVarFunction
+class SurfMaxMinCoord : public MultipleVarFunction
 {
 public:
   SurfMaxMinCoord(const Adaptor3d_Surface& theSurf,
@@ -828,7 +828,7 @@ Standard_Real AdjustExtr(const Adaptor3d_Surface& S,
   aSteps(2)                     = Min(0.1 * Dv, aMaxVStep);
 
   SurfMaxMinCoord aFunc(S, UMin, UMax, VMin, VMax, CoordIndx, aSign);
-  math_PSO        aFinder(&aFunc, aLowBorder, aUppBorder, aSteps, aNbParticles);
+  PSO        aFinder(&aFunc, aLowBorder, aUppBorder, aSteps, aNbParticles);
   aFinder.Perform(aSteps, extr, aT);
 
   // Refinement of extremal value
@@ -839,7 +839,7 @@ Standard_Real AdjustExtr(const Adaptor3d_Surface& S,
   aDir(2, 2) = 1.;
 
   Standard_Integer aNbIter = 200;
-  math_Powell      powell(aFunc, relTol, aNbIter, Tol);
+  Powell      powell(aFunc, relTol, aNbIter, Tol);
   powell.Perform(aFunc, aT, aDir);
 
   if (powell.IsDone())

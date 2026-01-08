@@ -19,7 +19,7 @@
 #include <math_MultipleVarFunction.hxx>
 #include <math_Vector.hxx>
 
-class math_PSOParticlesPool;
+class PSOParticlesPool;
 
 //! In this class implemented variation of Particle Swarm Optimization (PSO) method.
 //! A. Ismael F. Vaz, L. N. Vicente
@@ -52,7 +52,7 @@ class math_PSOParticlesPool;
 //! Run local optimization from pso output point.
 //! Warning: In PSO used fixed seed in RNG, so results are reproducible.
 
-class math_PSO
+class PSO
 {
 public:
   /**
@@ -67,7 +67,7 @@ public:
   * @param theNbParticles defines number of particles.
   * @param theNbIter defines maximum number of iterations.
   */
-  Standard_EXPORT math_PSO(math_MultipleVarFunction* theFunc,
+  Standard_EXPORT PSO(MultipleVarFunction* theFunc,
                            const math_Vector&        theLowBorder,
                            const math_Vector&        theUppBorder,
                            const math_Vector&        theSteps,
@@ -81,20 +81,20 @@ public:
                                const Standard_Integer theNbIter = 100);
 
   //! Perform computations with given particles array.
-  Standard_EXPORT void Perform(math_PSOParticlesPool& theParticles,
+  Standard_EXPORT void Perform(PSOParticlesPool& theParticles,
                                Standard_Integer       theNbParticles,
                                Standard_Real&         theValue,
                                math_Vector&           theOutPnt,
                                const Standard_Integer theNbIter = 100);
 
 private:
-  void performPSOWithGivenParticles(math_PSOParticlesPool& theParticles,
+  void performPSOWithGivenParticles(PSOParticlesPool& theParticles,
                                     Standard_Integer       theNbParticles,
                                     Standard_Real&         theValue,
                                     math_Vector&           theOutPnt,
                                     const Standard_Integer theNbIter = 100);
 
-  math_MultipleVarFunction* myFunc;
+  MultipleVarFunction* myFunc;
   math_Vector               myLowBorder;   // Lower border.
   math_Vector               myUppBorder;   // Upper border.
   math_Vector               mySteps;       // steps used in PSO algorithm.

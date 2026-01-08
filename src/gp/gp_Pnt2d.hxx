@@ -24,7 +24,7 @@
 #include <Standard_Boolean.hxx>
 
 class gp_Ax2d;
-class gp_Trsf2d;
+class Transform2d;
 class gp_Vec2d;
 
 //! Defines  a non-persistent 2D cartesian point.
@@ -146,9 +146,9 @@ public:
   }
 
   //! Transforms a point with the transformation theT.
-  Standard_EXPORT void Transform(const gp_Trsf2d& theT);
+  Standard_EXPORT void Transform(const Transform2d& theT);
 
-  Standard_NODISCARD gp_Pnt2d Transformed(const gp_Trsf2d& theT) const
+  Standard_NODISCARD gp_Pnt2d Transformed(const Transform2d& theT) const
   {
     gp_Pnt2d aPres = *this;
     aPres.Transform(theT);
@@ -215,7 +215,7 @@ inline Standard_Real gp_Pnt2d::SquareDistance(const gp_Pnt2d& theOther) const
 //=======================================================================
 inline void gp_Pnt2d::Rotate(const gp_Pnt2d& theP, const Standard_Real theAng)
 {
-  gp_Trsf2d aT;
+  Transform2d aT;
   aT.SetRotation(theP, theAng);
   aT.Transforms(coord);
 }

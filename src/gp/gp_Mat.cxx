@@ -27,7 +27,7 @@
 
 //=================================================================================================
 
-gp_Mat::gp_Mat(const gp_XYZ& theCol1, const gp_XYZ& theCol2, const gp_XYZ& theCol3)
+gp_Mat::gp_Mat(const Coords3d& theCol1, const Coords3d& theCol2, const Coords3d& theCol3)
 {
   myMat[0][0] = theCol1.X();
   myMat[1][0] = theCol1.Y();
@@ -42,7 +42,7 @@ gp_Mat::gp_Mat(const gp_XYZ& theCol1, const gp_XYZ& theCol2, const gp_XYZ& theCo
 
 //=================================================================================================
 
-void gp_Mat::SetCol(const Standard_Integer theCol, const gp_XYZ& theValue)
+void gp_Mat::SetCol(const Standard_Integer theCol, const Coords3d& theValue)
 {
   Standard_OutOfRange_Raise_if(theCol < 1 || theCol > 3, " ");
   if (theCol == 1)
@@ -67,7 +67,7 @@ void gp_Mat::SetCol(const Standard_Integer theCol, const gp_XYZ& theValue)
 
 //=================================================================================================
 
-void gp_Mat::SetCols(const gp_XYZ& theCol1, const gp_XYZ& theCol2, const gp_XYZ& theCol3)
+void gp_Mat::SetCols(const Coords3d& theCol1, const Coords3d& theCol2, const Coords3d& theCol3)
 {
   myMat[0][0] = theCol1.X();
   myMat[1][0] = theCol1.Y();
@@ -82,7 +82,7 @@ void gp_Mat::SetCols(const gp_XYZ& theCol1, const gp_XYZ& theCol2, const gp_XYZ&
 
 //=================================================================================================
 
-void gp_Mat::SetCross(const gp_XYZ& theRef)
+void gp_Mat::SetCross(const Coords3d& theRef)
 {
   const Standard_Real X = theRef.X();
   const Standard_Real Y = theRef.Y();
@@ -98,7 +98,7 @@ void gp_Mat::SetCross(const gp_XYZ& theRef)
 
 //=================================================================================================
 
-void gp_Mat::SetDot(const gp_XYZ& theRef)
+void gp_Mat::SetDot(const Coords3d& theRef)
 {
   const Standard_Real X = theRef.X();
   const Standard_Real Y = theRef.Y();
@@ -116,11 +116,11 @@ void gp_Mat::SetDot(const gp_XYZ& theRef)
 
 //=================================================================================================
 
-void gp_Mat::SetRotation(const gp_XYZ& theAxis, const Standard_Real theAng)
+void gp_Mat::SetRotation(const Coords3d& theAxis, const Standard_Real theAng)
 {
   //    Rot = I + sin(Ang) * M + (1. - cos(Ang)) * M*M
   //    avec  M . XYZ = Axis ^ XYZ
-  const gp_XYZ aV = theAxis.Normalized();
+  const Coords3d aV = theAxis.Normalized();
   SetCross(aV);
   Multiply(sin(theAng));
   gp_Mat aTemp;
@@ -129,16 +129,16 @@ void gp_Mat::SetRotation(const gp_XYZ& theAxis, const Standard_Real theAng)
   const Standard_Real A = aV.X();
   const Standard_Real B = aV.Y();
   const Standard_Real C = aV.Z();
-  aTemp.SetRow(1, gp_XYZ(-C * C - B * B, A * B, A * C));
-  aTemp.SetRow(2, gp_XYZ(A * B, -A * A - C * C, B * C));
-  aTemp.SetRow(3, gp_XYZ(A * C, B * C, -A * A - B * B));
+  aTemp.SetRow(1, Coords3d(-C * C - B * B, A * B, A * C));
+  aTemp.SetRow(2, Coords3d(A * B, -A * A - C * C, B * C));
+  aTemp.SetRow(3, Coords3d(A * C, B * C, -A * A - B * B));
   aTemp.Multiply(1.0 - cos(theAng));
   Add(aTemp);
 }
 
 //=================================================================================================
 
-void gp_Mat::SetRow(const Standard_Integer theRow, const gp_XYZ& theValue)
+void gp_Mat::SetRow(const Standard_Integer theRow, const Coords3d& theValue)
 {
   Standard_OutOfRange_Raise_if(theRow < 1 || theRow > 3, " ");
   if (theRow == 1)
@@ -163,7 +163,7 @@ void gp_Mat::SetRow(const Standard_Integer theRow, const gp_XYZ& theValue)
 
 //=================================================================================================
 
-void gp_Mat::SetRows(const gp_XYZ& theRow1, const gp_XYZ& theRow2, const gp_XYZ& theRow3)
+void gp_Mat::SetRows(const Coords3d& theRow1, const Coords3d& theRow2, const Coords3d& theRow3)
 {
   myMat[0][0] = theRow1.X();
   myMat[0][1] = theRow1.Y();
@@ -178,33 +178,33 @@ void gp_Mat::SetRows(const gp_XYZ& theRow1, const gp_XYZ& theRow2, const gp_XYZ&
 
 //=================================================================================================
 
-gp_XYZ gp_Mat::Column(const Standard_Integer theCol) const
+Coords3d gp_Mat::Column(const Standard_Integer theCol) const
 {
   Standard_OutOfRange_Raise_if(theCol < 1 || theCol > 3, "gp_Mat::Column() - wrong index");
   if (theCol == 1)
-    return gp_XYZ(myMat[0][0], myMat[1][0], myMat[2][0]);
+    return Coords3d(myMat[0][0], myMat[1][0], myMat[2][0]);
   if (theCol == 2)
-    return gp_XYZ(myMat[0][1], myMat[1][1], myMat[2][1]);
-  return gp_XYZ(myMat[0][2], myMat[1][2], myMat[2][2]);
+    return Coords3d(myMat[0][1], myMat[1][1], myMat[2][1]);
+  return Coords3d(myMat[0][2], myMat[1][2], myMat[2][2]);
 }
 
 //=================================================================================================
 
-gp_XYZ gp_Mat::Diagonal() const
+Coords3d gp_Mat::Diagonal() const
 {
-  return gp_XYZ(myMat[0][0], myMat[1][1], myMat[2][2]);
+  return Coords3d(myMat[0][0], myMat[1][1], myMat[2][2]);
 }
 
 //=================================================================================================
 
-gp_XYZ gp_Mat::Row(const Standard_Integer theRow) const
+Coords3d gp_Mat::Row(const Standard_Integer theRow) const
 {
   Standard_OutOfRange_Raise_if(theRow < 1 || theRow > 3, "gp_Mat::Row() - wrong index");
   if (theRow == 1)
-    return gp_XYZ(myMat[0][0], myMat[0][1], myMat[0][2]);
+    return Coords3d(myMat[0][0], myMat[0][1], myMat[0][2]);
   if (theRow == 2)
-    return gp_XYZ(myMat[1][0], myMat[1][1], myMat[1][2]);
-  return gp_XYZ(myMat[2][0], myMat[2][1], myMat[2][2]);
+    return Coords3d(myMat[1][0], myMat[1][1], myMat[1][2]);
+  return Coords3d(myMat[2][0], myMat[2][1], myMat[2][2]);
 }
 
 //=================================================================================================

@@ -272,7 +272,7 @@ inline Axis3d gp_Elips::Directrix1() const
   Standard_Real anE = Eccentricity();
   Standard_ConstructionError_Raise_if(anE <= gp1::Resolution(),
                                       "gp_Elips::Directrix1() - zero eccentricity");
-  gp_XYZ anOrig = pos.XDirection().XYZ();
+  Coords3d anOrig = pos.XDirection().XYZ();
   anOrig.Multiply(majorRadius / anE);
   anOrig.Add(pos.Location().XYZ());
   return Axis3d(Point3d(anOrig), pos.YDirection());
@@ -287,7 +287,7 @@ inline Axis3d gp_Elips::Directrix2() const
   Standard_Real anE = Eccentricity();
   Standard_ConstructionError_Raise_if(anE <= gp1::Resolution(),
                                       "gp_Elips::Directrix2() - zero eccentricity");
-  gp_XYZ anOrig = pos.XDirection().XYZ();
+  Coords3d anOrig = pos.XDirection().XYZ();
   anOrig.Multiply(-majorRadius / anE);
   anOrig.Add(pos.Location().XYZ());
   return Axis3d(Point3d(anOrig), pos.YDirection());

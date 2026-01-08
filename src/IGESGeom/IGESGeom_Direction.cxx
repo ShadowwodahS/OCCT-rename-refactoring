@@ -26,7 +26,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESGeom_Direction, IGESData_IGESEntity)
 
 IGESGeom_Direction::IGESGeom_Direction() {}
 
-void IGESGeom_Direction::Init(const gp_XYZ& aDirection)
+void IGESGeom_Direction::Init(const Coords3d& aDirection)
 {
   theDirection = aDirection;
   InitTypeAndForm(123, 0);
@@ -42,9 +42,9 @@ Vector3d IGESGeom_Direction::TransformedValue() const
 {
   if (!HasTransf())
     return Vector3d(theDirection);
-  gp_XYZ   xyz(theDirection);
-  gp_GTrsf loc = Location();
-  loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
+  Coords3d   xyz(theDirection);
+  GeneralTransform loc = Location();
+  loc.SetTranslationPart(Coords3d(0., 0., 0.));
   loc.Transforms(xyz);
   return Vector3d(xyz);
 }

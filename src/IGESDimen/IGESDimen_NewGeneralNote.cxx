@@ -32,9 +32,9 @@ void IGESDimen_NewGeneralNote::Init(
   const Standard_Real                            width,
   const Standard_Real                            height,
   const Standard_Integer                         justifyCode,
-  const gp_XYZ&                                  areaLoc,
+  const Coords3d&                                  areaLoc,
   const Standard_Real                            areaRotationAngle,
-  const gp_XYZ&                                  baseLinePos,
+  const Coords3d&                                  baseLinePos,
   const Standard_Real                            normalInterlineSpace,
   const Handle(TColStd_HArray1OfInteger)&        charDisplays,
   const Handle(TColStd_HArray1OfReal)&           charWidths,
@@ -130,7 +130,7 @@ Point3d IGESDimen_NewGeneralNote::AreaLocation() const
 
 Point3d IGESDimen_NewGeneralNote::TransformedAreaLocation() const
 {
-  gp_XYZ tempXYZ = theAreaLoc;
+  Coords3d tempXYZ = theAreaLoc;
   if (HasTransf())
     Location().Transforms(tempXYZ);
   return Point3d(tempXYZ);
@@ -154,7 +154,7 @@ Point3d IGESDimen_NewGeneralNote::BaseLinePosition() const
 
 Point3d IGESDimen_NewGeneralNote::TransformedBaseLinePosition() const
 {
-  gp_XYZ tempXYZ = theBaseLinePos;
+  Coords3d tempXYZ = theBaseLinePos;
   if (HasTransf())
     Location().Transforms(tempXYZ);
   return Point3d(tempXYZ);
@@ -284,7 +284,7 @@ Point3d IGESDimen_NewGeneralNote::StartPoint(const Standard_Integer Index) const
 
 Point3d IGESDimen_NewGeneralNote::TransformedStartPoint(const Standard_Integer Index) const
 {
-  gp_XYZ tempXYZ = theStartPoints->Value(Index);
+  Coords3d tempXYZ = theStartPoints->Value(Index);
   if (HasTransf())
     Location().Transforms(tempXYZ);
   return Point3d(tempXYZ);

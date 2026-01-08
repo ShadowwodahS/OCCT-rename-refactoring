@@ -269,7 +269,7 @@ public:
       theCamera->Eye(),
       Point3d(myParams.Params3d.PntX, myParams.Params3d.PntY, myParams.Params3d.PntZ));
     const Standard_Real aFocus   = aVecToObj.Dot(aVecToEye);
-    const gp_XYZ        aViewDim = theCamera->ViewDimensions(aFocus);
+    const Coords3d        aViewDim = theCamera->ViewDimensions(aFocus);
     return Abs(aViewDim.Y()) / Standard_Real(aVPSizeY);
   }
 
@@ -399,17 +399,17 @@ public:
                : Standard_Real(aProxyCamera->ZFocus()));
 
       // scale factor to pixels
-      const gp_XYZ        aViewDim = aProxyCamera->ViewDimensions(aFocus);
+      const Coords3d        aViewDim = aProxyCamera->ViewDimensions(aFocus);
       const Standard_Real aScale   = Abs(aViewDim.Y()) / Standard_Real(aVPSizeY);
       const Dir3d        aForward = aProxyCamera->Direction();
-      gp_XYZ              aCenter =
+      Coords3d              aCenter =
         aProxyCamera->Center().XYZ() + aForward.XYZ() * (aFocus - aProxyCamera->Distance());
       if ((myParams.Params2d.Corner & (Aspect_TOTP_LEFT | Aspect_TOTP_RIGHT)) != 0)
       {
         const Standard_Real anOffsetX =
           (Standard_Real(myParams.Params2d.OffsetX) + aJitterComp) * aScale;
         const Dir3d aSide = aForward.Crossed(aProxyCamera->Up());
-        const gp_XYZ aDeltaX =
+        const Coords3d aDeltaX =
           aSide.XYZ() * (Abs(aViewDim.X()) * aProxyCamera->NDC2dOffsetX() - anOffsetX);
         if ((myParams.Params2d.Corner & Aspect_TOTP_RIGHT) != 0)
         {
@@ -424,7 +424,7 @@ public:
       {
         const Standard_Real anOffsetY =
           (Standard_Real(myParams.Params2d.OffsetY) + aJitterComp) * aScale;
-        const gp_XYZ aDeltaY =
+        const Coords3d aDeltaY =
           aProxyCamera->Up().XYZ() * (Abs(aViewDim.Y()) * aProxyCamera->NDC2dOffsetY() - anOffsetY);
         if ((myParams.Params2d.Corner & Aspect_TOTP_TOP) != 0)
         {
@@ -452,9 +452,9 @@ public:
                : Standard_Real(aProxyCamera->ZFocus()));
 
       // scale factor to pixels
-      const gp_XYZ        aViewDim = aProxyCamera->ViewDimensions(aFocus);
+      const Coords3d        aViewDim = aProxyCamera->ViewDimensions(aFocus);
       const Standard_Real aScale   = Abs(aViewDim.Y()) / Standard_Real(aVPSizeY);
-      gp_XYZ              aCenter(0.0, 0.0, -aFocus);
+      Coords3d              aCenter(0.0, 0.0, -aFocus);
       if ((myParams.Params2d.Corner & (Aspect_TOTP_LEFT | Aspect_TOTP_RIGHT)) != 0)
       {
         aCenter.SetX(-aViewDim.X() * aProxyCamera->NDC2dOffsetX()

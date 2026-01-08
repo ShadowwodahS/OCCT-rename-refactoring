@@ -151,7 +151,7 @@ Standard_Real BRepGProp_VinertGK::Perform(BRepGProp_Face&        theSurface,
                                           const Standard_Boolean theIFlag)
 
 {
-  gp_XYZ        aXYZ(thePoint.XYZ().Subtracted(loc.XYZ()));
+  Coords3d        aXYZ(thePoint.XYZ().Subtracted(loc.XYZ()));
   Standard_Real aShift[3];
 
   aXYZ.Coord(aShift[0], aShift[1], aShift[2]);
@@ -195,7 +195,7 @@ Standard_Real BRepGProp_VinertGK::Perform(BRepGProp_Face&        theSurface,
                                           const Standard_Boolean theIFlag)
 
 {
-  gp_XYZ        aXYZ(thePoint.XYZ().Subtracted(loc.XYZ()));
+  Coords3d        aXYZ(thePoint.XYZ().Subtracted(loc.XYZ()));
   Standard_Real aShift[3];
 
   aXYZ.Coord(aShift[0], aShift[1], aShift[2]);
@@ -387,7 +387,7 @@ Standard_Real BRepGProp_VinertGK::PrivatePerform(BRepGProp_Face&        theSurfa
     Standard_Integer aNbTIntervals = aTKnots->Length() - 1;
     // Standard_Real                 aTolSpan       = aCrvTol/aNbTIntervals;
     Standard_Real                 aTolSpan = 0.9 * theTolerance; // Relative error
-    math_KronrodSingleIntegration anIntegral;
+    KronrodSingleIntegration anIntegral;
     GProp_ValueType               aValueType;
 
     // Empirical criterion.
@@ -532,9 +532,9 @@ Standard_Real BRepGProp_VinertGK::PrivatePerform(BRepGProp_Face&        theSurfa
   if (theIFlag)
   {
     // Fill the matrix of inertia.
-    inertia.SetCols(gp_XYZ(aValue(5), aValue(8), aValue(9)),
-                    gp_XYZ(aValue(8), aValue(6), aValue(10)),
-                    gp_XYZ(aValue(9), aValue(10), aValue(7)));
+    inertia.SetCols(Coords3d(aValue(5), aValue(8), aValue(9)),
+                    Coords3d(aValue(8), aValue(6), aValue(10)),
+                    Coords3d(aValue(9), aValue(10), aValue(7)));
   }
   // return myErrorReached;
   return myAbsolutError;

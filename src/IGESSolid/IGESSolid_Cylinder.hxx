@@ -45,8 +45,8 @@ public:
   //! - anAxis  : Unit vector in axis direction (default (0,0,1))
   Standard_EXPORT void Init(const Standard_Real aHeight,
                             const Standard_Real aRadius,
-                            const gp_XYZ&       aCenter,
-                            const gp_XYZ&       anAxis);
+                            const Coords3d&       aCenter,
+                            const Coords3d&       anAxis);
 
   //! returns the cylinder height
   Standard_EXPORT Standard_Real Height() const;
@@ -73,8 +73,8 @@ protected:
 private:
   Standard_Real theHeight;
   Standard_Real theRadius;
-  gp_XYZ        theFaceCenter;
-  gp_XYZ        theAxis;
+  Coords3d        theFaceCenter;
+  Coords3d        theAxis;
 };
 
 #endif // _IGESSolid_Cylinder_HeaderFile

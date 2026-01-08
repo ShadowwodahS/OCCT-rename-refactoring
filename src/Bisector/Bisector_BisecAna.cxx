@@ -1457,7 +1457,7 @@ Handle(Geom2d_Geometry) Bisector_BisecAna::Copy() const
 
 //=================================================================================================
 
-void Bisector_BisecAna::Transform(const gp_Trsf2d& T)
+void Bisector_BisecAna::Transform(const Transform2d& T)
 {
   thebisector->Transform(T);
 }

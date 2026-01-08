@@ -2506,12 +2506,12 @@ Standard_Boolean BRepLib::EnsureNormalConsistency(const TopoShape&    theShape,
       gp_Vec3f aNorm1f, aNorm2f;
       aPT1->Normal(aFNodF1, aNorm1f);
       aPT2->Normal(aFNodF2, aNorm2f);
-      const gp_XYZ        aNorm1(aNorm1f.x(), aNorm1f.y(), aNorm1f.z());
-      const gp_XYZ        aNorm2(aNorm2f.x(), aNorm2f.y(), aNorm2f.z());
+      const Coords3d        aNorm1(aNorm1f.x(), aNorm1f.y(), aNorm1f.z());
+      const Coords3d        aNorm2(aNorm2f.x(), aNorm2f.y(), aNorm2f.z());
       const Standard_Real aDot = aNorm1 * aNorm2;
       if (aDot > aThresDot)
       {
-        gp_XYZ aNewNorm = (aNorm1 + aNorm2).Normalized();
+        Coords3d aNewNorm = (aNorm1 + aNorm2).Normalized();
         aPT1->SetNormal(aFNodF1, aNewNorm);
         aPT2->SetNormal(aFNodF2, aNewNorm);
         aRetVal = Standard_True;
@@ -2852,7 +2852,7 @@ void BRepLib::BoundingVertex(const NCollection_List<TopoShape>& theLV,
     else
     {
       Standard_Real aRr;
-      gp_XYZ        aXYZr;
+      Coords3d        aXYZr;
       Point3d        aPr;
       //
       aRr   = 0.5 * (aR[m] + aR[n] + aD);
@@ -2884,7 +2884,7 @@ void BRepLib::BoundingVertex(const NCollection_List<TopoShape>& theLV,
     //
     std::sort(aPoints.begin(), aPoints.end(), BRepLib_ComparePoints());
     //
-    gp_XYZ aXYZ(0., 0., 0.);
+    Coords3d aXYZ(0., 0., 0.);
     for (i = 0; i < aNb; ++i)
     {
       aXYZ += aPoints(i).XYZ();

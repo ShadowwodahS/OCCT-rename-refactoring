@@ -164,7 +164,7 @@ Standard_Boolean BlendFunc_ChAsym::IsSolution(const math_Vector& Sol, const Stan
     temp -= F4 * dwtsurf1.Dot(s1s2);
     secmember(4) = PScaInv * temp;
 
-    math_Gauss Resol(gradsol, maxpiv);
+    Gauss Resol(gradsol, maxpiv);
 
     if (Resol.IsDone())
     {
@@ -173,7 +173,7 @@ Standard_Boolean BlendFunc_ChAsym::IsSolution(const math_Vector& Sol, const Stan
     }
     else
     {
-      math_SVD SingRS(gradsol);
+      SVD SingRS(gradsol);
       if (SingRS.IsDone())
       {
         math_Vector DEDT(1, 4);
@@ -653,7 +653,7 @@ Standard_Boolean BlendFunc_ChAsym::Section(const Point2&    P,
   temp -= F4 * dwtsurf1.Dot(s1s2);
   secmember(4) = PScaInv * temp;
 
-  math_Gauss Resol(gradsol, maxpiv);
+  Gauss Resol(gradsol, maxpiv);
 
   if (Resol.IsDone())
   {
@@ -662,7 +662,7 @@ Standard_Boolean BlendFunc_ChAsym::Section(const Point2&    P,
   }
   else
   {
-    math_SVD SingRS(gradsol);
+    SVD SingRS(gradsol);
     if (SingRS.IsDone())
     {
       math_Vector DEDT(1, 4);

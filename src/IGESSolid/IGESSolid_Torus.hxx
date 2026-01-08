@@ -46,8 +46,8 @@ public:
   //! - anAxis : unit vector in axis direction (default (0,0,1))
   Standard_EXPORT void Init(const Standard_Real R1,
                             const Standard_Real R2,
-                            const gp_XYZ&       aPoint,
-                            const gp_XYZ&       anAxisdir);
+                            const Coords3d&       aPoint,
+                            const Coords3d&       anAxisdir);
 
   //! returns the distance from the center of torus to the center of
   //! the disc to be revolved
@@ -74,8 +74,8 @@ protected:
 private:
   Standard_Real theR1;
   Standard_Real theR2;
-  gp_XYZ        thePoint;
-  gp_XYZ        theAxis;
+  Coords3d        thePoint;
+  Coords3d        theAxis;
 };
 
 #endif // _IGESSolid_Torus_HeaderFile

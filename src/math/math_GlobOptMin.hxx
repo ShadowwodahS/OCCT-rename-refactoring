@@ -47,7 +47,7 @@
 //! It is possible to set / get minimal value of the functional.
 //! It works well together with single solution search.
 //! This functionality is covered by SetFunctionalMinimalValue and GetFunctionalMinimalValue API.
-class math_GlobOptMin
+class GlobOptMin
 {
 public:
   //! Constructor. Perform method is not called from it.
@@ -57,7 +57,7 @@ public:
   //! @param theC - Lipschitz constant.
   //! @param theDiscretizationTol - parameter space discretization tolerance.
   //! @param theSameTol - functional value space indifference tolerance.
-  Standard_EXPORT math_GlobOptMin(math_MultipleVarFunction* theFunc,
+  Standard_EXPORT GlobOptMin(MultipleVarFunction* theFunc,
                                   const math_Vector&        theLowerBorder,
                                   const math_Vector&        theUpperBorder,
                                   const Standard_Real       theC                 = 9,
@@ -70,7 +70,7 @@ public:
   //! @param theC - Lipschitz constant.
   //! @param theDiscretizationTol - parameter space discretization tolerance.
   //! @param theSameTol - functional value space indifference tolerance.
-  Standard_EXPORT void SetGlobalParams(math_MultipleVarFunction* theFunc,
+  Standard_EXPORT void SetGlobalParams(MultipleVarFunction* theFunc,
                                        const math_Vector&        theLowerBorder,
                                        const math_Vector&        theUpperBorder,
                                        const Standard_Real       theC                 = 9,
@@ -129,14 +129,14 @@ public:
 
 private:
   //! Class for duplicate fast search. For internal usage only.
-  class NCollection_CellFilter_Inspector
+  class NCollection_CellFilter_Inspector1
   {
   public:
     //! Points and target type
     typedef math_Vector Point;
     typedef math_Vector Target;
 
-    NCollection_CellFilter_Inspector(const Standard_Integer theDim, const Standard_Real theTol)
+    NCollection_CellFilter_Inspector1(const Standard_Integer theDim, const Standard_Real theTol)
         : myCurrent(1, theDim)
     {
       myTol     = theTol * theTol;
@@ -194,7 +194,7 @@ private:
   // Compute initial solution
   void ComputeInitSol();
 
-  math_GlobOptMin& operator=(const math_GlobOptMin& theOther);
+  GlobOptMin& operator=(const GlobOptMin& theOther);
 
   Standard_Boolean computeLocalExtremum(const math_Vector& thePnt,
                                         Standard_Real&     theVal,
@@ -225,7 +225,7 @@ private:
   void checkAddCandidate(const math_Vector& thePnt, const Standard_Real theValue);
 
   // Input.
-  math_MultipleVarFunction* myFunc;
+  MultipleVarFunction* myFunc;
   Standard_Integer          myN;
   math_Vector               myA;       // Left border on current C2 interval.
   math_Vector               myB;       // Right border on current C2 interval.
@@ -261,7 +261,7 @@ private:
   NCollection_Array1<Standard_Real>                        myCellSize;
   Standard_Integer                                         myMinCellFilterSol;
   Standard_Boolean                                         isFirstCellFilterInvoke{};
-  NCollection_CellFilter<NCollection_CellFilter_Inspector> myFilter;
+  NCollection_CellFilter<NCollection_CellFilter_Inspector1> myFilter;
 
   // Continuity of local borders.
   Standard_Integer myCont;

@@ -35,7 +35,7 @@ static Standard_Boolean myDebug = 0;
 static Standard_Integer nbsolve = 0;
 #endif
 
-class DerivFunction : public math_Function
+class DerivFunction : public Function1
 {
   math_FunctionWithDerivative* myF;
 
@@ -257,7 +257,7 @@ static void Solve(math_FunctionWithDerivative& F,
 // #define MATH_FUNCTIONROOTS_OLDCODE // Ancien
 // #define MATH_FUNCTIONROOTS_CHECK // Check
 
-math_FunctionRoots::math_FunctionRoots(math_FunctionWithDerivative& F,
+FunctionRootsSolver::FunctionRootsSolver(math_FunctionWithDerivative& F,
                                        const Standard_Real          A,
                                        const Standard_Real          B,
                                        const Standard_Integer       NbSample,
@@ -269,7 +269,7 @@ math_FunctionRoots::math_FunctionRoots(math_FunctionWithDerivative& F,
 #ifdef OCCT_DEBUG
   if (myDebug)
   {
-    std::cout << "---- Debut de math_FunctionRoots ----" << std::endl;
+    std::cout << "---- Debut de FunctionRootsSolver ----" << std::endl;
     nbsolve = 0;
   }
 #endif
@@ -545,7 +545,7 @@ math_FunctionRoots::math_FunctionRoots(math_FunctionWithDerivative& F,
           //-- Find minimum of the function |F| between x0 and x3
           //-- by searching for the zero of the function derivative
           DerivFunction      aDerF(F);
-          math_BracketedRoot aBR(aDerF, x0, x3, _EpsX);
+          BracketedRootSolver aBR(aDerF, x0, x3, _EpsX);
           if (aBR.IsDone())
           {
             aSolX1 = aBR.Root();
@@ -943,7 +943,7 @@ math_FunctionRoots::math_FunctionRoots(math_FunctionWithDerivative& F,
               AA = BB = CC = 0;
             }
 
-            math_DirectPolynomialRoots Solv(AA, BB, CC);
+            DirectPolynomialRoots Solv(AA, BB, CC);
             if (!Solv.InfiniteRoots())
             {
               Nn = Solv.NbSolutions();
@@ -1339,10 +1339,10 @@ math_FunctionRoots::math_FunctionRoots(math_FunctionWithDerivative& F,
 #endif
 }
 
-void math_FunctionRoots::Dump(Standard_OStream& o) const
+void FunctionRootsSolver::Dump(Standard_OStream& o) const
 {
 
-  o << "math_FunctionRoots ";
+  o << "FunctionRootsSolver ";
   if (Done)
   {
     o << " Status = Done \n";

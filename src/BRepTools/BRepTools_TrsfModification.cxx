@@ -253,7 +253,7 @@ Standard_Boolean BRepTools_TrsfModification::NewPolygonOnTriangulation(
   if (!aSurf.IsNull() && !aC2d.IsNull()
       && Abs(Abs(myTrsf.ScaleFactor()) - 1.0) > TopLoc_Location::ScalePrec())
   {
-    gp_GTrsf2d aGTrsf = aSurf->ParametricTransformation(myTrsf);
+    GeneralTransform2d aGTrsf = aSurf->ParametricTransformation(myTrsf);
     if (aGTrsf.Form() != gp_Identity)
     {
       Handle(GeomCurve2d) aNewC2d = GeomLib1::GTransform(aC2d, aGTrsf);
@@ -377,7 +377,7 @@ Standard_Boolean BRepTools_TrsfModification::NewCurve2d(const TopoEdge& E,
   {
 
     NewC             = new Geom2d_TrimmedCurve(NewC, f, l);
-    gp_GTrsf2d gtrsf = S->ParametricTransformation(myTrsf);
+    GeneralTransform2d gtrsf = S->ParametricTransformation(myTrsf);
 
     if (gtrsf.Form() != gp_Identity)
     {

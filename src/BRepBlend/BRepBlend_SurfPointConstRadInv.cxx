@@ -66,11 +66,11 @@ Standard_Boolean BRepBlend_SurfPointConstRadInv::Value(const math_Vector& X, mat
   Standard_Real theD, norm, unsurnorm;
   Point3d        ptcur, pts;
   Vector3d        d1cur(0., 0., 0.), d1u(0., 0., 0.), d1v(0., 0., 0.);
-  gp_XYZ        nplan(0., 0., 0.), ns(0., 0., 0.), ref(0., 0., 0.);
+  Coords3d        nplan(0., 0., 0.), ns(0., 0., 0.), ref(0., 0., 0.);
   curv->D1(X(1), ptcur, d1cur);
   nplan = d1cur.Normalized().XYZ();
   //  theD = -(nplan.Dot(ptcur.XYZ()));
-  gp_XYZ ptcurXYZ(ptcur.XYZ());
+  Coords3d ptcurXYZ(ptcur.XYZ());
   theD = nplan.Dot(ptcurXYZ);
   theD = theD * (-1.);
 
@@ -101,8 +101,8 @@ Standard_Boolean BRepBlend_SurfPointConstRadInv::Derivatives(const math_Vector& 
   unsurnormd1cur = 1. / normd1cur;
   nplan          = unsurnormd1cur * d1cur;
   //  theD = -(nplan.XYZ().Dot(ptcur.XYZ()));
-  gp_XYZ nplanXYZ(nplan.XYZ());
-  gp_XYZ ptcurXYZ(ptcur.XYZ());
+  Coords3d nplanXYZ(nplan.XYZ());
+  Coords3d ptcurXYZ(ptcur.XYZ());
   theD = nplanXYZ.Dot(ptcurXYZ);
   theD = theD * (-1.);
 
@@ -176,8 +176,8 @@ Standard_Boolean BRepBlend_SurfPointConstRadInv::Values(const math_Vector& X,
   unsurnormd1cur = 1. / normd1cur;
   nplan          = unsurnormd1cur * d1cur;
   //  theD = -(nplan.XYZ().Dot(ptcur.XYZ()));
-  gp_XYZ nplanXYZ(nplan.XYZ());
-  gp_XYZ ptcurXYZ(ptcur.XYZ());
+  Coords3d nplanXYZ(nplan.XYZ());
+  Coords3d ptcurXYZ(ptcur.XYZ());
   theD = nplanXYZ.Dot(ptcurXYZ);
   theD = theD * (-1.);
 

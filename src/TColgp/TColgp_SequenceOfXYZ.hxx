@@ -20,6 +20,6 @@
 #include <gp_XYZ.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<gp_XYZ> TColgp_SequenceOfXYZ;
+typedef NCollection_Sequence<Coords3d> TColgp_SequenceOfXYZ;
 
 #endif

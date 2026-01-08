@@ -20,7 +20,7 @@
 #include <XmlObjMgt_DOMString.hxx>
 class Transform3d;
 class gp_Mat;
-class gp_XYZ;
+class Coords3d;
 
 //! Translation of gp1 (simple geometry) objects
 class XmlObjMgt_GP
@@ -32,13 +32,13 @@ public:
 
   Standard_EXPORT static XmlObjMgt_DOMString Translate(const gp_Mat& aMat);
 
-  Standard_EXPORT static XmlObjMgt_DOMString Translate(const gp_XYZ& anXYZ);
+  Standard_EXPORT static XmlObjMgt_DOMString Translate(const Coords3d& anXYZ);
 
   Standard_EXPORT static Standard_Boolean Translate(const XmlObjMgt_DOMString& aStr, Transform3d& T);
 
   Standard_EXPORT static Standard_Boolean Translate(const XmlObjMgt_DOMString& aStr, gp_Mat& T);
 
-  Standard_EXPORT static Standard_Boolean Translate(const XmlObjMgt_DOMString& aStr, gp_XYZ& T);
+  Standard_EXPORT static Standard_Boolean Translate(const XmlObjMgt_DOMString& aStr, Coords3d& T);
 
 protected:
 private:

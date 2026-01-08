@@ -53,7 +53,7 @@
  */
 
 /* strtod for IEEE-, VAX-, and IBM-arithmetic machines.
- * (Note that IEEE arithmetic is disabled by gcc's -ffast-math flag.)
+ * (Note that IEEE arithmetic is disabled by gcc's -ffast-math1 flag.)
  *
  * This strtod returns a nearest machine number to the input decimal
  * string (or sets errno to ERANGE).  With IEEE arithmetic, ties are

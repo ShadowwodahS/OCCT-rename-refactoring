@@ -70,7 +70,7 @@ Point3d IGESDimen_CenterLine::Point(const Standard_Integer Index) const
 Point3d IGESDimen_CenterLine::TransformedPoint(const Standard_Integer Index) const
 {
   Coords2d  point2d = (theDataPoints->Value(Index));
-  gp_XYZ point(point2d.X(), point2d.Y(), theZDisplacement);
+  Coords3d point(point2d.X(), point2d.Y(), theZDisplacement);
   if (HasTransf())
     Location().Transforms(point);
   return Point3d(point);

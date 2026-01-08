@@ -16,7 +16,7 @@
 #include <math_NewtonFunctionRoot.hxx>
 #include <StdFail_NotDone.hxx>
 
-math_NewtonFunctionRoot::math_NewtonFunctionRoot(math_FunctionWithDerivative& F,
+NewtonFunctionRoot::NewtonFunctionRoot(math_FunctionWithDerivative& F,
                                                  const Standard_Real          Guess,
                                                  const Standard_Real          EpsX,
                                                  const Standard_Real          EpsF,
@@ -37,7 +37,7 @@ math_NewtonFunctionRoot::math_NewtonFunctionRoot(math_FunctionWithDerivative& F,
   Perform(F, Guess);
 }
 
-math_NewtonFunctionRoot::math_NewtonFunctionRoot(const Standard_Real    A,
+NewtonFunctionRoot::NewtonFunctionRoot(const Standard_Real    A,
                                                  const Standard_Real    B,
                                                  const Standard_Real    EpsX,
                                                  const Standard_Real    EpsF,
@@ -56,7 +56,7 @@ math_NewtonFunctionRoot::math_NewtonFunctionRoot(const Standard_Real    A,
   It       = 0;
 }
 
-math_NewtonFunctionRoot::math_NewtonFunctionRoot(math_FunctionWithDerivative& F,
+NewtonFunctionRoot::NewtonFunctionRoot(math_FunctionWithDerivative& F,
                                                  const Standard_Real          Guess,
                                                  const Standard_Real          EpsX,
                                                  const Standard_Real          EpsF,
@@ -75,7 +75,7 @@ math_NewtonFunctionRoot::math_NewtonFunctionRoot(math_FunctionWithDerivative& F,
   Perform(F, Guess);
 }
 
-void math_NewtonFunctionRoot::Perform(math_FunctionWithDerivative& F, const Standard_Real Guess)
+void NewtonFunctionRoot::Perform(math_FunctionWithDerivative& F, const Standard_Real Guess)
 {
 
   Standard_Real    Dx;
@@ -154,10 +154,10 @@ void math_NewtonFunctionRoot::Perform(math_FunctionWithDerivative& F, const Stan
   }
 }
 
-void math_NewtonFunctionRoot::Dump(Standard_OStream& o) const
+void NewtonFunctionRoot::Dump(Standard_OStream& o) const
 {
 
-  o << "math_NewtonFunctionRoot ";
+  o << "NewtonFunctionRoot ";
   if (Done)
   {
     o << " Status = Done \n";

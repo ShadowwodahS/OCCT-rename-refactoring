@@ -394,7 +394,7 @@ Handle(GeomSurface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Real
           break;
         }
         case GeomAbs_Sphere: {
-          gp_Sphere Sphere = SurfAdapt.Sphere();
+          Sphere3 Sphere = SurfAdapt.Sphere();
           ElSLib1::Parameters(Sphere, P3d, S, T);
           break;
         }

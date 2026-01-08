@@ -50,8 +50,8 @@ void HLRBRep_PolyHLRToShape::Update(const Handle(HLRBRep_PolyAlgo)& A)
   for (myAlgo->InitHide(); myAlgo->MoreHide(); myAlgo->NextHide())
   {
     BiPoint::PointsT1& aPoints = myAlgo->Hide(status, S, reg1, regn, outl, intl);
-    gp_XYZ                    aSta    = aPoints.Pnt1;
-    gp_XYZ                    aEnd    = aPoints.Pnt2;
+    Coords3d                    aSta    = aPoints.Pnt1;
+    Coords3d                    aEnd    = aPoints.Pnt2;
     T.Transforms(aSta);
     T.Transforms(aEnd);
     const Coords2d aSta2D(aSta.X(), aSta.Y());
@@ -157,7 +157,7 @@ TopoShape HLRBRep_PolyHLRToShape::InternalCompound(const Standard_Integer typ,
           todraw = Map.Contains(SBP);
       if (todraw)
       {
-        gp_XYZ aSta = aPoints.Pnt1, aEnd = aPoints.Pnt2;
+        Coords3d aSta = aPoints.Pnt1, aEnd = aPoints.Pnt2;
         T.Transforms(aSta);
         T.Transforms(aEnd);
         const Coords2d aSta2D(aSta.X(), aSta.Y());

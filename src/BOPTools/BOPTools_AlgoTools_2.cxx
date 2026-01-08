@@ -198,9 +198,9 @@ void AlgoTools::MakeNewVertex(const TopoVertex& aV1,
   aMaxTol = (aTol1 > aTol2) ? aTol1 : aTol2;
   aMaxTol = aMaxTol + 0.5 * aDist;
 
-  const gp_XYZ& aXYZ1   = aPnt1.XYZ();
-  const gp_XYZ& aXYZ2   = aPnt2.XYZ();
-  gp_XYZ        aNewXYZ = 0.5 * (aXYZ1 + aXYZ2);
+  const Coords3d& aXYZ1   = aPnt1.XYZ();
+  const Coords3d& aXYZ2   = aPnt2.XYZ();
+  Coords3d        aNewXYZ = 0.5 * (aXYZ1 + aXYZ2);
 
   Point3d       aNewPnt(aNewXYZ);
   ShapeBuilder aBB;
@@ -238,9 +238,9 @@ void AlgoTools::MakeNewVertex(const TopoEdge&  aE1,
   aMaxTol = (aTol1 > aTol2) ? aTol1 : aTol2;
   aMaxTol = aMaxTol + 0.5 * aDist;
 
-  const gp_XYZ& aXYZ1   = aPnt1.XYZ();
-  const gp_XYZ& aXYZ2   = aPnt2.XYZ();
-  gp_XYZ        aNewXYZ = 0.5 * (aXYZ1 + aXYZ2);
+  const Coords3d& aXYZ1   = aPnt1.XYZ();
+  const Coords3d& aXYZ2   = aPnt2.XYZ();
+  Coords3d        aNewXYZ = 0.5 * (aXYZ1 + aXYZ2);
 
   Point3d       aNewPnt(aNewXYZ);
   ShapeBuilder aBB;

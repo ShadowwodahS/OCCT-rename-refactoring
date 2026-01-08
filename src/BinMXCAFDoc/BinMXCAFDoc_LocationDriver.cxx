@@ -155,7 +155,7 @@ Standard_Boolean BinMXCAFDoc_LocationDriver::Translate(const BinObjMgt_Persisten
 
       Standard_Real x, y, z;
       theSource >> x >> y >> z;
-      gp_XYZ& aLoc = (gp_XYZ&)aTrsf.TranslationPart();
+      Coords3d& aLoc = (Coords3d&)aTrsf.TranslationPart();
       aLoc.SetX(x);
       aLoc.SetY(y);
       aLoc.SetZ(z);

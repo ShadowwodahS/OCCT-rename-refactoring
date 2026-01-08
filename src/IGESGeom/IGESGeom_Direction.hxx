@@ -42,7 +42,7 @@ public:
   //! This method is used to set the fields of the class
   //! Direction
   //! - aDirection : Direction ratios, Z is 0 by default
-  Standard_EXPORT void Init(const gp_XYZ& aDirection);
+  Standard_EXPORT void Init(const Coords3d& aDirection);
 
   Standard_EXPORT Vector3d Value() const;
 
@@ -53,7 +53,7 @@ public:
 
 protected:
 private:
-  gp_XYZ theDirection;
+  Coords3d theDirection;
 };
 
 #endif // _IGESGeom_Direction_HeaderFile

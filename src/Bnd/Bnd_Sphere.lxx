@@ -31,7 +31,7 @@ inline void Sphere2::SetValid(const Standard_Boolean isValid)
   myIsValid = isValid;
 }
 
-inline const gp_XYZ& Sphere2::Center() const
+inline const Coords3d& Sphere2::Center() const
 {
   return myCenter;
 }

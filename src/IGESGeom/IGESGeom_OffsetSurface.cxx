@@ -26,7 +26,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESGeom_OffsetSurface, IGESData_IGESEntity)
 
 IGESGeom_OffsetSurface::IGESGeom_OffsetSurface() {}
 
-void IGESGeom_OffsetSurface::Init(const gp_XYZ&                      anIndicator,
+void IGESGeom_OffsetSurface::Init(const Coords3d&                      anIndicator,
                                   const Standard_Real                aDistance,
                                   const Handle(IGESData_IGESEntity)& aSurface)
 {
@@ -45,9 +45,9 @@ Vector3d IGESGeom_OffsetSurface::TransformedOffsetIndicator() const
 {
   if (!HasTransf())
     return Vector3d(theIndicator);
-  gp_XYZ   temp(theIndicator);
-  gp_GTrsf loc = Location();
-  loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
+  Coords3d   temp(theIndicator);
+  GeneralTransform loc = Location();
+  loc.SetTranslationPart(Coords3d(0., 0., 0.));
   loc.Transforms(temp);
   return Vector3d(temp);
 }

@@ -60,7 +60,7 @@ gce_MakeElips::gce_MakeElips(const Point3d& S1, const Point3d& S2, const Point3d
   }
   else
   {
-    Dir3d        XAxis(gp_XYZ(S1.XYZ() - Center.XYZ()));
+    Dir3d        XAxis(Coords3d(S1.XYZ() - Center.XYZ()));
     Standard_Real D2 = gp_Lin(Center, XAxis).Distance(S2);
     if (D1 < D2 || D2 < gp1::Resolution())
     {
@@ -68,7 +68,7 @@ gce_MakeElips::gce_MakeElips(const Point3d& S1, const Point3d& S2, const Point3d
     }
     else
     {
-      Dir3d Norm(XAxis.Crossed(Dir3d(gp_XYZ(S2.XYZ() - Center.XYZ()))));
+      Dir3d Norm(XAxis.Crossed(Dir3d(Coords3d(S2.XYZ() - Center.XYZ()))));
       TheElips = gp_Elips(Frame3d(Center, Norm, XAxis), D1, D2);
       TheError = gce_Done;
     }

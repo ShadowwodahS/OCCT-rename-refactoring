@@ -29,7 +29,7 @@ class Standard_OutOfRange;
 class SurfaceTool3;
 class Point3d;
 class Box2;
-class gp_XYZ;
+class Coords3d;
 
 class HLRBRep_ThePolyhedronOfInterCSurf
 {
@@ -136,7 +136,7 @@ public:
 
   //! Give the plane equation of the triangle of address Triang.
   Standard_EXPORT void PlaneEquation(const Standard_Integer Triang,
-                                     gp_XYZ&                NormalVector,
+                                     Coords3d&                NormalVector,
                                      Standard_Real&         PolarDistance) const;
 
   //! Give the plane equation of the triangle of address Triang.

@@ -384,8 +384,8 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   // OrCyl is the point on axis of cylinder in the plane normal to the
   // axis containing OrSpine
   // Project <OrSpine> onto <AxCyl>
-  gp_XYZ        AxLoc     = AxCyl.Location().XYZ(); // aLine.Location().XYZ();
-  gp_XYZ        AxDir     = AxCyl.Direction().XYZ();
+  Coords3d        AxLoc     = AxCyl.Location().XYZ(); // aLine.Location().XYZ();
+  Coords3d        AxDir     = AxCyl.Direction().XYZ();
   Standard_Real Parameter = (OrSpine.XYZ() - AxLoc) * AxDir;
   OrCyl.SetXYZ(AxLoc + Parameter * AxDir);
 

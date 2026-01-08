@@ -27,7 +27,7 @@ class gp_Ax2d;
 class Ax22d;
 class gp_Pnt2d;
 class gp_Vec2d;
-class gp_Trsf2d;
+class Transform2d;
 class Geom2d_Geometry;
 
 class Geom2d_Ellipse;
@@ -233,7 +233,7 @@ public:
                               const Standard_Integer N) const Standard_OVERRIDE;
 
   //! Applies the transformation T to this ellipse.
-  Standard_EXPORT void Transform(const gp_Trsf2d& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform2d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this ellipse.
   Standard_EXPORT Handle(Geom2d_Geometry) Copy() const Standard_OVERRIDE;

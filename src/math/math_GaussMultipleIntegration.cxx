@@ -54,7 +54,7 @@ class IntegrationFunction
   // la fonction recursive.(En particulier le pointeur sur la fonction F,
   // heritant d'une classe abstraite, non traite en cdl.)
 
-  math_MultipleVarFunction* Fsav;
+  MultipleVarFunction* Fsav;
   math_IntegerVector        Ordsav;
   Standard_Integer          NVarsav;
   math_Vector               xr;
@@ -65,7 +65,7 @@ class IntegrationFunction
   Standard_Boolean          Done;
 
 public:
-  IntegrationFunction(math_MultipleVarFunction& F,
+  IntegrationFunction(MultipleVarFunction& F,
                       const Standard_Integer    maxsav,
                       const Standard_Integer    NVar,
                       const math_IntegerVector& Ord,
@@ -77,7 +77,7 @@ public:
   Standard_Boolean recursive_iteration(Standard_Integer& n, math_IntegerVector& inc);
 };
 
-IntegrationFunction::IntegrationFunction(math_MultipleVarFunction& F,
+IntegrationFunction::IntegrationFunction(MultipleVarFunction& F,
                                          const Standard_Integer    maxsav,
                                          const Standard_Integer    NVar,
                                          const math_IntegerVector& Ord,
@@ -104,8 +104,8 @@ IntegrationFunction::IntegrationFunction(math_MultipleVarFunction& F,
     xm(i) = 0.5 * (Lowsav(i) + Uppsav(i));
     xr(i) = 0.5 * (Uppsav(i) - Lowsav(i));
     math_Vector GP(1, Ordsav(i)), GW(1, Ordsav(i));
-    math::GaussPoints(Ordsav(i), GP);
-    math::GaussWeights(Ordsav(i), GW);
+    math1::GaussPoints(Ordsav(i), GP);
+    math1::GaussWeights(Ordsav(i), GW);
     for (k = 1; k <= Ordsav(i); k++)
     {
       GaussPoint(i, k)  = GP(k); // kieme point et poids de
@@ -178,12 +178,12 @@ Standard_Boolean IntegrationFunction::recursive_iteration(Standard_Integer&   n,
   return OK;
 }
 
-math_GaussMultipleIntegration::math_GaussMultipleIntegration(math_MultipleVarFunction& F,
+GaussMultipleIntegration::GaussMultipleIntegration(MultipleVarFunction& F,
                                                              const math_Vector&        Lower,
                                                              const math_Vector&        Upper,
                                                              const math_IntegerVector& Order)
 {
-  Standard_Integer MaxOrder = math::GaussPointsMax();
+  Standard_Integer MaxOrder = math1::GaussPointsMax();
 
   Standard_Integer   i, max = 0;
   Standard_Integer   NVar = F.NbVariables();
@@ -221,10 +221,10 @@ math_GaussMultipleIntegration::math_GaussMultipleIntegration(math_MultipleVarFun
   }
 }
 
-void math_GaussMultipleIntegration::Dump(Standard_OStream& o) const
+void GaussMultipleIntegration::Dump(Standard_OStream& o) const
 {
 
-  o << "math_GaussMultipleIntegration ";
+  o << "GaussMultipleIntegration ";
   if (Done)
   {
     o << " Status = Done \n";

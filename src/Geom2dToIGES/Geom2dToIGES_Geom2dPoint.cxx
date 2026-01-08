@@ -54,7 +54,7 @@ Handle(IGESGeom_Point) Geom2dToIGES_Geom2dPoint::Transfer2dPoint(const Handle(Ge
   Standard_Real X, Y;
   P->Coord(X, Y);
   Handle(IGESBasic_SubfigureDef) voidsubdef;
-  Piges->Init(gp_XYZ(X, Y, 0.), voidsubdef);
+  Piges->Init(Coords3d(X, Y, 0.), voidsubdef);
   return Piges;
 }
 
@@ -76,6 +76,6 @@ Handle(IGESGeom_Point) Geom2dToIGES_Geom2dPoint::Transfer2dPoint(
   Standard_Real X, Y;
   P->Coord(X, Y);
   Handle(IGESBasic_SubfigureDef) voidsubdef;
-  Piges->Init(gp_XYZ(X, Y, 0.), voidsubdef);
+  Piges->Init(Coords3d(X, Y, 0.), voidsubdef);
   return Piges;
 }

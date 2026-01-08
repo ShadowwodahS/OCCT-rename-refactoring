@@ -235,7 +235,7 @@ void AppBlend_AppSurf::InternalPerform(const Handle(TheLine)& Lin,
   AppParCurves_Constraint Cfirst,Clast;
 
   Standard_Real mytol3d,mytol2d;
-  gp_XYZ newDv;
+  Coords3d newDv;
 
   seqPoles2d.Clear();
 
@@ -600,7 +600,7 @@ void AppBlend_AppSurf::Perform(const Handle(TheLine)& Lin,
   AppParCurves_Constraint Cfirst=AppParCurves_NoConstraint,Clast=AppParCurves_NoConstraint;
 
   Standard_Real mytol3d = 0.0, mytol2d = 0.0;
-  gp_XYZ newDv;
+  Coords3d newDv;
 
   seqPoles2d.Clear();
 

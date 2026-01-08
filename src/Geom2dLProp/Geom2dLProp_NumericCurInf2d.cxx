@@ -61,7 +61,7 @@ void NumericCurveInfo2d::PerformCurExt(const Handle(GeomCurve2d)& C,
   Standard_Integer       NbSamples = 100;
   Standard_Boolean       SolType;
 
-  math_FunctionRoots SolRoot(F, UMin, UMax, NbSamples, EpsH, EpsH, EpsH);
+  FunctionRootsSolver SolRoot(F, UMin, UMax, NbSamples, EpsH, EpsH, EpsH);
 
   if (SolRoot.IsDone())
   {
@@ -69,7 +69,7 @@ void NumericCurveInfo2d::PerformCurExt(const Handle(GeomCurve2d)& C,
     {
       Standard_Real Param = SolRoot.Value(j);
       // la solution est affinee.
-      math_BracketedRoot BS(F, Param - EpsH, Param + EpsH, Tol);
+      BracketedRootSolver BS(F, Param - EpsH, Param + EpsH, Tol);
       if (BS.IsDone())
       {
         Param = BS.Root();
@@ -107,7 +107,7 @@ void NumericCurveInfo2d::PerformInf(const Handle(GeomCurve2d)& C,
   Standard_Real          EpsF      = 1.e-6;
   Standard_Integer       NbSamples = 30;
 
-  math_FunctionRoots SolRoot(F, UMin, UMax, NbSamples, EpsX, EpsF, EpsX);
+  FunctionRootsSolver SolRoot(F, UMin, UMax, NbSamples, EpsX, EpsF, EpsX);
 
   if (SolRoot.IsDone())
   {

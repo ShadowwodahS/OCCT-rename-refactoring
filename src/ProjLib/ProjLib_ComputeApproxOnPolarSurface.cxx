@@ -249,7 +249,7 @@ static gp_Pnt2d Function_Value(const Standard_Real theU, const aFuncStruct& theD
         break;
       }
       case GeomAbs_Sphere: {
-        gp_Sphere Sphere = theData.mySurf->Sphere();
+        Sphere3 Sphere = theData.mySurf->Sphere();
         ElSLib1::Parameters(Sphere, p, S, T);
         if (U0 < Uinf)
           decalU = -int((Uinf - U0) / (2 * M_PI)) - 1;
@@ -1041,7 +1041,7 @@ Handle(Adaptor2d_Curve2d) ProjLib_ComputeApproxOnPolarSurface::BuildInitialCurve
         Standard_Real    Sloc, Tloc;
         Standard_Integer usens = 0, vsens = 0; // usens steps by half-period
         Standard_Boolean vparit = Standard_False;
-        gp_Sphere        Sphere = Surf->Sphere();
+        Sphere3        Sphere = Surf->Sphere();
         ElSLib1::Parameters(Sphere, Pts(1), S, T);
         Pts2d(1).SetCoord(S, T);
         for (i = 2; i <= NbOfPnts; i++)

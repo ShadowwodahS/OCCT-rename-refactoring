@@ -1348,7 +1348,7 @@ void Graphic3d_CView::SynchronizeXRPosedToBaseCamera()
       && myPosedXRCameraCopy->Direction().IsEqual(myPosedXRCamera->Direction(), gp1::Resolution())
       && myPosedXRCameraCopy->Up().IsEqual(myPosedXRCamera->Up(), gp1::Resolution()))
   {
-    // avoid floating point math in case of no changes
+    // avoid floating point math1 in case of no changes
     return;
   }
 

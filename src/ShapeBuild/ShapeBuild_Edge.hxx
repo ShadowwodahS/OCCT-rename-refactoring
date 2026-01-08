@@ -27,7 +27,7 @@ class TopoFace;
 class GeomSurface;
 class TopLoc_Location;
 class GeomCurve2d;
-class gp_Trsf2d;
+class Transform2d;
 class GeomCurve3d;
 
 //! This class provides low-level operators for building an edge
@@ -104,7 +104,7 @@ public:
 
   //! Transforms the PCurve with given matrix and affinity U factor.
   Standard_EXPORT Handle(GeomCurve2d) TransformPCurve(const Handle(GeomCurve2d)& pcurve,
-                                                       const gp_Trsf2d&            trans,
+                                                       const Transform2d&            trans,
                                                        const Standard_Real         uFact,
                                                        Standard_Real&              aFirst,
                                                        Standard_Real&              aLast) const;

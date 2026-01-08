@@ -137,14 +137,14 @@ private:
   //! Checks if AABB and frustum are separated along the given axis
   Standard_Boolean isSeparated(const SelectMgr_Vec3& theBoxMin,
                                const SelectMgr_Vec3& theBoxMax,
-                               const gp_XYZ&         theDirect,
+                               const Coords3d&         theDirect,
                                Standard_Boolean*     theInside) const;
 
   //! Checks if triangle and frustum are separated along the given axis
   Standard_Boolean isSeparated(const Point3d& thePnt1,
                                const Point3d& thePnt2,
                                const Point3d& thePnt3,
-                               const gp_XYZ& theAxis) const;
+                               const Coords3d& theAxis) const;
 
 protected:
   Vector3d myPlanes[N + 2];   //!< Plane equations

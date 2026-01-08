@@ -548,7 +548,7 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::Compute(Standard_Real& u1,
   Standard_Real    PourTesterV  = X(2);
   if (GetUseSolver())
   {
-    math_FunctionSetRoot Rsnld(MyZerImpFunc);
+    FunctionSetRoot Rsnld(MyZerImpFunc);
     Rsnld.SetTolerance(Tolerance);
     Rsnld.Perform(MyZerImpFunc, X, BornInf, BornSup);
     aRsnldIsDone = Rsnld.IsDone();
@@ -816,7 +816,7 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::SeekPoint(const Standard_Real u1,
 
   Standard_Real NewU1, NewV1, NewU2, NewV2;
 
-  math_FunctionSetRoot Rsnld(MyZerImpFunc);
+  FunctionSetRoot Rsnld(MyZerImpFunc);
   Rsnld.SetTolerance(Tolerance);
   Rsnld.Perform(MyZerImpFunc, X, BornInf, BornSup);
   if (Rsnld.IsDone())

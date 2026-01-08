@@ -25,7 +25,7 @@
 class gp_Pnt2d;
 class gp_Ax2d;
 class gp_Vec2d;
-class gp_Trsf2d;
+class Transform2d;
 
 class Geom2d_Geometry;
 DEFINE_STANDARD_HANDLE(Geom2d_Geometry, RefObject)
@@ -46,7 +46,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Geometry, RefObject)
 //! of the geometry can be applied to Geom2d objects:
 //! this is the case with translations, rotations,
 //! symmetries and scales; this is also the case with
-//! gp_Trsf2d composite transformations which are
+//! Transform2d composite transformations which are
 //! used to define the geometric transformations applied
 //! using the Transform or Transformed functions.
 //! Note: Geometry defines the "prototype" of the
@@ -87,7 +87,7 @@ public:
   //! The following transformations have the same properties
   //! as the previous ones but they don't modified the object
   //! itself. A copy of the object is returned.
-  Standard_EXPORT virtual void Transform(const gp_Trsf2d& T) = 0;
+  Standard_EXPORT virtual void Transform(const Transform2d& T) = 0;
 
   Standard_NODISCARD Standard_EXPORT Handle(Geom2d_Geometry) Mirrored(const gp_Pnt2d& P) const;
 
@@ -99,7 +99,7 @@ public:
   Standard_NODISCARD Standard_EXPORT Handle(Geom2d_Geometry) Scaled(const gp_Pnt2d&     P,
                                                                     const Standard_Real S) const;
 
-  Standard_NODISCARD Standard_EXPORT Handle(Geom2d_Geometry) Transformed(const gp_Trsf2d& T) const;
+  Standard_NODISCARD Standard_EXPORT Handle(Geom2d_Geometry) Transformed(const Transform2d& T) const;
 
   Standard_NODISCARD Standard_EXPORT Handle(Geom2d_Geometry) Translated(const gp_Vec2d& V) const;
 

@@ -67,7 +67,7 @@ public:
                             const Handle(TColgp_HArray1OfXYZ)&   allPoles,
                             const Standard_Real                  aUmin,
                             const Standard_Real                  aUmax,
-                            const gp_XYZ&                        aNorm);
+                            const Coords3d&                        aNorm);
 
   //! Changes FormNumber (indicates the Shape of the Curve)
   //! Error if not in range [0-5]
@@ -126,7 +126,7 @@ public:
   Standard_EXPORT Standard_Real UMax() const;
 
   //! if the curve is nonplanar then (0, 0, 0) is returned
-  Standard_EXPORT gp_XYZ Normal() const;
+  Standard_EXPORT Coords3d Normal() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESGeom_BSplineCurve, IGESData_IGESEntity)
 
@@ -143,7 +143,7 @@ private:
   Handle(TColgp_HArray1OfXYZ)   thePoles;
   Standard_Real                 theUmin;
   Standard_Real                 theUmax;
-  gp_XYZ                        theNorm;
+  Coords3d                        theNorm;
 };
 
 #endif // _IGESGeom_BSplineCurve_HeaderFile

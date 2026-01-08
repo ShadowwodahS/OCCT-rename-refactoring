@@ -24,7 +24,7 @@
 
 //=================================================================================================
 
-Standard_Boolean gp_Quaternion::IsEqual(const gp_Quaternion& theOther) const
+Standard_Boolean Quaternion::IsEqual(const Quaternion& theOther) const
 {
   if (this == &theOther)
     return Standard_True;
@@ -34,7 +34,7 @@ Standard_Boolean gp_Quaternion::IsEqual(const gp_Quaternion& theOther) const
 
 //=================================================================================================
 
-void gp_Quaternion::SetRotation(const Vector3d& theVecFrom, const Vector3d& theVecTo)
+void Quaternion::SetRotation(const Vector3d& theVecFrom, const Vector3d& theVecTo)
 {
   Vector3d aVecCross(theVecFrom.Crossed(theVecTo));
   Set(aVecCross.X(), aVecCross.Y(), aVecCross.Z(), theVecFrom.Dot(theVecTo));
@@ -52,7 +52,7 @@ void gp_Quaternion::SetRotation(const Vector3d& theVecFrom, const Vector3d& theV
 
 //=================================================================================================
 
-void gp_Quaternion::SetRotation(const Vector3d& theVecFrom,
+void Quaternion::SetRotation(const Vector3d& theVecFrom,
                                 const Vector3d& theVecTo,
                                 const Vector3d& theHelpCrossVec)
 {
@@ -70,7 +70,7 @@ void gp_Quaternion::SetRotation(const Vector3d& theVecFrom,
 
 //=================================================================================================
 
-void gp_Quaternion::SetVectorAndAngle(const Vector3d& theAxis, const Standard_Real theAngle)
+void Quaternion::SetVectorAndAngle(const Vector3d& theAxis, const Standard_Real theAngle)
 {
   Vector3d        anAxis      = theAxis.Normalized();
   Standard_Real anAngleHalf = 0.5 * theAngle;
@@ -80,7 +80,7 @@ void gp_Quaternion::SetVectorAndAngle(const Vector3d& theAxis, const Standard_Re
 
 //=================================================================================================
 
-void gp_Quaternion::GetVectorAndAngle(Vector3d& theAxis, Standard_Real& theAngle) const
+void Quaternion::GetVectorAndAngle(Vector3d& theAxis, Standard_Real& theAngle) const
 {
   Standard_Real vl = Sqrt(x * x + y * y + z * z);
   if (vl > gp1::Resolution())
@@ -105,7 +105,7 @@ void gp_Quaternion::GetVectorAndAngle(Vector3d& theAxis, Standard_Real& theAngle
 
 //=================================================================================================
 
-void gp_Quaternion::SetMatrix(const gp_Mat& theMat)
+void Quaternion::SetMatrix(const gp_Mat& theMat)
 {
   Standard_Real tr = theMat(1, 1) + theMat(2, 2) + theMat(3, 3); // trace of martix
   if (tr > 0.0)
@@ -144,7 +144,7 @@ void gp_Quaternion::SetMatrix(const gp_Mat& theMat)
 
 //=================================================================================================
 
-gp_Mat gp_Quaternion::GetMatrix() const
+gp_Mat Quaternion::GetMatrix() const
 {
   Standard_Real wx, wy, wz, xx, yy, yz, xy, xz, zz, x2, y2, z2;
   Standard_Real s = 2.0 / SquareNorm();
@@ -294,7 +294,7 @@ gp_EulerSequence_Parameters translateEulerSequence(const gp_EulerSequence theSeq
 
 //=================================================================================================
 
-void gp_Quaternion::SetEulerAngles(const gp_EulerSequence theOrder,
+void Quaternion::SetEulerAngles(const gp_EulerSequence theOrder,
                                    const Standard_Real    theAlpha,
                                    const Standard_Real    theBeta,
                                    const Standard_Real    theGamma)
@@ -350,7 +350,7 @@ void gp_Quaternion::SetEulerAngles(const gp_EulerSequence theOrder,
 
 //=================================================================================================
 
-void gp_Quaternion::GetEulerAngles(const gp_EulerSequence theOrder,
+void Quaternion::GetEulerAngles(const gp_EulerSequence theOrder,
                                    Standard_Real&         theAlpha,
                                    Standard_Real&         theBeta,
                                    Standard_Real&         theGamma) const
@@ -404,7 +404,7 @@ void gp_Quaternion::GetEulerAngles(const gp_EulerSequence theOrder,
 
 //=================================================================================================
 
-void gp_Quaternion::StabilizeLength()
+void Quaternion::StabilizeLength()
 {
   Standard_Real cs = Abs(x) + Abs(y) + Abs(z) + Abs(w);
   if (cs > 0.0)
@@ -422,7 +422,7 @@ void gp_Quaternion::StabilizeLength()
 
 //=================================================================================================
 
-void gp_Quaternion::Normalize()
+void Quaternion::Normalize()
 {
   Standard_Real aMagn = Norm();
   if (aMagn < gp1::Resolution())
@@ -435,7 +435,7 @@ void gp_Quaternion::Normalize()
 
 //=================================================================================================
 
-Standard_Real gp_Quaternion::GetRotationAngle() const
+Standard_Real Quaternion::GetRotationAngle() const
 {
   if (w < 0.0)
   {
@@ -449,9 +449,9 @@ Standard_Real gp_Quaternion::GetRotationAngle() const
 
 //=================================================================================================
 
-Vector3d gp_Quaternion::Multiply(const Vector3d& theVec) const
+Vector3d Quaternion::Multiply(const Vector3d& theVec) const
 {
-  gp_Quaternion theQ(theVec.X() * w + theVec.Z() * y - theVec.Y() * z,
+  Quaternion theQ(theVec.X() * w + theVec.Z() * y - theVec.Y() * z,
                      theVec.Y() * w + theVec.X() * z - theVec.Z() * x,
                      theVec.Z() * w + theVec.Y() * x - theVec.X() * y,
                      theVec.X() * x + theVec.Y() * y + theVec.Z() * z);

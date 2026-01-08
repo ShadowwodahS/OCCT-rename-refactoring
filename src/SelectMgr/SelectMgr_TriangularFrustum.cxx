@@ -63,7 +63,7 @@ void SelectMgr_TriangularFrustum::cacheVertexProjections(
   {
     Standard_Real aMax   = -DBL_MAX;
     Standard_Real aMin   = DBL_MAX;
-    const gp_XYZ& aPlane = theFrustum->myPlanes[aPlaneIdx].XYZ();
+    const Coords3d& aPlane = theFrustum->myPlanes[aPlaneIdx].XYZ();
     for (Standard_Integer aVertIdx = 0; aVertIdx < 6; ++aVertIdx)
     {
       Standard_Real aProjection = aPlane.Dot(theFrustum->myVertices[aVertIdx].XYZ());
@@ -154,7 +154,7 @@ void SelectMgr_TriangularFrustum::Build()
 //=======================================================================
 Handle(SelectMgr_BaseIntersector) SelectMgr_TriangularFrustum::ScaleAndTransform(
   const Standard_Integer,
-  const gp_GTrsf& theTrsf,
+  const GeneralTransform& theTrsf,
   const Handle(SelectMgr_FrustumBuilder)&) const
 {
   Handle(SelectMgr_TriangularFrustum) aRes = new SelectMgr_TriangularFrustum();
@@ -272,7 +272,7 @@ Standard_Boolean SelectMgr_TriangularFrustum::OverlapsPolygon(
   }
   else if (theSensType == Select3D_TOS_INTERIOR)
   {
-    Vector3d aNorm(gp_XYZ(RealLast(), RealLast(), RealLast()));
+    Vector3d aNorm(Coords3d(RealLast(), RealLast(), RealLast()));
     return hasPolygonOverlap(theArrayOfPnts, aNorm);
   }
 
@@ -315,7 +315,7 @@ Standard_Boolean SelectMgr_TriangularFrustum::OverlapsTriangle(
   }
   else if (theSensType == Select3D_TOS_INTERIOR)
   {
-    Vector3d aNorm(gp_XYZ(RealLast(), RealLast(), RealLast()));
+    Vector3d aNorm(Coords3d(RealLast(), RealLast(), RealLast()));
     return hasTriangleOverlap(thePnt1, thePnt2, thePnt3, aNorm);
   }
 

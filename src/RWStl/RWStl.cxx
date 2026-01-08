@@ -67,7 +67,7 @@ class Reader : public RWStl_Reader
 {
 public:
   //! Add new node
-  virtual Standard_Integer AddNode(const gp_XYZ& thePnt) Standard_OVERRIDE
+  virtual Standard_Integer AddNode(const Coords3d& thePnt) Standard_OVERRIDE
   {
     myNodes.Append(thePnt);
     return myNodes.Size();
@@ -110,7 +110,7 @@ protected:
   }
 
 private:
-  NCollection_Vector<gp_XYZ>        myNodes;
+  NCollection_Vector<Coords3d>        myNodes;
   NCollection_Vector<Triangle2> myTriangles;
 };
 

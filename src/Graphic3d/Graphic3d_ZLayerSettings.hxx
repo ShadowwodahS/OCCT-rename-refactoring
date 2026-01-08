@@ -55,17 +55,17 @@ struct Graphic3d_ZLayerSettings
   void SetLights(const Handle(Graphic3d_LightSet)& theLights) { myLights = theLights; }
 
   //! Return the origin of all objects within the layer.
-  const gp_XYZ& Origin() const { return myOrigin; }
+  const Coords3d& Origin() const { return myOrigin; }
 
   //! Return the transformation to the origin.
   const Handle(TopLoc_Datum3D)& OriginTransformation() const { return myOriginTrsf; }
 
   //! Set the origin of all objects within the layer.
-  void SetOrigin(const gp_XYZ& theOrigin)
+  void SetOrigin(const Coords3d& theOrigin)
   {
     myOrigin = theOrigin;
     myOriginTrsf.Nullify();
-    if (!theOrigin.IsEqual(gp_XYZ(0.0, 0.0, 0.0), gp1::Resolution()))
+    if (!theOrigin.IsEqual(Coords3d(0.0, 0.0, 0.0), gp1::Resolution()))
     {
       Transform3d aTrsf;
       aTrsf.SetTranslation(theOrigin);
@@ -209,7 +209,7 @@ protected:
   Handle(Graphic3d_LightSet) myLights;     //!< lights list
   Handle(TopLoc_Datum3D)     myOriginTrsf; //!< transformation to the origin
   // clang-format off
-  gp_XYZ                      myOrigin;                //!< the origin of all objects within the layer
+  Coords3d                      myOrigin;                //!< the origin of all objects within the layer
   Standard_Real               myCullingDistance;       //!< distance to discard objects
   Standard_Real               myCullingSize;           //!< size to discard objects
   Graphic3d_PolygonOffset     myPolygonOffset;         //!< glPolygonOffset() arguments

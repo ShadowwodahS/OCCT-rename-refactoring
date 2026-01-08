@@ -35,7 +35,7 @@
 //! done and is similar to Gauss resolution with an optimisation
 //! because the matrix is a symmetric matrix.
 //! (The resolution is done with Crout algorithm)
-class math_Uzawa
+class Uzawa
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -50,7 +50,7 @@ public:
   //! convergence of X.
   //! Exception ConstructionError is raised if the line number
   //! of Cont is different from the length of Secont.
-  Standard_EXPORT math_Uzawa(const math_Matrix&     Cont,
+  Standard_EXPORT Uzawa(const math_Matrix&     Cont,
                              const math_Vector&     Secont,
                              const math_Vector&     StartingPoint,
                              const Standard_Real    EpsLix       = 1.0e-06,
@@ -71,7 +71,7 @@ public:
   //! Exception ConstructionError is raised if the line number
   //! of Cont is different from the length of Secont and from
   //! Nce + Nci.
-  Standard_EXPORT math_Uzawa(const math_Matrix&     Cont,
+  Standard_EXPORT Uzawa(const math_Matrix&     Cont,
                              const math_Vector&     Secont,
                              const math_Vector&     StartingPoint,
                              const Standard_Integer Nci,

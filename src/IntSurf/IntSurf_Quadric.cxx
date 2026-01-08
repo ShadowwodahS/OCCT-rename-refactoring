@@ -58,7 +58,7 @@ Quadric1::Quadric1(const Cylinder1& C)
 }
 
 // ============================================================
-Quadric1::Quadric1(const gp_Sphere& S)
+Quadric1::Quadric1(const Sphere3& S)
     :
 
       ax3(S.Position()),
@@ -121,7 +121,7 @@ void Quadric1::SetValue(const Cylinder1& C)
 }
 
 // ============================================================
-void Quadric1::SetValue(const gp_Sphere& S)
+void Quadric1::SetValue(const Sphere3& S)
 {
   typ      = GeomAbs_Sphere;
   ax3      = S.Position();
@@ -210,7 +210,7 @@ Vector3d Quadric1::Gradient(const Point3d& P) const
       break;
     case GeomAbs_Cylinder: // cylindre
     {
-      gp_XYZ PP(lin.Location().XYZ());
+      Coords3d PP(lin.Location().XYZ());
       PP.Add(ElCLib1::Parameter(lin, P) * lin.Direction().XYZ());
       grad.SetXYZ(P.XYZ() - PP);
       Standard_Real N = grad.Magnitude();
@@ -226,7 +226,7 @@ Vector3d Quadric1::Gradient(const Point3d& P) const
     break;
     case GeomAbs_Sphere: // sphere
     {
-      gp_XYZ PP(P.XYZ());
+      Coords3d PP(P.XYZ());
       grad.SetXYZ((PP - lin.Location().XYZ()));
       Standard_Real N = grad.Magnitude();
       if (N > 1e-14)
@@ -297,7 +297,7 @@ void Quadric1::ValAndGrad(const Point3d& P, Standard_Real& Dist, Vector3d& Grad)
     break;
     case GeomAbs_Cylinder: {
       Dist = lin.Distance(P) - prm1;
-      gp_XYZ PP(lin.Location().XYZ());
+      Coords3d PP(lin.Location().XYZ());
       PP.Add(ElCLib1::Parameter(lin, P) * lin.Direction().XYZ());
       Grad.SetXYZ((P.XYZ() - PP));
       Standard_Real N = Grad.Magnitude();
@@ -313,7 +313,7 @@ void Quadric1::ValAndGrad(const Point3d& P, Standard_Real& Dist, Vector3d& Grad)
     break;
     case GeomAbs_Sphere: {
       Dist = lin.Location().Distance(P) - prm1;
-      gp_XYZ PP(P.XYZ());
+      Coords3d PP(P.XYZ());
       Grad.SetXYZ((PP - lin.Location().XYZ()));
       Standard_Real N = Grad.Magnitude();
       if (N > 1e-14)

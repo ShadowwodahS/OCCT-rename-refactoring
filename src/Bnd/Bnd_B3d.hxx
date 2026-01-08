@@ -24,7 +24,7 @@
 #include <Standard_Real.hxx>
 #include <Standard_Boolean.hxx>
 #include <gp_XYZ.hxx>
-class gp_XYZ;
+class Coords3d;
 class Point3d;
 class Transform3d;
 class Axis3d;
@@ -39,7 +39,7 @@ public:
   Box3d();
 
   //! Constructor.
-  Box3d(const gp_XYZ& theCenter, const gp_XYZ& theHSize);
+  Box3d(const Coords3d& theCenter, const Coords3d& theHSize);
 
   //! Returns True if the box is void (non-initialized).
   Standard_Boolean IsVoid() const;
@@ -48,7 +48,7 @@ public:
   void Clear();
 
   //! Update the box by a point.
-  Standard_EXPORT void Add(const gp_XYZ& thePnt);
+  Standard_EXPORT void Add(const Coords3d& thePnt);
 
   //! Update the box by a point.
   void Add(const Point3d& thePnt);
@@ -59,12 +59,12 @@ public:
   //! Query the lower corner: (Center - HSize). You must make sure that
   //! the box is NOT VOID (see IsVoid()), otherwise the method returns
   //! irrelevant result.
-  gp_XYZ CornerMin() const;
+  Coords3d CornerMin() const;
 
   //! Query the upper corner: (Center + HSize). You must make sure that
   //! the box is NOT VOID (see IsVoid()), otherwise the method returns
   //! irrelevant result.
-  gp_XYZ CornerMax() const;
+  Coords3d CornerMax() const;
 
   //! Query the square diagonal. If the box is VOID (see method IsVoid())
   //! then a very big real value is returned.
@@ -84,7 +84,7 @@ public:
 
   //! Check the given point for the inclusion in the Box1.
   //! Returns True if the point is outside.
-  Standard_Boolean IsOut(const gp_XYZ& thePnt) const;
+  Standard_Boolean IsOut(const Coords3d& thePnt) const;
 
   //! Check a sphere for the intersection with the current box.
   //! Returns True if there is no intersection between boxes. If the
@@ -92,7 +92,7 @@ public:
   //! reported for a box that is completely inside the sphere (otherwise
   //! this method would report an intersection).
   Standard_EXPORT Standard_Boolean
-    IsOut(const gp_XYZ&          theCenter,
+    IsOut(const Coords3d&          theCenter,
           const Standard_Real    theRadius,
           const Standard_Boolean isSphereHollow = Standard_False) const;
 
@@ -129,11 +129,11 @@ public:
   Standard_EXPORT Standard_Boolean IsIn(const Box3d& theBox, const Transform3d& theTrsf) const;
 
   //! Set the Center coordinates
-  void SetCenter(const gp_XYZ& theCenter);
+  void SetCenter(const Coords3d& theCenter);
 
   //! Set the HSize (half-diagonal) coordinates.
   //! All components of theHSize must be non-negative.
-  void SetHSize(const gp_XYZ& theHSize);
+  void SetHSize(const Coords3d& theHSize);
 
 protected:
   Standard_Real myCenter[3];

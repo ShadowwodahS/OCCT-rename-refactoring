@@ -45,7 +45,7 @@ void GeometricProperties::Add(const GeometricProperties& Item, const Standard_Re
     throw Standard_DomainError();
   if (loc.Distance(Item.loc) <= gp1::Resolution())
   {
-    gp_XYZ GXYZ = (Item.g.XYZ()).Multiplied(Item.dim * Density);
+    Coords3d GXYZ = (Item.g.XYZ()).Multiplied(Item.dim * Density);
     g.SetXYZ(g.XYZ().Multiplied(dim));
     GXYZ.Add(g.XYZ());
     dim = dim + Item.dim * Density;
@@ -62,9 +62,9 @@ void GeometricProperties::Add(const GeometricProperties& Item, const Standard_Re
   }
   else
   {
-    gp_XYZ Itemloc = loc.XYZ() - Item.loc.XYZ();
-    gp_XYZ Itemg   = Item.loc.XYZ() + Item.g.XYZ();
-    gp_XYZ GXYZ    = Item.g.XYZ() - Itemloc;
+    Coords3d Itemloc = loc.XYZ() - Item.loc.XYZ();
+    Coords3d Itemg   = Item.loc.XYZ() + Item.g.XYZ();
+    Coords3d GXYZ    = Item.g.XYZ() - Itemloc;
     GXYZ           = GXYZ.Multiplied(Item.dim * Density);
     g.SetXYZ(g.XYZ().Multiplied(dim));
     GXYZ.Add(g.XYZ());
@@ -115,7 +115,7 @@ gp_Mat GeometricProperties::MatrixOfInertia() const
 void GeometricProperties::StaticMoments(Standard_Real& Ix, Standard_Real& Iy, Standard_Real& Iz) const
 {
 
-  gp_XYZ G = loc.XYZ() + g.XYZ();
+  Coords3d G = loc.XYZ() + g.XYZ();
   Ix       = G.X() * dim;
   Iy       = G.Y() * dim;
   Iz       = G.Z() * dim;

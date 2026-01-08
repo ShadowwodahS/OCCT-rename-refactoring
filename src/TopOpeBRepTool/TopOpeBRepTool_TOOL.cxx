@@ -983,7 +983,7 @@ static Standard_Boolean FUN_analyticcS(const gp_Pnt2d&             uv0,
   }
   if (sphe)
   {
-    const gp_Sphere& spsp = GS.Sphere();
+    const Sphere3& spsp = GS.Sphere();
     curv                  = 1. / spsp.Radius();
     curvdone              = Standard_True;
     direct                = spsp.Direct();

@@ -45,8 +45,8 @@ static void ContourProperties(const TopoWire& wire,
 {
   Standard_Integer nbe    = 0;
   Standard_Real    length = 0.0;
-  gp_XYZ           area(.0, .0, .0);
-  gp_XYZ           prev, cont;
+  Coords3d           area(.0, .0, .0);
+  Coords3d           prev, cont;
 
   for (BRepTools_WireExplorer exp(wire); exp.More(); exp.Next())
   {
@@ -72,8 +72,8 @@ static void ContourProperties(const TopoWire& wire,
     {
       Standard_Real prm     = ((NbControl - 1 - i) * First + i * Last) / (NbControl - 1);
       Point3d        pntCurr = c3d->Value(prm);
-      gp_XYZ        curr    = pntCurr.XYZ();
-      gp_XYZ        delta   = curr - prev;
+      Coords3d        curr    = pntCurr.XYZ();
+      Coords3d        delta   = curr - prev;
       length += delta.Modulus();
       area += curr ^ prev;
       prev = curr;

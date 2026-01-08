@@ -27,7 +27,7 @@
 //! system, direction of axis and radius from set of points by least square method.
 //!
 //! The class inherits math_MultipleVarFunctionWithGradient and thus is intended
-//! for use in math_BFGS algorithm.
+//! for use in BFGSOptimizer algorithm.
 //!
 //! Parametrisation:
 //! Cylinder is defined by its axis and radius. Axis is defined by 3 cartesian coordinates at

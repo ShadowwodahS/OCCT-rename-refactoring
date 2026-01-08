@@ -29,7 +29,7 @@ class Vector3d;
 class gp_Pln;
 class Cylinder1;
 class Cone1;
-class gp_Sphere;
+class Sphere3;
 class gp_Torus;
 class Geom_BezierSurface;
 class Geom_BSplineSurface;
@@ -245,7 +245,7 @@ public:
 
   Standard_EXPORT Cone1 Cone() const Standard_OVERRIDE;
 
-  Standard_EXPORT gp_Sphere Sphere() const Standard_OVERRIDE;
+  Standard_EXPORT Sphere3 Sphere() const Standard_OVERRIDE;
 
   Standard_EXPORT gp_Torus Torus() const Standard_OVERRIDE;
 

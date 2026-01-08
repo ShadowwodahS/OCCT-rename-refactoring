@@ -39,7 +39,7 @@ public:
 
   typedef instance<basic, Geom2d_AxisPlacement, gp_Ax2d> AxisPlacement;
 
-  typedef instance<SharedBase<Geom2d_Transformation>, Geom2d_Transformation, gp_Trsf2d>
+  typedef instance<SharedBase<Geom2d_Transformation>, Geom2d_Transformation, Transform2d>
     Transformation;
 
   typedef geometryBase<GeomCurve2d> Curve;
@@ -129,17 +129,17 @@ void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::AxisPlacement,
 //=======================================================================
 template <>
 Standard_CString ShapePersistent_Geom::
-  instance<ShapePersistent_Geom2d::Transformation, Geom2d_Transformation, gp_Trsf2d>::PName() const;
+  instance<ShapePersistent_Geom2d::Transformation, Geom2d_Transformation, Transform2d>::PName() const;
 
 template <>
 void ShapePersistent_Geom::
-  instance<ShapePersistent_Geom2d::Transformation, Geom2d_Transformation, gp_Trsf2d>::PChildren(
+  instance<ShapePersistent_Geom2d::Transformation, Geom2d_Transformation, Transform2d>::PChildren(
     StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const;
 
 template <>
 void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::Transformation,
                                     Geom2d_Transformation,
-                                    gp_Trsf2d>::Write(StdObjMgt_WriteData& theWriteData) const;
+                                    Transform2d>::Write(StdObjMgt_WriteData& theWriteData) const;
 
 //=======================================================================
 // Curve

@@ -358,11 +358,11 @@ public:
   //! reversed and the "YAxis" too.
   Standard_NODISCARD gp_Hypr2d Scaled(const gp_Pnt2d& theP, const Standard_Real theS) const;
 
-  void Transform(const gp_Trsf2d& theT);
+  void Transform(const Transform2d& theT);
 
   //! Transforms an hyperbola with the transformation theT from
   //! class Trsf2d.
-  Standard_NODISCARD gp_Hypr2d Transformed(const gp_Trsf2d& theT) const;
+  Standard_NODISCARD gp_Hypr2d Transformed(const Transform2d& theT) const;
 
   void Translate(const gp_Vec2d& theV) { pos.Translate(theV); }
 
@@ -506,7 +506,7 @@ inline gp_Hypr2d gp_Hypr2d::Scaled(const gp_Pnt2d& theP, const Standard_Real the
 // function : Transform
 // purpose :
 //=======================================================================
-inline void gp_Hypr2d::Transform(const gp_Trsf2d& theT)
+inline void gp_Hypr2d::Transform(const Transform2d& theT)
 {
   majorRadius *= theT.ScaleFactor();
   if (majorRadius < 0)
@@ -525,7 +525,7 @@ inline void gp_Hypr2d::Transform(const gp_Trsf2d& theT)
 // function : Transformed
 // purpose :
 //=======================================================================
-inline gp_Hypr2d gp_Hypr2d::Transformed(const gp_Trsf2d& theT) const
+inline gp_Hypr2d gp_Hypr2d::Transformed(const Transform2d& theT) const
 {
   gp_Hypr2d aH = *this;
   aH.majorRadius *= theT.ScaleFactor();

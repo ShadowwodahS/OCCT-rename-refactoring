@@ -48,9 +48,9 @@ public:
 
   void MakePlane(const Point3d& thePnt1, const Point3d& thePnt2, const Point3d& thePnt3)
   {
-    const gp_XYZ& aVec1 = thePnt2.XYZ() - thePnt1.XYZ();
-    const gp_XYZ& aVec2 = thePnt3.XYZ() - thePnt1.XYZ();
-    const gp_XYZ& aDir  = aVec1.Crossed(aVec2);
+    const Coords3d& aVec1 = thePnt2.XYZ() - thePnt1.XYZ();
+    const Coords3d& aVec2 = thePnt3.XYZ() - thePnt1.XYZ();
+    const Coords3d& aDir  = aVec1.Crossed(aVec2);
     Standard_Real aD    = aDir.Dot(thePnt1.XYZ().Reversed());
     myPlane             = NCollection_Vec4<Standard_Real>(aDir.X(), aDir.Y(), aDir.Z(), aD);
     myIsInitialized     = Standard_True;
@@ -82,7 +82,7 @@ Select3D_InteriorSensitivePointSet::Select3D_InteriorSensitivePointSet(
   Standard_Integer  anUpperIdx = thePoints.Upper();
   Standard_Integer  aStartIdx = aLowerIdx, anEndIdx = 0;
   Select3D_BndBox3d aBndBox;
-  gp_XYZ            aPntSum(0.0, 0.0, 0.0);
+  Coords3d            aPntSum(0.0, 0.0, 0.0);
   for (Standard_Integer aPntIter = aLowerIdx; aPntIter <= anUpperIdx; ++aPntIter)
   {
     Point3d        aPnt1, aPnt2;
@@ -115,8 +115,8 @@ Select3D_InteriorSensitivePointSet::Select3D_InteriorSensitivePointSet(
     }
     else if (aPlane.IsValid())
     {
-      const gp_XYZ& aVec1   = aPnt1.XYZ() - aPnt2.XYZ();
-      const gp_XYZ& aVec2   = aPnt3.XYZ() - aPnt2.XYZ();
+      const Coords3d& aVec1   = aPnt1.XYZ() - aPnt2.XYZ();
+      const Coords3d& aVec2   = aPnt3.XYZ() - aPnt2.XYZ();
       Standard_Real anAngle = aVec1.Dot(aVec2);
       if (!aPlane.Contains(thePoints.Value(aPntIter)) || anAngle > Precision::Confusion())
       {

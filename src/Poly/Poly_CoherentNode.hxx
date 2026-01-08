@@ -33,7 +33,7 @@ class NCollection_BaseAllocator;
  * </ul>
  */
 
-class Poly_CoherentNode : public gp_XYZ
+class Poly_CoherentNode : public Coords3d
 {
 public:
   // ---------- PUBLIC METHODS ----------
@@ -42,7 +42,7 @@ public:
    * Empty constructor.
    */
   inline Poly_CoherentNode()
-      : gp_XYZ(0., 0., 0.),
+      : Coords3d(0., 0., 0.),
         myTriangles(0L),
         myIndex(-1)
   {
@@ -53,8 +53,8 @@ public:
   /**
    * Constructor.
    */
-  inline Poly_CoherentNode(const gp_XYZ& thePnt)
-      : gp_XYZ(thePnt),
+  inline Poly_CoherentNode(const Coords3d& thePnt)
+      : Coords3d(thePnt),
         myTriangles(0L),
         myIndex(-1)
   {
@@ -87,7 +87,7 @@ public:
   /**
    * Define the normal vector in the Node.
    */
-  Standard_EXPORT void SetNormal(const gp_XYZ& theVector);
+  Standard_EXPORT void SetNormal(const Coords3d& theVector);
 
   /**
    * Query if the Node contains a normal vector.
@@ -101,7 +101,7 @@ public:
   /**
    * Get the stored normal in the node.
    */
-  inline gp_XYZ GetNormal() const { return gp_XYZ(myNormal[0], myNormal[1], myNormal[2]); }
+  inline Coords3d GetNormal() const { return Coords3d(myNormal[0], myNormal[1], myNormal[2]); }
 
   /**
    * Set the value of node Index.

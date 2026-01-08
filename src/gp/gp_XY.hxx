@@ -217,9 +217,9 @@ public:
   void operator*=(const Coords2d& theOther) { Multiply(theOther); }
 
   //! <me> = theMatrix * <me>
-  void Multiply(const gp_Mat2d& theMatrix);
+  void Multiply(const Matrix2d& theMatrix);
 
-  void operator*=(const gp_Mat2d& theMatrix) { Multiply(theMatrix); }
+  void operator*=(const Matrix2d& theMatrix) { Multiply(theMatrix); }
 
   //! @code
   //! New.X() = <me>.X() * theScalar;
@@ -245,13 +245,13 @@ public:
   }
 
   //! New = theMatrix * <me>
-  Standard_NODISCARD Coords2d Multiplied(const gp_Mat2d& theMatrix) const
+  Standard_NODISCARD Coords2d Multiplied(const Matrix2d& theMatrix) const
   {
     return Coords2d(theMatrix.Value(1, 1) * x + theMatrix.Value(1, 2) * y,
                  theMatrix.Value(2, 1) * x + theMatrix.Value(2, 2) * y);
   }
 
-  Standard_NODISCARD Coords2d operator*(const gp_Mat2d& theMatrix) const
+  Standard_NODISCARD Coords2d operator*(const Matrix2d& theMatrix) const
   {
     return Multiplied(theMatrix);
   }
@@ -383,7 +383,7 @@ private:
 // function :  Multiply
 // purpose :
 //=======================================================================
-inline void Coords2d::Multiply(const gp_Mat2d& theMatrix)
+inline void Coords2d::Multiply(const Matrix2d& theMatrix)
 {
   Standard_Real aXresult = theMatrix.Value(1, 1) * x + theMatrix.Value(1, 2) * y;
   y                      = theMatrix.Value(2, 1) * x + theMatrix.Value(2, 2) * y;
@@ -407,7 +407,7 @@ inline void Coords2d::Normalize()
 // function :  operator*
 // purpose :
 //=======================================================================
-inline Coords2d operator*(const gp_Mat2d& theMatrix, const Coords2d& theCoord1)
+inline Coords2d operator*(const Matrix2d& theMatrix, const Coords2d& theCoord1)
 {
   return theCoord1.Multiplied(theMatrix);
 }

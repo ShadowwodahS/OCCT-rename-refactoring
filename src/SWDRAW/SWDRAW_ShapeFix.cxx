@@ -371,7 +371,7 @@ static Standard_Integer stwire(DrawInterpreter& di, Standard_Integer argc, const
     di << "Nb(End)Vertex : " << nb << "\n";
     for (i = 1; i <= nb; i++)
     {
-      gp_XYZ           pos;
+      Coords3d           pos;
       Standard_Real    upre, ufol;
       Standard_Integer stat = sawv.Data(i, pos, upre, ufol);
       di << i << " : ";

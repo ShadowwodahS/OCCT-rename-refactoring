@@ -319,7 +319,7 @@ void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
         {
           for (Standard_Integer aSubIdx = 0; aSubIdx < 3; ++aSubIdx) // generate sub-triangle
           {
-            gp_XYZ aPnt(aCoords(3 * (aSubIdx == 0 ? 0 : (aNodeIdx + aSubIdx)) + 1),
+            Coords3d aPnt(aCoords(3 * (aSubIdx == 0 ? 0 : (aNodeIdx + aSubIdx)) + 1),
                         aCoords(3 * (aSubIdx == 0 ? 0 : (aNodeIdx + aSubIdx)) + 2),
                         aCoords(3 * (aSubIdx == 0 ? 0 : (aNodeIdx + aSubIdx)) + 3));
 

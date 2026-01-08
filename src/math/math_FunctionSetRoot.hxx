@@ -26,14 +26,14 @@
 
 class math_FunctionSetWithDerivatives;
 
-//! The math_FunctionSetRoot class calculates the root
+//! The FunctionSetRoot class calculates the root
 //! of a set of N functions of M variables (N<M, N=M or N>M). Knowing
 //! an initial guess of the solution and using a minimization algorithm, a search
 //! is made in the Newton direction and then in the Gradient direction if there
 //! is no success in the Newton direction. This algorithm can also be
 //! used for functions minimization. Knowledge of all the partial
 //! derivatives (the Jacobian) is required.
-class math_FunctionSetRoot
+class FunctionSetRoot
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -42,7 +42,7 @@ public:
   //! of this class.
   //! The range (1, F.NbVariables()) must be especially
   //! respected for all vectors and matrix declarations.
-  Standard_EXPORT math_FunctionSetRoot(math_FunctionSetWithDerivatives& F,
+  Standard_EXPORT FunctionSetRoot(math_FunctionSetWithDerivatives& F,
                                        const math_Vector&               Tolerance,
                                        const Standard_Integer           NbIterations = 100);
 
@@ -52,11 +52,11 @@ public:
   //! respected for all vectors and matrix declarations.
   //! The method SetTolerance must be called after this
   //! constructor.
-  Standard_EXPORT math_FunctionSetRoot(math_FunctionSetWithDerivatives& F,
+  Standard_EXPORT FunctionSetRoot(math_FunctionSetWithDerivatives& F,
                                        const Standard_Integer           NbIterations = 100);
 
   //! Destructor
-  Standard_EXPORT virtual ~math_FunctionSetRoot();
+  Standard_EXPORT virtual ~FunctionSetRoot();
 
   //! Initializes the tolerance values.
   Standard_EXPORT void SetTolerance(const math_Vector& Tolerance);
@@ -201,7 +201,7 @@ private:
   Standard_Boolean   myIsDivergent;
 };
 
-inline Standard_OStream& operator<<(Standard_OStream& theStream, const math_FunctionSetRoot& theF)
+inline Standard_OStream& operator<<(Standard_OStream& theStream, const FunctionSetRoot& theF)
 {
   theF.Dump(theStream);
   return theStream;

@@ -61,7 +61,7 @@ empty(Standard_True),
 myZerParFunc(surf1,surf2),
 tol(TolTangency*TolTangency)
 {
-  math_FunctionSetRoot Rsnld(myZerParFunc,15);    //-- Modif lbr 18 MAI ?????????????
+  FunctionSetRoot Rsnld(myZerParFunc,15);    //-- Modif lbr 18 MAI ?????????????
   ua0 = ThePSurfaceTool::FirstUParameter(surf1); //-- ThePSurfaceTool::UIntervalFirst(surf1);
   va0 = ThePSurfaceTool::FirstVParameter(surf1); //-- ThePSurfaceTool::VIntervalFirst(surf1);
   ua1 = ThePSurfaceTool::LastUParameter(surf1);  //-- ThePSurfaceTool::UIntervalLast(surf1);
@@ -81,7 +81,7 @@ tol(TolTangency*TolTangency)
 } 
 
 IntImp_ConstIsoparametric IntImp_Int2S:: Perform(const TColStd_Array1OfReal& Param,
-                                                 math_FunctionSetRoot& Rsnld,
+                                                 FunctionSetRoot& Rsnld,
                                                  const IntImp_ConstIsoparametric ChoixIso) 
 {
   Standard_Real BornInfBuf[3] = {}, BornSupBuf[3] = {}, ToleranceBuf[3] = {}, UVapBuf[3] = {};
@@ -120,7 +120,7 @@ IntImp_ConstIsoparametric IntImp_Int2S:: Perform(const TColStd_Array1OfReal& Par
 }
 
 IntImp_ConstIsoparametric IntImp_Int2S:: Perform(const TColStd_Array1OfReal& Param,
-                                                 math_FunctionSetRoot& Rsnld)
+                                                 FunctionSetRoot& Rsnld)
 {
   Vector3d DPUV[4];
   Point3d P1,P2;

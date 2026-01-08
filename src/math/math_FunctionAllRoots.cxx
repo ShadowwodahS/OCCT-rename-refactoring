@@ -25,8 +25,8 @@
 #include <math_FunctionWithDerivative.hxx>
 #include <Standard_NumericError.hxx>
 
-math_FunctionAllRoots::math_FunctionAllRoots(math_FunctionWithDerivative& F,
-                                             const math_FunctionSample&   S,
+FunctionAllRoots::FunctionAllRoots(math_FunctionWithDerivative& F,
+                                             const FunctionSampler&   S,
                                              const Standard_Real          EpsX,
                                              const Standard_Real          EpsF,
                                              const Standard_Real          EpsNul)
@@ -77,7 +77,7 @@ math_FunctionAllRoots::math_FunctionAllRoots(math_FunctionWithDerivative& F,
       {
         cst = -EpsNul;
       }
-      math_FunctionRoots
+      FunctionRootsSolver
         Res1(F, S.GetParameter(i - 1), S.GetParameter(i), 10, EpsX, EpsF, 0.0, cst);
       Standard_NumericError_Raise_if((!Res1.IsDone()) || (Res1.IsAllNull())
                                        || (Res1.NbSolutions() == 0),
@@ -87,7 +87,7 @@ math_FunctionAllRoots::math_FunctionAllRoots(math_FunctionWithDerivative& F,
       Indf   = Res1.StateNumber(1);
 
       cst = -cst;
-      math_FunctionRoots
+      FunctionRootsSolver
         Res2(F, S.GetParameter(i - 1), S.GetParameter(i), 10, EpsX, EpsF, 0.0, cst);
       Standard_NumericError_Raise_if((!Res2.IsDone()) || (Res2.IsAllNull()), " ");
 
@@ -123,7 +123,7 @@ math_FunctionAllRoots::math_FunctionAllRoots(math_FunctionWithDerivative& F,
         {
           cst = -EpsNul;
         }
-        math_FunctionRoots
+        FunctionRootsSolver
           Res1(F, S.GetParameter(i - 2), S.GetParameter(i - 1), 10, EpsX, EpsF, 0.0, cst);
         Standard_NumericError_Raise_if((!Res1.IsDone()) || (Res1.IsAllNull())
                                          || (Res1.NbSolutions() == 0),
@@ -132,7 +132,7 @@ math_FunctionAllRoots::math_FunctionAllRoots(math_FunctionWithDerivative& F,
         Indd   = Res1.StateNumber(Res1.NbSolutions());
 
         cst = -cst;
-        math_FunctionRoots
+        FunctionRootsSolver
           Res3(F, S.GetParameter(i - 2), S.GetParameter(i - 1), 10, EpsX, EpsF, 0.0, cst);
         Standard_NumericError_Raise_if((!Res3.IsDone()) || (Res3.IsAllNull()), " ");
 
@@ -166,7 +166,7 @@ math_FunctionAllRoots::math_FunctionAllRoots(math_FunctionWithDerivative& F,
   if (pdeb.Length() == 0)
   { // Pas d intervalle nul
 
-    math_FunctionRoots Res(F, S.GetParameter(1), S.GetParameter(Nbp), Nbp, EpsX, EpsF, 0.0);
+    FunctionRootsSolver Res(F, S.GetParameter(1), S.GetParameter(Nbp), Nbp, EpsX, EpsF, 0.0);
     Standard_NumericError_Raise_if((!Res.IsDone()) || (Res.IsAllNull()), " ");
 
     for (Standard_Integer j = 1; j <= Res.NbSolutions(); j++)
@@ -185,7 +185,7 @@ math_FunctionAllRoots::math_FunctionAllRoots(math_FunctionWithDerivative& F,
 
       Nbrpt = (Standard_Integer)IntegerPart(
         Abs((pdeb.Value(1) - S.GetParameter(1)) / (S.GetParameter(Nbp) - S.GetParameter(1))) * Nbp);
-      math_FunctionRoots
+      FunctionRootsSolver
         Res(F, S.GetParameter(1), pdeb.Value(1), Max(Nbrpt, NbpMin), EpsX, EpsF, 0.0);
       Standard_NumericError_Raise_if((!Res.IsDone()) || (Res.IsAllNull()), " ");
 
@@ -199,7 +199,7 @@ math_FunctionAllRoots::math_FunctionAllRoots(math_FunctionWithDerivative& F,
     {
       Nbrpt = (Standard_Integer)IntegerPart(
         Abs((pdeb.Value(k) - pfin.Value(k - 1)) / (S.GetParameter(Nbp) - S.GetParameter(1))) * Nbp);
-      math_FunctionRoots
+      FunctionRootsSolver
         Res(F, pfin.Value(k - 1), pdeb.Value(k), Max(Nbrpt, NbpMin), EpsX, EpsF, 0.0);
       Standard_NumericError_Raise_if((!Res.IsDone()) || (Res.IsAllNull()), " ");
 
@@ -216,7 +216,7 @@ math_FunctionAllRoots::math_FunctionAllRoots(math_FunctionWithDerivative& F,
       Nbrpt = (Standard_Integer)IntegerPart(Abs((S.GetParameter(Nbp) - pfin.Value(pdeb.Length()))
                                                 / (S.GetParameter(Nbp) - S.GetParameter(1)))
                                             * Nbp);
-      math_FunctionRoots
+      FunctionRootsSolver
         Res(F, pfin.Value(pdeb.Length()), S.GetParameter(Nbp), Max(Nbrpt, NbpMin), EpsX, EpsF, 0.0);
       Standard_NumericError_Raise_if((!Res.IsDone()) || (Res.IsAllNull()), " ");
 
@@ -230,10 +230,10 @@ math_FunctionAllRoots::math_FunctionAllRoots(math_FunctionWithDerivative& F,
   done = Standard_True;
 }
 
-void math_FunctionAllRoots::Dump(Standard_OStream& o) const
+void FunctionAllRoots::Dump(Standard_OStream& o) const
 {
 
-  o << "math_FunctionAllRoots ";
+  o << "FunctionAllRoots ";
   if (done)
   {
     o << " Status = Done \n";

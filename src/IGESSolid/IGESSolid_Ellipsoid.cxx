@@ -26,10 +26,10 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESSolid_Ellipsoid, IGESData_IGESEntity)
 
 IGESSolid_Ellipsoid::IGESSolid_Ellipsoid() {}
 
-void IGESSolid_Ellipsoid::Init(const gp_XYZ& aSize,
-                               const gp_XYZ& aCenter,
-                               const gp_XYZ& anXAxis,
-                               const gp_XYZ& anZAxis)
+void IGESSolid_Ellipsoid::Init(const Coords3d& aSize,
+                               const Coords3d& aCenter,
+                               const Coords3d& anXAxis,
+                               const Coords3d& anZAxis)
 {
   theSize   = aSize;
   theCenter = aCenter; // default (0,0,0)
@@ -38,7 +38,7 @@ void IGESSolid_Ellipsoid::Init(const gp_XYZ& aSize,
   InitTypeAndForm(168, 0);
 }
 
-gp_XYZ IGESSolid_Ellipsoid::Size() const
+Coords3d IGESSolid_Ellipsoid::Size() const
 {
   return theSize;
 }
@@ -69,7 +69,7 @@ Point3d IGESSolid_Ellipsoid::TransformedCenter() const
     return Point3d(theCenter);
   else
   {
-    gp_XYZ tmp = theCenter;
+    Coords3d tmp = theCenter;
     Location().Transforms(tmp);
     return Point3d(tmp);
   }
@@ -86,9 +86,9 @@ Dir3d IGESSolid_Ellipsoid::TransformedXAxis() const
     return Dir3d(theXAxis);
   else
   {
-    gp_XYZ   tmp = theXAxis;
-    gp_GTrsf loc = Location();
-    loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
+    Coords3d   tmp = theXAxis;
+    GeneralTransform loc = Location();
+    loc.SetTranslationPart(Coords3d(0., 0., 0.));
     loc.Transforms(tmp);
     return Dir3d(tmp);
   }
@@ -105,9 +105,9 @@ Dir3d IGESSolid_Ellipsoid::TransformedYAxis() const
     return Dir3d(theXAxis ^ theZAxis);
   else
   {
-    gp_XYZ   tmp = theXAxis ^ theZAxis;
-    gp_GTrsf loc = Location();
-    loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
+    Coords3d   tmp = theXAxis ^ theZAxis;
+    GeneralTransform loc = Location();
+    loc.SetTranslationPart(Coords3d(0., 0., 0.));
     loc.Transforms(tmp);
     return Dir3d(tmp);
   }
@@ -124,9 +124,9 @@ Dir3d IGESSolid_Ellipsoid::TransformedZAxis() const
     return Dir3d(theZAxis);
   else
   {
-    gp_XYZ   tmp = theZAxis;
-    gp_GTrsf loc = Location();
-    loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
+    Coords3d   tmp = theZAxis;
+    GeneralTransform loc = Location();
+    loc.SetTranslationPart(Coords3d(0., 0., 0.));
     loc.Transforms(tmp);
     return Dir3d(tmp);
   }

@@ -216,7 +216,7 @@ inline Cone1 SurfaceTool3::Cone(const Standard_Address S)
   return ((BRepAdaptor_Surface*)S)->Cone();
 }
 
-inline gp_Sphere SurfaceTool3::Sphere(const Standard_Address S)
+inline Sphere3 SurfaceTool3::Sphere(const Standard_Address S)
 {
   return ((BRepAdaptor_Surface*)S)->Sphere();
 }

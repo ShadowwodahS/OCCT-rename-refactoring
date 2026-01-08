@@ -18,7 +18,7 @@
 // Application de la methode du gradient corrige pour minimiser 
 // F  = somme(||C(ui, Poles(ui)) - ptli||2.
 // La methode de gradient conjugue est programmee dans la bibliotheque 
-// mathematique: math_BFGS.
+// mathematique: BFGSOptimizer.
 // cet algorithme doit etre appele uniquement lorsque on a affaire a un set 
 // de points contraints (ailleurs qu aux extremites). En effet, l appel de la 
 // fonction F a minimiser implique un appel a ParLeastSquare et ResConstraint.

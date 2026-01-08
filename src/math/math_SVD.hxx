@@ -30,14 +30,14 @@
 //! Value Decomposition algorithm is used. For singular or
 //! nearly singular matrices SVD is a better choice than Gauss
 //! or GaussLeastSquare.
-class math_SVD
+class SVD
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Given as input an n X m matrix A with n < m, n = m or n > m
   //! this constructor performs the Singular Value Decomposition.
-  Standard_EXPORT math_SVD(const math_Matrix& A);
+  Standard_EXPORT SVD(const math_Matrix& A);
 
   //! Returns true if the computations are successful, otherwise returns false.
   Standard_Boolean IsDone() const;

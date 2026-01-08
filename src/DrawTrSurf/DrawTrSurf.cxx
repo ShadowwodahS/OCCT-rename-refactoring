@@ -551,7 +551,7 @@ static Standard_Integer d2transform(DrawInterpreter& di, Standard_Integer n, con
 {
   if (n < 4)
     return 1;
-  gp_Trsf2d        T;
+  Transform2d        T;
   Standard_Integer i, last = n - 1;
   if (!strcmp(a[0], "2dpscale"))
   {

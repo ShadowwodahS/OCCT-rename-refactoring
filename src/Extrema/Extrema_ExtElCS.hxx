@@ -30,7 +30,7 @@ class gp_Lin;
 class gp_Pln;
 class Cylinder1;
 class Cone1;
-class gp_Sphere;
+class Sphere3;
 class gp_Torus;
 class gp_Circ;
 class gp_Hypr;
@@ -67,9 +67,9 @@ public:
 
   //! Calculates the distances between a line and a
   //! sphere.
-  Standard_EXPORT Extrema_ExtElCS(const gp_Lin& C, const gp_Sphere& S);
+  Standard_EXPORT Extrema_ExtElCS(const gp_Lin& C, const Sphere3& S);
 
-  Standard_EXPORT void Perform(const gp_Lin& C, const gp_Sphere& S);
+  Standard_EXPORT void Perform(const gp_Lin& C, const Sphere3& S);
 
   //! Calculates the distances between a line and a
   //! torus.
@@ -97,9 +97,9 @@ public:
 
   //! Calculates the distances between a circle and a
   //! sphere.
-  Standard_EXPORT Extrema_ExtElCS(const gp_Circ& C, const gp_Sphere& S);
+  Standard_EXPORT Extrema_ExtElCS(const gp_Circ& C, const Sphere3& S);
 
-  Standard_EXPORT void Perform(const gp_Circ& C, const gp_Sphere& S);
+  Standard_EXPORT void Perform(const gp_Circ& C, const Sphere3& S);
 
   //! Calculates the distances between a circle and a
   //! torus.

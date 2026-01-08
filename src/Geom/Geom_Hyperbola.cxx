@@ -37,7 +37,7 @@ typedef Frame3d         Ax2;
 typedef Point3d         Pnt;
 typedef Vector3d         Vec;
 typedef Transform3d        Trsf;
-typedef gp_XYZ         XYZ;
+typedef Coords3d         XYZ;
 
 //=================================================================================================
 

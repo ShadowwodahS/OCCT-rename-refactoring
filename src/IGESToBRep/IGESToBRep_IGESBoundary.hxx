@@ -58,7 +58,7 @@ public:
   Standard_EXPORT void Init(const IGESToBRep_CurveAndSurface&  CS,
                             const Handle(IGESData_IGESEntity)& entity,
                             const TopoFace&                 face,
-                            const gp_Trsf2d&                   trans,
+                            const Transform2d&                   trans,
                             const Standard_Real                uFact,
                             const Standard_Integer             filepreference);
 
@@ -158,7 +158,7 @@ protected:
   Handle(ShapeExtend_WireData) mysewd3d;
   Handle(ShapeExtend_WireData) mysewd2d;
   TopoFace                  myface;
-  gp_Trsf2d                    mytrsf;
+  Transform2d                    mytrsf;
   Standard_Real                myuFact;
   Standard_Integer             myfilepreference;
 

@@ -418,7 +418,7 @@ Standard_Boolean LProp_SLProps::IsCurvatureDefined ()
 
   if (Abs(A) > RealEpsilon())
   {
-    math_DirectPolynomialRoots Root (A, B, C);
+    DirectPolynomialRoots Root (A, B, C);
     if(Root.NbSolutions() != 2)
     {
       myCurvatureStatus = LProp_Undefined;
@@ -438,7 +438,7 @@ Standard_Boolean LProp_SLProps::IsCurvatureDefined ()
   }
   else if (Abs(C) > RealEpsilon())
   {
-    math_DirectPolynomialRoots Root(C, B, A);
+    DirectPolynomialRoots Root(C, B, A);
 
     if((Root.NbSolutions() != 2))
     {

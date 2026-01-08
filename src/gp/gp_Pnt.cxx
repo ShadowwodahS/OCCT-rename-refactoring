@@ -55,7 +55,7 @@ void Point3d::Transform(const Transform3d& T)
 void Point3d::Mirror(const Point3d& P)
 {
   coord.Reverse();
-  gp_XYZ XYZ = P.coord;
+  Coords3d XYZ = P.coord;
   XYZ.Multiply(2.0);
   coord.Add(XYZ);
 }

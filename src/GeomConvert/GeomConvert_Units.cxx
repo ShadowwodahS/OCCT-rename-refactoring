@@ -50,7 +50,7 @@ Handle(GeomCurve2d) Units1::RadianToDegree(const Handle(GeomCurve2d)& theCurve2d
 
   gp_Pnt2d   Pt1;
   Coords2d      pXY;
-  gp_GTrsf2d tMatu, tMatv;
+  GeneralTransform2d tMatu, tMatv;
 
   //  theSurf is a CylindricalSurface or a ConicalSurface or
   //             a ToroidalSurface or a SphericalSurface or
@@ -82,7 +82,7 @@ Handle(GeomCurve2d) Units1::RadianToDegree(const Handle(GeomCurve2d)& theCurve2d
     if (aCurve2d->IsKind(STANDARD_TYPE(Geom2d_Circle))
         || aCurve2d->IsKind(STANDARD_TYPE(Geom2d_Ellipse)))
     {
-      gp_Trsf2d aT;
+      Transform2d aT;
       aT.SetScale(gp1::Origin2d(), LengthFact);
       aCurve2d->Transform(aT);
       return aCurve2d;
@@ -184,7 +184,7 @@ Handle(GeomCurve2d) Units1::DegreeToRadian(const Handle(GeomCurve2d)& thePcurve,
 
   gp_Pnt2d   Pt1;
   Coords2d      pXY;
-  gp_GTrsf2d tMatu, tMatv;
+  GeneralTransform2d tMatu, tMatv;
 
   // What to change ??
 
@@ -215,7 +215,7 @@ Handle(GeomCurve2d) Units1::DegreeToRadian(const Handle(GeomCurve2d)& thePcurve,
     if (aPcurve->IsKind(STANDARD_TYPE(Geom2d_Circle))
         || aPcurve->IsKind(STANDARD_TYPE(Geom2d_Ellipse)))
     {
-      gp_Trsf2d aT;
+      Transform2d aT;
       aT.SetScale(gp1::Origin2d(), LengthFact);
       aPcurve->Transform(aT);
       return aPcurve;
@@ -309,7 +309,7 @@ Handle(GeomCurve2d) Units1::DegreeToRadian(const Handle(GeomCurve2d)& thePcurve,
 Handle(GeomCurve2d) Units1::MirrorPCurve(const Handle(GeomCurve2d)& theCurve)
 {
   Handle(GeomCurve2d) theMirrored = Handle(GeomCurve2d)::DownCast(theCurve->Copy());
-  gp_Trsf2d            T;
+  Transform2d            T;
   gp_Pnt2d             Loc(0., 0.);
   gp_Dir2d             Dir(1., 0.);
   gp_Ax2d              ax2(Loc, Dir);

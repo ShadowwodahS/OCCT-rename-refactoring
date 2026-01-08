@@ -23,7 +23,7 @@
 #include <Standard_Integer.hxx>
 #include <NLPlate_HPG0Constraint.hxx>
 class Coords2d;
-class gp_XYZ;
+class Coords3d;
 
 class NLPlate_HPG0G1Constraint;
 DEFINE_STANDARD_HANDLE(NLPlate_HPG0G1Constraint, NLPlate_HPG0Constraint)
@@ -35,7 +35,7 @@ class NLPlate_HPG0G1Constraint : public NLPlate_HPG0Constraint
 
 public:
   Standard_EXPORT NLPlate_HPG0G1Constraint(const Coords2d&    UV,
-                                           const gp_XYZ&   Value,
+                                           const Coords3d&   Value,
                                            const D1& D1T);
 
   Standard_EXPORT virtual void SetOrientation(const Standard_Integer Orient = 0) Standard_OVERRIDE;

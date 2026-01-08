@@ -214,10 +214,10 @@ public:
   //! an ellipse.
   Standard_NODISCARD gp_Circ2d Scaled(const gp_Pnt2d& theP, const Standard_Real theS) const;
 
-  void Transform(const gp_Trsf2d& theT);
+  void Transform(const Transform2d& theT);
 
   //! Transforms a circle with the transformation theT from class Trsf2d.
-  Standard_NODISCARD gp_Circ2d Transformed(const gp_Trsf2d& theT) const;
+  Standard_NODISCARD gp_Circ2d Transformed(const Transform2d& theT) const;
 
   void Translate(const gp_Vec2d& theV) { pos.Translate(theV); }
 
@@ -341,7 +341,7 @@ inline gp_Circ2d gp_Circ2d::Scaled(const gp_Pnt2d& theP, const Standard_Real the
 // function : Transform
 // purpose  :
 // =======================================================================
-inline void gp_Circ2d::Transform(const gp_Trsf2d& theT)
+inline void gp_Circ2d::Transform(const Transform2d& theT)
 {
   radius *= theT.ScaleFactor();
   if (radius < 0)
@@ -355,7 +355,7 @@ inline void gp_Circ2d::Transform(const gp_Trsf2d& theT)
 // function : Transformed
 // purpose  :
 // =======================================================================
-inline gp_Circ2d gp_Circ2d::Transformed(const gp_Trsf2d& theT) const
+inline gp_Circ2d gp_Circ2d::Transformed(const Transform2d& theT) const
 {
   gp_Circ2d aCirc = *this;
   aCirc.radius *= theT.ScaleFactor();

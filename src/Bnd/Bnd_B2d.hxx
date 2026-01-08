@@ -26,7 +26,7 @@
 #include <gp_XY.hxx>
 class Coords2d;
 class gp_Pnt2d;
-class gp_Trsf2d;
+class Transform2d;
 class gp_Ax2d;
 
 class Bnd_B2d
@@ -79,7 +79,7 @@ public:
 
   //! Transform the bounding box with the given transformation.
   //! The resulting box will be larger if theTrsf contains rotation.
-  Standard_NODISCARD Standard_EXPORT Bnd_B2d Transformed(const gp_Trsf2d& theTrsf) const;
+  Standard_NODISCARD Standard_EXPORT Bnd_B2d Transformed(const Transform2d& theTrsf) const;
 
   //! Check the given point for the inclusion in the Box1.
   //! Returns True if the point is outside.
@@ -100,7 +100,7 @@ public:
   //! for the intersection with the current box.
   //! Returns True if there is no intersection between boxes.
   Standard_EXPORT Standard_Boolean IsOut(const Bnd_B2d&   theOtherBox,
-                                         const gp_Trsf2d& theTrsf) const;
+                                         const Transform2d& theTrsf) const;
 
   //! Check the given Line for the intersection with the current box.
   //! Returns True if there is no intersection.
@@ -118,7 +118,7 @@ public:
   //! Check that the box 'this' is inside the given box 'theBox'
   //! transformed by 'theTrsf'. Returns True if 'this' box is fully
   //! inside the transformed 'theBox'.
-  Standard_EXPORT Standard_Boolean IsIn(const Bnd_B2d& theBox, const gp_Trsf2d& theTrsf) const;
+  Standard_EXPORT Standard_Boolean IsIn(const Bnd_B2d& theBox, const Transform2d& theTrsf) const;
 
   //! Set the Center coordinates
   void SetCenter(const Coords2d& theCenter);

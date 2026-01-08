@@ -35,7 +35,7 @@ class gp_Hypr2d;
 class gp_Hypr;
 class Cylinder1;
 class Cone1;
-class gp_Sphere;
+class Sphere3;
 class gp_Torus;
 class ProjLib_ProjectedCurve;
 
@@ -89,9 +89,9 @@ public:
 
   Standard_EXPORT static gp_Lin2d Project(const Cone1& Co, const gp_Circ& Ci);
 
-  Standard_EXPORT static gp_Pnt2d Project(const gp_Sphere& Sp, const Point3d& P);
+  Standard_EXPORT static gp_Pnt2d Project(const Sphere3& Sp, const Point3d& P);
 
-  Standard_EXPORT static gp_Lin2d Project(const gp_Sphere& Sp, const gp_Circ& Ci);
+  Standard_EXPORT static gp_Lin2d Project(const Sphere3& Sp, const gp_Circ& Ci);
 
   Standard_EXPORT static gp_Pnt2d Project(const gp_Torus& To, const Point3d& P);
 

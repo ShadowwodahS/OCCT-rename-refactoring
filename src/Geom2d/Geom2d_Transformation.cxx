@@ -39,7 +39,7 @@ Handle(Geom2d_Transformation) Geom2d_Transformation::Copy() const
 
 Geom2d_Transformation::Geom2d_Transformation() {}
 
-Geom2d_Transformation::Geom2d_Transformation(const gp_Trsf2d& T)
+Geom2d_Transformation::Geom2d_Transformation(const Transform2d& T)
     : gpTrsf2d(T)
 {
 }
@@ -61,7 +61,7 @@ Handle(Geom2d_Transformation) Geom2d_Transformation::Multiplied(
 Handle(Geom2d_Transformation) Geom2d_Transformation::Powered(const Standard_Integer N) const
 {
 
-  gp_Trsf2d Temp = gpTrsf2d;
+  Transform2d Temp = gpTrsf2d;
   Temp.Power(N);
   return new Transformation(Temp);
 }
@@ -114,7 +114,7 @@ void Geom2d_Transformation::SetTranslation(const gp_Pnt2d& P1, const gp_Pnt2d& P
   gpTrsf2d.SetTranslation(P1, P2);
 }
 
-void Geom2d_Transformation::SetTrsf2d(const gp_Trsf2d& T)
+void Geom2d_Transformation::SetTrsf2d(const Transform2d& T)
 {
   gpTrsf2d = T;
 }
@@ -136,7 +136,7 @@ Standard_Real Geom2d_Transformation::ScaleFactor() const
   return gpTrsf2d.ScaleFactor();
 }
 
-gp_Trsf2d Geom2d_Transformation::Trsf2d() const
+Transform2d Geom2d_Transformation::Trsf2d() const
 {
   return gpTrsf2d;
 }

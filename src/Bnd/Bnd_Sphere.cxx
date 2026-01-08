@@ -22,7 +22,7 @@ Sphere2::Sphere2()
 {
 }
 
-Sphere2::Sphere2(const gp_XYZ&          theCenter,
+Sphere2::Sphere2(const Coords3d&          theCenter,
                        const Standard_Real    theRadius,
                        const Standard_Integer theU,
                        const Standard_Integer theV)
@@ -34,7 +34,7 @@ Sphere2::Sphere2(const gp_XYZ&          theCenter,
 {
 }
 
-void Sphere2::SquareDistances(const gp_XYZ&  theXYZ,
+void Sphere2::SquareDistances(const Coords3d&  theXYZ,
                                  Standard_Real& theMin,
                                  Standard_Real& theMax) const
 {
@@ -43,15 +43,15 @@ void Sphere2::SquareDistances(const gp_XYZ&  theXYZ,
   theMax += myRadius * myRadius;
 }
 
-void Sphere2::Distances(const gp_XYZ& theXYZ, Standard_Real& theMin, Standard_Real& theMax) const
+void Sphere2::Distances(const Coords3d& theXYZ, Standard_Real& theMin, Standard_Real& theMax) const
 {
   theMax = (theXYZ - myCenter).Modulus();
   theMin = (theMax - myRadius < 0 ? 0.0 : theMax - myRadius);
   theMax += myRadius;
 }
 
-Standard_Boolean Sphere2::Project(const gp_XYZ&     theNode,
-                                     gp_XYZ&           theProjNode,
+Standard_Boolean Sphere2::Project(const Coords3d&     theNode,
+                                     Coords3d&           theProjNode,
                                      Standard_Real&    theDist,
                                      Standard_Boolean& theInside) const
 {
@@ -61,12 +61,12 @@ Standard_Boolean Sphere2::Project(const gp_XYZ&     theNode,
   return Standard_True;
 }
 
-Standard_Real Sphere2::Distance(const gp_XYZ& theNode) const
+Standard_Real Sphere2::Distance(const Coords3d& theNode) const
 {
   return (theNode - myCenter).Modulus();
 }
 
-Standard_Real Sphere2::SquareDistance(const gp_XYZ& theNode) const
+Standard_Real Sphere2::SquareDistance(const Coords3d& theNode) const
 {
   return (theNode - myCenter).SquareModulus();
 }
@@ -105,7 +105,7 @@ Standard_Boolean Sphere2::IsOut(const Sphere2& theOther) const
          > (myRadius + theOther.myRadius) * (myRadius + theOther.myRadius);
 }
 
-Standard_Boolean Sphere2::IsOut(const gp_XYZ& theXYZ, Standard_Real& theMaxDist) const
+Standard_Boolean Sphere2::IsOut(const Coords3d& theXYZ, Standard_Real& theMaxDist) const
 {
   Standard_Real aCurMinDist, aCurMaxDist;
   Distances(theXYZ, aCurMinDist, aCurMaxDist);

@@ -33,16 +33,16 @@ static inline Standard_Real SQR(const Standard_Real a)
 }
 } // namespace
 
-class DirFunctionBis : public math_Function
+class DirFunctionBis : public Function1
 {
 
   math_Vector*              P0;
   math_Vector*              Dir;
   math_Vector*              P;
-  math_MultipleVarFunction* F;
+  MultipleVarFunction* F;
 
 public:
-  DirFunctionBis(math_Vector& V1, math_Vector& V2, math_Vector& V3, math_MultipleVarFunction& f);
+  DirFunctionBis(math_Vector& V1, math_Vector& V2, math_Vector& V3, MultipleVarFunction& f);
 
   void Initialize(const math_Vector& p0, const math_Vector& dir);
 
@@ -52,7 +52,7 @@ public:
 DirFunctionBis::DirFunctionBis(math_Vector&              V1,
                                math_Vector&              V2,
                                math_Vector&              V3,
-                               math_MultipleVarFunction& f)
+                               MultipleVarFunction& f)
 {
   P0  = &V1;
   Dir = &V2;
@@ -89,11 +89,11 @@ static Standard_Boolean MinimizeDirection(math_Vector&    P,
 
   F.Initialize(P, Dir);
 
-  math_BracketMinimum Bracket(F, 0.0, 1.0);
+  BracketMinimum Bracket(F, 0.0, 1.0);
   if (Bracket.IsDone())
   {
     Bracket.Values(ax, xx, bx);
-    math_BrentMinimum Sol(1.0e-10);
+    BrentMinimumSolver Sol(1.0e-10);
     Sol.Perform(F, ax, xx, bx);
     if (Sol.IsDone())
     {
@@ -109,7 +109,7 @@ static Standard_Boolean MinimizeDirection(math_Vector&    P,
 
 //=================================================================================================
 
-math_Powell::math_Powell(const math_MultipleVarFunction& theFunction,
+Powell::Powell(const MultipleVarFunction& theFunction,
                          const Standard_Real             theTolerance,
                          const Standard_Integer          theNbIterations,
                          const Standard_Real             theZEPS)
@@ -130,11 +130,11 @@ math_Powell::math_Powell(const math_MultipleVarFunction& theFunction,
 
 //=================================================================================================
 
-math_Powell::~math_Powell() {}
+Powell::~Powell() {}
 
 //=================================================================================================
 
-void math_Powell::Perform(math_MultipleVarFunction& F,
+void Powell::Perform(MultipleVarFunction& F,
                           const math_Vector&        StartingPoint,
                           const math_Matrix&        StartingDirections)
 {
@@ -231,9 +231,9 @@ void math_Powell::Perform(math_MultipleVarFunction& F,
 
 //=================================================================================================
 
-void math_Powell::Dump(Standard_OStream& o) const
+void Powell::Dump(Standard_OStream& o) const
 {
-  o << "math_Powell resolution:";
+  o << "Powell resolution:";
   if (Done)
   {
     o << " Status = Done \n";

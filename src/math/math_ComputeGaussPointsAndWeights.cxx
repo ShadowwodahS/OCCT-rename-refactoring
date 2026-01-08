@@ -62,7 +62,7 @@ math_ComputeGaussPointsAndWeights::math_ComputeGaussPointsAndWeights(const Stand
         math_Vector   anEigenVector = EVsearch.EigenVector(i);
         Standard_Real aWeight       = anEigenVector(1);
         aWeight                     = 2. * aWeight * aWeight;
-        math_ValueAndWeight EVW(EVsearch.EigenValue(i), aWeight);
+        ValueAndWeight EVW(EVsearch.EigenValue(i), aWeight);
         VWarray(i) = EVW;
       }
 

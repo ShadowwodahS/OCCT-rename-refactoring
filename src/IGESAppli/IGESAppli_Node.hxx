@@ -44,7 +44,7 @@ public:
   //! - aCoordSystem : the Nodal Displacement Coordinate
   //! System Entity (default 0 is Global
   //! Cartesian Coordinate system)
-  Standard_EXPORT void Init(const gp_XYZ&                                aCoord,
+  Standard_EXPORT void Init(const Coords3d&                                aCoord,
                             const Handle(IGESGeom_TransformationMatrix)& aCoordSystem);
 
   //! returns the nodal coordinates
@@ -66,7 +66,7 @@ public:
 
 protected:
 private:
-  gp_XYZ                                theCoord;
+  Coords3d                                theCoord;
   Handle(IGESGeom_TransformationMatrix) theSystem;
 };
 

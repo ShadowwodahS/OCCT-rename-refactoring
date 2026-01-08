@@ -19,7 +19,7 @@
 // #include <gp.hxx>
 typedef Point3d               Pnt;
 typedef gp_Mat               Mat;
-typedef gp_XYZ               XYZ;
+typedef Coords3d               XYZ;
 typedef TColgp_Array1OfPnt   Array1OfPnt;
 typedef TColgp_Array2OfPnt   Array2OfPnt;
 typedef TColStd_Array1OfReal Array1OfReal;

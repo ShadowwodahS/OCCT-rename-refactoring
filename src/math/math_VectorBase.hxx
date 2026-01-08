@@ -87,8 +87,8 @@ public:
   //! Constructor for converting Coords2d to math_VectorBase
   inline math_VectorBase(const Coords2d& Other);
 
-  //! Constructor for converting gp_XYZ to math_VectorBase
-  inline math_VectorBase(const gp_XYZ& Other);
+  //! Constructor for converting Coords3d to math_VectorBase
+  inline math_VectorBase(const Coords3d& Other);
 
   //! Initialize all the elements of a vector with "theInitialValue".
   void Init(const TheItemType theInitialValue);

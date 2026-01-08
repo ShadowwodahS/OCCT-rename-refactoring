@@ -1211,7 +1211,7 @@ TopoShape IGESToBRep_TopoSurface::TransferTrimmedSurface(
     // Basis Surface, not Allowed IGESEntity.
     return res;
   }
-  gp_Trsf2d     trans;
+  Transform2d     trans;
   Standard_Real uFact;
   TopoFace   face, faceres;
 
@@ -1293,8 +1293,8 @@ TopoShape IGESToBRep_TopoSurface::TransferTrimmedSurface(
   if (!aTransf.IsNull())
   {
     // make transformation
-    gp_GTrsf      aGT    = aTransf->Value();
-    gp_XYZ        aTrans = aGT.TranslationPart();
+    GeneralTransform      aGT    = aTransf->Value();
+    Coords3d        aTrans = aGT.TranslationPart();
     gp_Mat        aMat   = aGT.VectorialPart();
     Standard_Real s1     = aMat.Value(1, 1) * aMat.Value(1, 1) + aMat.Value(2, 1) * aMat.Value(2, 1)
                        + aMat.Value(3, 1) * aMat.Value(3, 1);
@@ -1381,7 +1381,7 @@ TopoShape IGESToBRep_TopoSurface::TransferBoundedSurface(
     // Basis Surface Transfer Error : Not Allowed IGESEntity.
     return res;
   }
-  gp_Trsf2d     trans;
+  Transform2d     trans;
   Standard_Real uFact;
   TopoFace   face;
 
@@ -1743,7 +1743,7 @@ TopoShape IGESToBRep_TopoSurface::TransferPlaneParts(const Handle(IGESGeom_Plane
 //=================================================================================================
 
 TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)& st,
-                                                  gp_Trsf2d&                         trans,
+                                                  Transform2d&                         trans,
                                                   Standard_Real&                     uFact)
 { // Declaration of messages//
   // DCE 22/12/98
@@ -1878,7 +1878,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
              !st->IsKind(STANDARD_TYPE(IGESSolid_SphericalSurface)))
     {
       DeclareAndCast(Geom_SphericalSurface, Sphere, Surf);
-      gp_Sphere TheSphere = Sphere->Sphere();
+      Sphere3 TheSphere = Sphere->Sphere();
       ElSLib1::SphereParameters(TheSphere.Position(),
                                TheSphere.Radius(),
                                Curve3d->Value(First),
@@ -1939,7 +1939,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
   {
     DeclareAndCast(IGESGeom_SurfaceOfRevolution, st120, isrf);
     // S4181 pdn 19.04.99 defining transformation matrix
-    gp_Trsf2d tmp;
+    Transform2d tmp;
     tmp.SetTranslation(gp_Vec2d(0, -2 * M_PI));
     trans.PreMultiply(tmp);
     tmp.SetMirror(gp1::OX2d());
@@ -1989,7 +1989,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
 
   if (isrf->IsKind(STANDARD_TYPE(IGESSolid_ToroidalSurface)))
   {
-    gp_Trsf2d tmp;
+    Transform2d tmp;
     tmp.SetTranslation(gp_Vec2d(0, -360.)); // in IGES terms
     trans.PreMultiply(tmp);
     tmp.SetMirror(gp1::OX2d());
@@ -2002,7 +2002,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
     uscale = 1.;
   }
 
-  gp_Trsf2d tmp;
+  Transform2d tmp;
   tmp.SetTranslation(gp_Pnt2d(0., 0.), gp_Pnt2d(paramu, paramv));
   trans.PreMultiply(tmp);
 

@@ -55,7 +55,7 @@ static Standard_Boolean getNormalFromEdge(const TopoShape& theShape,
                                           const Standard_Real thePar,
                                           Dir3d&             theNormal)
 {
-  gp_XYZ          aSum;
+  Coords3d          aSum;
   ShapeExplorer ex(theShape, TopAbs_FACE);
   for (; ex.More(); ex.Next())
   {
@@ -90,7 +90,7 @@ static Standard_Boolean getNormalFromVertex(const TopoShape&  theShape,
                                             const TopoVertex& theVer,
                                             Dir3d&              theNormal)
 {
-  gp_XYZ          aSum;
+  Coords3d          aSum;
   ShapeExplorer ex(theShape, TopAbs_FACE);
   for (; ex.More(); ex.Next())
   {

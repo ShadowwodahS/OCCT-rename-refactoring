@@ -325,7 +325,7 @@ static TopoEdge ReplaceVertex(const TopoEdge&     theEdge,
 //=======================================================================
 static Standard_Real getNearPoint(const TColgp_SequenceOfPnt& aSeq1,
                                   const TColgp_SequenceOfPnt& aSeq2,
-                                  gp_XYZ&                     acent)
+                                  Coords3d&                     acent)
 {
   Standard_Integer i    = 1;
   Standard_Integer ind1 = 0, ind2 = 0;
@@ -362,8 +362,8 @@ static Standard_Boolean getNearestEdges(ShapeList&     theLEdges,
                                         TopTools_SequenceOfShape& theSuitEdges,
                                         TopTools_SequenceOfShape& theRejectEdges,
                                         const Standard_Real       theTolerance,
-                                        gp_XYZ&                   thecentersuit,
-                                        gp_XYZ&                   thecenterreject)
+                                        Coords3d&                   thecentersuit,
+                                        Coords3d&                   thecenterreject)
 {
   if (theLEdges.IsEmpty())
     return Standard_False;
@@ -436,7 +436,7 @@ static Standard_Boolean getNearestEdges(ShapeList&     theLEdges,
       if (isSame)
         p2 = aCurve->Value(aLast);
       Standard_Real aMinDist = RealLast();
-      gp_XYZ        acent;
+      Coords3d        acent;
       if (!isSame && !isSame1)
       {
         aMinDist = p1.Distance(p11);
@@ -550,7 +550,7 @@ Standard_Boolean ShapeFix::FixVertexPosition(TopoShape&                     thes
     ShapeBuilder aB1;
     aB1.UpdateVertex(aVert, theTolerance);
     Point3d aPvert = BRepInspector::Pnt(aVert);
-    gp_XYZ acenter(aPvert.XYZ()), acenterreject(aPvert.XYZ());
+    Coords3d acenter(aPvert.XYZ()), acenterreject(aPvert.XYZ());
 
     TopTools_SequenceOfShape aSuitEdges;
     TopTools_SequenceOfShape aRejectEdges;

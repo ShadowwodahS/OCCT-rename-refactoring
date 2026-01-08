@@ -525,7 +525,7 @@ bool RWGltf_GltfJsonParser::parseTransformationComponents(
       }
       aRotVec4[aCompIter] = aGenVal.GetDouble();
     }
-    const gp_Quaternion aQuaternion(aRotVec4.x(), aRotVec4.y(), aRotVec4.z(), aRotVec4.w());
+    const Quaternion aQuaternion(aRotVec4.x(), aRotVec4.y(), aRotVec4.z(), aRotVec4.w());
     if (Abs(aQuaternion.X()) > gp1::Resolution() || Abs(aQuaternion.Y()) > gp1::Resolution()
         || Abs(aQuaternion.Z()) > gp1::Resolution() || Abs(aQuaternion.W() - 1.0) > gp1::Resolution())
     {
@@ -541,7 +541,7 @@ bool RWGltf_GltfJsonParser::parseTransformationComponents(
       return false;
     }
 
-    gp_XYZ aTransVec;
+    Coords3d aTransVec;
     for (int aCompIter = 0; aCompIter < 3; ++aCompIter)
     {
       const RWGltf_JsonValue& aGenVal = (*theTranslationVal)[aCompIter];

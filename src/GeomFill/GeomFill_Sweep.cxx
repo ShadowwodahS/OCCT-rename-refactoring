@@ -491,9 +491,9 @@ static Standard_Boolean IsSweepParallelSpine(const Handle(GeomFill_LocationLaw)&
   Vector3d        VBegin;
   Vector3d        VEnd;
   gp_Mat        M;
-  gp_GTrsf      GTfBegin;
+  GeneralTransform      GTfBegin;
   Transform3d       TfBegin;
-  gp_GTrsf      GTfEnd;
+  GeneralTransform      GTfEnd;
   Transform3d       TfEnd;
 
   theLoc->GetDomain(aFirst, aLast);
@@ -598,7 +598,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
     myLoc->D0(0, M, V);
     DP = DS - V;
     DP.Normalize();
-    gp_GTrsf Tf;
+    GeneralTransform Tf;
     Transform3d  Tf2;
     Tf.SetVectorialPart(M);
     Tf.SetTranslationPart(V.XYZ());
@@ -813,7 +813,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
       DP = DN ^ DS;
       DP.Normalize();
 
-      gp_GTrsf Tf;
+      GeneralTransform Tf;
       Transform3d  Tf2;
       Tf.SetVectorialPart(M);
       Tf.SetTranslationPart(V.XYZ());
@@ -883,7 +883,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
             Centre.BaryCenter(1.0, C.Location(), 1.0);
             Ax3 AxisOfSphere(Centre, DN, DS);
             aRadius = C.Radius();
-            gp_Sphere theSphere(AxisOfSphere, aRadius);
+            Sphere3 theSphere(AxisOfSphere, aRadius);
             S = new Geom_SphericalSurface(theSphere);
             // Pour les spheres on ne peut pas controler le parametre
             // V (donc U car  myExchUV = Standard_True)

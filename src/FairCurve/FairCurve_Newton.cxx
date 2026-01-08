@@ -25,7 +25,7 @@ FairCurve_Newton::FairCurve_Newton(const math_MultipleVarFunctionWithHessian& th
                                    const Standard_Integer                     theNbIterations,
                                    const Standard_Real                        theConvexity,
                                    const Standard_Boolean                     theWithSingularity)
-    : math_NewtonMinimum(theFunction,
+    : NewtonMinimum(theFunction,
                          theCriteriumTolerance,
                          theNbIterations,
                          theConvexity,

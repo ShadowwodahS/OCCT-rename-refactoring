@@ -664,7 +664,7 @@ gp_Circ Adaptor3d_IsoCurve::Circle() const
     }
 
     case GeomAbs_Sphere: {
-      gp_Sphere sph = mySurface->Sphere();
+      Sphere3 sph = mySurface->Sphere();
 
       switch (myIso)
       {

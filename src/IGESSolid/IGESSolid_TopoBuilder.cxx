@@ -59,7 +59,7 @@ void IGESSolid_TopoBuilder::Clear()
   thepoint = new TColgp_HSequenceOfXYZ();
 }
 
-void IGESSolid_TopoBuilder::AddVertex(const gp_XYZ& val)
+void IGESSolid_TopoBuilder::AddVertex(const Coords3d& val)
 {
   thepoint->Append(val);
 }
@@ -69,7 +69,7 @@ Standard_Integer IGESSolid_TopoBuilder::NbVertices() const
   return thepoint->Length();
 }
 
-const gp_XYZ& IGESSolid_TopoBuilder::Vertex(const Standard_Integer num) const
+const Coords3d& IGESSolid_TopoBuilder::Vertex(const Standard_Integer num) const
 {
   return thepoint->Value(num);
 }

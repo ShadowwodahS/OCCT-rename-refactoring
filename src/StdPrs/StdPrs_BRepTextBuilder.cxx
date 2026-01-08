@@ -24,7 +24,7 @@ TopoShape StdPrs_BRepTextBuilder::Perform(StdPrs_BRepFont&                  theF
                                              const Ax3&                     thePenLoc)
 {
   Transform3d                aTrsf;
-  gp_XYZ                 aPen;
+  Coords3d                 aPen;
   TopoShape           aGlyphShape;
   TopoCompound        aResult;
   Standard_Mutex::Sentry aSentry(theFont.Mutex());

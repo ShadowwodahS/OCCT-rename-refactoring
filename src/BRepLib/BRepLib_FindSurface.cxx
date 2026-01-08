@@ -57,7 +57,7 @@ static Standard_Real Controle(const TColgp_SequenceOfPnt& thePoints,
   thePlane->Coefficients(a, b, c, d);
   for (ii = 1; ii <= thePoints.Length(); ii++)
   {
-    const gp_XYZ& xyz = thePoints(ii).XYZ();
+    const Coords3d& xyz = thePoints(ii).XYZ();
     dist              = Abs(a * xyz.X() + b * xyz.Y() + c * xyz.Z() + d);
     if (dist > dfMaxDist)
       dfMaxDist = dist;
@@ -415,7 +415,7 @@ void BRepLib_FindSurface::Init(const TopoShape&    S,
   math_Vector      aVec(1, 3, 0.);
   // Find the barycenter and normalize weights
   Standard_Real dfMaxWeight = 0.;
-  gp_XYZ        aBaryCenter(0., 0., 0.);
+  Coords3d        aBaryCenter(0., 0., 0.);
   Standard_Real dfSumWeight = 0.;
   for (iPoint = 1; iPoint <= aPoints.Length(); iPoint++)
   {
@@ -432,7 +432,7 @@ void BRepLib_FindSurface::Init(const TopoShape&    S,
   // Fill the matrix and the right vector
   for (iPoint = 1; iPoint <= aPoints.Length(); iPoint++)
   {
-    gp_XYZ        p = aPoints(iPoint).XYZ() - aBaryCenter;
+    Coords3d        p = aPoints(iPoint).XYZ() - aBaryCenter;
     Standard_Real w = aWeight(iPoint) / dfMaxWeight;
     aMat(1, 1) += w * p.X() * p.X();
     aMat(1, 2) += w * p.X() * p.Y();

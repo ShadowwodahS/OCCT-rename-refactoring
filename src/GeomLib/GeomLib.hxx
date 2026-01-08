@@ -27,7 +27,7 @@
 class GeomCurve3d;
 class Frame3d;
 class GeomCurve2d;
-class gp_GTrsf2d;
+class GeneralTransform2d;
 class Adaptor3d_CurveOnSurface;
 class Geom_BoundedCurve;
 class Point3d;
@@ -65,7 +65,7 @@ public:
   //! 1) the curve is an infinite parabola or hyperbola
   //! 2) the curve is an offsetcurve
   Standard_EXPORT static Handle(GeomCurve2d) GTransform(const Handle(GeomCurve2d)& Curve,
-                                                         const gp_GTrsf2d&           GTrsf);
+                                                         const GeneralTransform2d&           GTrsf);
 
   //! Make the curve Curve2dPtr have the imposed
   //! range First to List the most economic way,

@@ -790,7 +790,7 @@ void OpenGl_ShaderManager::pushClippingState(const Handle(OpenGl_ShaderProgram)&
       aPlaneEq.w()                                    = anEquation.w();
       if (myHasLocalOrigin)
       {
-        const gp_XYZ        aPos = aPlane->ToPlane().Position().Location().XYZ() - myLocalOrigin;
+        const Coords3d        aPos = aPlane->ToPlane().Position().Location().XYZ() - myLocalOrigin;
         const Standard_Real aD =
           -(anEquation.x() * aPos.X() + anEquation.y() * aPos.Y() + anEquation.z() * aPos.Z());
         aPlaneEq.w() = aD;

@@ -353,7 +353,7 @@ gp_Pnt2d ShapeExtend_CompositeSurface::GlobalToLocal(const Standard_Integer i,
 Standard_Boolean ShapeExtend_CompositeSurface::GlobalToLocalTransformation(const Standard_Integer i,
                                                                            const Standard_Integer j,
                                                                            Standard_Real& uFact,
-                                                                           gp_Trsf2d& Trsf) const
+                                                                           Transform2d& Trsf) const
 {
   Standard_Real u1, u2, v1, v2;
   myPatches->Value(i, j)->Bounds(u1, u2, v1, v2);
@@ -363,7 +363,7 @@ Standard_Boolean ShapeExtend_CompositeSurface::GlobalToLocalTransformation(const
   gp_Vec2d shift(u1 / scaleu - myUJointValues->Value(i), v1 / scalev - myVJointValues->Value(j));
 
   uFact = scaleu / scalev;
-  gp_Trsf2d Shift, Scale;
+  Transform2d Shift, Scale;
   if (shift.X() != 0. || shift.Y() != 0.)
     Shift.SetTranslation(shift);
   if (scalev != 1.)

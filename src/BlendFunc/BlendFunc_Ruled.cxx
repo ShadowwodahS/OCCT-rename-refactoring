@@ -146,7 +146,7 @@ Standard_Boolean BlendFunc_Ruled::IsSolution(const math_Vector& Sol, const Stand
 
     secmember(4) = -(temp.Dot(Vector3d(pts1, pts2)));
 
-    math_Gauss Resol(gradsol);
+    Gauss Resol(gradsol);
     if (Resol.IsDone())
     {
 
@@ -532,7 +532,7 @@ Standard_Boolean BlendFunc_Ruled::GetSection(const Standard_Real Param,
 
   secmember(4) = -(temp.Dot(Vector3d(pts1, pts2)));
 
-  math_Gauss Resol(gradsol);
+  Gauss Resol(gradsol);
   if (Resol.IsDone())
   {
 

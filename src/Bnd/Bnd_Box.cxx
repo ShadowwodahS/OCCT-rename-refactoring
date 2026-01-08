@@ -334,7 +334,7 @@ Box2 Box2::Transformed(const Transform3d& T) const
       return *this;
     }
 
-    const gp_XYZ& aDelta = T.TranslationPart();
+    const Coords3d& aDelta = T.TranslationPart();
     Box2       aNewBox(*this);
     aNewBox.Xmin += aDelta.X();
     aNewBox.Xmax += aDelta.X();

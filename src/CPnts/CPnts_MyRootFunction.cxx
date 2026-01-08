@@ -42,12 +42,12 @@ void CPnts_MyRootFunction::Init(const Standard_Real X0,
 
 Standard_Boolean CPnts_MyRootFunction::Value(const Standard_Real X, Standard_Real& F)
 {
-  math_GaussSingleIntegration Length;
+  GaussSingleIntegration Length;
 
   if (myTol <= 0)
-    Length = math_GaussSingleIntegration(myFunction, myX0, X, myOrder);
+    Length = GaussSingleIntegration(myFunction, myX0, X, myOrder);
   else
-    Length = math_GaussSingleIntegration(myFunction, myX0, X, myOrder, myTol);
+    Length = GaussSingleIntegration(myFunction, myX0, X, myOrder, myTol);
 
   if (Length.IsDone())
   {
@@ -69,12 +69,12 @@ Standard_Boolean CPnts_MyRootFunction::Values(const Standard_Real X,
                                               Standard_Real&      F,
                                               Standard_Real&      Df)
 {
-  math_GaussSingleIntegration Length;
+  GaussSingleIntegration Length;
 
   if (myTol <= 0)
-    Length = math_GaussSingleIntegration(myFunction, myX0, X, myOrder);
+    Length = GaussSingleIntegration(myFunction, myX0, X, myOrder);
   else
-    Length = math_GaussSingleIntegration(myFunction, myX0, X, myOrder, myTol);
+    Length = GaussSingleIntegration(myFunction, myX0, X, myOrder, myTol);
 
   if (Length.IsDone())
   {

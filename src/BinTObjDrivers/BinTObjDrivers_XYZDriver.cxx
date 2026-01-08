@@ -55,7 +55,7 @@ Standard_Boolean BinTObjDrivers_XYZDriver::Paste(const BinObjMgt_Persistent&  th
   Standard_Real     aX, aY, aZ;
   if (!(theSource >> aX >> aY >> aZ))
     return Standard_False;
-  aTarget->Set(gp_XYZ(aX, aY, aZ));
+  aTarget->Set(Coords3d(aX, aY, aZ));
   return Standard_True;
 }
 
@@ -70,6 +70,6 @@ void BinTObjDrivers_XYZDriver::Paste(const Handle(TDF_Attribute)& theSource,
                                      BinObjMgt_SRelocationTable&) const
 {
   Handle(TObj_TXYZ) aSource = Handle(TObj_TXYZ)::DownCast(theSource);
-  gp_XYZ            aXYZ    = aSource->Get();
+  Coords3d            aXYZ    = aSource->Get();
   theTarget << aXYZ.X() << aXYZ.Y() << aXYZ.Z();
 }

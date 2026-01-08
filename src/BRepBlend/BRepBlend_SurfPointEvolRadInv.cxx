@@ -65,7 +65,7 @@ Standard_Boolean BRepBlend_SurfPointEvolRadInv::Value(const math_Vector& X, math
   Standard_Real theD, norm, unsurnorm;
   Point3d        ptcur, pts;
   Vector3d        d1cur, d1u, d1v;
-  gp_XYZ        nplan(0., 0., 0.), ns(0., 0., 0.), ref(0., 0., 0.);
+  Coords3d        nplan(0., 0., 0.), ns(0., 0., 0.), ref(0., 0., 0.);
   curv->D1(X(1), ptcur, d1cur);
   ray   = sg1 * tevol->Value(X(1));
   nplan = d1cur.Normalized().XYZ();

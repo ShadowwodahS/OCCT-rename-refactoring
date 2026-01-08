@@ -52,7 +52,7 @@ void AnalyticIntersection2d::Perform(const gp_Circ2d& Circle, const Conic2d& Con
   ps   = 2.0 * E * radius;    // SIN
   pcte = F + pss;             // 1
 
-  math_TrigonometricFunctionRoots Sol(pcc, p2sc, pc, ps, pcte, 0.0, 2.0 * M_PI);
+  TrigonometricFunctionRoots Sol(pcc, p2sc, pc, ps, pcte, 0.0, 2.0 * M_PI);
 
   if (!Sol.IsDone())
   {

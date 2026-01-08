@@ -111,7 +111,7 @@ public:
 
   //! Returns inversed location transformation matrix if the shape corresponding
   //! to this entity has init location set. Otherwise, returns identity matrix.
-  Standard_EXPORT virtual gp_GTrsf InvInitLocation() const Standard_OVERRIDE;
+  Standard_EXPORT virtual GeneralTransform InvInitLocation() const Standard_OVERRIDE;
 
   const TopLoc_Location& GetInitLocation() const { return myInitLocation; }
 
@@ -162,7 +162,7 @@ protected:
   Handle(TColStd_HArray1OfInteger) myBVHPrimIndexes;     //!< Indexes of edges or triangles for BVH build
   mutable Select3D_BndBox3d        myBndBox;             //!< Bounding box of the whole triangulation
   // clang-format on
-  gp_GTrsf myInvInitLocation;
+  GeneralTransform myInvInitLocation;
 };
 
 DEFINE_STANDARD_HANDLE(Select3D_SensitiveTriangulation, Select3D_SensitiveSet)

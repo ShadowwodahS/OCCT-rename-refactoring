@@ -47,7 +47,7 @@ public:
   //! This method is used to set the fields of the class Line
   //! - aStart : Start point of the line
   //! - anEnd  : End point of the line
-  Standard_EXPORT void Init(const gp_XYZ& aStart, const gp_XYZ& anEnd);
+  Standard_EXPORT void Init(const Coords3d& aStart, const Coords3d& anEnd);
 
   //! Returns the Infinite status i.e. the Form Number : 0 1 2
   Standard_EXPORT Standard_Integer Infinite() const;
@@ -72,8 +72,8 @@ public:
 
 protected:
 private:
-  gp_XYZ theStart;
-  gp_XYZ theEnd;
+  Coords3d theStart;
+  Coords3d theEnd;
 };
 
 #endif // _IGESGeom_Line_HeaderFile

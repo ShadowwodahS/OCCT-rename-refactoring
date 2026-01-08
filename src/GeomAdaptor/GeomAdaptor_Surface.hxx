@@ -257,7 +257,7 @@ public:
 
   Standard_EXPORT Cone1 Cone() const Standard_OVERRIDE;
 
-  Standard_EXPORT gp_Sphere Sphere() const Standard_OVERRIDE;
+  Standard_EXPORT Sphere3 Sphere() const Standard_OVERRIDE;
 
   Standard_EXPORT gp_Torus Torus() const Standard_OVERRIDE;
 

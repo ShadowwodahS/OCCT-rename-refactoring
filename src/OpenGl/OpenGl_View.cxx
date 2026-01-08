@@ -295,7 +295,7 @@ void OpenGl_View::Remove()
 
 //=================================================================================================
 
-void OpenGl_View::SetLocalOrigin(const gp_XYZ& theOrigin)
+void OpenGl_View::SetLocalOrigin(const Coords3d& theOrigin)
 {
   myLocalOrigin                      = theOrigin;
   const Handle(OpenGl_Context)& aCtx = myWorkspace->GetGlContext();

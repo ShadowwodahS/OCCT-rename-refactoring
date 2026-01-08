@@ -1486,7 +1486,7 @@ Standard_Boolean PLib1::HermiteCoefficients(const Standard_Real    FirstParamete
   }
 
   // resolution du systemes
-  math_Gauss ResolCoeff(MAT, 1.0e-10);
+  Gauss ResolCoeff(MAT, 1.0e-10);
   if (!ResolCoeff.IsDone())
     return Standard_False;
 
@@ -1757,7 +1757,7 @@ void PLib1::CoefficientsPoles(const TColgp_Array2OfPnt&   Coefs,
 
   Standard_Integer I1, I2;
   Standard_Integer NPoleu, NPolev;
-  gp_XYZ           Temp;
+  Coords3d           Temp;
 
   for (NPoleu = LowerRow; NPoleu <= UpperRow; NPoleu++)
   {
@@ -1990,7 +1990,7 @@ Standard_Boolean PLib1::HermiteInterpolate(const Standard_Integer      Dimension
   //  If FirstOrder=1 then 3th row and 6th column are missing
   //  If FirstOrder=LastOrder=0 then 2,3,5,6th rows and 3,4,5,6th columns are missing
 
-  math_Gauss Equations(A);
+  Gauss Equations(A);
   //  std::cout << "A=" << A << std::endl;
 
   for (Standard_Integer idim = 1; idim <= Dimension; idim++)
@@ -2207,10 +2207,10 @@ void PLib1::EvalLength(const Standard_Integer Degree,
   Standard_Integer NbGaussPoints = 4 * Min((Degree / 4) + 1, 10);
 
   math_Vector GaussPoints(1, NbGaussPoints);
-  math::GaussPoints(NbGaussPoints, GaussPoints);
+  math1::GaussPoints(NbGaussPoints, GaussPoints);
 
   math_Vector GaussWeights(1, NbGaussPoints);
-  math::GaussWeights(NbGaussPoints, GaussWeights);
+  math1::GaussWeights(NbGaussPoints, GaussWeights);
 
   C1 = (U2 + U1) / 2.;
   C2 = (U2 - U1) / 2.;

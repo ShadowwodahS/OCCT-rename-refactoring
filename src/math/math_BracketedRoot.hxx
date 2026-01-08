@@ -23,11 +23,11 @@
 
 #include <Standard_Real.hxx>
 #include <Standard_OStream.hxx>
-class math_Function;
+class Function1;
 
 //! This class implements the Brent method to find the root of a function
 //! located within two bounds. No knowledge of the derivative is required.
-class math_BracketedRoot
+class BracketedRootSolver
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -39,7 +39,7 @@ public:
   //! The solution is found when :
   //! abs(Xi - Xi-1) <= Tolerance;
   //! The maximum number of iterations allowed is given by NbIterations.
-  Standard_EXPORT math_BracketedRoot(math_Function&         F,
+  Standard_EXPORT BracketedRootSolver(Function1&         F,
                                      const Standard_Real    Bound1,
                                      const Standard_Real    Bound2,
                                      const Standard_Real    Tolerance,

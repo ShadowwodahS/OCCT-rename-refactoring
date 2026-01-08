@@ -26,7 +26,7 @@
 #include <Standard_Integer.hxx>
 #include <TColgp_SequenceOfXY.hxx>
 class Transform3d;
-class gp_GTrsf2d;
+class GeneralTransform2d;
 class GeomCurve3d;
 class Point3d;
 class Vector3d;
@@ -119,7 +119,7 @@ public:
   //!
   //! It  can be redefined.  For  example on  the Plane,
   //! Cylinder, Cone, Revolved and Extruded surfaces.
-  Standard_EXPORT virtual gp_GTrsf2d ParametricTransformation(const Transform3d& T) const
+  Standard_EXPORT virtual GeneralTransform2d ParametricTransformation(const Transform3d& T) const
     Standard_OVERRIDE;
 
   Standard_EXPORT void Bounds(Standard_Real& U1,

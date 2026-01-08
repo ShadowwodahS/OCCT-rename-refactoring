@@ -33,7 +33,7 @@ using math_Vector = math_VectorBase<double>;
 //! surface S, starting from approximate solution (u0, v0).
 //!
 //! The class inherits math_MultipleVarFunctionWithGradient and thus is intended
-//! for use in math_BFGS algorithm.
+//! for use in BFGSOptimizer algorithm.
 //!
 //! The criteria is:
 //! F = SquareDist(P, S(u, v)) - > min

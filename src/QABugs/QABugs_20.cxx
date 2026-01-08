@@ -3197,7 +3197,7 @@ static Standard_Integer OCC29289(DrawInterpreter&, Standard_Integer, const char*
     Teta     = Intersector.Intersector().Point(i).ParamOnFirst();
     X        = Teta - 0.1 * (Teta - TetaPrev);
     TetaPrev = Teta;
-    math_NewtonFunctionRoot Resol(MyF, X, Tol1, Eps, Nit[i - 1]);
+    NewtonFunctionRoot Resol(MyF, X, Tol1, Eps, Nit[i - 1]);
     if (Resol.IsDone())
     {
       TetaNewton = Resol.Root();
@@ -4364,7 +4364,7 @@ static Standard_Integer OCC30704(DrawInterpreter& di, Standard_Integer, const ch
   aVoidBox.Add(aBox);
 
   // Print the center point of the bounding box.
-  const gp_XYZ& center = aVoidBox.Center();
+  const Coords3d& center = aVoidBox.Center();
   di << center.X() << " " << center.Y() << " " << center.Z();
   return 0;
 }
@@ -4379,7 +4379,7 @@ static Standard_Integer OCC30704_1(DrawInterpreter& di, Standard_Integer, const 
   aVoidBox.Add(aP);
 
   // Print the center point of the bounding box.
-  const gp_XYZ& center = aVoidBox.Center();
+  const Coords3d& center = aVoidBox.Center();
   di << center.X() << " " << center.Y() << " " << center.Z();
   return 0;
 }

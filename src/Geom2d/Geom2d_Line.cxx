@@ -34,7 +34,7 @@ typedef gp_Ax2d     Ax2d;
 typedef gp_Dir2d    Dir2d;
 typedef gp_Pnt2d    Pnt2d;
 typedef gp_Vec2d    Vec2d;
-typedef gp_Trsf2d   Trsf2d;
+typedef Transform2d   Trsf2d;
 typedef Coords2d       XY;
 
 //=================================================================================================
@@ -230,7 +230,7 @@ void Geom2d_Line::Transform(const Trsf2d& T)
 
 //=================================================================================================
 
-Standard_Real Geom2d_Line::TransformedParameter(const Standard_Real U, const gp_Trsf2d& T) const
+Standard_Real Geom2d_Line::TransformedParameter(const Standard_Real U, const Transform2d& T) const
 {
   if (Precision::IsInfinite(U))
     return U;
@@ -239,7 +239,7 @@ Standard_Real Geom2d_Line::TransformedParameter(const Standard_Real U, const gp_
 
 //=================================================================================================
 
-Standard_Real Geom2d_Line::ParametricTransformation(const gp_Trsf2d& T) const
+Standard_Real Geom2d_Line::ParametricTransformation(const Transform2d& T) const
 {
   return Abs(T.ScaleFactor());
 }

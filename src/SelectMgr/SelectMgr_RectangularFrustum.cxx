@@ -36,11 +36,11 @@ void SelectMgr_RectangularFrustum::segmentSegmentDistance(
   const Point3d&            theSegPnt2,
   SelectBasics_PickResult& thePickResult) const
 {
-  gp_XYZ anU = theSegPnt2.XYZ() - theSegPnt1.XYZ();
+  Coords3d anU = theSegPnt2.XYZ() - theSegPnt1.XYZ();
   // clang-format off
-  gp_XYZ aV = myFarPickedPnt.XYZ() - myNearPickedPnt.XYZ(); // use unnormalized vector instead of myViewRayDir to clip solutions behind Far plane
+  Coords3d aV = myFarPickedPnt.XYZ() - myNearPickedPnt.XYZ(); // use unnormalized vector instead of myViewRayDir to clip solutions behind Far plane
   // clang-format on
-  gp_XYZ aW = theSegPnt1.XYZ() - myNearPickedPnt.XYZ();
+  Coords3d aW = theSegPnt1.XYZ() - myNearPickedPnt.XYZ();
 
   Standard_Real anA   = anU.Dot(anU);
   Standard_Real aB    = anU.Dot(aV);
@@ -109,9 +109,9 @@ bool SelectMgr_RectangularFrustum::segmentPlaneIntersection(
   SelectBasics_PickResult& thePickResult) const
 {
   // clang-format off
-  gp_XYZ anU = myFarPickedPnt.XYZ() - myNearPickedPnt.XYZ(); // use unnormalized vector instead of myViewRayDir to clip solutions behind Far plane by > 1.0 check
+  Coords3d anU = myFarPickedPnt.XYZ() - myNearPickedPnt.XYZ(); // use unnormalized vector instead of myViewRayDir to clip solutions behind Far plane by > 1.0 check
   // clang-format on
-  gp_XYZ        aW = myNearPickedPnt.XYZ() - thePntOnPlane.XYZ();
+  Coords3d        aW = myNearPickedPnt.XYZ() - thePntOnPlane.XYZ();
   Standard_Real aD = thePlane.Dot(anU);
   Standard_Real aN = -thePlane.Dot(aW);
 
@@ -244,7 +244,7 @@ void SelectMgr_RectangularFrustum::cacheVertexProjections(
     {
       Standard_Real aMax   = -DBL_MAX;
       Standard_Real aMin   = DBL_MAX;
-      const gp_XYZ& aPlane = theFrustum->myPlanes[aPlaneIdx].XYZ();
+      const Coords3d& aPlane = theFrustum->myPlanes[aPlaneIdx].XYZ();
       for (Standard_Integer aVertIdx = 0; aVertIdx < 8; ++aVertIdx)
       {
         Standard_Real aProjection = aPlane.Dot(theFrustum->myVertices[aVertIdx].XYZ());
@@ -263,7 +263,7 @@ void SelectMgr_RectangularFrustum::cacheVertexProjections(
     Standard_Real aMin = DBL_MAX;
     for (Standard_Integer aVertIdx = 0; aVertIdx < 8; ++aVertIdx)
     {
-      const gp_XYZ& aVert = theFrustum->myVertices[aVertIdx].XYZ();
+      const Coords3d& aVert = theFrustum->myVertices[aVertIdx].XYZ();
       aMax                = Max(aVert.GetData()[aDim], aMax);
       aMin                = Min(aVert.GetData()[aDim], aMin);
     }
@@ -349,7 +349,7 @@ void SelectMgr_RectangularFrustum::Build()
 // =======================================================================
 Handle(SelectMgr_BaseIntersector) SelectMgr_RectangularFrustum::ScaleAndTransform(
   const Standard_Integer                  theScaleFactor,
-  const gp_GTrsf&                         theTrsf,
+  const GeneralTransform&                         theTrsf,
   const Handle(SelectMgr_FrustumBuilder)& theBuilder) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
@@ -562,7 +562,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsPoint(
   if (!hasPointOverlap(thePnt))
     return Standard_False;
 
-  gp_XYZ              aV     = thePnt.XYZ() - myNearPickedPnt.XYZ();
+  Coords3d              aV     = thePnt.XYZ() - myNearPickedPnt.XYZ();
   const Standard_Real aDepth = aV.Dot(myViewRayDir.XYZ());
 
   thePickResult.SetDepth(Abs(aDepth) * myScale);
@@ -650,7 +650,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsPolygon(
   }
   else if (theSensType == Select3D_TOS_INTERIOR)
   {
-    Vector3d aPolyNorm(gp_XYZ(RealLast(), RealLast(), RealLast()));
+    Vector3d aPolyNorm(Coords3d(RealLast(), RealLast(), RealLast()));
     if (!hasPolygonOverlap(theArrayOfPnts, aPolyNorm))
     {
       return Standard_False;
@@ -698,13 +698,13 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsTriangle(
   }
   else if (theSensType == Select3D_TOS_INTERIOR)
   {
-    Vector3d aTriangleNormal(gp_XYZ(RealLast(), RealLast(), RealLast()));
+    Vector3d aTriangleNormal(Coords3d(RealLast(), RealLast(), RealLast()));
     if (!hasTriangleOverlap(thePnt1, thePnt2, thePnt3, aTriangleNormal))
     {
       return Standard_False;
     }
 
-    const gp_XYZ aTrEdges[3] = {thePnt2.XYZ() - thePnt1.XYZ(),
+    const Coords3d aTrEdges[3] = {thePnt2.XYZ() - thePnt1.XYZ(),
                                 thePnt3.XYZ() - thePnt2.XYZ(),
                                 thePnt1.XYZ() - thePnt3.XYZ()};
     if (aTriangleNormal.SquareMagnitude() < gp1::Resolution())
@@ -736,10 +736,10 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsTriangle(
     }
 
     // check if intersection point belongs to triangle's interior part
-    const gp_XYZ anEdge = (thePnt1.XYZ() - myNearPickedPnt.XYZ()) * (1.0 / anAlpha);
+    const Coords3d anEdge = (thePnt1.XYZ() - myNearPickedPnt.XYZ()) * (1.0 / anAlpha);
 
     const Standard_Real aTime = aTriangleNormal.Dot(anEdge);
-    const gp_XYZ        aVec  = myViewRayDir.XYZ().Crossed(anEdge);
+    const Coords3d        aVec  = myViewRayDir.XYZ().Crossed(anEdge);
     const Standard_Real anU   = aVec.Dot(aTrEdges[2]);
     const Standard_Real aV    = aVec.Dot(aTrEdges[0]);
 
@@ -758,7 +758,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsTriangle(
     Standard_Integer aNearestEdgeIdx1 = -1;
     for (Standard_Integer anEdgeIdx = 0; anEdgeIdx < 3; ++anEdgeIdx)
     {
-      gp_XYZ        aW = aPtOnPlane.XYZ() - aPnts[anEdgeIdx].XYZ();
+      Coords3d        aW = aPtOnPlane.XYZ() - aPnts[anEdgeIdx].XYZ();
       Standard_Real aCoef =
         aTrEdges[anEdgeIdx].Dot(aW) / aTrEdges[anEdgeIdx].Dot(aTrEdges[anEdgeIdx]);
       Standard_Real aDist =
@@ -980,13 +980,13 @@ Standard_Boolean SelectMgr_RectangularFrustum::isSegmentsIntersect(const Point3d
     aSnd[2] = thePnt1Seg2.Z();
     aSnd[3] = thePnt2Seg2.Z();
   }
-  const gp_Mat2d aMat(Coords2d(aFst[0] - aFst[1], aSnd[0] - aSnd[1]),
+  const Matrix2d aMat(Coords2d(aFst[0] - aFst[1], aSnd[0] - aSnd[1]),
                       Coords2d(aFst[3] - aFst[2], aSnd[3] - aSnd[2]));
 
-  const gp_Mat2d aMatU(Coords2d(aFst[0] - aFst[2], aSnd[0] - aSnd[2]),
+  const Matrix2d aMatU(Coords2d(aFst[0] - aFst[2], aSnd[0] - aSnd[2]),
                        Coords2d(aFst[3] - aFst[2], aSnd[3] - aSnd[2]));
 
-  const gp_Mat2d aMatV(Coords2d(aFst[0] - aFst[1], aSnd[0] - aSnd[1]),
+  const Matrix2d aMatV(Coords2d(aFst[0] - aFst[1], aSnd[0] - aSnd[1]),
                        Coords2d(aFst[0] - aFst[2], aSnd[0] - aSnd[2]));
   if (aMat.Determinant() == 0.0)
   {

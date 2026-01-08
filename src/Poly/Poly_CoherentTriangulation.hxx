@@ -53,7 +53,7 @@ DEFINE_STANDARD_HANDLE(Poly_CoherentTriangulation, RefObject)
  * @section Poly_CoherentTriangulation Architecture
  * The data types used in this structure are:
  * <ul>
- * <li><b>Poly_CoherentNode</b>: Inherits go_XYZ therefore provides the full public API of gp_XYZ.
+ * <li><b>Poly_CoherentNode</b>: Inherits go_XYZ therefore provides the full public API of Coords3d.
  * Contains references to all incident triangles. You can add new nodes but you cannot remove
  * existing ones. However each node that has no referenced triangle is considered as "free" (use the
  * method IsFreeNode() to check this). Free nodes are not available to further processing,
@@ -238,7 +238,7 @@ public:
    * @return
    *   Index of the added node.
    */
-  Standard_EXPORT Standard_Integer SetNode(const gp_XYZ& thePnt, const Standard_Integer iN = -1);
+  Standard_EXPORT Standard_Integer SetNode(const Coords3d& thePnt, const Standard_Integer iN = -1);
 
   /**
    * Get the node at the given index 'i'.

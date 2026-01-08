@@ -142,7 +142,7 @@ Standard_Boolean Ax3::InitFromJson(const Standard_SStream& theSStream,
   Standard_Integer        aPos       = theStreamPos;
   AsciiString1 aStreamStr = Standard_Dump::Text(theSStream);
 
-  gp_XYZ anXYZLoc;
+  Coords3d anXYZLoc;
   OCCT_INIT_VECTOR_CLASS(aStreamStr,
                          "Location",
                          aPos,
@@ -152,7 +152,7 @@ Standard_Boolean Ax3::InitFromJson(const Standard_SStream& theSStream,
                          &anXYZLoc.ChangeCoord(3))
   SetLocation(anXYZLoc);
 
-  gp_XYZ aDir;
+  Coords3d aDir;
   OCCT_INIT_VECTOR_CLASS(aStreamStr,
                          "Direction",
                          aPos,
@@ -160,7 +160,7 @@ Standard_Boolean Ax3::InitFromJson(const Standard_SStream& theSStream,
                          &aDir.ChangeCoord(1),
                          &aDir.ChangeCoord(2),
                          &aDir.ChangeCoord(3))
-  gp_XYZ aXDir;
+  Coords3d aXDir;
   OCCT_INIT_VECTOR_CLASS(aStreamStr,
                          "XDirection",
                          aPos,
@@ -168,7 +168,7 @@ Standard_Boolean Ax3::InitFromJson(const Standard_SStream& theSStream,
                          &aXDir.ChangeCoord(1),
                          &aXDir.ChangeCoord(2),
                          &aXDir.ChangeCoord(3))
-  gp_XYZ anYDir;
+  Coords3d anYDir;
   OCCT_INIT_VECTOR_CLASS(aStreamStr,
                          "YDirection",
                          aPos,

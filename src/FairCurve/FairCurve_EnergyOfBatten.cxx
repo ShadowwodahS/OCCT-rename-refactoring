@@ -112,12 +112,12 @@ Standard_Boolean FairCurve_EnergyOfBatten::Compute(const Standard_Integer Deriva
     Debut(1) = (ii - 1) * Delta;
     Fin(1)   = ii * Delta;
 
-    math_GaussSetIntegration SumTension(MyTension, Debut, Fin, MyOrder);
+    GaussSetIntegration SumTension(MyTension, Debut, Fin, MyOrder);
     Ok = SumTension.IsDone();
     if (!Ok)
       return Ok;
 
-    math_GaussSetIntegration SumSagging(MySagging, Debut, Fin, MyOrder);
+    GaussSetIntegration SumSagging(MySagging, Debut, Fin, MyOrder);
     Ok = SumSagging.IsDone();
 
     if (Ok)

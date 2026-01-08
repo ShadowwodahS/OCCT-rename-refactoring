@@ -27,7 +27,7 @@
 #include <GeomAbs_Shape.hxx>
 class GeomCurve2d;
 class Geom2d_Geometry;
-class gp_Trsf2d;
+class Transform2d;
 class gp_Vec2d;
 
 class Bisector_BisecCC;
@@ -101,7 +101,7 @@ public:
   //! can be a translation, a rotation, a symmetry, a scaling
   //! or a complex1 transformation obtained by combination of
   //! the previous elementaries transformations.
-  Standard_EXPORT void Transform(const gp_Trsf2d& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform2d& T) Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Real FirstParameter() const Standard_OVERRIDE;
 

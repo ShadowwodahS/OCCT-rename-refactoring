@@ -39,7 +39,7 @@ void NodeTool::ReadOwnParams(const Handle(IGESAppli_Node)&          ent,
                                        const Handle(IGESData_IGESReaderData)& IR,
                                        IGESData_ParamReader&                  PR) const
 {
-  gp_XYZ                                tempCoordinates;
+  Coords3d                                tempCoordinates;
   Handle(IGESGeom_TransformationMatrix) tempSystem;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
 
@@ -77,7 +77,7 @@ void NodeTool::OwnCopy(const Handle(IGESAppli_Node)& another,
                                  const Handle(IGESAppli_Node)& ent,
                                  Interface_CopyTool&           TC) const
 {
-  gp_XYZ aCoord = (another->Coord()).XYZ();
+  Coords3d aCoord = (another->Coord()).XYZ();
   DeclareAndCast(IGESGeom_TransformationMatrix, aSystem, TC.Transferred(another->System()));
 
   ent->Init(aCoord, aSystem);

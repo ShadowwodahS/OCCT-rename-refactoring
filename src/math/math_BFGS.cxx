@@ -245,7 +245,7 @@ static Standard_Boolean MinimizeDirection(math_Vector&       P,
   if (!F.Value(lambda, F1))
     return Standard_False;
 
-  math_BracketMinimum Bracket(0.0, lambda);
+  BracketMinimum Bracket(0.0, lambda);
   if (isBounds)
     Bracket.SetLimits(aMinLambda, aMaxLambda);
   Bracket.SetFA(F0);
@@ -260,7 +260,7 @@ static Standard_Boolean MinimizeDirection(math_Vector&       P,
 
     Standard_Integer  niter = 100;
     Standard_Real     tol   = 1.e-03;
-    math_BrentMinimum Sol(tol, Fxx, niter, 1.e-08);
+    BrentMinimumSolver Sol(tol, Fxx, niter, 1.e-08);
     Sol.Perform(F, ax, xx, bx);
     if (Sol.IsDone())
     {
@@ -302,7 +302,7 @@ static Standard_Boolean MinimizeDirection(math_Vector&       P,
 // function : Perform
 // purpose  : Performs minimization problem using BFGS method.
 //=============================================================================
-void math_BFGS::Perform(math_MultipleVarFunctionWithGradient& F, const math_Vector& StartingPoint)
+void BFGSOptimizer::Perform(math_MultipleVarFunctionWithGradient& F, const math_Vector& StartingPoint)
 {
   const Standard_Integer n    = TheLocation.Length();
   Standard_Boolean       Good = Standard_True;
@@ -415,7 +415,7 @@ void math_BFGS::Perform(math_MultipleVarFunctionWithGradient& F, const math_Vect
 // function : IsSolutionReached
 // purpose  : Checks whether solution reached or not.
 //=============================================================================
-Standard_Boolean math_BFGS::IsSolutionReached(math_MultipleVarFunctionWithGradient&) const
+Standard_Boolean BFGSOptimizer::IsSolutionReached(math_MultipleVarFunctionWithGradient&) const
 {
 
   return 2.0 * fabs(TheMinimum - PreviousMinimum)
@@ -424,7 +424,7 @@ Standard_Boolean math_BFGS::IsSolutionReached(math_MultipleVarFunctionWithGradie
 
 //=================================================================================================
 
-math_BFGS::math_BFGS(const Standard_Integer NbVariables,
+BFGSOptimizer::BFGSOptimizer(const Standard_Integer NbVariables,
                      const Standard_Real    Tolerance,
                      const Standard_Integer NbIterations,
                      const Standard_Real    ZEPS)
@@ -446,14 +446,14 @@ math_BFGS::math_BFGS(const Standard_Integer NbVariables,
 
 //=================================================================================================
 
-math_BFGS::~math_BFGS() {}
+BFGSOptimizer::~BFGSOptimizer() {}
 
 //=================================================================================================
 
-void math_BFGS::Dump(Standard_OStream& o) const
+void BFGSOptimizer::Dump(Standard_OStream& o) const
 {
 
-  o << "math_BFGS resolution: ";
+  o << "BFGSOptimizer resolution: ";
   if (Done)
   {
     o << " Status = Done \n";
@@ -469,7 +469,7 @@ void math_BFGS::Dump(Standard_OStream& o) const
 // function : SetBoundary
 // purpose  : Set boundaries for conditional optimization
 //=============================================================================
-void math_BFGS::SetBoundary(const math_Vector& theLeftBorder, const math_Vector& theRightBorder)
+void BFGSOptimizer::SetBoundary(const math_Vector& theLeftBorder, const math_Vector& theRightBorder)
 {
   myLeft            = theLeftBorder;
   myRight           = theRightBorder;

@@ -244,10 +244,10 @@ public:
   Standard_EXPORT unsigned int SpecIBLMapLevels() const;
 
   //! Returns local camera origin currently set for rendering, might be modified during rendering.
-  const gp_XYZ& LocalOrigin() const { return myLocalOrigin; }
+  const Coords3d& LocalOrigin() const { return myLocalOrigin; }
 
   //! Setup local camera origin currently set for rendering.
-  Standard_EXPORT void SetLocalOrigin(const gp_XYZ& theOrigin);
+  Standard_EXPORT void SetLocalOrigin(const Coords3d& theOrigin);
 
   //! Returns list of lights of the view.
   virtual const Handle(Graphic3d_LightSet)& Lights() const Standard_OVERRIDE { return myLights; }
@@ -489,7 +489,7 @@ protected:
   Standard_Boolean         myWasRedrawnGL;
 
   Handle(Graphic3d_SequenceOfHClipPlane) myClipPlanes;
-  gp_XYZ                                 myLocalOrigin;
+  Coords3d                                 myLocalOrigin;
   Handle(OpenGl_FrameBuffer)             myFBO;
   Standard_Boolean                       myToShowGradTrihedron;
   Graphic3d_GraduatedTrihedron           myGTrihedronData;
@@ -1107,7 +1107,7 @@ protected: //! @name fields related to ray-tracing
   OpenGl_Vec3 myPreviousOrigins[3];
 
   //! Bullard RNG to produce random sequence.
-  math_BullardGenerator myRNG;
+  BullardGenerator myRNG;
 
   //! Tool object for sampling screen tiles in PT mode.
   OpenGl_TileSampler myTileSampler;

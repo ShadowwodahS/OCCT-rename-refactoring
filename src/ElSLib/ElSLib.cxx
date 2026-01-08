@@ -34,9 +34,9 @@ static Standard_Real PIPI = M_PI + M_PI;
 
 Point3d ElSLib1::PlaneValue(const Standard_Real U, const Standard_Real V, const Ax3& Pos)
 {
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   return Point3d(U * XDir.X() + V * YDir.X() + PLoc.X(),
                 U * XDir.Y() + V * YDir.Y() + PLoc.Y(),
                 U * XDir.Z() + V * YDir.Z() + PLoc.Z());
@@ -48,10 +48,10 @@ Point3d ElSLib1::ConeValue(const Standard_Real U,
                          const Standard_Real Radius,
                          const Standard_Real SAngle)
 {
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& ZDir = Pos.Direction().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real R    = Radius + V * sin(SAngle);
   Standard_Real A3   = V * cos(SAngle);
   Standard_Real A1   = R * cos(U);
@@ -70,10 +70,10 @@ Point3d ElSLib1::CylinderValue(const Standard_Real U,
   // where C is the location point of the Axis2placement
   // Xdir, Ydir ,Zdir are the directions of the local coordinates system
 
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& ZDir = Pos.Direction().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real A1   = Radius * cos(U);
   Standard_Real A2   = Radius * sin(U);
   return Point3d(A1 * XDir.X() + A2 * YDir.X() + V * ZDir.X() + PLoc.X(),
@@ -90,10 +90,10 @@ Point3d ElSLib1::SphereValue(const Standard_Real U,
   //          R * CosV (CosU * XDirection + SinU * YDirection) +
   //          R * SinV * Direction
 
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& ZDir = Pos.Direction().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real R    = Radius * cos(V);
   Standard_Real A3   = Radius * sin(V);
   Standard_Real A1   = R * cos(U);
@@ -114,10 +114,10 @@ Point3d ElSLib1::TorusValue(const Standard_Real U,
   //   (MajRadius+MinRadius*Cos(V)) * (Cos(U)*XDirection + Sin(U)*YDirection) +
   //   MinorRadius * Sin(V) * Direction
 
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& ZDir = Pos.Direction().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real R    = MajorRadius + MinorRadius * cos(V);
   Standard_Real A3   = MinorRadius * sin(V);
   Standard_Real A1   = R * cos(U);
@@ -165,8 +165,8 @@ Vector3d ElSLib1::ConeDN(const Standard_Real    U,
                       const Standard_Integer Nu,
                       const Standard_Integer Nv)
 {
-  gp_XYZ        Xdir = Pos.XDirection().XYZ();
-  gp_XYZ        Ydir = Pos.YDirection().XYZ();
+  Coords3d        Xdir = Pos.XDirection().XYZ();
+  Coords3d        Ydir = Pos.YDirection().XYZ();
   Standard_Real Um   = U + Nu * M_PI_2; // M_PI * 0.5
   Xdir.Multiply(cos(Um));
   Ydir.Multiply(sin(Um));
@@ -203,8 +203,8 @@ Vector3d ElSLib1::CylinderDN(const Standard_Real U,
   {
     Standard_Real RCosU = Radius * cos(U);
     Standard_Real RSinU = Radius * sin(U);
-    gp_XYZ        Xdir  = Pos.XDirection().XYZ();
-    gp_XYZ        Ydir  = Pos.YDirection().XYZ();
+    Coords3d        Xdir  = Pos.XDirection().XYZ();
+    Coords3d        Ydir  = Pos.YDirection().XYZ();
     if ((Nu + 6) % 4 == 0)
     {
       Xdir.Multiply(-RCosU);
@@ -252,9 +252,9 @@ Vector3d ElSLib1::SphereDN(const Standard_Real    U,
   Standard_Real CosU  = cos(U);
   Standard_Real SinU  = sin(U);
   Standard_Real RCosV = Radius * cos(V);
-  const gp_XYZ& XDir  = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir  = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir  = Pos.Direction().XYZ();
+  const Coords3d& XDir  = Pos.XDirection().XYZ();
+  const Coords3d& YDir  = Pos.YDirection().XYZ();
+  const Coords3d& ZDir  = Pos.Direction().XYZ();
   Standard_Real A1, A2, A3, X, Y, Z;
   if (Nu == 0)
   {
@@ -348,9 +348,9 @@ Vector3d ElSLib1::TorusDN(const Standard_Real    U,
   }
   Standard_Real CosU = cos(U);
   Standard_Real SinU = sin(U);
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir = Pos.Direction().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& ZDir = Pos.Direction().XYZ();
   Standard_Real A1, A2, A3, X = 0, Y = 0, Z = 0;
   //  Modified by skv - Tue Sep  9 15:10:34 2003 OCC620 Begin
   Standard_Real eps = 10. * (MinorRadius + MajorRadius) * RealEpsilon();
@@ -505,9 +505,9 @@ Vector3d ElSLib1::TorusDN(const Standard_Real    U,
 
 void ElSLib1::PlaneD0(const Standard_Real U, const Standard_Real V, const Ax3& Pos, Point3d& P)
 {
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   P.SetX(U * XDir.X() + V * YDir.X() + PLoc.X());
   P.SetY(U * XDir.Y() + V * YDir.Y() + PLoc.Y());
   P.SetZ(U * XDir.Z() + V * YDir.Z() + PLoc.Z());
@@ -520,10 +520,10 @@ void ElSLib1::ConeD0(const Standard_Real U,
                     const Standard_Real SAngle,
                     Point3d&             P)
 {
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& ZDir = Pos.Direction().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real R    = Radius + V * sin(SAngle);
   Standard_Real A3   = V * cos(SAngle);
   Standard_Real A1   = R * cos(U);
@@ -539,10 +539,10 @@ void ElSLib1::CylinderD0(const Standard_Real U,
                         const Standard_Real Radius,
                         Point3d&             P)
 {
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& ZDir = Pos.Direction().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real A1   = Radius * cos(U);
   Standard_Real A2   = Radius * sin(U);
   P.SetX(A1 * XDir.X() + A2 * YDir.X() + V * ZDir.X() + PLoc.X());
@@ -556,10 +556,10 @@ void ElSLib1::SphereD0(const Standard_Real U,
                       const Standard_Real Radius,
                       Point3d&             P)
 {
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& ZDir = Pos.Direction().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real R    = Radius * cos(V);
   Standard_Real A3   = Radius * sin(V);
   Standard_Real A1   = R * cos(U);
@@ -576,10 +576,10 @@ void ElSLib1::TorusD0(const Standard_Real U,
                      const Standard_Real MinorRadius,
                      Point3d&             P)
 {
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& ZDir = Pos.Direction().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real R    = MajorRadius + MinorRadius * cos(V);
   Standard_Real A3   = MinorRadius * sin(V);
   Standard_Real A1   = R * cos(U);
@@ -608,9 +608,9 @@ void ElSLib1::PlaneD1(const Standard_Real U,
                      Vector3d&             Vu,
                      Vector3d&             Vv)
 {
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   P.SetX(U * XDir.X() + V * YDir.X() + PLoc.X());
   P.SetY(U * XDir.Y() + V * YDir.Y() + PLoc.Y());
   P.SetZ(U * XDir.Z() + V * YDir.Z() + PLoc.Z());
@@ -642,10 +642,10 @@ void ElSLib1::ConeD1(const Standard_Real U,
   // Direction() *Cos(SAngle) + Sin(SAng) * (Cos(U) * XDirection() +
   // Sin(U) * YDirection())
 
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& ZDir = Pos.Direction().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real CosU = cos(U);
   Standard_Real SinU = sin(U);
   Standard_Real CosA = cos(SAngle);
@@ -675,10 +675,10 @@ void ElSLib1::CylinderD1(const Standard_Real U,
                         Vector3d&             Vu,
                         Vector3d&             Vv)
 {
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& ZDir = Pos.Direction().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real A1   = Radius * cos(U);
   Standard_Real A2   = Radius * sin(U);
   P.SetX(A1 * XDir.X() + A2 * YDir.X() + V * ZDir.X() + PLoc.X());
@@ -709,10 +709,10 @@ void ElSLib1::SphereD1(const Standard_Real U,
 
   // Vv = -R * SinV * Vxy + R * CosV * Direction
 
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& ZDir = Pos.Direction().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real CosU = cos(U);
   Standard_Real SinU = sin(U);
   Standard_Real R1   = Radius * cos(V);
@@ -755,10 +755,10 @@ void ElSLib1::TorusD1(const Standard_Real U,
   //  (MajorRadius+MinorRadius*Cos(V)) *
   //  (-Sin(U)*XDirection + Cos(U)*YDirection)
 
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& ZDir = Pos.Direction().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real CosU = cos(U);
   Standard_Real SinU = sin(U);
   Standard_Real R1   = MinorRadius * cos(V);
@@ -825,10 +825,10 @@ void ElSLib1::ConeD2(const Standard_Real U,
   // DUV =
   // Sin(SAng) * (-Sin(U) * XDirection() + Cos(U) * YDirection())
 
-  const gp_XYZ& XDir  = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir  = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir  = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc  = Pos.Location().XYZ();
+  const Coords3d& XDir  = Pos.XDirection().XYZ();
+  const Coords3d& YDir  = Pos.YDirection().XYZ();
+  const Coords3d& ZDir  = Pos.Direction().XYZ();
+  const Coords3d& PLoc  = Pos.Location().XYZ();
   Standard_Real CosU  = cos(U);
   Standard_Real SinU  = sin(U);
   Standard_Real CosA  = cos(SAngle);
@@ -873,10 +873,10 @@ void ElSLib1::CylinderD2(const Standard_Real U,
                         Vector3d&             Vvv,
                         Vector3d&             Vuv)
 {
-  const gp_XYZ& XDir  = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir  = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir  = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc  = Pos.Location().XYZ();
+  const Coords3d& XDir  = Pos.XDirection().XYZ();
+  const Coords3d& YDir  = Pos.YDirection().XYZ();
+  const Coords3d& ZDir  = Pos.Direction().XYZ();
+  const Coords3d& PLoc  = Pos.Location().XYZ();
   Standard_Real A1    = Radius * cos(U);
   Standard_Real A2    = Radius * sin(U);
   Standard_Real Som1X = A1 * XDir.X() + A2 * YDir.X();
@@ -928,10 +928,10 @@ void ElSLib1::SphereD2(const Standard_Real U,
 
   // Vuv = - R * SinV * DVxy
 
-  const gp_XYZ& XDir  = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir  = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir  = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc  = Pos.Location().XYZ();
+  const Coords3d& XDir  = Pos.XDirection().XYZ();
+  const Coords3d& YDir  = Pos.YDirection().XYZ();
+  const Coords3d& ZDir  = Pos.Direction().XYZ();
+  const Coords3d& PLoc  = Pos.Location().XYZ();
   Standard_Real CosU  = cos(U);
   Standard_Real SinU  = sin(U);
   Standard_Real R1    = Radius * cos(V);
@@ -1000,10 +1000,10 @@ void ElSLib1::TorusD2(const Standard_Real U,
 
   // Vuv = MinorRadius * Sin(V) * (Sin(U)*XDirection - Cos(U)*YDirection)
 
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& ZDir = Pos.Direction().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real CosU = cos(U);
   Standard_Real SinU = sin(U);
   Standard_Real R1   = MinorRadius * cos(V);
@@ -1106,10 +1106,10 @@ void ElSLib1::ConeD3(const Standard_Real U,
 
   // DUUV =  Sin(SAng) * (-Cos(U)*XDirection()-Sin(U) * YDirection()) +
 
-  const gp_XYZ& XDir  = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir  = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir  = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc  = Pos.Location().XYZ();
+  const Coords3d& XDir  = Pos.XDirection().XYZ();
+  const Coords3d& YDir  = Pos.YDirection().XYZ();
+  const Coords3d& ZDir  = Pos.Direction().XYZ();
+  const Coords3d& PLoc  = Pos.Location().XYZ();
   Standard_Real CosU  = cos(U);
   Standard_Real SinU  = sin(U);
   Standard_Real CosA  = cos(SAngle);
@@ -1176,10 +1176,10 @@ void ElSLib1::CylinderD3(const Standard_Real U,
                         Vector3d&             Vuuv,
                         Vector3d&             Vuvv)
 {
-  const gp_XYZ& XDir  = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir  = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir  = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc  = Pos.Location().XYZ();
+  const Coords3d& XDir  = Pos.XDirection().XYZ();
+  const Coords3d& YDir  = Pos.YDirection().XYZ();
+  const Coords3d& ZDir  = Pos.Direction().XYZ();
+  const Coords3d& PLoc  = Pos.Location().XYZ();
   Standard_Real A1    = Radius * cos(U);
   Standard_Real A2    = Radius * sin(U);
   Standard_Real Som1X = A1 * XDir.X() + A2 * YDir.X();
@@ -1259,10 +1259,10 @@ void ElSLib1::SphereD3(const Standard_Real U,
 
   // Vuvv = - R * CosV * DVxy = Vuuu = -Vu
 
-  const gp_XYZ& XDir  = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir  = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir  = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc  = Pos.Location().XYZ();
+  const Coords3d& XDir  = Pos.XDirection().XYZ();
+  const Coords3d& YDir  = Pos.YDirection().XYZ();
+  const Coords3d& ZDir  = Pos.Direction().XYZ();
+  const Coords3d& PLoc  = Pos.Location().XYZ();
   Standard_Real CosU  = cos(U);
   Standard_Real SinU  = sin(U);
   Standard_Real R1    = Radius * cos(V);
@@ -1365,10 +1365,10 @@ void ElSLib1::TorusD3(const Standard_Real U,
 
   // Vuuv = MinorRadius * Sin(V) * (Cos(U)*XDirection + Sin(U)*YDirection)
 
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& ZDir = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& ZDir = Pos.Direction().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real CosU = cos(U);
   Standard_Real SinU = sin(U);
   Standard_Real R1   = MinorRadius * cos(V);
@@ -1601,7 +1601,7 @@ void ElSLib1::TorusParameters(const Ax3&       Pos,
   Standard_Real cosu = cos(U);
   Standard_Real sinu = sin(U);
   Dir3d        dx(cosu, sinu, 0.);
-  gp_XYZ        dPV(x - MajorRadius * cosu, y - MajorRadius * sinu, z);
+  Coords3d        dPV(x - MajorRadius * cosu, y - MajorRadius * sinu, z);
   Standard_Real aMag = dPV.Modulus();
   if (aMag <= gp1::Resolution())
   {

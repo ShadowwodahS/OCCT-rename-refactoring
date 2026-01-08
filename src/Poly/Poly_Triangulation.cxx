@@ -436,9 +436,9 @@ void MeshTriangulation::ComputeNormals()
     const Point3d aNode1 = myNodes.Value(anElem[1] - 1);
     const Point3d aNode2 = myNodes.Value(anElem[2] - 1);
 
-    const gp_XYZ   aVec01   = aNode1.XYZ() - aNode0.XYZ();
-    const gp_XYZ   aVec02   = aNode2.XYZ() - aNode0.XYZ();
-    const gp_XYZ   aTriNorm = aVec01 ^ aVec02;
+    const Coords3d   aVec01   = aNode1.XYZ() - aNode0.XYZ();
+    const Coords3d   aVec02   = aNode2.XYZ() - aNode0.XYZ();
+    const Coords3d   aTriNorm = aVec01 ^ aVec02;
     const gp_Vec3f aNorm3f =
       gp_Vec3f(float(aTriNorm.X()), float(aTriNorm.Y()), float(aTriNorm.Z()));
     for (Standard_Integer aNodeIter = 0; aNodeIter < 3; ++aNodeIter)

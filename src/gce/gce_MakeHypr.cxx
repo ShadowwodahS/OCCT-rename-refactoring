@@ -29,7 +29,7 @@
 //=========================================================================
 gce_MakeHypr::gce_MakeHypr(const Point3d& S1, const Point3d& S2, const Point3d& Center)
 {
-  Dir3d        XAxis(gp_XYZ(S1.XYZ() - Center.XYZ()));
+  Dir3d        XAxis(Coords3d(S1.XYZ() - Center.XYZ()));
   gp_Lin        L(Center, XAxis);
   Standard_Real D = S1.Distance(Center);
   Standard_Real d = L.Distance(S2);
@@ -39,7 +39,7 @@ gce_MakeHypr::gce_MakeHypr(const Point3d& S1, const Point3d& S2, const Point3d& 
   }
   else
   {
-    Dir3d Norm(XAxis.Crossed(Dir3d(gp_XYZ(S2.XYZ() - Center.XYZ()))));
+    Dir3d Norm(XAxis.Crossed(Dir3d(Coords3d(S2.XYZ() - Center.XYZ()))));
     TheHypr  = gp_Hypr(Frame3d(Center, Norm, XAxis), D, d);
     TheError = gce_Done;
   }

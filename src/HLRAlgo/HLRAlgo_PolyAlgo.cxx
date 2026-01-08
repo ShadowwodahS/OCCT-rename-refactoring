@@ -196,9 +196,9 @@ void HLRAlgo_PolyAlgo::Update()
           TriangleData& aTD = TData.ChangeValue(otheri);
           if (aTD.Flags & HLRAlgo_PolyMask_FMskHiding)
           {
-            const gp_XYZ& P1 = Nodes.Value(aTD.Node1);
-            const gp_XYZ& P2 = Nodes.Value(aTD.Node2);
-            const gp_XYZ& P3 = Nodes.Value(aTD.Node3);
+            const Coords3d& P1 = Nodes.Value(aTD.Node1);
+            const Coords3d& P2 = Nodes.Value(aTD.Node2);
+            const Coords3d& P3 = Nodes.Value(aTD.Node3);
             X1               = P1.X();
             Y1               = P1.Y();
             Z1               = P1.Z();

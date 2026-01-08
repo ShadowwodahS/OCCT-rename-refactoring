@@ -758,7 +758,7 @@ void AIS_Trihedron::updatePrimitives(const Handle(Prs3d_DatumAspect)& theAspect,
   anAxisDirs.Bind(Prs3d_DatumParts_ZAxis, theZDirection);
 
   NCollection_DataMap<Prs3d_DatumParts, Point3d> anAxisPoints;
-  gp_XYZ                                        anXYZOrigin = theOrigin.XYZ();
+  Coords3d                                        anXYZOrigin = theOrigin.XYZ();
   for (int anAxisIter = Prs3d_DatumParts_XAxis; anAxisIter <= Prs3d_DatumParts_ZAxis; ++anAxisIter)
   {
     Prs3d_DatumParts aPart = (Prs3d_DatumParts)anAxisIter;

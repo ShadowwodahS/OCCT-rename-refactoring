@@ -292,7 +292,7 @@ public:
   typedef instance<Elementary, GeomPlane, Ax3>                   Plane;
   typedef instance<Elementary, Geom_ConicalSurface, Cone1>         Conical;
   typedef instance<Elementary, Geom_CylindricalSurface, Cylinder1> Cylindrical;
-  typedef instance<Elementary, Geom_SphericalSurface, gp_Sphere>     Spherical;
+  typedef instance<Elementary, Geom_SphericalSurface, Sphere3>     Spherical;
   typedef instance<Elementary, Geom_ToroidalSurface, gp_Torus>       Toroidal;
 
   typedef subBase<Surface, pSweptData>     Swept;
@@ -403,13 +403,13 @@ template <>
 Standard_CString ShapePersistent_Geom::instance<
   ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_SphericalSurface,
-  gp_Sphere>::PName() const;
+  Sphere3>::PName() const;
 
 template <>
 void ShapePersistent_Geom::instance<
   ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_SphericalSurface,
-  gp_Sphere>::Write(StdObjMgt_WriteData& theWriteData) const;
+  Sphere3>::Write(StdObjMgt_WriteData& theWriteData) const;
 
 //=======================================================================
 // Toroidal

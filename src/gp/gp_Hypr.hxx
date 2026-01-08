@@ -483,7 +483,7 @@ inline gp_Hypr gp_Hypr::Transformed(const Transform3d& theT) const
 inline Axis3d gp_Hypr::Directrix1() const
 {
   Standard_Real anE    = Eccentricity();
-  gp_XYZ        anOrig = pos.XDirection().XYZ();
+  Coords3d        anOrig = pos.XDirection().XYZ();
   anOrig.Multiply(majorRadius / anE);
   anOrig.Add(pos.Location().XYZ());
   return Axis3d(Point3d(anOrig), pos.YDirection());
@@ -496,7 +496,7 @@ inline Axis3d gp_Hypr::Directrix1() const
 inline Axis3d gp_Hypr::Directrix2() const
 {
   Standard_Real anE    = Eccentricity();
-  gp_XYZ        anOrig = pos.XDirection().XYZ();
+  Coords3d        anOrig = pos.XDirection().XYZ();
   anOrig.Multiply(-majorRadius / anE);
   anOrig.Add(pos.Location().XYZ());
   return Axis3d(Point3d(anOrig), pos.YDirection());

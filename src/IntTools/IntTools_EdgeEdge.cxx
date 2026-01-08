@@ -988,7 +988,7 @@ void IntTools_EdgeEdge::ComputeLineLine()
   }
 
   Vector3d        O1O2(aL1.Location(), aL2.Location());
-  gp_XYZ        aCross  = aD1.XYZ().Crossed(aD2.XYZ());
+  Coords3d        aCross  = aD1.XYZ().Crossed(aD2.XYZ());
   Standard_Real aDistLL = O1O2.Dot(Vector3d(aCross.Normalized()));
   if (Abs(aDistLL) > myTol)
     return;

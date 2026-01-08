@@ -361,7 +361,7 @@ inline Cone1 BSurfaceTool::Cone(const BRepAdaptor_Surface& S)
 // purpose  :
 //=======================================================================
 
-inline gp_Sphere BSurfaceTool::Sphere(const BRepAdaptor_Surface& S)
+inline Sphere3 BSurfaceTool::Sphere(const BRepAdaptor_Surface& S)
 {
   return S.Sphere();
 }

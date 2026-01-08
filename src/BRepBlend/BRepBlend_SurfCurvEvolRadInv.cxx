@@ -70,8 +70,8 @@ Standard_Boolean BRepBlend_SurfCurvEvolRadInv::Value(const math_Vector& X, math_
   ray          = sg1 * tevol->Value(X(1));
   Vector3d nplan = d1gui.Normalized();
   //  Standard_Real theD = -(nplan.XYZ().Dot(ptgui.XYZ()));
-  gp_XYZ        nplanXYZ(nplan.XYZ());
-  gp_XYZ        ptguiXYZ(ptgui.XYZ());
+  Coords3d        nplanXYZ(nplan.XYZ());
+  Coords3d        ptguiXYZ(ptgui.XYZ());
   Standard_Real theD = nplanXYZ.Dot(ptguiXYZ);
   theD               = theD * (-1.);
 
@@ -190,8 +190,8 @@ Standard_Boolean BRepBlend_SurfCurvEvolRadInv::Values(const math_Vector& X,
   Standard_Real unsurnormd1gui = 1. / normd1gui;
   Vector3d        nplan          = d1gui.Multiplied(unsurnormd1gui);
   //  Standard_Real theD = -(nplan.XYZ().Dot(ptgui.XYZ()));
-  gp_XYZ        nplanXYZ(nplan.XYZ());
-  gp_XYZ        ptcurXYZ(ptgui.XYZ());
+  Coords3d        nplanXYZ(nplan.XYZ());
+  Coords3d        ptcurXYZ(ptgui.XYZ());
   Standard_Real theD = nplanXYZ.Dot(ptcurXYZ);
   theD               = theD * (-1.);
 

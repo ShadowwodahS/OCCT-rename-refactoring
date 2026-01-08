@@ -153,7 +153,7 @@ Standard_Integer BaseExponent(const Standard_Real X)
   }
 }
 
-math_DirectPolynomialRoots::math_DirectPolynomialRoots(const Standard_Real A,
+DirectPolynomialRoots::DirectPolynomialRoots(const Standard_Real A,
                                                        const Standard_Real B,
                                                        const Standard_Real C,
                                                        const Standard_Real D,
@@ -164,7 +164,7 @@ math_DirectPolynomialRoots::math_DirectPolynomialRoots(const Standard_Real A,
   Solve(A, B, C, D, E);
 }
 
-math_DirectPolynomialRoots::math_DirectPolynomialRoots(const Standard_Real A,
+DirectPolynomialRoots::DirectPolynomialRoots(const Standard_Real A,
                                                        const Standard_Real B,
                                                        const Standard_Real C,
                                                        const Standard_Real D)
@@ -174,7 +174,7 @@ math_DirectPolynomialRoots::math_DirectPolynomialRoots(const Standard_Real A,
   Solve(A, B, C, D);
 }
 
-math_DirectPolynomialRoots::math_DirectPolynomialRoots(const Standard_Real A,
+DirectPolynomialRoots::DirectPolynomialRoots(const Standard_Real A,
                                                        const Standard_Real B,
                                                        const Standard_Real C)
 {
@@ -183,14 +183,14 @@ math_DirectPolynomialRoots::math_DirectPolynomialRoots(const Standard_Real A,
   Solve(A, B, C);
 }
 
-math_DirectPolynomialRoots::math_DirectPolynomialRoots(const Standard_Real A, const Standard_Real B)
+DirectPolynomialRoots::DirectPolynomialRoots(const Standard_Real A, const Standard_Real B)
 {
   Done           = Standard_True;
   InfiniteStatus = Standard_False;
   Solve(A, B);
 }
 
-void math_DirectPolynomialRoots::Solve(const Standard_Real a,
+void DirectPolynomialRoots::Solve(const Standard_Real a,
                                        const Standard_Real b,
                                        const Standard_Real c,
                                        const Standard_Real d,
@@ -265,7 +265,7 @@ void math_DirectPolynomialRoots::Solve(const Standard_Real a,
   S3 = A * C - 4.0 * D;
   T3 = D * (4.0 * B - A * A) - C * C;
   Q3 = 1.0;
-  math_DirectPolynomialRoots Sol3(Q3, R3, S3, T3);
+  DirectPolynomialRoots Sol3(Q3, R3, S3, T3);
   //-- ################################################################################
   if (Sol3.IsDone() == Standard_False)
   {
@@ -321,7 +321,7 @@ void math_DirectPolynomialRoots::Solve(const Standard_Real a,
   //
   Ademi = 1.0;
 
-  math_DirectPolynomialRoots ASol2(Ademi, P, Q);
+  DirectPolynomialRoots ASol2(Ademi, P, Q);
   //-- ################################################################################
   if (ASol2.IsDone() == Standard_False)
   {
@@ -329,7 +329,7 @@ void math_DirectPolynomialRoots::Solve(const Standard_Real a,
     return;
   }
   //-- ################################################################################
-  math_DirectPolynomialRoots BSol2(Ademi, P1, Q1);
+  DirectPolynomialRoots BSol2(Ademi, P1, Q1);
   //-- ################################################################################
   if (BSol2.IsDone() == Standard_False)
   {
@@ -354,7 +354,7 @@ void math_DirectPolynomialRoots::Solve(const Standard_Real a,
   }
 }
 
-void math_DirectPolynomialRoots::Solve(const Standard_Real A,
+void DirectPolynomialRoots::Solve(const Standard_Real A,
                                        const Standard_Real B,
                                        const Standard_Real C,
                                        const Standard_Real D)
@@ -552,7 +552,7 @@ void math_DirectPolynomialRoots::Solve(const Standard_Real A,
   }
 }
 
-void math_DirectPolynomialRoots::Solve(const Standard_Real A,
+void DirectPolynomialRoots::Solve(const Standard_Real A,
                                        const Standard_Real B,
                                        const Standard_Real C)
 {
@@ -596,7 +596,7 @@ void math_DirectPolynomialRoots::Solve(const Standard_Real A,
   }
 }
 
-void math_DirectPolynomialRoots::Solve(const Standard_Real A, const Standard_Real B)
+void DirectPolynomialRoots::Solve(const Standard_Real A, const Standard_Real B)
 {
 
   if (Abs(A) <= ZERO)
@@ -613,9 +613,9 @@ void math_DirectPolynomialRoots::Solve(const Standard_Real A, const Standard_Rea
   TheRoots[0] = -B / A;
 }
 
-void math_DirectPolynomialRoots::Dump(Standard_OStream& o) const
+void DirectPolynomialRoots::Dump(Standard_OStream& o) const
 {
-  o << "math_DirectPolynomialRoots ";
+  o << "DirectPolynomialRoots ";
   if (!Done)
   {
     o << " Not Done \n";

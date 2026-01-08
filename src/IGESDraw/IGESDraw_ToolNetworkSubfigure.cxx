@@ -46,8 +46,8 @@ void NetworkSubfigureTool::ReadOwnParams(const Handle(IGESDraw_NetworkSubfigure)
   Standard_Integer nbval;
 
   Handle(IGESDraw_NetworkSubfigureDef)   definition;
-  gp_XYZ                                 translation;
-  gp_XYZ                                 scale;
+  Coords3d                                 translation;
+  Coords3d                                 scale;
   Standard_Integer                       typeflag;
   Handle(TCollection_HAsciiString)       designator;
   Handle(IGESGraph_TextDisplayTemplate)  textTemplate;
@@ -177,8 +177,8 @@ void NetworkSubfigureTool::OwnCopy(const Handle(IGESDraw_NetworkSubfigure)& anot
                                             Interface_CopyTool&                      TC) const
 {
   Standard_Integer                       nbval;
-  gp_XYZ                                 translation;
-  gp_XYZ                                 scale;
+  Coords3d                                 translation;
+  Coords3d                                 scale;
   Standard_Integer                       typeflag;
   Handle(TCollection_HAsciiString)       designator;
   Handle(IGESDraw_HArray1OfConnectPoint) connectPoints;

@@ -36,7 +36,7 @@ class gp_Hypr;
 class gp_Hypr2d;
 class Cylinder1;
 class Cone1;
-class gp_Sphere;
+class Sphere3;
 class gp_Torus;
 
 //! The BndLib1 package provides functions to add a geometric primitive to a bounding box.
@@ -213,7 +213,7 @@ public:
                                   const Standard_Real Tol,
                                   Box2&            B);
 
-  Standard_EXPORT static void Add(const gp_Sphere& S, const Standard_Real Tol, Box2& B);
+  Standard_EXPORT static void Add(const Sphere3& S, const Standard_Real Tol, Box2& B);
 
   //! Adds to the bounding box B the sphere S, or
   //! -   the patch of the sphere S, limited in the u parametric
@@ -223,7 +223,7 @@ public:
   //! B is then enlarged by the tolerance value Tol.
   //! UMax-UMin can be in [0,2*pi]
   //! VMin,VMax can be [-pi/2,pi/2]
-  Standard_EXPORT static void Add(const gp_Sphere&    S,
+  Standard_EXPORT static void Add(const Sphere3&    S,
                                   const Standard_Real UMin,
                                   const Standard_Real UMax,
                                   const Standard_Real VMin,

@@ -311,7 +311,7 @@ TopoShape IGESToBRep_BRepEntity::TransferEdge(const Handle(IGESSolid_EdgeList)& 
 
 TopoShape IGESToBRep_BRepEntity::TransferLoop(const Handle(IGESSolid_Loop)& start,
                                                  const TopoFace&            face,
-                                                 const gp_Trsf2d&              trans,
+                                                 const Transform2d&              trans,
                                                  const Standard_Real           uFact)
 {
   TopoShape res;
@@ -486,7 +486,7 @@ TopoShape IGESToBRep_BRepEntity::TransferFace(const Handle(IGESSolid_Face)& star
       // si la surface IGES est une surface de revolution , il faudra
       // inverser les courbes 2d (u,v) pour etre en accord avec le parametrage
       // BRep.
-      gp_Trsf2d     trans;
+      Transform2d     trans;
       Standard_Real uFact;
       TopoShape  myshape = TS.ParamSurface(surf, trans, uFact);
 

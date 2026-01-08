@@ -267,7 +267,7 @@ Standard_Boolean AIS_LightSource::ProcessDragging(const Handle(VisualContext)& t
       if (aCurrPosition.X() != RealLast()
           && aStartPosition.Distance(aCurrPosition) > Precision::Confusion())
       {
-        gp_Quaternion aQRot;
+        Quaternion aQRot;
         aQRot.SetRotation(Vector3d(Point3d(0, 0, 0), aStartPosition),
                           Vector3d(Point3d(0, 0, 0), aCurrPosition));
         Transform3d aTrsf;
@@ -548,7 +548,7 @@ void AIS_LightSource::Compute(const Handle(PrsMgr_PresentationManager)&,
 void AIS_LightSource::computeAmbient(const Handle(Prs3d_Presentation)& thePrs,
                                      const Standard_Integer            theMode)
 {
-  const gp_XYZ aLightPos = gp1::Origin().XYZ();
+  const Coords3d aLightPos = gp1::Origin().XYZ();
   if (theMode == 0)
   {
     Handle(Graphic3d_ArrayOfTriangles) aSphereArray =
@@ -577,7 +577,7 @@ void AIS_LightSource::computeAmbient(const Handle(Prs3d_Presentation)& thePrs,
     for (Standard_Integer anArrIter = 0; anArrIter < aNbArrows; ++anArrIter)
     {
       const Dir3d& aDir = aDirList[anArrIter];
-      const gp_XYZ  aPnt = aLightPos + aDir.XYZ() * aLen;
+      const Coords3d  aPnt = aLightPos + aDir.XYZ() * aLen;
       if (!aLineArray.IsNull())
       {
         aLineArray->AddVertex(aPnt + aDir.XYZ() * aLen * 0.5);
@@ -627,7 +627,7 @@ void AIS_LightSource::computeDirectional(const Handle(Prs3d_Presentation)& thePr
 
   // light source direction is set to local transformation
   const Dir3d aLightDir = -gp1::DZ();
-  const gp_XYZ aLightPos = -aStep * aLightDir.XYZ();
+  const Coords3d aLightPos = -aStep * aLightDir.XYZ();
 
   Standard_Integer aNbArrows = 1;
   if (myNbArrows >= 9)
@@ -645,9 +645,9 @@ void AIS_LightSource::computeDirectional(const Handle(Prs3d_Presentation)& thePr
   TColgp_Array1OfPnt aPoints(1, aNbArrows);
   {
     const Frame3d anAxes(gp1::Origin(), aLightDir);
-    const gp_XYZ aDY  = anAxes.YDirection().XYZ() * aStep;
-    const gp_XYZ aDX  = anAxes.XDirection().XYZ() * aStep;
-    const gp_XYZ aDXY = aDX + aDY;
+    const Coords3d aDY  = anAxes.YDirection().XYZ() * aStep;
+    const Coords3d aDX  = anAxes.XDirection().XYZ() * aStep;
+    const Coords3d aDXY = aDX + aDY;
     switch (aNbArrows)
     {
       case 9: {
@@ -749,7 +749,7 @@ void AIS_LightSource::computePositional(const Handle(Prs3d_Presentation)& thePrs
                                         const Standard_Integer            theMode)
 {
   // light source position is set to local transformation
-  const gp_XYZ        aLightPos = gp1::Origin().XYZ();
+  const Coords3d        aLightPos = gp1::Origin().XYZ();
   const Standard_Real aRadius =
     (myIsZoomable && myLightSource->HasRange()) ? myLightSource->Range() : 0.0;
   if (theMode == 0 && aRadius > 0.0 && myToDisplayRange)
@@ -777,7 +777,7 @@ void AIS_LightSource::computeSpot(const Handle(Prs3d_Presentation)& thePrs,
 {
   // light source position and direction are set to local transformation
   const Dir3d        aLightDir = -gp1::DZ();
-  const gp_XYZ        aLightPos = gp1::Origin().XYZ();
+  const Coords3d        aLightPos = gp1::Origin().XYZ();
   const Standard_Real aDistance =
     (myIsZoomable && myLightSource->HasRange()) ? myLightSource->Range() : mySize;
   {

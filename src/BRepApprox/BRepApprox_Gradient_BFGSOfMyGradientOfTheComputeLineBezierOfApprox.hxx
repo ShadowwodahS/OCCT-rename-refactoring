@@ -31,7 +31,7 @@ class BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox;
 class BRepApprox_ParFunctionOfMyGradientOfTheComputeLineBezierOfApprox;
 class math_MultipleVarFunctionWithGradient;
 
-class BRepApprox_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfApprox : public math_BFGS
+class BRepApprox_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfApprox : public BFGSOptimizer
 {
 public:
   DEFINE_STANDARD_ALLOC

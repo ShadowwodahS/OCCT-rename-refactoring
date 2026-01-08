@@ -25,7 +25,7 @@
 //! because desired transient values might vary depending on application needs.
 //!
 //! This tool performs independent interpolation of three logical
-//! transformation parts - rotation (using gp_QuaternionNLerp), translation and scale factor.
+//! transformation parts - rotation (using QuaternionNLerp), translation and scale factor.
 //! Result of such interpolation might be not what application expects,
 //! thus this tool might be considered for simple cases or for interpolating between small
 //! intervals.
@@ -66,8 +66,8 @@ public:
       return;
     }
 
-    gp_XYZ        aLoc;
-    gp_Quaternion aRot;
+    Coords3d        aLoc;
+    Quaternion aRot;
     Standard_Real aScale = 1.0;
     myLocLerp.Interpolate(theT, aLoc);
     myRotLerp.Interpolate(theT, aRot);
@@ -79,9 +79,9 @@ public:
   }
 
 private:
-  NCollection_Lerp1<gp_XYZ>        myLocLerp;
+  NCollection_Lerp1<Coords3d>        myLocLerp;
   NCollection_Lerp1<Standard_Real> myScaleLerp;
-  gp_QuaternionNLerp              myRotLerp;
+  QuaternionNLerp              myRotLerp;
   Transform3d                         myTrsfStart;
   Transform3d                         myTrsfEnd;
 };

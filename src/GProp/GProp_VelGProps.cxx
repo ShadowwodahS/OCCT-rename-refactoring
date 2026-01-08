@@ -52,7 +52,7 @@ GProp_VelGProps::GProp_VelGProps(const Cone1&      S,
   Perform(S, Alpha1, Alpha2, Z1, Z2);
 }
 
-GProp_VelGProps::GProp_VelGProps(const gp_Sphere&    S,
+GProp_VelGProps::GProp_VelGProps(const Sphere3&    S,
                                  const Standard_Real Teta1,
                                  const Standard_Real Teta2,
                                  const Standard_Real Alpha1,
@@ -140,7 +140,7 @@ void GProp_VelGProps::Perform(const Cylinder1&  S,
   V3.Multiply(J.Value(3));
 
   inertia =
-    gp_Mat(gp_XYZ(V1(1), V2(1), V3(1)), gp_XYZ(V1(2), V2(2), V3(2)), gp_XYZ(V1(3), V2(3), V3(3)));
+    gp_Mat(Coords3d(V1(1), V2(1), V3(1)), Coords3d(V1(2), V2(2), V3(2)), Coords3d(V1(3), V2(3), V3(3)));
   gp_Mat Hop;
   GProp1::HOperator(g, loc, dim, Hop);
   inertia = inertia + Hop;
@@ -223,13 +223,13 @@ void GProp_VelGProps::Perform(const Cone1&      S,
   V3.Multiply(J.Value(3));
 
   inertia =
-    gp_Mat(gp_XYZ(V1(1), V2(1), V3(1)), gp_XYZ(V1(2), V2(2), V3(2)), gp_XYZ(V1(3), V2(3), V3(3)));
+    gp_Mat(Coords3d(V1(1), V2(1), V3(1)), Coords3d(V1(2), V2(2), V3(2)), Coords3d(V1(3), V2(3), V3(3)));
   gp_Mat Hop;
   GProp1::HOperator(g, loc, dim, Hop);
   inertia = inertia + Hop;
 }
 
-void GProp_VelGProps::Perform(const gp_Sphere&    S,
+void GProp_VelGProps::Perform(const Sphere3&    S,
                               const Standard_Real Teta1,
                               const Standard_Real Teta2,
                               const Standard_Real Alpha1,
@@ -303,7 +303,7 @@ void GProp_VelGProps::Perform(const gp_Sphere&    S,
   V3.Multiply(R * J.Value(3));
 
   inertia =
-    gp_Mat(gp_XYZ(V1(1), V2(1), V3(1)), gp_XYZ(V1(2), V2(2), V3(2)), gp_XYZ(V1(3), V2(3), V3(3)));
+    gp_Mat(Coords3d(V1(1), V2(1), V3(1)), Coords3d(V1(2), V2(2), V3(2)), Coords3d(V1(3), V2(3), V3(3)));
   gp_Mat Hop;
   GProp1::HOperator(g, loc, dim, Hop);
   inertia = inertia + Hop;
@@ -385,7 +385,7 @@ void GProp_VelGProps::Perform(const gp_Torus&     S,
   V3.Multiply(RMax * J.Value(3));
 
   inertia =
-    gp_Mat(gp_XYZ(V1(1), V2(1), V3(1)), gp_XYZ(V1(2), V2(2), V3(2)), gp_XYZ(V1(3), V2(3), V3(3)));
+    gp_Mat(Coords3d(V1(1), V2(1), V3(1)), Coords3d(V1(2), V2(2), V3(2)), Coords3d(V1(3), V2(3), V3(3)));
   gp_Mat Hop;
   GProp1::HOperator(g, loc, dim, Hop);
   inertia = inertia + Hop;

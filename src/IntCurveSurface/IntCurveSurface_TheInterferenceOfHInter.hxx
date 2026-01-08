@@ -31,7 +31,7 @@ class PolyhedronToolHInter;
 class gp_Lin;
 class Bnd_BoundSortBox;
 class Point3d;
-class gp_XYZ;
+class Coords3d;
 
 class IntCurveSurface_TheInterferenceOfHInter : public Intf_Interference
 {
@@ -142,7 +142,7 @@ private:
                                  const Standard_Boolean                       Infinite,
                                  const Standard_Integer                       TTri,
                                  const IntCurveSurface_ThePolyhedronOfHInter& thePolyh,
-                                 const gp_XYZ&                                TriNormal,
+                                 const Coords3d&                                TriNormal,
                                  const Standard_Real                          TriDp,
                                  const Standard_Real                          dBegTri,
                                  const Standard_Real                          dEndTri);

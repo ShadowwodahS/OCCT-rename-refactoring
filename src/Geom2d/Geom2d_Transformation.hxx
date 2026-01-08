@@ -56,9 +56,9 @@ DEFINE_STANDARD_HANDLE(Geom2d_Transformation, RefObject)
 //! the transformation.
 //! - Geom2d_Transformation transformations provide
 //! the same kind of "geometric" services as
-//! gp_Trsf2d ones but have more complex1 data
+//! Transform2d ones but have more complex1 data
 //! structures. The geometric objects provided by the
-//! Geom2d package use gp_Trsf2d transformations
+//! Geom2d package use Transform2d transformations
 //! in the syntaxes Transform and Transformed.
 //! - Geom2d_Transformation transformations are
 //! used in a context where they can be shared by
@@ -71,7 +71,7 @@ public:
   Standard_EXPORT Geom2d_Transformation();
 
   //! Creates a persistent copy of T.
-  Standard_EXPORT Geom2d_Transformation(const gp_Trsf2d& T);
+  Standard_EXPORT Geom2d_Transformation(const Transform2d& T);
 
   //! Makes the transformation into a symmetrical transformation
   //! with respect to a point P.
@@ -111,7 +111,7 @@ public:
 
   //! Makes the transformation into a transformation T from
   //! package gp1.
-  Standard_EXPORT void SetTrsf2d(const gp_Trsf2d& T);
+  Standard_EXPORT void SetTrsf2d(const Transform2d& T);
 
   //! Checks whether this transformation is an indirect
   //! transformation: returns true if the determinant of the
@@ -128,10 +128,10 @@ public:
   //! Returns the scale value of the transformation.
   Standard_EXPORT Standard_Real ScaleFactor() const;
 
-  //! Converts this transformation into a gp_Trsf2d transformation.
+  //! Converts this transformation into a Transform2d transformation.
   //! Returns a non persistent copy of <me>.
   //! -C++: return const&
-  Standard_EXPORT gp_Trsf2d Trsf2d() const;
+  Standard_EXPORT Transform2d Trsf2d() const;
 
   //! Returns the coefficients of the global matrix of transformation.
   //! It is a 2 rows X 3 columns matrix.
@@ -197,7 +197,7 @@ public:
 
 protected:
 private:
-  gp_Trsf2d gpTrsf2d;
+  Transform2d gpTrsf2d;
 };
 
 #endif // _Geom2d_Transformation_HeaderFile

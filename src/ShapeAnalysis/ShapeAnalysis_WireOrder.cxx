@@ -121,7 +121,7 @@ void ShapeAnalysis_WireOrder::Clear()
 
 //=================================================================================================
 
-void ShapeAnalysis_WireOrder::Add(const gp_XYZ& theStart3d, const gp_XYZ& theEnd3d)
+void ShapeAnalysis_WireOrder::Add(const Coords3d& theStart3d, const Coords3d& theEnd3d)
 {
   if (myMode == Mode3D)
   {
@@ -136,7 +136,7 @@ void ShapeAnalysis_WireOrder::Add(const Coords2d& theStart2d, const Coords2d& th
 {
   if (myMode == Mode2D)
   {
-    gp_XYZ val;
+    Coords3d val;
     val.SetCoord(theStart2d.X(), theStart2d.Y(), 0.0);
     myXYZ->Append(val);
     val.SetCoord(theEnd2d.X(), theEnd2d.Y(), 0.0);
@@ -146,8 +146,8 @@ void ShapeAnalysis_WireOrder::Add(const Coords2d& theStart2d, const Coords2d& th
 
 //=================================================================================================
 
-void ShapeAnalysis_WireOrder::Add(const gp_XYZ& theStart3d,
-                                  const gp_XYZ& theEnd3d,
+void ShapeAnalysis_WireOrder::Add(const Coords3d& theStart3d,
+                                  const Coords3d& theEnd3d,
                                   const Coords2d&  theStart2d,
                                   const Coords2d&  theEnd2d)
 {
@@ -168,7 +168,7 @@ Standard_Integer ShapeAnalysis_WireOrder::NbEdges() const
   return myXYZ->Length() / 2;
 }
 
-static Standard_Real DISTABS(const gp_XYZ& v1, const gp_XYZ& v2)
+static Standard_Real DISTABS(const Coords3d& v1, const Coords3d& v2)
 {
   return Abs(v1.X() - v2.X()) + Abs(v1.Y() - v2.Y()) + Abs(v1.Z() - v2.Z());
 }
@@ -718,8 +718,8 @@ Standard_Integer ShapeAnalysis_WireOrder::Ordered(const Standard_Integer theIdx)
 //=================================================================================================
 
 void ShapeAnalysis_WireOrder::XYZ(const Standard_Integer theIdx,
-                                  gp_XYZ&                theStart3D,
-                                  gp_XYZ&                theEnd3D) const
+                                  Coords3d&                theStart3D,
+                                  Coords3d&                theEnd3D) const
 {
   theStart3D = myXYZ->Value((theIdx > 0 ? 2 * theIdx - 1 : -2 * theIdx));
   theEnd3D   = myXYZ->Value((theIdx > 0 ? 2 * theIdx : -2 * theIdx - 1));
@@ -738,9 +738,9 @@ void ShapeAnalysis_WireOrder::XY(const Standard_Integer theIdx,
   }
   else
   {
-    const gp_XYZ& aStart3d = myXYZ->Value((theIdx > 0 ? 2 * theIdx - 1 : -2 * theIdx));
+    const Coords3d& aStart3d = myXYZ->Value((theIdx > 0 ? 2 * theIdx - 1 : -2 * theIdx));
     theStart2D.SetCoord(aStart3d.X(), aStart3d.Y());
-    const gp_XYZ& anEnd3d = myXYZ->Value((theIdx > 0 ? 2 * theIdx : -2 * theIdx - 1));
+    const Coords3d& anEnd3d = myXYZ->Value((theIdx > 0 ? 2 * theIdx : -2 * theIdx - 1));
     theEnd2D.SetCoord(anEnd3d.X(), anEnd3d.Y());
   }
 }
@@ -769,7 +769,7 @@ void ShapeAnalysis_WireOrder::SetChains(const Standard_Real gap)
   TColStd_SequenceOfInteger chain;
   n0 = 0;
   chain.Append(1);             // On demarre la partie
-  gp_XYZ f3d, l3d, f13d, l13d; // szv#4:S4163:12Mar99 f03d,l03d unused
+  Coords3d f3d, l3d, f13d, l13d; // szv#4:S4163:12Mar99 f03d,l03d unused
   for (n1 = 1; n1 <= nb; n1++)
   {
     if (n0 == 0)

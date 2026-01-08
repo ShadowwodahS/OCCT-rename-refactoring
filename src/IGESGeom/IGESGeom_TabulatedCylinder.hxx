@@ -47,7 +47,7 @@ public:
   //! generatrix
   //! The start point of the directrix is identical to the start
   //! point of the generatrix
-  Standard_EXPORT void Init(const Handle(IGESData_IGESEntity)& aDirectrix, const gp_XYZ& anEnd);
+  Standard_EXPORT void Init(const Handle(IGESData_IGESEntity)& aDirectrix, const Coords3d& anEnd);
 
   //! returns the directrix curve of the tabulated cylinder
   Standard_EXPORT Handle(IGESData_IGESEntity) Directrix() const;
@@ -64,7 +64,7 @@ public:
 protected:
 private:
   Handle(IGESData_IGESEntity) theDirectrix;
-  gp_XYZ                      theEnd;
+  Coords3d                      theEnd;
 };
 
 #endif // _IGESGeom_TabulatedCylinder_HeaderFile

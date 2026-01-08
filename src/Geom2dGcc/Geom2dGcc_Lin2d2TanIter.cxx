@@ -61,7 +61,7 @@ Line2dTwoTangentIter::Line2dTwoTangentIter(const QualifiedCircle& Qualified1,
   Standard_Real              U1  = CurveTool3::FirstParameter(Cu2);
   Standard_Real              U2  = CurveTool3::LastParameter(Cu2);
   Geom2dGcc_FunctionTanCirCu func(C1, Cu2);
-  math_FunctionRoot sol(func, Param2, CurveTool3::EpsX(Cu2, Abs(Tolang)), U1, U2, 100);
+  FunctionRootSolver sol(func, Param2, CurveTool3::EpsX(Cu2, Abs(Tolang)), U1, U2, 100);
   if (sol.IsDone())
   {
     Standard_Real Usol = sol.Root();
@@ -165,7 +165,7 @@ Line2dTwoTangentIter::Line2dTwoTangentIter(const Geom2dGcc_QCurve& Qualified1,
   Ufirst(2) = Param2;
   tol(1)    = CurveTool3::EpsX(Cu1, Abs(Tolang));
   tol(2)    = CurveTool3::EpsX(Cu2, Abs(Tolang));
-  math_FunctionSetRoot Root(Func, tol);
+  FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
   {
@@ -233,7 +233,7 @@ Line2dTwoTangentIter::Line2dTwoTangentIter(const Geom2dGcc_QCurve& Qualified1,
   Standard_Real              U1  = CurveTool3::FirstParameter(Cu1);
   Standard_Real              U2  = CurveTool3::LastParameter(Cu1);
   Geom2dGcc_FunctionTanCuPnt func(Cu1, ThePoint);
-  math_FunctionRoot sol(func, Param1, CurveTool3::EpsX(Cu1, Abs(Tolang)), U1, U2, 100);
+  FunctionRootSolver sol(func, Param1, CurveTool3::EpsX(Cu1, Abs(Tolang)), U1, U2, 100);
   if (sol.IsDone())
   {
     Standard_Real Usol = sol.Root();

@@ -604,17 +604,17 @@ void BRepFill_AdvancedEvolved::GetLids()
     {
       const TopoFace        aF    = TopoDS::Face(anExp.Current());
       const Handle(GeomPlane) aPln  = Handle(GeomPlane)::DownCast(BRepInspector::Surface(aF));
-      const gp_XYZ&            aNorm = aPln->Position().Direction().XYZ();
-      const gp_XYZ&            aLocP = aPln->Position().Location().XYZ();
+      const Coords3d&            aNorm = aPln->Position().Direction().XYZ();
+      const Coords3d&            aLocP = aPln->Position().Location().XYZ();
 
       Standard_Boolean isFound = Standard_False;
 
       for (Standard_Integer i = 1; i <= aMapV.Size(); i++)
       {
         const TopoVertex aV = TopoDS::Vertex(aMapV.FindKey(i));
-        const gp_XYZ        aP = BRepInspector::Pnt(aV).XYZ();
+        const Coords3d        aP = BRepInspector::Pnt(aV).XYZ();
 
-        const gp_XYZ        aDelta = aP - aLocP;
+        const Coords3d        aDelta = aP - aLocP;
         const Standard_Real aSqD   = aDelta.SquareModulus();
 
         if (aSqD < Precision::SquareConfusion())

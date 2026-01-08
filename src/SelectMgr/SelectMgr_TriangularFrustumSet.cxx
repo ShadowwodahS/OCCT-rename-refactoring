@@ -161,7 +161,7 @@ void SelectMgr_TriangularFrustumSet::Build()
 // =======================================================================
 Handle(SelectMgr_BaseIntersector) SelectMgr_TriangularFrustumSet::ScaleAndTransform(
   const Standard_Integer                  theScale,
-  const gp_GTrsf&                         theTrsf,
+  const GeneralTransform&                         theTrsf,
   const Handle(SelectMgr_FrustumBuilder)& theBuilder) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Polyline,
@@ -609,8 +609,8 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsCylinder(
                                  aCoefB * aTTop + aTopCenter.Y(),
                                  aCoefC * aTTop + aTopCenter.Z());
 
-  gp_XYZ              aCylNormProject;
-  const gp_XYZ        aTopBottomVec  = aTopCenterProject.XYZ() - aBottomCenterProject.XYZ();
+  Coords3d              aCylNormProject;
+  const Coords3d        aTopBottomVec  = aTopCenterProject.XYZ() - aBottomCenterProject.XYZ();
   const Standard_Real aTopBottomDist = aTopBottomVec.Modulus();
   if (aTopBottomDist > 0.0)
   {
@@ -823,10 +823,10 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::segmentSegmentIntersection(
   const Point3d& theStartPnt2,
   const Point3d& theEndPnt2)
 {
-  gp_XYZ aVec1  = theEndPnt1.XYZ() - theStartPnt1.XYZ();
-  gp_XYZ aVec2  = theEndPnt2.XYZ() - theStartPnt2.XYZ();
-  gp_XYZ aVec21 = theStartPnt2.XYZ() - theStartPnt1.XYZ();
-  gp_XYZ aVec12 = theStartPnt1.XYZ() - theStartPnt2.XYZ();
+  Coords3d aVec1  = theEndPnt1.XYZ() - theStartPnt1.XYZ();
+  Coords3d aVec2  = theEndPnt2.XYZ() - theStartPnt2.XYZ();
+  Coords3d aVec21 = theStartPnt2.XYZ() - theStartPnt1.XYZ();
+  Coords3d aVec12 = theStartPnt1.XYZ() - theStartPnt2.XYZ();
   if (Abs(aVec21.DotCross(aVec1, aVec2)) > Precision::Confusion()
       || Abs(aVec12.DotCross(aVec2, aVec1)) > Precision::Confusion())
   {

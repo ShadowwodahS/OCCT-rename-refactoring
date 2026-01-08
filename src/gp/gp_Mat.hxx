@@ -20,7 +20,7 @@
 #include <Standard_OStream.hxx>
 #include <Standard_ConstructionError.hxx>
 
-class gp_XYZ;
+class Coords3d;
 
 //! Describes a three column, three row matrix.
 //! This sort of object is used in various vectorial or matrix computations.
@@ -48,16 +48,16 @@ public:
 
   //! Creates a matrix.
   //! theCol1, theCol2, theCol3 are the 3 columns of the matrix.
-  Standard_EXPORT gp_Mat(const gp_XYZ& theCol1, const gp_XYZ& theCol2, const gp_XYZ& theCol3);
+  Standard_EXPORT gp_Mat(const Coords3d& theCol1, const Coords3d& theCol2, const Coords3d& theCol3);
 
   //! Assigns the three coordinates of theValue to the column of index
   //! theCol of this matrix.
   //! Raises OutOfRange if theCol < 1 or theCol > 3.
-  Standard_EXPORT void SetCol(const Standard_Integer theCol, const gp_XYZ& theValue);
+  Standard_EXPORT void SetCol(const Standard_Integer theCol, const Coords3d& theValue);
 
   //! Assigns the number triples theCol1, theCol2, theCol3 to the three
   //! columns of this matrix.
-  Standard_EXPORT void SetCols(const gp_XYZ& theCol1, const gp_XYZ& theCol2, const gp_XYZ& theCol3);
+  Standard_EXPORT void SetCols(const Coords3d& theCol1, const Coords3d& theCol2, const Coords3d& theCol3);
 
   //! Modifies the matrix  M so that applying it to any number
   //! triple (X, Y, Z) produces the same result as the cross
@@ -67,7 +67,7 @@ public:
   //! triplet  {XYZ} is the same as to do the cross product between the
   //! triplet theRef and the triplet {XYZ}.
   //! Note: this matrix is anti-symmetric.
-  Standard_EXPORT void SetCross(const gp_XYZ& theRef);
+  Standard_EXPORT void SetCross(const Coords3d& theRef);
 
   //! Modifies the main diagonal of the matrix.
   //! @code
@@ -88,7 +88,7 @@ public:
   //! product of theRef and the number triple (X, Y, Z):
   //! this * (X,Y,Z) = theRef.(X,Y,Z)
   //! Note: this matrix is symmetric.
-  Standard_EXPORT void SetDot(const gp_XYZ& theRef);
+  Standard_EXPORT void SetDot(const Coords3d& theRef);
 
   //! Modifies this matrix so that it represents the Identity matrix.
   void SetIdentity()
@@ -101,15 +101,15 @@ public:
   //! radians and the XYZ axis gives the direction of the
   //! rotation.
   //! Raises ConstructionError if XYZ.Modulus() <= Resolution()
-  Standard_EXPORT void SetRotation(const gp_XYZ& theAxis, const Standard_Real theAng);
+  Standard_EXPORT void SetRotation(const Coords3d& theAxis, const Standard_Real theAng);
 
   //! Assigns the three coordinates of Value to the row of index
   //! theRow of this matrix. Raises OutOfRange if theRow < 1 or theRow > 3.
-  Standard_EXPORT void SetRow(const Standard_Integer theRow, const gp_XYZ& theValue);
+  Standard_EXPORT void SetRow(const Standard_Integer theRow, const Coords3d& theValue);
 
   //! Assigns the number triples theRow1, theRow2, theRow3 to the three
   //! rows of this matrix.
-  Standard_EXPORT void SetRows(const gp_XYZ& theRow1, const gp_XYZ& theRow2, const gp_XYZ& theRow3);
+  Standard_EXPORT void SetRows(const Coords3d& theRow1, const Coords3d& theRow2, const Coords3d& theRow3);
 
   //! Modifies the matrix so that it represents
   //! a scaling transformation, where theS is the scale factor. :
@@ -136,7 +136,7 @@ public:
 
   //! Returns the column of theCol index.
   //! Raises OutOfRange if theCol < 1 or theCol > 3
-  Standard_EXPORT gp_XYZ Column(const Standard_Integer theCol) const;
+  Standard_EXPORT Coords3d Column(const Standard_Integer theCol) const;
 
   //! Computes the determinant of the matrix.
   Standard_Real Determinant() const
@@ -147,11 +147,11 @@ public:
   }
 
   //! Returns the main diagonal of the matrix.
-  Standard_EXPORT gp_XYZ Diagonal() const;
+  Standard_EXPORT Coords3d Diagonal() const;
 
   //! returns the row of theRow index.
   //! Raises OutOfRange if theRow < 1 or theRow > 3
-  Standard_EXPORT gp_XYZ Row(const Standard_Integer theRow) const;
+  Standard_EXPORT Coords3d Row(const Standard_Integer theRow) const;
 
   //! Returns the coefficient of range (theRow, theCol)
   //! Raises OutOfRange if theRow < 1 or theRow > 3 or theCol < 1 or theCol > 3
@@ -297,9 +297,9 @@ public:
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
-  friend class gp_XYZ;
+  friend class Coords3d;
   friend class Transform3d;
-  friend class gp_GTrsf;
+  friend class GeneralTransform;
 
 private:
   Standard_Real myMat[3][3];

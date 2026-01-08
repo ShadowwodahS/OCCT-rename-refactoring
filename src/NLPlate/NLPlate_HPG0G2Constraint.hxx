@@ -23,7 +23,7 @@
 #include <NLPlate_HPG0G1Constraint.hxx>
 #include <Standard_Integer.hxx>
 class Coords2d;
-class gp_XYZ;
+class Coords3d;
 class D1;
 
 class NLPlate_HPG0G2Constraint;
@@ -36,7 +36,7 @@ class NLPlate_HPG0G2Constraint : public NLPlate_HPG0G1Constraint
 
 public:
   Standard_EXPORT NLPlate_HPG0G2Constraint(const Coords2d&    UV,
-                                           const gp_XYZ&   Value,
+                                           const Coords3d&   Value,
                                            const D1& D1T,
                                            const D2& D2T);
 

@@ -28,7 +28,7 @@
 #include <Standard_OStream.hxx>
 class math_MultipleVarFunctionWithHessian;
 
-class math_NewtonMinimum
+class NewtonMinimum
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -38,7 +38,7 @@ public:
   //! positive (if the smaller eigenvalue of H < Convexity)
   //! or IsConverged() returns True for 2 successives Iterations.
   //! Warning: This constructor does not perform computation.
-  Standard_EXPORT math_NewtonMinimum(const math_MultipleVarFunctionWithHessian& theFunction,
+  Standard_EXPORT NewtonMinimum(const math_MultipleVarFunctionWithHessian& theFunction,
                                      const Standard_Real    theTolerance = Precision::Confusion(),
                                      const Standard_Integer theNbIterations    = 40,
                                      const Standard_Real    theConvexity       = 1.0e-6,
@@ -49,7 +49,7 @@ public:
                                const math_Vector&                   theStartingPoint);
 
   //! Destructor
-  Standard_EXPORT virtual ~math_NewtonMinimum();
+  Standard_EXPORT virtual ~NewtonMinimum();
 
   //! This method is called at the end of each iteration to check the convergence:
   //! || Xi+1 - Xi || < Tolerance or || F(Xi+1) - F(Xi)|| < Tolerance * || F(Xi) ||

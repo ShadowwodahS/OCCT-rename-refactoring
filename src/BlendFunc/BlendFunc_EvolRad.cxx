@@ -917,7 +917,7 @@ Standard_Boolean BlendFunc_EvolRad::IsSolution(const math_Vector& Sol, const Sta
     ns2.SetLinearForm(nplan.Dot(ns2) / norm, nplan, -1. / norm, ns2);
 
     Standard_Real maxpiv = 1.e-14;
-    math_Gauss    Resol(DEDX, maxpiv);
+    Gauss    Resol(DEDX, maxpiv);
     istangent = Standard_False;
     if (Resol.IsDone())
     {
@@ -1472,7 +1472,7 @@ Standard_Boolean BlendFunc_EvolRad::Section(const Point2&    P,
   if (!pts1.IsEqual(pts2, 1.e-4))
   {
     // Calculation of derived  Normal processing
-    math_Gauss Resol(DEDX, 1.e-9);
+    Gauss Resol(DEDX, 1.e-9);
 
     if (Resol.IsDone())
     {
@@ -1483,7 +1483,7 @@ Standard_Boolean BlendFunc_EvolRad::Section(const Point2&    P,
 
   if (istgt)
   {
-    math_SVD SingRS(DEDX);
+    SVD SingRS(DEDX);
     if (SingRS.IsDone())
     {
       SingRS.Solve(-DEDT, secmember, 1.e-6);
@@ -1796,7 +1796,7 @@ Standard_Boolean BlendFunc_EvolRad::Section(const Point2&    P,
 
   if (!pts1.IsEqual(pts2, 1.e-4))
   {
-    math_Gauss Resol(DEDX, 1.e-9); // Tolerance to precise
+    Gauss Resol(DEDX, 1.e-9); // Tolerance to precise
     // Calculation of derived Normal Processing
     if (Resol.IsDone())
     {
@@ -1810,7 +1810,7 @@ Standard_Boolean BlendFunc_EvolRad::Section(const Point2&    P,
 
   if (istgt)
   {
-    math_SVD    SingRS(DEDX);
+    SVD    SingRS(DEDX);
     math_Vector Vbis(1, 4);
     if (SingRS.IsDone())
     {

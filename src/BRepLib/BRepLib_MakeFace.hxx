@@ -27,7 +27,7 @@ class TopoFace;
 class gp_Pln;
 class Cylinder1;
 class Cone1;
-class gp_Sphere;
+class Sphere3;
 class gp_Torus;
 class GeomSurface;
 class TopoWire;
@@ -79,7 +79,7 @@ public:
   Standard_EXPORT BRepLib_MakeFace(const Cone1& C);
 
   //! Make a face from a sphere.
-  Standard_EXPORT BRepLib_MakeFace(const gp_Sphere& S);
+  Standard_EXPORT BRepLib_MakeFace(const Sphere3& S);
 
   //! Make a face from a torus.
   Standard_EXPORT BRepLib_MakeFace(const gp_Torus& C);
@@ -110,7 +110,7 @@ public:
                                    const Standard_Real VMax);
 
   //! Make a face from a sphere.
-  Standard_EXPORT BRepLib_MakeFace(const gp_Sphere&    S,
+  Standard_EXPORT BRepLib_MakeFace(const Sphere3&    S,
                                    const Standard_Real UMin,
                                    const Standard_Real UMax,
                                    const Standard_Real VMin,
@@ -156,7 +156,7 @@ public:
                                    const Standard_Boolean Inside = Standard_True);
 
   //! Make a face from a sphere and a wire.
-  Standard_EXPORT BRepLib_MakeFace(const gp_Sphere&       S,
+  Standard_EXPORT BRepLib_MakeFace(const Sphere3&       S,
                                    const TopoWire&     W,
                                    const Standard_Boolean Inside = Standard_True);
 

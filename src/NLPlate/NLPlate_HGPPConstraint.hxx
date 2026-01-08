@@ -23,7 +23,7 @@
 #include <Standard_Integer.hxx>
 #include <Standard_Transient.hxx>
 #include <Standard_Real.hxx>
-class gp_XYZ;
+class Coords3d;
 class D1;
 class D2;
 class D3;
@@ -71,7 +71,7 @@ public:
 
   Standard_EXPORT virtual Standard_Boolean IsG0() const = 0;
 
-  Standard_EXPORT virtual const gp_XYZ& G0Target() const;
+  Standard_EXPORT virtual const Coords3d& G0Target() const;
 
   Standard_EXPORT virtual const D1& G1Target() const;
 

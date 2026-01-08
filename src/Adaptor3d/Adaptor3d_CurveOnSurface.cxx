@@ -1000,7 +1000,7 @@ GeomAbs_Shape Adaptor3d_CurveOnSurface::Continuity() const
 // Auxiliary: adds roots of equation to sorted sequence of parameters
 // along curve, keeping it sorted and avoiding repetitions (within tolerance Tol)
 static void AddIntervals(const Handle(TColStd_HSequenceOfReal)& theParameters,
-                         const math_FunctionRoots&              theRoots,
+                         const FunctionRootsSolver&              theRoots,
                          Standard_Real                          theTol)
 {
   if (!theRoots.IsDone() || theRoots.IsAllNull())
@@ -1070,7 +1070,7 @@ Standard_Integer Adaptor3d_CurveOnSurface::NbIntervals(const GeomAbs_Shape S) co
     {
       U = TabU.Value(iu);
       Adaptor3d_InterFunc Func(myCurve, U, 1);
-      math_FunctionRoots  Resol(Func, Tdeb, Tfin, NbSample, Tol, Tol, Tol, 0.);
+      FunctionRootsSolver  Resol(Func, Tdeb, Tfin, NbSample, Tol, Tol, Tol, 0.);
       AddIntervals(aIntervals, Resol, Tol);
     }
   }
@@ -1081,7 +1081,7 @@ Standard_Integer Adaptor3d_CurveOnSurface::NbIntervals(const GeomAbs_Shape S) co
     {
       V = TabV.Value(iv);
       Adaptor3d_InterFunc Func(myCurve, V, 2);
-      math_FunctionRoots  Resol(Func, Tdeb, Tfin, NbSample, Tol, Tol, Tol, 0.);
+      FunctionRootsSolver  Resol(Func, Tdeb, Tfin, NbSample, Tol, Tol, Tol, 0.);
       AddIntervals(aIntervals, Resol, Tol);
     }
   }
@@ -1582,7 +1582,7 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
           if (Abs(Abs(P.Y()) - M_PI / 2.) >= Precision::PConfusion())
           {
             myType         = GeomAbs_Circle;
-            gp_Sphere Sph  = mySurface->Sphere();
+            Sphere3 Sph  = mySurface->Sphere();
             Ax3    Axis = Sph.Position();
             myCirc         = ElSLib1::SphereVIso(Axis, Sph.Radius(), P.Y());
             Dir3d DRev    = Axis.XDirection().Crossed(Axis.YDirection());
@@ -1653,7 +1653,7 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
         if (STy == GeomAbs_Sphere)
         {
           myType         = GeomAbs_Circle;
-          gp_Sphere Sph  = mySurface->Sphere();
+          Sphere3 Sph  = mySurface->Sphere();
           gp_Pnt2d  P    = myCurve->Line().Location();
           Ax3    Axis = Sph.Position();
           // calcul de l'iso 0.

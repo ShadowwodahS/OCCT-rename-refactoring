@@ -34,7 +34,7 @@
 class gp_Pln;
 class Cone1;
 class Cylinder1;
-class gp_Sphere;
+class Sphere3;
 class gp_Lin;
 class gp_Circ;
 class gp_Elips;
@@ -92,7 +92,7 @@ public:
 
   //! Returns true if the underlined surface can be represent by spherical one with tolerance theTol
   //! and sets in theSphere the result spherical surface.
-  Standard_EXPORT Standard_Boolean IsSphere(const Standard_Real theTol, gp_Sphere& theSphere);
+  Standard_EXPORT Standard_Boolean IsSphere(const Standard_Real theTol, Sphere3& theSphere);
 
   //! Returns true if the underlined curve can be represent by line with tolerance theTol
   //! and sets in theLin the result line.

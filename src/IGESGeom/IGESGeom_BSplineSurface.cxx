@@ -180,7 +180,7 @@ Standard_Real IGESGeom_BSplineSurface::Weight(const Standard_Integer anIndex1,
 Point3d IGESGeom_BSplineSurface::Pole(const Standard_Integer anIndex1,
                                      const Standard_Integer anIndex2) const
 {
-  gp_XYZ tempXYZ = thePoles->Value(anIndex1, anIndex2);
+  Coords3d tempXYZ = thePoles->Value(anIndex1, anIndex2);
   // Reversal of the order of indices since the poles are
   // stored in the array like that. See ReadOwnParams()
   Point3d Pole(tempXYZ);
@@ -190,7 +190,7 @@ Point3d IGESGeom_BSplineSurface::Pole(const Standard_Integer anIndex1,
 Point3d IGESGeom_BSplineSurface::TransformedPole(const Standard_Integer anIndex1,
                                                 const Standard_Integer anIndex2) const
 {
-  gp_XYZ tempXYZ = thePoles->Value(anIndex1, anIndex2);
+  Coords3d tempXYZ = thePoles->Value(anIndex1, anIndex2);
   // Reversal of the order of indices since the poles are
   // stored in the array like that. See ReadOwnParams()
   if (HasTransf())

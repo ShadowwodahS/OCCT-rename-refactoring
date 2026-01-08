@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESGeom_Point, IGESData_IGESEntity)
 
 IGESGeom_Point::IGESGeom_Point() {}
 
-void IGESGeom_Point::Init(const gp_XYZ& aPoint, const Handle(IGESBasic_SubfigureDef)& aSymbol)
+void IGESGeom_Point::Init(const Coords3d& aPoint, const Handle(IGESBasic_SubfigureDef)& aSymbol)
 {
   thePoint  = aPoint;
   theSymbol = aSymbol;
@@ -41,7 +41,7 @@ Point3d IGESGeom_Point::Value() const
 
 Point3d IGESGeom_Point::TransformedValue() const
 {
-  gp_XYZ Val = thePoint;
+  Coords3d Val = thePoint;
   if (HasTransf())
     Location().Transforms(Val);
   Point3d transVal(Val);

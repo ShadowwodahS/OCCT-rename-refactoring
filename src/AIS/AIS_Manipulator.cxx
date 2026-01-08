@@ -992,7 +992,7 @@ void AIS_Manipulator::Transform(const Transform3d& theTrsf)
       const Handle(Graphic3d_TransformPers)& aTransPers = anObj->TransformPersistence();
       if (!aTransPers.IsNull() && (aTransPers->IsZoomOrRotate() || aTransPers->IsAxial()))
       {
-        gp_XYZ aNewAnchorPoint = aTransPers->AnchorPoint().XYZ() - myPosition.Location().XYZ();
+        Coords3d aNewAnchorPoint = aTransPers->AnchorPoint().XYZ() - myPosition.Location().XYZ();
         aNewAnchorPoint += myStartPosition.Location().Transformed(theTrsf).XYZ();
         aTransPers->SetAnchorPoint(aNewAnchorPoint);
         continue;
@@ -1545,8 +1545,8 @@ void AIS_Manipulator::ComputeSelection(const Handle(SelectionContainer)& theSele
             myAxes[((anIt + 2) % 3)].ReferenceAxis().Direction().XYZ() * aSensitivityOffset);
           Point3d aP2 = myAxes[((anIt + 2) % 3)].TranslatorTipPosition().Translated(
             myAxes[((anIt + 1) % 3)].ReferenceAxis().Direction().XYZ() * aSensitivityOffset);
-          gp_XYZ aMidP  = (aP1.XYZ() + aP2.XYZ()) / 2.0;
-          gp_XYZ anOrig = aMidP.Normalized().Multiplied(aSensitivityOffset);
+          Coords3d aMidP  = (aP1.XYZ() + aP2.XYZ()) / 2.0;
+          Coords3d anOrig = aMidP.Normalized().Multiplied(aSensitivityOffset);
 
           Handle(Select3D_SensitiveSegment) aLine1 =
             new Select3D_SensitiveSegment(anOwner, aP1, aP2);

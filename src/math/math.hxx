@@ -23,7 +23,7 @@
 
 #include <math_Vector.hxx>
 
-class math
+class math1
 {
 public:
   DEFINE_STANDARD_ALLOC

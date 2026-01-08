@@ -23,7 +23,7 @@
 
 #include <Bisector_PointOnBis.hxx>
 #include <Standard_Boolean.hxx>
-class gp_Trsf2d;
+class Transform2d;
 
 //! Polygon of PointOnBis
 class Bisector_PolyBis
@@ -47,7 +47,7 @@ public:
 
   Standard_EXPORT Standard_Integer Interval1(const Standard_Real U) const;
 
-  Standard_EXPORT void Transform(const gp_Trsf2d& T);
+  Standard_EXPORT void Transform(const Transform2d& T);
 
 protected:
 private:

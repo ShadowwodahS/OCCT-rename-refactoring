@@ -99,8 +99,8 @@ static Standard_Integer QATestExtremaSS(DrawInterpreter& theInterpretor,
       aList.Append(BRepBuilderAPI_MakeVertex(Point3d(aX, aY, aZmin)));
       aList.Append(BRepBuilderAPI_MakeVertex(Point3d(aX, aY, aZmax)));
 
-      aPoints.Append(gp_XYZ(aX, aY, aZmin));
-      aPoints.Append(gp_XYZ(aX, aY, aZmax));
+      aPoints.Append(Coords3d(aX, aY, aZmin));
+      aPoints.Append(Coords3d(aX, aY, aZmax));
     }
 
     for (Standard_Real aZ = aZmin + 0.5 * aStep; aZ < aZmax; aZ += aStep)
@@ -108,8 +108,8 @@ static Standard_Integer QATestExtremaSS(DrawInterpreter& theInterpretor,
       aList.Append(BRepBuilderAPI_MakeVertex(Point3d(aX, aYmin, aZ)));
       aList.Append(BRepBuilderAPI_MakeVertex(Point3d(aX, aYmax, aZ)));
 
-      aPoints.Append(gp_XYZ(aX, aYmin, aZ));
-      aPoints.Append(gp_XYZ(aX, aYmax, aZ));
+      aPoints.Append(Coords3d(aX, aYmin, aZ));
+      aPoints.Append(Coords3d(aX, aYmax, aZ));
     }
   }
 
@@ -120,8 +120,8 @@ static Standard_Integer QATestExtremaSS(DrawInterpreter& theInterpretor,
       aList.Append(BRepBuilderAPI_MakeVertex(Point3d(aXmin, aY, aZ)));
       aList.Append(BRepBuilderAPI_MakeVertex(Point3d(aXmax, aY, aZ)));
 
-      aPoints.Append(gp_XYZ(aXmin, aY, aZ));
-      aPoints.Append(gp_XYZ(aXmax, aY, aZ));
+      aPoints.Append(Coords3d(aXmin, aY, aZ));
+      aPoints.Append(Coords3d(aXmax, aY, aZ));
     }
   }
 

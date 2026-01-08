@@ -1091,7 +1091,7 @@ static Standard_Integer veriftriangles(DrawInterpreter& di, Standard_Integer n, 
   TopLoc_Location            L;
   Standard_Integer           i, n1, n2, n3;
   gp_Pnt2d                   mitri, v1, v2, v3, mi2d1, mi2d2, mi2d3;
-  gp_XYZ                     vecEd1, vecEd2, vecEd3;
+  Coords3d                     vecEd1, vecEd2, vecEd3;
   //  Standard_Real dipo, dm, dv, d1, d2, d3, defle;
   Standard_Real        dipo, dv, d1, d2, d3, defle;
   Handle(GeomSurface) S;
@@ -1125,9 +1125,9 @@ static Standard_Integer veriftriangles(DrawInterpreter& di, Standard_Integer n, 
         mi2d2.SetCoord((xy1.X() + xy3.X()) * 0.5, (xy1.Y() + xy3.Y()) * 0.5);
         mi2d3.SetCoord((xy1.X() + xy2.X()) * 0.5, (xy1.Y() + xy2.Y()) * 0.5);
 
-        gp_XYZ p1 = T->Node(n1).Transformed(L.Transformation()).XYZ();
-        gp_XYZ p2 = T->Node(n2).Transformed(L.Transformation()).XYZ();
-        gp_XYZ p3 = T->Node(n3).Transformed(L.Transformation()).XYZ();
+        Coords3d p1 = T->Node(n1).Transformed(L.Transformation()).XYZ();
+        Coords3d p2 = T->Node(n2).Transformed(L.Transformation()).XYZ();
+        Coords3d p3 = T->Node(n3).Transformed(L.Transformation()).XYZ();
 
         vecEd1 = p2 - p1;
         vecEd2 = p3 - p2;
@@ -1138,7 +1138,7 @@ static Standard_Integer veriftriangles(DrawInterpreter& di, Standard_Integer n, 
 
         if (d1 != 0. && d2 != 0. && d3 != 0.)
         {
-          gp_XYZ equa(vecEd1 ^ vecEd2);
+          Coords3d equa(vecEd1 ^ vecEd2);
           dv = equa.Modulus();
           if (dv > 0.)
           {

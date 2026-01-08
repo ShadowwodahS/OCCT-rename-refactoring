@@ -26,14 +26,14 @@
 #include <TColStd_SequenceOfInteger.hxx>
 #include <Standard_OStream.hxx>
 class math_FunctionWithDerivative;
-class math_FunctionSample;
+class FunctionSampler;
 
 //! This algorithm uses a sample of the function to find
 //! all intervals on which the function is null, and afterwards
 //! uses the FunctionRoots algorithm to find the points
 //! where the function is null outside the "null intervals".
 //! Knowledge of the derivative is required.
-class math_FunctionAllRoots
+class FunctionAllRoots
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -46,8 +46,8 @@ public:
   //! algorithm.
   //! Between two intervals, the roots of the function F are
   //! calculated using the FunctionRoots algorithm.
-  Standard_EXPORT math_FunctionAllRoots(math_FunctionWithDerivative& F,
-                                        const math_FunctionSample&   S,
+  Standard_EXPORT FunctionAllRoots(math_FunctionWithDerivative& F,
+                                        const FunctionSampler&   S,
                                         const Standard_Real          EpsX,
                                         const Standard_Real          EpsF,
                                         const Standard_Real          EpsNul);

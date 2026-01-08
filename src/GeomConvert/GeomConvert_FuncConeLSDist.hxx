@@ -28,7 +28,7 @@
 //! by least square method.
 //!
 //!
-class GeomConvert_FuncConeLSDist : public math_MultipleVarFunction
+class GeomConvert_FuncConeLSDist : public MultipleVarFunction
 {
 public:
   DEFINE_STANDARD_ALLOC

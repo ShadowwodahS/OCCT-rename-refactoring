@@ -27,7 +27,7 @@ typedef Geom2d_Geometry Geometry;
 typedef gp_Ax2d         Ax2d;
 typedef gp_Pnt2d        Pnt2d;
 typedef gp_Vec2d        Vec2d;
-typedef gp_Trsf2d       Trsf2d;
+typedef Transform2d       Trsf2d;
 
 void Geom2d_Geometry::Mirror(const gp_Pnt2d& P)
 {
@@ -104,7 +104,7 @@ Handle(Geom2d_Geometry) Geom2d_Geometry::Scaled(const gp_Pnt2d& P, const Standar
   return G;
 }
 
-Handle(Geom2d_Geometry) Geom2d_Geometry::Transformed(const gp_Trsf2d& T) const
+Handle(Geom2d_Geometry) Geom2d_Geometry::Transformed(const Transform2d& T) const
 {
   Handle(Geom2d_Geometry) G = Copy();
   G->Transform(T);

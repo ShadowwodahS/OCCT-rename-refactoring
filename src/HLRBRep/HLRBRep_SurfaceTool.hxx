@@ -137,7 +137,7 @@ public:
 
   static gp_Torus Torus(const Standard_Address S);
 
-  static gp_Sphere Sphere(const Standard_Address S);
+  static Sphere3 Sphere(const Standard_Address S);
 
   static Handle(Geom_BezierSurface) Bezier(const Standard_Address S);
 

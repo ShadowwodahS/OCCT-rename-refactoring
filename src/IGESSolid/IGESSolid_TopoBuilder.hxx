@@ -32,7 +32,7 @@ class IGESData_IGESEntity;
 class IGESSolid_Loop;
 class IGESSolid_EdgeList;
 class IGESSolid_VertexList;
-class gp_XYZ;
+class Coords3d;
 
 //! This class manages the creation of an IGES Topologic entity
 //! (BREP : ManifoldSolid, Shell, Face)
@@ -53,13 +53,13 @@ public:
   Standard_EXPORT void Clear();
 
   //! Adds a Vertex to the VertexList
-  Standard_EXPORT void AddVertex(const gp_XYZ& val);
+  Standard_EXPORT void AddVertex(const Coords3d& val);
 
   //! Returns the count of already recorded Vertices
   Standard_EXPORT Standard_Integer NbVertices() const;
 
   //! Returns a Vertex, given its rank
-  Standard_EXPORT const gp_XYZ& Vertex(const Standard_Integer num) const;
+  Standard_EXPORT const Coords3d& Vertex(const Standard_Integer num) const;
 
   //! Returns the VertexList. It can be referenced, but it remains
   //! empty until call to EndShell or EndSolid

@@ -23,38 +23,38 @@
 
 #include <Standard_Real.hxx>
 #include <Standard_OStream.hxx>
-class math_Function;
+class Function1;
 
 //! This class implements the Brent's method to find the minimum of
 //! a function of a single variable.
 //! No knowledge of the derivative is required.
-class math_BrentMinimum
+class BrentMinimumSolver
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! This constructor should be used in a sub-class to initialize
   //! correctly all the fields of this class.
-  Standard_EXPORT math_BrentMinimum(const Standard_Real    TolX,
+  Standard_EXPORT BrentMinimumSolver(const Standard_Real    TolX,
                                     const Standard_Integer NbIterations = 100,
                                     const Standard_Real    ZEPS         = 1.0e-12);
 
   //! This constructor should be used in a sub-class to initialize
   //! correctly all the fields of this class.
   //! It has to be used if F(Bx) is known.
-  Standard_EXPORT math_BrentMinimum(const Standard_Real    TolX,
+  Standard_EXPORT BrentMinimumSolver(const Standard_Real    TolX,
                                     const Standard_Real    Fbx,
                                     const Standard_Integer NbIterations = 100,
                                     const Standard_Real    ZEPS         = 1.0e-12);
 
   //! Destructor
-  Standard_EXPORT virtual ~math_BrentMinimum();
+  Standard_EXPORT virtual ~BrentMinimumSolver();
 
   //! Brent minimization is performed on function F from a given
   //! bracketing triplet of abscissas Ax, Bx, Cx (such that Bx is
   //! between Ax and Cx, F(Bx) is less than both F(Bx) and F(Cx))
   //! The solution is found when: abs(Xi - Xi-1) <= TolX * abs(Xi) + ZEPS;
-  Standard_EXPORT void Perform(math_Function&      F,
+  Standard_EXPORT void Perform(Function1&      F,
                                const Standard_Real Ax,
                                const Standard_Real Bx,
                                const Standard_Real Cx);
@@ -63,7 +63,7 @@ public:
   //! solution is found.
   //! It can be redefined in a sub-class to implement a specific test to
   //! stop the iterations.
-  virtual Standard_Boolean IsSolutionReached(math_Function& theFunction);
+  virtual Standard_Boolean IsSolutionReached(Function1& theFunction);
 
   //! Returns true if the computations are successful, otherwise returns false.
   Standard_Boolean IsDone() const;

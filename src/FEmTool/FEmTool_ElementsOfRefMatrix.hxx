@@ -33,7 +33,7 @@ class PLib_Base;
 //! Pi(u)''*Pj(u)''  or  Pi(u)'''*Pj(u)'''  for  each  i  and  j,
 //! where  Pi(u)  is  i-th  basis  function  of  expansion  and
 //! (')  means  derivative.
-class FEmTool_ElementsOfRefMatrix : public math_FunctionSet
+class FEmTool_ElementsOfRefMatrix : public FunctionSet
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -3057,12 +3057,12 @@ void ShapeFix_ComposeShell::DispatchWires(TopTools_SequenceOfShape&       faces,
     Standard_Integer indV = myGrid->LocateVParameter(pnt.Y());
 
     // compute parametric transformation
-    gp_Trsf2d        T;
+    Transform2d        T;
     Standard_Real    uFact = 1.;
     Standard_Boolean needT = myGrid->GlobalToLocalTransformation(indU, indV, uFact, T);
     if (ush != 0. || vsh != 0.)
     {
-      gp_Trsf2d Sh;
+      Transform2d Sh;
       Sh.SetTranslation(gp_Vec2d(ush, vsh));
       T.Multiply(Sh);
       needT = Standard_True;

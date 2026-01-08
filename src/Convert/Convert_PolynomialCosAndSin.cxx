@@ -108,7 +108,7 @@ void BuildPolynomialCosAndSin(const Standard_Real            UFirst,
   TPoles(6).SetCoord(-0.199043, -1.871905);
   TPoles(7).SetCoord(1., -1.013854);
   TPoles(8).SetCoord(1., 0.);
-  gp_Trsf2d T;
+  Transform2d T;
   T.SetRotation(gp1::Origin2d(), Angle);
   for (ii = 1; ii <= num_poles; ii++)
   {

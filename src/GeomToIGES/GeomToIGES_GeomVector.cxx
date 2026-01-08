@@ -85,7 +85,7 @@ Handle(IGESGeom_Direction) GeomToIGES_GeomVector::TransferVector(
   Standard_Real X, Y, Z;
   start->Coord(X, Y, Z);
   Standard_Real M = start->Magnitude();
-  Dir->Init(gp_XYZ(X / (M * GetUnit()), Y / (M * GetUnit()), Z / (M * GetUnit())));
+  Dir->Init(Coords3d(X / (M * GetUnit()), Y / (M * GetUnit()), Z / (M * GetUnit())));
   return Dir;
 }
 
@@ -105,6 +105,6 @@ Handle(IGESGeom_Direction) GeomToIGES_GeomVector::TransferVector(
 
   Standard_Real X, Y, Z;
   start->Coord(X, Y, Z);
-  Dir->Init(gp_XYZ(X / GetUnit(), Y / GetUnit(), Z / GetUnit()));
+  Dir->Init(Coords3d(X / GetUnit(), Y / GetUnit(), Z / GetUnit()));
   return Dir;
 }

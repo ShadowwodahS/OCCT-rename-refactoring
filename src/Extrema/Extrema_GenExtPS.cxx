@@ -166,12 +166,12 @@ Method:
   so there also exist N extrema between the point and the grid.
   So, the algorithm consists in starting from extrema of the grid to find the
   extrema of the surface.
-  The extrema are calculated by the algorithm math_FunctionSetRoot with the
+  The extrema are calculated by the algorithm FunctionSetRoot with the
   following arguments:
   - F: Extrema_FuncExtPS created from P and S,
   - UV: math_Vector the components which of are parameters of the extremum on the
     grid,
-  - Tol: Min(TolU,TolV), (Prov.:math_FunctionSetRoot does not authorize a vector)
+  - Tol: Min(TolU,TolV), (Prov.:FunctionSetRoot does not authorize a vector)
   - UVinf: math_Vector the components which of are lower limits of u and v,
   - UVsup: math_Vector the components which of are upper limits of u and v.
 
@@ -463,8 +463,8 @@ const Extrema_POnSurfParams& Extrema_GenExtPS::ComputeEdgeParameters(
     else
     {
       // The shortest distance is inside the edge.
-      gp_XYZ        aPoP(thePoint.XYZ().Subtracted(theParam0.Value().XYZ()));
-      gp_XYZ        aPoP1(theParam1.Value().XYZ().Subtracted(theParam0.Value().XYZ()));
+      Coords3d        aPoP(thePoint.XYZ().Subtracted(theParam0.Value().XYZ()));
+      Coords3d        aPoP1(theParam1.Value().XYZ().Subtracted(theParam0.Value().XYZ()));
       Standard_Real aRatio = aPoP.Dot(aPoP1) / aSqrDist01;
       Standard_Real aU[2];
       Standard_Real aV[2];
@@ -884,7 +884,7 @@ void Extrema_GenExtPS::FindSolution(const Point3d& /*P*/, const Extrema_POnSurfP
   UVsup(1) = myusup;
   UVsup(2) = myvsup;
 
-  math_FunctionSetRoot S(myF, Tol);
+  FunctionSetRoot S(myF, Tol);
   S.Perform(myF, UV, UVinf, UVsup);
 
   myDone = Standard_True;

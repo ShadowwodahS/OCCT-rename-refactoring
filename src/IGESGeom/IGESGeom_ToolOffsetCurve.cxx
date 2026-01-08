@@ -57,7 +57,7 @@ void OffsetCurveTool::ReadOwnParams(const Handle(IGESGeom_OffsetCurve)&    ent,
   Standard_Integer            anOffsetType, aFunctionCoord, aTaperedOffsetType;
   Standard_Real               offDistance1, offDistance2;
   Standard_Real               arcLength1, arcLength2, anOffsetParam, anotherOffsetParam;
-  gp_XYZ                      aNormalVec;
+  Coords3d                      aNormalVec;
   Handle(IGESData_IGESEntity) aBaseCurve;
   Handle(IGESData_IGESEntity) aFunction;
   IGESData_Status             aStatus;
@@ -260,7 +260,7 @@ void OffsetCurveTool::OwnCopy(const Handle(IGESGeom_OffsetCurve)& another,
   arcLength1         = another->ArcLength1();
   offDistance2       = another->SecondOffsetDistance();
   arcLength2         = another->ArcLength2();
-  gp_XYZ aNormalVec  = (another->NormalVector()).XYZ();
+  Coords3d aNormalVec  = (another->NormalVector()).XYZ();
   anOffsetParam1     = another->StartParameter();
   anOffsetParam2     = another->EndParameter();
 

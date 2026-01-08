@@ -40,7 +40,7 @@ void EllipsoidTool::ReadOwnParams(const Handle(IGESSolid_Ellipsoid)& ent,
                                             const Handle(IGESData_IGESReaderData)& /* IR */,
                                             IGESData_ParamReader& PR) const
 {
-  gp_XYZ tempSize, tempCenter, tempXAxis, tempZAxis;
+  Coords3d tempSize, tempCenter, tempXAxis, tempZAxis;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
   Standard_Real tempreal;
 

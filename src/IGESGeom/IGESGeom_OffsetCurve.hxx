@@ -79,7 +79,7 @@ public:
                             const Standard_Real                arcLength1,
                             const Standard_Real                offDistance2,
                             const Standard_Real                arcLength2,
-                            const gp_XYZ&                      aNormalVec,
+                            const Coords3d&                      aNormalVec,
                             const Standard_Real                anOffsetParam,
                             const Standard_Real                anotherOffsetParam);
 
@@ -152,7 +152,7 @@ private:
   Standard_Real               theArcLength1;
   Standard_Real               theOffsetDistance2;
   Standard_Real               theArcLength2;
-  gp_XYZ                      theNormalVector;
+  Coords3d                      theNormalVector;
   Standard_Real               theOffsetParam1;
   Standard_Real               theOffsetParam2;
 };

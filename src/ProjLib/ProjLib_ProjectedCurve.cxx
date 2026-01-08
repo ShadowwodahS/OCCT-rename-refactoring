@@ -421,7 +421,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
         const Standard_Real Vmax   = M_PI / 2.;
         const Standard_Real Vmin   = -Vmax;
         const Standard_Real minang = 1.e-5 * M_PI;
-        gp_Sphere           aSph   = mySurface->Sphere();
+        Sphere3           aSph   = mySurface->Sphere();
         Standard_Real       anR    = aSph.Radius();
         Standard_Real       f      = myCurve->FirstParameter();
         Standard_Real       l      = myCurve->LastParameter();

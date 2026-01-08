@@ -39,7 +39,7 @@ class IGESData_IGESEntity;
 class IGESData_IGESReaderData;
 class Message_Msg;
 class Coords2d;
-class gp_XYZ;
+class Coords3d;
 class TCollection_HAsciiString;
 class Interface_EntityList;
 
@@ -211,7 +211,7 @@ public:
 
   Standard_EXPORT Standard_Boolean ReadXYZ(const ParameterCursor& PC,
                                            Message_Msg&                amsg,
-                                           gp_XYZ&                     val);
+                                           Coords3d&                     val);
 
   //! Reads a triplet of Real values (X,Y,Z) from parameter "num"
   //! Integers are accepted (Check is filled with a Warning
@@ -220,7 +220,7 @@ public:
   //! For Message
   Standard_EXPORT Standard_Boolean ReadXYZ(const ParameterCursor& PC,
                                            const Standard_CString      mess,
-                                           gp_XYZ&                     val);
+                                           Coords3d&                     val);
 
   Standard_EXPORT Standard_Boolean ReadText(const ParameterCursor&       thePC,
                                             const Message_Msg&                theMsg,

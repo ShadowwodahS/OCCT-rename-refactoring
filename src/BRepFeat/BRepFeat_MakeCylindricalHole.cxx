@@ -75,7 +75,7 @@ void BRepFeat_MakeCylindricalHole::Perform(const Standard_Real Radius)
   Standard_Real PMin, PMax;
   BoxParameters(aObject, myAxis, PMin, PMax);
   Standard_Real Heigth  = 2. * (PMax - PMin);
-  gp_XYZ        theOrig = myAxis.Location().XYZ();
+  Coords3d        theOrig = myAxis.Location().XYZ();
   theOrig += ((3. * PMin - PMax) / 2.) * myAxis.Direction().XYZ();
   Point3d            p1_ao1(theOrig);
   Frame3d            a1_ao1(p1_ao1, myAxis.Direction());
@@ -549,7 +549,7 @@ void BRepFeat_MakeCylindricalHole::PerformBlind(const Standard_Real    Radius,
   }
 
   Standard_Real Heigth  = 3. * (Length - PMin) / 2.;
-  gp_XYZ        theOrig = myAxis.Location().XYZ();
+  Coords3d        theOrig = myAxis.Location().XYZ();
   theOrig += ((3. * PMin - Length) / 2.) * myAxis.Direction().XYZ();
   Point3d            p5_ao1(theOrig);
   Frame3d            a5_ao1(p5_ao1, myAxis.Direction());
@@ -692,7 +692,7 @@ BRepFeat_Status BRepFeat_MakeCylindricalHole::Validate()
 void Baryc(const TopoShape& S, Point3d& B)
 {
   ShapeExplorer    exp(S, TopAbs_EDGE);
-  gp_XYZ             Bar(0., 0., 0.);
+  Coords3d             Bar(0., 0., 0.);
   TopLoc_Location    L;
   Handle(GeomCurve3d) C;
   Standard_Real      prm, First, Last;
@@ -797,7 +797,7 @@ void CreateCyl(const LocOpe_PntFace& PntInfoFirst,
 
   // create cylinder along the axis (myAxis);
   // from 'First - offF' to 'Last + offL' params
-  gp_XYZ            theOrig = PntInfoFirst.Pnt().XYZ() - offF * Axis.Direction().XYZ();
+  Coords3d            theOrig = PntInfoFirst.Pnt().XYZ() - offF * Axis.Direction().XYZ();
   Point3d            p2_ao1(theOrig);
   Frame3d            a2_ao1(p2_ao1, Axis.Direction());
   BRepPrim_Cylinder theCylinder(a2_ao1, Radius, Heigth + offF + offL);

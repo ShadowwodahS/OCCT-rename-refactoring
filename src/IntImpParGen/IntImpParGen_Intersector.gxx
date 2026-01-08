@@ -263,11 +263,11 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
     EpsX = (TheParCurveDomain.LastParameter() - TheParCurveDomain.FirstParameter())*0.01;
   }
 
-  math_FunctionSample Sample2(TheParCurveDomain.FirstParameter(),
+  FunctionSampler Sample2(TheParCurveDomain.FirstParameter(),
     TheParCurveDomain.LastParameter(),
     nb_echantillons);
 
-  math_FunctionAllRoots Sol(TheImpParTool,
+  FunctionAllRoots Sol(TheImpParTool,
     Sample2,
     EpsX,
     EpsDist,

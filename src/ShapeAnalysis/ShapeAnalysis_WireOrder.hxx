@@ -25,7 +25,7 @@
 #include <TColgp_HSequenceOfXY.hxx>
 #include <TColgp_HSequenceOfXYZ.hxx>
 #include <Standard_Integer.hxx>
-class gp_XYZ;
+class Coords3d;
 class Coords2d;
 
 // resolve name collisions with X11 headers
@@ -76,14 +76,14 @@ public:
   Standard_EXPORT void Clear();
 
   //! Adds a couple of points 3D (start, end)
-  Standard_EXPORT void Add(const gp_XYZ& theStart3d, const gp_XYZ& theEnd3d);
+  Standard_EXPORT void Add(const Coords3d& theStart3d, const Coords3d& theEnd3d);
 
   //! Adds a couple of points 2D (start, end)
   Standard_EXPORT void Add(const Coords2d& theStart2d, const Coords2d& theEnd2d);
 
   //! Adds a couple of points 3D and 2D (start, end)
-  Standard_EXPORT void Add(const gp_XYZ& theStart3d,
-                           const gp_XYZ& theEnd3d,
+  Standard_EXPORT void Add(const Coords3d& theStart3d,
+                           const Coords3d& theEnd3d,
                            const Coords2d&  theStart2d,
                            const Coords2d&  theEnd2d);
 
@@ -121,8 +121,8 @@ public:
 
   //! Returns the values of the couple <num>, as 3D values
   Standard_EXPORT void XYZ(const Standard_Integer theIdx,
-                           gp_XYZ&                theStart3D,
-                           gp_XYZ&                theEnd3D) const;
+                           Coords3d&                theStart3D,
+                           Coords3d&                theEnd3D) const;
 
   //! Returns the values of the couple <num>, as 2D values
   Standard_EXPORT void XY(const Standard_Integer theIdx, Coords2d& theStart2D, Coords2d& theEnd2D) const;

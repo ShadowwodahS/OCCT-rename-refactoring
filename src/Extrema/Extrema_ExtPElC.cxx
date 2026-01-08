@@ -213,7 +213,7 @@ Method:
           C(u) = (A*Cos,B*Sin) and Pp = (X,Y);
      Then, (1) <=> (A*Cos-X,B*Sin-Y).(-A*Sin,B*Cos) = 0.
                     (B**2-A**2)*Cos*Sin - B*Y*Cos + A*X*Sin = 0.
-     Use algorithm math_TrigonometricFunctionRoots to solve this equation.
+     Use algorithm TrigonometricFunctionRoots to solve this equation.
 -----------------------------------------------------------------------------*/
 {
   myDone  = Standard_False;
@@ -248,8 +248,8 @@ Method:
   if (Abs(ko3) < 1.e-16 * Max(Abs(ko2), Abs(ko3)))
     ko3 = 0.0;
 
-  //  math_TrigonometricFunctionRoots Sol(0.,(B*B-A*A)/2.,-B*Y,A*X,0.,Uinf,Usup);
-  math_TrigonometricFunctionRoots Sol(0., ko2, ko3, ko4, 0., Uinf, Usup);
+  //  TrigonometricFunctionRoots Sol(0.,(B*B-A*A)/2.,-B*Y,A*X,0.,Uinf,Usup);
+  TrigonometricFunctionRoots Sol(0., ko2, ko3, ko4, 0., Uinf, Usup);
 
   if (!Sol.IsDone())
   {
@@ -313,7 +313,7 @@ Method:
                      ((X*R+Y*r)/2.)  * v**3 +
              ((X*R-Y*r)/2.)  * v    -
             ((R**2+r**2)/4.)        = 0.
-  Use algorithm math_DirectPolynomialRoots to solve this equation by v.
+  Use algorithm DirectPolynomialRoots to solve this equation by v.
 -----------------------------------------------------------------------------*/
 {
   myDone  = Standard_False;
@@ -336,7 +336,7 @@ Method:
   Standard_Real Y = OPp.Dot(Vector3d(C.YAxis().Direction()));
 
   Standard_Real              C1 = (R * R + r * r) / 4.;
-  math_DirectPolynomialRoots Sol(C1, -(X * R + Y * r) / 2., 0., (X * R - Y * r) / 2., -C1);
+  DirectPolynomialRoots Sol(C1, -(X * R + Y * r) / 2., 0., (X * R - Y * r) / 2., -C1);
   if (!Sol.IsDone())
   {
     return;
@@ -412,7 +412,7 @@ Method:
           C(u) = ((u*u)/(4.*F),u) and Pp = (X,Y);
      Alors, (1) <=> ((u*u)/(4.*F)-X,u-Y).(u/(2.*F),1) = 0.
                     (1./(4.*F)) * U**3 + (2.*F-X) * U - 2*F*Y = 0.
-    Use algorithm math_DirectPolynomialRoots to solve this equation by U.
+    Use algorithm DirectPolynomialRoots to solve this equation by U.
 -----------------------------------------------------------------------------*/
 {
   myDone  = Standard_False;
@@ -432,7 +432,7 @@ Method:
   Standard_Real X = OPp.Dot(Vector3d(C.XAxis().Direction()));
   //  Standard_Real Y = Sqrt(OPpMagn*OPpMagn-X*X);
   Standard_Real              Y = OPp.Dot(Vector3d(C.YAxis().Direction()));
-  math_DirectPolynomialRoots Sol(1. / (4. * F), 0., 2. * F - X, -2. * F * Y);
+  DirectPolynomialRoots Sol(1. / (4. * F), 0., 2. * F - X, -2. * F * Y);
   if (!Sol.IsDone())
   {
     return;

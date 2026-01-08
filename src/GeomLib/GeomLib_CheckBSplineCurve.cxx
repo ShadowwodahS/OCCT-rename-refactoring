@@ -151,8 +151,8 @@ void GeomLib_CheckBSplineCurve::FixTangentOnCurve(Handle(BSplineCurve3d)& theCur
 {
   if (myFixFirstTangent && FirstFlag)
   {
-    gp_XYZ        XYZ1      = theCurve->Pole(1).XYZ();
-    gp_XYZ        XYZ2      = theCurve->Pole(myIndSecondPole).XYZ();
+    Coords3d        XYZ1      = theCurve->Pole(1).XYZ();
+    Coords3d        XYZ2      = theCurve->Pole(myIndSecondPole).XYZ();
     Standard_Real NbSamples = myIndSecondPole - 1;
     for (Standard_Integer i = 2; i < myIndSecondPole; i++)
     {
@@ -166,8 +166,8 @@ void GeomLib_CheckBSplineCurve::FixTangentOnCurve(Handle(BSplineCurve3d)& theCur
   {
     Standard_Integer num_poles = theCurve->NbPoles();
 
-    gp_XYZ        XYZ1      = theCurve->Pole(num_poles).XYZ();
-    gp_XYZ        XYZ2      = theCurve->Pole(myIndPrelastPole).XYZ();
+    Coords3d        XYZ1      = theCurve->Pole(num_poles).XYZ();
+    Coords3d        XYZ2      = theCurve->Pole(myIndPrelastPole).XYZ();
     Standard_Real NbSamples = num_poles - myIndPrelastPole;
     for (Standard_Integer i = num_poles - 1; i > myIndPrelastPole; i--)
     {

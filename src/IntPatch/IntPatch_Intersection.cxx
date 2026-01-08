@@ -2131,7 +2131,7 @@ Standard_Boolean Intersection1::CheckSingularPoints(
     Point3d           aPP1;
     Vector3d           aDU, aDV;
     Standard_Real    aD1NormMax = 0.;
-    gp_XYZ           aPmid(0., 0., 0.);
+    Coords3d           aPmid(0., 0., 0.);
     Standard_Integer aNb = 0;
     for (t = pinf; t <= psup; t += dt)
     {

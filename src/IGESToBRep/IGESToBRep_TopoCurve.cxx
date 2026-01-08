@@ -21,7 +21,7 @@
 //%14 03.03.99 pdn USA60022 do not insert lacking edge before fix missing seam
 // pdn 10.03.99 S4135 Creating vertices using minimal tolerance.
 // S4181 pdn 17.04.99 Implementing of reading IGES elementary surfaces. Transform
-// pcurves using gp_Trsf2d that depends on type of pair (IGES surface, resulting
+// pcurves using Transform2d that depends on type of pair (IGES surface, resulting
 // CAS.CADE surface)
 // szv#9:PRO19565:04Oct99 missing location for standalone vertices corrected
 
@@ -202,7 +202,7 @@ TopoShape IGESToBRep_TopoCurve::TransferCompositeCurveGeneral(
   const Handle(IGESGeom_CompositeCurve)& start,
   const Standard_Boolean                 is2d,
   const TopoFace&                     face,
-  const gp_Trsf2d&                       trans,
+  const Transform2d&                       trans,
   const Standard_Real                    uFact)
 
 {
@@ -376,7 +376,7 @@ TopoShape IGESToBRep_TopoCurve::TransferCompositeCurve(
 TopoShape IGESToBRep_TopoCurve::Transfer2dCompositeCurve(
   const Handle(IGESGeom_CompositeCurve)& start,
   const TopoFace&                     face,
-  const gp_Trsf2d&                       trans,
+  const Transform2d&                       trans,
   const Standard_Real                    uFact)
 
 {
@@ -417,7 +417,7 @@ TopoShape IGESToBRep_TopoCurve::TransferCurveOnSurface(
   }
   TopAbs_ShapeEnum       shapeEnum;
   IGESToBRep_TopoSurface TS(*this);
-  gp_Trsf2d              trans;
+  Transform2d              trans;
   Standard_Real          uFact;
   TopoShape           myshape = TS.ParamSurface(igesSurface, trans, uFact);
 
@@ -502,7 +502,7 @@ TopoShape IGESToBRep_TopoCurve::TransferCurveOnSurface(
 
 TopoShape IGESToBRep_TopoCurve::TransferCurveOnFace(TopoFace&                           face,
                                                        const Handle(IGESGeom_CurveOnSurface)& start,
-                                                       const gp_Trsf2d&                       trans,
+                                                       const Transform2d&                       trans,
                                                        const Standard_Real                    uFact,
                                                        const Standard_Boolean isCurveOnSurf)
 {
@@ -732,7 +732,7 @@ TopoShape IGESToBRep_TopoCurve::TransferOffsetCurve(const Handle(IGESGeom_Offset
 
 TopoShape IGESToBRep_TopoCurve::Transfer2dOffsetCurve(const Handle(IGESGeom_OffsetCurve)& start,
                                                          const TopoFace&                  face,
-                                                         const gp_Trsf2d&                    trans,
+                                                         const Transform2d&                    trans,
                                                          const Standard_Real                 uFact)
 
 {
@@ -886,7 +886,7 @@ TopoShape IGESToBRep_TopoCurve::TransferTopoCurve(const Handle(IGESData_IGESEnti
 
 TopoShape IGESToBRep_TopoCurve::Transfer2dTopoCurve(const Handle(IGESData_IGESEntity)& start,
                                                        const TopoFace&                 face,
-                                                       const gp_Trsf2d&                   trans,
+                                                       const Transform2d&                   trans,
                                                        const Standard_Real                uFact)
 {
   TopoShape res;
@@ -1091,7 +1091,7 @@ TopoShape IGESToBRep_TopoCurve::TransferTopoBasicCurve(const Handle(IGESData_IGE
 TopoShape IGESToBRep_TopoCurve::Transfer2dTopoBasicCurve(
   const Handle(IGESData_IGESEntity)& start,
   const TopoFace&                 face,
-  const gp_Trsf2d&                   trans,
+  const Transform2d&                   trans,
   const Standard_Real                uFact)
 {
   TopoEdge  edge, myedge;
@@ -1162,12 +1162,12 @@ TopoShape IGESToBRep_TopoCurve::Transfer2dTopoBasicCurve(
           mycurve2d->Mirror (gp1::OX2d());
           mycurve2d->Mirror (gp_Ax2d (gp1::Origin2d(), gp_Dir2d (1.,1.)));
 
-          gp_Trsf2d TR;
+          Transform2d TR;
           TR.SetTranslation (gp_Pnt2d (0.,0.),gp_Pnt2d (-paramu,0.));
           mycurve2d->Transform (TR);
         }
         if (paramv != 0.) {
-          gp_Trsf2d TR;
+          Transform2d TR;
           TR.SetTranslation (gp_Pnt2d (0.,0.), gp_Pnt2d (0.,paramv));
           mycurve2d->Transform (TR);
         }*/
@@ -1175,7 +1175,7 @@ TopoShape IGESToBRep_TopoCurve::Transfer2dTopoBasicCurve(
     if (trans.Form() != gp_Identity)
       mycurve2d->Transform(trans);
 
-    gp_Trsf2d ntrsf;
+    Transform2d ntrsf;
     if (mysurf->IsKind(STANDARD_TYPE(GeomPlane)))
       ntrsf.SetScale(gp_Pnt2d(0, 0), GetUnitFactor());
 
@@ -1297,7 +1297,7 @@ TopoShape IGESToBRep_TopoCurve::TransferBoundary(const Handle(IGESGeom_Boundary)
   TopoFace            face;
   TopAbs_ShapeEnum       shapeEnum;
   IGESToBRep_TopoSurface TS(*this);
-  gp_Trsf2d              trans;
+  Transform2d              trans;
   Standard_Real          uFact;
   TopoShape           myshape = TS.ParamSurface(igesSurface, trans, uFact);
 
@@ -1349,7 +1349,7 @@ TopoShape IGESToBRep_TopoCurve::TransferBoundary(const Handle(IGESGeom_Boundary)
 
 TopoShape IGESToBRep_TopoCurve::TransferBoundaryOnFace(TopoFace&                     face,
                                                           const Handle(IGESGeom_Boundary)& start,
-                                                          const gp_Trsf2d&                 trans,
+                                                          const Transform2d&                 trans,
                                                           const Standard_Real              uFact)
 {
   TopoShape res;

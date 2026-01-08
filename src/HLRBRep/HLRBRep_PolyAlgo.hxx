@@ -224,7 +224,7 @@ private:
                                  HLRAlgo_Array1OfTData&                 theTData,
                                  HLRAlgo_Array1OfPISeg&                 thePISeg,
                                  HLRAlgo_Array1OfPINod&                 thePINod,
-                                 gp_XYZ&                                theNormal) const
+                                 Coords3d&                                theNormal) const
   {
     return AverageNormal(theINode,
                          theNodeIndices,
@@ -569,7 +569,7 @@ private:
                                  Standard_Real&         Z,
                                  const Standard_Boolean VecPartOnly = Standard_False) const;
 
-  void TMultiply(gp_XYZ& thePoint, const Standard_Boolean VecPartOnly = Standard_False) const
+  void TMultiply(Coords3d& thePoint, const Standard_Boolean VecPartOnly = Standard_False) const
   {
     TMultiply(thePoint.ChangeCoord(1),
               thePoint.ChangeCoord(2),
@@ -582,7 +582,7 @@ private:
                                   Standard_Real&         Z,
                                   const Standard_Boolean VecPartOnly = Standard_False) const;
 
-  void TTMultiply(gp_XYZ& thePoint, const Standard_Boolean VecPartOnly = Standard_False) const
+  void TTMultiply(Coords3d& thePoint, const Standard_Boolean VecPartOnly = Standard_False) const
   {
     TTMultiply(thePoint.ChangeCoord(1),
                thePoint.ChangeCoord(2),
@@ -595,7 +595,7 @@ private:
                                   Standard_Real&         Z,
                                   const Standard_Boolean VecPartOnly = Standard_False) const;
 
-  void TIMultiply(gp_XYZ& thePoint, const Standard_Boolean VecPartOnly = Standard_False) const
+  void TIMultiply(Coords3d& thePoint, const Standard_Boolean VecPartOnly = Standard_False) const
   {
     TIMultiply(thePoint.ChangeCoord(1),
                thePoint.ChangeCoord(2),

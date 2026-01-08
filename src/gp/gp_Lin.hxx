@@ -216,7 +216,7 @@ private:
 //=======================================================================
 inline Standard_Real gp_Lin::Distance(const Point3d& theP) const
 {
-  gp_XYZ aCoord = theP.XYZ();
+  Coords3d aCoord = theP.XYZ();
   aCoord.Subtract((pos.Location()).XYZ());
   aCoord.Cross((pos.Direction()).XYZ());
   return aCoord.Modulus();

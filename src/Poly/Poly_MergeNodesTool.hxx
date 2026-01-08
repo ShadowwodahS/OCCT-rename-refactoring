@@ -89,9 +89,9 @@ public:
   //! Compute normal for the mesh element.
   NCollection_Vec3<float> computeTriNormal() const
   {
-    const gp_XYZ            aVec01 = myPlaces[1] - myPlaces[0];
-    const gp_XYZ            aVec02 = myPlaces[2] - myPlaces[0];
-    const gp_XYZ            aCross = aVec01 ^ aVec02;
+    const Coords3d            aVec01 = myPlaces[1] - myPlaces[0];
+    const Coords3d            aVec02 = myPlaces[2] - myPlaces[0];
+    const Coords3d            aCross = aVec01 ^ aVec02;
     NCollection_Vec3<float> aNorm((float)aCross.X(), (float)aCross.Y(), (float)aCross.Z());
     return aNorm.Normalized();
   }
@@ -111,20 +111,20 @@ public:
 public:
   //! Add new triangle.
   //! @param[in] theElemNodes 3 element nodes
-  void AddTriangle(const gp_XYZ theElemNodes[3]) { AddElement(theElemNodes, 3); }
+  void AddTriangle(const Coords3d theElemNodes[3]) { AddElement(theElemNodes, 3); }
 
   //! Add new quad.
   //! @param[in] theElemNodes 4 element nodes
-  void AddQuad(const gp_XYZ theElemNodes[4]) { AddElement(theElemNodes, 4); }
+  void AddQuad(const Coords3d theElemNodes[4]) { AddElement(theElemNodes, 4); }
 
   //! Add new triangle or quad.
   //! @param[in] theElemNodes element nodes
   //! @param[in] theNbNodes number of element nodes, should be 3 or 4
-  Standard_EXPORT void AddElement(const gp_XYZ* theElemNodes, int theNbNodes);
+  Standard_EXPORT void AddElement(const Coords3d* theElemNodes, int theNbNodes);
 
   //! Change node coordinates of element to be pushed.
   //! @param[in] theIndex node index within current element, in 0..3 range
-  gp_XYZ& ChangeElementNode(int theIndex) { return myPlaces[theIndex]; }
+  Coords3d& ChangeElementNode(int theIndex) { return myPlaces[theIndex]; }
 
   //! Add new triangle or quad with nodes specified by ChangeElementNode().
   Standard_EXPORT void PushLastElement(int theNbNodes);
@@ -160,7 +160,7 @@ private:
   void pushNodeCheck(bool& theIsOpposite, const int theTriNode)
   {
     int                           aNodeIndex = myNbNodes;
-    const gp_XYZ&                 aPlace     = myPlaces[theTriNode];
+    const Coords3d&                 aPlace     = myPlaces[theTriNode];
     const NCollection_Vec3<float> aVec3((float)aPlace.X(), (float)aPlace.Y(), (float)aPlace.Z());
     if (myNodeIndexMap.Bind(aNodeIndex, theIsOpposite, aVec3, myTriNormal))
     {
@@ -181,7 +181,7 @@ private:
   inline void pushNodeNoMerge(const int theTriNode)
   {
     int          aNodeIndex = myNbNodes;
-    const gp_XYZ aPlace     = myPlaces[theTriNode] * myUnitFactor;
+    const Coords3d aPlace     = myPlaces[theTriNode] * myUnitFactor;
 
     ++myNbNodes;
     if (!myPolyData.IsNull())
@@ -335,7 +335,7 @@ private:
   NCollection_Map<NCollection_Vec4<int>, MergedElemHasher1> myElemMap;      //!< map of elements
   NCollection_Vec4<int>                                    myNodeInds;  //!< current element indexes
   NCollection_Vec3<float>                                  myTriNormal; //!< current triangle normal
-  gp_XYZ myPlaces[4]; //!< current triangle/quad coordinates to push
+  Coords3d myPlaces[4]; //!< current triangle/quad coordinates to push
 
   Standard_Real    myUnitFactor;         //!< scale factor to apply
   Standard_Integer myNbNodes;            //!< number of output nodes

@@ -339,7 +339,7 @@ Standard_Boolean BRepBlend_AppFuncRoot::SearchPoint(Blend_AppFunction&  Func,
   // (2) Calculation of the solution ------------------------
   Func.Set(Param);
   Func.GetBounds(X1, X2);
-  math_FunctionSetRoot rsnld(Func, myTolerance, 30);
+  FunctionSetRoot rsnld(Func, myTolerance, 30);
 
   rsnld.Perform(Func, XInit, X1, X2);
 

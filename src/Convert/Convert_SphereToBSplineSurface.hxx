@@ -23,7 +23,7 @@
 
 #include <Convert_ElementarySurfaceToBSplineSurface.hxx>
 #include <Standard_Boolean.hxx>
-class gp_Sphere;
+class Sphere3;
 
 //! This algorithm converts a bounded Sphere into a rational
 //! B-spline surface. The sphere is a Sphere from package gp1.
@@ -46,7 +46,7 @@ public:
   //!
   //! Raised if U1 = U2 or U1 = U2 + 2.0 * Pi
   //! Raised if V1 = V2.
-  Standard_EXPORT Convert_SphereToBSplineSurface(const gp_Sphere&    Sph,
+  Standard_EXPORT Convert_SphereToBSplineSurface(const Sphere3&    Sph,
                                                  const Standard_Real U1,
                                                  const Standard_Real U2,
                                                  const Standard_Real V1,
@@ -58,14 +58,14 @@ public:
   //! Raised if UTrim = True and Param1 = Param2 or
   //! Param1 = Param2 + 2.0 * Pi
   //! Raised if UTrim = False and Param1 = Param2
-  Standard_EXPORT Convert_SphereToBSplineSurface(const gp_Sphere&       Sph,
+  Standard_EXPORT Convert_SphereToBSplineSurface(const Sphere3&       Sph,
                                                  const Standard_Real    Param1,
                                                  const Standard_Real    Param2,
                                                  const Standard_Boolean UTrim = Standard_True);
 
   //! The equivalent B-spline surface as the same orientation
   //! as the sphere in the U and V parametric directions.
-  Standard_EXPORT Convert_SphereToBSplineSurface(const gp_Sphere& Sph);
+  Standard_EXPORT Convert_SphereToBSplineSurface(const Sphere3& Sph);
 
 protected:
 private:

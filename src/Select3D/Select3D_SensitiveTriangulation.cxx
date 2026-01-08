@@ -63,7 +63,7 @@ Select3D_SensitiveTriangulation::Select3D_SensitiveTriangulation(
   myInvInitLocation             = myInitLocation.Transformation().Inverted();
   mySensType                    = theIsInterior ? Select3D_TOS_INTERIOR : Select3D_TOS_BOUNDARY;
   Standard_Integer aNbTriangles = 0;
-  gp_XYZ           aCenter(0.0, 0.0, 0.0);
+  Coords3d           aCenter(0.0, 0.0, 0.0);
   if (!theTrg->HasGeometry())
   {
     if (myTriangul->HasCachedMinMax())
@@ -544,7 +544,7 @@ Standard_Boolean Select3D_SensitiveTriangulation::HasInitLocation() const
 
 //=================================================================================================
 
-gp_GTrsf Select3D_SensitiveTriangulation::InvInitLocation() const
+GeneralTransform Select3D_SensitiveTriangulation::InvInitLocation() const
 {
   return myInvInitLocation;
 }

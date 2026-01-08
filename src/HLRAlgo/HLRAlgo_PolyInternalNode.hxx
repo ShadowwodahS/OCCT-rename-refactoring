@@ -46,7 +46,7 @@ public:
     {
     }
 
-    gp_XYZ        Point, Normal;
+    Coords3d        Point, Normal;
     Coords2d         UV;
     Standard_Real PCu1, PCu2, Scal;
   };

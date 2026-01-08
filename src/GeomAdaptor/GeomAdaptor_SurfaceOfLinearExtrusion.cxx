@@ -371,7 +371,7 @@ Cone1 GeomAdaptor_SurfaceOfLinearExtrusion::Cone() const
 
 //=================================================================================================
 
-gp_Sphere GeomAdaptor_SurfaceOfLinearExtrusion::Sphere() const
+Sphere3 GeomAdaptor_SurfaceOfLinearExtrusion::Sphere() const
 {
   throw Standard_NoSuchObject("GeomAdaptor_SurfaceOfLinearExtrusion::Sphere");
 }

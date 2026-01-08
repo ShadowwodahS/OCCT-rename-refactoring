@@ -50,7 +50,7 @@ Standard_Boolean BRepBlend_CurvPointRadInv::Value(const math_Vector& X, math_Vec
   Standard_Real theD;
   Point3d        ptcur1, ptcur2;
   Vector3d        d1cur1, d1cur2;
-  gp_XYZ        nplan; //, ref;
+  Coords3d        nplan; //, ref;
   curv1->D1(X(1), ptcur1, d1cur1);
   nplan = d1cur1.Normalized().XYZ();
   theD  = -(nplan.Dot(ptcur1.XYZ()));

@@ -14,7 +14,7 @@
 
 #include <math_Function.hxx>
 
-Standard_Integer math_Function::GetStateNumber()
+Standard_Integer Function1::GetStateNumber()
 {
   return 0;
 }

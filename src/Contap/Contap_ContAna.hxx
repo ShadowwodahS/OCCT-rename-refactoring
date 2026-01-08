@@ -26,7 +26,7 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class gp_Sphere;
+class Sphere3;
 class Cylinder1;
 class Cone1;
 class gp_Lin;
@@ -40,11 +40,11 @@ public:
 
   Standard_EXPORT ContourAnalyzer();
 
-  Standard_EXPORT void Perform(const gp_Sphere& S, const Dir3d& D);
+  Standard_EXPORT void Perform(const Sphere3& S, const Dir3d& D);
 
-  Standard_EXPORT void Perform(const gp_Sphere& S, const Dir3d& D, const Standard_Real Ang);
+  Standard_EXPORT void Perform(const Sphere3& S, const Dir3d& D, const Standard_Real Ang);
 
-  Standard_EXPORT void Perform(const gp_Sphere& S, const Point3d& Eye);
+  Standard_EXPORT void Perform(const Sphere3& S, const Point3d& Eye);
 
   Standard_EXPORT void Perform(const Cylinder1& C, const Dir3d& D);
 

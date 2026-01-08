@@ -51,7 +51,7 @@ typedef Dir3d                        Dir;
 typedef Point3d                        Pnt;
 typedef Transform3d                       Trsf;
 typedef Vector3d                        Vec;
-typedef gp_XYZ                        XYZ;
+typedef Coords3d                        XYZ;
 
 //=================================================================================================
 
@@ -294,14 +294,14 @@ void Geom_SurfaceOfLinearExtrusion::TransformParameters(Standard_Real& U,
 
 //=================================================================================================
 
-gp_GTrsf2d Geom_SurfaceOfLinearExtrusion::ParametricTransformation(const Transform3d& T) const
+GeneralTransform2d Geom_SurfaceOfLinearExtrusion::ParametricTransformation(const Transform3d& T) const
 {
   // transformation in the V Direction
-  gp_GTrsf2d TV;
+  GeneralTransform2d TV;
   gp_Ax2d    Axis(gp1::Origin2d(), gp1::DX2d());
   TV.SetAffinity(Axis, Abs(T.ScaleFactor()));
   // transformation in the U Direction
-  gp_GTrsf2d TU;
+  GeneralTransform2d TU;
   Axis = gp_Ax2d(gp1::Origin2d(), gp1::DY2d());
   TU.SetAffinity(Axis, basisCurve->ParametricTransformation(T));
 

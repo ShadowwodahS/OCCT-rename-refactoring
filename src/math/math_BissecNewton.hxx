@@ -29,14 +29,14 @@ class math_FunctionWithDerivative;
 //! This class implements a combination of Newton-Raphson and bissection
 //! methods to find the root of the function between two bounds.
 //! Knowledge of the derivative is required.
-class math_BissecNewton
+class BissecNewtonSolver
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructor.
   //! @param theXTolerance - algorithm tolerance.
-  Standard_EXPORT math_BissecNewton(const Standard_Real theXTolerance);
+  Standard_EXPORT BissecNewtonSolver(const Standard_Real theXTolerance);
 
   //! A combination of Newton-Raphson and bissection methods is done to find
   //! the root of the function F between the bounds Bound1 and Bound2
@@ -77,7 +77,7 @@ public:
   Standard_EXPORT void Dump(Standard_OStream& o) const;
 
   //! Destructor
-  Standard_EXPORT virtual ~math_BissecNewton();
+  Standard_EXPORT virtual ~BissecNewtonSolver();
 
 protected:
   math_Status   TheStatus;

@@ -97,7 +97,7 @@ public:
     return Standard_True;
   }
 
-  // see analogical method for abstract owner class math_MultipleVarFunction
+  // see analogical method for abstract owner class MultipleVarFunction
   virtual Standard_Integer GetStateNumber() { return 0; }
 
   // returns the gradient of the function when parameters are
@@ -648,7 +648,7 @@ Standard_Integer FillSubIntervals(const Handle(Adaptor3d_Curve)&   theCurve3d,
 
 //=======================================================================
 // class   : PSO_Perform
-// purpose : Searches minimal distance with math_PSO class
+// purpose : Searches minimal distance with PSO class
 //=======================================================================
 Standard_Boolean PSO_Perform(GeomLib_CheckCurveOnSurface_TargetFunc& theFunction,
                              const math_Vector&                      theParInf,
@@ -665,7 +665,7 @@ Standard_Boolean PSO_Perform(GeomLib_CheckCurveOnSurface_TargetFunc& theFunction
   math_Vector aStepPar(1, 1);
   aStepPar(1) = theEpsilon * aDeltaParam;
 
-  math_PSOParticlesPool aParticles(theNbParticles, 1);
+  PSOParticlesPool aParticles(theNbParticles, 1);
 
   // They are used for finding a position of theNbParticles worst places
   const Standard_Integer aNbControlPoints = 3 * theNbParticles;
@@ -679,7 +679,7 @@ Standard_Boolean PSO_Perform(GeomLib_CheckCurveOnSurface_TargetFunc& theFunction
     if (!theFunction.Value(aPrm, aVal))
       continue;
 
-    PSO_Particle* aParticle = aParticles.GetWorstParticle();
+    PSO_Particle1* aParticle = aParticles.GetWorstParticle();
 
     if (aVal > aParticle->BestDistance)
       continue;
@@ -690,7 +690,7 @@ Standard_Boolean PSO_Perform(GeomLib_CheckCurveOnSurface_TargetFunc& theFunction
     aParticle->BestDistance    = aVal;
   }
 
-  math_PSO aPSO(&theFunction, theParInf, theParSup, aStepPar);
+  PSO aPSO(&theFunction, theParInf, theParSup, aStepPar);
   aPSO.Perform(aParticles, theNbParticles, theBestValue, theOutputParam);
 
   return Standard_True;
@@ -726,7 +726,7 @@ Standard_Boolean MinComputing(GeomLib_CheckCurveOnSurface_TargetFunc& theFunctio
                      anOutputParam))
     {
 #ifdef OCCT_DEBUG
-      std::cout << "BRepLib_CheckCurveOnSurface::Compute(): math_PSO is failed!" << std::endl;
+      std::cout << "BRepLib_CheckCurveOnSurface::Compute(): PSO is failed!" << std::endl;
 #endif
       return Standard_False;
     }
@@ -734,18 +734,18 @@ Standard_Boolean MinComputing(GeomLib_CheckCurveOnSurface_TargetFunc& theFunctio
     theBestParameter = anOutputParam(1);
 
     // Here, anOutputParam contains parameter, which is near to optimal.
-    // It needs to be more precise. Precision is made by math_NewtonMinimum.
-    math_NewtonMinimum aMinSol(theFunction);
+    // It needs to be more precise. Precision is made by NewtonMinimum.
+    NewtonMinimum aMinSol(theFunction);
     aMinSol.Perform(theFunction, anOutputParam);
 
     if (aMinSol.IsDone() && (aMinSol.GetStatus() == math_OK))
-    { // math_NewtonMinimum has precised the value. We take it.
+    { // NewtonMinimum has precised the value. We take it.
       aMinSol.Location(anOutputParam);
       theBestParameter = anOutputParam(1);
       theBestValue     = aMinSol.Minimum();
     }
     else
-    { // Use math_PSO again but on smaller range.
+    { // Use PSO again but on smaller range.
       const Standard_Real aStep = theEpsilon * (aParSup(1) - aParInf(1));
       aParInf(1)                = theBestParameter - 0.5 * aStep;
       aParSup(1)                = theBestParameter + 0.5 * aStep;

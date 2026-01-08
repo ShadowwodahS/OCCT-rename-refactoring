@@ -424,7 +424,7 @@ AppParCurves_ResolConstraint::
 */
   // Resolution par Uzawa:
 
-  math_Uzawa UzaResol(Cont, Secont, Start, Tolerance);
+  Uzawa UzaResol(Cont, Secont, Start, Tolerance);
   if (!(UzaResol.IsDone())) {
     Done = Standard_False;
     return;

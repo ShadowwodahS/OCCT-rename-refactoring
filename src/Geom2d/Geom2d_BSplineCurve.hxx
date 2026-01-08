@@ -33,7 +33,7 @@
 #include <TColStd_Array1OfInteger.hxx>
 class gp_Pnt2d;
 class gp_Vec2d;
-class gp_Trsf2d;
+class Transform2d;
 class Geom2d_Geometry;
 
 class Geom2d_BSplineCurve;
@@ -840,7 +840,7 @@ public:
   Standard_EXPORT const TColStd_Array1OfReal* Weights() const;
 
   //! Applies the transformation T to this BSpline curve.
-  Standard_EXPORT void Transform(const gp_Trsf2d& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform2d& T) Standard_OVERRIDE;
 
   //! Returns the value of the maximum degree of the normalized
   //! B-spline basis functions in this package.

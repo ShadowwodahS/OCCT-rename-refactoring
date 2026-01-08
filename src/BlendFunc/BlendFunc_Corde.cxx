@@ -180,7 +180,7 @@ Standard_Boolean BlendFunc_Corde::IsSolution(const math_Vector& Sol, const Stand
     //  gradsol*der = secmember
     //  with  der(1) = dU/dW, der(2) = dU/dW, W is the guide parameter
 
-    math_Gauss Resol(gradsol);
+    Gauss Resol(gradsol);
     if (Resol.IsDone())
     {
       Resol.Solve(secmember);

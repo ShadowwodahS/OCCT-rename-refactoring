@@ -38,7 +38,7 @@ Standard_Integer GeomConvert_FuncCylinderLSDist::NbVariables() const
 
 Standard_Boolean GeomConvert_FuncCylinderLSDist::Value(const math_Vector& X, Standard_Real& F)
 {
-  gp_XYZ        aLoc(X(1), X(2), X(3));
+  Coords3d        aLoc(X(1), X(2), X(3));
   Standard_Real anR2 = X(4) * X(4);
 
   F = 0.;
@@ -59,7 +59,7 @@ Standard_Boolean GeomConvert_FuncCylinderLSDist::Value(const math_Vector& X, Sta
 Standard_Boolean GeomConvert_FuncCylinderLSDist::Gradient(const math_Vector& X, math_Vector& G)
 
 {
-  gp_XYZ        aLoc(X(1), X(2), X(3));
+  Coords3d        aLoc(X(1), X(2), X(3));
   Standard_Real anR = X(4), anR2 = anR * anR;
   Standard_Real x = myDir.X(), y = myDir.Y(), z = myDir.Z();
   G.Init(0.);
@@ -93,7 +93,7 @@ Standard_Boolean GeomConvert_FuncCylinderLSDist::Values(const math_Vector& X,
                                                         Standard_Real&     F,
                                                         math_Vector&       G)
 {
-  gp_XYZ        aLoc(X(1), X(2), X(3));
+  Coords3d        aLoc(X(1), X(2), X(3));
   Standard_Real anR = X(4), anR2 = anR * anR;
   Standard_Real x = myDir.X(), y = myDir.Y(), z = myDir.Z();
 

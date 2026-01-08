@@ -317,7 +317,7 @@ static Standard_Boolean FindPlane(const Handle(Adaptor3d_Curve)& theC, Handle(Ge
       theP->Coefficients(a, b, c, d);
       for (ii = 1; ii <= TabP->Length() && found; ii++)
       {
-        const gp_XYZ& xyz = TabP->Value(ii).XYZ();
+        const Coords3d& xyz = TabP->Value(ii).XYZ();
         dist              = a * xyz.X() + b * xyz.Y() + c * xyz.Z() + d;
         found             = (Abs(dist) <= Precision::Confusion());
       }

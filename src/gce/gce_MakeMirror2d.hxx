@@ -29,7 +29,7 @@ class gp_Dir2d;
 
 //! This class implements elementary construction algorithms for a
 //! symmetrical transformation in 2D space about a point
-//! or axis. The result is a gp_Trsf2d transformation.
+//! or axis. The result is a Transform2d transformation.
 //! A MakeMirror2d object provides a framework for:
 //! -   defining the construction of the transformation,
 //! -   implementing the construction algorithm, and consulting the result.
@@ -49,14 +49,14 @@ public:
   Standard_EXPORT MirrorBuilder2d(const gp_Pnt2d& Point, const gp_Dir2d& Direc);
 
   //! Returns the constructed transformation.
-  Standard_EXPORT const gp_Trsf2d& Value() const;
+  Standard_EXPORT const Transform2d& Value() const;
 
-  Standard_EXPORT const gp_Trsf2d& Operator() const;
-  Standard_EXPORT                  operator gp_Trsf2d() const;
+  Standard_EXPORT const Transform2d& Operator() const;
+  Standard_EXPORT                  operator Transform2d() const;
 
 protected:
 private:
-  gp_Trsf2d TheMirror2d;
+  Transform2d TheMirror2d;
 };
 
 #endif // _gce_MakeMirror2d_HeaderFile

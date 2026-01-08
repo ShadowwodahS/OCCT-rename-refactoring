@@ -28,7 +28,7 @@
 #include <Standard_DimensionError.hxx>
 #include <StdFail_NotDone.hxx>
 
-math_Crout::math_Crout(const math_Matrix& A, const Standard_Real MinPivot)
+CroutDecomposition::CroutDecomposition(const math_Matrix& A, const Standard_Real MinPivot)
     : InvA(1, A.RowNumber(), 1, A.ColNumber())
 {
   Standard_Integer i, j, k;
@@ -110,7 +110,7 @@ math_Crout::math_Crout(const math_Matrix& A, const Standard_Real MinPivot)
   Done = Standard_True;
 }
 
-void math_Crout::Solve(const math_Vector& B, math_Vector& X) const
+void CroutDecomposition::Solve(const math_Vector& B, math_Vector& X) const
 {
   StdFail_NotDone_Raise_if(!Done, " ");
   Standard_DimensionError_Raise_if((B.Length() != InvA.RowNumber()) || (X.Length() != B.Length()),
@@ -134,9 +134,9 @@ void math_Crout::Solve(const math_Vector& B, math_Vector& X) const
   }
 }
 
-void math_Crout::Dump(Standard_OStream& o) const
+void CroutDecomposition::Dump(Standard_OStream& o) const
 {
-  o << "math_Crout ";
+  o << "CroutDecomposition ";
   if (Done)
   {
     o << " Status = Done \n";

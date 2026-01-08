@@ -27,7 +27,7 @@
 class IGESBasic_HArray1OfHArray1OfXYZ;
 class IGESDimen_GeneralNote;
 class IGESAppli_Node;
-class gp_XYZ;
+class Coords3d;
 
 class IGESAppli_NodalDisplAndRot;
 DEFINE_STANDARD_HANDLE(IGESAppli_NodalDisplAndRot, IGESData_IGESEntity)
@@ -83,13 +83,13 @@ public:
   //! returns the Translational Parameters for the particular Index
   //! Exception raised if NodeNum <= 0 or NodeNum > NbNodes()
   //! or CaseNum <= 0 or CaseNum > NbCases()
-  Standard_EXPORT gp_XYZ TranslationParameter(const Standard_Integer NodeNum,
+  Standard_EXPORT Coords3d TranslationParameter(const Standard_Integer NodeNum,
                                               const Standard_Integer CaseNum) const;
 
   //! returns the Rotational Parameters for Index
   //! Exception raised if NodeNum <= 0 or NodeNum > NbNodes()
   //! or CaseNum <= 0 or CaseNum > NbCases()
-  Standard_EXPORT gp_XYZ RotationalParameter(const Standard_Integer NodeNum,
+  Standard_EXPORT Coords3d RotationalParameter(const Standard_Integer NodeNum,
                                              const Standard_Integer CaseNum) const;
 
   DEFINE_STANDARD_RTTIEXT(IGESAppli_NodalDisplAndRot, IGESData_IGESEntity)

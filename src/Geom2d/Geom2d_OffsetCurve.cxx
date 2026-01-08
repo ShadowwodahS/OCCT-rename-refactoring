@@ -301,7 +301,7 @@ Standard_Real Geom2d_OffsetCurve::Period() const
 
 //=================================================================================================
 
-void Geom2d_OffsetCurve::Transform(const gp_Trsf2d& T)
+void Geom2d_OffsetCurve::Transform(const Transform2d& T)
 {
   basisCurve->Transform(T);
   offsetValue *= Abs(T.ScaleFactor());
@@ -312,14 +312,14 @@ void Geom2d_OffsetCurve::Transform(const gp_Trsf2d& T)
 //=================================================================================================
 
 Standard_Real Geom2d_OffsetCurve::TransformedParameter(const Standard_Real U,
-                                                       const gp_Trsf2d&    T) const
+                                                       const Transform2d&    T) const
 {
   return basisCurve->TransformedParameter(U, T);
 }
 
 //=================================================================================================
 
-Standard_Real Geom2d_OffsetCurve::ParametricTransformation(const gp_Trsf2d& T) const
+Standard_Real Geom2d_OffsetCurve::ParametricTransformation(const Transform2d& T) const
 {
   return basisCurve->ParametricTransformation(T);
 }

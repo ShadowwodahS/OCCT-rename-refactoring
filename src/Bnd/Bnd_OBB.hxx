@@ -148,16 +148,16 @@ public:
   Ax3 Position() const { return Ax3(myCenter, ZDirection(), XDirection()); }
 
   //! Returns the center of OBB
-  const gp_XYZ& Center() const { return myCenter; }
+  const Coords3d& Center() const { return myCenter; }
 
   //! Returns the X Direction of OBB
-  const gp_XYZ& XDirection() const { return myAxes[0]; }
+  const Coords3d& XDirection() const { return myAxes[0]; }
 
   //! Returns the Y Direction of OBB
-  const gp_XYZ& YDirection() const { return myAxes[1]; }
+  const Coords3d& YDirection() const { return myAxes[1]; }
 
   //! Returns the Z Direction of OBB
-  const gp_XYZ& ZDirection() const { return myAxes[2]; }
+  const Coords3d& ZDirection() const { return myAxes[2]; }
 
   //! Returns the X Dimension of OBB
   Standard_Real XHSize() const { return myHDims[0]; }
@@ -178,7 +178,7 @@ public:
   void SetVoid()
   {
     myHDims[0] = myHDims[1] = myHDims[2] = -1.0;
-    myCenter = myAxes[0] = myAxes[1] = myAxes[2] = gp_XYZ();
+    myCenter = myAxes[0] = myAxes[1] = myAxes[2] = Coords3d();
     myIsAABox                                    = Standard_False;
   }
 
@@ -272,11 +272,11 @@ protected:
 
 private:
   //! Center of the OBB
-  gp_XYZ myCenter;
+  Coords3d myCenter;
 
   //! Directions of the box's axes
   //! (all vectors are already normalized)
-  gp_XYZ myAxes[3];
+  Coords3d myAxes[3];
 
   //! Half-size dimensions of the OBB
   Standard_Real myHDims[3];

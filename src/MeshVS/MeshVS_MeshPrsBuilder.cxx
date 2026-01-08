@@ -753,11 +753,11 @@ void MeshVS_MeshPrsBuilder::AddFaceWirePrs(const TColStd_Array1OfReal&          
     CalculateCenter(theCoords, theNbNodes, aCenterX, aCenterY, aCenterZ);
   }
 
-  NCollection_Vector<gp_XYZ> aNodes(theNbNodes);
+  NCollection_Vector<Coords3d> aNodes(theNbNodes);
 
   for (Standard_Integer aNodeIdx = 0; aNodeIdx < theNbNodes; ++aNodeIdx)
   {
-    gp_XYZ aPnt(theCoords(3 * aNodeIdx + 1),
+    Coords3d aPnt(theCoords(3 * aNodeIdx + 1),
                 theCoords(3 * aNodeIdx + 2),
                 theCoords(3 * aNodeIdx + 3));
 
@@ -814,7 +814,7 @@ void MeshVS_MeshPrsBuilder::AddFaceSolidPrs(const Standard_Integer              
     CalculateCenter(theCoords, theNbNodes, aCenterX, aCenterY, aCenterZ);
   }
 
-  NCollection_Vector<gp_XYZ> aVertexNormals(theMaxNodes);
+  NCollection_Vector<Coords3d> aVertexNormals(theMaxNodes);
 
   if (theIsShaded)
   {
@@ -825,7 +825,7 @@ void MeshVS_MeshPrsBuilder::AddFaceSolidPrs(const Standard_Integer              
         if (!aDataSource->GetNodeNormal(aNodeIdx, theID, aNormalX, aNormalY, aNormalZ))
           break;
 
-        aVertexNormals.Append(gp_XYZ(aNormalX, aNormalY, aNormalZ));
+        aVertexNormals.Append(Coords3d(aNormalX, aNormalY, aNormalZ));
       }
     }
 
@@ -835,11 +835,11 @@ void MeshVS_MeshPrsBuilder::AddFaceSolidPrs(const Standard_Integer              
     }
   }
 
-  NCollection_Vector<gp_XYZ> aNodes(theMaxNodes);
+  NCollection_Vector<Coords3d> aNodes(theMaxNodes);
 
   for (Standard_Integer aNodeIdx = 0; aNodeIdx < theNbNodes; ++aNodeIdx)
   {
-    gp_XYZ aPnt(theCoords(3 * aNodeIdx + 1),
+    Coords3d aPnt(theCoords(3 * aNodeIdx + 1),
                 theCoords(3 * aNodeIdx + 2),
                 theCoords(3 * aNodeIdx + 3));
 

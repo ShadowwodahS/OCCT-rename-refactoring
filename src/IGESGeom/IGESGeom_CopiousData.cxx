@@ -154,7 +154,7 @@ Point3d IGESGeom_CopiousData::TransformedPoint(const Standard_Integer anIndex) c
 {
   if (!HasTransf())
     return Point(anIndex);
-  gp_XYZ xyz(Point(anIndex).XYZ());
+  Coords3d xyz(Point(anIndex).XYZ());
   Location().Transforms(xyz);
   return Point3d(xyz);
 }
@@ -176,9 +176,9 @@ Vector3d IGESGeom_CopiousData::TransformedVector(const Standard_Integer anIndex)
 {
   if (!HasTransf())
     return Vector(anIndex);
-  gp_XYZ   xyz(Vector(anIndex).XYZ());
-  gp_GTrsf loc = Location();
-  loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
+  Coords3d   xyz(Vector(anIndex).XYZ());
+  GeneralTransform loc = Location();
+  loc.SetTranslationPart(Coords3d(0., 0., 0.));
   loc.Transforms(xyz);
   return Vector3d(xyz);
 }

@@ -207,9 +207,9 @@ Standard_Real IntPatch_Polyhedron::DeflectionOnTriangle(const Handle(Adaptor3d_S
     return (0);
   if (P2.SquareDistance(P3) <= LONGUEUR_MINI_EDGE_TRIANGLE)
     return (0);
-  gp_XYZ        XYZ1 = P2.XYZ() - P1.XYZ();
-  gp_XYZ        XYZ2 = P3.XYZ() - P2.XYZ();
-  gp_XYZ        XYZ3 = P1.XYZ() - P3.XYZ();
+  Coords3d        XYZ1 = P2.XYZ() - P1.XYZ();
+  Coords3d        XYZ2 = P3.XYZ() - P2.XYZ();
+  Coords3d        XYZ3 = P1.XYZ() - P3.XYZ();
   Vector3d        NormalVector((XYZ1 ^ XYZ2) + (XYZ2 ^ XYZ3) + (XYZ3 ^ XYZ1));
   Standard_Real aNormLen = NormalVector.Magnitude();
   if (aNormLen < gp1::Resolution())
@@ -584,19 +584,19 @@ Standard_Integer IntPatch_Polyhedron::TriConnex(const Standard_Integer Triang,
 //=================================================================================================
 
 void IntPatch_Polyhedron::PlaneEquation(const Standard_Integer Triang,
-                                        gp_XYZ&                NormalVector,
+                                        Coords3d&                NormalVector,
                                         Standard_Real&         PolarDistance) const
 {
   Standard_Integer i1, i2, i3;
   Triangle1(Triang, i1, i2, i3);
 
-  gp_XYZ Pointi1(Point(i1).XYZ());
-  gp_XYZ Pointi2(Point(i2).XYZ());
-  gp_XYZ Pointi3(Point(i3).XYZ());
+  Coords3d Pointi1(Point(i1).XYZ());
+  Coords3d Pointi2(Point(i2).XYZ());
+  Coords3d Pointi3(Point(i3).XYZ());
 
-  gp_XYZ v1 = Pointi2 - Pointi1;
-  gp_XYZ v2 = Pointi3 - Pointi2;
-  gp_XYZ v3 = Pointi1 - Pointi3;
+  Coords3d v1 = Pointi2 - Pointi1;
+  Coords3d v2 = Pointi3 - Pointi2;
+  Coords3d v3 = Pointi1 - Pointi3;
 
   if (v1.SquareModulus() <= LONGUEUR_MINI_EDGE_TRIANGLE)
   {
@@ -634,13 +634,13 @@ Standard_Boolean IntPatch_Polyhedron::Contain(const Standard_Integer Triang,
 {
   Standard_Integer i1, i2, i3;
   Triangle1(Triang, i1, i2, i3);
-  gp_XYZ Pointi1(Point(i1).XYZ());
-  gp_XYZ Pointi2(Point(i2).XYZ());
-  gp_XYZ Pointi3(Point(i3).XYZ());
+  Coords3d Pointi1(Point(i1).XYZ());
+  Coords3d Pointi2(Point(i2).XYZ());
+  Coords3d Pointi3(Point(i3).XYZ());
 
-  gp_XYZ v1 = (Pointi2 - Pointi1) ^ (ThePnt.XYZ() - Pointi1);
-  gp_XYZ v2 = (Pointi3 - Pointi2) ^ (ThePnt.XYZ() - Pointi2);
-  gp_XYZ v3 = (Pointi1 - Pointi3) ^ (ThePnt.XYZ() - Pointi3);
+  Coords3d v1 = (Pointi2 - Pointi1) ^ (ThePnt.XYZ() - Pointi1);
+  Coords3d v2 = (Pointi3 - Pointi2) ^ (ThePnt.XYZ() - Pointi2);
+  Coords3d v3 = (Pointi1 - Pointi3) ^ (ThePnt.XYZ() - Pointi3);
   if (v1 * v2 >= 0. && v2 * v3 >= 0. && v3 * v1 >= 0.)
     return Standard_True;
   else

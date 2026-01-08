@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESAppli_Node, IGESData_IGESEntity)
 
 IGESAppli_Node::IGESAppli_Node() {}
 
-void IGESAppli_Node::Init(const gp_XYZ&                                aCoord,
+void IGESAppli_Node::Init(const Coords3d&                                aCoord,
                           const Handle(IGESGeom_TransformationMatrix)& aCoordSystem)
 {
   theCoord  = aCoord;
@@ -55,7 +55,7 @@ Standard_Integer IGESAppli_Node::SystemType() const
 
 Point3d IGESAppli_Node::TransformedNodalCoord() const
 {
-  gp_XYZ                        tempCoord = Coord().XYZ();
+  Coords3d                        tempCoord = Coord().XYZ();
   Handle(IGESData_TransfEntity) temp      = System();
   if (!temp.IsNull())
     temp->Value().Transforms(tempCoord);

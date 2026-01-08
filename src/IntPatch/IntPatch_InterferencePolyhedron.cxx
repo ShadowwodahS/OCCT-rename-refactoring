@@ -241,7 +241,7 @@ void IntPatch_InterferencePolyhedron::Intersect(const Standard_Integer     Tri1,
   Standard_Real floatGap = 1e-13; //-- Epsilon(1000.);
 
   // Equation of the triangle plane of the objet
-  gp_XYZ        ONor; // Normal vector.
+  Coords3d        ONor; // Normal vector.
   Standard_Real Odp;  // Polar Distance.
   Intf::PlaneEquation(PolyhedronTool::Point(FirstPol, OI[0]),
                       PolyhedronTool::Point(FirstPol, OI[1]),
@@ -250,7 +250,7 @@ void IntPatch_InterferencePolyhedron::Intersect(const Standard_Integer     Tri1,
                       Odp);
 
   // Equation of the triangle plane of the tool
-  gp_XYZ        TNor; // Normal vector.
+  Coords3d        TNor; // Normal vector.
   Standard_Real Tdp;  // Polar distance.
   Intf::PlaneEquation(PolyhedronTool::Point(SeconPol, TI[0]),
                       PolyhedronTool::Point(SeconPol, TI[1]),
@@ -493,7 +493,7 @@ void IntPatch_InterferencePolyhedron::Intersect(const Standard_Integer     Tri1,
 
     // Singularite EDGE EDGE
     Point3d        piO;
-    gp_XYZ        piT;
+    Coords3d        piT;
     Standard_Real lg;
     for (iObj = 0; iObj < 3; iObj++)
     {
@@ -660,7 +660,7 @@ void IntPatch_InterferencePolyhedron::Intersect(const Standard_Integer     Tri1,
       // Sort the <nbpiOT> sections points along the intersection between the
       // two triangles :
 
-      gp_XYZ                                dir = ONor ^ TNor;
+      Coords3d                                dir = ONor ^ TNor;
       NCollection_LocalArray<Standard_Real> d(nbpiOT);
       Standard_Integer                      iPi, iPs;
       for (iPi = 0; iPi < nbpiOT; iPi++)
@@ -1134,8 +1134,8 @@ void IntPatch_InterferencePolyhedron::CoupleCharacteristics(const IntPatch_Polyh
               - PolyhedronTool::Point(SeconPol, TI[n1]).XYZ();
   }
 
-  gp_XYZ vvec  = (voo[0] ^ voo[1]) + (voo[1] ^ voo[2]) + (voo[2] ^ voo[0]);
-  gp_XYZ vnorT = (vtt[0] ^ vtt[1]) + (vtt[1] ^ vtt[2]) + (vtt[2] ^ vtt[0]);
+  Coords3d vvec  = (voo[0] ^ voo[1]) + (voo[1] ^ voo[2]) + (voo[2] ^ voo[0]);
+  Coords3d vnorT = (vtt[0] ^ vtt[1]) + (vtt[1] ^ vtt[2]) + (vtt[2] ^ vtt[0]);
   if (vnorT.Modulus() > vvec.Modulus())
     vvec = vnorT;
 
@@ -1145,14 +1145,14 @@ void IntPatch_InterferencePolyhedron::CoupleCharacteristics(const IntPatch_Polyh
     for (n2 = 0; n2 < 3; n2++)
     {
 
-      gp_XYZ vto = PolyhedronTool::Point(FirstPol, OI[n1]).XYZ()
+      Coords3d vto = PolyhedronTool::Point(FirstPol, OI[n1]).XYZ()
                    - PolyhedronTool::Point(SeconPol, TI[n2]).XYZ();
       dpOpT[n1][n2] = vto.Modulus();
 
       lg = vtt[n2].Modulus();
       if (lg > 1e-16)
       { //-- RealEpsilon()
-        gp_XYZ vv     = vto ^ vtt[n2];
+        Coords3d vv     = vto ^ vtt[n2];
         lg            = (vvec * vv) > 0.0 ? lg : -lg;
         dpOeT[n1][n2] = vv.Modulus() / lg;
       }
@@ -1162,7 +1162,7 @@ void IntPatch_InterferencePolyhedron::CoupleCharacteristics(const IntPatch_Polyh
       lg = voo[n1].Modulus();
       if (lg > 1e-16)
       { //-- RealEpsilon())
-        gp_XYZ vv     = vto ^ voo[n1];
+        Coords3d vv     = vto ^ voo[n1];
         lg            = (vvec * vv) > 0.0 ? -lg : lg;
         deOpT[n1][n2] = vv.Modulus() / lg;
       }

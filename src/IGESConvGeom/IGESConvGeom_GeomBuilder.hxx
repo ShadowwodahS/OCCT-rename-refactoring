@@ -25,7 +25,7 @@
 #include <gp_Trsf.hxx>
 #include <Standard_Integer.hxx>
 class Coords2d;
-class gp_XYZ;
+class Coords3d;
 class IGESGeom_CopiousData;
 class Ax3;
 class Frame3d;
@@ -52,19 +52,19 @@ public:
   Standard_EXPORT void AddXY(const Coords2d& val);
 
   //! Adds a XYZ to the list of points
-  Standard_EXPORT void AddXYZ(const gp_XYZ& val);
+  Standard_EXPORT void AddXYZ(const Coords3d& val);
 
   //! Adds a Vector part to the list of points. It will be used
   //! for CopiousData, datatype=3, only.
   //! AddXY and AddXYZ consider a null vector part (0,0,0)
   //! AddVec adds to the last added XY or XYZ
-  Standard_EXPORT void AddVec(const gp_XYZ& val);
+  Standard_EXPORT void AddVec(const Coords3d& val);
 
   //! Returns the count of already recorded points
   Standard_EXPORT Standard_Integer NbPoints() const;
 
   //! Returns a point given its rank (if added as XY, Z will be 0)
-  Standard_EXPORT gp_XYZ Point(const Standard_Integer num) const;
+  Standard_EXPORT Coords3d Point(const Standard_Integer num) const;
 
   //! Makes a CopiousData with the list of recorded Points/Vectors
   //! according to <datatype>, which must be 1,2 or 3
@@ -111,7 +111,7 @@ public:
   //! Returns the transformed coordinates.
   //! For a 2D definition, X,Y will then be used to define a XY and
   //! Z will be regarded as a Z Displacement (can be ignored)
-  Standard_EXPORT void EvalXYZ(const gp_XYZ&  val,
+  Standard_EXPORT void EvalXYZ(const Coords3d&  val,
                                Standard_Real& X,
                                Standard_Real& Y,
                                Standard_Real& Z) const;

@@ -256,10 +256,10 @@ public:
   //! Scales a ellipse. theS is the scaling value.
   Standard_NODISCARD gp_Elips2d Scaled(const gp_Pnt2d& theP, const Standard_Real theS) const;
 
-  void Transform(const gp_Trsf2d& theT);
+  void Transform(const Transform2d& theT);
 
   //! Transforms an ellipse with the transformation theT from class Trsf2d.
-  Standard_NODISCARD gp_Elips2d Transformed(const gp_Trsf2d& theT) const;
+  Standard_NODISCARD gp_Elips2d Transformed(const Transform2d& theT) const;
 
   void Translate(const gp_Vec2d& theV) { pos.Translate(theV); }
 
@@ -431,7 +431,7 @@ inline gp_Elips2d gp_Elips2d::Reversed() const
 // function : Transform
 // purpose  :
 // =======================================================================
-inline void gp_Elips2d::Transform(const gp_Trsf2d& theT)
+inline void gp_Elips2d::Transform(const Transform2d& theT)
 {
   Standard_Real aTSca = theT.ScaleFactor();
   if (aTSca < 0.0)
@@ -447,7 +447,7 @@ inline void gp_Elips2d::Transform(const gp_Trsf2d& theT)
 // function : Transformed
 // purpose  :
 // =======================================================================
-inline gp_Elips2d gp_Elips2d::Transformed(const gp_Trsf2d& theT) const
+inline gp_Elips2d gp_Elips2d::Transformed(const Transform2d& theT) const
 {
   gp_Elips2d anE = *this;
   anE.majorRadius *= theT.ScaleFactor();

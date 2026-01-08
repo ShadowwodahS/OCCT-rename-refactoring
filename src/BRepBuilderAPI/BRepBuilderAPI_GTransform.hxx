@@ -27,7 +27,7 @@
 class TopoShape;
 
 //! Geometric transformation on a shape.
-//! The transformation to be applied is defined as a gp_GTrsf
+//! The transformation to be applied is defined as a GeneralTransform
 //! transformation. It may be:
 //! -      a transformation equivalent to a Transform3d transformation, the
 //! most common case: you should , however, use a BRepAPI_Transform
@@ -56,7 +56,7 @@ public:
   //! Constructs a framework for applying the geometric
   //! transformation T to a shape. Use the function
   //! Perform to define the shape to transform.
-  Standard_EXPORT BRepBuilderAPI_GTransform(const gp_GTrsf& T);
+  Standard_EXPORT BRepBuilderAPI_GTransform(const GeneralTransform& T);
 
   //! Constructs a framework for applying the geometric
   //! transformation T to a shape, and applies it to the shape S.
@@ -72,7 +72,7 @@ public:
   //! apply the same geometric transformation to other
   //! shapes: just specify them with the function Perform.
   Standard_EXPORT BRepBuilderAPI_GTransform(const TopoShape&    S,
-                                            const gp_GTrsf&        T,
+                                            const GeneralTransform&        T,
                                             const Standard_Boolean Copy = Standard_False);
 
   //! Applies the geometric transformation defined at the
@@ -99,7 +99,7 @@ public:
 
 protected:
 private:
-  gp_GTrsf               myGTrsf;
+  GeneralTransform               myGTrsf;
   BRepBuilderAPI_Collect myHist;
 };
 

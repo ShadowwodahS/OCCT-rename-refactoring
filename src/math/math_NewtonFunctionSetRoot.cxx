@@ -26,7 +26,7 @@
 
 //=================================================================================================
 
-math_NewtonFunctionSetRoot::math_NewtonFunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
+NewtonFunctionSetRoot::NewtonFunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
                                                        const math_Vector&     theXTolerance,
                                                        const Standard_Real    theFTolerance,
                                                        const Standard_Integer theNbIterations)
@@ -49,7 +49,7 @@ math_NewtonFunctionSetRoot::math_NewtonFunctionSetRoot(math_FunctionSetWithDeriv
 
 //=================================================================================================
 
-math_NewtonFunctionSetRoot::math_NewtonFunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
+NewtonFunctionSetRoot::NewtonFunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
                                                        const Standard_Real    theFTolerance,
                                                        const Standard_Integer theNbIterations)
 
@@ -70,11 +70,11 @@ math_NewtonFunctionSetRoot::math_NewtonFunctionSetRoot(math_FunctionSetWithDeriv
 
 //=================================================================================================
 
-math_NewtonFunctionSetRoot::~math_NewtonFunctionSetRoot() {}
+NewtonFunctionSetRoot::~NewtonFunctionSetRoot() {}
 
 //=================================================================================================
 
-void math_NewtonFunctionSetRoot::SetTolerance(const math_Vector& theXTolerance)
+void NewtonFunctionSetRoot::SetTolerance(const math_Vector& theXTolerance)
 {
   for (Standard_Integer i = 1; i <= TolX.Length(); ++i)
     TolX(i) = theXTolerance(i);
@@ -82,7 +82,7 @@ void math_NewtonFunctionSetRoot::SetTolerance(const math_Vector& theXTolerance)
 
 //=================================================================================================
 
-void math_NewtonFunctionSetRoot::Perform(math_FunctionSetWithDerivatives& theFunction,
+void NewtonFunctionSetRoot::Perform(math_FunctionSetWithDerivatives& theFunction,
                                          const math_Vector&               theStartingPoint)
 {
   const math_Vector anInf(1, theFunction.NbVariables(), RealFirst());
@@ -93,7 +93,7 @@ void math_NewtonFunctionSetRoot::Perform(math_FunctionSetWithDerivatives& theFun
 
 //=================================================================================================
 
-void math_NewtonFunctionSetRoot::Perform(math_FunctionSetWithDerivatives& F,
+void NewtonFunctionSetRoot::Perform(math_FunctionSetWithDerivatives& F,
                                          const math_Vector&               StartingPoint,
                                          const math_Vector&               InfBound,
                                          const math_Vector&               SupBound)
@@ -142,9 +142,9 @@ void math_NewtonFunctionSetRoot::Perform(math_FunctionSetWithDerivatives& F,
 
 //=================================================================================================
 
-void math_NewtonFunctionSetRoot::Dump(Standard_OStream& o) const
+void NewtonFunctionSetRoot::Dump(Standard_OStream& o) const
 {
-  o << "math_NewtonFunctionSetRoot ";
+  o << "NewtonFunctionSetRoot ";
   if (Done)
   {
     o << " Status = Done \n";

@@ -274,7 +274,7 @@ Standard_Boolean Contap_SurfFunction::IsTangent()
       Vector3d d1u, d1v;
       HSurfaceTool::D1(mySurf, Usol, Vsol, solpt, d1u, d1v); // ajout jag 02.95
 
-      gp_XYZ d3dxyz(-Fpv * d1u.XYZ());
+      Coords3d d3dxyz(-Fpv * d1u.XYZ());
       d3dxyz.Add(Fpu * d1v.XYZ());
       d3d.SetXYZ(d3dxyz);
 

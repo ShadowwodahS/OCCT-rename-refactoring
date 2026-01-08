@@ -26,7 +26,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESSolid_Sphere, IGESData_IGESEntity)
 
 IGESSolid_Sphere::IGESSolid_Sphere() {}
 
-void IGESSolid_Sphere::Init(const Standard_Real aRadius, const gp_XYZ& aCenter)
+void IGESSolid_Sphere::Init(const Standard_Real aRadius, const Coords3d& aCenter)
 {
   theRadius = aRadius;
   theCenter = aCenter; // default (0,0,0)
@@ -49,7 +49,7 @@ Point3d IGESSolid_Sphere::TransformedCenter() const
     return Point3d(theCenter);
   else
   {
-    gp_XYZ tmp = theCenter;
+    Coords3d tmp = theCenter;
     Location().Transforms(tmp);
     return Point3d(tmp);
   }

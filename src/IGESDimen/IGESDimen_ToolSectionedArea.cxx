@@ -41,7 +41,7 @@ void SectionedAreaTool::ReadOwnParams(const Handle(IGESDimen_SectionedArea)& ent
 {
   Handle(IGESData_IGESEntity)          extCurve;
   Standard_Integer                     tempPattern, nbislands;
-  gp_XYZ                               passPnt;
+  Coords3d                               passPnt;
   Standard_Real                        tempDistance, tempAngle;
   Handle(IGESData_HArray1OfIGESEntity) tempIslands;
   Handle(IGESData_IGESEntity)          anent;
@@ -109,7 +109,7 @@ void SectionedAreaTool::OwnCopy(const Handle(IGESDimen_SectionedArea)& another,
 {
   DeclareAndCast(IGESData_IGESEntity, extCurve, TC.Transferred(another->ExteriorCurve()));
   Standard_Integer                     tempPattern  = another->Pattern();
-  gp_XYZ                               passPnt      = (another->PassingPoint()).XYZ();
+  Coords3d                               passPnt      = (another->PassingPoint()).XYZ();
   Standard_Real                        tempDistance = another->Distance();
   Standard_Real                        tempAngle    = another->Angle();
   Handle(IGESData_HArray1OfIGESEntity) tempIslands;

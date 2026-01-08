@@ -304,7 +304,7 @@ void CSLib1::Normal(const Standard_Integer    MaxOrder,
         // Creation of the polynom
         CSLib_NormalPolyDef Poly1(Order, Ratio);
         // Find zeros of SAPS
-        math_FunctionRoots
+        FunctionRootsSolver
           FindRoots(Poly1, inf, sup, 200, 1e-5, Precision::Confusion(), Precision::Confusion());
         // If there are zeros
         if (FindRoots.IsDone() && FindRoots.NbSolutions() > 0)

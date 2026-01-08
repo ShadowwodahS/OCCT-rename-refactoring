@@ -26,7 +26,7 @@
 #include <Standard_Integer.hxx>
 class GeomSurface;
 class NLPlate_HGPPConstraint;
-class gp_XYZ;
+class Coords3d;
 class Coords2d;
 
 class NLPlate_NLPlate
@@ -60,9 +60,9 @@ public:
   //! ( same as after Create((Surface))
   Standard_EXPORT void Init();
 
-  Standard_EXPORT gp_XYZ Evaluate(const Coords2d& point2d) const;
+  Standard_EXPORT Coords3d Evaluate(const Coords2d& point2d) const;
 
-  Standard_EXPORT gp_XYZ EvaluateDerivative(const Coords2d&           point2d,
+  Standard_EXPORT Coords3d EvaluateDerivative(const Coords2d&           point2d,
                                             const Standard_Integer iu,
                                             const Standard_Integer iv) const;
 

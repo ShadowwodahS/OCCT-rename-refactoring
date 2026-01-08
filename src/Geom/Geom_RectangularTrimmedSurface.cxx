@@ -579,7 +579,7 @@ void Geom_RectangularTrimmedSurface::TransformParameters(Standard_Real& U,
 
 //=================================================================================================
 
-gp_GTrsf2d Geom_RectangularTrimmedSurface::ParametricTransformation(const Transform3d& T) const
+GeneralTransform2d Geom_RectangularTrimmedSurface::ParametricTransformation(const Transform3d& T) const
 {
   return basisSurf->ParametricTransformation(T);
 }

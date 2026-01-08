@@ -30,7 +30,7 @@ class Point3d;
 class Adaptor3d_Curve;
 class GeomCurve2d;
 class Bnd_Box2d;
-class gp_XYZ;
+class Coords3d;
 
 //! Analyzing tool for 2d or 3d curve.
 //! Computes parameters of projected point onto a curve.
@@ -151,13 +151,13 @@ public:
   //! Checks if points are planar with given preci. If Normal has not zero
   //! modulus, checks with given normal
   Standard_EXPORT static Standard_Boolean IsPlanar(const TColgp_Array1OfPnt& pnts,
-                                                   gp_XYZ&                   Normal,
+                                                   Coords3d&                   Normal,
                                                    const Standard_Real       preci = 0);
 
   //! Checks if curve is planar with given preci. If Normal has not zero
   //! modulus, checks with given normal
   Standard_EXPORT static Standard_Boolean IsPlanar(const Handle(GeomCurve3d)& curve,
-                                                   gp_XYZ&                   Normal,
+                                                   Coords3d&                   Normal,
                                                    const Standard_Real       preci = 0);
 
   //! Returns sample points which will serve as linearisation

@@ -441,7 +441,7 @@ Handle(Bisector_BisecCC) Bisector_BisecCC::ChangeGuide() const
 
 //=================================================================================================
 
-void Bisector_BisecCC::Transform(const gp_Trsf2d& T)
+void Bisector_BisecCC::Transform(const Transform2d& T)
 {
   curve1->Transform(T);
   curve2->Transform(T);
@@ -671,7 +671,7 @@ gp_Pnt2d Bisector_BisecCC::ValueAndDist(const Standard_Real U,
     }
     else
     {
-      math_BissecNewton aNewSolution(EpsH);
+      BissecNewtonSolver aNewSolution(EpsH);
       aNewSolution.Perform(H, VMin - EpsH100, VMax + EpsH100, 10);
 
       if (aNewSolution.IsDone())
@@ -680,7 +680,7 @@ gp_Pnt2d Bisector_BisecCC::ValueAndDist(const Standard_Real U,
       }
       else
       {
-        math_FunctionRoot SolRoot(H, VInit, EpsH, VMin - EpsH100, VMax + EpsH100);
+        FunctionRootSolver SolRoot(H, VInit, EpsH, VMin - EpsH100, VMax + EpsH100);
 
         if (SolRoot.IsDone())
           U2 = SolRoot.Root();
@@ -854,7 +854,7 @@ gp_Pnt2d Bisector_BisecCC::ValueByInt(const Standard_Real U,
   DiscretPar(Abs(ULastOnC2 - UFirstOnC2), EpsH, EpsMax, 2, 20, EpsX, NbSamples);
 
   Bisector_FunctionH H(curve2, P1, sign1 * sign2 * Tan1);
-  math_FunctionRoots SolRoot(H, UFirstOnC2, ULastOnC2, NbSamples, EpsX, EpsH, EpsH);
+  FunctionRootsSolver SolRoot(H, UFirstOnC2, ULastOnC2, NbSamples, EpsX, EpsH, EpsH);
   if (SolRoot.IsDone())
   {
     for (Standard_Integer j = 1; j <= SolRoot.NbSolutions(); j++)

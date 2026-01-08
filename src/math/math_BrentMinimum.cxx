@@ -31,7 +31,7 @@ inline void SHFT(Standard_Real& theA, Standard_Real& theB, Standard_Real& theC, 
 
 //=================================================================================================
 
-math_BrentMinimum::math_BrentMinimum(const Standard_Real    theTolX,
+BrentMinimumSolver::BrentMinimumSolver(const Standard_Real    theTolX,
                                      const Standard_Integer theNbIterations,
                                      const Standard_Real    theZEPS)
     : a(0.0),
@@ -51,7 +51,7 @@ math_BrentMinimum::math_BrentMinimum(const Standard_Real    theTolX,
 
 //=================================================================================================
 
-math_BrentMinimum::math_BrentMinimum(const Standard_Real    theTolX,
+BrentMinimumSolver::BrentMinimumSolver(const Standard_Real    theTolX,
                                      const Standard_Real    theFbx,
                                      const Standard_Integer theNbIterations,
                                      const Standard_Real    theZEPS)
@@ -72,11 +72,11 @@ math_BrentMinimum::math_BrentMinimum(const Standard_Real    theTolX,
 
 //=================================================================================================
 
-math_BrentMinimum::~math_BrentMinimum() {}
+BrentMinimumSolver::~BrentMinimumSolver() {}
 
 //=================================================================================================
 
-void math_BrentMinimum::Perform(math_Function&      F,
+void BrentMinimumSolver::Perform(Function1&      F,
                                 const Standard_Real ax,
                                 const Standard_Real bx,
                                 const Standard_Real cx)
@@ -175,9 +175,9 @@ void math_BrentMinimum::Perform(math_Function&      F,
 
 //=================================================================================================
 
-void math_BrentMinimum::Dump(Standard_OStream& o) const
+void BrentMinimumSolver::Dump(Standard_OStream& o) const
 {
-  o << "math_BrentMinimum ";
+  o << "BrentMinimumSolver ";
   if (Done)
   {
     o << " Status = Done \n";

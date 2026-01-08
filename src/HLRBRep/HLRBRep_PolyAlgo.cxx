@@ -318,7 +318,7 @@ void HLRBRep_PolyAlgo::StoreShell(const TopoShape&                              
   Standard_Boolean isClosed     = Standard_False;
   const Transform3d&   aProjTrsf    = myProj.Transformation();
   {
-    const gp_XYZ& aTrsfVec = aProjTrsf.TranslationPart();
+    const Coords3d& aTrsfVec = aProjTrsf.TranslationPart();
     TLoc[0]                = aTrsfVec.X();
     TLoc[1]                = aTrsfVec.Y();
     TLoc[2]                = aTrsfVec.Z();
@@ -336,7 +336,7 @@ void HLRBRep_PolyAlgo::StoreShell(const TopoShape&                              
   }
   {
     const Transform3d& aTrsfInv    = myProj.InvertedTransformation();
-    const gp_XYZ&  aTrsfInvVec = aTrsfInv.TranslationPart();
+    const Coords3d&  aTrsfInvVec = aTrsfInv.TranslationPart();
     TILo[0]                    = aTrsfInvVec.X();
     TILo[1]                    = aTrsfInvVec.Y();
     TILo[2]                    = aTrsfInvVec.Z();
@@ -441,7 +441,7 @@ void HLRBRep_PolyAlgo::StoreShell(const TopoShape&                              
           Transform3d                aTT        = aLoc.Transformation();
           aTT.PreMultiply(aProjTrsf);
           {
-            const gp_XYZ& aTTrsfVec = aTT.TranslationPart();
+            const Coords3d& aTTrsfVec = aTT.TranslationPart();
             TTLo[0]                 = aTTrsfVec.X();
             TTLo[1]                 = aTTrsfVec.Y();
             TTLo[2]                 = aTTrsfVec.Z();
@@ -672,7 +672,7 @@ Standard_Boolean HLRBRep_PolyAlgo::Normal(const Standard_Integer                
 
   TMultiply(theNod1RValues.Normal, myProj.Perspective());
 
-  gp_XYZ anAverNorm;
+  Coords3d anAverNorm;
   if (AverageNormal(theNodeIndex, theNodIndices, theTriData, thePISeg, thePINod, anAverNorm))
   {
     if (theNod1RValues.Normal * anAverNorm < 0)
@@ -680,7 +680,7 @@ Standard_Boolean HLRBRep_PolyAlgo::Normal(const Standard_Integer                
       theNod1RValues.Normal.Reverse();
     }
 
-    gp_XYZ anEyeDir(0.0, 0.0, -1.0);
+    Coords3d anEyeDir(0.0, 0.0, -1.0);
     if (myProj.Perspective())
     {
       anEyeDir.SetCoord(theNod1RValues.Point.X(),
@@ -697,7 +697,7 @@ Standard_Boolean HLRBRep_PolyAlgo::Normal(const Standard_Integer                
   else
   {
     theNod1RValues.Scal   = 0;
-    theNod1RValues.Normal = gp_XYZ(1., 0., 0.);
+    theNod1RValues.Normal = Coords3d(1., 0., 0.);
 #ifdef OCCT_DEBUG
     if (DoError)
     {
@@ -829,7 +829,7 @@ void HLRBRep_PolyAlgo::AddNormalOnTriangle(const Standard_Integer theITri,
   const HLRAlgo_PolyInternalNode::NodeData1& aNod1RValues = thePINod.Value(aTriangle.Node1)->Data();
   const HLRAlgo_PolyInternalNode::NodeData1& aNod2RValues = thePINod.Value(aTriangle.Node2)->Data();
   const HLRAlgo_PolyInternalNode::NodeData1& aNod3RValues = thePINod.Value(aTriangle.Node3)->Data();
-  const gp_XYZ                              aD1          = aNod2RValues.Point - aNod1RValues.Point;
+  const Coords3d                              aD1          = aNod2RValues.Point - aNod1RValues.Point;
   const Standard_Real                       aD1Norm      = aD1.Modulus();
   if (aD1Norm < 1.e-10)
   {
@@ -844,7 +844,7 @@ void HLRBRep_PolyAlgo::AddNormalOnTriangle(const Standard_Integer theITri,
   }
   else
   {
-    const gp_XYZ        aD2     = aNod3RValues.Point - aNod2RValues.Point;
+    const Coords3d        aD2     = aNod3RValues.Point - aNod2RValues.Point;
     const Standard_Real aD2Norm = aD2.Modulus();
     if (aD2Norm < 1.e-10)
     {
@@ -859,7 +859,7 @@ void HLRBRep_PolyAlgo::AddNormalOnTriangle(const Standard_Integer theITri,
     }
     else
     {
-      const gp_XYZ        aD3     = aNod1RValues.Point - aNod3RValues.Point;
+      const Coords3d        aD3     = aNod1RValues.Point - aNod3RValues.Point;
       const Standard_Real aD3Norm = aD3.Modulus();
       if (aD3Norm < 1.e-10)
       {
@@ -874,7 +874,7 @@ void HLRBRep_PolyAlgo::AddNormalOnTriangle(const Standard_Integer theITri,
       }
       else
       {
-        const gp_XYZ        aDN     = (1 / (aD1Norm * aD2Norm)) * (aD1 ^ aD2);
+        const Coords3d        aDN     = (1 / (aD1Norm * aD2Norm)) * (aD1 ^ aD2);
         const Standard_Real aDNNorm = aDN.Modulus();
         if (aDNNorm > 1.e-10)
         {
@@ -1328,7 +1328,7 @@ void HLRBRep_PolyAlgo::InitBiPointsWithConnexity(
       const Transform3d&            aProjTrsf = myProj.Transformation();
       aTT.PreMultiply(aProjTrsf);
       {
-        const gp_XYZ& aTTrsfVec = aTT.TranslationPart();
+        const Coords3d& aTTrsfVec = aTT.TranslationPart();
         TTLo[0]                 = aTTrsfVec.X();
         TTLo[1]                 = aTTrsfVec.Y();
         TTLo[2]                 = aTTrsfVec.Z();
@@ -1344,7 +1344,7 @@ void HLRBRep_PolyAlgo::InitBiPointsWithConnexity(
         TTMa[2][2]              = aTTrsfMat.Value(3, 3);
       }
       const Standard_Integer aNbPol1 = aPol.Upper();
-      const gp_XYZ&          aP1     = aPol(1).XYZ();
+      const Coords3d&          aP1     = aPol(1).XYZ();
       X2                             = aP1.X();
       Y2                             = aP1.Y();
       Z2                             = aP1.Z();
@@ -1362,7 +1362,7 @@ void HLRBRep_PolyAlgo::InitBiPointsWithConnexity(
         XTI1              = XTI2;
         YTI1              = YTI2;
         ZTI1              = ZTI2;
-        const gp_XYZ& aP2 = aPol(jPol).XYZ();
+        const Coords3d& aP2 = aPol(jPol).XYZ();
         X2                = aP2.X();
         Y2                = aP2.Y();
         Z2                = aP2.Z();
@@ -1966,7 +1966,7 @@ void HLRBRep_PolyAlgo::MoveOrInsertPoint(HLRAlgo_ListOfBPoint&                  
       theYTI1               = theYTI3;
       theZTI1               = theZTI3;
       theU1                 = theU3;
-      theNod11RValues.Point = gp_XYZ(theX3, theY3, theZ3);
+      theNod11RValues.Point = Coords3d(theX3, theY3, theZ3);
       if (theNod11Indices.Edg1 == theIEdge)
       {
         theNod11RValues.PCu1 = theU3;
@@ -1986,8 +1986,8 @@ void HLRBRep_PolyAlgo::MoveOrInsertPoint(HLRAlgo_ListOfBPoint&                  
       theNod11Indices.Flag |= NMsk_OutL;
       UpdateAroundNode(theI1p1, theNod11Indices, *theTData1, *thePISeg1, *thePINod1);
       BiPoint::PointsT1& aPoints = theList.First().Points();
-      aPoints.PntP2                     = gp_XYZ(theX3, theY3, theZ3);
-      aPoints.Pnt2                      = gp_XYZ(theXTI3, theYTI3, theZTI3);
+      aPoints.PntP2                     = Coords3d(theX3, theY3, theZ3);
+      aPoints.Pnt2                      = Coords3d(theXTI3, theYTI3, theZTI3);
     }
   }
   if (anIns3 && !themP3P1) // P2 ---> P3
@@ -2016,7 +2016,7 @@ void HLRBRep_PolyAlgo::MoveOrInsertPoint(HLRAlgo_ListOfBPoint&                  
       theYTI2               = theYTI3;
       theZTI2               = theZTI3;
       theU2                 = theU3;
-      theNod12RValues.Point = gp_XYZ(theX3, theY3, theZ3);
+      theNod12RValues.Point = Coords3d(theX3, theY3, theZ3);
       if (theNod12Indices.Edg1 == theIEdge)
       {
         theNod12RValues.PCu1 = theU3;
@@ -2215,7 +2215,7 @@ void HLRBRep_PolyAlgo::MoveOrInsertPoint(HLRAlgo_ListOfBPoint&                  
       theYTI1               = theYTI3;
       theZTI1               = theZTI3;
       theU1                 = theU3;
-      theNod11RValues.Point = gp_XYZ(theX3, theY3, theZ3);
+      theNod11RValues.Point = Coords3d(theX3, theY3, theZ3);
       if (theNod11Indices.Edg1 == theIEdge)
       {
         theNod11RValues.PCu1 = theU3;
@@ -2234,7 +2234,7 @@ void HLRBRep_PolyAlgo::MoveOrInsertPoint(HLRAlgo_ListOfBPoint&                  
       theNod11RValues.Scal = 0;
       theNod11Indices.Flag |= NMsk_OutL;
       UpdateAroundNode(theI1p1, theNod11Indices, *theTData1, *thePISeg1, *thePINod1);
-      theNod21RValues.Point = gp_XYZ(theX3, theY3, theZ3);
+      theNod21RValues.Point = Coords3d(theX3, theY3, theZ3);
       if (theNod21Indices.Edg1 == theIEdge)
       {
         theNod21RValues.PCu1 = theU3;
@@ -2254,8 +2254,8 @@ void HLRBRep_PolyAlgo::MoveOrInsertPoint(HLRAlgo_ListOfBPoint&                  
       theNod21Indices.Flag |= NMsk_OutL;
       UpdateAroundNode(theI2p1, theNod21Indices, *theTData2, *thePISeg2, *thePINod2);
       BiPoint::PointsT1& aPoints = theList.First().Points();
-      aPoints.PntP2                     = gp_XYZ(theX3, theY3, theZ3);
-      aPoints.Pnt2                      = gp_XYZ(theXTI3, theYTI3, theZTI3);
+      aPoints.PntP2                     = Coords3d(theX3, theY3, theZ3);
+      aPoints.Pnt2                      = Coords3d(theXTI3, theYTI3, theZTI3);
     }
   }
   if (anIns3 && !themP3P1) // P2 ---> P3
@@ -2298,7 +2298,7 @@ void HLRBRep_PolyAlgo::MoveOrInsertPoint(HLRAlgo_ListOfBPoint&                  
       theYTI2               = theYTI3;
       theZTI2               = theZTI3;
       theU2                 = theU3;
-      theNod12RValues.Point = gp_XYZ(theX3, theY3, theZ3);
+      theNod12RValues.Point = Coords3d(theX3, theY3, theZ3);
       if (theNod12Indices.Edg1 == theIEdge)
       {
         theNod12RValues.PCu1 = theU3;
@@ -2317,7 +2317,7 @@ void HLRBRep_PolyAlgo::MoveOrInsertPoint(HLRAlgo_ListOfBPoint&                  
       theNod12RValues.Scal = 0;
       theNod12Indices.Flag |= NMsk_OutL;
       UpdateAroundNode(theI1p2, theNod12Indices, *theTData1, *thePISeg1, *thePINod1);
-      theNod22RValues.Point = gp_XYZ(theX3, theY3, theZ3);
+      theNod22RValues.Point = Coords3d(theX3, theY3, theZ3);
       if (theNod22Indices.Edg1 == theIEdge)
       {
         theNod22RValues.PCu1 = theU3;
@@ -2562,7 +2562,7 @@ void HLRBRep_PolyAlgo::MoveOrInsertPoint(HLRAlgo_ListOfBPoint&                  
       theYTI1               = theYTI3;
       theZTI1               = theZTI3;
       theU1                 = theU3;
-      theNod11RValues.Point = gp_XYZ(theX3, theY3, theZ3);
+      theNod11RValues.Point = Coords3d(theX3, theY3, theZ3);
       if (theNod11Indices.Edg1 == theIEdge)
       {
         theNod11RValues.PCu1 = theU3;
@@ -2581,7 +2581,7 @@ void HLRBRep_PolyAlgo::MoveOrInsertPoint(HLRAlgo_ListOfBPoint&                  
       theNod11RValues.Scal = 0;
       theNod11Indices.Flag |= NMsk_OutL;
       UpdateAroundNode(theI1p1, theNod11Indices, *theTData1, *thePISeg1, *thePINod1);
-      theNod21RValues.Point = gp_XYZ(theX3, theY3, theZ3);
+      theNod21RValues.Point = Coords3d(theX3, theY3, theZ3);
       if (theNod21Indices.Edg1 == theIEdge)
       {
         theNod21RValues.PCu1 = theU3;
@@ -2601,8 +2601,8 @@ void HLRBRep_PolyAlgo::MoveOrInsertPoint(HLRAlgo_ListOfBPoint&                  
       theNod21Indices.Flag |= NMsk_OutL;
       UpdateAroundNode(theI2p1, theNod21Indices, *theTData2, *thePISeg2, *thePINod2);
       BiPoint::PointsT1& aPoints = theList.First().Points();
-      aPoints.PntP2                     = gp_XYZ(theX3, theY3, theZ3);
-      aPoints.Pnt2                      = gp_XYZ(theXTI3, theYTI3, theZTI3);
+      aPoints.PntP2                     = Coords3d(theX3, theY3, theZ3);
+      aPoints.Pnt2                      = Coords3d(theXTI3, theYTI3, theZTI3);
     }
   }
   if (anIns4 && !themP4P1) // P2 ---> P4
@@ -2645,7 +2645,7 @@ void HLRBRep_PolyAlgo::MoveOrInsertPoint(HLRAlgo_ListOfBPoint&                  
       theYTI2               = theYTI4;
       theZTI2               = theZTI4;
       theU2                 = theU4;
-      theNod12RValues.Point = gp_XYZ(theX4, theY4, theZ4);
+      theNod12RValues.Point = Coords3d(theX4, theY4, theZ4);
       if (theNod12Indices.Edg1 == theIEdge)
       {
         theNod12RValues.PCu1 = theU4;
@@ -2664,7 +2664,7 @@ void HLRBRep_PolyAlgo::MoveOrInsertPoint(HLRAlgo_ListOfBPoint&                  
       theNod12RValues.Scal = 0;
       theNod12Indices.Flag |= NMsk_OutL;
       UpdateAroundNode(theI1p2, theNod12Indices, *theTData1, *thePISeg1, *thePINod1);
-      theNod22RValues.Point = gp_XYZ(theX4, theY4, theZ4);
+      theNod22RValues.Point = Coords3d(theX4, theY4, theZ4);
       if (theNod22Indices.Edg1 == theIEdge)
       {
         theNod22RValues.PCu1 = theU4;
@@ -3018,7 +3018,7 @@ void HLRBRep_PolyAlgo::InsertOnOutLine(NCollection_Array1<Handle(HLRAlgo_PolyInt
     {
       Transform3d aTT = aLoc.Transformation();
       aTT.PreMultiply(aProjTrsf);
-      const gp_XYZ& aTTrsfVec = aTT.TranslationPart();
+      const Coords3d& aTTrsfVec = aTT.TranslationPart();
       TTLo[0]                 = aTTrsfVec.X();
       TTLo[1]                 = aTTrsfVec.Y();
       TTLo[2]                 = aTTrsfVec.Z();
@@ -3585,10 +3585,10 @@ void HLRBRep_PolyAlgo::ChangeNode(const Standard_Integer                 theIp1,
   const Standard_Real aCoef2 = 1.0 - theCoef1;
   if (theIsFirst)
   {
-    theNod1RValues.Point      = gp_XYZ(theX3, theY3, theZ3);
+    theNod1RValues.Point      = Coords3d(theX3, theY3, theZ3);
     theNod1RValues.UV         = aCoef2 * theNod1RValues.UV + theCoef1 * theNod2RValues.UV;
     theNod1RValues.Scal       = theNod1RValues.Scal * aCoef2 + theNod2RValues.Scal * theCoef1;
-    const gp_XYZ        aXYZ  = aCoef2 * theNod1RValues.Normal + theCoef1 * theNod2RValues.Normal;
+    const Coords3d        aXYZ  = aCoef2 * theNod1RValues.Normal + theCoef1 * theNod2RValues.Normal;
     const Standard_Real aNorm = aXYZ.Modulus();
     if (aNorm > 0)
     {
@@ -3596,7 +3596,7 @@ void HLRBRep_PolyAlgo::ChangeNode(const Standard_Integer                 theIp1,
     }
     else
     {
-      theNod1RValues.Normal = gp_XYZ(1., 0., 0.);
+      theNod1RValues.Normal = Coords3d(1., 0., 0.);
 #ifdef OCCT_DEBUG
       if (DoError)
       {
@@ -3609,10 +3609,10 @@ void HLRBRep_PolyAlgo::ChangeNode(const Standard_Integer                 theIp1,
   }
   else
   {
-    theNod2RValues.Point      = gp_XYZ(theX3, theY3, theZ3);
+    theNod2RValues.Point      = Coords3d(theX3, theY3, theZ3);
     theNod2RValues.UV         = aCoef2 * theNod1RValues.UV + theCoef1 * theNod2RValues.UV;
     theNod2RValues.Scal       = theNod1RValues.Scal * aCoef2 + theNod2RValues.Scal * theCoef1;
-    const gp_XYZ        aXYZ  = aCoef2 * theNod1RValues.Normal + theCoef1 * theNod2RValues.Normal;
+    const Coords3d        aXYZ  = aCoef2 * theNod1RValues.Normal + theCoef1 * theNod2RValues.Normal;
     const Standard_Real aNorm = aXYZ.Modulus();
     if (aNorm > 0)
     {
@@ -3620,7 +3620,7 @@ void HLRBRep_PolyAlgo::ChangeNode(const Standard_Integer                 theIp1,
     }
     else
     {
-      theNod2RValues.Normal = gp_XYZ(1., 0., 0.);
+      theNod2RValues.Normal = Coords3d(1., 0., 0.);
 #ifdef OCCT_DEBUG
       if (DoError)
       {
@@ -3778,7 +3778,7 @@ void HLRBRep_PolyAlgo::OrientTriangle(const Standard_Integer                 the
       theTriangle.Flags &= ~HLRAlgo_PolyMask_FMskSide;
       theTriangle.Flags &= ~HLRAlgo_PolyMask_FMskBack;
     }
-    gp_XYZ              aD12     = theNod2RValues.Point - theNod1RValues.Point;
+    Coords3d              aD12     = theNod2RValues.Point - theNod1RValues.Point;
     const Standard_Real aD12Norm = aD12.Modulus();
     if (aD12Norm <= 1.e-10)
     {
@@ -3795,7 +3795,7 @@ void HLRBRep_PolyAlgo::OrientTriangle(const Standard_Integer                 the
     }
     else
     {
-      gp_XYZ              aD23     = theNod3RValues.Point - theNod2RValues.Point;
+      Coords3d              aD23     = theNod3RValues.Point - theNod2RValues.Point;
       const Standard_Real aD23Norm = aD23.Modulus();
       if (aD23Norm < 1.e-10)
       {
@@ -3812,7 +3812,7 @@ void HLRBRep_PolyAlgo::OrientTriangle(const Standard_Integer                 the
       }
       else
       {
-        const gp_XYZ        aD31     = theNod1RValues.Point - theNod3RValues.Point;
+        const Coords3d        aD31     = theNod1RValues.Point - theNod3RValues.Point;
         const Standard_Real aD31Norm = aD31.Modulus();
         if (aD31Norm < 1.e-10)
         {
@@ -3831,7 +3831,7 @@ void HLRBRep_PolyAlgo::OrientTriangle(const Standard_Integer                 the
         {
           aD12 *= 1 / aD12Norm;
           aD23 *= 1 / aD23Norm;
-          gp_XYZ              aD     = aD12 ^ aD23;
+          Coords3d              aD     = aD12 ^ aD23;
           const Standard_Real aDNorm = aD.Modulus();
           if (aDNorm < 1.e-5)
           {

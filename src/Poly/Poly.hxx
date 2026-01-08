@@ -149,11 +149,11 @@ public:
   //! @param[in] theV2     third triangle node
   //! @param[out] theParam  param on line of the intersection point
   //! @return 1 if intersection was found, 0 otherwise.
-  Standard_EXPORT static Standard_Integer IntersectTriLine(const gp_XYZ&  theStart,
+  Standard_EXPORT static Standard_Integer IntersectTriLine(const Coords3d&  theStart,
                                                            const Dir3d&  theDir,
-                                                           const gp_XYZ&  theV0,
-                                                           const gp_XYZ&  theV1,
-                                                           const gp_XYZ&  theV2,
+                                                           const Coords3d&  theV0,
+                                                           const Coords3d&  theV1,
+                                                           const Coords3d&  theV2,
                                                            Standard_Real& theParam);
 
   //! Returns area and perimeter of 2D-polygon given by its vertices.

@@ -27,7 +27,7 @@ class Cylinder1;
 class gp_Pln;
 class Cone1;
 class gp_Torus;
-class gp_Sphere;
+class Sphere3;
 
 //! It calculates all the extremum distances
 //! between a point and a surface.
@@ -71,9 +71,9 @@ public:
   //! It calculates all the distances between a point
   //! and a sphere from gp1.
   //! Tol is used to test if the point is at the center.
-  Standard_EXPORT PointElSurfaceExtrema(const Point3d& P, const gp_Sphere& S, const Standard_Real Tol);
+  Standard_EXPORT PointElSurfaceExtrema(const Point3d& P, const Sphere3& S, const Standard_Real Tol);
 
-  Standard_EXPORT void Perform(const Point3d& P, const gp_Sphere& S, const Standard_Real Tol);
+  Standard_EXPORT void Perform(const Point3d& P, const Sphere3& S, const Standard_Real Tol);
 
   //! Returns True if the distances are found.
   Standard_EXPORT Standard_Boolean IsDone() const;

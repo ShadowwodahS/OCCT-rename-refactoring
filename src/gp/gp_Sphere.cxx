@@ -20,7 +20,7 @@
 #include <gp_Pnt.hxx>
 #include <gp_Trsf.hxx>
 
-void gp_Sphere::Coefficients(Standard_Real& A1,
+void Sphere3::Coefficients(Standard_Real& A1,
                              Standard_Real& A2,
                              Standard_Real& A3,
                              Standard_Real& B1,
@@ -59,38 +59,38 @@ void gp_Sphere::Coefficients(Standard_Real& A1,
   D                 = T14 * T14 + T24 * T24 + T34 * T34 - radius * radius;
 }
 
-void gp_Sphere::Mirror(const Point3d& P)
+void Sphere3::Mirror(const Point3d& P)
 {
   pos.Mirror(P);
 }
 
-gp_Sphere gp_Sphere::Mirrored(const Point3d& P) const
+Sphere3 Sphere3::Mirrored(const Point3d& P) const
 {
-  gp_Sphere C = *this;
+  Sphere3 C = *this;
   C.pos.Mirror(P);
   return C;
 }
 
-void gp_Sphere::Mirror(const Axis3d& A1)
+void Sphere3::Mirror(const Axis3d& A1)
 {
   pos.Mirror(A1);
 }
 
-gp_Sphere gp_Sphere::Mirrored(const Axis3d& A1) const
+Sphere3 Sphere3::Mirrored(const Axis3d& A1) const
 {
-  gp_Sphere C = *this;
+  Sphere3 C = *this;
   C.pos.Mirror(A1);
   return C;
 }
 
-void gp_Sphere::Mirror(const Frame3d& A2)
+void Sphere3::Mirror(const Frame3d& A2)
 {
   pos.Mirror(A2);
 }
 
-gp_Sphere gp_Sphere::Mirrored(const Frame3d& A2) const
+Sphere3 Sphere3::Mirrored(const Frame3d& A2) const
 {
-  gp_Sphere C = *this;
+  Sphere3 C = *this;
   C.pos.Mirror(A2);
   return C;
 }

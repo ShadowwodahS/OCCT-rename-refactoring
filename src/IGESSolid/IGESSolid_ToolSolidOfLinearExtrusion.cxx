@@ -41,7 +41,7 @@ void SolidOfLinearExtrusionTool::ReadOwnParams(
   IGESData_ParamReader&                           PR) const
 {
   Handle(IGESData_IGESEntity) tempEntity;
-  gp_XYZ                      tempDirection;
+  Coords3d                      tempDirection;
   Standard_Real               tempLength;
   Standard_Real               tempreal;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
@@ -114,7 +114,7 @@ void SolidOfLinearExtrusionTool::OwnCopy(
 {
   DeclareAndCast(IGESData_IGESEntity, tempEntity, TC.Transferred(another->Curve()));
   Standard_Real tempLength    = another->ExtrusionLength();
-  gp_XYZ        tempDirection = another->ExtrusionDirection().XYZ();
+  Coords3d        tempDirection = another->ExtrusionDirection().XYZ();
   ent->Init(tempEntity, tempLength, tempDirection);
 }
 

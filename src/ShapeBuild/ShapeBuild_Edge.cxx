@@ -522,7 +522,7 @@ Standard_Boolean ShapeBuild_Edge::ReassignPCurve(const TopoEdge& edge,
 //=================================================================================================
 
 Handle(GeomCurve2d) ShapeBuild_Edge::TransformPCurve(const Handle(GeomCurve2d)& pcurve,
-                                                      const gp_Trsf2d&            trans,
+                                                      const Transform2d&            trans,
                                                       const Standard_Real         uFact,
                                                       Standard_Real&              aFirst,
                                                       Standard_Real&              aLast) const
@@ -543,7 +543,7 @@ Handle(GeomCurve2d) ShapeBuild_Edge::TransformPCurve(const Handle(GeomCurve2d)& 
     result                               = thecurve->BasisCurve();
   }
 
-  gp_GTrsf2d tMatu;
+  GeneralTransform2d tMatu;
   tMatu.SetAffinity(gp1::OY2d(), uFact);
   Coords2d pXY;
 

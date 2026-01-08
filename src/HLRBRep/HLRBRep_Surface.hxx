@@ -164,7 +164,7 @@ public:
 
   Cone1 Cone() const;
 
-  gp_Sphere Sphere() const;
+  Sphere3 Sphere() const;
 
   gp_Torus Torus() const;
 

@@ -1316,9 +1316,9 @@ static Standard_Integer XAutoNaming(DrawInterpreter& theDI,
 
 //=======================================================================
 // function : parseXYZ
-// purpose  : Converts three string arguments, to gp_XYZ with check
+// purpose  : Converts three string arguments, to Coords3d with check
 //=======================================================================
-static Standard_Boolean parseXYZ(const char** theArgVec, gp_XYZ& thePnt)
+static Standard_Boolean parseXYZ(const char** theArgVec, Coords3d& thePnt)
 {
   const AsciiString1 aXYZ[3] = {theArgVec[0], theArgVec[1], theArgVec[2]};
   if (!aXYZ[0].IsRealValue(Standard_True) || !aXYZ[1].IsRealValue(Standard_True)
@@ -1366,7 +1366,7 @@ static Standard_Integer setLocation(DrawInterpreter&,
   for (Standard_Integer anArgIter = 3; anArgIter < theArgNb; ++anArgIter)
   {
     Transform3d                 aCurTransformation;
-    gp_XYZ                  aMoveXYZ, aRotPnt, aRotAxis, aScalePnt;
+    Coords3d                  aMoveXYZ, aRotPnt, aRotAxis, aScalePnt;
     Standard_Real           aRotAngle, aScale;
     AsciiString1 anArg = theArgVec[anArgIter];
     anArg.LowerCase();

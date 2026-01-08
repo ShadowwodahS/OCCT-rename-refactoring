@@ -32,7 +32,7 @@ IMPLEMENT_STANDARD_RTTIEXT(RWObj_CafWriter, RefObject)
 namespace
 {
 //! Trivial cast.
-inline Graphic3d_Vec3 objXyzToVec(const gp_XYZ& thePnt)
+inline Graphic3d_Vec3 objXyzToVec(const Coords3d& thePnt)
 {
   return Graphic3d_Vec3((float)thePnt.X(), (float)thePnt.Y(), (float)thePnt.Z());
 }
@@ -345,7 +345,7 @@ bool RWObj_CafWriter::writePositions(RWObj_ObjWriterContext&    theWriter,
        aNodeIter <= aNodeUpper && thePSentry.More();
        ++aNodeIter, thePSentry.Next())
   {
-    gp_XYZ aNode = theFace.NodeTransformed(aNodeIter).XYZ();
+    Coords3d aNode = theFace.NodeTransformed(aNodeIter).XYZ();
     myCSTrsf.TransformPosition(aNode);
     if (!theWriter.WriteVertex(objXyzToVec(aNode)))
     {

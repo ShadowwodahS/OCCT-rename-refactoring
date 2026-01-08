@@ -318,7 +318,7 @@ void Add3dCurve::AddGenCurv(const Adaptor3d_Curve& C,
   Point3d                     P;
   Standard_Integer           i, k;
   Standard_Real              du = (UMax - UMin) / (Nu - 1), du2 = du / 2.;
-  NCollection_Array1<gp_XYZ> aPnts(1, Nu);
+  NCollection_Array1<Coords3d> aPnts(1, Nu);
   Standard_Real              u;
   for (i = 1, u = UMin; i <= Nu; i++, u += du)
   {
@@ -339,9 +339,9 @@ void Add3dCurve::AddGenCurv(const Adaptor3d_Curve& C,
     //
     if (i > 1)
     {
-      gp_XYZ aPm = 0.5 * (aPnts(i - 1) + aPnts(i));
+      Coords3d aPm = 0.5 * (aPnts(i - 1) + aPnts(i));
       C.D0(u - du2, P);
-      gp_XYZ aD = (P.XYZ() - aPm);
+      Coords3d aD = (P.XYZ() - aPm);
       for (k = 0; k < 3; ++k)
       {
         if (CoordMin[k] > P.Coord(k + 1))
@@ -407,7 +407,7 @@ void Add3dCurve::AddGenCurv(const Adaptor3d_Curve& C,
 }
 
 //
-class CurvMaxMinCoordMVar : public math_MultipleVarFunction
+class CurvMaxMinCoordMVar : public MultipleVarFunction
 {
 public:
   CurvMaxMinCoordMVar(const Adaptor3d_Curve& theCurve,
@@ -456,7 +456,7 @@ private:
 };
 
 //
-class CurvMaxMinCoord : public math_Function
+class CurvMaxMinCoord : public Function1
 {
 public:
   CurvMaxMinCoord(const Adaptor3d_Curve& theCurve,
@@ -522,7 +522,7 @@ Standard_Real AdjustExtr(const Adaptor3d_Curve& C,
   if (UMax - UMin < 0.01 * Du)
   {
 
-    math_BrentMinimum anOptLoc(reltol, 100, uTol);
+    BrentMinimumSolver anOptLoc(reltol, 100, uTol);
     CurvMaxMinCoord   aFunc(C, UMin, UMax, CoordIndx, aSign);
     anOptLoc.Perform(aFunc, UMin, (UMin + UMax) / 2., UMax);
     if (anOptLoc.IsDone())
@@ -543,10 +543,10 @@ Standard_Real AdjustExtr(const Adaptor3d_Curve& C,
   aSteps(1)     = Min(0.1 * Du, maxstep);
 
   CurvMaxMinCoordMVar aFunc(C, UMin, UMax, CoordIndx, aSign);
-  math_PSO            aFinder(&aFunc, aLowBorder, aUppBorder, aSteps, aNbParticles);
+  PSO            aFinder(&aFunc, aLowBorder, aUppBorder, aSteps, aNbParticles);
   aFinder.Perform(aSteps, extr, aT);
   //
-  math_BrentMinimum anOptLoc(reltol, 100, uTol);
+  BrentMinimumSolver anOptLoc(reltol, 100, uTol);
   CurvMaxMinCoord   aFunc1(C, UMin, UMax, CoordIndx, aSign);
   anOptLoc.Perform(aFunc1, Max(aT(1) - aSteps(1), UMin), aT(1), Min(aT(1) + aSteps(1), UMax));
 

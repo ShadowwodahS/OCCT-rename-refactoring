@@ -79,7 +79,7 @@ static void ComputeTrsf(const TopoWire& W, const Dir3d& D, Box2& Box1, Transform
   BRepTools_WireExplorer Exp(W);
   // Class BRepInspector without fields and without Constructor :
   //  BRepInspector BT;
-  gp_XYZ           Bary(0., 0., 0.);
+  Coords3d           Bary(0., 0., 0.);
   Standard_Integer nb;
 
   for (nb = 0; Exp.More(); Exp.Next())
@@ -171,7 +171,7 @@ static Standard_Boolean GoodOrientation(const Box2&                      B,
 
   TColgp_Array1OfPnt      Pnts(1, Nb);
   Handle(Adaptor3d_Curve) AC;
-  gp_XYZ                  Bary(0., 0., 0.);
+  Coords3d                  Bary(0., 0., 0.);
 
   for (ii = 1; ii <= Nb; ii++)
   {

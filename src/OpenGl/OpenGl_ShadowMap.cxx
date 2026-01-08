@@ -68,7 +68,7 @@ const Handle(OpenGl_Texture)& OpenGl_ShadowMap::Texture() const
 
 //=================================================================================================
 
-bool OpenGl_ShadowMap::UpdateCamera(const Graphic3d_CView& theView, const gp_XYZ* theOrigin)
+bool OpenGl_ShadowMap::UpdateCamera(const Graphic3d_CView& theView, const Coords3d* theOrigin)
 {
   // clang-format off
   const Box2 aMinMaxBox  = theOrigin == NULL ? theView.MinMaxValues (false) : Box2(); // applicative min max boundaries

@@ -66,9 +66,9 @@ void HLRAlgo_PolyData::UpdateGlobalMinMax(Box1& theBox)
   {
     if (TD->Flags & HLRAlgo_PolyMask_FMskHiding)
     {
-      const gp_XYZ& P1 = Nodes(TD->Node1);
-      const gp_XYZ& P2 = Nodes(TD->Node2);
-      const gp_XYZ& P3 = Nodes(TD->Node3);
+      const Coords3d& P1 = Nodes(TD->Node1);
+      const Coords3d& P2 = Nodes(TD->Node2);
+      const Coords3d& P3 = Nodes(TD->Node3);
       X1               = P1.X();
       Y1               = P1.Y();
       Z1               = P1.Z();
@@ -189,9 +189,9 @@ void HLRAlgo_PolyData::HideByPolyData(const BiPoint::PointsT1& thePoints,
               isCrossing                      = Standard_True;
               TFlag                           = aTriangle.Flags;
               const TColgp_Array1OfXYZ& Nodes = myHNodes->Array1();
-              const gp_XYZ&             P1    = Nodes(aTriangle.Node1);
-              const gp_XYZ&             P2    = Nodes(aTriangle.Node2);
-              const gp_XYZ&             P3    = Nodes(aTriangle.Node3);
+              const Coords3d&             P1    = Nodes(aTriangle.Node1);
+              const Coords3d&             P2    = Nodes(aTriangle.Node2);
+              const Coords3d&             P3    = Nodes(aTriangle.Node3);
               theTriangle.V1                  = Coords2d(P1.X(), P1.Y());
               theTriangle.V2                  = Coords2d(P2.X(), P2.Y());
               theTriangle.V3                  = Coords2d(P3.X(), P3.Y());
@@ -207,9 +207,9 @@ void HLRAlgo_PolyData::HideByPolyData(const BiPoint::PointsT1& thePoints,
               isCrossing                      = Standard_True;
               TFlag                           = aTriangle.Flags;
               const TColgp_Array1OfXYZ& Nodes = myHNodes->Array1();
-              const gp_XYZ&             P1    = Nodes(aTriangle.Node1);
-              const gp_XYZ&             P2    = Nodes(aTriangle.Node2);
-              const gp_XYZ&             P3    = Nodes(aTriangle.Node3);
+              const Coords3d&             P1    = Nodes(aTriangle.Node1);
+              const Coords3d&             P2    = Nodes(aTriangle.Node2);
+              const Coords3d&             P3    = Nodes(aTriangle.Node3);
               theTriangle.V1                  = Coords2d(P1.X(), P1.Y());
               theTriangle.V2                  = Coords2d(P2.X(), P2.Y());
               theTriangle.V3                  = Coords2d(P3.X(), P3.Y());
@@ -220,9 +220,9 @@ void HLRAlgo_PolyData::HideByPolyData(const BiPoint::PointsT1& thePoints,
               isCrossing                      = Standard_False;
               TFlag                           = aTriangle.Flags;
               const TColgp_Array1OfXYZ& Nodes = myHNodes->Array1();
-              const gp_XYZ&             P1    = Nodes(aTriangle.Node1);
-              const gp_XYZ&             P2    = Nodes(aTriangle.Node2);
-              const gp_XYZ&             P3    = Nodes(aTriangle.Node3);
+              const Coords3d&             P1    = Nodes(aTriangle.Node1);
+              const Coords3d&             P2    = Nodes(aTriangle.Node2);
+              const Coords3d&             P3    = Nodes(aTriangle.Node3);
               theTriangle.V1                  = Coords2d(P1.X(), P1.Y());
               theTriangle.V2                  = Coords2d(P2.X(), P2.Y());
               theTriangle.V3                  = Coords2d(P3.X(), P3.Y());
@@ -234,9 +234,9 @@ void HLRAlgo_PolyData::HideByPolyData(const BiPoint::PointsT1& thePoints,
             isCrossing                      = Standard_False;
             TFlag                           = aTriangle.Flags;
             const TColgp_Array1OfXYZ& Nodes = myHNodes->Array1();
-            const gp_XYZ&             P1    = Nodes(aTriangle.Node1);
-            const gp_XYZ&             P2    = Nodes(aTriangle.Node2);
-            const gp_XYZ&             P3    = Nodes(aTriangle.Node3);
+            const Coords3d&             P1    = Nodes(aTriangle.Node1);
+            const Coords3d&             P2    = Nodes(aTriangle.Node2);
+            const Coords3d&             P3    = Nodes(aTriangle.Node3);
             theTriangle.V1                  = Coords2d(P1.X(), P1.Y());
             theTriangle.V2                  = Coords2d(P2.X(), P2.Y());
             theTriangle.V3                  = Coords2d(P3.X(), P3.Y());

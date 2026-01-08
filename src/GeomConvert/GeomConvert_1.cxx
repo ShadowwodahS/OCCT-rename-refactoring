@@ -473,7 +473,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
     else if (Surf->IsKind(STANDARD_TYPE(Geom_SphericalSurface)))
     {
       Handle(Geom_SphericalSurface) TheElSurf = Handle(Geom_SphericalSurface)::DownCast(Surf);
-      gp_Sphere                     Sph       = TheElSurf->Sphere();
+      Sphere3                     Sph       = TheElSurf->Sphere();
       // OCC217
       if (isUClosed)
       {
@@ -612,9 +612,9 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
           NewWeights(i, j) = Weights(j);
         }
       }
-      gp_GTrsf Aff;
+      GeneralTransform Aff;
       Aff.SetAffinity(Revol->Axis(), 1 / Cos(AlfaU));
-      gp_XYZ coord;
+      Coords3d coord;
       for (j = 1; j <= NbVPoles; j++)
       {
         coord = Poles(j).XYZ();
@@ -780,7 +780,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
     {
       Handle(Geom_SphericalSurface) TheElSurf = Handle(Geom_SphericalSurface)::DownCast(S);
 
-      gp_Sphere                      Sph = TheElSurf->Sphere();
+      Sphere3                      Sph = TheElSurf->Sphere();
       Convert_SphereToBSplineSurface Convert(Sph);
       TheSurface = BSplineSurfaceBuilder(Convert);
     }
@@ -849,9 +849,9 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
           NewWeights(i, j) = Weights(j);
         }
       }
-      gp_GTrsf Aff;
+      GeneralTransform Aff;
       Aff.SetAffinity(Revol->Axis(), 1 / Cos(AlfaU));
-      gp_XYZ coord;
+      Coords3d coord;
       for (j = 1; j <= NbVPoles; j++)
       {
         coord = Poles(j).XYZ();

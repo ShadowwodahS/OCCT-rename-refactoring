@@ -37,7 +37,7 @@ void gp_Hypr2d::Coefficients(Standard_Real& A,
   }
   else
   {
-    gp_Trsf2d T;
+    Transform2d T;
     T.SetTransformation(pos.XAxis());
     Standard_Real T11 = T.Value(1, 1);
     Standard_Real T12 = T.Value(1, 2);

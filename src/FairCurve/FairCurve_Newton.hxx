@@ -25,7 +25,7 @@
 class math_MultipleVarFunctionWithHessian;
 
 //! Algorithme of Optimization used to make "FairCurve"
-class FairCurve_Newton : public math_NewtonMinimum
+class FairCurve_Newton : public NewtonMinimum
 {
 public:
   DEFINE_STANDARD_ALLOC

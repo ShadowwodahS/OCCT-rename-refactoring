@@ -36,7 +36,7 @@
 #include <Standard_DimensionError.hxx>
 #include <StdFail_NotDone.hxx>
 
-math_Uzawa::math_Uzawa(const math_Matrix&     Cont,
+Uzawa::Uzawa(const math_Matrix&     Cont,
                        const math_Vector&     Secont,
                        const math_Vector&     StartingPoint,
                        const Standard_Real    EpsLix,
@@ -54,7 +54,7 @@ math_Uzawa::math_Uzawa(const math_Matrix&     Cont,
   Perform(Cont, Secont, StartingPoint, Cont.RowNumber(), 0, EpsLix, EpsLic, NbIterations);
 }
 
-math_Uzawa::math_Uzawa(const math_Matrix&     Cont,
+Uzawa::Uzawa(const math_Matrix&     Cont,
                        const math_Vector&     Secont,
                        const math_Vector&     StartingPoint,
                        const Standard_Integer Nce,
@@ -74,7 +74,7 @@ math_Uzawa::math_Uzawa(const math_Matrix&     Cont,
   Perform(Cont, Secont, StartingPoint, Nce, Nci, EpsLix, EpsLic, NbIterations);
 }
 
-void math_Uzawa::Perform(const math_Matrix&     Cont,
+void Uzawa::Perform(const math_Matrix&     Cont,
                          const math_Vector&     Secont,
                          const math_Vector&     StartingPoint,
                          const Standard_Integer Nce,
@@ -124,7 +124,7 @@ void math_Uzawa::Perform(const math_Matrix&     Cont,
     // Calcul de l inverse de CTCinv :
     //================================
     //      CTCinv = CTCinv.Inverse();           // utilisation de Gauss.
-    math_Crout inv(CTCinv); // utilisation de Crout.
+    CroutDecomposition inv(CTCinv); // utilisation de Crout.
     CTCinv = inv.Inverse();
     for (i = 1; i <= Nlig; i++)
     {
@@ -263,15 +263,15 @@ void math_Uzawa::Perform(const math_Matrix&     Cont,
   }
 }
 
-void math_Uzawa::Duale(math_Vector& V) const
+void Uzawa::Duale(math_Vector& V) const
 {
   V = Vardua;
 }
 
-void math_Uzawa::Dump(Standard_OStream& o) const
+void Uzawa::Dump(Standard_OStream& o) const
 {
 
-  o << "math_Uzawa";
+  o << "Uzawa";
   if (Done)
   {
     o << " Status = Done \n";

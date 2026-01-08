@@ -547,7 +547,7 @@ static void ComputeToleranceVertex(TopoVertex theV1, TopoVertex theV2, TopoVerte
   else
   {
     Standard_Real aRr;
-    gp_XYZ        aXYZr;
+    Coords3d        aXYZr;
     Point3d        aPr;
     //
     aRr   = 0.5 * (aR[m] + aR[n] + aD);
@@ -569,7 +569,7 @@ static void ComputeToleranceVertex(TopoVertex  theV1,
   Point3d        aP[3];
   Standard_Real aR[3];
   TopoVertex aV[3];
-  gp_XYZ        aXYZ(0., 0., 0.);
+  Coords3d        aXYZ(0., 0., 0.);
   aV[0] = theV1;
   aV[1] = theV2;
   aV[2] = theV3;
@@ -2573,7 +2573,7 @@ void BRepBuilderAPI_Sewing::FaceAnalysis(const Message_ProgressRange& theProgres
   for (; aMIter.More(); aMIter.Next())
   {
     const TopoVertex&               vnew = TopoDS::Vertex(aMIter.Key());
-    gp_XYZ                             coord(0., 0., 0.);
+    Coords3d                             coord(0., 0., 0.);
     Standard_Integer                   nbPoints = 0;
     const ShapeList&        vlist    = aMIter.Value();
     TopTools_ListIteratorOfListOfShape liter1(vlist);
@@ -2870,7 +2870,7 @@ static Standard_Boolean CreateNewNodes(
   {
     const TopoVertex& newnode = TopoDS::Vertex(anIter1.Key());
     // Calculate new node center point
-    gp_XYZ               theCoordinates(0., 0., 0.);
+    Coords3d               theCoordinates(0., 0., 0.);
     ShapeList lvert; // Accumulate node vertices
     TopTools_MapOfShape  medge;
     ShapeList ledge; // Accumulate node edges
@@ -3021,8 +3021,8 @@ static Standard_Boolean GlueVertices(TopTools_IndexedDataMapOfShapeShape&       
     // Find near nodes
     Point3d pt1 = BRepInspector::Pnt(node1);
     anInspector.SetCurrent(pt1.XYZ());
-    gp_XYZ aPntMin = anInspector.Shift(pt1.XYZ(), -Tolerance);
-    gp_XYZ aPntMax = anInspector.Shift(pt1.XYZ(), Tolerance);
+    Coords3d aPntMin = anInspector.Shift(pt1.XYZ(), -Tolerance);
+    Coords3d aPntMax = anInspector.Shift(pt1.XYZ(), Tolerance);
     aFilter.Inspect(aPntMin, aPntMax, anInspector);
     if (anInspector.ResInd().IsEmpty())
       continue;
@@ -5313,7 +5313,7 @@ NCollection_CellFilter_Action BRepBuilderAPI_VertexInspector::Inspect(
   if (aPnt.SquareDistance (Point3d (myCurrent)) <= myTol)
     myResInd.Append (theTarget);*/
 
-  const gp_XYZ& aPnt = myPoints.Value(theTarget - 1);
+  const Coords3d& aPnt = myPoints.Value(theTarget - 1);
   Standard_Real aDx, aDy, aDz;
   aDx = myCurrent.X() - aPnt.X();
   aDy = myCurrent.Y() - aPnt.Y();

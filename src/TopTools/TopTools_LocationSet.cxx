@@ -72,7 +72,7 @@ Standard_Integer LocationSet1::Index(const TopLoc_Location& L) const
 
 static void WriteTrsf(const Transform3d& T, Standard_OStream& OS, const Standard_Boolean compact)
 {
-  gp_XYZ V = T.TranslationPart();
+  Coords3d V = T.TranslationPart();
   gp_Mat M = T.VectorialPart();
 
   if (!compact)

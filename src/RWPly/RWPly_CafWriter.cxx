@@ -246,7 +246,7 @@ bool RWPly_CafWriter::writeNodes(RWPly_PlyWriterContext&    theWriter,
        aNodeIter <= aNodeUpper && thePSentry.More();
        ++aNodeIter, thePSentry.Next())
   {
-    gp_XYZ aNode = theFace.NodeTransformed(aNodeIter).XYZ();
+    Coords3d aNode = theFace.NodeTransformed(aNodeIter).XYZ();
     myCSTrsf.TransformPosition(aNode);
     if (theFace.HasNormals())
     {

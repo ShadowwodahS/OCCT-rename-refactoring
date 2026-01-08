@@ -305,7 +305,7 @@ Cone1 Adaptor3d_Surface::Cone() const
 
 //=================================================================================================
 
-gp_Sphere Adaptor3d_Surface::Sphere() const
+Sphere3 Adaptor3d_Surface::Sphere() const
 {
   throw Standard_NotImplemented("Adaptor3d_Surface::Sphere");
 }

@@ -21,12 +21,12 @@
 #include <NCollection_CellFilter.hxx>
 #include <Precision.hxx>
 
-typedef NCollection_Vector<gp_XYZ> VectorOfPoint;
+typedef NCollection_Vector<Coords3d> VectorOfPoint;
 
 //! Class BRepExtrema_VertexInspector
 //!   derived from NCollection_CellFilter_InspectorXYZ
 //!   This class define the Inspector interface for CellFilter algorithm,
-//!   working with gp_XYZ points in 3d space.
+//!   working with Coords3d points in 3d space.
 //!   Used in search of coincidence points with a certain tolerance.
 class BRepExtrema_VertexInspector : public NCollection_CellFilter_InspectorXYZ
 {
@@ -41,13 +41,13 @@ public:
   }
 
   //! Keep the points used for comparison
-  void Add(const gp_XYZ& thePnt) { myPoints.Append(thePnt); }
+  void Add(const Coords3d& thePnt) { myPoints.Append(thePnt); }
 
   //! Set tolerance for comparison of point coordinates
   void SetTol(const Standard_Real theTol) { myTol = theTol; }
 
   //! Set current point to search for coincidence
-  void SetCurrent(const gp_XYZ& theCurPnt)
+  void SetCurrent(const Coords3d& theCurPnt)
   {
     myCurrent   = theCurPnt;
     myIsNeedAdd = Standard_True;
@@ -62,7 +62,7 @@ private:
   Standard_Real    myTol;
   Standard_Boolean myIsNeedAdd;
   VectorOfPoint    myPoints;
-  gp_XYZ           myCurrent;
+  Coords3d           myCurrent;
 };
 
 typedef NCollection_CellFilter<BRepExtrema_VertexInspector>    BRepExtrema_CellFilter;

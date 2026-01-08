@@ -4697,7 +4697,7 @@ static int VZLayer(DrawInterpreter& theDI, Standard_Integer theArgNb, const char
       }
 
       Graphic3d_ZLayerSettings aSettings = aViewer->ZLayerSettings(aLayerId);
-      gp_XYZ                   anOrigin;
+      Coords3d                   anOrigin;
       anOrigin.SetX(Draw1::Atof(theArgVec[anArgIter + 1]));
       anOrigin.SetY(Draw1::Atof(theArgVec[anArgIter + 2]));
       anOrigin.SetZ(0.0);
@@ -6393,8 +6393,8 @@ static Standard_Integer VSelectByAxis(DrawInterpreter& theDI,
   }
 
   AsciiString1 aName;
-  gp_XYZ                  anAxisLocation(RealLast(), RealLast(), RealLast());
-  gp_XYZ                  anAxisDirection(RealLast(), RealLast(), RealLast());
+  Coords3d                  anAxisLocation(RealLast(), RealLast(), RealLast());
+  Coords3d                  anAxisDirection(RealLast(), RealLast(), RealLast());
   Standard_Boolean        isOnlyTop    = true;
   Standard_Boolean        toShowNormal = false;
   for (Standard_Integer anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
@@ -6723,7 +6723,7 @@ static void replaceAnimation(const Handle(AIS_Animation)& theParentAnimation,
 }
 
 //! Parse the point.
-static Standard_Boolean parseXYZ(const char** theArgVec, gp_XYZ& thePnt)
+static Standard_Boolean parseXYZ(const char** theArgVec, Coords3d& thePnt)
 {
   const AsciiString1 anXYZ[3] = {theArgVec[0], theArgVec[1], theArgVec[2]};
   if (!anXYZ[0].IsRealValue(Standard_True) || !anXYZ[1].IsRealValue(Standard_True)
@@ -6737,7 +6737,7 @@ static Standard_Boolean parseXYZ(const char** theArgVec, gp_XYZ& thePnt)
 }
 
 //! Parse the quaternion.
-static Standard_Boolean parseQuaternion(const char** theArgVec, gp_Quaternion& theQRot)
+static Standard_Boolean parseQuaternion(const char** theArgVec, Quaternion& theQRot)
 {
   const AsciiString1 anXYZW[4] = {theArgVec[0],
                                              theArgVec[1],
@@ -6824,7 +6824,7 @@ static int VViewParams(DrawInterpreter& theDi, Standard_Integer theArgsNb, const
   Standard_Real    aViewAspect   = aView->Camera()->Aspect();
   Standard_Real    aViewSize     = 1.0;
   Graphic3d_Vec2i  aCenter2d;
-  gp_XYZ           aViewProj, aViewUp, aViewAt, aViewEye;
+  Coords3d           aViewProj, aViewUp, aViewAt, aViewEye;
   aView->Proj(aViewProj.ChangeCoord(1), aViewProj.ChangeCoord(2), aViewProj.ChangeCoord(3));
   aView->Up(aViewUp.ChangeCoord(1), aViewUp.ChangeCoord(2), aViewUp.ChangeCoord(3));
   aView->At(aViewAt.ChangeCoord(1), aViewAt.ChangeCoord(2), aViewAt.ChangeCoord(3));
@@ -6965,7 +6965,7 @@ static int VViewParams(DrawInterpreter& theDi, Standard_Integer theArgsNb, const
     {
       if (anArgIter + 3 < theArgsNb)
       {
-        gp_XYZ anXYZ;
+        Coords3d anXYZ;
         if (parseXYZ(theArgVec + anArgIter + 1, anXYZ))
         {
           anArgIter += 3;
@@ -7499,8 +7499,8 @@ static Standard_Integer VAnimation(DrawInterpreter& theDI,
       }
 
       Transform3d       aTrsfs[2] = {anObject->LocalTransformation(), anObject->LocalTransformation()};
-      gp_Quaternion aRotQuats[2] = {aTrsfs[0].GetRotation(), aTrsfs[1].GetRotation()};
-      gp_XYZ        aLocPnts[2]  = {aTrsfs[0].TranslationPart(), aTrsfs[1].TranslationPart()};
+      Quaternion aRotQuats[2] = {aTrsfs[0].GetRotation(), aTrsfs[1].GetRotation()};
+      Coords3d        aLocPnts[2]  = {aTrsfs[0].TranslationPart(), aTrsfs[1].TranslationPart()};
       Standard_Real aScales[2]   = {aTrsfs[0].ScaleFactor(), aTrsfs[1].ScaleFactor()};
       Standard_Boolean isTrsfSet = Standard_False;
 
@@ -7556,7 +7556,7 @@ static Standard_Integer VAnimation(DrawInterpreter& theDI,
         else if (aTrsfArg == "-axis")
         {
           isAxisRotationSet = Standard_True;
-          gp_XYZ anOrigin, aDirection;
+          Coords3d anOrigin, aDirection;
           if (aTrsfArgIter + 6 >= theArgNb || !parseXYZ(theArgVec + aTrsfArgIter + 1, anOrigin)
               || !parseXYZ(theArgVec + aTrsfArgIter + 4, aDirection))
           {
@@ -7666,7 +7666,7 @@ static Standard_Integer VAnimation(DrawInterpreter& theDI,
                  || aViewArg.StartsWith("-at") || aViewArg.StartsWith("-up"))
         {
           isTrsfSet = Standard_True;
-          gp_XYZ anXYZ;
+          Coords3d anXYZ;
           if (aViewArgIter + 3 >= theArgNb || !parseXYZ(theArgVec + aViewArgIter + 1, anXYZ))
           {
             Message::SendFail() << "Syntax error at " << aViewArg;
@@ -9931,7 +9931,7 @@ static int VLight(DrawInterpreter& theDi, Standard_Integer theArgsNb, const char
                  || anArgCase == "-prspos" || anArgCase == "pos" || anArgCase == "position")
              && (anArgIt + 3) < theArgsNb)
     {
-      gp_XYZ aPosXYZ;
+      Coords3d aPosXYZ;
       if (!parseXYZ(theArgVec + anArgIt + 1, aPosXYZ))
       {
         Message::SendFail() << "Syntax error at argument '" << anArg << "'";
@@ -9960,7 +9960,7 @@ static int VLight(DrawInterpreter& theDi, Standard_Integer theArgsNb, const char
                  || aLightNew->Type() == Graphic3d_TypeOfLightSource_Spot)
              && (anArgCase == "-dir" || anArgCase == "-direction") && (anArgIt + 3) < theArgsNb)
     {
-      gp_XYZ aDirXYZ;
+      Coords3d aDirXYZ;
       if (!parseXYZ(theArgVec + anArgIt + 1, aDirXYZ))
       {
         Message::SendFail() << "Syntax error at argument '" << anArg << "'";
@@ -12104,7 +12104,7 @@ static int VManipulator(DrawInterpreter& theDi, Standard_Integer theArgsNb, cons
                    toFollowDragging = -1, isZoomable = -1, isFlat = -1;
   Standard_Real                            aGap = -1.0, aSize = -1.0;
   NCollection_Sequence<ManipAxisModeOnOff> aParts;
-  gp_XYZ aLocation(RealLast(), RealLast(), RealLast()), aVDir, anXDir;
+  Coords3d aLocation(RealLast(), RealLast(), RealLast()), aVDir, anXDir;
   //
   bool                              toDetach    = false;
   bool                              toAddObject = false;
@@ -12118,9 +12118,9 @@ static int VManipulator(DrawInterpreter& theDi, Standard_Integer theArgsNb, cons
   Standard_Integer toStopMouseTransform = -1;
   // explicit transformation
   Transform3d       aTrsf;
-  gp_XYZ        aTmpXYZ;
+  Coords3d        aTmpXYZ;
   Standard_Real aTmpReal = 0.0;
-  gp_XYZ        aRotPnt, aRotAxis;
+  Coords3d        aRotPnt, aRotAxis;
   for (; anArgIter < theArgsNb; ++anArgIter)
   {
     AsciiString1 anArg(theArgVec[anArgIter]);

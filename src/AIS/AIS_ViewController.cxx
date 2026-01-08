@@ -1440,7 +1440,7 @@ void AIS_ViewController::handlePanning(const Handle(ViewWindow)& theView)
 
   const Dir3d& aDir = aCam->Direction();
   const Ax3  aCameraCS(aCam->Center(), aDir.Reversed(), aDir ^ aCam->Up());
-  const gp_XYZ  anEyeToPnt = myPanPnt3d.XYZ() - aCam->Eye().XYZ();
+  const Coords3d  anEyeToPnt = myPanPnt3d.XYZ() - aCam->Eye().XYZ();
   // clang-format off
   const Point3d aViewDims = aCam->ViewDimensions (anEyeToPnt.Dot (aCam->Direction().XYZ())); // view dimensions at 3D point
   // clang-format on
@@ -1556,7 +1556,7 @@ void AIS_ViewController::handleZoom(const Handle(ViewWindow)&   theView,
   if (thePnt != NULL)
   {
     // zoom at 3D point with perspective projection
-    const gp_XYZ anEyeToPnt = thePnt->XYZ() - aCam->Eye().XYZ();
+    const Coords3d anEyeToPnt = thePnt->XYZ() - aCam->Eye().XYZ();
     aDxy.SetValues(anEyeToPnt.Dot(aCameraCS.XDirection().XYZ()),
                    anEyeToPnt.Dot(aCameraCS.YDirection().XYZ()));
 
@@ -1630,7 +1630,7 @@ void AIS_ViewController::handleOrbitRotation(const Handle(ViewWindow)& theView,
     Transform3d aTrsf;
     aTrsf.SetTransformation(Ax3(myRotatePnt3d, aCam->OrthogonalizedUp(), aCam->Direction()),
                             Ax3(myRotatePnt3d, gp1::DZ(), gp1::DX()));
-    const gp_Quaternion aRot = aTrsf.GetRotation();
+    const Quaternion aRot = aTrsf.GetRotation();
     aRot.GetEulerAngles(gp_YawPitchRoll,
                         myRotateStartYawPitchRoll[0],
                         myRotateStartYawPitchRoll[1],
@@ -1671,7 +1671,7 @@ void AIS_ViewController::handleOrbitRotation(const Handle(ViewWindow)& theView,
       aRoll = 0.0;
     }
 
-    gp_Quaternion aRot;
+    Quaternion aRot;
     aRot.SetEulerAngles(gp_YawPitchRoll, aYawAngleNew, aPitchAngleNew, aRoll);
     Transform3d aTrsfRot;
     aTrsfRot.SetRotation(aRot);
@@ -1778,7 +1778,7 @@ void AIS_ViewController::handleViewRotation(const Handle(ViewWindow)& theView,
     Transform3d aTrsf;
     aTrsf.SetTransformation(Ax3(gp1::Origin(), aCam->OrthogonalizedUp(), aCam->Direction()),
                             Ax3(gp1::Origin(), gp1::DZ(), gp1::DX()));
-    const gp_Quaternion aRot       = aTrsf.GetRotation();
+    const Quaternion aRot       = aTrsf.GetRotation();
     double              aRollDummy = 0.0;
     aRot.GetEulerAngles(gp_YawPitchRoll,
                         myRotateStartYawPitchRoll[0],
@@ -1812,7 +1812,7 @@ void AIS_ViewController::handleViewRotation(const Handle(ViewWindow)& theView,
     Max(Min(myRotateStartYawPitchRoll[1] + aPitchAngleDelta, M_PI * 0.5 - M_PI / 180.0),
         -M_PI * 0.5 + M_PI / 180.0);
   const double  aYawAngleNew = myRotateStartYawPitchRoll[0] + aYawAngleDelta;
-  gp_Quaternion aRot;
+  Quaternion aRot;
   aRot.SetEulerAngles(gp_YawPitchRoll, aYawAngleNew, aPitchAngleNew, theRoll);
   Transform3d aTrsfRot;
   aTrsfRot.SetRotation(aRot);
@@ -2081,7 +2081,7 @@ AIS_WalkDelta AIS_ViewController::handleNavigationKeys(const Handle(VisualContex
     return aWalk;
   }
 
-  gp_XYZ        aMin, aMax;
+  Coords3d        aMin, aMax;
   const Box2 aBndBox = theView->View()->MinMaxValues();
   if (!aBndBox.IsVoid())
   {
@@ -2106,10 +2106,10 @@ AIS_WalkDelta AIS_ViewController::handleNavigationKeys(const Handle(VisualContex
   if (aWalk.ToMove() && myToAllowPanning)
   {
     const Vector3d aSide = -aCam->SideRight();
-    gp_XYZ       aFwd  = aCam->Direction().XYZ();
+    Coords3d       aFwd  = aCam->Direction().XYZ();
     aFwd -= anUp.XYZ() * (anUp.XYZ() * aFwd);
 
-    gp_XYZ aMoveVec;
+    Coords3d aMoveVec;
     if (!aWalk[AIS_WalkTranslation_Forward].IsEmpty())
     {
       if (!aCam->IsOrthographic())

@@ -64,7 +64,7 @@ Convert_ParabolaToBSplineCurve::Convert_ParabolaToBSplineCurve(const gp_Parab2d&
   poles->ChangeArray1()(3) = gp_Pnt2d((UL * UL) / (2. * p), S * UL);
 
   // replace the bspline in the mark of the parabola
-  gp_Trsf2d Trsf;
+  Transform2d Trsf;
   Trsf.SetTransformation(Prb.Axis().XAxis(), gp1::OX2d());
   poles->ChangeArray1()(1).Transform(Trsf);
   poles->ChangeArray1()(2).Transform(Trsf);

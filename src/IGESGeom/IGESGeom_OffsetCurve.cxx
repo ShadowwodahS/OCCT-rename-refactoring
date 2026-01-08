@@ -35,7 +35,7 @@ void IGESGeom_OffsetCurve::Init(const Handle(IGESData_IGESEntity)& aBaseCurve,
                                 const Standard_Real                anArcLength1,
                                 const Standard_Real                offDistance2,
                                 const Standard_Real                anArcLength2,
-                                const gp_XYZ&                      aNormalVec,
+                                const Coords3d&                      aNormalVec,
                                 const Standard_Real                anOffsetParam,
                                 const Standard_Real                anotherOffsetParam)
 {
@@ -108,9 +108,9 @@ Vector3d IGESGeom_OffsetCurve::TransformedNormalVector() const
 {
   if (!HasTransf())
     return Vector3d(theNormalVector);
-  gp_XYZ   tempXYZ(theNormalVector);
-  gp_GTrsf loc = Location();
-  loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
+  Coords3d   tempXYZ(theNormalVector);
+  GeneralTransform loc = Location();
+  loc.SetTranslationPart(Coords3d(0., 0., 0.));
   loc.Transforms(tempXYZ);
   return Vector3d(tempXYZ);
 }

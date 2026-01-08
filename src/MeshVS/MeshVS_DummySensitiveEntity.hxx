@@ -46,7 +46,7 @@ public:
 
   Standard_EXPORT virtual Standard_Boolean HasInitLocation() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual gp_GTrsf InvInitLocation() const Standard_OVERRIDE;
+  Standard_EXPORT virtual GeneralTransform InvInitLocation() const Standard_OVERRIDE;
 
   virtual Point3d CenterOfGeometry() const Standard_OVERRIDE { return Point3d(); }
 

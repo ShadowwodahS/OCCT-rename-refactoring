@@ -50,7 +50,7 @@ public:
   //! Returns a copy of the frustum transformed according to the matrix given
   Standard_EXPORT virtual Handle(SelectMgr_BaseIntersector) ScaleAndTransform(
     const Standard_Integer                  theScale,
-    const gp_GTrsf&                         theTrsf,
+    const GeneralTransform&                         theTrsf,
     const Handle(SelectMgr_FrustumBuilder)& theBuilder) const Standard_OVERRIDE;
 
   //! Returns a copy of the frustum using the given frustum builder configuration.

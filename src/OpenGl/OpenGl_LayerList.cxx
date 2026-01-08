@@ -706,7 +706,7 @@ void OpenGl_LayerList::renderLayer(const Handle(OpenGl_Workspace)&   theWorkspac
     aCtx->ShaderManager()->UpdateLightSourceState();
 
     aCtx->WorldViewState.SetCurrent(aWorldCamera->OrientationMatrixF());
-    theWorkspace->View()->SetLocalOrigin(gp_XYZ(0.0, 0.0, 0.0));
+    theWorkspace->View()->SetLocalOrigin(Coords3d(0.0, 0.0, 0.0));
   }
 
   // always restore polygon offset between layers rendering

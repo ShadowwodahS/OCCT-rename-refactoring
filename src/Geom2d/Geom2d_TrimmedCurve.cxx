@@ -36,7 +36,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom2d_TrimmedCurve, Geom2d_BoundedCurve)
 typedef Geom2d_TrimmedCurve TrimmedCurve;
 typedef gp_Ax2d             Ax2d;
 typedef gp_Pnt2d            Pnt2d;
-typedef gp_Trsf2d           Trsf2d;
+typedef Transform2d           Trsf2d;
 typedef gp_Vec2d            Vec2d;
 
 //=================================================================================================
@@ -264,14 +264,14 @@ void Geom2d_TrimmedCurve::Transform(const Trsf2d& T)
 //=================================================================================================
 
 Standard_Real Geom2d_TrimmedCurve::TransformedParameter(const Standard_Real U,
-                                                        const gp_Trsf2d&    T) const
+                                                        const Transform2d&    T) const
 {
   return basisCurve->TransformedParameter(U, T);
 }
 
 //=================================================================================================
 
-Standard_Real Geom2d_TrimmedCurve::ParametricTransformation(const gp_Trsf2d& T) const
+Standard_Real Geom2d_TrimmedCurve::ParametricTransformation(const Transform2d& T) const
 {
   return basisCurve->ParametricTransformation(T);
 }

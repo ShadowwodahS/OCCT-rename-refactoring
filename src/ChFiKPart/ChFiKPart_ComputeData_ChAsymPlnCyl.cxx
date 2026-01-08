@@ -388,7 +388,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   // axis containing OrSpine
   Point3d Loc = AxCyl.Location();
   Vector3d LocSp(Loc, OrSpine);
-  gp_XYZ temp = AxCyl.Direction().XYZ();
+  Coords3d temp = AxCyl.Direction().XYZ();
   temp        = temp.Multiplied(LocSp.XYZ().Multiplied(temp));
   OrCyl.SetXYZ((Loc.XYZ()).Added(temp));
 

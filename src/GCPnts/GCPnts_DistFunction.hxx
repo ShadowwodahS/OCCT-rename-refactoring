@@ -21,8 +21,8 @@
 //! Class to define function, which calculates square distance between point on curve
 //! C(u), U1 <= u <= U2 and line passing through points C(U1) and C(U2)
 //! This function is used in any minimization algorithm to define maximal deviation between curve
-//! and line, which required one variable function without derivative (for ex. math_BrentMinimum)
-class GCPnts_DistFunction : public math_Function
+//! and line, which required one variable function without derivative (for ex. BrentMinimumSolver)
+class GCPnts_DistFunction : public Function1
 {
 public:
   Standard_EXPORT GCPnts_DistFunction(const Adaptor3d_Curve& theCurve,
@@ -45,7 +45,7 @@ private:
 //
 //! The same as class GCPnts_DistFunction, but it can be used in minimization algorithms that
 //! requires multi variable function
-class GCPnts_DistFunctionMV : public math_MultipleVarFunction
+class GCPnts_DistFunctionMV : public MultipleVarFunction
 {
 public:
   Standard_EXPORT GCPnts_DistFunctionMV(GCPnts_DistFunction& theCurvLinDist);

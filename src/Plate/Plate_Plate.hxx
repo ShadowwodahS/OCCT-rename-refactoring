@@ -38,7 +38,7 @@ class Plate_PlaneConstraint;
 class Plate_SampledCurveConstraint;
 class Plate_GtoCConstraint;
 class FreeGtoCConstraint;
-class gp_XYZ;
+class Coords3d;
 class Coords2d;
 class math_Matrix;
 
@@ -91,9 +91,9 @@ public:
   //! ( same as after Create())
   Standard_EXPORT void Init();
 
-  Standard_EXPORT gp_XYZ Evaluate(const Coords2d& point2d) const;
+  Standard_EXPORT Coords3d Evaluate(const Coords2d& point2d) const;
 
-  Standard_EXPORT gp_XYZ EvaluateDerivative(const Coords2d&           point2d,
+  Standard_EXPORT Coords3d EvaluateDerivative(const Coords2d&           point2d,
                                             const Standard_Integer iu,
                                             const Standard_Integer iv) const;
 
@@ -126,7 +126,7 @@ private:
 
   Standard_Integer& Derv(const Standard_Integer index) const;
 
-  gp_XYZ& Solution(const Standard_Integer index) const;
+  Coords3d& Solution(const Standard_Integer index) const;
 
   Coords2d& Points(const Standard_Integer index) const;
 

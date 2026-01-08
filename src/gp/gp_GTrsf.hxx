@@ -34,10 +34,10 @@
 //! It can be a Transform3d, an affinity, or you can define
 //! your own transformation giving the matrix of transformation.
 //!
-//! With a gp_GTrsf you can transform only a triplet of coordinates gp_XYZ.
+//! With a GeneralTransform you can transform only a triplet of coordinates Coords3d.
 //! It is not possible to transform other geometric objects
 //! because these transformations can change the nature of non-elementary geometric objects.
-//! The transformation gp_GTrsf can be represented as follow:
+//! The transformation GeneralTransform can be represented as follow:
 //! @code
 //!    V1   V2   V3    T       XYZ        XYZ
 //! | a11  a12  a13   a14 |   | x |      | x'|
@@ -48,19 +48,19 @@
 //! where {V1, V2, V3} define the vectorial part of the
 //! transformation and T defines the translation part of the transformation.
 //! Warning
-//! A gp_GTrsf transformation is only applicable to coordinates.
+//! A GeneralTransform transformation is only applicable to coordinates.
 //! Be careful if you apply such a transformation to all points of a geometric object,
 //! as this can change the nature of the object and thus render it incoherent!
 //! Typically, a circle is transformed into an ellipse by an affinity transformation.
 //! To avoid modifying the nature of an object, use a Transform3d transformation instead,
 //! as objects of this class respect the nature of geometric objects.
-class gp_GTrsf
+class GeneralTransform
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns the Identity transformation.
-  gp_GTrsf()
+  GeneralTransform()
   {
     shape = gp_Identity;
     matrix.SetScale(1.0);
@@ -71,7 +71,7 @@ public:
   //! Converts the Transform3d transformation theT into a
   //! general transformation, i.e. Returns a GTrsf with
   //! the same matrix of coefficients as the Trsf theT.
-  gp_GTrsf(const Transform3d& theT)
+  GeneralTransform(const Transform3d& theT)
   {
     shape  = theT.Form();
     matrix = theT.matrix;
@@ -82,7 +82,7 @@ public:
   //! Creates a transformation based on the matrix theM and the
   //! vector theV where theM defines the vectorial part of
   //! the transformation, and V the translation part, or
-  gp_GTrsf(const gp_Mat& theM, const gp_XYZ& theV)
+  GeneralTransform(const gp_Mat& theM, const Coords3d& theV)
       : matrix(theM),
         loc(theV)
   {
@@ -126,7 +126,7 @@ public:
 
   //! Replaces the translation part of
   //! this transformation by the coordinates of the number triple theCoord.
-  Standard_EXPORT void SetTranslationPart(const gp_XYZ& theCoord);
+  Standard_EXPORT void SetTranslationPart(const Coords3d& theCoord);
 
   //! Assigns the vectorial and translation parts of theT to this transformation.
   void SetTrsf(const Transform3d& theT)
@@ -169,7 +169,7 @@ public:
   Standard_EXPORT void SetForm();
 
   //! Returns the translation part of the GTrsf.
-  const gp_XYZ& TranslationPart() const { return loc; }
+  const Coords3d& TranslationPart() const { return loc; }
 
   //! Computes the vectorial part of the GTrsf. The returned Matrix
   //! is a  3*3 matrix.
@@ -189,9 +189,9 @@ public:
   //! Computes the reverse transformation.
   //! Raises an exception if the matrix of the transformation
   //! is not inversible.
-  Standard_NODISCARD gp_GTrsf Inverted() const
+  Standard_NODISCARD GeneralTransform Inverted() const
   {
-    gp_GTrsf aT = *this;
+    GeneralTransform aT = *this;
     aT.Invert();
     return aT;
   }
@@ -200,36 +200,36 @@ public:
   //! In a C++ implementation you can also write Tcomposed = <me> * theT.
   //! Example :
   //! @code
-  //! gp_GTrsf T1, T2, Tcomp; ...............
+  //! GeneralTransform T1, T2, Tcomp; ...............
   //! //composition :
   //! Tcomp = T2.Multiplied(T1);         // or   (Tcomp = T2 * T1)
   //! // transformation of a point
-  //! gp_XYZ P(10.,3.,4.);
-  //! gp_XYZ P1(P);
+  //! Coords3d P(10.,3.,4.);
+  //! Coords3d P1(P);
   //! Tcomp.Transforms(P1);               //using Tcomp
-  //! gp_XYZ P2(P);
+  //! Coords3d P2(P);
   //! T1.Transforms(P2);                  //using T1 then T2
   //! T2.Transforms(P2);                  // P1 = P2 !!!
   //! @endcode
-  Standard_NODISCARD gp_GTrsf Multiplied(const gp_GTrsf& theT) const
+  Standard_NODISCARD GeneralTransform Multiplied(const GeneralTransform& theT) const
   {
-    gp_GTrsf aTres = *this;
+    GeneralTransform aTres = *this;
     aTres.Multiply(theT);
     return aTres;
   }
 
-  Standard_NODISCARD gp_GTrsf operator*(const gp_GTrsf& theT) const { return Multiplied(theT); }
+  Standard_NODISCARD GeneralTransform operator*(const GeneralTransform& theT) const { return Multiplied(theT); }
 
   //! Computes the transformation composed with <me> and theT.
   //! <me> = <me> * theT
-  Standard_EXPORT void Multiply(const gp_GTrsf& theT);
+  Standard_EXPORT void Multiply(const GeneralTransform& theT);
 
-  void operator*=(const gp_GTrsf& theT) { Multiply(theT); }
+  void operator*=(const GeneralTransform& theT) { Multiply(theT); }
 
   //! Computes the product of the transformation theT and this
   //! transformation and assigns the result to this transformation.
   //! this = theT * this
-  Standard_EXPORT void PreMultiply(const gp_GTrsf& theT);
+  Standard_EXPORT void PreMultiply(const GeneralTransform& theT);
 
   Standard_EXPORT void Power(const Standard_Integer theN);
 
@@ -246,14 +246,14 @@ public:
   //!
   //! Raises an exception if N < 0 and if the matrix of the
   //! transformation not inversible.
-  Standard_NODISCARD gp_GTrsf Powered(const Standard_Integer theN) const
+  Standard_NODISCARD GeneralTransform Powered(const Standard_Integer theN) const
   {
-    gp_GTrsf aT = *this;
+    GeneralTransform aT = *this;
     aT.Power(theN);
     return aT;
   }
 
-  void Transforms(gp_XYZ& theCoord) const;
+  void Transforms(Coords3d& theCoord) const;
 
   //! Transforms a triplet XYZ with a GTrsf.
   void Transforms(Standard_Real& theX, Standard_Real& theY, Standard_Real& theZ) const;
@@ -311,7 +311,7 @@ public:
 
 private:
   gp_Mat        matrix;
-  gp_XYZ        loc;
+  Coords3d        loc;
   gp_TrsfForm   shape;
   Standard_Real scale;
 };
@@ -320,7 +320,7 @@ private:
 // function : SetAffinity
 // purpose :
 //=======================================================================
-inline void gp_GTrsf::SetAffinity(const Axis3d& theA1, const Standard_Real theRatio)
+inline void GeneralTransform::SetAffinity(const Axis3d& theA1, const Standard_Real theRatio)
 {
   shape = gp_Other;
   scale = 0.0;
@@ -339,7 +339,7 @@ inline void gp_GTrsf::SetAffinity(const Axis3d& theA1, const Standard_Real theRa
 // function : SetAffinity
 // purpose :
 //=======================================================================
-inline void gp_GTrsf::SetAffinity(const Frame3d& theA2, const Standard_Real theRatio)
+inline void GeneralTransform::SetAffinity(const Frame3d& theA2, const Standard_Real theRatio)
 {
   shape = gp_Other;
   scale = 0.0;
@@ -355,7 +355,7 @@ inline void gp_GTrsf::SetAffinity(const Frame3d& theA2, const Standard_Real theR
 // function : SetValue
 // purpose :
 //=======================================================================
-inline void gp_GTrsf::SetValue(const Standard_Integer theRow,
+inline void GeneralTransform::SetValue(const Standard_Integer theRow,
                                const Standard_Integer theCol,
                                const Standard_Real    theValue)
 {
@@ -386,7 +386,7 @@ inline void gp_GTrsf::SetValue(const Standard_Integer theRow,
 // function : Value
 // purpose :
 //=======================================================================
-inline Standard_Real gp_GTrsf::Value(const Standard_Integer theRow,
+inline Standard_Real GeneralTransform::Value(const Standard_Integer theRow,
                                      const Standard_Integer theCol) const
 {
   Standard_OutOfRange_Raise_if(theRow < 1 || theRow > 3 || theCol < 1 || theCol > 4, " ");
@@ -405,7 +405,7 @@ inline Standard_Real gp_GTrsf::Value(const Standard_Integer theRow,
 // function : Transforms
 // purpose :
 //=======================================================================
-inline void gp_GTrsf::Transforms(gp_XYZ& theCoord) const
+inline void GeneralTransform::Transforms(Coords3d& theCoord) const
 {
   theCoord.Multiply(matrix);
   if (!(shape == gp_Other) && !(scale == 1.0))
@@ -419,11 +419,11 @@ inline void gp_GTrsf::Transforms(gp_XYZ& theCoord) const
 // function : Transforms
 // purpose :
 //=======================================================================
-inline void gp_GTrsf::Transforms(Standard_Real& theX,
+inline void GeneralTransform::Transforms(Standard_Real& theX,
                                  Standard_Real& theY,
                                  Standard_Real& theZ) const
 {
-  gp_XYZ aTriplet(theX, theY, theZ);
+  Coords3d aTriplet(theX, theY, theZ);
   aTriplet.Multiply(matrix);
   if (!(shape == gp_Other) && !(scale == 1.0))
   {
@@ -437,11 +437,11 @@ inline void gp_GTrsf::Transforms(Standard_Real& theX,
 // function : Trsf
 // purpose :
 //=======================================================================
-inline Transform3d gp_GTrsf::Trsf() const
+inline Transform3d GeneralTransform::Trsf() const
 {
   if (Form() == gp_Other)
   {
-    throw Standard_ConstructionError("gp_GTrsf::Trsf() - non-orthogonal GTrsf");
+    throw Standard_ConstructionError("GeneralTransform::Trsf() - non-orthogonal GTrsf");
   }
   Transform3d aT;
   aT.shape  = shape;

@@ -262,7 +262,7 @@ static Handle(GeomCurve2d) TranslatePCurve(const Handle(GeomSurface)& aSurf,
     gp_Vec2d                    VectIsoUF(p00, p01);
     gp_Vec2d                    VectIsoVF(p00, p10);
 
-    gp_Trsf2d T;
+    Transform2d T;
     if (theVector.IsParallel(VectIsoUF, aTol))
     {
       if (Abs(FirstPoint.X() - uf) < Abs(FirstPoint.X() - ul))
@@ -274,14 +274,14 @@ static Handle(GeomCurve2d) TranslatePCurve(const Handle(GeomSurface)& aSurf,
     }
     /*      // case UClosed and line in U = UFirst
           if (Abs(FirstPoint.X() - uf) <= aTol) {
-        gp_Trsf2d T;
+        Transform2d T;
         T.SetTranslation(p00, p10);
         newC->Transform(T);
         return newC;
           }
           // case UClosed and line in U = ULast
           else if (Abs(FirstPoint.X() - ul) <= aTol) {
-        gp_Trsf2d T;
+        Transform2d T;
         T.SetTranslation(p10, p00);
         newC->Transform(T);
         return newC;

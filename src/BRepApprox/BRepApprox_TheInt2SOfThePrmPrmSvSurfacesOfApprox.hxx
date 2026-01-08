@@ -33,7 +33,7 @@ class StdFail_UndefinedDerivative;
 class BRepAdaptor_Surface;
 class BRepApprox_SurfaceTool;
 class BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox;
-class math_FunctionSetRoot;
+class FunctionSetRoot;
 class PointOn2Surfaces;
 class Dir3d;
 class gp_Dir2d;
@@ -53,7 +53,7 @@ public:
   //! initialize the parameters to compute the solution point
   //! it 's possible to write to optimize:
   //! IntImp_Int2S inter(S1,S2,Func,TolTangency);
-  //! math_FunctionSetRoot rsnld(inter.Function());
+  //! FunctionSetRoot rsnld(inter.Function());
   //! while ...{
   //! Param(1)=...
   //! Param(2)=...
@@ -70,7 +70,7 @@ public:
   //! to intersect the isoparametric with the other patch;
   //! the choice of the isoparametic is calculated)
   Standard_EXPORT IntImp_ConstIsoparametric Perform(const TColStd_Array1OfReal& Param,
-                                                    math_FunctionSetRoot&       Rsnld);
+                                                    FunctionSetRoot&       Rsnld);
 
   //! returns the best constant isoparametric to find
   //! the next intersection's point +stores the solution
@@ -78,7 +78,7 @@ public:
   //! to intersect the isoparametric with the other patch;
   //! the choice of the isoparametic is given by ChoixIso)
   Standard_EXPORT IntImp_ConstIsoparametric Perform(const TColStd_Array1OfReal&     Param,
-                                                    math_FunctionSetRoot&           Rsnld,
+                                                    FunctionSetRoot&           Rsnld,
                                                     const IntImp_ConstIsoparametric ChoixIso);
 
   //! Returns TRUE if the creation completed without failure.
@@ -105,7 +105,7 @@ public:
   //! parametric space of the second surface.
   const gp_Dir2d& DirectionOnS2() const;
 
-  //! return the math function which
+  //! return the math1 function which
   //! is used to compute the intersection
   BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox& Function();
 

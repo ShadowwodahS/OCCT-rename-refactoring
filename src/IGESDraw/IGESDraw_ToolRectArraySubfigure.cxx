@@ -43,7 +43,7 @@ void RectArraySubfigureTool::ReadOwnParams(const Handle(IGESDraw_RectArraySubfig
 {
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
 
-  gp_XYZ                           tempLowerLeftCorner;
+  Coords3d                           tempLowerLeftCorner;
   Standard_Real                    tempScaleFactor;
   Handle(IGESData_IGESEntity)      tempBaseEntity;
   Handle(TColStd_HArray1OfInteger) tempPositions;
@@ -142,7 +142,7 @@ void RectArraySubfigureTool::OwnCopy(const Handle(IGESDraw_RectArraySubfigure)& 
 {
   DeclareAndCast(IGESData_IGESEntity, tempBaseEntity, TC.Transferred(another->BaseEntity()));
   Standard_Real                    tempScaleFactor      = another->ScaleFactor();
-  gp_XYZ                           tempLowerLeftCorner  = (another->LowerLeftCorner()).XYZ();
+  Coords3d                           tempLowerLeftCorner  = (another->LowerLeftCorner()).XYZ();
   Standard_Integer                 tempNbColumns        = another->NbColumns();
   Standard_Integer                 tempNbRows           = another->NbRows();
   Standard_Real                    tempColumnSeparation = another->ColumnSeparation();
@@ -203,7 +203,7 @@ void RectArraySubfigureTool::OwnDump(const Handle(IGESDraw_RectArraySubfigure)& 
   S << "\n"
     << "Scale Factor : " << ent->ScaleFactor() << "  "
     << "Lower Left Corner Of Array : ";
-  IGESData_DumpXYZL(S, level, ent->LowerLeftCorner(), gp_GTrsf()); // no location
+  IGESData_DumpXYZL(S, level, ent->LowerLeftCorner(), GeneralTransform()); // no location
   S << "Number Of Columns : " << ent->NbColumns() << "  "
     << "Number Of Rows    : " << ent->NbRows() << "\n"
     << "Horizontal Distance Between Columns : " << ent->ColumnSeparation() << "\n"

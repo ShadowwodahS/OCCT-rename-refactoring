@@ -27,7 +27,7 @@ IGESSolid_SolidOfLinearExtrusion::IGESSolid_SolidOfLinearExtrusion() {}
 
 void IGESSolid_SolidOfLinearExtrusion::Init(const Handle(IGESData_IGESEntity)& aCurve,
                                             const Standard_Real                Length,
-                                            const gp_XYZ&                      Direction)
+                                            const Coords3d&                      Direction)
 {
   theCurve     = aCurve;
   theLength    = Length;
@@ -56,9 +56,9 @@ Dir3d IGESSolid_SolidOfLinearExtrusion::TransformedExtrusionDirection() const
     return Dir3d(theDirection);
   else
   {
-    gp_XYZ   tmp = theDirection;
-    gp_GTrsf loc = Location();
-    loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
+    Coords3d   tmp = theDirection;
+    GeneralTransform loc = Location();
+    loc.SetTranslationPart(Coords3d(0., 0., 0.));
     loc.Transforms(tmp);
     return Dir3d(tmp);
   }

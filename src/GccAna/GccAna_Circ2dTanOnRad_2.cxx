@@ -25,7 +25,7 @@
 //=========================================================================
 //    typedef of handled objects :                                      +
 //=========================================================================
-typedef math_DirectPolynomialRoots Roots;
+typedef DirectPolynomialRoots Roots;
 
 //=========================================================================
 //   Circle tangent to a point      Point1.                               +

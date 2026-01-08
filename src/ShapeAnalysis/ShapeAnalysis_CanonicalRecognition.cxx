@@ -369,7 +369,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsCone(const Standard_Real 
 //=================================================================================================
 
 Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsSphere(const Standard_Real theTol,
-                                                              gp_Sphere&          theSphere)
+                                                              Sphere3&          theSphere)
 {
   Ax3               aPos = theSphere.Position();
   TColStd_Array1OfReal aParams(1, 1);
@@ -842,21 +842,21 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::GetSurfaceByLS(
 
   //
   constexpr Standard_Real        aTol = Precision::Confusion();
-  math_MultipleVarFunction*      aPFunc;
+  MultipleVarFunction*      aPFunc;
   GeomConvert_FuncSphereLSDist   aFuncSph(aPoints);
   GeomConvert_FuncCylinderLSDist aFuncCyl(aPoints, thePos.Direction());
   GeomConvert_FuncConeLSDist     aFuncCon(aPoints, thePos.Direction());
   if (theTarget == GeomAbs_Sphere)
   {
-    aPFunc = (math_MultipleVarFunction*)&aFuncSph;
+    aPFunc = (MultipleVarFunction*)&aFuncSph;
   }
   else if (theTarget == GeomAbs_Cylinder)
   {
-    aPFunc = (math_MultipleVarFunction*)&aFuncCyl;
+    aPFunc = (MultipleVarFunction*)&aFuncCyl;
   }
   else if (theTarget == GeomAbs_Cone)
   {
-    aPFunc = (math_MultipleVarFunction*)&aFuncCon;
+    aPFunc = (MultipleVarFunction*)&aFuncCon;
   }
   else
     aPFunc = NULL;
@@ -868,7 +868,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::GetSurfaceByLS(
   {
     aSteps(i) = (aLBnd(i) - aFBnd(i)) / aNbInt;
   }
-  math_PSO      aGlobSolver(aPFunc, aFBnd, aLBnd, aSteps);
+  PSO      aGlobSolver(aPFunc, aFBnd, aLBnd, aSteps);
   Standard_Real aLSDist;
   aGlobSolver.Perform(aSteps, aLSDist, aStartPoint);
   SetCanonicParameters(theTarget, aStartPoint, thePos, theParams);
@@ -901,7 +901,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::GetSurfaceByLS(
     }
   }
 
-  math_Powell aSolver(*aPFunc, aTol);
+  Powell aSolver(*aPFunc, aTol);
   aSolver.Perform(*aPFunc, aStartPoint, aDirMatrix);
 
   if (aSolver.IsDone())
@@ -1110,7 +1110,7 @@ Standard_Boolean SetSurfParams(const GeomAbs_SurfaceType   theTarget,
   }
   else if (theTarget == GeomAbs_Sphere)
   {
-    gp_Sphere aSph = aGAS.Sphere();
+    Sphere3 aSph = aGAS.Sphere();
     thePos         = aSph.Position();
     theParams(1)   = aSph.Radius();
   }
@@ -1218,7 +1218,7 @@ Standard_Boolean GetSamplePoints(const TopoWire&           theWire,
 {
   NCollection_Vector<Standard_Real>     aLengths;
   NCollection_Vector<BRepAdaptor_Curve> aCurves;
-  NCollection_Vector<gp_XYZ>            aPoints;
+  NCollection_Vector<Coords3d>            aPoints;
   Standard_Real                         aTol         = Max(1.e-3, theTol / 10.);
   Standard_Real                         aTotalLength = 0.;
   TopoDS_Iterator                       anEIter(theWire);
@@ -1278,7 +1278,7 @@ static Standard_Real GetLSGap(const Handle(TColgp_HArray1OfXYZ)& thePoints,
 {
 
   Standard_Real aGap = 0.;
-  gp_XYZ        aLoc = thePos.Location().XYZ();
+  Coords3d        aLoc = thePos.Location().XYZ();
   Vector3d        aDir(thePos.Direction());
 
   Standard_Integer i;
@@ -1287,7 +1287,7 @@ static Standard_Real GetLSGap(const Handle(TColgp_HArray1OfXYZ)& thePoints,
     Standard_Real anR = theParams(1);
     for (i = thePoints->Lower(); i <= thePoints->Upper(); ++i)
     {
-      gp_XYZ aD = thePoints->Value(i) - aLoc;
+      Coords3d aD = thePoints->Value(i) - aLoc;
       aGap      = Max(aGap, Abs((aD.Modulus() - anR)));
     }
   }

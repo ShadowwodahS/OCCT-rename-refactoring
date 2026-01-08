@@ -29,7 +29,7 @@ IGESDraw_RectArraySubfigure::IGESDraw_RectArraySubfigure() {}
 
 void IGESDraw_RectArraySubfigure::Init(const Handle(IGESData_IGESEntity)&      aBase,
                                        const Standard_Real                     aScale,
-                                       const gp_XYZ&                           aCorner,
+                                       const Coords3d&                           aCorner,
                                        const Standard_Integer                  nbCols,
                                        const Standard_Integer                  nbRows,
                                        const Standard_Real                     hDisp,
@@ -72,7 +72,7 @@ Point3d IGESDraw_RectArraySubfigure::LowerLeftCorner() const
 
 Point3d IGESDraw_RectArraySubfigure::TransformedLowerLeftCorner() const
 {
-  gp_XYZ tempLowerLeftCorner = theLowerLeftCorner;
+  Coords3d tempLowerLeftCorner = theLowerLeftCorner;
   if (HasTransf())
     Location().Transforms(tempLowerLeftCorner);
   Point3d tempRes(tempLowerLeftCorner);

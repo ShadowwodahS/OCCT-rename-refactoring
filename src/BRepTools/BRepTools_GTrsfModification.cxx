@@ -40,7 +40,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRepTools_GTrsfModification, BRepTools_Modification)
 
 //=================================================================================================
 
-BRepTools_GTrsfModification::BRepTools_GTrsfModification(const gp_GTrsf& T)
+BRepTools_GTrsfModification::BRepTools_GTrsfModification(const GeneralTransform& T)
     : myGTrsf(T)
 {
   // on prend comme dilatation maximale pour la tolerance la norme sup
@@ -61,7 +61,7 @@ BRepTools_GTrsfModification::BRepTools_GTrsfModification(const gp_GTrsf& T)
 
 //=================================================================================================
 
-gp_GTrsf& BRepTools_GTrsfModification::GTrsf()
+GeneralTransform& BRepTools_GTrsfModification::GTrsf()
 {
   return myGTrsf;
 }
@@ -75,7 +75,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewSurface(const TopoFace&    F,
                                                          Standard_Boolean&     RevWires,
                                                          Standard_Boolean&     RevFace)
 {
-  gp_GTrsf gtrsf;
+  GeneralTransform gtrsf;
   gtrsf.SetVectorialPart(myGTrsf.VectorialPart());
   gtrsf.SetTranslationPart(myGTrsf.TranslationPart());
   S = BRepInspector::Surface(F, L);
@@ -99,7 +99,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewSurface(const TopoFace&    F,
     for (Standard_Integer i = 1; i <= S2->NbUPoles(); i++)
       for (Standard_Integer j = 1; j <= S2->NbVPoles(); j++)
       {
-        gp_XYZ coor(S2->Pole(i, j).Coord());
+        Coords3d coor(S2->Pole(i, j).Coord());
         gtrsf.Transforms(coor);
         Point3d P(coor);
         S2->SetPole(i, j, P);
@@ -111,7 +111,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewSurface(const TopoFace&    F,
     for (Standard_Integer i = 1; i <= S2->NbUPoles(); i++)
       for (Standard_Integer j = 1; j <= S2->NbVPoles(); j++)
       {
-        gp_XYZ coor(S2->Pole(i, j).Coord());
+        Coords3d coor(S2->Pole(i, j).Coord());
         gtrsf.Transforms(coor);
         Point3d P(coor);
         S2->SetPole(i, j, P);
@@ -134,7 +134,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewCurve(const TopoEdge&  E,
                                                        Standard_Real&      Tol)
 {
   Standard_Real f, l;
-  gp_GTrsf      gtrsf;
+  GeneralTransform      gtrsf;
   gtrsf.SetVectorialPart(myGTrsf.VectorialPart());
   gtrsf.SetTranslationPart(myGTrsf.TranslationPart());
   Tol = BRepInspector::Tolerance(E) * myGScale;
@@ -149,7 +149,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewCurve(const TopoEdge&  E,
       Handle(BSplineCurve3d) C2 = Handle(BSplineCurve3d)::DownCast(C);
       for (Standard_Integer i = 1; i <= C2->NbPoles(); i++)
       {
-        gp_XYZ coor(C2->Pole(i).Coord());
+        Coords3d coor(C2->Pole(i).Coord());
         gtrsf.Transforms(coor);
         Point3d P(coor);
         C2->SetPole(i, P);
@@ -160,7 +160,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewCurve(const TopoEdge&  E,
       Handle(BezierCurve3d) C2 = Handle(BezierCurve3d)::DownCast(C);
       for (Standard_Integer i = 1; i <= C2->NbPoles(); i++)
       {
-        gp_XYZ coor(C2->Pole(i).Coord());
+        Coords3d coor(C2->Pole(i).Coord());
         gtrsf.Transforms(coor);
         Point3d P(coor);
         C2->SetPole(i, P);
@@ -185,7 +185,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewPoint(const TopoVertex& V,
   Point3d Pnt = BRepInspector::Pnt(V);
   Tol        = BRepInspector::Tolerance(V);
   Tol *= myGScale;
-  gp_XYZ coor(Pnt.Coord());
+  Coords3d coor(Pnt.Coord());
   myGTrsf.Transforms(coor);
   P.SetXYZ(coor);
 
@@ -253,7 +253,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewTriangulation(
     return Standard_False;
   }
 
-  gp_GTrsf aGTrsf;
+  GeneralTransform aGTrsf;
   aGTrsf.SetVectorialPart(myGTrsf.VectorialPart());
   aGTrsf.SetTranslationPart(myGTrsf.TranslationPart());
   aGTrsf.Multiply(aLoc.Transformation());
@@ -311,7 +311,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewPolygon(const TopoEdge&      th
     return Standard_False;
   }
 
-  gp_GTrsf aGTrsf;
+  GeneralTransform aGTrsf;
   aGTrsf.SetVectorialPart(myGTrsf.VectorialPart());
   aGTrsf.SetTranslationPart(myGTrsf.TranslationPart());
   aGTrsf.Multiply(aLoc.Transformation());

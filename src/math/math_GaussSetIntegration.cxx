@@ -26,7 +26,7 @@
 #include <Standard_NotImplemented.hxx>
 #include <StdFail_NotDone.hxx>
 
-math_GaussSetIntegration::math_GaussSetIntegration(math_FunctionSet&         F,
+GaussSetIntegration::GaussSetIntegration(FunctionSet&         F,
                                                    const math_Vector&        Lower,
                                                    const math_Vector&        Upper,
                                                    const math_IntegerVector& Order)
@@ -40,7 +40,7 @@ math_GaussSetIntegration::math_GaussSetIntegration(math_FunctionSet&         F,
 
   // Verification
   Standard_NotImplemented_Raise_if(NbVar != 1
-                                     || Order.Value(Order.Lower()) > math::GaussPointsMax(),
+                                     || Order.Value(Order.Lower()) > math1::GaussPointsMax(),
                                    "GaussSetIntegration ");
 
   // Initialisations
@@ -53,8 +53,8 @@ math_GaussSetIntegration::math_GaussSetIntegration(math_FunctionSet&         F,
   math_Vector      GaussP(1, Ordre), GaussW(1, Ordre);
 
   // Recuperation des points de Gauss dans le fichier GaussPoints.
-  math::GaussPoints(Ordre, GaussP);
-  math::GaussWeights(Ordre, GaussW);
+  math1::GaussPoints(Ordre, GaussP);
+  math1::GaussWeights(Ordre, GaussW);
 
   // Changement de variable pour la mise a l'echelle [Lower, Upper] :
   Xm = 0.5 * (Xdeb + Xfin);
@@ -93,9 +93,9 @@ math_GaussSetIntegration::math_GaussSetIntegration(math_FunctionSet&         F,
   Done = Standard_True;
 }
 
-void math_GaussSetIntegration::Dump(Standard_OStream& o) const
+void GaussSetIntegration::Dump(Standard_OStream& o) const
 {
-  o << "math_GaussSetIntegration ";
+  o << "GaussSetIntegration ";
   if (Done)
   {
     o << " Status = Done \n";

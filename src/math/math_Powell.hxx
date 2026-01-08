@@ -25,37 +25,37 @@
 #include <math_Status.hxx>
 #include <math_Matrix.hxx>
 #include <Standard_OStream.hxx>
-class math_MultipleVarFunction;
+class MultipleVarFunction;
 
 //! This class implements the Powell method to find the minimum of
 //! function of multiple variables (the gradient does not have to be known).
-class math_Powell
+class Powell
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructor. Initialize new entity.
-  Standard_EXPORT math_Powell(const math_MultipleVarFunction& theFunction,
+  Standard_EXPORT Powell(const MultipleVarFunction& theFunction,
                               const Standard_Real             theTolerance,
                               const Standard_Integer          theNbIterations = 200,
                               const Standard_Real             theZEPS         = 1.0e-12);
 
   //! Destructor
-  Standard_EXPORT virtual ~math_Powell();
+  Standard_EXPORT virtual ~Powell();
 
   //! Computes Powell minimization on the function F given
   //! theStartingPoint, and an initial matrix theStartingDirection
   //! whose columns contain the initial set of directions.
   //! The solution F = Fi is found when:
   //! 2.0 * abs(Fi - Fi-1) =< Tolerance * (abs(Fi) + abs(Fi-1) + ZEPS).
-  Standard_EXPORT void Perform(math_MultipleVarFunction& theFunction,
+  Standard_EXPORT void Perform(MultipleVarFunction& theFunction,
                                const math_Vector&        theStartingPoint,
                                const math_Matrix&        theStartingDirections);
 
   //! Solution F = Fi is found when:
   //! 2.0 * abs(Fi - Fi-1) <= Tolerance * (abs(Fi) + abs(Fi-1)) + ZEPS.
   //! The maximum number of iterations allowed is given by NbIterations.
-  virtual Standard_Boolean IsSolutionReached(math_MultipleVarFunction& theFunction);
+  virtual Standard_Boolean IsSolutionReached(MultipleVarFunction& theFunction);
 
   //! Returns true if the computations are successful, otherwise returns false.
   Standard_Boolean IsDone() const;

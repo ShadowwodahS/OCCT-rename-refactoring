@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-math_BissecNewton::math_BissecNewton(const Standard_Real theXTolerance)
+BissecNewtonSolver::BissecNewtonSolver(const Standard_Real theXTolerance)
     : TheStatus(math_NotBracketed),
       XTol(theXTolerance),
       x(0.0),
@@ -31,11 +31,11 @@ math_BissecNewton::math_BissecNewton(const Standard_Real theXTolerance)
 
 //=================================================================================================
 
-math_BissecNewton::~math_BissecNewton() {}
+BissecNewtonSolver::~BissecNewtonSolver() {}
 
 //=================================================================================================
 
-void math_BissecNewton::Perform(math_FunctionWithDerivative& F,
+void BissecNewtonSolver::Perform(math_FunctionWithDerivative& F,
                                 const Standard_Real          Bound1,
                                 const Standard_Real          Bound2,
                                 const Standard_Integer       NbIterations)
@@ -153,10 +153,10 @@ void math_BissecNewton::Perform(math_FunctionWithDerivative& F,
 
 //=================================================================================================
 
-void math_BissecNewton::Dump(Standard_OStream& o) const
+void BissecNewtonSolver::Dump(Standard_OStream& o) const
 {
 
-  o << "math_BissecNewton ";
+  o << "BissecNewtonSolver ";
   if (Done)
   {
     o << " Status = Done \n";

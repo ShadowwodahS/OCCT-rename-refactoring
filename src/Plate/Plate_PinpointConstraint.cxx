@@ -19,13 +19,13 @@
 PinpointConstraint::PinpointConstraint()
 {
   pnt2d = Coords2d(0, 0);
-  value = gp_XYZ(0, 0, 0);
+  value = Coords3d(0, 0, 0);
   idu   = 0;
   idv   = 0;
 }
 
 PinpointConstraint::PinpointConstraint(const Coords2d&           point2d,
-                                                   const gp_XYZ&          ImposedValue,
+                                                   const Coords3d&          ImposedValue,
                                                    const Standard_Integer iu,
                                                    const Standard_Integer iv)
 {

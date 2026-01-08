@@ -79,7 +79,7 @@ static const Graphic3d_Mat4d SelectMgr_ViewerSelector_THE_IDENTITY_MAT;
 void SelectMgr_ViewerSelector::updatePoint3d(SelectMgr_SortCriterion&                theCriterion,
                                              const SelectBasics_PickResult&          thePickResult,
                                              const Handle(Select3D_SensitiveEntity)& theEntity,
-                                             const gp_GTrsf& theInversedTrsf,
+                                             const GeneralTransform& theInversedTrsf,
                                              const SelectMgr_SelectingVolumeManager& theMgr) const
 {
   if (theMgr.GetActiveSelectionType() != SelectMgr_SelectionType_Point)
@@ -109,14 +109,14 @@ void SelectMgr_ViewerSelector::updatePoint3d(SelectMgr_SortCriterion&           
     theCriterion.Point = theMgr.DetectedPoint(theCriterion.Depth);
   }
 
-  gp_GTrsf anInvTrsf = theInversedTrsf;
+  GeneralTransform anInvTrsf = theInversedTrsf;
   if (theCriterion.Entity->HasInitLocation())
   {
     anInvTrsf = theCriterion.Entity->InvInitLocation() * anInvTrsf;
   }
   if (anInvTrsf.Form() != gp_Identity)
   {
-    const gp_GTrsf anInvInvTrsd = anInvTrsf.Inverted();
+    const GeneralTransform anInvInvTrsd = anInvTrsf.Inverted();
     anInvInvTrsd.Transforms(theCriterion.Point.ChangeCoord());
     if (hasNormal)
     {
@@ -264,7 +264,7 @@ Standard_Integer SelectMgr_ViewerSelector::sensitivity(
 //           entity theEntity overlaps current selecting volume precisely
 //=======================================================================
 void SelectMgr_ViewerSelector::checkOverlap(const Handle(Select3D_SensitiveEntity)& theEntity,
-                                            const gp_GTrsf&                         theInversedTrsf,
+                                            const GeneralTransform&                         theInversedTrsf,
                                             SelectMgr_SelectingVolumeManager&       theMgr)
 {
   const Handle(SelectMgr_EntityOwner)& anOwner = theEntity->OwnerId();
@@ -352,12 +352,12 @@ void SelectMgr_ViewerSelector::updateZLayers(const Handle(ViewWindow)& theView)
 void SelectMgr_ViewerSelector::computeFrustum(const Handle(Select3D_SensitiveEntity)& theEnt,
                                               const SelectMgr_SelectingVolumeManager& theMgrGlobal,
                                               const SelectMgr_SelectingVolumeManager& theMgrObject,
-                                              const gp_GTrsf&                         theInvTrsf,
+                                              const GeneralTransform&                         theInvTrsf,
                                               SelectMgr_FrustumCache&                 theCachedMgrs,
                                               SelectMgr_SelectingVolumeManager&       theResMgr)
 {
   Standard_Integer aScale = isToScaleFrustum(theEnt) ? sensitivity(theEnt) : 1;
-  const gp_GTrsf   aTrsfMtr =
+  const GeneralTransform   aTrsfMtr =
     theEnt->HasInitLocation() ? theEnt->InvInitLocation() * theInvTrsf : theInvTrsf;
   const Standard_Boolean toScale     = aScale != 1;
   const Standard_Boolean toTransform = aTrsfMtr.Form() != gp_Identity;
@@ -407,7 +407,7 @@ void SelectMgr_ViewerSelector::traverseObject(const Handle(SelectMgr_SelectableO
 
   const bool hasEntityTrsfPers = anEntitySet->HasEntityWithPersistence() && !theCamera.IsNull();
   const opencascade::handle<BVH_Tree<Standard_Real, 3>>& aSensitivesTree = anEntitySet->BVH();
-  gp_GTrsf                                               aInversedTrsf;
+  GeneralTransform                                               aInversedTrsf;
   if (theObject->HasTransformation() || !theObject->TransformPersistence().IsNull())
   {
     if (theObject->TransformPersistence().IsNull())
@@ -426,9 +426,9 @@ void SelectMgr_ViewerSelector::traverseObject(const Handle(SelectMgr_SelectableO
                                                                               theWorldViewMat,
                                                                               theWinSize.x(),
                                                                               theWinSize.y());
-      gp_GTrsf              aTPers;
+      GeneralTransform              aTPers;
       aTPers.SetMat4(aMat);
-      aInversedTrsf = (aTPers * gp_GTrsf(theObject->Transformation())).Inverted();
+      aInversedTrsf = (aTPers * GeneralTransform(theObject->Transformation())).Inverted();
     }
   }
 
@@ -602,7 +602,7 @@ void SelectMgr_ViewerSelector::traverseObject(const Handle(SelectMgr_SelectableO
 
           const Handle(Select3D_SensitiveEntity)& anEnt = aSensitive->BaseSensitive();
 
-          gp_GTrsf aInvSensTrsf = aInversedTrsf;
+          GeneralTransform aInvSensTrsf = aInversedTrsf;
           if (!anEnt->TransformPersistence().IsNull())
           {
             if (theCamera.IsNull())
@@ -614,9 +614,9 @@ void SelectMgr_ViewerSelector::traverseObject(const Handle(SelectMgr_SelectableO
                                                                                 theWorldViewMat,
                                                                                 theWinSize.x(),
                                                                                 theWinSize.y());
-            gp_GTrsf              aTPers;
+            GeneralTransform              aTPers;
             aTPers.SetMat4(aMat);
-            aInvSensTrsf = (aTPers * gp_GTrsf(theObject->Transformation())).Inverted();
+            aInvSensTrsf = (aTPers * GeneralTransform(theObject->Transformation())).Inverted();
           }
 
           computeFrustum(anEnt, theMgr, aMgr, aInvSensTrsf, aScaledTrnsfFrustums, aTmpMgr);
@@ -707,7 +707,7 @@ void SelectMgr_ViewerSelector::TraverseSensitives(const Standard_Integer theView
     if (aBVHSubset == SelectMgr_SelectableObjectSet::BVHSubset_2dPersistent
         || aBVHSubset == SelectMgr_SelectableObjectSet::BVHSubset_ortho2dPersistent)
     {
-      gp_GTrsf aTFrustum;
+      GeneralTransform aTFrustum;
       aTFrustum.SetValue(1, 1, aWorldViewMat.GetValue(0, 0));
       aTFrustum.SetValue(1, 2, aWorldViewMat.GetValue(0, 1));
       aTFrustum.SetValue(1, 3, aWorldViewMat.GetValue(0, 2));
@@ -717,7 +717,7 @@ void SelectMgr_ViewerSelector::TraverseSensitives(const Standard_Integer theView
       aTFrustum.SetValue(3, 1, aWorldViewMat.GetValue(2, 0));
       aTFrustum.SetValue(3, 2, aWorldViewMat.GetValue(2, 1));
       aTFrustum.SetValue(3, 3, aWorldViewMat.GetValue(2, 2));
-      aTFrustum.SetTranslationPart(gp_XYZ(aWorldViewMat.GetValue(0, 3),
+      aTFrustum.SetTranslationPart(Coords3d(aWorldViewMat.GetValue(0, 3),
                                           aWorldViewMat.GetValue(1, 3),
                                           aWorldViewMat.GetValue(2, 3)));
 

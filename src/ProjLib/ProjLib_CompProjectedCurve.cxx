@@ -162,7 +162,7 @@ static void d1(const Standard_Real              t,
   if (fabs(det) < gp1::Resolution())
     throw Standard_ConstructionError();
 
-  gp_Mat2d M(Coords2d(dE_dv.Y() / det, -dE_du.Y() / det), Coords2d(-dE_dv.X() / det, dE_du.X() / det));
+  Matrix2d M(Coords2d(dE_dv.Y() / det, -dE_du.Y() / det), Coords2d(-dE_dv.X() / det, dE_du.X() / det));
 
   V = -gp_Vec2d(gp_Vec2d(M.Row(1)) * dE_dt, gp_Vec2d(M.Row(2)) * dE_dt);
 }
@@ -194,7 +194,7 @@ static void d2(const Standard_Real              t,
   if (fabs(det) < gp1::Resolution())
     throw Standard_ConstructionError();
 
-  gp_Mat2d M(Coords2d(dE_dv.Y() / det, -dE_du.Y() / det), Coords2d(-dE_dv.X() / det, dE_du.X() / det));
+  Matrix2d M(Coords2d(dE_dv.Y() / det, -dE_du.Y() / det), Coords2d(-dE_dv.X() / det, dE_du.X() / det));
 
   // First derivative
   V1 = -gp_Vec2d(gp_Vec2d(M.Row(1)) * dE_dt, gp_Vec2d(M.Row(2)) * dE_dt);
@@ -262,7 +262,7 @@ static void d1CurvOnSurf(const Standard_Real t,
   Standard_Real det = dE_du.X()*dE_dv.Y() - dE_du.Y()*dE_dv.X();
   if (fabs(det) < gp1::Resolution()) throw Standard_ConstructionError();
 
-  gp_Mat2d M(Coords2d(dE_dv.Y()/det, -dE_du.Y()/det), 
+  Matrix2d M(Coords2d(dE_dv.Y()/det, -dE_du.Y()/det), 
     Coords2d(-dE_dv.X()/det, dE_du.X()/det));
 
   V2d = - gp_Vec2d(gp_Vec2d(M.Row(1))*dE_dt, gp_Vec2d(M.Row(2))*dE_dt);
@@ -300,7 +300,7 @@ static void d2CurvOnSurf(const Standard_Real              t,
   if (fabs(det) < gp1::Resolution())
     throw Standard_ConstructionError();
 
-  gp_Mat2d M(Coords2d(dE_dv.Y() / det, -dE_du.Y() / det), Coords2d(-dE_dv.X() / det, dE_du.X() / det));
+  Matrix2d M(Coords2d(dE_dv.Y() / det, -dE_du.Y() / det), Coords2d(-dE_dv.X() / det, dE_du.X() / det));
 
   // First derivative
   V12d = -gp_Vec2d(gp_Vec2d(M.Row(1)) * dE_dt, gp_Vec2d(M.Row(2)) * dE_dt);

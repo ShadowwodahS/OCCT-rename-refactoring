@@ -35,7 +35,7 @@ Methode:
    { F2(u,v)=(C1(u)-C2(v)).dC2/dv(v) = 0.
   Le probleme consiste a rechercher, dans les intervalles de definition
   des courbes, la racine du systeme la plus proche de (U0,V0).
-  On utilise la classe math_FunctionSetRoot avec les arguments de construction
+  On utilise la classe FunctionSetRoot avec les arguments de construction
   suivants:
   - F: Extrema_FuncExtCC cree a partir de C1 et C2,
   - math_Vector(U0,V0),
@@ -83,7 +83,7 @@ Methode:
   Uusup(1)=Usup;
   Uusup(2)=Vsup;
 
-  math_FunctionSetRoot S(F, Tol);
+  FunctionSetRoot S(F, Tol);
   S.Perform(F, Start, Uuinf, Uusup);
 
   if (S.IsDone() && F.NbExt() > 0) { 

@@ -58,13 +58,13 @@ void BRepLib_ToolTriangulatedShape::ComputeNormals(const TopoFace&              
       }
 
       // compute flat normals
-      gp_XYZ eqPlan(0.0, 0.0, 0.0);
+      Coords3d eqPlan(0.0, 0.0, 0.0);
       for (thePolyConnect.Initialize(aNodeIter); thePolyConnect.More(); thePolyConnect.Next())
       {
         theTris->Triangle1(thePolyConnect.Value()).Get(aTri[0], aTri[1], aTri[2]);
-        const gp_XYZ        v1(theTris->Node(aTri[1]).Coord() - theTris->Node(aTri[0]).Coord());
-        const gp_XYZ        v2(theTris->Node(aTri[2]).Coord() - theTris->Node(aTri[1]).Coord());
-        const gp_XYZ        vv   = v1 ^ v2;
+        const Coords3d        v1(theTris->Node(aTri[1]).Coord() - theTris->Node(aTri[0]).Coord());
+        const Coords3d        v2(theTris->Node(aTri[2]).Coord() - theTris->Node(aTri[1]).Coord());
+        const Coords3d        vv   = v1 ^ v2;
         const Standard_Real aMod = vv.Modulus();
         if (aMod >= aTol)
         {

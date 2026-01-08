@@ -52,9 +52,9 @@ void NewGeneralNoteTool::ReadOwnParams(const Handle(IGESDimen_NewGeneralNote)& e
   Standard_Real                           width;
   Standard_Real                           height;
   Standard_Integer                        justifyCode;
-  gp_XYZ                                  areaLoc;
+  Coords3d                                  areaLoc;
   Standard_Real                           areaRotationAngle;
-  gp_XYZ                                  baseLinePos;
+  Coords3d                                  baseLinePos;
   Standard_Real                           normalInterlineSpace;
   Handle(TColStd_HArray1OfInteger)        charDisplays;
   Handle(TColStd_HArray1OfReal)           charWidths;
@@ -131,7 +131,7 @@ void NewGeneralNoteTool::ReadOwnParams(const Handle(IGESDimen_NewGeneralNote)& e
       Standard_Real                    rotationAngle;
       Standard_Integer                 mirrorFlag;
       Standard_Integer                 rotateFlag;
-      gp_XYZ                           startPoint;
+      Coords3d                           startPoint;
       Handle(TCollection_HAsciiString) text;
 
       // st = PR.ReadInteger(PR.Current(), "Character Display",charDisplay); //szv#4:S4163:12Mar99
@@ -340,9 +340,9 @@ void NewGeneralNoteTool::OwnCopy(const Handle(IGESDimen_NewGeneralNote)& another
   Standard_Real    width                = another->TextWidth();
   Standard_Real    height               = another->TextHeight();
   Standard_Integer justifyCode          = another->JustifyCode();
-  gp_XYZ           areaLoc              = (another->AreaLocation()).XYZ();
+  Coords3d           areaLoc              = (another->AreaLocation()).XYZ();
   Standard_Real    areaRotationAngle    = another->AreaRotationAngle();
-  gp_XYZ           baseLinePos          = (another->BaseLinePosition()).XYZ();
+  Coords3d           baseLinePos          = (another->BaseLinePosition()).XYZ();
   Standard_Real    normalInterlineSpace = another->NormalInterlineSpace();
   Standard_Integer nbval                = another->NbStrings();
 

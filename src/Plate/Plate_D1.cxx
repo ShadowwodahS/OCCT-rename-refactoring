@@ -17,7 +17,7 @@
 #include <Plate_D1.hxx>
 #include <Plate_GtoCConstraint.hxx>
 
-D1::D1(const gp_XYZ& du, const gp_XYZ& dv)
+D1::D1(const Coords3d& du, const Coords3d& dv)
     : Du(du),
       Dv(dv)
 {

@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 #include <IGESData_IGESEntity.hxx>
-class gp_GTrsf;
+class GeneralTransform;
 
 class IGESData_TransfEntity;
 DEFINE_STANDARD_HANDLE(IGESData_TransfEntity, IGESData_IGESEntity)
@@ -37,7 +37,7 @@ public:
   //! Warning : Must take in account Composition : if a TransfEntity has in
   //! its Directory Part, a Transf, this means that it is Compound,
   //! Value must return the global result
-  Standard_EXPORT virtual gp_GTrsf Value() const = 0;
+  Standard_EXPORT virtual GeneralTransform Value() const = 0;
 
   DEFINE_STANDARD_RTTIEXT(IGESData_TransfEntity, IGESData_IGESEntity)
 

@@ -37,7 +37,7 @@ class IGESData_GlobalSection;
 class IGESData_IGESEntity;
 class TCollection_HAsciiString;
 class Coords2d;
-class gp_XYZ;
+class Coords3d;
 
 //! manages atomic file writing, under control of IGESModel :
 //! prepare text to be sent then sends it
@@ -160,7 +160,7 @@ public:
   Standard_EXPORT void Send(const Coords2d& val);
 
   //! Sends a XYZ, interpreted as a couple of 2 Reals (X , Y & Z)
-  Standard_EXPORT void Send(const gp_XYZ& val);
+  Standard_EXPORT void Send(const Coords3d& val);
 
   //! Returns the list of strings for a section given its rank
   //! 1 : Start (if not empty)  2 : Global  3 or 4 : Parameters

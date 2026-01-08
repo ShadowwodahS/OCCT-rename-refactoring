@@ -53,12 +53,12 @@ public:
   /**
    * Query the Box1 size
    */
-  inline const gp_XYZ& Size() const { return mySize; }
+  inline const Coords3d& Size() const { return mySize; }
 
   /**
    * Set the Box1 Size
    */
-  inline void SetSize(const gp_XYZ& theSize)
+  inline void SetSize(const Coords3d& theSize)
   {
     mySize = theSize;
     SetModified();
@@ -91,7 +91,7 @@ public:
 private:
   // ---------- PRIVATE FIELDS ----------
 
-  gp_XYZ mySize;
+  Coords3d mySize;
 
 public:
   // Declaration of CASCADE RTTI

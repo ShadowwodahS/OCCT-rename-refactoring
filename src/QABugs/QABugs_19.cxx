@@ -341,7 +341,7 @@ static Standard_Boolean OCC23774Test(const TopoFace&  grossPlateFace,
 
   gp_Vec2d mirrorVector1(axis1P1, axis1P2);
 
-  gp_Trsf2d mirror1;
+  Transform2d mirror1;
   mirror1.SetMirror(gp_Ax2d(axis1P1, mirrorVector1));
 
   BRepBuilderAPI_Transform transformer1(mirror1);
@@ -377,7 +377,7 @@ static Standard_Boolean OCC23774Test(const TopoFace&  grossPlateFace,
   TopoShape step2ModifiedShape = transformer1.ModifiedShape(step1ModifiedShape);
 
   // This is identity matrix for values but for type is gp_Rotation ?!
-  gp_Trsf2d mirror11 = mirror1;
+  Transform2d mirror11 = mirror1;
   mirror11.PreMultiply(mirror1);
 
   // clang-format off
@@ -1464,7 +1464,7 @@ static Standard_Integer OCC24137(DrawInterpreter& theDI,
   Point3d aPnt = BRepInspector::Pnt(aVert), aRes;
 
   Extrema_FuncPSNorm   anExtFunc;
-  math_FunctionSetRoot aRoot(anExtFunc, aNbIts);
+  FunctionSetRoot aRoot(anExtFunc, aNbIts);
 
   math_Vector aTolUV(1, 2), aUVinf(1, 2), aUVsup(1, 2), aFromUV(1, 2);
   aTolUV(1)  = Precision::Confusion();
@@ -1619,7 +1619,7 @@ static Standard_Integer OCC23972(DrawInterpreter& /*theDI*/,
     return 1;
 
   // process specific cones, cannot read them from files because
-  // due to rounding the original error in math_FunctionRoots gets hidden
+  // due to rounding the original error in FunctionRootsSolver gets hidden
   const Handle(GeomSurface) aS1 =
     CreateCone(Point3d(123.694345356663, 789.9, 68.15),
                Dir3d(-1, 3.48029791472957e-016, -8.41302743359754e-017),
@@ -2284,7 +2284,7 @@ static Standard_Integer OCC25004(DrawInterpreter& theDI,
             aLipConst = C;
         }
 
-  math_GlobOptMin aFinder(&aFunc, aLower, aUpper, aLipConst);
+  GlobOptMin aFinder(&aFunc, aLower, aUpper, aLipConst);
   aFinder.Perform();
   //(-pi , 12.275), (pi , 2.275), (9.42478, 2.475)
 
@@ -3720,7 +3720,7 @@ static Standard_Integer OCC24923(DrawInterpreter& theDI, Standard_Integer argc, 
 
 //=======================================================================
 // function : OCC25574
-// purpose  : check implementation of Euler angles in gp_Quaternion
+// purpose  : check implementation of Euler angles in Quaternion
 //=======================================================================
 
 static Standard_Integer OCC25574(DrawInterpreter& theDI,
@@ -3730,7 +3730,7 @@ static Standard_Integer OCC25574(DrawInterpreter& theDI,
   Standard_Boolean isTestOk = Standard_True;
 
   // Check consistency of Get and Set operations for Euler angles
-  gp_Quaternion aQuat;
+  Quaternion aQuat;
   aQuat.Set(0.06766916507860499, 0.21848101129786085, 0.11994599260380681, 0.9660744746954637);
   Standard_Real alpha, beta, gamma;
   gp_Mat        aRinv = aQuat.GetMatrix().Inverted();
@@ -3746,7 +3746,7 @@ static Standard_Integer OCC25574(DrawInterpreter& theDI,
   {
     aQuat.GetEulerAngles(gp_EulerSequence(i), alpha, beta, gamma);
 
-    gp_Quaternion aQuat2;
+    Quaternion aQuat2;
     aQuat2.SetEulerAngles(gp_EulerSequence(i), alpha, beta, gamma);
 
     gp_Mat aR    = aQuat2.GetMatrix();
@@ -3807,18 +3807,18 @@ static Standard_Integer OCC25574(DrawInterpreter& theDI,
       double anAngles[3] = {0., 0., 0.};
       anAngles[j]        = 0.5 * M_PI;
 
-      gp_Quaternion q2;
+      Quaternion q2;
       q2.SetEulerAngles(gp_EulerSequence(i), anAngles[0], anAngles[1], anAngles[2]);
 
       // Set point on axis corresponding to current rotation
       // We will apply rotation around this axis
-      gp_XYZ v(0., 0., 0.);
+      Coords3d v(0., 0., 0.);
       v.SetCoord(anAxis + 1, 1.);
 
       // Apply rotation to point
       Transform3d aT;
       aT.SetRotation(q2);
-      gp_XYZ v2 = v;
+      Coords3d v2 = v;
       aT.Transforms(v2);
 
       // Check that point is still on origin position
@@ -3858,7 +3858,7 @@ static Standard_Integer OCC25574(DrawInterpreter& theDI,
 
       // Set point on axis corresponding to current rotation
       // We will apply rotation around this axis
-      gp_XYZ v(0., 0., 0.);
+      Coords3d v(0., 0., 0.);
       v.SetCoord(anAxis + 1, 1.);
       aR[j].SetRotation(v, anAngle[j]);
     }
@@ -3901,15 +3901,15 @@ static Standard_Integer OCC25574(DrawInterpreter& theDI,
     beta  = -35.0 / 180.0 * M_PI;
     gamma = 90.0 / 180.0 * M_PI;
 
-    const gp_Quaternion rotationZ(world.Direction(), alpha);
+    const Quaternion rotationZ(world.Direction(), alpha);
     const Vector3d        rotY = rotationZ.Multiply(world.YDirection());
     const Vector3d        rotX = rotationZ.Multiply(world.XDirection());
 
-    const gp_Quaternion rotationY(rotY, beta);
+    const Quaternion rotationY(rotY, beta);
     const Vector3d        rotZ    = rotationY.Multiply(world.Direction());
     const Vector3d        rotRotX = rotationY.Multiply(rotX);
 
-    const gp_Quaternion rotationX(rotRotX, gamma);
+    const Quaternion rotationX(rotRotX, gamma);
     const Vector3d        rotRotZ = rotationX.Multiply(rotZ);
 
     Frame3d result(Point3d(0.0, 0.0, 0.0), rotRotZ, rotRotX);
@@ -3944,7 +3944,7 @@ static Standard_Integer OCC25574(DrawInterpreter& theDI,
 
   // test from #25946
   {
-    gp_Quaternion q;
+    Quaternion q;
     q.Set(0.06766916507860499, 0.21848101129786085, 0.11994599260380681, 0.9660744746954637);
 
     q.GetEulerAngles(gp_Intrinsic_ZYX, alpha, beta, gamma);
@@ -4401,7 +4401,7 @@ static Standard_Integer OCC26313(DrawInterpreter& di, Standard_Integer n, const 
     return 1;
 
   Transform3d  T;
-  gp_GTrsf GT(T);
+  GeneralTransform GT(T);
 
   gp_Mat rot(1.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 3.0);
 
@@ -5422,14 +5422,14 @@ static Standard_Integer OCC30492(DrawInterpreter& /*theDI*/,
   aStartPnt(1) = 0.0;
 
   // BFGS and FRPR fail when if starting point is exactly the minimum.
-  math_FRPR aFRPR(aFunc, Precision::Confusion());
+  FletcherReevesPowellRestart aFRPR(aFunc, Precision::Confusion());
   aFRPR.Perform(aFunc, aStartPnt);
   if (!aFRPR.IsDone())
     std::cout << "OCC30492: Error: FRPR optimization is not done." << std::endl;
   else
     std::cout << "OCC30492: OK: FRPR optimization is done." << std::endl;
 
-  math_BFGS aBFGS(1, Precision::Confusion());
+  BFGSOptimizer aBFGS(1, Precision::Confusion());
   aBFGS.Perform(aFunc, aStartPnt);
   if (!aBFGS.IsDone())
     std::cout << "OCC30492: Error: BFGS optimization is not done." << std::endl;

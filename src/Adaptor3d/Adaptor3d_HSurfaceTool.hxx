@@ -239,7 +239,7 @@ public:
 
   static gp_Torus Torus(const Handle(Adaptor3d_Surface)& theSurf) { return theSurf->Torus(); }
 
-  static gp_Sphere Sphere(const Handle(Adaptor3d_Surface)& theSurf) { return theSurf->Sphere(); }
+  static Sphere3 Sphere(const Handle(Adaptor3d_Surface)& theSurf) { return theSurf->Sphere(); }
 
   static Handle(Geom_BezierSurface) Bezier(const Handle(Adaptor3d_Surface)& theSurf)
   {

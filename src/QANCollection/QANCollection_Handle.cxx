@@ -58,7 +58,7 @@ inline void func(const Handle(GeomSurface)&) {}
 
 inline void func(const Handle(Point3d)&) {}
 
-inline void func(const Handle(gp_XYZ)&) {}
+inline void func(const Handle(Coords3d)&) {}
 
 inline void func(const Handle(Transform3d)&) {}
 
@@ -257,12 +257,12 @@ static Standard_Integer QAHandleOps(DrawInterpreter& theDI,
     CHECK(theDI, ! aPnt.IsNull(), "handle for non-null");
 
     const Handle(Point3d)& cPnt = aPnt; // cast to self const ref
-  //  const Handle(gp_XYZ)& cXYZ = aPnt; // cast to base const ref
+  //  const Handle(Coords3d)& cXYZ = aPnt; // cast to base const ref
     Point3d* pPnt = aPnt.get();
     const Point3d* cpPnt = aPnt.get();
     Point3d& rPnt = *aPnt;
     const Point3d& crPnt = *cPnt;
-  //  Handle(gp_XYZ) aXYZ = aPnt; // copy from handle to derived type
+  //  Handle(Coords3d) aXYZ = aPnt; // copy from handle to derived type
   //  aXYZ = cPnt; // assignment to handle of derived type
 
   //  aPnt = Handle(Point3d)::DownCast (cXYZ);
@@ -289,7 +289,7 @@ static Standard_Integer QAHandleOps(DrawInterpreter& theDI,
     CHECK(theDI, aPnt2 != cpPnt,  "inequality of handle and const pointer");
     CHECK(theDI, cpPnt != aPnt2,  "inequality of const pointer and handle");
 
-    Handle(gp_XYZ) aXYZ2;
+    Handle(Coords3d) aXYZ2;
     CHECK(theDI, aLine != aPnt2, "inequality of handles of different types");
     CHECK(theDI, aXYZ2 != cPnt, "inequality of const and non-const handle");
   //  CHECK(theDI, aXYZ2 != cXYZ, "inequality of handle and base handle");

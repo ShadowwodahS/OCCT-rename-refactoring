@@ -1880,12 +1880,12 @@ Standard_Boolean FindFacePairs(const TopoEdge&              theE,
 Standard_Real AngleWithRef(const Dir3d& theD1, const Dir3d& theD2, const Dir3d& theDRef)
 {
   Standard_Real aCosinus, aSinus, aBeta, aHalfPI, aScPr;
-  gp_XYZ        aXYZ;
+  Coords3d        aXYZ;
   //
   aHalfPI = 0.5 * M_PI;
   //
-  const gp_XYZ& aXYZ1 = theD1.XYZ();
-  const gp_XYZ& aXYZ2 = theD2.XYZ();
+  const Coords3d& aXYZ1 = theD1.XYZ();
+  const Coords3d& aXYZ2 = theD2.XYZ();
   aXYZ                = aXYZ1.Crossed(aXYZ2);
   aSinus              = aXYZ.Modulus();
   aCosinus            = theD1 * theD2;

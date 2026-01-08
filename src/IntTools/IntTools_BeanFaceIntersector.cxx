@@ -789,7 +789,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::FastComputeAnalytic()
   // Sphere - Line
   else if (aST == GeomAbs_Sphere)
   {
-    gp_Sphere aSph    = mySurface.Sphere();
+    Sphere3 aSph    = mySurface.Sphere();
     Point3d    aSphLoc = aSph.Location();
     if (aCT == GeomAbs_Line)
     {

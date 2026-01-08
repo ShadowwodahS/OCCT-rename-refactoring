@@ -41,7 +41,7 @@ public:
 
 public:
   //! Constructor. Initialized tool by the given parameters.
-  Standard_EXPORT BRepMesh_Triangulator(const NCollection_Vector<gp_XYZ>&                  theXYZs,
+  Standard_EXPORT BRepMesh_Triangulator(const NCollection_Vector<Coords3d>&                  theXYZs,
                                         const NCollection_List<TColStd_SequenceOfInteger>& theWires,
                                         const Dir3d&                                      theNorm);
 
@@ -70,7 +70,7 @@ private:
   Standard_Boolean triangulate(NCollection_List<Triangle2>& thePolyTriangles);
 
 private:
-  const NCollection_Vector<gp_XYZ>&                  myXYZs;
+  const NCollection_Vector<Coords3d>&                  myXYZs;
   const NCollection_List<TColStd_SequenceOfInteger>& myWires;
   gp_Pln                                             myPlane;
   Handle(Message_Messenger)                          myMess;

@@ -37,8 +37,8 @@ void Draw_Box::ToWCS(const Standard_Real theX,
                      const Standard_Real theZ,
                      Point3d&             theP) const
 {
-  const gp_XYZ& aC    = myOBB.Center();
-  const gp_XYZ  aXDir = myOBB.XDirection(), aYDir = myOBB.YDirection(), aZDir = myOBB.ZDirection();
+  const Coords3d& aC    = myOBB.Center();
+  const Coords3d  aXDir = myOBB.XDirection(), aYDir = myOBB.YDirection(), aZDir = myOBB.ZDirection();
 
   theP.SetXYZ(aC + theX * aXDir + theY * aYDir + theZ * aZDir);
 }
@@ -47,7 +47,7 @@ void Draw_Box::ToWCS(const Standard_Real theX,
 
 void Draw_Box::MoveX(const Standard_Real theShift, Point3d& thePt) const
 {
-  const gp_XYZ aXDir = myOBB.XDirection();
+  const Coords3d aXDir = myOBB.XDirection();
   thePt.SetXYZ(thePt.XYZ() + theShift * aXDir);
 }
 
@@ -55,7 +55,7 @@ void Draw_Box::MoveX(const Standard_Real theShift, Point3d& thePt) const
 
 void Draw_Box::MoveY(const Standard_Real theShift, Point3d& thePt) const
 {
-  const gp_XYZ aYDir = myOBB.YDirection();
+  const Coords3d aYDir = myOBB.YDirection();
   thePt.SetXYZ(thePt.XYZ() + theShift * aYDir);
 }
 
@@ -63,7 +63,7 @@ void Draw_Box::MoveY(const Standard_Real theShift, Point3d& thePt) const
 
 void Draw_Box::MoveZ(const Standard_Real theShift, Point3d& thePt) const
 {
-  const gp_XYZ aZDir = myOBB.ZDirection();
+  const Coords3d aZDir = myOBB.ZDirection();
   thePt.SetXYZ(thePt.XYZ() + theShift * aZDir);
 }
 

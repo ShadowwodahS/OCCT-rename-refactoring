@@ -26,7 +26,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESGeom_Line, IGESData_IGESEntity)
 
 IGESGeom_Line::IGESGeom_Line() {}
 
-void IGESGeom_Line::Init(const gp_XYZ& aStart, const gp_XYZ& anEnd)
+void IGESGeom_Line::Init(const Coords3d& aStart, const Coords3d& anEnd)
 {
   theStart = aStart;
   theEnd   = anEnd;
@@ -52,7 +52,7 @@ Point3d IGESGeom_Line::StartPoint() const
 
 Point3d IGESGeom_Line::TransformedStartPoint() const
 {
-  gp_XYZ Start = theStart;
+  Coords3d Start = theStart;
   if (HasTransf())
     Location().Transforms(Start);
   Point3d transStart(Start);
@@ -67,7 +67,7 @@ Point3d IGESGeom_Line::EndPoint() const
 
 Point3d IGESGeom_Line::TransformedEndPoint() const
 {
-  gp_XYZ End = theEnd;
+  Coords3d End = theEnd;
   if (HasTransf())
     Location().Transforms(End);
   Point3d transEnd(End);

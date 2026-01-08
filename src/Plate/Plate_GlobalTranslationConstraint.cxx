@@ -24,7 +24,7 @@ Plate_GlobalTranslationConstraint::Plate_GlobalTranslationConstraint(
   Standard_Integer i;
   for (i = 1; i <= SOfXY.Length(); i++)
   {
-    myLXYZC.SetPPC(i, PinpointConstraint(SOfXY(i), gp_XYZ(0., 0., 0.), 0, 0));
+    myLXYZC.SetPPC(i, PinpointConstraint(SOfXY(i), Coords3d(0., 0., 0.), 0, 0));
   }
   for (i = 1; i <= SOfXY.Length() - 1; i++)
   {

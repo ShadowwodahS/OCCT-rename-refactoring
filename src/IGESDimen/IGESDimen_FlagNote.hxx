@@ -46,7 +46,7 @@ public:
   //! - anAngle     : Rotation angle in radians
   //! - aNote       : General Note Entity
   //! - someLeaders : Leader Entities
-  Standard_EXPORT void Init(const gp_XYZ&                                 leftCorner,
+  Standard_EXPORT void Init(const Coords3d&                                 leftCorner,
                             const Standard_Real                           anAngle,
                             const Handle(IGESDimen_GeneralNote)&          aNote,
                             const Handle(IGESDimen_HArray1OfLeaderArrow)& someLeaders);
@@ -94,7 +94,7 @@ public:
 
 protected:
 private:
-  gp_XYZ                                 theLowerLeftcorner;
+  Coords3d                                 theLowerLeftcorner;
   Standard_Real                          theAngle;
   Handle(IGESDimen_GeneralNote)          theNote;
   Handle(IGESDimen_HArray1OfLeaderArrow) theLeaders;

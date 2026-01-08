@@ -50,7 +50,7 @@ SelectMgr_SelectingVolumeManager::SelectMgr_SelectingVolumeManager()
 //=======================================================================
 SelectMgr_SelectingVolumeManager SelectMgr_SelectingVolumeManager::ScaleAndTransform(
   const Standard_Integer                  theScaleFactor,
-  const gp_GTrsf&                         theTrsf,
+  const GeneralTransform&                         theTrsf,
   const Handle(SelectMgr_FrustumBuilder)& theBuilder) const
 {
   SelectMgr_SelectingVolumeManager aMgr;

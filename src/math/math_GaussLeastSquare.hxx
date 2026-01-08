@@ -30,8 +30,8 @@
 //! n linear equations of m unknowns (n >= m) using the gauss LU
 //! decomposition algorithm.
 //! This algorithm is more likely subject to numerical instability
-//! than math_SVD.
-class math_GaussLeastSquare
+//! than SVD.
+class GaussLeastSquare
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -43,7 +43,7 @@ public:
   //! to do subsequent calculation.
   //! If the largest pivot found is less than MinPivot the matrix <A>
   //! is considered as singular.
-  Standard_EXPORT math_GaussLeastSquare(const math_Matrix&  A,
+  Standard_EXPORT GaussLeastSquare(const math_Matrix&  A,
                                         const Standard_Real MinPivot = 1.0e-20);
 
   //! Returns true if the computations are successful, otherwise returns false.e

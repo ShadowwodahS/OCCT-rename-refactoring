@@ -24,7 +24,7 @@
 #include <Standard_Real.hxx>
 #include <math_FunctionSample.hxx>
 
-class GeomLib_LogSample : public math_FunctionSample
+class GeomLib_LogSample : public FunctionSampler
 {
 public:
   DEFINE_STANDARD_ALLOC

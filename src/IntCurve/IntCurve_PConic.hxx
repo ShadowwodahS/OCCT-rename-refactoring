@@ -49,7 +49,7 @@ public:
 
   Standard_EXPORT ParametricConic(const gp_Lin2d& L);
 
-  //! EpsX is a internal tolerance used in math
+  //! EpsX is a internal tolerance used in math1
   //! algorithms, usually about 1e-10
   //! (See FunctionAllRoots for more details)
   Standard_EXPORT void SetEpsX(const Standard_Real EpsDist);

@@ -28,7 +28,7 @@ typedef Geom2d_Vector              Vector;
 typedef Geom2d_VectorWithMagnitude VectorWithMagnitude;
 typedef gp_Ax2d                    Ax2d;
 typedef gp_Pnt2d                   Pnt2d;
-typedef gp_Trsf2d                  Trsf2d;
+typedef Transform2d                  Trsf2d;
 
 Geom2d_VectorWithMagnitude::Geom2d_VectorWithMagnitude(const gp_Vec2d& V)
 {

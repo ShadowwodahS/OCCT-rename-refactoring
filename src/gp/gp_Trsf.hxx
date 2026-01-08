@@ -24,10 +24,10 @@
 #include <Standard_SStream.hxx>
 
 class Point3d;
-class gp_Trsf2d;
+class Transform2d;
 class Axis3d;
 class Frame3d;
-class gp_Quaternion;
+class Quaternion;
 class Ax3;
 class Vector3d;
 
@@ -79,7 +79,7 @@ public:
   //! plane of the 3D space, (i.e. in the plane defined by the
   //! origin (0., 0., 0.) and the vectors DX (1., 0., 0.), and DY
   //! (0., 1., 0.)). The scale factor is applied to the entire space.
-  Standard_EXPORT Transform3d(const gp_Trsf2d& theT);
+  Standard_EXPORT Transform3d(const Transform2d& theT);
 
   //! Makes the transformation into a symmetrical transformation.
   //! theP is the center of the symmetry.
@@ -103,10 +103,10 @@ public:
   //! Changes the transformation into a rotation defined by quaternion.
   //! Note that rotation is performed around origin, i.e.
   //! no translation is involved.
-  Standard_EXPORT void SetRotation(const gp_Quaternion& theR);
+  Standard_EXPORT void SetRotation(const Quaternion& theR);
 
   //! Replaces the rotation part with specified quaternion.
-  Standard_EXPORT void SetRotationPart(const gp_Quaternion& theR);
+  Standard_EXPORT void SetRotationPart(const Quaternion& theR);
 
   //! Changes the transformation into a scale.
   //! theP is the center of the scale and theS is the scaling value.
@@ -170,7 +170,7 @@ public:
   Standard_EXPORT void SetTransformation(const Ax3& theToSystem);
 
   //! Sets transformation by directly specified rotation and translation.
-  Standard_EXPORT void SetTransformation(const gp_Quaternion& R, const Vector3d& theT);
+  Standard_EXPORT void SetTransformation(const Quaternion& R, const Vector3d& theT);
 
   //! Changes the transformation into a translation.
   //! theV is the vector of the translation.
@@ -227,7 +227,7 @@ public:
   Standard_Real ScaleFactor() const { return scale; }
 
   //! Returns the translation part of the transformation's matrix
-  const gp_XYZ& TranslationPart() const { return loc; }
+  const Coords3d& TranslationPart() const { return loc; }
 
   //! Returns the boolean True if there is non-zero rotation.
   //! In the presence of rotation, the output parameters store the axis
@@ -236,10 +236,10 @@ public:
   //! Note that this rotation is defined only by the vectorial part of
   //! the transformation; generally you would need to check also the
   //! translational part to obtain the axis (Axis3d) of rotation.
-  Standard_EXPORT Standard_Boolean GetRotation(gp_XYZ& theAxis, Standard_Real& theAngle) const;
+  Standard_EXPORT Standard_Boolean GetRotation(Coords3d& theAxis, Standard_Real& theAngle) const;
 
   //! Returns quaternion representing rotational part of the transformation.
-  Standard_EXPORT gp_Quaternion GetRotation() const;
+  Standard_EXPORT Quaternion GetRotation() const;
 
   //! Returns the vectorial part of the transformation. It is
   //! a 3*3 matrix which includes the scale factor.
@@ -321,7 +321,7 @@ public:
   void Transforms(Standard_Real& theX, Standard_Real& theY, Standard_Real& theZ) const;
 
   //! Transformation of a triplet XYZ with a Trsf
-  void Transforms(gp_XYZ& theCoord) const;
+  void Transforms(Coords3d& theCoord) const;
 
   //! Convert transformation to 4x4 matrix.
   template <class T>
@@ -358,7 +358,7 @@ public:
   Standard_EXPORT Standard_Boolean InitFromJson(const Standard_SStream& theSStream,
                                                 Standard_Integer&       theStreamPos);
 
-  friend class gp_GTrsf;
+  friend class GeneralTransform;
 
 protected:
   //! Makes orthogonalization of "matrix"
@@ -368,7 +368,7 @@ private:
   Standard_Real scale;
   gp_TrsfForm   shape;
   gp_Mat        matrix;
-  gp_XYZ        loc;
+  Coords3d        loc;
 };
 
 #include <gp_Trsf2d.hxx>
@@ -448,7 +448,7 @@ inline Standard_Real Transform3d::Value(const Standard_Integer theRow,
 //=======================================================================
 inline void Transform3d::Transforms(Standard_Real& theX, Standard_Real& theY, Standard_Real& theZ) const
 {
-  gp_XYZ aTriplet(theX, theY, theZ);
+  Coords3d aTriplet(theX, theY, theZ);
   aTriplet.Multiply(matrix);
   if (scale != 1.0)
   {
@@ -464,7 +464,7 @@ inline void Transform3d::Transforms(Standard_Real& theX, Standard_Real& theY, St
 // function : Transforms
 // purpose :
 //=======================================================================
-inline void Transform3d::Transforms(gp_XYZ& theCoord) const
+inline void Transform3d::Transforms(Coords3d& theCoord) const
 {
   theCoord.Multiply(matrix);
   if (scale != 1.0)

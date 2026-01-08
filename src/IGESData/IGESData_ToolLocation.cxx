@@ -147,7 +147,7 @@ Standard_Boolean IGESData_ToolLocation::HasTransf(const Handle(IGESData_IGESEnti
   return ent->HasTransf();
 }
 
-gp_GTrsf IGESData_ToolLocation::ExplicitLocation(const Handle(IGESData_IGESEntity)& ent) const
+GeneralTransform IGESData_ToolLocation::ExplicitLocation(const Handle(IGESData_IGESEntity)& ent) const
 {
   return ent->Location();
 }
@@ -211,9 +211,9 @@ Standard_Boolean IGESData_ToolLocation::HasParentByAssociativity(
   return Standard_False;
 }
 
-gp_GTrsf IGESData_ToolLocation::ParentLocation(const Handle(IGESData_IGESEntity)& ent) const
+GeneralTransform IGESData_ToolLocation::ParentLocation(const Handle(IGESData_IGESEntity)& ent) const
 {
-  gp_GTrsf                    locat; // par defaut, identite
+  GeneralTransform                    locat; // par defaut, identite
   Handle(IGESData_IGESEntity) parent = Parent(ent);
   // Definition recursive
   if (!parent.IsNull())
@@ -221,30 +221,30 @@ gp_GTrsf IGESData_ToolLocation::ParentLocation(const Handle(IGESData_IGESEntity)
   return locat;
 }
 
-gp_GTrsf IGESData_ToolLocation::EffectiveLocation(const Handle(IGESData_IGESEntity)& ent) const
+GeneralTransform IGESData_ToolLocation::EffectiveLocation(const Handle(IGESData_IGESEntity)& ent) const
 {
-  gp_GTrsf locat = ent->Location();
+  GeneralTransform locat = ent->Location();
   // Combiner Transf et ParentLocation
   locat.PreMultiply(ParentLocation(ent)); // ne pas se tromper de sens !
   return locat;
 }
 
-Standard_Boolean IGESData_ToolLocation::AnalyseLocation(const gp_GTrsf& loc, Transform3d& result) const
+Standard_Boolean IGESData_ToolLocation::AnalyseLocation(const GeneralTransform& loc, Transform3d& result) const
 {
   return ConvertLocation(theprec, loc, result);
 }
 
 Standard_Boolean IGESData_ToolLocation::ConvertLocation(const Standard_Real prec,
-                                                        const gp_GTrsf&     loc,
+                                                        const GeneralTransform&     loc,
                                                         Transform3d&            result,
                                                         const Standard_Real unit)
 {
   if (result.Form() != gp_Identity)
     result = Transform3d(); // Identite forcee au depart
   // On prend le contenu de <loc>. Attention a l adressage
-  gp_XYZ v1(loc.Value(1, 1), loc.Value(1, 2), loc.Value(1, 3));
-  gp_XYZ v2(loc.Value(2, 1), loc.Value(2, 2), loc.Value(2, 3));
-  gp_XYZ v3(loc.Value(3, 1), loc.Value(3, 2), loc.Value(3, 3));
+  Coords3d v1(loc.Value(1, 1), loc.Value(1, 2), loc.Value(1, 3));
+  Coords3d v2(loc.Value(2, 1), loc.Value(2, 2), loc.Value(2, 3));
+  Coords3d v3(loc.Value(3, 1), loc.Value(3, 2), loc.Value(3, 3));
   // A-t-on affaire a une similitude ?
   Standard_Real m1 = v1.Modulus();
   Standard_Real m2 = v2.Modulus();
@@ -264,7 +264,7 @@ Standard_Boolean IGESData_ToolLocation::ConvertLocation(const Standard_Real prec
   // Restent les autres caracteristiques :
   if (Abs(mm - 1.) > prec)
     result.SetScale(Point3d(0, 0, 0), mm);
-  gp_XYZ tp = loc.TranslationPart();
+  Coords3d tp = loc.TranslationPart();
   if (unit != 1.)
     tp.Multiply(unit);
   if (tp.X() != 0. || tp.Y() != 0. || tp.Z() != 0.)

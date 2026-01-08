@@ -40,7 +40,7 @@ void BlockTool::ReadOwnParams(const Handle(IGESSolid_Block)& ent,
                                         const Handle(IGESData_IGESReaderData)& /* IR */,
                                         IGESData_ParamReader& PR) const
 {
-  gp_XYZ        tempSize, tempCorner, tempXAxis, tempZAxis;
+  Coords3d        tempSize, tempCorner, tempXAxis, tempZAxis;
   Standard_Real tempreal;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
 

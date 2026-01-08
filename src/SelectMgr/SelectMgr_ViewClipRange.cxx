@@ -40,7 +40,7 @@ void SelectMgr_ViewClipRange::AddClippingPlanes(const Graphic3d_SequenceOfHClipP
       const gp_Pln aGeomPlane = aSubPlaneIter->ToPlane();
       aGeomPlane.Coefficients(aPlaneABCD[0], aPlaneABCD[1], aPlaneABCD[2], aPlaneABCD[3]);
 
-      const gp_XYZ& aPlaneDirXYZ = aGeomPlane.Axis().Direction().XYZ();
+      const Coords3d& aPlaneDirXYZ = aGeomPlane.Axis().Direction().XYZ();
       Standard_Real aDotProduct  = aViewRayDir.XYZ().Dot(aPlaneDirXYZ);
       Standard_Real aDistance    = -aNearPnt.XYZ().Dot(aPlaneDirXYZ) - aPlaneABCD[3];
       Standard_Real aDistToPln   = 0.0;

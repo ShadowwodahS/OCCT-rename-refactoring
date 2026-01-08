@@ -118,7 +118,7 @@ Standard_Integer Bisector_PolyBis::Interval1(const Standard_Real U) const
 
 //=================================================================================================
 
-void Bisector_PolyBis::Transform(const gp_Trsf2d& T)
+void Bisector_PolyBis::Transform(const Transform2d& T)
 {
   for (Standard_Integer i = 1; i <= nbPoints; i++)
   {

@@ -50,7 +50,7 @@ Point3d IGESSolid_SphericalSurface::TransformedCenter() const
     return theCenter->Value();
   else
   {
-    gp_XYZ tmp = (theCenter->Value()).XYZ();
+    Coords3d tmp = (theCenter->Value()).XYZ();
     Location().Transforms(tmp);
     return Point3d(tmp);
   }

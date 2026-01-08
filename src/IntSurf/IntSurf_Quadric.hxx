@@ -31,7 +31,7 @@
 #include <Standard_Integer.hxx>
 class gp_Pln;
 class Cylinder1;
-class gp_Sphere;
+class Sphere3;
 class Cone1;
 class gp_Torus;
 class Point3d;
@@ -48,7 +48,7 @@ public:
 
   Standard_EXPORT Quadric1(const Cylinder1& C);
 
-  Standard_EXPORT Quadric1(const gp_Sphere& S);
+  Standard_EXPORT Quadric1(const Sphere3& S);
 
   Standard_EXPORT Quadric1(const Cone1& C);
 
@@ -58,7 +58,7 @@ public:
 
   Standard_EXPORT void SetValue(const Cylinder1& C);
 
-  Standard_EXPORT void SetValue(const gp_Sphere& S);
+  Standard_EXPORT void SetValue(const Sphere3& S);
 
   Standard_EXPORT void SetValue(const Cone1& C);
 
@@ -74,7 +74,7 @@ public:
 
   gp_Pln Plane() const;
 
-  gp_Sphere Sphere() const;
+  Sphere3 Sphere() const;
 
   Cylinder1 Cylinder() const;
 

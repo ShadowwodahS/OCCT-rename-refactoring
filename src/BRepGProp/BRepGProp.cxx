@@ -36,7 +36,7 @@ static Point3d roughBaryCenter(const TopoShape& S)
 {
   Standard_Integer i;
   ShapeExplorer  ex;
-  gp_XYZ           xyz(0, 0, 0);
+  Coords3d           xyz(0, 0, 0);
   for (ex.Init(S, TopAbs_VERTEX), i = 0; ex.More(); ex.Next(), i++)
     xyz += BRepInspector::Pnt(TopoDS::Vertex(ex.Current())).XYZ();
   if (i > 0)

@@ -121,8 +121,8 @@ void ElCLib1::AdjustPeriodic(const Standard_Real UFirst,
 
 Point3d ElCLib1::LineValue(const Standard_Real U, const Axis3d& Pos)
 {
-  const gp_XYZ& ZDir = Pos.Direction().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& ZDir = Pos.Direction().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   return Point3d(U * ZDir.X() + PLoc.X(), U * ZDir.Y() + PLoc.Y(), U * ZDir.Z() + PLoc.Z());
 }
 
@@ -130,9 +130,9 @@ Point3d ElCLib1::LineValue(const Standard_Real U, const Axis3d& Pos)
 
 Point3d ElCLib1::CircleValue(const Standard_Real U, const Frame3d& Pos, const Standard_Real Radius)
 {
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real A1   = Radius * cos(U);
   Standard_Real A2   = Radius * sin(U);
   return Point3d(A1 * XDir.X() + A2 * YDir.X() + PLoc.X(),
@@ -147,9 +147,9 @@ Point3d ElCLib1::EllipseValue(const Standard_Real U,
                             const Standard_Real MajorRadius,
                             const Standard_Real MinorRadius)
 {
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real A1   = MajorRadius * cos(U);
   Standard_Real A2   = MinorRadius * sin(U);
   return Point3d(A1 * XDir.X() + A2 * YDir.X() + PLoc.X(),
@@ -164,9 +164,9 @@ Point3d ElCLib1::HyperbolaValue(const Standard_Real U,
                               const Standard_Real MajorRadius,
                               const Standard_Real MinorRadius)
 {
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real A1   = MajorRadius * Cosh(U);
   Standard_Real A2   = MinorRadius * Sinh(U);
   return Point3d(A1 * XDir.X() + A2 * YDir.X() + PLoc.X(),
@@ -180,13 +180,13 @@ Point3d ElCLib1::ParabolaValue(const Standard_Real U, const Frame3d& Pos, const 
 {
   if (Focal == 0.0)
   {
-    const gp_XYZ& XDir = Pos.XDirection().XYZ();
-    const gp_XYZ& PLoc = Pos.Location().XYZ();
+    const Coords3d& XDir = Pos.XDirection().XYZ();
+    const Coords3d& PLoc = Pos.Location().XYZ();
     return Point3d(U * XDir.X() + PLoc.X(), U * XDir.Y() + PLoc.Y(), U * XDir.Z() + PLoc.Z());
   }
-  const gp_XYZ& XDir = Pos.XDirection().XYZ();
-  const gp_XYZ& YDir = Pos.YDirection().XYZ();
-  const gp_XYZ& PLoc = Pos.Location().XYZ();
+  const Coords3d& XDir = Pos.XDirection().XYZ();
+  const Coords3d& YDir = Pos.YDirection().XYZ();
+  const Coords3d& PLoc = Pos.Location().XYZ();
   Standard_Real A1   = U * U / (4.0 * Focal);
   return Point3d(A1 * XDir.X() + U * YDir.X() + PLoc.X(),
                 A1 * XDir.Y() + U * YDir.Y() + PLoc.Y(),
@@ -197,7 +197,7 @@ Point3d ElCLib1::ParabolaValue(const Standard_Real U, const Frame3d& Pos, const 
 
 void ElCLib1::LineD1(const Standard_Real U, const Axis3d& Pos, Point3d& P, Vector3d& V1)
 {
-  gp_XYZ Coord = Pos.Direction().XYZ();
+  Coords3d Coord = Pos.Direction().XYZ();
   V1.SetXYZ(Coord);
   Coord.SetLinearForm(U, Coord, Pos.Location().XYZ());
   P.SetXYZ(Coord);
@@ -213,9 +213,9 @@ void ElCLib1::CircleD1(const Standard_Real U,
 {
   Standard_Real Xc = Radius * Cos(U);
   Standard_Real Yc = Radius * Sin(U);
-  gp_XYZ        Coord0;
-  gp_XYZ        Coord1(Pos.XDirection().XYZ());
-  gp_XYZ        Coord2(Pos.YDirection().XYZ());
+  Coords3d        Coord0;
+  Coords3d        Coord1(Pos.XDirection().XYZ());
+  Coords3d        Coord2(Pos.YDirection().XYZ());
   // Point courant :
   Coord0.SetLinearForm(Xc, Coord1, Yc, Coord2, Pos.Location().XYZ());
   P.SetXYZ(Coord0);
@@ -235,9 +235,9 @@ void ElCLib1::EllipseD1(const Standard_Real U,
 {
   Standard_Real Xc = Cos(U);
   Standard_Real Yc = Sin(U);
-  gp_XYZ        Coord0;
-  gp_XYZ        Coord1(Pos.XDirection().XYZ());
-  gp_XYZ        Coord2(Pos.YDirection().XYZ());
+  Coords3d        Coord0;
+  Coords3d        Coord1(Pos.XDirection().XYZ());
+  Coords3d        Coord2(Pos.YDirection().XYZ());
   // Point courant :
   Coord0.SetLinearForm(Xc * MajorRadius, Coord1, Yc * MinorRadius, Coord2, Pos.Location().XYZ());
   P.SetXYZ(Coord0);
@@ -257,9 +257,9 @@ void ElCLib1::HyperbolaD1(const Standard_Real U,
 {
   Standard_Real Xc = Cosh(U);
   Standard_Real Yc = Sinh(U);
-  gp_XYZ        Coord0;
-  gp_XYZ        Coord1(Pos.XDirection().XYZ());
-  gp_XYZ        Coord2(Pos.YDirection().XYZ());
+  Coords3d        Coord0;
+  Coords3d        Coord1(Pos.XDirection().XYZ());
+  Coords3d        Coord2(Pos.YDirection().XYZ());
   // Point courant :
   Coord0.SetLinearForm(Xc * MajorRadius, Coord1, Yc * MinorRadius, Coord2, Pos.Location().XYZ());
   P.SetXYZ(Coord0);
@@ -276,8 +276,8 @@ void ElCLib1::ParabolaD1(const Standard_Real U,
                         Point3d&             P,
                         Vector3d&             V1)
 {
-  gp_XYZ Coord0;
-  gp_XYZ Coord1(Pos.XDirection().XYZ());
+  Coords3d Coord0;
+  Coords3d Coord1(Pos.XDirection().XYZ());
   if (Focal == 0.0)
   { // Parabole degenere en une droite
     V1.SetXYZ(Coord1);
@@ -287,7 +287,7 @@ void ElCLib1::ParabolaD1(const Standard_Real U,
   }
   else
   {
-    gp_XYZ Coord2(Pos.YDirection().XYZ());
+    Coords3d Coord2(Pos.YDirection().XYZ());
     Coord0.SetLinearForm(U / (2.0 * Focal), Coord1, Coord2);
     V1.SetXYZ(Coord0);
     Coord0.SetLinearForm((U * U) / (4.0 * Focal), Coord1, U, Coord2, Pos.Location().XYZ());
@@ -306,9 +306,9 @@ void ElCLib1::CircleD2(const Standard_Real U,
 {
   Standard_Real Xc = Radius * cos(U);
   Standard_Real Yc = Radius * sin(U);
-  gp_XYZ        Coord0;
-  gp_XYZ        Coord1(Pos.XDirection().XYZ());
-  gp_XYZ        Coord2(Pos.YDirection().XYZ());
+  Coords3d        Coord0;
+  Coords3d        Coord1(Pos.XDirection().XYZ());
+  Coords3d        Coord2(Pos.YDirection().XYZ());
   // Point courant :
   Coord0.SetLinearForm(Xc, Coord1, Yc, Coord2, Pos.Location().XYZ());
   P.SetXYZ(Coord0);
@@ -332,9 +332,9 @@ void ElCLib1::EllipseD2(const Standard_Real U,
 {
   Standard_Real Xc = cos(U);
   Standard_Real Yc = sin(U);
-  gp_XYZ        Coord0;
-  gp_XYZ        Coord1(Pos.XDirection().XYZ());
-  gp_XYZ        Coord2(Pos.YDirection().XYZ());
+  Coords3d        Coord0;
+  Coords3d        Coord1(Pos.XDirection().XYZ());
+  Coords3d        Coord2(Pos.YDirection().XYZ());
   // Point courant :
   Coord0.SetLinearForm(Xc * MajorRadius, Coord1, Yc * MinorRadius, Coord2, Pos.Location().XYZ());
   P.SetXYZ(Coord0);
@@ -358,9 +358,9 @@ void ElCLib1::HyperbolaD2(const Standard_Real U,
 {
   Standard_Real Xc = Cosh(U);
   Standard_Real Yc = Sinh(U);
-  gp_XYZ        Coord0;
-  gp_XYZ        Coord1(Pos.XDirection().XYZ());
-  gp_XYZ        Coord2(Pos.YDirection().XYZ());
+  Coords3d        Coord0;
+  Coords3d        Coord1(Pos.XDirection().XYZ());
+  Coords3d        Coord2(Pos.YDirection().XYZ());
 
   // Point courant et D2:
   Coord0.SetLinearForm(Xc * MajorRadius, Coord1, Yc * MinorRadius, Coord2);
@@ -381,8 +381,8 @@ void ElCLib1::ParabolaD2(const Standard_Real U,
                         Vector3d&             V1,
                         Vector3d&             V2)
 {
-  gp_XYZ Coord0(0.0, 0.0, 0.0);
-  gp_XYZ Coord1(Pos.XDirection().XYZ());
+  Coords3d Coord0(0.0, 0.0, 0.0);
+  Coords3d Coord1(Pos.XDirection().XYZ());
   if (Focal == 0.0)
   {
     V2.SetCoord(0.0, 0.0, 0.0);
@@ -393,7 +393,7 @@ void ElCLib1::ParabolaD2(const Standard_Real U,
   }
   else
   {
-    gp_XYZ Coord2(Pos.YDirection().XYZ());
+    Coords3d Coord2(Pos.YDirection().XYZ());
     Coord0.SetLinearForm((U * U) / (4.0 * Focal), Coord1, U, Coord2, Pos.Location().XYZ());
     P.SetXYZ(Coord0);
     Coord0.SetLinearForm(U / (2.0 * Focal), Coord1, Coord2);
@@ -415,9 +415,9 @@ void ElCLib1::CircleD3(const Standard_Real U,
 {
   Standard_Real Xc = Radius * cos(U);
   Standard_Real Yc = Radius * sin(U);
-  gp_XYZ        Coord0;
-  gp_XYZ        Coord1(Pos.XDirection().XYZ());
-  gp_XYZ        Coord2(Pos.YDirection().XYZ());
+  Coords3d        Coord0;
+  Coords3d        Coord1(Pos.XDirection().XYZ());
+  Coords3d        Coord2(Pos.YDirection().XYZ());
   // Point Courant :
   Coord0.SetLinearForm(Xc, Coord1, Yc, Coord2, Pos.Location().XYZ());
   P.SetXYZ(Coord0);
@@ -445,9 +445,9 @@ void ElCLib1::EllipseD3(const Standard_Real U,
 {
   Standard_Real Xc = cos(U);
   Standard_Real Yc = sin(U);
-  gp_XYZ        Coord0;
-  gp_XYZ        Coord1(Pos.XDirection().XYZ());
-  gp_XYZ        Coord2(Pos.YDirection().XYZ());
+  Coords3d        Coord0;
+  Coords3d        Coord1(Pos.XDirection().XYZ());
+  Coords3d        Coord2(Pos.YDirection().XYZ());
   // Point Courant :
   Coord0.SetLinearForm(Xc * MajorRadius, Coord1, Yc * MinorRadius, Coord2, Pos.Location().XYZ());
   P.SetXYZ(Coord0);
@@ -475,9 +475,9 @@ void ElCLib1::HyperbolaD3(const Standard_Real U,
 {
   Standard_Real Xc = Cosh(U);
   Standard_Real Yc = Sinh(U);
-  gp_XYZ        Coord0;
-  gp_XYZ        Coord1(Pos.XDirection().XYZ());
-  gp_XYZ        Coord2(Pos.YDirection().XYZ());
+  Coords3d        Coord0;
+  Coords3d        Coord1(Pos.XDirection().XYZ());
+  Coords3d        Coord2(Pos.YDirection().XYZ());
   // Point courant et D2 :
   Coord0.SetLinearForm(Xc * MajorRadius, Coord1, Yc * MinorRadius, Coord2);
   V2.SetXYZ(Coord0);
@@ -925,7 +925,7 @@ Vector3d ElCLib1::CircleDN(const Standard_Real    U,
     Xc = Radius * -sin(U);
     Yc = Radius * cos(U);
   }
-  gp_XYZ Coord1(Pos.XDirection().XYZ());
+  Coords3d Coord1(Pos.XDirection().XYZ());
   Coord1.SetLinearForm(Xc, Coord1, Yc, Pos.YDirection().XYZ());
   return Vector3d(Coord1);
 }
@@ -964,7 +964,7 @@ Vector3d ElCLib1::EllipseDN(const Standard_Real    U,
     Xc = MajorRadius * -sin(U);
     Yc = MinorRadius * cos(U);
   }
-  gp_XYZ Coord1(Pos.XDirection().XYZ());
+  Coords3d Coord1(Pos.XDirection().XYZ());
   Coord1.SetLinearForm(Xc, Coord1, Yc, Pos.YDirection().XYZ());
   return Vector3d(Coord1);
 }
@@ -988,7 +988,7 @@ Vector3d ElCLib1::HyperbolaDN(const Standard_Real    U,
     Xc = MajorRadius * Cosh(U);
     Yc = MinorRadius * Sinh(U);
   }
-  gp_XYZ Coord1(Pos.XDirection().XYZ());
+  Coords3d Coord1(Pos.XDirection().XYZ());
   Coord1.SetLinearForm(Xc, Coord1, Yc, Pos.YDirection().XYZ());
   return Vector3d(Coord1);
 }
@@ -1002,7 +1002,7 @@ Vector3d ElCLib1::ParabolaDN(const Standard_Real    U,
 {
   if (N <= 2)
   {
-    gp_XYZ Coord1(Pos.XDirection().XYZ());
+    Coords3d Coord1(Pos.XDirection().XYZ());
     if (N == 1)
     {
       if (Focal == 0.0)
@@ -1203,7 +1203,7 @@ Standard_Real ElCLib1::CircleParameter(const Frame3d& Pos, const Point3d& P)
 
   const Dir3d& dir = Pos.Direction();
   // Project vector on circle's plane
-  gp_XYZ aVProj = dir.XYZ().CrossCrossed(aVec.XYZ(), dir.XYZ());
+  Coords3d aVProj = dir.XYZ().CrossCrossed(aVec.XYZ(), dir.XYZ());
 
   if (aVProj.SquareModulus() < gp1::Resolution())
     return 0.0;
@@ -1225,9 +1225,9 @@ Standard_Real ElCLib1::EllipseParameter(const Frame3d&       Pos,
                                        const Standard_Real MinorRadius,
                                        const Point3d&       P)
 {
-  gp_XYZ        OP    = P.XYZ() - Pos.Location().XYZ();
-  gp_XYZ        xaxis = Pos.XDirection().XYZ();
-  gp_XYZ        yaxis = Pos.YDirection().XYZ();
+  Coords3d        OP    = P.XYZ() - Pos.Location().XYZ();
+  Coords3d        xaxis = Pos.XDirection().XYZ();
+  Coords3d        yaxis = Pos.YDirection().XYZ();
   Standard_Real NY    = OP.Dot(yaxis);
   Standard_Real NX    = OP.Dot(xaxis);
 
@@ -1236,7 +1236,7 @@ Standard_Real ElCLib1::EllipseParameter(const Frame3d&       Pos,
     return (0.0);
 
   yaxis.Multiply(NY * (MajorRadius / MinorRadius));
-  gp_XYZ Om = xaxis.Multiplied(NX);
+  Coords3d Om = xaxis.Multiplied(NX);
   Om.Add(yaxis);
   Standard_Real Teta = Vector3d(xaxis).AngleWithRef(Vector3d(Om), Vector3d(Pos.Direction()));
   if (Teta < -1.e-16)
@@ -1342,7 +1342,7 @@ Standard_Real ElCLib1::ParabolaParameter(const Ax22d& Pos, const gp_Pnt2d& P)
 
 Point3d ElCLib1::To3d(const Frame3d& Pos, const gp_Pnt2d& P)
 {
-  gp_XYZ Vxy = Pos.XDirection().XYZ();
+  Coords3d Vxy = Pos.XDirection().XYZ();
   Vxy.SetLinearForm(P.X(), Vxy, P.Y(), Pos.YDirection().XYZ(), Pos.Location().XYZ());
   return Point3d(Vxy);
 }

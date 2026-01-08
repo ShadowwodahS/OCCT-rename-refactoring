@@ -73,7 +73,7 @@ Handle(MeshTriangulation) BRepMesh_Triangulator::ToPolyTriangulation(
 //=================================================================================================
 
 BRepMesh_Triangulator::BRepMesh_Triangulator(
-  const NCollection_Vector<gp_XYZ>&                  theXYZs,
+  const NCollection_Vector<Coords3d>&                  theXYZs,
   const NCollection_List<TColStd_SequenceOfInteger>& theWires,
   const Dir3d&                                      theNorm)
     : myXYZs(theXYZs),
@@ -173,12 +173,12 @@ void BRepMesh_Triangulator::addTriange34(const TColStd_SequenceOfInteger& theW,
 Standard_Boolean BRepMesh_Triangulator::checkCondition(const int (&theNodes)[4],
                                                        const TColStd_SequenceOfInteger& theW)
 {
-  const gp_XYZ aV0 = myXYZs.Value(theW(theNodes[1])) - myXYZs.Value(theW(theNodes[0]));
-  const gp_XYZ aV1 = myXYZs.Value(theW(theNodes[2])) - myXYZs.Value(theW(theNodes[0]));
-  const gp_XYZ aV2 = myXYZs.Value(theW(theNodes[3])) - myXYZs.Value(theW(theNodes[0]));
+  const Coords3d aV0 = myXYZs.Value(theW(theNodes[1])) - myXYZs.Value(theW(theNodes[0]));
+  const Coords3d aV1 = myXYZs.Value(theW(theNodes[2])) - myXYZs.Value(theW(theNodes[0]));
+  const Coords3d aV2 = myXYZs.Value(theW(theNodes[3])) - myXYZs.Value(theW(theNodes[0]));
 
-  const gp_XYZ aCross1 = aV0.Crossed(aV1);
-  const gp_XYZ aCross2 = aV0.Crossed(aV2);
+  const Coords3d aCross1 = aV0.Crossed(aV1);
+  const Coords3d aCross2 = aV0.Crossed(aV2);
   return (aCross1.SquareModulus() < Precision::SquareConfusion()
           || aCross2.SquareModulus() < Precision::SquareConfusion()
           || Dir3d(aCross1).IsEqual(Dir3d(aCross2), 0.01));

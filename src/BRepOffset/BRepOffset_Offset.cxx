@@ -214,7 +214,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
           }
           else
           {
-            gp_Sphere Sph  = S.Sphere();
+            Sphere3 Sph  = S.Sphere();
             Ax3    Axis = Sph.Position();
             gp_Circ   Ci   = ElSLib1::SphereVIso(Axis, Sph.Radius(), P.Y());
             Dir3d    DRev = Axis.XDirection().Crossed(Axis.YDirection());
@@ -277,7 +277,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
       { // Iso U.
         if (STy == GeomAbs_Sphere)
         {
-          gp_Sphere Sph  = S.Sphere();
+          Sphere3 Sph  = S.Sphere();
           gp_Pnt2d  P    = C.Line().Location();
           Ax3    Axis = Sph.Position();
           // calculate iso 0.

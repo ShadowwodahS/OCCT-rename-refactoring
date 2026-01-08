@@ -103,7 +103,7 @@ public:
   //! transformed frustum from scratch. Can be null if reconstruction is not expected furthermore.
   Standard_EXPORT virtual Handle(SelectMgr_BaseIntersector) ScaleAndTransform(
     const Standard_Integer                  theScaleFactor,
-    const gp_GTrsf&                         theTrsf,
+    const GeneralTransform&                         theTrsf,
     const Handle(SelectMgr_FrustumBuilder)& theBuilder) const Standard_OVERRIDE;
 
   //! Returns a copy of the frustum using the given frustum builder configuration.

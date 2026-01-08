@@ -41,7 +41,7 @@ void CircArraySubfigureTool::ReadOwnParams(const Handle(IGESDraw_CircArraySubfig
 {
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
 
-  gp_XYZ                           tempCenter;
+  Coords3d                           tempCenter;
   Handle(IGESData_IGESEntity)      tempBase;
   Standard_Real                    tempRadius, tempStAngle, tempDelAngle;
   Standard_Integer                 tempNumLocs, tempFlag, tempListCount;
@@ -124,7 +124,7 @@ void CircArraySubfigureTool::OwnCopy(const Handle(IGESDraw_CircArraySubfigure)& 
 {
   DeclareAndCast(IGESData_IGESEntity, tempBase, TC.Transferred(another->BaseEntity()));
   Standard_Integer                 tempNumLocs   = another->NbLocations();
-  gp_XYZ                           tempCenter    = (another->CenterPoint()).XYZ();
+  Coords3d                           tempCenter    = (another->CenterPoint()).XYZ();
   Standard_Real                    tempRadius    = another->CircleRadius();
   Standard_Real                    tempStAngle   = another->StartAngle();
   Standard_Real                    tempDelAngle  = another->DeltaAngle();

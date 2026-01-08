@@ -38,7 +38,7 @@ public:
   Vector3d(const Dir3d& theV);
 
   //! Creates a vector with a triplet of coordinates.
-  Vector3d(const gp_XYZ& theCoord)
+  Vector3d(const Coords3d& theCoord)
       : coord(theCoord)
   {
   }
@@ -82,7 +82,7 @@ public:
   void SetZ(const Standard_Real theZ) { coord.SetZ(theZ); }
 
   //! Assigns the three coordinates of theCoord to this vector.
-  void SetXYZ(const gp_XYZ& theCoord) { coord = theCoord; }
+  void SetXYZ(const Coords3d& theCoord) { coord = theCoord; }
 
   //! Returns the coordinate of range theIndex :
   //! theIndex = 1 => X is returned
@@ -110,7 +110,7 @@ public:
 
   //! For this vector, returns
   //! -   its three coordinates as a number triple
-  const gp_XYZ& XYZ() const { return coord; }
+  const Coords3d& XYZ() const { return coord; }
 
   //! Returns True if the two vectors have the same magnitude value
   //! and the same direction. The precision values are theLinearTolerance
@@ -442,7 +442,7 @@ public:
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
 private:
-  gp_XYZ coord;
+  Coords3d coord;
 };
 
 #include <gp_Dir.hxx>

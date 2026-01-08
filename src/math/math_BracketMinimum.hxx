@@ -23,7 +23,7 @@
 
 #include <Standard_Real.hxx>
 #include <Standard_OStream.hxx>
-class math_Function;
+class Function1;
 
 //! Given two distinct initial points, BracketMinimum
 //! implements the computation of three points (a, b, c) which
@@ -34,20 +34,20 @@ class math_Function;
 //! applied to the parameter change. The method SetLimits defines the allowed range.
 //! If no minimum is found in limits then IsDone() will return false. The user
 //! is in charge of providing A and B to be in limits.
-class math_BracketMinimum
+class BracketMinimum
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructor preparing A and B parameters only. It does not perform the job.
-  math_BracketMinimum(const Standard_Real A, const Standard_Real B);
+  BracketMinimum(const Standard_Real A, const Standard_Real B);
 
   //! Given two initial values this class computes a
   //! bracketing triplet of abscissae Ax, Bx, Cx
   //! (such that Bx is between Ax and Cx, F(Bx) is
   //! less than both F(Bx) and F(Cx)) the Brent minimization is done
   //! on the function F.
-  Standard_EXPORT math_BracketMinimum(math_Function&      F,
+  Standard_EXPORT BracketMinimum(Function1&      F,
                                       const Standard_Real A,
                                       const Standard_Real B);
 
@@ -57,7 +57,7 @@ public:
   //! less than both F(Bx) and F(Cx)) the Brent minimization is done
   //! on the function F.
   //! This constructor has to be used if F(A) is known.
-  Standard_EXPORT math_BracketMinimum(math_Function&      F,
+  Standard_EXPORT BracketMinimum(Function1&      F,
                                       const Standard_Real A,
                                       const Standard_Real B,
                                       const Standard_Real FA);
@@ -68,7 +68,7 @@ public:
   //! less than both F(Bx) and F(Cx)) the Brent minimization is done
   //! on the function F.
   //! This constructor has to be used if F(A) and F(B) are known.
-  Standard_EXPORT math_BracketMinimum(math_Function&      F,
+  Standard_EXPORT BracketMinimum(Function1&      F,
                                       const Standard_Real A,
                                       const Standard_Real B,
                                       const Standard_Real FA,
@@ -86,7 +86,7 @@ public:
   void SetFB(const Standard_Real theValue);
 
   //! The method performing the job. It is called automatically by constructors with the function.
-  Standard_EXPORT void Perform(math_Function& F);
+  Standard_EXPORT void Perform(Function1& F);
 
   //! Returns true if the computations are successful, otherwise returns false.
   Standard_Boolean IsDone() const;
@@ -117,7 +117,7 @@ private:
   //! values of B and C.
   //! Return false in the case of C becomes equal to B or function calculation
   //! failure.
-  Standard_Boolean LimitAndMayBeSwap(math_Function&      F,
+  Standard_Boolean LimitAndMayBeSwap(Function1&      F,
                                      const Standard_Real theA,
                                      Standard_Real&      theB,
                                      Standard_Real&      theFB,

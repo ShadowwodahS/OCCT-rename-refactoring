@@ -120,7 +120,7 @@ Standard_Boolean BRepGProp_TFunction::Value(const Standard_Real X, Standard_Real
   Standard_Integer              iU = anUKnots->Upper();
   Standard_Integer              aNbPntsStart;
   Standard_Integer              aNbMaxIter = 1000;
-  math_KronrodSingleIntegration anIntegral;
+  KronrodSingleIntegration anIntegral;
   Standard_Real                 aLocalErr = 0.;
 
   i = anUKnots->Lower();

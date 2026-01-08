@@ -430,7 +430,7 @@ Standard_Boolean IsInput(const Vector3d& Vec, const TopoVertex& Ve, const TopoFa
   Ax3  Axe(Point, Normal, Vec3d[0]);
   Transform3d Transf;
   Transf.SetTransformation(Axe);
-  gp_XYZ coord = Vec.XYZ();
+  Coords3d coord = Vec.XYZ();
   Transf.Transforms(coord);
   coord.SetZ(0);
   Transf.Invert();

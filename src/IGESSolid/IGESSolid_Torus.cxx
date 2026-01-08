@@ -28,8 +28,8 @@ IGESSolid_Torus::IGESSolid_Torus() {}
 
 void IGESSolid_Torus::Init(const Standard_Real R1,
                            const Standard_Real R2,
-                           const gp_XYZ&       Point,
-                           const gp_XYZ&       Axisdir)
+                           const Coords3d&       Point,
+                           const Coords3d&       Axisdir)
 {
   theR1    = R1;
   theR2    = R2;
@@ -59,7 +59,7 @@ Point3d IGESSolid_Torus::TransformedAxisPoint() const
     return Point3d(thePoint);
   else
   {
-    gp_XYZ pnt = thePoint;
+    Coords3d pnt = thePoint;
     Location().Transforms(pnt);
     return Point3d(pnt);
   }
@@ -76,9 +76,9 @@ Dir3d IGESSolid_Torus::TransformedAxis() const
     return Dir3d(theAxis);
   else
   {
-    gp_XYZ   pnt = theAxis;
-    gp_GTrsf loc = Location();
-    loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
+    Coords3d   pnt = theAxis;
+    GeneralTransform loc = Location();
+    loc.SetTranslationPart(Coords3d(0., 0., 0.));
     loc.Transforms(pnt);
     return Dir3d(pnt);
   }

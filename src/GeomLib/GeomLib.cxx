@@ -176,8 +176,8 @@ static void ComputeLambda(const math_Matrix&  Constraint,
   Standard_Integer GOrdre = 4 + 4 * Continuity, DDim = Continuity * (Continuity + 2);
   math_Vector      GaussP(1, GOrdre), GaussW(1, GOrdre), pol2(1, 2 * Continuity + 1),
     pol4(1, 4 * Continuity + 1);
-  math::GaussPoints(GOrdre, GaussP);
-  math::GaussWeights(GOrdre, GaussW);
+  math1::GaussPoints(GOrdre, GaussP);
+  math1::GaussWeights(GOrdre, GaussW);
   pol4.Init(0.);
 
   for (ip = 1; ip <= GOrdre; ip++)
@@ -246,7 +246,7 @@ static void ComputeLambda(const math_Matrix&  Constraint,
     // Recheche des extrema de la fonction
     GeomLib_PolyFunc      FF(pol4);
     GeomLib_LogSample     S(Lambda / 1000, 50 * Lambda, 100);
-    math_FunctionAllRoots Solve(FF,
+    FunctionAllRoots Solve(FF,
                                 S,
                                 Precision::Confusion(),
                                 Precision::Confusion() * (Length + 1),
@@ -699,7 +699,7 @@ Handle(GeomCurve3d) GeomLib1::To3d(const Frame3d& Position, const Handle(GeomCur
 
 //=================================================================================================
 
-Handle(GeomCurve2d) GeomLib1::GTransform(const Handle(GeomCurve2d)& Curve, const gp_GTrsf2d& GTrsf)
+Handle(GeomCurve2d) GeomLib1::GTransform(const Handle(GeomCurve2d)& Curve, const GeneralTransform2d& GTrsf)
 {
   gp_TrsfForm Form = GTrsf.Form();
 
@@ -890,7 +890,7 @@ void GeomLib1::SameRange(const Standard_Real         Tolerance,
     }
     else if (CurvePtr->IsKind(STANDARD_TYPE(Geom2d_Circle)))
     {
-      gp_Trsf2d Trsf;
+      Transform2d Trsf;
       NewCurvePtr                = Handle(GeomCurve2d)::DownCast(CurvePtr->Copy());
       Handle(Geom2d_Circle) Circ = Handle(Geom2d_Circle)::DownCast(NewCurvePtr);
       gp_Pnt2d              P    = Circ->Location();
@@ -1233,7 +1233,7 @@ void GeomLib1::AdjustExtremity(Handle(Geom_BoundedCurve)& Curve,
 
   for (jj = 1; jj <= 4; jj++)
   {
-    gp_XYZ aux(0., 0., 0.);
+    Coords3d aux(0., 0., 0.);
     for (ii = 1; ii <= 4; ii++)
     {
       aux.SetLinearForm(Mat(ii, jj), PolesDef(ii).XYZ(), aux);
@@ -1936,7 +1936,7 @@ void GeomLib1::Inertia(const TColgp_Array1OfPnt& Points,
                       Standard_Real&            Ygap,
                       Standard_Real&            Zgap)
 {
-  gp_XYZ GB(0., 0., 0.), Diff;
+  Coords3d GB(0., 0., 0.), Diff;
   //  Vector3d A,B,C,D;
 
   Standard_Integer i, nb = Points.Length();
@@ -2925,8 +2925,8 @@ static Standard_Boolean CompareWeightPoles(const TColgp_Array1OfPnt&         the
     const Standard_Real aW1 = (theW1 == 0) ? 1.0 : theW1->Value(i);
     const Standard_Real aW2 = (theW2 == 0) ? 1.0 : theW2->Value(i);
 
-    gp_XYZ aPole1 = thePoles1.Value(i).XYZ() * aW1;
-    gp_XYZ aPole2 = thePoles2.Value(i).XYZ() * aW2;
+    Coords3d aPole1 = thePoles1.Value(i).XYZ() * aW1;
+    Coords3d aPole2 = thePoles2.Value(i).XYZ() * aW2;
     if (!aPole1.IsEqual(aPole2, theTol))
       return Standard_False;
   }

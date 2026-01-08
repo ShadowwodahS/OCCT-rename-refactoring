@@ -55,7 +55,7 @@ public:
   //! displayed
   Standard_EXPORT void Init(const Handle(IGESData_IGESEntity)&      aBase,
                             const Standard_Real                     aScale,
-                            const gp_XYZ&                           aCorner,
+                            const Coords3d&                           aCorner,
                             const Standard_Integer                  nbCols,
                             const Standard_Integer                  nbRows,
                             const Standard_Real                     hDisp,
@@ -116,7 +116,7 @@ protected:
 private:
   Handle(IGESData_IGESEntity)      theBaseEntity;
   Standard_Real                    theScaleFactor;
-  gp_XYZ                           theLowerLeftCorner;
+  Coords3d                           theLowerLeftCorner;
   Standard_Integer                 theNbColumns;
   Standard_Integer                 theNbRows;
   Standard_Real                    theColumnSeparation;

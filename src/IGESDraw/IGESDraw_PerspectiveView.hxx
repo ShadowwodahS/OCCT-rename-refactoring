@@ -68,10 +68,10 @@ public:
   //! - aFrontPlaneDistance : Distance of front clipping plane
   Standard_EXPORT void Init(const Standard_Integer aViewNumber,
                             const Standard_Real    aScaleFactor,
-                            const gp_XYZ&          aViewNormalVector,
-                            const gp_XYZ&          aViewReferencePoint,
-                            const gp_XYZ&          aCenterOfProjection,
-                            const gp_XYZ&          aViewUpVector,
+                            const Coords3d&          aViewNormalVector,
+                            const Coords3d&          aViewReferencePoint,
+                            const Coords3d&          aCenterOfProjection,
+                            const Coords3d&          aViewUpVector,
                             const Standard_Real    aViewPlaneDistance,
                             const Coords2d&           aTopLeft,
                             const Coords2d&           aBottomRight,
@@ -136,7 +136,7 @@ public:
 
   //! returns XYX from the Model space to the View space by
   //! applying the View Matrix
-  Standard_EXPORT gp_XYZ ModelToView(const gp_XYZ& coords) const;
+  Standard_EXPORT Coords3d ModelToView(const Coords3d& coords) const;
 
   DEFINE_STANDARD_RTTIEXT(IGESDraw_PerspectiveView, IGESData_ViewKindEntity)
 
@@ -144,10 +144,10 @@ protected:
 private:
   Standard_Integer theViewNumber;
   Standard_Real    theScaleFactor;
-  gp_XYZ           theViewNormalVector;
-  gp_XYZ           theViewReferencePoint;
-  gp_XYZ           theCenterOfProjection;
-  gp_XYZ           theViewUpVector;
+  Coords3d           theViewNormalVector;
+  Coords3d           theViewReferencePoint;
+  Coords3d           theCenterOfProjection;
+  Coords3d           theViewUpVector;
   Standard_Real    theViewPlaneDistance;
   Coords2d            theTopLeft;
   Coords2d            theBottomRight;

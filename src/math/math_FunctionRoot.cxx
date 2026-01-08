@@ -73,7 +73,7 @@ Standard_Boolean math_MyFunctionSetWithDerivatives::Values(const math_Vector& X,
   return Ff->Values(X(1), F(1), D(1, 1));
 }
 
-math_FunctionRoot::math_FunctionRoot(math_FunctionWithDerivative& F,
+FunctionRootSolver::FunctionRootSolver(math_FunctionWithDerivative& F,
                                      const Standard_Real          Guess,
                                      const Standard_Real          Tolerance,
                                      const Standard_Integer       NbIterations)
@@ -82,7 +82,7 @@ math_FunctionRoot::math_FunctionRoot(math_FunctionWithDerivative& F,
   math_MyFunctionSetWithDerivatives Ff(F);
   V(1)   = Guess;
   Tol(1) = Tolerance;
-  math_FunctionSetRoot Sol(Ff, Tol, NbIterations);
+  FunctionSetRoot Sol(Ff, Tol, NbIterations);
   Sol.Perform(Ff, V);
   Done = Sol.IsDone();
   if (Done)
@@ -95,7 +95,7 @@ math_FunctionRoot::math_FunctionRoot(math_FunctionWithDerivative& F,
   }
 }
 
-math_FunctionRoot::math_FunctionRoot(math_FunctionWithDerivative& F,
+FunctionRootSolver::FunctionRootSolver(math_FunctionWithDerivative& F,
                                      const Standard_Real          Guess,
                                      const Standard_Real          Tolerance,
                                      const Standard_Real          A,
@@ -108,7 +108,7 @@ math_FunctionRoot::math_FunctionRoot(math_FunctionWithDerivative& F,
   Tol(1) = Tolerance;
   Aa(1)  = A;
   Bb(1)  = B;
-  math_FunctionSetRoot Sol(Ff, Tol, NbIterations);
+  FunctionSetRoot Sol(Ff, Tol, NbIterations);
   Sol.Perform(Ff, V, Aa, Bb);
   Done = Sol.IsDone();
   if (Done)
@@ -121,10 +121,10 @@ math_FunctionRoot::math_FunctionRoot(math_FunctionWithDerivative& F,
   }
 }
 
-void math_FunctionRoot::Dump(Standard_OStream& o) const
+void FunctionRootSolver::Dump(Standard_OStream& o) const
 {
 
-  o << "math_FunctionRoot ";
+  o << "FunctionRootSolver ";
   if (Done)
   {
     o << " Status = Done \n";

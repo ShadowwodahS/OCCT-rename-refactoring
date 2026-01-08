@@ -81,7 +81,7 @@ private:
   OpenGl_Aspects*             myAspect;         //!< capping face aspect.
   Handle(Graphic3d_ClipPlane) myPlaneRoot;      //!< parent clipping plane structure.
   Handle(Graphic3d_Aspects)   myFillAreaAspect; //!< own capping aspect
-  gp_XYZ                      myLocalOrigin;    //!< layer origin
+  Coords3d                      myLocalOrigin;    //!< layer origin
   unsigned int                myEquationMod;    //!< modification counter for plane equation.
   unsigned int                myAspectMod;      //!< modification counter for aspect.
 

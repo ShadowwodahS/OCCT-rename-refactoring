@@ -38,7 +38,7 @@ gce_MakeDir::gce_MakeDir(const Point3d& P1, const Point3d& P2)
   }
 }
 
-gce_MakeDir::gce_MakeDir(const gp_XYZ& Coord)
+gce_MakeDir::gce_MakeDir(const Coords3d& Coord)
 {
   if (Coord.Modulus() <= gp1::Resolution())
   {

@@ -23,13 +23,13 @@
 #include <math_Vector.hxx>
 #include <math_IntegerVector.hxx>
 #include <Standard_OStream.hxx>
-class math_FunctionSet;
+class FunctionSet;
 
 //! -- This class implements the integration of a set of N
 //! functions of M  variables variables between the
 //! parameter bounds Lower[a..b] and Upper[a..b].
 //! Warning: - The case M>1 is not implemented.
-class math_GaussSetIntegration
+class GaussSetIntegration
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -37,7 +37,7 @@ public:
   //! The Gauss-Legendre integration with Order = points of
   //! integration for each unknown, is done on the function F
   //! between the bounds Lower and Upper.
-  Standard_EXPORT math_GaussSetIntegration(math_FunctionSet&         F,
+  Standard_EXPORT GaussSetIntegration(FunctionSet&         F,
                                            const math_Vector&        Lower,
                                            const math_Vector&        Upper,
                                            const math_IntegerVector& Order);

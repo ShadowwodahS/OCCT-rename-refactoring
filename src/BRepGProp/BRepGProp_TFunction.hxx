@@ -31,7 +31,7 @@ class Point3d;
 //! integral computation. The returned value represents the
 //! integral of UFunction. It depends on the value type and the
 //! flag IsByPoint.
-class BRepGProp_TFunction : public math_Function
+class BRepGProp_TFunction : public Function1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -65,9 +65,9 @@ public:
   //! computation of a value of tolerance for inner integral
   //! computation. After GetStateNumber method call, this number
   //! is recomputed by the same law as in
-  //! math_KronrodSingleIntegration, i.e. next number of points
+  //! KronrodSingleIntegration, i.e. next number of points
   //! is equal to the current number plus a square root of the
-  //! current number. If the law in math_KronrodSingleIntegration
+  //! current number. If the law in KronrodSingleIntegration
   //! is changed, the modification algo should be modified
   //! accordingly.
   void SetNbKronrodPoints(const Standard_Integer theNbPoints);
@@ -96,8 +96,8 @@ public:
   //! Redefined  method. Remembers the error reached during
   //! computation of integral values since the object creation
   //! or the last call of GetStateNumber. It is invoked in each
-  //! algorithm from the package math. Particularly in the
-  //! algorithm math_KronrodSingleIntegration that is used to
+  //! algorithm from the package math1. Particularly in the
+  //! algorithm KronrodSingleIntegration that is used to
   //! compute the integral of TFunction.
   Standard_EXPORT virtual Standard_Integer GetStateNumber() Standard_OVERRIDE;
 

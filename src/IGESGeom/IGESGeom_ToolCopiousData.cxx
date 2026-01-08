@@ -254,8 +254,8 @@ void CopiousDataTool::OwnDump(const Handle(IGESGeom_CopiousData)& ent,
   Standard_Integer nbPnts = ent->NbPoints();
   Standard_Integer dtype  = ent->DataType();
   Standard_Integer i;
-  gp_GTrsf         loca = ent->Location();
-  gp_GTrsf         locv = ent->VectorLocation();
+  GeneralTransform         loca = ent->Location();
+  GeneralTransform         locv = ent->VectorLocation();
   Standard_Boolean yatr = (level > 5 && ent->HasTransf());
 
   S << "IGESGeom_CopiousData\n";
@@ -282,7 +282,7 @@ void CopiousDataTool::OwnDump(const Handle(IGESGeom_CopiousData)& ent,
   {
     for (i = 1; i <= nbPnts; i++)
     {
-      gp_XYZ T = ent->Point(i).XYZ();
+      Coords3d T = ent->Point(i).XYZ();
       if (dtype == 1)
         S << "[" << i << "] (" << T.X() << "," << T.Y() << ")";
       else
@@ -296,7 +296,7 @@ void CopiousDataTool::OwnDump(const Handle(IGESGeom_CopiousData)& ent,
 
       if (dtype == 3)
       {
-        //	gp_XYZ P = ent->Vector(i).XYZ();
+        //	Coords3d P = ent->Vector(i).XYZ();
         S << "\n   Vector (" << T.X() << "," << T.Y() << "," << T.Z() << ")";
         if (yatr)
         {

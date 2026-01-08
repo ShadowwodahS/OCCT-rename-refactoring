@@ -41,7 +41,7 @@ typedef gp_Circ               Circ;
 typedef Dir3d                Dir;
 typedef Point3d                Pnt;
 typedef Transform3d               Trsf;
-typedef gp_XYZ                XYZ;
+typedef Coords3d                XYZ;
 typedef Vector3d                Vec;
 
 //=================================================================================================
@@ -67,7 +67,7 @@ Geom_SphericalSurface::Geom_SphericalSurface(const Ax3& A, const Standard_Real R
 
 //=================================================================================================
 
-Geom_SphericalSurface::Geom_SphericalSurface(const gp_Sphere& S)
+Geom_SphericalSurface::Geom_SphericalSurface(const Sphere3& S)
     : radius(S.Radius())
 {
 
@@ -144,7 +144,7 @@ void Geom_SphericalSurface::SetRadius(const Standard_Real R)
 
 //=================================================================================================
 
-void Geom_SphericalSurface::SetSphere(const gp_Sphere& S)
+void Geom_SphericalSurface::SetSphere(const Sphere3& S)
 {
 
   radius = S.Radius();
@@ -272,10 +272,10 @@ Vec Geom_SphericalSurface::DN(const Standard_Real    U,
 
 //=================================================================================================
 
-gp_Sphere Geom_SphericalSurface::Sphere() const
+Sphere3 Geom_SphericalSurface::Sphere() const
 {
 
-  return gp_Sphere(pos, radius);
+  return Sphere3(pos, radius);
 }
 
 //=================================================================================================

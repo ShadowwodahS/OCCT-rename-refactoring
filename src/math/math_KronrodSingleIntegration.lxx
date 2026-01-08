@@ -20,7 +20,7 @@
 //           Returns Standard_True if computation is performed successfully.
 //==========================================================================
 
-inline Standard_Boolean math_KronrodSingleIntegration::IsDone() const
+inline Standard_Boolean KronrodSingleIntegration::IsDone() const
 {
   return myIsDone;
 }
@@ -30,9 +30,9 @@ inline Standard_Boolean math_KronrodSingleIntegration::IsDone() const
 //           Returns the value of the integral.
 //==========================================================================
 
-inline Standard_Real math_KronrodSingleIntegration::Value() const
+inline Standard_Real KronrodSingleIntegration::Value() const
 {
-  StdFail_NotDone_Raise_if(!myIsDone, "math_KronrodSingleIntegration");
+  StdFail_NotDone_Raise_if(!myIsDone, "KronrodSingleIntegration");
   return myValue;
 }
 
@@ -41,9 +41,9 @@ inline Standard_Real math_KronrodSingleIntegration::Value() const
 //           Returns the value of the relative error reached.
 //==========================================================================
 
-inline Standard_Real math_KronrodSingleIntegration::ErrorReached() const
+inline Standard_Real KronrodSingleIntegration::ErrorReached() const
 {
-  StdFail_NotDone_Raise_if(!myIsDone, "math_KronrodSingleIntegration");
+  StdFail_NotDone_Raise_if(!myIsDone, "KronrodSingleIntegration");
   return myErrorReached;
 }
 
@@ -52,9 +52,9 @@ inline Standard_Real math_KronrodSingleIntegration::ErrorReached() const
 // purpose  :
 //=======================================================================
 
-inline Standard_Real math_KronrodSingleIntegration::AbsolutError() const
+inline Standard_Real KronrodSingleIntegration::AbsolutError() const
 {
-  StdFail_NotDone_Raise_if(!myIsDone, "math_KronrodSingleIntegration");
+  StdFail_NotDone_Raise_if(!myIsDone, "KronrodSingleIntegration");
   return myAbsolutError;
 }
 
@@ -64,9 +64,9 @@ inline Standard_Real math_KronrodSingleIntegration::AbsolutError() const
 //           is computed.
 //==========================================================================
 
-inline Standard_Integer math_KronrodSingleIntegration::OrderReached() const
+inline Standard_Integer KronrodSingleIntegration::OrderReached() const
 {
-  StdFail_NotDone_Raise_if(!myIsDone, "math_KronrodSingleIntegration");
+  StdFail_NotDone_Raise_if(!myIsDone, "KronrodSingleIntegration");
   return myNbPntsReached;
 }
 
@@ -75,8 +75,8 @@ inline Standard_Integer math_KronrodSingleIntegration::OrderReached() const
 //           Returns the number of iterations that were made to compute result.
 //==========================================================================
 
-inline Standard_Integer math_KronrodSingleIntegration::NbIterReached() const
+inline Standard_Integer KronrodSingleIntegration::NbIterReached() const
 {
-  StdFail_NotDone_Raise_if(!myIsDone, "math_KronrodSingleIntegration");
+  StdFail_NotDone_Raise_if(!myIsDone, "KronrodSingleIntegration");
   return myNbIterReached;
 }

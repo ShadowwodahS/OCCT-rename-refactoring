@@ -159,7 +159,7 @@ Methode:
   Si U est solution, alors (C(U)-P).C'(U) = 0.
   Le probleme consiste a rechercher les racines de cette fonction
   dans l'intervalle de definition de la courbe.
-  On utilise la classe math_FunctionRoots avec les arguments de
+  On utilise la classe FunctionRootsSolver avec les arguments de
   construction suivant:
   - F: Extrema_FuncExtPC cree a partir de P et C,
   - Uinf: borne inferieure de l'intervalle de definition,
@@ -174,7 +174,7 @@ Methode:
   myF.SubIntervalInitialize(myumin,myusup);
   myDone = Standard_False;
 
-  math_FunctionRoots S (myF, myumin, myusup, mynbsample, mytolu, mytolF, mytolF);
+  FunctionRootsSolver S (myF, myumin, myusup, mynbsample, mytolu, mytolF, mytolF);
   if (!S.IsDone() ||
       S.IsAllNull()) { return; }
 

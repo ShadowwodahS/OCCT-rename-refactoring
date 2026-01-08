@@ -465,7 +465,7 @@ void BRepSweep_Rotation::SetGeneratingPCurve(const TopoShape& aNewFace,
   }
   else if (AS.GetType() == GeomAbs_Sphere)
   {
-    gp_Sphere         sph = AS.Sphere();
+    Sphere3         sph = AS.Sphere();
     BRepAdaptor_Curve BC(TopoDS::Edge(aNewEdge));
     Standard_Real     U = BC.FirstParameter();
     point               = BC.Value(U);
@@ -534,7 +534,7 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoShape& aNewFace,
     break;
 
     case GeomAbs_Sphere: {
-      gp_Sphere sph = AS.Sphere();
+      Sphere3 sph = AS.Sphere();
       ElSLib1::SphereParameters(sph.Position(), sph.Radius(), p2, u, v);
       p22d.SetCoord(0., v);
       gp_Lin2d            L(p22d, gp1::DX2d());

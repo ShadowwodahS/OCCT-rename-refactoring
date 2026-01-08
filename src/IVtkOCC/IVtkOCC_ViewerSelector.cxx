@@ -62,13 +62,13 @@ Handle(CameraOn3d) IVtkOCC_ViewerSelector::ConvertVtkToOccCamera(
   theView->GetClippingRange(aZNear, aZFar);
   aCamera->SetZRange(aZNear, aZFar);
   aCamera->SetAspect(theView->GetAspectRatio());
-  gp_XYZ anAxialScale;
+  Coords3d anAxialScale;
   theView->GetScale(anAxialScale.ChangeCoord(1),
                     anAxialScale.ChangeCoord(2),
                     anAxialScale.ChangeCoord(3));
   aCamera->SetAxialScale(anAxialScale);
 
-  gp_XYZ anUp, aDir, anEyePos;
+  Coords3d anUp, aDir, anEyePos;
   theView->GetViewUp(anUp.ChangeCoord(1), anUp.ChangeCoord(2), anUp.ChangeCoord(3));
   theView->GetDirectionOfProjection(aDir.ChangeCoord(1), aDir.ChangeCoord(2), aDir.ChangeCoord(3));
   theView->GetEyePosition(anEyePos.ChangeCoord(1),

@@ -85,8 +85,8 @@ private:
   Standard_Real    dpOpT[3][3];
   Standard_Real    dpOeT[3][3];
   Standard_Real    deOpT[3][3];
-  gp_XYZ           voo[3];
-  gp_XYZ           vtt[3];
+  Coords3d           voo[3];
+  Coords3d           vtt[3];
   Standard_Real    Incidence;
 };
 

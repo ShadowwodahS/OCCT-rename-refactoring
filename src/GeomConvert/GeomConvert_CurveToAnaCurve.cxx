@@ -526,7 +526,7 @@ Handle(GeomCurve3d) GeomConvert_CurveToAnaCurve::ComputeEllipse(const Handle(Geo
   else
     c2n = c2;
   //
-  gp_XYZ                      aBC;
+  Coords3d                      aBC;
   Handle(TColgp_HArray1OfPnt) AP = new TColgp_HArray1OfPnt(1, 5);
   AP->SetValue(1, PStart);
   aBC += PStart.XYZ();
@@ -574,7 +574,7 @@ Handle(GeomCurve3d) GeomConvert_CurveToAnaCurve::ComputeEllipse(const Handle(Geo
     F(i)     = -1.;
   }
 
-  math_Gauss aSolver(Dt);
+  Gauss aSolver(Dt);
   if (!aSolver.IsDone())
     return res;
 

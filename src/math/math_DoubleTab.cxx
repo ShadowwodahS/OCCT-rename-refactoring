@@ -20,7 +20,7 @@
 // macro to get size of C array
 #define CARRAY_LENGTH(arr) (int)(sizeof(arr) / sizeof(arr[0]))
 
-void math_DoubleTab::Allocate()
+void DoubleTab::Allocate()
 {
   Standard_Integer RowNumber = UppR - LowR + 1;
   Standard_Integer ColNumber = UppC - LowC + 1;
@@ -29,7 +29,7 @@ void math_DoubleTab::Allocate()
     Addr = (Standard_Real*)Standard::Allocate(RowNumber * ColNumber * sizeof(Standard_Real));
 }
 
-math_DoubleTab::math_DoubleTab(const Standard_Integer LowerRow,
+DoubleTab::DoubleTab(const Standard_Integer LowerRow,
                                const Standard_Integer UpperRow,
                                const Standard_Integer LowerCol,
                                const Standard_Integer UpperCol)
@@ -43,7 +43,7 @@ math_DoubleTab::math_DoubleTab(const Standard_Integer LowerRow,
   Allocate();
 }
 
-math_DoubleTab::math_DoubleTab(const Standard_Address Tab,
+DoubleTab::DoubleTab(const Standard_Address Tab,
                                const Standard_Integer LowerRow,
                                const Standard_Integer UpperRow,
                                const Standard_Integer LowerCol,
@@ -58,7 +58,7 @@ math_DoubleTab::math_DoubleTab(const Standard_Address Tab,
   Allocate();
 }
 
-void math_DoubleTab::Init(const Standard_Real InitValue)
+void DoubleTab::Init(const Standard_Real InitValue)
 {
   for (Standard_Integer anIndex = 0; anIndex < (UppR - LowR + 1) * (UppC - LowC + 1); anIndex++)
   {
@@ -66,7 +66,7 @@ void math_DoubleTab::Init(const Standard_Real InitValue)
   }
 }
 
-math_DoubleTab::math_DoubleTab(const math_DoubleTab& Other)
+DoubleTab::DoubleTab(const DoubleTab& Other)
     : Addr(Buf),
       isAllocated((Other.UppR - Other.LowR + 1) * (Other.UppC - Other.LowC + 1)
                   > CARRAY_LENGTH(Buf)),
@@ -79,7 +79,7 @@ math_DoubleTab::math_DoubleTab(const math_DoubleTab& Other)
   memmove(Addr, Other.Addr, (int)((UppR - LowR + 1) * (UppC - LowC + 1) * sizeof(Standard_Real)));
 }
 
-void math_DoubleTab::Free()
+void DoubleTab::Free()
 {
   // free the data
   if (isAllocated)
@@ -90,13 +90,13 @@ void math_DoubleTab::Free()
   Addr = 0;
 }
 
-void math_DoubleTab::SetLowerRow(const Standard_Integer LowerRow)
+void DoubleTab::SetLowerRow(const Standard_Integer LowerRow)
 {
   UppR = UppR - LowR + LowerRow;
   LowR = LowerRow;
 }
 
-void math_DoubleTab::SetLowerCol(const Standard_Integer LowerCol)
+void DoubleTab::SetLowerCol(const Standard_Integer LowerCol)
 {
   UppC = UppC - LowC + LowerCol;
   LowC = LowerCol;

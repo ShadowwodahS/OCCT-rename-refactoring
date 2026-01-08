@@ -28,7 +28,7 @@
 //! This abstract class describes the virtual functions associated with
 //! a function of a single variable for which the first derivative is
 //! available.
-class math_FunctionWithDerivative : public math_Function
+class math_FunctionWithDerivative : public Function1
 {
 public:
   DEFINE_STANDARD_ALLOC

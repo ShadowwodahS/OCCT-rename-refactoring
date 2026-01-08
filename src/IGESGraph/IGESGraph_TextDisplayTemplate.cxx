@@ -35,7 +35,7 @@ void IGESGraph_TextDisplayTemplate::Init(const Standard_Real                  aW
                                          const Standard_Real                  aRotationAngle,
                                          const Standard_Integer               aMirrorFlag,
                                          const Standard_Integer               aRotationFlag,
-                                         const gp_XYZ&                        aCorner)
+                                         const Coords3d&                        aCorner)
 {
   theBoxWidth      = aWidth;
   theBoxHeight     = aHeight;
@@ -111,7 +111,7 @@ Point3d IGESGraph_TextDisplayTemplate::StartingCorner() const
 
 Point3d IGESGraph_TextDisplayTemplate::TransformedStartingCorner() const
 {
-  gp_XYZ TempXYZ = theCorner;
+  Coords3d TempXYZ = theCorner;
   if (HasTransf())
     Location().Transforms(TempXYZ);
   return (Point3d(TempXYZ));

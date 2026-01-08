@@ -397,7 +397,7 @@ void Bisector_Inter::NeighbourPerform(const Handle(Bisector_BisecCC)& Bis1,
   // Solution F = 0 to find the common point.
   Bisector_FunctionInter Fint(Guide, Bis1, BisTemp);
 
-  math_BissecNewton aSolution(Tol);
+  BissecNewtonSolver aSolution(Tol);
   aSolution.Perform(Fint, UMin, UMax, 20);
 
   if (aSolution.IsDone())

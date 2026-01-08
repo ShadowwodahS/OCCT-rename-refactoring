@@ -34,7 +34,7 @@ void Poly_CoherentNode::Clear(const Handle(NCollection_BaseAllocator)& theAlloc)
 // purpose  : Define the normal vector in the Node.
 //=======================================================================
 
-void Poly_CoherentNode::SetNormal(const gp_XYZ& theVector)
+void Poly_CoherentNode::SetNormal(const Coords3d& theVector)
 {
   myNormal[0] = static_cast<Standard_ShortReal>(theVector.X());
   myNormal[1] = static_cast<Standard_ShortReal>(theVector.Y());

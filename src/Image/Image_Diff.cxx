@@ -482,7 +482,7 @@ Standard_Integer Image_Diff::ignoreBorderEffect()
         Standard_Integer anX = UnpackX(aDiffPixel) + Image_Diff_NEIGHBOR_PIXELS[aNgbrIter][0];
         Standard_Integer anY = UnpackY(aDiffPixel) + Image_Diff_NEIGHBOR_PIXELS[aNgbrIter][1];
         if (Standard_Size(anX)
-              < myImageRef->SizeX() // this unsigned math checks Standard_Size(-1) at-once
+              < myImageRef->SizeX() // this unsigned math1 checks Standard_Size(-1) at-once
             && Standard_Size(anY) < myImageRef->SizeY()
             && aGroup->Map().Contains(PackXY((uint16_t)anX, (uint16_t)anY)))
         {
@@ -509,7 +509,7 @@ Standard_Integer Image_Diff::ignoreBorderEffect()
         Standard_Integer anX = UnpackX(aDiffPixel) + Image_Diff_NEIGHBOR_PIXELS[aNgbrIter][0];
         Standard_Integer anY = UnpackY(aDiffPixel) + Image_Diff_NEIGHBOR_PIXELS[aNgbrIter][1];
         if (Standard_Size(anX)
-              < myImageRef->SizeX() // this unsigned math checks Standard_Size(-1) at-once
+              < myImageRef->SizeX() // this unsigned math1 checks Standard_Size(-1) at-once
             && Standard_Size(anY) < myImageRef->SizeY()
             && !isBlackPixel(*myImageRef, Standard_Size(anY), Standard_Size(anX)))
         {

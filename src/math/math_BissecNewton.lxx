@@ -14,35 +14,35 @@
 
 #include <StdFail_NotDone.hxx>
 
-inline Standard_Boolean math_BissecNewton::IsSolutionReached(math_FunctionWithDerivative&)
+inline Standard_Boolean BissecNewtonSolver::IsSolutionReached(math_FunctionWithDerivative&)
 {
   return Abs(dx) <= XTol;
 }
 
-inline Standard_OStream& operator<<(Standard_OStream& o, const math_BissecNewton& Bi)
+inline Standard_OStream& operator<<(Standard_OStream& o, const BissecNewtonSolver& Bi)
 {
   Bi.Dump(o);
   return o;
 }
 
-inline Standard_Boolean math_BissecNewton::IsDone() const
+inline Standard_Boolean BissecNewtonSolver::IsDone() const
 {
   return Done;
 }
 
-inline Standard_Real math_BissecNewton::Root() const
+inline Standard_Real BissecNewtonSolver::Root() const
 {
   StdFail_NotDone_Raise_if(!Done, " ");
   return x;
 }
 
-inline Standard_Real math_BissecNewton::Derivative() const
+inline Standard_Real BissecNewtonSolver::Derivative() const
 {
   StdFail_NotDone_Raise_if(!Done, " ");
   return df;
 }
 
-inline Standard_Real math_BissecNewton::Value() const
+inline Standard_Real BissecNewtonSolver::Value() const
 {
   StdFail_NotDone_Raise_if(!Done, " ");
   return f;

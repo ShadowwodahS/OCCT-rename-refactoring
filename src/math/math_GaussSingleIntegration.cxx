@@ -49,27 +49,27 @@ Etapes du calcul:
 #include <math_GaussSingleIntegration.hxx>
 #include <math_Vector.hxx>
 
-math_GaussSingleIntegration::math_GaussSingleIntegration()
+GaussSingleIntegration::GaussSingleIntegration()
     : Done(Standard_False)
 {
 }
 
-math_GaussSingleIntegration::math_GaussSingleIntegration(math_Function&         F,
+GaussSingleIntegration::GaussSingleIntegration(Function1&         F,
                                                          const Standard_Real    Lower,
                                                          const Standard_Real    Upper,
                                                          const Standard_Integer Order)
 {
-  Standard_Integer theOrder = Min(math::GaussPointsMax(), Order);
+  Standard_Integer theOrder = Min(math1::GaussPointsMax(), Order);
   Perform(F, Lower, Upper, theOrder);
 }
 
-math_GaussSingleIntegration::math_GaussSingleIntegration(math_Function&         F,
+GaussSingleIntegration::GaussSingleIntegration(Function1&         F,
                                                          const Standard_Real    Lower,
                                                          const Standard_Real    Upper,
                                                          const Standard_Integer Order,
                                                          const Standard_Real    Tol)
 {
-  Standard_Integer theOrder = Min(math::GaussPointsMax(), Order);
+  Standard_Integer theOrder = Min(math1::GaussPointsMax(), Order);
 
   const Standard_Integer IterMax    = 13; // Max number of iteration
   Standard_Integer       NIter      = 1;  // current number of iteration
@@ -97,7 +97,7 @@ math_GaussSingleIntegration::math_GaussSingleIntegration(math_Function&         
   Val = Len;
 }
 
-void math_GaussSingleIntegration::Perform(math_Function&         F,
+void GaussSingleIntegration::Perform(Function1&         F,
                                           const Standard_Real    Lower,
                                           const Standard_Real    Upper,
                                           const Standard_Integer Order)
@@ -111,8 +111,8 @@ void math_GaussSingleIntegration::Perform(math_Function&         F,
   Done = Standard_False;
 
   // Recuperation des points de Gauss dans le fichier GaussPoints.
-  math::GaussPoints(Order, GaussP);
-  math::GaussWeights(Order, GaussW);
+  math1::GaussPoints(Order, GaussP);
+  math1::GaussWeights(Order, GaussW);
 
   // Calcul de l'integrale aux points de Gauss :
 
@@ -148,10 +148,10 @@ void math_GaussSingleIntegration::Perform(math_Function&         F,
   Done = Standard_True;
 }
 
-void math_GaussSingleIntegration::Dump(Standard_OStream& o) const
+void GaussSingleIntegration::Dump(Standard_OStream& o) const
 {
 
-  o << "math_GaussSingleIntegration ";
+  o << "GaussSingleIntegration ";
   if (Done)
   {
     o << " Status = Done \n";

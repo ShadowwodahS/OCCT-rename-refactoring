@@ -243,7 +243,7 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::D0(const Standard_Real Param,
   GeomFill_PlanFunc E(P, Tangent, myGuide);
 
   // resolution
-  math_FunctionRoot Result(E, X(1), XTol(1), Inf(1), Sup(1), Iter);
+  FunctionRootSolver Result(E, X(1), XTol(1), Inf(1), Sup(1), Iter);
 
   if (Result.IsDone())
   {
@@ -300,7 +300,7 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::D1(const Standard_Real Param,
   GeomFill_PlanFunc E(P, Tangent, myGuide);
 
   // resolution
-  math_FunctionRoot Result(E, X(1), XTol(1), Inf(1), Sup(1), Iter);
+  FunctionRootSolver Result(E, X(1), XTol(1), Inf(1), Sup(1), Iter);
 
   if (Result.IsDone())
   {
@@ -408,7 +408,7 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::D2(const Standard_Real Param,
     InitX(Param);
 
     // resolution
-    math_FunctionSetRoot Result(E, X, XTol,
+    FunctionSetRoot Result(E, X, XTol,
                       Inf, Sup, Iter);
     if (Result.IsDone())
       {

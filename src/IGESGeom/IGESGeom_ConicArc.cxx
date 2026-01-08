@@ -92,7 +92,7 @@ gp_Pnt2d IGESGeom_ConicArc::StartPoint() const
 
 Point3d IGESGeom_ConicArc::TransformedStartPoint() const
 {
-  gp_XYZ start(theStart.X(), theStart.Y(), theZT);
+  Coords3d start(theStart.X(), theStart.Y(), theZT);
   if (HasTransf())
     Location().Transforms(start);
   Point3d transStart(start);
@@ -107,7 +107,7 @@ gp_Pnt2d IGESGeom_ConicArc::EndPoint() const
 
 Point3d IGESGeom_ConicArc::TransformedEndPoint() const
 {
-  gp_XYZ end(theEnd.X(), theEnd.Y(), theZT);
+  Coords3d end(theEnd.X(), theEnd.Y(), theZT);
   if (HasTransf())
     Location().Transforms(end);
   Point3d transEnd(end);
@@ -178,11 +178,11 @@ Dir3d IGESGeom_ConicArc::Axis() const
 
 Dir3d IGESGeom_ConicArc::TransformedAxis() const
 {
-  gp_XYZ axis(0.0, 0.0, 1.0);
+  Coords3d axis(0.0, 0.0, 1.0);
   if (!HasTransf())
     return Dir3d(axis);
-  gp_GTrsf loc = Location();
-  loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
+  GeneralTransform loc = Location();
+  loc.SetTranslationPart(Coords3d(0., 0., 0.));
   loc.Transforms(axis);
   return Dir3d(axis);
 }
@@ -210,11 +210,11 @@ void IGESGeom_ConicArc::TransformedDefinition(Point3d&        Center,
   }
   Standard_Real Xcen, Ycen, Xax, Yax;
   ComputedDefinition(Xcen, Ycen, Xax, Yax, Rmin, Rmax);
-  gp_GTrsf loc = Location();
-  gp_XYZ   cen(Xcen, Ycen, theZT);
-  gp_XYZ   axis(Xax, Yax, 0.);
+  GeneralTransform loc = Location();
+  Coords3d   cen(Xcen, Ycen, theZT);
+  Coords3d   axis(Xax, Yax, 0.);
   loc.Transforms(cen);
-  loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
+  loc.SetTranslationPart(Coords3d(0., 0., 0.));
   loc.Transforms(axis);
   Center.SetCoord(cen.X(), cen.Y(), cen.Z());
   MainAxis.SetCoord(axis.X(), axis.Y(), axis.Z());

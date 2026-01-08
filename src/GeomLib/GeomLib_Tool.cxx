@@ -189,7 +189,7 @@ namespace
 //! It is one-variate function. Its parameter is a parameter
 //! on the curve. Deviation is a maximal distance between
 //! any point in the curve and the given line.
-class FuncSolveDeviation : public math_MultipleVarFunction
+class FuncSolveDeviation : public MultipleVarFunction
 {
 public:
   //! Constructor. Initializes the curve and the line
@@ -403,7 +403,7 @@ Standard_Real Tool2::ComputeDeviation(const Geom2dAdaptor_Curve& theCurve,
 // purpose  : Computes parameter on curve (*thePrmOnCurve) where maximal deviation
 //           (maximal value of correspond function FuncSolveDeviation) is obtained
 //           (fast but not precisely).
-//           math_PSO Algorithm is used.
+//           PSO Algorithm is used.
 //=======================================================================
 Standard_Real Tool2::ComputeDeviation(const Geom2dAdaptor_Curve& theCurve,
                                              const Standard_Real        theFPar,
@@ -426,7 +426,7 @@ Standard_Real Tool2::ComputeDeviation(const Geom2dAdaptor_Curve& theCurve,
   const math_Vector aLPar(1, 1, theLPar);
   const math_Vector aStep(1, 1, (theLPar - theFPar) / (10.0 * theNbSubIntervals));
   math_Vector       anOutputPnt(1, 1, theFPar);
-  math_PSO          aMPSO(&aFunc, aFPar, aLPar, aStep, theNbSubIntervals, theNbIters);
+  PSO          aMPSO(&aFunc, aFPar, aLPar, aStep, theNbSubIntervals, theNbIters);
 
   Standard_Real aSqDefl = RealLast();
   aMPSO.Perform(aStep, aSqDefl, anOutputPnt, theNbIters);

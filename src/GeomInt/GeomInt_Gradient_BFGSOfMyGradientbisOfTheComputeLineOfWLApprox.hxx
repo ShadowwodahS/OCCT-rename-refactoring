@@ -31,7 +31,7 @@ class ResConstraintGradientbisLine;
 class GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox;
 class math_MultipleVarFunctionWithGradient;
 
-class GeomInt_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfWLApprox : public math_BFGS
+class GeomInt_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfWLApprox : public BFGSOptimizer
 {
 public:
   DEFINE_STANDARD_ALLOC

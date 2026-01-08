@@ -32,7 +32,7 @@ class IGESSolid_VertexList;
 class IGESSolid_EdgeList;
 class IGESSolid_Loop;
 class TopoFace;
-class gp_Trsf2d;
+class Transform2d;
 class IGESSolid_Face;
 class IGESSolid_Shell;
 class IGESSolid_ManifoldSolid;
@@ -79,7 +79,7 @@ public:
   //! Transfer the Loop Entity
   Standard_EXPORT TopoShape TransferLoop(const Handle(IGESSolid_Loop)& start,
                                             const TopoFace&            Face,
-                                            const gp_Trsf2d&              trans,
+                                            const Transform2d&              trans,
                                             const Standard_Real           uFact);
 
   //! Transfer the Face Entity

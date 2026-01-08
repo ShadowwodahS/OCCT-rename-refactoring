@@ -139,7 +139,7 @@ void PolynomialConverter::Section(const Point3d&       FirstPnt,
   // Calcul des poles
   Px = BH * Vx;
   Py = BH * Vy;
-  gp_XYZ pnt;
+  Coords3d pnt;
   for (ii = 1; ii <= Ordre; ii++)
   {
     pnt.SetCoord(Px(ii), Py(ii), 0);
@@ -219,7 +219,7 @@ void PolynomialConverter::Section(const Point3d&       FirstPnt,
   Py  = BH * Vy;
   DPx = BH * DVx;
   DPy = BH * DVy;
-  gp_XYZ P, DP, aux;
+  Coords3d P, DP, aux;
 
   for (ii = 1; ii <= Ordre; ii++)
   {
@@ -348,7 +348,7 @@ void PolynomialConverter::Section(const Point3d&       FirstPnt,
   D2Px = BH * D2Vx;
   D2Py = BH * D2Vy;
 
-  gp_XYZ P, DP, D2P, auxyz;
+  Coords3d P, DP, D2P, auxyz;
   for (ii = 1; ii <= Ordre; ii++)
   {
     P.SetCoord(Px(ii), Py(ii), 0);

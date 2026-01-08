@@ -932,7 +932,7 @@ void IGESData_GlobalSection::MaxMaxCoord(const Standard_Real val)
     SetMaxCoord(aval);
 }
 
-void IGESData_GlobalSection::MaxMaxCoords(const gp_XYZ& xyz)
+void IGESData_GlobalSection::MaxMaxCoords(const Coords3d& xyz)
 {
   MaxMaxCoord(xyz.X());
   MaxMaxCoord(xyz.Y());

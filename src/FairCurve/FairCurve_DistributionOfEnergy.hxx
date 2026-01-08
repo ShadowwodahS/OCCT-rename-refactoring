@@ -27,7 +27,7 @@
 #include <math_FunctionSet.hxx>
 
 //! Abstract class to use the Energy of an FairCurve
-class FairCurve_DistributionOfEnergy : public math_FunctionSet
+class FairCurve_DistributionOfEnergy : public FunctionSet
 {
 public:
   DEFINE_STANDARD_ALLOC

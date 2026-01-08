@@ -51,7 +51,7 @@ MyDirectPolynomialRoots1::MyDirectPolynomialRoots1(const Standard_Real A4,
   }
 
   Standard_Real              tol = Epsilon(100.0);
-  math_DirectPolynomialRoots MATH_A43210(A4, A3, A2, A1, A0);
+  DirectPolynomialRoots MATH_A43210(A4, A3, A2, A1, A0);
   Standard_Boolean           PbPossible       = Standard_False;
   Standard_Integer           NbsolPolyComplet = 0;
   if (MATH_A43210.IsDone())
@@ -93,7 +93,7 @@ MyDirectPolynomialRoots1::MyDirectPolynomialRoots1(const Standard_Real A4,
 
     anEps = Min(1.e-4, Epsilon(1000. * anAMax / anAMin));
     //  Modified by Sergey KHROMOV - Thu Oct 24 15:46:24 2002 End
-    math_DirectPolynomialRoots MATH_A4321(A4, A3, A2, A1);
+    DirectPolynomialRoots MATH_A4321(A4, A3, A2, A1);
     if (MATH_A4321.IsDone())
     {
       nbp = MATH_A4321.NbSolutions();
@@ -121,7 +121,7 @@ MyDirectPolynomialRoots1::MyDirectPolynomialRoots1(const Standard_Real A4,
         }
       }
     }
-    math_DirectPolynomialRoots MATH_A3210(A3, A2, A1, A0);
+    DirectPolynomialRoots MATH_A3210(A3, A2, A1, A0);
     if (MATH_A3210.IsDone())
     {
       nbp = MATH_A3210.NbSolutions();
@@ -149,7 +149,7 @@ MyDirectPolynomialRoots1::MyDirectPolynomialRoots1(const Standard_Real A4,
         }
       }
     }
-    math_DirectPolynomialRoots MATH_A210(A3, A2, A1);
+    DirectPolynomialRoots MATH_A210(A3, A2, A1);
     if (MATH_A210.IsDone())
     {
       nbp = MATH_A210.NbSolutions();
@@ -236,7 +236,7 @@ MyDirectPolynomialRoots1::MyDirectPolynomialRoots1(const Standard_Real A2,
     same = Standard_True;
     return;
   }
-  math_DirectPolynomialRoots MATH_A210(A2, A1, A0);
+  DirectPolynomialRoots MATH_A210(A2, A1, A0);
   same = Standard_False;
   if (MATH_A210.IsDone())
   {

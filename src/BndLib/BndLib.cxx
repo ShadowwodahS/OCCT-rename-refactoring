@@ -504,9 +504,9 @@ void BndLib1::Add(const gp_Circ&      C,
     ElCLib1::AdjustPeriodic(0., 2. * M_PI, tol, utrim1, utrim2);
   }
   Standard_Real R   = C.Radius();
-  gp_XYZ        O   = C.Location().XYZ();
-  gp_XYZ        Xd  = C.XAxis().Direction().XYZ();
-  gp_XYZ        Yd  = C.YAxis().Direction().XYZ();
+  Coords3d        O   = C.Location().XYZ();
+  Coords3d        Xd  = C.XAxis().Direction().XYZ();
+  Coords3d        Yd  = C.YAxis().Direction().XYZ();
   const Frame3d& pos = C.Position();
   //
   Standard_Real tt;
@@ -697,9 +697,9 @@ void BndLib1::Add(const gp_Elips&     C,
   }
   Standard_Real MajR = C.MajorRadius();
   Standard_Real MinR = C.MinorRadius();
-  gp_XYZ        O    = C.Location().XYZ();
-  gp_XYZ        Xd   = C.XAxis().Direction().XYZ();
-  gp_XYZ        Yd   = C.YAxis().Direction().XYZ();
+  Coords3d        O    = C.Location().XYZ();
+  Coords3d        Xd   = C.XAxis().Direction().XYZ();
+  Coords3d        Yd   = C.YAxis().Direction().XYZ();
   const Frame3d& pos  = C.Position();
   //
   Standard_Real tt;
@@ -1335,7 +1335,7 @@ void BndLib1::Add(const Cone1&      S,
   BndLib1::Add(S, 0., 2. * M_PI, VMin, VMax, Tol, B);
 }
 
-static void ComputeSphere(const gp_Sphere&    Sphere,
+static void ComputeSphere(const Sphere3&    Sphere,
                           const Standard_Real UMin,
                           const Standard_Real UMax,
                           const Standard_Real VMin,
@@ -1530,7 +1530,7 @@ static void computeDegeneratedTorus(const gp_Torus&     theTorus,
   BndLib1::Add(aC, theUMin, theUMax, 0., theB);
 }
 
-void BndLib1::Add(const gp_Sphere&    S,
+void BndLib1::Add(const Sphere3&    S,
                  const Standard_Real UMin,
                  const Standard_Real UMax,
                  const Standard_Real VMin,
@@ -1542,7 +1542,7 @@ void BndLib1::Add(const gp_Sphere&    S,
   B.Enlarge(Tol);
 }
 
-void BndLib1::Add(const gp_Sphere& S, const Standard_Real Tol, Box2& B)
+void BndLib1::Add(const Sphere3& S, const Standard_Real Tol, Box2& B)
 {
   Point3d        P = S.Location();
   Standard_Real R = S.Radius();
@@ -1756,10 +1756,10 @@ void BndLib1::Add(const gp_Torus& S, const Standard_Real Tol, Box2& B)
 
   Standard_Real RMa = S.MajorRadius();
   Standard_Real Rmi = S.MinorRadius();
-  gp_XYZ        O   = S.Location().XYZ();
-  gp_XYZ        Xd  = S.XAxis().Direction().XYZ();
-  gp_XYZ        Yd  = S.YAxis().Direction().XYZ();
-  gp_XYZ        Zd  = S.Axis().Direction().XYZ();
+  Coords3d        O   = S.Location().XYZ();
+  Coords3d        Xd  = S.XAxis().Direction().XYZ();
+  Coords3d        Yd  = S.YAxis().Direction().XYZ();
+  Coords3d        Zd  = S.Axis().Direction().XYZ();
   B.Add(Point3d(O - (RMa + Rmi) * Xd - (RMa + Rmi) * Yd + Rmi * Zd));
   B.Add(Point3d(O - (RMa + Rmi) * Xd - (RMa + Rmi) * Yd - Rmi * Zd));
   B.Add(Point3d(O + (RMa + Rmi) * Xd - (RMa + Rmi) * Yd + Rmi * Zd));
@@ -1799,8 +1799,8 @@ Standard_Integer ComputeBox(const gp_Hypr&      aHypr,
   iErr = 1;
   //
   const Frame3d& aPos  = aHypr.Position();
-  const gp_XYZ& aXDir = aPos.XDirection().XYZ();
-  const gp_XYZ& aYDir = aPos.YDirection().XYZ();
+  const Coords3d& aXDir = aPos.XDirection().XYZ();
+  const Coords3d& aYDir = aPos.YDirection().XYZ();
   aRmaj               = aHypr.MajorRadius();
   aRmin               = aHypr.MinorRadius();
   //

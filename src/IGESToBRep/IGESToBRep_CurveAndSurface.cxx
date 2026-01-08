@@ -263,7 +263,7 @@ TopoShape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_IGE
 
     DeclareAndCast(IGESBasic_SingularSubfigure, st408, start);
     Handle(IGESBasic_SubfigureDef) stsub = st408->Subfigure();
-    gp_XYZ                         trans = st408->Translation();
+    Coords3d                         trans = st408->Translation();
     Vector3d                         vectr(trans);
     Standard_Real                  scunit = GetUnitFactor();
     vectr.Multiply(scunit);
@@ -524,8 +524,8 @@ TopoShape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_IGE
     {
       if (start->IsKind(STANDARD_TYPE(IGESBasic_SingularSubfigure)))
       {
-        gp_XYZ tra   = T.TranslationPart();
-        gp_XYZ trans = T408.TranslationPart();
+        Coords3d tra   = T.TranslationPart();
+        Coords3d trans = T408.TranslationPart();
         tra.Add(trans);
         T.SetTranslationPart(tra);
         Standard_Real sc     = T.ScaleFactor();

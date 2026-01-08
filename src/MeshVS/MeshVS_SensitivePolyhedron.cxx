@@ -38,7 +38,7 @@ MeshVS_SensitivePolyhedron::MeshVS_SensitivePolyhedron(
   Standard_Integer aPlaneUpIdx    = theTopo->Upper();
   Standard_Integer aNodesLowerIdx = theNodes.Lower();
   myNodes                         = new TColgp_HArray1OfPnt(aNodesLowerIdx, theNodes.Upper());
-  myCenter                        = gp_XYZ(0.0, 0.0, 0.0);
+  myCenter                        = Coords3d(0.0, 0.0, 0.0);
 
   for (Standard_Integer aPlaneIdx = aPlaneLowIdx; aPlaneIdx <= aPlaneUpIdx; ++aPlaneIdx)
   {

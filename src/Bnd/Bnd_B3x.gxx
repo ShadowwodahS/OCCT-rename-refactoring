@@ -21,7 +21,7 @@ inline Standard_Boolean _compareDist  (const RealType aHSize[3],
           Abs(aDist[2]) > aHSize[2]);
 }
 
-inline Standard_Boolean _compareDistD (const gp_XYZ& aHSize,const gp_XYZ& aDist)
+inline Standard_Boolean _compareDistD (const Coords3d& aHSize,const Coords3d& aDist)
 {
   return (Abs(aDist.X()) > aHSize.X() ||
           Abs(aDist.Y()) > aHSize.Y() ||
@@ -33,7 +33,7 @@ inline Standard_Boolean _compareDistD (const gp_XYZ& aHSize,const gp_XYZ& aDist)
 //purpose  : Update the box by a point
 //=======================================================================
 
-void Bnd_B3x::Add (const gp_XYZ& thePnt) {
+void Bnd_B3x::Add (const Coords3d& thePnt) {
   if (IsVoid()) {
     myCenter[0] = RealType(thePnt.X());
     myCenter[1] = RealType(thePnt.Y());
@@ -159,7 +159,7 @@ Bnd_B3x Bnd_B3x::Transformed (const Transform3d& theTrsf) const
     aResult.myHSize[1] = (RealType)(myHSize[1] * aScaleAbs);
     aResult.myHSize[2] = (RealType)(myHSize[2] * aScaleAbs);
   } else {
-    gp_XYZ aCenter ((Standard_Real)myCenter[0],
+    Coords3d aCenter ((Standard_Real)myCenter[0],
                     (Standard_Real)myCenter[1],
                     (Standard_Real)myCenter[2]);
     theTrsf.Transforms (aCenter);
@@ -186,7 +186,7 @@ Bnd_B3x Bnd_B3x::Transformed (const Transform3d& theTrsf) const
 //purpose  : Intersection Box1 - Sphere
 //=======================================================================
 
-Standard_Boolean Bnd_B3x::IsOut (const gp_XYZ&          theCenter,
+Standard_Boolean Bnd_B3x::IsOut (const Coords3d&          theCenter,
                                  const Standard_Real    theRadius,
                                  const Standard_Boolean isSphereHollow) const
 {
@@ -271,7 +271,7 @@ Standard_Boolean Bnd_B3x::IsOut (const Bnd_B3x& theBox,
     // 'this' box.
     const Standard_Real * aMat = &theTrsf.HVectorialPart().Value(1,1);
 
-    gp_XYZ aCenter ((Standard_Real)theBox.myCenter[0],
+    Coords3d aCenter ((Standard_Real)theBox.myCenter[0],
                     (Standard_Real)theBox.myCenter[1],
                     (Standard_Real)theBox.myCenter[2]);
     theTrsf.Transforms (aCenter);
@@ -328,9 +328,9 @@ Standard_Boolean Bnd_B3x::IsOut (const Ax3& thePlane) const
 {
   if (IsVoid())
     return Standard_True;
-  const gp_XYZ& anOrigin = thePlane.Location().XYZ();
-  const gp_XYZ& aDir     = thePlane.Direction().XYZ();
-  const gp_XYZ  aBoxCenter ((Standard_Real)myCenter[0],
+  const Coords3d& anOrigin = thePlane.Location().XYZ();
+  const Coords3d& aDir     = thePlane.Direction().XYZ();
+  const Coords3d  aBoxCenter ((Standard_Real)myCenter[0],
                             (Standard_Real)myCenter[1],
                             (Standard_Real)myCenter[2]);
   const Standard_Real aDist0 = (aBoxCenter - anOrigin) * aDir;
@@ -358,8 +358,8 @@ Standard_Boolean Bnd_B3x::IsOut (const Axis3d&          theLine,
   Standard_Real
     anInter0[2] = {-RealLast(), RealLast()},
     anInter1[2] = {-RealLast(), RealLast()};
-  const gp_XYZ& aDir = theLine.Direction().XYZ();
-  const gp_XYZ  aDiff ((Standard_Real)myCenter[0] - theLine.Location().X(),
+  const Coords3d& aDir = theLine.Direction().XYZ();
+  const Coords3d  aDiff ((Standard_Real)myCenter[0] - theLine.Location().X(),
                        (Standard_Real)myCenter[1] - theLine.Location().Y(),
                        (Standard_Real)myCenter[2] - theLine.Location().Z());
 
@@ -446,7 +446,7 @@ Standard_Boolean Bnd_B3x::IsIn (const Bnd_B3x& theBox,
     // theBox is rotated, scaled and translated. We apply the reverse
     // translation and scaling then check against the rotated box 'this'
     const Standard_Real * aMat = &theTrsf.HVectorialPart().Value(1,1);
-    gp_XYZ aCenter ((Standard_Real)theBox.myCenter[0],
+    Coords3d aCenter ((Standard_Real)theBox.myCenter[0],
                     (Standard_Real)theBox.myCenter[1],
                     (Standard_Real)theBox.myCenter[2]);
     theTrsf.Transforms (aCenter);

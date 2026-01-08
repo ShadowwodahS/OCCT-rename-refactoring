@@ -63,7 +63,7 @@ Standard_Boolean BlendFunc_ConstThroatWithPenetration::IsSolution(const math_Vec
     secmember(3) = 2. * d1gui.Dot(temp1);
     secmember(4) = d1gui.Dot(temp3);
 
-    math_Gauss Resol(gradsol);
+    Gauss Resol(gradsol);
     if (Resol.IsDone())
     {
       Resol.Solve(secmember);

@@ -24,7 +24,7 @@
 #include <math_Vector.hxx>
 
 //! Describes the virtual functions associated with a multiple variable function.
-class math_MultipleVarFunction
+class MultipleVarFunction
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -53,7 +53,7 @@ public:
   //! to save the current state of the function and to return
   //! an Integer that allows retrieval of the state.
   Standard_EXPORT virtual Standard_Integer GetStateNumber();
-  Standard_EXPORT virtual ~math_MultipleVarFunction();
+  Standard_EXPORT virtual ~MultipleVarFunction();
 
 protected:
 private:

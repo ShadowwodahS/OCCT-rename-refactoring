@@ -76,9 +76,9 @@ public:
   Standard_EXPORT void Init(const Standard_Real                            width,
                             const Standard_Real                            height,
                             const Standard_Integer                         justifyCode,
-                            const gp_XYZ&                                  areaLoc,
+                            const Coords3d&                                  areaLoc,
                             const Standard_Real                            areaRotationAngle,
-                            const gp_XYZ&                                  baseLinePos,
+                            const Coords3d&                                  baseLinePos,
                             const Standard_Real                            normalInterlineSpace,
                             const Handle(TColStd_HArray1OfInteger)&        charDisplays,
                             const Handle(TColStd_HArray1OfReal)&           charWidths,
@@ -261,9 +261,9 @@ private:
   Standard_Real                           theWidth;
   Standard_Real                           theHeight;
   Standard_Integer                        theJustifyCode;
-  gp_XYZ                                  theAreaLoc;
+  Coords3d                                  theAreaLoc;
   Standard_Real                           theAreaRotationAngle;
-  gp_XYZ                                  theBaseLinePos;
+  Coords3d                                  theBaseLinePos;
   Standard_Real                           theNormalInterlineSpace;
   Handle(TColStd_HArray1OfInteger)        theCharDisplays;
   Handle(TColStd_HArray1OfReal)           theCharWidths;

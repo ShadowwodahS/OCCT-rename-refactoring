@@ -25,7 +25,7 @@
 
 //=================================================================================================
 
-BRepBuilderAPI_GTransform::BRepBuilderAPI_GTransform(const gp_GTrsf& T)
+BRepBuilderAPI_GTransform::BRepBuilderAPI_GTransform(const GeneralTransform& T)
     : myGTrsf(T)
 {
   myModification = new BRepTools_GTrsfModification(T);
@@ -34,7 +34,7 @@ BRepBuilderAPI_GTransform::BRepBuilderAPI_GTransform(const gp_GTrsf& T)
 //=================================================================================================
 
 BRepBuilderAPI_GTransform::BRepBuilderAPI_GTransform(const TopoShape&    S,
-                                                     const gp_GTrsf&        T,
+                                                     const GeneralTransform&        T,
                                                      const Standard_Boolean Copy)
     : myGTrsf(T)
 {

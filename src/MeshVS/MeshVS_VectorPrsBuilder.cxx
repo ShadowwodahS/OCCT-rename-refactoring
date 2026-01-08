@@ -357,7 +357,7 @@ void MeshVS_VectorPrsBuilder::DrawVector(
     for (Standard_Integer aPntIdx = aLower; aPntIdx < aLower + PntNum; ++aPntIdx)
     {
       anArrowPnt(aPntIdx).ChangeCoord() =
-        theArrowPoints(aPntIdx).Coord() + gp_XYZ(0, 0, aLocalLength);
+        theArrowPoints(aPntIdx).Coord() + Coords3d(0, 0, aLocalLength);
       theTrsf.Transforms(anArrowPnt(aPntIdx).ChangeCoord());
     }
 

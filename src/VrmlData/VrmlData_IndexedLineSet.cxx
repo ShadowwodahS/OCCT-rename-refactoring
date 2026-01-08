@@ -56,7 +56,7 @@ const Handle(TopoDS_TShape)& VrmlData_IndexedLineSet::TShape()
   {
     Standard_Integer i;
     ShapeBuilder     aBuilder;
-    const gp_XYZ*    arrNodes = myCoords->Values();
+    const Coords3d*    arrNodes = myCoords->Values();
 
     // Create the Wire
     TopoWire aWire;

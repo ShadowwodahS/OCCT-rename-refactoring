@@ -48,7 +48,7 @@ void OffsetSurfaceTool::ReadOwnParams(const Handle(IGESGeom_OffsetSurface)&  ent
   Message_Msg Msg162("XSTEP_162");
   //========================================
 
-  gp_XYZ                      anIndicator;
+  Coords3d                      anIndicator;
   Standard_Real               aDistance;
   Handle(IGESData_IGESEntity) aSurface;
   IGESData_Status             aStatus;
@@ -120,7 +120,7 @@ void OffsetSurfaceTool::OwnCopy(const Handle(IGESGeom_OffsetSurface)& another,
 {
   DeclareAndCast(IGESData_IGESEntity, aSurface, TC.Transferred(another->Surface()));
 
-  gp_XYZ        anIndicator = (another->OffsetIndicator()).XYZ();
+  Coords3d        anIndicator = (another->OffsetIndicator()).XYZ();
   Standard_Real aDistance   = another->Distance();
 
   ent->Init(anIndicator, aDistance, aSurface);

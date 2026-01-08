@@ -40,7 +40,7 @@ public:
     {
     }
 
-    gp_XYZ        Normal;
+    Coords3d        Normal;
     Standard_Real D;
   };
 
@@ -57,7 +57,7 @@ public:
     myIndices.Index = Index;
     myIndices.Min   = Minim;
     myIndices.Max   = Maxim;
-    myPlane.Normal  = gp_XYZ(A, B, C);
+    myPlane.Normal  = Coords3d(A, B, C);
     myPlane.D       = D;
   }
 

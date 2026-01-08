@@ -61,9 +61,9 @@ const Coords2d& NLPlate_HGPPConstraint::UV() const
   return myUV;
 }
 
-static const gp_XYZ XYZnull(0., 0., 0.);
+static const Coords3d XYZnull(0., 0., 0.);
 
-const gp_XYZ& NLPlate_HGPPConstraint::G0Target() const
+const Coords3d& NLPlate_HGPPConstraint::G0Target() const
 {
   return XYZnull;
   // cette methode ne devrait pas etre appelee

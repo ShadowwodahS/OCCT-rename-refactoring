@@ -3068,7 +3068,7 @@ Standard_Integer SetQuad(const Handle(Adaptor3d_Surface)& theS,
 
 static void SeamPosition(const Point3d& aPLoc, const Ax3& aPos, Frame3d& aSeamPos);
 static void AdjustToSeam(const Cylinder1& aQuad, gp_Circ& aCirc);
-static void AdjustToSeam(const gp_Sphere& aQuad, gp_Circ& aCirc, const Standard_Real aTolAng);
+static void AdjustToSeam(const Sphere3& aQuad, gp_Circ& aCirc, const Standard_Real aTolAng);
 static void AdjustToSeam(const Cone1& aQuad, gp_Circ& aCirc);
 static void AdjustToSeam(const gp_Torus& aQuad, gp_Circ& aCirc);
 
@@ -3339,7 +3339,7 @@ Standard_Boolean IntPSp(const Quadric1& Quad1,
 {
   gp_Circ           cirsol;
   gp_Pln            Pl;
-  gp_Sphere         Sp;
+  Sphere3         Sp;
   IntSurf_TypeTrans trans1, trans2;
   IntAna_ResultType typint;
 
@@ -3848,7 +3848,7 @@ void AdjustToSeam(const Cone1& aQuad, gp_Circ& aCirc)
 
 //=================================================================================================
 
-void AdjustToSeam(const gp_Sphere& aQuad, gp_Circ& aCirc, const Standard_Real aTolAng)
+void AdjustToSeam(const Sphere3& aQuad, gp_Circ& aCirc, const Standard_Real aTolAng)
 {
   Frame3d aAx2;
   //
@@ -3926,7 +3926,7 @@ class ComputationMethods
 {
   // Every cylinder can be represented by the following equation in parametric form:
   //     S(U,V) = L + R*cos(U)*Xd+R*sin(U)*Yd+V*Zd,
-  // where location L, directions Xd, Yd and Zd have type gp_XYZ.
+  // where location L, directions Xd, Yd and Zd have type Coords3d.
 
   // Intersection points between two cylinders can be found from the following system:
   //     S1(U1, V1) = S2(U2, V2)
@@ -4402,7 +4402,7 @@ static inline void ExtremaLineLine(const Axis3d&       theC1,
 {
   const Dir3d &aD1 = theC1.Direction(), &aD2 = theC2.Direction();
 
-  const gp_XYZ        aL1L2 = theC2.Location().XYZ() - theC1.Location().XYZ();
+  const Coords3d        aL1L2 = theC2.Location().XYZ() - theC1.Location().XYZ();
   const Standard_Real aD1L = aD1.XYZ().Dot(aL1L2), aD2L = aD2.XYZ().Dot(aL1L2);
 
   thePar1 = (aD1L - theCosA * aD2L) / theSqSinA;
@@ -7982,7 +7982,7 @@ Standard_Boolean IntCySp(const Quadric1&    Quad1,
   gp_Circ           cirsol;
 
   Cylinder1 Cy;
-  gp_Sphere   Sp;
+  Sphere3   Sp;
 
   if (!Reversed)
   {
@@ -9047,7 +9047,7 @@ Standard_Boolean IntCoSp(const Quadric1&    Quad1,
   IntSurf_TypeTrans trans1, trans2;
   IntAna_ResultType typint;
 
-  gp_Sphere     Sp;
+  Sphere3     Sp;
   Cone1       Co;
   Standard_Real U1, V1, U2, V2;
 
@@ -9339,8 +9339,8 @@ Standard_Boolean IntSpSp(const Quadric1&    Quad1,
 {
   IntSurf_TypeTrans trans1, trans2;
   IntAna_ResultType typint;
-  gp_Sphere         sph1(Quad1.Sphere());
-  gp_Sphere         sph2(Quad2.Sphere());
+  Sphere3         sph1(Quad1.Sphere());
+  Sphere3         sph2(Quad2.Sphere());
 
   QuadQuadGeoIntersection inter(sph1, sph2, Tol);
   if (!inter.IsDone())
@@ -9460,7 +9460,7 @@ Standard_Boolean IntSpTo(const Quadric1&   theQuad1,
                          Standard_Boolean&        bEmpty,
                          IntPatch_SequenceOfLine& theSeqLin)
 {
-  const gp_Sphere aSphere = bReversed ? theQuad2.Sphere() : theQuad1.Sphere();
+  const Sphere3 aSphere = bReversed ? theQuad2.Sphere() : theQuad1.Sphere();
   const gp_Torus  aTorus  = bReversed ? theQuad1.Torus() : theQuad2.Torus();
   //
   QuadQuadGeoIntersection anInt(aSphere, aTorus, theTolTang);

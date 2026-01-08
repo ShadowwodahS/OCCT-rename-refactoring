@@ -32,7 +32,7 @@
 // function : ComputeArea
 // purpose  : Computes area of the triangle given by its three points (either 2D or3D)
 //=======================================================================
-static Standard_Real ComputeArea(const gp_XYZ& theP1, const gp_XYZ& theP2, const gp_XYZ& theP3)
+static Standard_Real ComputeArea(const Coords3d& theP1, const Coords3d& theP2, const Coords3d& theP3)
 {
   return 0.5 * (theP3 - theP1).Crossed(theP2 - theP1).Modulus();
 }

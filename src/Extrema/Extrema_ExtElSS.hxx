@@ -28,7 +28,7 @@
 #include <Standard_Real.hxx>
 
 class gp_Pln;
-class gp_Sphere;
+class Sphere3;
 class Cylinder1;
 class Cone1;
 class gp_Torus;
@@ -52,33 +52,33 @@ public:
 
   //! Calculates the distances between a plane
   //! and a sphere.
-  Standard_EXPORT Extrema_ExtElSS(const gp_Pln& S1, const gp_Sphere& S2);
+  Standard_EXPORT Extrema_ExtElSS(const gp_Pln& S1, const Sphere3& S2);
 
-  Standard_EXPORT void Perform(const gp_Pln& S1, const gp_Sphere& S2);
+  Standard_EXPORT void Perform(const gp_Pln& S1, const Sphere3& S2);
 
   //! Calculates the distances between 2 spheres.
   //! These spheres can be parallel.
-  Standard_EXPORT Extrema_ExtElSS(const gp_Sphere& S1, const gp_Sphere& S2);
+  Standard_EXPORT Extrema_ExtElSS(const Sphere3& S1, const Sphere3& S2);
 
-  Standard_EXPORT void Perform(const gp_Sphere& S1, const gp_Sphere& S2);
+  Standard_EXPORT void Perform(const Sphere3& S1, const Sphere3& S2);
 
   //! Calculates the distances between a sphere
   //! and a cylinder.
-  Standard_EXPORT Extrema_ExtElSS(const gp_Sphere& S1, const Cylinder1& S2);
+  Standard_EXPORT Extrema_ExtElSS(const Sphere3& S1, const Cylinder1& S2);
 
-  Standard_EXPORT void Perform(const gp_Sphere& S1, const Cylinder1& S2);
+  Standard_EXPORT void Perform(const Sphere3& S1, const Cylinder1& S2);
 
   //! Calculates the distances between a sphere
   //! and a cone.
-  Standard_EXPORT Extrema_ExtElSS(const gp_Sphere& S1, const Cone1& S2);
+  Standard_EXPORT Extrema_ExtElSS(const Sphere3& S1, const Cone1& S2);
 
-  Standard_EXPORT void Perform(const gp_Sphere& S1, const Cone1& S2);
+  Standard_EXPORT void Perform(const Sphere3& S1, const Cone1& S2);
 
   //! Calculates the distances between a sphere
   //! and a torus.
-  Standard_EXPORT Extrema_ExtElSS(const gp_Sphere& S1, const gp_Torus& S2);
+  Standard_EXPORT Extrema_ExtElSS(const Sphere3& S1, const gp_Torus& S2);
 
-  Standard_EXPORT void Perform(const gp_Sphere& S1, const gp_Torus& S2);
+  Standard_EXPORT void Perform(const Sphere3& S1, const gp_Torus& S2);
 
   //! Returns True if the distances are found.
   Standard_EXPORT Standard_Boolean IsDone() const;

@@ -96,7 +96,7 @@ Select3D_SensitivePoly::Select3D_SensitivePoly(const Handle(SelectMgr_EntityOwne
 {
   Standard_Integer aLowerIdx  = thePoints.Lower();
   Standard_Integer anUpperIdx = thePoints.Upper();
-  gp_XYZ           aPntSum(0.0, 0.0, 0.0);
+  Coords3d           aPntSum(0.0, 0.0, 0.0);
 
   Select3D_BndBox3d aBndBox;
   for (Standard_Integer aIdx = aLowerIdx; aIdx <= anUpperIdx; ++aIdx)
@@ -136,7 +136,7 @@ Select3D_SensitivePoly::Select3D_SensitivePoly(const Handle(SelectMgr_EntityOwne
 {
   Standard_Integer aLowerIdx  = thePoints->Lower();
   Standard_Integer anUpperIdx = thePoints->Upper();
-  gp_XYZ           aPntSum(0.0, 0.0, 0.0);
+  Coords3d           aPntSum(0.0, 0.0, 0.0);
 
   Select3D_BndBox3d aBndBox;
   for (Standard_Integer aIdx = aLowerIdx; aIdx <= anUpperIdx; ++aIdx)
@@ -412,7 +412,7 @@ Standard_Real Select3D_SensitivePoly::distanceToCOG(SelectBasics_SelectingVolume
 {
   if (!myIsComputed)
   {
-    gp_XYZ aCenter(0.0, 0.0, 0.0);
+    Coords3d aCenter(0.0, 0.0, 0.0);
     for (Standard_Integer aIdx = 0; aIdx < myPolyg.Size(); ++aIdx)
     {
       aCenter += myPolyg.Pnt(aIdx);
@@ -443,7 +443,7 @@ Point3d Select3D_SensitivePoly::CenterOfGeometry() const
 {
   if (!myIsComputed)
   {
-    gp_XYZ aCenter(0.0, 0.0, 0.0);
+    Coords3d aCenter(0.0, 0.0, 0.0);
     for (Standard_Integer aIdx = 0; aIdx < myPolyg.Size(); ++aIdx)
     {
       aCenter += myPolyg.Pnt(aIdx);

@@ -216,7 +216,7 @@ inline Cone1 BRepApprox_SurfaceTool::Cone(const BRepAdaptor_Surface& S)
   return S.Cone();
 }
 
-inline gp_Sphere BRepApprox_SurfaceTool::Sphere(const BRepAdaptor_Surface& S)
+inline Sphere3 BRepApprox_SurfaceTool::Sphere(const BRepAdaptor_Surface& S)
 {
   return S.Sphere();
 }

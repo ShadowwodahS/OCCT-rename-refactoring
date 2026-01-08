@@ -97,7 +97,7 @@ inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const 
   return theWriteData;
 }
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_XYZ& theXYZ)
+inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Coords3d& theXYZ)
 {
   StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
 
@@ -107,7 +107,7 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_XYZ& t
   return theReadData;
 }
 
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const gp_XYZ& theXYZ)
+inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const Coords3d& theXYZ)
 {
   StdObjMgt_WriteData::ObjectSentry aSentry(theWriteData);
 
@@ -120,7 +120,7 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Point3d& 
 {
   StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
 
-  gp_XYZ aXYZ;
+  Coords3d aXYZ;
   theReadData >> aXYZ;
   thePnt.SetXYZ(aXYZ);
   return theReadData;
@@ -138,7 +138,7 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Vector3d&
 {
   StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
 
-  gp_XYZ aXYZ;
+  Coords3d aXYZ;
   theReadData >> aXYZ;
   theVec.SetXYZ(aXYZ);
   return theReadData;
@@ -156,7 +156,7 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Dir3d& th
 {
   StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
 
-  gp_XYZ aXYZ;
+  Coords3d aXYZ;
   theReadData >> aXYZ;
   theDir.SetXYZ(aXYZ);
   return theReadData;

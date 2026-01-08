@@ -34,7 +34,7 @@ inline Bnd_B3x::Bnd_B3x()
  * @param theHSize
  *   Half-diagonal of the box, both X and Y should be non-negative
  */
-inline Bnd_B3x::Bnd_B3x(const gp_XYZ& theCenter, const gp_XYZ& theHSize)
+inline Bnd_B3x::Bnd_B3x(const Coords3d& theCenter, const Coords3d& theHSize)
 {
   myCenter[0] = RealType(theCenter.X());
   myCenter[1] = RealType(theCenter.Y());
@@ -88,17 +88,17 @@ inline void Bnd_B3x::Add(const Bnd_B3x& theBox)
 /**
  * Query a box corner.
  */
-inline gp_XYZ Bnd_B3x::CornerMin() const
+inline Coords3d Bnd_B3x::CornerMin() const
 {
-  return gp_XYZ(myCenter[0] - myHSize[0], myCenter[1] - myHSize[1], myCenter[2] - myHSize[2]);
+  return Coords3d(myCenter[0] - myHSize[0], myCenter[1] - myHSize[1], myCenter[2] - myHSize[2]);
 }
 
 /**
  * Query a box corner.
  */
-inline gp_XYZ Bnd_B3x::CornerMax() const
+inline Coords3d Bnd_B3x::CornerMax() const
 {
-  return gp_XYZ(myCenter[0] + myHSize[0], myCenter[1] + myHSize[1], myCenter[2] + myHSize[2]);
+  return Coords3d(myCenter[0] + myHSize[0], myCenter[1] + myHSize[1], myCenter[2] + myHSize[2]);
 }
 
 /**
@@ -112,7 +112,7 @@ inline Standard_Real Bnd_B3x::SquareExtent() const
 /**
  * Set the Center coordinates.
  */
-inline void Bnd_B3x::SetCenter(const gp_XYZ& theCenter)
+inline void Bnd_B3x::SetCenter(const Coords3d& theCenter)
 {
   myCenter[0] = RealType(theCenter.X());
   myCenter[1] = RealType(theCenter.Y());
@@ -122,7 +122,7 @@ inline void Bnd_B3x::SetCenter(const gp_XYZ& theCenter)
 /**
  * Set the Center coordinates.
  */
-inline void Bnd_B3x::SetHSize(const gp_XYZ& theHSize)
+inline void Bnd_B3x::SetHSize(const Coords3d& theHSize)
 {
   myHSize[0] = RealType(theHSize.X());
   myHSize[1] = RealType(theHSize.Y());
@@ -145,7 +145,7 @@ inline void Bnd_B3x::Enlarge(const Standard_Real aDiff)
 /**
  * Intersection Box1 - Point
  */
-inline Standard_Boolean Bnd_B3x::IsOut(const gp_XYZ& thePnt) const
+inline Standard_Boolean Bnd_B3x::IsOut(const Coords3d& thePnt) const
 {
   return (Abs(RealType(thePnt.X()) - myCenter[0]) > myHSize[0]
           || Abs(RealType(thePnt.Y()) - myCenter[1]) > myHSize[1]

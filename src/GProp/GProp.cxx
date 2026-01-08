@@ -27,13 +27,13 @@ void GProp1::HOperator(
 )
 {
 
-  gp_XYZ        QG  = G.XYZ() - Q.XYZ();
+  Coords3d        QG  = G.XYZ() - Q.XYZ();
   Standard_Real Ixx = QG.Y() * QG.Y() + QG.Z() * QG.Z();
   Standard_Real Iyy = QG.X() * QG.X() + QG.Z() * QG.Z();
   Standard_Real Izz = QG.Y() * QG.Y() + QG.X() * QG.X();
   Standard_Real Ixy = -QG.X() * QG.Y();
   Standard_Real Iyz = -QG.Y() * QG.Z();
   Standard_Real Ixz = -QG.X() * QG.Z();
-  Operator.SetCols(gp_XYZ(Ixx, Ixy, Ixz), gp_XYZ(Ixy, Iyy, Iyz), gp_XYZ(Ixz, Iyz, Izz));
+  Operator.SetCols(Coords3d(Ixx, Ixy, Ixz), Coords3d(Ixy, Iyy, Iyz), Coords3d(Ixz, Iyz, Izz));
   Operator.Multiply(Mass);
 }

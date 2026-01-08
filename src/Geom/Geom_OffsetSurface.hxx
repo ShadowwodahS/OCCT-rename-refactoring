@@ -29,7 +29,7 @@ class Point3d;
 class Vector3d;
 class Geom_BSplineSurface;
 class Transform3d;
-class gp_GTrsf2d;
+class GeneralTransform2d;
 class Geom_Geometry;
 
 class Geom_OffsetSurface;
@@ -341,7 +341,7 @@ public:
   //! me->ParametricTransformation(T)
   //! @endcode
   //! This method calls the basis surface method.
-  Standard_EXPORT virtual gp_GTrsf2d ParametricTransformation(const Transform3d& T) const
+  Standard_EXPORT virtual GeneralTransform2d ParametricTransformation(const Transform3d& T) const
     Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this offset surface.

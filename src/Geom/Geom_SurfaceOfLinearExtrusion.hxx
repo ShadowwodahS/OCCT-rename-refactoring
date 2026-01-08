@@ -28,7 +28,7 @@ class Dir3d;
 class Point3d;
 class Vector3d;
 class Transform3d;
-class gp_GTrsf2d;
+class GeneralTransform2d;
 class Geom_Geometry;
 
 class Geom_SurfaceOfLinearExtrusion;
@@ -264,7 +264,7 @@ public:
   //! This method returns a scale
   //! U by BasisCurve()->ParametricTransformation(T)
   //! V by T.ScaleFactor()
-  Standard_EXPORT virtual gp_GTrsf2d ParametricTransformation(const Transform3d& T) const
+  Standard_EXPORT virtual GeneralTransform2d ParametricTransformation(const Transform3d& T) const
     Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this surface of linear extrusion.

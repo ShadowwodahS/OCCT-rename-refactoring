@@ -91,7 +91,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const Cone1& C)
 
 //=================================================================================================
 
-BRepLib_MakeFace::BRepLib_MakeFace(const gp_Sphere& S)
+BRepLib_MakeFace::BRepLib_MakeFace(const Sphere3& S)
 {
   Handle(Geom_SphericalSurface) GS = new Geom_SphericalSurface(S);
   Init(GS, Standard_True, Precision::Confusion());
@@ -150,7 +150,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const Cone1&      C,
 
 //=================================================================================================
 
-BRepLib_MakeFace::BRepLib_MakeFace(const gp_Sphere&    S,
+BRepLib_MakeFace::BRepLib_MakeFace(const Sphere3&    S,
                                    const Standard_Real UMin,
                                    const Standard_Real UMax,
                                    const Standard_Real VMin,
@@ -296,7 +296,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const Cone1&         C,
 
 //=================================================================================================
 
-BRepLib_MakeFace::BRepLib_MakeFace(const gp_Sphere&       S,
+BRepLib_MakeFace::BRepLib_MakeFace(const Sphere3&       S,
                                    const TopoWire&     W,
                                    const Standard_Boolean Inside)
 {

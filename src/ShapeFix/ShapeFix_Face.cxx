@@ -741,7 +741,7 @@ static void Shift2dWire(const TopoWire&                   w,
                         const Handle(ShapeAnalysis_Surface)& mySurf,
                         Standard_Boolean                     recompute3d = Standard_False)
 {
-  gp_Trsf2d tr2d;
+  Transform2d tr2d;
   tr2d.SetTranslation(vec.XY());
   ShapeAnalysis_Edge sae;
   ShapeBuild_Edge    sbe;
@@ -1144,15 +1144,15 @@ Standard_Boolean ShapeFix_Face::FixOrientation(TopTools_DataMapOfShapeListOfShap
         if (sae.Curve3d(anEdge, c3d, First, Last))
         {
           Point3d pntIni = c3d->Value(First);
-          gp_XYZ prev;
+          Coords3d prev;
           prev                       = pntIni.XYZ();
           Standard_Integer NbControl = 10;
           for (Standard_Integer j = 1; j < NbControl; j++)
           {
             Standard_Real prm     = ((NbControl - 1 - j) * First + j * Last) / (NbControl - 1);
             Point3d        pntCurr = c3d->Value(prm);
-            gp_XYZ        curr    = pntCurr.XYZ();
-            gp_XYZ        delta   = curr - prev;
+            Coords3d        curr    = pntCurr.XYZ();
+            Coords3d        delta   = curr - prev;
             length += delta.Modulus();
             prev = curr;
           }

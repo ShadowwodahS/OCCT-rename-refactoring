@@ -656,7 +656,7 @@ static Standard_Integer BUC60924(DrawInterpreter& di, Standard_Integer argc, con
     return 1;
   }
 
-  gp_XYZ aVec(Draw1::Atof(argv[2]), Draw1::Atof(argv[3]), Draw1::Atof(argv[4]));
+  Coords3d aVec(Draw1::Atof(argv[2]), Draw1::Atof(argv[3]), Draw1::Atof(argv[4]));
 
   Standard_Boolean isPlanar = Standard_False;
   isPlanar                  = ShapeAnalysis_Curve::IsPlanar(aCurve, aVec, 1e-7);
@@ -849,7 +849,7 @@ static Standard_Integer OCC984(DrawInterpreter& di, Standard_Integer argc, const
   return 0;
 }
 
-// #include <math.h>
+// #include <math1.h>
 //  See QAOCC.cxx OCC6143
 // static Standard_Integer OCC1723 (DrawInterpreter& /*di*/, Standard_Integer argc, const char **
 // argv)

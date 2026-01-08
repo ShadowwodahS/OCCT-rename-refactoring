@@ -111,7 +111,7 @@ protected:
 };
 
 //
-class Curv2dMaxMinCoordMVar : public math_MultipleVarFunction
+class Curv2dMaxMinCoordMVar : public MultipleVarFunction
 {
 public:
   Curv2dMaxMinCoordMVar(const Handle(GeomCurve2d)& theCurve,
@@ -160,7 +160,7 @@ private:
 };
 
 //
-class Curv2dMaxMinCoord : public math_Function
+class Curv2dMaxMinCoord : public Function1
 {
 public:
   Curv2dMaxMinCoord(const Handle(GeomCurve2d)& theCurve,
@@ -572,7 +572,7 @@ Standard_Real BndLib_Box2dCurve::AdjustExtr(const Standard_Real    UMin,
   if (UMax - UMin < 0.01 * Du)
   {
     // It is suggested that function has one extremum on small interval
-    math_BrentMinimum anOptLoc(reltol, 100, UTol);
+    BrentMinimumSolver anOptLoc(reltol, 100, UTol);
     Curv2dMaxMinCoord aFunc(myCurve, UMin, UMax, CoordIndx, aSign);
     anOptLoc.Perform(aFunc, UMin, (UMin + UMax) / 2., UMax);
     if (anOptLoc.IsDone())
@@ -593,10 +593,10 @@ Standard_Real BndLib_Box2dCurve::AdjustExtr(const Standard_Real    UMin,
   aSteps(1)     = Min(0.1 * Du, maxstep);
 
   Curv2dMaxMinCoordMVar aFunc(myCurve, UMin, UMax, CoordIndx, aSign);
-  math_PSO              aFinder(&aFunc, aLowBorder, aUppBorder, aSteps, aNbParticles);
+  PSO              aFinder(&aFunc, aLowBorder, aUppBorder, aSteps, aNbParticles);
   aFinder.Perform(aSteps, extr, aT);
   //
-  math_BrentMinimum anOptLoc(reltol, 100, UTol);
+  BrentMinimumSolver anOptLoc(reltol, 100, UTol);
   Curv2dMaxMinCoord aFunc1(myCurve, UMin, UMax, CoordIndx, aSign);
   anOptLoc.Perform(aFunc1, Max(aT(1) - aSteps(1), UMin), aT(1), Min(aT(1) + aSteps(1), UMax));
 

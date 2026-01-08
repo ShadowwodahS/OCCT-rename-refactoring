@@ -22,7 +22,7 @@
 //==========================================================================
 // function : An empty constructor.
 //==========================================================================
-math_KronrodSingleIntegration::math_KronrodSingleIntegration()
+KronrodSingleIntegration::KronrodSingleIntegration()
     : myIsDone(Standard_False),
       myValue(0.),
       myErrorReached(0.),
@@ -37,7 +37,7 @@ math_KronrodSingleIntegration::math_KronrodSingleIntegration()
 //
 //==========================================================================
 
-math_KronrodSingleIntegration::math_KronrodSingleIntegration(math_Function&         theFunction,
+KronrodSingleIntegration::KronrodSingleIntegration(Function1&         theFunction,
                                                              const Standard_Real    theLower,
                                                              const Standard_Real    theUpper,
                                                              const Standard_Integer theNbPnts)
@@ -56,7 +56,7 @@ math_KronrodSingleIntegration::math_KronrodSingleIntegration(math_Function&     
 //
 //==========================================================================
 
-math_KronrodSingleIntegration::math_KronrodSingleIntegration(math_Function&         theFunction,
+KronrodSingleIntegration::KronrodSingleIntegration(Function1&         theFunction,
                                                              const Standard_Real    theLower,
                                                              const Standard_Real    theUpper,
                                                              const Standard_Integer theNbPnts,
@@ -77,7 +77,7 @@ math_KronrodSingleIntegration::math_KronrodSingleIntegration(math_Function&     
 //           Computation of the integral.
 //==========================================================================
 
-void math_KronrodSingleIntegration::Perform(math_Function&         theFunction,
+void KronrodSingleIntegration::Perform(Function1&         theFunction,
                                             const Standard_Real    theLower,
                                             const Standard_Real    theUpper,
                                             const Standard_Integer theNbPnts)
@@ -108,8 +108,8 @@ void math_KronrodSingleIntegration::Perform(math_Function&         theFunction,
   math_Vector      aGaussP(1, aNGauss);
   math_Vector      aGaussW(1, aNGauss);
 
-  if (!math::KronrodPointsAndWeights(myNbPntsReached, aKronrodP, aKronrodW)
-      || !math::OrderedGaussPointsAndWeights(aNGauss, aGaussP, aGaussW))
+  if (!math1::KronrodPointsAndWeights(myNbPntsReached, aKronrodP, aKronrodW)
+      || !math1::OrderedGaussPointsAndWeights(aNGauss, aGaussP, aGaussW))
   {
     myIsDone = Standard_False;
     return;
@@ -140,7 +140,7 @@ void math_KronrodSingleIntegration::Perform(math_Function&         theFunction,
 
 //=================================================================================================
 
-void math_KronrodSingleIntegration::Perform(math_Function&         theFunction,
+void KronrodSingleIntegration::Perform(Function1&         theFunction,
                                             const Standard_Real    theLower,
                                             const Standard_Real    theUpper,
                                             const Standard_Integer theNbPnts,
@@ -165,8 +165,8 @@ void math_KronrodSingleIntegration::Perform(math_Function&         theFunction,
   math_Vector      aGaussP(1, aNGauss);
   math_Vector      aGaussW(1, aNGauss);
 
-  if (!math::KronrodPointsAndWeights(myNbPntsReached, aKronrodP, aKronrodW)
-      || !math::OrderedGaussPointsAndWeights(aNGauss, aGaussP, aGaussW))
+  if (!math1::KronrodPointsAndWeights(myNbPntsReached, aKronrodP, aKronrodW)
+      || !math1::OrderedGaussPointsAndWeights(aNGauss, aGaussP, aGaussW))
   {
     myIsDone = Standard_False;
     return;
@@ -277,7 +277,7 @@ void math_KronrodSingleIntegration::Perform(math_Function&         theFunction,
 
 //=================================================================================================
 
-Standard_Boolean math_KronrodSingleIntegration::GKRule(math_Function&      theFunction,
+Standard_Boolean KronrodSingleIntegration::GKRule(Function1&      theFunction,
                                                        const Standard_Real theLower,
                                                        const Standard_Real theUpper,
                                                        const math_Vector& /*theGaussP*/,

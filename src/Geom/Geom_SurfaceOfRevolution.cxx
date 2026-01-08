@@ -58,7 +58,7 @@ typedef gp_Lin                   Lin;
 typedef Point3d                   Pnt;
 typedef Transform3d                  Trsf;
 typedef Vector3d                   Vec;
-typedef gp_XYZ                   XYZ;
+typedef Coords3d                   XYZ;
 
 //=================================================================================================
 
@@ -363,9 +363,9 @@ void Geom_SurfaceOfRevolution::TransformParameters(Standard_Real&,
 
 //=================================================================================================
 
-gp_GTrsf2d Geom_SurfaceOfRevolution::ParametricTransformation(const Transform3d& T) const
+GeneralTransform2d Geom_SurfaceOfRevolution::ParametricTransformation(const Transform3d& T) const
 {
-  gp_GTrsf2d T2;
+  GeneralTransform2d T2;
   gp_Ax2d    Axis(gp1::Origin2d(), gp1::DX2d());
   T2.SetAffinity(Axis, basisCurve->ParametricTransformation(T));
   return T2;

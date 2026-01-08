@@ -82,7 +82,7 @@ static Standard_Boolean ParameterOutOfBoundary(const Standard_Real       thePara
 
 static Standard_Boolean IsCurveValid(const Handle(GeomCurve2d)& thePCurve);
 
-static Standard_Boolean ApproxWithPCurves(const Cylinder1& theCyl, const gp_Sphere& theSph);
+static Standard_Boolean ApproxWithPCurves(const Cylinder1& theCyl, const Sphere3& theSph);
 
 static void PerformPlanes(const Handle(GeomAdaptor_Surface)& theS1,
                           const Handle(GeomAdaptor_Surface)& theS2,
@@ -2300,7 +2300,7 @@ Standard_Boolean IsCurveValid(const Handle(GeomCurve2d)& thePCurve)
 // static function : ApproxWithPCurves
 // purpose  : for bug 20964 only
 //=======================================================================
-Standard_Boolean ApproxWithPCurves(const Cylinder1& theCyl, const gp_Sphere& theSph)
+Standard_Boolean ApproxWithPCurves(const Cylinder1& theCyl, const Sphere3& theSph)
 {
   Standard_Boolean bRes = Standard_True;
   Standard_Real    R1 = theCyl.Radius(), R2 = theSph.Radius();

@@ -47,7 +47,7 @@ void LineTool1::ReadOwnParams(const Handle(IGESGeom_Line)& ent,
   Message_Msg Msg90("XSTEP_90");
   //====================================
 
-  gp_XYZ aStart, anEnd;
+  Coords3d aStart, anEnd;
 
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
 

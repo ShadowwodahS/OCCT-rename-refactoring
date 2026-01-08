@@ -29,7 +29,7 @@
 
 class gp_Pnt2d;
 class gp_Vec2d;
-class gp_Trsf2d;
+class Transform2d;
 class Geom2d_Geometry;
 
 class Geom2d_BezierCurve;
@@ -288,7 +288,7 @@ public:
   }
 
   //! Applies the transformation T to this Bezier curve.
-  Standard_EXPORT void Transform(const gp_Trsf2d& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform2d& T) Standard_OVERRIDE;
 
   //! Returns the value of the maximum polynomial degree of a
   //! BezierCurve. This value is 25.

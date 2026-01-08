@@ -146,7 +146,7 @@ Standard_Real CPnts_AbscissaPoint::Length(const Adaptor3d_Curve& C,
   CPnts_RealFunction rf = f3d;
   FG.Init(rf, (Standard_Address)&C);
   //  FG.Init(f3d,(Standard_Address)&C);
-  math_GaussSingleIntegration TheLength(FG, U1, U2, order(C));
+  GaussSingleIntegration TheLength(FG, U1, U2, order(C));
   if (!TheLength.IsDone())
   {
     throw Standard_ConstructionError();
@@ -168,7 +168,7 @@ Standard_Real CPnts_AbscissaPoint::Length(const Adaptor2d_Curve2d& C,
   CPnts_RealFunction rf = f2d;
   FG.Init(rf, (Standard_Address)&C);
   //  FG.Init(f2d,(Standard_Address)&C);
-  math_GaussSingleIntegration TheLength(FG, U1, U2, order(C));
+  GaussSingleIntegration TheLength(FG, U1, U2, order(C));
   if (!TheLength.IsDone())
   {
     throw Standard_ConstructionError();
@@ -191,7 +191,7 @@ Standard_Real CPnts_AbscissaPoint::Length(const Adaptor3d_Curve& C,
   CPnts_RealFunction rf = f3d;
   FG.Init(rf, (Standard_Address)&C);
   //  FG.Init(f3d,(Standard_Address)&C);
-  math_GaussSingleIntegration TheLength(FG, U1, U2, order(C), Tol);
+  GaussSingleIntegration TheLength(FG, U1, U2, order(C), Tol);
   if (!TheLength.IsDone())
   {
     throw Standard_ConstructionError();
@@ -214,7 +214,7 @@ Standard_Real CPnts_AbscissaPoint::Length(const Adaptor2d_Curve2d& C,
   CPnts_RealFunction rf = f2d;
   FG.Init(rf, (Standard_Address)&C);
   //  FG.Init(f2d,(Standard_Address)&C);
-  math_GaussSingleIntegration TheLength(FG, U1, U2, order(C), Tol);
+  GaussSingleIntegration TheLength(FG, U1, U2, order(C), Tol);
   if (!TheLength.IsDone())
   {
     throw Standard_ConstructionError();
@@ -432,7 +432,7 @@ void CPnts_AbscissaPoint::Perform(const Standard_Real Abscissa,
     myDone = Standard_False;
     myF.Init(U0, Abscissa);
 
-    math_FunctionRoot Solution(myF, Ui, Resolution, myUMin, myUMax);
+    FunctionRootSolver Solution(myF, Ui, Resolution, myUMin, myUMax);
 
     // Temporarily suspend the validity test of the solution
     // it is necessary to make a tolreached as soon as one will make a cdl
@@ -474,7 +474,7 @@ void CPnts_AbscissaPoint::AdvPerform(const Standard_Real Abscissa,
     //    myF.Init(U0, Abscissa);
     myF.Init(U0, Abscissa, Resolution / 10); // rbv's modification
 
-    math_FunctionRoot Solution(myF, Ui, Resolution, myUMin, myUMax);
+    FunctionRootSolver Solution(myF, Ui, Resolution, myUMin, myUMax);
 
     // Temporarily suspend the validity test of the solution
     // it is necessary to make a tolreached as soon as one will make a cdl

@@ -41,17 +41,17 @@ class gp_Vec2d;
 //! where {V1, V2} defines the vectorial part of the transformation
 //! and T defines the translation part of the transformation.
 //! This transformation never change the nature of the objects.
-class gp_Trsf2d
+class Transform2d
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns identity transformation.
-  gp_Trsf2d();
+  Transform2d();
 
   //! Creates a 2d transformation in the XY plane from a
   //! 3d transformation .
-  gp_Trsf2d(const Transform3d& theT);
+  Transform2d(const Transform3d& theT);
 
   //! Changes the transformation into a symmetrical transformation.
   //! theP is the center of the symmetry.
@@ -113,13 +113,13 @@ public:
 
   //! Returns the vectorial part of the transformation. It is a
   //! 2*2 matrix which includes the scale factor.
-  Standard_EXPORT gp_Mat2d VectorialPart() const;
+  Standard_EXPORT Matrix2d VectorialPart() const;
 
   //! Returns the homogeneous vectorial part of the transformation.
   //! It is a 2*2 matrix which doesn't include the scale factor.
   //! The coefficients of this matrix must be multiplied by the
   //! scale factor to obtain the coefficients of the transformation.
-  const gp_Mat2d& HVectorialPart() const { return matrix; }
+  const Matrix2d& HVectorialPart() const { return matrix; }
 
   //! Returns the angle corresponding to the rotational component
   //! of the transformation matrix (operation opposite to SetRotation()).
@@ -136,31 +136,31 @@ public:
   //! Raises an exception if the matrix of the transformation
   //! is not inversible, it means that the scale factor is lower
   //! or equal to Resolution from package gp1.
-  Standard_NODISCARD gp_Trsf2d Inverted() const
+  Standard_NODISCARD Transform2d Inverted() const
   {
-    gp_Trsf2d aT = *this;
+    Transform2d aT = *this;
     aT.Invert();
     return aT;
   }
 
-  Standard_NODISCARD gp_Trsf2d Multiplied(const gp_Trsf2d& theT) const
+  Standard_NODISCARD Transform2d Multiplied(const Transform2d& theT) const
   {
-    gp_Trsf2d aTresult(*this);
+    Transform2d aTresult(*this);
     aTresult.Multiply(theT);
     return aTresult;
   }
 
-  Standard_NODISCARD gp_Trsf2d operator*(const gp_Trsf2d& theT) const { return Multiplied(theT); }
+  Standard_NODISCARD Transform2d operator*(const Transform2d& theT) const { return Multiplied(theT); }
 
   //! Computes the transformation composed from <me> and theT.
   //! <me> = <me> * theT
-  Standard_EXPORT void Multiply(const gp_Trsf2d& theT);
+  Standard_EXPORT void Multiply(const Transform2d& theT);
 
-  void operator*=(const gp_Trsf2d& theT) { Multiply(theT); }
+  void operator*=(const Transform2d& theT) { Multiply(theT); }
 
   //! Computes the transformation composed from <me> and theT.
   //! <me> = theT * <me>
-  Standard_EXPORT void PreMultiply(const gp_Trsf2d& theT);
+  Standard_EXPORT void PreMultiply(const Transform2d& theT);
 
   Standard_EXPORT void Power(const Standard_Integer theN);
 
@@ -171,9 +171,9 @@ public:
   //!
   //! Raises if theN < 0 and if the matrix of the transformation not
   //! inversible.
-  gp_Trsf2d Powered(const Standard_Integer theN)
+  Transform2d Powered(const Standard_Integer theN)
   {
-    gp_Trsf2d aT = *this;
+    Transform2d aT = *this;
     aT.Power(theN);
     return aT;
   }
@@ -200,7 +200,7 @@ public:
                                  const Standard_Real a22,
                                  const Standard_Real a23);
 
-  friend class gp_GTrsf2d;
+  friend class GeneralTransform2d;
 
 protected:
   //! Makes orthogonalization of "matrix"
@@ -209,7 +209,7 @@ protected:
 private:
   Standard_Real scale;
   gp_TrsfForm   shape;
-  gp_Mat2d      matrix;
+  Matrix2d      matrix;
   Coords2d         loc;
 };
 
@@ -217,10 +217,10 @@ private:
 #include <gp_Pnt2d.hxx>
 
 //=======================================================================
-// function : gp_Trsf2d
+// function : Transform2d
 // purpose :
 //=======================================================================
-inline gp_Trsf2d::gp_Trsf2d()
+inline Transform2d::Transform2d()
 {
   shape = gp_Identity;
   scale = 1.0;
@@ -229,10 +229,10 @@ inline gp_Trsf2d::gp_Trsf2d()
 }
 
 //=======================================================================
-// function : gp_Trsf2d
+// function : Transform2d
 // purpose :
 //=======================================================================
-inline gp_Trsf2d::gp_Trsf2d(const Transform3d& theT)
+inline Transform2d::Transform2d(const Transform3d& theT)
     : scale(theT.ScaleFactor()),
       shape(theT.Form()),
       loc(theT.TranslationPart().X(), theT.TranslationPart().Y())
@@ -248,7 +248,7 @@ inline gp_Trsf2d::gp_Trsf2d(const Transform3d& theT)
 // function : SetRotation
 // purpose :
 //=======================================================================
-inline void gp_Trsf2d::SetRotation(const gp_Pnt2d& theP, const Standard_Real theAng)
+inline void Transform2d::SetRotation(const gp_Pnt2d& theP, const Standard_Real theAng)
 {
   shape = gp_Rotation;
   scale = 1.0;
@@ -263,7 +263,7 @@ inline void gp_Trsf2d::SetRotation(const gp_Pnt2d& theP, const Standard_Real the
 // function : SetMirror
 // purpose :
 //=======================================================================
-inline void gp_Trsf2d::SetMirror(const gp_Pnt2d& theP)
+inline void Transform2d::SetMirror(const gp_Pnt2d& theP)
 {
   shape = gp_PntMirror;
   scale = -1.0;
@@ -276,7 +276,7 @@ inline void gp_Trsf2d::SetMirror(const gp_Pnt2d& theP)
 // function : SetScale
 // purpose :
 //=======================================================================
-inline void gp_Trsf2d::SetScale(const gp_Pnt2d& theP, const Standard_Real theS)
+inline void Transform2d::SetScale(const gp_Pnt2d& theP, const Standard_Real theS)
 {
   shape = gp_Scale;
   scale = theS;
@@ -289,7 +289,7 @@ inline void gp_Trsf2d::SetScale(const gp_Pnt2d& theP, const Standard_Real theS)
 // function : SetTranslation
 // purpose :
 //=======================================================================
-inline void gp_Trsf2d::SetTranslation(const gp_Vec2d& theV)
+inline void Transform2d::SetTranslation(const gp_Vec2d& theV)
 {
   shape = gp_Translation;
   scale = 1.0;
@@ -301,7 +301,7 @@ inline void gp_Trsf2d::SetTranslation(const gp_Vec2d& theV)
 // function : SetTranslation
 // purpose :
 //=======================================================================
-inline void gp_Trsf2d::SetTranslation(const gp_Pnt2d& theP1, const gp_Pnt2d& theP2)
+inline void Transform2d::SetTranslation(const gp_Pnt2d& theP1, const gp_Pnt2d& theP2)
 {
   shape = gp_Translation;
   scale = 1.0;
@@ -313,7 +313,7 @@ inline void gp_Trsf2d::SetTranslation(const gp_Pnt2d& theP1, const gp_Pnt2d& the
 // function : Value
 // purpose :
 //=======================================================================
-inline Standard_Real gp_Trsf2d::Value(const Standard_Integer theRow,
+inline Standard_Real Transform2d::Value(const Standard_Integer theRow,
                                       const Standard_Integer theCol) const
 {
   Standard_OutOfRange_Raise_if(theRow < 1 || theRow > 2 || theCol < 1 || theCol > 3, " ");
@@ -331,7 +331,7 @@ inline Standard_Real gp_Trsf2d::Value(const Standard_Integer theRow,
 // function : Transforms
 // purpose :
 //=======================================================================
-inline void gp_Trsf2d::Transforms(Standard_Real& theX, Standard_Real& theY) const
+inline void Transform2d::Transforms(Standard_Real& theX, Standard_Real& theY) const
 {
   Coords2d aDoublet(theX, theY);
   aDoublet.Multiply(matrix);
@@ -347,7 +347,7 @@ inline void gp_Trsf2d::Transforms(Standard_Real& theX, Standard_Real& theY) cons
 // function : Transforms
 // purpose :
 //=======================================================================
-inline void gp_Trsf2d::Transforms(Coords2d& theCoord) const
+inline void Transform2d::Transforms(Coords2d& theCoord) const
 {
   theCoord.Multiply(matrix);
   if (scale != 1.0)

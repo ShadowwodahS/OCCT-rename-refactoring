@@ -88,7 +88,7 @@ const Handle(TopoDS_TShape)& VrmlData_IndexedFaceSet::TShape()
   }
 
   // list of nodes:
-  const gp_XYZ* arrNodes = myCoords->Values();
+  const Coords3d* arrNodes = myCoords->Values();
   const int     nNodes   = (int)myCoords->Length();
 
   NCollection_Map<int>                        mapNodeId;
@@ -121,15 +121,15 @@ const Handle(TopoDS_TShape)& VrmlData_IndexedFaceSet::TShape()
       continue;
     }
     // calculate normal
-    gp_XYZ aSum;
-    gp_XYZ aPrevP = arrNodes[aPolygon(1)];
+    Coords3d aSum;
+    Coords3d aPrevP = arrNodes[aPolygon(1)];
     for (in = 2; in < aPolygon.Length(); in++)
     {
-      gp_XYZ aP1 = arrNodes[aPolygon(in)];
-      gp_XYZ aP2 = arrNodes[aPolygon(in + 1)];
-      gp_XYZ aV1 = aP1 - aPrevP;
-      gp_XYZ aV2 = aP2 - aPrevP;
-      gp_XYZ S   = aV1.Crossed(aV2);
+      Coords3d aP1 = arrNodes[aPolygon(in)];
+      Coords3d aP2 = arrNodes[aPolygon(in + 1)];
+      Coords3d aV1 = aP1 - aPrevP;
+      Coords3d aV2 = aP2 - aPrevP;
+      Coords3d S   = aV1.Crossed(aV2);
       aSum += S;
     }
     if (aSum.Modulus() < Precision::Confusion())
@@ -156,13 +156,13 @@ const Handle(TopoDS_TShape)& VrmlData_IndexedFaceSet::TShape()
     return myTShape;
   }
   // prepare vector of nodes
-  NCollection_Vector<gp_XYZ>    aNodes;
+  NCollection_Vector<Coords3d>    aNodes;
   NCollection_DataMap<int, int> mapIdId;
   for (i = 0; i < nNodes; i++)
   {
     if (mapNodeId.Contains(i))
     {
-      const gp_XYZ& aN1 = arrNodes[i];
+      const Coords3d& aN1 = arrNodes[i];
       mapIdId.Bind(i, aNodes.Length());
       aNodes.Append(aN1);
     }
@@ -236,7 +236,7 @@ const Handle(TopoDS_TShape)& VrmlData_IndexedFaceSet::TShape()
       {
         for (i = 0; i < nbNodes; i++)
         {
-          const gp_XYZ& aNormal = myNormals->Normal(i);
+          const Coords3d& aNormal = myNormals->Normal(i);
           aTriangulation->SetNormal(i + 1, aNormal);
         }
       }
@@ -252,7 +252,7 @@ const Handle(TopoDS_TShape)& VrmlData_IndexedFaceSet::TShape()
             int                     nbn = IndiceNormals(i, arrIndice);
             for (Standard_Integer j = 0; j < nbn; j++)
             {
-              const gp_XYZ& aNormal = myNormals->Normal(arrIndice[j]);
+              const Coords3d& aNormal = myNormals->Normal(arrIndice[j]);
               aTriangulation->SetNormal(mapIdId(anArrNodes[j]) + 1, aNormal);
             }
           }

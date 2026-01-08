@@ -95,7 +95,7 @@ void GeneralNoteTool::ReadOwnParams(const Handle(IGESDimen_GeneralNote)&   ent,
       Standard_Real                    rotationAngle;
       Standard_Integer                 mirrorFlag;
       Standard_Integer                 rotateFlag;
-      gp_XYZ                           startPoint;
+      Coords3d                           startPoint;
       Handle(TCollection_HAsciiString) text;
 
       // st = PR.ReadInteger(PR.Current(), "Number of Characters", nbChar); //szv#4:S4163:12Mar99
@@ -288,7 +288,7 @@ void GeneralNoteTool::OwnCopy(const Handle(IGESDimen_GeneralNote)& another,
     mirrorFlags->SetValue(i, mirrorFlag);
     Standard_Integer rotateFlag = another->RotateFlag(i);
     rotateFlags->SetValue(i, rotateFlag);
-    gp_XYZ startPoint = (another->StartPoint(i)).XYZ();
+    Coords3d startPoint = (another->StartPoint(i)).XYZ();
     startPoints->SetValue(i, startPoint);
     Handle(TCollection_HAsciiString) text = new TCollection_HAsciiString(another->Text(i));
     texts->SetValue(i, text);

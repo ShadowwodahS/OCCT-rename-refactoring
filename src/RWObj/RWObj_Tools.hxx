@@ -35,7 +35,7 @@ inline bool ReadVec3(const char* thePos, char*& theNext, Graphic3d_Vec3& theVec)
 }
 
 //! Read 3 double values.
-inline bool ReadVec3(const char* thePos, char*& theNext, gp_XYZ& theVec)
+inline bool ReadVec3(const char* thePos, char*& theNext, Coords3d& theVec)
 {
   const char* aPos = thePos;
   theVec.SetX(Strtod(aPos, &theNext));

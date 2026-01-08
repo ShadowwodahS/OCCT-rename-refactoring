@@ -40,9 +40,9 @@ IMPLEMENT_STANDARD_RTTIEXT(VrmlData_Geometry, VrmlData_Node)
 
 //=================================================================================================
 
-const gp_XYZ& VrmlData_ArrayVec3d::Value(const Standard_Size i) const
+const Coords3d& VrmlData_ArrayVec3d::Value(const Standard_Size i) const
 {
-  static gp_XYZ anOrigin(0., 0., 0.);
+  static Coords3d anOrigin(0., 0., 0.);
   return i < myLength ? myArray[i] : anOrigin;
 }
 
@@ -51,7 +51,7 @@ const gp_XYZ& VrmlData_ArrayVec3d::Value(const Standard_Size i) const
 Standard_Boolean VrmlData_ArrayVec3d::AllocateValues(const Standard_Size theLength)
 {
   myArray =
-    reinterpret_cast<const gp_XYZ*>(Scene().Allocator()->Allocate(theLength * sizeof(gp_XYZ)));
+    reinterpret_cast<const Coords3d*>(Scene().Allocator()->Allocate(theLength * sizeof(Coords3d)));
   myLength = theLength;
   return (myArray != 0L);
 }
@@ -543,7 +543,7 @@ VrmlData_ErrorStatus VrmlData_ArrayVec3d::ReadArray(InputBuffer&     theBuffer,
                                                     const Standard_Boolean isScale)
 {
   VrmlData_ErrorStatus       aStatus;
-  NCollection_Vector<gp_XYZ> vecValues;
+  NCollection_Vector<Coords3d> vecValues;
   if (OK(aStatus, VrmlData_Scene::ReadLine(theBuffer)))
   {
     // Match the name with the current word in the stream
@@ -569,7 +569,7 @@ VrmlData_ErrorStatus VrmlData_ArrayVec3d::ReadArray(InputBuffer&     theBuffer,
       if (theBuffer.LinePtr[0] != '[') // opening bracket
       {
         // Handle case when brackets are omitted for single element of array
-        gp_XYZ anXYZ;
+        Coords3d anXYZ;
         // Read three numbers (XYZ value)
         if (!OK(aStatus, Scene().ReadXYZ(theBuffer, anXYZ, isScale, Standard_False)))
           aStatus = VrmlData_VrmlFormatError;
@@ -581,7 +581,7 @@ VrmlData_ErrorStatus VrmlData_ArrayVec3d::ReadArray(InputBuffer&     theBuffer,
         theBuffer.LinePtr++;
         for (;;)
         {
-          gp_XYZ anXYZ;
+          Coords3d anXYZ;
           if (!OK(aStatus, VrmlData_Scene::ReadLine(theBuffer)))
             break;
           // closing bracket, in case that it follows a comma
@@ -609,8 +609,8 @@ VrmlData_ErrorStatus VrmlData_ArrayVec3d::ReadArray(InputBuffer&     theBuffer,
       myLength = vecValues.Length();
       if (myLength > 0)
       {
-        gp_XYZ* anArray =
-          reinterpret_cast<gp_XYZ*>(Scene().Allocator()->Allocate(myLength * sizeof(gp_XYZ)));
+        Coords3d* anArray =
+          reinterpret_cast<Coords3d*>(Scene().Allocator()->Allocate(myLength * sizeof(Coords3d)));
         myArray = anArray;
         for (Standard_Integer i = 0; i < Standard_Integer(myLength); i++)
           anArray[i] = vecValues(i);
@@ -664,7 +664,7 @@ Handle(VrmlData_Node) VrmlData_Coordinate::Clone(const Handle(VrmlData_Node)& th
   {
     aResult->AllocateValues(Length());
     for (Standard_Size i = 0; i < Length(); i++)
-      const_cast<gp_XYZ&>(aResult->Values()[i]) = Values()[i];
+      const_cast<Coords3d&>(aResult->Values()[i]) = Values()[i];
   }
   return aResult;
 }
@@ -703,7 +703,7 @@ Handle(VrmlData_Node) VrmlData_Color::Clone(const Handle(VrmlData_Node)& theOthe
   {
     aResult->AllocateValues(Length());
     for (Standard_Size i = 0; i < Length(); i++)
-      const_cast<gp_XYZ&>(aResult->Values()[i]) = Values()[i];
+      const_cast<Coords3d&>(aResult->Values()[i]) = Values()[i];
   }
   return aResult;
 }
@@ -743,7 +743,7 @@ Handle(VrmlData_Node) VrmlData_Normal::Clone(const Handle(VrmlData_Node)& theOth
   {
     aResult->AllocateValues(Length());
     for (Standard_Size i = 0; i < Length(); i++)
-      const_cast<gp_XYZ&>(aResult->Values()[i]) = Values()[i];
+      const_cast<Coords3d&>(aResult->Values()[i]) = Values()[i];
   }
   return aResult;
 }

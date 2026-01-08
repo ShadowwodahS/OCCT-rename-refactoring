@@ -26,7 +26,7 @@
 #include <Standard_NotImplemented.hxx>
 #include <StdFail_NotDone.hxx>
 
-math_SVD::math_SVD(const math_Matrix& A)
+SVD::SVD(const math_Matrix& A)
     : U(1, Max(A.RowNumber(), A.ColNumber()), 1, A.ColNumber()),
       V(1, A.ColNumber(), 1, A.ColNumber()),
       Diag(1, A.ColNumber())
@@ -38,7 +38,7 @@ math_SVD::math_SVD(const math_Matrix& A)
   Done                   = (!Error) ? Standard_True : Standard_False;
 }
 
-void math_SVD::Solve(const math_Vector& B, math_Vector& X, const Standard_Real Eps)
+void SVD::Solve(const math_Vector& B, math_Vector& X, const Standard_Real Eps)
 {
   StdFail_NotDone_Raise_if(!Done, " ");
   Standard_DimensionError_Raise_if((RowA != B.Length()) || (X.Length() != Diag.Length()), " ");
@@ -55,7 +55,7 @@ void math_SVD::Solve(const math_Vector& B, math_Vector& X, const Standard_Real E
   SVD_Solve(U, Diag, V, BB, X);
 }
 
-void math_SVD::PseudoInverse(math_Matrix& Result, const Standard_Real Eps)
+void SVD::PseudoInverse(math_Matrix& Result, const Standard_Real Eps)
 {
   Standard_Integer i, j;
 
@@ -83,10 +83,10 @@ void math_SVD::PseudoInverse(math_Matrix& Result, const Standard_Real Eps)
   }
 }
 
-void math_SVD::Dump(Standard_OStream& o) const
+void SVD::Dump(Standard_OStream& o) const
 {
 
-  o << "math_SVD";
+  o << "SVD";
   if (Done)
   {
     o << " Status = Done \n";

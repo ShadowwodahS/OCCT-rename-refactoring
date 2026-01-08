@@ -24,7 +24,7 @@
 #include <Plate_D1.hxx>
 #include <gp_XY.hxx>
 #include <Standard_Integer.hxx>
-class gp_XYZ;
+class Coords3d;
 class D2;
 class D3;
 
@@ -43,7 +43,7 @@ public:
   Standard_EXPORT Plate_GtoCConstraint(const Coords2d&    point2d,
                                        const D1& D1S,
                                        const D1& D1T,
-                                       const gp_XYZ&   nP);
+                                       const Coords3d&   nP);
 
   Standard_EXPORT Plate_GtoCConstraint(const Coords2d&    point2d,
                                        const D1& D1S,
@@ -56,7 +56,7 @@ public:
                                        const D1& D1T,
                                        const D2& D2S,
                                        const D2& D2T,
-                                       const gp_XYZ&   nP);
+                                       const Coords3d&   nP);
 
   Standard_EXPORT Plate_GtoCConstraint(const Coords2d&    point2d,
                                        const D1& D1S,
@@ -73,7 +73,7 @@ public:
                                        const D2& D2T,
                                        const D3& D3S,
                                        const D3& D3T,
-                                       const gp_XYZ&   nP);
+                                       const Coords3d&   nP);
 
   const Standard_Integer& nb_PPC() const;
 

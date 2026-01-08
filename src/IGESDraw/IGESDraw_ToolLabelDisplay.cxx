@@ -62,7 +62,7 @@ void LabelDisplayTool::ReadOwnParams(const Handle(IGESDraw_LabelDisplay)&   ent,
     displayedEntities = new IGESData_HArray1OfIGESEntity(1, nbval);
 
     Handle(IGESData_ViewKindEntity) tempView;
-    gp_XYZ                          tempXYZ;
+    Coords3d                          tempXYZ;
     Handle(IGESDimen_LeaderArrow)   tempLeaderArrow;
     Standard_Integer                tempLabel;
     Handle(IGESData_IGESEntity)     tempDisplayedEntity;

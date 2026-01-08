@@ -23,12 +23,12 @@
 #include <math_Vector.hxx>
 #include <math_IntegerVector.hxx>
 #include <Standard_OStream.hxx>
-class math_MultipleVarFunction;
+class MultipleVarFunction;
 
 //! This class implements the integration of a function of multiple
 //! variables between the parameter bounds Lower[a..b] and Upper[a..b].
 //! Warning: Each element of Order must be inferior or equal to 61.
-class math_GaussMultipleIntegration
+class GaussMultipleIntegration
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -36,7 +36,7 @@ public:
   //! The Gauss-Legendre integration with Order = points of
   //! integration for each unknown, is done on the function F
   //! between the bounds Lower and Upper.
-  Standard_EXPORT math_GaussMultipleIntegration(math_MultipleVarFunction& F,
+  Standard_EXPORT GaussMultipleIntegration(MultipleVarFunction& F,
                                                 const math_Vector&        Lower,
                                                 const math_Vector&        Upper,
                                                 const math_IntegerVector& Order);

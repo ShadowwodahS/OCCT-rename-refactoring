@@ -41,7 +41,7 @@ void ConeFrustumTool::ReadOwnParams(const Handle(IGESSolid_ConeFrustum)& ent,
                                               IGESData_ParamReader& PR) const
 {
   Standard_Real tempHeight, tempR1, tempR2, tempreal;
-  gp_XYZ        tempCenter, tempAxis;
+  Coords3d        tempCenter, tempAxis;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
 
   PR.ReadReal(PR.Current(), "Height", tempHeight); // szv#4:S4163:12Mar99 `st=` not needed

@@ -27,7 +27,7 @@
 
 //=================================================================================================
 
-gp_Mat2d::gp_Mat2d(const Coords2d& theCol1, const Coords2d& theCol2)
+Matrix2d::Matrix2d(const Coords2d& theCol1, const Coords2d& theCol2)
 {
   myMat[0][0] = theCol1.X();
   myMat[1][0] = theCol1.Y();
@@ -37,9 +37,9 @@ gp_Mat2d::gp_Mat2d(const Coords2d& theCol1, const Coords2d& theCol2)
 
 //=================================================================================================
 
-void gp_Mat2d::SetCol(const Standard_Integer theCol, const Coords2d& theValue)
+void Matrix2d::SetCol(const Standard_Integer theCol, const Coords2d& theValue)
 {
-  Standard_OutOfRange_Raise_if(theCol < 1 || theCol > 2, "gp_Mat2d::SetCol() - invalid index");
+  Standard_OutOfRange_Raise_if(theCol < 1 || theCol > 2, "Matrix2d::SetCol() - invalid index");
   if (theCol == 1)
   {
     myMat[0][0] = theValue.X();
@@ -54,7 +54,7 @@ void gp_Mat2d::SetCol(const Standard_Integer theCol, const Coords2d& theValue)
 
 //=================================================================================================
 
-void gp_Mat2d::SetCols(const Coords2d& theCol1, const Coords2d& theCol2)
+void Matrix2d::SetCols(const Coords2d& theCol1, const Coords2d& theCol2)
 {
   myMat[0][0] = theCol1.X();
   myMat[1][0] = theCol1.Y();
@@ -64,9 +64,9 @@ void gp_Mat2d::SetCols(const Coords2d& theCol1, const Coords2d& theCol2)
 
 //=================================================================================================
 
-void gp_Mat2d::SetRow(const Standard_Integer theRow, const Coords2d& theValue)
+void Matrix2d::SetRow(const Standard_Integer theRow, const Coords2d& theValue)
 {
-  Standard_OutOfRange_Raise_if(theRow < 1 || theRow > 2, "gp_Mat2d::SetRow() - invalid index");
+  Standard_OutOfRange_Raise_if(theRow < 1 || theRow > 2, "Matrix2d::SetRow() - invalid index");
   if (theRow == 1)
   {
     myMat[0][0] = theValue.X();
@@ -81,7 +81,7 @@ void gp_Mat2d::SetRow(const Standard_Integer theRow, const Coords2d& theValue)
 
 //=================================================================================================
 
-void gp_Mat2d::SetRows(const Coords2d& theRow1, const Coords2d& theRow2)
+void Matrix2d::SetRows(const Coords2d& theRow1, const Coords2d& theRow2)
 {
   myMat[0][0] = theRow1.X();
   myMat[0][1] = theRow1.Y();
@@ -91,9 +91,9 @@ void gp_Mat2d::SetRows(const Coords2d& theRow1, const Coords2d& theRow2)
 
 //=================================================================================================
 
-Coords2d gp_Mat2d::Column(const Standard_Integer theCol) const
+Coords2d Matrix2d::Column(const Standard_Integer theCol) const
 {
-  Standard_OutOfRange_Raise_if(theCol < 1 || theCol > 2, "gp_Mat2d::Column() - invalid index");
+  Standard_OutOfRange_Raise_if(theCol < 1 || theCol > 2, "Matrix2d::Column() - invalid index");
   if (theCol == 1)
   {
     return Coords2d(myMat[0][0], myMat[1][0]);
@@ -103,16 +103,16 @@ Coords2d gp_Mat2d::Column(const Standard_Integer theCol) const
 
 //=================================================================================================
 
-Coords2d gp_Mat2d::Diagonal() const
+Coords2d Matrix2d::Diagonal() const
 {
   return Coords2d(myMat[0][0], myMat[1][1]);
 }
 
 //=================================================================================================
 
-Coords2d gp_Mat2d::Row(const Standard_Integer theRow) const
+Coords2d Matrix2d::Row(const Standard_Integer theRow) const
 {
-  Standard_OutOfRange_Raise_if(theRow < 1 || theRow > 2, "gp_Mat2d::Row() - invalid index");
+  Standard_OutOfRange_Raise_if(theRow < 1 || theRow > 2, "Matrix2d::Row() - invalid index");
   if (theRow == 1)
   {
     return Coords2d(myMat[0][0], myMat[0][1]);
@@ -122,7 +122,7 @@ Coords2d gp_Mat2d::Row(const Standard_Integer theRow) const
 
 //=================================================================================================
 
-void gp_Mat2d::Invert()
+void Matrix2d::Invert()
 {
   Standard_Real aNewMat[2][2];
   aNewMat[0][0]      = myMat[1][1];
@@ -131,7 +131,7 @@ void gp_Mat2d::Invert()
   aNewMat[1][1]      = myMat[0][0];
   Standard_Real aDet = aNewMat[0][0] * aNewMat[1][1] - aNewMat[0][1] * aNewMat[1][0];
   Standard_ConstructionError_Raise_if(Abs(aDet) <= gp1::Resolution(),
-                                      "gp_Mat2d::Invert() - matrix has zero determinant");
+                                      "Matrix2d::Invert() - matrix has zero determinant");
   aDet        = 1.0 / aDet;
   myMat[0][0] = aNewMat[0][0] * aDet;
   myMat[1][0] = aNewMat[1][0] * aDet;
@@ -141,7 +141,7 @@ void gp_Mat2d::Invert()
 
 //=================================================================================================
 
-void gp_Mat2d::Power(const Standard_Integer theN)
+void Matrix2d::Power(const Standard_Integer theN)
 {
   if (theN == 1)
   {
@@ -162,7 +162,7 @@ void gp_Mat2d::Power(const Standard_Integer theN)
     if (Npower < 0)
       Npower = -Npower;
     Npower--;
-    gp_Mat2d aTemp = *this;
+    Matrix2d aTemp = *this;
     for (;;)
     {
       if (IsOdd(Npower))

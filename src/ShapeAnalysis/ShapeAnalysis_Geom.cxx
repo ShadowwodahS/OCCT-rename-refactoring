@@ -135,7 +135,7 @@ Standard_Boolean ShapeAnalysis_Geom::PositionTrsf(const Handle(TColStd_HArray2Of
   if (coefs.IsNull())
     return Standard_True; // szv#4:S4163:12Mar99 moved
 
-  gp_GTrsf gtrsf;
+  GeneralTransform gtrsf;
   for (Standard_Integer i = 1; i <= 3; i++)
   {
     for (Standard_Integer j = 1; j <= 4; j++)
@@ -150,9 +150,9 @@ Standard_Boolean ShapeAnalysis_Geom::PositionTrsf(const Handle(TColStd_HArray2Of
   //      Valables pour tous les composants d un assemblage transmis
   // trsf = Transform3d();  // Identite forcee au depart //szv#4:S4163:12Mar99 not needed
   //  On prend le contenu de <gtrsf>. Attention a l adressage
-  gp_XYZ v1(gtrsf.Value(1, 1), gtrsf.Value(2, 1), gtrsf.Value(3, 1));
-  gp_XYZ v2(gtrsf.Value(1, 2), gtrsf.Value(2, 2), gtrsf.Value(3, 2));
-  gp_XYZ v3(gtrsf.Value(1, 3), gtrsf.Value(2, 3), gtrsf.Value(3, 3));
+  Coords3d v1(gtrsf.Value(1, 1), gtrsf.Value(2, 1), gtrsf.Value(3, 1));
+  Coords3d v2(gtrsf.Value(1, 2), gtrsf.Value(2, 2), gtrsf.Value(3, 2));
+  Coords3d v3(gtrsf.Value(1, 3), gtrsf.Value(2, 3), gtrsf.Value(3, 3));
   //  A-t-on affaire a une similitude ?
   Standard_Real m1 = v1.Modulus();
   Standard_Real m2 = v2.Modulus();

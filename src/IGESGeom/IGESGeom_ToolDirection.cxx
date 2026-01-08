@@ -39,7 +39,7 @@ void DirectionTool::ReadOwnParams(const Handle(IGESGeom_Direction)& ent,
                                            const Handle(IGESData_IGESReaderData)& /* IR */,
                                            IGESData_ParamReader& PR) const
 {
-  gp_XYZ aDirection;
+  Coords3d aDirection;
   Coords2d  tmpXY;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
   Standard_Real tmpReal;

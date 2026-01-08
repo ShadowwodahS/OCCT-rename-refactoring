@@ -883,7 +883,7 @@ Standard_Real CompLocalDev(const Adaptor3d_Curve& theCurve,
   math_Vector aT(1,1);
   GCPnts_DistFunctionMV aFunc(aFunc1);
 
-  math_PSO aFinder(&aFunc, aLowBorder, aUppBorder, aSteps); // Choose 32 best points from 100 above.
+  PSO aFinder(&aFunc, aLowBorder, aUppBorder, aSteps); // Choose 32 best points from 100 above.
   // clang-format on
   aFinder.Perform(aSteps, aValue, aT);
   Standard_Real d = 0.;
@@ -907,7 +907,7 @@ Standard_Real CompLocalDev(const Adaptor3d_Curve& theCurve,
     return Sqrt(-dmin);
   }
 
-  math_BrentMinimum anOptLoc(Precision::PConfusion());
+  BrentMinimumSolver anOptLoc(Precision::PConfusion());
   anOptLoc.Perform(aFunc1, x1, aT(1), x2);
 
   if (anOptLoc.IsDone())

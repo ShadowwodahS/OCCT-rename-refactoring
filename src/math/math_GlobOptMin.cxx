@@ -44,7 +44,7 @@ static Standard_Real DistanceToBorder(const math_Vector& theX,
 
 //=================================================================================================
 
-math_GlobOptMin::math_GlobOptMin(math_MultipleVarFunction* theFunc,
+GlobOptMin::GlobOptMin(MultipleVarFunction* theFunc,
                                  const math_Vector&        theA,
                                  const math_Vector&        theB,
                                  const Standard_Real       theC,
@@ -105,7 +105,7 @@ math_GlobOptMin::math_GlobOptMin(math_MultipleVarFunction* theFunc,
 // function : SetGlobalParams
 // purpose  : Set parameters without memory allocation.
 //=======================================================================
-void math_GlobOptMin::SetGlobalParams(math_MultipleVarFunction* theFunc,
+void GlobOptMin::SetGlobalParams(MultipleVarFunction* theFunc,
                                       const math_Vector&        theA,
                                       const math_Vector&        theB,
                                       const Standard_Real       theC,
@@ -147,7 +147,7 @@ void math_GlobOptMin::SetGlobalParams(math_MultipleVarFunction* theFunc,
 // function : SetLocalParams
 // purpose  : Set parameters without memory allocation.
 //=======================================================================
-void math_GlobOptMin::SetLocalParams(const math_Vector& theLocalA, const math_Vector& theLocalB)
+void GlobOptMin::SetLocalParams(const math_Vector& theLocalA, const math_Vector& theLocalB)
 {
   Standard_Integer i;
 
@@ -170,7 +170,7 @@ void math_GlobOptMin::SetLocalParams(const math_Vector& theLocalA, const math_Ve
 // function : SetTol
 // purpose  : Set algorithm tolerances.
 //=======================================================================
-void math_GlobOptMin::SetTol(const Standard_Real theDiscretizationTol,
+void GlobOptMin::SetTol(const Standard_Real theDiscretizationTol,
                              const Standard_Real theSameTol)
 {
   myTol     = theDiscretizationTol;
@@ -181,7 +181,7 @@ void math_GlobOptMin::SetTol(const Standard_Real theDiscretizationTol,
 // function : GetTol
 // purpose  : Get algorithm tolerances.
 //=======================================================================
-void math_GlobOptMin::GetTol(Standard_Real& theDiscretizationTol, Standard_Real& theSameTol)
+void GlobOptMin::GetTol(Standard_Real& theDiscretizationTol, Standard_Real& theSameTol)
 {
   theDiscretizationTol = myTol;
   theSameTol           = mySameTol;
@@ -192,7 +192,7 @@ void math_GlobOptMin::GetTol(Standard_Real& theDiscretizationTol, Standard_Real&
 // purpose  : Compute Global extremum point
 //=======================================================================
 // In this algo indexes started from 1, not from 0.
-void math_GlobOptMin::Perform(const Standard_Boolean isFindSingleSolution)
+void GlobOptMin::Perform(const Standard_Boolean isFindSingleSolution)
 {
   myDone = Standard_False;
 
@@ -213,7 +213,7 @@ void math_GlobOptMin::Perform(const Standard_Boolean isFindSingleSolution)
   if (minLength < Precision::PConfusion())
   {
 #ifdef OCCT_DEBUG
-    std::cout << "math_GlobOptMin::Perform(): Degenerated parameters space" << std::endl;
+    std::cout << "GlobOptMin::Perform(): Degenerated parameters space" << std::endl;
 #endif
 
     return;
@@ -258,7 +258,7 @@ void math_GlobOptMin::Perform(const Standard_Boolean isFindSingleSolution)
 
 //=================================================================================================
 
-Standard_Boolean math_GlobOptMin::computeLocalExtremum(const math_Vector& thePnt,
+Standard_Boolean GlobOptMin::computeLocalExtremum(const math_Vector& thePnt,
                                                        Standard_Real&     theVal,
                                                        math_Vector&       theOutPnt)
 {
@@ -269,7 +269,7 @@ Standard_Boolean math_GlobOptMin::computeLocalExtremum(const math_Vector& thePnt
   {
     math_MultipleVarFunctionWithHessian* aTmp =
       dynamic_cast<math_MultipleVarFunctionWithHessian*>(myFunc);
-    math_NewtonMinimum newtonMinimum(*aTmp);
+    NewtonMinimum newtonMinimum(*aTmp);
     newtonMinimum.SetBoundary(myGlobA, myGlobB);
     newtonMinimum.Perform(*aTmp, thePnt);
 
@@ -288,7 +288,7 @@ Standard_Boolean math_GlobOptMin::computeLocalExtremum(const math_Vector& thePnt
   {
     math_MultipleVarFunctionWithGradient* aTmp =
       dynamic_cast<math_MultipleVarFunctionWithGradient*>(myFunc);
-    math_BFGS bfgs(aTmp->NbVariables());
+    BFGSOptimizer bfgs(aTmp->NbVariables());
     bfgs.SetBoundary(myGlobA, myGlobB);
     bfgs.Perform(*aTmp, thePnt);
 
@@ -303,13 +303,13 @@ Standard_Boolean math_GlobOptMin::computeLocalExtremum(const math_Vector& thePnt
   }
 
   // Powell method used.
-  if (dynamic_cast<math_MultipleVarFunction*>(myFunc))
+  if (dynamic_cast<MultipleVarFunction*>(myFunc))
   {
     math_Matrix m(1, myN, 1, myN, 0.0);
     for (i = 1; i <= myN; i++)
       m(i, i) = 1.0;
 
-    math_Powell powell(*myFunc, 1e-10);
+    Powell powell(*myFunc, 1e-10);
     powell.Perform(*myFunc, thePnt, m);
 
     if (powell.IsDone())
@@ -327,7 +327,7 @@ Standard_Boolean math_GlobOptMin::computeLocalExtremum(const math_Vector& thePnt
 
 //=================================================================================================
 
-void math_GlobOptMin::computeInitialValues()
+void GlobOptMin::computeInitialValues()
 {
   const Standard_Real aMinLC  = 0.01;
   const Standard_Real aMaxLC  = 1000.;
@@ -372,7 +372,7 @@ void math_GlobOptMin::computeInitialValues()
 
 //=================================================================================================
 
-void math_GlobOptMin::computeGlobalExtremum(Standard_Integer j)
+void GlobOptMin::computeGlobalExtremum(Standard_Integer j)
 {
   Standard_Integer i;
   Standard_Real    d   = RealLast(), aPrevVal; // Functional in original and moved points.
@@ -462,7 +462,7 @@ void math_GlobOptMin::computeGlobalExtremum(Standard_Integer j)
 
 //=================================================================================================
 
-Standard_Boolean math_GlobOptMin::isInside(const math_Vector& thePnt)
+Standard_Boolean GlobOptMin::isInside(const math_Vector& thePnt)
 {
   Standard_Integer i;
 
@@ -477,7 +477,7 @@ Standard_Boolean math_GlobOptMin::isInside(const math_Vector& thePnt)
 
 //=================================================================================================
 
-Standard_Boolean math_GlobOptMin::isStored(const math_Vector& thePnt)
+Standard_Boolean GlobOptMin::isStored(const math_Vector& thePnt)
 {
   Standard_Integer i, j;
   Standard_Boolean isSame = Standard_True;
@@ -504,7 +504,7 @@ Standard_Boolean math_GlobOptMin::isStored(const math_Vector& thePnt)
   }
   else
   {
-    NCollection_CellFilter_Inspector anInspector(myN, Precision::PConfusion());
+    NCollection_CellFilter_Inspector1 anInspector(myN, Precision::PConfusion());
     if (isFirstCellFilterInvoke)
     {
       myFilter.Reset(myCellSize);
@@ -539,7 +539,7 @@ Standard_Boolean math_GlobOptMin::isStored(const math_Vector& thePnt)
 
 //=================================================================================================
 
-void math_GlobOptMin::Points(const Standard_Integer theIndex, math_Vector& theSol)
+void GlobOptMin::Points(const Standard_Integer theIndex, math_Vector& theSol)
 {
   Standard_Integer j;
 
@@ -549,7 +549,7 @@ void math_GlobOptMin::Points(const Standard_Integer theIndex, math_Vector& theSo
 
 //=================================================================================================
 
-void math_GlobOptMin::initCellSize()
+void GlobOptMin::initCellSize()
 {
   for (Standard_Integer anIdx = 1; anIdx <= myN; anIdx++)
   {
@@ -560,7 +560,7 @@ void math_GlobOptMin::initCellSize()
 
 //=================================================================================================
 
-Standard_Boolean math_GlobOptMin::CheckFunctionalStopCriteria()
+Standard_Boolean GlobOptMin::CheckFunctionalStopCriteria()
 {
   // Search single solution and current solution in its neighborhood.
   if (myIsFindSingleSolution && Abs(myF - myFunctionalMinimalValue) < mySameTol * 0.01)
@@ -571,7 +571,7 @@ Standard_Boolean math_GlobOptMin::CheckFunctionalStopCriteria()
 
 //=================================================================================================
 
-void math_GlobOptMin::ComputeInitSol()
+void GlobOptMin::ComputeInitSol()
 {
   Standard_Real aVal;
   math_Vector   aPnt(1, myN);
@@ -595,7 +595,7 @@ void math_GlobOptMin::ComputeInitSol()
 
 //=================================================================================================
 
-void math_GlobOptMin::checkAddCandidate(const math_Vector& thePnt, const Standard_Real theValue)
+void GlobOptMin::checkAddCandidate(const math_Vector& thePnt, const Standard_Real theValue)
 {
   if (Abs(theValue - myF) < mySameTol * 0.01 && // Value in point is close to optimal value.
       !myIsFindSingleSolution)                  // Several optimal solutions are allowed.

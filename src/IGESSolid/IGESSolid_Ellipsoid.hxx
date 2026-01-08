@@ -49,13 +49,13 @@ public:
   //! default (1,0,0)
   //! - anZAxis    : Unit vector defining local Z-axis
   //! default (0,0,1)
-  Standard_EXPORT void Init(const gp_XYZ& aSize,
-                            const gp_XYZ& aCenter,
-                            const gp_XYZ& anXAxis,
-                            const gp_XYZ& anZAxis);
+  Standard_EXPORT void Init(const Coords3d& aSize,
+                            const Coords3d& aCenter,
+                            const Coords3d& anXAxis,
+                            const Coords3d& anZAxis);
 
   //! returns the size
-  Standard_EXPORT gp_XYZ Size() const;
+  Standard_EXPORT Coords3d Size() const;
 
   //! returns the length in the local X-direction
   Standard_EXPORT Standard_Real XLength() const;
@@ -100,10 +100,10 @@ public:
 
 protected:
 private:
-  gp_XYZ theSize;
-  gp_XYZ theCenter;
-  gp_XYZ theXAxis;
-  gp_XYZ theZAxis;
+  Coords3d theSize;
+  Coords3d theCenter;
+  Coords3d theXAxis;
+  Coords3d theZAxis;
 };
 
 #endif // _IGESSolid_Ellipsoid_HeaderFile

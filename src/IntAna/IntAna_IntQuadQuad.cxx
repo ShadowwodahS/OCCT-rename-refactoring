@@ -204,7 +204,7 @@ TrigonometricRoots::TrigonometricRoots(const Standard_Real CC,
   done = Standard_False;
   //
   //-- F= AA*CN*CN+2*BB*CN*SN+CC*CN+DD*SN+EE;
-  math_TrigonometricFunctionRoots MTFR(CC, SC, C, S, Cte, Binf, Bsup);
+  TrigonometricFunctionRoots MTFR(CC, SC, C, S, Cte, Binf, Bsup);
   if (!MTFR.IsDone())
   {
     return;

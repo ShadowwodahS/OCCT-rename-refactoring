@@ -146,9 +146,9 @@ Handle(VrmlData_Node) VrmlData_Group::FindNode(const char* theName, Transform3d&
 VrmlData_ErrorStatus VrmlData_Group::Read(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStatus;
-  gp_XYZ               aBoxCenter(0., 0., 0.), aBoxSize(-1., -1., -1.);
-  gp_XYZ               aCenter(0., 0., 0.), aScale(1., 1., 1.), aTrans(0., 0., 0.);
-  gp_XYZ               aRotAxis(0., 0., 1.), aScaleAxis(0., 0., 1.);
+  Coords3d               aBoxCenter(0., 0., 0.), aBoxSize(-1., -1., -1.);
+  Coords3d               aCenter(0., 0., 0.), aScale(1., 1., 1.), aTrans(0., 0., 0.);
+  Coords3d               aRotAxis(0., 0., 1.), aScaleAxis(0., 0., 1.);
   Standard_Real        aRotAngle(0.), aScaleAngle(0.);
 
   while (OK(aStatus, VrmlData_Scene::ReadLine(theBuffer)))
@@ -567,7 +567,7 @@ VrmlData_ErrorStatus VrmlData_Group::Write(const char* thePrefix) const
       char buf[240];
       if (OK(aStatus) && aScene.IsDummyWrite() == Standard_False)
       {
-        const gp_XYZ aBoxCorner[2] = {myBox.CornerMin(), myBox.CornerMax()};
+        const Coords3d aBoxCorner[2] = {myBox.CornerMin(), myBox.CornerMax()};
         // Check that the box is not void
         if (aBoxCorner[0].X() < aBoxCorner[1].X() + Precision::Confusion())
         {
@@ -599,7 +599,7 @@ VrmlData_ErrorStatus VrmlData_Group::Write(const char* thePrefix) const
         }
 
         // Output the Translation
-        const gp_XYZ& aTrans = myTrsf.TranslationPart();
+        const Coords3d& aTrans = myTrsf.TranslationPart();
         if (aTrans.SquareModulus() > 0.0001 * Precision::Confusion())
         {
           Sprintf(buf, "translation %.12g %.12g %.12g", aTrans.X(), aTrans.Y(), aTrans.Z());
@@ -607,7 +607,7 @@ VrmlData_ErrorStatus VrmlData_Group::Write(const char* thePrefix) const
         }
 
         // Output the Rotation
-        gp_XYZ        anAxis;
+        Coords3d        anAxis;
         Standard_Real anAngle;
         if (myTrsf.GetRotation(anAxis, anAngle))
         {

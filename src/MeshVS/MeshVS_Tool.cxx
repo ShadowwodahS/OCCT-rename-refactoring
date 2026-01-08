@@ -322,7 +322,7 @@ Standard_Boolean MeshVS_Tool::GetAverageNormal(const TColStd_Array1OfReal& Nodes
     first_vec[i] = Nodes.Value(first + 3 + i) - Nodes.Value(first + i);
   }
 
-  gp_XYZ* norm_vec = new gp_XYZ[count - 2];
+  Coords3d* norm_vec = new Coords3d[count - 2];
   for (i = 0; i < count - 2; i++)
     norm_vec[i].SetCoord(0, 0, 0);
 

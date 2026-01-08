@@ -28,7 +28,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom2d_Direction, Geom2d_Vector)
 typedef Geom2d_Direction Direction;
 typedef gp_Ax2d          Ax2d;
 typedef gp_Pnt2d         Pnt2d;
-typedef gp_Trsf2d        Trsf2d;
+typedef Transform2d        Trsf2d;
 
 Handle(Geom2d_Geometry) Geom2d_Direction::Copy() const
 {
@@ -106,7 +106,7 @@ Standard_Real Geom2d_Direction::Crossed(const Handle(Geom2d_Vector)& Other) cons
   return gpVec2d.Crossed(Other->Vec2d());
 }
 
-void Geom2d_Direction::Transform(const gp_Trsf2d& T)
+void Geom2d_Direction::Transform(const Transform2d& T)
 {
 
   gp_Dir2d dir = gpVec2d;

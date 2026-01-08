@@ -1242,7 +1242,7 @@ static Standard_Integer VtkMoveTo(DrawInterpreter& theDI,
   Standard_Integer anY = GetInteractor()->GetRenderWindow()->GetSize()[1] - atoi(theArgs[2]) - 1;
   GetInteractor()->MoveTo(atoi(theArgs[1]), anY);
 
-  gp_XYZ aPickPnt;
+  Coords3d aPickPnt;
   GetInteractor()->Selector()->GetPickPosition(aPickPnt.ChangeData());
   theDI << aPickPnt.X() << " " << aPickPnt.Y() << " " << aPickPnt.Z();
   return 0;
@@ -1378,7 +1378,7 @@ static int VtkViewParams(DrawInterpreter& theDI,
 
   vtkCamera* aCam = GetRenderer()->GetActiveCamera();
 
-  gp_XYZ aViewUp, aViewProj, aViewEye, aViewAt;
+  Coords3d aViewUp, aViewProj, aViewEye, aViewAt;
   aCam->GetViewUp(aViewUp.ChangeCoord(1), aViewUp.ChangeCoord(2), aViewUp.ChangeCoord(3));
   aCam->GetDirectionOfProjection(aViewProj.ChangeCoord(1),
                                  aViewProj.ChangeCoord(2),

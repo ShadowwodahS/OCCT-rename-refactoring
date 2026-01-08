@@ -45,7 +45,7 @@ public:
   //! default (0,0,1)
   Standard_EXPORT void Init(const Handle(IGESData_IGESEntity)& aCurve,
                             const Standard_Real                aLength,
-                            const gp_XYZ&                      aDirection);
+                            const Coords3d&                      aDirection);
 
   //! returns the planar curve that is to be translated
   Standard_EXPORT Handle(IGESData_IGESEntity) Curve() const;
@@ -65,7 +65,7 @@ protected:
 private:
   Handle(IGESData_IGESEntity) theCurve;
   Standard_Real               theLength;
-  gp_XYZ                      theDirection;
+  Coords3d                      theDirection;
 };
 
 #endif // _IGESSolid_SolidOfLinearExtrusion_HeaderFile

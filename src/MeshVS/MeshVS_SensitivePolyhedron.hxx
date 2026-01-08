@@ -55,7 +55,7 @@ public:
 
 private:
   MeshVS_PolyhedronVerts                    myTopology;
-  gp_XYZ                                    myCenter;
+  Coords3d                                    myCenter;
   Select3D_BndBox3d                         myBndBox;
   Handle(TColgp_HArray1OfPnt)               myNodes;
   Handle(MeshVS_HArray1OfSequenceOfInteger) myTopo;

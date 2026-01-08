@@ -66,7 +66,7 @@ class Geom2d_Parabola;
 class Geom2d_VectorWithMagnitude;
 
 class Transform3d;
-class gp_Trsf2d;
+class Transform2d;
 
 class StepGeom_Axis1Placement;
 class StepGeom_Axis2Placement2d;
@@ -234,7 +234,7 @@ public:
     const ConversionFactors&                 theLocalFactors = ConversionFactors());
   Standard_EXPORT static Standard_Boolean MakeTransformation2d(
     const Handle(StepGeom_CartesianTransformationOperator2d)& SCTO,
-    gp_Trsf2d&                                                CT,
+    Transform2d&                                                CT,
     const ConversionFactors&                                   theLocalFactors = ConversionFactors());
   Standard_EXPORT static Standard_Boolean MakeTransformation3d(
     const Handle(StepGeom_CartesianTransformationOperator3d)& SCTO,

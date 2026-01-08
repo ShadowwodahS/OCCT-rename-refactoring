@@ -54,7 +54,7 @@ public:
   //! - allNumPos : All position to be or not to be processed
   Standard_EXPORT void Init(const Handle(IGESData_IGESEntity)&      aBase,
                             const Standard_Integer                  aNumLocs,
-                            const gp_XYZ&                           aCenter,
+                            const Coords3d&                           aCenter,
                             const Standard_Real                     aRadius,
                             const Standard_Real                     aStAngle,
                             const Standard_Real                     aDelAngle,
@@ -108,7 +108,7 @@ protected:
 private:
   Handle(IGESData_IGESEntity)      theBaseEntity;
   Standard_Integer                 theNbLocations;
-  gp_XYZ                           theCenter;
+  Coords3d                           theCenter;
   Standard_Real                    theRadius;
   Standard_Real                    theStartAngle;
   Standard_Real                    theDeltaAngle;

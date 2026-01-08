@@ -65,7 +65,7 @@ inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const 
   return theWriteData;
 }
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Sphere& theSph)
+inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Sphere3& theSph)
 {
   Ax3        anAx;
   Standard_Real aRadius;
@@ -78,7 +78,7 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Sphere
   return theReadData;
 }
 
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const gp_Sphere& theSph)
+inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const Sphere3& theSph)
 {
   const Ax3& anAx    = theSph.Position();
   Standard_Real aRadius = theSph.Radius();

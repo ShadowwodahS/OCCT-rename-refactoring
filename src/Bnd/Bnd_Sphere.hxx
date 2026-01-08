@@ -35,7 +35,7 @@ public:
   Standard_EXPORT Sphere2();
 
   //! Constructor of a definite sphere
-  Standard_EXPORT Sphere2(const gp_XYZ&          theCntr,
+  Standard_EXPORT Sphere2(const Coords3d&          theCntr,
                              const Standard_Real    theRad,
                              const Standard_Integer theU,
                              const Standard_Integer theV);
@@ -53,7 +53,7 @@ public:
   void SetValid(const Standard_Boolean isValid);
 
   //! Returns center of sphere object
-  const gp_XYZ& Center() const;
+  const Coords3d& Center() const;
 
   //! Returns the radius value
   Standard_Real Radius() const;
@@ -61,39 +61,39 @@ public:
   //! Calculate and return minimal and maximal distance to sphere.
   //! NOTE: This function is tightly optimized; any modifications
   //! may affect performance!
-  Standard_EXPORT void Distances(const gp_XYZ&  theXYZ,
+  Standard_EXPORT void Distances(const Coords3d&  theXYZ,
                                  Standard_Real& theMin,
                                  Standard_Real& theMax) const;
 
   //! Calculate and return minimal and maximal distance to sphere.
   //! NOTE: This function is tightly optimized; any modifications
   //! may affect performance!
-  Standard_EXPORT void SquareDistances(const gp_XYZ&  theXYZ,
+  Standard_EXPORT void SquareDistances(const Coords3d&  theXYZ,
                                        Standard_Real& theMin,
                                        Standard_Real& theMax) const;
 
   //! Projects a point on entity.
   //! Returns true if success
-  Standard_EXPORT Standard_Boolean Project(const gp_XYZ&     theNode,
-                                           gp_XYZ&           theProjNode,
+  Standard_EXPORT Standard_Boolean Project(const Coords3d&     theNode,
+                                           Coords3d&           theProjNode,
                                            Standard_Real&    theDist,
                                            Standard_Boolean& theInside) const;
 
-  Standard_EXPORT Standard_Real Distance(const gp_XYZ& theNode) const;
+  Standard_EXPORT Standard_Real Distance(const Coords3d& theNode) const;
 
-  Standard_EXPORT Standard_Real SquareDistance(const gp_XYZ& theNode) const;
+  Standard_EXPORT Standard_Real SquareDistance(const Coords3d& theNode) const;
 
   Standard_EXPORT void Add(const Sphere2& theOther);
 
   Standard_EXPORT Standard_Boolean IsOut(const Sphere2& theOther) const;
 
-  Standard_EXPORT Standard_Boolean IsOut(const gp_XYZ& thePnt, Standard_Real& theMaxDist) const;
+  Standard_EXPORT Standard_Boolean IsOut(const Coords3d& thePnt, Standard_Real& theMaxDist) const;
 
   Standard_EXPORT Standard_Real SquareExtent() const;
 
 protected:
 private:
-  gp_XYZ           myCenter;
+  Coords3d           myCenter;
   Standard_Real    myRadius;
   Standard_Boolean myIsValid;
   Standard_Integer myU;

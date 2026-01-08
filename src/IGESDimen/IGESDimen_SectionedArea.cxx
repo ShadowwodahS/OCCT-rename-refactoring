@@ -29,7 +29,7 @@ IGESDimen_SectionedArea::IGESDimen_SectionedArea() {}
 
 void IGESDimen_SectionedArea::Init(const Handle(IGESData_IGESEntity)&          aCurve,
                                    const Standard_Integer                      aPattern,
-                                   const gp_XYZ&                               aPoint,
+                                   const Coords3d&                               aPoint,
                                    const Standard_Real                         aDistance,
                                    const Standard_Real                         anAngle,
                                    const Handle(IGESData_HArray1OfIGESEntity)& someIslands)
@@ -73,7 +73,7 @@ Point3d IGESDimen_SectionedArea::PassingPoint() const
 
 Point3d IGESDimen_SectionedArea::TransformedPassingPoint() const
 {
-  gp_XYZ tmpXYZ(thePassingPoint);
+  Coords3d tmpXYZ(thePassingPoint);
   if (HasTransf())
     Location().Transforms(tmpXYZ);
   return Point3d(tmpXYZ);

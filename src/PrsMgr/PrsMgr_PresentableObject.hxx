@@ -295,7 +295,7 @@ public: //! @name object transformation
   }
 
   //! Return inversed transformation.
-  const gp_GTrsf& InversedTransformation() const { return myInvTransformation; }
+  const GeneralTransform& InversedTransformation() const { return myInvTransformation; }
 
   //! Return combined parent transformation.
   const Handle(TopLoc_Datum3D)& CombinedParentTransformation() const
@@ -610,7 +610,7 @@ protected:
   Handle(TopLoc_Datum3D)                 myTransformation;          //!< absolute transformation of this object (combined parents + local transformations)
   Handle(TopLoc_Datum3D)                 myCombinedParentTransform; //!< transformation of parent object (combined for all parents)
   PrsMgr_ListOfPresentableObjects        myChildren;                //!< list of children
-  gp_GTrsf                               myInvTransformation;       //!< inversion of absolute transformation (combined parents + local transformations)
+  GeneralTransform                               myInvTransformation;       //!< inversion of absolute transformation (combined parents + local transformations)
   PrsMgr_TypeOfPresentation3d            myTypeOfPresentation3d;    //!< presentation type
   PrsMgr_DisplayStatus                   myDisplayStatus;           //!< presentation display status
 

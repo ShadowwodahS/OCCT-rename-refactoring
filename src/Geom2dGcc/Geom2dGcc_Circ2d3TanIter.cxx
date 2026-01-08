@@ -95,7 +95,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Quali
   tol(1)    = CurveTool3::EpsX(Cu1, Abs(Tolerance));
   tol(2)    = CurveTool3::EpsX(Cu2, Abs(Tolerance));
   tol(3)    = CurveTool3::EpsX(Cu3, Abs(Tolerance));
-  math_FunctionSetRoot Root(Func, tol);
+  FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
   {
@@ -238,7 +238,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualif
   tol(1)    = 2.e-15 * M_PI;
   tol(2)    = CurveTool3::EpsX(Cu2, Abs(Tolerance));
   tol(3)    = CurveTool3::EpsX(Cu3, Abs(Tolerance));
-  math_FunctionSetRoot Root(Func, tol);
+  FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
   {
@@ -386,7 +386,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualif
   tol(1)    = 2.e-15 * M_PI;
   tol(2)    = 2.e-15 * M_PI;
   tol(3)    = CurveTool3::EpsX(Cu3, Abs(Tolerance));
-  math_FunctionSetRoot Root(Func, tol);
+  FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
   {
@@ -536,7 +536,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedLine& Qualifie
   tol(1)    = 1.e-15;
   tol(2)    = CurveTool3::EpsX(Cu2, Abs(Tolerance));
   tol(3)    = CurveTool3::EpsX(Cu3, Abs(Tolerance));
-  math_FunctionSetRoot Root(Func, tol);
+  FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
   {
@@ -685,7 +685,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedLine& Qualifie
   tol(1)    = 1.e-15;
   tol(2)    = 1.e-15;
   tol(3)    = CurveTool3::EpsX(Cu3, Abs(Tolerance));
-  math_FunctionSetRoot Root(Func, tol);
+  FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
   {
@@ -826,7 +826,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Quali
   tol(1)    = 2.e-15 * M_PI;
   tol(2)    = CurveTool3::EpsX(Cu1, Abs(Tolerance));
   tol(3)    = CurveTool3::EpsX(Cu2, Abs(Tolerance));
-  math_FunctionSetRoot Root(Func, tol);
+  FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
   {
@@ -958,7 +958,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Quali
   tol(1)    = 2.e-15 * M_PI;
   tol(2)    = 2.e-15 * M_PI;
   tol(3)    = CurveTool3::EpsX(Cu1, Abs(Tolerance));
-  math_FunctionSetRoot Root(Func, tol);
+  FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
   {
@@ -1086,7 +1086,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedLine& Qualifie
   tol(1)    = 2.e-15;
   tol(2)    = 1.e-15;
   tol(3)    = CurveTool3::EpsX(Cu2, Abs(Tolerance));
-  math_FunctionSetRoot Root(Func, tol);
+  FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
   {
@@ -1223,7 +1223,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualif
   tol(1)    = 2.e-15 * M_PI;
   tol(2)    = 1.e-15;
   tol(3)    = CurveTool3::EpsX(Cu3, Abs(Tolerance));
-  math_FunctionSetRoot Root(Func, tol);
+  FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
   {
@@ -1369,7 +1369,7 @@ Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualif
   tol(1)    = 2.e-15 * M_PI;
   tol(2)    = 2.e-15 * M_PI;
   tol(3)    = CurveTool3::EpsX(Cu2, Abs(Tolerance));
-  math_FunctionSetRoot Root(Func, tol);
+  FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
   {

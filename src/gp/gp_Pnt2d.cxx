@@ -24,7 +24,7 @@
 #include <Standard_Dump.hxx>
 #include <Standard_OutOfRange.hxx>
 
-void gp_Pnt2d::Transform(const gp_Trsf2d& T)
+void gp_Pnt2d::Transform(const Transform2d& T)
 {
   if (T.Form() == gp_Identity)
   {
@@ -66,7 +66,7 @@ gp_Pnt2d gp_Pnt2d::Mirrored(const gp_Pnt2d& P) const
 
 void gp_Pnt2d::Mirror(const gp_Ax2d& A)
 {
-  gp_Trsf2d T;
+  Transform2d T;
   T.SetMirror(A);
   T.Transforms(coord);
 }

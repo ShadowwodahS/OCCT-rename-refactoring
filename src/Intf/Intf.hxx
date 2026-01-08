@@ -24,7 +24,7 @@
 #include <Standard_Real.hxx>
 #include <Standard_Boolean.hxx>
 class Point3d;
-class gp_XYZ;
+class Coords3d;
 
 //! Interference computation  between polygons, lines  and
 //! polyhedra with only  triangular  facets. These objects
@@ -44,7 +44,7 @@ public:
   Standard_EXPORT static void PlaneEquation(const Point3d&  P1,
                                             const Point3d&  P2,
                                             const Point3d&  P3,
-                                            gp_XYZ&        NormalVector,
+                                            Coords3d&        NormalVector,
                                             Standard_Real& PolarDistance);
 
   //! Compute if the triangle <P1> <P2> <P3> contain <ThePnt>.

@@ -38,14 +38,14 @@ Handle(GeomCurve2d) GeomCurve2d::Reversed() const
 
 //=================================================================================================
 
-Standard_Real GeomCurve2d::TransformedParameter(const Standard_Real U, const gp_Trsf2d&) const
+Standard_Real GeomCurve2d::TransformedParameter(const Standard_Real U, const Transform2d&) const
 {
   return U;
 }
 
 //=================================================================================================
 
-Standard_Real GeomCurve2d::ParametricTransformation(const gp_Trsf2d&) const
+Standard_Real GeomCurve2d::ParametricTransformation(const Transform2d&) const
 {
   return 1.;
 }

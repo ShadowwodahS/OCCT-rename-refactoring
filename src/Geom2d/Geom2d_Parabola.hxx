@@ -27,7 +27,7 @@ class gp_Ax2d;
 class Ax22d;
 class gp_Pnt2d;
 class gp_Vec2d;
-class gp_Trsf2d;
+class Transform2d;
 class Geom2d_Geometry;
 
 class Geom2d_Parabola;
@@ -177,14 +177,14 @@ public:
                               const Standard_Integer N) const Standard_OVERRIDE;
 
   //! Applies the transformation T to this parabola.
-  Standard_EXPORT void Transform(const gp_Trsf2d& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform2d& T) Standard_OVERRIDE;
 
   //! Computes the parameter on the transformed
   //! parabola, for the point of parameter U on this parabola.
   //! For a parabola, the returned value is equal to U
   //! multiplied by the scale factor of transformation T.
   Standard_EXPORT Standard_Real TransformedParameter(const Standard_Real U,
-                                                     const gp_Trsf2d&    T) const Standard_OVERRIDE;
+                                                     const Transform2d&    T) const Standard_OVERRIDE;
 
   //! Returns a  coefficient to compute the parameter on
   //! the transformed  curve  for  the transform  of the
@@ -198,7 +198,7 @@ public:
   //!
   //! This methods returns T.ScaleFactor()
   Standard_EXPORT Standard_Real
-    ParametricTransformation(const gp_Trsf2d& T) const Standard_OVERRIDE;
+    ParametricTransformation(const Transform2d& T) const Standard_OVERRIDE;
 
   //! Creates a new object, which is a copy of this parabola.
   Standard_EXPORT Handle(Geom2d_Geometry) Copy() const Standard_OVERRIDE;

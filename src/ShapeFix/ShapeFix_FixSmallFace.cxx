@@ -131,7 +131,7 @@ Standard_Boolean ShapeFix_FixSmallFace::ReplaceVerticesInCaseOfSpot(
 {
 
   TColgp_SequenceOfXYZ thePositions;
-  gp_XYZ               thePosition;
+  Coords3d               thePosition;
   ShapeBuilder         theBuilder;
   Standard_Real        theMaxDev;
   Standard_Real        theMaxTol = 0.0;
@@ -166,7 +166,7 @@ Standard_Boolean ShapeFix_FixSmallFace::ReplaceVerticesInCaseOfSpot(
     thePositions.Append(thePoint.XYZ());
   }
   // Calculate common vertex position
-  thePosition               = gp_XYZ(0., 0., 0.);
+  thePosition               = Coords3d(0., 0., 0.);
   Standard_Integer theNbPos = thePositions.Length();
   Standard_Integer i; // svv Jan11 2000 : porting on DEC
   for (i = 1; i <= theNbPos; i++)
@@ -385,7 +385,7 @@ TopoEdge ShapeFix_FixSmallFace::ComputeSharedEdgeForStripFace(const TopoFace& /*
   TopoVertex theSecondVer;
   theBuilder.MakeVertex(theFirstVer);
   theBuilder.MakeVertex(theSecondVer);
-  gp_XYZ       thePosition;
+  Coords3d       thePosition;
   TopoShape temp;
 
   if ((dev <= BRepInspector::Tolerance(V1)) || (dev <= BRepInspector::Tolerance(V3)) || (dev <= tol))

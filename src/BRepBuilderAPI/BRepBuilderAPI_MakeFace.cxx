@@ -78,7 +78,7 @@ FaceMaker::FaceMaker(const Cone1& C)
 
 //=================================================================================================
 
-FaceMaker::FaceMaker(const gp_Sphere& S)
+FaceMaker::FaceMaker(const Sphere3& S)
     : myMakeFace(S)
 {
   if (myMakeFace.IsDone())
@@ -163,7 +163,7 @@ FaceMaker::FaceMaker(const Cone1&      C,
 
 //=================================================================================================
 
-FaceMaker::FaceMaker(const gp_Sphere&    S,
+FaceMaker::FaceMaker(const Sphere3&    S,
                                                  const Standard_Real UMin,
                                                  const Standard_Real UMax,
                                                  const Standard_Real VMin,
@@ -267,7 +267,7 @@ FaceMaker::FaceMaker(const Cone1&         C,
 
 //=================================================================================================
 
-FaceMaker::FaceMaker(const gp_Sphere&       S,
+FaceMaker::FaceMaker(const Sphere3&       S,
                                                  const TopoWire&     W,
                                                  const Standard_Boolean Inside)
     : myMakeFace(S, W, Inside)

@@ -38,12 +38,12 @@
 // function : Transform3d
 // purpose  : Constructor from 2d
 //=======================================================================
-Transform3d::Transform3d(const gp_Trsf2d& T)
+Transform3d::Transform3d(const Transform2d& T)
     : scale(T.ScaleFactor()),
       shape(T.Form()),
       loc(T.TranslationPart().X(), T.TranslationPart().Y(), 0.0)
 {
-  const gp_Mat2d& M = T.HVectorialPart();
+  const Matrix2d& M = T.HVectorialPart();
   matrix(1, 1)      = M(1, 1);
   matrix(1, 2)      = M(1, 2);
   matrix(2, 1)      = M(2, 1);
@@ -102,7 +102,7 @@ void Transform3d::SetRotation(const Axis3d& A1, const Standard_Real Ang)
 
 //=================================================================================================
 
-void Transform3d::SetRotation(const gp_Quaternion& R)
+void Transform3d::SetRotation(const Quaternion& R)
 {
   shape = gp_Rotation;
   scale = 1.;
@@ -112,9 +112,9 @@ void Transform3d::SetRotation(const gp_Quaternion& R)
 
 //=================================================================================================
 
-void Transform3d::SetRotationPart(const gp_Quaternion& theR)
+void Transform3d::SetRotationPart(const Quaternion& theR)
 {
-  const bool hasRotation = !theR.IsEqual(gp_Quaternion());
+  const bool hasRotation = !theR.IsEqual(Quaternion());
   if (hasRotation)
   {
     matrix = theR.GetMatrix();
@@ -184,12 +184,12 @@ void Transform3d::SetTransformation(const Ax3& FromA1, const Ax3& ToA2)
   loc.Reverse();
 
   // matrix FromA1 to XOY :
-  const gp_XYZ& xDir = FromA1.XDirection().XYZ();
-  const gp_XYZ& yDir = FromA1.YDirection().XYZ();
-  const gp_XYZ& zDir = FromA1.Direction().XYZ();
+  const Coords3d& xDir = FromA1.XDirection().XYZ();
+  const Coords3d& yDir = FromA1.YDirection().XYZ();
+  const Coords3d& zDir = FromA1.Direction().XYZ();
 
   gp_Mat MA1(xDir, yDir, zDir);
-  gp_XYZ MA1loc = FromA1.Location().XYZ();
+  Coords3d MA1loc = FromA1.Location().XYZ();
 
   // matrix * MA1 => FromA1 ToA2 :
   MA1loc.Multiply(matrix);
@@ -209,7 +209,7 @@ void Transform3d::SetTransformation(const Ax3& A3)
 
 //=================================================================================================
 
-void Transform3d::SetTransformation(const gp_Quaternion& R, const Vector3d& T)
+void Transform3d::SetTransformation(const Quaternion& R, const Vector3d& T)
 {
   shape  = gp_CompoundTrsf;
   scale  = 1.;
@@ -229,12 +229,12 @@ void Transform3d::SetDisplacement(const Ax3& FromA1, const Ax3& ToA2)
   matrix.SetCol(3, ToA2.Direction().XYZ());
   loc = ToA2.Location().XYZ();
   // matrix XOY to FromA1 :
-  const gp_XYZ& xDir = FromA1.XDirection().XYZ();
-  const gp_XYZ& yDir = FromA1.YDirection().XYZ();
-  const gp_XYZ& zDir = FromA1.Direction().XYZ();
+  const Coords3d& xDir = FromA1.XDirection().XYZ();
+  const Coords3d& yDir = FromA1.YDirection().XYZ();
+  const Coords3d& zDir = FromA1.Direction().XYZ();
   gp_Mat        MA1(xDir, yDir, zDir);
   MA1.Transpose();
-  gp_XYZ MA1loc = FromA1.Location().XYZ();
+  Coords3d MA1loc = FromA1.Location().XYZ();
   MA1loc.Multiply(MA1);
   MA1loc.Reverse();
   // matrix * MA1
@@ -351,10 +351,10 @@ void Transform3d::SetValues(const Standard_Real a11,
                         const Standard_Real a33,
                         const Standard_Real a34)
 {
-  gp_XYZ col1(a11, a21, a31);
-  gp_XYZ col2(a12, a22, a32);
-  gp_XYZ col3(a13, a23, a33);
-  gp_XYZ col4(a14, a24, a34);
+  Coords3d col1(a11, a21, a31);
+  Coords3d col2(a12, a22, a32);
+  Coords3d col3(a13, a23, a33);
+  Coords3d col4(a14, a24, a34);
   // compute the determinant
   gp_Mat        M(col1, col2, col3);
   Standard_Real s  = M.Determinant();
@@ -380,9 +380,9 @@ void Transform3d::SetValues(const Standard_Real a11,
 
 //=================================================================================================
 
-gp_Quaternion Transform3d::GetRotation() const
+Quaternion Transform3d::GetRotation() const
 {
-  return gp_Quaternion(matrix);
+  return Quaternion(matrix);
 }
 
 //=================================================================================================
@@ -478,7 +478,7 @@ void Transform3d::Multiply(const Transform3d& T)
             || shape == gp_Ax2Mirror)
            && T.shape == gp_Translation)
   {
-    gp_XYZ Tloc(T.loc);
+    Coords3d Tloc(T.loc);
     Tloc.Multiply(matrix);
     if (scale != 1.0)
     {
@@ -488,7 +488,7 @@ void Transform3d::Multiply(const Transform3d& T)
   }
   else if ((shape == gp_Scale || shape == gp_PntMirror) && T.shape == gp_Translation)
   {
-    gp_XYZ Tloc(T.loc);
+    Coords3d Tloc(T.loc);
     Tloc.Multiply(scale);
     loc.Add(Tloc);
   }
@@ -511,7 +511,7 @@ void Transform3d::Multiply(const Transform3d& T)
            && (T.shape == gp_PntMirror || T.shape == gp_Scale))
   {
     shape = gp_CompoundTrsf;
-    gp_XYZ Tloc(T.loc);
+    Coords3d Tloc(T.loc);
     Tloc.Multiply(scale);
     loc.Add(Tloc);
     scale = scale * T.scale;
@@ -521,7 +521,7 @@ void Transform3d::Multiply(const Transform3d& T)
            && (T.shape == gp_Scale || T.shape == gp_PntMirror))
   {
     shape = gp_CompoundTrsf;
-    gp_XYZ Tloc(T.loc);
+    Coords3d Tloc(T.loc);
     if (scale == 1.0)
     {
       scale = T.scale;
@@ -540,7 +540,7 @@ void Transform3d::Multiply(const Transform3d& T)
            && (shape == gp_Scale || shape == gp_PntMirror))
   {
     shape = gp_CompoundTrsf;
-    gp_XYZ Tloc(T.loc);
+    Coords3d Tloc(T.loc);
     Tloc.Multiply(scale);
     loc.Add(Tloc);
     scale  = scale * T.scale;
@@ -549,7 +549,7 @@ void Transform3d::Multiply(const Transform3d& T)
   else
   {
     shape = gp_CompoundTrsf;
-    gp_XYZ Tloc(T.loc);
+    Coords3d Tloc(T.loc);
     Tloc.Multiply(matrix);
     if (scale != 1.0)
     {
@@ -579,7 +579,7 @@ void Transform3d::Power(const Standard_Integer N)
       scale = 1.0;
       shape = gp_Identity;
       matrix.SetIdentity();
-      loc = gp_XYZ(0.0, 0.0, 0.0);
+      loc = Coords3d(0.0, 0.0, 0.0);
     }
     else if (N == 1)
     {
@@ -600,7 +600,7 @@ void Transform3d::Power(const Standard_Integer N)
         if (Npower < 0)
           Npower = -Npower;
         Npower--;
-        gp_XYZ Temploc = loc;
+        Coords3d Temploc = loc;
         for (;;)
         {
           if (IsOdd(Npower))
@@ -617,7 +617,7 @@ void Transform3d::Power(const Standard_Integer N)
         if (Npower < 0)
           Npower = -Npower;
         Npower--;
-        gp_XYZ        Temploc   = loc;
+        Coords3d        Temploc   = loc;
         Standard_Real Tempscale = scale;
         for (;;)
         {
@@ -654,7 +654,7 @@ void Transform3d::Power(const Standard_Integer N)
         }
         else
         {
-          gp_XYZ Temploc = loc;
+          Coords3d Temploc = loc;
           for (;;)
           {
             if (IsOdd(Npower))
@@ -689,7 +689,7 @@ void Transform3d::Power(const Standard_Integer N)
         if (Npower < 0)
           Npower = -Npower;
         Npower--;
-        gp_XYZ        Temploc   = loc;
+        Coords3d        Temploc   = loc;
         Standard_Real Tempscale = scale;
         gp_Mat        Tempmatrix(matrix);
         for (;;)
@@ -842,9 +842,9 @@ void Transform3d::PreMultiply(const Transform3d& T)
 //           scientists and Engineers" McGraw-Hill, 1961, ch.14.10-2.
 //=======================================================================
 
-Standard_Boolean Transform3d::GetRotation(gp_XYZ& theAxis, Standard_Real& theAngle) const
+Standard_Boolean Transform3d::GetRotation(Coords3d& theAxis, Standard_Real& theAngle) const
 {
-  gp_Quaternion Q = GetRotation();
+  Quaternion Q = GetRotation();
   Vector3d        aVec;
   Q.GetVectorAndAngle(aVec, theAngle);
   theAxis = aVec.XYZ();
@@ -907,9 +907,9 @@ void Transform3d::Orthogonalize()
 
   gp_Mat aTM(matrix);
 
-  gp_XYZ aV1 = aTM.Column(1);
-  gp_XYZ aV2 = aTM.Column(2);
-  gp_XYZ aV3 = aTM.Column(3);
+  Coords3d aV1 = aTM.Column(1);
+  Coords3d aV2 = aTM.Column(2);
+  Coords3d aV3 = aTM.Column(3);
 
   aV1.Normalize();
 
@@ -964,7 +964,7 @@ Standard_Boolean Transform3d::InitFromJson(const Standard_SStream& theSStream,
   Standard_Integer        aPos       = theStreamPos;
   AsciiString1 aStreamStr = Standard_Dump::Text(theSStream);
 
-  gp_XYZ anXYZLoc;
+  Coords3d anXYZLoc;
   OCCT_INIT_VECTOR_CLASS(aStreamStr,
                          "Location",
                          aPos,

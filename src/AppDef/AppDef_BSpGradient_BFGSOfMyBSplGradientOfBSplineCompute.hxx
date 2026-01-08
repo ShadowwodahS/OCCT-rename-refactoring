@@ -30,7 +30,7 @@ class AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute;
 class AppDef_BSpParFunctionOfMyBSplGradientOfBSplineCompute;
 class math_MultipleVarFunctionWithGradient;
 
-class AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute : public math_BFGS
+class AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute : public BFGSOptimizer
 {
 public:
   DEFINE_STANDARD_ALLOC

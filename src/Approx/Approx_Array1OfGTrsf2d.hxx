@@ -20,6 +20,6 @@
 #include <NCollection_Array1.hxx>
 #include <gp_GTrsf2d.hxx>
 
-typedef NCollection_Array1<gp_GTrsf2d> Approx_Array1OfGTrsf2d;
+typedef NCollection_Array1<GeneralTransform2d> Approx_Array1OfGTrsf2d;
 
 #endif

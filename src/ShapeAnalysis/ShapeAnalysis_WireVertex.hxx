@@ -27,7 +27,7 @@
 #include <Standard_Integer.hxx>
 class ShapeExtend_WireData;
 class TopoWire;
-class gp_XYZ;
+class Coords3d;
 
 // resolve name collisions with X11 headers
 #ifdef Status
@@ -79,21 +79,21 @@ public:
   //! following one lies on it at the Precision of <me>
   //! <ufol> gives the parameter on the following edge
   Standard_EXPORT void SetEnd(const Standard_Integer num,
-                              const gp_XYZ&          pos,
+                              const Coords3d&          pos,
                               const Standard_Real    ufol);
 
   //! <num> is the Start of following Edge, its projection on the
   //! preceding one lies on it at the Precision of <me>
   //! <upre> gives the parameter on the preceding edge
   Standard_EXPORT void SetStart(const Standard_Integer num,
-                                const gp_XYZ&          pos,
+                                const Coords3d&          pos,
                                 const Standard_Real    upre);
 
   //! <num> is the Intersection of both Edges
   //! <upre> is the parameter on preceding edge, <ufol> on
   //! following edge
   Standard_EXPORT void SetInters(const Standard_Integer num,
-                                 const gp_XYZ&          pos,
+                                 const Coords3d&          pos,
                                  const Standard_Real    upre,
                                  const Standard_Real    ufol);
 
@@ -117,7 +117,7 @@ public:
   //! More detail by method Data
   Standard_EXPORT Standard_Integer Status(const Standard_Integer num) const;
 
-  Standard_EXPORT gp_XYZ Position(const Standard_Integer num) const;
+  Standard_EXPORT Coords3d Position(const Standard_Integer num) const;
 
   Standard_EXPORT Standard_Real UPrevious(const Standard_Integer num) const;
 
@@ -135,7 +135,7 @@ public:
   //! 5       Inters     yes       yes         yes
   //! -1      Disjoined  no        no          no
   Standard_EXPORT Standard_Integer Data(const Standard_Integer num,
-                                        gp_XYZ&                pos,
+                                        Coords3d&                pos,
                                         Standard_Real&         upre,
                                         Standard_Real&         ufol) const;
 

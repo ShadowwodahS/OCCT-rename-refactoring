@@ -140,13 +140,13 @@ void DrawDim_Angle::DrawOn(DrawDisplay&) const
     ShapeExplorer explo1(myFShape, TopAbs_VERTEX);
     Point3d          AxePosition = AxePos.Location();
     Vector3d          AxeVector(theAxisDir);
-    gp_XYZ          AxeXYZ = AxeVector.XYZ();
+    Coords3d          AxeXYZ = AxeVector.XYZ();
     while (explo1.More())
     {
       Point3d curpt = BRepInspector::Pnt(TopoDS::Vertex(explo1.Current()));
       Vector3d curvec(AxePosition, curpt);
-      gp_XYZ curXYZ = curvec.XYZ();
-      gp_XYZ Norm(curXYZ.Crossed(AxeXYZ));
+      Coords3d curXYZ = curvec.XYZ();
+      Coords3d Norm(curXYZ.Crossed(AxeXYZ));
 
       if (Norm.Modulus() > gp1::Resolution())
       {

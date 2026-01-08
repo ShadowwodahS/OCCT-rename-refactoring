@@ -27,7 +27,7 @@
 class TCollection_HAsciiString;
 class Interface_ParamSet;
 class Interface_Check;
-class gp_XYZ;
+class Coords3d;
 
 //! Description of a global section (corresponds to file header)
 //! used as well in IGESModel, IGESReader and IGESWriter
@@ -234,7 +234,7 @@ public:
 
   Standard_EXPORT void MaxMaxCoord(const Standard_Real val = 0.0);
 
-  Standard_EXPORT void MaxMaxCoords(const gp_XYZ& xyz);
+  Standard_EXPORT void MaxMaxCoords(const Coords3d& xyz);
 
   Standard_EXPORT void SetAuthorName(const Handle(TCollection_HAsciiString)& val);
 

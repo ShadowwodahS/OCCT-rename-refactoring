@@ -31,7 +31,7 @@
   (b) = (c);                                                                                       \
   (c) = (d)
 
-Standard_Boolean math_BracketMinimum::LimitAndMayBeSwap(math_Function&      F,
+Standard_Boolean BracketMinimum::LimitAndMayBeSwap(Function1&      F,
                                                         const Standard_Real theA,
                                                         Standard_Real&      theB,
                                                         Standard_Real&      theFB,
@@ -55,7 +55,7 @@ Standard_Boolean math_BracketMinimum::LimitAndMayBeSwap(math_Function&      F,
   return Standard_True;
 }
 
-void math_BracketMinimum::Perform(math_Function& F)
+void BracketMinimum::Perform(Function1& F)
 {
 
   Standard_Boolean OK;
@@ -182,7 +182,7 @@ void math_BracketMinimum::Perform(math_Function& F)
   Done = Standard_True;
 }
 
-math_BracketMinimum::math_BracketMinimum(math_Function&      F,
+BracketMinimum::BracketMinimum(Function1&      F,
                                          const Standard_Real A,
                                          const Standard_Real B)
     : Done(Standard_False),
@@ -201,7 +201,7 @@ math_BracketMinimum::math_BracketMinimum(math_Function&      F,
   Perform(F);
 }
 
-math_BracketMinimum::math_BracketMinimum(math_Function&      F,
+BracketMinimum::BracketMinimum(Function1&      F,
                                          const Standard_Real A,
                                          const Standard_Real B,
                                          const Standard_Real FA)
@@ -221,7 +221,7 @@ math_BracketMinimum::math_BracketMinimum(math_Function&      F,
   Perform(F);
 }
 
-math_BracketMinimum::math_BracketMinimum(math_Function&      F,
+BracketMinimum::BracketMinimum(Function1&      F,
                                          const Standard_Real A,
                                          const Standard_Real B,
                                          const Standard_Real FA,
@@ -242,7 +242,7 @@ math_BracketMinimum::math_BracketMinimum(math_Function&      F,
   Perform(F);
 }
 
-void math_BracketMinimum::Values(Standard_Real& A, Standard_Real& B, Standard_Real& C) const
+void BracketMinimum::Values(Standard_Real& A, Standard_Real& B, Standard_Real& C) const
 {
 
   StdFail_NotDone_Raise_if(!Done, " ");
@@ -251,7 +251,7 @@ void math_BracketMinimum::Values(Standard_Real& A, Standard_Real& B, Standard_Re
   C = Cx;
 }
 
-void math_BracketMinimum::FunctionValues(Standard_Real& FA,
+void BracketMinimum::FunctionValues(Standard_Real& FA,
                                          Standard_Real& FB,
                                          Standard_Real& FC) const
 {
@@ -262,10 +262,10 @@ void math_BracketMinimum::FunctionValues(Standard_Real& FA,
   FC = FCx;
 }
 
-void math_BracketMinimum::Dump(Standard_OStream& o) const
+void BracketMinimum::Dump(Standard_OStream& o) const
 {
 
-  o << "math_BracketMinimum ";
+  o << "BracketMinimum ";
   if (Done)
   {
     o << " Status = Done \n";

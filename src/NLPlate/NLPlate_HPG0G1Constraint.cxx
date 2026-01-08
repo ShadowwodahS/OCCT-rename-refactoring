@@ -21,7 +21,7 @@
 IMPLEMENT_STANDARD_RTTIEXT(NLPlate_HPG0G1Constraint, NLPlate_HPG0Constraint)
 
 NLPlate_HPG0G1Constraint::NLPlate_HPG0G1Constraint(const Coords2d&    UV,
-                                                   const gp_XYZ&   Value,
+                                                   const Coords3d&   Value,
                                                    const D1& D1T)
     : NLPlate_HPG0Constraint(UV, Value),
       myG1Target(D1T)

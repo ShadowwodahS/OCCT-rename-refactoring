@@ -2596,7 +2596,7 @@ void LineEllipseGeometricIntersection(const gp_Lin2d&   Line,
 {
 
   const Ax22d& anElAxis = Ellipse.Axis();
-  gp_Trsf2d       aTr;
+  Transform2d       aTr;
   aTr.SetTransformation(anElAxis.XAxis());
   gp_Elips2d       aTEllipse = Ellipse.Transformed(aTr);
   gp_Lin2d         aTLine    = Line.Transformed(aTr);

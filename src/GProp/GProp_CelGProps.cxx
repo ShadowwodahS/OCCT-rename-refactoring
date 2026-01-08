@@ -76,7 +76,7 @@ void GProp_CelGProps::Perform(const gp_Circ& C, const Standard_Real U1, const St
   V3.Multiply(J.Value(3));
 
   inertia =
-    gp_Mat(gp_XYZ(V1(1), V2(1), V3(1)), gp_XYZ(V1(2), V2(2), V3(2)), gp_XYZ(V1(3), V2(3), V3(3)));
+    gp_Mat(Coords3d(V1(1), V2(1), V3(1)), Coords3d(V1(2), V2(2), V3(2)), Coords3d(V1(3), V2(3), V3(3)));
 
   gp_Mat Hop;
   GProp1::HOperator(g, loc, dim, Hop);
@@ -124,7 +124,7 @@ void GProp_CelGProps::Perform(const gp_Lin& C, const Standard_Real U1, const Sta
   Standard_Real Iyz =
     (U2 * (U2 * (U2 * alfa1 + alfa2) + alfa3)) - (U1 * (U1 * (U1 * alfa1 + alfa2) + alfa3));
 
-  inertia = gp_Mat(gp_XYZ(Ixx, -Ixy, -Ixz), gp_XYZ(-Ixy, Iyy, -Iyz), gp_XYZ(-Ixz, -Iyz, Izz));
+  inertia = gp_Mat(Coords3d(Ixx, -Ixy, -Ixz), Coords3d(-Ixy, Iyy, -Iyz), Coords3d(-Ixz, -Iyz, Izz));
 }
 
 GProp_CelGProps::GProp_CelGProps(const gp_Circ& C, const Point3d& CLocation)

@@ -190,7 +190,7 @@ void PointElCCurveExtrema2d::Perform(const gp_Pnt2d&     P,
     Standard_Real X = V.Dot(gp_Vec2d(E.XAxis().Direction()));
     Standard_Real Y = V.Dot(gp_Vec2d(E.YAxis().Direction()));
 
-    math_TrigonometricFunctionRoots Sol(0., (B * B - A * A) / 2., -B * Y, A * X, 0., Uinf, Usup);
+    TrigonometricFunctionRoots Sol(0., (B * B - A * A) / 2., -B * Y, A * X, 0., Uinf, Usup);
 
     if (!Sol.IsDone())
     {
@@ -241,7 +241,7 @@ void PointElCCurveExtrema2d::Perform(const gp_Pnt2d&     P,
   Standard_Real              X    = OPp.Dot(gp_Vec2d(H.XAxis().Direction()));
   Standard_Real              Y    = OPp.Dot(gp_Vec2d(H.YAxis().Direction()));
   Standard_Real              C1   = (R * R + r * r) / 4.;
-  math_DirectPolynomialRoots Sol(C1, -(X * R + Y * r) / 2., 0., (X * R - Y * r) / 2., -C1);
+  DirectPolynomialRoots Sol(C1, -(X * R + Y * r) / 2., 0., (X * R - Y * r) / 2., -C1);
   if (!Sol.IsDone())
   {
     return;
@@ -311,7 +311,7 @@ void PointElCCurveExtrema2d::Perform(const gp_Pnt2d&     P,
   Standard_Real X = OPp.Dot(gp_Vec2d(C.MirrorAxis().Direction()));
   Standard_Real Y = OPp.Dot(gp_Vec2d(C.Axis().YAxis().Direction()));
 
-  math_DirectPolynomialRoots Sol(1. / (4. * F), 0., 2. * F - X, -2. * F * Y);
+  DirectPolynomialRoots Sol(1. / (4. * F), 0., 2. * F - X, -2. * F * Y);
   if (!Sol.IsDone())
   {
     return;

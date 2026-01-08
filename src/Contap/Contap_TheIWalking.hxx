@@ -40,7 +40,7 @@ class InteriorPointTool;
 class HSurfaceTool;
 class Contap_SurfFunction;
 class Contap_TheIWLineOfTheIWalking;
-class math_FunctionSetRoot;
+class FunctionSetRoot;
 
 class Contap_TheIWalking
 {
@@ -199,7 +199,7 @@ protected:
   Standard_EXPORT Standard_Boolean IsPointOnLine(const PointOn2Surfaces& thePOn2S,
                                                  const math_Vector&     theInfBounds,
                                                  const math_Vector&     theSupBounds,
-                                                 math_FunctionSetRoot&  theSolver,
+                                                 FunctionSetRoot&  theSolver,
                                                  Contap_SurfFunction&   theFunc);
 
 private:

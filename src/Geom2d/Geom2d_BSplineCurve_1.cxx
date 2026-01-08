@@ -630,7 +630,7 @@ Standard_Boolean Geom2d_BSplineCurve::IsRational() const
 
 //=================================================================================================
 
-void Geom2d_BSplineCurve::Transform(const gp_Trsf2d& T)
+void Geom2d_BSplineCurve::Transform(const Transform2d& T)
 {
   TColgp_Array1OfPnt2d& CPoles = poles->ChangeArray1();
   for (Standard_Integer I = 1; I <= CPoles.Length(); I++)

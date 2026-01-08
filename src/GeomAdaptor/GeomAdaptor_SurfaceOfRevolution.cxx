@@ -496,7 +496,7 @@ Cone1 GeomAdaptor_SurfaceOfRevolution::Cone() const
 
 //=================================================================================================
 
-gp_Sphere GeomAdaptor_SurfaceOfRevolution::Sphere() const
+Sphere3 GeomAdaptor_SurfaceOfRevolution::Sphere() const
 {
   Standard_NoSuchObject_Raise_if(GetType() != GeomAbs_Sphere,
                                  "GeomAdaptor_SurfaceOfRevolution:Sphere");
@@ -504,7 +504,7 @@ gp_Sphere GeomAdaptor_SurfaceOfRevolution::Sphere() const
   gp_Circ C   = myBasisCurve->Circle();
   Ax3  Axe = myAxeRev;
   Axe.SetLocation(C.Location());
-  return gp_Sphere(Axe, C.Radius());
+  return Sphere3(Axe, C.Radius());
 }
 
 //=================================================================================================

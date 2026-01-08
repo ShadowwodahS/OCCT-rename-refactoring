@@ -348,7 +348,7 @@ void Extrema_GenExtSS::Perform(const Adaptor3d_Surface& S1,
   UV(4) = V20 + (N2Vmin - 1) * PasV2;
 
   Extrema_FuncDistSS aGFSS(S1, *myS2);
-  math_BFGS          aBFGSSolver(4);
+  BFGSOptimizer          aBFGSSolver(4);
   aBFGSSolver.Perform(aGFSS, UV);
   if (aBFGSSolver.IsDone())
   {
@@ -368,11 +368,11 @@ void Extrema_GenExtSS::Perform(const Adaptor3d_Surface& S1,
     UV(3) = U20 + (N2Umin - 1) * PasU2;
     UV(4) = V20 + (N2Vmin - 1) * PasV2;
 
-    math_FunctionSetRoot SR1(myF, Tol);
+    FunctionSetRoot SR1(myF, Tol);
     SR1.Perform(myF, UV, UVinf, UVsup);
   }
 
-  // math_FunctionSetRoot SR1(myF, Tol);
+  // FunctionSetRoot SR1(myF, Tol);
   // SR1.Perform(myF, UV, UVinf, UVsup);
 
   UV(1) = U10 + (N1Umax - 1) * PasU1;
@@ -383,7 +383,7 @@ void Extrema_GenExtSS::Perform(const Adaptor3d_Surface& S1,
   // It is impossible to compute max distance in the same manner,
   // since for the distance functional for max have bad definition.
   // So, for max computation old approach is used.
-  math_FunctionSetRoot SR2(myF, Tol);
+  FunctionSetRoot SR2(myF, Tol);
   SR2.Perform(myF, UV, UVinf, UVsup);
 
   myDone = Standard_True;

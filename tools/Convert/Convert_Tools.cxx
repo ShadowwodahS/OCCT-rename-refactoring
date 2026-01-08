@@ -57,7 +57,7 @@ void Convert_Tools::ConvertStreamToPresentations(
 {
   int aStartPos = theStartPos;
 
-  gp_XYZ aPoint;
+  Coords3d aPoint;
   if (aPoint.InitFromJson(theSStream, aStartPos))
   {
     thePresentations.Append(new Convert_TransientShape(BRepBuilderAPI_MakeVertex(aPoint)));

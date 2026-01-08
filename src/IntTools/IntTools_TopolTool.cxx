@@ -231,7 +231,7 @@ void IntTools_TopolTool::ComputeSamplePoints()
       }
       else
       {
-        gp_Sphere aSphere = myS->Sphere();
+        Sphere3 aSphere = myS->Sphere();
         aRadius1          = aSphere.Radius();
         aRadius2          = aSphere.Radius();
       }

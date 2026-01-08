@@ -57,7 +57,7 @@ public:
   //! - aFunctionCode        : Connect Point Function Code
   //! - aSwapFlag            : Connect Point Swap Flag
   //! - anOwnerSubfigure     : Pointer to the "Owner" Entity
-  Standard_EXPORT void Init(const gp_XYZ&                                aPoint,
+  Standard_EXPORT void Init(const Coords3d&                                aPoint,
                             const Handle(IGESData_IGESEntity)&           aDisplaySymbol,
                             const Standard_Integer                       aTypeFlag,
                             const Standard_Integer                       aFunctionFlag,
@@ -152,7 +152,7 @@ public:
 
 protected:
 private:
-  gp_XYZ                                thePoint;
+  Coords3d                                thePoint;
   Handle(IGESData_IGESEntity)           theDisplaySymbol;
   Standard_Integer                      theTypeFlag;
   Standard_Integer                      theFunctionFlag;

@@ -53,7 +53,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Transform3d& T)
 //=======================================================================
 Standard_OStream& operator<<(Standard_OStream& OS, const Transform3d& T)
 {
-  gp_XYZ V = T.TranslationPart();
+  Coords3d V = T.TranslationPart();
   gp_Mat M = T.VectorialPart();
 
   BinTools1::PutReal(OS, M(1, 1));

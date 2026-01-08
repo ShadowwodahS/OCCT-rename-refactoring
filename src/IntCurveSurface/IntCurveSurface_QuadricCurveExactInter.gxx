@@ -56,9 +56,9 @@ IntCurveSurface_QuadricCurveExactInter::IntCurveSurface_QuadricCurveExactInter(c
     Standard_Real U1 = anIntervals.Value(ii);
     Standard_Real U2 = anIntervals.Value(ii + 1);
   
-    math_FunctionSample Sample(U1,U2,TheCurveTool::NbSamples(C,U1,U2));
+    FunctionSampler Sample(U1,U2,TheCurveTool::NbSamples(C,U1,U2));
     IntCurveSurface_TheQuadCurvFunc Function(Quadric,C);
-    math_FunctionAllRoots Roots(Function,Sample,EPSX,EPSDIST,EPSNUL);
+    FunctionAllRoots Roots(Function,Sample,EPSX,EPSDIST,EPSNUL);
 
     if(Roots.IsDone()) { 
       Standard_Integer nbp = Roots.NbPoints(); 

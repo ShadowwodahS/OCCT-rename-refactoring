@@ -511,7 +511,7 @@ Standard_Boolean IGESData_ParamReader::ReadXY(const ParameterCursor& PC,
 
 Standard_Boolean IGESData_ParamReader::ReadXYZ(const ParameterCursor& PC,
                                                Message_Msg& /*amsg*/,
-                                               gp_XYZ& val)
+                                               Coords3d& val)
 {
   if (!PrepareRead(PC, Standard_False, 3))
     return Standard_False;
@@ -527,7 +527,7 @@ Standard_Boolean IGESData_ParamReader::ReadXYZ(const ParameterCursor& PC,
 
 Standard_Boolean IGESData_ParamReader::ReadXYZ(const ParameterCursor& PC,
                                                const Standard_CString      mess,
-                                               gp_XYZ&                     val)
+                                               Coords3d&                     val)
 {
   if (!PrepareRead(PC, mess, Standard_False, 3))
     return Standard_False;

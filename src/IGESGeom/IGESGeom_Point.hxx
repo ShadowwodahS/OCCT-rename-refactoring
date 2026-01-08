@@ -40,7 +40,7 @@ public:
   //! - aPoint  : Coordinates of point
   //! - aSymbol : SubfigureDefinition entity specifying the
   //! display symbol if there exists one, or zero
-  Standard_EXPORT void Init(const gp_XYZ& aPoint, const Handle(IGESBasic_SubfigureDef)& aSymbol);
+  Standard_EXPORT void Init(const Coords3d& aPoint, const Handle(IGESBasic_SubfigureDef)& aSymbol);
 
   //! returns coordinates of the point
   Standard_EXPORT Point3d Value() const;
@@ -58,7 +58,7 @@ public:
 
 protected:
 private:
-  gp_XYZ                         thePoint;
+  Coords3d                         thePoint;
   Handle(IGESBasic_SubfigureDef) theSymbol;
 };
 

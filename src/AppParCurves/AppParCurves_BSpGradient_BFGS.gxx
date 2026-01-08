@@ -14,7 +14,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// Redefinition de math_BFGS:
+// Redefinition de BFGSOptimizer:
 // ==========================
 
 AppParCurves_BSpGradient_BFGS::AppParCurves_BSpGradient_BFGS(math_MultipleVarFunctionWithGradient& F,
@@ -23,7 +23,7 @@ AppParCurves_BSpGradient_BFGS::AppParCurves_BSpGradient_BFGS(math_MultipleVarFun
 							     const Standard_Real Tolerance2d,
 							     const Standard_Real Eps,
 							     const Standard_Integer NbIterations):
-       math_BFGS(F.NbVariables(), Eps, NbIterations, Eps),
+       BFGSOptimizer(F.NbVariables(), Eps, NbIterations, Eps),
        myTol3d(Tolerance3d),
        myTol2d(Tolerance2d) 
 {

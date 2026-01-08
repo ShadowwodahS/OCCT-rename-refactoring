@@ -1379,7 +1379,7 @@ static Standard_Integer getanasurf(DrawInterpreter& di, Standard_Integer n, cons
       break;
     }
     case GeomAbs_Sphere: {
-      gp_Sphere aSph;
+      Sphere3 aSph;
       if (aSampleSurf.GetType() == GeomAbs_Sphere)
         aSph = aSampleSurf.Sphere();
       if (aCanonRec.IsSphere(tol, aSph))

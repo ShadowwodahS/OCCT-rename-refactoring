@@ -19,7 +19,7 @@
 
 #include <errno.h>
 static const char* Translate(const char* theStr, gp_Mat& M);
-static const char* Translate(const char* theStr, gp_XYZ& P);
+static const char* Translate(const char* theStr, Coords3d& P);
 
 // STORE
 
@@ -47,7 +47,7 @@ XmlObjMgt_DOMString XmlObjMgt_GP::Translate(const gp_Mat& aMat)
 
 //=================================================================================================
 
-XmlObjMgt_DOMString XmlObjMgt_GP::Translate(const gp_XYZ& anXYZ)
+XmlObjMgt_DOMString XmlObjMgt_GP::Translate(const Coords3d& anXYZ)
 {
   char buf[75]; // (24 + 1) * 3
   Sprintf(buf, "%.17g %.17g %.17g", anXYZ.X(), anXYZ.Y(), anXYZ.Z());
@@ -80,8 +80,8 @@ Standard_Boolean XmlObjMgt_GP::Translate(const XmlObjMgt_DOMString& theStr, Tran
       if (aStr)
       {
 
-        //  gp_XYZ aTransl;
-        ::Translate(aStr, (gp_XYZ&)T.TranslationPart());
+        //  Coords3d aTransl;
+        ::Translate(aStr, (Coords3d&)T.TranslationPart());
         aResult = Standard_True;
       }
     }
@@ -98,7 +98,7 @@ Standard_Boolean XmlObjMgt_GP::Translate(const XmlObjMgt_DOMString& theStr, gp_M
 
 //=================================================================================================
 
-Standard_Boolean XmlObjMgt_GP::Translate(const XmlObjMgt_DOMString& theStr, gp_XYZ& P)
+Standard_Boolean XmlObjMgt_GP::Translate(const XmlObjMgt_DOMString& theStr, Coords3d& P)
 {
   return (::Translate(theStr.GetString(), P) != 0);
 }
@@ -107,7 +107,7 @@ Standard_Boolean XmlObjMgt_GP::Translate(const XmlObjMgt_DOMString& theStr, gp_X
 
 static const char* Translate(const char* theStr, gp_Mat& M)
 {
-  gp_XYZ aC;
+  Coords3d aC;
 
   theStr = Translate(theStr, aC);
   if (theStr)
@@ -127,7 +127,7 @@ static const char* Translate(const char* theStr, gp_Mat& M)
 
 //=================================================================================================
 
-static const char* Translate(const char* theStr, gp_XYZ& P)
+static const char* Translate(const char* theStr, Coords3d& P)
 {
   char* ptr;
   if (theStr)

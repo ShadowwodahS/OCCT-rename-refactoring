@@ -1017,24 +1017,24 @@ void GeomFill_ConstrainedFilling::PerformS0()
   Standard_Integer nj     = ncpol[1]->Length();
   S0                      = new TColgp_HArray2OfPnt(1, ni, 1, nj);
   TColgp_Array2OfPnt& ss0 = S0->ChangeArray2();
-  const gp_XYZ&       c0  = ptch->Corner(0).Coord();
-  const gp_XYZ&       c1  = ptch->Corner(1).Coord();
-  const gp_XYZ&       c2  = ptch->Corner(2).Coord();
-  const gp_XYZ&       c3  = ptch->Corner(3).Coord();
+  const Coords3d&       c0  = ptch->Corner(0).Coord();
+  const Coords3d&       c1  = ptch->Corner(1).Coord();
+  const Coords3d&       c2  = ptch->Corner(2).Coord();
+  const Coords3d&       c3  = ptch->Corner(3).Coord();
   for (i = 1; i <= ni; i++)
   {
     Standard_Real ab1 = ab[1]->Value(i);
     Standard_Real ab3 = ab[3]->Value(i);
-    const gp_XYZ& b0  = ncpol[0]->Value(i).Coord();
-    const gp_XYZ& b2  = ncpol[2]->Value(i).Coord();
+    const Coords3d& b0  = ncpol[0]->Value(i).Coord();
+    const Coords3d& b2  = ncpol[2]->Value(i).Coord();
     for (j = 1; j <= nj; j++)
     {
       Standard_Real ab0   = ab[0]->Value(j);
       Standard_Real ab2   = ab[2]->Value(j);
-      const gp_XYZ& b1    = ncpol[1]->Value(j).Coord();
-      const gp_XYZ& b3    = ncpol[3]->Value(j).Coord();
-      gp_XYZ        polij = b0.Multiplied(ab0);
-      gp_XYZ        temp  = b1.Multiplied(ab1);
+      const Coords3d& b1    = ncpol[1]->Value(j).Coord();
+      const Coords3d& b3    = ncpol[3]->Value(j).Coord();
+      Coords3d        polij = b0.Multiplied(ab0);
+      Coords3d        temp  = b1.Multiplied(ab1);
       polij.Add(temp);
       temp = b2.Multiplied(ab2);
       polij.Add(temp);
@@ -1062,7 +1062,7 @@ void GeomFill_ConstrainedFilling::PerformS1()
   // tgte[ibound](u) - d/dv (S0(u,vbound)) pour ibound = 0 ou 2
   // tgte[ibound](v) - d/du (S0(ubound,v)) pour ibound = 1 ou 3
   // sur les bords ou tgte est defini.
-  gp_XYZ*                   nt[4];
+  Coords3d*                   nt[4];
   const TColgp_Array2OfPnt& ss0 = S0->Array2();
   Standard_Integer          l, i, j, k;
   Standard_Integer          ni = ss0.ColLength();
@@ -1077,7 +1077,7 @@ void GeomFill_ConstrainedFilling::PerformS1()
       Standard_Integer nbp = ntpol[i]->Length();
       Standard_Integer i1 = 0, i2 = 0, j1 = 0, j2 = 0;
       Standard_Boolean inci = 0;
-      nt[i]                 = new gp_XYZ[nbp];
+      nt[i]                 = new Coords3d[nbp];
       switch (i)
       {
         case 0:
@@ -1138,7 +1138,7 @@ void GeomFill_ConstrainedFilling::PerformS1()
   // on calcul les termes correctifs pour le melange.
   Standard_Real coef0 = degree[0] / (nk[0]->Value(2) - nk[0]->Value(1));
   Standard_Real coef1 = degree[1] / (nk[1]->Value(2) - nk[1]->Value(1));
-  gp_XYZ        vtemp, vtemp0, vtemp1;
+  Coords3d        vtemp, vtemp0, vtemp1;
   if (nt[0] && nt[3])
   {
     vtemp0 = nt[0][0].Multiplied(-1.);
@@ -1210,10 +1210,10 @@ void GeomFill_ConstrainedFilling::PerformS1()
   //         - pq[1](i)*pq[2](j)*v[2] - pq[2](j)*pq[3](i)*v[3]
   S1                      = new TColgp_HArray2OfPnt(1, ni, 1, nj);
   TColgp_Array2OfPnt& ss1 = S1->ChangeArray2();
-  const gp_XYZ&       v0  = v[0].XYZ();
-  const gp_XYZ&       v1  = v[1].XYZ();
-  const gp_XYZ&       v2  = v[2].XYZ();
-  const gp_XYZ&       v3  = v[3].XYZ();
+  const Coords3d&       v0  = v[0].XYZ();
+  const Coords3d&       v1  = v[1].XYZ();
+  const Coords3d&       v2  = v[2].XYZ();
+  const Coords3d&       v3  = v[3].XYZ();
 
   for (i = 1; i <= ni; i++)
   {
@@ -1222,7 +1222,7 @@ void GeomFill_ConstrainedFilling::PerformS1()
       pq1 = -pq[1]->Value(i);
     if (nt[3])
       pq3 = pq[3]->Value(i);
-    gp_XYZ t0, t2;
+    Coords3d t0, t2;
     if (nt[0])
       t0 = nt[0][i - 1];
     if (nt[2])
@@ -1234,13 +1234,13 @@ void GeomFill_ConstrainedFilling::PerformS1()
         pq0 = pq[0]->Value(j);
       if (nt[2])
         pq2 = -pq[2]->Value(j);
-      gp_XYZ t1, t3;
+      Coords3d t1, t3;
       if (nt[1])
         t1 = nt[1][j - 1];
       if (nt[3])
         t3 = nt[3][j - 1];
 
-      gp_XYZ tpolij(0., 0., 0.), temp;
+      Coords3d tpolij(0., 0., 0.), temp;
       if (nt[0])
       {
         temp = t0.Multiplied(pq0);

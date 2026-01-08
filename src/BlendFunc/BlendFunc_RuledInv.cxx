@@ -120,7 +120,7 @@ Standard_Boolean BlendFunc_RuledInv::Value(const math_Vector& X, math_Vector& F)
   Vector3d d1cur;
   curv->D1(X(2), ptcur, d1cur);
 
-  const gp_XYZ        nplan = d1cur.Normalized().XYZ();
+  const Coords3d        nplan = d1cur.Normalized().XYZ();
   const Standard_Real theD  = -(nplan.Dot(ptcur.XYZ()));
   const gp_Pnt2d      pt2d(csurf->Value(X(1)));
 
@@ -137,10 +137,10 @@ Standard_Boolean BlendFunc_RuledInv::Value(const math_Vector& X, math_Vector& F)
     surf2->D1(pt2d.X(), pt2d.Y(), pts2, d1u2, d1v2);
   }
 
-  const gp_XYZ temp(pts2.XYZ() - pts1.XYZ());
+  const Coords3d temp(pts2.XYZ() - pts1.XYZ());
 
-  gp_XYZ              ns1   = d1u1.Crossed(d1v1).XYZ();
-  gp_XYZ              ns2   = d1u2.Crossed(d1v2).XYZ();
+  Coords3d              ns1   = d1u1.Crossed(d1v1).XYZ();
+  Coords3d              ns2   = d1u2.Crossed(d1v2).XYZ();
   const Standard_Real norm1 = nplan.Crossed(ns1).Modulus();
   const Standard_Real norm2 = nplan.Crossed(ns2).Modulus();
   ns1.SetLinearForm(nplan.Dot(ns1) / norm1, nplan, -1. / norm1, ns1);

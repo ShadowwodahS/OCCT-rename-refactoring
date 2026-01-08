@@ -60,7 +60,7 @@ typedef gp_Elips2d              Elips2d;
 typedef gp_Hypr2d               Hypr2d;
 typedef gp_Parab2d              Parab2d;
 typedef gp_Pnt2d                Pnt2d;
-typedef gp_Trsf2d               Trsf2d;
+typedef Transform2d               Trsf2d;
 typedef GeomCurve2d            Curve;
 typedef Geom2d_BSplineCurve     BSplineCurve;
 typedef TColStd_Array1OfReal    Array1OfReal;
@@ -99,7 +99,7 @@ static Handle(Geom2d_BSplineCurve) BSplineCurveBuilder(
   if ((Axis.XDirection() ^ Axis.YDirection()) < 0.)
   {
     // Then the axis is left-handed, apply a symmetry to the curve.
-    gp_Trsf2d Sym;
+    Transform2d Sym;
     Sym.SetMirror(gp1::OX2d());
     TheCurve->Transform(Sym);
   }

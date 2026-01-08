@@ -21,21 +21,21 @@
 
 #include <Standard_Integer.hxx>
 #include <math_Vector.hxx>
-class math_Function;
+class Function1;
 
 //! This class implements the Gauss-Kronrod method of
 //! integral computation.
-class math_KronrodSingleIntegration
+class KronrodSingleIntegration
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! An empty constructor.
-  Standard_EXPORT math_KronrodSingleIntegration();
+  Standard_EXPORT KronrodSingleIntegration();
 
   //! Constructor. Takes the function, the lower and upper bound
   //! values, the initial number of Kronrod points
-  Standard_EXPORT math_KronrodSingleIntegration(math_Function&         theFunction,
+  Standard_EXPORT KronrodSingleIntegration(Function1&         theFunction,
                                                 const Standard_Real    theLower,
                                                 const Standard_Real    theUpper,
                                                 const Standard_Integer theNbPnts);
@@ -44,7 +44,7 @@ public:
   //! values, the initial number of Kronrod points, the
   //! tolerance value and the maximal number of iterations as
   //! parameters.
-  Standard_EXPORT math_KronrodSingleIntegration(math_Function&         theFunction,
+  Standard_EXPORT KronrodSingleIntegration(Function1&         theFunction,
                                                 const Standard_Real    theLower,
                                                 const Standard_Real    theUpper,
                                                 const Standard_Integer theNbPnts,
@@ -56,7 +56,7 @@ public:
   //! of Kronrod points, the relative tolerance value and the
   //! maximal number of iterations as parameters.
   //! theNbPnts should be odd and greater then or equal to 3.
-  Standard_EXPORT void Perform(math_Function&         theFunction,
+  Standard_EXPORT void Perform(Function1&         theFunction,
                                const Standard_Real    theLower,
                                const Standard_Real    theUpper,
                                const Standard_Integer theNbPnts);
@@ -70,7 +70,7 @@ public:
   //! solution reaching is:
   //! Abs(Kronrod - Gauss)/Abs(Kronrod) < theTolerance.
   //! theTolerance should be positive.
-  Standard_EXPORT void Perform(math_Function&         theFunction,
+  Standard_EXPORT void Perform(Function1&         theFunction,
                                const Standard_Real    theLower,
                                const Standard_Real    theUpper,
                                const Standard_Integer theNbPnts,
@@ -98,7 +98,7 @@ public:
   //! that were made to compute result.
   Standard_Integer NbIterReached() const;
 
-  Standard_EXPORT static Standard_Boolean GKRule(math_Function&      theFunction,
+  Standard_EXPORT static Standard_Boolean GKRule(Function1&      theFunction,
                                                  const Standard_Real theLower,
                                                  const Standard_Real theUpper,
                                                  const math_Vector&  theGaussP,

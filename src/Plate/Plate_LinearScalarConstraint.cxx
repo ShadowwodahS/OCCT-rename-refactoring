@@ -22,7 +22,7 @@
 Plate_LinearScalarConstraint::Plate_LinearScalarConstraint() {}
 
 Plate_LinearScalarConstraint::Plate_LinearScalarConstraint(const PinpointConstraint& PPC1,
-                                                           const gp_XYZ&                   coeff)
+                                                           const Coords3d&                   coeff)
 
 {
   myPPC  = new Plate_HArray1OfPinpointConstraint(1, 1);
@@ -66,7 +66,7 @@ Plate_LinearScalarConstraint::Plate_LinearScalarConstraint(const Standard_Intege
 {
   myPPC  = new Plate_HArray1OfPinpointConstraint(1, RowLen);
   myCoef = new TColgp_HArray2OfXYZ(1, ColLen, 1, RowLen);
-  myCoef->Init(gp_XYZ(0., 0., 0.));
+  myCoef->Init(Coords3d(0., 0., 0.));
 }
 
 void Plate_LinearScalarConstraint::SetPPC(const Standard_Integer          Index,
@@ -77,7 +77,7 @@ void Plate_LinearScalarConstraint::SetPPC(const Standard_Integer          Index,
 
 void Plate_LinearScalarConstraint::SetCoeff(const Standard_Integer Row,
                                             const Standard_Integer Col,
-                                            const gp_XYZ&          Value)
+                                            const Coords3d&          Value)
 {
   myCoef->ChangeValue(Row, Col) = Value;
 }

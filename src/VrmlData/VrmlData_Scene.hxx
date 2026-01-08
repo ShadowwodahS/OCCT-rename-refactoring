@@ -213,7 +213,7 @@ public:
    * Read one triplet of real values.
    */
   Standard_EXPORT VrmlData_ErrorStatus ReadXYZ(InputBuffer& theBuffer,
-                                               gp_XYZ&            theXYZ,
+                                               Coords3d&            theXYZ,
                                                Standard_Boolean   isApplyScale,
                                                Standard_Boolean   isOnlyPositive) const;
 
@@ -252,7 +252,7 @@ public:
    * @param thePostfix
    *   Optional string that is added before the end of the line.
    */
-  Standard_EXPORT VrmlData_ErrorStatus WriteXYZ(const gp_XYZ&          theXYZ,
+  Standard_EXPORT VrmlData_ErrorStatus WriteXYZ(const Coords3d&          theXYZ,
                                                 const Standard_Boolean isScale,
                                                 const char*            thePostfix = 0L) const;
   /**

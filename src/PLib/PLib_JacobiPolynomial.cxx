@@ -69,7 +69,7 @@ void PLib_JacobiPolynomial::Points(const Standard_Integer NbGaussPoints,
 
   math_Vector DecreasingPoints(1, NbGaussPoints);
 
-  math::GaussPoints(NbGaussPoints, DecreasingPoints);
+  math1::GaussPoints(NbGaussPoints, DecreasingPoints);
 
   // TabPoints consist of only positive increasing values
   for (Standard_Integer i = 1; i <= NbGaussPoints / 2; i++)

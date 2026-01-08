@@ -16,11 +16,11 @@
 
 //=================================================================================================
 
-math_MultipleVarFunction::~math_MultipleVarFunction() {}
+MultipleVarFunction::~MultipleVarFunction() {}
 
 //=================================================================================================
 
-Standard_Integer math_MultipleVarFunction::GetStateNumber()
+Standard_Integer MultipleVarFunction::GetStateNumber()
 {
   return 0;
 }

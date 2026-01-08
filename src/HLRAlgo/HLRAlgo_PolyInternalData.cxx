@@ -386,10 +386,10 @@ Standard_Integer HLRAlgo_PolyInternalData::AddNode(
   HLRAlgo_PolyInternalNode::NodeIndices1& aNodeIndices = pip3->Indices();
   aNodeIndices.NdSg                                   = 0;
   aNodeIndices.Flag                                   = 0;
-  Nod3RValues.Point                                   = gp_XYZ(theX3, theY3, theZ3);
+  Nod3RValues.Point                                   = Coords3d(theX3, theY3, theZ3);
   Nod3RValues.UV            = coef2 * theNod1RValues.UV + theCoef1 * theNod2RValues.UV;
   Nod3RValues.Scal          = theNod1RValues.Scal * coef2 + theNod2RValues.Scal * theCoef1;
-  const gp_XYZ        aXYZ  = coef2 * theNod1RValues.Normal + theCoef1 * theNod2RValues.Normal;
+  const Coords3d        aXYZ  = coef2 * theNod1RValues.Normal + theCoef1 * theNod2RValues.Normal;
   const Standard_Real aNorm = aXYZ.Modulus();
 
   if (aNorm > 0)
@@ -398,7 +398,7 @@ Standard_Integer HLRAlgo_PolyInternalData::AddNode(
   }
   else
   {
-    Nod3RValues.Normal = gp_XYZ(1., 0., 0.);
+    Nod3RValues.Normal = Coords3d(1., 0., 0.);
 #ifdef OCCT_DEBUG
     if (HLRAlgo_PolyInternalData_ERROR)
       std::cout << "HLRAlgo_PolyInternalData::AddNode" << std::endl;

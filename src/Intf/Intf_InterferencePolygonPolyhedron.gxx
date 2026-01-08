@@ -592,7 +592,7 @@ void Intf_InterferencePolygonPolyhedron::Interference
 
       Standard_Integer pTri[3];
       ToolPolyh::Triangle1(thePolyh, indTri, pTri[0], pTri[1], pTri[2]);
-      gp_XYZ triNor;                                   // Vecteur normal.
+      Coords3d triNor;                                   // Vecteur normal.
       Standard_Real triDp = 0.;                        // Distance polaire.
       
       Intf::PlaneEquation(ToolPolyh::Point(thePolyh, pTri[0]),
@@ -602,7 +602,7 @@ void Intf_InterferencePolygonPolyhedron::Interference
 
       // enlarge boundary segment
       if ( iLin == 1 ) {
-	gp_XYZ dif = p1.XYZ() - p2.XYZ();
+	Coords3d dif = p1.XYZ() - p2.XYZ();
 	Standard_Real dist = dif.Modulus();
 	if ( dist > gp1::Resolution() ) {
 	  dif /= dist;
@@ -615,7 +615,7 @@ void Intf_InterferencePolygonPolyhedron::Interference
 	}
       }
       else if ( iLin == ToolPolygon3d::NbSegments(thePolyg) ) {
-	gp_XYZ dif = p2.XYZ() - p1.XYZ();
+	Coords3d dif = p2.XYZ() - p1.XYZ();
 	Standard_Real dist = dif.Modulus();
 	if ( dist > gp1::Resolution() ) {
 	  dif /= dist;
@@ -765,7 +765,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect
   Standard_Real t;
   Standard_Integer pTri[3];
   ToolPolyh::Triangle1(thePolyh, TTri, pTri[0], pTri[1], pTri[2]);
-  gp_XYZ triNor;                                   // Vecteur normal.
+  Coords3d triNor;                                   // Vecteur normal.
   Standard_Real triDp;                             // Distance polaire.
 
   Intf::PlaneEquation(ToolPolyh::Point(thePolyh, pTri[0]),
@@ -776,7 +776,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect
 
   Standard_Real dBegTri=(triNor*BegO.XYZ())-triDp; // Distance <BegO> plan
   Standard_Real dEndTri=(triNor*EndO.XYZ())-triDp; // Distance <EndO> plan
-  gp_XYZ segO=EndO.XYZ()-BegO.XYZ();
+  Coords3d segO=EndO.XYZ()-BegO.XYZ();
   segO.Normalize();
   Standard_Boolean NoIntersectionWithTriangle = Standard_False;
 
@@ -802,16 +802,16 @@ void Intf_InterferencePolygonPolyhedron::Intersect
     }
   }
   if(NoIntersectionWithTriangle == Standard_False) { 
-    gp_XYZ spLieu=BegO.XYZ()+((EndO.XYZ()-BegO.XYZ())*param);
+    Coords3d spLieu=BegO.XYZ()+((EndO.XYZ()-BegO.XYZ())*param);
     Standard_Real dPiE[3] = { 0.0, 0.0, 0.0 }, dPtPi[3], sigd;
     Standard_Integer is = 0;
     Standard_Integer sEdge=-1;
     Standard_Integer sVertex=-1;
     Standard_Integer tbreak=0;
     { //-- is = 0
-      gp_XYZ segT(ToolPolyh::Point(thePolyh, pTri[1]).XYZ()-
+      Coords3d segT(ToolPolyh::Point(thePolyh, pTri[1]).XYZ()-
 		  ToolPolyh::Point(thePolyh, pTri[0]).XYZ());
-      gp_XYZ vecP(spLieu-ToolPolyh::Point(thePolyh, pTri[0]).XYZ());
+      Coords3d vecP(spLieu-ToolPolyh::Point(thePolyh, pTri[0]).XYZ());
       dPtPi[0]=vecP.Modulus();
       if (dPtPi[0]<=floatgap) {
 	sVertex=0;
@@ -819,7 +819,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect
 	tbreak=1;
       }
       else { 
-	gp_XYZ segT_x_vecP(segT^vecP);
+	Coords3d segT_x_vecP(segT^vecP);
 	Standard_Real Modulus_segT_x_vecP = segT_x_vecP.Modulus();
 	sigd = segT_x_vecP*triNor;
 	if(sigd>floatgap) 
@@ -839,9 +839,9 @@ void Intf_InterferencePolygonPolyhedron::Intersect
     }
 
     if(tbreak==0) { //-- is = 1 
-      gp_XYZ segT(ToolPolyh::Point(thePolyh, pTri[2]).XYZ()-
+      Coords3d segT(ToolPolyh::Point(thePolyh, pTri[2]).XYZ()-
 		  ToolPolyh::Point(thePolyh, pTri[1]).XYZ());
-      gp_XYZ vecP(spLieu-ToolPolyh::Point(thePolyh, pTri[1]).XYZ());
+      Coords3d vecP(spLieu-ToolPolyh::Point(thePolyh, pTri[1]).XYZ());
       dPtPi[1]=vecP.Modulus();
       if (dPtPi[1]<=floatgap) {
 	sVertex=1;
@@ -849,7 +849,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect
 	tbreak=1;
       }
       else { 
-	gp_XYZ segT_x_vecP(segT^vecP);
+	Coords3d segT_x_vecP(segT^vecP);
 	Standard_Real Modulus_segT_x_vecP = segT_x_vecP.Modulus();
 	sigd = segT_x_vecP*triNor;
 	if(sigd>floatgap) 
@@ -868,15 +868,15 @@ void Intf_InterferencePolygonPolyhedron::Intersect
       }
     }
     if(tbreak==0) { //-- is = 2
-      gp_XYZ segT(ToolPolyh::Point(thePolyh, pTri[0]).XYZ()-
+      Coords3d segT(ToolPolyh::Point(thePolyh, pTri[0]).XYZ()-
 		  ToolPolyh::Point(thePolyh, pTri[2]).XYZ());
-      gp_XYZ vecP(spLieu-ToolPolyh::Point(thePolyh, pTri[2]).XYZ());
+      Coords3d vecP(spLieu-ToolPolyh::Point(thePolyh, pTri[2]).XYZ());
       dPtPi[2]=vecP.Modulus();
       if (dPtPi[2]<=floatgap) {
 	sVertex=2;
 	is=2;
       }
-      gp_XYZ segT_x_vecP(segT^vecP);
+      Coords3d segT_x_vecP(segT^vecP);
       Standard_Real Modulus_segT_x_vecP = segT_x_vecP.Modulus();
       sigd = segT_x_vecP*triNor;
       if(sigd>floatgap) 
@@ -1010,7 +1010,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect
 	      if(IsInSegment(VecPol,Vector3d(BegO,PO),NVecPol,ParamOnO,Tolerance)) {
 		if(IsInSegment(VecTri,Vector3d(BegT,PT),NVecTri,ParamOnT,Tolerance)) {
 		  //-- cout<<" * "<<endl;
-		  gp_XYZ spLieu=BegT.XYZ()+((EndT.XYZ()-BegT.XYZ())*param);
+		  Coords3d spLieu=BegT.XYZ()+((EndT.XYZ()-BegT.XYZ())*param);
 		  Standard_Integer tmin,tmax;
 		  if(pTri_i>pTri_ip1pc3) { 
 		    tmin=pTri_ip1pc3; tmax=pTri_i; 
@@ -1042,7 +1042,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const Point3d& BegO,
                                                     const Standard_Boolean Infinite,
                                                     const Standard_Integer TTri, 
                                                     const Polyhedron& thePolyh, 
-                                                    const gp_XYZ& TriNormal,
+                                                    const Coords3d& TriNormal,
                                                     const Standard_Real /*TriDp*/, 
                                                     const Standard_Real dBegTri, 
                                                     const Standard_Real dEndTri)
@@ -1051,7 +1051,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const Point3d& BegO,
   Standard_Real t;
   Standard_Integer pTri[3];
   ToolPolyh::Triangle1(thePolyh, TTri, pTri[0], pTri[1], pTri[2]);
-  gp_XYZ triNor = TriNormal;                                   // Vecteur normal.
+  Coords3d triNor = TriNormal;                                   // Vecteur normal.
   //Standard_Real triDp = TriDp;                             // Distance polaire.
 
 
@@ -1082,16 +1082,16 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const Point3d& BegO,
     }
   }
   if(NoIntersectionWithTriangle == Standard_False) { 
-    gp_XYZ spLieu=BegO.XYZ()+((EndO.XYZ()-BegO.XYZ())*param);
+    Coords3d spLieu=BegO.XYZ()+((EndO.XYZ()-BegO.XYZ())*param);
     Standard_Real dPiE[3] = { 0.0, 0.0, 0.0 }, dPtPi[3], sigd;
     Standard_Integer is = 0;
     Standard_Integer sEdge=-1;
     Standard_Integer sVertex=-1;
     Standard_Integer tbreak=0;
     { //-- is = 0
-      gp_XYZ segT(ToolPolyh::Point(thePolyh, pTri[1]).XYZ()-
+      Coords3d segT(ToolPolyh::Point(thePolyh, pTri[1]).XYZ()-
 		  ToolPolyh::Point(thePolyh, pTri[0]).XYZ());
-      gp_XYZ vecP(spLieu-ToolPolyh::Point(thePolyh, pTri[0]).XYZ());
+      Coords3d vecP(spLieu-ToolPolyh::Point(thePolyh, pTri[0]).XYZ());
       dPtPi[0]=vecP.Modulus();
       if (dPtPi[0]<=floatgap) {
 	sVertex=0;
@@ -1099,7 +1099,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const Point3d& BegO,
 	tbreak=1;
       }
       else { 
-	gp_XYZ segT_x_vecP(segT^vecP);
+	Coords3d segT_x_vecP(segT^vecP);
 	Standard_Real Modulus_segT_x_vecP = segT_x_vecP.Modulus();
 	sigd = segT_x_vecP*triNor;
 	if(sigd>floatgap) 
@@ -1119,9 +1119,9 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const Point3d& BegO,
     }
     
     if(tbreak==0) { //-- is = 1 
-      gp_XYZ segT(ToolPolyh::Point(thePolyh, pTri[2]).XYZ()-
+      Coords3d segT(ToolPolyh::Point(thePolyh, pTri[2]).XYZ()-
 		  ToolPolyh::Point(thePolyh, pTri[1]).XYZ());
-      gp_XYZ vecP(spLieu-ToolPolyh::Point(thePolyh, pTri[1]).XYZ());
+      Coords3d vecP(spLieu-ToolPolyh::Point(thePolyh, pTri[1]).XYZ());
       dPtPi[1]=vecP.Modulus();
       if (dPtPi[1]<=floatgap) {
 	sVertex=1;
@@ -1129,7 +1129,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const Point3d& BegO,
 	tbreak=1;
       }
       else { 
-	gp_XYZ segT_x_vecP(segT^vecP);
+	Coords3d segT_x_vecP(segT^vecP);
 	Standard_Real Modulus_segT_x_vecP = segT_x_vecP.Modulus();
 	sigd = segT_x_vecP*triNor;
 	if(sigd>floatgap) 
@@ -1148,15 +1148,15 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const Point3d& BegO,
       }
     }
     if(tbreak==0) { //-- is = 2
-      gp_XYZ segT(ToolPolyh::Point(thePolyh, pTri[0]).XYZ()-
+      Coords3d segT(ToolPolyh::Point(thePolyh, pTri[0]).XYZ()-
 		  ToolPolyh::Point(thePolyh, pTri[2]).XYZ());
-      gp_XYZ vecP(spLieu-ToolPolyh::Point(thePolyh, pTri[2]).XYZ());
+      Coords3d vecP(spLieu-ToolPolyh::Point(thePolyh, pTri[2]).XYZ());
       dPtPi[2]=vecP.Modulus();
       if (dPtPi[2]<=floatgap) {
 	sVertex=2;
 	is=2;
       }
-      gp_XYZ segT_x_vecP(segT^vecP);
+      Coords3d segT_x_vecP(segT^vecP);
       Standard_Real Modulus_segT_x_vecP = segT_x_vecP.Modulus();
       sigd = segT_x_vecP*triNor;
       if(sigd>floatgap) 
@@ -1290,7 +1290,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const Point3d& BegO,
 	      if(IsInSegment(VecPol,Vector3d(BegO,PO),NVecPol,ParamOnO,Tolerance)) {
 		if(IsInSegment(VecTri,Vector3d(BegT,PT),NVecTri,ParamOnT,Tolerance)) {
 		  //-- cout<<" * "<<endl;
-		  gp_XYZ spLieu=BegT.XYZ()+((EndT.XYZ()-BegT.XYZ())*param);
+		  Coords3d spLieu=BegT.XYZ()+((EndT.XYZ()-BegT.XYZ())*param);
 		  Standard_Integer tmin,tmax;
 		  if(pTri_i>pTri_ip1pc3) { 
 		    tmin=pTri_ip1pc3; tmax=pTri_i; 

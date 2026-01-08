@@ -28,7 +28,7 @@
 //! This class implements the solutions of the equation
 //! a*Cos(x)*Cos(x) + 2*b*Cos(x)*Sin(x) + c*Cos(x) + d*Sin(x) + e
 //! The degree of this equation can be 4, 3 or 2.
-class math_TrigonometricFunctionRoots
+class TrigonometricFunctionRoots
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -37,7 +37,7 @@ public:
   //! performs the resolution of the equation above.
   //! The solutions must be contained in [InfBound, SupBound].
   //! InfBound and SupBound can be set by default to 0 and 2*PI.
-  Standard_EXPORT math_TrigonometricFunctionRoots(const Standard_Real A,
+  Standard_EXPORT TrigonometricFunctionRoots(const Standard_Real A,
                                                   const Standard_Real B,
                                                   const Standard_Real C,
                                                   const Standard_Real D,
@@ -49,7 +49,7 @@ public:
   //! the resolution of d*sin(x) + e = 0.
   //! The solutions must be contained in [InfBound, SupBound].
   //! InfBound and SupBound can be set by default to 0 and 2*PI.
-  Standard_EXPORT math_TrigonometricFunctionRoots(const Standard_Real D,
+  Standard_EXPORT TrigonometricFunctionRoots(const Standard_Real D,
                                                   const Standard_Real E,
                                                   const Standard_Real InfBound,
                                                   const Standard_Real SupBound);
@@ -58,7 +58,7 @@ public:
   //! the resolution of c*Cos(x) + d*sin(x) + e = 0.
   //! The solutions must be contained in [InfBound, SupBound].
   //! InfBound and SupBound can be set by default to 0 and 2*PI.
-  Standard_EXPORT math_TrigonometricFunctionRoots(const Standard_Real C,
+  Standard_EXPORT TrigonometricFunctionRoots(const Standard_Real C,
                                                   const Standard_Real D,
                                                   const Standard_Real E,
                                                   const Standard_Real InfBound,

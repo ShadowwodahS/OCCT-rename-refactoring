@@ -26,7 +26,7 @@
 class IGESData_IGESModel;
 class IGESData_Protocol;
 class IGESData_IGESEntity;
-class gp_GTrsf;
+class GeneralTransform;
 class Transform3d;
 
 class IGESData_ToolLocation;
@@ -101,7 +101,7 @@ public:
 
   //! Returns the Explicit Location defined by the Transformation
   //! Matrix of <ent>. Identity if there is none
-  Standard_EXPORT gp_GTrsf ExplicitLocation(const Handle(IGESData_IGESEntity)& ent) const;
+  Standard_EXPORT GeneralTransform ExplicitLocation(const Handle(IGESData_IGESEntity)& ent) const;
 
   //! Returns True if more than one Parent has been determined for
   //! <ent>, by adding direct References and Associativities
@@ -125,19 +125,19 @@ public:
   //! there is one : this Location is itself given as compound
   //! according dependences on the Parent, if there are some.
   //! Returns an Identity Transformation if no Parent is recorded.
-  Standard_EXPORT gp_GTrsf ParentLocation(const Handle(IGESData_IGESEntity)& ent) const;
+  Standard_EXPORT GeneralTransform ParentLocation(const Handle(IGESData_IGESEntity)& ent) const;
 
   //! Returns the effective Location of an Entity, i.e. the
   //! composition of its proper Transformation Matrix (returned by
   //! Transf) and its Parent's Location (returned by ParentLocation)
-  Standard_EXPORT gp_GTrsf EffectiveLocation(const Handle(IGESData_IGESEntity)& ent) const;
+  Standard_EXPORT GeneralTransform EffectiveLocation(const Handle(IGESData_IGESEntity)& ent) const;
 
   //! Analysis a Location given as a GTrsf, by trying to convert it
   //! to a Trsf (i.e. to a True Location of which effect is
   //! described by an Isometry or a Similarity)
   //! Works with the Precision given by default or by SetPrecision
   //! Calls ConvertLocation (see below)
-  Standard_EXPORT Standard_Boolean AnalyseLocation(const gp_GTrsf& loc, Transform3d& result) const;
+  Standard_EXPORT Standard_Boolean AnalyseLocation(const GeneralTransform& loc, Transform3d& result) const;
 
   //! Conversion of a Location, from GTrsf form to Trsf form
   //! Works with a precision given as argument.
@@ -148,7 +148,7 @@ public:
   //!
   //! As a class method, it can be called separately
   Standard_EXPORT static Standard_Boolean ConvertLocation(const Standard_Real prec,
-                                                          const gp_GTrsf&     loc,
+                                                          const GeneralTransform&     loc,
                                                           Transform3d&            result,
                                                           const Standard_Real uni = 1);
 

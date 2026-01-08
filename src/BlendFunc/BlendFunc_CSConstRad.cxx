@@ -176,7 +176,7 @@ Standard_Boolean BlendFunc_CSConstRad::IsSolution(const math_Vector& Sol, const 
     resul.SetLinearForm(ray, ns, Vector3d(ptc, pts));
     secmember(3) = -2. * (temp.Dot(resul));
 
-    math_Gauss Resol(gradsol);
+    Gauss Resol(gradsol);
     if (Resol.IsDone())
     {
 
@@ -579,7 +579,7 @@ Standard_Boolean BlendFunc_CSConstRad::GetSection(const Standard_Real Param,
   resul.SetLinearForm(ray, temp, Vector3d(ptc, pts));
   secmember(3) = -2. * ray * (dnw.Dot(resul)); // jag 950105 il manquait ray
 
-  math_Gauss Resol(gradsol);
+  Gauss Resol(gradsol);
   if (Resol.IsDone())
   {
 
@@ -864,7 +864,7 @@ Standard_Boolean BlendFunc_CSConstRad::Section(const Point2&    P,
   resul.SetLinearForm(ray, temp, Vector3d(ptc, pts));
   secmember(3) = -2. * ray * (dnw.Dot(resul)); // jag 950105 il manquait ray
 
-  math_Gauss Resol(gradsol);
+  Gauss Resol(gradsol);
 
   if (Resol.IsDone())
   {

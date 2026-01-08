@@ -29,7 +29,7 @@ class math_FunctionWithDerivative;
 //! a single variable which is near an initial guess using a minimization
 //! algorithm.Knowledge of the derivative is required. The
 //! algorithm used is the same as in
-class math_FunctionRoot
+class FunctionRootSolver
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -40,7 +40,7 @@ public:
   //! the expected solution does not stay in the range A..B.
   //! The solution is found when abs(Xi - Xi-1) <= Tolerance;
   //! The maximum number of iterations allowed is given by NbIterations.
-  Standard_EXPORT math_FunctionRoot(math_FunctionWithDerivative& F,
+  Standard_EXPORT FunctionRootSolver(math_FunctionWithDerivative& F,
                                     const Standard_Real          Guess,
                                     const Standard_Real          Tolerance,
                                     const Standard_Integer       NbIterations = 100);
@@ -52,7 +52,7 @@ public:
   //! range A..B
   //! The solution is found when abs(Xi - Xi-1) <= Tolerance;
   //! The maximum number of iterations allowed is given by NbIterations.
-  Standard_EXPORT math_FunctionRoot(math_FunctionWithDerivative& F,
+  Standard_EXPORT FunctionRootSolver(math_FunctionWithDerivative& F,
                                     const Standard_Real          Guess,
                                     const Standard_Real          Tolerance,
                                     const Standard_Real          A,

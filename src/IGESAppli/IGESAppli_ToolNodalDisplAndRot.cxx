@@ -100,7 +100,7 @@ void NodalDisplRotTool::ReadOwnParams(const Handle(IGESAppli_NodalDisplAndRot)& 
         tempArray  = new TColgp_HArray1OfXYZ(1, nbcases);
         for (Standard_Integer k = 1; k <= nbcases; k++)
         {
-          gp_XYZ atrans, arot;
+          Coords3d atrans, arot;
           if (PR.ReadXYZ(PR.CurrentList(1, 3), "Translation XYZ", atrans))
             tempArray->SetValue(k, atrans);
           if (PR.ReadXYZ(PR.CurrentList(1, 3), "Rotational XYZ", arot))
@@ -226,7 +226,7 @@ void NodalDisplRotTool::OwnDump(const Handle(IGESAppli_NodalDisplAndRot)& ent,
   IGESData_DumpEntities(S, dumper, level, 1, nbcases, ent->Note);
   S << "\n";
 
-  //  gp_GTrsf loca;  // true location n.u.
+  //  GeneralTransform loca;  // true location n.u.
   switch (level)
   {
     case 4:

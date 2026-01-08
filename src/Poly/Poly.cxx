@@ -575,7 +575,7 @@ Standard_Boolean Poly1::Intersect(const Handle(MeshTriangulation)& theTri,
                                  Standard_Real&                    theDistance)
 {
   const Standard_Real aConf = 1E-15;
-  const gp_XYZ&       aLoc  = theAxis.Location().XYZ();
+  const Coords3d&       aLoc  = theAxis.Location().XYZ();
   const Dir3d&       aDir  = theAxis.Direction();
 
   Standard_Real    aResult      = theIsClosest ? RealLast() : 0.0;
@@ -631,11 +631,11 @@ static double Determinant(const double a[3][4], const int c1, const int c2, cons
 // function : IntersectTriLine
 // purpose  : Intersect a triangle with a line
 //=======================================================================
-Standard_Integer Poly1::IntersectTriLine(const gp_XYZ&  theStart,
+Standard_Integer Poly1::IntersectTriLine(const Coords3d&  theStart,
                                         const Dir3d&  theDir,
-                                        const gp_XYZ&  theV0,
-                                        const gp_XYZ&  theV1,
-                                        const gp_XYZ&  theV2,
+                                        const Coords3d&  theV0,
+                                        const Coords3d&  theV1,
+                                        const Coords3d&  theV2,
                                         Standard_Real& theParam)
 {
   int          aRes  = 0;

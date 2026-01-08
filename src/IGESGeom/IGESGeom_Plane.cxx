@@ -31,7 +31,7 @@ void IGESGeom_Plane::Init(const Standard_Real                A,
                           const Standard_Real                C,
                           const Standard_Real                D,
                           const Handle(IGESData_IGESEntity)& aCurve,
-                          const gp_XYZ&                      attach,
+                          const Coords3d&                      attach,
                           const Standard_Real                aSize)
 {
   theA      = A;
@@ -96,7 +96,7 @@ Point3d IGESGeom_Plane::TransformedSymbolAttach() const
 {
   if (theSize > 0 && HasTransf())
   {
-    gp_XYZ Symbol = theAttach;
+    Coords3d Symbol = theAttach;
     Location().Transforms(Symbol);
     return Point3d(Symbol);
   }
@@ -132,9 +132,9 @@ void IGESGeom_Plane::TransformedEquation(Standard_Real& A,
   x3 = theD / theA;
   y3 = 0.0;
   z3 = 0.0;
-  gp_XYZ P1(x1, y1, z1);
-  gp_XYZ P2(x2, y2, z2);
-  gp_XYZ P3(x3, y3, z3);
+  Coords3d P1(x1, y1, z1);
+  Coords3d P2(x2, y2, z2);
+  Coords3d P3(x3, y3, z3);
   Location().Transforms(P1);
   Location().Transforms(P2);
   Location().Transforms(P3);

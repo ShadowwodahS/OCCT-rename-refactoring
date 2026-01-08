@@ -81,7 +81,7 @@ protected:
   //! (maximal distance of two ones is taken into account).
   //! Returns the result of this comparison: -1 - small distance, +1 - big distance,
   //! 0 - Dist == theMaxDeflection. Comparisons are done with internal tolerances.
-  Standard_EXPORT Standard_Integer CheckDeflection(const gp_XYZ&       theMidPt,
+  Standard_EXPORT Standard_Integer CheckDeflection(const Coords3d&       theMidPt,
                                                    const Standard_Real theMaxDeflection) const;
 
   //! Returns radius of a circle obtained by intersection the quadric with a plane

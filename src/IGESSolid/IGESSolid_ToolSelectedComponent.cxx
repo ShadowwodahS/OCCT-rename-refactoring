@@ -42,7 +42,7 @@ void SelectedComponentTool::ReadOwnParams(const Handle(IGESSolid_SelectedCompone
                                                     IGESData_ParamReader& PR) const
 {
   Handle(IGESSolid_BooleanTree) tempEntity;
-  gp_XYZ                        tempSelectPoint;
+  Coords3d                        tempSelectPoint;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
 
   PR.ReadEntity(IR,
@@ -79,7 +79,7 @@ void SelectedComponentTool::OwnCopy(const Handle(IGESSolid_SelectedComponent)& a
                                               Interface_CopyTool&                        TC) const
 {
   DeclareAndCast(IGESSolid_BooleanTree, tempEntity, TC.Transferred(another->Component()));
-  gp_XYZ tempSelectPoint = another->SelectPoint().XYZ();
+  Coords3d tempSelectPoint = another->SelectPoint().XYZ();
   ent->Init(tempEntity, tempSelectPoint);
 }
 

@@ -460,21 +460,21 @@ Standard_Integer RWObj_Reader::triangulatePolygonFan(
 
 //=================================================================================================
 
-gp_XYZ RWObj_Reader::polygonCenter(const NCollection_Array1<Standard_Integer>& theIndices)
+Coords3d RWObj_Reader::polygonCenter(const NCollection_Array1<Standard_Integer>& theIndices)
 {
   if (theIndices.Size() < 3)
   {
-    return gp_XYZ(0.0, 0.0, 0.0);
+    return Coords3d(0.0, 0.0, 0.0);
   }
   else if (theIndices.Size() == 4)
   {
-    gp_XYZ aCenter = getNode(theIndices.Value(theIndices.Lower() + 0)).XYZ()
+    Coords3d aCenter = getNode(theIndices.Value(theIndices.Lower() + 0)).XYZ()
                      + getNode(theIndices.Value(theIndices.Lower() + 2)).XYZ();
     aCenter /= 2.0;
     return aCenter;
   }
 
-  gp_XYZ aCenter(0, 0, 0);
+  Coords3d aCenter(0, 0, 0);
   for (NCollection_Array1<Standard_Integer>::Iterator aPntIter(theIndices); aPntIter.More();
        aPntIter.Next())
   {
@@ -487,21 +487,21 @@ gp_XYZ RWObj_Reader::polygonCenter(const NCollection_Array1<Standard_Integer>& t
 
 //=================================================================================================
 
-gp_XYZ RWObj_Reader::polygonNormal(const NCollection_Array1<Standard_Integer>& theIndices)
+Coords3d RWObj_Reader::polygonNormal(const NCollection_Array1<Standard_Integer>& theIndices)
 {
-  const gp_XYZ aCenter = polygonCenter(theIndices);
-  gp_XYZ       aMaxDir = getNode(theIndices.First()).XYZ() - aCenter;
-  gp_XYZ       aNormal = (getNode(theIndices.Last()).XYZ() - aCenter).Crossed(aMaxDir);
+  const Coords3d aCenter = polygonCenter(theIndices);
+  Coords3d       aMaxDir = getNode(theIndices.First()).XYZ() - aCenter;
+  Coords3d       aNormal = (getNode(theIndices.Last()).XYZ() - aCenter).Crossed(aMaxDir);
   for (int aPntIter = theIndices.Lower(); aPntIter < theIndices.Upper(); ++aPntIter)
   {
-    const gp_XYZ aTmpDir2 = getNode(theIndices.Value(aPntIter + 1)).XYZ() - aCenter;
+    const Coords3d aTmpDir2 = getNode(theIndices.Value(aPntIter + 1)).XYZ() - aCenter;
     if (aTmpDir2.SquareModulus() > aMaxDir.SquareModulus())
     {
       aMaxDir = aTmpDir2;
     }
 
-    const gp_XYZ aTmpDir1 = getNode(theIndices.Value(aPntIter)).XYZ() - aCenter;
-    gp_XYZ       aDelta   = aTmpDir1.Crossed(aTmpDir2);
+    const Coords3d aTmpDir1 = getNode(theIndices.Value(aPntIter)).XYZ() - aCenter;
+    Coords3d       aDelta   = aTmpDir1.Crossed(aTmpDir2);
     if (aNormal.Dot(aDelta) < 0.0)
     {
       aDelta *= -1.0;
@@ -528,10 +528,10 @@ Standard_Integer RWObj_Reader::triangulatePolygon(
     return 0;
   }
 
-  const gp_XYZ aPolygonNorm = polygonNormal(theIndices);
+  const Coords3d aPolygonNorm = polygonNormal(theIndices);
 
   // map polygon onto plane
-  gp_XYZ aXDir;
+  Coords3d aXDir;
   {
     const double aAbsXYZ[] = {Abs(aPolygonNorm.X()), Abs(aPolygonNorm.Y()), Abs(aPolygonNorm.Z())};
     Standard_Integer aMinI = (aAbsXYZ[0] < aAbsXYZ[1]) ? 0 : 1;
@@ -542,7 +542,7 @@ Standard_Integer RWObj_Reader::triangulatePolygon(
     aXDir.ChangeCoord(aI1)       = aPolygonNorm.Coord(aI2);
     aXDir.ChangeCoord(aI2)       = -aPolygonNorm.Coord(aI1);
   }
-  const gp_XYZ aYDir = aPolygonNorm ^ aXDir;
+  const Coords3d aYDir = aPolygonNorm ^ aXDir;
 
   Handle(NCollection_IncAllocator)       anAllocator = new NCollection_IncAllocator();
   Handle(BRepMesh_DataStructureOfDelaun) aMeshStructure =
@@ -551,7 +551,7 @@ Standard_Integer RWObj_Reader::triangulatePolygon(
   for (Standard_Integer aNodeIter = 0; aNodeIter < aNbElemNodes; ++aNodeIter)
   {
     const Standard_Integer aNodeIndex = theIndices.Value(theIndices.Lower() + aNodeIter);
-    const gp_XYZ           aPnt3d     = getNode(aNodeIndex).XYZ();
+    const Coords3d           aPnt3d     = getNode(aNodeIndex).XYZ();
     Coords2d                  aPnt2d(aXDir * aPnt3d, aYDir * aPnt3d);
     BRepMesh_Vertex        aVertex(aPnt2d, aNodeIndex, BRepMesh_Frontier);
     anIndexes.Append(aMeshStructure->AddNode(aVertex));

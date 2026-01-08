@@ -22,7 +22,7 @@ struct Select3D_Pnt
 
   operator Point3d() const { return Point3d(x, y, z); }
 
-  operator gp_XYZ() const { return gp_XYZ(x, y, z); }
+  operator Coords3d() const { return Coords3d(x, y, z); }
 
   Point3d operator=(const Point3d& thePnt)
   {

@@ -25,7 +25,7 @@
 #include <GProp_ValueType.hxx>
 #include <Standard_Boolean.hxx>
 #include <math_Function.hxx>
-class gp_XYZ;
+class Coords3d;
 
 //! This class represents the integrand function for
 //! computation of an inner integral. The returned value
@@ -46,7 +46,7 @@ class gp_XYZ;
 //! surface and a point. Otherwise all computations are
 //! performed for the region of space delimited by a surface
 //! and a plane.
-class BRepGProp_UFunction : public math_Function
+class BRepGProp_UFunction : public Function1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -87,7 +87,7 @@ private:
   //! for computation of center of mass and inertia values
   //! by plane.
   Standard_EXPORT Standard_Real VolumeValue(const Standard_Real X,
-                                            gp_XYZ&             thePMP0,
+                                            Coords3d&             thePMP0,
                                             Standard_Real&      theS,
                                             Standard_Real&      theD1);
 

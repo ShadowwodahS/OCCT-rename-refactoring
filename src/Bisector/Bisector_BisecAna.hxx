@@ -32,7 +32,7 @@ class gp_Vec2d;
 class Geom2d_Point;
 class GccInt_Bisec;
 class Geom2d_Geometry;
-class gp_Trsf2d;
+class Transform2d;
 
 class Bisector_BisecAna;
 DEFINE_STANDARD_HANDLE(Bisector_BisecAna, Bisector_Curve)
@@ -119,7 +119,7 @@ public:
 
   Standard_EXPORT Handle(Geom2d_Geometry) Copy() const Standard_OVERRIDE;
 
-  Standard_EXPORT void Transform(const gp_Trsf2d& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform2d& T) Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Real FirstParameter() const Standard_OVERRIDE;
 

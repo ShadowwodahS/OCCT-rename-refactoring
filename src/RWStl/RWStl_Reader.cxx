@@ -56,7 +56,7 @@ public:
   }
 
   //! Add new triangle
-  void AddTriangle(const gp_XYZ theElemNodes[3])
+  void AddTriangle(const Coords3d theElemNodes[3])
   {
     Poly_MergeNodesTool::AddTriangle(theElemNodes);
 
@@ -108,9 +108,9 @@ inline static float readStlFloat(const char* theData)
 }
 
 //! Read a Little Endian 32 bits float
-inline static gp_XYZ readStlFloatVec3(const char* theData)
+inline static Coords3d readStlFloatVec3(const char* theData)
 {
-  return gp_XYZ(readStlFloat(theData),
+  return Coords3d(readStlFloat(theData),
                 readStlFloat(theData + sizeof(float)),
                 readStlFloat(theData + sizeof(float) * 2));
 }
@@ -352,7 +352,7 @@ Standard_Boolean RWStl_Reader::ReadAscii(Standard_IStream&            theStream,
       return false;
     }
 
-    gp_XYZ           aVertex[3];
+    Coords3d           aVertex[3];
     Standard_Boolean isEOF = false;
     for (Standard_Integer i = 0; i < 3; i++)
     {
@@ -362,7 +362,7 @@ Standard_Boolean RWStl_Reader::ReadAscii(Standard_IStream&            theStream,
         isEOF = true;
         break;
       }
-      gp_XYZ aReadVertex;
+      Coords3d aReadVertex;
       if (!ReadVertex(aLine,
                       aReadVertex.ChangeCoord(1),
                       aReadVertex.ChangeCoord(2),
@@ -461,7 +461,7 @@ Standard_Boolean RWStl_Reader::ReadBinary(Standard_IStream&            theStream
 
     // get points from buffer
     //    readStlFloatVec3 (aBufferPtr); // skip normal
-    gp_XYZ aTriNodes[3] = {readStlFloatVec3(aBufferPtr + aVec3Size),
+    Coords3d aTriNodes[3] = {readStlFloatVec3(aBufferPtr + aVec3Size),
                            readStlFloatVec3(aBufferPtr + aVec3Size * 2),
                            readStlFloatVec3(aBufferPtr + aVec3Size * 3)};
     aMergeTool.AddTriangle(aTriNodes);

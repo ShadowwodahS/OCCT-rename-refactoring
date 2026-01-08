@@ -91,7 +91,7 @@ public:
 
   //! Returns inversed location transformation matrix if the shape corresponding to this entity has
   //! init location set. Otherwise, returns identity matrix.
-  virtual gp_GTrsf InvInitLocation() const { return gp_GTrsf(); }
+  virtual GeneralTransform InvInitLocation() const { return GeneralTransform(); }
 
   //! Return transformation persistence.
   const Handle(Graphic3d_TransformPers)& TransformPersistence() const { return myTrsfPers; }

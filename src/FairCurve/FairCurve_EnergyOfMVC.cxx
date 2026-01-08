@@ -129,12 +129,12 @@ Standard_Boolean FairCurve_EnergyOfMVC::Compute(const Standard_Integer Derivativ
       Debut(1) = (ii - 1) * Delta;
       Fin(1)   = ii * Delta;
 
-      math_GaussSetIntegration SumTension(MyTension, Debut, Fin, MyOrder);
+      GaussSetIntegration SumTension(MyTension, Debut, Fin, MyOrder);
       Ok = SumTension.IsDone();
       if (!Ok)
         return Ok;
 
-      math_GaussSetIntegration SumJerk(MyJerk, Debut, Fin, MyOrder);
+      GaussSetIntegration SumJerk(MyJerk, Debut, Fin, MyOrder);
       Ok = SumJerk.IsDone();
       if (!Ok)
         return Ok;
@@ -150,17 +150,17 @@ Standard_Boolean FairCurve_EnergyOfMVC::Compute(const Standard_Integer Derivativ
       Debut(1) = (ii - 1) * Delta;
       Fin(1)   = ii * Delta;
 
-      math_GaussSetIntegration SumTension(MyTension, Debut, Fin, MyOrder);
+      GaussSetIntegration SumTension(MyTension, Debut, Fin, MyOrder);
       Ok = SumTension.IsDone();
       if (!Ok)
         return Ok;
 
-      math_GaussSetIntegration SumSagging(MySagging, Debut, Fin, MyOrder);
+      GaussSetIntegration SumSagging(MySagging, Debut, Fin, MyOrder);
       Ok = SumSagging.IsDone();
       if (!Ok)
         return Ok;
 
-      math_GaussSetIntegration SumJerk(MyJerk, Debut, Fin, MyOrder);
+      GaussSetIntegration SumJerk(MyJerk, Debut, Fin, MyOrder);
       Ok = SumJerk.IsDone();
       if (!Ok)
         return Ok;

@@ -24,17 +24,17 @@
 #include <Standard_Real.hxx>
 #include <Standard_Boolean.hxx>
 
-class math_DoubleTab
+class DoubleTab
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT math_DoubleTab(const Standard_Integer LowerRow,
+  Standard_EXPORT DoubleTab(const Standard_Integer LowerRow,
                                  const Standard_Integer UpperRow,
                                  const Standard_Integer LowerCol,
                                  const Standard_Integer UpperCol);
 
-  Standard_EXPORT math_DoubleTab(const Standard_Address Tab,
+  Standard_EXPORT DoubleTab(const Standard_Address Tab,
                                  const Standard_Integer LowerRow,
                                  const Standard_Integer UpperRow,
                                  const Standard_Integer LowerCol,
@@ -42,9 +42,9 @@ public:
 
   Standard_EXPORT void Init(const Standard_Real InitValue);
 
-  Standard_EXPORT math_DoubleTab(const math_DoubleTab& Other);
+  Standard_EXPORT DoubleTab(const DoubleTab& Other);
 
-  void Copy(math_DoubleTab& Other) const;
+  void Copy(DoubleTab& Other) const;
 
   Standard_EXPORT void SetLowerRow(const Standard_Integer LowerRow);
 
@@ -59,7 +59,7 @@ public:
 
   Standard_EXPORT void Free();
 
-  ~math_DoubleTab() { Free(); }
+  ~DoubleTab() { Free(); }
 
 protected:
 private:

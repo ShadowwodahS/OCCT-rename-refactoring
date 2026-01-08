@@ -201,12 +201,12 @@ void Extrema_ExtElCS::Perform(const gp_Lin&, const Cone1&)
   throw Standard_NotImplemented();
 }
 
-Extrema_ExtElCS::Extrema_ExtElCS(const gp_Lin& C, const gp_Sphere& S)
+Extrema_ExtElCS::Extrema_ExtElCS(const gp_Lin& C, const Sphere3& S)
 {
   Perform(C, S);
 }
 
-void Extrema_ExtElCS::Perform(const gp_Lin& C, const gp_Sphere& S)
+void Extrema_ExtElCS::Perform(const gp_Lin& C, const Sphere3& S)
 {
   // In case of intersection - return four points:
   // 2 intersection points and 2 perpendicular.
@@ -560,7 +560,7 @@ void Extrema_ExtElCS::Perform(const gp_Circ&, const Cone1&)
 // function : Extrema_ExtElCS
 // purpose  : Circle/Sphere
 //=======================================================================
-Extrema_ExtElCS::Extrema_ExtElCS(const gp_Circ& C, const gp_Sphere& S)
+Extrema_ExtElCS::Extrema_ExtElCS(const gp_Circ& C, const Sphere3& S)
 {
   Perform(C, S);
 }
@@ -569,7 +569,7 @@ Extrema_ExtElCS::Extrema_ExtElCS(const gp_Circ& C, const gp_Sphere& S)
 // function : Perform
 // purpose  : Circle/Sphere
 //=======================================================================
-void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Sphere& S)
+void Extrema_ExtElCS::Perform(const gp_Circ& C, const Sphere3& S)
 {
   myDone  = Standard_False;
   myIsPar = Standard_False;

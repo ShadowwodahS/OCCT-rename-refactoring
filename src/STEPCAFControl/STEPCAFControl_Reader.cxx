@@ -2170,7 +2170,7 @@ Handle(MeshTriangulation) createMesh(
 
   for (Standard_Integer j = 1; j <= aNbPairs; ++j)
   {
-    const gp_XYZ& aPoint =
+    const Coords3d& aPoint =
       aNodes->Value((aNbNormals > 1 && theTriangulatedSufaceSet->NbPnindex() > 0)
                       ? theTriangulatedSufaceSet->PnindexValue(j)
                       : j);
@@ -2224,7 +2224,7 @@ Handle(MeshTriangulation) createMesh(
   if (aHasNormals)
   {
     Handle(TColStd_HArray2OfReal) aNormals = theTriangulatedSufaceSet->Normals();
-    gp_XYZ                        aNorm;
+    Coords3d                        aNorm;
     if (theTriangulatedSufaceSet->NbNormals() == 1)
     {
       aNorm.SetX(aNormals->Value(1, 1));

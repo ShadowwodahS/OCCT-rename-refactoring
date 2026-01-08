@@ -84,8 +84,8 @@ Handle(IGESData_IGESEntity) IGESDraw_LabelDisplay::DisplayedEntity(
 
 Point3d IGESDraw_LabelDisplay::TransformedTextLocation(const Standard_Integer ViewIndex) const
 {
-  gp_XYZ retXYZ;
-  gp_XYZ tempXYZ = theTextLocations->Value(ViewIndex);
+  Coords3d retXYZ;
+  Coords3d tempXYZ = theTextLocations->Value(ViewIndex);
 
   Handle(IGESData_ViewKindEntity) tempView = theViews->Value(ViewIndex);
   if (tempView->IsKind(STANDARD_TYPE(IGESDraw_View)))

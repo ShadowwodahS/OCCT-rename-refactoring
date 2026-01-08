@@ -34,7 +34,7 @@ class math_MultipleVarFunctionWithGradient;
 //! Method SetBoundary is used to define hyperparallelepiped borders. With boundaries
 //! defined, the algorithm will not make evaluations of the function outside of the
 //! borders.
-class math_BFGS
+class BFGSOptimizer
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -46,12 +46,12 @@ public:
   //! A call to the Perform method must be made after this
   //! initialization to effectively compute the minimum of the
   //! function F.
-  Standard_EXPORT math_BFGS(const Standard_Integer NbVariables,
+  Standard_EXPORT BFGSOptimizer(const Standard_Integer NbVariables,
                             const Standard_Real    Tolerance    = 1.0e-8,
                             const Standard_Integer NbIterations = 200,
                             const Standard_Real    ZEPS         = 1.0e-12);
 
-  Standard_EXPORT virtual ~math_BFGS();
+  Standard_EXPORT virtual ~BFGSOptimizer();
 
   //! Set boundaries for conditional optimization.
   //! The expected indices range of vectors is [1, NbVariables].

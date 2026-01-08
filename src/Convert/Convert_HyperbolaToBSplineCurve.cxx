@@ -74,7 +74,7 @@ Convert_HyperbolaToBSplineCurve::Convert_HyperbolaToBSplineCurve(const gp_Hypr2d
   poles->ChangeArray1()(3) = gp_Pnt2d(R * Cosh(UL), S * r * Sinh(UL));
 
   // replace the bspline in the mark of the hyperbola
-  gp_Trsf2d Trsf;
+  Transform2d Trsf;
   Trsf.SetTransformation(H.Axis().XAxis(), gp1::OX2d());
   poles->ChangeArray1()(1).Transform(Trsf);
   poles->ChangeArray1()(2).Transform(Trsf);

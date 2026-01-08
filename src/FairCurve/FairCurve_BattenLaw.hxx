@@ -26,7 +26,7 @@
 #include <Standard_Boolean.hxx>
 
 //! This class compute the Heigth of an batten
-class FairCurve_BattenLaw : public math_Function
+class FairCurve_BattenLaw : public Function1
 {
 public:
   DEFINE_STANDARD_ALLOC

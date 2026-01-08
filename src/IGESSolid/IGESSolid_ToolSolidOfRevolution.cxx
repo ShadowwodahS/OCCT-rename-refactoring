@@ -42,8 +42,8 @@ void SolidOfRevolutionTool::ReadOwnParams(const Handle(IGESSolid_SolidOfRevoluti
                                                     IGESData_ParamReader& PR) const
 {
   Handle(IGESData_IGESEntity) tempEntity;
-  gp_XYZ                      tempAxisPoint;
-  gp_XYZ                      tempAxis;
+  Coords3d                      tempAxisPoint;
+  Coords3d                      tempAxis;
   Standard_Real               tempFraction;
   Standard_Real               tempreal;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
@@ -145,8 +145,8 @@ void SolidOfRevolutionTool::OwnCopy(const Handle(IGESSolid_SolidOfRevolution)& a
 {
   DeclareAndCast(IGESData_IGESEntity, tempEntity, TC.Transferred(another->Curve()));
   Standard_Real tempFraction  = another->Fraction();
-  gp_XYZ        tempAxisPoint = another->AxisPoint().XYZ();
-  gp_XYZ        tempAxis      = another->Axis().XYZ();
+  Coords3d        tempAxisPoint = another->AxisPoint().XYZ();
+  Coords3d        tempAxis      = another->Axis().XYZ();
   ent->Init(tempEntity, tempFraction, tempAxisPoint, tempAxis);
 }
 

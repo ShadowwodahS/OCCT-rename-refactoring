@@ -39,7 +39,7 @@ void IGESGeom_BSplineCurve::Init(const Standard_Integer               anIndex,
                                  const Handle(TColgp_HArray1OfXYZ)&   allPoles,
                                  const Standard_Real                  aUmin,
                                  const Standard_Real                  aUmax,
-                                 const gp_XYZ&                        aNorm)
+                                 const Coords3d&                        aNorm)
 {
   if (!allPoles.IsNull())
   {
@@ -139,14 +139,14 @@ Standard_Real IGESGeom_BSplineCurve::Weight(const Standard_Integer anIndex) cons
 
 Point3d IGESGeom_BSplineCurve::Pole(const Standard_Integer anIndex) const
 {
-  gp_XYZ tempXYZ = thePoles->Value(anIndex);
+  Coords3d tempXYZ = thePoles->Value(anIndex);
   Point3d Pole(tempXYZ);
   return Pole;
 }
 
 Point3d IGESGeom_BSplineCurve::TransformedPole(const Standard_Integer anIndex) const
 {
-  gp_XYZ tempXYZ = thePoles->Value(anIndex);
+  Coords3d tempXYZ = thePoles->Value(anIndex);
   if (HasTransf())
     Location().Transforms(tempXYZ);
   Point3d Pole(tempXYZ);
@@ -163,7 +163,7 @@ Standard_Real IGESGeom_BSplineCurve::UMax() const
   return theUmax;
 }
 
-gp_XYZ IGESGeom_BSplineCurve::Normal() const
+Coords3d IGESGeom_BSplineCurve::Normal() const
 {
   return theNorm;
 }

@@ -989,7 +989,7 @@ void GeomPlate_BuildPlateSurface::Disc3dContour(const Standard_Integer /*nbp*/,
   //  gp_Pnt2d P2d;
   Point3d           P3d;
   Vector3d           v1h, v2h, v3h;
-  gp_XYZ           Pos;
+  Coords3d           Pos;
   Standard_Integer i;
 
   for (i = 1; i <= NTPntCont; i++)

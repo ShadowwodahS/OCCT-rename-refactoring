@@ -34,7 +34,7 @@
 //! It is about 16% longer than GaussLeastSquare if there is only
 //! one member B to solve.
 //! It is about 30% longer if there are twenty B members to solve.
-class math_Householder
+class Householder
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -46,7 +46,7 @@ public:
   //! be done.
   //! Exception DimensionError is raised if the row number of B
   //! is different from the A row number.
-  Standard_EXPORT math_Householder(const math_Matrix&  A,
+  Standard_EXPORT Householder(const math_Matrix&  A,
                                    const math_Matrix&  B,
                                    const Standard_Real EPS = 1.0e-20);
 
@@ -57,7 +57,7 @@ public:
   //! be done.
   //! Exception DimensionError is raised if the row number of B
   //! is different from the A row number.
-  Standard_EXPORT math_Householder(const math_Matrix&     A,
+  Standard_EXPORT Householder(const math_Matrix&     A,
                                    const math_Matrix&     B,
                                    const Standard_Integer lowerArow,
                                    const Standard_Integer upperArow,
@@ -72,7 +72,7 @@ public:
   //! be done.
   //! Exception DimensionError is raised if the length of B
   //! is different from the A row number.
-  Standard_EXPORT math_Householder(const math_Matrix&  A,
+  Standard_EXPORT Householder(const math_Matrix&  A,
                                    const math_Vector&  B,
                                    const Standard_Real EPS = 1.0e-20);
 

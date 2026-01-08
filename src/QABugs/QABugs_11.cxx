@@ -3311,10 +3311,10 @@ static Standard_Integer OCC13963(DrawInterpreter& di, Standard_Integer argc, con
     return 1;
   }
   Frame3d   aPln(Point3d(0., 0., 0.), Dir3d(1., -1., 0.));
-  gp_GTrsf aTrf;
+  GeneralTransform aTrf;
   aTrf.SetAffinity(aPln, Draw1::Atof(argv[4]));
-  gp_XYZ aOrigin(Draw1::Atof(argv[1]), Draw1::Atof(argv[2]), Draw1::Atof(argv[3]));
-  gp_XYZ aResult(aOrigin);
+  Coords3d aOrigin(Draw1::Atof(argv[1]), Draw1::Atof(argv[2]), Draw1::Atof(argv[3]));
+  Coords3d aResult(aOrigin);
   aTrf.Transforms(aResult);
   char sbf[512];
   Sprintf(sbf,
@@ -4939,7 +4939,7 @@ Standard_Integer OCC22736(DrawInterpreter& di, Standard_Integer argc, const char
   Standard_Real X_p2                = Draw1::Atof(argv[7]);
   Standard_Real Y_p2                = Draw1::Atof(argv[8]);
 
-  gp_Trsf2d identityTransformation;
+  Transform2d identityTransformation;
 
   gp_Pnt2d mirrorFirstPoint(X_mirrorFirstPoint, Y_mirrorFirstPoint);
   gp_Pnt2d mirrorSecondPoint(X_mirrorSecondPoint, Y_mirrorSecondPoint);
@@ -4948,11 +4948,11 @@ Standard_Integer OCC22736(DrawInterpreter& di, Standard_Integer argc, const char
   gp_Pnt2d p1(X_p1, Y_p1);
   gp_Pnt2d p2(X_p2, Y_p2);
 
-  gp_Trsf2d M1;
+  Transform2d M1;
   M1.SetMirror(mirrorAxis);
-  gp_Trsf2d M2;
+  Transform2d M2;
   M2.SetMirror(mirrorAxis);
-  gp_Trsf2d Tcomp;
+  Transform2d Tcomp;
   Tcomp = M2.Multiplied(M1);
 
   constexpr Standard_Real aTol    = Precision::Confusion();

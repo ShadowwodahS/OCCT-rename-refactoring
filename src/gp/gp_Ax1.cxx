@@ -31,11 +31,11 @@ Standard_Boolean Axis3d::IsCoaxial(const Axis3d&       Other,
                                    const Standard_Real AngularTolerance,
                                    const Standard_Real LinearTolerance) const
 {
-  gp_XYZ XYZ1 = loc.XYZ();
+  Coords3d XYZ1 = loc.XYZ();
   XYZ1.Subtract(Other.loc.XYZ());
   XYZ1.Cross(Other.vdir.XYZ());
   Standard_Real D1   = XYZ1.Modulus();
-  gp_XYZ        XYZ2 = Other.loc.XYZ();
+  Coords3d        XYZ2 = Other.loc.XYZ();
   XYZ2.Subtract(loc.XYZ());
   XYZ2.Cross(vdir.XYZ());
   Standard_Real D2 = XYZ2.Modulus();
@@ -92,7 +92,7 @@ Standard_Boolean Axis3d::InitFromJson(const Standard_SStream& theSStream,
   Standard_Integer        aPos       = theStreamPos;
   AsciiString1 aStreamStr = Standard_Dump::Text(theSStream);
 
-  gp_XYZ& anXYZLoc = loc.ChangeCoord();
+  Coords3d& anXYZLoc = loc.ChangeCoord();
   OCCT_INIT_VECTOR_CLASS(aStreamStr,
                          "Location",
                          aPos,
@@ -100,7 +100,7 @@ Standard_Boolean Axis3d::InitFromJson(const Standard_SStream& theSStream,
                          &anXYZLoc.ChangeCoord(1),
                          &anXYZLoc.ChangeCoord(2),
                          &anXYZLoc.ChangeCoord(3))
-  gp_XYZ aDir;
+  Coords3d aDir;
   OCCT_INIT_VECTOR_CLASS(aStreamStr,
                          "Direction",
                          aPos,

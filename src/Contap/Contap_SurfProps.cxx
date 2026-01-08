@@ -44,7 +44,7 @@ void SurfaceProperties::Normale(const Handle(Adaptor3d_Surface)& S,
     break;
 
     case GeomAbs_Sphere: {
-      gp_Sphere sp(HSurfaceTool::Sphere(S));
+      Sphere3 sp(HSurfaceTool::Sphere(S));
       P    = ElSLib1::Value(U, V, sp);
       Norm = Vector3d(sp.Location(), P);
       if (sp.Direct())
@@ -152,7 +152,7 @@ void SurfaceProperties::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
     break;
 
     case GeomAbs_Sphere: {
-      gp_Sphere sp(HSurfaceTool::Sphere(S));
+      Sphere3 sp(HSurfaceTool::Sphere(S));
       ElSLib1::D1(U, V, sp, P, d1u, d1v);
       Norm = Vector3d(sp.Location(), P);
       if (sp.Direct())
@@ -258,7 +258,7 @@ void SurfaceProperties::NormAndDn(const Handle(Adaptor3d_Surface)& S,
     break;
 
     case GeomAbs_Sphere: {
-      gp_Sphere sp(HSurfaceTool::Sphere(S));
+      Sphere3 sp(HSurfaceTool::Sphere(S));
       ElSLib1::D1(U, V, sp, P, Dnu, Dnv);
       Norm              = Vector3d(sp.Location(), P);
       Standard_Real Rad = sp.Radius();

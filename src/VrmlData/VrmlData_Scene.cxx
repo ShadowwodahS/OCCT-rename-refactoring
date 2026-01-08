@@ -722,7 +722,7 @@ VrmlData_ErrorStatus VrmlData_Scene::ReadReal(InputBuffer& theBuffer,
 //=================================================================================================
 
 VrmlData_ErrorStatus VrmlData_Scene::ReadXYZ(InputBuffer& theBuffer,
-                                             gp_XYZ&            theXYZ,
+                                             Coords3d&            theXYZ,
                                              Standard_Boolean   isScale,
                                              Standard_Boolean   isOnlyPos) const
 {
@@ -961,7 +961,7 @@ VrmlData_ErrorStatus VrmlData_Scene::WriteArrIndex(const char*              theP
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Scene::WriteXYZ(const gp_XYZ&          theXYZ,
+VrmlData_ErrorStatus VrmlData_Scene::WriteXYZ(const Coords3d&          theXYZ,
                                               const Standard_Boolean isApplyScale,
                                               const char*            thePostfix) const
 {

@@ -48,7 +48,7 @@ public:
   //! - anIndicator : Offset indicator
   //! - aDistance   : Offset distance
   //! - aSurface    : Surface that is offset
-  Standard_EXPORT void Init(const gp_XYZ&                      anIndicatoR,
+  Standard_EXPORT void Init(const Coords3d&                      anIndicatoR,
                             const Standard_Real                aDistance,
                             const Handle(IGESData_IGESEntity)& aSurface);
 
@@ -68,7 +68,7 @@ public:
 
 protected:
 private:
-  gp_XYZ                      theIndicator;
+  Coords3d                      theIndicator;
   Standard_Real               theDistance;
   Handle(IGESData_IGESEntity) theSurface;
 };

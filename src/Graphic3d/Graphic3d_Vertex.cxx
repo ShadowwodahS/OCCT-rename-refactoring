@@ -30,6 +30,6 @@ Standard_ShortReal Graphic3d_Vertex::Distance(const Graphic3d_Vertex& AOther) co
 
 void Graphic3d_Vertex::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
-  gp_XYZ aCoord(xyz[0], xyz[1], xyz[2]);
+  Coords3d aCoord(xyz[0], xyz[1], xyz[2]);
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &aCoord)
 }

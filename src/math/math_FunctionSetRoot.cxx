@@ -67,7 +67,7 @@
 // #define FSR_DEBUG(arg) {if (mydebug) { std::cout << arg << std::endl; }}
 //===========================================================
 
-class MyDirFunction : public math_Function
+class MyDirFunction : public Function1
 {
 
   math_Vector*                     P0;
@@ -235,7 +235,7 @@ static Standard_Boolean MinimizeDirection(const math_Vector&  P0,
   if (cx < 1.e-2)
     return Standard_False;
 
-  math_BrentMinimum Sol(tol1d, 100, tol1d);
+  BrentMinimumSolver Sol(tol1d, 100, tol1d);
   Sol.Perform(F, ax, bx, cx);
 
   if (Sol.IsDone())
@@ -358,7 +358,7 @@ static Standard_Boolean MinimizeDirection(const math_Vector&   P,
     }
     FSR_DEBUG(" minimisation dans la direction");
 
-    math_BrentMinimum Sol(tol1d, 100, tol1d);
+    BrentMinimumSolver Sol(tol1d, 100, tol1d);
 
     // Base invocation.
     Sol.Perform(F, ax, bx, cx);
@@ -430,13 +430,13 @@ static void SearchDirection(const math_Matrix& DF,
       {
         Direction(i) = -FF(i);
       }
-      math_Gauss Solut(DF, 1.e-9);
+      Gauss Solut(DF, 1.e-9);
       if (Solut.IsDone())
         Solut.Solve(Direction);
       else
       { // we have to "forget" singular directions.
         FSR_DEBUG(" Matrice singuliere : On prend SVD");
-        math_SVD SolvebySVD(DF);
+        SVD SolvebySVD(DF);
         if (SolvebySVD.IsDone())
           SolvebySVD.Solve(-1 * FF, Direction);
         else
@@ -445,7 +445,7 @@ static void SearchDirection(const math_Matrix& DF,
     }
     else if (Ninc > Neq)
     {
-      math_SVD Solut(DF);
+      SVD Solut(DF);
       if (Solut.IsDone())
         Solut.Solve(-1 * FF, Direction);
       else
@@ -453,7 +453,7 @@ static void SearchDirection(const math_Matrix& DF,
     }
     else if (Ninc < Neq)
     { // Calcul par GaussLeastSquare
-      math_GaussLeastSquare Solut(DF);
+      GaussLeastSquare Solut(DF);
       if (Solut.IsDone())
         Solut.Solve(-1 * FF, Direction);
       else
@@ -659,7 +659,7 @@ Standard_Boolean Bounds(const math_Vector&  InfBound,
 
 //=================================================================================================
 
-math_FunctionSetRoot::math_FunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
+FunctionSetRoot::FunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
                                            const math_Vector&               theTolerance,
                                            const Standard_Integer           theNbIterations)
 
@@ -692,7 +692,7 @@ math_FunctionSetRoot::math_FunctionSetRoot(math_FunctionSetWithDerivatives& theF
 
 //=================================================================================================
 
-math_FunctionSetRoot::math_FunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
+FunctionSetRoot::FunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
                                            const Standard_Integer           theNbIterations)
 
     : Delta(1, theFunction.NbVariables()),
@@ -723,11 +723,11 @@ math_FunctionSetRoot::math_FunctionSetRoot(math_FunctionSetWithDerivatives& theF
 
 //=================================================================================================
 
-math_FunctionSetRoot::~math_FunctionSetRoot() {}
+FunctionSetRoot::~FunctionSetRoot() {}
 
 //=================================================================================================
 
-void math_FunctionSetRoot::SetTolerance(const math_Vector& theTolerance)
+void FunctionSetRoot::SetTolerance(const math_Vector& theTolerance)
 {
   for (Standard_Integer i = 1; i <= Tol.Length(); ++i)
     Tol(i) = theTolerance(i);
@@ -735,7 +735,7 @@ void math_FunctionSetRoot::SetTolerance(const math_Vector& theTolerance)
 
 //=================================================================================================
 
-void math_FunctionSetRoot::Perform(math_FunctionSetWithDerivatives& theFunction,
+void FunctionSetRoot::Perform(math_FunctionSetWithDerivatives& theFunction,
                                    const math_Vector&               theStartingPoint,
                                    const Standard_Boolean           theStopOnDivergent)
 {
@@ -744,7 +744,7 @@ void math_FunctionSetRoot::Perform(math_FunctionSetWithDerivatives& theFunction,
 
 //=================================================================================================
 
-void math_FunctionSetRoot::Perform(math_FunctionSetWithDerivatives& F,
+void FunctionSetRoot::Perform(math_FunctionSetWithDerivatives& F,
                                    const math_Vector&               StartingPoint,
                                    const math_Vector&               theInfBound,
                                    const math_Vector&               theSupBound,
@@ -1350,9 +1350,9 @@ void math_FunctionSetRoot::Perform(math_FunctionSetWithDerivatives& F,
 
 //=================================================================================================
 
-void math_FunctionSetRoot::Dump(Standard_OStream& o) const
+void FunctionSetRoot::Dump(Standard_OStream& o) const
 {
-  o << " math_FunctionSetRoot";
+  o << " FunctionSetRoot";
   if (Done)
   {
     o << " Status = Done\n";
@@ -1367,7 +1367,7 @@ void math_FunctionSetRoot::Dump(Standard_OStream& o) const
 
 //=================================================================================================
 
-void math_FunctionSetRoot::Root(math_Vector& Root) const
+void FunctionSetRoot::Root(math_Vector& Root) const
 {
   StdFail_NotDone_Raise_if(!Done, " ");
   Standard_DimensionError_Raise_if(Root.Length() != Sol.Length(), " ");
@@ -1376,7 +1376,7 @@ void math_FunctionSetRoot::Root(math_Vector& Root) const
 
 //=================================================================================================
 
-void math_FunctionSetRoot::FunctionSetErrors(math_Vector& Err) const
+void FunctionSetRoot::FunctionSetErrors(math_Vector& Err) const
 {
   StdFail_NotDone_Raise_if(!Done, " ");
   Standard_DimensionError_Raise_if(Err.Length() != Sol.Length(), " ");

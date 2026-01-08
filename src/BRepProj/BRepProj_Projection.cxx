@@ -65,8 +65,8 @@ static Standard_Real DistanceIn(const TopoShape& S1, const TopoShape& S2)
   LBBox.Get(LXmin, LYmin, LZmin, LXmax, LYmax, LZmax);
 
   // Compute the max distance between input shapes------------//
-  gp_XYZ Lmin(LXmin, LYmin, LZmin), Lmax(LXmax, LYmax, LZmax);
-  gp_XYZ Smin(SXmin, SYmin, SZmin), Smax(SXmax, SYmax, SZmax);
+  Coords3d Lmin(LXmin, LYmin, LZmin), Lmax(LXmax, LYmax, LZmax);
+  Coords3d Smin(SXmin, SYmin, SZmin), Smax(SXmax, SYmax, SZmax);
   Lmax.Subtract(Lmin);
   Smax.Subtract(Smin);
   return Lmax.Modulus() + Smax.Modulus() + DistanceOut(S1, S2);

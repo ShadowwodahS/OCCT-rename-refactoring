@@ -37,14 +37,14 @@ ProjLib_Sphere::ProjLib_Sphere() {}
 
 //=================================================================================================
 
-ProjLib_Sphere::ProjLib_Sphere(const gp_Sphere& Sp)
+ProjLib_Sphere::ProjLib_Sphere(const Sphere3& Sp)
 {
   Init(Sp);
 }
 
 //=================================================================================================
 
-ProjLib_Sphere::ProjLib_Sphere(const gp_Sphere& Sp, const gp_Circ& C)
+ProjLib_Sphere::ProjLib_Sphere(const Sphere3& Sp, const gp_Circ& C)
 {
   Init(Sp);
   Project(C);
@@ -52,7 +52,7 @@ ProjLib_Sphere::ProjLib_Sphere(const gp_Sphere& Sp, const gp_Circ& C)
 
 //=================================================================================================
 
-void ProjLib_Sphere::Init(const gp_Sphere& Sp)
+void ProjLib_Sphere::Init(const Sphere3& Sp)
 {
   myType       = GeomAbs_OtherCurve;
   mySphere     = Sp;
@@ -72,7 +72,7 @@ void ProjLib_Sphere::Init(const gp_Sphere& Sp)
 //                \ Z = sinV             V = ASin( Z)
 //=======================================================================
 
-static gp_Pnt2d EvalPnt2d(const Vector3d& P, const gp_Sphere& Sp)
+static gp_Pnt2d EvalPnt2d(const Vector3d& P, const Sphere3& Sp)
 {
   Standard_Real X = P.Dot(Vector3d(Sp.Position().XDirection()));
   Standard_Real Y = P.Dot(Vector3d(Sp.Position().YDirection()));
@@ -211,7 +211,7 @@ void ProjLib_Sphere::SetInBounds(const Standard_Real U)
   myLin.Translate(gp_Vec2d(0., newY - Y));
 
   gp_Pnt2d      P = ElCLib1::Value(U, myLin);
-  gp_Trsf2d     Trsf;
+  Transform2d     Trsf;
   gp_Ax2d       Axis;
   Standard_Real Tol = 1.e-7;
   gp_Dir2d      D2d = myLin.Direction();

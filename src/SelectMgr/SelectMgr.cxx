@@ -37,11 +37,11 @@
 namespace
 {
 //! Compute polyline of shrunk triangle.
-static Handle(TColgp_HSequenceOfPnt) shrunkTriangle(const Point3d* thePnts, const gp_XYZ& theCenter)
+static Handle(TColgp_HSequenceOfPnt) shrunkTriangle(const Point3d* thePnts, const Coords3d& theCenter)
 {
-  const gp_XYZ                  aV1     = theCenter + (thePnts[0].XYZ() - theCenter) * 0.9;
-  const gp_XYZ                  aV2     = theCenter + (thePnts[1].XYZ() - theCenter) * 0.9;
-  const gp_XYZ                  aV3     = theCenter + (thePnts[2].XYZ() - theCenter) * 0.9;
+  const Coords3d                  aV1     = theCenter + (thePnts[0].XYZ() - theCenter) * 0.9;
+  const Coords3d                  aV2     = theCenter + (thePnts[1].XYZ() - theCenter) * 0.9;
+  const Coords3d                  aV3     = theCenter + (thePnts[2].XYZ() - theCenter) * 0.9;
   Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
   aPoints->Append(aV1);
   aPoints->Append(aV2);
@@ -68,7 +68,7 @@ static void addTriangulation(Prs3d_NListOfSequenceOfPnt&                    theS
     const Point3d         aPnts[3] = {aPolyTri->Node(aTri(1)).Transformed(aTrsf),
                                      aPolyTri->Node(aTri(2)).Transformed(aTrsf),
                                      aPolyTri->Node(aTri(3)).Transformed(aTrsf)};
-    const gp_XYZ         aCenter  = (aPnts[0].XYZ() + aPnts[1].XYZ() + aPnts[2].XYZ()) / 3.0;
+    const Coords3d         aCenter  = (aPnts[0].XYZ() + aPnts[1].XYZ() + aPnts[2].XYZ()) / 3.0;
     theSeqLines.Append(shrunkTriangle(aPnts, aCenter));
   }
 
@@ -134,7 +134,7 @@ static void addCircle(Prs3d_NListOfSequenceOfPnt& theSeqLines,
                       const Standard_Real         theHeight = 0)
 {
   const Standard_Real anUStep = 0.1;
-  gp_XYZ              aVec(0, 0, theHeight);
+  Coords3d              aVec(0, 0, theHeight);
 
   Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
   GeomCircle                   aGeom(Frame3d(), theRadius);
@@ -162,12 +162,12 @@ static void addCylinder(Prs3d_NListOfSequenceOfPnt&               theSeqLines,
   {
     Standard_Real aRadius =
       0.5 * (2 - aCircNum) * theSensCyl->BottomRadius() + 0.5 * aCircNum * theSensCyl->TopRadius();
-    const gp_XYZ aVec(0, 0, aHeight * 0.5 * aCircNum);
+    const Coords3d aVec(0, 0, aHeight * 0.5 * aCircNum);
 
     if (aCircNum != 1)
     {
-      aVertLine1->Append(Point3d(gp_XYZ(aRadius, 0, 0) + aVec).Transformed(aTrsf));
-      aVertLine2->Append(Point3d(gp_XYZ(-aRadius, 0, 0) + aVec).Transformed(aTrsf));
+      aVertLine1->Append(Point3d(Coords3d(aRadius, 0, 0) + aVec).Transformed(aTrsf));
+      aVertLine2->Append(Point3d(Coords3d(-aRadius, 0, 0) + aVec).Transformed(aTrsf));
     }
 
     if (aRadius > Precision::Confusion())

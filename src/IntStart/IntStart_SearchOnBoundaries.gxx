@@ -107,7 +107,7 @@ static Standard_Integer TreatLC (const TheArc& A,
 static Standard_Boolean IsRegularity(const TheArc& A,
                                      const Handle(TheTopolTool)& aDomain);
 
-class MinFunction : public math_Function
+class MinFunction : public Function1
 {
 public:
   MinFunction(TheFunction &theFunc) : myFunc(&theFunc) {};
@@ -124,7 +124,7 @@ public:
     return Standard_True;
   }
 
-  //see analogical method for abstract owner class math_Function
+  //see analogical method for abstract owner class Function1
   virtual Standard_Integer GetStateNumber()
   {
     return 0;
@@ -205,7 +205,7 @@ public:
   {
   }
 
-  void Init(const math_FunctionAllRoots& theSolution, const Standard_Integer theIndex)
+  void Init(const FunctionAllRoots& theSolution, const Standard_Integer theIndex)
   {
     myMathIndex = theIndex;
     myValue = theSolution.GetPoint(theIndex);
@@ -266,7 +266,7 @@ void BoundedArc (const TheArc& A,
                  const Standard_Boolean RecheckOnRegularity)
 {
   // Recherche des points solutions et des bouts d arc solution sur un arc donne.
-  // On utilise la fonction math_FunctionAllRoots. Ne convient donc que pour
+  // On utilise la fonction FunctionAllRoots. Ne convient donc que pour
   // des arcs ayant un point debut et un point de fin (intervalle ferme de
   // parametrage).
 
@@ -276,8 +276,8 @@ void BoundedArc (const TheArc& A,
   Standard_Real pardeb = 0., parfin = 0.;
   Standard_Integer ideb,ifin,range,ranged,rangef;
 
-  // Creer l echantillonage (math_FunctionSample ou classe heritant)
-  // Appel a math_FunctionAllRoots
+  // Creer l echantillonage (FunctionSampler ou classe heritant)
+  // Appel a FunctionAllRoots
 
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   //@@@ La Tolerance est asociee a l arc  ( Incoherence avec le cheminement )
@@ -360,9 +360,9 @@ void BoundedArc (const TheArc& A,
     Standard_Boolean IsIntCSdone = Standard_False;
     TColStd_SequenceOfReal Params;
     
-    std::unique_ptr<math_FunctionAllRoots> pSol;
+    std::unique_ptr<FunctionAllRoots> pSol;
     
-    math_FunctionSample Echant(Pdeb,Pfin,NbEchant);
+    FunctionSampler Echant(Pdeb,Pfin,NbEchant);
 
     Standard_Boolean aelargir=Standard_True;
     //modified by NIZNHY-PKV Thu Apr 12 09:25:19 2001 f
@@ -499,7 +499,7 @@ void BoundedArc (const TheArc& A,
     
     if (!IsIntCSdone)
     {
-      pSol.reset(new math_FunctionAllRoots(Func,Echant,EpsX,maxdist,maxdist)); //-- TolBoundary,nTolTangency);
+      pSol.reset(new FunctionAllRoots(Func,Echant,EpsX,maxdist,maxdist)); //-- TolBoundary,nTolTangency);
       
       if (!pSol->IsDone()) {throw ExceptionBase();}
       
@@ -512,7 +512,7 @@ void BoundedArc (const TheArc& A,
       //Standard_Real theTol = Domain->MaxTolerance(A);
       //theTol += theTol;
       Standard_Real theTol = 5.e-4;
-      math_FunctionAllRoots SolAgain(Func,Echant,EpsX,theTol,theTol); //-- TolBoundary,nTolTangency);
+      FunctionAllRoots SolAgain(Func,Echant,EpsX,theTol,theTol); //-- TolBoundary,nTolTangency);
 
       if (!SolAgain.IsDone()) {throw ExceptionBase();}
 
@@ -718,7 +718,7 @@ void BoundedArc (const TheArc& A,
             const Standard_Real aLPar = (i == Nbp) ? Pfin : (para + aSI(i + 1).Value()) / 2.0;
 
             MinFunction aNewFunc(Func);
-            math_BrentMinimum aMin(Precision::Confusion());
+            BrentMinimumSolver aMin(Precision::Confusion());
 
             aMin.Perform(aNewFunc, aFPar, para, aLPar);
             if(aMin.IsDone())

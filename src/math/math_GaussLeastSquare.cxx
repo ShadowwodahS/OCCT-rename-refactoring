@@ -25,7 +25,7 @@
 #include <Standard_DimensionError.hxx>
 #include <StdFail_NotDone.hxx>
 
-math_GaussLeastSquare::math_GaussLeastSquare(const math_Matrix& A, const Standard_Real MinPivot)
+GaussLeastSquare::GaussLeastSquare(const math_Matrix& A, const Standard_Real MinPivot)
     : LU(1, A.ColNumber(), 1, A.ColNumber()),
       A2(1, A.ColNumber(), 1, A.RowNumber()),
       Index(1, A.ColNumber())
@@ -37,7 +37,7 @@ math_GaussLeastSquare::math_GaussLeastSquare(const math_Matrix& A, const Standar
   Done                   = (!Error) ? Standard_True : Standard_False;
 }
 
-void math_GaussLeastSquare::Solve(const math_Vector& B, math_Vector& X) const
+void GaussLeastSquare::Solve(const math_Vector& B, math_Vector& X) const
 {
   StdFail_NotDone_Raise_if(!Done, " ");
   Standard_DimensionError_Raise_if((B.Length() != A2.ColNumber()) || (X.Length() != A2.RowNumber()),
@@ -50,10 +50,10 @@ void math_GaussLeastSquare::Solve(const math_Vector& B, math_Vector& X) const
   return;
 }
 
-void math_GaussLeastSquare::Dump(Standard_OStream& o) const
+void GaussLeastSquare::Dump(Standard_OStream& o) const
 {
 
-  o << "math_GaussLeastSquare ";
+  o << "GaussLeastSquare ";
   if (Done)
   {
     o << " Status = Done \n";

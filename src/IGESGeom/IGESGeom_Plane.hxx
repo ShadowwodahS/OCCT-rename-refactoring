@@ -46,7 +46,7 @@ public:
                             const Standard_Real                C,
                             const Standard_Real                D,
                             const Handle(IGESData_IGESEntity)& aCurve,
-                            const gp_XYZ&                      attach,
+                            const Coords3d&                      attach,
                             const Standard_Real                aSize);
 
   //! Changes FormNumber (indicates the Type of Bound :
@@ -98,7 +98,7 @@ private:
   Standard_Real               theC;
   Standard_Real               theD;
   Handle(IGESData_IGESEntity) theCurve;
-  gp_XYZ                      theAttach;
+  Coords3d                      theAttach;
   Standard_Real               theSize;
 };
 

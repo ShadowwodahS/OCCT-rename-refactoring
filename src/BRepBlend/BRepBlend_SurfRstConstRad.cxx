@@ -265,8 +265,8 @@ void BRepBlend_SurfRstConstRad::Set(const Standard_Real Param)
   tguide->D2(Param, ptgui, d1gui, d2gui);
   normtg = d1gui.Magnitude();
   nplan.SetXYZ(d1gui.Normalized().XYZ());
-  gp_XYZ nplanXYZ(nplan.XYZ());
-  gp_XYZ ptguiXYZ(ptgui.XYZ());
+  Coords3d nplanXYZ(nplan.XYZ());
+  Coords3d ptguiXYZ(ptgui.XYZ());
   theD = nplanXYZ.Dot(ptguiXYZ);
   theD = theD * (-1.);
 }
@@ -362,7 +362,7 @@ Standard_Boolean BRepBlend_SurfRstConstRad::IsSolution(const math_Vector&  Sol,
     resul.SetLinearForm(ray, ns, Vector3d(ptrst, pts));
     secmember(3) = -2. * (temp.Dot(resul));
 
-    math_Gauss Resol(gradsol);
+    Gauss Resol(gradsol);
     if (Resol.IsDone())
     {
       Resol.Solve(secmember);
@@ -370,7 +370,7 @@ Standard_Boolean BRepBlend_SurfRstConstRad::IsSolution(const math_Vector&  Sol,
     }
     else
     {
-      math_SVD SingRS(gradsol);
+      SVD SingRS(gradsol);
       if (SingRS.IsDone())
       {
         math_Vector DEDT(1, 3);
@@ -870,7 +870,7 @@ Standard_Boolean BRepBlend_SurfRstConstRad::Section(const Point2&    P,
   secmember(3) = dnw.Dot(resul);
   secmember(3) = -2. * ray * secmember(3);
 
-  math_Gauss Resol(gradsol, 1.e-9);
+  Gauss Resol(gradsol, 1.e-9);
 
   if (Resol.IsDone())
   {
@@ -879,7 +879,7 @@ Standard_Boolean BRepBlend_SurfRstConstRad::Section(const Point2&    P,
   }
   else
   {
-    math_SVD SingRS(gradsol);
+    SVD SingRS(gradsol);
     if (SingRS.IsDone())
     {
       math_Vector DEDT(1, 3);

@@ -78,9 +78,9 @@ public:
 
 protected:
 private:
-  gp_XYZ                  myPnt;
-  gp_XYZ                  myVec;
-  gp_XYZ                  V;
+  Coords3d                  myPnt;
+  Coords3d                  myVec;
+  Coords3d                  V;
   Point3d                  G;
   Handle(Adaptor3d_Curve) myCurve;
 };

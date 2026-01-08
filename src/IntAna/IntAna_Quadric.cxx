@@ -104,14 +104,14 @@ void Quadric2::SetQuadric(const Cone1& Cone)
 //----------------------------------------------------------------------
 //-- Sphere -----> Quadric
 //----------------------------------------------------------------------
-void Quadric2::SetQuadric(const gp_Sphere& Sph)
+void Quadric2::SetQuadric(const Sphere3& Sph)
 {
   Sph.Coefficients(CXX, CYY, CZZ, CXY, CXZ, CYZ, CX, CY, CZ, CCte);
   mySpecialPoints.Append(ElSLib1::Value(0.0, -M_PI_2, Sph));
   mySpecialPoints.Append(ElSLib1::Value(0.0, M_PI_2, Sph));
 }
 
-Quadric2::Quadric2(const gp_Sphere& Sph)
+Quadric2::Quadric2(const Sphere3& Sph)
 {
   SetQuadric(Sph);
 }

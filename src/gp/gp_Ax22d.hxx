@@ -217,14 +217,14 @@ public:
     return aTemp;
   }
 
-  void Transform(const gp_Trsf2d& theT);
+  void Transform(const Transform2d& theT);
 
   //! Transforms an axis placement with a Trsf.
   //! The "Location" point, the "XDirection" and the
   //! "YDirection" are transformed with theT.  The resulting
   //! main "Direction" of <me> is the cross product between
   //! the "XDirection" and the "YDirection" after transformation.
-  Standard_NODISCARD Ax22d Transformed(const gp_Trsf2d& theT) const
+  Standard_NODISCARD Ax22d Transformed(const Transform2d& theT) const
   {
     Ax22d aTemp = *this;
     aTemp.Transform(theT);
@@ -369,7 +369,7 @@ inline void Ax22d::Scale(const gp_Pnt2d& theP, const Standard_Real theS)
 // function : Transform
 // purpose  :
 // =======================================================================
-inline void Ax22d::Transform(const gp_Trsf2d& theT)
+inline void Ax22d::Transform(const Transform2d& theT)
 {
   gp_Pnt2d aTemp = point;
   aTemp.Transform(theT);

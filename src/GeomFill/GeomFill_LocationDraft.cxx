@@ -304,7 +304,7 @@ Standard_Boolean GeomFill_LocationDraft::D0(const Standard_Real   Param,
     GeomFill_FunctionDraft E(mySurf, G);
 
     // resolution
-    math_NewtonFunctionSetRoot Result(E, XTol, FTol, Iter);
+    NewtonFunctionSetRoot Result(E, XTol, FTol, Iter);
     Result.Perform(E, X);
 
     if (Result.IsDone())
@@ -418,7 +418,7 @@ Standard_Boolean GeomFill_LocationDraft::D1(const Standard_Real   Param,
     GeomFill_FunctionDraft E(mySurf, G);
 
     // resolution
-    math_NewtonFunctionSetRoot Result(E, XTol, FTol, Iter);
+    NewtonFunctionSetRoot Result(E, XTol, FTol, Iter);
     Result.Perform(E, X);
 
     if (Result.IsDone())
@@ -440,7 +440,7 @@ Standard_Boolean GeomFill_LocationDraft::D1(const Standard_Real   Param,
       E.Derivatives(R, DEDX); // dE/dx au point R => DEDX
 
       // resolution du syst. lin. : DEDX*DSDT = -DEDT
-      math_Gauss Ga(DEDX);
+      Gauss Ga(DEDX);
       if (Ga.IsDone())
       {
         Ga.Solve(DEDT.Opposite(), DSDT); // resolution du syst. lin.
@@ -555,7 +555,7 @@ Standard_Boolean GeomFill_LocationDraft::D2(const Standard_Real   Param,
     GeomFill_FunctionDraft E(mySurf, G);
 
     // resolution
-    math_NewtonFunctionSetRoot Result(E, XTol, FTol, Iter);
+    NewtonFunctionSetRoot Result(E, XTol, FTol, Iter);
     Result.Perform(E, X);
 
     if (Result.IsDone())
@@ -578,7 +578,7 @@ Standard_Boolean GeomFill_LocationDraft::D2(const Standard_Real   Param,
       E.Derivatives(R, DEDX); // dE/dx => DEDX
 
       // resolution du syst. lin.
-      math_Gauss Ga(DEDX);
+      Gauss Ga(DEDX);
       if (Ga.IsDone())
       {
         Ga.Solve(DEDT.Opposite(), DSDT);
@@ -603,7 +603,7 @@ Standard_Boolean GeomFill_LocationDraft::D2(const Standard_Real   Param,
       D2EDX2.Multiply(DSDT, aT);
 
       // resolution du syst. lin.
-      math_Gauss Ga1(DEDX);
+      Gauss Ga1(DEDX);
       if (Ga1.IsDone())
       {
         Ga1.Solve(-aT * DSDT - 2 * D2EDTDX * DSDT - D2EDT2, D2SDT2);

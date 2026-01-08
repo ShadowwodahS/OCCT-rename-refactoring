@@ -1730,7 +1730,7 @@ Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::ApproximatePCurve(
 //     //    dbl.AddString ("NbP2d/NbParams puis  X Y Param -> mini");
 //     dbl.AddReals (rb2,rbp);
 //     for (Standard_Integer i = 1; i <= nb2; i ++) {
-//       gp_XYZ quoi (points2d->Value(i).X(),points2d->Value(i).Y(),params->Value(i) );
+//       Coords3d quoi (points2d->Value(i).X(),points2d->Value(i).Y(),params->Value(i) );
 //       dbl.AddXYZ (quoi);
 //     }
 #endif
@@ -1777,7 +1777,7 @@ Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::InterpolatePCurve(
 // //    dbl.AddString ("NbP2d/NbParams puis  X Y Param -> mini");
 //     dbl.AddReals (rb2,rbp);
 //     for (Standard_Integer i = 1; i <= nb2; i ++) {
-//       gp_XYZ quoi (points2d->Value(i).X(),points2d->Value(i).Y(),params->Value(i) );
+//       Coords3d quoi (points2d->Value(i).X(),points2d->Value(i).Y(),params->Value(i) );
 //       dbl.AddXYZ (quoi);
 //     }
 #endif

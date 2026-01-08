@@ -42,7 +42,7 @@ void TorusTool::ReadOwnParams(const Handle(IGESSolid_Torus)& ent,
 {
   Standard_Real r1, r2;
   Standard_Real tempreal;
-  gp_XYZ        tempPoint, tempAxis;
+  Coords3d        tempPoint, tempAxis;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
 
   PR.ReadReal(PR.Current(), "Radius of revolution", r1); // szv#4:S4163:12Mar99 `st=` not needed

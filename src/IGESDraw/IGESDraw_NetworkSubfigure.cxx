@@ -30,8 +30,8 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESDraw_NetworkSubfigure, IGESData_IGESEntity)
 IGESDraw_NetworkSubfigure::IGESDraw_NetworkSubfigure() {}
 
 void IGESDraw_NetworkSubfigure::Init(const Handle(IGESDraw_NetworkSubfigureDef)&   aDefinition,
-                                     const gp_XYZ&                                 aTranslation,
-                                     const gp_XYZ&                                 aScaleFactor,
+                                     const Coords3d&                                 aTranslation,
+                                     const Coords3d&                                 aScaleFactor,
                                      const Standard_Integer                        aTypeFlag,
                                      const Handle(TCollection_HAsciiString)&       aDesignator,
                                      const Handle(IGESGraph_TextDisplayTemplate)&  aTemplate,
@@ -55,20 +55,20 @@ Handle(IGESDraw_NetworkSubfigureDef) IGESDraw_NetworkSubfigure::SubfigureDefinit
   return theSubfigureDefinition;
 }
 
-gp_XYZ IGESDraw_NetworkSubfigure::Translation() const
+Coords3d IGESDraw_NetworkSubfigure::Translation() const
 {
   return theTranslation;
 }
 
-gp_XYZ IGESDraw_NetworkSubfigure::TransformedTranslation() const
+Coords3d IGESDraw_NetworkSubfigure::TransformedTranslation() const
 {
-  gp_XYZ TempXYZ = theTranslation;
+  Coords3d TempXYZ = theTranslation;
   if (HasTransf())
     Location().Transforms(TempXYZ);
   return (TempXYZ);
 }
 
-gp_XYZ IGESDraw_NetworkSubfigure::ScaleFactors() const
+Coords3d IGESDraw_NetworkSubfigure::ScaleFactors() const
 {
   return theScaleFactor;
 }

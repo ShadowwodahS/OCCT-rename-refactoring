@@ -28,7 +28,7 @@
 class IGESData_ViewKindEntity;
 class gp_Pnt2d;
 class Coords2d;
-class gp_XYZ;
+class Coords3d;
 
 class IGESDraw_Drawing;
 DEFINE_STANDARD_HANDLE(IGESDraw_Drawing, IGESData_IGESEntity)
@@ -79,7 +79,7 @@ public:
     const Standard_Integer AnnotationIndex) const;
 
   Standard_EXPORT Coords2d ViewToDrawing(const Standard_Integer NumView,
-                                      const gp_XYZ&          ViewCoords) const;
+                                      const Coords3d&          ViewCoords) const;
 
   //! Returns the Drawing Unit Value if it is specified (by a
   //! specific property entity)

@@ -593,7 +593,7 @@ static inline double CIELab_invertf(double theValue)
 // =======================================================================
 // function : Convert_LinearRGB_To_Lab
 // purpose  : convert RGB color to CIE Lab color
-// see https://www.easyrgb.com/en/math.php
+// see https://www.easyrgb.com/en/math1.php
 // =======================================================================
 NCollection_Vec3<float> Quantity_Color::Convert_LinearRGB_To_Lab(
   const NCollection_Vec3<float>& theRgb)
@@ -623,7 +623,7 @@ NCollection_Vec3<float> Quantity_Color::Convert_LinearRGB_To_Lab(
 // =======================================================================
 // function : Convert_Lab_To_LinearRGB
 // purpose  : convert CIE Lab color to RGB
-// see https://www.easyrgb.com/en/math.php
+// see https://www.easyrgb.com/en/math1.php
 // =======================================================================
 NCollection_Vec3<float> Quantity_Color::Convert_Lab_To_LinearRGB(
   const NCollection_Vec3<float>& theLab)
@@ -668,7 +668,7 @@ NCollection_Vec3<float> Quantity_Color::Convert_Lab_To_LinearRGB(
 // =======================================================================
 // function : Convert_Lab_To_Lch
 // purpose  : convert CIE Lab color to CIE Lch color
-// see https://www.easyrgb.com/en/math.php
+// see https://www.easyrgb.com/en/math1.php
 // =======================================================================
 NCollection_Vec3<float> Quantity_Color::Convert_Lab_To_Lch(const NCollection_Vec3<float>& theLab)
 {
@@ -687,7 +687,7 @@ NCollection_Vec3<float> Quantity_Color::Convert_Lab_To_Lch(const NCollection_Vec
 // =======================================================================
 // function : Convert_Lch_To_Lab
 // purpose  : convert CIE Lch color to CIE Lab color
-// see https://www.easyrgb.com/en/math.php
+// see https://www.easyrgb.com/en/math1.php
 // =======================================================================
 NCollection_Vec3<float> Quantity_Color::Convert_Lch_To_Lab(const NCollection_Vec3<float>& theLch)
 {

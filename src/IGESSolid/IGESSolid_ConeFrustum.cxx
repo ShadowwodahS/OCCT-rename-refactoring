@@ -29,8 +29,8 @@ IGESSolid_ConeFrustum::IGESSolid_ConeFrustum() {}
 void IGESSolid_ConeFrustum::Init(const Standard_Real Ht,
                                  const Standard_Real R1,
                                  const Standard_Real R2,
-                                 const gp_XYZ&       Center,
-                                 const gp_XYZ&       anAxis)
+                                 const Coords3d&       Center,
+                                 const Coords3d&       anAxis)
 {
   theHeight     = Ht;
   theR1         = R1;
@@ -66,7 +66,7 @@ Point3d IGESSolid_ConeFrustum::TransformedFaceCenter() const
     return Point3d(theFaceCenter);
   else
   {
-    gp_XYZ tmp = theFaceCenter;
+    Coords3d tmp = theFaceCenter;
     Location().Transforms(tmp);
     return Point3d(tmp);
   }
@@ -83,9 +83,9 @@ Dir3d IGESSolid_ConeFrustum::TransformedAxis() const
     return Dir3d(theAxis);
   else
   {
-    gp_XYZ   xyz = theAxis;
-    gp_GTrsf loc = Location();
-    loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
+    Coords3d   xyz = theAxis;
+    GeneralTransform loc = Location();
+    loc.SetTranslationPart(Coords3d(0., 0., 0.));
     loc.Transforms(xyz);
     return Dir3d(xyz);
   }

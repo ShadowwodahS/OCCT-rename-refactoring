@@ -258,7 +258,7 @@ Standard_Integer BRepGProp_Face::SIntOrder(const Standard_Real Eps) const
       Nv = 2;
       break;
   }
-  return Min(RealToInt(Ceiling(SCoeff(Eps) * Max((Nu + 1), (Nv + 1)))), math::GaussPointsMax());
+  return Min(RealToInt(Ceiling(SCoeff(Eps) * Max((Nu + 1), (Nv + 1)))), math1::GaussPointsMax());
 }
 
 //=================================================================================================
@@ -446,8 +446,8 @@ Standard_Integer BRepGProp_Face::LIntOrder(const Standard_Real Eps) const
 
   Standard_Integer nn = RealToInt(aLSubs <= 4 ? Ceiling(LCoeff(Eps) * (NL + 1)) : NL + 1);
 
-  // return Min(RealToInt(Ceiling(LCoeff(Eps)*(NL+1)*NS)), math::GaussPointsMax());
-  return Min(nn, math::GaussPointsMax());
+  // return Min(RealToInt(Ceiling(LCoeff(Eps)*(NL+1)*NS)), math1::GaussPointsMax());
+  return Min(nn, math1::GaussPointsMax());
 }
 
 //=================================================================================================

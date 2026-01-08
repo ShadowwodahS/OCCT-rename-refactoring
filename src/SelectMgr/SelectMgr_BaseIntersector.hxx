@@ -70,7 +70,7 @@ public:
   //! using the matrix given
   virtual Handle(SelectMgr_BaseIntersector) ScaleAndTransform(
     const Standard_Integer                  theScaleFactor,
-    const gp_GTrsf&                         theTrsf,
+    const GeneralTransform&                         theTrsf,
     const Handle(SelectMgr_FrustumBuilder)& theBuilder) const = 0;
 
   //! @param[in] theBuilder  argument that represents corresponding settings for re-constructing

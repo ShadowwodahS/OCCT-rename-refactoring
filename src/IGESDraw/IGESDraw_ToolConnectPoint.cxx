@@ -44,7 +44,7 @@ void ConnectPointTool::ReadOwnParams(const Handle(IGESDraw_ConnectPoint)&   ent,
 {
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
 
-  gp_XYZ                                tempPoint;
+  Coords3d                                tempPoint;
   Standard_Integer                      tempTypeFlag, tempFunctionFlag;
   Standard_Integer                      tempPointIdentifier, tempFunctionCode, tempSwapFlag;
   Handle(IGESData_IGESEntity)           tempDisplaySymbol, tempOwnerSubfigure;
@@ -153,7 +153,7 @@ void ConnectPointTool::OwnCopy(const Handle(IGESDraw_ConnectPoint)& another,
                                         const Handle(IGESDraw_ConnectPoint)& ent,
                                         Interface_CopyTool&                  TC) const
 {
-  gp_XYZ tempPoint = (another->Point()).XYZ();
+  Coords3d tempPoint = (another->Point()).XYZ();
   DeclareAndCast(IGESData_IGESEntity, tempDisplaySymbol, TC.Transferred(another->DisplaySymbol()));
   Standard_Integer                 tempTypeFlag     = another->TypeFlag();
   Standard_Integer                 tempFunctionFlag = another->FunctionFlag();

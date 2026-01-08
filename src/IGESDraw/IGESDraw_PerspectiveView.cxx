@@ -34,10 +34,10 @@ IGESDraw_PerspectiveView::IGESDraw_PerspectiveView() {}
 
 void IGESDraw_PerspectiveView::Init(const Standard_Integer aViewNumber,
                                     const Standard_Real    aScaleFactor,
-                                    const gp_XYZ&          aViewNormalVector,
-                                    const gp_XYZ&          aViewReferencePoint,
-                                    const gp_XYZ&          aCenterOfProjection,
-                                    const gp_XYZ&          aViewUpVector,
+                                    const Coords3d&          aViewNormalVector,
+                                    const Coords3d&          aViewReferencePoint,
+                                    const Coords3d&          aCenterOfProjection,
+                                    const Coords3d&          aViewUpVector,
                                     const Standard_Real    aViewPlaneDistance,
                                     const Coords2d&           aTopLeft,
                                     const Coords2d&           aBottomRight,
@@ -146,9 +146,9 @@ Handle(IGESData_TransfEntity) IGESDraw_PerspectiveView::ViewMatrix() const
   return (Transf());
 }
 
-gp_XYZ IGESDraw_PerspectiveView::ModelToView(const gp_XYZ& coords) const
+Coords3d IGESDraw_PerspectiveView::ModelToView(const Coords3d& coords) const
 {
-  gp_XYZ tempCoords = coords;
+  Coords3d tempCoords = coords;
   Location().Transforms(tempCoords);
   return (tempCoords);
 }

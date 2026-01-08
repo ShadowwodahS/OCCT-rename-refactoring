@@ -234,7 +234,7 @@ static void GetLSGap(const Handle(TColgp_HArray1OfXYZ)& thePoints,
 {
   theGap = 0.;
   Standard_Integer i;
-  gp_XYZ           aLoc = thePos.Location().XYZ();
+  Coords3d           aLoc = thePos.Location().XYZ();
   Dir3d           aDir = thePos.Direction();
   for (i = thePoints->Lower(); i <= thePoints->Upper(); ++i)
   {
@@ -286,9 +286,9 @@ Standard_Boolean GeomConvert_SurfToAnaSurf::GetCylByLS(const Handle(TColgp_HArra
 
   //
   constexpr Standard_Real        aTol = Precision::Confusion();
-  math_MultipleVarFunction*      aPFunc;
+  MultipleVarFunction*      aPFunc;
   GeomConvert_FuncCylinderLSDist aFuncCyl(thePoints, thePos.Direction());
-  aPFunc = (math_MultipleVarFunction*)&aFuncCyl;
+  aPFunc = (MultipleVarFunction*)&aFuncCyl;
   //
   math_Vector      aSteps(1, aNbVar);
   Standard_Integer aNbInt = 10;
@@ -296,7 +296,7 @@ Standard_Boolean GeomConvert_SurfToAnaSurf::GetCylByLS(const Handle(TColgp_HArra
   {
     aSteps(i) = (aLBnd(i) - aFBnd(i)) / aNbInt;
   }
-  math_PSO      aGlobSolver(aPFunc, aFBnd, aLBnd, aSteps);
+  PSO      aGlobSolver(aPFunc, aFBnd, aLBnd, aSteps);
   Standard_Real aLSDist;
   aGlobSolver.Perform(aSteps, aLSDist, aStartPoint);
   //
@@ -328,7 +328,7 @@ Standard_Boolean GeomConvert_SurfToAnaSurf::GetCylByLS(const Handle(TColgp_HArra
     aDirMatrix(i, 3) = aUVDir.Coord(i);
   }
 
-  math_Powell aSolver(*aPFunc, aTol);
+  Powell aSolver(*aPFunc, aTol);
   aSolver.Perform(*aPFunc, aStartPoint, aDirMatrix);
 
   if (aSolver.IsDone())
@@ -385,7 +385,7 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::TryCylinderByGaussField(
   //
   GeomLProp_SLProps aProps(theSurf, 2, Precision::Confusion());
   Standard_Real     anAvMaxCurv = 0., anAvMinCurv = 0., anAvR = 0, aSign = 1.;
-  gp_XYZ            anAvDir;
+  Coords3d            anAvDir;
   Dir3d            aMinD, aMaxD;
   Standard_Integer  i, j, n = 0;
   Standard_Real     anU, aV;
@@ -411,7 +411,7 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::TryCylinderByGaussField(
       {
         return aNewSurf;
       }
-      gp_XYZ aD;
+      Coords3d aD;
       aProps.CurvatureDirections(aMaxD, aMinD);
       aMinCurv = Abs(aMinCurv);
       aMaxCurv = Abs(aMaxCurv);
@@ -622,7 +622,7 @@ Standard_Real GeomConvert_SurfToAnaSurf::ComputeGap(const Handle(GeomSurface)& t
   gp_Pln              aPln;
   Cylinder1         aCyl;
   Cone1             aCon;
-  gp_Sphere           aSphere;
+  Sphere3           aSphere;
   gp_Torus            aTor;
   switch (aSType)
   {

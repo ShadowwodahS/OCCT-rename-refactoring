@@ -35,7 +35,7 @@ class IGESData_ViewKindEntity;
 class IGESData_TransfEntity;
 class IGESData_LabelDisplayEntity;
 class IGESData_ColorEntity;
-class gp_GTrsf;
+class GeneralTransform;
 class Interface_EntityIterator;
 
 class IGESData_IGESEntity;
@@ -247,17 +247,17 @@ public:
   //! is not taken in account here : see CompoundLocation for that.
   //! If no Transf is defined, returns Identity
   //! If Transf is itself compound, gives the final result
-  Standard_EXPORT gp_GTrsf Location() const;
+  Standard_EXPORT GeneralTransform Location() const;
 
   //! Returns Location considered for Vectors, i.e. without its
   //! Translation Part. As Location, it gives local definition.
-  Standard_EXPORT gp_GTrsf VectorLocation() const;
+  Standard_EXPORT GeneralTransform VectorLocation() const;
 
   //! Returns Location by taking in account a Parent which has its
   //! own Location : that one will be combined to that of <me>
   //! The Parent is considered only if HasOneParent is True,
   //! else it is ignored and CompoundLocation = Location
-  Standard_EXPORT gp_GTrsf CompoundLocation() const;
+  Standard_EXPORT GeneralTransform CompoundLocation() const;
 
   //! says if a Name is defined, as Short Label or as Name Property
   //! (Property is looked first, else ShortLabel is considered)

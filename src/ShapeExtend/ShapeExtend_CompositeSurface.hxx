@@ -28,7 +28,7 @@
 #include <Standard_Integer.hxx>
 #include <GeomAbs_Shape.hxx>
 class gp_Pnt2d;
-class gp_Trsf2d;
+class Transform2d;
 class Transform3d;
 class Geom_Geometry;
 class GeomCurve3d;
@@ -229,7 +229,7 @@ public:
   Standard_EXPORT Standard_Boolean GlobalToLocalTransformation(const Standard_Integer i,
                                                                const Standard_Integer j,
                                                                Standard_Real&         uFact,
-                                                               gp_Trsf2d&             Trsf) const;
+                                                               Transform2d&             Trsf) const;
 
   //! Applies transformation to all the patches
   Standard_EXPORT virtual void Transform(const Transform3d& T) Standard_OVERRIDE;

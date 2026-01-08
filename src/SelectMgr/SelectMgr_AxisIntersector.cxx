@@ -52,7 +52,7 @@ void SelectMgr_AxisIntersector::SetCamera(const Handle(CameraOn3d)&) {}
 
 Handle(SelectMgr_BaseIntersector) SelectMgr_AxisIntersector::ScaleAndTransform(
   const Standard_Integer                  theScaleFactor,
-  const gp_GTrsf&                         theTrsf,
+  const GeneralTransform&                         theTrsf,
   const Handle(SelectMgr_FrustumBuilder)& theBuilder) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point,
@@ -68,9 +68,9 @@ Handle(SelectMgr_BaseIntersector) SelectMgr_AxisIntersector::ScaleAndTransform(
 
   Point3d aTransformedLoc = myAxis.Location();
   theTrsf.Transforms(aTransformedLoc.ChangeCoord());
-  gp_XYZ   aTransformedDir = myAxis.Direction().XYZ();
-  gp_GTrsf aTrsf           = theTrsf;
-  aTrsf.SetTranslationPart(gp_XYZ(0., 0., 0.));
+  Coords3d   aTransformedDir = myAxis.Direction().XYZ();
+  GeneralTransform aTrsf           = theTrsf;
+  aTrsf.SetTranslationPart(Coords3d(0., 0., 0.));
   aTrsf.Transforms(aTransformedDir);
 
   Handle(SelectMgr_AxisIntersector) aRes = new SelectMgr_AxisIntersector();
@@ -146,11 +146,11 @@ Standard_Boolean SelectMgr_AxisIntersector::raySegmentDistance(
   const Point3d&            theSegPnt2,
   SelectBasics_PickResult& thePickResult) const
 {
-  const gp_XYZ anU = theSegPnt2.XYZ() - theSegPnt1.XYZ();
-  const gp_XYZ aV  = myAxis.Direction().XYZ();
-  const gp_XYZ aW  = theSegPnt1.XYZ() - myAxis.Location().XYZ();
+  const Coords3d anU = theSegPnt2.XYZ() - theSegPnt1.XYZ();
+  const Coords3d aV  = myAxis.Direction().XYZ();
+  const Coords3d aW  = theSegPnt1.XYZ() - myAxis.Location().XYZ();
 
-  const gp_XYZ        anUVNormVec    = aV.Crossed(anU);
+  const Coords3d        anUVNormVec    = aV.Crossed(anU);
   const Standard_Real anUVNormVecMod = anUVNormVec.Modulus();
   if (anUVNormVecMod <= Precision::Confusion())
   {
@@ -159,7 +159,7 @@ Standard_Boolean SelectMgr_AxisIntersector::raySegmentDistance(
     return false;
   }
 
-  const gp_XYZ        anUWNormVec    = aW.Crossed(anU);
+  const Coords3d        anUWNormVec    = aW.Crossed(anU);
   const Standard_Real anUWNormVecMod = anUWNormVec.Modulus();
   if (anUWNormVecMod <= Precision::Confusion())
   {
@@ -176,7 +176,7 @@ Standard_Boolean SelectMgr_AxisIntersector::raySegmentDistance(
     return false;
   }
 
-  const gp_XYZ anIntersectPnt = myAxis.Location().XYZ() + aV * aParam;
+  const Coords3d anIntersectPnt = myAxis.Location().XYZ() + aV * aParam;
   if ((anIntersectPnt - theSegPnt1.XYZ()).Modulus() + (anIntersectPnt - theSegPnt2.XYZ()).Modulus()
       > anU.Modulus() + Precision::Confusion())
   {
@@ -196,8 +196,8 @@ bool SelectMgr_AxisIntersector::rayPlaneIntersection(const Vector3d&            
                                                      const Point3d&            thePntOnPlane,
                                                      SelectBasics_PickResult& thePickResult) const
 {
-  gp_XYZ        anU = myAxis.Direction().XYZ();
-  gp_XYZ        aW  = myAxis.Location().XYZ() - thePntOnPlane.XYZ();
+  Coords3d        anU = myAxis.Direction().XYZ();
+  Coords3d        aW  = myAxis.Location().XYZ() - thePntOnPlane.XYZ();
   Standard_Real aD  = thePlane.Dot(anU);
   Standard_Real aN  = -thePlane.Dot(aW);
 
@@ -368,11 +368,11 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsPolygon(
   else if (theSensType == Select3D_TOS_INTERIOR)
   {
     Standard_Integer aStartIdx = theArrayOfPnts.Lower();
-    const gp_XYZ&    aPnt1     = theArrayOfPnts.Value(aStartIdx).XYZ();
-    const gp_XYZ&    aPnt2     = theArrayOfPnts.Value(aStartIdx + 1).XYZ();
-    const gp_XYZ&    aPnt3     = theArrayOfPnts.Value(aStartIdx + 2).XYZ();
-    const gp_XYZ     aVec1     = aPnt1 - aPnt2;
-    const gp_XYZ     aVec2     = aPnt3 - aPnt2;
+    const Coords3d&    aPnt1     = theArrayOfPnts.Value(aStartIdx).XYZ();
+    const Coords3d&    aPnt2     = theArrayOfPnts.Value(aStartIdx + 1).XYZ();
+    const Coords3d&    aPnt3     = theArrayOfPnts.Value(aStartIdx + 2).XYZ();
+    const Coords3d     aVec1     = aPnt1 - aPnt2;
+    const Coords3d     aVec2     = aPnt3 - aPnt2;
     Vector3d           aPolyNorm = aVec2.Crossed(aVec1);
     if (aPolyNorm.Magnitude() <= Precision::Confusion())
     {
@@ -410,8 +410,8 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsTriangle(
   }
   else if (theSensType == Select3D_TOS_INTERIOR)
   {
-    Vector3d       aTriangleNormal(gp_XYZ(RealLast(), RealLast(), RealLast()));
-    const gp_XYZ aTrEdges[3] = {thePnt2.XYZ() - thePnt1.XYZ(),
+    Vector3d       aTriangleNormal(Coords3d(RealLast(), RealLast(), RealLast()));
+    const Coords3d aTrEdges[3] = {thePnt2.XYZ() - thePnt1.XYZ(),
                                 thePnt3.XYZ() - thePnt2.XYZ(),
                                 thePnt1.XYZ() - thePnt3.XYZ()};
     aTriangleNormal          = aTrEdges[2].Crossed(aTrEdges[0]);
@@ -446,10 +446,10 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsTriangle(
     }
 
     // check if intersection point belongs to triangle's interior part
-    const gp_XYZ anEdge = (thePnt1.XYZ() - myAxis.Location().XYZ()) * (1.0 / anAlpha);
+    const Coords3d anEdge = (thePnt1.XYZ() - myAxis.Location().XYZ()) * (1.0 / anAlpha);
 
     const Standard_Real aTime = aTriangleNormal.Dot(anEdge);
-    const gp_XYZ        aVec  = myAxis.Direction().XYZ().Crossed(anEdge);
+    const Coords3d        aVec  = myAxis.Direction().XYZ().Crossed(anEdge);
     const Standard_Real anU   = aVec.Dot(aTrEdges[2]);
     const Standard_Real aV    = aVec.Dot(aTrEdges[0]);
 
@@ -468,7 +468,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsTriangle(
     Standard_Integer aNearestEdgeIdx1 = -1;
     for (Standard_Integer anEdgeIdx = 0; anEdgeIdx < 3; ++anEdgeIdx)
     {
-      gp_XYZ        aW = aPtOnPlane.XYZ() - aPnts[anEdgeIdx].XYZ();
+      Coords3d        aW = aPtOnPlane.XYZ() - aPnts[anEdgeIdx].XYZ();
       Standard_Real aCoef =
         aTrEdges[anEdgeIdx].Dot(aW) / aTrEdges[anEdgeIdx].Dot(aTrEdges[anEdgeIdx]);
       Standard_Real aDist =

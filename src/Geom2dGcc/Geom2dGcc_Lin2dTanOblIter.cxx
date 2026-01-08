@@ -85,7 +85,7 @@ Line2dTangentOblIter::Line2dTangentOblIter(const Geom2dGcc_QCurve& Qualified1,
     Paral2 = Standard_True;
   }
   Geom2dGcc_FunctionTanObl func(Cu1, TheDirection);
-  math_FunctionRoot sol(func, Param1, CurveTool3::EpsX(Cu1, Abs(TolAng)), U1, U2, 100);
+  FunctionRootSolver sol(func, Param1, CurveTool3::EpsX(Cu1, Abs(TolAng)), U1, U2, 100);
   if (sol.IsDone())
   {
     Standard_Real Usol = sol.Root();

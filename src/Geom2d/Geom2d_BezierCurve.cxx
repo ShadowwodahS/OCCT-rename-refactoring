@@ -617,7 +617,7 @@ void Geom2d_BezierCurve::Weights(TColStd_Array1OfReal& W) const
 
 //=================================================================================================
 
-void Geom2d_BezierCurve::Transform(const gp_Trsf2d& T)
+void Geom2d_BezierCurve::Transform(const Transform2d& T)
 {
   Standard_Integer      nbpoles = NbPoles();
   TColgp_Array1OfPnt2d& cpoles  = poles->ChangeArray1();

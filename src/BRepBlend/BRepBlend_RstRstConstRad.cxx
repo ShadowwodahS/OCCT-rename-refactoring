@@ -223,7 +223,7 @@ Standard_Boolean BRepBlend_RstRstConstRad::IsSolution(const math_Vector&  Sol,
     temp.SetXYZ(ptrst2.XYZ() - ptgui.XYZ());
     secmember(2) = normtg - dnplan.Dot(temp);
 
-    math_Gauss Resol(gradsol);
+    Gauss Resol(gradsol);
 
     if (Resol.IsDone())
     {
@@ -232,7 +232,7 @@ Standard_Boolean BRepBlend_RstRstConstRad::IsSolution(const math_Vector&  Sol,
     }
     else
     {
-      math_SVD SingRS(gradsol);
+      SVD SingRS(gradsol);
       if (SingRS.IsDone())
       {
         math_Vector DEDT(1, 3);
@@ -765,7 +765,7 @@ Standard_Boolean BRepBlend_RstRstConstRad::Section(const Point2&    P,
   temp.SetXYZ(ptrst2.XYZ() - ptgui.XYZ());
   secmember(2) = normtg - dnplan.Dot(temp);
 
-  math_Gauss Resol(gradsol, 1.e-9);
+  Gauss Resol(gradsol, 1.e-9);
 
   if (Resol.IsDone())
   {
@@ -774,7 +774,7 @@ Standard_Boolean BRepBlend_RstRstConstRad::Section(const Point2&    P,
   }
   else
   {
-    math_SVD SingRS(gradsol);
+    SVD SingRS(gradsol);
     if (SingRS.IsDone())
     {
       math_Vector DEDT(1, 2);

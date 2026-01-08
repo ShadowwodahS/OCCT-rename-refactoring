@@ -29,7 +29,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESDimen_FlagNote, IGESData_IGESEntity)
 
 IGESDimen_FlagNote::IGESDimen_FlagNote() {}
 
-void IGESDimen_FlagNote::Init(const gp_XYZ&                                 leftCorner,
+void IGESDimen_FlagNote::Init(const Coords3d&                                 leftCorner,
                               const Standard_Real                           anAngle,
                               const Handle(IGESDimen_GeneralNote)&          aNote,
                               const Handle(IGESDimen_HArray1OfLeaderArrow)& someLeaders)
@@ -52,7 +52,7 @@ Point3d IGESDimen_FlagNote::LowerLeftCorner() const
 
 Point3d IGESDimen_FlagNote::TransformedLowerLeftCorner() const
 {
-  gp_XYZ tempXYZ = theLowerLeftcorner;
+  Coords3d tempXYZ = theLowerLeftcorner;
   if (HasTransf())
     Location().Transforms(tempXYZ);
   return Point3d(tempXYZ);

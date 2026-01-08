@@ -25,7 +25,7 @@
 #include <Standard_Dump.hxx>
 #include <Standard_OutOfRange.hxx>
 
-void gp_GTrsf::SetTranslationPart(const gp_XYZ& Coord)
+void GeneralTransform::SetTranslationPart(const Coords3d& Coord)
 {
   loc = Coord;
   if (Form() == gp_CompoundTrsf || Form() == gp_Other || Form() == gp_Translation)
@@ -41,7 +41,7 @@ void gp_GTrsf::SetTranslationPart(const gp_XYZ& Coord)
   }
 }
 
-void gp_GTrsf::Invert()
+void GeneralTransform::Invert()
 {
   if (shape == gp_Other)
   {
@@ -57,7 +57,7 @@ void gp_GTrsf::Invert()
   }
 }
 
-void gp_GTrsf::Multiply(const gp_GTrsf& T)
+void GeneralTransform::Multiply(const GeneralTransform& T)
 {
   if (Form() == gp_Other || T.Form() == gp_Other)
   {
@@ -77,14 +77,14 @@ void gp_GTrsf::Multiply(const gp_GTrsf& T)
   }
 }
 
-void gp_GTrsf::Power(const Standard_Integer N)
+void GeneralTransform::Power(const Standard_Integer N)
 {
   if (N == 0)
   {
     scale = 1.;
     shape = gp_Identity;
     matrix.SetIdentity();
-    loc = gp_XYZ(0., 0., 0.);
+    loc = Coords3d(0., 0., 0.);
   }
   else if (N == 1)
   {
@@ -101,7 +101,7 @@ void gp_GTrsf::Power(const Standard_Integer N)
       if (Npower < 0)
         Npower = -Npower;
       Npower--;
-      gp_XYZ Temploc = loc;
+      Coords3d Temploc = loc;
       //      Standard_Real Tempscale = scale;
       gp_Mat Tempmatrix(matrix);
       for (;;)
@@ -129,7 +129,7 @@ void gp_GTrsf::Power(const Standard_Integer N)
   }
 }
 
-void gp_GTrsf::PreMultiply(const gp_GTrsf& T)
+void GeneralTransform::PreMultiply(const GeneralTransform& T)
 {
   if (Form() == gp_Other || T.Form() == gp_Other)
   {
@@ -150,7 +150,7 @@ void gp_GTrsf::PreMultiply(const gp_GTrsf& T)
   }
 }
 
-void gp_GTrsf::SetForm()
+void GeneralTransform::SetForm()
 {
   Standard_Real tol = 1.e-12; // Precision::Angular();
   //
@@ -160,7 +160,7 @@ void gp_GTrsf::SetForm()
   Standard_Real s = M.Determinant();
 
   if (Abs(s) < gp1::Resolution())
-    throw Standard_ConstructionError("gp_GTrsf::SetForm, null determinant");
+    throw Standard_ConstructionError("GeneralTransform::SetForm, null determinant");
 
   if (s > 0)
     s = Pow(s, 1. / 3.);
@@ -190,9 +190,9 @@ void gp_GTrsf::SetForm()
 
 //=================================================================================================
 
-void gp_GTrsf::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void GeneralTransform::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
-  OCCT_DUMP_CLASS_BEGIN(theOStream, gp_GTrsf)
+  OCCT_DUMP_CLASS_BEGIN(theOStream, GeneralTransform)
 
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &matrix)
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &loc)

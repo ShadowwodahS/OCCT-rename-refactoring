@@ -56,7 +56,7 @@ Handle(IGESGeom_Point) GeomToIGES_GeomPoint::TransferPoint(const Handle(Geom_Poi
   Standard_Real X, Y, Z;
   P->Coord(X, Y, Z);
   Handle(IGESBasic_SubfigureDef) voidsubdef;
-  Piges->Init(gp_XYZ(X / GetUnit(), Y / GetUnit(), Z / GetUnit()), voidsubdef);
+  Piges->Init(Coords3d(X / GetUnit(), Y / GetUnit(), Z / GetUnit()), voidsubdef);
   return Piges;
 }
 
@@ -77,6 +77,6 @@ Handle(IGESGeom_Point) GeomToIGES_GeomPoint::TransferPoint(const Handle(Geom_Car
   Standard_Real X, Y, Z;
   P->Coord(X, Y, Z);
   Handle(IGESBasic_SubfigureDef) voidsubdef;
-  Piges->Init(gp_XYZ(X / GetUnit(), Y / GetUnit(), Z / GetUnit()), voidsubdef);
+  Piges->Init(Coords3d(X / GetUnit(), Y / GetUnit(), Z / GetUnit()), voidsubdef);
   return Piges;
 }

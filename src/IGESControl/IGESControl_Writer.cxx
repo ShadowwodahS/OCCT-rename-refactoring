@@ -169,8 +169,8 @@ Standard_Boolean IgesFileWriter::AddShape(const TopoShape&          theShape,
   {
     Standard_Real aXmin, aYmin, aZmin, aXmax, aYmax, aZmax;
     box.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);
-    gs.MaxMaxCoords(gp_XYZ(aXmax / gs.UnitValue(), aYmax / gs.UnitValue(), aZmax / gs.UnitValue()));
-    gs.MaxMaxCoords(gp_XYZ(aXmin / gs.UnitValue(), aYmin / gs.UnitValue(), aZmin / gs.UnitValue()));
+    gs.MaxMaxCoords(Coords3d(aXmax / gs.UnitValue(), aYmax / gs.UnitValue(), aZmax / gs.UnitValue()));
+    gs.MaxMaxCoords(Coords3d(aXmin / gs.UnitValue(), aYmin / gs.UnitValue(), aZmin / gs.UnitValue()));
   }
 
   myModel->SetGlobalSection(gs);
@@ -214,8 +214,8 @@ Standard_Boolean IgesFileWriter::AddGeom(const Handle(RefObject)& geom)
 
   Standard_Real aXmin, aYmin, aZmin, aXmax, aYmax, aZmax;
   box.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);
-  gs.MaxMaxCoords(gp_XYZ(aXmax / gs.UnitValue(), aYmax / gs.UnitValue(), aZmax / gs.UnitValue()));
-  gs.MaxMaxCoords(gp_XYZ(aXmin / gs.UnitValue(), aYmin / gs.UnitValue(), aZmin / gs.UnitValue()));
+  gs.MaxMaxCoords(Coords3d(aXmax / gs.UnitValue(), aYmax / gs.UnitValue(), aZmax / gs.UnitValue()));
+  gs.MaxMaxCoords(Coords3d(aXmin / gs.UnitValue(), aYmin / gs.UnitValue(), aZmin / gs.UnitValue()));
   myModel->SetGlobalSection(gs);
   return AddEntity(ent);
 }

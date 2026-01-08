@@ -118,7 +118,7 @@ math_Matrix math_Matrix::Divided(const Standard_Real Right) const
 
 Standard_Real math_Matrix::Determinant() const
 {
-  math_Gauss Sol(*this);
+  Gauss Sol(*this);
 
   if (Sol.IsDone())
   {
@@ -171,7 +171,7 @@ void math_Matrix::Invert()
   math_NotSquare_Raise_if(RowNumber() != ColNumber(),
                           "math_Matrix::Transpose() - matrix is not square");
 
-  math_Gauss Sol(*this);
+  Gauss Sol(*this);
   if (Sol.IsDone())
   {
     Sol.Invert(*this);

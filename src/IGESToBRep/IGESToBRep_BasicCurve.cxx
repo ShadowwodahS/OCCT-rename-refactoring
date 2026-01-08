@@ -686,9 +686,9 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferCircularArc(
 
     tNormAxis = st->TransformedAxis();
 
-    gp_GTrsf loc = st->Location();
-    loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
-    gp_XYZ mainAxis(1., 0., 0.);
+    GeneralTransform loc = st->Location();
+    loc.SetTranslationPart(Coords3d(0., 0., 0.));
+    Coords3d mainAxis(1., 0., 0.);
     loc.Transforms(mainAxis);
     tMainAxis = Dir3d(mainAxis);
 
@@ -750,8 +750,8 @@ Handle(GeomCurve2d) IGESToBRep_BasicCurve::Transfer2dCircularArc(
     return res;
   }
 
-  gp_XYZ center(st->Center().X(), st->Center().Y(), 0.);
-  gp_XYZ mainAxis(1., 0., 0.);
+  Coords3d center(st->Center().X(), st->Center().Y(), 0.);
+  Coords3d mainAxis(1., 0., 0.);
 
   SetEpsilon(1.E-03);
   if (!st->TransformedAxis().IsParallel /*#45 rln 23.11.98 IsEqual*/ (st->Axis(), GetEpsilon()))
@@ -765,9 +765,9 @@ Handle(GeomCurve2d) IGESToBRep_BasicCurve::Transfer2dCircularArc(
 
   if (!GetModeTransfer() && st->HasTransf())
   {
-    gp_GTrsf loc = st->Location();
+    GeneralTransform loc = st->Location();
     loc.Transforms(center);
-    loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
+    loc.SetTranslationPart(Coords3d(0., 0., 0.));
     loc.Transforms(mainAxis);
   }
   gp_Pnt2d tCenter(center.X(), center.Y());

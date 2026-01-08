@@ -19,7 +19,7 @@
 // reference algorithme:
 //                   Brent method
 //                   numerical recipes in C  p 269
-math_BracketedRoot::math_BracketedRoot(math_Function&         F,
+BracketedRootSolver::BracketedRootSolver(Function1&         F,
                                        const Standard_Real    Bound1,
                                        const Standard_Real    Bound2,
                                        const Standard_Real    Tolerance,
@@ -120,10 +120,10 @@ math_BracketedRoot::math_BracketedRoot(math_Function&         F,
   }
 }
 
-void math_BracketedRoot::Dump(Standard_OStream& o) const
+void BracketedRootSolver::Dump(Standard_OStream& o) const
 {
 
-  o << "math_BracketedRoot ";
+  o << "BracketedRootSolver ";
   if (Done)
   {
     o << " Status = Done \n";

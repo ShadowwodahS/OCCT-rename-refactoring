@@ -22,7 +22,7 @@
 #include <Geom2d_Vector.hxx>
 #include <Standard_Real.hxx>
 class gp_Dir2d;
-class gp_Trsf2d;
+class Transform2d;
 class Geom2d_Geometry;
 
 class Geom2d_Direction;
@@ -81,7 +81,7 @@ public:
   Standard_Real operator^(const Handle(Geom2d_Vector)& Other) const { return Crossed(Other); }
 
   //! Applies the transformation T to this unit vector, then normalizes it.
-  Standard_EXPORT void Transform(const gp_Trsf2d& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform2d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this unit vector.
   Standard_EXPORT Handle(Geom2d_Geometry) Copy() const Standard_OVERRIDE;

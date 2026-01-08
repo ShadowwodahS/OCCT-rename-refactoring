@@ -49,7 +49,7 @@ public:
 
   Standard_EXPORT void Init(const Handle(IGESData_IGESEntity)&          aCurve,
                             const Standard_Integer                      aPattern,
-                            const gp_XYZ&                               aPoint,
+                            const Coords3d&                               aPoint,
                             const Standard_Real                         aDistance,
                             const Standard_Real                         anAngle,
                             const Handle(IGESData_HArray1OfIGESEntity)& someIslands);
@@ -96,7 +96,7 @@ protected:
 private:
   Handle(IGESData_IGESEntity)          theExteriorCurve;
   Standard_Integer                     thePattern;
-  gp_XYZ                               thePassingPoint;
+  Coords3d                               thePassingPoint;
   Standard_Real                        theDistance;
   Standard_Real                        theAngle;
   Handle(IGESData_HArray1OfIGESEntity) theIslandCurves;

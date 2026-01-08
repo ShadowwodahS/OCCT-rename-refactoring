@@ -21,7 +21,7 @@
 #include <Precision.hxx>
 #include <Standard_ConstructionError.hxx>
 
-void gp_GTrsf2d::SetAffinity(const gp_Ax2d& A, const Standard_Real Ratio)
+void GeneralTransform2d::SetAffinity(const gp_Ax2d& A, const Standard_Real Ratio)
 {
   shape           = gp_Other;
   scale           = 0.0;
@@ -37,7 +37,7 @@ void gp_GTrsf2d::SetAffinity(const gp_Ax2d& A, const Standard_Real Ratio)
   loc.Add(A.Location().XY());
 }
 
-void gp_GTrsf2d::SetTranslationPart(const Coords2d& Coord)
+void GeneralTransform2d::SetTranslationPart(const Coords2d& Coord)
 {
   loc = Coord;
   if (Form() == gp_CompoundTrsf || Form() == gp_Other || Form() == gp_Translation)
@@ -53,7 +53,7 @@ void gp_GTrsf2d::SetTranslationPart(const Coords2d& Coord)
   }
 }
 
-void gp_GTrsf2d::Invert()
+void GeneralTransform2d::Invert()
 {
   if (shape == gp_Other)
   {
@@ -63,13 +63,13 @@ void gp_GTrsf2d::Invert()
   }
   else
   {
-    gp_Trsf2d T = Trsf2d();
+    Transform2d T = Trsf2d();
     T.Invert();
     SetTrsf2d(T);
   }
 }
 
-void gp_GTrsf2d::Multiply(const gp_GTrsf2d& T)
+void GeneralTransform2d::Multiply(const GeneralTransform2d& T)
 {
   if (Form() == gp_Other || T.Form() == gp_Other)
   {
@@ -79,8 +79,8 @@ void gp_GTrsf2d::Multiply(const gp_GTrsf2d& T)
   }
   else
   {
-    gp_Trsf2d T1 = Trsf2d();
-    gp_Trsf2d T2 = T.Trsf2d();
+    Transform2d T1 = Trsf2d();
+    Transform2d T2 = T.Trsf2d();
     T1.Multiply(T2);
     matrix = T1.matrix;
     loc    = T1.loc;
@@ -89,7 +89,7 @@ void gp_GTrsf2d::Multiply(const gp_GTrsf2d& T)
   }
 }
 
-void gp_GTrsf2d::Power(const Standard_Integer N)
+void GeneralTransform2d::Power(const Standard_Integer N)
 {
   if (N == 0)
   {
@@ -119,7 +119,7 @@ void gp_GTrsf2d::Power(const Standard_Integer N)
       Npower--;
       Coords2d Temploc = loc;
       //      Standard_Real Tempscale = scale;
-      gp_Mat2d Tempmatrix(matrix);
+      Matrix2d Tempmatrix(matrix);
       for (;;)
       {
         if (IsOdd(Npower))
@@ -138,14 +138,14 @@ void gp_GTrsf2d::Power(const Standard_Integer N)
     }
     else
     {
-      gp_Trsf2d T = Trsf2d();
+      Transform2d T = Trsf2d();
       T.Power(N);
       SetTrsf2d(T);
     }
   }
 }
 
-void gp_GTrsf2d::PreMultiply(const gp_GTrsf2d& T)
+void GeneralTransform2d::PreMultiply(const GeneralTransform2d& T)
 {
   if (Form() == gp_Other || T.Form() == gp_Other)
   {
@@ -156,8 +156,8 @@ void gp_GTrsf2d::PreMultiply(const gp_GTrsf2d& T)
   }
   else
   {
-    gp_Trsf2d T1 = Trsf2d();
-    gp_Trsf2d T2 = T.Trsf2d();
+    Transform2d T1 = Trsf2d();
+    Transform2d T2 = T.Trsf2d();
     T1.PreMultiply(T2);
     matrix = T1.matrix;
     loc    = T1.loc;
@@ -166,29 +166,29 @@ void gp_GTrsf2d::PreMultiply(const gp_GTrsf2d& T)
   }
 }
 
-gp_Trsf2d gp_GTrsf2d::Trsf2d() const
+Transform2d GeneralTransform2d::Trsf2d() const
 {
   // Test of orthogonality
   const Standard_Real aTolerance  = Precision::Angular();
   const Standard_Real aTolerance2 = 2.0 * aTolerance;
 
   if (Form() == gp_Other)
-    throw Standard_ConstructionError("gp_GTrsf2d::Trsf2d() - non-orthogonal GTrsf2d(0)");
+    throw Standard_ConstructionError("GeneralTransform2d::Trsf2d() - non-orthogonal GTrsf2d(0)");
 
   Standard_Real value =
     (matrix.Value(1, 1) * matrix.Value(1, 1) + matrix.Value(2, 1) * matrix.Value(2, 1));
   if (Abs(value - 1.) > aTolerance2)
-    throw Standard_ConstructionError("gp_GTrsf2d::Trsf2d() - non-orthogonal GTrsf2d(1)");
+    throw Standard_ConstructionError("GeneralTransform2d::Trsf2d() - non-orthogonal GTrsf2d(1)");
 
   value = (matrix.Value(1, 2) * matrix.Value(1, 2) + matrix.Value(2, 2) * matrix.Value(2, 2));
   if (Abs(value - 1.) > aTolerance2)
-    throw Standard_ConstructionError("gp_GTrsf2d::Trsf2d() - non-orthogonal GTrsf2d(2)");
+    throw Standard_ConstructionError("GeneralTransform2d::Trsf2d() - non-orthogonal GTrsf2d(2)");
 
   value = (matrix.Value(1, 1) * matrix.Value(1, 2) + matrix.Value(2, 1) * matrix.Value(2, 2));
   if (Abs(value) > aTolerance)
-    throw Standard_ConstructionError("gp_GTrsf2d::Trsf2d() - non-orthogonal GTrsf2d(3)");
+    throw Standard_ConstructionError("GeneralTransform2d::Trsf2d() - non-orthogonal GTrsf2d(3)");
 
-  gp_Trsf2d aTransformation;
+  Transform2d aTransformation;
   aTransformation.matrix = matrix;
   aTransformation.shape  = shape;
   aTransformation.scale  = scale;

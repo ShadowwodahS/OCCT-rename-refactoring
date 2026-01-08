@@ -29,16 +29,16 @@
 // donnee n'est pas du tout optimale. voir peut etre interpolation cubique
 // classique et aussi essayer "recherche unidimensionnelle economique"
 // PROGRAMMATION MATHEMATIQUE (theorie et algorithmes) tome1 page 82.
-class DirFunctionTer : public math_Function
+class DirFunctionTer : public Function1
 {
 
   math_Vector*              P0;
   math_Vector*              Dir;
   math_Vector*              P;
-  math_MultipleVarFunction* F;
+  MultipleVarFunction* F;
 
 public:
-  DirFunctionTer(math_Vector& V1, math_Vector& V2, math_Vector& V3, math_MultipleVarFunction& f);
+  DirFunctionTer(math_Vector& V1, math_Vector& V2, math_Vector& V3, MultipleVarFunction& f);
 
   void Initialize(const math_Vector& p0, const math_Vector& dir);
 
@@ -48,7 +48,7 @@ public:
 DirFunctionTer::DirFunctionTer(math_Vector&              V1,
                                math_Vector&              V2,
                                math_Vector&              V3,
-                               math_MultipleVarFunction& f)
+                               MultipleVarFunction& f)
 {
 
   P0  = &V1;
@@ -83,11 +83,11 @@ static Standard_Boolean MinimizeDirection(math_Vector&    P,
   Standard_Real ax, xx, bx;
 
   F.Initialize(P, Dir);
-  math_BracketMinimum Bracket(F, 0.0, 1.0);
+  BracketMinimum Bracket(F, 0.0, 1.0);
   if (Bracket.IsDone())
   {
     Bracket.Values(ax, xx, bx);
-    math_BrentMinimum Sol(1.e-10);
+    BrentMinimumSolver Sol(1.e-10);
     Sol.Perform(F, ax, xx, bx);
     if (Sol.IsDone())
     {
@@ -103,7 +103,7 @@ static Standard_Boolean MinimizeDirection(math_Vector&    P,
 
 //=================================================================================================
 
-math_FRPR::math_FRPR(const math_MultipleVarFunctionWithGradient& theFunction,
+FletcherReevesPowellRestart::FletcherReevesPowellRestart(const math_MultipleVarFunctionWithGradient& theFunction,
                      const Standard_Real                         theTolerance,
                      const Standard_Integer                      theNbIterations,
                      const Standard_Real                         theZEPS)
@@ -124,11 +124,11 @@ math_FRPR::math_FRPR(const math_MultipleVarFunctionWithGradient& theFunction,
 
 //=================================================================================================
 
-math_FRPR::~math_FRPR() {}
+FletcherReevesPowellRestart::~FletcherReevesPowellRestart() {}
 
 //=================================================================================================
 
-void math_FRPR::Perform(math_MultipleVarFunctionWithGradient& F, const math_Vector& StartingPoint)
+void FletcherReevesPowellRestart::Perform(math_MultipleVarFunctionWithGradient& F, const math_Vector& StartingPoint)
 {
   Standard_Boolean Good;
   Standard_Integer n = TheLocation.Length();
@@ -211,9 +211,9 @@ void math_FRPR::Perform(math_MultipleVarFunctionWithGradient& F, const math_Vect
 
 //=================================================================================================
 
-void math_FRPR::Dump(Standard_OStream& o) const
+void FletcherReevesPowellRestart::Dump(Standard_OStream& o) const
 {
-  o << "math_FRPR ";
+  o << "FletcherReevesPowellRestart ";
   if (Done)
   {
     o << " Status = Done \n";

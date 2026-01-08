@@ -34,7 +34,7 @@ void BRepGProp_Cinert::Perform(const BRepAdaptor_Curve& C)
 
   Standard_Real    Lower = BRepGProp_EdgeTool::FirstParameter(C);
   Standard_Real    Upper = BRepGProp_EdgeTool::LastParameter(C);
-  Standard_Integer Order = Min(BRepGProp_EdgeTool::IntegrationOrder(C), math::GaussPointsMax());
+  Standard_Integer Order = Min(BRepGProp_EdgeTool::IntegrationOrder(C), math1::GaussPointsMax());
 
   Point3d        P;  // value on the curve
   Vector3d        V1; // first derivative on the curve
@@ -47,8 +47,8 @@ void BRepGProp_Cinert::Perform(const BRepAdaptor_Curve& C)
   math_Vector GaussW(1, Order);
 
   // Recuperation des points de Gauss dans le fichier GaussPoints.
-  math::GaussPoints(Order, GaussP);
-  math::GaussWeights(Order, GaussW);
+  math1::GaussPoints(Order, GaussP);
+  math1::GaussWeights(Order, GaussW);
 
   // modified by NIZHNY-MKK  Thu Jun  9 12:13:21 2005.BEGIN
   Standard_Integer     nbIntervals   = BRepGProp_EdgeTool::NbIntervals(C, GeomAbs_CN);
@@ -143,7 +143,7 @@ void BRepGProp_Cinert::Perform(const BRepAdaptor_Curve& C)
   }
   // modified by NIZHNY-MKK  Thu Jun  9 12:13:55 2005.END
 
-  inertia = gp_Mat(gp_XYZ(Ixx, -Ixy, -Ixz), gp_XYZ(-Ixy, Iyy, -Iyz), gp_XYZ(-Ixz, -Iyz, Izz));
+  inertia = gp_Mat(Coords3d(Ixx, -Ixy, -Ixz), Coords3d(-Ixy, Iyy, -Iyz), Coords3d(-Ixz, -Iyz, Izz));
 
   if (Abs(dim) < gp1::Resolution())
     g = P;

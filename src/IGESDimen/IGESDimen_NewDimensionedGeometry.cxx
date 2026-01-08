@@ -93,7 +93,7 @@ Point3d IGESDimen_NewDimensionedGeometry::Point(const Standard_Integer Index) co
 
 Point3d IGESDimen_NewDimensionedGeometry::TransformedPoint(const Standard_Integer Index) const
 {
-  gp_XYZ point = thePoints->Value(Index);
+  Coords3d point = thePoints->Value(Index);
   if (HasTransf())
     Location().Transforms(point);
   return Point3d(point);

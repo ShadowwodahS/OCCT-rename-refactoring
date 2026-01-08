@@ -95,7 +95,7 @@ static gp_Pnt2d Function_Value(const Standard_Real              U,
       break;
     }
     case GeomAbs_Sphere: {
-      gp_Sphere Sphere = mySurface->Sphere();
+      Sphere3 Sphere = mySurface->Sphere();
       ElSLib1::Parameters(Sphere, P3d, S, T);
       break;
     }
@@ -520,7 +520,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
     //
     case GeomAbs_Sphere: {
       VCouture     = Standard_False;
-      gp_Sphere SP = mySurface->Sphere();
+      Sphere3 SP = mySurface->Sphere();
       if (myCurve->GetType() == GeomAbs_Circle)
       {
         UCouture = Standard_True;
@@ -1364,7 +1364,7 @@ void ProjLib_ComputeApprox::Perform(const Handle(Adaptor3d_Curve)&   C,
         break;
       }
       case GeomAbs_Sphere: {
-        gp_Sphere Sphere = S->Sphere();
+        Sphere3 Sphere = S->Sphere();
         ElSLib1::Parameters(Sphere, P3d, u, v);
         break;
       }

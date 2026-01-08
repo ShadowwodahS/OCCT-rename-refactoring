@@ -50,7 +50,7 @@ IGESToBRep_IGESBoundary::IGESToBRep_IGESBoundary(const IGESToBRep_CurveAndSurfac
 void IGESToBRep_IGESBoundary::Init(const IGESToBRep_CurveAndSurface&  CS,
                                    const Handle(IGESData_IGESEntity)& entity,
                                    const TopoFace&                 face,
-                                   const gp_Trsf2d&                   trans,
+                                   const Transform2d&                   trans,
                                    const Standard_Real                uFact,
                                    const Standard_Integer             filepreference)
 {

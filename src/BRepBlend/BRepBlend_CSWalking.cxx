@@ -151,7 +151,7 @@ void BRepBlend_CSWalking::Perform(Blend_CSFunction& Func,
     math_Vector tolerance(1, Nbvar), infbound(1, Nbvar), supbound(1, Nbvar);
     Func.GetTolerance(tolerance, tolpoint3d);
     Func.GetBounds(infbound, supbound);
-    math_FunctionSetRoot rsnld(Func, tolerance, 30);
+    FunctionSetRoot rsnld(Func, tolerance, 30);
 
     rsnld.Perform(Func, ParDep, infbound, supbound);
 
@@ -706,7 +706,7 @@ Standard_Boolean BRepBlend_CSWalking::Recadre(Blend_FuncInv& FuncInv,
     solrst(4) = sol(2);
   }
 
-  math_FunctionSetRoot rsnld(FuncInv,toler,30);
+  FunctionSetRoot rsnld(FuncInv,toler,30);
   rsnld.Perform(FuncInv,solrst,infb,supb);
 
 
@@ -886,7 +886,7 @@ void BRepBlend_CSWalking::InternalPerform(Blend_CSFunction& Func,
   Func.GetTolerance(tolerance, tolpoint3d);
   Func.GetBounds(infbound, supbound);
 
-  math_FunctionSetRoot rsnld(Func, tolerance, 30);
+  FunctionSetRoot rsnld(Func, tolerance, 30);
   parinit = sol;
 
   param  = parprec + sens * stepw;

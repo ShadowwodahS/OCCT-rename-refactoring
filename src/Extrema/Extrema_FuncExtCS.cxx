@@ -27,7 +27,7 @@
  Fonction permettant de rechercher une distance extremale entre une courbe C
 et une surface S.
  Cette classe herite de math_FunctionWithDerivative et est utilisee par
-les algorithmes math_FunctionRoot et math_FunctionRoots.
+les algorithmes FunctionRootSolver et FunctionRootsSolver.
 { F1(t,u,v) = (C(t)-S(u,v)).Dtc(t) }
 { F2(t,u,v) = (C(t)-S(u,v)).Dus(u,v) }
 { F3(t,u,v) = (C(t)-S(u,v)).Dvs(u,v) }

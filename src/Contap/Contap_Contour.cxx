@@ -1315,7 +1315,7 @@ void ComputeInternalPoints(Contap_Line&         Line,
   supb(1) = HSurfaceTool::LastUParameter(Surf);
   supb(2) = HSurfaceTool::LastVParameter(Surf);
 
-  math_FunctionSetRoot rsnld(SFunc, toler, 30);
+  FunctionSetRoot rsnld(SFunc, toler, 30);
 
   indexinf  = 1;
   vecregard = SFunc.Direction();

@@ -54,7 +54,7 @@ void Vector3d::Mirror(const Vector3d& V)
   Standard_Real D = V.coord.Modulus();
   if (D > gp1::Resolution())
   {
-    const gp_XYZ& XYZ = V.coord;
+    const Coords3d& XYZ = V.coord;
     Standard_Real A   = XYZ.X() / D;
     Standard_Real B   = XYZ.Y() / D;
     Standard_Real C   = XYZ.Z() / D;
@@ -72,7 +72,7 @@ void Vector3d::Mirror(const Vector3d& V)
 
 void Vector3d::Mirror(const Axis3d& A1)
 {
-  const gp_XYZ& V  = A1.Direction().XYZ();
+  const Coords3d& V  = A1.Direction().XYZ();
   Standard_Real A  = V.X();
   Standard_Real B  = V.Y();
   Standard_Real C  = V.Z();
@@ -89,8 +89,8 @@ void Vector3d::Mirror(const Axis3d& A1)
 
 void Vector3d::Mirror(const Frame3d& A2)
 {
-  gp_XYZ Z      = A2.Direction().XYZ();
-  gp_XYZ MirXYZ = Z.Crossed(coord);
+  Coords3d Z      = A2.Direction().XYZ();
+  Coords3d MirXYZ = Z.Crossed(coord);
   if (MirXYZ.Modulus() <= gp1::Resolution())
   {
     coord.Reverse();

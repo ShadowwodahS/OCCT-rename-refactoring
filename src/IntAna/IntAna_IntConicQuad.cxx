@@ -104,7 +104,7 @@ PERFORM(const gp_Lin& L, const Quadric2& Quad)
   Standard_Real A2 = (Qxx * Lx * Lx + Qyy * Ly * Ly + Qzz * Lz * Lz
                       + 2.0 * (Lx * (Qxy * Ly + Qxz * Lz) + Qyz * Ly * Lz));
 
-  math_DirectPolynomialRoots LinQuadPol(A2, A1, A0);
+  DirectPolynomialRoots LinQuadPol(A2, A1, A0);
 
   if (LinQuadPol.IsDone())
   {
@@ -166,7 +166,7 @@ PERFORM(const gp_Circ& C, const Quadric2& Quad)
   Standard_Real P_CosSin = RR * Qxy; //-- 2 Cos Sin
   Standard_Real P_Cte    = QCte;     //-- 1
 
-  math_TrigonometricFunctionRoots CircQuadPol(P_CosCos - P_SinSin,
+  TrigonometricFunctionRoots CircQuadPol(P_CosCos - P_SinSin,
                                               P_CosSin,
                                               P_Cos + P_Cos,
                                               P_Sin + P_Sin,
@@ -235,7 +235,7 @@ PERFORM(const gp_Elips& E, const Quadric2& Quad)
   Standard_Real P_CosSin = R * r * Qxy; //-- 2 Cos Sin
   Standard_Real P_Cte    = QCte;        //-- 1
 
-  math_TrigonometricFunctionRoots ElipsQuadPol(P_CosCos - P_SinSin,
+  TrigonometricFunctionRoots ElipsQuadPol(P_CosCos - P_SinSin,
                                                P_CosSin,
                                                P_Cos + P_Cos,
                                                P_Sin + P_Sin,
@@ -302,7 +302,7 @@ PERFORM(const gp_Parab& P, const Quadric2& Quad)
   Standard_Real A1 = Qy + Qy;
   Standard_Real A0 = QCte;
 
-  math_DirectPolynomialRoots ParabQuadPol(A4, A3, A2, A1, A0);
+  DirectPolynomialRoots ParabQuadPol(A4, A3, A2, A1, A0);
 
   if (ParabQuadPol.IsDone())
   {
@@ -368,7 +368,7 @@ PERFORM(const gp_Hypr& H, const Quadric2& Quad)
   Standard_Real A1 = 4.0 * (R * Qx - r * Qy);
   Standard_Real A0 = Qxx * RR - Rr * (Qxy + Qxy) + Qyy * rr;
 
-  math_DirectPolynomialRoots HyperQuadPol(A4, A3, A2, A1, A0);
+  DirectPolynomialRoots HyperQuadPol(A4, A3, A2, A1, A0);
 
   if (HyperQuadPol.IsDone())
   {

@@ -2448,7 +2448,7 @@ void BRepOffset_MakeOffset::CorrectConicalFaces()
   Standard_Boolean                                    IsModified = Standard_False;
   for (; Cone.More(); Cone.Next())
   {
-    gp_Sphere                     theSphere;
+    Sphere3                     theSphere;
     Handle(Geom_SphericalSurface) aSphSurf;
     TopoWire                   SphereWire;
     BB.MakeWire(SphereWire);

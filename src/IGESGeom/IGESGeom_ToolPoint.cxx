@@ -49,7 +49,7 @@ void PointTool::ReadOwnParams(const Handle(IGESGeom_Point)&          ent,
   Message_Msg Msg73("XSTEP_73");
   //==================================
 
-  gp_XYZ                         aPoint;
+  Coords3d                         aPoint;
   Handle(IGESBasic_SubfigureDef) aSymbol;
   IGESData_Status                aStatus;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
@@ -119,7 +119,7 @@ void PointTool::OwnCopy(const Handle(IGESGeom_Point)& another,
                                  const Handle(IGESGeom_Point)& ent,
                                  Interface_CopyTool&           TC) const
 {
-  gp_XYZ aPoint = (another->Value()).XYZ();
+  Coords3d aPoint = (another->Value()).XYZ();
 
   DeclareAndCast(IGESBasic_SubfigureDef, aSymbol, TC.Transferred(another->DisplaySymbol()));
   ent->Init(aPoint, aSymbol);

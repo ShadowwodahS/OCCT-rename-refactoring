@@ -74,7 +74,7 @@ void BRepFeat1::Barycenter(const TopoShape& S, Point3d& B)
   TopLoc_Location     Loc;
   Handle(GeomCurve3d)  C;
   Standard_Real       f, l, prm;
-  gp_XYZ              Bar(0., 0., 0.);
+  Coords3d              Bar(0., 0., 0.);
   Standard_Integer    i, nbp = 0;
 
   for (; exp.More(); exp.Next())

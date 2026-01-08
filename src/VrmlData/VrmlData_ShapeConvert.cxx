@@ -293,7 +293,7 @@ void ShapeConverter::Convert(const Standard_Boolean theExtractFaces,
             Transform3d                aTrsf(aLoc);
             if (fabs(myScale - 1.) > Precision::Confusion())
             {
-              const gp_XYZ aTransl = aTrsf.TranslationPart() * myScale;
+              const Coords3d aTransl = aTrsf.TranslationPart() * myScale;
               aTrsf.SetTranslationPart(aTransl);
             }
             aTrans->SetTransform(aTrsf);
@@ -378,7 +378,7 @@ Handle(VrmlData_Geometry) ShapeConverter::triToIndexedFaceSet(
     aFaceSet->SetCoordinates(theCoord);
   else
   {
-    gp_XYZ* arrNodes = static_cast<gp_XYZ*>(anAlloc->Allocate(nNodes * sizeof(gp_XYZ)));
+    Coords3d* arrNodes = static_cast<Coords3d*>(anAlloc->Allocate(nNodes * sizeof(Coords3d)));
     for (i = 0; i < nNodes; i++)
     {
       arrNodes[i] = theTri->Node(i + 1).XYZ() * myScale;
@@ -393,12 +393,12 @@ Handle(VrmlData_Geometry) ShapeConverter::triToIndexedFaceSet(
   // Create the Normals node if theTri has normals
   if (theTri->HasNormals())
   {
-    gp_XYZ*  arrVec = static_cast<gp_XYZ*>(anAlloc->Allocate(nNodes * sizeof(gp_XYZ)));
+    Coords3d*  arrVec = static_cast<Coords3d*>(anAlloc->Allocate(nNodes * sizeof(Coords3d)));
     gp_Vec3f aVec3;
     for (i = 0; i < nNodes; i++)
     {
       theTri->Normal(i + 1, aVec3);
-      gp_XYZ aNormal(aVec3.x(), aVec3.y(), aVec3.z());
+      Coords3d aNormal(aVec3.x(), aVec3.y(), aVec3.z());
       if (isReverse)
       {
         aNormal.Reverse();
@@ -420,7 +420,7 @@ Handle(VrmlData_Geometry) ShapeConverter::triToIndexedFaceSet(
   {
     if (aSurface->IsCNu(1) && aSurface->IsCNv(1))
     {
-      gp_XYZ* arrVec = static_cast<gp_XYZ*>(anAlloc->Allocate(nNodes * sizeof(gp_XYZ)));
+      Coords3d* arrVec = static_cast<Coords3d*>(anAlloc->Allocate(nNodes * sizeof(Coords3d)));
 
       // Compute the normal vectors
       Standard_Real Tol = Sqrt(aConf2);
@@ -433,13 +433,13 @@ Handle(VrmlData_Geometry) ShapeConverter::triToIndexedFaceSet(
           // Try to estimate as middle normal of adjacent triangles
           Standard_Integer n[3];
 
-          gp_XYZ eqPlan(0., 0., 0.);
+          Coords3d eqPlan(0., 0., 0.);
           for (PC.Initialize(i + 1); PC.More(); PC.Next())
           {
             aTriangles(PC.Value()).Get(n[0], n[1], n[2]);
-            gp_XYZ v1(theTri->Node(n[1]).Coord() - theTri->Node(n[0]).Coord());
-            gp_XYZ v2(theTri->Node(n[2]).Coord() - theTri->Node(n[1]).Coord());
-            gp_XYZ vv = v1 ^ v2;
+            Coords3d v1(theTri->Node(n[1]).Coord() - theTri->Node(n[0]).Coord());
+            Coords3d v2(theTri->Node(n[2]).Coord() - theTri->Node(n[1]).Coord());
+            Coords3d vv = v1 ^ v2;
 
             Standard_Real mod = vv.Modulus();
             if (mod < Tol)
@@ -502,7 +502,7 @@ Handle(VrmlData_Geometry) ShapeConverter::polToIndexedLineSet(
   arrPolygons[0] = aPolygon;
 
   // Create the Coordinates node
-  gp_XYZ* arrNodes = static_cast<gp_XYZ*>(anAlloc->Allocate(nNodes * sizeof(gp_XYZ)));
+  Coords3d* arrNodes = static_cast<Coords3d*>(anAlloc->Allocate(nNodes * sizeof(Coords3d)));
   for (i = 0; i < nNodes; i++)
     arrNodes[i] = arrPolyNodes(i + 1).XYZ() * myScale;
 
@@ -695,7 +695,7 @@ void ShapeConverter::addShape(const Handle(VrmlData_Group)&   theParent,
         Transform3d                aTrsf(aLoc);
         if (fabs(myScale - 1.) > Precision::Confusion())
         {
-          const gp_XYZ aTransl = aTrsf.TranslationPart() * myScale;
+          const Coords3d aTransl = aTrsf.TranslationPart() * myScale;
           aTrsf.SetTranslationPart(aTransl);
         }
         aTrans->SetTransform(aTrsf);
@@ -734,7 +734,7 @@ void ShapeConverter::addInstance(const Handle(VrmlData_Group)&   theParent,
     Transform3d aTrsf(aLoc);
     if (fabs(myScale - 1.) > Precision::Confusion())
     {
-      const gp_XYZ aTransl = aTrsf.TranslationPart() * myScale;
+      const Coords3d aTransl = aTrsf.TranslationPart() * myScale;
       aTrsf.SetTranslationPart(aTransl);
     }
     aTrans->SetTransform(aTrsf);
@@ -796,7 +796,7 @@ void ShapeConverter::addAssembly(const Handle(VrmlData_Group)&   theParent,
       Transform3d aTrsf(aLoc);
       if (fabs(myScale - 1.) > Precision::Confusion())
       {
-        const gp_XYZ aTransl = aTrsf.TranslationPart() * myScale;
+        const Coords3d aTransl = aTrsf.TranslationPart() * myScale;
         aTrsf.SetTranslationPart(aTransl);
       }
       anAssembly->SetTransform(aTrsf);

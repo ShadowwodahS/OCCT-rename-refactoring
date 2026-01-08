@@ -110,7 +110,7 @@ void BRepClass3d_SClassifier::PerformInfinitePoint(BRepClass3d_SolidExplorer& aS
   Point3d           aPoint;
   Dir3d           aDN;
 
-  math_BullardGenerator aRandomGenerator;
+  BullardGenerator aRandomGenerator;
   myFace.Nullify();
   myState = 2;
 

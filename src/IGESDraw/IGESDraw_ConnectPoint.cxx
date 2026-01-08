@@ -28,7 +28,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESDraw_ConnectPoint, IGESData_IGESEntity)
 
 IGESDraw_ConnectPoint::IGESDraw_ConnectPoint() {}
 
-void IGESDraw_ConnectPoint::Init(const gp_XYZ&                                aPoint,
+void IGESDraw_ConnectPoint::Init(const Coords3d&                                aPoint,
                                  const Handle(IGESData_IGESEntity)&           aDisplaySymbol,
                                  const Standard_Integer                       aTypeFlag,
                                  const Standard_Integer                       aFunctionFlag,
@@ -64,7 +64,7 @@ Point3d IGESDraw_ConnectPoint::Point() const
 
 Point3d IGESDraw_ConnectPoint::TransformedPoint() const
 {
-  gp_XYZ tempPoint = thePoint;
+  Coords3d tempPoint = thePoint;
   if (HasTransf())
     Location().Transforms(tempPoint);
   Point3d tempRes(tempPoint);

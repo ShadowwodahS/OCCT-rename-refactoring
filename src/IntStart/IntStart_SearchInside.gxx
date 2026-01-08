@@ -85,7 +85,7 @@ void IntStart_SearchInside::Perform (TheFunction& Func,
   Func.Set(PS);
   Standard_Real Tol = Func.Tolerance();
 
-  math_FunctionSetRoot Rsnld(Func,toler);
+  FunctionSetRoot Rsnld(Func,toler);
 
   //-- lbr le 15 mai 97 
   umin+=du*0.01;
@@ -243,7 +243,7 @@ void IntStart_SearchInside::Perform (TheFunction& Func,
     math_Vector UVap(1,2);
     UVap(1)=UStart; UVap(2)=VStart;
 
-    math_FunctionSetRoot Rsnld(Func,toler);
+    FunctionSetRoot Rsnld(Func,toler);
     Rsnld.Perform(Func,UVap,Binf,Bsup);
     if (Rsnld.IsDone()) {
       Standard_Real tol = Func.Tolerance();

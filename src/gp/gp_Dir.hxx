@@ -49,7 +49,7 @@ public:
 
   //! Creates a direction from a triplet of coordinates. Raises ConstructionError if
   //! theCoord.Modulus() <= Resolution from gp1.
-  Dir3d(const gp_XYZ& theCoord);
+  Dir3d(const Coords3d& theCoord);
 
   //! Creates a direction with its 3 cartesian coordinates. Raises ConstructionError if
   //! Sqrt(theXv*theXv + theYv*theYv + theZv*theZv) <= Resolution Modification of the direction's
@@ -92,7 +92,7 @@ public:
   void SetZ(const Standard_Real theZ);
 
   //! Assigns the three coordinates of theCoord to this unit vector.
-  void SetXYZ(const gp_XYZ& theCoord);
+  void SetXYZ(const Coords3d& theCoord);
 
   //! Returns the coordinate of range theIndex :
   //! theIndex = 1 => X is returned
@@ -118,7 +118,7 @@ public:
   Standard_Real Z() const { return coord.Z(); }
 
   //! for this unit vector, returns  its three coordinates as a number triplea.
-  const gp_XYZ& XYZ() const { return coord; }
+  const Coords3d& XYZ() const { return coord; }
 
   //! Returns True if the angle between the two directions is
   //! lower or equal to theAngularTolerance.
@@ -283,7 +283,7 @@ public:
                                                 Standard_Integer&       theStreamPos);
 
 private:
-  gp_XYZ coord;
+  Coords3d coord;
 };
 
 #include <gp_Trsf.hxx>
@@ -294,7 +294,7 @@ private:
 // =======================================================================
 inline Dir3d::Dir3d(const Vector3d& theV)
 {
-  const gp_XYZ& aXYZ = theV.XYZ();
+  const Coords3d& aXYZ = theV.XYZ();
   Standard_Real aX   = aXYZ.X();
   Standard_Real aY   = aXYZ.Y();
   Standard_Real aZ   = aXYZ.Z();
@@ -310,7 +310,7 @@ inline Dir3d::Dir3d(const Vector3d& theV)
 // function : Dir3d
 // purpose  :
 // =======================================================================
-inline Dir3d::Dir3d(const gp_XYZ& theXYZ)
+inline Dir3d::Dir3d(const Coords3d& theXYZ)
 {
   Standard_Real aX = theXYZ.X();
   Standard_Real aY = theXYZ.Y();
@@ -438,7 +438,7 @@ inline void Dir3d::SetZ(const Standard_Real theZ)
 // function : SetXYZ
 // purpose  :
 // =======================================================================
-inline void Dir3d::SetXYZ(const gp_XYZ& theXYZ)
+inline void Dir3d::SetXYZ(const Coords3d& theXYZ)
 {
   Standard_Real aX  = theXYZ.X();
   Standard_Real anY = theXYZ.Y();

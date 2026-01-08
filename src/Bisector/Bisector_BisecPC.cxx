@@ -183,7 +183,7 @@ Handle(Geom2d_Geometry) Bisector_BisecPC::Copy() const
 
 //=================================================================================================
 
-void Bisector_BisecPC::Transform(const gp_Trsf2d& T)
+void Bisector_BisecPC::Transform(const Transform2d& T)
 {
   curve->Transform(T);
   point.Transform(T);

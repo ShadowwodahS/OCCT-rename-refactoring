@@ -132,7 +132,7 @@ private:
     }
 
     Coords2d            Point2d;
-    gp_XYZ           Point;
+    Coords3d           Point;
     Standard_Boolean isFrontierLink;
   };
 

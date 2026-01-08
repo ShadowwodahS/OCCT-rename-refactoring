@@ -67,7 +67,7 @@ void gp_Dir2d::Mirror(const gp_Ax2d& A2)
   coord.SetCoord(XX, YY);
 }
 
-void gp_Dir2d::Transform(const gp_Trsf2d& T)
+void gp_Dir2d::Transform(const Transform2d& T)
 {
   if (T.Form() == gp_Identity || T.Form() == gp_Translation)
   {

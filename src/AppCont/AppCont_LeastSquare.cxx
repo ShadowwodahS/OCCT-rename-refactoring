@@ -140,8 +140,8 @@ AppCont_LeastSquare::AppCont_LeastSquare(const ContinuityFunction&       SSP,
 
   // Compute control points params on which approximation will be built.
   math_Vector GaussP(1, myNbPoints), GaussW(1, myNbPoints);
-  math::GaussPoints(myNbPoints, GaussP);
-  math::GaussWeights(myNbPoints, GaussW);
+  math1::GaussPoints(myNbPoints, GaussP);
+  math1::GaussWeights(myNbPoints, GaussW);
   math_Vector TheWeights(1, myNbPoints), VBParam(1, myNbPoints);
   dU = 0.5 * (U1 - U0);
   for (i = FirstP; i <= LastP; i++)

@@ -147,13 +147,13 @@ void Extrema_GenLocateExtPS::Perform(const Point3d&          theP,
 
     Extrema_FuncPSDist F(mySurf, theP);
 
-    math_BFGS aSolver(2, aRelTol);
+    BFGSOptimizer aSolver(2, aRelTol);
     aSolver.Perform(F, aStart);
 
     if (!aSolver.IsDone())
     {
       // Try another method
-      math_FRPR aSolver1(F, aRelTol);
+      FletcherReevesPowellRestart aSolver1(F, aRelTol);
       aSolver1.Perform(F, aStart);
       if (!aSolver1.IsDone())
         return;
@@ -184,7 +184,7 @@ void Extrema_GenLocateExtPS::Perform(const Point3d&          theP,
     Standard_Boolean isCorrectTol = (Abs(aTol(1) - myTolU) > Precision::PConfusion()
                                      || Abs(aTol(2) - myTolV) > Precision::PConfusion());
 
-    math_FunctionSetRoot aSR(F, aTol);
+    FunctionSetRoot aSR(F, aTol);
     aSR.Perform(F, aStart, aBoundInf, aBoundSup);
 
     if (!aSR.IsDone() || isCorrectTol)
@@ -194,7 +194,7 @@ void Extrema_GenLocateExtPS::Perform(const Point3d&          theP,
         aTol(1) = myTolU;
         aTol(2) = myTolV;
       }
-      math_NewtonFunctionSetRoot aNSR(F, aTol, Precision::Confusion());
+      NewtonFunctionSetRoot aNSR(F, aTol, Precision::Confusion());
       aNSR.Perform(F, aStart, aBoundInf, aBoundSup);
       if (!aSR.IsDone() && !aNSR.IsDone())
       {

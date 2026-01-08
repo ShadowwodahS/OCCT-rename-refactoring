@@ -18,7 +18,7 @@
 
 //! Class perform linear interpolation (approximate rotation interpolation),
 //! result quaternion nonunit, its length lay between. sqrt(2)/2  and 1.0
-class gp_QuaternionNLerp
+class QuaternionNLerp
 {
 public:
   //! Compute interpolated quaternion between two quaternions.
@@ -26,34 +26,34 @@ public:
   //! @param theEnd   second quaternion
   //! @param theT normalized interpolation coefficient within 0..1 range,
   //!             with 0 pointing to theStart and 1 to theEnd.
-  static gp_Quaternion Interpolate(const gp_Quaternion& theQStart,
-                                   const gp_Quaternion& theQEnd,
+  static Quaternion Interpolate(const Quaternion& theQStart,
+                                   const Quaternion& theQEnd,
                                    Standard_Real        theT)
   {
-    gp_Quaternion      aResult;
-    gp_QuaternionNLerp aLerp(theQStart, theQEnd);
+    Quaternion      aResult;
+    QuaternionNLerp aLerp(theQStart, theQEnd);
     aLerp.Interpolate(theT, aResult);
     return aResult;
   }
 
 public:
   //! Empty constructor,
-  gp_QuaternionNLerp() {}
+  QuaternionNLerp() {}
 
   //! Constructor with initialization.
-  gp_QuaternionNLerp(const gp_Quaternion& theQStart, const gp_Quaternion& theQEnd)
+  QuaternionNLerp(const Quaternion& theQStart, const Quaternion& theQEnd)
   {
     Init(theQStart, theQEnd);
   }
 
   //! Initialize the tool with Start and End values.
-  void Init(const gp_Quaternion& theQStart, const gp_Quaternion& theQEnd)
+  void Init(const Quaternion& theQStart, const Quaternion& theQEnd)
   {
     InitFromUnit(theQStart.Normalized(), theQEnd.Normalized());
   }
 
   //! Initialize the tool with Start and End unit quaternions.
-  void InitFromUnit(const gp_Quaternion& theQStart, const gp_Quaternion& theQEnd)
+  void InitFromUnit(const Quaternion& theQStart, const Quaternion& theQEnd)
   {
     myQStart              = theQStart;
     myQEnd                = theQEnd;
@@ -66,14 +66,14 @@ public:
   }
 
   //! Set interpolated quaternion for theT position (from 0.0 to 1.0)
-  void Interpolate(Standard_Real theT, gp_Quaternion& theResultQ) const
+  void Interpolate(Standard_Real theT, Quaternion& theResultQ) const
   {
     theResultQ = myQStart + myQEnd * theT;
   }
 
 private:
-  gp_Quaternion myQStart;
-  gp_Quaternion myQEnd;
+  Quaternion myQStart;
+  Quaternion myQEnd;
 };
 
 #endif //_gp_QuaternionNLerp_HeaderFile

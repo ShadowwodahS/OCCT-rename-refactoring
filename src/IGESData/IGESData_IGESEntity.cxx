@@ -433,33 +433,33 @@ Handle(IGESData_IGESEntity) IGESData_IGESEntity::UniqueParent() const
   }
 }
 
-gp_GTrsf IGESData_IGESEntity::Location() const
+GeneralTransform IGESData_IGESEntity::Location() const
 {
   // szv#4:S4163:12Mar99 unreachcble eliminated
-  // if (!HasTransf()) return gp_GTrsf();    // Identite
+  // if (!HasTransf()) return GeneralTransform();    // Identite
   // else return Transf()->Value();          // c-a-d Compoound
   if (!HasTransf())
-    return gp_GTrsf(); // Identite
+    return GeneralTransform(); // Identite
   Handle(IGESData_TransfEntity) trsf = Transf();
-  return (trsf.IsNull()) ? gp_GTrsf() : trsf->Value();
+  return (trsf.IsNull()) ? GeneralTransform() : trsf->Value();
 }
 
-gp_GTrsf IGESData_IGESEntity::VectorLocation() const
+GeneralTransform IGESData_IGESEntity::VectorLocation() const
 {
   if (!HasTransf())
-    return gp_GTrsf();               // Identite
+    return GeneralTransform();               // Identite
                                      //    Prendre Location et anuler TranslationPart
-  gp_GTrsf loca = Transf()->Value(); // c-a-d Compoound
-  loca.SetTranslationPart(gp_XYZ(0., 0., 0.));
+  GeneralTransform loca = Transf()->Value(); // c-a-d Compoound
+  loca.SetTranslationPart(Coords3d(0., 0., 0.));
   return loca;
 }
 
-gp_GTrsf IGESData_IGESEntity::CompoundLocation() const
+GeneralTransform IGESData_IGESEntity::CompoundLocation() const
 {
-  gp_GTrsf loca = Location();
+  GeneralTransform loca = Location();
   if (!HasOneParent())
     return loca;
-  gp_GTrsf locp = UniqueParent()->CompoundLocation();
+  GeneralTransform locp = UniqueParent()->CompoundLocation();
   loca.PreMultiply(locp);
   return loca;
 }

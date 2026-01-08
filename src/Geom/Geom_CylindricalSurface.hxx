@@ -25,7 +25,7 @@
 class Ax3;
 class Cylinder1;
 class Transform3d;
-class gp_GTrsf2d;
+class GeneralTransform2d;
 class GeomCurve3d;
 class Point3d;
 class Vector3d;
@@ -135,7 +135,7 @@ public:
   //!   me->ParametricTransformation(T)
   //! @endcode
   //! This method returns a scale centered on the U axis with T.ScaleFactor
-  Standard_EXPORT virtual gp_GTrsf2d ParametricTransformation(const Transform3d& T) const
+  Standard_EXPORT virtual GeneralTransform2d ParametricTransformation(const Transform3d& T) const
     Standard_OVERRIDE;
 
   //! The CylindricalSurface is infinite in the V direction so

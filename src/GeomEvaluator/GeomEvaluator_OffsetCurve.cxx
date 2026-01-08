@@ -198,7 +198,7 @@ Vector3d GeomEvaluator_OffsetCurve::BaseDN(const Standard_Real    theU,
 
 void GeomEvaluator_OffsetCurve::CalculateD0(Point3d& theValue, const Vector3d& theD1) const
 {
-  gp_XYZ        Ndir = (theD1.XYZ()).Crossed(myOffsetDir.XYZ());
+  Coords3d        Ndir = (theD1.XYZ()).Crossed(myOffsetDir.XYZ());
   Standard_Real R    = Ndir.Modulus();
   if (R <= gp1::Resolution())
     throw Standard_NullValue("GeomEvaluator_OffsetCurve: Undefined normal vector "
@@ -217,8 +217,8 @@ void GeomEvaluator_OffsetCurve::CalculateD1(Point3d&       theValue,
 
   // P'(u) = p'(u) + (Offset / R**2) * (DNdir/DU * R -  Ndir * (DR/R))
 
-  gp_XYZ        Ndir  = (theD1.XYZ()).Crossed(myOffsetDir.XYZ());
-  gp_XYZ        DNdir = (theD2.XYZ()).Crossed(myOffsetDir.XYZ());
+  Coords3d        Ndir  = (theD1.XYZ()).Crossed(myOffsetDir.XYZ());
+  Coords3d        DNdir = (theD2.XYZ()).Crossed(myOffsetDir.XYZ());
   Standard_Real R2    = Ndir.SquareModulus();
   Standard_Real R     = Sqrt(R2);
   Standard_Real R3    = R * R2;
@@ -260,9 +260,9 @@ void GeomEvaluator_OffsetCurve::CalculateD2(Point3d&                theValue,
   // P"(u) = p"(u) + (Offset / R) * (D2Ndir/DU - DNdir * (2.0 * Dr/ R**2) +
   //         Ndir * ( (3.0 * Dr**2 / R**4) - (D2r / R**2)))
 
-  gp_XYZ        Ndir   = (theD1.XYZ()).Crossed(myOffsetDir.XYZ());
-  gp_XYZ        DNdir  = (theD2.XYZ()).Crossed(myOffsetDir.XYZ());
-  gp_XYZ        D2Ndir = (theD3.XYZ()).Crossed(myOffsetDir.XYZ());
+  Coords3d        Ndir   = (theD1.XYZ()).Crossed(myOffsetDir.XYZ());
+  Coords3d        DNdir  = (theD2.XYZ()).Crossed(myOffsetDir.XYZ());
+  Coords3d        D2Ndir = (theD3.XYZ()).Crossed(myOffsetDir.XYZ());
   Standard_Real R2     = Ndir.SquareModulus();
   Standard_Real R      = Sqrt(R2);
   Standard_Real R3     = R2 * R;
@@ -332,10 +332,10 @@ void GeomEvaluator_OffsetCurve::CalculateD3(Point3d&                theValue,
   //          (D3r/R2) * Ndir + (6.0 * Dr * Dr / R4) * Ndir +
   //          (6.0 * Dr * D2r / R4) * Ndir - (15.0 * Dr* Dr* Dr /R6) * Ndir
 
-  gp_XYZ        Ndir   = (theD1.XYZ()).Crossed(myOffsetDir.XYZ());
-  gp_XYZ        DNdir  = (theD2.XYZ()).Crossed(myOffsetDir.XYZ());
-  gp_XYZ        D2Ndir = (theD3.XYZ()).Crossed(myOffsetDir.XYZ());
-  gp_XYZ        D3Ndir = (theD4.XYZ()).Crossed(myOffsetDir.XYZ());
+  Coords3d        Ndir   = (theD1.XYZ()).Crossed(myOffsetDir.XYZ());
+  Coords3d        DNdir  = (theD2.XYZ()).Crossed(myOffsetDir.XYZ());
+  Coords3d        D2Ndir = (theD3.XYZ()).Crossed(myOffsetDir.XYZ());
+  Coords3d        D3Ndir = (theD4.XYZ()).Crossed(myOffsetDir.XYZ());
   Standard_Real R2     = Ndir.SquareModulus();
   Standard_Real R      = Sqrt(R2);
   Standard_Real R3     = R2 * R;

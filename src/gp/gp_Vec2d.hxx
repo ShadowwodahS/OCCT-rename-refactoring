@@ -21,7 +21,7 @@
 class gp_Dir2d;
 class gp_Pnt2d;
 class gp_Ax2d;
-class gp_Trsf2d;
+class Transform2d;
 
 //! Defines a non-persistent vector in 2D space.
 class gp_Vec2d
@@ -339,10 +339,10 @@ public:
     return aV;
   }
 
-  Standard_EXPORT void Transform(const gp_Trsf2d& theT);
+  Standard_EXPORT void Transform(const Transform2d& theT);
 
   //! Transforms a vector with a Trsf from gp1.
-  Standard_NODISCARD gp_Vec2d Transformed(const gp_Trsf2d& theT) const
+  Standard_NODISCARD gp_Vec2d Transformed(const Transform2d& theT) const
   {
     gp_Vec2d aV = *this;
     aV.Transform(theT);
@@ -425,7 +425,7 @@ inline gp_Vec2d gp_Vec2d::Normalized() const
 //=======================================================================
 inline void gp_Vec2d::Rotate(const Standard_Real theAng)
 {
-  gp_Trsf2d aT;
+  Transform2d aT;
   aT.SetRotation(gp_Pnt2d(0.0, 0.0), theAng);
   coord.Multiply(aT.VectorialPart());
 }

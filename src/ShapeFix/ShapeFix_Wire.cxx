@@ -1656,7 +1656,7 @@ Standard_Boolean WireHealer::FixShifted()
             x *= (scld > 0 ? -dx : dx);
             // x *= ( Abs(scld-scln) > 1.5 * period ? 2. : 1. ) *
             //      ( scld >0 ? -period : period );
-            gp_Trsf2d Shift;
+            Transform2d Shift;
             Shift.SetTranslation(x);
             for (Standard_Integer k = degn2;; k++)
             {
@@ -1710,7 +1710,7 @@ Standard_Boolean WireHealer::FixShifted()
           }
           if ( du ==0. && dv == 0. ) continue;
           myLastFixStatus |= ShapeExtend::EncodeStatus ( ShapeExtend_DONE1 );
-          gp_Trsf2d Shift;
+          Transform2d Shift;
           Shift.SetTranslation ( gp_Vec2d ( du, dv ) );
           c2d2->Transform ( Shift );
           UpdateEdgeUVPoints ( E2, Face() );//rln 15.03.99 syntax correction :E1
@@ -1750,7 +1750,7 @@ Standard_Boolean WireHealer::FixShifted()
       continue;
 
     myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
-    gp_Trsf2d Shift;
+    Transform2d Shift;
     Shift.SetTranslation(gp_Vec2d(du, dv));
     // c2d2->Transform ( Shift );
     //  skl 15.05.2002 for OCC208 (if few edges have reference to one pcurve)
@@ -1802,7 +1802,7 @@ Standard_Boolean WireHealer::FixShifted()
 
   myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
 
-  gp_Trsf2d Shift;
+  Transform2d Shift;
   Shift.SetTranslation(gp_Vec2d(du, dv));
 
   for (n = 1; n <= sbwdOring->NbEdges(); n++)

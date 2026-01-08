@@ -25,7 +25,7 @@
 class gp_Pnt2d;
 
 //! This class implements an elementary construction algorithm for
-//! a scaling transformation in 2D space. The result is a gp_Trsf2d transformation.
+//! a scaling transformation in 2D space. The result is a Transform2d transformation.
 //! A MakeScale2d object provides a framework for:
 //! -   defining the construction of the transformation,
 //! -   implementing the construction algorithm, and
@@ -41,14 +41,14 @@ public:
   Standard_EXPORT ScaleBuilder2d(const gp_Pnt2d& Point, const Standard_Real Scale);
 
   //! Returns the constructed transformation.
-  Standard_EXPORT const gp_Trsf2d& Value() const;
+  Standard_EXPORT const Transform2d& Value() const;
 
-  Standard_EXPORT const gp_Trsf2d& Operator() const;
-  Standard_EXPORT                  operator gp_Trsf2d() const;
+  Standard_EXPORT const Transform2d& Operator() const;
+  Standard_EXPORT                  operator Transform2d() const;
 
 protected:
 private:
-  gp_Trsf2d TheScale2d;
+  Transform2d TheScale2d;
 };
 
 #endif // _gce_MakeScale2d_HeaderFile

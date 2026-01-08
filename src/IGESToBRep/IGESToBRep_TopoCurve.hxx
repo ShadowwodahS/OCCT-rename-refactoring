@@ -28,7 +28,7 @@
 class TopoShape;
 class IGESData_IGESEntity;
 class TopoFace;
-class gp_Trsf2d;
+class Transform2d;
 class TopoVertex;
 class IGESGeom_Point;
 class IGESGeom_CompositeCurve;
@@ -72,14 +72,14 @@ public:
 
   Standard_EXPORT TopoShape Transfer2dTopoCurve(const Handle(IGESData_IGESEntity)& start,
                                                    const TopoFace&                 face,
-                                                   const gp_Trsf2d&                   trans,
+                                                   const Transform2d&                   trans,
                                                    const Standard_Real                uFact);
 
   Standard_EXPORT TopoShape TransferTopoBasicCurve(const Handle(IGESData_IGESEntity)& start);
 
   Standard_EXPORT TopoShape Transfer2dTopoBasicCurve(const Handle(IGESData_IGESEntity)& start,
                                                         const TopoFace&                 face,
-                                                        const gp_Trsf2d&                   trans,
+                                                        const Transform2d&                   trans,
                                                         const Standard_Real                uFact);
 
   Standard_EXPORT TopoVertex TransferPoint(const Handle(IGESGeom_Point)& start);
@@ -91,14 +91,14 @@ public:
   Standard_EXPORT TopoShape
     Transfer2dCompositeCurve(const Handle(IGESGeom_CompositeCurve)& start,
                              const TopoFace&                     face,
-                             const gp_Trsf2d&                       trans,
+                             const Transform2d&                       trans,
                              const Standard_Real                    uFact);
 
   Standard_EXPORT TopoShape TransferOffsetCurve(const Handle(IGESGeom_OffsetCurve)& start);
 
   Standard_EXPORT TopoShape Transfer2dOffsetCurve(const Handle(IGESGeom_OffsetCurve)& start,
                                                      const TopoFace&                  face,
-                                                     const gp_Trsf2d&                    trans,
+                                                     const Transform2d&                    trans,
                                                      const Standard_Real                 uFact);
 
   Standard_EXPORT TopoShape TransferCurveOnSurface(const Handle(IGESGeom_CurveOnSurface)& start);
@@ -107,7 +107,7 @@ public:
   //! The CurveOnSurface have to be defined Outer or Inner.
   Standard_EXPORT TopoShape TransferCurveOnFace(TopoFace&                           face,
                                                    const Handle(IGESGeom_CurveOnSurface)& start,
-                                                   const gp_Trsf2d&                       trans,
+                                                   const Transform2d&                       trans,
                                                    const Standard_Real                    uFact,
                                                    const Standard_Boolean                 IsCurv);
 
@@ -116,7 +116,7 @@ public:
   //! Transfers a Boundary directly on a face to trim it.
   Standard_EXPORT TopoShape TransferBoundaryOnFace(TopoFace&                     face,
                                                       const Handle(IGESGeom_Boundary)& start,
-                                                      const gp_Trsf2d&                 trans,
+                                                      const Transform2d&                 trans,
                                                       const Standard_Real              uFact);
 
   Standard_EXPORT void ApproxBSplineCurve(const Handle(BSplineCurve3d)& start);
@@ -149,7 +149,7 @@ private:
     TransferCompositeCurveGeneral(const Handle(IGESGeom_CompositeCurve)& start,
                                   const Standard_Boolean                 is2d,
                                   const TopoFace&                     face,
-                                  const gp_Trsf2d&                       trans,
+                                  const Transform2d&                       trans,
                                   const Standard_Real                    uFact);
 
   TColGeom_SequenceOfCurve   TheCurves;

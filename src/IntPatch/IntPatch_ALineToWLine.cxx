@@ -318,16 +318,16 @@ Standard_Real IntPatch_ALineToWLine::GetSectionRadius(const Point3d& thePnt3d) c
     if (aQuad.TypeQuadric() == GeomAbs_Cone)
     {
       const Cone1 aCone = aQuad.Cone();
-      const gp_XYZ  aRVec = thePnt3d.XYZ() - aCone.Apex().XYZ();
-      const gp_XYZ& aDir  = aCone.Axis().Direction().XYZ();
+      const Coords3d  aRVec = thePnt3d.XYZ() - aCone.Apex().XYZ();
+      const Coords3d& aDir  = aCone.Axis().Direction().XYZ();
 
       aRetVal = Min(aRetVal, Abs(aRVec.Dot(aDir) * Tan(aCone.SemiAngle())));
     }
     else if (aQuad.TypeQuadric() == GeomAbs_Sphere)
     {
-      const gp_Sphere     aSphere = aQuad.Sphere();
-      const gp_XYZ        aRVec   = thePnt3d.XYZ() - aSphere.Location().XYZ();
-      const gp_XYZ&       aDir    = aSphere.Position().Direction().XYZ();
+      const Sphere3     aSphere = aQuad.Sphere();
+      const Coords3d        aRVec   = thePnt3d.XYZ() - aSphere.Location().XYZ();
+      const Coords3d&       aDir    = aSphere.Position().Direction().XYZ();
       const Standard_Real aR      = aSphere.Radius();
       const Standard_Real aD      = aRVec.Dot(aDir);
       const Standard_Real aDelta  = aR * aR - aD * aD;
@@ -966,7 +966,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
 //            0  - step is normal
 //            +1 - step is too big
 //=======================================================================
-Standard_Integer IntPatch_ALineToWLine::CheckDeflection(const gp_XYZ&       theMidPt,
+Standard_Integer IntPatch_ALineToWLine::CheckDeflection(const Coords3d&       theMidPt,
                                                         const Standard_Real theMaxDeflection) const
 {
   Standard_Real aDist = Abs(myQuad1.Distance(theMidPt));
@@ -1054,8 +1054,8 @@ Standard_Boolean IntPatch_ALineToWLine::StepComputing(const Handle(IntPatch_ALin
   {
     aNbIter++;
 
-    const gp_XYZ&          aP1 = thePOn2S.Value().XYZ();
-    const gp_XYZ           aP2(theALine->Value(theCurParam + theStep).XYZ());
+    const Coords3d&          aP1 = thePOn2S.Value().XYZ();
+    const Coords3d           aP2(theALine->Value(theCurParam + theStep).XYZ());
     const Standard_Integer aStatus = CheckDeflection(0.5 * (aP1 + aP2), theMaxDeflection);
 
     if (aStatus == 0)

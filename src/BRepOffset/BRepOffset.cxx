@@ -250,7 +250,7 @@ Handle(GeomSurface) BRepOffset::CollapseSingularities(const Handle(GeomSurface)&
     for (Standard_Integer iSide = 0; iSide < 4; iSide++)
     {
       // compute center of gravity of side poles
-      gp_XYZ aSum;
+      Coords3d aSum;
       for (int iPole = 0; iPole < NbSteps[iSide]; iPole++)
       {
         aSum +=

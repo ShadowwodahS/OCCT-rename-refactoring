@@ -275,7 +275,7 @@ public:
 //           on a plane. Apex is point with maximal curvature
 //=======================================================================
 
-class ProjLib_MaxCurvature : public math_Function
+class ProjLib_MaxCurvature : public Function1
 
 {
 
@@ -741,7 +741,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
             // calculate the rotation angle for the plane axes to meet the correct axes of the
             // projected ellipse (swap eigenvectors in respect to major and minor axes)
             const math_Matrix& anEigenVec = anEigenCalc.Vectors();
-            gp_Trsf2d          aTrsfInPlane;
+            Transform2d          aTrsfInPlane;
             aTrsfInPlane.SetValues(anEigenVec(1, 2),
                                    anEigenVec(1, 1),
                                    0.0,
@@ -1414,7 +1414,7 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildParabolaByApex(Handle(GeomCurve3d)
   myType                           = aCurType;
   LProp3d_CLProps      aProps(aProjCrv, 2, Precision::Confusion());
   ProjLib_MaxCurvature aMaxCur(aProps);
-  math_BrentMinimum    aSolver(Precision::PConfusion());
+  BrentMinimumSolver    aSolver(Precision::PConfusion());
   aSolver.Perform(aMaxCur, -10. * aF, 0., 10. * aF);
 
   if (!aSolver.IsDone())
@@ -1473,7 +1473,7 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildHyperbolaByApex(
   // Searching hyperbola apex as point with maximal curvature
   LProp3d_CLProps      aProps(aProjCrv, 2, Precision::Confusion());
   ProjLib_MaxCurvature aMaxCur(aProps);
-  math_BrentMinimum    aSolver(Precision::PConfusion());
+  BrentMinimumSolver    aSolver(Precision::PConfusion());
   aSolver.Perform(aMaxCur, -5., 0., 5.);
 
   if (aSolver.IsDone())

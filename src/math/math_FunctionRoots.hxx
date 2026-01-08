@@ -29,7 +29,7 @@ class math_FunctionWithDerivative;
 //! This class implements an algorithm which finds all the real roots of
 //! a function with derivative within a given range.
 //! Knowledge of the derivative is required.
-class math_FunctionRoots
+class FunctionRootsSolver
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -40,7 +40,7 @@ public:
   //! abs(Xi - Xi-1) <= Epsx and abs(F(Xi)-K) <= EpsF.
   //! The function is considered as null between A and B if
   //! abs(F-K) <= EpsNull within this range.
-  Standard_EXPORT math_FunctionRoots(math_FunctionWithDerivative& F,
+  Standard_EXPORT FunctionRootsSolver(math_FunctionWithDerivative& F,
                                      const Standard_Real          A,
                                      const Standard_Real          B,
                                      const Standard_Integer       NbSample,

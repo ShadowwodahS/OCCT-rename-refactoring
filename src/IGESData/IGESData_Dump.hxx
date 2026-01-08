@@ -112,21 +112,21 @@
 
 #define IGESData_DumpXYT(S, XYval, Trsf)                                                           \
   {                                                                                                \
-    gp_XYZ XYZval(XYval.X(), XYval.Y(), 0.);                                                       \
+    Coords3d XYZval(XYval.X(), XYval.Y(), 0.);                                                       \
     Trsf.Transforms(XYZval);                                                                       \
     IGESData_DumpXY(S, XYZval);                                                                    \
   }
 
 #define IGESData_DumpXYTZ(S, XYval, Trsf, Z)                                                       \
   {                                                                                                \
-    gp_XYZ XYZval(XYval.X(), XYval.Y(), Z);                                                        \
+    Coords3d XYZval(XYval.X(), XYval.Y(), Z);                                                        \
     Trsf.Transforms(XYZval);                                                                       \
     IGESData_DumpXYZ(S, XYZval);                                                                   \
   }
 
 #define IGESData_DumpXYZT(S, XYZval, Trsf)                                                         \
   {                                                                                                \
-    gp_XYZ XYZTval(XYZval.X(), XYZval.Y(), XYZval.Z());                                            \
+    Coords3d XYZTval(XYZval.X(), XYZval.Y(), XYZval.Z());                                            \
     Trsf.Transforms(XYZTval);                                                                      \
     IGESData_DumpXYZ(S, XYZTval);                                                                  \
   }

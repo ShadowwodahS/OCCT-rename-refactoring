@@ -38,12 +38,12 @@ public:
   Standard_EXPORT ProjLib_Sphere();
 
   //! Projection on the sphere <Sp>.
-  Standard_EXPORT ProjLib_Sphere(const gp_Sphere& Sp);
+  Standard_EXPORT ProjLib_Sphere(const Sphere3& Sp);
 
   //! Projection of the circle <C> on the sphere <Sp>.
-  Standard_EXPORT ProjLib_Sphere(const gp_Sphere& Sp, const gp_Circ& C);
+  Standard_EXPORT ProjLib_Sphere(const Sphere3& Sp, const gp_Circ& C);
 
-  Standard_EXPORT void Init(const gp_Sphere& Sp);
+  Standard_EXPORT void Init(const Sphere3& Sp);
 
   Standard_EXPORT virtual void Project(const gp_Lin& L) Standard_OVERRIDE;
 
@@ -61,7 +61,7 @@ public:
 
 protected:
 private:
-  gp_Sphere mySphere;
+  Sphere3 mySphere;
 };
 
 #endif // _ProjLib_Sphere_HeaderFile

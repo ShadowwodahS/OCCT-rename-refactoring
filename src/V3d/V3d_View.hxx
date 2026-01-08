@@ -1176,7 +1176,7 @@ private:
                                                      Vector3d&       theZaxe);
 
   //! Transforms the Vertex V according to the matrice Matrix .
-  Standard_EXPORT static gp_XYZ TrsPoint(const Graphic3d_Vertex&     V,
+  Standard_EXPORT static Coords3d TrsPoint(const Graphic3d_Vertex&     V,
                                          const TColStd_Array2OfReal& Matrix);
 
   //! Returns the objects number and the projection window

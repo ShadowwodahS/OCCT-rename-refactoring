@@ -38,7 +38,7 @@
 static Standard_Integer box(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   Point3d           anOrigin;
-  gp_XYZ           aParams;
+  Coords3d           aParams;
   Dir3d           aDir;
   Dir3d           aXDir;
   Standard_Boolean isMinMax  = Standard_False;

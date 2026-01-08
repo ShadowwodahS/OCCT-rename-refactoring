@@ -30,10 +30,10 @@ class D3
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT D3(const gp_XYZ& duuu,
-                           const gp_XYZ& duuv,
-                           const gp_XYZ& duvv,
-                           const gp_XYZ& dvvv);
+  Standard_EXPORT D3(const Coords3d& duuu,
+                           const Coords3d& duuv,
+                           const Coords3d& duvv,
+                           const Coords3d& dvvv);
 
   Standard_EXPORT D3(const D3& ref);
 
@@ -42,10 +42,10 @@ public:
 
 protected:
 private:
-  gp_XYZ Duuu;
-  gp_XYZ Duuv;
-  gp_XYZ Duvv;
-  gp_XYZ Dvvv;
+  Coords3d Duuu;
+  Coords3d Duuv;
+  Coords3d Duvv;
+  Coords3d Dvvv;
 };
 
 #endif // _Plate_D3_HeaderFile

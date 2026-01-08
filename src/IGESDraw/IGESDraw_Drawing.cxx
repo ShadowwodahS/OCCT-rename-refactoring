@@ -80,7 +80,7 @@ Handle(IGESData_IGESEntity) IGESDraw_Drawing::Annotation(
 }
 
 Coords2d IGESDraw_Drawing::ViewToDrawing(const Standard_Integer NumView,
-                                      const gp_XYZ&          ViewCoords) const
+                                      const Coords3d&          ViewCoords) const
 {
   Coords2d         thisOrigin     = theViewOrigins->Value(NumView);
   Standard_Real XOrigin        = thisOrigin.X();

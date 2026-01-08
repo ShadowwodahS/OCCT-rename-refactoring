@@ -146,18 +146,18 @@ void NLPlate_NLPlate::Init()
 
 //=======================================================================
 
-gp_XYZ NLPlate_NLPlate::Evaluate(const Coords2d& point2d) const
+Coords3d NLPlate_NLPlate::Evaluate(const Coords2d& point2d) const
 {
   return EvaluateDerivative(point2d, 0, 0);
 }
 
 //=======================================================================
 
-gp_XYZ NLPlate_NLPlate::EvaluateDerivative(const Coords2d&           point2d,
+Coords3d NLPlate_NLPlate::EvaluateDerivative(const Coords2d&           point2d,
                                            const Standard_Integer iu,
                                            const Standard_Integer iv) const
 {
-  gp_XYZ Value(0., 0., 0.);
+  Coords3d Value(0., 0., 0.);
   if ((iu == 0) && (iv == 0))
     Value = myInitialSurface->Value(point2d.X(), point2d.Y()).XYZ();
   else
@@ -327,20 +327,20 @@ void NLPlate_NLPlate::ConstraintsSliding(const Standard_Integer NbIterations)
     if (HGPP->UVFreeSliding() && HGPP->IsG0())
     {
       Coords2d        UV = HGPP->UV();
-      gp_XYZ       P0 = Evaluate(UV);
-      const gp_XYZ P1 = HGPP->G0Target();
+      Coords3d       P0 = Evaluate(UV);
+      const Coords3d P1 = HGPP->G0Target();
       for (Standard_Integer iter = 1; iter <= NbIterations; iter++)
       {
         // on itere au premier ordre, ce qui suffit si on est assez pres de la surface ??
-        gp_XYZ      DP = P1 - P0;
-        gp_XYZ      Du = EvaluateDerivative(UV, 1, 0);
-        gp_XYZ      Dv = EvaluateDerivative(UV, 0, 1);
+        Coords3d      DP = P1 - P0;
+        Coords3d      Du = EvaluateDerivative(UV, 1, 0);
+        Coords3d      Dv = EvaluateDerivative(UV, 0, 1);
         math_Matrix mat(0, 1, 0, 1);
         mat(0, 0) = Du * Du;
         mat(0, 1) = Du * Dv;
         mat(1, 0) = Du * Dv;
         mat(1, 1) = Dv * Dv;
-        math_Gauss gauss(mat);
+        Gauss gauss(mat);
         if (!gauss.IsDone())
           break;
 

@@ -243,7 +243,7 @@ BinaryOutputStream& BinaryOutputStream::operator<<(const gp_Dir2d& theValue)
 //=======================================================================
 BinaryOutputStream& BinaryOutputStream::operator<<(const Transform3d& theValue)
 {
-  gp_XYZ aTr  = theValue.TranslationPart();
+  Coords3d aTr  = theValue.TranslationPart();
   gp_Mat aMat = theValue.VectorialPart();
 #if DO_INVERSE
   myRealBuf[0]  = FSD_BinaryFile::InverseReal(aMat(1, 1));

@@ -21,7 +21,7 @@
 //! Describes particle pool for using in PSO algorithm.
 //! Indexes:
 //! 0 <= aDimidx <= myDimensionCount - 1
-struct PSO_Particle
+struct PSO_Particle1
 {
   Standard_Real* Position; // Data for pointers allocated within PSOParticlesPool instance.
   Standard_Real* Velocity; // Not need to delete it manually.
@@ -29,7 +29,7 @@ struct PSO_Particle
   Standard_Real  Distance;
   Standard_Real  BestDistance;
 
-  PSO_Particle()
+  PSO_Particle1()
   {
     Distance     = RealLast();
     BestDistance = RealLast();
@@ -39,27 +39,27 @@ struct PSO_Particle
   }
 
   //! Compares the particles according to their distances.
-  bool operator<(const PSO_Particle& thePnt) const { return Distance < thePnt.Distance; }
+  bool operator<(const PSO_Particle1& thePnt) const { return Distance < thePnt.Distance; }
 };
 
 // Indexes:
 // 1 <= aParticleIdx <= myParticlesCount
-class math_PSOParticlesPool
+class PSOParticlesPool
 {
 public:
-  Standard_EXPORT math_PSOParticlesPool(const Standard_Integer theParticlesCount,
+  Standard_EXPORT PSOParticlesPool(const Standard_Integer theParticlesCount,
                                         const Standard_Integer theDimensionCount);
 
-  Standard_EXPORT PSO_Particle* GetParticle(const Standard_Integer theIdx);
+  Standard_EXPORT PSO_Particle1* GetParticle(const Standard_Integer theIdx);
 
-  Standard_EXPORT PSO_Particle* GetBestParticle();
+  Standard_EXPORT PSO_Particle1* GetBestParticle();
 
-  Standard_EXPORT PSO_Particle* GetWorstParticle();
+  Standard_EXPORT PSO_Particle1* GetWorstParticle();
 
-  Standard_EXPORT ~math_PSOParticlesPool();
+  Standard_EXPORT ~PSOParticlesPool();
 
 private:
-  NCollection_Array1<PSO_Particle>  myParticlesPool;
+  NCollection_Array1<PSO_Particle1>  myParticlesPool;
   NCollection_Array1<Standard_Real> myMemory; // Stores particles vector data.
   Standard_Integer                  myParticlesCount;
   Standard_Integer                  myDimensionCount;

@@ -87,7 +87,7 @@ void ShapeFix_Solid::Init(const TopoSolid& solid)
 static void GetMiddlePoint(const TopoShape& aShape, Point3d& pmid)
 {
   ShapeExplorer  aExp(aShape, TopAbs_EDGE);
-  gp_XYZ           center(0.0, 0.0, 0.0);
+  Coords3d           center(0.0, 0.0, 0.0);
   Standard_Integer numpoints = 0;
   for (; aExp.More(); aExp.Next())
   {

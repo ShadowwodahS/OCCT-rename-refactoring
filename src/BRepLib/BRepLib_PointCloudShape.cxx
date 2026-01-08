@@ -230,7 +230,7 @@ Standard_Boolean BRepLib_PointCloudShape::addDensityPoints(const TopoShape& theF
     if (myDist > Precision::Confusion())
     {
       std::uniform_real_distribution<> aDistanceDistrib(0.0, myDist);
-      gp_XYZ aDeflPoint = aP1.XYZ() + aNorm.XYZ() * aDistanceDistrib(aRandomGenerator);
+      Coords3d aDeflPoint = aP1.XYZ() + aNorm.XYZ() * aDistanceDistrib(aRandomGenerator);
       aP1.SetXYZ(aDeflPoint);
     }
     aP1.Transform(aTrsf);

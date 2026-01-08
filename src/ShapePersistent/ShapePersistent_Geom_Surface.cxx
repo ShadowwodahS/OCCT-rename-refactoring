@@ -249,7 +249,7 @@ template <>
 Standard_CString ShapePersistent_Geom::instance<
   ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_SphericalSurface,
-  gp_Sphere>::PName() const
+  Sphere3>::PName() const
 {
   return "PGeom_SphericalSurface";
 }
@@ -258,7 +258,7 @@ template <>
 void ShapePersistent_Geom::instance<
   ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_SphericalSurface,
-  gp_Sphere>::Write(StdObjMgt_WriteData& theWriteData) const
+  Sphere3>::Write(StdObjMgt_WriteData& theWriteData) const
 {
   Handle(Geom_SphericalSurface) aMyGeom = Handle(Geom_SphericalSurface)::DownCast(myTransient);
   theWriteData << aMyGeom->Sphere();

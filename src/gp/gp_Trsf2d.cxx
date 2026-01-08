@@ -28,7 +28,7 @@
 #include <gp_XY.hxx>
 #include <Standard_ConstructionError.hxx>
 
-void gp_Trsf2d::SetMirror(const gp_Ax2d& A)
+void Transform2d::SetMirror(const gp_Ax2d& A)
 {
   shape              = gp_Ax1Mirror;
   scale              = -1.0;
@@ -45,7 +45,7 @@ void gp_Trsf2d::SetMirror(const gp_Ax2d& A)
                -2.0 * ((VX * VY * X0) + (VY * VY - 1.0) * Y0));
 }
 
-void gp_Trsf2d::SetTransformation(const gp_Ax2d& FromA1, const gp_Ax2d& ToA2)
+void Transform2d::SetTransformation(const gp_Ax2d& FromA1, const gp_Ax2d& ToA2)
 {
   shape = gp_CompoundTrsf;
   scale = 1.0;
@@ -61,7 +61,7 @@ void gp_Trsf2d::SetTransformation(const gp_Ax2d& FromA1, const gp_Ax2d& ToA2)
   // matrix FromA1 to XOY
   const Coords2d& V3 = FromA1.Direction().XY();
   Coords2d        V4(-V3.Y(), V3.X());
-  gp_Mat2d     MA1(V3, V4);
+  Matrix2d     MA1(V3, V4);
   Coords2d        MA1loc = FromA1.Location().XY();
   // matrix * MA1 => FromA1 ToA2
   MA1loc.Multiply(matrix);
@@ -69,7 +69,7 @@ void gp_Trsf2d::SetTransformation(const gp_Ax2d& FromA1, const gp_Ax2d& ToA2)
   matrix.Multiply(MA1);
 }
 
-void gp_Trsf2d::SetTransformation(const gp_Ax2d& A)
+void Transform2d::SetTransformation(const gp_Ax2d& A)
 {
   shape           = gp_CompoundTrsf;
   scale           = 1.0;
@@ -83,7 +83,7 @@ void gp_Trsf2d::SetTransformation(const gp_Ax2d& A)
   loc.Reverse();
 }
 
-void gp_Trsf2d::SetTranslationPart(const gp_Vec2d& V)
+void Transform2d::SetTranslationPart(const gp_Vec2d& V)
 {
   loc             = V.XY();
   Standard_Real X = loc.X();
@@ -123,7 +123,7 @@ void gp_Trsf2d::SetTranslationPart(const gp_Vec2d& V)
   }
 }
 
-void gp_Trsf2d::SetScaleFactor(const Standard_Real S)
+void Transform2d::SetScaleFactor(const Standard_Real S)
 {
   if (S == 1.0)
   {
@@ -197,11 +197,11 @@ void gp_Trsf2d::SetScaleFactor(const Standard_Real S)
   scale = S;
 }
 
-gp_Mat2d gp_Trsf2d::VectorialPart() const
+Matrix2d Transform2d::VectorialPart() const
 {
   if (scale == 1.0)
     return matrix;
-  gp_Mat2d M = matrix;
+  Matrix2d M = matrix;
   if (shape == gp_Scale || shape == gp_PntMirror)
     M.SetDiagonal(matrix.Value(1, 1) * scale, matrix.Value(2, 2) * scale);
   else
@@ -209,17 +209,17 @@ gp_Mat2d gp_Trsf2d::VectorialPart() const
   return M;
 }
 
-Standard_Real gp_Trsf2d::RotationPart() const
+Standard_Real Transform2d::RotationPart() const
 {
   return ATan2(matrix.Value(2, 1), matrix.Value(1, 1));
 }
 
-void gp_Trsf2d::Invert()
+void Transform2d::Invert()
 {
   //                                    -1
   //  X' = scale * R * X + T  =>  X = (R  / scale)  * ( X' - T)
   //
-  // Pour les gp_Trsf2d puisque le scale est extrait de la matrice R
+  // Pour les Transform2d puisque le scale est extrait de la matrice R
   // on a toujours determinant (R) = 1 et R-1 = R transposee.
   if (shape == gp_Identity)
   {
@@ -234,7 +234,7 @@ void gp_Trsf2d::Invert()
     if (As < 0)
       As = -As;
     Standard_ConstructionError_Raise_if(As <= gp1::Resolution(),
-                                        "gp_Trsf2d::Invert() - transformation has zero scale");
+                                        "Transform2d::Invert() - transformation has zero scale");
     scale = 1.0 / scale;
     loc.Multiply(-scale);
   }
@@ -244,7 +244,7 @@ void gp_Trsf2d::Invert()
     if (As < 0)
       As = -As;
     Standard_ConstructionError_Raise_if(As <= gp1::Resolution(),
-                                        "gp_Trsf2d::Invert() - transformation has zero scale");
+                                        "Transform2d::Invert() - transformation has zero scale");
     scale = 1.0 / scale;
     matrix.Transpose();
     loc.Multiply(matrix);
@@ -252,7 +252,7 @@ void gp_Trsf2d::Invert()
   }
 }
 
-void gp_Trsf2d::Multiply(const gp_Trsf2d& T)
+void Transform2d::Multiply(const Transform2d& T)
 {
   if (T.shape == gp_Identity)
   {
@@ -379,7 +379,7 @@ void gp_Trsf2d::Multiply(const gp_Trsf2d& T)
   }
 }
 
-void gp_Trsf2d::Power(const Standard_Integer N)
+void Transform2d::Power(const Standard_Integer N)
 {
   if (shape == gp_Identity)
   {
@@ -447,7 +447,7 @@ void gp_Trsf2d::Power(const Standard_Integer N)
         if (Npower < 0)
           Npower = -Npower;
         Npower--;
-        gp_Mat2d Tempmatrix(matrix);
+        Matrix2d Tempmatrix(matrix);
         if (loc.X() == 0.0 && loc.Y() == 0.0)
         {
           for (;;)
@@ -498,7 +498,7 @@ void gp_Trsf2d::Power(const Standard_Integer N)
         matrix.SetDiagonal(scale * matrix.Value(1, 1), scale * matrix.Value(2, 2));
         Coords2d         Temploc   = loc;
         Standard_Real Tempscale = scale;
-        gp_Mat2d      Tempmatrix(matrix);
+        Matrix2d      Tempmatrix(matrix);
         for (;;)
         {
           if (IsOdd(Npower))
@@ -519,7 +519,7 @@ void gp_Trsf2d::Power(const Standard_Integer N)
   }
 }
 
-void gp_Trsf2d::PreMultiply(const gp_Trsf2d& T)
+void Transform2d::PreMultiply(const Transform2d& T)
 {
   if (T.shape == gp_Identity)
   {
@@ -641,7 +641,7 @@ void gp_Trsf2d::PreMultiply(const gp_Trsf2d& T)
 
 //=================================================================================================
 
-void gp_Trsf2d::SetValues(const Standard_Real a11,
+void Transform2d::SetValues(const Standard_Real a11,
                           const Standard_Real a12,
                           const Standard_Real a13,
                           const Standard_Real a21,
@@ -652,13 +652,13 @@ void gp_Trsf2d::SetValues(const Standard_Real a11,
   Coords2d col2(a12, a22);
   Coords2d col3(a13, a23);
   // compute the determinant
-  gp_Mat2d      M(col1, col2);
+  Matrix2d      M(col1, col2);
   Standard_Real s  = M.Determinant();
   Standard_Real As = s;
   if (As < 0)
     As = -As;
   Standard_ConstructionError_Raise_if(As < gp1::Resolution(),
-                                      "gp_Trsf2d::SetValues, null determinant");
+                                      "Transform2d::SetValues, null determinant");
 
   if (s > 0)
     s = sqrt(s);
@@ -685,12 +685,12 @@ void gp_Trsf2d::SetValues(const Standard_Real a11,
 //        one shape. Consequently, source matrix must be close to orthogonalized
 //        matrix for reducing these differences.
 //=======================================================================
-void gp_Trsf2d::Orthogonalize()
+void Transform2d::Orthogonalize()
 {
   // See correspond comment in Transform3d::Orthogonalize() method in order to make this
   // algorithm clear.
 
-  gp_Mat2d aTM(matrix);
+  Matrix2d aTM(matrix);
 
   Coords2d aV1 = aTM.Column(1);
   Coords2d aV2 = aTM.Column(2);

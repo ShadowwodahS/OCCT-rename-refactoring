@@ -66,8 +66,8 @@ Standard_Boolean XmlTObjDrivers_XYZDriver::Paste(const XmlObjMgt_Persistent&  So
   AsciiString1 CoordY = anElement.getAttribute(::CoordY());
   AsciiString1 CoordZ = anElement.getAttribute(::CoordZ());
 
-  // creating gp_XYZ
-  gp_XYZ           aXYZ;
+  // creating Coords3d
+  Coords3d           aXYZ;
   Standard_CString aStr;
   Standard_Real    aCoord;
 
@@ -86,7 +86,7 @@ Standard_Boolean XmlTObjDrivers_XYZDriver::Paste(const XmlObjMgt_Persistent&  So
     return Standard_False;
   aXYZ.SetZ(aCoord);
 
-  // setting gp_XYZ
+  // setting Coords3d
   Handle(TObj_TXYZ) aTarget = Handle(TObj_TXYZ)::DownCast(Target);
   aTarget->Set(aXYZ);
 
@@ -111,7 +111,7 @@ void XmlTObjDrivers_XYZDriver::Paste(const Handle(TDF_Attribute)& Source,
   if (aSource.IsNull())
     return;
 
-  gp_XYZ aXYZ = aSource->Get();
+  Coords3d aXYZ = aSource->Get();
 
   AsciiString1 aCoord;
 

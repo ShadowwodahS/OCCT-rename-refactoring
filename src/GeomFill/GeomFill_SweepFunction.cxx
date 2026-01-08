@@ -69,7 +69,7 @@ Standard_Boolean GeomFill_SweepFunction::D0(const Standard_Real Param,
 
   for (ii = 1; ii <= L; ii++)
   {
-    gp_XYZ& aux = Poles(ii).ChangeCoord();
+    Coords3d& aux = Poles(ii).ChangeCoord();
     aux *= M;
     aux += V.XYZ();
   }
@@ -91,7 +91,7 @@ Standard_Boolean GeomFill_SweepFunction::D1(const Standard_Real Param,
   Standard_Integer ii, L;
   Standard_Boolean Ok;
   Standard_Real    T = myfOnS + (Param - myf) * myRatio;
-  gp_XYZ           PPrim;
+  Coords3d           PPrim;
   L = Poles.Length();
 
   Ok = myLoc->D1(Param, M, V, DM, DV, Poles2d, DPoles2d);
@@ -104,7 +104,7 @@ Standard_Boolean GeomFill_SweepFunction::D1(const Standard_Real Param,
   for (ii = 1; ii <= L; ii++)
   {
     PPrim     = DPoles(ii).XYZ();
-    gp_XYZ& P = Poles(ii).ChangeCoord();
+    Coords3d& P = Poles(ii).ChangeCoord();
     PPrim *= myRatio;
     DWeigths(ii) *= myRatio;
     PPrim *= M;
@@ -148,13 +148,13 @@ Standard_Boolean GeomFill_SweepFunction::D2(const Standard_Real Param,
 
   for (ii = 1; ii <= L; ii++)
   {
-    gp_XYZ PSecn = D2Poles(ii).XYZ();
-    gp_XYZ PPrim = DPoles(ii).XYZ();
+    Coords3d PSecn = D2Poles(ii).XYZ();
+    Coords3d PPrim = DPoles(ii).XYZ();
     PPrim *= myRatio;
     DWeigths(ii) *= myRatio;
     PSecn *= squareratio;
     D2Weigths(ii) *= squareratio;
-    gp_XYZ& P = Poles(ii).ChangeCoord();
+    Coords3d& P = Poles(ii).ChangeCoord();
 
     PSecn *= M;
     PSecn += 2 * (DM * PPrim);

@@ -227,7 +227,7 @@ static void Print(const Handle(Geom_SphericalSurface)& S,
   else
     OS << "SphericalSurface";
 
-  gp_Sphere P = S->Sphere();
+  Sphere3 P = S->Sphere();
   if (!compact)
     OS << "\n  Center :";
   Print(P.Location(), OS, compact);

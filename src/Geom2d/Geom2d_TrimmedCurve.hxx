@@ -26,7 +26,7 @@
 class GeomCurve2d;
 class gp_Pnt2d;
 class gp_Vec2d;
-class gp_Trsf2d;
+class Transform2d;
 class Geom2d_Geometry;
 
 class Geom2d_TrimmedCurve;
@@ -220,7 +220,7 @@ public:
 
   //! Applies the transformation T to this trimmed curve.
   //! Warning The basis curve is also modified.
-  Standard_EXPORT void Transform(const gp_Trsf2d& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform2d& T) Standard_OVERRIDE;
 
   //! Returns the  parameter on the  transformed  curve for
   //! the transform of the point of parameter U on <me>.
@@ -233,7 +233,7 @@ public:
   //!
   //! This methods calls the basis curve method.
   Standard_EXPORT virtual Standard_Real TransformedParameter(const Standard_Real U,
-                                                             const gp_Trsf2d&    T) const
+                                                             const Transform2d&    T) const
     Standard_OVERRIDE;
 
   //! Returns a  coefficient to compute the parameter on
@@ -247,7 +247,7 @@ public:
   //! Value(U).Transformed(T)
   //!
   //! This methods calls the basis curve method.
-  Standard_EXPORT virtual Standard_Real ParametricTransformation(const gp_Trsf2d& T) const
+  Standard_EXPORT virtual Standard_Real ParametricTransformation(const Transform2d& T) const
     Standard_OVERRIDE;
 
   //! Creates a new object, which is a copy of this trimmed curve.

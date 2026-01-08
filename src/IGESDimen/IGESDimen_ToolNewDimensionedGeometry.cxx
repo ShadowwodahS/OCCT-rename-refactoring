@@ -90,7 +90,7 @@ void NewDimensionedGeometryTool::ReadOwnParams(
       // clang-format on
       tempDimLocFlags->SetValue(i, tempInt);
 
-      gp_XYZ tempPnt;
+      Coords3d tempPnt;
       PR.ReadXYZ(PR.CurrentList(1, 3), "Point", tempPnt); // szv#4:S4163:12Mar99 `st=` not needed
       tempPoints->SetValue(i, tempPnt);
     }

@@ -86,16 +86,16 @@ void ProjLib_PrjResolve::Perform(const Standard_Real t,
 
   //  Standard_Integer option = 1;//2;
   //  if (option == 1) {
-  //    math_FunctionSetRoot S1 (F, Start,Tol, BInf, BSup);
+  //    FunctionSetRoot S1 (F, Start,Tol, BInf, BSup);
   //    if (!S1.IsDone()) { return; }
   //  }
   //  else {
-  math_NewtonFunctionSetRoot SR(F, Tol, FuncTol);
+  NewtonFunctionSetRoot SR(F, Tol, FuncTol);
   SR.Perform(F, Start, BInf, BSup);
   //    if (!SR.IsDone()) { return; }
   if (!SR.IsDone())
   {
-    math_FunctionSetRoot S1(F, Tol);
+    FunctionSetRoot S1(F, Tol);
     S1.Perform(F, Start, BInf, BSup);
 
     if (!S1.IsDone())

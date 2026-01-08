@@ -82,7 +82,7 @@ Poly_CoherentTriangulation::Poly_CoherentTriangulation(
       for (i = 0; i < nNodes; i++)
       {
         theTriangulation->Normal(i + 1, aNormal);
-        myNodes(i).SetNormal(gp_XYZ(aNormal.x(), aNormal.y(), aNormal.z()));
+        myNodes(i).SetNormal(Coords3d(aNormal.x(), aNormal.y(), aNormal.z()));
       }
     }
     myDeflection = theTriangulation->Deflection();
@@ -127,7 +127,7 @@ Handle(MeshTriangulation) Poly_CoherentTriangulation::GetTriangulation() const
     }
 
     vecNodeId.SetValue(i, ++aCount);
-    const gp_XYZ aNormal = aNode.GetNormal();
+    const Coords3d aNormal = aNode.GetNormal();
     if (aNormal.SquareModulus() > Precision::Confusion())
     {
       aResult->AddNormals();
@@ -395,7 +395,7 @@ Standard_Integer Poly_CoherentTriangulation::NLinks() const
 
 //=================================================================================================
 
-Standard_Integer Poly_CoherentTriangulation::SetNode(const gp_XYZ&          thePnt,
+Standard_Integer Poly_CoherentTriangulation::SetNode(const Coords3d&          thePnt,
                                                      const Standard_Integer iNode)
 {
   Standard_Integer aResult = myNodes.Length();

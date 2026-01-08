@@ -42,20 +42,20 @@ void BRepGProp_MeshCinert::Perform(const TColgp_Array1OfPnt& theNodes)
   Standard_Real x, y, z;
   Standard_Real xloc, yloc, zloc;
   Standard_Real Upper;
-  gp_XYZ        P, D;
+  Coords3d        P, D;
 
   math_Vector GaussP(1, Order);
   math_Vector GaussW(1, Order);
 
-  math::GaussPoints(Order, GaussP);
-  math::GaussWeights(Order, GaussW);
+  math1::GaussPoints(Order, GaussP);
+  math1::GaussWeights(Order, GaussW);
 
   Standard_Integer nIndex = 0;
 
   for (nIndex = 1; nIndex < theNodes.Length(); nIndex++)
   {
-    const gp_XYZ& aP1 = theNodes(nIndex).XYZ();
-    const gp_XYZ& aP2 = theNodes(nIndex + 1).XYZ();
+    const Coords3d& aP1 = theNodes(nIndex).XYZ();
+    const Coords3d& aP2 = theNodes(nIndex + 1).XYZ();
     Standard_Real dimLocal, IxLocal, IyLocal, IzLocal, IxxLocal, IyyLocal, IzzLocal, IxyLocal,
       IxzLocal, IyzLocal;
     dimLocal = IxLocal = IyLocal = IzLocal = IxxLocal = IyyLocal = IzzLocal = IxyLocal = IxzLocal =
@@ -121,7 +121,7 @@ void BRepGProp_MeshCinert::Perform(const TColgp_Array1OfPnt& theNodes)
     Iyz += IyzLocal;
   }
 
-  inertia = gp_Mat(gp_XYZ(Ixx, -Ixy, -Ixz), gp_XYZ(-Ixy, Iyy, -Iyz), gp_XYZ(-Ixz, -Iyz, Izz));
+  inertia = gp_Mat(Coords3d(Ixx, -Ixy, -Ixz), Coords3d(-Ixy, Iyy, -Iyz), Coords3d(-Ixz, -Iyz, Izz));
 
   if (Abs(dim) < gp1::Resolution())
     g = P;

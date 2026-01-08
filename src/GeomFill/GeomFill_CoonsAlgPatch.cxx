@@ -47,7 +47,7 @@ GeomFill_CoonsAlgPatch::GeomFill_CoonsAlgPatch(const Handle(GeomFill_Boundary)& 
   aLaw1->Set(deb0, 0., fin0, 1.);
   a[1] = aLaw1;
 
-  gp_XYZ temp;
+  Coords3d temp;
   temp = B4->Value(deb1).XYZ().Added(B1->Value(deb0).XYZ());
   temp.Multiply(0.5);
   c[0].SetXYZ(temp);
@@ -88,7 +88,7 @@ Point3d GeomFill_CoonsAlgPatch::Value(const Standard_Real, const Standard_Real V
   a1 = a[1]->Value(V);
   a2 = 1. - a0;
   a3 = 1. - a1;
-  gp_XYZ cor, cortemp;
+  Coords3d cor, cortemp;
 
   cor = bound[0]->Value(V).XYZ();
   cor.Multiply(a0);
@@ -133,7 +133,7 @@ Vector3d GeomFill_CoonsAlgPatch::D1U(const Standard_Real U, const Standard_Real 
   a[1]->D1(U, bid, a1);
   a2 = 1 - a0;
   a3 = -a1;
-  gp_XYZ cor, cortemp;
+  Coords3d cor, cortemp;
   Point3d pbid;
   Vector3d vbid;
 
@@ -183,7 +183,7 @@ Vector3d GeomFill_CoonsAlgPatch::D1V(const Standard_Real U, const Standard_Real 
   a1 = a[1]->Value(U);
   a2 = -a0;
   a3 = 1. - a1;
-  gp_XYZ cor, cortemp;
+  Coords3d cor, cortemp;
   Point3d pbid;
   Vector3d vbid;
 
@@ -234,7 +234,7 @@ Vector3d GeomFill_CoonsAlgPatch::DUV(const Standard_Real U, const Standard_Real 
   a2 = -a0;
   a3 = -a1;
 
-  gp_XYZ cor, cortemp;
+  Coords3d cor, cortemp;
   Point3d pbid;
   Vector3d vbid;
 

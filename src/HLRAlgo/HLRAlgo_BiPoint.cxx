@@ -72,10 +72,10 @@ BiPoint::BiPoint(const Standard_Real    X1,
                                  const Standard_Integer Index,
                                  const Standard_Integer flag)
 {
-  myPoints.Pnt1        = gp_XYZ(X1, Y1, Z1);
-  myPoints.Pnt2        = gp_XYZ(X2, Y2, Z2);
-  myPoints.PntP1       = gp_XYZ(XT1, YT1, ZT1);
-  myPoints.PntP2       = gp_XYZ(XT2, YT2, ZT2);
+  myPoints.Pnt1        = Coords3d(X1, Y1, Z1);
+  myPoints.Pnt2        = Coords3d(X2, Y2, Z2);
+  myPoints.PntP1       = Coords3d(XT1, YT1, ZT1);
+  myPoints.PntP2       = Coords3d(XT2, YT2, ZT2);
   myIndices.ShapeIndex = Index;
   myIndices.FaceConex1 = myIndices.Face1Pt1 = myIndices.Face1Pt2 = myIndices.FaceConex2 =
     myIndices.Face2Pt1 = myIndices.Face2Pt2 = 0;

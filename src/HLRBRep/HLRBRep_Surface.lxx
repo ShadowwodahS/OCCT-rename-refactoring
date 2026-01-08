@@ -277,7 +277,7 @@ inline Cone1 HLRBRep_Surface::Cone() const
 // purpose  :
 //=======================================================================
 
-inline gp_Sphere HLRBRep_Surface::Sphere() const
+inline Sphere3 HLRBRep_Surface::Sphere() const
 {
   return BSurfaceTool::Sphere(mySurf);
 }

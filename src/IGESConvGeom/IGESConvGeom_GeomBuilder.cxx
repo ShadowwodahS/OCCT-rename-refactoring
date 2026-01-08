@@ -42,19 +42,19 @@ void IGESConvGeom_GeomBuilder::Clear()
 
 void IGESConvGeom_GeomBuilder::AddXY(const Coords2d& val)
 {
-  gp_XYZ aval(val.X(), val.Y(), 0.);
+  Coords3d aval(val.X(), val.Y(), 0.);
   theXYZ->Append(aval);
   aval.SetCoord(0., 0., 0.);
   theVec->Append(aval);
 }
 
-void IGESConvGeom_GeomBuilder::AddXYZ(const gp_XYZ& val)
+void IGESConvGeom_GeomBuilder::AddXYZ(const Coords3d& val)
 {
   theXYZ->Append(val);
-  theVec->Append(gp_XYZ(0., 0., 0.));
+  theVec->Append(Coords3d(0., 0., 0.));
 }
 
-void IGESConvGeom_GeomBuilder::AddVec(const gp_XYZ& val)
+void IGESConvGeom_GeomBuilder::AddVec(const Coords3d& val)
 {
   if (!theVec->IsEmpty())
     theVec->SetValue(theVec->Length(), val);
@@ -65,7 +65,7 @@ Standard_Integer IGESConvGeom_GeomBuilder::NbPoints() const
   return theXYZ->Length();
 }
 
-gp_XYZ IGESConvGeom_GeomBuilder::Point(const Standard_Integer num) const
+Coords3d IGESConvGeom_GeomBuilder::Point(const Standard_Integer num) const
 {
   return theXYZ->Value(num);
 }
@@ -85,7 +85,7 @@ Handle(IGESGeom_CopiousData) IGESConvGeom_GeomBuilder::MakeCopiousData(
   Standard_Real                 CZ   = 0.;
   for (num = 1; num <= nb; num++)
   {
-    const gp_XYZ& pnt = theXYZ->Value(num);
+    const Coords3d& pnt = theXYZ->Value(num);
     data->SetValue((num - 1) * nbd + 1, pnt.X());
     data->SetValue((num - 1) * nbd + 2, pnt.Y());
     if (datatype > 1)
@@ -94,7 +94,7 @@ Handle(IGESGeom_CopiousData) IGESConvGeom_GeomBuilder::MakeCopiousData(
       CZ += pnt.Z();
     if (datatype < 3)
       continue;
-    const gp_XYZ& vec = theVec->Value(num);
+    const Coords3d& vec = theVec->Value(num);
     data->SetValue((num - 1) * nbd + 4, vec.X());
     data->SetValue((num - 1) * nbd + 5, vec.Y());
     data->SetValue((num - 1) * nbd + 6, vec.Z());
@@ -147,7 +147,7 @@ Standard_Boolean IGESConvGeom_GeomBuilder::IsIdentity() const
   //   sinon, regarder de plus pres  ...
   if (!IsTranslation())
     return Standard_False;
-  if (!thepos.TranslationPart().IsEqual(gp_XYZ(0., 0., 0.), epsl))
+  if (!thepos.TranslationPart().IsEqual(Coords3d(0., 0., 0.), epsl))
     return Standard_False;
   return Standard_True;
 }
@@ -174,14 +174,14 @@ Standard_Boolean IGESConvGeom_GeomBuilder::IsZOnly() const
 {
   if (!IsTranslation())
     return Standard_False;
-  gp_XYZ t = thepos.TranslationPart();
+  Coords3d t = thepos.TranslationPart();
   t.SetZ(0.0);
-  if (!t.IsEqual(gp_XYZ(0., 0., 0.), epsl))
+  if (!t.IsEqual(Coords3d(0., 0., 0.), epsl))
     return Standard_False;
   return Standard_True;
 }
 
-void IGESConvGeom_GeomBuilder::EvalXYZ(const gp_XYZ&  val,
+void IGESConvGeom_GeomBuilder::EvalXYZ(const Coords3d&  val,
                                        Standard_Real& X,
                                        Standard_Real& Y,
                                        Standard_Real& Z) const

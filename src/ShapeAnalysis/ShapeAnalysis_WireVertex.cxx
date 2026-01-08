@@ -183,7 +183,7 @@ void ShapeAnalysis_WireVertex::SetClose(const Standard_Integer num)
 //=================================================================================================
 
 void ShapeAnalysis_WireVertex::SetEnd(const Standard_Integer num,
-                                      const gp_XYZ&          pos,
+                                      const Coords3d&          pos,
                                       const Standard_Real    ufol)
 {
   myStat->SetValue(num, 3);
@@ -194,7 +194,7 @@ void ShapeAnalysis_WireVertex::SetEnd(const Standard_Integer num,
 //=================================================================================================
 
 void ShapeAnalysis_WireVertex::SetStart(const Standard_Integer num,
-                                        const gp_XYZ&          pos,
+                                        const Coords3d&          pos,
                                         const Standard_Real    upre)
 {
   myStat->SetValue(num, 4);
@@ -205,7 +205,7 @@ void ShapeAnalysis_WireVertex::SetStart(const Standard_Integer num,
 //=================================================================================================
 
 void ShapeAnalysis_WireVertex::SetInters(const Standard_Integer num,
-                                         const gp_XYZ&          pos,
+                                         const Coords3d&          pos,
                                          const Standard_Real    upre,
                                          const Standard_Real    ufol)
 {
@@ -259,7 +259,7 @@ Standard_Integer ShapeAnalysis_WireVertex::Status(const Standard_Integer num) co
 
 //=================================================================================================
 
-gp_XYZ ShapeAnalysis_WireVertex::Position(const Standard_Integer num) const
+Coords3d ShapeAnalysis_WireVertex::Position(const Standard_Integer num) const
 {
   return myPos->Value(num);
 }
@@ -283,7 +283,7 @@ Standard_Real ShapeAnalysis_WireVertex::UFollowing(const Standard_Integer num) c
 //=================================================================================================
 
 Standard_Integer ShapeAnalysis_WireVertex::Data(const Standard_Integer num,
-                                                gp_XYZ&                pos,
+                                                Coords3d&                pos,
                                                 Standard_Real&         upre,
                                                 Standard_Real&         ufol) const
 {

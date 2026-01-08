@@ -23,16 +23,16 @@ class Coords2d;
 
 //! Describes a two column, two row matrix.
 //! This sort of object is used in various vectorial or matrix computations.
-class gp_Mat2d
+class Matrix2d
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates  a matrix with null coefficients.
-  gp_Mat2d() { myMat[0][0] = myMat[0][1] = myMat[1][0] = myMat[1][1] = 0.0; }
+  Matrix2d() { myMat[0][0] = myMat[0][1] = myMat[1][0] = myMat[1][1] = 0.0; }
 
   //! theCol1, theCol2 are the 2 columns of the matrix.
-  Standard_EXPORT gp_Mat2d(const Coords2d& theCol1, const Coords2d& theCol2);
+  Standard_EXPORT Matrix2d(const Coords2d& theCol1, const Coords2d& theCol2);
 
   //! Assigns the two coordinates of theValue to the column of range
   //! theCol of this matrix
@@ -154,9 +154,9 @@ public:
     return aDet <= gp1::Resolution();
   }
 
-  void Add(const gp_Mat2d& Other);
+  void Add(const Matrix2d& Other);
 
-  void operator+=(const gp_Mat2d& theOther) { Add(theOther); }
+  void operator+=(const Matrix2d& theOther) { Add(theOther); }
 
   //! Computes the sum of this matrix and the matrix
   //! theOther.for each coefficient of the matrix :
@@ -166,18 +166,18 @@ public:
   //! Note:
   //! -   operator += assigns the result to this matrix, while
   //! -   operator + creates a new one.
-  Standard_NODISCARD gp_Mat2d Added(const gp_Mat2d& theOther) const;
+  Standard_NODISCARD Matrix2d Added(const Matrix2d& theOther) const;
 
-  Standard_NODISCARD gp_Mat2d operator+(const gp_Mat2d& theOther) const { return Added(theOther); }
+  Standard_NODISCARD Matrix2d operator+(const Matrix2d& theOther) const { return Added(theOther); }
 
   void Divide(const Standard_Real theScalar);
 
   void operator/=(const Standard_Real theScalar) { Divide(theScalar); }
 
   //! Divides all the coefficients of the matrix by a scalar.
-  Standard_NODISCARD gp_Mat2d Divided(const Standard_Real theScalar) const;
+  Standard_NODISCARD Matrix2d Divided(const Standard_Real theScalar) const;
 
-  Standard_NODISCARD gp_Mat2d operator/(const Standard_Real theScalar) const
+  Standard_NODISCARD Matrix2d operator/(const Standard_Real theScalar) const
   {
     return Divided(theScalar);
   }
@@ -186,35 +186,35 @@ public:
 
   //! Inverses the matrix and raises exception if the matrix
   //! is singular.
-  Standard_NODISCARD gp_Mat2d Inverted() const
+  Standard_NODISCARD Matrix2d Inverted() const
   {
-    gp_Mat2d aNewMat = *this;
+    Matrix2d aNewMat = *this;
     aNewMat.Invert();
     return aNewMat;
   }
 
-  Standard_NODISCARD gp_Mat2d Multiplied(const gp_Mat2d& theOther) const
+  Standard_NODISCARD Matrix2d Multiplied(const Matrix2d& theOther) const
   {
-    gp_Mat2d aNewMat2d = *this;
+    Matrix2d aNewMat2d = *this;
     aNewMat2d.Multiply(theOther);
     return aNewMat2d;
   }
 
-  Standard_NODISCARD gp_Mat2d operator*(const gp_Mat2d& theOther) const
+  Standard_NODISCARD Matrix2d operator*(const Matrix2d& theOther) const
   {
     return Multiplied(theOther);
   }
 
   //! Computes the product of two matrices <me> * <theOther>
-  void Multiply(const gp_Mat2d& theOther);
+  void Multiply(const Matrix2d& theOther);
 
   //! Modifies this matrix by premultiplying it by the matrix Other
   //! <me> = theOther * <me>.
-  void PreMultiply(const gp_Mat2d& theOther);
+  void PreMultiply(const Matrix2d& theOther);
 
-  Standard_NODISCARD gp_Mat2d Multiplied(const Standard_Real theScalar) const;
+  Standard_NODISCARD Matrix2d Multiplied(const Standard_Real theScalar) const;
 
-  Standard_NODISCARD gp_Mat2d operator*(const Standard_Real theScalar) const
+  Standard_NODISCARD Matrix2d operator*(const Standard_Real theScalar) const
   {
     return Multiplied(theScalar);
   }
@@ -231,24 +231,24 @@ public:
   //! if theN < 0 <me> = <me>.Invert() *...........* <me>.Invert().
   //! If theN < 0 an exception can be raised if the matrix is not
   //! inversible
-  Standard_NODISCARD gp_Mat2d Powered(const Standard_Integer theN) const
+  Standard_NODISCARD Matrix2d Powered(const Standard_Integer theN) const
   {
-    gp_Mat2d aMat2dN = *this;
+    Matrix2d aMat2dN = *this;
     aMat2dN.Power(theN);
     return aMat2dN;
   }
 
-  void Subtract(const gp_Mat2d& theOther);
+  void Subtract(const Matrix2d& theOther);
 
-  void operator-=(const gp_Mat2d& theOther) { Subtract(theOther); }
+  void operator-=(const Matrix2d& theOther) { Subtract(theOther); }
 
   //! Computes for each coefficient of the matrix :
   //! @code
   //! <me>.Coef(i,j) - <theOther>.Coef(i,j)
   //! @endcode
-  Standard_NODISCARD gp_Mat2d Subtracted(const gp_Mat2d& theOther) const;
+  Standard_NODISCARD Matrix2d Subtracted(const Matrix2d& theOther) const;
 
-  Standard_NODISCARD gp_Mat2d operator-(const gp_Mat2d& theOther) const
+  Standard_NODISCARD Matrix2d operator-(const Matrix2d& theOther) const
   {
     return Subtracted(theOther);
   }
@@ -256,10 +256,10 @@ public:
   void Transpose();
 
   //! Transposes the matrix. A(j, i) -> A (i, j)
-  Standard_NODISCARD gp_Mat2d Transposed() const;
+  Standard_NODISCARD Matrix2d Transposed() const;
 
-  friend class gp_Trsf2d;
-  friend class gp_GTrsf2d;
+  friend class Transform2d;
+  friend class GeneralTransform2d;
   friend class Coords2d;
 
 private:
@@ -270,7 +270,7 @@ private:
 // function : SetRotation
 // purpose :
 //=======================================================================
-inline void gp_Mat2d::SetRotation(const Standard_Real theAng)
+inline void Matrix2d::SetRotation(const Standard_Real theAng)
 {
   Standard_Real aSinA = sin(theAng);
   Standard_Real aCosA = cos(theAng);
@@ -283,7 +283,7 @@ inline void gp_Mat2d::SetRotation(const Standard_Real theAng)
 // function : Add
 // purpose :
 //=======================================================================
-inline void gp_Mat2d::Add(const gp_Mat2d& theOther)
+inline void Matrix2d::Add(const Matrix2d& theOther)
 {
   myMat[0][0] += theOther.myMat[0][0];
   myMat[0][1] += theOther.myMat[0][1];
@@ -295,9 +295,9 @@ inline void gp_Mat2d::Add(const gp_Mat2d& theOther)
 // function : Added
 // purpose :
 //=======================================================================
-inline gp_Mat2d gp_Mat2d::Added(const gp_Mat2d& theOther) const
+inline Matrix2d Matrix2d::Added(const Matrix2d& theOther) const
 {
-  gp_Mat2d aNewMat2d;
+  Matrix2d aNewMat2d;
   aNewMat2d.myMat[0][0] = myMat[0][0] + theOther.myMat[0][0];
   aNewMat2d.myMat[0][1] = myMat[0][1] + theOther.myMat[0][1];
   aNewMat2d.myMat[1][0] = myMat[1][0] + theOther.myMat[1][0];
@@ -309,7 +309,7 @@ inline gp_Mat2d gp_Mat2d::Added(const gp_Mat2d& theOther) const
 // function : Divide
 // purpose :
 //=======================================================================
-inline void gp_Mat2d::Divide(const Standard_Real theScalar)
+inline void Matrix2d::Divide(const Standard_Real theScalar)
 {
   myMat[0][0] /= theScalar;
   myMat[0][1] /= theScalar;
@@ -321,9 +321,9 @@ inline void gp_Mat2d::Divide(const Standard_Real theScalar)
 // function : Divided
 // purpose :
 //=======================================================================
-inline gp_Mat2d gp_Mat2d::Divided(const Standard_Real theScalar) const
+inline Matrix2d Matrix2d::Divided(const Standard_Real theScalar) const
 {
-  gp_Mat2d aNewMat2d;
+  Matrix2d aNewMat2d;
   aNewMat2d.myMat[0][0] = myMat[0][0] / theScalar;
   aNewMat2d.myMat[0][1] = myMat[0][1] / theScalar;
   aNewMat2d.myMat[1][0] = myMat[1][0] / theScalar;
@@ -335,7 +335,7 @@ inline gp_Mat2d gp_Mat2d::Divided(const Standard_Real theScalar) const
 // function : Multiply
 // purpose :
 //=======================================================================
-inline void gp_Mat2d::Multiply(const gp_Mat2d& theOther)
+inline void Matrix2d::Multiply(const Matrix2d& theOther)
 {
   const Standard_Real aT00 =
     myMat[0][0] * theOther.myMat[0][0] + myMat[0][1] * theOther.myMat[1][0];
@@ -351,7 +351,7 @@ inline void gp_Mat2d::Multiply(const gp_Mat2d& theOther)
 // function : PreMultiply
 // purpose :
 //=======================================================================
-inline void gp_Mat2d::PreMultiply(const gp_Mat2d& theOther)
+inline void Matrix2d::PreMultiply(const Matrix2d& theOther)
 {
   const Standard_Real aT00 =
     theOther.myMat[0][0] * myMat[0][0] + theOther.myMat[0][1] * myMat[1][0];
@@ -367,9 +367,9 @@ inline void gp_Mat2d::PreMultiply(const gp_Mat2d& theOther)
 // function : Multiplied
 // purpose :
 //=======================================================================
-inline gp_Mat2d gp_Mat2d::Multiplied(const Standard_Real theScalar) const
+inline Matrix2d Matrix2d::Multiplied(const Standard_Real theScalar) const
 {
-  gp_Mat2d aNewMat2d;
+  Matrix2d aNewMat2d;
   aNewMat2d.myMat[0][0] = myMat[0][0] * theScalar;
   aNewMat2d.myMat[0][1] = myMat[0][1] * theScalar;
   aNewMat2d.myMat[1][0] = myMat[1][0] * theScalar;
@@ -381,7 +381,7 @@ inline gp_Mat2d gp_Mat2d::Multiplied(const Standard_Real theScalar) const
 // function : Multiply
 // purpose :
 //=======================================================================
-inline void gp_Mat2d::Multiply(const Standard_Real theScalar)
+inline void Matrix2d::Multiply(const Standard_Real theScalar)
 {
   myMat[0][0] *= theScalar;
   myMat[0][1] *= theScalar;
@@ -393,7 +393,7 @@ inline void gp_Mat2d::Multiply(const Standard_Real theScalar)
 // function : Subtract
 // purpose :
 //=======================================================================
-inline void gp_Mat2d::Subtract(const gp_Mat2d& theOther)
+inline void Matrix2d::Subtract(const Matrix2d& theOther)
 {
   myMat[0][0] -= theOther.myMat[0][0];
   myMat[0][1] -= theOther.myMat[0][1];
@@ -405,9 +405,9 @@ inline void gp_Mat2d::Subtract(const gp_Mat2d& theOther)
 // function : Subtracted
 // purpose :
 //=======================================================================
-inline gp_Mat2d gp_Mat2d::Subtracted(const gp_Mat2d& theOther) const
+inline Matrix2d Matrix2d::Subtracted(const Matrix2d& theOther) const
 {
-  gp_Mat2d aNewMat2d;
+  Matrix2d aNewMat2d;
   aNewMat2d.myMat[0][0] = myMat[0][0] - theOther.myMat[0][0];
   aNewMat2d.myMat[0][1] = myMat[0][1] - theOther.myMat[0][1];
   aNewMat2d.myMat[1][0] = myMat[1][0] - theOther.myMat[1][0];
@@ -419,7 +419,7 @@ inline gp_Mat2d gp_Mat2d::Subtracted(const gp_Mat2d& theOther) const
 // function : Transpose
 // purpose :
 //=======================================================================
-inline void gp_Mat2d::Transpose()
+inline void Matrix2d::Transpose()
 {
   const Standard_Real aTemp = myMat[0][1];
   myMat[0][1]               = myMat[1][0];
@@ -430,9 +430,9 @@ inline void gp_Mat2d::Transpose()
 // function : Transposed
 // purpose :
 //=======================================================================
-inline gp_Mat2d gp_Mat2d::Transposed() const
+inline Matrix2d Matrix2d::Transposed() const
 {
-  gp_Mat2d aNewMat2d;
+  Matrix2d aNewMat2d;
   aNewMat2d.myMat[1][0] = myMat[0][1];
   aNewMat2d.myMat[0][1] = myMat[1][0];
   aNewMat2d.myMat[0][0] = myMat[0][0];
@@ -444,7 +444,7 @@ inline gp_Mat2d gp_Mat2d::Transposed() const
 // function : operator*
 // purpose :
 //=======================================================================
-inline gp_Mat2d operator*(const Standard_Real theScalar, const gp_Mat2d& theMat2D)
+inline Matrix2d operator*(const Standard_Real theScalar, const Matrix2d& theMat2D)
 {
   return theMat2D.Multiplied(theScalar);
 }

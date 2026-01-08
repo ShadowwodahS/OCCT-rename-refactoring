@@ -27,7 +27,7 @@ class Point3d;
 class gp_Pln;
 class Cone1;
 class Cylinder1;
-class gp_Sphere;
+class Sphere3;
 class gp_Torus;
 class Vector3d;
 class Ax3;
@@ -66,7 +66,7 @@ public:
 
   static Point3d Value(const Standard_Real U, const Standard_Real V, const Cylinder1& C);
 
-  static Point3d Value(const Standard_Real U, const Standard_Real V, const gp_Sphere& S);
+  static Point3d Value(const Standard_Real U, const Standard_Real V, const Sphere3& S);
 
   static Point3d Value(const Standard_Real U, const Standard_Real V, const gp_Torus& T);
 
@@ -95,7 +95,7 @@ public:
 
   static Vector3d DN(const Standard_Real    U,
                    const Standard_Real    V,
-                   const gp_Sphere&       S,
+                   const Sphere3&       S,
                    const Standard_Integer Nu,
                    const Standard_Integer Nv);
 
@@ -114,7 +114,7 @@ public:
 
   static void D0(const Standard_Real U, const Standard_Real V, const Cylinder1& C, Point3d& P);
 
-  static void D0(const Standard_Real U, const Standard_Real V, const gp_Sphere& S, Point3d& P);
+  static void D0(const Standard_Real U, const Standard_Real V, const Sphere3& S, Point3d& P);
 
   static void D0(const Standard_Real U, const Standard_Real V, const gp_Torus& T, Point3d& P);
 
@@ -146,7 +146,7 @@ public:
 
   static void D1(const Standard_Real U,
                  const Standard_Real V,
-                 const gp_Sphere&    S,
+                 const Sphere3&    S,
                  Point3d&             P,
                  Vector3d&             Vu,
                  Vector3d&             Vv);
@@ -186,7 +186,7 @@ public:
 
   static void D2(const Standard_Real U,
                  const Standard_Real V,
-                 const gp_Sphere&    S,
+                 const Sphere3&    S,
                  Point3d&             P,
                  Vector3d&             Vu,
                  Vector3d&             Vv,
@@ -243,7 +243,7 @@ public:
 
   static void D3(const Standard_Real U,
                  const Standard_Real V,
-                 const gp_Sphere&    S,
+                 const Sphere3&    S,
                  Point3d&             P,
                  Vector3d&             Vu,
                  Vector3d&             Vv,
@@ -542,7 +542,7 @@ public:
   //! P (U, V) = Location +
   //! Radius * Cos (V) * (Cos (U) * XDirection + Sin (U) * YDirection) +
   //! Radius * Sin (V) * ZDirection
-  static void Parameters(const gp_Sphere& S, const Point3d& P, Standard_Real& U, Standard_Real& V);
+  static void Parameters(const Sphere3& S, const Point3d& P, Standard_Real& U, Standard_Real& V);
 
   //! parametrization
   //! P (U, V) = Location +

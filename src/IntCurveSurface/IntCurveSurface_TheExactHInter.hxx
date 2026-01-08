@@ -23,7 +23,7 @@
 class HSurfaceTool;
 class HCurveTool2;
 class IntCurveSurface_TheCSFunctionOfHInter;
-class math_FunctionSetRoot;
+class FunctionSetRoot;
 
 class IntCurveSurface_TheExactHInter
 {
@@ -47,7 +47,7 @@ public:
   //! compute the solution
   //! it's possible to write to optimize:
   //! IntImp_IntCS inter(S1,C1,Toltangency)
-  //! math_FunctionSetRoot rsnld(Inter.function())
+  //! FunctionSetRoot rsnld(Inter.function())
   //! while ...{
   //! u=...
   //! v=...
@@ -57,7 +57,7 @@ public:
   //! or
   //! IntImp_IntCS inter(Toltangency)
   //! inter.SetSurface(S);
-  //! math_FunctionSetRoot rsnld(Inter.function())
+  //! FunctionSetRoot rsnld(Inter.function())
   //! while ...{
   //! C=...
   //! inter.SetCurve(C);
@@ -69,7 +69,7 @@ public:
   Standard_EXPORT void Perform(const Standard_Real   U,
                                const Standard_Real   V,
                                const Standard_Real   W,
-                               math_FunctionSetRoot& Rsnld,
+                               FunctionSetRoot& Rsnld,
                                const Standard_Real   u0,
                                const Standard_Real   v0,
                                const Standard_Real   u1,
@@ -91,7 +91,7 @@ public:
 
   Standard_EXPORT void ParameterOnSurface(Standard_Real& U, Standard_Real& V) const;
 
-  //! return the math function which
+  //! return the math1 function which
   //! is used to compute the intersection
   Standard_EXPORT IntCurveSurface_TheCSFunctionOfHInter& Function();
 

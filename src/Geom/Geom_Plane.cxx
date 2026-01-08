@@ -43,7 +43,7 @@ typedef gp_Pln     Pln;
 typedef Point3d     Pnt;
 typedef Transform3d    Trsf;
 typedef Vector3d     Vec;
-typedef gp_XYZ     XYZ;
+typedef Coords3d     XYZ;
 
 //=================================================================================================
 
@@ -309,11 +309,11 @@ void GeomPlane::TransformParameters(Standard_Real& U, Standard_Real& V, const Tr
 
 //=================================================================================================
 
-gp_GTrsf2d GeomPlane::ParametricTransformation(const Transform3d& T) const
+GeneralTransform2d GeomPlane::ParametricTransformation(const Transform3d& T) const
 {
-  gp_Trsf2d T2;
+  Transform2d T2;
   T2.SetScale(gp1::Origin2d(), Abs(T.ScaleFactor()));
-  return gp_GTrsf2d(T2);
+  return GeneralTransform2d(T2);
 }
 
 //=================================================================================================

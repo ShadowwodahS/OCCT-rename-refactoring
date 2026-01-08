@@ -158,7 +158,7 @@ void ShapeFix_EdgeConnect::Build()
   BRep_ListIteratorOfListOfCurveRepresentation theCIterator;
 
   TColgp_SequenceOfXYZ thePositions;
-  gp_XYZ               thePosition;
+  Coords3d               thePosition;
   Standard_Real        theMaxDev;
   ShapeBuilder         theBuilder;
 
@@ -214,7 +214,7 @@ void ShapeFix_EdgeConnect::Build()
     Standard_Integer i, theNbPos = thePositions.Length();
 
     // Calculate vertex position
-    thePosition = gp_XYZ(0., 0., 0.);
+    thePosition = Coords3d(0., 0., 0.);
 
 #ifdef POSITION_USES_MEAN_POINT
   #undef POSITION_USES_MEAN_POINT
@@ -223,7 +223,7 @@ void ShapeFix_EdgeConnect::Build()
     if (theNbPos > 1)
       thePosition /= theNbPos;
 #else
-    gp_XYZ theLBound(0., 0., 0.), theRBound(0., 0., 0.);
+    Coords3d theLBound(0., 0., 0.), theRBound(0., 0., 0.);
     for (i = 1; i <= theNbPos; i++)
     {
       thePosition = thePositions.Value(i);

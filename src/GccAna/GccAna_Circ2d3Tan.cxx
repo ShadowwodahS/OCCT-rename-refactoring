@@ -363,7 +363,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
       A = c2;
       B = 2. * e2;
       C = f2;
-      math_DirectPolynomialRoots yRoots(A, B, C);
+      DirectPolynomialRoots yRoots(A, B, C);
       if (yRoots.IsDone() && !yRoots.InfiniteRoots())
         for (k = 1; k <= yRoots.NbSolutions(); k++)
         {
@@ -376,7 +376,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
             A = a3;
             B = 2 * (b3 * y + d3);
             C = c3 * (y * y) + 2 * e3 * y + f3;
-            math_DirectPolynomialRoots xRoots(A, B, C);
+            DirectPolynomialRoots xRoots(A, B, C);
             if (xRoots.IsDone() && !xRoots.InfiniteRoots())
               for (j = 1; j <= xRoots.NbSolutions(); j++)
               {
@@ -406,7 +406,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
       if (IsTouch)
       {
         // Derivation of the equation Ay4 + By3 + Cy2 + Dy + E
-        math_DirectPolynomialRoots yRoots1(4 * A, 3 * B, 2 * C, D);
+        DirectPolynomialRoots yRoots1(4 * A, 3 * B, 2 * C, D);
         if (yRoots1.IsDone() && !yRoots1.InfiniteRoots())
           for (k = 1; k <= yRoots1.NbSolutions(); k++)
           {
@@ -431,7 +431,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
           }
       }
 
-      math_DirectPolynomialRoots yRoots1(A, B, C, D, E);
+      DirectPolynomialRoots yRoots1(A, B, C, D, E);
       if (yRoots1.IsDone() && !yRoots1.InfiniteRoots())
         for (k = 1; k <= yRoots1.NbSolutions(); k++)
         {
@@ -467,7 +467,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
       // If s = v = 0
       if (Abs(s) <= Tolerance && Abs(v) <= Tolerance)
       {
-        math_DirectPolynomialRoots yRoots(m, n, t);
+        DirectPolynomialRoots yRoots(m, n, t);
         if (yRoots.IsDone() && !yRoots.InfiniteRoots())
           for (k = 1; k <= yRoots.NbSolutions(); k++)
           {
@@ -484,7 +484,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
               A = a2;
               B = 2 * (b2 * y + d2);
               C = c2 * y * y + 2 * e2 * y + f2;
-              math_DirectPolynomialRoots xRoots(A, B, C);
+              DirectPolynomialRoots xRoots(A, B, C);
               if (xRoots.IsDone() && !xRoots.InfiniteRoots())
                 for (l = 1; l <= xRoots.NbSolutions(); l++)
                 {
@@ -518,7 +518,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
         if (IsTouch)
         {
           // Derivation of the equation Ay4 + By3 + Cy2 + Dy + E
-          math_DirectPolynomialRoots yRoots1(4 * A, 3 * B, 2 * C, D);
+          DirectPolynomialRoots yRoots1(4 * A, 3 * B, 2 * C, D);
           if (yRoots1.IsDone() && !yRoots1.InfiniteRoots())
             for (k = 1; k <= yRoots1.NbSolutions(); k++)
             {
@@ -545,7 +545,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
                   A = a2;
                   B = 2 * (b2 * y + d2);
                   C = c2 * y * y + 2 * e2 * y + f2;
-                  math_DirectPolynomialRoots xRoots(A, B, C);
+                  DirectPolynomialRoots xRoots(A, B, C);
                   if (xRoots.IsDone() && !xRoots.InfiniteRoots())
                     for (l = 1; l <= xRoots.NbSolutions(); l++)
                     {
@@ -564,7 +564,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
             }
         }
 
-        math_DirectPolynomialRoots yRoots(A, B, C, D, E);
+        DirectPolynomialRoots yRoots(A, B, C, D, E);
         if (yRoots.IsDone() && !yRoots.InfiniteRoots())
           for (k = 1; k <= yRoots.NbSolutions(); k++)
           {
@@ -587,7 +587,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
               A = a2;
               B = 2 * (b2 * y + d2);
               C = c2 * y * y + 2 * e2 * y + f2;
-              math_DirectPolynomialRoots xRoots(A, B, C);
+              DirectPolynomialRoots xRoots(A, B, C);
               if (xRoots.IsDone() && !xRoots.InfiniteRoots())
                 for (l = 1; l <= xRoots.NbSolutions(); l++)
                 {

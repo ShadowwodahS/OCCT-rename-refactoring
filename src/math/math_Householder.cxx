@@ -35,7 +35,7 @@
 // traitee separement. Les tests effectues ont montre que le code effectue
 // specialement pour celle-ci etait plus long qu'une simple recopie. C'est
 // donc cette solution de recopie initiale qui a ete retenue.
-math_Householder::math_Householder(const math_Matrix&  A,
+Householder::Householder(const math_Matrix&  A,
                                    const math_Vector&  B,
                                    const Standard_Real EPS)
     : Sol(1, A.ColNumber(), 1, 1),
@@ -52,7 +52,7 @@ math_Householder::math_Householder(const math_Matrix&  A,
   Perform(A, B1, EPS);
 }
 
-math_Householder::math_Householder(const math_Matrix&  A,
+Householder::Householder(const math_Matrix&  A,
                                    const math_Matrix&  B,
                                    const Standard_Real EPS)
     : Sol(1, A.ColNumber(), 1, B.ColNumber()),
@@ -67,7 +67,7 @@ math_Householder::math_Householder(const math_Matrix&  A,
   Perform(A, B, EPS);
 }
 
-math_Householder::math_Householder(const math_Matrix&     A,
+Householder::Householder(const math_Matrix&     A,
                                    const math_Matrix&     B,
                                    const Standard_Integer lowerArow,
                                    const Standard_Integer upperArow,
@@ -86,7 +86,7 @@ math_Householder::math_Householder(const math_Matrix&     A,
   Perform(A, B, EPS);
 }
 
-void math_Householder::Perform(const math_Matrix& A, const math_Matrix& B, const Standard_Real EPS)
+void Householder::Perform(const math_Matrix& A, const math_Matrix& B, const Standard_Real EPS)
 {
 
   Standard_Integer i, j, k, n, l, m;
@@ -182,10 +182,10 @@ void math_Householder::Perform(const math_Matrix& A, const math_Matrix& B, const
   Done = Standard_True;
 }
 
-void math_Householder::Dump(Standard_OStream& o) const
+void Householder::Dump(Standard_OStream& o) const
 {
 
-  o << "math_Householder ";
+  o << "Householder ";
   if (Done)
   {
     o << " Status = Done \n";

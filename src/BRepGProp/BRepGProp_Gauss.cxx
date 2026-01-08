@@ -28,7 +28,7 @@ static const Standard_Real EPS_DIM            = 1.e-30;
 static const Standard_Real ERROR_ALGEBR_RATIO = 2.0 / 3.0;
 
 // Maximum of GaussPoints on a subinterval and maximum of subintervals
-static const Standard_Integer GPM        = math::GaussPointsMax();
+static const Standard_Integer GPM        = math1::GaussPointsMax();
 static const Standard_Integer SUBS_POWER = 32;
 static const Standard_Integer SM         = SUBS_POWER * GPM + 1;
 
@@ -444,9 +444,9 @@ void BRepGProp_Gauss::convert(const BRepGProp_Gauss::Inertia& theInertia,
     theOutGravityCenter.SetCoord(0.0, 0.0, 0.0);
   }
 
-  theOutMatrixOfInertia = gp_Mat(gp_XYZ(theInertia.Ixx, -theInertia.Ixy, -theInertia.Ixz),
-                                 gp_XYZ(-theInertia.Ixy, theInertia.Iyy, -theInertia.Iyz),
-                                 gp_XYZ(-theInertia.Ixz, -theInertia.Iyz, theInertia.Izz));
+  theOutMatrixOfInertia = gp_Mat(Coords3d(theInertia.Ixx, -theInertia.Ixy, -theInertia.Ixz),
+                                 Coords3d(-theInertia.Ixy, theInertia.Iyy, -theInertia.Iyz),
+                                 Coords3d(-theInertia.Ixz, -theInertia.Iyz, theInertia.Izz));
 }
 
 //=================================================================================================
@@ -483,9 +483,9 @@ void BRepGProp_Gauss::convert(const BRepGProp_Gauss::Inertia& theInertia,
     theOutGravityCenter.SetCoord(0.0, 0.0, 0.0);
   }
 
-  theOutMatrixOfInertia = gp_Mat(gp_XYZ(theInertia.Ixx, theInertia.Ixy, theInertia.Ixz),
-                                 gp_XYZ(theInertia.Ixy, theInertia.Iyy, theInertia.Iyz),
-                                 gp_XYZ(theInertia.Ixz, theInertia.Iyz, theInertia.Izz));
+  theOutMatrixOfInertia = gp_Mat(Coords3d(theInertia.Ixx, theInertia.Ixy, theInertia.Ixz),
+                                 Coords3d(theInertia.Ixy, theInertia.Iyy, theInertia.Iyz),
+                                 Coords3d(theInertia.Ixz, theInertia.Iyz, theInertia.Izz));
 }
 
 //=================================================================================================
@@ -571,10 +571,10 @@ Standard_Real BRepGProp_Gauss::Compute(BRepGProp_Face&        theSurface,
   NbUGaussP[0] = theSurface.SIntOrder(anEpsilon);
   NbUGaussP[1] = RealToInt(Ceiling(ERROR_ALGEBR_RATIO * NbUGaussP[0]));
 
-  math::GaussPoints(NbUGaussP[0], *UGaussP[0]);
-  math::GaussWeights(NbUGaussP[0], *UGaussW[0]);
-  math::GaussPoints(NbUGaussP[1], *UGaussP[1]);
-  math::GaussWeights(NbUGaussP[1], *UGaussW[1]);
+  math1::GaussPoints(NbUGaussP[0], *UGaussP[0]);
+  math1::GaussWeights(NbUGaussP[0], *UGaussW[0]);
+  math1::GaussPoints(NbUGaussP[1], *UGaussP[1]);
+  math1::GaussWeights(NbUGaussP[1], *UGaussW[1]);
 
   const Standard_Integer aNbUSubs = theSurface.SUIntSubs();
   TColStd_Array1OfReal   UKnots(1, aNbUSubs + 1);
@@ -584,7 +584,7 @@ Standard_Real BRepGProp_Gauss::Compute(BRepGProp_Face&        theSurface,
   {
     if (isNaturalRestriction)
     {
-      NbLGaussP[0] = Min(2 * NbUGaussP[0], math::GaussPointsMax());
+      NbLGaussP[0] = Min(2 * NbUGaussP[0], math1::GaussPointsMax());
     }
     else
     {
@@ -597,10 +597,10 @@ Standard_Real BRepGProp_Gauss::Compute(BRepGProp_Face&        theSurface,
 
     NbLGaussP[1] = RealToInt(Ceiling(ERROR_ALGEBR_RATIO * NbLGaussP[0]));
 
-    math::GaussPoints(NbLGaussP[0], *LGaussP[0]);
-    math::GaussWeights(NbLGaussP[0], *LGaussW[0]);
-    math::GaussPoints(NbLGaussP[1], *LGaussP[1]);
-    math::GaussWeights(NbLGaussP[1], *LGaussW[1]);
+    math1::GaussPoints(NbLGaussP[0], *LGaussP[0]);
+    math1::GaussWeights(NbLGaussP[0], *LGaussW[0]);
+    math1::GaussPoints(NbLGaussP[1], *LGaussP[1]);
+    math1::GaussWeights(NbLGaussP[1], *LGaussW[1]);
 
     const Standard_Integer aNbLSubs =
       isNaturalRestriction ? theSurface.SVIntSubs() : theSurface.LIntSubs();
@@ -1067,18 +1067,18 @@ void BRepGProp_Gauss::Compute(BRepGProp_Face&   theSurface,
   checkBounds(u1, u2, v1, v2);
 
   const Standard_Integer NbUGaussgp_Pnts =
-    Min(theSurface.UIntegrationOrder(), math::GaussPointsMax());
+    Min(theSurface.UIntegrationOrder(), math1::GaussPointsMax());
 
   const Standard_Integer NbVGaussgp_Pnts =
-    Min(theSurface.VIntegrationOrder(), math::GaussPointsMax());
+    Min(theSurface.VIntegrationOrder(), math1::GaussPointsMax());
 
   const Standard_Integer NbGaussgp_Pnts = Max(NbUGaussgp_Pnts, NbVGaussgp_Pnts);
 
   // Number of Gauss points for the integration on the face
   math_Vector GaussSPV(1, NbGaussgp_Pnts);
   math_Vector GaussSWV(1, NbGaussgp_Pnts);
-  math::GaussPoints(NbGaussgp_Pnts, GaussSPV);
-  math::GaussWeights(NbGaussgp_Pnts, GaussSWV);
+  math1::GaussPoints(NbGaussgp_Pnts, GaussSPV);
+  math1::GaussWeights(NbGaussgp_Pnts, GaussSWV);
 
   BRepGProp_Gauss::Inertia anInertia;
   for (; theDomain.More(); theDomain.Next())
@@ -1088,14 +1088,14 @@ void BRepGProp_Gauss::Compute(BRepGProp_Face&   theSurface,
       return;
     }
 
-    Standard_Integer NbCGaussgp_Pnts = Min(theSurface.IntegrationOrder(), math::GaussPointsMax());
+    Standard_Integer NbCGaussgp_Pnts = Min(theSurface.IntegrationOrder(), math1::GaussPointsMax());
 
     NbCGaussgp_Pnts = Max(NbCGaussgp_Pnts, NbGaussgp_Pnts);
 
     math_Vector GaussCP(1, NbCGaussgp_Pnts);
     math_Vector GaussCW(1, NbCGaussgp_Pnts);
-    math::GaussPoints(NbCGaussgp_Pnts, GaussCP);
-    math::GaussWeights(NbCGaussgp_Pnts, GaussCW);
+    math1::GaussPoints(NbCGaussgp_Pnts, GaussCP);
+    math1::GaussWeights(NbCGaussgp_Pnts, GaussCW);
 
     const Standard_Real l1 = theSurface.FirstParameter();
     const Standard_Real l2 = theSurface.LastParameter();
@@ -1172,12 +1172,12 @@ void BRepGProp_Gauss::Compute(BRepGProp_Face&        theSurface,
     const Standard_Integer aVNbCGaussgp_Pnts = theSurface.VIntegrationOrder();
 
     const Standard_Integer aNbGaussgp_Pnts =
-      Min(Max(theSurface.IntegrationOrder(), aVNbCGaussgp_Pnts), math::GaussPointsMax());
+      Min(Max(theSurface.IntegrationOrder(), aVNbCGaussgp_Pnts), math1::GaussPointsMax());
 
     math_Vector GaussP(1, aNbGaussgp_Pnts);
     math_Vector GaussW(1, aNbGaussgp_Pnts);
-    math::GaussPoints(aNbGaussgp_Pnts, GaussP);
-    math::GaussWeights(aNbGaussgp_Pnts, GaussW);
+    math1::GaussPoints(aNbGaussgp_Pnts, GaussP);
+    math1::GaussWeights(aNbGaussgp_Pnts, GaussW);
 
     const Standard_Real l1 = theSurface.FirstParameter();
     const Standard_Real l2 = theSurface.LastParameter();
@@ -1247,8 +1247,8 @@ void BRepGProp_Gauss::Compute(const BRepGProp_Face&  theSurface,
   theSurface.Bounds(LowerU, UpperU, LowerV, UpperV);
   checkBounds(LowerU, UpperU, LowerV, UpperV);
 
-  const Standard_Integer UOrder = Min(theSurface.UIntegrationOrder(), math::GaussPointsMax());
-  const Standard_Integer VOrder = Min(theSurface.VIntegrationOrder(), math::GaussPointsMax());
+  const Standard_Integer UOrder = Min(theSurface.UIntegrationOrder(), math1::GaussPointsMax());
+  const Standard_Integer VOrder = Min(theSurface.VIntegrationOrder(), math1::GaussPointsMax());
 
   // Gauss points and weights
   math_Vector GaussPU(1, UOrder);
@@ -1256,10 +1256,10 @@ void BRepGProp_Gauss::Compute(const BRepGProp_Face&  theSurface,
   math_Vector GaussPV(1, VOrder);
   math_Vector GaussWV(1, VOrder);
 
-  math::GaussPoints(UOrder, GaussPU);
-  math::GaussWeights(UOrder, GaussWU);
-  math::GaussPoints(VOrder, GaussPV);
-  math::GaussWeights(VOrder, GaussWV);
+  math1::GaussPoints(UOrder, GaussPU);
+  math1::GaussWeights(UOrder, GaussWU);
+  math1::GaussPoints(VOrder, GaussPV);
+  math1::GaussWeights(VOrder, GaussWV);
 
   const Standard_Real um = 0.5 * add(UpperU, LowerU);
   const Standard_Real vm = 0.5 * add(UpperV, LowerV);

@@ -37,7 +37,7 @@ public:
   inline VrmlData_Normal(const VrmlData_Scene& theScene,
                          const char*           theName,
                          const size_t          nVec   = 0,
-                         const gp_XYZ*         arrVec = 0L)
+                         const Coords3d*         arrVec = 0L)
       : VrmlData_ArrayVec3d(theScene, theName, nVec, arrVec)
   {
   }
@@ -49,7 +49,7 @@ public:
    * @return
    *   the normal value for the index. If index irrelevant, returns (0., 0., 0.)
    */
-  inline const gp_XYZ& Normal(const Standard_Integer i) const { return Value(i); }
+  inline const Coords3d& Normal(const Standard_Integer i) const { return Value(i); }
 
   /**
    * Create a copy of this node.

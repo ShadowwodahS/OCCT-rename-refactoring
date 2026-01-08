@@ -1798,7 +1798,7 @@ Standard_Boolean BooleanTools::TrsfToPoint(const Box2&      theBox1,
   Box2 aBox = theBox1;
   aBox.Add(theBox2);
 
-  gp_XYZ        aBCenter = (aBox.CornerMin().XYZ() + aBox.CornerMax().XYZ()) / 2.;
+  Coords3d        aBCenter = (aBox.CornerMin().XYZ() + aBox.CornerMax().XYZ()) / 2.;
   Standard_Real aPBDist  = (thePoint.XYZ() - aBCenter).Modulus();
   if (aPBDist < theCriteria)
     return Standard_False;

@@ -75,8 +75,8 @@ GeomFill_FunctionGuide::GeomFill_FunctionGuide(const Handle(GeomFill_SectionLaw)
 // void GeomFill_FunctionGuide::SetParam(const Standard_Real Param,
 void GeomFill_FunctionGuide::SetParam(const Standard_Real,
                                       const Point3d& C,
-                                      const gp_XYZ& D,
-                                      const gp_XYZ& DX)
+                                      const Coords3d& D,
+                                      const Coords3d& DX)
 {
   Centre = C.XYZ();
   Dir    = D;
@@ -205,8 +205,8 @@ Standard_Boolean GeomFill_FunctionGuide::Values(const math_Vector& X,
 // Purpose : calcul of the first derivative from t
 //==============================================
 Standard_Boolean GeomFill_FunctionGuide::DerivT(const math_Vector& X,
-                                                const gp_XYZ&      DCentre,
-                                                const gp_XYZ&      DDir,
+                                                const Coords3d&      DCentre,
+                                                const Coords3d&      DDir,
                                                 math_Vector&       F)
 {
   Point3d P;
@@ -228,8 +228,8 @@ Standard_Boolean GeomFill_FunctionGuide::DerivT(const math_Vector& X,
 //=========================================================
 void GeomFill_FunctionGuide::DSDT(const Standard_Real U,
                                   const Standard_Real V,
-                                  const gp_XYZ&       DC,
-                                  const gp_XYZ&       DDir,
+                                  const Coords3d&       DC,
+                                  const Coords3d&       DDir,
                                   Vector3d&             DS) const
 {
   // C origine sur l'axe de revolution
@@ -242,7 +242,7 @@ void GeomFill_FunctionGuide::DSDT(const Standard_Real U,
   TheCurve->D0(V, Pc); // Q(v)
   //   if (!isconst)
 
-  gp_XYZ &Q = Pc.ChangeCoord(), DQ(0, 0, 0); // Q
+  Coords3d &Q = Pc.ChangeCoord(), DQ(0, 0, 0); // Q
   if (!isconst)
   {
     std::cout << "Not implemented" << std::endl;
@@ -251,13 +251,13 @@ void GeomFill_FunctionGuide::DSDT(const Standard_Real U,
   Q.Subtract(Centre); // CQ
   DQ -= DC;
 
-  gp_XYZ DVcrossCQ;
+  Coords3d DVcrossCQ;
   DVcrossCQ.SetLinearForm(DDir.Crossed(Q),
                           Dir.Crossed(DQ)); // Vdir^CQ
   DVcrossCQ.Multiply(Sin(U));               //(Vdir^CQ)*Sin(U)
 
   Standard_Real CosU = Cos(U);
-  gp_XYZ        DVdotCQ;
+  Coords3d        DVdotCQ;
   DVdotCQ.SetLinearForm(DDir.Dot(Q) + Dir.Dot(DQ), Dir, Dir.Dot(Q), DDir); //(CQ.Vdir)(1-Cos(U))Vdir
   DVdotCQ.Add(DVcrossCQ); // addition des composantes
 

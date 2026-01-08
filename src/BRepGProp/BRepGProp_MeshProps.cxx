@@ -119,7 +119,7 @@ void BRepGProp_MeshProps::CalculateProps(const Point3d&          p1,
   {
     return;
   }
-  gp_XYZ aCenter = (p1.XYZ() + p2.XYZ() + p3.XYZ()) / 3.;
+  Coords3d aCenter = (p1.XYZ() + p2.XYZ() + p3.XYZ()) / 3.;
   Point3d aPC(aCenter);
   Dir3d aDN(aNorm);
   Ax3 aPosPln(aPC, aDN);

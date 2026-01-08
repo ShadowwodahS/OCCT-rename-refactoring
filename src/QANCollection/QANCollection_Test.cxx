@@ -1078,7 +1078,7 @@ static Standard_Integer QATestAtof(DrawInterpreter& di, Standard_Integer argc, c
   // prepare data
   const int                MAXLEN = 256;
   NCollection_Array2<char> aValuesStr(0, aNbToTest - 1, 0, MAXLEN);
-  math_BullardGenerator    aRandom;
+  BullardGenerator    aRandom;
 
   if (aRangeMin < aRangeMax)
   {

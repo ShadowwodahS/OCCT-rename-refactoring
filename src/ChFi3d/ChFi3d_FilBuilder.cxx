@@ -529,7 +529,7 @@ void ChFi3d_FilBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       u1                   = Max(p1f.X(), p2f.X());
       u2                   = Min(p1l.X(), p2l.X());
       Standard_Real    ang = (u2 - u1);
-      gp_Sphere        Sp  = AS.Sphere();
+      Sphere3        Sp  = AS.Sphere();
       Standard_Real    rad = Sp.Radius();
       Standard_Integer n   = (Standard_Integer)(36. * ang / M_PI + 1);
       if (n < 2)
@@ -2207,7 +2207,7 @@ void ChFi3d_FilBuilder::SplitSurf(ChFiDS_SequenceOfSurfData&    SeqData,
     if ((courant < precedant) && (courant < suivant))
     {
       // (1.3) Find the exact minimum
-      math_FunctionRoot Resol(Fonc,
+      FunctionRootSolver Resol(Fonc,
                               (a + c) / 2,
                               tol2d, // Surf->VResolution(toleps),
                               a,

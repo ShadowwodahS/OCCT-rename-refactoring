@@ -768,7 +768,7 @@ void Geom_OffsetSurface::TransformParameters(Standard_Real& U,
 
 //=================================================================================================
 
-gp_GTrsf2d Geom_OffsetSurface::ParametricTransformation(const Transform3d& T) const
+GeneralTransform2d Geom_OffsetSurface::ParametricTransformation(const Transform3d& T) const
 {
   return basisSurf->ParametricTransformation(T);
 }

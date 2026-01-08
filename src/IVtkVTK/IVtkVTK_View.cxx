@@ -150,7 +150,7 @@ void IVtkVTK_View::GetViewCenter(double& theX, double& theY) const
 
 //=================================================================================================
 
-bool IVtkVTK_View::DisplayToWorld(const Coords2d& theDisplayPnt, gp_XYZ& theWorldPnt) const
+bool IVtkVTK_View::DisplayToWorld(const Coords2d& theDisplayPnt, Coords3d& theWorldPnt) const
 {
   // Convert the selection point into world coordinates.
   myRenderer->SetDisplayPoint(theDisplayPnt.X(), theDisplayPnt.Y(), 0.0);
@@ -162,7 +162,7 @@ bool IVtkVTK_View::DisplayToWorld(const Coords2d& theDisplayPnt, gp_XYZ& theWorl
     return false;
   }
 
-  theWorldPnt = gp_XYZ(aCoords[0] / aCoords[3], aCoords[1] / aCoords[3], aCoords[2] / aCoords[3]);
+  theWorldPnt = Coords3d(aCoords[0] / aCoords[3], aCoords[1] / aCoords[3], aCoords[2] / aCoords[3]);
 
   return true;
 }

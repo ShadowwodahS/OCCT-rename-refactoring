@@ -24,7 +24,7 @@
 #include <Standard_Real.hxx>
 #include <GeomAbs_Shape.hxx>
 #include <Standard_Integer.hxx>
-class gp_Trsf2d;
+class Transform2d;
 class gp_Pnt2d;
 class gp_Vec2d;
 
@@ -81,7 +81,7 @@ public:
   //! Note: this function generally returns U but it can be
   //! redefined (for example, on a line).
   Standard_EXPORT virtual Standard_Real TransformedParameter(const Standard_Real U,
-                                                             const gp_Trsf2d&    T) const;
+                                                             const Transform2d&    T) const;
 
   //! Returns the coefficient required to compute the
   //! parametric transformation of this curve when
@@ -91,7 +91,7 @@ public:
   //! new curve transformed by T.
   //! Note: this function generally returns 1. but it can be
   //! redefined (for example, on a line).
-  Standard_EXPORT virtual Standard_Real ParametricTransformation(const gp_Trsf2d& T) const;
+  Standard_EXPORT virtual Standard_Real ParametricTransformation(const Transform2d& T) const;
 
   //! Creates a reversed duplicate Changes the orientation of this curve. The first and
   //! last parameters are not changed, but the parametric

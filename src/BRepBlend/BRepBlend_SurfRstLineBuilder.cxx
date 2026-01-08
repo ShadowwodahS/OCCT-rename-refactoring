@@ -275,7 +275,7 @@ void BRepBlend_SurfRstLineBuilder::Perform(Blend_SurfRstFunction&  Func,
     math_Vector      tolerance(1, 3), infbound(1, 3), supbound(1, 3);
     Func.GetTolerance(tolerance, tolpoint3d);
     Func.GetBounds(infbound, supbound);
-    math_FunctionSetRoot rsnld(Func, tolerance, 30);
+    FunctionSetRoot rsnld(Func, tolerance, 30);
 
     rsnld.Perform(Func, ParDep, infbound, supbound);
 
@@ -381,7 +381,7 @@ Standard_Boolean BRepBlend_SurfRstLineBuilder::PerformFirstSection(Blend_SurfRst
   Func.GetTolerance(tolerance, tolpoint3d);
   Func.GetBounds(infbound, supbound);
 
-  math_FunctionSetRoot rsnld(Func, tolerance, 30);
+  FunctionSetRoot rsnld(Func, tolerance, 30);
   rsnld.Perform(Func, ParDep, infbound, supbound);
   if (!rsnld.IsDone())
     return Standard_False;
@@ -577,7 +577,7 @@ void BRepBlend_SurfRstLineBuilder::InternalPerform(Blend_SurfRstFunction&  Func,
   Func.GetTolerance(tolerance, tolpoint3d);
   Func.GetBounds(infbound, supbound);
 
-  math_FunctionSetRoot rsnld(Func, tolerance, 30);
+  FunctionSetRoot rsnld(Func, tolerance, 30);
   parinit = sol;
 
   Arrive = Standard_False;
@@ -1041,7 +1041,7 @@ Standard_Boolean BRepBlend_SurfRstLineBuilder::Recadre(Blend_SurfCurvFuncInv&   
   Solinv(2) = sol(3);
   Solinv(3) = pmin;
 
-  math_FunctionSetRoot rsnld(FinvC, toler, 30);
+  FunctionSetRoot rsnld(FinvC, toler, 30);
   rsnld.Perform(FinvC, Solinv, infb, supb);
 
   if (!rsnld.IsDone())
@@ -1084,7 +1084,7 @@ Standard_Boolean BRepBlend_SurfRstLineBuilder::Recadre(Blend_SurfCurvFuncInv&   
 
     Solinv(3) = pmin;
 
-    math_FunctionSetRoot aRsnld(FinvC, toler, 30);
+    FunctionSetRoot aRsnld(FinvC, toler, 30);
     aRsnld.Perform(FinvC, Solinv, infb, supb);
 
     if (!aRsnld.IsDone())
@@ -1150,7 +1150,7 @@ Standard_Boolean BRepBlend_SurfRstLineBuilder::Recadre(Blend_SurfRstFunction&   
   Solinv(3) = sol(1);
   Solinv(4) = sol(2);
 
-  math_FunctionSetRoot rsnld(Finv, toler, 30);
+  FunctionSetRoot rsnld(Finv, toler, 30);
   rsnld.Perform(Finv, Solinv, infb, supb);
   if (!rsnld.IsDone())
   {
@@ -1198,7 +1198,7 @@ Standard_Boolean BRepBlend_SurfRstLineBuilder::Recadre(Blend_SurfRstFunction&   
     Func.GetTolerance(tolerance, tolpoint3d);
     Func.GetBounds(infbound, supbound);
 
-    math_FunctionSetRoot rsnld2(Func, tolerance, 30);
+    FunctionSetRoot rsnld2(Func, tolerance, 30);
     parinit(1) = Solinv(3);
     parinit(2) = Solinv(4);
     parinit(3) = Solinv(1);
@@ -1240,7 +1240,7 @@ Standard_Boolean BRepBlend_SurfRstLineBuilder::Recadre(Blend_SurfPointFuncInv&  
   Solinv(2) = sol(1);
   Solinv(3) = sol(2);
 
-  math_FunctionSetRoot rsnld(FinvP, toler, 30);
+  FunctionSetRoot rsnld(FinvP, toler, 30);
   rsnld.Perform(FinvP, Solinv, infb, supb);
   if (!rsnld.IsDone())
   {

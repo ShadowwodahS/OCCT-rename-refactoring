@@ -279,7 +279,7 @@ public:
 
   //! Returns inversed location transformation matrix if the shape corresponding
   //! to this entity has init location set. Otherwise, returns identity matrix.
-  virtual gp_GTrsf InvInitLocation() const Standard_OVERRIDE { return myInvInitLocation; }
+  virtual GeneralTransform InvInitLocation() const Standard_OVERRIDE { return myInvInitLocation; }
 
   //! Sets the owner for all entities in group
   Standard_EXPORT virtual void Set(const Handle(SelectMgr_EntityOwner)& theOwnerId)
@@ -350,7 +350,7 @@ private:
   Point3d                              myCDG3D;              //!< Center of the whole triangulation
   Select3D_BVHIndexBuffer             myBvhIndices;         //!< Indexes of edges or triangles for BVH tree
   mutable Select3D_BndBox3d           myBndBox;             //!< Bounding box of the whole triangulation
-  gp_GTrsf                            myInvInitLocation;
+  GeneralTransform                            myInvInitLocation;
   Handle(TColStd_HPackedMapOfInteger) myDetectedElemMap;    //!< index map of last detected elements
   Handle(TColStd_HPackedMapOfInteger) myDetectedNodeMap;    //!< index map of last detected nodes
   Standard_Real                       myMinDepthElem;       //!< the depth of nearest detected element

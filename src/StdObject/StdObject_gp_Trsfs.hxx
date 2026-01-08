@@ -21,14 +21,14 @@
 #include <gp_Trsf2d.hxx>
 #include <gp_Trsf.hxx>
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Mat2d& theMat)
+inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Matrix2d& theMat)
 {
   StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
   theReadData >> theMat(1, 1) >> theMat(1, 2) >> theMat(2, 1) >> theMat(2, 2);
   return theReadData;
 }
 
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const gp_Mat2d& theMat)
+inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const Matrix2d& theMat)
 {
   StdObjMgt_WriteData::ObjectSentry aSentry(theWriteData);
 
@@ -53,13 +53,13 @@ inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const 
   return theWriteData;
 }
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Trsf2d& theTrsf)
+inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Transform2d& theTrsf)
 {
   StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
 
   Standard_Real    aScale;
   Standard_Integer aForm;
-  gp_Mat2d         aMat;
+  Matrix2d         aMat;
   Coords2d            aLoc;
 
   theReadData >> aScale >> aForm >> aMat >> aLoc;
@@ -74,13 +74,13 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Trsf2d
   return theReadData;
 }
 
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const gp_Trsf2d& theTrsf)
+inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const Transform2d& theTrsf)
 {
   StdObjMgt_WriteData::ObjectSentry aSentry(theWriteData);
 
   Standard_Real    aScale = theTrsf.ScaleFactor();
   Standard_Integer aForm  = theTrsf.Form();
-  const gp_Mat2d&  aMat   = theTrsf.HVectorialPart();
+  const Matrix2d&  aMat   = theTrsf.HVectorialPart();
   const Coords2d&     aLoc   = theTrsf.TranslationPart();
 
   theWriteData << aScale << aForm << aMat << aLoc;
@@ -95,7 +95,7 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Transform
   Standard_Real    aScale;
   Standard_Integer aForm;
   gp_Mat           aMat;
-  gp_XYZ           aLoc;
+  Coords3d           aLoc;
 
   theReadData >> aScale >> aForm >> aMat >> aLoc;
 
@@ -122,7 +122,7 @@ inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const 
   Standard_Real    aScale = theTrsf.ScaleFactor();
   Standard_Integer aForm  = theTrsf.Form();
   const gp_Mat&    aMat   = theTrsf.HVectorialPart();
-  const gp_XYZ&    aLoc   = theTrsf.TranslationPart();
+  const Coords3d&    aLoc   = theTrsf.TranslationPart();
 
   theWriteData << aScale << aForm << aMat << aLoc;
 

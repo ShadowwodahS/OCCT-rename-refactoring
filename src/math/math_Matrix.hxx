@@ -416,7 +416,7 @@ private:
   Standard_Integer UpperRowIndex;
   Standard_Integer LowerColIndex;
   Standard_Integer UpperColIndex;
-  math_DoubleTab   Array;
+  DoubleTab   Array;
 };
 
 #include <math_Matrix.lxx>

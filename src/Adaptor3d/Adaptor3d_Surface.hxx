@@ -196,7 +196,7 @@ public:
 
   Standard_EXPORT virtual Cone1 Cone() const;
 
-  Standard_EXPORT virtual gp_Sphere Sphere() const;
+  Standard_EXPORT virtual Sphere3 Sphere() const;
 
   Standard_EXPORT virtual gp_Torus Torus() const;
 

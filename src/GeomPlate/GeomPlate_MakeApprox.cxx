@@ -365,7 +365,7 @@ GeomPlate_MakeApprox::GeomPlate_MakeApprox(const Handle(GeomPlate_Surface)& Surf
       {
         //    a l'ordre 0
         myPlate->D0(P2d.X(), P2d.Y(), PP);
-        gp_XYZ P3d(PP.X(), PP.Y(), PP.Z());
+        Coords3d P3d(PP.X(), PP.Y(), PP.Z());
         Seq3d.Append(P3d);
       }
       else
@@ -373,7 +373,7 @@ GeomPlate_MakeApprox::GeomPlate_MakeApprox(const Handle(GeomPlate_Surface)& Surf
         //    a l'ordre 1
         myPlate->D1(P2d.X(), P2d.Y(), PP, v1h, v2h);
         v3h = v1h ^ v2h;
-        gp_XYZ P3d(v3h.X(), v3h.Y(), v3h.Z());
+        Coords3d P3d(v3h.X(), v3h.Y(), v3h.Z());
         Seq3d.Append(P3d);
       }
     }

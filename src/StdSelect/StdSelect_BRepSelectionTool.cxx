@@ -679,7 +679,7 @@ Standard_Boolean StdSelect_BRepSelectionTool::GetSensitiveForFace(
       }
       if (isFullSphere)
       {
-        gp_Sphere                        aSphere = BRepAdaptor_Surface(theFace).Sphere();
+        Sphere3                        aSphere = BRepAdaptor_Surface(theFace).Sphere();
         Handle(Select3D_SensitiveSphere) aSensSphere =
           new Select3D_SensitiveSphere(theOwner,
                                        aSphere.Position().Axis().Location(),

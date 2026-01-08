@@ -301,7 +301,7 @@ Poly_MergeNodesTool::Poly_MergeNodesTool(const double theSmoothAngle,
 
 //=================================================================================================
 
-void Poly_MergeNodesTool::AddElement(const gp_XYZ* theElemNodes, int theNbNodes)
+void Poly_MergeNodesTool::AddElement(const Coords3d* theElemNodes, int theNbNodes)
 {
   if (theNbNodes != 3 && theNbNodes != 4)
   {

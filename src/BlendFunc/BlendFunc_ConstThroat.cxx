@@ -87,7 +87,7 @@ Standard_Boolean BlendFunc_ConstThroat::IsSolution(const math_Vector& Sol, const
     secmember(3) = 2. * d1gui.Dot(tempmid);
     secmember(4) = 2. * d1gui.Dot(temp2) - 2. * d1gui.Dot(temp1);
 
-    math_Gauss Resol(gradsol);
+    Gauss Resol(gradsol);
     if (Resol.IsDone())
     {
       Resol.Solve(secmember);

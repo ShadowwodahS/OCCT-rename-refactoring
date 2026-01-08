@@ -35,7 +35,7 @@ class PointOnSurface1;
 //! surface S, starting from approximate solution (u0, v0).
 //!
 //! The class inherits math_FunctionSetWithDerivatives and thus is intended
-//! for use in math_FunctionSetRoot algorithm .
+//! for use in FunctionSetRoot algorithm .
 //!
 //! Denoting derivatives of the surface S(u,v) by u and v, respectively, as
 //! Su and Sv, the two functions to be nullified are:

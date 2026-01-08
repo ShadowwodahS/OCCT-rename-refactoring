@@ -43,7 +43,7 @@ void FlagNoteTool::ReadOwnParams(const Handle(IGESDimen_FlagNote)&      ent,
 {
   // Standard_Boolean st; //szv#4:S4163:12Mar99 moved down
 
-  gp_XYZ                                 lowerLeft;
+  Coords3d                                 lowerLeft;
   Standard_Real                          angle;
   Handle(IGESDimen_GeneralNote)          note;
   Standard_Integer                       nbval;
@@ -113,7 +113,7 @@ void FlagNoteTool::OwnCopy(const Handle(IGESDimen_FlagNote)& another,
                                      const Handle(IGESDimen_FlagNote)& ent,
                                      Interface_CopyTool&               TC) const
 {
-  gp_XYZ        lowerLeft = (another->LowerLeftCorner()).XYZ();
+  Coords3d        lowerLeft = (another->LowerLeftCorner()).XYZ();
   Standard_Real angle     = another->Angle();
   DeclareAndCast(IGESDimen_GeneralNote, note, TC.Transferred(another->Note()));
   Standard_Integer nbval = another->NbLeaders();

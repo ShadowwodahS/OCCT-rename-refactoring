@@ -335,7 +335,7 @@ void Extrema_ExtPExtS::Perform(const Point3d& P)
       Pe = ProjectPnt(anOrtogSection, myDirection, E), V = Vector3d(E, Pe) * Vector3d(myDirection);
       UV(1) = U;
       UV(2) = V;
-      math_FunctionSetRoot aFSR(myF, Tol);
+      FunctionSetRoot aFSR(myF, Tol);
       aFSR.Perform(myF, UV, UVinf, UVsup);
       //      for (Standard_Integer k=1 ; k <= myF.NbExt();
       Standard_Integer k;

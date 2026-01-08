@@ -118,8 +118,8 @@ Standard_Boolean DBRep_HideData::IsSame(const Transform3d& TProj, const Standard
       return Standard_False;
     if (myFocal != focal)
       return Standard_False;
-    const gp_XYZ& T1 = TProj.TranslationPart();
-    const gp_XYZ& T2 = myTrsf.TranslationPart();
+    const Coords3d& T1 = TProj.TranslationPart();
+    const Coords3d& T2 = myTrsf.TranslationPart();
 
     for (Standard_Integer i = 1; i <= 3; i++)
     {

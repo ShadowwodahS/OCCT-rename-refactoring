@@ -28,8 +28,8 @@ IGESSolid_SolidOfRevolution::IGESSolid_SolidOfRevolution() {}
 
 void IGESSolid_SolidOfRevolution::Init(const Handle(IGESData_IGESEntity)& aCurve,
                                        const Standard_Real                Fract,
-                                       const gp_XYZ&                      AxisPnt,
-                                       const gp_XYZ&                      Direction)
+                                       const Coords3d&                      AxisPnt,
+                                       const Coords3d&                      Direction)
 {
   theCurve     = aCurve;
   theFraction  = Fract;     // default 1.0
@@ -70,7 +70,7 @@ Point3d IGESSolid_SolidOfRevolution::TransformedAxisPoint() const
     return Point3d(theAxisPoint);
   else
   {
-    gp_XYZ tmp = theAxisPoint;
+    Coords3d tmp = theAxisPoint;
     Location().Transforms(tmp);
     return Point3d(tmp);
   }
@@ -87,9 +87,9 @@ Dir3d IGESSolid_SolidOfRevolution::TransformedAxis() const
     return Dir3d(theAxis);
   else
   {
-    gp_XYZ   tmp = theAxis;
-    gp_GTrsf loc = Location();
-    loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
+    Coords3d   tmp = theAxis;
+    GeneralTransform loc = Location();
+    loc.SetTranslationPart(Coords3d(0., 0., 0.));
     loc.Transforms(tmp);
     return Dir3d(tmp);
   }

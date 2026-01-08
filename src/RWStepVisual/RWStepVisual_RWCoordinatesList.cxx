@@ -53,7 +53,7 @@ void RWStepVisual_RWCoordinatesList::ReadStep(const Handle(StepData_StepReaderDa
     aPoints = new TColgp_HArray1OfXYZ(1, nb2);
     for (Standard_Integer i = 1; i <= nb2; i++)
     {
-      gp_XYZ           aXYZ(0., 0., 0.);
+      Coords3d           aXYZ(0., 0., 0.);
       Standard_Integer nsub3;
       if (data->ReadSubList(nsub2, i, "coordinates", ach, nsub3))
       {
@@ -97,7 +97,7 @@ void RWStepVisual_RWCoordinatesList::WriteStep(StepData_StepWriter&             
   for (Standard_Integer i = 1; i <= ent->Points()->Length(); i++)
   {
     SW.OpenSub();
-    gp_XYZ aPoint = ent->Points()->Value(i);
+    Coords3d aPoint = ent->Points()->Value(i);
     SW.Send(aPoint.X());
     SW.Send(aPoint.Y());
     SW.Send(aPoint.Z());

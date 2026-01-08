@@ -25,7 +25,7 @@
 
 class Cone1;
 class Vector3d;
-class gp_XYZ;
+class Coords3d;
 class IntPatch_Point;
 class PointOn2Surfaces;
 
@@ -156,8 +156,8 @@ protected:
   //! thePlnNormal is the normalized vector of the normal to the plane intersected the cone.
   static Standard_EXPORT Standard_Integer
     GetTangentToIntLineForCone(const Standard_Real theConeSemiAngle,
-                               const gp_XYZ&       thePlnNormal,
-                               gp_XYZ              theResult[2]);
+                               const Coords3d&       thePlnNormal,
+                               Coords3d              theResult[2]);
 };
 
 #endif // _IntPatch_AddSpecialPoints_HeaderFile

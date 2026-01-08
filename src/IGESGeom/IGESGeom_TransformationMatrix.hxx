@@ -23,7 +23,7 @@
 #include <TColStd_HArray2OfReal.hxx>
 #include <IGESData_TransfEntity.hxx>
 #include <Standard_Integer.hxx>
-class gp_GTrsf;
+class GeneralTransform;
 
 class IGESGeom_TransformationMatrix;
 DEFINE_STANDARD_HANDLE(IGESGeom_TransformationMatrix, IGESData_TransfEntity)
@@ -59,7 +59,7 @@ public:
 
   //! returns the transformation matrix
   //! 4th row elements of GTrsf will always be 0, 0, 0, 1 (not defined)
-  Standard_EXPORT gp_GTrsf Value() const Standard_OVERRIDE;
+  Standard_EXPORT GeneralTransform Value() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESGeom_TransformationMatrix, IGESData_TransfEntity)
 

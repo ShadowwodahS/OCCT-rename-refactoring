@@ -64,9 +64,9 @@ inline Standard_Integer& PlateSurface::Derv(const Standard_Integer index) const
   return ((Standard_Integer*)derv)[index];
 }
 
-inline gp_XYZ& PlateSurface::Solution(const Standard_Integer index) const
+inline Coords3d& PlateSurface::Solution(const Standard_Integer index) const
 {
-  return ((gp_XYZ*)solution)[index];
+  return ((Coords3d*)solution)[index];
 }
 
 inline Coords2d& PlateSurface::Points(const Standard_Integer index) const

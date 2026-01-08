@@ -238,7 +238,7 @@ Handle(StepVisual_TessellatedCurveSet) GenerateTessellatedCurveSet(const TopoSha
   // container, however in order to create it we need to know it's size.
   // Currently number of points is unknown, so we will put all the points in a
   // temporary container and then just copy them after all edges will be processed.
-  NCollection_Vector<gp_XYZ> aTmpPointsContainer;
+  NCollection_Vector<Coords3d> aTmpPointsContainer;
   for (ShapeExplorer aCurveIt(theShape, TopAbs_EDGE); aCurveIt.More(); aCurveIt.Next())
   {
     // Find out type of edge curve

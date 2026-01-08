@@ -233,13 +233,13 @@ private:
   //! Compute the center of planar polygon.
   //! @param theIndices polygon indices
   //! @return center of polygon
-  gp_XYZ polygonCenter(const NCollection_Array1<Standard_Integer>& theIndices);
+  Coords3d polygonCenter(const NCollection_Array1<Standard_Integer>& theIndices);
 
   //! Compute the normal to planar polygon.
   //! The logic is similar to ShapeAnalysis_Curve::IsPlanar().
   //! @param theIndices polygon indices
   //! @return polygon normal
-  gp_XYZ polygonNormal(const NCollection_Array1<Standard_Integer>& theIndices);
+  Coords3d polygonNormal(const NCollection_Array1<Standard_Integer>& theIndices);
 
   //! Create triangle fan from specified polygon.
   //! @param theIndices polygon nodes

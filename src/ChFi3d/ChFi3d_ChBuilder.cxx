@@ -1327,7 +1327,7 @@ Standard_Boolean ChFi3d_ChBuilder::PerformFirstSection(const Handle(ChFiDS_Spine
     // calculate an approximate starting solution
     Vector3d TgF, TgL, tmp1, tmp2, d1gui;
     Point3d pt1, pt2, ptgui;
-    gp_XYZ temp;
+    Coords3d temp;
 
     HGuide->D1(Par, ptgui, d1gui);
     //  ptgui = S1->Value(SolDep(1),SolDep(2));
@@ -1416,7 +1416,7 @@ Standard_Boolean ChFi3d_ChBuilder::PerformFirstSection(const Handle(ChFiDS_Spine
     // calculate an approximate starting solution
     Vector3d TgF, TgL, tmp1, tmp2, d1gui;
     Point3d pt1, pt2, ptgui;
-    gp_XYZ temp;
+    Coords3d temp;
 
     HGuide->D1(Par, ptgui, d1gui);
     //  ptgui = S1->Value(SolDep(1),SolDep(2));
@@ -1498,7 +1498,7 @@ Standard_Boolean ChFi3d_ChBuilder::PerformFirstSection(const Handle(ChFiDS_Spine
     // calculate an approximate starting solution
     Vector3d TgF, TgL, tmp1, tmp2, d1gui;
     Point3d pt1, pt2, ptgui;
-    gp_XYZ temp;
+    Coords3d temp;
 
     HGuide->D1(Par, ptgui, d1gui);
     //  ptgui = S1->Value(SolDep(1),SolDep(2));

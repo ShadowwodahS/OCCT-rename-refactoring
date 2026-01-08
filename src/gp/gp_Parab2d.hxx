@@ -223,10 +223,10 @@ public:
   //! "XAxis" is reversed and the direction of the "YAxis" too.
   Standard_NODISCARD gp_Parab2d Scaled(const gp_Pnt2d& theP, const Standard_Real theS) const;
 
-  void Transform(const gp_Trsf2d& theT);
+  void Transform(const Transform2d& theT);
 
   //! Transforms an parabola with the transformation theT from class Trsf2d.
-  Standard_NODISCARD gp_Parab2d Transformed(const gp_Trsf2d& theT) const;
+  Standard_NODISCARD gp_Parab2d Transformed(const Transform2d& theT) const;
 
   void Translate(const gp_Vec2d& theV) { pos.Translate(theV); }
 
@@ -313,7 +313,7 @@ inline gp_Parab2d gp_Parab2d::Scaled(const gp_Pnt2d& theP, const Standard_Real t
 // function : Transform
 // purpose :
 //=======================================================================
-inline void gp_Parab2d::Transform(const gp_Trsf2d& theT)
+inline void gp_Parab2d::Transform(const Transform2d& theT)
 {
   focalLength *= theT.ScaleFactor();
   if (focalLength < 0)
@@ -327,7 +327,7 @@ inline void gp_Parab2d::Transform(const gp_Trsf2d& theT)
 // function : Transformed
 // purpose :
 //=======================================================================
-inline gp_Parab2d gp_Parab2d::Transformed(const gp_Trsf2d& theT) const
+inline gp_Parab2d gp_Parab2d::Transformed(const Transform2d& theT) const
 {
   gp_Parab2d aPrb = *this;
   aPrb.focalLength *= theT.ScaleFactor();

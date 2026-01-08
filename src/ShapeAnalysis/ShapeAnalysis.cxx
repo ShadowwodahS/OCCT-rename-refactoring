@@ -154,7 +154,7 @@ Standard_Real ShapeAnalysis::ContourArea(const TopoWire& theWire)
   Standard_Integer nbc = 0;
   Point3d           fuv, luv, uv0;
   // Standard_Real totcross=0;
-  gp_XYZ          aTotal(0., 0., 0.);
+  Coords3d          aTotal(0., 0., 0.);
   TopoDS_Iterator aIte(theWire, Standard_False);
   // for(i=1; i<=sewd->NbEdges(); i++) {
   for (; aIte.More(); aIte.Next())

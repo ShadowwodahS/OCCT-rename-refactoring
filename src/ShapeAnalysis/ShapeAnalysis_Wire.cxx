@@ -513,7 +513,7 @@ Standard_Boolean ShapeAnalysis_Wire::CheckOrder(ShapeAnalysis_WireOrder& sawo,
   for (Standard_Integer i = 1; i <= nb; i++)
   {
     TopoEdge E = myWire->Edge(i);
-    gp_XYZ      aP1XYZ, aP2XYZ;
+    Coords3d      aP1XYZ, aP2XYZ;
     Coords2d       aP1XY, aP2XY;
     if (theMode3D || theModeBoth)
     {
@@ -1812,8 +1812,8 @@ Standard_Boolean ShapeAnalysis_Wire::CheckSmallArea(const TopoWire& theWire)
 
   // check approximated area in 3D
   Point3d aPnt3d;
-  gp_XYZ aPrev3d, aCross(0., 0., 0.);
-  gp_XYZ aCenter(mySurf->Value(aCenter2d.X(), aCenter2d.Y()).XYZ());
+  Coords3d aPrev3d, aCross(0., 0., 0.);
+  Coords3d aCenter(mySurf->Value(aCenter2d.X(), aCenter2d.Y()).XYZ());
 
   Handle(GeomCurve3d) aCurve3d;
   for (Standard_Integer j = 1; j <= NbEdges; ++j)
@@ -1840,8 +1840,8 @@ Standard_Boolean ShapeAnalysis_Wire::CheckSmallArea(const TopoWire& theWire)
     {
       const Standard_Real anU      = anInv * ((aNbControl - 1 - i) * aF + i * aL);
       const Point3d        aPnt     = aCurve3d->Value(anU);
-      const gp_XYZ&       aCurrent = aPnt.XYZ();
-      const gp_XYZ        aVec     = aCurrent - aCenter;
+      const Coords3d&       aCurrent = aPnt.XYZ();
+      const Coords3d        aVec     = aCurrent - aCenter;
 
       aCross += aPrev3d ^ aVec;
       aLength += aPnt3d.Distance(aPnt);
@@ -2138,7 +2138,7 @@ Standard_Boolean ShapeAnalysis_Wire::CheckTail(const TopoEdge&  theEdge1,
   if (theMaxSine >= 0)
   {
     const Standard_Real aSqMaxSine = theMaxSine * theMaxSine;
-    gp_XYZ              aDs[2];
+    Coords3d              aDs[2];
     Standard_Integer    aReverse = 0;
     for (Standard_Integer aEI = 0; aEI < 2; ++aEI)
     {
@@ -2158,7 +2158,7 @@ Standard_Boolean ShapeAnalysis_Wire::CheckTail(const TopoEdge&  theEdge1,
         return Standard_False;
       }
 
-      gp_XYZ aPs[2];
+      Coords3d aPs[2];
       aPs[aVIs[aEI]]          = aVPs[aEI].XYZ();
       aPs[1 - aVIs[aEI]]      = aCs[aEI]->Value(aAP.Parameter()).XYZ();
       aDs[aEI]                = aPs[1] - aPs[0];

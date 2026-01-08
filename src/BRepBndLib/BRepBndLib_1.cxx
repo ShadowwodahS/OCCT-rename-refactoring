@@ -406,16 +406,16 @@ static void ComputePCA(const TopoShape&    theS,
   Point3d aPMin = aShapeBox.CornerMin();
   Point3d aPMax = aShapeBox.CornerMax();
 
-  gp_XYZ aXDir(1, 0, 0);
-  gp_XYZ aYDir(0, 1, 0);
-  gp_XYZ aZDir(0, 0, 1);
+  Coords3d aXDir(1, 0, 0);
+  Coords3d aYDir(0, 1, 0);
+  Coords3d aZDir(0, 0, 1);
 
   // Compute the center of the box
-  gp_XYZ aCenter = (aPMin.XYZ() + aPMax.XYZ()) / 2.;
+  Coords3d aCenter = (aPMin.XYZ() + aPMax.XYZ()) / 2.;
 
   // Compute the half diagonal size of the box.
   // It takes into account the gap.
-  gp_XYZ anOBBHSize = (aPMax.XYZ() - aPMin.XYZ()) / 2.;
+  Coords3d anOBBHSize = (aPMax.XYZ() - aPMin.XYZ()) / 2.;
 
   // Apply transformation if necessary
   if (aTrsf.Form() != gp_Identity)
@@ -426,9 +426,9 @@ static void ComputePCA(const TopoShape&    theS,
     // Make transformation
     const Standard_Real* aMat = &aTrsf.HVectorialPart().Value(1, 1);
     // Compute axes directions of the box
-    aXDir = gp_XYZ(aMat[0], aMat[3], aMat[6]);
-    aYDir = gp_XYZ(aMat[1], aMat[4], aMat[7]);
-    aZDir = gp_XYZ(aMat[2], aMat[5], aMat[8]);
+    aXDir = Coords3d(aMat[0], aMat[3], aMat[6]);
+    aYDir = Coords3d(aMat[1], aMat[4], aMat[7]);
+    aZDir = Coords3d(aMat[2], aMat[5], aMat[8]);
   }
 
   if (theOBB.IsVoid())
@@ -454,7 +454,7 @@ static void ComputePCA(const TopoShape&    theS,
     const Standard_Real aY = anOBBHSize.Y();
     const Standard_Real aZ = anOBBHSize.Z();
 
-    const gp_XYZ aXext = aX * aXDir, aYext = aY * aYDir, aZext = aZ * aZDir;
+    const Coords3d aXext = aX * aXDir, aYext = aY * aYDir, aZext = aZ * aZDir;
 
     Standard_Integer aPntIdx = 8;
     aListOfPnts(aPntIdx++)   = aCenter - aXext - aYext - aZext;

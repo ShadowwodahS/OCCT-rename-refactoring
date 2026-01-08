@@ -134,7 +134,7 @@ private:
 //=======================================================================
 static inline void GetTangent(const Standard_Real theConeSemiAngle,
                               const Standard_Real theParameter,
-                              gp_XYZ&             theResult)
+                              Coords3d&             theResult)
 {
   const Standard_Real aW2    = theParameter * theParameter;
   const Standard_Real aCosUn = (1.0 - aW2) / (1.0 + aW2);
@@ -307,7 +307,7 @@ Standard_Boolean SpecialPoints::AddPointOnUorVIso(
 
   FuncPreciseSeam aF(theQSurf, thePSurf, theIsU, theIsoParameter);
 
-  math_FunctionSetRoot aSRF(aF, theToler);
+  FunctionSetRoot aSRF(aF, theToler);
   aSRF.Perform(aF, theInitPoint, theInfBound, theSupBound);
 
   if (!aSRF.IsDone())
@@ -577,14 +577,14 @@ Standard_Boolean SpecialPoints::ProcessCone(const PointOn2Surfaces& thePtIso,
 
   // A plane tangent to 2nd (intersected) surface.
   // Its normal.
-  const gp_XYZ        aTgPlaneZ(theDUofPSurf.Crossed(theDVofPSurf).XYZ());
+  const Coords3d        aTgPlaneZ(theDUofPSurf.Crossed(theDVofPSurf).XYZ());
   const Standard_Real aSqModTg = aTgPlaneZ.SquareModulus();
   if (aSqModTg < Precision::SquareConfusion())
   {
     theIsIsoChoosen = Standard_True;
   }
 
-  gp_XYZ                 aTgILine[2];
+  Coords3d                 aTgILine[2];
   const Standard_Integer aNbTangent =
     !theIsIsoChoosen
       ? GetTangentToIntLineForCone(theCone.SemiAngle(), aTgPlaneZ.Divided(Sqrt(aSqModTg)), aTgILine)
@@ -716,8 +716,8 @@ aA*w^2 + 2*aB*w + aC = 0.
 //=======================================================================
 Standard_Integer SpecialPoints::GetTangentToIntLineForCone(
   const Standard_Real theConeSemiAngle,
-  const gp_XYZ&       thePlnNormal,
-  gp_XYZ              theResult[2])
+  const Coords3d&       thePlnNormal,
+  Coords3d              theResult[2])
 {
   const Standard_Real aNullTol = Epsilon(1.0);
   const Standard_Real aTanA    = Tan(theConeSemiAngle);

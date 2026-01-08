@@ -144,7 +144,7 @@ AxeOperator::AxeOperator(const Axis3d&       A1,
   //--- check if the two axis are parallel
   theparallel = V1.IsParallel(V2, myEPSILON_AXES_PARA);
   //--- Distance between the two axis
-  gp_XYZ perp(A1.Direction().XYZ().Crossed(A2.Direction().XYZ()));
+  Coords3d perp(A1.Direction().XYZ().Crossed(A2.Direction().XYZ()));
   if (theparallel)
   {
     gp_Lin L1(A1);
@@ -550,13 +550,13 @@ void QuadQuadGeoIntersection::Perform(const gp_Pln&       P,
   Standard_Real A, B, C, D;
   Standard_Real X, Y, Z;
   Standard_Real sint, cost, h;
-  gp_XYZ        axex, axey, omega;
+  Coords3d        axex, axey, omega;
 
   param2bis = 0.0;
   radius    = Cl.Radius();
 
   gp_Lin axec(Cl.Axis());
-  gp_XYZ normp(P.Axis().Direction().XYZ());
+  Coords3d normp(P.Axis().Direction().XYZ());
 
   P.Coefficients(A, B, C, D);
   axec.Location().Coord(X, Y, Z);
@@ -603,12 +603,12 @@ void QuadQuadGeoIntersection::Perform(const gp_Pln&       P,
 
       if (newparams)
       {
-        gp_XYZ        omegaXYZ(X, Y, Z);
-        gp_XYZ        omegaXYZtrnsl(omegaXYZ + 100. * axec.Direction().XYZ());
+        Coords3d        omegaXYZ(X, Y, Z);
+        Coords3d        omegaXYZtrnsl(omegaXYZ + 100. * axec.Direction().XYZ());
         Standard_Real Xt, Yt, Zt, distt;
         omegaXYZtrnsl.Coord(Xt, Yt, Zt);
         distt = A * Xt + B * Yt + C * Zt + D;
-        gp_XYZ omega1(omegaXYZtrnsl.X() - distt * A,
+        Coords3d omega1(omegaXYZtrnsl.X() - distt * A,
                       omegaXYZtrnsl.Y() - distt * B,
                       omegaXYZtrnsl.Z() - distt * C);
         Point3d ppt1;
@@ -631,8 +631,8 @@ void QuadQuadGeoIntersection::Perform(const gp_Pln&       P,
 
       if (newparams)
       {
-        gp_XYZ        omegaXYZ(X, Y, Z);
-        gp_XYZ        omegaXYZtrnsl(omegaXYZ + 100. * axec.Direction().XYZ());
+        Coords3d        omegaXYZ(X, Y, Z);
+        Coords3d        omegaXYZtrnsl(omegaXYZ + 100. * axec.Direction().XYZ());
         Standard_Real Xt, Yt, Zt, distt, ht;
         omegaXYZtrnsl.Coord(Xt, Yt, Zt);
         distt = A * Xt + B * Yt + C * Zt + D;
@@ -640,7 +640,7 @@ void QuadQuadGeoIntersection::Perform(const gp_Pln&       P,
         Standard_Real anSqrtArg = radius * radius - distt * distt;
         ht                      = (anSqrtArg > 0.) ? Sqrt(anSqrtArg) : 0.;
 
-        gp_XYZ omega1(omegaXYZtrnsl.X() - distt * A,
+        Coords3d omega1(omegaXYZtrnsl.X() - distt * A,
                       omegaXYZtrnsl.Y() - distt * B,
                       omegaXYZtrnsl.Z() - distt * C);
         Point3d ppt1, ppt2;
@@ -749,7 +749,7 @@ void QuadQuadGeoIntersection::Perform(const gp_Pln&       P,
   Standard_Real X, Y, Z;
   Standard_Real dist, sint, cost, sina, cosa, angl, costa;
   Standard_Real dh;
-  gp_XYZ        axex, axey;
+  Coords3d        axex, axey;
 
   gp_Lin axec(Co.Axis());
   P.Coefficients(A, B, C, D);
@@ -758,7 +758,7 @@ void QuadQuadGeoIntersection::Perform(const gp_Pln&       P,
   apex.Coord(X, Y, Z);
   dist = A * X + B * Y + C * Z + D; // distance signee sommet du cone/ Plan
 
-  gp_XYZ normp = P.Axis().Direction().XYZ();
+  Coords3d normp = P.Axis().Direction().XYZ();
   if (P.Direct() == Standard_False)
   { //-- lbr le 14 jan 97
     normp.Reverse();
@@ -793,7 +793,7 @@ void QuadQuadGeoIntersection::Perform(const gp_Pln&       P,
     { // plan parallele a la generatrice
       typeres = IntAna_Line;
       nbint   = 1;
-      gp_XYZ ptonaxe(apex.XYZ() + 10. * (Co.Axis().Direction().XYZ()));
+      Coords3d ptonaxe(apex.XYZ() + 10. * (Co.Axis().Direction().XYZ()));
       // point sur l axe du cone cote z positif
 
       dist    = A * ptonaxe.X() + B * ptonaxe.Y() + C * ptonaxe.Z() + D;
@@ -941,7 +941,7 @@ void QuadQuadGeoIntersection::Perform(const gp_Pln&       P,
 
 //=================================================================================================
 
-QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Pln& P, const gp_Sphere& S)
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Pln& P, const Sphere3& S)
     : done(Standard_False),
       nbint(0),
       typeres(IntAna_Empty),
@@ -964,7 +964,7 @@ QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Pln& P, const gp_Spher
 
 //=================================================================================================
 
-void QuadQuadGeoIntersection::Perform(const gp_Pln& P, const gp_Sphere& S)
+void QuadQuadGeoIntersection::Perform(const gp_Pln& P, const Sphere3& S)
 {
 
   done = Standard_False;
@@ -1339,7 +1339,7 @@ void QuadQuadGeoIntersection::Perform(const Cylinder1& Cyl, const Cone1& Con, co
 // purpose  : Cylinder - Sphere
 //=======================================================================
 QuadQuadGeoIntersection::QuadQuadGeoIntersection(const Cylinder1&  Cyl,
-                                       const gp_Sphere&    Sph,
+                                       const Sphere3&    Sph,
                                        const Standard_Real Tol)
     : done(Standard_False),
       nbint(0),
@@ -1363,7 +1363,7 @@ QuadQuadGeoIntersection::QuadQuadGeoIntersection(const Cylinder1&  Cyl,
 
 //=================================================================================================
 
-void QuadQuadGeoIntersection::Perform(const Cylinder1& Cyl, const gp_Sphere& Sph, const Standard_Real)
+void QuadQuadGeoIntersection::Perform(const Cylinder1& Cyl, const Sphere3& Sph, const Standard_Real)
 {
   done           = Standard_True;
   Point3d      Pt = Sph.Location();
@@ -1894,7 +1894,7 @@ void QuadQuadGeoIntersection::Perform(const Cone1& Con1, const Cone1& Con2, cons
 // function : QuadQuadGeoIntersection
 // purpose  : Sphere - Cone
 //=======================================================================
-QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Sphere&    Sph,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const Sphere3&    Sph,
                                        const Cone1&      Con,
                                        const Standard_Real Tol)
     : done(Standard_False),
@@ -1919,7 +1919,7 @@ QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Sphere&    Sph,
 
 //=================================================================================================
 
-void QuadQuadGeoIntersection::Perform(const gp_Sphere& Sph, const Cone1& Con, const Standard_Real)
+void QuadQuadGeoIntersection::Perform(const Sphere3& Sph, const Cone1& Con, const Standard_Real)
 {
 
   //
@@ -1949,7 +1949,7 @@ void QuadQuadGeoIntersection::Perform(const gp_Sphere& Sph, const Cone1& Con, co
     //-- x: Roots of    (x**2 + y**2 = Rad**2)
     //--                tga = y / (x+dApexSphCenter)
     Standard_Real              tgatga = tga * tga;
-    math_DirectPolynomialRoots Eq(1.0 + tgatga,
+    DirectPolynomialRoots Eq(1.0 + tgatga,
                                   2.0 * tgatga * dApexSphCenter,
                                   -Rad * Rad + dApexSphCenter * dApexSphCenter * tgatga);
     if (Eq.IsDone())
@@ -2013,8 +2013,8 @@ void QuadQuadGeoIntersection::Perform(const gp_Sphere& Sph, const Cone1& Con, co
 // function : QuadQuadGeoIntersection
 // purpose  : Sphere - Sphere
 //=======================================================================
-QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Sphere&    Sph1,
-                                       const gp_Sphere&    Sph2,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const Sphere3&    Sph1,
+                                       const Sphere3&    Sph2,
                                        const Standard_Real Tol)
     : done(Standard_False),
       nbint(0),
@@ -2038,8 +2038,8 @@ QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Sphere&    Sph1,
 
 //=================================================================================================
 
-void QuadQuadGeoIntersection::Perform(const gp_Sphere&    Sph1,
-                                 const gp_Sphere&    Sph2,
+void QuadQuadGeoIntersection::Perform(const Sphere3&    Sph1,
+                                 const Sphere3&    Sph2,
                                  const Standard_Real Tol)
 {
   done                = Standard_True;
@@ -2327,7 +2327,7 @@ void QuadQuadGeoIntersection::Perform(const Cylinder1&  Cyl,
   typeres = IntAna_Circle;
   //
   Standard_Real aDist   = Sqrt(Abs(aRMin * aRMin - (aRCyl - aRMaj) * (aRCyl - aRMaj)));
-  gp_XYZ        aTorLoc = aTorAx.Location().XYZ();
+  Coords3d        aTorLoc = aTorAx.Location().XYZ();
   //
   dir1 = aTorAx.Direction();
   pt1.SetXYZ(aTorLoc + aDist * dir1.XYZ());
@@ -2431,11 +2431,11 @@ void QuadQuadGeoIntersection::Perform(const Cone1& Con, const gp_Torus& Tor, con
     //
     typeres = IntAna_Circle;
     //
-    gp_XYZ aPh = aPCT.XYZ() - aDist * aConL.Normal(aPCT).Direction().XYZ();
+    Coords3d aPh = aPCT.XYZ() - aDist * aConL.Normal(aPCT).Direction().XYZ();
     aDt        = Sqrt(Abs(aRMin * aRMin - aDist * aDist));
     //
     Point3d aP;
-    gp_XYZ aDVal = aDt * aDL.XYZ();
+    Coords3d aDVal = aDt * aDL.XYZ();
     aP.SetXYZ(aPh + aDVal);
     aParam[nbint] = aLin.Distance(aP);
     aPt[nbint].SetXYZ(aP.XYZ() - aParam[nbint] * aXDir.XYZ());
@@ -2489,7 +2489,7 @@ void QuadQuadGeoIntersection::Perform(const Cone1& Con, const gp_Torus& Tor, con
 // function : QuadQuadGeoIntersection
 // purpose  : Sphere - Torus
 //=======================================================================
-QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Sphere&    Sph,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const Sphere3&    Sph,
                                        const gp_Torus&     Tor,
                                        const Standard_Real Tol)
     : done(Standard_False),
@@ -2514,7 +2514,7 @@ QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Sphere&    Sph,
 
 //=================================================================================================
 
-void QuadQuadGeoIntersection::Perform(const gp_Sphere& Sph, const gp_Torus& Tor, const Standard_Real Tol)
+void QuadQuadGeoIntersection::Perform(const Sphere3& Sph, const gp_Torus& Tor, const Standard_Real Tol)
 {
   done = Standard_True;
   //
@@ -2561,11 +2561,11 @@ void QuadQuadGeoIntersection::Perform(const gp_Sphere& Sph, const gp_Torus& Tor,
   aBeta   = Sqrt(Abs(aRMin * aRMin - anAlpha * anAlpha));
   //
   Dir3d aDir12(aVec12);
-  gp_XYZ aPh = aTorLoc.XYZ() + anAlpha * aDir12.XYZ();
+  Coords3d aPh = aTorLoc.XYZ() + anAlpha * aDir12.XYZ();
   Dir3d aDC = Tor.YAxis().Direction() ^ aDir12;
   //
   Point3d aP;
-  gp_XYZ aDVal = aBeta * aDC.XYZ();
+  Coords3d aDVal = aBeta * aDC.XYZ();
   aP.SetXYZ(aPh + aDVal);
   param1 = aLin.Distance(aP);
   pt1.SetXYZ(aP.XYZ() - param1 * aXDir.XYZ());
@@ -2671,11 +2671,11 @@ void QuadQuadGeoIntersection::Perform(const gp_Torus&     Tor1,
   aBeta   = Sqrt(Abs(aRMin1 * aRMin1 - anAlpha * anAlpha));
   //
   Dir3d aDir12(aV12);
-  gp_XYZ aPh = aP1.XYZ() + anAlpha * aDir12.XYZ();
+  Coords3d aPh = aP1.XYZ() + anAlpha * aDir12.XYZ();
   Dir3d aDC = Tor1.YAxis().Direction() ^ aDir12;
   //
   Point3d aP;
-  gp_XYZ aDVal = aBeta * aDC.XYZ();
+  Coords3d aDVal = aBeta * aDC.XYZ();
   aP.SetXYZ(aPh + aDVal);
   param1 = aL1.Distance(aP);
   pt1.SetXYZ(aP.XYZ() - param1 * aXDir1.XYZ());

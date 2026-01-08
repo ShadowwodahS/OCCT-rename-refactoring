@@ -167,9 +167,9 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
 // Detects if curve lies in some plane and returns normal
 // IsPlanar
 //=============================================================================
-static gp_XYZ GetAnyNormal(gp_XYZ orig)
+static Coords3d GetAnyNormal(Coords3d orig)
 {
-  gp_XYZ Norm;
+  Coords3d Norm;
   if (Abs(orig.Z()) < Precision::Confusion())
     Norm.SetCoord(0, 0, 1);
   else
@@ -189,7 +189,7 @@ static gp_XYZ GetAnyNormal(gp_XYZ orig)
 // Detects if curve lies in some plane and returns normal
 // IsPlanar
 //=============================================================================
-static Standard_Boolean ArePolesPlanar(const TColgp_Array1OfPnt& Poles, gp_XYZ& Normal)
+static Standard_Boolean ArePolesPlanar(const TColgp_Array1OfPnt& Poles, Coords3d& Normal)
 {
   if (Poles.Length() < 3)
   {
@@ -223,7 +223,7 @@ static Standard_Boolean ArePolesPlanar(const TColgp_Array1OfPnt& Poles, gp_XYZ& 
 // Detects if curve lies in some plane and returns normal
 // IsPlanar
 //=============================================================================
-static Standard_Boolean IsPlanar(const Handle(GeomCurve3d)& curve, gp_XYZ& Normal)
+static Standard_Boolean IsPlanar(const Handle(GeomCurve3d)& curve, Coords3d& Normal)
 {
   Normal.SetCoord(0, 0, 0);
   if (curve->IsKind(STANDARD_TYPE(GeomLine)))
@@ -283,7 +283,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
 
   Handle(BSplineCurve3d) mycurve;
   Standard_Boolean          IPlan = Standard_False;
-  gp_XYZ                    Norm  = gp_XYZ(0., 0., 1.);
+  Coords3d                    Norm  = Coords3d(0., 0., 1.);
 
   // Si la courbe est periodique, on passe par une fonction pour recuperer tous
   // les parametres necessaires a l`ecriture IGES.
@@ -386,7 +386,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
   {
     Point3d ptampon = P.Value(Poleindex);
     ptampon.Coord(Xpt, Ypt, Zpt);
-    gp_XYZ xyztampon = gp_XYZ(Xpt / GetUnit(), Ypt / GetUnit(), Zpt / GetUnit());
+    Coords3d xyztampon = Coords3d(Xpt / GetUnit(), Ypt / GetUnit(), Zpt / GetUnit());
     Poles->SetValue(itampon, xyztampon);
     itampon++;
   }
@@ -835,8 +835,8 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   start->Value(U1).Coord(X1, Y1, Z1);
   start->Value(U2).Coord(X2, Y2, Z2);
 
-  Line->Init((gp_XYZ(X1 / GetUnit(), Y1 / GetUnit(), Z1 / GetUnit())),
-             (gp_XYZ(X2 / GetUnit(), Y2 / GetUnit(), Z2 / GetUnit())));
+  Line->Init((Coords3d(X1 / GetUnit(), Y1 / GetUnit(), Z1 / GetUnit())),
+             (Coords3d(X2 / GetUnit(), Y2 / GetUnit(), Z2 / GetUnit())));
   res = Line;
   return res;
 }
@@ -875,7 +875,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
   Standard_Real      Deb   = Curve->FirstParameter();
   Standard_Real      Fin   = Curve->LastParameter();
   //%11 pdn 12.01.98 offset curve should be planar
-  gp_XYZ Normal;
+  Coords3d Normal;
   if (!IsPlanar(Curve, Normal))
   {
     //%11 pdn 12.01.98 protection against exceptions

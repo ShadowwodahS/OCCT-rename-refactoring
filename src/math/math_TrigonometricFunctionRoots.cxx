@@ -30,7 +30,7 @@
 #include <math_NewtonFunctionRoot.hxx>
 #include <Precision.hxx>
 
-math_TrigonometricFunctionRoots::math_TrigonometricFunctionRoots(const Standard_Real theD,
+TrigonometricFunctionRoots::TrigonometricFunctionRoots(const Standard_Real theD,
                                                                  const Standard_Real theE,
                                                                  const Standard_Real theInfBound,
                                                                  const Standard_Real theSupBound)
@@ -43,7 +43,7 @@ math_TrigonometricFunctionRoots::math_TrigonometricFunctionRoots(const Standard_
   Perform(A, B, C, theD, theE, theInfBound, theSupBound);
 }
 
-math_TrigonometricFunctionRoots::math_TrigonometricFunctionRoots(const Standard_Real theC,
+TrigonometricFunctionRoots::TrigonometricFunctionRoots(const Standard_Real theC,
                                                                  const Standard_Real theD,
                                                                  const Standard_Real theE,
                                                                  const Standard_Real theInfBound,
@@ -57,7 +57,7 @@ math_TrigonometricFunctionRoots::math_TrigonometricFunctionRoots(const Standard_
   Perform(A, B, theC, theD, theE, theInfBound, theSupBound);
 }
 
-math_TrigonometricFunctionRoots::math_TrigonometricFunctionRoots(const Standard_Real theA,
+TrigonometricFunctionRoots::TrigonometricFunctionRoots(const Standard_Real theA,
                                                                  const Standard_Real theB,
                                                                  const Standard_Real theC,
                                                                  const Standard_Real theD,
@@ -72,7 +72,7 @@ math_TrigonometricFunctionRoots::math_TrigonometricFunctionRoots(const Standard_
   Perform(theA, theB, theC, theD, theE, theInfBound, theSupBound);
 }
 
-void math_TrigonometricFunctionRoots::Perform(const Standard_Real A,
+void TrigonometricFunctionRoots::Perform(const Standard_Real A,
                                               const Standard_Real B,
                                               const Standard_Real C,
                                               const Standard_Real D,
@@ -214,7 +214,7 @@ void math_TrigonometricFunctionRoots::Perform(const Standard_Real A,
       BB = 2.0 * D;
       CC = E + C;
 
-      math_DirectPolynomialRoots Resol(AA, BB, CC);
+      DirectPolynomialRoots Resol(AA, BB, CC);
       if (!Resol.IsDone())
       {
         Done = Standard_False;
@@ -356,7 +356,7 @@ void math_TrigonometricFunctionRoots::Perform(const Standard_Real A,
     do
     {
       bko = Standard_False;
-      math_DirectPolynomialRoots Resol4(ko(1), ko(2), ko(3), ko(4), ko(5));
+      DirectPolynomialRoots Resol4(ko(1), ko(2), ko(3), ko(4), ko(5));
       if (!Resol4.IsDone())
       {
         Done = Standard_False;
@@ -404,7 +404,7 @@ void math_TrigonometricFunctionRoots::Perform(const Standard_Real A,
             bko = Standard_True;
 #ifdef OCCT_DEBUG
             // if(nbko==1) {
-            //   std::cout<<"Pb ds math_TrigonometricFunctionRoots CC="
+            //   std::cout<<"Pb ds TrigonometricFunctionRoots CC="
             //	<<A<<" CS="<<B<<" C="<<C<<" S="<<D<<" Cte="<<E<<std::endl;
             // }
 #endif
@@ -451,7 +451,7 @@ void math_TrigonometricFunctionRoots::Perform(const Standard_Real A,
       // OCC541(apo):  Standard_Real TetaNewton=0;
       Standard_Real                      TetaNewton = Teta;
       math_TrigonometricEquationFunction MyF(A, B, C, D, E);
-      math_NewtonFunctionRoot            Resol(MyF, X, Tol1, Eps, Nit);
+      NewtonFunctionRoot            Resol(MyF, X, Tol1, Eps, Nit);
       if (Resol.IsDone())
       {
         TetaNewton = Resol.Root();
@@ -540,9 +540,9 @@ void math_TrigonometricFunctionRoots::Perform(const Standard_Real A,
   }
 }
 
-void math_TrigonometricFunctionRoots::Dump(Standard_OStream& o) const
+void TrigonometricFunctionRoots::Dump(Standard_OStream& o) const
 {
-  o << " math_TrigonometricFunctionRoots: \n";
+  o << " TrigonometricFunctionRoots: \n";
   if (!Done)
   {
     o << "Not Done \n";

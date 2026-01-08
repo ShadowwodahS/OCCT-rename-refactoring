@@ -22,7 +22,7 @@
 #include <math.hxx>
 #include <math_ComputeGaussPointsAndWeights.hxx>
 
-Standard_Integer math::GaussPointsMax()
+Standard_Integer math1::GaussPointsMax()
 {
   return 61;
 }
@@ -1957,7 +1957,7 @@ static const Standard_Real Weight[] = {0.0e+00,
 // poids de Gauss. Le calcul suivant permet de n'avoir stocke que la moitie
 // des points etant donne qu'ils sont repetes 2 fois.
 
-void math::GaussPoints(const Standard_Integer Index, math_Vector& GPoint)
+void math1::GaussPoints(const Standard_Integer Index, math_Vector& GPoint)
 {
   Standard_Integer Som = 0;
   Standard_Integer i;
@@ -1975,7 +1975,7 @@ void math::GaussPoints(const Standard_Integer Index, math_Vector& GPoint)
   }
 }
 
-void math::GaussWeights(const Standard_Integer Index, math_Vector& GWeight)
+void math1::GaussWeights(const Standard_Integer Index, math_Vector& GWeight)
 {
   Standard_Integer Som = 0;
   Standard_Integer i;
@@ -2001,7 +2001,7 @@ void math::GaussWeights(const Standard_Integer Index, math_Vector& GWeight)
 // purpose  : Returns ordered Gauss points and weights.
 //=======================================================================
 
-Standard_Boolean math::OrderedGaussPointsAndWeights(const Standard_Integer Index,
+Standard_Boolean math1::OrderedGaussPointsAndWeights(const Standard_Integer Index,
                                                     math_Vector&           Points,
                                                     math_Vector&           Weights)
 {

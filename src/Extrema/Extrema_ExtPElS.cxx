@@ -237,7 +237,7 @@ void PointElSurfaceExtrema::Perform(const Point3d& P, const Cone1& S, const Stan
 
 //=============================================================================
 
-PointElSurfaceExtrema::PointElSurfaceExtrema(const Point3d& P, const gp_Sphere& S, const Standard_Real Tol)
+PointElSurfaceExtrema::PointElSurfaceExtrema(const Point3d& P, const Sphere3& S, const Standard_Real Tol)
 {
   Perform(P, S, Tol);
 }
@@ -264,7 +264,7 @@ Method:
     and  (U2,-V1) corresponds to the max distance.
 -----------------------------------------------------------------------------*/
 
-void PointElSurfaceExtrema::Perform(const Point3d& P, const gp_Sphere& S, const Standard_Real Tol)
+void PointElSurfaceExtrema::Perform(const Point3d& P, const Sphere3& S, const Standard_Real Tol)
 {
   myDone  = Standard_False;
   myNbExt = 0;

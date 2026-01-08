@@ -22,21 +22,21 @@
 
 #include <Standard_Integer.hxx>
 #include <Standard_OStream.hxx>
-class math_Function;
+class Function1;
 
 //! This class implements the integration of a function of a single variable
 //! between the parameter bounds Lower and Upper.
 //! Warning: Order must be inferior or equal to 61.
-class math_GaussSingleIntegration
+class GaussSingleIntegration
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT math_GaussSingleIntegration();
+  Standard_EXPORT GaussSingleIntegration();
 
   //! The Gauss-Legendre integration with N = Order points of integration,
   //! is done on the function F between the bounds Lower and Upper.
-  Standard_EXPORT math_GaussSingleIntegration(math_Function&         F,
+  Standard_EXPORT GaussSingleIntegration(Function1&         F,
                                               const Standard_Real    Lower,
                                               const Standard_Real    Upper,
                                               const Standard_Integer Order);
@@ -44,7 +44,7 @@ public:
   //! The Gauss-Legendre integration with N = Order points of integration  and
   //! given tolerance = Tol is done on the function F between the bounds
   //! Lower and Upper.
-  Standard_EXPORT math_GaussSingleIntegration(math_Function&         F,
+  Standard_EXPORT GaussSingleIntegration(Function1&         F,
                                               const Standard_Real    Lower,
                                               const Standard_Real    Upper,
                                               const Standard_Integer Order,
@@ -62,7 +62,7 @@ public:
 protected:
 private:
   //! performs  actual  computation
-  Standard_EXPORT void Perform(math_Function&         F,
+  Standard_EXPORT void Perform(Function1&         F,
                                const Standard_Real    Lower,
                                const Standard_Real    Upper,
                                const Standard_Integer Order);

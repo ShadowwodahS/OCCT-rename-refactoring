@@ -345,7 +345,7 @@ void Approx_SweepApproximation::Approximation(const Handle(TColStd_HArray1OfReal
     // --> Filling of curves 2D  ----------
     if (Num2DSS > 0)
     {
-      gp_GTrsf2d TrsfInv;
+      GeneralTransform2d TrsfInv;
       deg2d      = vdeg;
       tab2dKnots = Approx.Knots();
       tab2dMults = Approx.Multiplicities();

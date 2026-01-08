@@ -47,7 +47,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRepFill_LocationLaw, RefObject)
 static Standard_Real Norm(const gp_Mat& M)
 {
   Standard_Real R, Norme;
-  gp_XYZ        Coord;
+  Coords3d        Coord;
   Coord = M.Row(1);
   Norme = Abs(Coord.X()) + Abs(Coord.Y()) + Abs(Coord.Z());
   Coord = M.Row(2);
@@ -146,7 +146,7 @@ void BRepFill_LocationLaw::TransformInCompatibleLaw(const Standard_Real TolAngul
   Standard_Integer ipath;
   gp_Mat           Trsf, M1, M2;
   Vector3d           V, T1, T2, N1, N2;
-  gp_XYZ           OZ(0, 0, 1);
+  Coords3d           OZ(0, 0, 1);
 
   myLaws->Value(1)->GetDomain(First, Last);
 
@@ -405,7 +405,7 @@ void BRepFill_LocationLaw::PerformVertex(const Standard_Integer Index,
 
   if (IsBary)
   {
-    gp_XYZ P1(P.XYZ()), P2(P.XYZ());
+    Coords3d P1(P.XYZ()), P2(P.XYZ());
     P1 *= M1;
     P1 += V1.XYZ();
     P2 *= M2;

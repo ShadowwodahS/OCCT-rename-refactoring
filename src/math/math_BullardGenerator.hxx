@@ -19,11 +19,11 @@
 #include <Standard_Real.hxx>
 
 //! Fast random number generator (the algorithm proposed by Ian C. Bullard).
-class math_BullardGenerator
+class BullardGenerator
 {
 public:
   //! Creates new Xorshift 64-bit RNG.
-  math_BullardGenerator(unsigned int theSeed = 1)
+  BullardGenerator(unsigned int theSeed = 1)
       : myStateHi(theSeed)
   {
     SetSeed(theSeed);

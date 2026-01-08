@@ -66,7 +66,7 @@ void GeomEvaluator_SurfaceOfRevolution::D1(const Standard_Real theU,
     myBaseCurve->D1(theV, theValue, theD1V);
 
   // vector from center of rotation to the point on rotated curve
-  gp_XYZ aCQ = theValue.XYZ() - myRotAxis.Location().XYZ();
+  Coords3d aCQ = theValue.XYZ() - myRotAxis.Location().XYZ();
   theD1U     = Vector3d(myRotAxis.Direction().XYZ().Crossed(aCQ));
   // If the point is placed on the axis of revolution then derivatives on U are undefined.
   // Manually set them to zero.
@@ -95,8 +95,8 @@ void GeomEvaluator_SurfaceOfRevolution::D2(const Standard_Real theU,
     myBaseCurve->D2(theV, theValue, theD1V, theD2V);
 
   // vector from center of rotation to the point on rotated curve
-  gp_XYZ        aCQ  = theValue.XYZ() - myRotAxis.Location().XYZ();
-  const gp_XYZ& aDir = myRotAxis.Direction().XYZ();
+  Coords3d        aCQ  = theValue.XYZ() - myRotAxis.Location().XYZ();
+  const Coords3d& aDir = myRotAxis.Direction().XYZ();
   theD1U             = Vector3d(aDir.Crossed(aCQ));
   // If the point is placed on the axis of revolution then derivatives on U are undefined.
   // Manually set them to zero.
@@ -134,8 +134,8 @@ void GeomEvaluator_SurfaceOfRevolution::D3(const Standard_Real theU,
     myBaseCurve->D3(theV, theValue, theD1V, theD2V, theD3V);
 
   // vector from center of rotation to the point on rotated curve
-  gp_XYZ        aCQ  = theValue.XYZ() - myRotAxis.Location().XYZ();
-  const gp_XYZ& aDir = myRotAxis.Direction().XYZ();
+  Coords3d        aCQ  = theValue.XYZ() - myRotAxis.Location().XYZ();
+  const Coords3d& aDir = myRotAxis.Direction().XYZ();
   theD1U             = Vector3d(aDir.Crossed(aCQ));
   // If the point is placed on the axis of revolution then derivatives on U are undefined.
   // Manually set them to zero.
@@ -202,7 +202,7 @@ Vector3d GeomEvaluator_SurfaceOfRevolution::DN(const Standard_Real    theU,
         aDV = myBaseCurve->DN(theV, theDerV);
     }
 
-    const gp_XYZ& aDir = myRotAxis.Direction().XYZ();
+    const Coords3d& aDir = myRotAxis.Direction().XYZ();
     if (theDerU % 4 == 1)
       aResult = Vector3d(aDir.Crossed(aDV.XYZ()));
     else if (theDerU % 4 == 2)

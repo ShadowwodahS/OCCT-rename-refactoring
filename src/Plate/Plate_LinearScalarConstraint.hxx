@@ -28,7 +28,7 @@
 #include <TColgp_Array2OfXYZ.hxx>
 #include <Standard_Integer.hxx>
 class PinpointConstraint;
-class gp_XYZ;
+class Coords3d;
 
 //! define on or several constraints  as linear combination of
 //! the X,Y and Z components of a set of PinPointConstraint
@@ -40,7 +40,7 @@ public:
   Standard_EXPORT Plate_LinearScalarConstraint();
 
   Standard_EXPORT Plate_LinearScalarConstraint(const PinpointConstraint& thePPC1,
-                                               const gp_XYZ&                   theCoeff);
+                                               const Coords3d&                   theCoeff);
 
   Standard_EXPORT Plate_LinearScalarConstraint(const Plate_Array1OfPinpointConstraint& thePPC,
                                                const TColgp_Array1OfXYZ&               theCoeff);
@@ -65,7 +65,7 @@ public:
   //! Row (respectively Column) length of coeff
   Standard_EXPORT void SetCoeff(const Standard_Integer Row,
                                 const Standard_Integer Col,
-                                const gp_XYZ&          Value);
+                                const Coords3d&          Value);
 
 protected:
 private:

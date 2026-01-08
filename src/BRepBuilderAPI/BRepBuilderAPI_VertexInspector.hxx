@@ -21,13 +21,13 @@
 #include <gp_XYZ.hxx>
 #include <NCollection_CellFilter.hxx>
 
-typedef NCollection_Vector<gp_XYZ> VectorOfPoint;
+typedef NCollection_Vector<Coords3d> VectorOfPoint;
 
 //=======================================================================
 //! Class BRepBuilderAPI_VertexInspector
 //!   derived from NCollection_CellFilter_InspectorXYZ
 //!   This class define the Inspector interface for CellFilter algorithm,
-//!   working with gp_XYZ points in 3d space.
+//!   working with Coords3d points in 3d space.
 //!   Used in search of coincidence points with a certain tolerance.
 //=======================================================================
 
@@ -43,13 +43,13 @@ public:
   }
 
   //! Keep the points used for comparison
-  void Add(const gp_XYZ& thePnt) { myPoints.Append(thePnt); }
+  void Add(const Coords3d& thePnt) { myPoints.Append(thePnt); }
 
   //! Clear the list of adjacent points
   void ClearResList() { myResInd.Clear(); }
 
   //! Set current point to search for coincidence
-  void SetCurrent(const gp_XYZ& theCurPnt) { myCurrent = theCurPnt; }
+  void SetCurrent(const Coords3d& theCurPnt) { myCurrent = theCurPnt; }
 
   //! Get list of indexes of points adjacent with the current
   const TColStd_ListOfInteger& ResInd() { return myResInd; }
@@ -61,7 +61,7 @@ private:
   Standard_Real         myTol;
   TColStd_ListOfInteger myResInd;
   VectorOfPoint         myPoints;
-  gp_XYZ                myCurrent;
+  Coords3d                myCurrent;
 };
 
 #endif

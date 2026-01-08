@@ -18,7 +18,7 @@
 #include <gp_Pnt2d.hxx>
 #include <gp_Dir2d.hxx>
 
-class gp_Trsf2d;
+class Transform2d;
 class gp_Vec2d;
 
 //! Describes an axis in the plane (2D space).
@@ -166,14 +166,14 @@ public:
     return anA;
   }
 
-  void Transform(const gp_Trsf2d& theT)
+  void Transform(const Transform2d& theT)
   {
     loc.Transform(theT);
     vdir.Transform(theT);
   }
 
   //! Transforms an axis placement with a Trsf.
-  Standard_NODISCARD gp_Ax2d Transformed(const gp_Trsf2d& theT) const
+  Standard_NODISCARD gp_Ax2d Transformed(const Transform2d& theT) const
   {
     gp_Ax2d anA = *this;
     anA.Transform(theT);

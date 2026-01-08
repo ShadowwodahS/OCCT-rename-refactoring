@@ -25,7 +25,7 @@ class Standard_GUID;
 class DataLabel;
 
 /*
- * Attribute for storing gp_XYZ
+ * Attribute for storing Coords3d
  */
 
 class TObj_TXYZ : public TDF_Attribute
@@ -46,16 +46,16 @@ public:
   //! Method for create TObj_TXYZ object
 
   //! Creates attribute and sets the XYZ
-  static Standard_EXPORT Handle(TObj_TXYZ) Set(const DataLabel& theLabel, const gp_XYZ& theXYZ);
+  static Standard_EXPORT Handle(TObj_TXYZ) Set(const DataLabel& theLabel, const Coords3d& theXYZ);
 
 public:
   //! Methods for setting and obtaining XYZ
 
   //! Sets the XYZ
-  Standard_EXPORT void Set(const gp_XYZ& theXYZ);
+  Standard_EXPORT void Set(const Coords3d& theXYZ);
 
   //! Returns the XYZ
-  Standard_EXPORT gp_XYZ Get() const;
+  Standard_EXPORT Coords3d Get() const;
 
 public:
   //! Redefined OCAF abstract methods
@@ -78,7 +78,7 @@ public:
 
 private:
   //! Fields
-  gp_XYZ myXYZ; //!< The object interface stored by the attribute
+  Coords3d myXYZ; //!< The object interface stored by the attribute
 
 public:
   //! CASCADE RTTI

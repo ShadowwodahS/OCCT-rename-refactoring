@@ -412,12 +412,12 @@ void ShadedShapeConverter::ComputeNormal(const TopoFace&  aFace,
 
     for (i = 1; i <= T->NbNodes(); i++)
     {
-      gp_XYZ eqPlan(0, 0, 0);
+      Coords3d eqPlan(0, 0, 0);
       for (pc.Initialize(i); pc.More(); pc.Next())
       {
         T->Triangle1(pc.Value()).Get(n[0], n[1], n[2]);
-        gp_XYZ v1(T->Node(n[1]).Coord() - T->Node(n[0]).Coord());
-        gp_XYZ v2(T->Node(n[2]).Coord() - T->Node(n[1]).Coord());
+        Coords3d v1(T->Node(n[1]).Coord() - T->Node(n[0]).Coord());
+        Coords3d v2(T->Node(n[2]).Coord() - T->Node(n[1]).Coord());
         eqPlan += (v1 ^ v2).Normalized();
       }
       Nor(i) = Dir3d(eqPlan);

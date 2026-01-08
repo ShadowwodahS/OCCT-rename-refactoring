@@ -29,7 +29,7 @@ IGESDraw_CircArraySubfigure::IGESDraw_CircArraySubfigure() {}
 
 void IGESDraw_CircArraySubfigure::Init(const Handle(IGESData_IGESEntity)&      aBase,
                                        const Standard_Integer                  aNumLocs,
-                                       const gp_XYZ&                           aCenter,
+                                       const Coords3d&                           aCenter,
                                        const Standard_Real                     aRadius,
                                        const Standard_Real                     aStAngle,
                                        const Standard_Real                     aDelAngle,
@@ -68,7 +68,7 @@ Point3d IGESDraw_CircArraySubfigure::CenterPoint() const
 
 Point3d IGESDraw_CircArraySubfigure::TransformedCenterPoint() const
 {
-  gp_XYZ tempCenterPoint = theCenter;
+  Coords3d tempCenterPoint = theCenter;
   if (HasTransf())
     Location().Transforms(tempCenterPoint);
   Point3d tempRes(tempCenterPoint);

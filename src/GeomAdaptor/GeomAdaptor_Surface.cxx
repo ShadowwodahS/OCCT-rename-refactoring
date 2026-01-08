@@ -1196,7 +1196,7 @@ Cone1 GeomAdaptor_Surface::Cone() const
 
 //=================================================================================================
 
-gp_Sphere GeomAdaptor_Surface::Sphere() const
+Sphere3 GeomAdaptor_Surface::Sphere() const
 {
   if (mySurfaceType != GeomAbs_Sphere)
     throw Standard_NoSuchObject("GeomAdaptor_Surface::Sphere");

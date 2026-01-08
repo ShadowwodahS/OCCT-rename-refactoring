@@ -27,7 +27,7 @@ MeshVS_SensitiveFace::MeshVS_SensitiveFace(const Handle(SelectMgr_EntityOwner)& 
                                            const Select3D_TypeOfSensitivity     theSensitivity)
     : Select3D_SensitiveFace(theOwnerId, thePnts, theSensitivity)
 {
-  gp_XYZ           aCenter(0.0, 0.0, 0.0);
+  Coords3d           aCenter(0.0, 0.0, 0.0);
   Standard_Integer aNbPnts = thePnts.Upper() - thePnts.Lower() + 1;
   for (Standard_Integer aPntIdx = thePnts.Lower(); aPntIdx <= thePnts.Upper(); aPntIdx++)
     aCenter += thePnts(aPntIdx).XYZ();

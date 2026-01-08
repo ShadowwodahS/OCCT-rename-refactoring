@@ -78,7 +78,7 @@ private:
   Standard_Real     prm3;
   Ax22d          Axis;
   GeomAbs_CurveType type;
-  gp_Trsf2d         Abs_To_Object;
+  Transform2d         Abs_To_Object;
 };
 
 #endif // _IntCurve_IConicTool_HeaderFile

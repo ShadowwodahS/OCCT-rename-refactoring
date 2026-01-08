@@ -234,9 +234,9 @@ void MessageView_ActionsTest::OnTestMessenger()
   Message::DefaultMessenger()->Send("Values second");
 
   Message_Messenger::StreamBuffer sout = Message::SendInfo();
-  // gp_XYZ
+  // Coords3d
   {
-    gp_XYZ aCoords(1.3, 2.3, 3.4);
+    Coords3d aCoords(1.3, 2.3, 3.4);
     aCoords.DumpJson(sout);
     sout.Flush(Standard_True);
   }

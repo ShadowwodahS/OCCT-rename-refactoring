@@ -20,7 +20,7 @@
 #include <Geom_Curve.hxx>
 
 class Transform3d;
-class gp_GTrsf2d;
+class GeneralTransform2d;
 class Point3d;
 class Vector3d;
 
@@ -132,7 +132,7 @@ public:
   //!
   //! It  can be redefined.  For  example on  the Plane,
   //! Cylinder, Cone, Revolved and Extruded surfaces.
-  Standard_EXPORT virtual gp_GTrsf2d ParametricTransformation(const Transform3d& T) const;
+  Standard_EXPORT virtual GeneralTransform2d ParametricTransformation(const Transform3d& T) const;
 
   //! Returns the parametric bounds U1, U2, V1 and V2 of this surface.
   //! If the surface is infinite, this function can return a value

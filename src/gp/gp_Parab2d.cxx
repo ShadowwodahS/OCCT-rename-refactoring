@@ -51,7 +51,7 @@ void gp_Parab2d::Coefficients(Standard_Real& A,
                               Standard_Real& F) const
 {
   Standard_Real P = 2.0 * focalLength;
-  gp_Trsf2d     T;
+  Transform2d     T;
   T.SetTransformation(pos.XAxis());
   Standard_Real T11 = T.Value(1, 1);
   Standard_Real T12 = T.Value(1, 2);

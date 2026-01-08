@@ -53,7 +53,7 @@ void PlaneTool::ReadOwnParams(const Handle(IGESGeom_Plane)&          ent,
 
   Standard_Real               A, B = 0., C = 0., D = 0., aSize = 0.;
   Handle(IGESData_IGESEntity) aCurve;
-  gp_XYZ                      attach(0., 0., 0.);
+  Coords3d                      attach(0., 0., 0.);
   IGESData_Status             aStatus;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
 
@@ -160,7 +160,7 @@ void PlaneTool::OwnCopy(const Handle(IGESGeom_Plane)& another,
 {
   Standard_Real A, B, C, D;
   another->Equation(A, B, C, D);
-  gp_XYZ        attach = (another->SymbolAttach()).XYZ();
+  Coords3d        attach = (another->SymbolAttach()).XYZ();
   Standard_Real aSize  = another->SymbolSize();
   DeclareAndCast(IGESData_IGESEntity, aCurve, TC.Transferred(another->BoundingCurve()));
   ent->Init(A, B, C, D, aCurve, attach, aSize);

@@ -820,7 +820,7 @@ void BSplCLib1::MovePointAndTangent(const Standard_Real         U,
              second_function(1),
              results[1][0]);
       }
-      gp_Mat2d a_matrix;
+      Matrix2d a_matrix;
 
       for (ii = 0; ii < 2; ii++)
       {

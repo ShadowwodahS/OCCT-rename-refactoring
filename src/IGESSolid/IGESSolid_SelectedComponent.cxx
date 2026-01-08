@@ -28,7 +28,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESSolid_SelectedComponent, IGESData_IGESEntity)
 IGESSolid_SelectedComponent::IGESSolid_SelectedComponent() {}
 
 void IGESSolid_SelectedComponent::Init(const Handle(IGESSolid_BooleanTree)& anEntity,
-                                       const gp_XYZ&                        SelectPnt)
+                                       const Coords3d&                        SelectPnt)
 {
   theEntity      = anEntity;
   theSelectPoint = SelectPnt;
@@ -51,7 +51,7 @@ Point3d IGESSolid_SelectedComponent::TransformedSelectPoint() const
     return Point3d(theSelectPoint);
   else
   {
-    gp_XYZ tmp = theSelectPoint;
+    Coords3d tmp = theSelectPoint;
     Location().Transforms(tmp);
     return Point3d(tmp);
   }

@@ -57,7 +57,7 @@ gp_Pnt2d IGESGeom_Flash::ReferencePoint() const
 
 Point3d IGESGeom_Flash::TransformedReferencePoint() const
 {
-  gp_XYZ Point(thePoint.X(), thePoint.Y(), 0.0);
+  Coords3d Point(thePoint.X(), thePoint.Y(), 0.0);
   if (HasTransf())
     Location().Transforms(Point);
   return Point3d(Point);

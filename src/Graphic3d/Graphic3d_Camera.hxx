@@ -294,11 +294,11 @@ public:
 
   //! Get camera axial scale.
   //! @return Camera's axial scale.
-  const gp_XYZ& AxialScale() const { return myAxialScale; }
+  const Coords3d& AxialScale() const { return myAxialScale; }
 
   //! Set camera axial scale.
   //! @param[in] theAxialScale  the axial scale vector.
-  Standard_EXPORT void SetAxialScale(const gp_XYZ& theAxialScale);
+  Standard_EXPORT void SetAxialScale(const Coords3d& theAxialScale);
 
   //! Change camera projection type.
   //! When switching to perspective projection from orthographic one,
@@ -470,13 +470,13 @@ public:
   //! Calculate view plane size at center (target) point
   //! and distance between ZFar and ZNear planes.
   //! @return values in form of Point3d (Width, Height, Depth).
-  gp_XYZ ViewDimensions() const { return ViewDimensions(Distance()); }
+  Coords3d ViewDimensions() const { return ViewDimensions(Distance()); }
 
   //! Calculate view plane size at center point with specified Z offset
   //! and distance between ZFar and ZNear planes.
   //! @param[in] theZValue  the distance from the eye in eye-to-center direction
   //! @return values in form of Point3d (Width, Height, Depth).
-  Standard_EXPORT gp_XYZ ViewDimensions(const Standard_Real theZValue) const;
+  Standard_EXPORT Coords3d ViewDimensions(const Standard_Real theZValue) const;
 
   //! Return offset to the view corner in NDC space within dimension X for 2d on-screen elements,
   //! which is normally 0.5. Can be clamped when FOVx exceeds FOV2d.
@@ -782,7 +782,7 @@ private:
   Point3d        myEye;       //!< Camera eye position
   Standard_Real myDistance;  //!< distance from Eye to Center
 
-  gp_XYZ myAxialScale; //!< World axial scale.
+  Coords3d myAxialScale; //!< World axial scale.
 
   Projection       myProjType;         //!< Projection type used for rendering.
   Standard_Real    myFOVy;             //!< Field Of View in y axis.

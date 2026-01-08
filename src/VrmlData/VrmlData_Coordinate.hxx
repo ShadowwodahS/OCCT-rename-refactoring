@@ -37,7 +37,7 @@ public:
   inline VrmlData_Coordinate(const VrmlData_Scene& theScene,
                              const char*           theName,
                              const size_t          nPoints   = 0,
-                             const gp_XYZ*         arrPoints = 0L)
+                             const Coords3d*         arrPoints = 0L)
       : VrmlData_ArrayVec3d(theScene, theName, nPoints, arrPoints)
   {
   }
@@ -49,7 +49,7 @@ public:
    * @return
    *   the coordinate for the index. If index irrelevant, returns (0., 0., 0.)
    */
-  inline const gp_XYZ& Coordinate(const Standard_Integer i) const { return Value(i); }
+  inline const Coords3d& Coordinate(const Standard_Integer i) const { return Value(i); }
 
   /**
    * Create a copy of this node.

@@ -1382,7 +1382,7 @@ Handle(GeomCurve2d) StepToGeom1::MakeCurve2d(const Handle(StepGeom_Curve)& SC,
       Handle(GeomCurve2d) C1 = MakeCurve2d(PC, theLocalFactors);
       if (!C1.IsNull())
       {
-        gp_Trsf2d T1;
+        Transform2d T1;
         if (MakeTransformation2d(T, T1, theLocalFactors))
         {
           C1->Transform(T1);
@@ -1428,7 +1428,7 @@ Handle(Geom_Direction) StepToGeom1::MakeDirection(const Handle(StepGeom_Directio
       return 0;
     }
     // sln 22.10.2001. CTS23496: Direction is not created if it has null magnitude
-    if (gp_XYZ(X, Y, Z).SquareModulus() > gp1::Resolution() * gp1::Resolution())
+    if (Coords3d(X, Y, Z).SquareModulus() > gp1::Resolution() * gp1::Resolution())
     {
       return new Geom_Direction(X, Y, Z);
     }
@@ -2057,7 +2057,7 @@ Handle(Geom_ToroidalSurface) StepToGeom1::MakeToroidalSurface(
 
 Standard_Boolean StepToGeom1::MakeTransformation2d(
   const Handle(StepGeom_CartesianTransformationOperator2d)& SCTO,
-  gp_Trsf2d&                                                CT,
+  Transform2d&                                                CT,
   const ConversionFactors&                                   theLocalFactors)
 {
   //  NB : on ne s interesse ici qu au deplacement rigide

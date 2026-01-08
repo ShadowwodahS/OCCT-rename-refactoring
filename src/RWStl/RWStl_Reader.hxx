@@ -80,7 +80,7 @@ public:
   //! Callback function to be implemented in descendant.
   //! Should create new node with specified coordinates in the target model, and return its ID as
   //! integer.
-  virtual Standard_Integer AddNode(const gp_XYZ& thePnt) = 0;
+  virtual Standard_Integer AddNode(const Coords3d& thePnt) = 0;
 
   //! Callback function to be implemented in descendant.
   //! Should create new triangle built on specified nodes in the target model.

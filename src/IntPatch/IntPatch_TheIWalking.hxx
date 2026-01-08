@@ -42,7 +42,7 @@ class HSurfaceTool;
 class IntPatch_TheSurfFunction;
 class IntPatch_TheIWLineOfTheIWalking;
 class PointOn2Surfaces;
-class math_FunctionSetRoot;
+class FunctionSetRoot;
 
 class IntPatch_TheIWalking
 {
@@ -201,7 +201,7 @@ protected:
   Standard_EXPORT Standard_Boolean IsPointOnLine(const PointOn2Surfaces&    thePOn2S,
                                                  const math_Vector&        theInfBounds,
                                                  const math_Vector&        theSupBounds,
-                                                 math_FunctionSetRoot&     theSolver,
+                                                 FunctionSetRoot&     theSolver,
                                                  IntPatch_TheSurfFunction& theFunc);
 
 private:

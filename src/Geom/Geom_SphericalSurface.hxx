@@ -23,7 +23,7 @@
 #include <Geom_ElementarySurface.hxx>
 #include <Standard_Integer.hxx>
 class Ax3;
-class gp_Sphere;
+class Sphere3;
 class GeomCurve3d;
 class Point3d;
 class Vector3d;
@@ -93,18 +93,18 @@ public:
 
   //! Creates a SphericalSurface from a non persistent Sphere from
   //! package gp1.
-  Standard_EXPORT Geom_SphericalSurface(const gp_Sphere& S);
+  Standard_EXPORT Geom_SphericalSurface(const Sphere3& S);
 
   //! Assigns the value R to the radius of this sphere.
   //! Exceptions Standard_ConstructionError if R is less than 0.0.
   Standard_EXPORT void SetRadius(const Standard_Real R);
 
-  //! Converts the gp_Sphere S into this sphere.
-  Standard_EXPORT void SetSphere(const gp_Sphere& S);
+  //! Converts the Sphere3 S into this sphere.
+  Standard_EXPORT void SetSphere(const Sphere3& S);
 
   //! Returns a non persistent sphere with the same geometric
   //! properties as <me>.
-  Standard_EXPORT gp_Sphere Sphere() const;
+  Standard_EXPORT Sphere3 Sphere() const;
 
   //! Computes the u parameter on the modified
   //! surface, when reversing its u  parametric

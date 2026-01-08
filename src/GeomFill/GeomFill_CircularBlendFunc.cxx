@@ -265,7 +265,7 @@ Standard_Boolean GeomFill_CircularBlendFunc::D0(const Standard_Real Param,
 {
   Point3d P1, P2, Center;
   Vector3d ns1, ns2, nplan;
-  gp_XYZ temp;
+  Coords3d temp;
 
   // Positionnement
   myTPath->D0(Param, Center);
@@ -323,7 +323,7 @@ Standard_Boolean GeomFill_CircularBlendFunc::D1(
   Vector3d DCenter, nplan, dnplan, DP1, DP2;
   //  Vector3d ns1, ns2, Dns1, Dns2, vtmp;
   Vector3d ns1, ns2, Dns1, Dns2;
-  gp_XYZ temp;
+  Coords3d temp;
 
   // Positionemment
   myTPath->D1(Param, Center, DCenter);
@@ -418,7 +418,7 @@ Standard_Boolean GeomFill_CircularBlendFunc::D2(
   Vector3d        DCenter, D2Center, DP1, DP2, D2P1, D2P2;
   Vector3d        nplan, dnplan, d2nplan;
   Vector3d        ns1, ns2, Dns1, Dns2, D2ns1, D2ns2;
-  gp_XYZ        temp;
+  Coords3d        temp;
 
   // Positionement
   myTPath->D2(Param, Center, DCenter, D2Center);

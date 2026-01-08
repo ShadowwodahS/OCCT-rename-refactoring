@@ -852,7 +852,7 @@ Standard_Boolean BlendFunc_ConstRad::IsSolution(const math_Vector& Sol, const St
     GetTolerance(tolerances, Tol);
 
     istangent = Standard_True;
-    math_Gauss Resol(DEDX, maxpiv);
+    Gauss Resol(DEDX, maxpiv);
     if (Resol.IsDone())
     {
       Resol.Solve(-DEDT, solution);
@@ -867,7 +867,7 @@ Standard_Boolean BlendFunc_ConstRad::IsSolution(const math_Vector& Sol, const St
 
     if (istangent)
     {
-      math_SVD SingRS(DEDX);
+      SVD SingRS(DEDX);
       if (SingRS.IsDone())
       {
         SingRS.Solve(-DEDT, solution, 1.e-6);
@@ -1357,7 +1357,7 @@ Standard_Boolean BlendFunc_ConstRad::Section(const Point2&    P,
   {
 
     // Calculation of derivates Processing Normal
-    math_Gauss Resol(DEDX, 1.e-9);
+    Gauss Resol(DEDX, 1.e-9);
 
     if (Resol.IsDone())
     {
@@ -1368,7 +1368,7 @@ Standard_Boolean BlendFunc_ConstRad::Section(const Point2&    P,
 
   if (istgt)
   {
-    math_SVD SingRS(DEDX);
+    SVD SingRS(DEDX);
     if (SingRS.IsDone())
     {
       SingRS.Solve(-DEDT, secmember, 1.e-6);
@@ -1675,7 +1675,7 @@ Standard_Boolean BlendFunc_ConstRad::Section(const Point2&    P,
 
   if (!pts1.IsEqual(pts2, 1.e-4))
   {
-    math_Gauss Resol(DEDX, 1.e-9); // Precise tolerance !!!!!
+    Gauss Resol(DEDX, 1.e-9); // Precise tolerance !!!!!
     // Calculation of derivatives Processing Normal
     if (Resol.IsDone())
     {
@@ -1689,7 +1689,7 @@ Standard_Boolean BlendFunc_ConstRad::Section(const Point2&    P,
 
   if (istgt)
   {
-    math_SVD    SingRS(DEDX);
+    SVD    SingRS(DEDX);
     math_Vector Vbis(1, 4);
     if (SingRS.IsDone())
     {

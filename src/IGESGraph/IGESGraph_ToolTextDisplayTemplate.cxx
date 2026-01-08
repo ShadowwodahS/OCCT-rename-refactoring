@@ -52,7 +52,7 @@ void TextDisplayTemplateTool::ReadOwnParams(
   Standard_Real                 rotationAngle;
   Standard_Integer              mirrorFlag;
   Standard_Integer              rotateFlag;
-  gp_XYZ                        corner;
+  Coords3d                        corner;
 
   // Reading boxWidth(Real)
   // clang-format off
@@ -153,7 +153,7 @@ void TextDisplayTemplateTool::OwnCopy(
   Standard_Real                 rotationAngle;
   Standard_Integer              mirrorFlag;
   Standard_Integer              rotateFlag;
-  gp_XYZ                        corner;
+  Coords3d                        corner;
 
   boxWidth  = another->BoxWidth();
   boxHeight = another->BoxHeight();

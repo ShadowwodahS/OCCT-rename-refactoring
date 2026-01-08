@@ -38,7 +38,7 @@ MeshVS_CommonSensitiveEntity::MeshVS_CommonSensitiveEntity(
   Standard_ASSERT_RAISE(
     myMaxFaceNodes > 0,
     "The maximal amount of nodes in a face must be greater than zero to create sensitive entity");
-  gp_XYZ aCenter(0.0, 0.0, 0.0);
+  Coords3d aCenter(0.0, 0.0, 0.0);
 
   if (mySelMethod == MeshVS_MSM_NODES)
   {

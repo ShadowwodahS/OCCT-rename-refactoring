@@ -146,7 +146,7 @@ gp_Lin2d ProjLib1::Project(const Cone1& Co, const gp_Circ& Ci)
 
 //=================================================================================================
 
-gp_Pnt2d ProjLib1::Project(const gp_Sphere& Sp, const Point3d& P)
+gp_Pnt2d ProjLib1::Project(const Sphere3& Sp, const Point3d& P)
 {
   Standard_Real U, V;
   ElSLib1::Parameters(Sp, P, U, V);
@@ -155,7 +155,7 @@ gp_Pnt2d ProjLib1::Project(const gp_Sphere& Sp, const Point3d& P)
 
 //=================================================================================================
 
-gp_Lin2d ProjLib1::Project(const gp_Sphere& Sp, const gp_Circ& Ci)
+gp_Lin2d ProjLib1::Project(const Sphere3& Sp, const gp_Circ& Ci)
 {
   ProjLib_Sphere Proj(Sp, Ci);
   return Proj.Line();

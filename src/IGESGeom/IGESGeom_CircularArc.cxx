@@ -49,7 +49,7 @@ gp_Pnt2d IGESGeom_CircularArc::Center() const
 
 Point3d IGESGeom_CircularArc::TransformedCenter() const
 {
-  gp_XYZ Center(theCenter.X(), theCenter.Y(), theZT);
+  Coords3d Center(theCenter.X(), theCenter.Y(), theZT);
   if (HasTransf())
     Location().Transforms(Center);
   Point3d transCenter(Center);
@@ -64,7 +64,7 @@ gp_Pnt2d IGESGeom_CircularArc::StartPoint() const
 
 Point3d IGESGeom_CircularArc::TransformedStartPoint() const
 {
-  gp_XYZ Start(theStart.X(), theStart.Y(), theZT);
+  Coords3d Start(theStart.X(), theStart.Y(), theZT);
   if (HasTransf())
     Location().Transforms(Start);
   Point3d transStart(Start);
@@ -84,7 +84,7 @@ gp_Pnt2d IGESGeom_CircularArc::EndPoint() const
 
 Point3d IGESGeom_CircularArc::TransformedEndPoint() const
 {
-  gp_XYZ End(theEnd.X(), theEnd.Y(), theZT);
+  Coords3d End(theEnd.X(), theEnd.Y(), theZT);
   if (HasTransf())
     Location().Transforms(End);
   Point3d transEnd(End);
@@ -128,11 +128,11 @@ Dir3d IGESGeom_CircularArc::Axis() const
 
 Dir3d IGESGeom_CircularArc::TransformedAxis() const
 {
-  gp_XYZ axis(0.0, 0.0, 1.0);
+  Coords3d axis(0.0, 0.0, 1.0);
   if (!HasTransf())
     return Dir3d(axis);
-  gp_GTrsf loc = Location();
-  loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
+  GeneralTransform loc = Location();
+  loc.SetTranslationPart(Coords3d(0., 0., 0.));
   loc.Transforms(axis);
   return Dir3d(axis);
 }

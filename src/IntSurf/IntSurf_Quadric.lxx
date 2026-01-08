@@ -30,10 +30,10 @@ inline gp_Pln Quadric1::Plane() const
   return gp_Pln(ax3);
 }
 
-inline gp_Sphere Quadric1::Sphere() const
+inline Sphere3 Quadric1::Sphere() const
 {
 
-  return gp_Sphere(ax3, prm1);
+  return Sphere3(ax3, prm1);
 }
 
 inline Cylinder1 Quadric1::Cylinder() const

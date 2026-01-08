@@ -33,7 +33,7 @@
 //! - solution of a set of linear equations.
 //! - inverse of a matrix.
 //! - determinant of a matrix.
-class math_Gauss
+class Gauss
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -45,7 +45,7 @@ public:
   //! If the largest pivot found is less than MinPivot the matrix A is
   //! considered as singular.
   //! Exception NotSquare is raised if A is not a square matrix.
-  Standard_EXPORT math_Gauss(const math_Matrix&           A,
+  Standard_EXPORT Gauss(const math_Matrix&           A,
                              const Standard_Real          MinPivot    = 1.0e-20,
                              const Message_ProgressRange& theProgress = Message_ProgressRange());
 
@@ -92,7 +92,7 @@ protected:
   Standard_Boolean   Done;
 };
 
-inline Standard_OStream& operator<<(Standard_OStream& o, const math_Gauss& mG)
+inline Standard_OStream& operator<<(Standard_OStream& o, const Gauss& mG)
 {
   mG.Dump(o);
   return o;

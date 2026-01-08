@@ -521,7 +521,7 @@ template <class TheCurve>
 void TangentialDeflectionSampler::PerformCurve(const TheCurve& theC)
 {
   Standard_Integer i, j;
-  gp_XYZ           V1, V2;
+  Coords3d           V1, V2;
   Point3d           MiddlePoint, CurrentPoint, LastPoint;
   Standard_Real    Du, Dusave, MiddleU, L1, L2;
 
@@ -958,7 +958,7 @@ void TangentialDeflectionSampler::EstimDefl(const TheCurve&     theC,
   const Standard_Integer aNbIter = 100;
   const Standard_Real    aRelTol = Max(1.e-3, 2. * myUTol / (Abs(theU1) + Abs(theU2)));
   //
-  math_BrentMinimum anOptLoc(aRelTol, aNbIter, myUTol);
+  BrentMinimumSolver anOptLoc(aRelTol, aNbIter, myUTol);
   anOptLoc.Perform(aFunc, theU1, (theU1 + theU2) / 2., theU2);
   if (anOptLoc.IsDone())
   {
@@ -978,7 +978,7 @@ void TangentialDeflectionSampler::EstimDefl(const TheCurve&     theC,
   math_Vector                                           aT(1, 1);
   typename TCurveTypes<TheCurve>::DistFunctionMV aFuncMV(aFunc);
 
-  math_PSO aFinder(&aFuncMV, aLowBorder, aUppBorder, aSteps, aNbParticles);
+  PSO aFinder(&aFuncMV, aLowBorder, aUppBorder, aSteps, aNbParticles);
   aFinder.Perform(aSteps, aValue, aT);
   //
   anOptLoc.Perform(aFunc, Max(aT(1) - aSteps(1), theU1), aT(1), Min(aT(1) + aSteps(1), theU2));

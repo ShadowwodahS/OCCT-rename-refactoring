@@ -39,7 +39,7 @@ public:
   inline VrmlData_Color(const VrmlData_Scene& theScene,
                         const char*           theName,
                         const size_t          nColors   = 0,
-                        const gp_XYZ*         arrColors = 0L)
+                        const Coords3d*         arrColors = 0L)
       : VrmlData_ArrayVec3d(theScene, theName, nColors, arrColors)
   {
   }
@@ -59,7 +59,7 @@ public:
   /**
    * Set the array data
    */
-  inline void SetColors(const size_t nColors, const gp_XYZ* arrColors)
+  inline void SetColors(const size_t nColors, const Coords3d* arrColors)
   {
     myLength = nColors;
     myArray  = arrColors;

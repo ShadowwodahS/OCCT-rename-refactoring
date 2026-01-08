@@ -104,7 +104,7 @@ gp_Vec2d gp_Vec2d::Mirrored(const gp_Ax2d& A1) const
   return Vres;
 }
 
-void gp_Vec2d::Transform(const gp_Trsf2d& T)
+void gp_Vec2d::Transform(const Transform2d& T)
 {
   if (T.Form() == gp_Identity || T.Form() == gp_Translation)
   {

@@ -882,9 +882,9 @@ Standard_Integer ShapeAnalysis_Curve::SelectForwardSeam(const Handle(GeomCurve2d
 // IsPlanar
 //=============================================================================
 
-static gp_XYZ GetAnyNormal(const gp_XYZ& orig)
+static Coords3d GetAnyNormal(const Coords3d& orig)
 {
-  gp_XYZ Norm;
+  Coords3d Norm;
   if (Abs(orig.Z()) < Precision::Confusion())
     Norm.SetCoord(0, 0, 1);
   else
@@ -996,7 +996,7 @@ static void AppendControlPoles(TColgp_SequenceOfPnt& seq, const Handle(GeomCurve
 //=======================================================================
 
 Standard_Boolean ShapeAnalysis_Curve::IsPlanar(const TColgp_Array1OfPnt& pnts,
-                                               gp_XYZ&                   Normal,
+                                               Coords3d&                   Normal,
                                                const Standard_Real       preci)
 {
   Standard_Real    precision = (preci > 0.0) ? preci : Precision::Confusion();
@@ -1004,7 +1004,7 @@ Standard_Boolean ShapeAnalysis_Curve::IsPlanar(const TColgp_Array1OfPnt& pnts,
 
   if (pnts.Length() < 3)
   {
-    gp_XYZ N1 = pnts(1).XYZ() - pnts(2).XYZ();
+    Coords3d N1 = pnts(1).XYZ() - pnts(2).XYZ();
     if (noNorm)
     {
       Normal = GetAnyNormal(N1);
@@ -1013,11 +1013,11 @@ Standard_Boolean ShapeAnalysis_Curve::IsPlanar(const TColgp_Array1OfPnt& pnts,
     return Abs(N1 * Normal) < Precision::Confusion();
   }
 
-  gp_XYZ aMaxDir;
+  Coords3d aMaxDir;
   if (noNorm)
   {
     // define a center point
-    gp_XYZ           aCenter(0, 0, 0);
+    Coords3d           aCenter(0, 0, 0);
     Standard_Integer i = 1;
     for (; i <= pnts.Length(); i++)
       aCenter += pnts(i).XYZ();
@@ -1028,11 +1028,11 @@ Standard_Boolean ShapeAnalysis_Curve::IsPlanar(const TColgp_Array1OfPnt& pnts,
 
     for (i = 1; i < pnts.Length(); i++)
     {
-      gp_XYZ aTmpDir = pnts(i + 1).XYZ() - aCenter;
+      Coords3d aTmpDir = pnts(i + 1).XYZ() - aCenter;
       if (aTmpDir.SquareModulus() > aMaxDir.SquareModulus())
         aMaxDir = aTmpDir;
 
-      gp_XYZ aDelta = (pnts(i).XYZ() - aCenter) ^ (pnts(i + 1).XYZ() - aCenter);
+      Coords3d aDelta = (pnts(i).XYZ() - aCenter) ^ (pnts(i + 1).XYZ() - aCenter);
       if (Normal * aDelta < 0)
         aDelta *= -1;
       Normal += aDelta;
@@ -1064,7 +1064,7 @@ Standard_Boolean ShapeAnalysis_Curve::IsPlanar(const TColgp_Array1OfPnt& pnts,
 //=================================================================================================
 
 Standard_Boolean ShapeAnalysis_Curve::IsPlanar(const Handle(GeomCurve3d)& curve,
-                                               gp_XYZ&                   Normal,
+                                               Coords3d&                   Normal,
                                                const Standard_Real       preci)
 {
   Standard_Real    precision = (preci > 0.0) ? preci : Precision::Confusion();
@@ -1074,7 +1074,7 @@ Standard_Boolean ShapeAnalysis_Curve::IsPlanar(const Handle(GeomCurve3d)& curve,
   {
     // DeclareAndCast(GeomLine, Line, curve);
     Handle(GeomLine) Line = Handle(GeomLine)::DownCast(curve);
-    gp_XYZ            N1   = Line->Position().Direction().XYZ();
+    Coords3d            N1   = Line->Position().Direction().XYZ();
     if (noNorm)
     {
       Normal = GetAnyNormal(N1);
@@ -1087,13 +1087,13 @@ Standard_Boolean ShapeAnalysis_Curve::IsPlanar(const Handle(GeomCurve3d)& curve,
   {
     // DeclareAndCast(Geom_Conic, Conic, curve);
     Handle(Geom_Conic) Conic = Handle(Geom_Conic)::DownCast(curve);
-    gp_XYZ             N1    = Conic->Axis().Direction().XYZ();
+    Coords3d             N1    = Conic->Axis().Direction().XYZ();
     if (noNorm)
     {
       Normal = N1;
       return Standard_True;
     }
-    gp_XYZ aVecMul = N1 ^ Normal;
+    Coords3d aVecMul = N1 ^ Normal;
     return aVecMul.SquareModulus() < Precision::SquareConfusion();
   }
 

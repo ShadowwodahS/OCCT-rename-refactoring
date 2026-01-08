@@ -878,8 +878,8 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
       }
       if (SimilarArcs)
       {
-        gp_XYZ        AxisLoc   = theAxis.Location().XYZ();
-        gp_XYZ        AxisDir   = theAxis.Direction().XYZ();
+        Coords3d        AxisLoc   = theAxis.Location().XYZ();
+        Coords3d        AxisDir   = theAxis.Direction().XYZ();
         Standard_Real Parameter = (Centers(i).XYZ() - AxisLoc) * AxisDir;
         Point3d        theCenterOfCirc(AxisLoc + Parameter * AxisDir);
 

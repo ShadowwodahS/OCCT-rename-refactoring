@@ -578,7 +578,7 @@ Standard_Boolean IntWalk_PWalking::PerformFirstPoint(const TColStd_Array1OfReal&
     Param(i) = ParDep(i);
   }
   //-- calculate the first solution point
-  math_FunctionSetRoot Rsnld(myIntersectionOn2S.Function());
+  FunctionSetRoot Rsnld(myIntersectionOn2S.Function());
   //
   myIntersectionOn2S.Perform(Param, Rsnld);
   if (!myIntersectionOn2S.IsDone())
@@ -756,7 +756,7 @@ void IntWalk_PWalking::Perform(const TColStd_Array1OfReal& ParDep,
   }
 
   //-- calculate the first solution point
-  math_FunctionSetRoot Rsnld(myIntersectionOn2S.Function());
+  FunctionSetRoot Rsnld(myIntersectionOn2S.Function());
   //
   ChoixIso = myIntersectionOn2S.Perform(Param, Rsnld);
   if (!myIntersectionOn2S.IsDone())
@@ -1875,7 +1875,7 @@ Standard_Boolean IntWalk_PWalking::ExtendLineInCommonZone(
     {
       SvParam[parit] = Param(parit + 1);
     }
-    math_FunctionSetRoot Rsnld(myIntersectionOn2S.Function());
+    FunctionSetRoot Rsnld(myIntersectionOn2S.Function());
     ChoixIso = myIntersectionOn2S.Perform(Param, Rsnld, theChoixIso);
 
     if (!myIntersectionOn2S.IsDone())
@@ -2473,7 +2473,7 @@ Standard_Boolean IntWalk_PWalking::HandleSingleSingularPoint(
 
   // Create new intersector with new tolerance.
   IntWalk_TheInt2S     anInt(theASurf1, theASurf2, the3DTol);
-  math_FunctionSetRoot aRsnld(anInt.Function());
+  FunctionSetRoot aRsnld(anInt.Function());
 
   for (Standard_Integer i = 1; i <= 4; ++i)
   {
@@ -2708,8 +2708,8 @@ Standard_Boolean IntWalk_PWalking::SeekPointOnBoundary(const Handle(Adaptor3d_Su
         return isOK;
       }
 
-      const gp_XYZ aDir01(aP1.XYZ() - aPInt.XYZ());
-      const gp_XYZ aDir12(aP2.XYZ() - aP1.XYZ());
+      const Coords3d aDir01(aP1.XYZ() - aPInt.XYZ());
+      const Coords3d aDir12(aP2.XYZ() - aP1.XYZ());
 
       if (aDir01.Dot(aDir12) > 0.0)
       {
@@ -2764,8 +2764,8 @@ Standard_Boolean IntWalk_PWalking::SeekPointOnBoundary(const Handle(Adaptor3d_Su
         return isOK;
       }
 
-      const gp_XYZ aDirPC(aPCurr.XYZ() - aPPrev.XYZ());
-      const gp_XYZ aDirCN(aPInt.XYZ() - aPCurr.XYZ());
+      const Coords3d aDirPC(aPCurr.XYZ() - aPPrev.XYZ());
+      const Coords3d aDirCN(aPInt.XYZ() - aPCurr.XYZ());
 
       if (aDirPC.Dot(aDirCN) > 0.0)
       {

@@ -1088,7 +1088,7 @@ void IntWalk_IWalking::FillPntsInHoles(TheIWFunction&                   sp,
       math_Vector UVap(1, 2), UV(1, 2);
       UVap(1) = (P2d1.X() + P2d2.X()) / 2;
       UVap(2) = (P2d1.Y() + P2d2.Y()) / 2;
-      math_FunctionSetRoot Rsnld(sp, tolerance);
+      FunctionSetRoot Rsnld(sp, tolerance);
       Rsnld.Perform(sp, UVap, BornInf, BornSup);
       if (Rsnld.IsDone() && Abs(sp.Root()) <= sp.Tolerance() && !sp.IsTangent())
       {
@@ -1433,7 +1433,7 @@ void IntWalk_IWalking::ComputeOpenLine(const TColStd_SequenceOfReal& Umult,
   BornInf(2) = Vm;
   BornSup(2) = VM;
 
-  math_FunctionSetRoot Rsnld(Func, tolerance);
+  FunctionSetRoot Rsnld(Func, tolerance);
   Standard_Integer     nbPath = Pnts1.Length();
 
   // modified by NIZHNY-MKK  Fri Oct 27 12:32:34 2000.BEGIN
@@ -2018,7 +2018,7 @@ void IntWalk_IWalking::ComputeCloseLine(const TColStd_SequenceOfReal& Umult,
   BornInf(2)                          = Vm;
   BornSup(2)                          = VM;
 
-  math_FunctionSetRoot Rsnld(Func, tolerance);
+  FunctionSetRoot Rsnld(Func, tolerance);
   Standard_Integer     nbLoop = Pnts2.Length();
 
   // Check borders for degeneracy:
@@ -3014,7 +3014,7 @@ Standard_Boolean IntWalk_IWalking::IsPointOnLine(const gp_Pnt2d& theP2d, const S
 Standard_Boolean IntWalk_IWalking::IsPointOnLine(const PointOn2Surfaces& thePOn2S,
                                                  const math_Vector&     theInfBounds,
                                                  const math_Vector&     theSupBounds,
-                                                 math_FunctionSetRoot&  theSolver,
+                                                 FunctionSetRoot&  theSolver,
                                                  TheIWFunction&         theFunc)
 {
   const Standard_Real eps  = Epsilon(1.);
@@ -3035,8 +3035,8 @@ Standard_Boolean IntWalk_IWalking::IsPointOnLine(const PointOn2Surfaces& thePOn2
       const Point3d& aP1 = aL->Value(aPtIdx).Value();
       const Point3d& aP2 = aL->Value(aPtIdx + 1).Value();
 
-      const gp_XYZ aP1P(aP3d.XYZ() - aP1.XYZ());
-      const gp_XYZ aP1P2(aP2.XYZ() - aP1.XYZ());
+      const Coords3d aP1P(aP3d.XYZ() - aP1.XYZ());
+      const Coords3d aP1P2(aP2.XYZ() - aP1.XYZ());
 
       const Standard_Real aSq12 = aP1P2.SquareModulus();
 

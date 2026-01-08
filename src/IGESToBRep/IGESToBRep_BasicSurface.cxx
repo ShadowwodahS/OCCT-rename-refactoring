@@ -858,7 +858,7 @@ Handle(Geom_BSplineSurface) IGESToBRep_BasicSurface::TransferBSplineSurface(
 
   if (!GetModeTransfer() && start->HasTransf())
   {
-    gp_GTrsf GBSplTrsf(start->CompoundLocation());
+    GeneralTransform GBSplTrsf(start->CompoundLocation());
     Transform3d  BSplTrsf;
     if (IGESData_ToolLocation::ConvertLocation(GetEpsilon(), GBSplTrsf, BSplTrsf))
       for (i = Poles.LowerRow(); i <= Poles.UpperRow(); i++)

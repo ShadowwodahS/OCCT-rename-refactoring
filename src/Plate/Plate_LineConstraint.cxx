@@ -24,16 +24,16 @@ Plate_LineConstraint::Plate_LineConstraint(const Coords2d&           point2d,
                                            const Standard_Integer iv)
     : myLSC(2, 1)
 {
-  gp_XYZ point = lin.Location().XYZ();
+  Coords3d point = lin.Location().XYZ();
   myLSC.SetPPC(1, PinpointConstraint(point2d, point, iu, iv));
 
-  gp_XYZ dir = lin.Direction().XYZ();
+  Coords3d dir = lin.Direction().XYZ();
   // one builds two directions orthogonal to dir
-  gp_XYZ dX(1, 0, 0);
-  gp_XYZ dY(0, 1, 0);
+  Coords3d dX(1, 0, 0);
+  Coords3d dY(0, 1, 0);
 
-  gp_XYZ d1 = dX ^ dir;
-  gp_XYZ d2 = dY ^ dir;
+  Coords3d d1 = dX ^ dir;
+  Coords3d d2 = dY ^ dir;
   if (d2.SquareModulus() > d1.SquareModulus())
     d1 = d2;
   d1.Normalize();

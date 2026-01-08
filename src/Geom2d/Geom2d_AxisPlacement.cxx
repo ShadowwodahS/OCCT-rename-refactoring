@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom2d_AxisPlacement, Geom2d_Geometry)
 typedef Geom2d_AxisPlacement AxisPlacement;
 typedef gp_Dir2d             Dir2d;
 typedef gp_Pnt2d             Pnt2d;
-typedef gp_Trsf2d            Trsf2d;
+typedef Transform2d            Trsf2d;
 typedef gp_Vec2d             Vec2d;
 
 Handle(Geom2d_Geometry) Geom2d_AxisPlacement::Copy() const

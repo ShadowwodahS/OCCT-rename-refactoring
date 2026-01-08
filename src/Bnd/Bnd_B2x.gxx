@@ -111,7 +111,7 @@ Standard_Boolean Bnd_B2x::Limit (const Bnd_B2x& theBox)
 //purpose  : 
 //=======================================================================
 
-Bnd_B2x Bnd_B2x::Transformed (const gp_Trsf2d& theTrsf) const
+Bnd_B2x Bnd_B2x::Transformed (const Transform2d& theTrsf) const
 {
   Bnd_B2x aResult;
   const gp_TrsfForm aForm = theTrsf.Form();
@@ -198,7 +198,7 @@ Standard_Boolean Bnd_B2x::IsOut (const Coords2d&           theCenter,
 //=======================================================================
 
 Standard_Boolean Bnd_B2x::IsOut (const Bnd_B2x&   theBox,
-                                 const gp_Trsf2d& theTrsf) const
+                                 const Transform2d& theTrsf) const
 {
   Standard_Boolean aResult (Standard_False);
   const gp_TrsfForm aForm = theTrsf.Form();
@@ -310,7 +310,7 @@ Standard_Boolean Bnd_B2x::IsOut (const Coords2d& theP0, const Coords2d& theP1) c
 //=======================================================================
 
 Standard_Boolean Bnd_B2x::IsIn (const Bnd_B2x&   theBox,
-                                const gp_Trsf2d& theTrsf) const
+                                const Transform2d& theTrsf) const
 {
   Standard_Boolean aResult (Standard_False);
   const gp_TrsfForm aForm = theTrsf.Form();

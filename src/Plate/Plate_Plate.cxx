@@ -74,7 +74,7 @@ PlateSurface::PlateSurface(const PlateSurface& Ref)
   {
     if (n_dim > 0 && Ref.solution != 0)
     {
-      solution = new gp_XYZ[n_dim];
+      solution = new Coords3d[n_dim];
       for (i = 0; i < n_dim; i++)
       {
         Solution(i) = Ref.Solution(i);
@@ -138,7 +138,7 @@ PlateSurface& PlateSurface::Copy(const PlateSurface& Ref)
   {
     if (n_dim > 0 && Ref.solution != 0)
     {
-      solution = new gp_XYZ[n_dim];
+      solution = new Coords3d[n_dim];
       for (i = 0; i < n_dim; i++)
       {
         Solution(i) = Ref.Solution(i);
@@ -392,7 +392,7 @@ void PlateSurface::SolveTI1(const Standard_Integer       IterationNumber,
   OK                      = Standard_True;
 
   Message_ProgressScope aScope(theProgress, "PlateSurface::SolveTI1()", 10);
-  math_Gauss            algo_gauss(mat, pivot_max, aScope.Next(7));
+  Gauss            algo_gauss(mat, pivot_max, aScope.Next(7));
 
   if (aScope.UserBreak())
   {
@@ -409,7 +409,7 @@ void PlateSurface::SolveTI1(const Standard_Integer       IterationNumber,
     }
     pivot_max = 1.e-18;
 
-    math_Gauss thealgo(mat, pivot_max, aScope.Next(3));
+    Gauss thealgo(mat, pivot_max, aScope.Next(3));
 
     if (aScope.UserBreak())
     {
@@ -426,8 +426,8 @@ void PlateSurface::SolveTI1(const Standard_Integer       IterationNumber,
     math_Vector sec_member(0, n_dim - 1, 0.);
     math_Vector sol(0, n_dim - 1);
 
-    delete[] (gp_XYZ*)solution;
-    solution = new gp_XYZ[n_dim];
+    delete[] (Coords3d*)solution;
+    solution = new Coords3d[n_dim];
 
     for (Standard_Integer icoor = 1; icoor <= 3; icoor++)
     {
@@ -509,7 +509,7 @@ void PlateSurface::SolveTI2(const Standard_Integer       IterationNumber,
   OK                      = Standard_True; // ************ JHH
 
   Message_ProgressScope aScope(theProgress, "PlateSurface::SolveTI2()", 10);
-  math_Gauss            algo_gauss(mat, pivot_max, aScope.Next(7));
+  Gauss            algo_gauss(mat, pivot_max, aScope.Next(7));
 
   if (aScope.UserBreak())
   {
@@ -525,7 +525,7 @@ void PlateSurface::SolveTI2(const Standard_Integer       IterationNumber,
     }
     pivot_max = 1.e-18;
 
-    math_Gauss thealgo1(mat, pivot_max, aScope.Next(3));
+    Gauss thealgo1(mat, pivot_max, aScope.Next(3));
 
     if (aScope.UserBreak())
     {
@@ -542,9 +542,9 @@ void PlateSurface::SolveTI2(const Standard_Integer       IterationNumber,
     math_Vector sec_member(0, n_dimat - 1, 0.);
     math_Vector sol(0, n_dimat - 1);
 
-    delete[] (gp_XYZ*)solution;
+    delete[] (Coords3d*)solution;
     n_dim    = n_el + order * (order + 1) / 2;
-    solution = new gp_XYZ[n_dim];
+    solution = new Coords3d[n_dim];
 
     for (Standard_Integer icoor = 1; icoor <= 3; icoor++)
     {
@@ -827,7 +827,7 @@ void PlateSurface::SolveTI3(const Standard_Integer       IterationNumber,
   OK                      = Standard_True; // ************ JHH
 
   Message_ProgressScope aScope(theProgress, "PlateSurface::SolveTI3()", 10);
-  math_Gauss            algo_gauss(mat, pivot_max, aScope.Next(7));
+  Gauss            algo_gauss(mat, pivot_max, aScope.Next(7));
 
   if (aScope.UserBreak())
   {
@@ -845,7 +845,7 @@ void PlateSurface::SolveTI3(const Standard_Integer       IterationNumber,
     }
     pivot_max = 1.e-18;
 
-    math_Gauss thealgo2(mat, pivot_max, aScope.Next(3));
+    Gauss thealgo2(mat, pivot_max, aScope.Next(3));
 
     if (aScope.UserBreak())
     {
@@ -862,9 +862,9 @@ void PlateSurface::SolveTI3(const Standard_Integer       IterationNumber,
     math_Vector sec_member(0, n_dimat - 1, 0.);
     math_Vector sol(0, n_dimat - 1);
 
-    delete[] (gp_XYZ*)solution;
+    delete[] (Coords3d*)solution;
     n_dim    = n_el + order * (order + 1) / 2;
-    solution = new gp_XYZ[n_dim];
+    solution = new Coords3d[n_dim];
 
     Standard_Integer icoor;
     for (icoor = 1; icoor <= 3; icoor++)
@@ -941,7 +941,7 @@ void PlateSurface::SolveTI3(const Standard_Integer       IterationNumber,
     {
       for (Standard_Integer icol = 1; icol <= myLScalarConstraints(i).Coeff().RowLength(); icol++)
       {
-        gp_XYZ Vsol(0., 0., 0.);
+        Coords3d Vsol(0., 0., 0.);
         for (Standard_Integer irow = 1; irow <= myLScalarConstraints(i).Coeff().ColLength(); irow++)
           Vsol += myLScalarConstraints(i).Coeff()(irow, icol) * sol(ksol + irow - 1);
         Solution(kSolution) = Vsol;
@@ -1109,7 +1109,7 @@ void PlateSurface::Init()
   myLXYZConstraints.Clear();
   myLScalarConstraints.Clear();
 
-  delete[] (gp_XYZ*)solution;
+  delete[] (Coords3d*)solution;
   solution = 0;
 
   delete[] (Coords2d*)points;
@@ -1130,14 +1130,14 @@ void PlateSurface::Init()
 
 //=================================================================================================
 
-gp_XYZ PlateSurface::Evaluate(const Coords2d& point2d) const
+Coords3d PlateSurface::Evaluate(const Coords2d& point2d) const
 {
   if (solution == 0)
-    return gp_XYZ(0, 0, 0);
+    return Coords3d(0, 0, 0);
   if (!OK)
-    return gp_XYZ(0, 0, 0);
+    return Coords3d(0, 0, 0);
 
-  gp_XYZ valeur(0, 0, 0);
+  Coords3d valeur(0, 0, 0);
 
   if (!PolynomialPartOnly)
   {
@@ -1161,16 +1161,16 @@ gp_XYZ PlateSurface::Evaluate(const Coords2d& point2d) const
 
 //=================================================================================================
 
-gp_XYZ PlateSurface::EvaluateDerivative(const Coords2d&           point2d,
+Coords3d PlateSurface::EvaluateDerivative(const Coords2d&           point2d,
                                        const Standard_Integer iu,
                                        const Standard_Integer iv) const
 {
   if (solution == 0)
-    return gp_XYZ(0, 0, 0);
+    return Coords3d(0, 0, 0);
   if (!OK)
-    return gp_XYZ(0, 0, 0);
+    return Coords3d(0, 0, 0);
 
-  gp_XYZ valeur(0, 0, 0);
+  Coords3d valeur(0, 0, 0);
   if (!PolynomialPartOnly)
   {
     for (Standard_Integer i = 0; i < n_el; i++)
@@ -1199,7 +1199,7 @@ gp_XYZ PlateSurface::EvaluateDerivative(const Coords2d&           point2d,
 
 void PlateSurface::CoefPol(Handle(TColgp_HArray2OfXYZ)& Coefs) const
 {
-  Coefs              = new TColgp_HArray2OfXYZ(0, order - 1, 0, order - 1, gp_XYZ(0., 0., 0.));
+  Coefs              = new TColgp_HArray2OfXYZ(0, order - 1, 0, order - 1, Coords3d(0., 0., 0.));
   Standard_Integer i = n_el;
   for (Standard_Integer iu = 0; iu < order; iu++)
     for (Standard_Integer iv = 0; iu + iv < order; iv++)

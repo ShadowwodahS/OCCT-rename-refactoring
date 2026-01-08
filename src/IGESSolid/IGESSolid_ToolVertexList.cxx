@@ -54,7 +54,7 @@ void VertexListTool::ReadOwnParams(const Handle(IGESSolid_VertexList)& ent,
 
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
   Standard_Integer nbitems = 0; // szv#4:S4163:12Mar99 `i` moved in for
-  // gp_XYZ anXYZ; //szv#4:S4163:12Mar99 moved down
+  // Coords3d anXYZ; //szv#4:S4163:12Mar99 moved down
   Handle(TColgp_HArray1OfXYZ) tempVertices;
 
   // st = PR.ReadInteger(PR.Current(), Msg182, nbitems); //szv#4:S4163:12Mar99 moved in if
@@ -67,7 +67,7 @@ void VertexListTool::ReadOwnParams(const Handle(IGESSolid_VertexList)& ent,
 
     tempVertices = new TColgp_HArray1OfXYZ(1, nbitems);
 
-    gp_XYZ anXYZ;
+    Coords3d anXYZ;
     for (Standard_Integer i = 1; i <= nbitems; i++)
     {
       // st = PR.ReadXYZ(PR.CurrentList(1, 3), Msg183, anXYZ); //szv#4:S4163:12Mar99 moved in if

@@ -274,8 +274,8 @@ static Standard_Integer OCC862(DrawInterpreter& di, Standard_Integer argc, const
   Handle(BSplineCurve3d) C1      = new BSplineCurve3d(aPoles, aKnots, aMults, aDegree);
 
   // Create trimmed line
-  gp_XYZ                    p1(60000, -7504.83, 6000);
-  gp_XYZ                    p2(60000, 7504.83, 6000);
+  Coords3d                    p1(60000, -7504.83, 6000);
+  Coords3d                    p2(60000, 7504.83, 6000);
   Handle(GeomLine)         L  = new GeomLine(Point3d(p1), Dir3d(p2 - p1));
   Handle(Geom_TrimmedCurve) C2 = new Geom_TrimmedCurve(L, 0.0, (p2 - p1).Modulus());
 

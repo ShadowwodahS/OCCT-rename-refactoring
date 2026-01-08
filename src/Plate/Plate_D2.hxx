@@ -30,7 +30,7 @@ class D2
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT D2(const gp_XYZ& duu, const gp_XYZ& duv, const gp_XYZ& dvv);
+  Standard_EXPORT D2(const Coords3d& duu, const Coords3d& duv, const Coords3d& dvv);
 
   Standard_EXPORT D2(const D2& ref);
 
@@ -39,9 +39,9 @@ public:
 
 protected:
 private:
-  gp_XYZ Duu;
-  gp_XYZ Duv;
-  gp_XYZ Dvv;
+  Coords3d Duu;
+  Coords3d Duv;
+  Coords3d Dvv;
 };
 
 #endif // _Plate_D2_HeaderFile

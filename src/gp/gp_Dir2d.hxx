@@ -22,7 +22,7 @@
 
 class gp_Vec2d;
 class gp_Ax2d;
-class gp_Trsf2d;
+class Transform2d;
 
 //! Describes a unit vector in the plane (2D space). This unit
 //! vector is also called "Direction".
@@ -234,13 +234,13 @@ public:
     return aV;
   }
 
-  Standard_EXPORT void Transform(const gp_Trsf2d& theT);
+  Standard_EXPORT void Transform(const Transform2d& theT);
 
   //! Transforms a direction with the "Trsf" theT.
   //! Warnings :
   //! If the scale factor of the "Trsf" theT is negative then the
   //! direction <me> is reversed.
-  Standard_NODISCARD gp_Dir2d Transformed(const gp_Trsf2d& theT) const
+  Standard_NODISCARD gp_Dir2d Transformed(const Transform2d& theT) const
   {
     gp_Dir2d aV = *this;
     aV.Transform(theT);
@@ -453,7 +453,7 @@ inline Standard_Boolean gp_Dir2d::IsParallel(const gp_Dir2d&     theOther,
 // =======================================================================
 inline void gp_Dir2d::Rotate(const Standard_Real theAng)
 {
-  gp_Trsf2d aT;
+  Transform2d aT;
   aT.SetRotation(gp_Pnt2d(0.0, 0.0), theAng);
   coord.Multiply(aT.HVectorialPart());
 }

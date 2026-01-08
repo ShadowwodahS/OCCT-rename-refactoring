@@ -47,14 +47,14 @@ public:
   //! default (1,0,0)
   //! - anZAxis  : the unit vector defining local Z-axis
   //! default (0,0,1)
-  Standard_EXPORT void Init(const gp_XYZ&       aSize,
+  Standard_EXPORT void Init(const Coords3d&       aSize,
                             const Standard_Real lowX,
-                            const gp_XYZ&       aCorner,
-                            const gp_XYZ&       anXAxis,
-                            const gp_XYZ&       anZAxis);
+                            const Coords3d&       aCorner,
+                            const Coords3d&       anXAxis,
+                            const Coords3d&       anZAxis);
 
   //! returns the size
-  Standard_EXPORT gp_XYZ Size() const;
+  Standard_EXPORT Coords3d Size() const;
 
   //! returns the length along the local X-axis
   Standard_EXPORT Standard_Real XBigLength() const;
@@ -101,11 +101,11 @@ public:
 
 protected:
 private:
-  gp_XYZ        theSize;
+  Coords3d        theSize;
   Standard_Real theXSmallLength;
-  gp_XYZ        theCorner;
-  gp_XYZ        theXAxis;
-  gp_XYZ        theZAxis;
+  Coords3d        theCorner;
+  Coords3d        theXAxis;
+  Coords3d        theZAxis;
 };
 
 #endif // _IGESSolid_RightAngularWedge_HeaderFile

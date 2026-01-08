@@ -145,7 +145,7 @@ public:
   {
     if (myHasScale)
     {
-      gp_XYZ aTransPart = theTrsf.TranslationPart();
+      Coords3d aTransPart = theTrsf.TranslationPart();
       aTransPart *= myUnitFactor;
       theTrsf.SetTranslationPart(aTransPart);
     }
@@ -156,7 +156,7 @@ public:
   }
 
   //! Transform position.
-  void TransformPosition(gp_XYZ& thePos) const
+  void TransformPosition(Coords3d& thePos) const
   {
     if (myHasScale)
     {

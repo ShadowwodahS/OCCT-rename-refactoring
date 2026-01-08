@@ -16,7 +16,7 @@
 #include <math.hxx>
 #include <math_ComputeKronrodPointsAndWeights.hxx>
 
-Standard_Integer math::KronrodPointsMax()
+Standard_Integer math1::KronrodPointsMax()
 {
   return 123;
 }
@@ -3005,7 +3005,7 @@ static const Standard_Real Weight[] = {
 // purpose  : Returns Kronrod points and their weights
 //=======================================================================
 
-Standard_Boolean math::KronrodPointsAndWeights(const Standard_Integer Index,
+Standard_Boolean math1::KronrodPointsAndWeights(const Standard_Integer Index,
                                                math_Vector&           Points,
                                                math_Vector&           Weights)
 {

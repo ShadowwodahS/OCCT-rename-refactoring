@@ -27,17 +27,17 @@ RotationBuilder2d::RotationBuilder2d(const gp_Pnt2d& Point, const Standard_Real 
   TheRotation2d.SetRotation(Point, Angle);
 }
 
-const gp_Trsf2d& RotationBuilder2d::Value() const
+const Transform2d& RotationBuilder2d::Value() const
 {
   return TheRotation2d;
 }
 
-const gp_Trsf2d& RotationBuilder2d::Operator() const
+const Transform2d& RotationBuilder2d::Operator() const
 {
   return TheRotation2d;
 }
 
-RotationBuilder2d::operator gp_Trsf2d() const
+RotationBuilder2d::operator Transform2d() const
 {
   return TheRotation2d;
 }

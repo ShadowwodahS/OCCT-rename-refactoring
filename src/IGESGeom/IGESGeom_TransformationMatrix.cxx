@@ -62,9 +62,9 @@ Standard_Real IGESGeom_TransformationMatrix::Data(const Standard_Integer I,
   return theData->Value(I, J);
 }
 
-gp_GTrsf IGESGeom_TransformationMatrix::Value() const
+GeneralTransform IGESGeom_TransformationMatrix::Value() const
 {
-  gp_GTrsf Matrix;
+  GeneralTransform Matrix;
   if (!theData.IsNull())
   {
     for (Standard_Integer I = 1; I <= 3; I++)

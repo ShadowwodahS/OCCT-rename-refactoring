@@ -116,7 +116,7 @@ void BRepToIGESBRep_Entity::TransferVertexList()
     TopoVertex myvertex = TopoDS::Vertex(myshape);
     Point3d        Point    = BRepInspector::Pnt(myvertex);
     Point.Coord(X, Y, Z);
-    vertices->SetValue(ivertex, gp_XYZ(X / Unit, Y / Unit, Z / Unit));
+    vertices->SetValue(ivertex, Coords3d(X / Unit, Y / Unit, Z / Unit));
   }
 
   myVertexList->Init(vertices);

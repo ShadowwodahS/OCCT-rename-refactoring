@@ -404,7 +404,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
     {
       Point3d tempPnt = mysurface->Pole(ipole, jpole);
       tempPnt.Coord(Xd, Yd, Zd);
-      gp_XYZ PXYZ = gp_XYZ(Xd / GetUnit(), Yd / GetUnit(), Zd / GetUnit());
+      Coords3d PXYZ = Coords3d(Xd / GetUnit(), Yd / GetUnit(), Zd / GetUnit());
       Poles->SetValue(UIndex, VIndex++, PXYZ);
     }
     UIndex++;
@@ -578,7 +578,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(const Handle
     Standard_Real          A, B, C, D;
     start->Coefficients(A, B, C, D);
     D               = -D; // because of difference in GeomPlane class and Type 108
-    gp_XYZ anAttach = start->Location().XYZ().Divided(GetUnit());
+    Coords3d anAttach = start->Location().XYZ().Divided(GetUnit());
     aPlane->Init(A, B, C, D / GetUnit(), 0, anAttach, 0);
     res = aPlane;
     return res;
@@ -594,13 +594,13 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(const Handle
     Handle(TColgp_HArray2OfXYZ) Poles = new TColgp_HArray2OfXYZ(0, 1, 0, 1);
     Standard_Real               X, Y, Z;
     P1.Coord(X, Y, Z);
-    Poles->SetValue(0, 0, gp_XYZ(X / GetUnit(), Y / GetUnit(), Z / GetUnit()));
+    Poles->SetValue(0, 0, Coords3d(X / GetUnit(), Y / GetUnit(), Z / GetUnit()));
     P2.Coord(X, Y, Z);
-    Poles->SetValue(0, 1, gp_XYZ(X / GetUnit(), Y / GetUnit(), Z / GetUnit()));
+    Poles->SetValue(0, 1, Coords3d(X / GetUnit(), Y / GetUnit(), Z / GetUnit()));
     P3.Coord(X, Y, Z);
-    Poles->SetValue(1, 0, gp_XYZ(X / GetUnit(), Y / GetUnit(), Z / GetUnit()));
+    Poles->SetValue(1, 0, Coords3d(X / GetUnit(), Y / GetUnit(), Z / GetUnit()));
     P4.Coord(X, Y, Z);
-    Poles->SetValue(1, 1, gp_XYZ(X / GetUnit(), Y / GetUnit(), Z / GetUnit()));
+    Poles->SetValue(1, 1, Coords3d(X / GetUnit(), Y / GetUnit(), Z / GetUnit()));
 
     Handle(TColStd_HArray1OfReal) KnotsU = new TColStd_HArray1OfReal(-1, 2);
     KnotsU->SetValue(-1, Udeb);
@@ -690,9 +690,9 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   // creation de l`axe : Axis .
   Handle(IGESGeom_Line) Axis = new IGESGeom_Line;
   // #30 rln 19.10.98 IGES axis = reversed CAS.CADE axis
-  // Axis->Init(gp_XYZ(0.0, 0.0, 0.0), gp_XYZ(0.0, 0.0, 1.0/GetUnit()));
+  // Axis->Init(Coords3d(0.0, 0.0, 0.0), Coords3d(0.0, 0.0, 1.0/GetUnit()));
   // Surf->Init (Axis, Generatrix, U1, U2);
-  Axis->Init(gp_XYZ(0, 0, 1.), gp_XYZ(0, 0, 0));
+  Axis->Init(Coords3d(0, 0, 1.), Coords3d(0, 0, 0));
   Surf->Init(Axis, Generatrix, 2 * M_PI - U2, 2 * M_PI - U1);
 
   // creation de la Trsf (#124)
@@ -769,9 +769,9 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   // creation de l`axe : Axis .
   Handle(IGESGeom_Line) Axis = new IGESGeom_Line;
   // #30 rln 19.10.98 IGES axis = reversed CAS.CADE axis
-  // Axis->Init(gp_XYZ(0.0, 0.0, 0.0), gp_XYZ(0.0, 0.0, 1.0/GetUnit()));
+  // Axis->Init(Coords3d(0.0, 0.0, 0.0), Coords3d(0.0, 0.0, 1.0/GetUnit()));
   // Surf->Init (Axis, Generatrix, U1, U2);
-  Axis->Init(gp_XYZ(0, 0, 1.), gp_XYZ(0, 0, 0));
+  Axis->Init(Coords3d(0, 0, 1.), Coords3d(0, 0, 0));
   Surf->Init(Axis, Generatrix, 2 * M_PI - U2, 2 * M_PI - U1);
 
   // creation de la Trsf (#124)
@@ -842,8 +842,8 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   // creation de l`axe : Axis .
   Handle(IGESGeom_Line) Axis = new IGESGeom_Line;
   // #30 rln 19.10.98 IGES axis = reversed CAS.CADE axis
-  // Axis->Init(gp_XYZ(0.0, 0.0, 0.0), gp_XYZ(0.0, 0.0, 1.0/GetUnit()));
-  Axis->Init(gp_XYZ(0, 0, 1.), gp_XYZ(0, 0, 0));
+  // Axis->Init(Coords3d(0.0, 0.0, 0.0), Coords3d(0.0, 0.0, 1.0/GetUnit()));
+  Axis->Init(Coords3d(0, 0, 1.), Coords3d(0, 0, 0));
 
   if (Gen->IsKind(STANDARD_TYPE(IGESGeom_CircularArc)))
   {
@@ -909,8 +909,8 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   // creation de l`axe : Axis .
   Handle(IGESGeom_Line) Axis = new IGESGeom_Line;
   // #30 rln 19.10.98 IGES axis = reversed CAS.CADE axis
-  // Axis->Init(gp_XYZ(0.0, 0.0, 0.0), gp_XYZ(0.0, 0.0, 1.0/GetUnit()));
-  Axis->Init(gp_XYZ(0, 0, 1.), gp_XYZ(0, 0, 0));
+  // Axis->Init(Coords3d(0.0, 0.0, 0.0), Coords3d(0.0, 0.0, 1.0/GetUnit()));
+  Axis->Init(Coords3d(0, 0, 1.), Coords3d(0, 0, 0));
 
   //: l6 abv: CTS22022: writing full tori:  if ( Gen->IsKind(STANDARD_TYPE(IGESGeom_CircularArc))) {
   // #30 rln 19.10.98 Surf->Init (Axis, Gen, U1, U2);
@@ -1018,7 +1018,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   Point3d        TheEnd = start->Value(U1, V2);
   Standard_Real Xe, Ye, Ze;
   TheEnd.Coord(Xe, Ye, Ze);
-  gp_XYZ End = gp_XYZ(Xe / GetUnit(), Ye / GetUnit(), Ze / GetUnit());
+  Coords3d End = Coords3d(Xe / GetUnit(), Ye / GetUnit(), Ze / GetUnit());
 
   GeomToIGES_GeomCurve GC(*this);
   // commented by skl 18.07.2005 for OCC9490
@@ -1112,11 +1112,11 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   Axe.Direction().Coord(X2, Y2, Z2);
 
   // #30 rln 19.10.98 IGES axis = reversed CAS.CADE axis
-  // Axis->Init(gp_XYZ(X1/GetUnit(),Y1/GetUnit(),Z1/GetUnit()),
-  //	     gp_XYZ(X2/GetUnit(),Y2/GetUnit(),Z2/GetUnit()));
+  // Axis->Init(Coords3d(X1/GetUnit(),Y1/GetUnit(),Z1/GetUnit()),
+  //	     Coords3d(X2/GetUnit(),Y2/GetUnit(),Z2/GetUnit()));
   // #36 rln 27.10.98 BUC60328 face 7
-  Axis->Init(gp_XYZ(X1 / GetUnit(), Y1 / GetUnit(), Z1 / GetUnit()),
-             gp_XYZ((X1 - X2) / GetUnit(), (Y1 - Y2) / GetUnit(), (Z1 - Z2) / GetUnit()));
+  Axis->Init(Coords3d(X1 / GetUnit(), Y1 / GetUnit(), Z1 / GetUnit()),
+             Coords3d((X1 - X2) / GetUnit(), (Y1 - Y2) / GetUnit(), (Z1 - Z2) / GetUnit()));
 
   Surf->Init(Axis, Generatrix, 2 * M_PI - U2, 2 * M_PI - U1);
   res = Surf;
@@ -1162,7 +1162,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   Dir3d                      Dir  = Prop.Normal();
   Standard_Real               Xd, Yd, Zd;
   Dir.Coord(Xd, Yd, Zd);
-  gp_XYZ Indicator = gp_XYZ(Xd / GetUnit(), Yd / GetUnit(), Zd / GetUnit());
+  Coords3d Indicator = Coords3d(Xd / GetUnit(), Yd / GetUnit(), Zd / GetUnit());
 
   Surf->Init(Indicator, Distance, Surface);
   res = Surf;
@@ -1317,7 +1317,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSphericalSurface(
   Handle(IGESSolid_SphericalSurface) SphSurf = new IGESSolid_SphericalSurface;
   GeomToIGES_GeomPoint               GP(*this);
 
-  gp_Sphere aSph = start->Sphere();
+  Sphere3 aSph = start->Sphere();
 
   Handle(Geom_CartesianPoint) mypoint   = new Geom_CartesianPoint(aSph.Location());
   Handle(IGESGeom_Point)      aLocation = GP.TransferPoint(mypoint);

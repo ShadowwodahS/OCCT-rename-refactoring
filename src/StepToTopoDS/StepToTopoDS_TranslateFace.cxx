@@ -113,7 +113,7 @@ static void SetNodes(const Handle(MeshTriangulation)& theMesh,
 {
   for (Standard_Integer aPnIndex = 1; aPnIndex <= theMesh->NbNodes(); ++aPnIndex)
   {
-    const gp_XYZ& aPoint =
+    const Coords3d& aPoint =
       theNodes->Value((theNumPnindex > 0) ? thePnindices->Value(aPnIndex) : aPnIndex);
     theMesh->SetNode(aPnIndex, theLengthFactor * aPoint);
   }
@@ -132,7 +132,7 @@ static void SetNormals(const Handle(MeshTriangulation)&    theMesh,
   {
     return;
   }
-  gp_XYZ aNorm;
+  Coords3d aNorm;
   if (theNormNum == 1)
   {
     aNorm.SetX(theNormals->Value(1, 1));

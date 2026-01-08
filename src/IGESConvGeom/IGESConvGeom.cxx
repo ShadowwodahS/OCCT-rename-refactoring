@@ -559,7 +559,7 @@ Standard_Integer IGESConvGeom1::SplineSurfaceFromIGES(const Handle(IGESGeom_Spli
 
   if (st->HasTransf())
   {
-    gp_GTrsf      GSplTrsf(st->CompoundLocation());
+    GeneralTransform      GSplTrsf(st->CompoundLocation());
     Transform3d       SplTrsf;
     Standard_Real epsilon = 1.E-04;
     if (IGESData_ToolLocation::ConvertLocation(epsilon, GSplTrsf, SplTrsf))

@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESBasic_SingularSubfigure, IGESData_IGESEntity)
 IGESBasic_SingularSubfigure::IGESBasic_SingularSubfigure() {}
 
 void IGESBasic_SingularSubfigure::Init(const Handle(IGESBasic_SubfigureDef)& aSubfigureDef,
-                                       const gp_XYZ&                         aTranslation,
+                                       const Coords3d&                         aTranslation,
                                        const Standard_Boolean                hasScale,
                                        const Standard_Real                   aScale)
 {
@@ -43,7 +43,7 @@ Handle(IGESBasic_SubfigureDef) IGESBasic_SingularSubfigure::Subfigure() const
   return theSubfigureDef;
 }
 
-gp_XYZ IGESBasic_SingularSubfigure::Translation() const
+Coords3d IGESBasic_SingularSubfigure::Translation() const
 {
   return theTranslation;
 }
@@ -58,9 +58,9 @@ Standard_Real IGESBasic_SingularSubfigure::ScaleFactor() const
   return theScaleFactor;
 }
 
-gp_XYZ IGESBasic_SingularSubfigure::TransformedTranslation() const
+Coords3d IGESBasic_SingularSubfigure::TransformedTranslation() const
 {
-  gp_XYZ tmp = theTranslation;
+  Coords3d tmp = theTranslation;
   if (HasTransf())
     Location().Transforms(tmp);
   return tmp;

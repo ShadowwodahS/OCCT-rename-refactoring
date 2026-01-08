@@ -29,7 +29,7 @@ Select3D_SensitiveBox::Select3D_SensitiveBox(const Handle(SelectMgr_EntityOwner)
   theBox.Get(aXMin, aYMin, aZMin, aXMax, aYMax, aZMax);
   myBox =
     Select3D_BndBox3d(SelectMgr_Vec3(aXMin, aYMin, aZMin), SelectMgr_Vec3(aXMax, aYMax, aZMax));
-  myCenter3d = (gp_XYZ(aXMin, aYMin, aZMin) + gp_XYZ(aXMax, aYMax, aZMax)) * (1.0 / 2.0);
+  myCenter3d = (Coords3d(aXMin, aYMin, aZMin) + Coords3d(aXMax, aYMax, aZMax)) * (1.0 / 2.0);
 }
 
 //=================================================================================================
@@ -46,7 +46,7 @@ Select3D_SensitiveBox::Select3D_SensitiveBox(const Handle(SelectMgr_EntityOwner)
   myBox = Select3D_BndBox3d(SelectMgr_Vec3(theXMin, theYMin, theZMin),
                             SelectMgr_Vec3(theXMax, theYMax, theZMax));
   myCenter3d =
-    (gp_XYZ(theXMin, theYMin, theZMin) + gp_XYZ(theXMax, theYMax, theZMax)) * (1.0 / 2.0);
+    (Coords3d(theXMin, theYMin, theZMin) + Coords3d(theXMax, theYMax, theZMax)) * (1.0 / 2.0);
 }
 
 //=======================================================================

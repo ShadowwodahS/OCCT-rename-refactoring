@@ -39,7 +39,7 @@ public:
   //! This method is used to set the fields of the class Sphere
   //! - aRadius : the radius of the sphere
   //! - aCenter : the center point coordinates (default (0,0,0))
-  Standard_EXPORT void Init(const Standard_Real aRadius, const gp_XYZ& aCenter);
+  Standard_EXPORT void Init(const Standard_Real aRadius, const Coords3d& aCenter);
 
   //! returns the radius of the sphere
   Standard_EXPORT Standard_Real Radius() const;
@@ -56,7 +56,7 @@ public:
 protected:
 private:
   Standard_Real theRadius;
-  gp_XYZ        theCenter;
+  Coords3d        theCenter;
 };
 
 #endif // _IGESSolid_Sphere_HeaderFile

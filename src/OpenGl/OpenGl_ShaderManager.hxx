@@ -52,13 +52,13 @@ public:
   Standard_EXPORT void UpdateSRgbState();
 
   //! Return local camera transformation.
-  const gp_XYZ& LocalOrigin() const { return myLocalOrigin; }
+  const Coords3d& LocalOrigin() const { return myLocalOrigin; }
 
   //! Setup local camera transformation for compensating float precision issues.
-  void SetLocalOrigin(const gp_XYZ& theOrigin)
+  void SetLocalOrigin(const Coords3d& theOrigin)
   {
     myLocalOrigin    = theOrigin;
-    myHasLocalOrigin = !theOrigin.IsEqual(gp_XYZ(0.0, 0.0, 0.0), gp1::Resolution());
+    myHasLocalOrigin = !theOrigin.IsEqual(Coords3d(0.0, 0.0, 0.0), gp1::Resolution());
   }
 
   //! Return clipping plane W equation value moved considering local camera transformation.
@@ -67,7 +67,7 @@ public:
     const Graphic3d_Vec4d& anEq = thePlane.GetEquation();
     if (myHasLocalOrigin)
     {
-      const gp_XYZ aPos = thePlane.ToPlane().Position().Location().XYZ() - myLocalOrigin;
+      const Coords3d aPos = thePlane.ToPlane().Position().Location().XYZ() - myLocalOrigin;
       return -(anEq.x() * aPos.X() + anEq.y() * aPos.Y() + anEq.z() * aPos.Z());
     }
     return anEq.w();
@@ -812,7 +812,7 @@ protected:
   OpenGl_MaterialState               myMaterialState;      //!< State of Front and Back materials
   OpenGl_OitState                    myOitState;           //!< State of OIT uniforms
 
-  gp_XYZ                             myLocalOrigin;        //!< local camera transformation
+  Coords3d                             myLocalOrigin;        //!< local camera transformation
   Standard_Boolean                   myHasLocalOrigin;     //!< flag indicating that local camera transformation has been set
                                                // clang-format on
 

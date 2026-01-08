@@ -261,7 +261,7 @@ Cylinder1 BRepAdaptor_Surface::Cylinder() const
 
 //=================================================================================================
 
-gp_Sphere BRepAdaptor_Surface::Sphere() const
+Sphere3 BRepAdaptor_Surface::Sphere() const
 {
   return mySurf.Sphere().Transformed(myTrsf);
 }

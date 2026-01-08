@@ -19,7 +19,7 @@
 #include <Standard_OutOfRange.hxx>
 #include <Standard_Dump.hxx>
 
-Standard_Boolean gp_XYZ::IsEqual(const gp_XYZ& Other, const Standard_Real Tolerance) const
+Standard_Boolean Coords3d::IsEqual(const Coords3d& Other, const Standard_Real Tolerance) const
 {
   Standard_Real val;
   val = x - Other.x;
@@ -42,16 +42,16 @@ Standard_Boolean gp_XYZ::IsEqual(const gp_XYZ& Other, const Standard_Real Tolera
 
 //=================================================================================================
 
-void gp_XYZ::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
-  OCCT_DUMP_VECTOR_CLASS(theOStream, "gp_XYZ", 3, x, y, z)}
+void Coords3d::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
+  OCCT_DUMP_VECTOR_CLASS(theOStream, "Coords3d", 3, x, y, z)}
 
 //=================================================================================================
 
-Standard_Boolean gp_XYZ::InitFromJson(const Standard_SStream& theSStream,
+Standard_Boolean Coords3d::InitFromJson(const Standard_SStream& theSStream,
                                       Standard_Integer&       theStreamPos)
 {
   Standard_Integer aPos = theStreamPos;
-  OCCT_INIT_VECTOR_CLASS(Standard_Dump::Text(theSStream), "gp_XYZ", aPos, 3, &x, &y, &z)
+  OCCT_INIT_VECTOR_CLASS(Standard_Dump::Text(theSStream), "Coords3d", aPos, 3, &x, &y, &z)
 
   theStreamPos = aPos;
   return Standard_True;

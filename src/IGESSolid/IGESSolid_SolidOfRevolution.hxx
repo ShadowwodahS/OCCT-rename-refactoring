@@ -47,8 +47,8 @@ public:
   //! - aDirection : the direction of the axis
   Standard_EXPORT void Init(const Handle(IGESData_IGESEntity)& aCurve,
                             const Standard_Real                aFract,
-                            const gp_XYZ&                      aAxisPnt,
-                            const gp_XYZ&                      aDirection);
+                            const Coords3d&                      aAxisPnt,
+                            const Coords3d&                      aDirection);
 
   //! Sets the Curve to be by default, Closed to Axis (Form 0)
   //! if <mode> is True, Closed to Itself (Form 1) else
@@ -85,8 +85,8 @@ protected:
 private:
   Handle(IGESData_IGESEntity) theCurve;
   Standard_Real               theFraction;
-  gp_XYZ                      theAxisPoint;
-  gp_XYZ                      theAxis;
+  Coords3d                      theAxisPoint;
+  Coords3d                      theAxis;
 };
 
 #endif // _IGESSolid_SolidOfRevolution_HeaderFile

@@ -57,17 +57,17 @@ MirrorBuilder2d::MirrorBuilder2d(const gp_Pnt2d& Point, const gp_Dir2d& Direc)
   TheMirror2d.SetMirror(gp_Ax2d(Point, Direc));
 }
 
-const gp_Trsf2d& MirrorBuilder2d::Value() const
+const Transform2d& MirrorBuilder2d::Value() const
 {
   return TheMirror2d;
 }
 
-const gp_Trsf2d& MirrorBuilder2d::Operator() const
+const Transform2d& MirrorBuilder2d::Operator() const
 {
   return TheMirror2d;
 }
 
-MirrorBuilder2d::operator gp_Trsf2d() const
+MirrorBuilder2d::operator Transform2d() const
 {
   return TheMirror2d;
 }

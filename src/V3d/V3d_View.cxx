@@ -1214,7 +1214,7 @@ void ViewWindow::SetProj(const V3d_TypeOfOrientation theOrientation, const Stand
   const Point3d                    anOriginVCS = aCamera->ConvertWorld2View(gp1::Origin());
 
   const Standard_Real aNewDist = aCamera->Eye().Distance(Point3d(0, 0, 0));
-  aCamera->SetEyeAndCenter(gp_XYZ(0, 0, 0) + aBck.XYZ() * aNewDist, gp_XYZ(0, 0, 0));
+  aCamera->SetEyeAndCenter(Coords3d(0, 0, 0) + aBck.XYZ() * aNewDist, Coords3d(0, 0, 0));
   aCamera->SetDirectionFromEye(-aBck);
   aCamera->SetUp(Dir3d(anUp.x(), anUp.y(), anUp.z()));
   aCamera->OrthogonalizeUp();
@@ -1472,7 +1472,7 @@ void ViewWindow::SetAxialScale(const Standard_Real Sx, const Standard_Real Sy, c
   V3d_BadValue_Raise_if(Sx <= 0. || Sy <= 0. || Sz <= 0.,
                         "ViewWindow::SetAxialScale, bad coefficient");
 
-  Camera()->SetAxialScale(gp_XYZ(Sx, Sy, Sz));
+  Camera()->SetAxialScale(Coords3d(Sx, Sy, Sz));
 }
 
 //=================================================================================================
@@ -1893,7 +1893,7 @@ void ViewWindow::Project(const Standard_Real theX,
 {
   Handle(CameraOn3d) aCamera = Camera();
 
-  gp_XYZ        aViewSpaceDimensions = aCamera->ViewDimensions();
+  Coords3d        aViewSpaceDimensions = aCamera->ViewDimensions();
   Standard_Real aXSize               = aViewSpaceDimensions.X();
   Standard_Real aYSize               = aViewSpaceDimensions.Y();
   Standard_Real aZSize               = aViewSpaceDimensions.Z();
@@ -2079,7 +2079,7 @@ Point3d ViewWindow::GravityPoint() const
 
   Standard_Real    Xmin, Ymin, Zmin, Xmax, Ymax, Zmax;
   Standard_Integer aNbPoints = 0;
-  gp_XYZ           aResult(0.0, 0.0, 0.0);
+  Coords3d           aResult(0.0, 0.0, 0.0);
   for (Graphic3d_MapIteratorOfMapOfStructure aStructIter(aSetOfStructures); aStructIter.More();
        aStructIter.Next())
   {
@@ -2252,7 +2252,7 @@ Standard_Real ViewWindow::Twist() const
 
   // Compute Cross Vector From Up & Origin
   const Dir3d aCameraUp = Camera()->Up();
-  const gp_XYZ aP        = Yaxis.XYZ().Crossed(aCameraUp.XYZ());
+  const Coords3d aP        = Yaxis.XYZ().Crossed(aCameraUp.XYZ());
 
   // compute Angle
   Standard_Real anAngle = ASin(Max(Min(aP.Modulus(), 1.0), -1.0));
@@ -2367,7 +2367,7 @@ Standard_Boolean ViewWindow::screenAxis(const Dir3d& theVpn,
 
 //=================================================================================================
 
-gp_XYZ ViewWindow::TrsPoint(const Graphic3d_Vertex& thePnt, const TColStd_Array2OfReal& theMat)
+Coords3d ViewWindow::TrsPoint(const Graphic3d_Vertex& thePnt, const TColStd_Array2OfReal& theMat)
 {
   // CAL. S3892
   const Standard_Integer lr = theMat.LowerRow();
@@ -2376,7 +2376,7 @@ gp_XYZ ViewWindow::TrsPoint(const Graphic3d_Vertex& thePnt, const TColStd_Array2
   const Standard_Integer uc = theMat.UpperCol();
   if ((ur - lr + 1 != 4) || (uc - lc + 1 != 4))
   {
-    return gp_XYZ(thePnt.X(), thePnt.Y(), thePnt.Z());
+    return Coords3d(thePnt.X(), thePnt.Y(), thePnt.Z());
   }
 
   Standard_Real X, Y, Z;
@@ -2390,7 +2390,7 @@ gp_XYZ ViewWindow::TrsPoint(const Graphic3d_Vertex& thePnt, const TColStd_Array2
   const Standard_Real ZZ = (theMat(lr + 2, lc + 3) + X * theMat(lr + 2, lc)
                             + Y * theMat(lr + 2, lc + 1) + Z * theMat(lr + 2, lc + 2))
                            / theMat(lr + 3, lc + 3);
-  return gp_XYZ(XX, YY, ZZ);
+  return Coords3d(XX, YY, ZZ);
 }
 
 //=================================================================================================
@@ -3489,14 +3489,14 @@ Graphic3d_Vertex ViewWindow::Compute(const Graphic3d_Vertex& theVertex) const
     return theVertex;
   }
 
-  const gp_XYZ aPnt0 = ViewWindow::TrsPoint(Graphic3d_Vertex(0.0, 0.0, 0.0), MyTrsf);
+  const Coords3d aPnt0 = ViewWindow::TrsPoint(Graphic3d_Vertex(0.0, 0.0, 0.0), MyTrsf);
 
   // get grid axes in world space
-  const gp_XYZ aPnt1 = ViewWindow::TrsPoint(Graphic3d_Vertex(1.0, 0.0, 0.0), MyTrsf);
+  const Coords3d aPnt1 = ViewWindow::TrsPoint(Graphic3d_Vertex(1.0, 0.0, 0.0), MyTrsf);
   Vector3d       aGridX(aPnt0, aPnt1);
   aGridX.Normalize();
 
-  const gp_XYZ aPnt2 = ViewWindow::TrsPoint(Graphic3d_Vertex(0.0, 1.0, 0.0), MyTrsf);
+  const Coords3d aPnt2 = ViewWindow::TrsPoint(Graphic3d_Vertex(0.0, 1.0, 0.0), MyTrsf);
   Vector3d       aGridY(aPnt0, aPnt2);
   aGridY.Normalize();
 
@@ -3508,8 +3508,8 @@ Graphic3d_Vertex ViewWindow::Compute(const Graphic3d_Vertex& theVertex) const
   const Vector3d aPointOrigin = Vector3d(Point3d(theVertex.X(), theVertex.Y(), theVertex.Z()), aPnt0);
   const Standard_Real aT =
     aPointOrigin.Dot(MyPlane.Direction()) / aProjection.Dot(MyPlane.Direction());
-  const gp_XYZ aPointOnPlane =
-    gp_XYZ(theVertex.X(), theVertex.Y(), theVertex.Z()) + aProjection.XYZ() * aT;
+  const Coords3d aPointOnPlane =
+    Coords3d(theVertex.X(), theVertex.Y(), theVertex.Z()) + aProjection.XYZ() * aT;
 
   if (Handle(Aspect_RectangularGrid) aRectGrid = Handle(Aspect_RectangularGrid)::DownCast(MyGrid))
   {

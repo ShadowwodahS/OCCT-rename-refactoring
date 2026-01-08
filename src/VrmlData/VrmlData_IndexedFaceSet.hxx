@@ -175,7 +175,7 @@ public:
    * @return
    *   Normal vector; if the normal is indefinite then returns (0., 0., 0.)
    */
-  Standard_EXPORT gp_XYZ GetNormal(const Standard_Integer iFace, const Standard_Integer iVertex);
+  Standard_EXPORT Coords3d GetNormal(const Standard_Integer iFace, const Standard_Integer iVertex);
 
   /**
    * Set the normals array of indice

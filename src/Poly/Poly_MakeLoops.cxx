@@ -574,7 +574,7 @@ Standard_Integer Poly_MakeLoops3D::chooseLeftWay(
 
   // project tangent vector to the plane orthogonal to normal
   // to get the reference direction
-  gp_XYZ aTgtRefXYZ = aNormal.XYZ().CrossCrossed(aTgtRef.XYZ(), aNormal.XYZ());
+  Coords3d aTgtRefXYZ = aNormal.XYZ().CrossCrossed(aTgtRef.XYZ(), aNormal.XYZ());
   if (aTgtRefXYZ.SquareModulus() < 1e-14)
     // a problem with defining reference direction, take first way
     return theLstIndS.First();
@@ -593,7 +593,7 @@ Standard_Integer Poly_MakeLoops3D::chooseLeftWay(
     if (!aHelper->GetFirstTangent(aLink, aTgt))
       continue;
 
-    gp_XYZ aTgtXYZ = aNormal.XYZ().CrossCrossed(aTgt.XYZ(), aNormal.XYZ());
+    Coords3d aTgtXYZ = aNormal.XYZ().CrossCrossed(aTgt.XYZ(), aNormal.XYZ());
     if (aTgtXYZ.SquareModulus() < 1e-14)
       // skip a problem way
       continue;

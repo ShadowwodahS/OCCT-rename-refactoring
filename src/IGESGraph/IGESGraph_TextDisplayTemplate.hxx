@@ -61,7 +61,7 @@ public:
                             const Standard_Real                  aRotationAngle,
                             const Standard_Integer               aMirrorFlag,
                             const Standard_Integer               aRotationFlag,
-                            const gp_XYZ&                        aCorner);
+                            const Coords3d&                        aCorner);
 
   //! Sets <me> to be Incremental (Form 1) if <mode> is True,
   //! or Basolute (Form 0) else
@@ -131,7 +131,7 @@ private:
   Standard_Real                 theRotationAngle;
   Standard_Integer              theMirrorFlag;
   Standard_Integer              theRotateFlag;
-  gp_XYZ                        theCorner;
+  Coords3d                        theCorner;
 };
 
 #endif // _IGESGraph_TextDisplayTemplate_HeaderFile

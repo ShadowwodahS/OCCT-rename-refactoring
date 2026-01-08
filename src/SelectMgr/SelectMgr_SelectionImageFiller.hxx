@@ -74,7 +74,7 @@ protected:
 protected:
   Image_PixMap*                   myImage;
   SelectMgr_ViewerSelector*       myMainSel;
-  math_BullardGenerator           myBullardGenerator;
+  BullardGenerator           myBullardGenerator;
   NCollection_Map<Quantity_Color> myUniqueColors;
 };
 

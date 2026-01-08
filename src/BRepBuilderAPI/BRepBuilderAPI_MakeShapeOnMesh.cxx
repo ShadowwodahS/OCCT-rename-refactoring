@@ -220,7 +220,7 @@ void BRepBuilderAPI_MakeShapeOnMesh::Build(const Message_ProgressRange& theRange
     BRepAdaptor_Curve aC2(aTEdge2);
     const Dir3d      aD1 = aC1.Line().Direction();
     const Dir3d      aD2 = aC2.Line().Direction();
-    gp_XYZ            aN  = aD1.XYZ().Crossed(aD2.XYZ());
+    Coords3d            aN  = aD1.XYZ().Crossed(aD2.XYZ());
     if (aN.SquareModulus() < Precision::SquareConfusion())
       continue;
     if (aTEdge1.Orientation() == TopAbs_REVERSED)

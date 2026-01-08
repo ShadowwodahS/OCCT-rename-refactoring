@@ -39,7 +39,7 @@ static bool isValidValue(Standard_Real theVal)
 
 //=================================================================================================
 
-static bool isValidColor(const gp_XYZ& theVec3)
+static bool isValidColor(const Coords3d& theVec3)
 {
   return isValidValue(theVec3.X()) && isValidValue(theVec3.Y()) && isValidValue(theVec3.Z());
 }
@@ -48,7 +48,7 @@ static bool isValidColor(const gp_XYZ& theVec3)
 
 static bool parseColor(VrmlData_ErrorStatus& theStatus,
                        InputBuffer&    theBuffer,
-                       gp_XYZ&               theColor,
+                       Coords3d&               theColor,
                        const VrmlData_Scene& theScene)
 {
   if (!VrmlData_Node::OK(theStatus, VrmlData_Scene::ReadLine(theBuffer)))
@@ -181,10 +181,10 @@ VrmlData_ErrorStatus VrmlData_Material::Read(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStatus;
   Standard_Real        anIntensity[3] = {0.2, 0.2, 0.};
-  gp_XYZ               aColor[4]      = {gp_XYZ(0.0, 0.0, 0.0),
-                                         gp_XYZ(0.8, 0.8, 0.8),
-                                         gp_XYZ(0.0, 0.0, 0.0),
-                                         gp_XYZ(0.0, 0.0, 0.0)};
+  Coords3d               aColor[4]      = {Coords3d(0.0, 0.0, 0.0),
+                                         Coords3d(0.8, 0.8, 0.8),
+                                         Coords3d(0.0, 0.0, 0.0),
+                                         Coords3d(0.0, 0.0, 0.0)};
   while (OK(aStatus, VrmlData_Scene::ReadLine(theBuffer)))
   {
     if (VRMLDATA_LCOMPARE(theBuffer.LinePtr, "ambientIntensity"))

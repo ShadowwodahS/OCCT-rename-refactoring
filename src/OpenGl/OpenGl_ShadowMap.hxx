@@ -18,7 +18,7 @@
 #include <NCollection_Array1.hxx>
 #include <OpenGl_NamedResource.hxx>
 
-class gp_XYZ;
+class Coords3d;
 class CameraOn3d;
 class Graphic3d_CLight;
 class Graphic3d_CView;
@@ -76,7 +76,7 @@ public:
   //! Compute camera.
   //! @param[in] theView    active view
   //! @param[in] theOrigin  when not-NULL - displace shadow map camera to specified Z-Layer origin
-  Standard_EXPORT bool UpdateCamera(const Graphic3d_CView& theView, const gp_XYZ* theOrigin = NULL);
+  Standard_EXPORT bool UpdateCamera(const Graphic3d_CView& theView, const Coords3d* theOrigin = NULL);
 
 private:
   Handle(OpenGl_FrameBuffer) myShadowMapFbo;  //!< frame buffer for rendering shadow map

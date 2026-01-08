@@ -89,7 +89,7 @@ void GeomFill_PlanFunc::D2E(const Standard_Real X,
 {
   Vector3d dg;
   myCurve->D1(X, G, dg);
-  gp_XYZ DVDT;
+  Coords3d DVDT;
   V.SetLinearForm(-1, myPnt, G.XYZ());
   DVDT.SetLinearForm(-1, DP.XYZ(), G.XYZ());
   DFDT = DV.Dot(V) + myVec.Dot(DVDT);

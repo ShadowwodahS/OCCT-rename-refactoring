@@ -27,14 +27,14 @@
 //! This class implements the calculation of all the real roots of a real
 //! polynomial of degree <= 4 using a direct method. Once found,
 //! the roots are polished using the Newton method.
-class math_DirectPolynomialRoots
+class DirectPolynomialRoots
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! computes all the real roots of the polynomial
   //! Ax4 + Bx3 + Cx2 + Dx + E using a direct method.
-  Standard_EXPORT math_DirectPolynomialRoots(const Standard_Real A,
+  Standard_EXPORT DirectPolynomialRoots(const Standard_Real A,
                                              const Standard_Real B,
                                              const Standard_Real C,
                                              const Standard_Real D,
@@ -42,19 +42,19 @@ public:
 
   //! computes all the real roots of the polynomial
   //! Ax3 + Bx2 + Cx + D using a direct method.
-  Standard_EXPORT math_DirectPolynomialRoots(const Standard_Real A,
+  Standard_EXPORT DirectPolynomialRoots(const Standard_Real A,
                                              const Standard_Real B,
                                              const Standard_Real C,
                                              const Standard_Real D);
 
   //! computes all the real roots of the polynomial
   //! Ax2 + Bx + C using a direct method.
-  Standard_EXPORT math_DirectPolynomialRoots(const Standard_Real A,
+  Standard_EXPORT DirectPolynomialRoots(const Standard_Real A,
                                              const Standard_Real B,
                                              const Standard_Real C);
 
   //! computes the real root of the polynomial Ax + B.
-  Standard_EXPORT math_DirectPolynomialRoots(const Standard_Real A, const Standard_Real B);
+  Standard_EXPORT DirectPolynomialRoots(const Standard_Real A, const Standard_Real B);
 
   //! Returns true if the computations are successful, otherwise returns false.
   Standard_Boolean IsDone() const;

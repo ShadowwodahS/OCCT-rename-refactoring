@@ -44,7 +44,7 @@ public:
   //! - hasScale      : Indicates the presence of scale factor
   //! - aScale        : Used to store the scale factor
   Standard_EXPORT void Init(const Handle(IGESBasic_SubfigureDef)& aSubfigureDef,
-                            const gp_XYZ&                         aTranslation,
+                            const Coords3d&                         aTranslation,
                             const Standard_Boolean                hasScale,
                             const Standard_Real                   aScale);
 
@@ -52,7 +52,7 @@ public:
   Standard_EXPORT Handle(IGESBasic_SubfigureDef) Subfigure() const;
 
   //! returns the X, Y, Z coordinates
-  Standard_EXPORT gp_XYZ Translation() const;
+  Standard_EXPORT Coords3d Translation() const;
 
   //! returns the scale factor
   //! if hasScaleFactor is False, returns 1.0 (default)
@@ -63,14 +63,14 @@ public:
   Standard_EXPORT Standard_Boolean HasScaleFactor() const;
 
   //! returns the Translation after transformation
-  Standard_EXPORT gp_XYZ TransformedTranslation() const;
+  Standard_EXPORT Coords3d TransformedTranslation() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESBasic_SingularSubfigure, IGESData_IGESEntity)
 
 protected:
 private:
   Handle(IGESBasic_SubfigureDef) theSubfigureDef;
-  gp_XYZ                         theTranslation;
+  Coords3d                         theTranslation;
   Standard_Real                  theScaleFactor;
   Standard_Boolean               hasScaleFactor;
 };

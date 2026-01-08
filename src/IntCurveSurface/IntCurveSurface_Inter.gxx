@@ -555,7 +555,7 @@ void IntCurveSurface_Inter::InternalPerform(const TheCurve&       curve,
   IntCurveSurface_TheInterference  interference(polygon,polyhedron,BSB);
   IntCurveSurface_TheCSFunction    theicsfunction(surface,curve);
   IntCurveSurface_TheExactInter    intersectionExacte(theicsfunction,TOLTANGENCY);
-  math_FunctionSetRoot rsnld(intersectionExacte.Function());
+  FunctionSetRoot rsnld(intersectionExacte.Function());
 
 //  Standard_Real    u,v,w,winit;
   Standard_Real    u,v,w;
@@ -699,7 +699,7 @@ void IntCurveSurface_Inter::InternalPerform(const TheCurve&       curve,
   IntCurveSurface_TheInterference  interference(polygon,polyhedron);
   IntCurveSurface_TheCSFunction    theicsfunction(surface,curve);
   IntCurveSurface_TheExactInter    intersectionExacte(theicsfunction,TOLTANGENCY);
-  math_FunctionSetRoot rsnld(intersectionExacte.Function());
+  FunctionSetRoot rsnld(intersectionExacte.Function());
 
 //  Standard_Real    u,v,w,winit;
   Standard_Real    u,v,w;

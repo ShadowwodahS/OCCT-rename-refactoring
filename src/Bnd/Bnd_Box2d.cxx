@@ -101,7 +101,7 @@ void Bnd_Box2d::Get(Standard_Real& x, Standard_Real& y, Standard_Real& Xm, Stand
 
 //=================================================================================================
 
-Bnd_Box2d Bnd_Box2d::Transformed(const gp_Trsf2d& T) const
+Bnd_Box2d Bnd_Box2d::Transformed(const Transform2d& T) const
 {
   gp_TrsfForm F = T.Form();
   Bnd_Box2d   newb(*this);

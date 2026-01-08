@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-math_PSOParticlesPool::math_PSOParticlesPool(const Standard_Integer theParticlesCount,
+PSOParticlesPool::PSOParticlesPool(const Standard_Integer theParticlesCount,
                                              const Standard_Integer theDimensionCount)
     : myParticlesPool(1, theParticlesCount),
       myMemory(0,
@@ -44,25 +44,25 @@ math_PSOParticlesPool::math_PSOParticlesPool(const Standard_Integer theParticles
 
 //=================================================================================================
 
-math_PSOParticlesPool::~math_PSOParticlesPool() {}
+PSOParticlesPool::~PSOParticlesPool() {}
 
 //=================================================================================================
 
-PSO_Particle* math_PSOParticlesPool::GetParticle(const Standard_Integer theIdx)
+PSO_Particle1* PSOParticlesPool::GetParticle(const Standard_Integer theIdx)
 {
   return &myParticlesPool(theIdx);
 }
 
 //=================================================================================================
 
-PSO_Particle* math_PSOParticlesPool::GetBestParticle()
+PSO_Particle1* PSOParticlesPool::GetBestParticle()
 {
   return &*std::min_element(myParticlesPool.begin(), myParticlesPool.end());
 }
 
 //=================================================================================================
 
-PSO_Particle* math_PSOParticlesPool::GetWorstParticle()
+PSO_Particle1* PSOParticlesPool::GetWorstParticle()
 {
   return &*std::max_element(myParticlesPool.begin(), myParticlesPool.end());
 }

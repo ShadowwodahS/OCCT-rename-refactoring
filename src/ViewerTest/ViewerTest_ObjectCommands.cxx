@@ -2964,15 +2964,15 @@ Handle(MeshTriangulation) CalculationOfSphere(double X, double Y, double Z, int 
   Dir3d Nor;
   for (i = 1; i <= polyTriangulation->NbNodes(); i++)
   {
-    gp_XYZ eqPlan(0, 0, 0);
+    Coords3d eqPlan(0, 0, 0);
     for (pc.Initialize(i); pc.More(); pc.Next())
     {
       polyTriangulation->Triangle1(pc.Value()).Get(index[0], index[1], index[2]);
-      gp_XYZ        v1(polyTriangulation->Node(index[1]).Coord()
+      Coords3d        v1(polyTriangulation->Node(index[1]).Coord()
                 - polyTriangulation->Node(index[0]).Coord());
-      gp_XYZ        v2(polyTriangulation->Node(index[2]).Coord()
+      Coords3d        v2(polyTriangulation->Node(index[2]).Coord()
                 - polyTriangulation->Node(index[1]).Coord());
-      gp_XYZ        vv  = v1 ^ v2;
+      Coords3d        vv  = v1 ^ v2;
       Standard_Real mod = vv.Modulus();
       if (mod < Tol)
         continue;
@@ -4058,7 +4058,7 @@ static Standard_Integer VSetLocation(DrawInterpreter& theDI,
     else if (anArg == "-scale" || anArg == "-prescale" || anArg == "-setscale")
     {
       toPrintInfo = Standard_False;
-      gp_XYZ           aScaleLoc;
+      Coords3d           aScaleLoc;
       Standard_Real    aScale       = 1.0;
       Standard_Boolean toPrintScale = Standard_True;
       Standard_Boolean hasScaleLoc  = Standard_False;
@@ -4202,7 +4202,7 @@ static Standard_Integer VSetLocation(DrawInterpreter& theDI,
         if (aQuatArgIter == 4)
         {
           anArgIter += 4;
-          const gp_Quaternion aQuat(aQuatArgs[0].RealValue(),
+          const Quaternion aQuat(aQuatArgs[0].RealValue(),
                                     aQuatArgs[1].RealValue(),
                                     aQuatArgs[2].RealValue(),
                                     aQuatArgs[3].RealValue());
@@ -4219,7 +4219,7 @@ static Standard_Integer VSetLocation(DrawInterpreter& theDI,
       }
 
       char                aText[1024];
-      const gp_Quaternion aQuat = anObj->LocalTransformation().GetRotation();
+      const Quaternion aQuat = anObj->LocalTransformation().GetRotation();
       Sprintf(aText, "%g %g %g %g ", aQuat.X(), aQuat.Y(), aQuat.Z(), aQuat.W());
       theDI << aText;
     }
@@ -4243,7 +4243,7 @@ static Standard_Integer VSetLocation(DrawInterpreter& theDI,
       }
 
       char         aText[1024];
-      const gp_XYZ aLoc = anObj->LocalTransformation().TranslationPart();
+      const Coords3d aLoc = anObj->LocalTransformation().TranslationPart();
       Sprintf(aText, "%g %g %g ", aLoc.X(), aLoc.Y(), aLoc.Z());
       theDI << aText;
     }
@@ -4283,8 +4283,8 @@ static Standard_Integer VSetLocation(DrawInterpreter& theDI,
   }
 
   const Transform3d       aTrsf = anObj->LocalTransformation();
-  const gp_XYZ        aLoc  = aTrsf.TranslationPart();
-  const gp_Quaternion aRot  = aTrsf.GetRotation();
+  const Coords3d        aLoc  = aTrsf.TranslationPart();
+  const Quaternion aRot  = aTrsf.GetRotation();
   char                aText[4096];
   Sprintf(aText,
           "Location: %g %g %g\n"
@@ -5481,7 +5481,7 @@ class ViewerTest_MarkersArrayObject : public VisualEntity
 {
 
 public:
-  ViewerTest_MarkersArrayObject(const gp_XYZ&                    theStartPoint,
+  ViewerTest_MarkersArrayObject(const Coords3d&                    theStartPoint,
                                 const Standard_Integer&          thePointsOnSide,
                                 Handle(Graphic3d_AspectMarker3d) theMarkerAspect = NULL)
   {
@@ -5501,7 +5501,7 @@ private:
                                 const Standard_Integer             theMode) Standard_OVERRIDE;
 
 protected:
-  gp_XYZ                           myStartPoint;
+  Coords3d                           myStartPoint;
   Standard_Integer                 myPointsOnSide;
   Handle(Graphic3d_AspectMarker3d) myMarkerAspect;
 };
@@ -5598,7 +5598,7 @@ static Standard_Integer VMarkersTest(DrawInterpreter&,
 
   AsciiString1 aName(theArgVec[anArgIter++]);
   AsciiString1 aFileName;
-  gp_XYZ                  aPnt(Atof(theArgVec[anArgIter]),
+  Coords3d                  aPnt(Atof(theArgVec[anArgIter]),
               Atof(theArgVec[anArgIter + 1]),
               Atof(theArgVec[anArgIter + 2]));
   anArgIter += 3;

@@ -26,7 +26,7 @@
 template <int N>
 Standard_Boolean SelectMgr_Frustum<N>::isSeparated(const SelectMgr_Vec3& theBoxMin,
                                                    const SelectMgr_Vec3& theBoxMax,
-                                                   const gp_XYZ&         theDirect,
+                                                   const Coords3d&         theDirect,
                                                    Standard_Boolean*     theInside) const
 {
   const Standard_Real aMinB =
@@ -82,7 +82,7 @@ template <int N>
 Standard_Boolean SelectMgr_Frustum<N>::isSeparated(const Point3d& thePnt1,
                                                    const Point3d& thePnt2,
                                                    const Point3d& thePnt3,
-                                                   const gp_XYZ& theAxis) const
+                                                   const Coords3d& theAxis) const
 {
   // frustum projection
   Standard_Real aMinF = RealLast();
@@ -150,7 +150,7 @@ Standard_Boolean SelectMgr_Frustum<N>::hasBoxOverlap(const SelectMgr_Vec3& theMi
   const Standard_Integer anIncFactor = (Camera()->IsOrthographic() && N == 4) ? 2 : 1;
   for (Standard_Integer aPlaneIdx = 0; aPlaneIdx < N + 1; aPlaneIdx += anIncFactor)
   {
-    const gp_XYZ& aPlane = myPlanes[aPlaneIdx].XYZ();
+    const Coords3d& aPlane = myPlanes[aPlaneIdx].XYZ();
 
     const Standard_Real aBoxProjMin =
       aPlane.X() * (aPlane.X() < 0.f ? theMaxPnt.x() : theMinPnt.x())
@@ -186,7 +186,7 @@ Standard_Boolean SelectMgr_Frustum<N>::hasBoxOverlap(const SelectMgr_Vec3& theMi
          aVolDir < aDirectionsNb;
          ++aVolDir)
     {
-      gp_XYZ aDirection(DBL_MAX, DBL_MAX, DBL_MAX);
+      Coords3d aDirection(DBL_MAX, DBL_MAX, DBL_MAX);
       aDirection.ChangeData()[aDim]      = 0;
       aDirection.ChangeData()[aNext]     = -myEdgeDirs[aVolDir].XYZ().GetData()[aNextNext];
       aDirection.ChangeData()[aNextNext] = myEdgeDirs[aVolDir].XYZ().GetData()[aNext];
@@ -231,7 +231,7 @@ template <int N>
 Standard_Boolean SelectMgr_Frustum<N>::hasSegmentOverlap(const Point3d& theStartPnt,
                                                          const Point3d& theEndPnt) const
 {
-  const gp_XYZ& aDir = theEndPnt.XYZ() - theStartPnt.XYZ();
+  const Coords3d& aDir = theEndPnt.XYZ() - theStartPnt.XYZ();
   if (aDir.Modulus() < Precision::Confusion())
     return Standard_True;
 
@@ -278,7 +278,7 @@ Standard_Boolean SelectMgr_Frustum<N>::hasSegmentOverlap(const Point3d& theStart
     Standard_Real aMinSegm = DBL_MAX, aMaxSegm = -DBL_MAX;
     Standard_Real aMinF = DBL_MAX, aMaxF = -DBL_MAX;
 
-    const gp_XYZ aTestDir = aDir.Crossed(myEdgeDirs[aEdgeDirIdx].XYZ());
+    const Coords3d aTestDir = aDir.Crossed(myEdgeDirs[aEdgeDirIdx].XYZ());
 
     Standard_Real Proj1 = aTestDir.Dot(theStartPnt.XYZ());
     Standard_Real Proj2 = aTestDir.Dot(theEndPnt.XYZ());
@@ -313,13 +313,13 @@ Standard_Boolean SelectMgr_Frustum<N>::hasPolygonOverlap(const TColgp_Array1OfPn
   Standard_Integer aStartIdx = theArrayOfPnts.Lower();
   Standard_Integer anEndIdx  = theArrayOfPnts.Upper();
 
-  const gp_XYZ& aPnt1            = theArrayOfPnts.Value(aStartIdx).XYZ();
-  const gp_XYZ& aPnt2            = theArrayOfPnts.Value(aStartIdx + 1).XYZ();
-  const gp_XYZ& aPnt3            = theArrayOfPnts.Value(aStartIdx + 2).XYZ();
-  const gp_XYZ  aVec1            = aPnt1 - aPnt2;
-  const gp_XYZ  aVec2            = aPnt3 - aPnt2;
+  const Coords3d& aPnt1            = theArrayOfPnts.Value(aStartIdx).XYZ();
+  const Coords3d& aPnt2            = theArrayOfPnts.Value(aStartIdx + 1).XYZ();
+  const Coords3d& aPnt3            = theArrayOfPnts.Value(aStartIdx + 2).XYZ();
+  const Coords3d  aVec1            = aPnt1 - aPnt2;
+  const Coords3d  aVec2            = aPnt3 - aPnt2;
   theNormal                      = aVec2.Crossed(aVec1);
-  const gp_XYZ& aNormal          = theNormal.XYZ();
+  const Coords3d& aNormal          = theNormal.XYZ();
   Standard_Real aPolygProjection = aNormal.Dot(aPnt1);
 
   Standard_Real aMax = RealFirst();
@@ -342,7 +342,7 @@ Standard_Boolean SelectMgr_Frustum<N>::hasPolygonOverlap(const TColgp_Array1OfPn
     Standard_Real aMinF     = RealLast();
     Standard_Real aMaxPolyg = RealFirst();
     Standard_Real aMinPolyg = RealLast();
-    const gp_XYZ& aPlane    = myPlanes[aPlaneIdx].XYZ();
+    const Coords3d& aPlane    = myPlanes[aPlaneIdx].XYZ();
     for (Standard_Integer aPntIter = aStartIdx; aPntIter <= anEndIdx; ++aPntIter)
     {
       Standard_Real aProjection = aPlane.Dot(theArrayOfPnts.Value(aPntIter).XYZ());
@@ -364,7 +364,7 @@ Standard_Boolean SelectMgr_Frustum<N>::hasPolygonOverlap(const TColgp_Array1OfPn
        aPntsIter <= aLastIdx;
        ++aPntsIter)
   {
-    const gp_XYZ aSegmDir = theArrayOfPnts.Value((aPntsIter + 1) % aLen + aStartIdx).XYZ()
+    const Coords3d aSegmDir = theArrayOfPnts.Value((aPntsIter + 1) % aLen + aStartIdx).XYZ()
                             - theArrayOfPnts.Value(aPntsIter + aStartIdx).XYZ();
     for (Standard_Integer aVolDir = 0; aVolDir < aDirectionsNb; ++aVolDir)
     {
@@ -372,7 +372,7 @@ Standard_Boolean SelectMgr_Frustum<N>::hasPolygonOverlap(const TColgp_Array1OfPn
       Standard_Real aMinPolyg = RealLast();
       Standard_Real aMaxF     = RealFirst();
       Standard_Real aMinF     = RealLast();
-      const gp_XYZ  aTestDir  = aSegmDir.Crossed(myEdgeDirs[aVolDir].XYZ());
+      const Coords3d  aTestDir  = aSegmDir.Crossed(myEdgeDirs[aVolDir].XYZ());
 
       for (Standard_Integer aPntIter = aStartIdx; aPntIter <= anEndIdx; ++aPntIter)
       {
@@ -408,14 +408,14 @@ Standard_Boolean SelectMgr_Frustum<N>::hasTriangleOverlap(const Point3d& thePnt1
                                                           const Point3d& thePnt3,
                                                           Vector3d&       theNormal) const
 {
-  const gp_XYZ aTrEdges[3] = {thePnt2.XYZ() - thePnt1.XYZ(),
+  const Coords3d aTrEdges[3] = {thePnt2.XYZ() - thePnt1.XYZ(),
                               thePnt3.XYZ() - thePnt2.XYZ(),
                               thePnt1.XYZ() - thePnt3.XYZ()};
 
   const Standard_Integer anIncFactor = (Camera()->IsOrthographic() && N == 4) ? 2 : 1;
   for (Standard_Integer aPlaneIdx = 0; aPlaneIdx < N + 1; aPlaneIdx += anIncFactor)
   {
-    const gp_XYZ& aPlane = myPlanes[aPlaneIdx].XYZ();
+    const Coords3d& aPlane = myPlanes[aPlaneIdx].XYZ();
     Standard_Real aTriangleProj;
 
     aTriangleProj                  = aPlane.Dot(thePnt1.XYZ());
@@ -449,7 +449,7 @@ Standard_Boolean SelectMgr_Frustum<N>::hasTriangleOverlap(const Point3d& thePnt1
   {
     for (Standard_Integer aVolDir = 0; aVolDir < aDirectionsNb; ++aVolDir)
     {
-      const gp_XYZ& aTestDirection = myEdgeDirs[aVolDir].XYZ().Crossed(aTrEdges[aTriangleEdgeIdx]);
+      const Coords3d& aTestDirection = myEdgeDirs[aVolDir].XYZ().Crossed(aTrEdges[aTriangleEdgeIdx]);
 
       if (isSeparated(thePnt1, thePnt2, thePnt3, aTestDirection))
       {
@@ -473,7 +473,7 @@ Standard_Boolean SelectMgr_Frustum<N>::hasSphereOverlap(const Point3d&       the
   const Standard_Integer anIncFactor   = (Camera()->IsOrthographic() && N == 4) ? 2 : 1;
   for (Standard_Integer aPlaneIdx = 0; aPlaneIdx < N; aPlaneIdx += anIncFactor)
   {
-    const gp_XYZ&       aPlane      = myPlanes[aPlaneIdx].XYZ();
+    const Coords3d&       aPlane      = myPlanes[aPlaneIdx].XYZ();
     const Standard_Real aNormVecLen = Sqrt(aPlane.Dot(aPlane));
     const Standard_Real aCenterProj = aPlane.Dot(thePnt.XYZ()) / aNormVecLen;
     const Standard_Real aMaxDist    = myMaxVertsProjections[aPlaneIdx] / aNormVecLen;
@@ -577,13 +577,13 @@ Standard_Boolean SelectMgr_Frustum<N>::isSegmentsIntersect(const Point3d& thePnt
     aSnd[2] = thePnt1Seg2.Z();
     aSnd[3] = thePnt2Seg2.Z();
   }
-  const gp_Mat2d aMat(Coords2d(aFst[0] - aFst[1], aSnd[0] - aSnd[1]),
+  const Matrix2d aMat(Coords2d(aFst[0] - aFst[1], aSnd[0] - aSnd[1]),
                       Coords2d(aFst[3] - aFst[2], aSnd[3] - aSnd[2]));
 
-  const gp_Mat2d aMatU(Coords2d(aFst[0] - aFst[2], aSnd[0] - aSnd[2]),
+  const Matrix2d aMatU(Coords2d(aFst[0] - aFst[2], aSnd[0] - aSnd[2]),
                        Coords2d(aFst[3] - aFst[2], aSnd[3] - aSnd[2]));
 
-  const gp_Mat2d aMatV(Coords2d(aFst[0] - aFst[1], aSnd[0] - aSnd[1]),
+  const Matrix2d aMatV(Coords2d(aFst[0] - aFst[1], aSnd[0] - aSnd[1]),
                        Coords2d(aFst[0] - aFst[2], aSnd[0] - aSnd[2]));
   if (aMat.Determinant() == 0.0)
   {

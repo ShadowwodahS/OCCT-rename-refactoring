@@ -16,7 +16,7 @@
 
 #include <Plate_D2.hxx>
 
-D2::D2(const gp_XYZ& duu, const gp_XYZ& duv, const gp_XYZ& dvv)
+D2::D2(const Coords3d& duu, const Coords3d& duv, const Coords3d& dvv)
     : Duu(duu),
       Duv(duv),
       Dvv(dvv)

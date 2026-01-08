@@ -26,7 +26,7 @@
 
 //! The abstract class MultipleVarFunctionWithGradient
 //! describes the virtual functions associated with a multiple variable function.
-class math_MultipleVarFunctionWithGradient : public math_MultipleVarFunction
+class math_MultipleVarFunctionWithGradient : public MultipleVarFunction
 {
 public:
   DEFINE_STANDARD_ALLOC

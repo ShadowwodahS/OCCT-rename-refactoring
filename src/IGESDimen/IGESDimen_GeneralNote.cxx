@@ -140,7 +140,7 @@ Point3d IGESDimen_GeneralNote::StartPoint(const Standard_Integer Index) const
 
 Point3d IGESDimen_GeneralNote::TransformedStartPoint(const Standard_Integer Index) const
 {
-  gp_XYZ point = (theStartPoints->Value(Index));
+  Coords3d point = (theStartPoints->Value(Index));
   if (HasTransf())
     Location().Transforms(point);
   return Point3d(point);

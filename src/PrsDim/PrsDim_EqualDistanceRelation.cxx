@@ -668,7 +668,7 @@ void PrsDim_EqualDistanceRelation::ComputeTwoVerticesLength(
     {
       Dir3d aDir = Plane->Pln().Axis().Direction();
       Vector3d aVec(aDir.XYZ() * 10 * ArrowSize);
-      // Position = Point3d(FirstAttach.XYZ()+gp_XYZ(1.,1.,1.)); // not correct
+      // Position = Point3d(FirstAttach.XYZ()+Coords3d(1.,1.,1.)); // not correct
       Position = FirstAttach.Translated(aVec);
       Position = PrsDim::ProjectPointOnPlane(Position, Plane->Pln()); // not needed really
       DirAttach.SetXYZ(Position.XYZ() - FirstAttach.XYZ());

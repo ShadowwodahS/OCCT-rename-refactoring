@@ -20,7 +20,7 @@
 GeomLib_LogSample::GeomLib_LogSample(const Standard_Real    A,
                                      const Standard_Real    B,
                                      const Standard_Integer N)
-    : math_FunctionSample(A, B, N)
+    : FunctionSampler(A, B, N)
 {
   myF   = A - 1;
   myexp = Log(B - A) / N;

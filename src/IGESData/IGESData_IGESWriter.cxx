@@ -517,7 +517,7 @@ void IGESData_IGESWriter::Send(const Coords2d& val)
   Send(val.Y());
 }
 
-void IGESData_IGESWriter::Send(const gp_XYZ& val)
+void IGESData_IGESWriter::Send(const Coords3d& val)
 {
   Send(val.X());
   Send(val.Y());

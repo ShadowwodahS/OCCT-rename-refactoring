@@ -20,7 +20,7 @@
 #include <Standard_DimensionError.hxx>
 #include <StdFail_NotDone.hxx>
 
-math_Gauss::math_Gauss(const math_Matrix&           A,
+Gauss::Gauss(const math_Matrix&           A,
                        const Standard_Real          MinPivot,
                        const Message_ProgressRange& theProgress)
     : LU(1, A.RowNumber(), 1, A.ColNumber()),
@@ -41,7 +41,7 @@ math_Gauss::math_Gauss(const math_Matrix&           A,
   }
 }
 
-void math_Gauss::Solve(const math_Vector& B, math_Vector& X) const
+void Gauss::Solve(const math_Vector& B, math_Vector& X) const
 {
 
   StdFail_NotDone_Raise_if(!Done, " ");
@@ -50,7 +50,7 @@ void math_Gauss::Solve(const math_Vector& B, math_Vector& X) const
   LU_Solve(LU, Index, X);
 }
 
-void math_Gauss::Solve(math_Vector& X) const
+void Gauss::Solve(math_Vector& X) const
 {
 
   StdFail_NotDone_Raise_if(!Done, " ");
@@ -62,7 +62,7 @@ void math_Gauss::Solve(math_Vector& X) const
   LU_Solve(LU, Index, X);
 }
 
-Standard_Real math_Gauss::Determinant() const
+Standard_Real Gauss::Determinant() const
 {
 
   StdFail_NotDone_Raise_if(!Done, " ");
@@ -75,7 +75,7 @@ Standard_Real math_Gauss::Determinant() const
   return Result;
 }
 
-void math_Gauss::Invert(math_Matrix& Inv) const
+void Gauss::Invert(math_Matrix& Inv) const
 {
 
   StdFail_NotDone_Raise_if(!Done, " ");
@@ -104,9 +104,9 @@ void math_Gauss::Invert(math_Matrix& Inv) const
   }
 }
 
-void math_Gauss::Dump(Standard_OStream& o) const
+void Gauss::Dump(Standard_OStream& o) const
 {
-  o << "math_Gauss ";
+  o << "Gauss ";
   if (Done)
   {
     o << " Status = Done \n";

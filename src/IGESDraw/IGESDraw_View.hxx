@@ -24,7 +24,7 @@
 #include <IGESData_ViewKindEntity.hxx>
 class IGESGeom_Plane;
 class IGESData_TransfEntity;
-class gp_XYZ;
+class Coords3d;
 
 class IGESDraw_View;
 DEFINE_STANDARD_HANDLE(IGESDraw_View, IGESData_ViewKindEntity)
@@ -118,7 +118,7 @@ public:
 
   //! returns XYZ from the Model space to the View space by
   //! applying the View Matrix
-  Standard_EXPORT gp_XYZ ModelToView(const gp_XYZ& coords) const;
+  Standard_EXPORT Coords3d ModelToView(const Coords3d& coords) const;
 
   DEFINE_STANDARD_RTTIEXT(IGESDraw_View, IGESData_ViewKindEntity)
 

@@ -75,7 +75,7 @@ void HLRTest_Projector::Save(Standard_OStream& theStream) const
   }
 
   const Transform3d aTransformation    = myProjector.Transformation();
-  const gp_XYZ  aTranslationVector = aTransformation.TranslationPart();
+  const Coords3d  aTranslationVector = aTransformation.TranslationPart();
   const gp_Mat  aMatrix            = aTransformation.VectorialPart();
 
   theStream << aMatrix(1, 1) << " ";

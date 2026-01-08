@@ -24,7 +24,7 @@
 #include <gp_Dir.hxx>
 #include <gce_Root.hxx>
 class Vector3d;
-class gp_XYZ;
+class Coords3d;
 class Point3d;
 
 //! This class implements the following algorithms used
@@ -46,7 +46,7 @@ public:
   //! Creates a direction from a triplet of coordinates.
   //! Status is "NullVector" if Coord.Modulus() <=
   //! Resolution from gp1.
-  Standard_EXPORT gce_MakeDir(const gp_XYZ& Coord);
+  Standard_EXPORT gce_MakeDir(const Coords3d& Coord);
 
   //! Creates a direction with its 3 cartesian coordinates.
   //! Status is "NullVector" if Sqrt(Xv*Xv + Yv*Yv + Zv*Zv)

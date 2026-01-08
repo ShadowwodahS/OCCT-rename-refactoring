@@ -50,7 +50,7 @@ Handle(Graphic3d_ArrayOfSegments) Prs3d_Arrow::DrawSegments(const Point3d&      
     new Graphic3d_ArrayOfSegments(theNbSegments + 1, 2 * (2 * theNbSegments));
 
   // center of the base circle of the arrow
-  const gp_XYZ aC = theLocation.XYZ() + theDir.XYZ() * (-theLength);
+  const Coords3d aC = theLocation.XYZ() + theDir.XYZ() * (-theLength);
 
   // construction of i,j mark for the circle
   Dir3d aN;
@@ -68,7 +68,7 @@ Handle(Graphic3d_ArrayOfSegments) Prs3d_Arrow::DrawSegments(const Point3d&      
   }
 
   const Dir3d anXYZi = theDir.Crossed(aN.XYZ());
-  const gp_XYZ anXYZj = theDir.XYZ().Crossed(anXYZi.XYZ());
+  const Coords3d anXYZj = theDir.XYZ().Crossed(anXYZi.XYZ());
   aSegments->AddVertex(theLocation);
 
   const Standard_Real Tg = Tan(theAngle);

@@ -48,7 +48,7 @@ Standard_Boolean IsRightContour(const TColgp_SequenceOfPnt& pts, const Standard_
   for (i = 1; i <= len; i++)
     thePts(i) = pts(i);
 
-  gp_XYZ Norm(0, 0, 0);
+  Coords3d Norm(0, 0, 0);
   if (ShapeAnalysis_Curve::IsPlanar(thePts, Norm, prec))
   {
 
@@ -62,7 +62,7 @@ Standard_Boolean IsRightContour(const TColgp_SequenceOfPnt& pts, const Standard_
     {
 
       // Create mean plane
-      gp_XYZ center(0, 0, 0);
+      Coords3d center(0, 0, 0);
       for (i = 1; i <= len; i++)
         center += thePts(i).XYZ();
       center /= len;
@@ -93,12 +93,12 @@ Vector3d MeanNormal(const TColgp_Array1OfPnt& pts)
     return Vector3d(0, 0, 0);
 
   Standard_Integer i;
-  gp_XYZ           theCenter(0, 0, 0);
+  Coords3d           theCenter(0, 0, 0);
   for (i = 1; i <= len; i++)
     theCenter += pts(i).XYZ();
   theCenter /= len;
 
-  gp_XYZ theNorm(0, 0, 0);
+  Coords3d theNorm(0, 0, 0);
   for (i = 1; i <= len; i++)
   {
     Vector3d v1(pts(i).XYZ() - theCenter);
@@ -181,7 +181,7 @@ void ShapeConstruct_MakeTriangulation::Triangulate(const TopoWire& wire)
     TopoWire theNewWire;
 
     // Check planarity on array of points
-    gp_XYZ Norm(0, 0, 0);
+    Coords3d Norm(0, 0, 0);
     if (ShapeAnalysis_Curve::IsPlanar(theAPnt->Array1(), Norm, myPrecision))
       AddFacet(wire);
     else
@@ -406,11 +406,11 @@ void ShapeConstruct_MakeTriangulation::AddFacet(const TopoWire& wire)
 
   // Create mean plane
   Standard_Real cMod, maxMod = 0.0;
-  gp_XYZ        maxVec, Normal(0, 0, 0);
+  Coords3d        maxVec, Normal(0, 0, 0);
   for (i = 1; i <= nbp; i++)
   {
-    gp_XYZ vb(pts(i).XYZ());
-    gp_XYZ v1(pts(i == nbp ? 1 : i + 1).XYZ() - vb);
+    Coords3d vb(pts(i).XYZ());
+    Coords3d v1(pts(i == nbp ? 1 : i + 1).XYZ() - vb);
     cMod = v1.SquareModulus();
     if (cMod == 0.0)
       continue;
@@ -419,7 +419,7 @@ void ShapeConstruct_MakeTriangulation::AddFacet(const TopoWire& wire)
       maxMod = cMod;
       maxVec = v1;
     }
-    gp_XYZ v2(pts(i == 1 ? nbp : i - 1).XYZ() - vb);
+    Coords3d v2(pts(i == 1 ? nbp : i - 1).XYZ() - vb);
     cMod = v2.SquareModulus();
     if (cMod == 0.0)
       continue;
@@ -428,18 +428,18 @@ void ShapeConstruct_MakeTriangulation::AddFacet(const TopoWire& wire)
       maxMod = cMod;
       maxVec = v2;
     }
-    Normal += gp_XYZ(v1 ^ v2);
+    Normal += Coords3d(v1 ^ v2);
   }
   if (Normal.SquareModulus() == 0.0)
   {
     if (maxMod == 0.0)
-      Normal = gp_XYZ(0, 0, 1);
+      Normal = Coords3d(0, 0, 1);
     else if (maxVec.X() != 0.0)
-      Normal = gp_XYZ(-maxVec.Y() / maxVec.X(), 1, 0);
+      Normal = Coords3d(-maxVec.Y() / maxVec.X(), 1, 0);
     else if (maxVec.Y() != 0.0)
-      Normal = gp_XYZ(0, -maxVec.Z() / maxVec.Y(), 1);
+      Normal = Coords3d(0, -maxVec.Z() / maxVec.Y(), 1);
     else
-      Normal = gp_XYZ(1, 0, 0);
+      Normal = Coords3d(1, 0, 0);
   }
 
   gp_Pln             Pln(pts(1), Dir3d(Normal));

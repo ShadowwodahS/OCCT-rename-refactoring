@@ -126,7 +126,7 @@ void QuasiAngularConverter::Section(const Point3d&         FirstPnt,
   Standard_Real    b, b2, c, c2, tan_b;
   Standard_Integer ii;
   Standard_Real    beta, beta2, beta3, beta4, beta5, beta6, wi;
-  gp_XYZ           aux;
+  Coords3d           aux;
   gp_Mat           Rot;
   // Calcul de la transformation
   Vector3d V1(Center, FirstPnt), V2;
@@ -188,7 +188,7 @@ void QuasiAngularConverter::Section(const Point3d&         FirstPnt,
   W.Multiply(B, Vw);
 
   // Transfo
-  gp_XYZ pnt;
+  Coords3d pnt;
   for (ii = 1; ii <= 7; ii++)
   {
     wi = W(ii);
@@ -223,7 +223,7 @@ void QuasiAngularConverter::Section(const Point3d&         FirstPnt,
   Vector3d           V1(Center, FirstPnt), V1Prim, V2;
 
   // Calcul des  transformations
-  gp_XYZ        aux;
+  Coords3d        aux;
   Standard_Real Sina, Cosa;
   gp_Mat        Rot, RotPrim, D, DPrim;
   // La rotation s'ecrit I +  sin(Ang) * D + (1. - cos(Ang)) * D*D
@@ -329,7 +329,7 @@ void QuasiAngularConverter::Section(const Point3d&         FirstPnt,
   DPy.Multiply(B, DVy);
   DW.Multiply(B, DVw);
 
-  gp_XYZ        P, DP;
+  Coords3d        P, DP;
   Standard_Real wi;
 
   for (ii = 1; ii <= Ordre; ii++)
@@ -379,7 +379,7 @@ void QuasiAngularConverter::Section(const Point3d&         FirstPnt,
   Vector3d           V1(Center, FirstPnt), V1Prim, V1Secn, V2;
 
   // Calcul des  transformations
-  gp_XYZ        auxyz;
+  Coords3d        auxyz;
   Standard_Real Sina, Cosa;
   gp_Mat        Rot, RotPrim, RotSecn, D, DPrim, DSecn, DDP, Maux;
   // La rotation s'ecrit I +  sin(Ang) * D + (1. - cos(Ang)) * D*D
@@ -547,7 +547,7 @@ void QuasiAngularConverter::Section(const Point3d&         FirstPnt,
   D2Py = B * D2Vy;
   D2W.Multiply(B, D2Vw);
 
-  gp_XYZ        P, DP, D2P;
+  Coords3d        P, DP, D2P;
   Standard_Real wi, dwi;
   for (ii = 1; ii <= Ordre; ii++)
   {

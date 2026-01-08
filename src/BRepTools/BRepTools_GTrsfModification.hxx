@@ -42,10 +42,10 @@ class BRepTools_GTrsfModification : public BRepTools_Modification
 {
 
 public:
-  Standard_EXPORT BRepTools_GTrsfModification(const gp_GTrsf& T);
+  Standard_EXPORT BRepTools_GTrsfModification(const GeneralTransform& T);
 
   //! Gives an access on the GTrsf.
-  Standard_EXPORT gp_GTrsf& GTrsf();
+  Standard_EXPORT GeneralTransform& GTrsf();
 
   //! Returns Standard_True  if  the face  <F> has  been
   //! modified.  In this  case, <S> is the new geometric
@@ -146,7 +146,7 @@ public:
 
 protected:
 private:
-  gp_GTrsf      myGTrsf;
+  GeneralTransform      myGTrsf;
   Standard_Real myGScale;
 };
 

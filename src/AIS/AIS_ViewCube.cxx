@@ -493,7 +493,7 @@ void AIS_ViewCube::createBoxCornerTriangles(const Handle(Graphic3d_ArrayOfTriang
 {
   const Standard_Real    aHSize     = mySize * 0.5;
   const Dir3d           aDir       = V3d::GetProjAxis(theDir);
-  const gp_XYZ           aHSizeDir  = aDir.XYZ() * (aHSize * Vector3d(1.0, 1.0, 1.0).Magnitude());
+  const Coords3d           aHSizeDir  = aDir.XYZ() * (aHSize * Vector3d(1.0, 1.0, 1.0).Magnitude());
   const Standard_Integer aVertFirst = !theTris.IsNull() ? theTris->VertexNumber() : 0;
   if (myRoundRadius > 0.0)
   {
@@ -538,10 +538,10 @@ void AIS_ViewCube::createBoxCornerTriangles(const Handle(Graphic3d_ArrayOfTriang
     theTris->AddVertex(aHSizeDir + myBoxFacetExtension * Dir3d(0.0, aDir.Y(), 0.0).XYZ());
     theTris->AddVertex(aHSizeDir + myBoxFacetExtension * Dir3d(0.0, 0.0, aDir.Z()).XYZ());
 
-    const gp_XYZ aNode1   = theTris->Vertice(aVertFirst + 1).XYZ();
-    const gp_XYZ aNode2   = theTris->Vertice(aVertFirst + 2).XYZ();
-    const gp_XYZ aNode3   = theTris->Vertice(aVertFirst + 3).XYZ();
-    const gp_XYZ aNormTri = ((aNode2 - aNode1).Crossed(aNode3 - aNode1));
+    const Coords3d aNode1   = theTris->Vertice(aVertFirst + 1).XYZ();
+    const Coords3d aNode2   = theTris->Vertice(aVertFirst + 2).XYZ();
+    const Coords3d aNode3   = theTris->Vertice(aVertFirst + 3).XYZ();
+    const Coords3d aNormTri = ((aNode2 - aNode1).Crossed(aNode3 - aNode1));
     if (aNormTri.Dot(aDir.XYZ()) < 0.0)
     {
       theTris->AddTriangleEdges(aVertFirst + 1, aVertFirst + 3, aVertFirst + 2);
@@ -572,7 +572,7 @@ void AIS_ViewCube::Compute(const Handle(PrsMgr_PresentationManager)&,
   }
 
   const Point3d aLocation =
-    (mySize * 0.5 + myBoxFacetExtension + myAxesPadding) * gp_XYZ(-1.0, -1.0, -1.0);
+    (mySize * 0.5 + myBoxFacetExtension + myAxesPadding) * Coords3d(-1.0, -1.0, -1.0);
 
   // Display axes
   if (myToDisplayAxes)

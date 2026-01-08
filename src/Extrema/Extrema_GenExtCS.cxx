@@ -345,7 +345,7 @@ void Extrema_GenExtCS::Perform(const Adaptor3d_Curve& C,
     }
 
     // Find min approximation
-    math_FunctionSetRoot anA(myF, Tol);
+    FunctionSetRoot anA(myF, Tol);
     anA.Perform(myF, TUV, TUVinf, TUVsup);
   }
   if (aNbIntC > 1 && myF.NbExt() > 1)
@@ -394,7 +394,7 @@ void Extrema_GenExtCS::GlobMinGenCS(const Adaptor3d_Curve& theC,
                                     const math_Vector&     theTUVsup,
                                     math_Vector&           theTUV)
 {
-  math_PSOParticlesPool aParticles(theNbParticles, 3);
+  PSOParticlesPool aParticles(theNbParticles, 3);
 
   math_Vector aMinTUV(1, 3);
   aMinTUV = theTUVinf + (theTUVsup - theTUVinf) / aBorderDivisor;
@@ -434,7 +434,7 @@ void Extrema_GenExtCS::GlobMinGenCS(const Adaptor3d_Curve& theC,
   for (Standard_Integer aCUI = 0; aCUI <= aNewCsample; aCUI++, aCU1 += aStepCU)
     aCurvPnts.SetValue(aCUI, theC.Value(aCU1));
 
-  PSO_Particle* aParticle = aParticles.GetWorstParticle();
+  PSO_Particle1* aParticle = aParticles.GetWorstParticle();
   // Select specified number of particles from pre-computed set of samples
   Standard_Real aSU = aMinTUV(2);
   for (Standard_Integer aSUI = 0; aSUI <= myusample; aSUI++, aSU += aStepSU)
@@ -474,7 +474,7 @@ void Extrema_GenExtCS::GlobMinGenCS(const Adaptor3d_Curve& theC,
   // Find min approximation
   Standard_Real         aValue;
   Extrema_GlobOptFuncCS aFunc(&theC, myS);
-  math_PSO              aPSO(&aFunc, theTUVinf, theTUVsup, aStep);
+  PSO              aPSO(&aFunc, theTUVinf, theTUVsup, aStep);
   aPSO.Perform(aParticles, theNbParticles, aValue, theTUV);
 }
 
@@ -496,7 +496,7 @@ void Extrema_GenExtCS::GlobMinConicS(const Adaptor3d_Curve& theC,
   }
   //
   //
-  math_PSOParticlesPool aParticles(theNbParticles, aNbVar);
+  PSOParticlesPool aParticles(theNbParticles, aNbVar);
 
   math_Vector aMinUV(1, aNbVar);
   aMinUV = anUVinf + (anUVsup - anUVinf) / aBorderDivisor;
@@ -515,7 +515,7 @@ void Extrema_GenExtCS::GlobMinConicS(const Adaptor3d_Curve& theC,
   Extrema_GlobOptFuncConicS aFunc(myS, anUVinf(1), anUVsup(1), anUVinf(2), anUVsup(2));
   aFunc.LoadConic(&theC, theTUVinf(1), theTUVsup(1));
 
-  PSO_Particle* aParticle = aParticles.GetWorstParticle();
+  PSO_Particle1* aParticle = aParticles.GetWorstParticle();
   // Select specified number of particles from pre-computed set of samples
   Standard_Real aSU = aMinUV(1);
 
@@ -554,7 +554,7 @@ void Extrema_GenExtCS::GlobMinConicS(const Adaptor3d_Curve& theC,
 
   // Find min approximation
   Standard_Real aValue;
-  math_PSO      aPSO(&aFunc, anUVinf, anUVsup, aStep);
+  PSO      aPSO(&aFunc, anUVinf, anUVsup, aStep);
   aPSO.Perform(aParticles, theNbParticles, aValue, anUV);
   //
   Standard_Real aCT = aFunc.ConicParameter(anUV);
@@ -677,7 +677,7 @@ void Extrema_GenExtCS::GlobMinCQuadric(const Adaptor3d_Curve& theC,
   aTinf(1) = theTUVinf(1);
   aTsup(1) = theTUVsup(1);
   //
-  math_PSOParticlesPool aParticles(theNbParticles, aNbVar);
+  PSOParticlesPool aParticles(theNbParticles, aNbVar);
 
   math_Vector aMinT(1, aNbVar);
   aMinT = aTinf + (aTsup - aTinf) / aBorderDivisor;
@@ -720,7 +720,7 @@ void Extrema_GenExtCS::GlobMinCQuadric(const Adaptor3d_Curve& theC,
   Extrema_GlobOptFuncCQuadric aFunc(&theC, aTinf(1), aTsup(1));
   aFunc.LoadQuad(myS, theTUVinf(2), theTUVsup(2), theTUVinf(3), theTUVsup(3));
 
-  PSO_Particle* aParticle = aParticles.GetWorstParticle();
+  PSO_Particle1* aParticle = aParticles.GetWorstParticle();
   // Select specified number of particles from pre-computed set of samples
   Standard_Real aCT = aMinT(1);
   for (Standard_Integer aCUI = 0; aCUI <= aNewCsample; aCUI++, aCT += aStepCT)
@@ -750,7 +750,7 @@ void Extrema_GenExtCS::GlobMinCQuadric(const Adaptor3d_Curve& theC,
 
   // Find min approximation
   Standard_Real aValue;
-  math_PSO      aPSO(&aFunc, aTinf, aTsup, aStep);
+  PSO      aPSO(&aFunc, aTinf, aTsup, aStep);
   aPSO.Perform(aParticles, theNbParticles, aValue, aT);
   //
   math_Vector anUV(1, 2);

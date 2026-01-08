@@ -280,7 +280,7 @@ void CameraOn3d::SetUp(const Dir3d& theUp)
 
 //=================================================================================================
 
-void CameraOn3d::SetAxialScale(const gp_XYZ& theAxialScale)
+void CameraOn3d::SetAxialScale(const Coords3d& theAxialScale)
 {
   Standard_OutOfRange_Raise_if(theAxialScale.X() <= 0.0 || theAxialScale.Y() <= 0.0
                                  || theAxialScale.Z() <= 0.0,
@@ -701,7 +701,7 @@ Point3d CameraOn3d::ConvertView2World(const Point3d& thePnt) const
 
 //=================================================================================================
 
-gp_XYZ CameraOn3d::ViewDimensions(const Standard_Real theZValue) const
+Coords3d CameraOn3d::ViewDimensions(const Standard_Real theZValue) const
 {
   // view plane dimensions
   Standard_Real aSize = IsOrthographic() ? myScale : (2.0 * theZValue * myFOVyTan);
@@ -718,7 +718,7 @@ gp_XYZ CameraOn3d::ViewDimensions(const Standard_Real theZValue) const
   }
 
   // and frustum depth
-  return gp_XYZ(aSizeX, aSizeY, myZFar - myZNear);
+  return Coords3d(aSizeX, aSizeY, myZFar - myZNear);
 }
 
 //=================================================================================================
@@ -1502,7 +1502,7 @@ bool CameraOn3d::ZFitAll(const Standard_Real theScaleFactor,
   Standard_Real aGraphMinDist = RealLast();
   Standard_Real aGraphMaxDist = RealFirst();
 
-  const gp_XYZ& anAxialScale = myAxialScale;
+  const Coords3d& anAxialScale = myAxialScale;
 
   // Get minimum and maximum distances to the eye plane.
   Standard_Integer                       aCounter = 0;
@@ -1668,10 +1668,10 @@ void CameraOn3d::Interpolate(const Handle(CameraOn3d)& theStart,
     aTrsfStart.SetTransformation(aCamStart, gp1::XOY());
     aTrsfEnd.SetTransformation(aCamEnd, gp1::XOY());
 
-    gp_Quaternion aRotStart = aTrsfStart.GetRotation();
-    gp_Quaternion aRotEnd   = aTrsfEnd.GetRotation();
-    gp_Quaternion aRotDelta = aRotEnd * aRotStart.Inverted();
-    gp_Quaternion aRot      = gp_QuaternionNLerp::Interpolate(gp_Quaternion(), aRotDelta, theT);
+    Quaternion aRotStart = aTrsfStart.GetRotation();
+    Quaternion aRotEnd   = aTrsfEnd.GetRotation();
+    Quaternion aRotDelta = aRotEnd * aRotStart.Inverted();
+    Quaternion aRot      = QuaternionNLerp::Interpolate(Quaternion(), aRotDelta, theT);
     Transform3d       aTrsfRot;
     aTrsfRot.SetRotation(aRot);
     theCamera->Transform(aTrsfRot);
@@ -1679,11 +1679,11 @@ void CameraOn3d::Interpolate(const Handle(CameraOn3d)& theStart,
 
   // apply translation
   {
-    gp_XYZ aCenter =
-      NCollection_Lerp1<gp_XYZ>::Interpolate(theStart->Center().XYZ(), theEnd->Center().XYZ(), theT);
-    gp_XYZ anEye =
-      NCollection_Lerp1<gp_XYZ>::Interpolate(theStart->Eye().XYZ(), theEnd->Eye().XYZ(), theT);
-    gp_XYZ        anAnchor = aCenter;
+    Coords3d aCenter =
+      NCollection_Lerp1<Coords3d>::Interpolate(theStart->Center().XYZ(), theEnd->Center().XYZ(), theT);
+    Coords3d anEye =
+      NCollection_Lerp1<Coords3d>::Interpolate(theStart->Eye().XYZ(), theEnd->Eye().XYZ(), theT);
+    Coords3d        anAnchor = aCenter;
     Standard_Real aKc      = 0.0;
 
     const Standard_Real aDeltaCenter = theStart->Center().Distance(theEnd->Center());
@@ -1697,11 +1697,11 @@ void CameraOn3d::Interpolate(const Handle(CameraOn3d)& theStart,
     {
       aKc = aDeltaCenter / (aDeltaCenter + aDeltaEye);
 
-      const gp_XYZ anAnchorStart =
-        NCollection_Lerp1<gp_XYZ>::Interpolate(theStart->Center().XYZ(), theStart->Eye().XYZ(), aKc);
-      const gp_XYZ anAnchorEnd =
-        NCollection_Lerp1<gp_XYZ>::Interpolate(theEnd->Center().XYZ(), theEnd->Eye().XYZ(), aKc);
-      anAnchor = NCollection_Lerp1<gp_XYZ>::Interpolate(anAnchorStart, anAnchorEnd, theT);
+      const Coords3d anAnchorStart =
+        NCollection_Lerp1<Coords3d>::Interpolate(theStart->Center().XYZ(), theStart->Eye().XYZ(), aKc);
+      const Coords3d anAnchorEnd =
+        NCollection_Lerp1<Coords3d>::Interpolate(theEnd->Center().XYZ(), theEnd->Eye().XYZ(), aKc);
+      anAnchor = NCollection_Lerp1<Coords3d>::Interpolate(anAnchorStart, anAnchorEnd, theT);
     }
 
     const Vector3d        aDirEyeToCenter     = theCamera->Direction();

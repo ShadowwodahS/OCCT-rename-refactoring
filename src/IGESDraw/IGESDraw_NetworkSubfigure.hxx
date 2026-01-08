@@ -55,8 +55,8 @@ public:
   //! display Template Entity
   //! - allConnectPoints : Associated Connect Point Entities
   Standard_EXPORT void Init(const Handle(IGESDraw_NetworkSubfigureDef)&   aDefinition,
-                            const gp_XYZ&                                 aTranslation,
-                            const gp_XYZ&                                 aScaleFactor,
+                            const Coords3d&                                 aTranslation,
+                            const Coords3d&                                 aScaleFactor,
                             const Standard_Integer                        aTypeFlag,
                             const Handle(TCollection_HAsciiString)&       aDesignator,
                             const Handle(IGESGraph_TextDisplayTemplate)&  aTemplate,
@@ -67,14 +67,14 @@ public:
 
   //! returns Translation Data relative to either model space or to
   //! the definition space of a referring entity
-  Standard_EXPORT gp_XYZ Translation() const;
+  Standard_EXPORT Coords3d Translation() const;
 
   //! returns the Transformed Translation Data relative to either model
   //! space or to the definition space of a referring entity
-  Standard_EXPORT gp_XYZ TransformedTranslation() const;
+  Standard_EXPORT Coords3d TransformedTranslation() const;
 
   //! returns Scale factor in definition space(x, y, z axes)
-  Standard_EXPORT gp_XYZ ScaleFactors() const;
+  Standard_EXPORT Coords3d ScaleFactors() const;
 
   //! returns Type Flag which implements the distinction between Logical
   //! design and Physical design data,and is required if both are present.
@@ -106,8 +106,8 @@ public:
 protected:
 private:
   Handle(IGESDraw_NetworkSubfigureDef)   theSubfigureDefinition;
-  gp_XYZ                                 theTranslation;
-  gp_XYZ                                 theScaleFactor;
+  Coords3d                                 theTranslation;
+  Coords3d                                 theScaleFactor;
   Standard_Integer                       theTypeFlag;
   Handle(TCollection_HAsciiString)       theDesignator;
   Handle(IGESGraph_TextDisplayTemplate)  theDesignatorTemplate;

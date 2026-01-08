@@ -104,7 +104,7 @@ public:
   //! negative side of the symmetry axis of the cone.
   Point3d Apex() const
   {
-    gp_XYZ aCoord = pos.Direction().XYZ();
+    Coords3d aCoord = pos.Direction().XYZ();
     aCoord.Multiply(-radius / Tan(semiAngle));
     aCoord.Add(pos.Location().XYZ());
     return Point3d(aCoord);

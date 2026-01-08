@@ -164,7 +164,7 @@ public:
 
   static gp_Torus Torus(const BRepAdaptor_Surface& S);
 
-  static gp_Sphere Sphere(const BRepAdaptor_Surface& S);
+  static Sphere3 Sphere(const BRepAdaptor_Surface& S);
 
   static Handle(Geom_BezierSurface) Bezier(const BRepAdaptor_Surface& S);
 

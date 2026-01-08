@@ -847,8 +847,8 @@ Point3d PrsDim::ProjectPointOnPlane(const Point3d& aPoint, const gp_Pln& aPlane)
 
 Point3d PrsDim::ProjectPointOnLine(const Point3d& aPoint, const gp_Lin& aLine)
 {
-  gp_XYZ        LinLoc    = aLine.Location().XYZ();
-  gp_XYZ        LinDir    = aLine.Direction().XYZ();
+  Coords3d        LinLoc    = aLine.Location().XYZ();
+  Coords3d        LinDir    = aLine.Direction().XYZ();
   Standard_Real Parameter = (aPoint.XYZ() - LinLoc) * LinDir;
   Point3d        Result(LinLoc + Parameter * LinDir);
   return Result;

@@ -31,7 +31,7 @@ class ResConstraintGradientbisBSpline;
 class AppDef_ParFunctionOfMyGradientbisOfBSplineCompute;
 class math_MultipleVarFunctionWithGradient;
 
-class AppDef_Gradient_BFGSOfMyGradientbisOfBSplineCompute : public math_BFGS
+class AppDef_Gradient_BFGSOfMyGradientbisOfBSplineCompute : public BFGSOptimizer
 {
 public:
   DEFINE_STANDARD_ALLOC

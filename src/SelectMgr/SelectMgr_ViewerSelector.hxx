@@ -353,7 +353,7 @@ protected:
   //! Internal function that checks if a particular sensitive
   //! entity theEntity overlaps current selecting volume precisely
   Standard_EXPORT void checkOverlap(const Handle(Select3D_SensitiveEntity)& theEntity,
-                                    const gp_GTrsf&                         theInversedTrsf,
+                                    const GeneralTransform&                         theInversedTrsf,
                                     SelectMgr_SelectingVolumeManager&       theMgr);
 
   //! Update z-layers order map.
@@ -379,7 +379,7 @@ private:
   void computeFrustum(const Handle(Select3D_SensitiveEntity)& theEnt,
                       const SelectMgr_SelectingVolumeManager& theMgrGlobal,
                       const SelectMgr_SelectingVolumeManager& theMgrObject,
-                      const gp_GTrsf&                         theInvTrsf,
+                      const GeneralTransform&                         theInvTrsf,
                       SelectMgr_FrustumCache&                 theCachedMgrs,
                       SelectMgr_SelectingVolumeManager&       theResMgr);
 
@@ -388,7 +388,7 @@ private:
   void updatePoint3d(SelectMgr_SortCriterion&                theCriterion,
                      const SelectBasics_PickResult&          thePickResult,
                      const Handle(Select3D_SensitiveEntity)& theEntity,
-                     const gp_GTrsf&                         theInversedTrsf,
+                     const GeneralTransform&                         theInversedTrsf,
                      const SelectMgr_SelectingVolumeManager& theMgr) const;
 
 protected:

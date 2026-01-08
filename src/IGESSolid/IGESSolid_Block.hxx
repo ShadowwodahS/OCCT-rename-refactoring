@@ -46,13 +46,13 @@ public:
   //! default (1,0,0)
   //! - aZAxis  : Unit vector defining local Z-axis
   //! default (0,0,1)
-  Standard_EXPORT void Init(const gp_XYZ& aSize,
-                            const gp_XYZ& aCorner,
-                            const gp_XYZ& aXAxis,
-                            const gp_XYZ& aZAxis);
+  Standard_EXPORT void Init(const Coords3d& aSize,
+                            const Coords3d& aCorner,
+                            const Coords3d& aXAxis,
+                            const Coords3d& aZAxis);
 
   //! returns the size of the block
-  Standard_EXPORT gp_XYZ Size() const;
+  Standard_EXPORT Coords3d Size() const;
 
   //! returns the length of the Block along the local X-direction
   Standard_EXPORT Standard_Real XLength() const;
@@ -96,10 +96,10 @@ public:
 
 protected:
 private:
-  gp_XYZ theSize;
-  gp_XYZ theCorner;
-  gp_XYZ theXAxis;
-  gp_XYZ theZAxis;
+  Coords3d theSize;
+  Coords3d theCorner;
+  Coords3d theXAxis;
+  Coords3d theZAxis;
 };
 
 #endif // _IGESSolid_Block_HeaderFile

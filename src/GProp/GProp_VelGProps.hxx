@@ -24,7 +24,7 @@
 class Cylinder1;
 class Point3d;
 class Cone1;
-class gp_Sphere;
+class Sphere3;
 class gp_Torus;
 
 //! Computes the global properties and the volume of a geometric solid
@@ -51,7 +51,7 @@ public:
                                   const Standard_Real Z2,
                                   const Point3d&       VLocation);
 
-  Standard_EXPORT GProp_VelGProps(const gp_Sphere&    S,
+  Standard_EXPORT GProp_VelGProps(const Sphere3&    S,
                                   const Standard_Real Teta1,
                                   const Standard_Real Teta2,
                                   const Standard_Real Alpha1,
@@ -79,7 +79,7 @@ public:
                                const Standard_Real Z1,
                                const Standard_Real Z2);
 
-  Standard_EXPORT void Perform(const gp_Sphere&    S,
+  Standard_EXPORT void Perform(const Sphere3&    S,
                                const Standard_Real Teta1,
                                const Standard_Real Teta2,
                                const Standard_Real Alpha1,

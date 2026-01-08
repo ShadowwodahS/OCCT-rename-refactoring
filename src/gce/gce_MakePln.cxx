@@ -72,9 +72,9 @@ gce_MakePln::gce_MakePln(const Standard_Real A,
 
 gce_MakePln::gce_MakePln(const Point3d& P1, const Point3d& P2, const Point3d& P3)
 {
-  gp_XYZ V1(P2.XYZ() - P1.XYZ());
-  gp_XYZ V2(P3.XYZ() - P1.XYZ());
-  gp_XYZ Norm(V1.Crossed(V2));
+  Coords3d V1(P2.XYZ() - P1.XYZ());
+  Coords3d V2(P3.XYZ() - P1.XYZ());
+  Coords3d Norm(V1.Crossed(V2));
   if (Norm.Modulus() < gp1::Resolution())
   {
     TheError = gce_ColinearPoints;
@@ -94,7 +94,7 @@ gce_MakePln::gce_MakePln(const Point3d& P1, const Point3d& P2, const Point3d& P3
 
 gce_MakePln::gce_MakePln(const gp_Pln& Pl, const Standard_Real Dist)
 {
-  Point3d Center(Pl.Location().XYZ() + Dist * gp_XYZ(Pl.Axis().Direction().XYZ()));
+  Point3d Center(Pl.Location().XYZ() + Dist * Coords3d(Pl.Axis().Direction().XYZ()));
   ThePln   = gp_Pln(Ax3(Center, Pl.Axis().Direction(), Pl.XAxis().Direction()));
   TheError = gce_Done;
 }

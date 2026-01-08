@@ -46,8 +46,8 @@ public:
 
   Standard_EXPORT void SetParam(const Standard_Real Param,
                                 const Point3d&       Centre,
-                                const gp_XYZ&       Dir,
-                                const gp_XYZ&       XDir);
+                                const Coords3d&       Dir,
+                                const Coords3d&       XDir);
 
   //! returns the number of variables of the function.
   Standard_EXPORT virtual Standard_Integer NbVariables() const Standard_OVERRIDE;
@@ -80,8 +80,8 @@ public:
   //! returns the values <F> of the T derivatives for
   //! the parameter Param .
   Standard_EXPORT Standard_Boolean DerivT(const math_Vector& X,
-                                          const gp_XYZ&      DCentre,
-                                          const gp_XYZ&      DDir,
+                                          const Coords3d&      DCentre,
+                                          const Coords3d&      DDir,
                                           math_Vector&       DFDT);
 
   //! returns the values <F> of the T2 derivatives for
@@ -92,8 +92,8 @@ public:
   //! returns the values <T> of  the X2 derivatives for
   //! the parameter Param .
   //! returns Boolean  is static;
-  Standard_EXPORT Standard_Boolean Deriv2T(const gp_XYZ& DCentre,
-                                           const gp_XYZ& DDir,
+  Standard_EXPORT Standard_Boolean Deriv2T(const Coords3d& DCentre,
+                                           const Coords3d& DDir,
                                            math_Vector&  DFDT,
                                            math_Vector&  D2FT);
 
@@ -101,8 +101,8 @@ protected:
 private:
   Standard_EXPORT void DSDT(const Standard_Real U,
                             const Standard_Real V,
-                            const gp_XYZ&       DCentre,
-                            const gp_XYZ&       DDir,
+                            const Coords3d&       DCentre,
+                            const Coords3d&       DDir,
                             Vector3d&             DSDT) const;
 
   Handle(Adaptor3d_Curve)     TheGuide;
@@ -114,8 +114,8 @@ private:
   Standard_Real               First;
   Standard_Real               Last;
   Standard_Real               TheUonS;
-  gp_XYZ                      Centre;
-  gp_XYZ                      Dir;
+  Coords3d                      Centre;
+  Coords3d                      Dir;
 };
 
 #endif // _GeomFill_FunctionGuide_HeaderFile

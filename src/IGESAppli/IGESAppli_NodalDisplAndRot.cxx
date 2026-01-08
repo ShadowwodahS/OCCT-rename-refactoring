@@ -84,13 +84,13 @@ Handle(IGESAppli_Node) IGESAppli_NodalDisplAndRot::Node(const Standard_Integer I
   return theNodes->Value(Index);
 }
 
-gp_XYZ IGESAppli_NodalDisplAndRot::TranslationParameter(const Standard_Integer NodeNum,
+Coords3d IGESAppli_NodalDisplAndRot::TranslationParameter(const Standard_Integer NodeNum,
                                                         const Standard_Integer CaseNum) const
 {
   return theTransParam->Value(NodeNum)->Value(CaseNum);
 }
 
-gp_XYZ IGESAppli_NodalDisplAndRot::RotationalParameter(const Standard_Integer NodeNum,
+Coords3d IGESAppli_NodalDisplAndRot::RotationalParameter(const Standard_Integer NodeNum,
                                                        const Standard_Integer CaseNum) const
 {
   return theRotParam->Value(NodeNum)->Value(CaseNum);

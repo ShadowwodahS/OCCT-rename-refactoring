@@ -25,7 +25,7 @@
 
 //! This abstract class describes the virtual functions associated to
 //! a set on N Functions of M independent variables.
-class math_FunctionSet
+class FunctionSet
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -57,7 +57,7 @@ public:
   //! to save the current state of the function and to return
   //! an Integer that allows retrieval of the state.
   Standard_EXPORT virtual Standard_Integer GetStateNumber();
-  Standard_EXPORT virtual ~math_FunctionSet();
+  Standard_EXPORT virtual ~FunctionSet();
 
 protected:
 private:

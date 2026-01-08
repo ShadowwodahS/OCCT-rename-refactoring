@@ -20,6 +20,6 @@
 #include <math_ValueAndWeight.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<math_ValueAndWeight> math_Array1OfValueAndWeight;
+typedef NCollection_Array1<ValueAndWeight> math_Array1OfValueAndWeight;
 
 #endif

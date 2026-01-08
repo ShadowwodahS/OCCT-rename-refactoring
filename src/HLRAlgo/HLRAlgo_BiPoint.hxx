@@ -59,10 +59,10 @@ public:
 
   struct PointsT1
   {
-    gp_XYZ Pnt1;
-    gp_XYZ Pnt2;
-    gp_XYZ PntP1;
-    gp_XYZ PntP2;
+    Coords3d Pnt1;
+    Coords3d Pnt2;
+    Coords3d PntP1;
+    Coords3d PntP2;
 
     Coords2d PntP12D() const { return Coords2d(PntP1.X(), PntP1.Y()); }
 

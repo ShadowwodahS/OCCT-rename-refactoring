@@ -495,10 +495,10 @@ protected:
 
 /**
  * Base class defining part of the Inspector interface
- * for CellFilter algorithm, working with gp_XYZ points in 3d space
+ * for CellFilter algorithm, working with Coords3d points in 3d space
  */
 
-class gp_XYZ;
+class Coords3d;
 
 struct NCollection_CellFilter_InspectorXYZ
 {
@@ -509,7 +509,7 @@ struct NCollection_CellFilter_InspectorXYZ
   };
 
   //! Points type
-  typedef gp_XYZ Point;
+  typedef Coords3d Point;
 
   //! Access to coordinate
   static Standard_Real Coord(int i, const Point& thePnt) { return thePnt.Coord(i + 1); }

@@ -100,7 +100,7 @@ Methode:
   Si U est solution, alors F(U)=(C(U)-P).C'(U) = 0.
   Le probleme consiste a rechercher, dans l'intervalle de definition
   de la courbe, la racine de F la plus proche de U0.
-  On utilise la classe math_FunctionRoot avec les arguments de
+  On utilise la classe FunctionRootSolver avec les arguments de
   construction suivants:
   - F: Extrema_FuncExtPC cree a partir de P et C,
   - U0,
@@ -111,7 +111,7 @@ Methode:
 -----------------------------------------------------------------------------*/
 {
   myF.SetPoint(P);
-  math_FunctionRoot S (myF, U0, mytolU, myumin, myusup);
+  FunctionRootSolver S (myF, U0, mytolU, myumin, myusup);
   myDone = S.IsDone();
   if (myDone) {
     Standard_Real uu, ff;

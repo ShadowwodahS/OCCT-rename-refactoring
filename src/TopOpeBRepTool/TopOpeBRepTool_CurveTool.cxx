@@ -1019,7 +1019,7 @@ Handle(GeomCurve2d) TopOpeBRepTool_CurveTool::MakePCurveOnFace(const TopoShape& 
     {
       Handle(GeomCurve2d) PCT = Handle(GeomCurve2d)::DownCast(C2D->Copy());
       // make mirror relative to the isoline of apex -PI/2 or PI/2
-      gp_Trsf2d aTrsf;
+      Transform2d aTrsf;
       gp_Pnt2d  po(0, -M_PI / 2);
       if (maxcond)
         po.SetY(M_PI / 2);

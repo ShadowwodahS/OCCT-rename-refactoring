@@ -44,7 +44,7 @@ Standard_Boolean BRepGProp_UFunction::Value(const Standard_Real X, Standard_Real
   // Volume computation
   if (myValueType == GProp_Mass)
   {
-    gp_XYZ        aPMP0;
+    Coords3d        aPMP0;
     Standard_Real aTmpPar1;
     Standard_Real aTmpPar2;
 
@@ -73,7 +73,7 @@ Standard_Boolean BRepGProp_UFunction::Value(const Standard_Real X, Standard_Real
 //=======================================================================
 
 Standard_Real BRepGProp_UFunction::VolumeValue(const Standard_Real X,
-                                               gp_XYZ&             thePMP0,
+                                               Coords3d&             thePMP0,
                                                Standard_Real&      theS,
                                                Standard_Real&      theD1)
 {
@@ -104,7 +104,7 @@ Standard_Real BRepGProp_UFunction::VolumeValue(const Standard_Real X,
 
 Standard_Boolean BRepGProp_UFunction::CenterMassValue(const Standard_Real X, Standard_Real& F)
 {
-  gp_XYZ        aPmP0;
+  Coords3d        aPmP0;
   Standard_Real aS;
   Standard_Real aD1;
 
@@ -159,7 +159,7 @@ Standard_Boolean BRepGProp_UFunction::CenterMassValue(const Standard_Real X, Sta
 
 Standard_Boolean BRepGProp_UFunction::InertiaValue(const Standard_Real X, Standard_Real& F)
 {
-  gp_XYZ               aPmP0;
+  Coords3d               aPmP0;
   Standard_Real        aS;
   Standard_Real        aD1;
   Standard_Real        aParam1;

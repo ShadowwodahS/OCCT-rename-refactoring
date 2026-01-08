@@ -42,7 +42,7 @@ const Standard_GUID& TObj_TXYZ::ID() const
 
 //=================================================================================================
 
-Handle(TObj_TXYZ) TObj_TXYZ::Set(const DataLabel& theLabel, const gp_XYZ& theXYZ)
+Handle(TObj_TXYZ) TObj_TXYZ::Set(const DataLabel& theLabel, const Coords3d& theXYZ)
 {
   Handle(TObj_TXYZ) A;
   if (!theLabel.FindAttribute(TObj_TXYZ::GetID(), A))
@@ -56,7 +56,7 @@ Handle(TObj_TXYZ) TObj_TXYZ::Set(const DataLabel& theLabel, const gp_XYZ& theXYZ
 
 //=================================================================================================
 
-void TObj_TXYZ::Set(const gp_XYZ& theXYZ)
+void TObj_TXYZ::Set(const Coords3d& theXYZ)
 {
   Backup();
   myXYZ = theXYZ;
@@ -64,7 +64,7 @@ void TObj_TXYZ::Set(const gp_XYZ& theXYZ)
 
 //=================================================================================================
 
-gp_XYZ TObj_TXYZ::Get() const
+Coords3d TObj_TXYZ::Get() const
 {
   return myXYZ;
 }
@@ -97,7 +97,7 @@ void TObj_TXYZ::Paste(const Handle(TDF_Attribute)& theInto,
 
 Standard_OStream& TObj_TXYZ::Dump(Standard_OStream& theOS) const
 {
-  gp_XYZ            aXYZ = Get();
+  Coords3d            aXYZ = Get();
   Standard_OStream& anOS = TDF_Attribute::Dump(theOS);
   anOS << "X: " << aXYZ.X() << "\tY: " << aXYZ.Y() << "\tZ: " << aXYZ.Z();
   return anOS;

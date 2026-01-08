@@ -17,7 +17,7 @@
 #define VrmlData_ArrayVec3d_HeaderFile
 
 #include <VrmlData_Node.hxx>
-class gp_XYZ;
+class Coords3d;
 
 /**
  * Implementatioon of basic node for Coordinate, Normal and Color
@@ -43,7 +43,7 @@ public:
   inline VrmlData_ArrayVec3d(const VrmlData_Scene& theScene,
                              const char*           theName,
                              const Standard_Size   nVec,
-                             const gp_XYZ*         arrVec)
+                             const Coords3d*         arrVec)
       : VrmlData_Node(theScene, theName),
         myArray(arrVec),
         myLength(nVec)
@@ -58,7 +58,7 @@ public:
   /**
    * Query the array
    */
-  inline const gp_XYZ* Values() const { return myArray; }
+  inline const Coords3d* Values() const { return myArray; }
 
   /**
    * Create a data array and assign the field myArray.
@@ -70,7 +70,7 @@ public:
   /**
    * Set the array data
    */
-  inline void SetValues(const Standard_Size nValues, const gp_XYZ* arrValues)
+  inline void SetValues(const Standard_Size nValues, const Coords3d* arrValues)
   {
     myLength = nValues;
     myArray  = arrValues;
@@ -111,12 +111,12 @@ protected:
    * @return
    *   the vector for the index. If index irrelevant, returns (0., 0., 0.)
    */
-  Standard_EXPORT const gp_XYZ& Value(const Standard_Size i) const;
+  Standard_EXPORT const Coords3d& Value(const Standard_Size i) const;
 
 protected:
   // ---------- PROTECTED FIELDS ----------
 
-  const gp_XYZ* myArray;
+  const Coords3d* myArray;
   Standard_Size myLength;
 
 public:

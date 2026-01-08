@@ -35,7 +35,7 @@ class IGESSolid_PlaneSurface;
 class IGESBasic_SingleParent;
 class gp_Pln;
 class Transform3d;
-class gp_Trsf2d;
+class Transform2d;
 
 //! Provides methods to transfer topologic surfaces entities
 //! from IGES to CASCADE.
@@ -86,7 +86,7 @@ public:
   Standard_EXPORT TopoShape TransferPerforate(const Handle(IGESBasic_SingleParent)& start);
 
   Standard_EXPORT TopoShape ParamSurface(const Handle(IGESData_IGESEntity)& start,
-                                            gp_Trsf2d&                         trans,
+                                            Transform2d&                         trans,
                                             Standard_Real&                     uFact);
 
 protected:

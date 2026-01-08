@@ -40,7 +40,7 @@ void SphereTool::ReadOwnParams(const Handle(IGESSolid_Sphere)& ent,
                                          IGESData_ParamReader& PR) const
 {
   Standard_Real tempRadius, tempreal;
-  gp_XYZ        tempCenter;
+  Coords3d        tempCenter;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
 
   PR.ReadReal(PR.Current(), "Radius", tempRadius); // szv#4:S4163:12Mar99 `st=` not needed

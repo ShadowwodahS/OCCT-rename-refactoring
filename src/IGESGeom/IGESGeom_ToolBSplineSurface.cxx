@@ -61,7 +61,7 @@ void BSplineSurfaceTool::ReadOwnParams(const Handle(IGESGeom_BSplineSurface)& en
   Standard_Boolean              aCloseU, aCloseV, aPolynom, aPeriodU, aPeriodV;
   Standard_Real                 aUmin, aUmax, aVmin = 0., aVmax = 0.;
   Standard_Real                 tempVal;
-  gp_XYZ                        tempXYZ;
+  Coords3d                        tempXYZ;
   Handle(TColStd_HArray1OfReal) allKnotsU;
   Handle(TColStd_HArray1OfReal) allKnotsV;
   Handle(TColStd_HArray2OfReal) allWeights;
@@ -287,7 +287,7 @@ void BSplineSurfaceTool::WriteOwnParams(const Handle(IGESGeom_BSplineSurface)& e
   for (J = 0; J <= indV; J++)
     for (I = 0; I <= indU; I++)
     {
-      gp_XYZ tempXYZ = ent->Pole(I, J).XYZ();
+      Coords3d tempXYZ = ent->Pole(I, J).XYZ();
       IW.Send(tempXYZ.X());
       IW.Send(tempXYZ.Y());
       IW.Send(tempXYZ.Z());
@@ -521,7 +521,7 @@ void BSplineSurfaceTool::OwnDump(const Handle(IGESGeom_BSplineSurface)& ent,
     S << " [ content : ask level > 4 ]" << std::endl;
     return;
   }
-  gp_GTrsf loca = ent->Location();
+  GeneralTransform loca = ent->Location();
   for (Standard_Integer JP = 0; JP <= indV; JP++)
     for (Standard_Integer IP = 0; IP <= indU; IP++)
     {

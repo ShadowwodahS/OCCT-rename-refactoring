@@ -26,7 +26,7 @@
 #include <Standard_Real.hxx>
 
 //! for implementation, compute values for Gauss
-class CPnts_MyGaussFunction : public math_Function
+class CPnts_MyGaussFunction : public Function1
 {
 public:
   DEFINE_STANDARD_ALLOC

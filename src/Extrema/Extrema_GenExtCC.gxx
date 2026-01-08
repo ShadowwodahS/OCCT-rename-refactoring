@@ -429,7 +429,7 @@ void Extrema_GenExtCC::Perform()
       isConstLockedFlag = Standard_True;
     }
   }
-  math_GlobOptMin aFinder(&aFunc, myLowBorder, myUppBorder, aLC);
+  GlobOptMin aFinder(&aFunc, myLowBorder, myUppBorder, aLC);
   aFinder.SetLipConstState(isConstLockedFlag);
   aFinder.SetContinuity(aContinuity == GeomAbs_C2 ? 2 : 1);
   Standard_Real aDiscTol = 1.0e-2;

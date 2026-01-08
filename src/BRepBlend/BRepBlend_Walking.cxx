@@ -234,7 +234,7 @@ void BRepBlend_Walking::Perform(Blend_Function&        Func,
     math_Vector  tolerance(1, 4), infbound(1, 4), supbound(1, 4);
     Func.GetTolerance(tolerance, tolpoint3d);
     Func.GetBounds(infbound, supbound);
-    math_FunctionSetRoot rsnld(Func, tolerance, 30);
+    FunctionSetRoot rsnld(Func, tolerance, 30);
 
     rsnld.Perform(Func, ParDep, infbound, supbound);
 
@@ -331,7 +331,7 @@ Standard_Boolean BRepBlend_Walking::PerformFirstSection(Blend_Function&     Func
   math_Vector tolerance(1, 4), infbound(1, 4), supbound(1, 4);
   Func.GetTolerance(tolerance, tolpoint3d);
   Func.GetBounds(infbound, supbound);
-  math_FunctionSetRoot rsnld(Func, tolerance, 30);
+  FunctionSetRoot rsnld(Func, tolerance, 30);
 
   rsnld.Perform(Func, ParDep, infbound, supbound);
 
@@ -407,7 +407,7 @@ Standard_Boolean BRepBlend_Walking::PerformFirstSection(Blend_Function&        F
 
   Func.GetTolerance(tolerance, tolpoint3d);
   Func.GetBounds(infbound, supbound);
-  math_FunctionSetRoot rsnld(Func, tolerance, 30);
+  FunctionSetRoot rsnld(Func, tolerance, 30);
 
   rsnld.Perform(Func, ParDep, infbound, supbound);
 
@@ -1247,7 +1247,7 @@ Standard_Boolean BRepBlend_Walking::Recadre(Blend_FuncInv&             FuncInv,
   supb(2) += Extrap;
 
   FuncInv.GetTolerance(toler, 0.1 * tolpoint3d); // Il vaut mieux garder un peu de marge
-  math_FunctionSetRoot rsnld(FuncInv, toler, 35);
+  FunctionSetRoot rsnld(FuncInv, toler, 35);
   toler *= 10; // Mais on fait les tests correctements
 
   // Calcul d'un point d'init
@@ -1474,7 +1474,7 @@ Standard_Boolean BRepBlend_Walking::Recadre(Blend_FuncInv&             FuncInv,
     FuncInv.Set(OnFirst, thecur);
     FuncInv.GetBounds(infb, supb);
     FuncInv.GetTolerance(toler, 0.1 * tolpoint3d); // Il vaut mieux garder un peu de marge
-    math_FunctionSetRoot aRsnld(FuncInv, toler, 35);
+    FunctionSetRoot aRsnld(FuncInv, toler, 35);
     toler *= 10; // Mais on fait les tests correctements
     // Resolution...
     aRsnld.Perform(FuncInv, solrst, infb, supb);
@@ -1845,7 +1845,7 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
   Func.GetTolerance(tolerance, tolpoint3d);
   Func.GetBounds(infbound, supbound);
 
-  math_FunctionSetRoot rsnld(Func, tolerance, 30);
+  FunctionSetRoot rsnld(Func, tolerance, 30);
   parinit = sol;
 
   Arrive = Standard_False;

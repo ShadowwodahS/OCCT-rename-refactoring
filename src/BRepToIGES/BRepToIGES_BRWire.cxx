@@ -384,7 +384,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
     }
     if (needShift)
     {
-      gp_Trsf2d TR;
+      Transform2d TR;
       TR.SetTranslation(gp_Pnt2d(0., 0.), gp_Pnt2d(0., -Vfirst));
       Curve2d = Handle(GeomCurve2d)::DownCast(Curve2d->Transformed(TR));
     }
@@ -408,7 +408,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
       }
       if (Abs(uShift) > Precision::PConfusion() || Abs(vShift) > Precision::PConfusion())
       {
-        gp_Trsf2d TR;
+        Transform2d TR;
         TR.SetTranslation(gp_Pnt2d(0., 0.), gp_Pnt2d(uShift, vShift));
         Curve2d = Handle(GeomCurve2d)::DownCast(Curve2d->Transformed(TR));
       }
@@ -442,7 +442,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
         && (Surf->IsKind(STANDARD_TYPE(Geom_SphericalSurface))
             || Surf->IsKind(STANDARD_TYPE(Geom_ToroidalSurface))))
     {
-      gp_Trsf2d trans;
+      Transform2d trans;
       trans.SetScale(gp_Pnt2d(0, 0), 180. / M_PI);
       Curve2d->Transform(trans);
       First = Curve2d->TransformedParameter(First, trans);
@@ -459,7 +459,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
       }
     }
     // S4181 transfer functionality
-    gp_Trsf2d     trans;
+    Transform2d     trans;
     Standard_Real uFact = 1.;
     if (theIsBRepMode && Surf->IsKind(STANDARD_TYPE(GeomPlane)))
     {
@@ -502,7 +502,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
     if (Surf->IsKind(STANDARD_TYPE(Geom_SurfaceOfLinearExtrusion)))
     {
       // emv: changed for bug OCC22126 17.12.2010
-      gp_Trsf2d     trans1;
+      Transform2d     trans1;
       Standard_Real us1, us2, vs1, vs2, du;
       // computing shift of pcurves
       Surf->Bounds(us1, us2, vs1, vs2);

@@ -65,7 +65,7 @@ Standard_Boolean MeshVS_DummySensitiveEntity::HasInitLocation() const
 
 //=================================================================================================
 
-gp_GTrsf MeshVS_DummySensitiveEntity::InvInitLocation() const
+GeneralTransform MeshVS_DummySensitiveEntity::InvInitLocation() const
 {
-  return gp_GTrsf();
+  return GeneralTransform();
 }

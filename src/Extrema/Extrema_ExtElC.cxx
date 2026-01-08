@@ -142,7 +142,7 @@ ExtremaExtElC_TrigonometricRoots::ExtremaExtElC_TrigonometricRoots(const Standar
   while (nbessai <= 2 && !done)
   {
     //-- F= AA*CN*CN+2*BB*CN*SN+CC*CN+DD*SN+EE;
-    math_TrigonometricFunctionRoots MTFR(cc, sc, c, s, cte, Binf, Bsup);
+    TrigonometricFunctionRoots MTFR(cc, sc, c, s, cte, Binf, Bsup);
     //
     if (MTFR.IsDone())
     {
@@ -331,7 +331,7 @@ ExtElC::ExtElC(const gp_Lin& theC1, const gp_Lin& theC2, const Standard_Real)
   }
   else
   {
-    const gp_XYZ        aL1L2 = theC2.Location().XYZ() - theC1.Location().XYZ();
+    const Coords3d        aL1L2 = theC2.Location().XYZ() - theC1.Location().XYZ();
     const Standard_Real aD1L = aD1.XYZ().Dot(aL1L2), aD2L = aD2.XYZ().Dot(aL1L2);
     aU1 = (aD1L - aCosA * aD2L) / aSqSinA;
     aU2 = (aCosA * aD1L - aD2L) / aSqSinA;
@@ -372,14 +372,14 @@ Standard_Boolean ExtElC::PlanarLineCircleExtrema(const gp_Lin&  theLin,
   // Therefore, we are looking for extremas and
   // intersections in 2D-space.
 
-  const gp_XYZ& aCLoc = theCirc.Location().XYZ();
-  const gp_XYZ &aDCx  = theCirc.Position().XDirection().XYZ(),
+  const Coords3d& aCLoc = theCirc.Location().XYZ();
+  const Coords3d &aDCx  = theCirc.Position().XDirection().XYZ(),
                &aDCy  = theCirc.Position().YDirection().XYZ();
 
-  const gp_XYZ& aLLoc = theLin.Location().XYZ();
-  const gp_XYZ& aLDir = theLin.Direction().XYZ();
+  const Coords3d& aLLoc = theLin.Location().XYZ();
+  const Coords3d& aLDir = theLin.Direction().XYZ();
 
-  const gp_XYZ aVecCL(aLLoc - aCLoc);
+  const Coords3d aVecCL(aLLoc - aCLoc);
 
   // Center of 2D-circle
   const gp_Pnt2d aPC(0.0, 0.0);
@@ -466,7 +466,7 @@ Standard_Boolean ExtElC::PlanarLineCircleExtrema(const gp_Lin&  theLin,
 //         R*Vy        * Cos     +       A3
 //	-R*Vx        * Sin     +       A4
 //      R*R*Dx*Dy                = 0.    A5
-// Use the algorithm math_TrigonometricFunctionRoots to solve this equation.
+// Use the algorithm TrigonometricFunctionRoots to solve this equation.
 //=======================================================================
 ExtElC::ExtElC(const gp_Lin& C1, const gp_Circ& C2, const Standard_Real)
 {
@@ -522,7 +522,7 @@ ExtElC::ExtElC(const gp_Lin& C1, const gp_Circ& C2, const Standard_Real)
     O2O1.SetCoord(O2O1.Dot(x2), O2O1.Dot(y2), O2O1.Dot(z2));
   }
   //
-  gp_XYZ Vxyz = (D.XYZ() * (O2O1.Dot(D))) - O2O1.XYZ();
+  Coords3d Vxyz = (D.XYZ() * (O2O1.Dot(D))) - O2O1.XYZ();
   //
   // modified by NIZNHY-PKV Tue Mar 20 10:36:38 2012
   /*
@@ -655,7 +655,7 @@ ExtElC::ExtElC(const gp_Lin& C1, const gp_Elips& C2)
            MinR*Vy                     * Cos     +
          - MajR*Vx                     * Sin     +
         MinR*MajR*Dx*Dy                = 0.
-    Use algorithm math_TrigonometricFunctionRoots to solve this equation.
+    Use algorithm TrigonometricFunctionRoots to solve this equation.
   -----------------------------------------------------------------------------*/
   myIsPar = Standard_False;
   myDone  = Standard_False;
@@ -682,7 +682,7 @@ ExtElC::ExtElC(const gp_Lin& C1, const gp_Elips& C2)
   Point3d O2 = C2.Location();
   Vector3d O2O1(O2, O1);
   O2O1.SetCoord(O2O1.Dot(x2), O2O1.Dot(y2), O2O1.Dot(z2));
-  gp_XYZ Vxyz = (D.XYZ() * (O2O1.Dot(D))) - O2O1.XYZ();
+  Coords3d Vxyz = (D.XYZ() * (O2O1.Dot(D))) - O2O1.XYZ();
 
   // Calculate the coefficients of the equation by Cos and Sin ...
   Standard_Real MajR = C2.MajorRadius();
@@ -779,7 +779,7 @@ ExtElC::ExtElC(const gp_Lin& C1, const gp_Hypr& C2)
        (-2*R*r*Dx*Dy - (R*R*Dx*Dx-r*r*Dy*Dy + R*R + r*r))  = 0
 
 
-    Use the algorithm math_DirectPolynomialRoots to solve this equation.
+    Use the algorithm DirectPolynomialRoots to solve this equation.
   -----------------------------------------------------------------------------*/
   myIsPar = Standard_False;
   myDone  = Standard_False;
@@ -806,7 +806,7 @@ ExtElC::ExtElC(const gp_Lin& C1, const gp_Hypr& C2)
   Point3d O2 = C2.Location();
   Vector3d O2O1(O2, O1);
   O2O1.SetCoord(O2O1.Dot(x2), O2O1.Dot(y2), O2O1.Dot(z2));
-  gp_XYZ        Vxyz = (D.XYZ() * (O2O1.Dot(D))) - O2O1.XYZ();
+  Coords3d        Vxyz = (D.XYZ() * (O2O1.Dot(D))) - O2O1.XYZ();
   Standard_Real Vx   = Vxyz.X();
   Standard_Real Vy   = Vxyz.Y();
 
@@ -820,7 +820,7 @@ ExtElC::ExtElC(const gp_Lin& C1, const gp_Hypr& C2)
   Standard_Real A4 = -2 * R * Vx + 2 * r * Vy;
   Standard_Real A5 = a - b;
 
-  math_DirectPolynomialRoots Sol(A1, A2, 0.0, A4, A5);
+  DirectPolynomialRoots Sol(A1, A2, 0.0, A4, A5);
   if (!Sol.IsDone())
   {
     return;
@@ -881,7 +881,7 @@ ExtElC::ExtElC(const gp_Lin& C1, const gp_Parab& C2)
        (1-Dy*Dy + Vx/p)               *  y      +        A3
           Vy                          = 0.               A4
 
-    Use the algorithm math_DirectPolynomialRoots to solve this equation.
+    Use the algorithm DirectPolynomialRoots to solve this equation.
   -----------------------------------------------------------------------------*/
   myIsPar = Standard_False;
   myDone  = Standard_False;
@@ -908,7 +908,7 @@ ExtElC::ExtElC(const gp_Lin& C1, const gp_Parab& C2)
   Point3d O2 = C2.Location();
   Vector3d O2O1(O2, O1);
   O2O1.SetCoord(O2O1.Dot(x2), O2O1.Dot(y2), O2O1.Dot(z2));
-  gp_XYZ Vxyz = (D.XYZ() * (O2O1.Dot(D))) - O2O1.XYZ();
+  Coords3d Vxyz = (D.XYZ() * (O2O1.Dot(D))) - O2O1.XYZ();
 
   // Calculate coefficients of the equation by y
   Standard_Real P  = C2.Parameter();
@@ -917,7 +917,7 @@ ExtElC::ExtElC(const gp_Lin& C1, const gp_Parab& C2)
   Standard_Real A3 = (1 - Dy * Dy + Vxyz.X() / P);
   Standard_Real A4 = Vxyz.Y();
 
-  math_DirectPolynomialRoots Sol(A1, A2, A3, A4);
+  DirectPolynomialRoots Sol(A1, A2, A3, A4);
   if (!Sol.IsDone())
   {
     return;

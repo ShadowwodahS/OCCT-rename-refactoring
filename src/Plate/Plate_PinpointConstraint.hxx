@@ -33,7 +33,7 @@ public:
   Standard_EXPORT PinpointConstraint();
 
   Standard_EXPORT PinpointConstraint(const Coords2d&           point2d,
-                                           const gp_XYZ&          ImposedValue,
+                                           const Coords3d&          ImposedValue,
                                            const Standard_Integer iu = 0,
                                            const Standard_Integer iv = 0);
 
@@ -43,11 +43,11 @@ public:
 
   const Standard_Integer& Idv() const;
 
-  const gp_XYZ& Value() const;
+  const Coords3d& Value() const;
 
 protected:
 private:
-  gp_XYZ           value;
+  Coords3d           value;
   Coords2d            pnt2d;
   Standard_Integer idu;
   Standard_Integer idv;

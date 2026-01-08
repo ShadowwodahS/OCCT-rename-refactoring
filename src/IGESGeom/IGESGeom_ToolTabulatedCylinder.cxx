@@ -49,7 +49,7 @@ void TabulatedCylinderTool::ReadOwnParams(const Handle(IGESGeom_TabulatedCylinde
   //========================================
 
   Handle(IGESData_IGESEntity) aDirectrix;
-  gp_XYZ                      anEnd;
+  Coords3d                      anEnd;
   IGESData_Status             aStatus;
 
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
@@ -107,7 +107,7 @@ void TabulatedCylinderTool::OwnCopy(const Handle(IGESGeom_TabulatedCylinder)& an
 {
   DeclareAndCast(IGESData_IGESEntity, aDirectrix, TC.Transferred(another->Directrix()));
 
-  gp_XYZ anEnd = another->EndPoint().XYZ();
+  Coords3d anEnd = another->EndPoint().XYZ();
 
   ent->Init(aDirectrix, anEnd);
 }

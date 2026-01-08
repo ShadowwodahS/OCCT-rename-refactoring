@@ -1190,7 +1190,7 @@ gp_Pnt2d ShapeAnalysis_Surface::ValueOfUV(const Point3d& P3D, const Standard_Rea
           break;
         }
         case GeomAbs_Sphere: {
-          gp_Sphere Sphere = SurfAdapt.Sphere();
+          Sphere3 Sphere = SurfAdapt.Sphere();
           ElSLib1::Parameters(Sphere, P3D, S, T);
           S += ShapeAnalysis::AdjustByPeriod(S, 0.5 * (uf + ul), 2 * M_PI);
           break;

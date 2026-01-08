@@ -97,12 +97,12 @@ static double TetraVol(Point3d RefPoint, Point3d Som1, Point3d Som2, Point3d Som
 
 //=================================================================================================
 
-static gp_XYZ TetraCen(const Point3d& RefPoint,
+static Coords3d TetraCen(const Point3d& RefPoint,
                        const Point3d& Som1,
                        const Point3d& Som2,
                        const Point3d& Som3)
 {
-  gp_XYZ curCentr, plnPnt;
+  Coords3d curCentr, plnPnt;
   plnPnt   = (Som1.XYZ() + Som2.XYZ() + Som3.XYZ()) / 3;
   curCentr = plnPnt + (RefPoint.XYZ() - plnPnt) / 4;
   return curCentr;
@@ -117,7 +117,7 @@ static Standard_Real CalculVolume(const TopoShape& So,
                                   DrawInterpreter&   di)
 {
   Standard_Real    myVolume = 0, curVolume = 0;
-  gp_XYZ           localCentroid(0, 0, 0), curCentroid(0, 0, 0);
+  Coords3d           localCentroid(0, 0, 0), curCentroid(0, 0, 0);
   Standard_Boolean haveVertex = Standard_False;
   for (ShapeExplorer ex(So, TopAbs_FACE); ex.More(); ex.Next())
   {
@@ -797,7 +797,7 @@ static Standard_Integer ShapeVolume(DrawInterpreter& di, Standard_Integer argc, 
 //=======================================================================
 
 static Standard_Boolean GetMassProps(const DataLabel&    aLabel,
-                                     gp_XYZ&             theCenterGravity,
+                                     Coords3d&             theCenterGravity,
                                      Standard_Real&      theMassVal,
                                      const Standard_Real thetol)
 {
@@ -837,7 +837,7 @@ static Standard_Boolean GetMassProps(const DataLabel&    aLabel,
         Handle(XCAFDoc_Location) LocationAttribute;
         if (aLabel.FindAttribute(XCAFDoc_Location::GetID(), LocationAttribute))
         {
-          gp_XYZ tmp = LocationAttribute->Get().Transformation().TranslationPart();
+          Coords3d tmp = LocationAttribute->Get().Transformation().TranslationPart();
           theCenterGravity += tmp;
         }
         return Standard_True;
@@ -861,7 +861,7 @@ static Standard_Boolean GetMassProps(const DataLabel&    aLabel,
       for (; k <= comp.Length(); k++)
       {
         DataLabel     lab = comp(k);
-        gp_XYZ        aCenterGravity(0.0, 0.0, 0.0);
+        Coords3d        aCenterGravity(0.0, 0.0, 0.0);
         Standard_Real aMassVal = 0.0;
         if (GetMassProps(lab, aCenterGravity, aMassVal, thetol))
         {
@@ -943,7 +943,7 @@ static Standard_Integer ShapeMassProps(DrawInterpreter& di,
   // if ( wholeDoc ) {
   //   di << "Label            Area defect   Volume defect    dX      dY      dZ    Name\n";
   // }
-  gp_XYZ        aCenterGravity(0.0, 0.0, 0.0);
+  Coords3d        aCenterGravity(0.0, 0.0, 0.0);
   Standard_Real aMassVal = 0.0;
   for (Standard_Integer i = 1; i <= seq.Length(); i++)
   {

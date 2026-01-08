@@ -56,7 +56,7 @@ IMPLEMENT_STANDARD_RTTIEXT(RWGltf_CafWriter, RefObject)
 namespace
 {
 //! Write three float values.
-static void writeVec3(std::ostream& theStream, const gp_XYZ& theVec3)
+static void writeVec3(std::ostream& theStream, const Coords3d& theVec3)
 {
   Graphic3d_Vec3 aVec3(float(theVec3.X()), float(theVec3.Y()), float(theVec3.Z()));
   theStream.write((const char*)aVec3.GetData(), sizeof(aVec3));
@@ -332,7 +332,7 @@ void RWGltf_CafWriter::saveNodes(RWGltf_GltfFace&                               
   const Standard_Integer aNodeUpper = theShapeIter.NodeUpper();
   for (Standard_Integer aNodeIter = theShapeIter.NodeLower(); aNodeIter <= aNodeUpper; ++aNodeIter)
   {
-    gp_XYZ aNode = theShapeIter.NodeTransformed(aNodeIter).XYZ();
+    Coords3d aNode = theShapeIter.NodeTransformed(aNodeIter).XYZ();
     myCSTrsf.TransformPosition(aNode);
     theGltfFace.NodePos.BndBox.Add(Graphic3d_Vec3d(aNode.X(), aNode.Y(), aNode.Z()));
     if (theMesh.get() != nullptr && hasTriangulation(theGltfFace))
@@ -2298,14 +2298,14 @@ void RWGltf_CafWriter::writeNodes(const Handle(AppDocument)&         theDocument
       if (aTrsf.Form() != gp_Identity)
       {
         myCSTrsf.TransformTransformation(aTrsf);
-        const gp_Quaternion aQuaternion = aTrsf.GetRotation();
+        const Quaternion aQuaternion = aTrsf.GetRotation();
         const bool          hasRotation = Abs(aQuaternion.X()) > gp1::Resolution()
                                  || Abs(aQuaternion.Y()) > gp1::Resolution()
                                  || Abs(aQuaternion.Z()) > gp1::Resolution()
                                  || Abs(aQuaternion.W() - 1.0) > gp1::Resolution();
         const Standard_Real aScaleFactor   = aTrsf.ScaleFactor();
         const bool          hasScale       = Abs(aScaleFactor - 1.0) > Precision::Confusion();
-        const gp_XYZ&       aTranslPart    = aTrsf.TranslationPart();
+        const Coords3d&       aTranslPart    = aTrsf.TranslationPart();
         const bool          hasTranslation = aTranslPart.SquareModulus() > gp1::Resolution();
 
         RWGltf_WriterTrsfFormat aTrsfFormat = myTrsfFormat;

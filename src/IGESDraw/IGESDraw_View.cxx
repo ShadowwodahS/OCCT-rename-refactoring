@@ -140,9 +140,9 @@ Handle(IGESData_TransfEntity) IGESDraw_View::ViewMatrix() const
   return (Transf());
 }
 
-gp_XYZ IGESDraw_View::ModelToView(const gp_XYZ& coords) const
+Coords3d IGESDraw_View::ModelToView(const Coords3d& coords) const
 {
-  gp_XYZ tempCoords = coords;
+  Coords3d tempCoords = coords;
   Location().Transforms(tempCoords);
   return (tempCoords);
 }

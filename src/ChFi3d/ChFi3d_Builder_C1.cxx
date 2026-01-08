@@ -1663,7 +1663,7 @@ static Standard_Boolean IsShrink(const Geom2dAdaptor_Curve& PC,
     }
     case GeomAbs_BezierCurve:
     case GeomAbs_BSplineCurve: {
-      math_FunctionSample aSample(Pf, Pl, 10);
+      FunctionSampler aSample(Pf, Pl, 10);
       Standard_Integer    i;
       for (i = 1; i <= aSample.NbPoints(); i++)
       {

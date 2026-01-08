@@ -25,7 +25,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom2d_CartesianPoint, Geom2d_Point)
 typedef Geom2d_CartesianPoint CartesianPoint;
 typedef gp_Ax2d               Ax2d;
 typedef gp_Vec2d              Vec2d;
-typedef gp_Trsf2d             Trsf2d;
+typedef Transform2d             Trsf2d;
 
 Geom2d_CartesianPoint::Geom2d_CartesianPoint(const gp_Pnt2d& P)
     : gpPnt2d(P)

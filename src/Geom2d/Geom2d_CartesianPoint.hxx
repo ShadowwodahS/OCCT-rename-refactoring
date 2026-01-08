@@ -22,7 +22,7 @@
 #include <gp_Pnt2d.hxx>
 #include <Geom2d_Point.hxx>
 #include <Standard_Real.hxx>
-class gp_Trsf2d;
+class Transform2d;
 class Geom2d_Geometry;
 
 class Geom2d_CartesianPoint;
@@ -66,7 +66,7 @@ public:
   //! Returns the Y coordinate of <me>.
   Standard_EXPORT Standard_Real Y() const Standard_OVERRIDE;
 
-  Standard_EXPORT void Transform(const gp_Trsf2d& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform2d& T) Standard_OVERRIDE;
 
   Standard_EXPORT Handle(Geom2d_Geometry) Copy() const Standard_OVERRIDE;
 

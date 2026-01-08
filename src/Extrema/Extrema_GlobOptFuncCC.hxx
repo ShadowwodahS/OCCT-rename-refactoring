@@ -24,7 +24,7 @@
 
 //! This class implements function which calculate Eucluidean distance
 //! between point on curve and point on other curve in case of C1 and C2 continuity is C0.
-class Extrema_GlobOptFuncCCC0 : public math_MultipleVarFunction
+class Extrema_GlobOptFuncCCC0 : public MultipleVarFunction
 {
 public:
   Standard_EXPORT Extrema_GlobOptFuncCCC0(const Adaptor3d_Curve& C1, const Adaptor3d_Curve& C2);

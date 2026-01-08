@@ -42,7 +42,7 @@ public:
   //! SelectedComponent
   //! - anEntity  : the Boolean tree entity
   //! - selectPnt : Point in or on the desired component
-  Standard_EXPORT void Init(const Handle(IGESSolid_BooleanTree)& anEntity, const gp_XYZ& selectPnt);
+  Standard_EXPORT void Init(const Handle(IGESSolid_BooleanTree)& anEntity, const Coords3d& selectPnt);
 
   //! returns the Boolean tree entity
   Standard_EXPORT Handle(IGESSolid_BooleanTree) Component() const;
@@ -59,7 +59,7 @@ public:
 protected:
 private:
   Handle(IGESSolid_BooleanTree) theEntity;
-  gp_XYZ                        theSelectPoint;
+  Coords3d                        theSelectPoint;
 };
 
 #endif // _IGESSolid_SelectedComponent_HeaderFile

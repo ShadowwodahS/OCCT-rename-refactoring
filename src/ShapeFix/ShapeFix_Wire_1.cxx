@@ -221,7 +221,7 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
   // Extract basic curves from trimmed and offset
   Standard_Boolean basic    = Standard_False;
   Standard_Boolean trimmed1 = Standard_False, offset1 = Standard_False;
-  gp_XYZ           offval1(0., 0., 0.);
+  Coords3d           offval1(0., 0., 0.);
   while (!basic)
   {
     if (c1->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
@@ -241,7 +241,7 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
   }
   basic                     = Standard_False;
   Standard_Boolean trimmed2 = Standard_False, offset2 = Standard_False;
-  gp_XYZ           offval2(0., 0., 0.);
+  Coords3d           offval2(0., 0., 0.);
   while (!basic)
   {
     if (c2->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))

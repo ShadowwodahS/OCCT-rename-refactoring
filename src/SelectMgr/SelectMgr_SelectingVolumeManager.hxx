@@ -77,7 +77,7 @@ public:
   //! transformed frustum from scratch. Can be null if reconstruction is not expected furthermore.
   Standard_EXPORT virtual SelectMgr_SelectingVolumeManager ScaleAndTransform(
     const Standard_Integer                  theScaleFactor,
-    const gp_GTrsf&                         theTrsf,
+    const GeneralTransform&                         theTrsf,
     const Handle(SelectMgr_FrustumBuilder)& theBuilder) const;
 
   //! Returns a copy of the selecting volume manager and its active frustum re-constructed using the

@@ -197,7 +197,7 @@ Standard_Boolean BlendFunc_CSCircular::IsSolution(const math_Vector& Sol, const 
 
     secmember(2) = -2. * (resul.Dot(temp));
 
-    math_Gauss Resol(gradsol);
+    Gauss Resol(gradsol);
     if (Resol.IsDone())
     {
 
@@ -605,7 +605,7 @@ Standard_Boolean BlendFunc_CSCircular::GetSection(const Standard_Real Param,
   sol(1) = U;
   sol(2) = V;
   Values(sol, valsol, gradsol);
-  math_Gauss Resol(gradsol);
+  Gauss Resol(gradsol);
 
   if (Resol.IsDone())
   {
@@ -889,7 +889,7 @@ Standard_Boolean BlendFunc_CSCircular::Section(const Point2&    P,
   secmember(2) = -2. * (resul.Dot(temp));
 
   Values(sol, valsol, gradsol);
-  math_Gauss Resol(gradsol);
+  Gauss Resol(gradsol);
 
   if (Resol.IsDone())
   {

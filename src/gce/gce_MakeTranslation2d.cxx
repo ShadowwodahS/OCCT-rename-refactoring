@@ -37,17 +37,17 @@ TranslationBuilder2d::TranslationBuilder2d(const gp_Pnt2d& Point1, const gp_Pnt2
   TheTranslation2d.SetTranslation(gp_Vec2d(Point1, Point2));
 }
 
-const gp_Trsf2d& TranslationBuilder2d::Value() const
+const Transform2d& TranslationBuilder2d::Value() const
 {
   return TheTranslation2d;
 }
 
-const gp_Trsf2d& TranslationBuilder2d::Operator() const
+const Transform2d& TranslationBuilder2d::Operator() const
 {
   return TheTranslation2d;
 }
 
-TranslationBuilder2d::operator gp_Trsf2d() const
+TranslationBuilder2d::operator Transform2d() const
 {
   return TheTranslation2d;
 }

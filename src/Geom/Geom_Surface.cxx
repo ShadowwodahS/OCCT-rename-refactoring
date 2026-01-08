@@ -52,9 +52,9 @@ void GeomSurface::TransformParameters(Standard_Real&, Standard_Real&, const Tran
 
 //=================================================================================================
 
-gp_GTrsf2d GeomSurface::ParametricTransformation(const Transform3d&) const
+GeneralTransform2d GeomSurface::ParametricTransformation(const Transform3d&) const
 {
-  gp_GTrsf2d dummy;
+  GeneralTransform2d dummy;
   return dummy;
 }
 

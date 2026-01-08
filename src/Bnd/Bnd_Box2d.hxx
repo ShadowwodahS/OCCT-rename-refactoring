@@ -27,7 +27,7 @@
 #include <Standard_Integer.hxx>
 #include <Standard_Boolean.hxx>
 class gp_Dir2d;
-class gp_Trsf2d;
+class Transform2d;
 
 //! Describes a bounding box in 2D space.
 //! A bounding box is parallel to the axes of the coordinates
@@ -174,7 +174,7 @@ public:
   //! Applying a geometric transformation (for example, a
   //! rotation) to a bounding box generally increases its
   //! dimensions. This is not optimal for algorithms which use it.
-  Standard_NODISCARD Standard_EXPORT Bnd_Box2d Transformed(const gp_Trsf2d& T) const;
+  Standard_NODISCARD Standard_EXPORT Bnd_Box2d Transformed(const Transform2d& T) const;
 
   //! Adds the 2d box <Other> to <me>.
   Standard_EXPORT void Add(const Bnd_Box2d& Other);
@@ -207,7 +207,7 @@ public:
   Standard_EXPORT Standard_Boolean IsOut(const Bnd_Box2d& Other) const;
 
   //! Returns True if transformed <Box2d> is out <me>.
-  Standard_Boolean IsOut(const Bnd_Box2d& theOther, const gp_Trsf2d& theTrsf) const
+  Standard_Boolean IsOut(const Bnd_Box2d& theOther, const Transform2d& theTrsf) const
   {
     return IsOut(theOther.Transformed(theTrsf));
   }
@@ -215,7 +215,7 @@ public:
   //! Compares  a transformed  bounding with  a    transformed
   //! bounding. The default implementation is  to make a copy
   //! of <me> and <Other>, to transform them and to test.
-  Standard_Boolean IsOut(const gp_Trsf2d& T1, const Bnd_Box2d& Other, const gp_Trsf2d& T2) const
+  Standard_Boolean IsOut(const Transform2d& T1, const Bnd_Box2d& Other, const Transform2d& T2) const
   {
     return Transformed(T1).IsOut(Other.Transformed(T2));
   }

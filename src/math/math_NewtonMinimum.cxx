@@ -30,7 +30,7 @@
 
 //=================================================================================================
 
-math_NewtonMinimum::math_NewtonMinimum(const math_MultipleVarFunctionWithHessian& theFunction,
+NewtonMinimum::NewtonMinimum(const math_MultipleVarFunctionWithHessian& theFunction,
                                        const Standard_Real                        theTolerance,
                                        const Standard_Integer                     theNbIterations,
                                        const Standard_Real                        theConvexity,
@@ -58,13 +58,13 @@ math_NewtonMinimum::math_NewtonMinimum(const math_MultipleVarFunctionWithHessian
 
 //=================================================================================================
 
-math_NewtonMinimum::~math_NewtonMinimum() {}
+NewtonMinimum::~NewtonMinimum() {}
 
 //=======================================================================
 // function : SetBoundary
 // purpose  : Set boundaries for conditional optimization
 //=======================================================================
-void math_NewtonMinimum::SetBoundary(const math_Vector& theLeftBorder,
+void NewtonMinimum::SetBoundary(const math_Vector& theLeftBorder,
                                      const math_Vector& theRightBorder)
 {
   myLeft            = theLeftBorder;
@@ -74,7 +74,7 @@ void math_NewtonMinimum::SetBoundary(const math_Vector& theLeftBorder,
 
 //=================================================================================================
 
-void math_NewtonMinimum::Perform(math_MultipleVarFunctionWithHessian& F,
+void NewtonMinimum::Perform(math_MultipleVarFunctionWithHessian& F,
                                  const math_Vector&                   StartingPoint)
 {
   math_Vector Point1(1, F.NbVariables());
@@ -141,7 +141,7 @@ void math_NewtonMinimum::Perform(math_MultipleVarFunctionWithHessian& F,
 
     // Schemas de Newton
 
-    math_Gauss LU(TheHessian, CTol / 100);
+    Gauss LU(TheHessian, CTol / 100);
     if (!LU.IsDone())
     {
       Done      = Standard_False;
@@ -258,7 +258,7 @@ void math_NewtonMinimum::Perform(math_MultipleVarFunctionWithHessian& F,
 
 //=================================================================================================
 
-void math_NewtonMinimum::Dump(Standard_OStream& o) const
+void NewtonMinimum::Dump(Standard_OStream& o) const
 {
   o << "math_Newton Optimisation: ";
   o << " Done   =" << Done << std::endl;

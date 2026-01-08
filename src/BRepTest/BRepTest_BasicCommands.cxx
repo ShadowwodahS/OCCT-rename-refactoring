@@ -73,7 +73,7 @@ static void ConvertBndToShape(const OrientedBox& theBox, const char* const theNa
   }
 
   const Point3d& aBaryCenter = theBox.Center();
-  const gp_XYZ &aXDir = theBox.XDirection(), &aYDir = theBox.YDirection(),
+  const Coords3d &aXDir = theBox.XDirection(), &aYDir = theBox.YDirection(),
                &aZDir  = theBox.ZDirection();
   Standard_Real aHalfX = theBox.XHSize(), aHalfY = theBox.YHSize(), aHalfZ = theBox.ZHSize();
 
@@ -270,7 +270,7 @@ static Standard_Integer deform(DrawInterpreter& di, Standard_Integer n, const ch
   }
 
   Transform3d  T;
-  gp_GTrsf GT(T);
+  GeneralTransform GT(T);
 
   //  gp_Mat rot(Draw1::Atof(a[last-3]),0,0,0,Draw1::Atof(a[last-2]),0,0,0,Draw1::Atof(a[last-1]));
   gp_Mat rot(Draw1::Atof(a[3]), 0, 0, 0, Draw1::Atof(a[4]), 0, 0, 0, Draw1::Atof(a[5]));
@@ -676,7 +676,7 @@ static Standard_Integer BoundBox(DrawInterpreter& theDI,
     else if (doPrint)
     {
       const Point3d& aBaryCenter = anOBB.Center();
-      const gp_XYZ &aXDir = anOBB.XDirection(), &aYDir = anOBB.YDirection(),
+      const Coords3d &aXDir = anOBB.XDirection(), &aYDir = anOBB.YDirection(),
                    &aZDir = anOBB.ZDirection();
       theDI << "Oriented bounding box\n";
       theDI << "Center: " << aBaryCenter.X() << " " << aBaryCenter.Y() << " " << aBaryCenter.Z()
@@ -1414,7 +1414,7 @@ static Standard_Integer scalexyz(DrawInterpreter& /*di*/, Standard_Integer n, co
   Standard_Real aFactorY = Draw1::Atof(a[4]);
   Standard_Real aFactorZ = Draw1::Atof(a[5]);
 
-  gp_GTrsf aGTrsf;
+  GeneralTransform aGTrsf;
   gp_Mat   rot(aFactorX, 0, 0, 0, aFactorY, 0, 0, 0, aFactorZ);
   aGTrsf.SetVectorialPart(rot);
   BRepBuilderAPI_GTransform aBRepGTrsf(aShapeBase, aGTrsf, Standard_False);

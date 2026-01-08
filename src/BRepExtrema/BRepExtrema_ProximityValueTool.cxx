@@ -288,8 +288,8 @@ void BRepExtrema_ProximityValueTool::doRecurTrgSplit(
   BVH_Array3d&                        theAddVertices,
   NCollection_Vector<ProxPnt_Status>& theAddStatuses)
 {
-  gp_XYZ        aTrgSide1 = theTrg[1].Coord() - theTrg[0].Coord();
-  gp_XYZ        aTrgSide2 = theTrg[2].Coord() - theTrg[0].Coord();
+  Coords3d        aTrgSide1 = theTrg[1].Coord() - theTrg[0].Coord();
+  Coords3d        aTrgSide2 = theTrg[2].Coord() - theTrg[0].Coord();
   Standard_Real aTrgArea  = 0.5 * aTrgSide1.CrossMagnitude(aTrgSide2);
 
   if (aTrgArea - theStep < Precision::SquareConfusion())
@@ -605,7 +605,7 @@ NCollection_CellFilter_Action BRepExtrema_VertexInspector::Inspect(const Standar
 {
   myIsNeedAdd = Standard_True;
 
-  const gp_XYZ& aPnt = myPoints.Value(theTarget - 1);
+  const Coords3d& aPnt = myPoints.Value(theTarget - 1);
   Standard_Real aDx, aDy, aDz;
   aDx = myCurrent.X() - aPnt.X();
   aDy = myCurrent.Y() - aPnt.Y();

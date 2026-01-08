@@ -189,7 +189,7 @@ Standard_Boolean ShapeCustom_DirectModification::NewCurve2d(const TopoEdge&    E
   if (result)
   {
 
-    gp_Trsf2d T;
+    Transform2d T;
 
     switch (result)
     {

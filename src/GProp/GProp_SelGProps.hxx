@@ -24,7 +24,7 @@
 class Cylinder1;
 class Point3d;
 class Cone1;
-class gp_Sphere;
+class Sphere3;
 class gp_Torus;
 
 //! Computes the global properties of a bounded
@@ -50,7 +50,7 @@ public:
                                   const Standard_Real Z2,
                                   const Point3d&       SLocation);
 
-  Standard_EXPORT GProp_SelGProps(const gp_Sphere&    S,
+  Standard_EXPORT GProp_SelGProps(const Sphere3&    S,
                                   const Standard_Real Teta1,
                                   const Standard_Real Teta2,
                                   const Standard_Real Alpha1,
@@ -78,7 +78,7 @@ public:
                                const Standard_Real Z1,
                                const Standard_Real Z2);
 
-  Standard_EXPORT void Perform(const gp_Sphere&    S,
+  Standard_EXPORT void Perform(const Sphere3&    S,
                                const Standard_Real Teta1,
                                const Standard_Real Teta2,
                                const Standard_Real Alpha1,

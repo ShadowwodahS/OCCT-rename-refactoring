@@ -51,8 +51,8 @@ public:
   Standard_EXPORT void Init(const Standard_Real Ht,
                             const Standard_Real R1,
                             const Standard_Real R2,
-                            const gp_XYZ&       Center,
-                            const gp_XYZ&       anAxis);
+                            const Coords3d&       Center,
+                            const Coords3d&       anAxis);
 
   //! returns the height of the cone frustum
   Standard_EXPORT Standard_Real Height() const;
@@ -84,8 +84,8 @@ private:
   Standard_Real theHeight;
   Standard_Real theR1;
   Standard_Real theR2;
-  gp_XYZ        theFaceCenter;
-  gp_XYZ        theAxis;
+  Coords3d        theFaceCenter;
+  Coords3d        theAxis;
 };
 
 #endif // _IGESSolid_ConeFrustum_HeaderFile

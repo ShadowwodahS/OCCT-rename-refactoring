@@ -30,7 +30,7 @@
 //! invert a symmetric matrix.
 //! This algorithm is similar to Gauss but is faster than Gauss.
 //! Only the inferior triangle of A and the diagonal can be given.
-class math_Crout
+class CroutDecomposition
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -44,7 +44,7 @@ public:
   //! If one element of A is less than MinPivot, A is
   //! considered as singular.
   //! Exception NotSquare is raised if A is not a square matrix.
-  Standard_EXPORT math_Crout(const math_Matrix& A, const Standard_Real MinPivot = 1.0e-20);
+  Standard_EXPORT CroutDecomposition(const math_Matrix& A, const Standard_Real MinPivot = 1.0e-20);
 
   //! Returns True if all has been correctly done.
   Standard_Boolean IsDone() const;

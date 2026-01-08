@@ -27,7 +27,7 @@ class gp_Pln;
 class Point3d;
 class Dir3d;
 class Transform3d;
-class gp_GTrsf2d;
+class GeneralTransform2d;
 class GeomCurve3d;
 class Vector3d;
 class Geom_Geometry;
@@ -149,7 +149,7 @@ public:
   //!   me->ParametricTransformation(T)
   //! @endcode
   //! This method returns a scale centered on the origin with T.ScaleFactor
-  Standard_EXPORT virtual gp_GTrsf2d ParametricTransformation(const Transform3d& T) const
+  Standard_EXPORT virtual GeneralTransform2d ParametricTransformation(const Transform3d& T) const
     Standard_OVERRIDE;
 
   //! Returns the parametric bounds U1, U2, V1 and V2 of this plane.

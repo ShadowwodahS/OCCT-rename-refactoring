@@ -59,7 +59,7 @@ void BSplineCurveTool::ReadOwnParams(const Handle(IGESGeom_BSplineCurve)& ent,
   Standard_Integer              anIndex, aDegree;
   Standard_Boolean              aPlanar, aClosed, aPolynomial, aPeriodic;
   Standard_Real                 aUmin, aUmax, normX, normY, normZ;
-  gp_XYZ                        aNorm(0., 0., 0.);
+  Coords3d                        aNorm(0., 0., 0.);
   Handle(TColStd_HArray1OfReal) allKnots;
   Handle(TColStd_HArray1OfReal) allWeights;
   Handle(TColgp_HArray1OfXYZ)   allPoles;
@@ -139,7 +139,7 @@ void BSplineCurveTool::ReadOwnParams(const Handle(IGESGeom_BSplineCurve)& ent,
 
     for (Standard_Integer I = 0; I <= anIndex; I++)
     {
-      gp_XYZ tempPole;
+      Coords3d tempPole;
       // st = PR.ReadXYZ(PR.CurrentList(1, 3), Msg105, tempPole); //szv#4:S4163:12Mar99 moved down
       // st = PR.ReadXYZ(PR.CurrentList(1, 3), "Control Points", tempPole);
       if (PR.ReadXYZ(PR.CurrentList(1, 3), Msg105, tempPole))
@@ -275,7 +275,7 @@ void BSplineCurveTool::OwnCopy(const Handle(IGESGeom_BSplineCurve)& another,
   Handle(TColStd_HArray1OfReal) allKnots, allWeights;
   Handle(TColgp_HArray1OfXYZ)   allPoles;
   Standard_Real                 aUmin, aUmax;
-  gp_XYZ                        aNorm;
+  Coords3d                        aNorm;
 
   anIndex     = another->UpperIndex();
   aDegree     = another->Degree();
@@ -394,7 +394,7 @@ void BSplineCurveTool::OwnCheck(const Handle(IGESGeom_BSplineCurve)& ent,
 
   if (ent->IsPlanar())
   {
-    gp_XYZ        aNorm  = ent->Normal();
+    Coords3d        aNorm  = ent->Normal();
     Standard_Real epsn   = eps * 10.; // Tolerance ?? ici large
     Standard_Real normod = aNorm.SquareModulus();
     if (normod < epsn)

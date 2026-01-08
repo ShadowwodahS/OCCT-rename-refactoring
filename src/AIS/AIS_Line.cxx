@@ -236,8 +236,8 @@ void AIS_Line::ComputeInfiniteLineSelection(const Handle(SelectionContainer)& aS
   */
   const Dir3d& thedir  = myComponent->Position().Direction();
   const Point3d& loc     = myComponent->Position().Location();
-  const gp_XYZ& dir_xyz = thedir.XYZ();
-  const gp_XYZ& loc_xyz = loc.XYZ();
+  const Coords3d& dir_xyz = thedir.XYZ();
+  const Coords3d& loc_xyz = loc.XYZ();
   // POP  Standard_Real aLength = UnitsAPI::CurrentToLS (250000. ,"LENGTH");
   Standard_Real                     aLength = UnitsAPI::AnyToLS(250000., "mm");
   Point3d                            P1      = loc_xyz + aLength * dir_xyz;

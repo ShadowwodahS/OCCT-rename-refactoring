@@ -865,22 +865,22 @@ void Tool1::HyprBox(const gp_Hypr& theHypr, const Box2& domain, Box2& boxHypr)
       switch (bord[npi])
       {
         case 1:
-          sinan = gp_XYZ(1., 0., 0.) * Tan.XYZ();
+          sinan = Coords3d(1., 0., 0.) * Tan.XYZ();
           break;
         case 2:
-          sinan = gp_XYZ(0., 1., 0.) * Tan.XYZ();
+          sinan = Coords3d(0., 1., 0.) * Tan.XYZ();
           break;
         case 3:
-          sinan = gp_XYZ(0., 0., 1.) * Tan.XYZ();
+          sinan = Coords3d(0., 0., 1.) * Tan.XYZ();
           break;
         case 4:
-          sinan = gp_XYZ(-1., 0., 0.) * Tan.XYZ();
+          sinan = Coords3d(-1., 0., 0.) * Tan.XYZ();
           break;
         case 5:
-          sinan = gp_XYZ(0., -1., 0.) * Tan.XYZ();
+          sinan = Coords3d(0., -1., 0.) * Tan.XYZ();
           break;
         case 6:
-          sinan = gp_XYZ(0., 0., -1.) * Tan.XYZ();
+          sinan = Coords3d(0., 0., -1.) * Tan.XYZ();
           break;
       }
       if (Abs(sinan) > Precision::Angular())
@@ -1382,22 +1382,22 @@ void Tool1::ParabBox(const gp_Parab& theParab, const Box2& domain, Box2& boxPara
       switch (bord[npi])
       {
         case 1:
-          sinan = gp_XYZ(1., 0., 0.) * Tan.XYZ();
+          sinan = Coords3d(1., 0., 0.) * Tan.XYZ();
           break;
         case 2:
-          sinan = gp_XYZ(0., 1., 0.) * Tan.XYZ();
+          sinan = Coords3d(0., 1., 0.) * Tan.XYZ();
           break;
         case 3:
-          sinan = gp_XYZ(0., 0., 1.) * Tan.XYZ();
+          sinan = Coords3d(0., 0., 1.) * Tan.XYZ();
           break;
         case 4:
-          sinan = gp_XYZ(-1., 0., 0.) * Tan.XYZ();
+          sinan = Coords3d(-1., 0., 0.) * Tan.XYZ();
           break;
         case 5:
-          sinan = gp_XYZ(0., -1., 0.) * Tan.XYZ();
+          sinan = Coords3d(0., -1., 0.) * Tan.XYZ();
           break;
         case 6:
-          sinan = gp_XYZ(0., 0., -1.) * Tan.XYZ();
+          sinan = Coords3d(0., 0., -1.) * Tan.XYZ();
           break;
       }
       if (Abs(sinan) > Precision::Angular())

@@ -531,7 +531,7 @@ void AppParCurves_LeastSquare::Perform(const math_Vector& Parameters) {
     if (FirstConstraint == AppParCurves_NoConstraint) { 
       if (LastConstraint == AppParCurves_NoConstraint ) {
 	
-	math_Householder HouResol(A, mypoints); 
+	Householder HouResol(A, mypoints); 
 	if (!(HouResol.IsDone())) {
 	  done = Standard_False;
 	  return;

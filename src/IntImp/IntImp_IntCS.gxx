@@ -39,7 +39,7 @@ IntImp_IntCS::IntImp_IntCS(const Standard_Real U,
   tol(TolTangency*TolTangency)
   {
     if(tol<1e-13) { tol=1e-13; } 
-    math_FunctionSetRoot Rsnld(myFunction);
+    FunctionSetRoot Rsnld(myFunction);
     Standard_Real u0,u1,v0,v1,w0,w1;
     const ThePSurface& S = myFunction.AuxillarSurface();
     const TheCurve&    C = myFunction.AuxillarCurve();
@@ -80,7 +80,7 @@ IntImp_IntCS::IntImp_IntCS(const TheFunction& F,
 void IntImp_IntCS::Perform(const Standard_Real U,
 			   const Standard_Real V,
 			   const Standard_Real W,
-			   math_FunctionSetRoot& Rsnld,
+			   FunctionSetRoot& Rsnld,
 			   const Standard_Real u0,
 			   const Standard_Real u1,
 			   const Standard_Real v0,
